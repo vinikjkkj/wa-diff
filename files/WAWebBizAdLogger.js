@@ -7,36 +7,6 @@ __d(
         "WAWebBizAdLogger",
       ),
       s = {
-        log: function (n) {
-          e.onReady(function (e) {
-            var t = s.buildFalcoEvent(n);
-            t != null &&
-              e.logCritical(function () {
-                return t;
-              });
-          });
-        },
-        logCritical: function (t) {
-          s.log(t);
-        },
-        logImmediately: function (n) {
-          e.onReady(function (e) {
-            var t = s.buildFalcoEvent(n);
-            t != null &&
-              e.logImmediately(function () {
-                return t;
-              });
-          });
-        },
-        logValidationNoticeImpression: function (n) {
-          e.onReady(function (e) {
-            var t = s.buildValidationNoticeImpressionEvent(n);
-            t != null &&
-              e.log(function () {
-                return t;
-              });
-          });
-        },
         buildFalcoEvent: function (t) {
           var e,
             n,
@@ -114,6 +84,36 @@ __d(
             ),
             wa_ad_account_type: n == null ? void 0 : n.waAdAccountType,
           };
+        },
+        log: function (n) {
+          e.onReady(function (e) {
+            var t = s.buildFalcoEvent(n);
+            t != null &&
+              e.logCritical(function () {
+                return t;
+              });
+          });
+        },
+        logCritical: function (t) {
+          s.log(t);
+        },
+        logImmediately: function (n) {
+          e.onReady(function (e) {
+            var t = s.buildFalcoEvent(n);
+            t != null &&
+              e.logImmediately(function () {
+                return t;
+              });
+          });
+        },
+        logValidationNoticeImpression: function (n) {
+          e.onReady(function (e) {
+            var t = s.buildValidationNoticeImpressionEvent(n);
+            t != null &&
+              e.log(function () {
+                return t;
+              });
+          });
         },
       },
       u = s;

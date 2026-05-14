@@ -98,8 +98,8 @@ __d(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
                           "",
-                          " Unrecognized signature algorithm OID: ",
-                          ", falling back to pkijs",
+                          " unknown sig alg OID: ",
+                          ", pkijs fallback",
                         ])),
                       f,
                       String(a),

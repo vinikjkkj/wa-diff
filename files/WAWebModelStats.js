@@ -1,6 +1,13 @@
 __d(
   "WAWebModelStats",
-  ["WAWebCollection", "WAWebDevStore", "sortBy", "sumBy", "withoutKey"],
+  [
+    "WAWebCollection",
+    "WAWebDevStore",
+    "WAWebIdentityFunction",
+    "sortBy",
+    "sumBy",
+    "withoutKey",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = ["Cmd", "Wap"];
     function s(e) {
@@ -53,16 +60,14 @@ __d(
     function _(e) {
       var t = e[0],
         n = e[1],
-        o = m(n.eventMap),
-        a = r("sumBy")(
+        a = m(n.eventMap),
+        i = r("sumBy")(
           n.map(function (e) {
             return m(e.eventMap);
           }),
-          function (e) {
-            return e;
-          },
+          o("WAWebIdentityFunction").identityFunction,
         );
-      return { name: t, length: n.length, listeners: o, modelListeners: a };
+      return { name: t, length: n.length, listeners: a, modelListeners: i };
     }
     l.default = u;
   },

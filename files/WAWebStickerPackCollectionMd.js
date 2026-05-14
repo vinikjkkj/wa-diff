@@ -12,6 +12,7 @@ __d(
     "WAWebStickerConstants",
     "WAWebStickerPackModelMd",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -128,9 +129,10 @@ __d(
                   (this.$StickerPackCollection$p_13(0, l, i),
                     this.$StickerPackCollection$p_11(d.SUCCESS));
                 } catch (t) {
+                  var u = r("getErrorSafe")(t);
                   if (
                     (this.$StickerPackCollection$p_11(d.ERROR),
-                    t.name === o("WAAbortError").ABORT_ERROR)
+                    u.name === o("WAAbortError").ABORT_ERROR)
                   ) {
                     o("WALogger").LOG(
                       e ||
@@ -144,11 +146,10 @@ __d(
                     .WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "First party sticker packs request failed: error: ",
-                          "",
+                          "First party sticker packs request failed: error",
                         ])),
-                      t,
                     )
+                    .catching(u)
                     .sendLogs("sticker-packs-fetch-request-failed");
                 }
               }
@@ -190,9 +191,10 @@ __d(
                       (this.$StickerPackCollection$p_12(e, d.SUCCESS),
                         this.add(m));
                     } catch (t) {
+                      var p = r("getErrorSafe")(t);
                       if (
                         (this.$StickerPackCollection$p_12(e, d.ERROR),
-                        t.name === o("WAAbortError").ABORT_ERROR)
+                        p.name === o("WAAbortError").ABORT_ERROR)
                       ) {
                         o("WALogger").LOG(
                           u ||
@@ -206,11 +208,10 @@ __d(
                         .WARN(
                           c ||
                             (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "First party sticker pack request failed: error: ",
-                              "",
+                              "First party sticker pack request failed: error",
                             ])),
-                          t,
                         )
+                        .catching(p)
                         .sendLogs("sticker-packs-fetch-request-failed");
                     }
                   }

@@ -11,66 +11,103 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t = o("WAWebWamFalcoABProps").getWamFalcoMode();
-      if (t === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING) {
-        var n = o("WAWebWamFalcoABProps").getShadowLoggingEventIds();
-        if (n.has(e.id) && "traceIdInt" in e) {
-          var r = new Uint32Array(2);
-          self.crypto.getRandomValues(r);
-          var a = (r[1] % 2097152) * 4294967296 + r[0];
-          e.set({ traceIdInt: a });
-        }
+      return (
+        e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING ||
+        e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED ||
+        e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL
+      );
+    }
+    function u(e) {
+      return (
+        e === o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING ||
+        e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
+      );
+    }
+    function c(e, t) {
+      if (o("WAWebWamFalcoABProps").shouldBufferFalcoEvent()) {
+        o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(
+          e,
+          t,
+          Date.now(),
+        );
+        return;
+      }
+      var n = o("FalcoLoggerInternal").create(e, { r: 1 });
+      n.log(function () {
+        return t;
+      });
+    }
+    function d(e) {
+      var t = e.getFieldsMapForFalco();
+      return t == null
+        ? null
+        : babelHelpers.extends(
+            {},
+            o("WAWebWamFalcoGlobalFields").getCanonicalFieldsForFalco(),
+            t,
+          );
+    }
+    function m(e) {
+      if (
+        o("WAWebWamFalcoABProps").getWamFalcoMode() ===
+          o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING &&
+        o("WAWebWamFalcoABProps").getShadowLoggingEventIds().has(e.id) &&
+        "traceIdInt" in e
+      ) {
+        var t = new Uint32Array(2);
+        self.crypto.getRandomValues(t);
+        var n = (t[1] % 2097152) * 4294967296 + t[0];
+        e.set({ traceIdInt: n });
       }
     }
-    function u(t, n) {
+    function p(e, t, n) {
+      e: {
+        if (
+          e === o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING
+        ) {
+          c("_test$" + t, n);
+          break e;
+        }
+        if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING) {
+          c(t + "_shadow", n);
+          break e;
+        }
+        if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED) {
+          c(t + "_shadow_sampled", n);
+          break e;
+        }
+        if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL) {
+          (c(t + "_shadow_sampled", n), c(t + "_shadow", n));
+          break e;
+        }
+        return;
+      }
+    }
+    function _(t, n) {
       try {
         var r = o("WAWebWamFalcoABProps").getWamFalcoMode();
         if (
-          r !==
-            o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING &&
-          r !== o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
+          (u(r) && n) ||
+          (s(r) &&
+            !o("WAWebWamFalcoABProps").getShadowLoggingEventIds().has(t.id))
         )
           return;
-        if (r === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING) {
-          var a = o("WAWebWamFalcoABProps").getShadowLoggingEventIds();
-          if (!a.has(t.id)) return;
-        }
-        var i = t.getEventNameForFalco(),
-          l = t.getFieldsMapForFalco();
-        if (i == null || l == null) return;
-        var s = o("WAWebWamFalcoGlobalFields").getCanonicalFieldsForFalco(),
-          u = babelHelpers.extends({}, s, l),
-          c =
-            r === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
-              ? i + "_shadow"
-              : "_test$" + i;
-        if (
-          o("WAWebWamFalcoABProps").shouldBufferFalcoEvent() &&
-          r === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
-        ) {
-          o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(
-            c,
-            u,
-            Date.now(),
-          );
-          return;
-        }
-        var d = o("FalcoLoggerInternal").create(c, { r: 1 });
-        d.log(function () {
-          return u;
-        });
+        var a = t.getEventNameForFalco(),
+          i = d(t);
+        if (a == null || i == null) return;
+        p(r, a, i);
       } catch (t) {
         o("WALogger")
           .WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[wam] Failed to log to Falco",
+                "[falco] bridge: failed to log event",
               ])),
           )
           .sendLogs("wam_falco_bridge_error", { sampling: 0.1 });
       }
     }
-    ((l.maybeSetTraceIdForShadowLogging = s), (l.logEventToFalcoBridge = u));
+    ((l.maybeSetTraceIdForShadowLogging = m), (l.logEventToFalcoBridge = _));
   },
   98,
 );

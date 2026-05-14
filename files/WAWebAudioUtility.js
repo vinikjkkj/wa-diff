@@ -1,6 +1,11 @@
 __d(
   "WAWebAudioUtility",
-  ["WAWebBackendApi", "asyncToGeneratorRuntime", "err"],
+  [
+    "WAWebBackendApi",
+    "WAWebIdentityFunction",
+    "asyncToGeneratorRuntime",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null,
@@ -66,20 +71,17 @@ __d(
     }
     function y(e, t, n) {
       if (
-        (n === void 0 &&
-          (n = function (t) {
-            return t;
-          }),
+        (n === void 0 && (n = o("WAWebIdentityFunction").identityFunction),
         t.length === 0)
       )
         return new e(0);
       for (
-        var r = t[0].length, o = new e(r * t.length), a = 0, i = 0;
-        i < r;
-        i++
+        var r = t[0].length, a = new e(r * t.length), i = 0, l = 0;
+        l < r;
+        l++
       )
-        for (var l = 0; l < t.length; l++) o[a++] = n(t[l][i]);
-      return o;
+        for (var s = 0; s < t.length; s++) a[i++] = n(t[s][l]);
+      return a;
     }
     function C(e, t, n) {
       if (n === t) return e;

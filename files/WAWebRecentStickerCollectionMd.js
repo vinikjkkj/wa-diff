@@ -163,7 +163,7 @@ __d(
                         "RecentStickerCollection attempt to save to database failed",
                       ])),
                   )
-                  .sendLogs(e);
+                  .sendLogs(String(e));
               }
             });
             function r() {

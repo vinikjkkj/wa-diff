@@ -7,6 +7,7 @@ __d(
     "WAWebMexCachedTokenJobMutation.graphql",
     "WAWebMexClient",
     "WAWebODS",
+    "WAWebPonyfillsCryptoRandomUUID",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -27,7 +28,10 @@ __d(
             i = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(a, !0),
             l = o("WABase64").encodeB64(new TextEncoder().encode(i)),
             c = yield o("WAWebMexClient").fetchQuery(u, {
-              input: { client_pub_key: l, request_id: crypto.randomUUID() },
+              input: {
+                client_pub_key: l,
+                request_id: r("WAWebPonyfillsCryptoRandomUUID")(),
+              },
             }),
             d =
               (e = c.xwa2_ent_trade_canonical_nonce_for_access_tokens) == null

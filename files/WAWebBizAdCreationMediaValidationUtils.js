@@ -82,19 +82,19 @@ __d(
             i.length > d && a.push("TOO_MANY_VIDEOS"),
             {
               attachments: i.slice(0, d),
-              shouldClearExisting: !1,
               pruneActions: a,
+              shouldClearExisting: !1,
             })
           : (l.length > c && a.push("TOO_MANY_IMAGES"),
             {
               attachments: l.slice(0, c),
-              shouldClearExisting: !1,
               pruneActions: a,
+              shouldClearExisting: !1,
             });
       }
       var s = n[0].type === o("WAWebMsgType").MSG_TYPE.VIDEO;
       if (s)
-        return { attachments: [], shouldClearExisting: !1, pruneActions: a };
+        return { attachments: [], pruneActions: a, shouldClearExisting: !1 };
       var u = t.filter(function (e) {
           return e.file && h(e.file.type);
         }),
@@ -107,16 +107,16 @@ __d(
           u.length > d && a.push("TOO_MANY_VIDEOS"),
           {
             attachments: u.slice(0, d),
-            shouldClearExisting: !0,
             pruneActions: a,
+            shouldClearExisting: !0,
           }
         );
       if (r >= c)
-        return { attachments: [], shouldClearExisting: !1, pruneActions: a };
+        return { attachments: [], pruneActions: a, shouldClearExisting: !1 };
       var p = c - r;
       return (
         m.length > p && a.push("TOO_MANY_IMAGES"),
-        { attachments: m.slice(0, p), shouldClearExisting: !1, pruneActions: a }
+        { attachments: m.slice(0, p), pruneActions: a, shouldClearExisting: !1 }
       );
     }
     ((l.ALLOWED_MIME_TYPES = e),

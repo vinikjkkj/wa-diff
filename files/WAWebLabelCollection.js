@@ -11,6 +11,7 @@ __d(
     "WAWebContactModel",
     "WAWebEditLabelAssociationBridge",
     "WAWebLabelModel",
+    "WAWebLabelPillColors",
     "WAWebListItemParentType",
     "WAWebListUtils",
     "WAWebListsGatingUtils",
@@ -254,23 +255,43 @@ __d(
           });
         }),
         (a.getNextAvailableColor = function () {
-          var e = o("WAWebListUtils").getAllLabelColors(),
-            t = new Set();
+          if (o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()) {
+            var e = new Set();
+            this.forEach(function (t) {
+              t.colorIndex != null && e.add(t.colorIndex);
+            });
+            var t = o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES.find(
+              function (t) {
+                return !e.has(t);
+              },
+            );
+            return t != null
+              ? t
+              : o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES[
+                  Math.floor(
+                    Math.random() *
+                      o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES
+                        .length,
+                  )
+                ];
+          }
+          var n = o("WAWebListUtils").getAllLabelColors(),
+            r = new Set();
           this.forEach(function (e) {
-            e.colorIndex != null && t.add(e.colorIndex);
+            e.colorIndex != null && r.add(e.colorIndex);
           });
-          var n = Array.from(t).sort(function (e, t) {
+          var a = Array.from(r).sort(function (e, t) {
             return Number(e) - Number(t);
           });
-          if (n.length === 0) return 0;
-          var r = n.findIndex(function (e, t) {
+          if (a.length === 0) return 0;
+          var i = a.findIndex(function (e, t) {
             return e !== t;
           });
-          return r >= 0
-            ? r
-            : n.length < e.length
-              ? n.length
-              : Math.floor(Math.random() * e.length);
+          return i >= 0
+            ? i
+            : a.length < n.length
+              ? a.length
+              : Math.floor(Math.random() * n.length);
         }),
         (a.getChatLabelsWithUnarchivedAssociations = function () {
           return this.filter(function (e) {

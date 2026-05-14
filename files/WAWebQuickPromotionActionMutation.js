@@ -11,6 +11,7 @@ __d(
     "WAWebQuickPromotionActionMutation.graphql",
     "WAWebQuickPromotionGating",
     "WAWebRelayClient",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -103,7 +104,9 @@ __d(
             : { type: "success" };
         })
         .catch(function (e) {
-          return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+          return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(
+            r("getErrorSafe")(e),
+          )
             ? { type: "auth-failure" }
             : m;
         });

@@ -50,8 +50,8 @@ __d(
             .__setRef("WAWebBizNativeAdsResolveRelayIdentityBundle")
             .load();
           return {
-            resolveIdentityForAccountType: e.resolveIdentityForAccountType,
             resolveAdsPage: e.resolveAdsPage,
+            resolveIdentityForAccountType: e.resolveIdentityForAccountType,
           };
         })),
         m.apply(this, arguments)
@@ -115,12 +115,12 @@ __d(
               },
               p,
               {
-                page_id: h,
-                flow_id: o,
-                ad_account_type: t.accountType,
                 ad_account_id: t.adAccountId,
+                ad_account_type: t.accountType,
                 boost_id: a == null ? void 0 : a.boostId,
                 draft_id: a == null ? void 0 : a.draftId,
+                flow_id: o,
+                page_id: h,
               },
             );
           return babelHelpers.extends({}, t, {
@@ -239,26 +239,26 @@ __d(
                     },
                     M,
                     {
-                      page_id: $,
-                      flow_id: a,
-                      ad_account_type: t,
                       ad_account_id: S,
+                      ad_account_type: t,
                       boost_id: null,
                       draft_id: null,
+                      flow_id: a,
+                      page_id: $,
                     },
                   )));
               }
               var F = {
-                pageId1:
+                draftPageId:
                   (c = (m = k.fbPageId) != null ? m : k.waPageId) != null
                     ? c
                     : "",
-                pageId2:
-                  k.fbPageId != null && k.waPageId != null ? k.waPageId : null,
-                draftPageId:
+                pageId1:
                   (_ = (g = k.fbPageId) != null ? g : k.waPageId) != null
                     ? _
                     : "",
+                pageId2:
+                  k.fbPageId != null && k.waPageId != null ? k.waPageId : null,
               };
               o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
                 o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
@@ -269,13 +269,13 @@ __d(
                   E,
                   r("WAWebBizAdManagementRootQuery$Parameters"),
                   {
-                    page_id_1: F.pageId1,
-                    page_id_2: F.pageId2,
+                    after: null,
                     draft_page_id: F.draftPageId,
-                    options: {},
                     first: o("WAWebBizAdCreationConsts")
                       .AD_MANAGEMENT_INITIAL_LOAD_COUNT,
-                    after: null,
+                    options: {},
+                    page_id_1: F.pageId1,
+                    page_id_2: F.pageId2,
                   },
                   { fetchPolicy: "network-only" },
                 );
@@ -290,21 +290,21 @@ __d(
                 ),
                 o("WAWebUserPrefsGeneral").setLastUsedAdAccountType(t),
                 {
-                  relayEnvironment: E,
-                  adCreationEntrypointReference: x,
-                  adManagementQueryVariables: F,
-                  adManagementQueryRef: B,
                   accountType: t,
+                  adAccountId: S,
+                  adCreationEntrypointReference: x,
+                  adManagementQueryRef: B,
+                  adManagementQueryVariables: F,
                   hasLinkedFbPage: k.fbPageId != null,
-                  linkedPagesInfo: k,
-                  pageId: $,
-                  pageType: P,
                   hasWeakToken:
                     v.type === "WAA" &&
                     v.tokenStrength ===
                       o("WAWebCommonAdsTypes").WAAIdentityTokenStrengthEnum
                         .WEAK,
-                  adAccountId: S,
+                  linkedPagesInfo: k,
+                  pageId: $,
+                  pageType: P,
+                  relayEnvironment: E,
                 }
               );
             } catch (e) {

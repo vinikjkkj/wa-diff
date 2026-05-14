@@ -410,7 +410,7 @@ __d(
             var e = t.archive,
               n = t.chat,
               r = t.showToast;
-            ie(n, e, 0, r);
+            ie({ archive: e, chat: n, entryPoint: 0, showToast: r });
           }),
           (a[22] = le))
         : (le = a[22]);
@@ -1007,17 +1007,21 @@ __d(
             e.pendingAction = e.pendingAction - 1;
           }));
     }
-    function $(e, t, n, a) {
-      if (o("WAWebChatGetters").getIsPSA(e) && n !== 0 && e.msgs.length > 0) {
-        var i = e.msgs.last();
-        o("WAWebWamChatPSALogger").logChatPSARemove(i, t ? 3 : 4, n);
+    function $(e) {
+      var t = e.archive,
+        n = e.chat,
+        a = e.entryPoint,
+        i = e.showToast;
+      if (o("WAWebChatGetters").getIsPSA(n) && a !== 0 && n.msgs.length > 0) {
+        var l = n.msgs.last();
+        o("WAWebWamChatPSALogger").logChatPSARemove(l, t ? 3 : 4, a);
       }
-      ((e.pendingAction = e.pendingAction + 1),
+      ((n.pendingAction = n.pendingAction + 1),
         o("WAWebSetArchiveChatAction")
-          .setArchive(e, t, a)
+          .setArchive(n, t, i)
           .catch(r("WAWebNoop"))
           .finally(function () {
-            e.pendingAction = e.pendingAction - 1;
+            n.pendingAction = n.pendingAction - 1;
           }));
     }
     function P(e, t, n) {

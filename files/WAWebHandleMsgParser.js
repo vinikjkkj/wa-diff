@@ -17,6 +17,7 @@ __d(
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
     "WAWebHandlePaymentAmountUtils",
+    "WAWebIdentityFunction",
     "WAWebJidToWid",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
@@ -909,9 +910,10 @@ __d(
       if (!n) return null;
       var r = e.maybeChild("reporting");
       if (r == null) return null;
-      var a = r.mapChildrenWithTag("message", function (e) {
-        return e;
-      });
+      var a = r.mapChildrenWithTag(
+        "message",
+        o("WAWebIdentityFunction").identityFunction,
+      );
       if (
         a.length === 0 ||
         !o(

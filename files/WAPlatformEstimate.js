@@ -2,6 +2,7 @@ __d(
   "WAPlatformEstimate",
   [
     "WAFPUtils",
+    "WAWebIdentityFunction",
     "WAWebWamEnumBrowserEngineName",
     "WAWebWamEnumPlatformName",
     "countWhere",
@@ -111,9 +112,8 @@ __d(
                   : o("WAFPUtils").Platforms.UNKNOWN
               ],
             i = +(
-              r("countWhere")(a, function (e) {
-                return e;
-              }) / a.length
+              r("countWhere")(a, o("WAWebIdentityFunction").identityFunction) /
+              a.length
             ).toFixed(2);
           return ((e[t] = i), e);
         }, {}),

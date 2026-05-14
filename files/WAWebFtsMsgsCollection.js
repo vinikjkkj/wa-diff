@@ -23,33 +23,38 @@ __d(
       var r = t.prototype;
       return (
         (r.searchImpl = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r, a) {
-              if ((n === void 0 && (n = 1), e)) {
-                var i = yield o("WAWebChatMessageSearch").fts({
-                  chat: e,
-                  count: r,
-                  page: n,
-                  searchTerm: t,
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.chat,
+              n = e.count,
+              r = e.direction,
+              a = e.filter,
+              i = e.page,
+              l = i === void 0 ? 1 : i,
+              s = e.searchTerm;
+            if (t) {
+              var u = yield o("WAWebChatMessageSearch").fts({
+                chat: t,
+                count: n,
+                page: l,
+                searchTerm: s,
+              });
+              if (this.threadId != null) {
+                var c = this.threadId;
+                u.messages = u.messages.filter(function (e) {
+                  return o("WAWebThreadMsgUtils").isMsgInThread(e, c);
                 });
-                if (this.threadId != null) {
-                  var l = this.threadId;
-                  i.messages = i.messages.filter(function (e) {
-                    return o("WAWebThreadMsgUtils").isMsgInThread(e, l);
-                  });
-                }
-                return i;
               }
-              return o("WAWebMsgCollection").MsgCollection.search(
-                t,
-                n,
-                r,
-                void 0,
-                a,
-              );
-            },
-          );
-          function t(t, n, r, o, a) {
+              return u;
+            }
+            return o("WAWebMsgCollection").MsgCollection.search(
+              s,
+              l,
+              n,
+              void 0,
+              a,
+            );
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

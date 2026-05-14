@@ -80,6 +80,8 @@ __d(
       NPVO_PARITY: "npvo_parity",
       ORGANIC_FLEX_POSITIVE_TEST: "organic_flex_positive_test",
       OVERLAY_TEXT_REPLACEMENT: "overlay_text_replacement",
+      OVERLAY_TEXT_REPLACEMENT_TEXT_UNIFICATION:
+        "overlay_text_replacement_text_unification",
       PA_AUTOMATED_CAMPAIGN: "pa_automated_campaign",
       PA_DYNAMIC_HEADER: "pa_dynamic_header",
       PA_NON_DHO: "pa_non_dho",

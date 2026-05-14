@@ -933,6 +933,9 @@ __d(
         "scheduled_boost_draft_loading_error",
       SCHEDULED_BOOST_DRAFT_DELETION_ERROR:
         "scheduled_boost_draft_deletion_error",
+      SCHEDULED_BOOST_ACTIVATION_DIAGNOSTIC:
+        "scheduled_boost_activation_diagnostic",
+      SCHEDULED_BOOST_ACTIVATION_THROW: "scheduled_boost_activation_throw",
       BEFORE_SCHEDULED_BOOST_VIDEO_UPLOAD:
         "before_scheduled_boost_video_upload",
       SCHEDULED_BOOST_VIDEO_UPLOAD_FAIL: "scheduled_boost_video_upload_fail",

@@ -8,6 +8,7 @@ __d(
     "WAWebMiscErrors",
     "WAWebWebcImgErrorWamEvent",
     "WAWebXHR",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -89,7 +90,7 @@ __d(
                 .catch(function (e) {
                   if (
                     e instanceof o("WAWebMiscErrors").ServerStatusError ||
-                    e.name === o("WAAbortError").ABORT_ERROR
+                    r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
                   )
                     throw e;
                   return !1;

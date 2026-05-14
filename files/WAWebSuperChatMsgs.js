@@ -98,7 +98,12 @@ __d(
             );
             var e = { msg: t.last() };
             (this.msgs.replace(t),
-              this.notifyMsgCollectionMerge(t, this.msgs, this.msgs, e),
+              this.notifyMsgCollectionMerge({
+                cmc1: t,
+                cmc2: this.msgs,
+                cmcResult: this.msgs,
+                newFocusCtx: e,
+              }),
               (this.msgChunks = this.msgChunks.filter(function (e) {
                 return e !== t;
               })),
@@ -110,8 +115,17 @@ __d(
             })),
               t.delete());
           }),
-          (a.notifyMsgCollectionMerge = function (t, n, r, o) {
-            this.trigger("change:cmc:merge", t, n, r, o);
+          (a.notifyMsgCollectionMerge = function (t) {
+            var e = t.cmc1,
+              n = t.cmc2,
+              r = t.cmcResult,
+              o = t.newFocusCtx;
+            this.trigger("change:cmc:merge", {
+              cmc1: e,
+              cmc2: n,
+              cmcResult: r,
+              newFocusCtx: o,
+            });
           }),
           n
         );

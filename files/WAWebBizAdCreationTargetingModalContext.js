@@ -7,12 +7,12 @@ __d(
       s = e || (e = o("react")),
       u = {
         audienceName: "",
-        setAudienceName: function () {},
-        dailyBudget: 0,
         currency: "USD",
+        dailyBudget: 0,
         environment: null,
         legacyAdAccountID: "",
         selectedPublisherPlatforms: [],
+        setAudienceName: function () {},
       },
       c = s.createContext(u);
     l.default = c;

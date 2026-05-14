@@ -523,7 +523,14 @@ __d(
             if (n === 1 && !a) {
               var s = this.ftsCache[l];
               if (s) return s;
-              var u = this._search(t, n, r, a, i.label, i.kind);
+              var u = this._search({
+                count: r,
+                jid: a,
+                kind: i.kind,
+                label: i.label,
+                page: n,
+                searchTerm: t,
+              });
               this.ftsCache[l] = u;
               var c = function () {
                 e.ftsCache[l] = null;
@@ -534,48 +541,61 @@ __d(
                 u
               );
             }
-            return this._search(t, n, r, a, i.label, i.kind);
+            return this._search({
+              count: r,
+              jid: a,
+              kind: i.kind,
+              label: i.label,
+              page: n,
+              searchTerm: t,
+            });
           }),
           (i._search = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r, a, i, l) {
-                var s = {
-                    searchTerm: e,
-                    page: o("WATypeUtils").isNumber(t) && t !== 0 ? t : 1,
+              function* (e) {
+                var t = e.count,
+                  r = e.jid,
+                  a = e.kind,
+                  i = e.label,
+                  l = e.page,
+                  s = e.searchTerm,
+                  c = {
+                    searchTerm: s,
+                    page: o("WATypeUtils").isNumber(l) && l !== 0 ? l : 1,
                     count:
-                      o("WATypeUtils").isNumber(r) && r !== 0
-                        ? r
+                      o("WATypeUtils").isNumber(t) && t !== 0
+                        ? t
                         : o("WAWebCollectionConstants").PAGE_SIZE,
-                    remote: a,
-                    tagToCancel: a ? this.pendingSearchTag : void 0,
+                    remote: r,
+                    tagToCancel: r ? this.pendingSearchTag : void 0,
                     label: i,
-                    kind: l,
+                    kind: a,
                   },
-                  c = { add: "search" },
-                  d;
+                  d = { add: "search" },
+                  m;
                 try {
-                  d = yield o("WAWebDBMessageFindLocal").msgFindSearch(s);
+                  m = yield o("WAWebDBMessageFindLocal").msgFindSearch(c);
                 } catch (e) {
                   throw (o("WAWebCoreActionsODS").logGlobalSearchError(), e);
                 }
                 if (
-                  (s.tagToCancel === this.pendingSearchTag &&
+                  (c.tagToCancel === this.pendingSearchTag &&
                     (this.pendingSearchTag = void 0),
-                  d.status === 499)
+                  m.status === 499)
                 )
                   return o("WAPromiseProps").promiseProps({
                     messages: (f || (f = n("Promise"))).resolve([]),
                     eof: !1,
                     canceled: !0,
                   });
-                if (d.status === 404)
+                if (m.status === 404)
                   return (
                     o("WAWebCoreActionsODS").logGlobalSearchError(),
                     (f || (f = n("Promise"))).reject(
                       new (o("WAWebBackendErrors").E404)(),
                     )
                   );
-                if (d.status >= 400)
+                if (m.status >= 400)
                   return (
                     o("WAWebCoreActionsODS").logGlobalSearchError(),
                     o("WALogger").WARN(
@@ -584,33 +604,33 @@ __d(
                           "model:Msg:search error ",
                           "",
                         ])),
-                      d.status,
+                      m.status,
                     ),
                     (f || (f = n("Promise"))).reject(
                       new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                        d.status,
+                        m.status,
                         "failed to find a msg during fts",
                       ),
                     )
                   );
-                var m = Array.isArray(d) ? d : d.messages,
-                  p = Array.isArray(d) ? !0 : d.eof,
-                  _ = m.filter(function (e) {
+                var p = Array.isArray(m) ? m : m.messages,
+                  _ = Array.isArray(m) ? !0 : m.eof,
+                  g = p.filter(function (e) {
                     return (e == null ? void 0 : e.isGroupStatus) !== !0;
                   });
                 return o("WAPromiseProps").promiseProps({
                   messages: this.processMultipleMessages(
                     void 0,
-                    _,
-                    c,
+                    g,
+                    d,
                     "msgCollectionSearch",
                   ),
-                  eof: p,
+                  eof: _,
                   canceled: !1,
                 });
               },
             );
-            function t(t, n, r, o, a, i) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

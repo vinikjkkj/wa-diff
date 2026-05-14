@@ -7,6 +7,8 @@ __d(
     "WANullthrows",
     "WAWap",
     "WAWebApiChatCommon",
+    "WAWebApiContact",
+    "WAWebBackendApi",
     "WAWebBackendJobsCommon",
     "WAWebChangeProfilePicThumb",
     "WAWebChatCollection",
@@ -22,12 +24,9 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebPresenceCollection",
     "WAWebProcessPhoneNumberChange",
     "WAWebProfilePicConstants",
     "WAWebSchemaChat",
-    "WAWebStatusContactAction",
-    "WAWebTextStatusCollection",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateTextStatusForContact",
     "WAWebUserPrefsMeUser",
@@ -327,51 +326,48 @@ __d(
                         "handleContactsNotification: update cmd missing jid",
                       ])),
                   ),
-                  y(r)
+                  u(r)
                 );
-              var i = o("WAWebPresenceCollection").PresenceCollection.get(a);
-              i && i.reset();
-              var l = o("WAWebTextStatusCollection").TextStatusCollection.get(
-                  a,
-                ),
-                s =
-                  l == null
-                    ? null
-                    : o("WAWebStatusContactAction")
-                        .getStatus(o("WAWebWidFactory").asUserWidOrThrow(a))
-                        .then(function (e) {
-                          l.set({ status: e.status });
-                        }),
-                u = o("WAWebContactCollection").ContactCollection.get(a),
-                g;
-              u &&
-                o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-                (g = o("WAWebContactTextStatusBridge")
-                  .getTextStatus(u.id, u.textStatusLastUpdateTime)
-                  .then(function (e) {
-                    var t = e.emoji,
-                      n = e.ephemeralDurationSeconds,
-                      r = e.id,
-                      a = e.lastUpdateTime,
-                      i = e.text;
-                    return o(
-                      "WAWebUpdateTextStatusForContact",
-                    ).updateTextStatusForContact(
-                      r,
-                      i,
-                      t,
-                      n,
-                      a != null ? Number(a) : void 0,
-                    );
-                  }));
-              var h = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
+              (o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
+                id: a.toString(),
+              }),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "refreshTextStatus",
+                  { contactId: a.toString() },
+                ));
+              var i;
+              if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
+                var l = yield o("WAWebApiContact").getContactRecord(
+                  o("WAWebWidFactory").asUserWidOrThrow(a),
+                );
+                l != null &&
+                  (i = o("WAWebContactTextStatusBridge")
+                    .getTextStatus(a, l.textStatusLastUpdateTime)
+                    .then(function (e) {
+                      var t = e.emoji,
+                        n = e.ephemeralDurationSeconds,
+                        r = e.id,
+                        a = e.lastUpdateTime,
+                        i = e.text;
+                      return o(
+                        "WAWebUpdateTextStatusForContact",
+                      ).updateTextStatusForContact(
+                        r,
+                        i,
+                        t,
+                        n,
+                        a != null ? Number(a) : void 0,
+                      );
+                    }));
+              }
+              var s = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
                 r.jid,
                 o("WAWebProfilePicConstants").ProfilePicCommand.Set,
               );
-              return (yield (_ || (_ = n("Promise"))).all([h, s, g]), y(r));
+              return (yield (_ || (_ = n("Promise"))).all([s, i]), u(r));
             }
             case "modify":
-              return (yield S(r), y(r));
+              return (yield S(r), u(r));
             case "sync":
               return (
                 o("WALogger")
@@ -383,7 +379,7 @@ __d(
                   )
                   .tags("contact-sync"),
                 yield o("WAWebContactSyncBridge").doFullContactSync(),
-                y(r)
+                u(r)
               );
             default:
               return (
@@ -395,10 +391,10 @@ __d(
                     ])),
                   r.type,
                 ),
-                y(r)
+                u(r)
               );
           }
-          function y(e, t) {
+          function u(e, t) {
             return o("WAWap").wap(
               "ack",
               {

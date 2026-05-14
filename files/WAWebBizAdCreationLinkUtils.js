@@ -11,7 +11,7 @@ __d(
         a = e.substring(r).trim();
       if (a.length > 0) return null;
       var i = e.substring(0, n.index).trim();
-      return { textBeforeLink: i, linkUrl: n.href, linkText: n.url };
+      return { linkText: n.url, linkUrl: n.href, textBeforeLink: i };
     }
     l.extractTrailingLink = e;
   },

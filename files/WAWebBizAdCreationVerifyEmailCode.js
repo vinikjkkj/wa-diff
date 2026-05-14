@@ -34,18 +34,18 @@ __d(
                       "verifyEmailCodeAndPersistToken received weak token after email verification",
                     ),
                     {
-                      success: !1,
                       error: s._(
                         /*BTDS*/ "Something went wrong. Please try again later.",
                       ),
+                      success: !1,
                     }
                   );
                 var i = {
-                  type: "WAA",
-                  token: t.value.accessTokenElementValue,
                   bp_id: t.value.businessPersonId,
+                  token: t.value.accessTokenElementValue,
                   tokenStrength: o("WAWebCommonAdsTypes")
                     .WAAIdentityTokenStrengthEnum.STRONG,
+                  type: "WAA",
                 };
                 return (
                   o("WAWebFetchAdAccountToken").setToken(i),
@@ -53,20 +53,20 @@ __d(
                 );
               }
               case "GetAccessTokenAndSessionCookiesResponseIncorrectNonce":
-                return { success: !1, error: s._(/*BTDS*/ "Invalid code") };
+                return { error: s._(/*BTDS*/ "Invalid code"), success: !1 };
               case "GetAccessTokenAndSessionCookiesResponseTooManyAttempts":
                 return {
-                  success: !1,
                   error: s._(
                     /*BTDS*/ "Something went wrong. Please try again later.",
                   ),
+                  success: !1,
                 };
               default:
                 return {
-                  success: !1,
                   error: s._(
                     /*BTDS*/ "Something went wrong. Please try again later.",
                   ),
+                  success: !1,
                 };
             }
           } catch (e) {
@@ -75,10 +75,10 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .mustfix("verifyEmailCodeAndPersistToken RPC call failed"),
               {
-                success: !1,
                 error: s._(
                   /*BTDS*/ "Something went wrong. Please try again later.",
                 ),
+                success: !1,
               }
             );
           }

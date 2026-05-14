@@ -24,12 +24,12 @@ __d(
     }
     function u(e, t, n, r, a, i) {
       new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
-        lwiScreenReference: e,
-        lwiScreenAction: t,
-        lwiAdsIdentityType: n,
-        lwiFlowId: r,
         lwiAdCampaignId: a != null ? a : void 0,
+        lwiAdsIdentityType: n,
         lwiExtras: i != null ? i : void 0,
+        lwiFlowId: r,
+        lwiScreenAction: t,
+        lwiScreenReference: e,
       }).commit();
     }
     ((l.logAdCreationImpression = e),

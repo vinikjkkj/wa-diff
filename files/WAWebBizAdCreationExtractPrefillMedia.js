@@ -21,7 +21,7 @@ __d(
     }
     function s(e) {
       return e.video_id != null && e.video_id !== ""
-        ? { videoId: e.video_id, thumbnailHash: e.thumbnail_hash }
+        ? { thumbnailHash: e.thumbnail_hash, videoId: e.video_id }
         : null;
     }
     function u(e) {

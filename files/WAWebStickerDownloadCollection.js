@@ -90,7 +90,7 @@ __d(
                         "StickerDownloadCollection attempt to save to database failed",
                       ])),
                   )
-                  .sendLogs(e);
+                  .sendLogs(String(e));
               }
             });
             function t() {

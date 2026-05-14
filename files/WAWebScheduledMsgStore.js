@@ -8,6 +8,7 @@ __d(
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaScheduledMsgRevealKey",
     "asyncToGeneratorRuntime",
+    "countWhere",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -90,9 +91,9 @@ __d(
           var t = yield o(
             "WAWebScheduledMsgRevealKeyStore",
           ).getRevealKeysForChat(e);
-          return t.filter(function (e) {
+          return r("countWhere")(t, function (e) {
             return e.status === "PENDING" && e.scheduledTimestampS > 0;
-          }).length;
+          });
         })),
         _.apply(this, arguments)
       );

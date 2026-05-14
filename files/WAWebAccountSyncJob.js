@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WALogger",
     "WAPromiseCache",
+    "WAResolvable",
     "WATimeUtils",
     "WAWebDefenseModeTransitionListener",
     "WAWebProfilePicThumbCollection",
@@ -17,11 +18,11 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = n("$InternalEnum")({
+      s = n("$InternalEnum")({
         BLOCKLIST: "blocklist",
         OPTOUTLIST: "biz_opt_out_list",
         DEVICES: "devices",
@@ -34,14 +35,14 @@ __d(
         USER: "user",
         TEXT_STATUS: "text_status",
       });
-    function c(e) {
+    function u(e) {
       return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
         o("WAWebUserPrefsMeUser").getMePNandLIDWids(),
         e,
         null,
       );
     }
-    function d() {
+    function c() {
       var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
         t = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
           e,
@@ -54,8 +55,11 @@ __d(
             "WAWebProfilePicThumbCollection",
           ).ProfilePicThumbCollection.resyncPicturesByWid([e]);
     }
-    var m = 3e3,
-      p = new (r("WAPromiseCache"))(
+    var d = 3e3,
+      m = 1e3,
+      p = null,
+      _ = null,
+      f = new (r("WAPromiseCache"))(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var t,
@@ -87,36 +91,42 @@ __d(
         }),
         {
           maxCached: 1,
-          maxAge: m,
+          maxAge: d,
           shouldCache: function (t) {
             return t.privacySettings != null;
           },
         },
       );
-    function _() {
+    function g() {
       return (
         o(
           "WAWebDefenseModeTransitionListener",
         ).initDefenseModeTransitionListener(),
-        p.getOrRun("privacy")
+        f.getOrRun("privacy")
       );
     }
-    function f() {
-      return (
-        o(
+    function h() {
+      if (
+        (o(
           "WAWebDefenseModeTransitionListener",
         ).initDefenseModeTransitionListener(),
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "forceUpdatePrivacySettings invoked",
-            ])),
-        ),
-        p.delete("privacy"),
-        p.getOrRun("privacy")
+        r("justknobx")._("3378"))
+      )
+        return (f.delete("privacy"), f.getOrRun("privacy"));
+      (p != null && self.clearTimeout(p),
+        _ == null && (_ = new (o("WAResolvable").Resolvable)()));
+      var e = _;
+      return (
+        (p = self.setTimeout(function () {
+          ((p = null),
+            (_ = null),
+            f.delete("privacy"),
+            e.resolve(f.getOrRun("privacy")));
+        }, m)),
+        e.promise
       );
     }
-    function g(e) {
+    function y(e) {
       var t = o("WATimeUtils").unixTime();
       e.forEach(function (e) {
         var n;
@@ -127,12 +137,12 @@ __d(
         );
       });
     }
-    function h() {
-      return y.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
             "WAWebQueryDisappearingModeJob",
           ).queryDisappearingMode();
@@ -146,16 +156,16 @@ __d(
             newSettingTimestamp: e.t,
           });
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.AccountSyncType = u),
-      (l.getDevices = c),
-      (l.getAndUpdateProfilePicture = d),
-      (l.updatePrivacySettings = _),
-      (l.forceUpdatePrivacySettings = f),
-      (l.updateTosStateFromAccountSync = g),
-      (l.updateDefaultDisappearingMode = h));
+    ((l.AccountSyncType = s),
+      (l.getDevices = u),
+      (l.getAndUpdateProfilePicture = c),
+      (l.updatePrivacySettings = g),
+      (l.forceUpdatePrivacySettings = h),
+      (l.updateTosStateFromAccountSync = y),
+      (l.updateDefaultDisappearingMode = C));
   },
   98,
 );

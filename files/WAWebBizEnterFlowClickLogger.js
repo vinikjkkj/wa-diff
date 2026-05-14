@@ -19,13 +19,13 @@ __d(
           {
             event: "enter_flow_click",
             loggerContext: {
+              codebase: "whatsapp_smb",
               entryPoint: t,
               flow: "create",
               flowID: n,
               pageID: o,
-              product: "boosted_message",
-              codebase: "whatsapp_smb",
               platform: "whatsapp_smb_web",
+              product: "boosted_message",
             },
           },
           a != null ? { extra: { recreate_ad_boost_id: a } } : {},

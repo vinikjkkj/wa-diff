@@ -1,6 +1,12 @@
 __d(
   "WAWebNewsletterPollsUtils",
-  ["WALogger", "WATimeUtils", "WAWebNewsletterGatingUtils", "sumBy"],
+  [
+    "WALogger",
+    "WATimeUtils",
+    "WAWebIdentityFunction",
+    "WAWebNewsletterGatingUtils",
+    "sumBy",
+  ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e, t, n) {
@@ -15,9 +21,7 @@ __d(
             ? a
             : [],
         ),
-        u = r("sumBy")(s, function (e) {
-          return e;
-        }),
+        u = r("sumBy")(s, o("WAWebIdentityFunction").identityFunction),
         c = Math.max.apply(Math, s),
         m = e == null ? void 0 : e.pollVotersMap;
       for (var p of t) {

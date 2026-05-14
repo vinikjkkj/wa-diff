@@ -52,7 +52,7 @@ __d(
                       String(e.reason),
                   ));
             }),
-            { successfulResults: s, failedIndices: u }
+            { failedIndices: u, successfulResults: s }
           );
         })),
         d.apply(this, arguments)

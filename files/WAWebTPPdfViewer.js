@@ -42,10 +42,10 @@ __d(
           })()),
           (a.renderPdf = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, r) {
-                var o = this;
+              function* (t, r, o) {
+                var a = this;
                 return new (e || (e = n("Promise")))(function (e, n) {
-                  (o.$1.listenOnce(
+                  (a.$1.listenOnce(
                     "RENDER_PDF_PREVIEW_RESPONSE",
                     function (t) {
                       if (t.success) return e();
@@ -58,16 +58,18 @@ __d(
                       },
                     },
                   ),
-                    o.$1
+                    a.$1
                       .publishWhenReady("RENDER_PDF_PREVIEW", {
                         file: t,
                         fileName: r,
+                        isAnnotationsEnabled:
+                          o == null ? void 0 : o.isAnnotationsEnabled,
                       })
                       .catch(n));
                 });
               },
             );
-            function r(e, n) {
+            function r(e, n, r) {
               return t.apply(this, arguments);
             }
             return r;

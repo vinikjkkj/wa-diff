@@ -50,7 +50,12 @@ __d(
               ? o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
               : e === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
                 ? o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
-                : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
+                : e ===
+                    o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED
+                  ? o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED
+                  : e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL
+                    ? o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL
+                    : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
     }
     function _() {
       if (s != null) return s;

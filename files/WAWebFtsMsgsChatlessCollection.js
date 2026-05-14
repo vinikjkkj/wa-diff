@@ -25,7 +25,10 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
-          (i.getNextMsgs = function (a, i, l) {
+          (i.getNextMsgs = function (a) {
+            var t = a.count,
+              i = a.direction,
+              l = a.msgKeyAnchor;
             return (
               o("WALogger").ERROR(
                 e ||
@@ -40,27 +43,36 @@ __d(
           }),
           (i.searchImpl = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, o, a) {
-                (n === void 0 && (n = 1),
-                  this.previousResultPage >= n &&
-                    this.pageToOldestMsgId.clear());
+              function* (e) {
+                var t = e.chat,
+                  n = e.count,
+                  r = e.direction,
+                  o = e.filter,
+                  a = e.page,
+                  i = a === void 0 ? 1 : a,
+                  l = e.searchTerm;
+                this.previousResultPage >= i && this.pageToOldestMsgId.clear();
                 for (
-                  var i = this.pageToOldestMsgId.get(n - 1), l = !1, s = [];
-                  !l && s.length < r;
+                  var s = this.pageToOldestMsgId.get(i - 1), u = !1, c = [];
+                  !u && c.length < n;
                 ) {
-                  var u = yield this.getNextMsgs(r, i, a);
-                  if (((l = u.length < r), u.length === 0)) break;
-                  ((i = u[u.length - 1].id),
-                    s.push.apply(s, this.filterMsgs(u, t)));
+                  var d = yield this.getNextMsgs({
+                    count: n,
+                    direction: r,
+                    msgKeyAnchor: s,
+                  });
+                  if (((u = d.length < n), d.length === 0)) break;
+                  ((s = d[d.length - 1].id),
+                    c.push.apply(c, this.filterMsgs(d, l)));
                 }
                 return (
-                  this.pageToOldestMsgId.set(n, i),
-                  (this.previousResultPage = n),
-                  { canceled: !1, eof: l, messages: s }
+                  this.pageToOldestMsgId.set(i, s),
+                  (this.previousResultPage = i),
+                  { canceled: !1, eof: u, messages: c }
                 );
               },
             );
-            function t(t, n, r, o, a, i) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

@@ -12,29 +12,30 @@ __d(
     "WAWebNoop",
     "WAWebThreadMsgUtils",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = (function (t) {
         function a() {
-          for (var r, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
-            i[l] = arguments[l];
+          for (var a, i = arguments.length, l = new Array(i), s = 0; s < i; s++)
+            l[s] = arguments[s];
           return (
-            (r = t.call.apply(t, [this].concat(i)) || this),
-            (r.hasDocBefore = !0),
-            (r.$ChatDocMsgsCollection$p_1 = null),
-            (r.$ChatDocMsgsCollection$p_2 = null),
-            (r.count = (function () {
+            (a = t.call.apply(t, [this].concat(l)) || this),
+            (a.hasDocBefore = !0),
+            (a.$ChatDocMsgsCollection$p_1 = null),
+            (a.$ChatDocMsgsCollection$p_2 = null),
+            (a.count = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t, n) {
-                  var a;
-                  if (n && !n.equals(r.$ChatDocMsgsCollection$p_2))
-                    ((r.$ChatDocMsgsCollection$p_1 = null),
-                      (r.$ChatDocMsgsCollection$p_2 = n));
-                  else if (r.$ChatDocMsgsCollection$p_1 != null)
-                    return r.$ChatDocMsgsCollection$p_1;
-                  var i =
+                  var i;
+                  if (n && !n.equals(a.$ChatDocMsgsCollection$p_2))
+                    ((a.$ChatDocMsgsCollection$p_1 = null),
+                      (a.$ChatDocMsgsCollection$p_2 = n));
+                  else if (a.$ChatDocMsgsCollection$p_1 != null)
+                    return a.$ChatDocMsgsCollection$p_1;
+                  var l =
                       n != null
                         ? t.msgs.filter(function (e) {
                             return (
@@ -43,35 +44,36 @@ __d(
                             );
                           })
                         : t.msgs.filter(c),
-                    l = (a = i[0]) != null ? a : t.msgs.head();
-                  if (l == null) return 0;
+                    s = (i = l[0]) != null ? i : t.msgs.head();
+                  if (s == null) return 0;
                   try {
-                    var s,
-                      u = yield o(
+                    var u,
+                      d = yield o(
                         "WAWebMsgCollection",
                       ).MsgCollection.queryMedia(
-                        l.id.remote,
+                        s.id.remote,
                         1 / 0,
                         "before",
-                        l.id,
+                        s.id,
                         "document",
                       ),
-                      d =
+                      m =
                         n != null
-                          ? u.filter(function (e) {
+                          ? d.filter(function (e) {
                               return o("WAWebThreadMsgUtils").isMsgInThread(
                                 e,
                                 n,
                               );
                             })
-                          : u,
-                      m = (s = d.length) != null ? s : 0,
-                      p = m > 0 && i.length > 0 ? 1 : 0;
+                          : d,
+                      p = (u = m.length) != null ? u : 0,
+                      _ = p > 0 && l.length > 0 ? 1 : 0;
                     return (
-                      (r.$ChatDocMsgsCollection$p_1 = m + i.length - p),
-                      r.$ChatDocMsgsCollection$p_1
+                      (a.$ChatDocMsgsCollection$p_1 = p + l.length - _),
+                      a.$ChatDocMsgsCollection$p_1
                     );
                   } catch (n) {
+                    var f = r("getErrorSafe")(n);
                     return (
                       o("WALogger")
                         .ERROR(
@@ -83,7 +85,7 @@ __d(
                           t.id,
                         )
                         .verbose()
-                        .sendLogs("md-failed-docs-count: " + n.message),
+                        .sendLogs("md-failed-docs-count: " + f.message),
                       null
                     );
                   }
@@ -93,8 +95,8 @@ __d(
                 return t.apply(this, arguments);
               };
             })()),
-            babelHelpers.assertThisInitialized(r) ||
-              babelHelpers.assertThisInitialized(r)
+            babelHelpers.assertThisInitialized(a) ||
+              babelHelpers.assertThisInitialized(a)
           );
         }
         babelHelpers.inheritsLoose(a, t);

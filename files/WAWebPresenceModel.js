@@ -346,7 +346,10 @@ __d(
             ) {
               var r = 0;
               n.forEach(function (e) {
-                if (!o("WAWebUserPrefsMeUser").isMeAccount(e.id)) {
+                if (
+                  !o("WAWebUserPrefsMeUser").isMeAccount(e.id) &&
+                  !e.id.isBot()
+                ) {
                   var t = o("WAWebWidFactory").asUserLidOrThrow(e.id),
                     n = o("WAWebPresenceCollection").PresenceCollection.get(t);
                   (n == null ? void 0 : n.isOnline) === !0 && (r += 1);
@@ -513,7 +516,7 @@ __d(
           ]),
         };
       }
-      if (r > 0) {
+      if (r > 1) {
         var u = s._(/*BTDS*/ "{count} online", [s._param("count", r)]);
         return { text: u, ariaLabel: u };
       }

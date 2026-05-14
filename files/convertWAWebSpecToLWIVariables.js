@@ -15,27 +15,16 @@ __d(
     function d(e) {
       var t = m(e.adgroupSpecs, e.selectedAdgroupID),
         n = {
-          legacy_ad_account_id: e.adAccountData.legacyAccountID,
-          ads_lwi_goal: o("WAWebBizAdCreationConsts").WA_WEB_ADS_LWI_GOAL,
           adgroup_specs: t,
-          saved_audience_id:
-            e.audienceData.audienceOption === "SAVED_AUDIENCE"
-              ? e.audienceData.audienceID
-              : null,
+          ads_lwi_goal: o("WAWebBizAdCreationConsts").WA_WEB_ADS_LWI_GOAL,
           audience_option: e.audienceData.audienceOption,
-          targeting_spec_string: JSON.stringify(e.audienceData.targetSpec),
           budget: e.budgetData.budget,
           budget_type: "DAILY_BUDGET",
-          duration_in_days: e.durationData.durationInDays,
           currency: e.adAccountData.currency,
-          objective: o("WAWebBizAdCreationEUCountryUtils").getAdObjective(
-            e.audienceData.targetSpec,
-          ),
-          placement_spec: {
-            publisher_platforms: e.placementData.selectedPublisherPlatforms,
-          },
           dsa_beneficiary: e.dsaData.dsaBeneficiary,
           dsa_payor: e.dsaData.dsaPayor,
+          duration_in_days: e.durationData.durationInDays,
+          legacy_ad_account_id: e.adAccountData.legacyAccountID,
           messenger_welcome_message: {
             greeting: "Hi! Please let us know how we can help you.",
             icebreakers: [],
@@ -44,6 +33,17 @@ __d(
             prefill_enabled: !0,
             prefill_message_edited: !1,
           },
+          objective: o("WAWebBizAdCreationEUCountryUtils").getAdObjective(
+            e.audienceData.targetSpec,
+          ),
+          placement_spec: {
+            publisher_platforms: e.placementData.selectedPublisherPlatforms,
+          },
+          saved_audience_id:
+            e.audienceData.audienceOption === "SAVED_AUDIENCE"
+              ? e.audienceData.audienceID
+              : null,
+          targeting_spec_string: JSON.stringify(e.audienceData.targetSpec),
         };
       return n;
     }

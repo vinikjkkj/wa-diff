@@ -93,7 +93,10 @@ __d(
           )
           .then(function (e) {
             var t = S();
-            t && y && t !== y && f.notifyMsgCollectionMerge(t, y, t);
+            t &&
+              y &&
+              t !== y &&
+              f.notifyMsgCollectionMerge({ cmc1: t, cmc2: y, cmcResult: t });
             var n = e[0],
               a = m ? o("WAWebMsgCollection").MsgCollection.get(m) : d;
             if (a && Array.isArray(n) && n.length < C) {

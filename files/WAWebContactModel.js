@@ -602,18 +602,21 @@ __d(
           }
           return null;
         }),
-        (a.$Contact$p_11 = function (t, n, a) {
+        (a.$Contact$p_11 = function (t) {
+          var e = t.input,
+            n = t.query,
+            a = t.similarityThreshold;
           if (a < 0 || a > 1)
             throw r("err")(
               "similarityThreshold must be between 0.0 and 1.0, got: " + a,
             );
-          if (t.length === 0) return null;
-          var e = o("WAWebFuzzyMatcher").fuzzyMatch(
+          if (n.length === 0) return null;
+          var i = o("WAWebFuzzyMatcher").fuzzyMatch(
+            e,
             n,
-            t,
             o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
           );
-          return e.isMatch() && e.getSimilarityRating() >= a ? e : null;
+          return i.isMatch() && i.getSimilarityRating() >= a ? i : null;
         }),
         (a.$Contact$p_12 = function (t) {
           var e = t.split(/\s+/).filter(Boolean);
@@ -638,7 +641,11 @@ __d(
           for (var a of n) {
             var i = [];
             for (var l of e) {
-              var s = this.$Contact$p_11(l, a, r);
+              var s = this.$Contact$p_11({
+                input: a,
+                query: l,
+                similarityThreshold: r,
+              });
               if (s == null) break;
               i.push(s);
             }

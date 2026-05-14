@@ -30,6 +30,7 @@ __d(
     "WAWebWamEnumWebcRmrReasonCode",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "lodash",
   ],
   function (t, n, r, o, a, i, l) {
@@ -361,22 +362,23 @@ __d(
             );
           })
           .catch(function (e) {
+            var t = r("getErrorSafe")(e);
             throw (
-              e.name === o("WAAbortError").ABORT_ERROR
+              t.name === o("WAAbortError").ABORT_ERROR
                 ? o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
                         "MediaAlgo.uploadMedia: canceled",
                       ])),
                   )
-                : o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "MediaAlgo.uploadMedia: ",
-                        "",
-                      ])),
-                    e,
-                  ),
+                : o("WALogger")
+                    .WARN(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "MediaAlgo.uploadMedia",
+                        ])),
+                    )
+                    .catching(t),
               e
             );
           })
@@ -457,7 +459,7 @@ __d(
               b.consolidate({
                 uploadStage: o("WAWebMediaTypes").UploadStage.NEED_UPLOAD,
               }),
-              e.name === o("WAAbortError").ABORT_ERROR
+              r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
                 ? { kind: g.CANCELLATION }
                 : { kind: g.ERROR }
             );

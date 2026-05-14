@@ -45,7 +45,11 @@ __d(
                   }),
                   h === a.msgs
                     ? (a.replaceMsgsCollection(i), (p = a.msgs))
-                    : (a.notifyMsgCollectionMerge(i, h, i),
+                    : (a.notifyMsgCollectionMerge({
+                        cmc1: i,
+                        cmc2: h,
+                        cmcResult: i,
+                      }),
                       a.removeMsgsCollection(h)))
                 : (f.push(c), _.push(s[c.id])));
           }

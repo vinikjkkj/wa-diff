@@ -11,6 +11,7 @@ __d(
     "WAWebContactSyncUtils",
     "WAWebDeviceListPk",
     "WAWebGetIdentityKeysJob",
+    "WAWebIdentityFunction",
     "WAWebPhashUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUsync",
@@ -46,9 +47,10 @@ __d(
                       ).createDeviceWidFromDeviceListPk(e.id, t.id, t.isHosted);
                     });
               }),
-              u = r("lodash").flatMap(s, function (e) {
-                return e;
-              }),
+              u = r("lodash").flatMap(
+                s,
+                o("WAWebIdentityFunction").identityFunction,
+              ),
               m = yield o("WAWebPhashUtils").phashV2(u);
             if (a === m) return;
           }

@@ -61,22 +61,22 @@ __d(
     function m(e) {
       var t,
         n = h(e),
-        a = y(e),
-        i = e.quotedStanzaID;
-      if (!n || !a || r("isStringNullOrEmpty")(i)) return null;
-      var l = o("WAWebUserPrefsMeUser").isMeAccount(n),
-        s = l ? "out" : "in",
-        u = e.quotedRemoteJid ? e.quotedRemoteJid : e.id.remote,
+        a = e.quotedStanzaID,
+        i = e.quotedRemoteJid ? e.quotedRemoteJid : e.id.remote,
+        l = y(e, i);
+      if (!n || !l || r("isStringNullOrEmpty")(a)) return null;
+      var s = o("WAWebUserPrefsMeUser").isMeAccount(n),
+        u = s ? "out" : "in",
         c = {
-          id: i,
-          from: l ? a : u,
-          to: l ? u : a,
-          self: s,
+          id: a,
+          from: s ? l : i,
+          to: s ? i : l,
+          self: u,
           author: n,
-          remote: u,
+          remote: i,
         },
         d = r("WAWebWid").isGroup(c.from) || r("WAWebWid").isGroup(c.to);
-      ((d || r("WAWebWid").isStatus(u)) && (c.participant = n),
+      ((d || r("WAWebWid").isStatus(i)) && (c.participant = n),
         Object.assign(c, e.quotedMsg));
       var m =
         (t = o("WAWebMsgModelUtils").createQuotedMsg(c)) != null ? t : void 0;
@@ -88,28 +88,30 @@ __d(
     }
     function p(e) {
       var t,
-        n = h(e),
-        r = y(e);
-      if (!e.paymentRequestMessageKey || !n || !r) return null;
-      var a = e.paymentRequestMessageKey.remote
-          ? e.paymentRequestMessageKey.remote
-          : e.id.remote,
-        i = e.paymentRequestMessageKey.fromMe,
-        l = i ? "out" : "in",
-        s =
+        n,
+        r = h(e),
+        a =
+          (t = e.paymentRequestMessageKey) != null && t.remote
+            ? e.paymentRequestMessageKey.remote
+            : e.id.remote,
+        i = y(e, a);
+      if (!e.paymentRequestMessageKey || !r || !i) return null;
+      var l = e.paymentRequestMessageKey.fromMe,
+        s = l ? "out" : "in",
+        u =
           e.paymentRequestMessageKey.self != null
             ? e.paymentRequestMessageKey.self
-            : l,
-        u =
+            : s,
+        c =
           e.paymentRequestMessageKey.participant || e.paymentMessageReceiverJid,
-        c = e.paymentRequestMessageKey.id,
-        d = {
-          id: c,
-          from: i ? r : a,
-          to: i ? a : r,
-          self: s,
-          participant: u,
-          author: u,
+        d = e.paymentRequestMessageKey.id,
+        m = {
+          id: d,
+          from: l ? i : a,
+          to: l ? a : i,
+          self: u,
+          participant: c,
+          author: c,
           remote: a,
           amount1000: e.paymentAmount1000,
           currency: e.paymentCurrency,
@@ -117,9 +119,9 @@ __d(
           type: e.type,
           subtype: "request",
         };
-      return (t = o("WAWebMsgModelUtils").createQuotedMsg(d)) == null
+      return (n = o("WAWebMsgModelUtils").createQuotedMsg(m)) == null
         ? void 0
-        : t.safe();
+        : n.safe();
     }
     function _(e) {
       var t = o("WAWebStateUtils").unproxy(e);
@@ -147,8 +149,10 @@ __d(
           t.quotedParticipant
         );
       },
-      y = function (t) {
-        var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      y = function (t, n) {
+        var e = n.isLid()
+          ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser()
+          : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
         return (
           e == null &&
             o("WALogger")

@@ -28,20 +28,23 @@ __d(
         return (
           (a.getNextMsgs = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
+              function* (e) {
+                var t = e.count,
+                  n = e.direction,
+                  r = e.msgKeyAnchor;
                 return o("WAWebMsgCollection").MsgCollection.queryMedia(
                   void 0,
                   Math.min(
                     o("WAWebAllMsgTypeCollectionUtils").HARD_LIMIT_MAX_COUNT,
-                    e,
+                    t,
                   ),
                   n,
-                  t,
+                  r,
                   "allMedia",
                 );
               },
             );
-            function t(t, n, r) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

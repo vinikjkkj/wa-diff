@@ -3,6 +3,7 @@ __d(
   [
     "WAAlignChunkLengthsToMultipleOfAesBlockSize",
     "WAWebCryptoDecryptPartialMedia",
+    "WAWebIdentityFunction",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,9 +15,7 @@ __d(
         var i = o("WAAlignChunkLengthsToMultipleOfAesBlockSize")
             .alignChunkLengthsToMultipleOfAesBlockSize(n.scanLengths)
             .slice(0, a),
-          l = r("sumBy")(i, function (e) {
-            return e;
-          });
+          l = r("sumBy")(i, o("WAWebIdentityFunction").identityFunction);
         return l === 0 ? null : { start: 0, end: l - 1 };
       }
       if (t) {

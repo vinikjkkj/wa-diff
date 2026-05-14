@@ -4,6 +4,7 @@ __d(
     "WAExponentialBackoff",
     "WALogger",
     "WAWebBaseCollection",
+    "WAWebIdentityFunction",
     "WAWebMemberLabelActions",
     "WAWebMemberLabelModel",
     "WAWebNullFunc",
@@ -38,9 +39,10 @@ __d(
           (i.add = function (n, r) {
             var e = t.prototype.add.call(this, n, r);
             return (
-              this.$MemberLabelCollection$p_2(e, function (e) {
-                return e;
-              }),
+              this.$MemberLabelCollection$p_2(
+                e,
+                o("WAWebIdentityFunction").identityFunction,
+              ),
               e
             );
           }),

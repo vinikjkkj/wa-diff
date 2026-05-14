@@ -29,6 +29,7 @@ __d(
         waveform: "waveform",
         staticUrl: "staticUrl",
         stickerPremiumStatus: "stickerPremiumStatus",
+        emojis: "emojis",
         accessibilityLabel: "accessibilityLabel",
       }),
       s = Object.freeze({
@@ -62,6 +63,7 @@ __d(
         stickerPackId: "stickerPackId",
         stickerPackName: "stickerPackName",
         stickerPackPublisher: "stickerPackPublisher",
+        emojis: "emojis",
         accessibilityLabel: "accessibilityLabel",
       }),
       u = Object.keys(s),

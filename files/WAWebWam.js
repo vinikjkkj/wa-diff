@@ -145,28 +145,31 @@ __d(
         );
       e.wamChannel;
       var i =
-        (a = o("WAWebEventSampling").getClientEventSamplingWeight(e.id)) != null
-          ? a
-          : e.weight;
-      if (i !== 0 && Math.random() * i > 1)
+          (a = o("WAWebEventSampling").getClientEventSamplingWeight(e.id)) !=
+          null
+            ? a
+            : e.weight,
+        l = i !== 0 && Math.random() * i > 1;
+      if (
+        (o("WAWebWamFalcoABProps").isFalcoLoggingEnabled() &&
+          (o("WAWebWamFalcoLogger").maybeSetTraceIdForShadowLogging(e),
+          o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, l)),
+        l)
+      )
         return (
           (e.commitTime =
             o("WATimeUtils").unixTimeWithoutClockSkewCorrection()),
           (h || (h = n("Promise"))).resolve()
         );
-      (A(e),
-        o("WAWebWamUtils").maybeForwardWamEventToJestE2e(e),
-        o("WAWebWamFalcoABProps").isFalcoLoggingEnabled() &&
-          (o("WAWebWamFalcoLogger").maybeSetTraceIdForShadowLogging(e),
-          o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, i)));
-      var l;
+      (A(e), o("WAWebWamUtils").maybeForwardWamEventToJestE2e(e));
+      var s;
       return (
         e.wamChannel === "realtime"
-          ? (l = r("justknobx")._("4680") ? "realtime" : "all")
+          ? (s = r("justknobx")._("4680") ? "realtime" : "all")
           : r("WAWebEnvironment").isGuest || t
-            ? (l = "all")
-            : (l = "none"),
-        W({ job: e, flushWamBuffers: l })
+            ? (s = "all")
+            : (s = "none"),
+        W({ job: e, flushWamBuffers: s })
       );
     }
     function A(e, t) {

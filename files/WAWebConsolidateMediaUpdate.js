@@ -31,7 +31,7 @@ __d(
       }
       return t;
     }
-    function d(t, a) {
+    function d(t, n) {
       if (t.isUnsentPhoneMsg()) {
         t.mediaObject &&
           o("WALogger")
@@ -46,33 +46,24 @@ __d(
               t.type,
             )
             .sendLogs("media-fault: consolidateMediaUpdate unsent message");
-        var i = c(t);
-        if (Object.prototype.hasOwnProperty.call(i, "preview")) {
-          var l = i.preview;
-          (delete i.preview,
-            l &&
-              (l instanceof r("WAWebMediaOpaqueData")
-                ? (u || (u = n("Promise"))).resolve(l).then(function (e) {
-                    t != null &&
-                      t.mediaData &&
-                      t.isUnsentPhoneMsg() &&
-                      (t.mediaData.preview = e);
-                  })
-                : r("WAWebMediaOpaqueData")
-                    .createFromBase64Jpeg(l)
-                    .then(function (e) {
-                      t != null &&
-                        t.mediaData &&
-                        t.isUnsentPhoneMsg() &&
-                        (t.mediaData.preview = e);
-                    })));
+        var r = c(t);
+        if (Object.prototype.hasOwnProperty.call(r, "preview")) {
+          var a = r.preview;
+          (delete r.preview,
+            a &&
+              p(a).then(function (e) {
+                t != null &&
+                  t.mediaData &&
+                  t.isUnsentPhoneMsg() &&
+                  (t.mediaData.preview = e);
+              }));
         }
         t.mediaData.set(
-          babelHelpers.extends({}, i, {
+          babelHelpers.extends({}, r, {
             mediaStage: o("WAWebMediaTypes").MediaDataStage.REMOTE_NEED_UPLOAD,
           }),
         );
-      } else m(t, t, a);
+      } else m(t, t, n);
     }
     function m(e, t, n, a) {
       var i = c(t),
@@ -213,6 +204,11 @@ __d(
           chatWid: a,
         });
       }
+    }
+    function p(e) {
+      return e instanceof r("WAWebMediaOpaqueData")
+        ? (u || (u = n("Promise"))).resolve(e)
+        : r("WAWebMediaOpaqueData").createFromBase64Jpeg(e);
     }
     ((l.consolidateMediaUpdate = d), (l.consolidateMediaUpdateWithValues = m));
   },

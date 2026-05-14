@@ -54,44 +54,47 @@ __d(
           return o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE;
       }
     }
-    var s = function (t, n, r) {
+    var s = function (t) {
+      var e = t.eventData,
+        n = t.filter,
+        r = t.threadId;
       if (
         o("WAWebInboxFiltersGatingUtils").inboxFiltersEnabled() &&
         n != null
       ) {
-        t.targetScreen = o(
+        e.targetScreen = o(
           "WAWebWamEnumChatFilterTargetScreen",
         ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST;
-        var e;
+        var a;
         if (
           (n.label != null &&
-            (e = o("WAWebLabelCollection").LabelCollection.get(n.label)),
-          e == null)
+            (a = o("WAWebLabelCollection").LabelCollection.get(n.label)),
+          a == null)
         ) {
-          var a = o("WAWebListUtils").getListTypeFromFilter(n.kind);
-          a != null &&
-            o("WAWebListUtils").isBuiltInList(a) &&
-            (e = o("WAWebLabelCollection").LabelCollection.findFirst(
+          var i = o("WAWebListUtils").getListTypeFromFilter(n.kind);
+          i != null &&
+            o("WAWebListUtils").isBuiltInList(i) &&
+            (a = o("WAWebLabelCollection").LabelCollection.findFirst(
               function (e) {
-                return e.type === a;
+                return e.type === i;
               },
             ));
         }
         if (
-          e != null &&
-          (e.predefinedId != null && (t.predefinedId = e.predefinedId),
-          e.name != null && (t.labelName = e.name),
+          a != null &&
+          (a.predefinedId != null && (e.predefinedId = a.predefinedId),
+          a.name != null && (e.labelName = a.name),
           o("WAWebListsGatingUtils").isListsEnabled())
         ) {
-          var i = parseInt(e.id, 10);
-          isNaN(i) || (t.listId = i);
-          var l = o("WAWebListsLogging").getListType(e.type);
-          l != null && (t.listType = l);
-          var s =
+          var l = parseInt(a.id, 10);
+          isNaN(l) || (e.listId = l);
+          var s = o("WAWebListsLogging").getListType(a.type);
+          s != null && (e.listType = s);
+          var u =
             o("WAWebLabelCollection")
               .LabelCollection.getActiveLists()
-              .indexOf(e) + 1;
-          ((t.listIndex = s), r != null && (t.threadId = r));
+              .indexOf(a) + 1;
+          ((e.listIndex = u), r != null && (e.threadId = r));
         }
       }
     };
@@ -121,7 +124,7 @@ __d(
           (a.targetScreen = o(
             "WAWebWamEnumChatFilterTargetScreen",
           ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST),
-          s(a, n),
+          s({ eventData: a, filter: n }),
           new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
             a,
           ).commit());
@@ -136,7 +139,7 @@ __d(
           .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
         sessionId: t,
       };
-      (s(r, n),
+      (s({ eventData: r, filter: n }),
         new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
           r,
         ).commit());
@@ -172,7 +175,7 @@ __d(
           .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
         sessionId: t,
       };
-      (s(r, n),
+      (s({ eventData: r, filter: n }),
         new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
           r,
         ).commit());
@@ -207,7 +210,7 @@ __d(
                 a != null
                   ? yield o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
                   : null;
-            (s(i, n, l),
+            (s({ eventData: i, filter: n, threadId: l }),
               new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
                 i,
               ).commit());
@@ -234,7 +237,7 @@ __d(
                 a != null
                   ? yield o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
                   : null;
-            (s(i, n, l),
+            (s({ eventData: i, filter: n, threadId: l }),
               new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
                 i,
               ).commit());

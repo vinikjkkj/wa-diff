@@ -17,8 +17,8 @@ __d(
         s = e.webFlowType;
       new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
         lwiEntryPoint: t,
-        lwiFlowId: r,
         lwiExtras: n != null ? n : void 0,
+        lwiFlowId: r,
         previousLwiFlowId: a != null ? a : void 0,
         userHasLinkedFbPage: i != null ? i : void 0,
         waCampaignId: l != null ? l : void 0,
@@ -42,10 +42,6 @@ __d(
       new (o(
         "WAWebCtwaAdCreationAndManagementJourneyWamEvent",
       ).CtwaAdCreationAndManagementJourneyWamEvent)({
-        lwiEntryPoint: d,
-        lwiFlowId: m,
-        seqId: 0,
-        unifiedSessionId: m,
         extraAttributes: JSON.stringify({
           event_type: "advertise_ep_routing_decision",
           uses_native_ads: _,
@@ -60,6 +56,10 @@ __d(
           has_created_ad: a,
           source_ad_creation: p,
         }),
+        lwiEntryPoint: d,
+        lwiFlowId: m,
+        seqId: 0,
+        unifiedSessionId: m,
       }).commit();
     }
     ((l.logEntryTap = e),

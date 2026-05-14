@@ -2,6 +2,7 @@ __d(
   "WAWebMmSignalWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumConsentSource",
     "WAWebWamEnumMmDirectionFrom",
     "WAWebWamEnumMmSignalType",
   ],
@@ -12,6 +13,10 @@ __d(
           MmSignal: [
             5572,
             {
+              consentSource: [
+                10,
+                o("WAWebWamEnumConsentSource").CONSENT_SOURCE,
+              ],
               disclosed: [4, e.TYPES.BOOLEAN],
               isLatestConversionToken: [5, e.TYPES.BOOLEAN],
               mmConversationDepth: [6, e.TYPES.INTEGER],

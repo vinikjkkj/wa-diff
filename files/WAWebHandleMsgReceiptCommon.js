@@ -327,7 +327,14 @@ __d(
               return r("WAWebThreadId").from(e);
             });
           } else c = yield P({ chatId: u, msgs: g, msgKeys: t, readAt: a });
-          (yield k(u, c), yield T(u));
+          (a != null &&
+            t.length > 0 &&
+            (yield o("WAWebApiChat").tightenAfterReadExpirationFromPeerReceipt({
+              msgKeys: t,
+              readAt: a,
+            })),
+            yield k(u, c),
+            yield T(u));
         })),
         w.apply(this, arguments)
       );

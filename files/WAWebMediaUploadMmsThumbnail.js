@@ -10,6 +10,7 @@ __d(
     "WAWebMediaMmsV4Upload",
     "WAWebMediaObject",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -82,8 +83,7 @@ __d(
                   var p = e;
                   if (
                     typeof p == "object" &&
-                    (e == null ? void 0 : e.name) ===
-                      o("WAAbortError").ABORT_ERROR
+                    r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
                   )
                     return (
                       o("WAWebMediaMmsV4Upload").cancelUploadMedia(m),

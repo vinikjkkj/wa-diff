@@ -13,6 +13,7 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATypedArraysConcat",
+    "WAWebIdentityFunction",
     "WAWebMediaInMemoryBlobCache",
     "WAWebPromiseQueue",
     "asyncToGeneratorRuntime",
@@ -169,9 +170,10 @@ __d(
                   a = yield (_ || (_ = n("Promise"))).all(
                     this._decryptedChunks.slice(0, e),
                   ),
-                  i = r("sumBy")(this._scanLengths.slice(0, e), function (e) {
-                    return e;
-                  }),
+                  i = r("sumBy")(
+                    this._scanLengths.slice(0, e),
+                    o("WAWebIdentityFunction").identityFunction,
+                  ),
                   l = o("WATypedArraysConcat")
                     .concatTypedArrays(
                       Uint8Array,

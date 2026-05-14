@@ -45,7 +45,12 @@ __d(
               "change:couldForce",
             ));
         }),
-        (n.update = function (t, n, r, a) {
+        (n.update = function (t) {
+          var e = t === void 0 ? {} : t,
+            n = e.belowHard,
+            r = e.belowSoft,
+            a = e.beta,
+            i = e.serverVersion;
           throw new (o("WACustomError").UnimplementedMethod)("Updater::update");
         }),
         (n.showSoftUpdateBanner = function () {

@@ -5,6 +5,7 @@ __d(
     "WAWebContactCollection",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -26,7 +27,11 @@ __d(
         var t = {};
         for (var n of Object.keys(e)) {
           var o = e[n];
-          typeof o == "string" ? (t[n] = o) : o === !0 && (t[n] = "");
+          typeof o == "string"
+            ? (t[n] = o)
+            : o instanceof r("WAWebWid")
+              ? (t[n] = o.toString())
+              : o === !0 && (t[n] = "");
         }
         return t;
       }

@@ -459,6 +459,7 @@ __d(
             (e.stickerSentTs = o("WAWebBaseModel").prop(0)),
             (e.isAvatar = o("WAWebBaseModel").prop(!1)),
             (e.stickerPremiumStatus = o("WAWebBaseModel").prop()),
+            (e.emojis = o("WAWebBaseModel").prop()),
             (e.bizSource = o("WAWebBaseModel").prop()),
             (e.pmCampaignId = o("WAWebBaseModel").prop()),
             (e.decisionId = o("WAWebBaseModel").prop()),

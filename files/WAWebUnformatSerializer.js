@@ -1,6 +1,6 @@
 __d(
   "WAWebUnformatSerializer",
-  ["WAWebFormatSerializer"],
+  ["WAWebFormatSerializer", "WAWebIdentityFunction"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -21,9 +21,7 @@ __d(
       (e.onRoot = function (e) {
         return s(e);
       }),
-      (e.onText = function (e) {
-        return e;
-      }));
+      (e.onText = o("WAWebIdentityFunction").identityFunction));
     function s(e) {
       return e.filter(Boolean).join("");
     }

@@ -16,6 +16,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebMsgType",
+    "WAWebNullFunc",
     "WAWebZipUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -176,9 +177,7 @@ __d(
                         var r = yield o("WAPromiseDelays").withTimeout(
                           o("WAWebFileSaverDownloadData").getMsgDownloadData(t),
                           d,
-                          function () {
-                            return null;
-                          },
+                          o("WAWebNullFunc").returnNull,
                         );
                         if (
                           (r == null ? void 0 : r.blob) != null &&

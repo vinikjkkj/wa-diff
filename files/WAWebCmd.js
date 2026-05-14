@@ -119,15 +119,18 @@ __d(
                 showToast: r,
               }));
           }),
-          (i.archiveChatFromEntryPoint = function (t, n, r, a) {
-            (a === void 0 && (a = !0),
-              this.trigger(
-                "archive_chat_from_entrypoint",
-                o("WAWebStateUtils").unproxy(t),
-                n,
-                r,
-                a,
-              ));
+          (i.archiveChatFromEntryPoint = function (t) {
+            var e = t.archive,
+              n = t.chat,
+              r = t.entryPoint,
+              a = t.showToast,
+              i = a === void 0 ? !0 : a;
+            this.trigger("archive_chat_from_entrypoint", {
+              archive: e,
+              chat: o("WAWebStateUtils").unproxy(n),
+              entryPoint: r,
+              showToast: i,
+            });
           }),
           (i.pinChat = function (t, n) {
             this.trigger("pin_chat", o("WAWebStateUtils").unproxy(t), n);

@@ -1,6 +1,7 @@
 __d(
   "WAWebDBProcessInitialHistorySyncMessage",
   [
+    "MetaConfig",
     "Promise",
     "WALogger",
     "WAPromiseReduce",
@@ -8,6 +9,7 @@ __d(
     "WAWeb-dexie",
     "WAWebApiChatUnreadMention",
     "WAWebApiGroupInviteV4Store",
+    "WAWebBackendApi",
     "WAWebChatCollection",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBGroupHistoryPreProcessor",
@@ -22,6 +24,7 @@ __d(
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebQuarantineDataStore",
+    "WAWebSchemaChat",
     "WAWebSchemaFtsIndexingQueue",
     "WAWebSchemaMessage",
     "WAWebSchemaMessageAssociation",
@@ -220,13 +223,38 @@ __d(
               }
             })(),
           );
-          return (
-            b.push(
+          if (
+            (b.push(
               o("WAWebQuarantineDataStore").bulkCreateOrReplaceQuarantineData(
                 S,
               ),
             ),
-            i.size &&
+            i.size)
+          )
+            if (r("MetaConfig")._("470")) {
+              var R = Array.from(i.keys()),
+                L = yield o("WAWebSchemaChat").getChatTable().bulkGet(R),
+                E = new Map();
+              (L.forEach(function (e) {
+                if (e && e.id) {
+                  var t;
+                  E.set(
+                    e.id.toString(),
+                    (t = e.unreadMentionCount) != null ? t : 0,
+                  );
+                }
+              }),
+                i.forEach(function (e, t) {
+                  var n,
+                    r = (n = E.get(t)) != null ? n : 0;
+                  r > 0 && l.set(t, Math.max(r - e.length, 0));
+                }),
+                o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, l),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateUnreadMentionsFromInitialHistorySync",
+                  { unreadMentionsToAdd: i, pendingUnreadMentionsMap: l },
+                ));
+            } else
               (i.forEach(function (e, t) {
                 var n,
                   a,
@@ -261,67 +289,64 @@ __d(
                         .HISTORYC_SYNC_CHUNK,
                     ));
               }),
-              o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, l)),
-            (p || (p = n("Promise")))
-              .all(b)
-              .catch(function (e) {
-                if (
-                  (o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] store initial msgs err (optimized) ",
-                        "",
-                      ])),
-                    e,
-                  ),
-                  e instanceof r("WAWeb-dexie").BulkError ||
-                    e instanceof r("WAWeb-dexie").ConstraintError)
-                )
-                  return (
-                    o("WALogger")
-                      .LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[history sync] Retrying initial sync bulk add on error",
-                          ])),
-                      )
-                      .tags("history-sync-initial-sync-optimized"),
-                    o("WAWebSchemaMessage")
-                      .getMessageTable()
-                      .bulkCreateOrMerge(f.messages)
-                  );
-                throw e;
-              })
-              .then(function () {
-                r("WAWeb-dexie").ignoreTransaction(function () {
-                  o("WAWebSchemaFtsIndexingQueue")
-                    .getFtsIndexingQueueTable()
-                    .bulkCreateOrReplace(
-                      f.messages.map(function (e) {
-                        return { id: String(e.rowId) };
-                      }),
-                    )
-                    .then(function () {
-                      o("WAWebFtsClient")
-                        .ftsClient.index()
-                        .catch(r("WAWebNoop"));
-                    });
-                });
-              })
-              .catch(function (e) {
-                o("WALogger").WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] store initial msgs err (retry) ",
+                o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, l));
+          return (p || (p = n("Promise")))
+            .all(b)
+            .catch(function (e) {
+              if (
+                (o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync] store initial msgs err (optimized) ",
                       "",
                     ])),
                   e,
+                ),
+                e instanceof r("WAWeb-dexie").BulkError ||
+                  e instanceof r("WAWeb-dexie").ConstraintError)
+              )
+                return (
+                  o("WALogger")
+                    .LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync] Retrying initial sync bulk add on error",
+                        ])),
+                    )
+                    .tags("history-sync-initial-sync-optimized"),
+                  o("WAWebSchemaMessage")
+                    .getMessageTable()
+                    .bulkCreateOrMerge(f.messages)
                 );
-                var t = f.messages.map(function (e) {
-                  return e.id.toString();
-                });
-              })
-          );
+              throw e;
+            })
+            .then(function () {
+              r("WAWeb-dexie").ignoreTransaction(function () {
+                o("WAWebSchemaFtsIndexingQueue")
+                  .getFtsIndexingQueueTable()
+                  .bulkCreateOrReplace(
+                    f.messages.map(function (e) {
+                      return { id: String(e.rowId) };
+                    }),
+                  )
+                  .then(function () {
+                    o("WAWebFtsClient").ftsClient.index().catch(r("WAWebNoop"));
+                  });
+              });
+            })
+            .catch(function (e) {
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync] store initial msgs err (retry) ",
+                    "",
+                  ])),
+                e,
+              );
+              var t = f.messages.map(function (e) {
+                return e.id.toString();
+              });
+            });
         })),
         g.apply(this, arguments)
       );

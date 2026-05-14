@@ -21,7 +21,7 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
             i = yield o("CometRelay")
-              .fetchQuery(e, s, { legacyAdAccountID: t, imageHash: n })
+              .fetchQuery(e, s, { imageHash: n, legacyAdAccountID: t })
               .toPromise(),
             l =
               i == null || (a = i.lwi) == null ? void 0 : a.image_url_from_hash;

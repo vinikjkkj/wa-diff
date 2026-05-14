@@ -26,12 +26,12 @@ __d(
         },
         r("WAWebBizAdCreationRoot.entrypoint"),
         {
-          page_id: l,
-          flow_id: t,
-          ad_account_type: e.accountType,
           ad_account_id: i,
+          ad_account_type: e.accountType,
           boost_id: n == null ? void 0 : n.boostId,
           draft_id: n == null ? void 0 : n.draftId,
+          flow_id: t,
+          page_id: l,
         },
       );
     }
@@ -40,12 +40,12 @@ __d(
         e.relayEnvironment,
         r("WAWebBizAdManagementRootQuery$Parameters"),
         {
+          after: null,
+          draft_page_id: e.adManagementQueryVariables.draftPageId,
+          first: o("WAWebBizAdCreationConsts").AD_MANAGEMENT_INITIAL_LOAD_COUNT,
+          options: {},
           page_id_1: e.adManagementQueryVariables.pageId1,
           page_id_2: e.adManagementQueryVariables.pageId2,
-          draft_page_id: e.adManagementQueryVariables.draftPageId,
-          options: {},
-          first: o("WAWebBizAdCreationConsts").AD_MANAGEMENT_INITIAL_LOAD_COUNT,
-          after: null,
         },
         { fetchPolicy: "network-only" },
       );

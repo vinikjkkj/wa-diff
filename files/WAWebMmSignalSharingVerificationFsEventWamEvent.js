@@ -2,6 +2,7 @@ __d(
   "WAWebMmSignalSharingVerificationFsEventWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumConsentSource",
     "WAWebWamEnumMmDirectionFrom",
     "WAWebWamEnumOnePdSignalNotSharedReason",
     "WAWebWamEnumSignalCanceledReason",
@@ -20,6 +21,11 @@ __d(
           MmSignalSharingVerificationFsEvent: [
             6798,
             {
+              accountLinked: [19, e.TYPES.BOOLEAN],
+              consentSource: [
+                20,
+                o("WAWebWamEnumConsentSource").CONSENT_SOURCE,
+              ],
               isCompanionDevice: [1, e.TYPES.BOOLEAN],
               isLatestConversionToken: [15, e.TYPES.BOOLEAN],
               isShimmingSignal: [13, e.TYPES.BOOLEAN],

@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAbstractStore",
+    "WAWebIdentityFunction",
     "WAWebStorageCmd",
     "WAWebStorageErrorHandlingUtils",
     "asyncToGeneratorRuntime",
@@ -19,22 +20,20 @@ __d(
       p,
       _,
       f = (function (t) {
-        function a(e, n, r, o) {
-          var a, i, l;
+        function a(e, n, r, a) {
+          var i, l, s;
           return (
-            (l = t.call(this) || this),
-            (l.$KeyValueCacheStore$p_1 = e),
-            (l.$KeyValueCacheStore$p_3 = n),
-            (l.$KeyValueCacheStore$p_4 = r),
-            (l.$KeyValueCacheStore$p_5 =
-              (a = o == null ? void 0 : o.encodeKey) != null
-                ? a
-                : function (e) {
-                    return e;
-                  }),
-            (l.$KeyValueCacheStore$p_6 =
-              (i = o == null ? void 0 : o.matchOptions) != null ? i : {}),
-            l
+            (s = t.call(this) || this),
+            (s.$KeyValueCacheStore$p_1 = e),
+            (s.$KeyValueCacheStore$p_3 = n),
+            (s.$KeyValueCacheStore$p_4 = r),
+            (s.$KeyValueCacheStore$p_5 =
+              (i = a == null ? void 0 : a.encodeKey) != null
+                ? i
+                : o("WAWebIdentityFunction").identityFunction),
+            (s.$KeyValueCacheStore$p_6 =
+              (l = a == null ? void 0 : a.matchOptions) != null ? l : {}),
+            s
           );
         }
         babelHelpers.inheritsLoose(a, t);

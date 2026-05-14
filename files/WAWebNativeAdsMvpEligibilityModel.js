@@ -6,7 +6,7 @@ __d(
       s = !1,
       u = new (r("WAWebEventEmitter"))();
     function c() {
-      return { isQE2Eligible: p(), hasAdvertisedViaLWI: _(), isLoaded: C() };
+      return { hasAdvertisedViaLWI: _(), isLoaded: C(), isQE2Eligible: p() };
     }
     function d(t) {
       ((e = t), (s = !0), u.trigger("updated", c()));

@@ -132,6 +132,36 @@ __d(
               .HISTORYC_SYNC_CHUNK,
           ));
       },
+      updateUnreadMentionsFromInitialHistorySync: function (t) {
+        var e = t.pendingUnreadMentionsMap,
+          n = t.unreadMentionsToAdd;
+        n.forEach(function (t, n) {
+          var a,
+            i,
+            l = o("WAWebChatCollection").ChatCollection.get(n),
+            s =
+              l == null || (a = l.groupMetadata) == null
+                ? void 0
+                : a.unreadMentionMetadata,
+            u = (i = e.get(n)) != null ? i : 0;
+          if (s && s.pendingUnreadMentionCount > 0) {
+            s.pendingUnreadMentionCount = u;
+            var c = t.map(function (e) {
+              var t = e.id,
+                n = e.timestamp;
+              return new (r("WAWebUnreadMentionModel"))({
+                id: t,
+                timestamp: n,
+              });
+            });
+            s.addUnreadMentions(
+              c,
+              o("WAWebGroupUnreadMessageType").UnreadMessageType
+                .HISTORYC_SYNC_CHUNK,
+            );
+          }
+        });
+      },
     };
     l.UnreadMentionMetadataBridgeApi = e;
   },

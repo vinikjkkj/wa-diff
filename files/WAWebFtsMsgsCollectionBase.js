@@ -62,15 +62,17 @@ __d(
       var a = t.prototype;
       return (
         (a.searchImpl = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, o, a, i) {
-              throw (
-                n === void 0 && (n = 1),
-                r("err")("searchImpl must be implemented")
-              );
-            },
-          );
-          function t(t, n, r, o, a, i) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.chat,
+              n = e.count,
+              o = e.direction,
+              a = e.filter,
+              i = e.page,
+              l = i === void 0 ? 1 : i,
+              s = e.searchTerm;
+            throw r("err")("searchImpl must be implemented");
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;
@@ -113,7 +115,14 @@ __d(
           }
           this.searchAbortController = new AbortController();
           var _ = this.searchAbortController.signal,
-            f = this.searchImpl(n, s, ++this.resultPage, a, l, u);
+            f = this.searchImpl({
+              chat: n,
+              count: a,
+              direction: u,
+              filter: l,
+              page: ++this.resultPage,
+              searchTerm: s,
+            });
           return (
             (this.searchPromise = r("WAPromiseRaceAbort")(f, _)
               .then(function (t) {

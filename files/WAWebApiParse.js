@@ -754,6 +754,7 @@ __d(
           o("WAWebVoipGroupCallAccentColors").GROUP_CALL_DARK_COLORS.length - 1;
       return {
         audioDeviceId: t != null && t !== "" ? t : null,
+        autoJoin: e.get("auto_join") === "1",
         colorIndex: i != null && !isNaN(i) && i >= 1 && i <= l ? i : null,
         speakerDeviceId: n != null && n !== "" ? n : null,
         videoDeviceId: r != null && r !== "" ? r : null,

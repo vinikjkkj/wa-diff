@@ -13,62 +13,65 @@ __d(
     function e(e) {
       var t,
         n,
-        a = e.baseMessage,
-        i = e.messageProtobuf,
-        l = e.msgContext,
-        s = i == null ? void 0 : i.lottieStickerMessage,
-        u = s == null || (t = s.message) == null ? void 0 : t.stickerMessage,
-        c = i == null ? void 0 : i.stickerMessage;
-      if ((u != null && (c = u), c != null)) {
-        var d = o(
+        a,
+        i = e.baseMessage,
+        l = e.messageProtobuf,
+        s = e.msgContext,
+        u = l == null ? void 0 : l.lottieStickerMessage,
+        c = u == null || (t = u.message) == null ? void 0 : t.stickerMessage,
+        d = l == null ? void 0 : l.stickerMessage;
+      if ((c != null && (d = c), d != null)) {
+        var m = o(
             "WAWebMediaMessageGetValidatedProperties",
           ).getValidatedMediaMessageProperties(
-            c,
-            a,
-            l,
+            d,
+            i,
+            s,
             o("WAWebMsgType").MSG_TYPE.STICKER,
           ),
-          m = d.fileEncSha256,
-          p = d.fileLength,
-          _ = d.fileSha256,
-          f = d.mediaKey,
-          g = d.url,
-          h = babelHelpers.extends({}, a, {
+          p = m.fileEncSha256,
+          _ = m.fileLength,
+          f = m.fileSha256,
+          g = m.mediaKey,
+          h = m.url,
+          y = babelHelpers.extends({}, i, {
             type: o("WAWebMsgType").MSG_TYPE.STICKER,
             kind: o("WAWebMsgType").MsgKind.Sticker,
-            deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(g),
-            directPath: c.directPath || "",
-            mimetype: c.mimetype || "",
-            filehash: o("WAWebE2EProtoParserApi").decodeBytes(_),
-            encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(m),
+            deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(h),
+            directPath: d.directPath || "",
+            mimetype: d.mimetype || "",
+            filehash: o("WAWebE2EProtoParserApi").decodeBytes(f),
+            encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(p),
             mediaKey: r("WABase64Sanitize")(
-              o("WAWebE2EProtoParserApi").decodeBytes(f),
+              o("WAWebE2EProtoParserApi").decodeBytes(g),
             ),
             mediaKeyTimestamp:
-              c.mediaKeyTimestamp != null
-                ? o("WALongInt").numberOrThrowIfTooLarge(c.mediaKeyTimestamp)
+              d.mediaKeyTimestamp != null
+                ? o("WALongInt").numberOrThrowIfTooLarge(d.mediaKeyTimestamp)
                 : o("WATimeUtils").unixTime(),
-            size: p,
-            height: c.height || 0,
-            width: c.width || 0,
-            firstFrameLength: c.firstFrameLength,
-            firstFrameSidecar: c.firstFrameSidecar,
-            isAnimated: c.isAnimated,
-            isLottie: c.isLottie,
+            size: _,
+            height: d.height || 0,
+            width: d.width || 0,
+            firstFrameLength: d.firstFrameLength,
+            firstFrameSidecar: d.firstFrameSidecar,
+            isAnimated: d.isAnimated,
+            isLottie: d.isLottie,
             stickerPremiumStatus:
               (n = o("WAWebStickerPremiumStatus").StickerPremiumStatus.cast(
-                c.premium,
+                d.premium,
               )) != null
                 ? n
                 : o("WAWebStickerPremiumStatus").StickerPremiumStatus.NONE,
             stickerSentTs: o("WALongInt").maybeNumberOrThrowIfTooLarge(
-              c.stickerSentTs,
+              d.stickerSentTs,
             ),
-            isAvatar: c.isAvatar,
+            isAvatar: d.isAvatar,
+            emojis:
+              (a = d.emojis) == null ? void 0 : a.split(" ").filter(Boolean),
           });
         return (
-          o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(h, c),
-          { msgData: h, contextInfo: c.contextInfo }
+          o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(y, d),
+          { msgData: y, contextInfo: d.contextInfo }
         );
       }
     }

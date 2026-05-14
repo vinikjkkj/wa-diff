@@ -16,13 +16,13 @@ __d(
         event: "enter_flow_error",
         eventCategory: "error",
         loggerContext: {
+          codebase: "whatsapp_smb",
           entryPoint: "whatsapp_smb_web_manage_ads_native",
           flow: "create",
           flowID: n,
           pageID: t,
-          product: "boosted_message",
-          codebase: "whatsapp_smb",
           platform: "whatsapp_smb_web",
+          product: "boosted_message",
         },
         overrideErrorClassName: e.name,
         overrideErrorMessage: e.message,
@@ -39,7 +39,7 @@ __d(
         o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.PAGE,
         t,
         null,
-        JSON.stringify({ pageId: n, error_message: e.message }),
+        JSON.stringify({ error_message: e.message, pageId: n }),
       );
     }
     ((l.logAdCreationEnterFlowError = e), (l.logManageAdsGenericError = s));

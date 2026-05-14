@@ -41,9 +41,9 @@ __d(
     var g = "\u2014";
     function h() {
       return u.jsx(r("WDSText.react"), {
-        type: "Body1",
         colorName: "contentDefault",
         maxLines: 1,
+        type: "Body1",
         children: g,
       });
     }
@@ -66,8 +66,8 @@ __d(
                 boostId: e.boostId,
                 boostingStatus: e.boostingStatus,
                 durationInDays: e.durationInDays,
-                thumbnailUrl: e.thumbnailUrl,
                 startTime: e.startTime,
+                thumbnailUrl: e.thumbnailUrl,
               });
         },
       },
@@ -80,9 +80,9 @@ __d(
           var e = t.item;
           return e.isDraft
             ? u.jsx(r("WDSText.react"), {
-                type: "Body1",
                 colorName: "contentDeemphasized",
                 maxLines: 1,
+                type: "Body1",
                 children: s._(/*BTDS*/ "Draft"),
               })
             : u.jsx(r("WAWebBizAdManagementStatusCell.react"), {
@@ -129,8 +129,8 @@ __d(
           return e.isDraft
             ? u.jsx(h, {})
             : u.jsx(r("WAWebBizAdManagementCostPerConversationCell.react"), {
-                formattedSpent: e.formattedSpent,
                 conversations: e.conversations,
+                formattedSpent: e.formattedSpent,
               });
         },
       },

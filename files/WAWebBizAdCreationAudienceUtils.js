@@ -88,17 +88,17 @@ __d(
           var e = t.saved_audience_edit;
           n({ subjectToDSA: !!(e != null && e.subject_to_dsa) });
         },
-        updater: function (n) {
-          var e = n.get(l);
-          e != null &&
-            (e.setValue(t, "name"),
-            e.setValue(c, "target_spec_string_without_placements"));
-        },
         onError: function (t) {
           throw (
             a == null || a(t),
             r("err")("Error when committing audience edit mutation", t)
           );
+        },
+        updater: function (n) {
+          var e = n.get(l);
+          e != null &&
+            (e.setValue(t, "name"),
+            e.setValue(c, "target_spec_string_without_placements"));
         },
         variables: { name: t, savedAudienceID: l, targetingSpecString: c },
       });

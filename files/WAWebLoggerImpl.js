@@ -17,6 +17,7 @@ __d(
     "WAWebNormalizeStack",
     "WAWebWAWCStorage",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -312,7 +313,9 @@ __d(
                 e.logs[e.writeFrom] != null && e.timer.debounceAndCap(250, 1e3);
               })
               .catch(function (t) {
-                !r("gkx")("26258") && e.$7 && e.$7(t.message);
+                !r("gkx")("26258") &&
+                  e.$7 &&
+                  e.$7(r("getErrorSafe")(t).message);
               })
               .finally(function () {
                 e.pending = void 0;
@@ -371,7 +374,9 @@ __d(
               })
               .catch(function (t) {
                 return (
-                  !r("gkx")("26258") && e.$7 && e.$7(t.message),
+                  !r("gkx")("26258") &&
+                    e.$7 &&
+                    e.$7(r("getErrorSafe")(t).message),
                   e.logs.filter(Boolean).map(function (e) {
                     return e.m;
                   })

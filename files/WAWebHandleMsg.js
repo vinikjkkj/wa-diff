@@ -517,7 +517,7 @@ __d(
                                       .E2EProcessResult
                                       .SIGNAL_OLD_COUNTER_ERROR)
                               ? o("WAWebHandleMsgSendReceipt")
-                                  .sendReceipt(P, N, L)
+                                  .sendReceipt(P, N, L, { canNack: S(T) })
                                   .catch(function (e) {
                                     o("WALogger")
                                       .ERROR(

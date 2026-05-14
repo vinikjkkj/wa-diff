@@ -70,75 +70,77 @@ __d(
         errors: [{ code: t, message: n }],
       });
     }
-    function p(e, t, n, r) {
+    function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            var l,
-              s = r("WAXWhatsAppWebGraphQLControllerRouteBuilder")
-                .buildUri({})
-                .toString(),
-              u = { variables: JSON.stringify(n) };
-            (t != null && (u.doc_id = t), (u[a] = i));
-            var c = yield o("WAWebXControllerFetchUtils").fetchFromXController(
-                s,
-                { method: "POST", additionalParams: u },
-              ),
-              d = yield o("WAWebXControllerFetchUtils").extractJsonFromResponse(
-                c,
-              );
-            if (d == null)
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            a = t.docId,
+            i = t.locale,
+            l = t.localeParameterName,
+            s = t.variables,
+            u = r("WAXWhatsAppWebGraphQLControllerRouteBuilder")
+              .buildUri({})
+              .toString(),
+            c = { variables: JSON.stringify(s) };
+          (a != null && (c.doc_id = a), (c[l] = i));
+          var d = yield o("WAWebXControllerFetchUtils").fetchFromXController(
+              u,
+              { method: "POST", additionalParams: c },
+            ),
+            p = yield o("WAWebXControllerFetchUtils").extractJsonFromResponse(
+              d,
+            );
+          if (p == null)
+            throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
+              errors: [
+                { code: 0, message: "Failed to parse GraphQL response" },
+              ],
+            });
+          var _ = (n = p.payload) != null ? n : p;
+          if (!d.ok) {
+            if ((_ == null ? void 0 : _.error) != null)
               throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
-                errors: [
-                  { code: 0, message: "Failed to parse GraphQL response" },
-                ],
+                errors: [_.error],
               });
-            var p = (l = d.payload) != null ? l : d;
-            if (!c.ok) {
-              if ((p == null ? void 0 : p.error) != null)
-                throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
-                  errors: [p.error],
-                });
-              m(c);
-            }
-            if ((p == null ? void 0 : p.errors) != null) {
-              var _ = new (o("WAWebGraphQLServerError").GraphQLServerError)({
-                  errors: p.errors,
-                }),
-                f = p.errors.some(function (e) {
-                  return (
-                    e.code ===
-                    o("WAWebGraphQLConstants")
-                      .WHATSAPP_GRAPHQL_UNAUTHORIZED_ERROR_CODE
-                  );
-                });
-              throw (
-                f &&
-                  t !==
-                    o("WAWebGraphQLPersistedQueries").PersistedQueries
-                      .WAWebCanonicalUserValidQuery &&
-                  !r("gkx")("26256") &&
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[canonical][gql] unauth err: ",
-                          " loggedIn=",
-                          "",
-                        ])),
-                      o("WAWebGraphQLServerError").formatGraphQLServerError(_),
-                      r("CurrentUser").isLoggedIn(),
-                    )
-                    .sendLogs("canonical-gql-error", { sampling: 0.1 }),
-                _
-              );
-            }
-            return p;
-          },
-        )),
+            m(d);
+          }
+          if ((_ == null ? void 0 : _.errors) != null) {
+            var f = new (o("WAWebGraphQLServerError").GraphQLServerError)({
+                errors: _.errors,
+              }),
+              g = _.errors.some(function (e) {
+                return (
+                  e.code ===
+                  o("WAWebGraphQLConstants")
+                    .WHATSAPP_GRAPHQL_UNAUTHORIZED_ERROR_CODE
+                );
+              });
+            throw (
+              g &&
+                a !==
+                  o("WAWebGraphQLPersistedQueries").PersistedQueries
+                    .WAWebCanonicalUserValidQuery &&
+                !r("gkx")("26256") &&
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[canonical][gql] unauth err: ",
+                        " loggedIn=",
+                        "",
+                      ])),
+                    o("WAWebGraphQLServerError").formatGraphQLServerError(f),
+                    r("CurrentUser").isLoggedIn(),
+                  )
+                  .sendLogs("canonical-gql-error", { sampling: 0.1 }),
+              f
+            );
+          }
+          return _;
+        })),
         _.apply(this, arguments)
       );
     }
@@ -204,7 +206,13 @@ __d(
                       h.replace("-", "_"),
                       o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
                     );
-                  if (s === "whatsapp_web") return p(f, n, g, y);
+                  if (s === "whatsapp_web")
+                    return p({
+                      docId: f,
+                      locale: y,
+                      localeParameterName: g,
+                      variables: n,
+                    });
                   var C =
                       ((l = {
                         access_token:

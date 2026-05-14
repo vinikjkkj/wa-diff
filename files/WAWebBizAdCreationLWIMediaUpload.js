@@ -52,10 +52,10 @@ __d(
                 l,
                 {
                   ad_account_id: i,
-                  media_ids: d,
-                  page_id: a,
                   fb_access_token:
                     p != null ? { sensitive_string_value: p } : null,
+                  media_ids: d,
+                  page_id: a,
                 },
                 { accessToken: u.token, environmentType: "facebook" },
               ),
@@ -70,9 +70,9 @@ __d(
             return f.map(function (e) {
               return {
                 hash: e.hash,
-                videoId: e.video_id,
-                url: e.url,
                 type: s(e.type),
+                url: e.url,
+                videoId: e.video_id,
               };
             });
           }

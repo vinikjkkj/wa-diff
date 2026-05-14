@@ -146,8 +146,15 @@ __d(
                   o("WAWebWamPlatform").getWamPlatform()
                 ];
               (S === "web"
-                ? o("WAWebUpdater").Updater.update(v, !1, 0)
-                : o("WAWebUpdater").Updater.update(void 0, !1, 0),
+                ? o("WAWebUpdater").Updater.update({
+                    belowHard: 0,
+                    belowSoft: !1,
+                    serverVersion: v,
+                  })
+                : o("WAWebUpdater").Updater.update({
+                    belowHard: 0,
+                    belowSoft: !1,
+                  }),
                 o("WAComms").stopComms());
               break;
             }

@@ -138,7 +138,7 @@ __d(
             o("WAWebCanonicalUtils").setTokenCreationState(
               o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
             ));
-          var n = yield p(e, { retry: !1 });
+          var n = yield p(e, { retry: !0 });
           return (f(n, t), n);
         })),
         h.apply(this, arguments)

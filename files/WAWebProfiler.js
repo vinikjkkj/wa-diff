@@ -6,6 +6,7 @@ __d(
     "WATypeUtils",
     "WAWebDBStats",
     "WAWebGetAllModelStorageTableNames",
+    "WAWebIdentityFunction",
     "WAWebNoop",
     "compactMap",
     "gkx",
@@ -48,9 +49,10 @@ __d(
             t.queryTimes && t.queryTimes.length > 0
               ? Number(
                   (
-                    r("sumBy")(t.queryTimes, function (e) {
-                      return e;
-                    }) / t.queryTimes.length
+                    r("sumBy")(
+                      t.queryTimes,
+                      o("WAWebIdentityFunction").identityFunction,
+                    ) / t.queryTimes.length
                   ).toFixed(2),
                 )
               : 0,
@@ -62,9 +64,10 @@ __d(
             t.recordCounts && t.recordCounts.length > 0
               ? Number(
                   (
-                    r("sumBy")(t.recordCounts, function (e) {
-                      return e;
-                    }) / t.recordCounts.length
+                    r("sumBy")(
+                      t.recordCounts,
+                      o("WAWebIdentityFunction").identityFunction,
+                    ) / t.recordCounts.length
                   ).toFixed(2),
                 )
               : 0,

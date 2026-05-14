@@ -6,6 +6,7 @@ __d(
     "WAWebEnvironment",
     "WAWebMimeTypes",
     "WAWebUA",
+    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -116,6 +117,9 @@ __d(
       return r("justknobx")._("2723");
     }
     function k() {
+      return r("gkx")("25214");
+    }
+    function I() {
       return e() && r("justknobx")._("3269");
     }
     ((l.isWebTPPlatformSupported = e),
@@ -134,7 +138,8 @@ __d(
       (l.isWebTPEditPdfInWhatsappEnabled = R),
       (l.isAsyncPdfSendEnabled = L),
       (l.isPdfPreviewBeforeSendEnabled = E),
-      (l.isWebTPSharerSavePreferenceEnabled = k));
+      (l.isWebTPAnnotationsEnabled = k),
+      (l.isWebTPSharerSavePreferenceEnabled = I));
   },
   98,
 );

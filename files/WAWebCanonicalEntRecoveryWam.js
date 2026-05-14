@@ -3,6 +3,7 @@ __d(
   [
     "WAWebCanonicalEntRecoveryCompanionWamEvent",
     "WAWebCanonicalEntRecoveryCriticalEventWamEvent",
+    "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUserPrefsCanonical",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumCanonicalEntEventMarker",
@@ -20,10 +21,10 @@ __d(
           o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(e)));
     }
     function c() {
-      return crypto.randomUUID();
+      return r("WAWebPonyfillsCryptoRandomUUID")();
     }
     function d() {
-      return crypto.randomUUID();
+      return r("WAWebPonyfillsCryptoRandomUUID")();
     }
     function m() {
       var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();

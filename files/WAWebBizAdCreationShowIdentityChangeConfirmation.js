@@ -14,13 +14,13 @@ __d(
     function c(e) {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          title: s._(/*BTDS*/ "Continue without saving"),
+          cancelText: r("WAWebFbtCommon")("Cancel"),
+          okText: s._(/*BTDS*/ "Continue"),
+          onCancel: o("WAWebModalManager").closeModalManager,
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(), e());
           },
-          okText: s._(/*BTDS*/ "Continue"),
-          onCancel: o("WAWebModalManager").closeModalManager,
-          cancelText: r("WAWebFbtCommon")("Cancel"),
+          title: s._(/*BTDS*/ "Continue without saving"),
           children: s._(/*BTDS*/ "Your progress will be lost."),
         }),
       );

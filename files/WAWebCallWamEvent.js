@@ -28,6 +28,7 @@ __d(
     "WAWebWamEnumDataChannelConnectionState",
     "WAWebWamEnumDeliveredPriority",
     "WAWebWamEnumDeviceArch",
+    "WAWebWamEnumDndRingPathType",
     "WAWebWamEnumEndCallConfirmationType",
     "WAWebWamEnumFieldStatsRowType",
     "WAWebWamEnumGcInitiationType",
@@ -747,6 +748,10 @@ __d(
               deviceHardware: [229, e.TYPES.STRING],
               deviceNativeSamplingRate: [1879, e.TYPES.INTEGER],
               dlOnlyHighPlrPct: [1364, e.TYPES.NUMBER],
+              dndRingPath: [
+                2923,
+                o("WAWebWamEnumDndRingPathType").DND_RING_PATH_TYPE,
+              ],
               doNotDisturbEnabled: [1597, e.TYPES.BOOLEAN],
               dontConnectForPausedVidTargetSample: [2588, e.TYPES.BOOLEAN],
               downlinkOvershootCountSs: [1440, e.TYPES.INTEGER],

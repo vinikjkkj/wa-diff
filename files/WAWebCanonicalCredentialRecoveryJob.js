@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
+    "WAWebBackendEventBus",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebCanonicalGating",
     "WAWebCanonicalRecoveryActions",
@@ -24,11 +25,12 @@ __d(
       f,
       g,
       h,
-      y = 30,
-      C = 2;
-    function b() {
+      y,
+      C = 30,
+      b = 2;
+    function v() {
       var t = o("WAWebUserPrefsCanonical").getRetryBackoffSeconds(),
-        n = t <= 0 ? y : Math.min(t * C, o("WATimeUtils").HOUR_SECONDS);
+        n = t <= 0 ? C : Math.min(t * b, o("WATimeUtils").HOUR_SECONDS);
       return (
         o("WAWebUserPrefsCanonical").setRetryBackoffSeconds(n),
         o("WALogger").LOG(
@@ -42,21 +44,21 @@ __d(
         n
       );
     }
-    function v() {
+    function S() {
       (o("WAWebUserPrefsCanonical").clearRetryBackoffSeconds(),
         o("WAWebUserPrefsCanonical").clearNonceRequestTimestamp());
     }
-    function S() {
+    function R() {
       o("WAWebBackendApi").frontendFireAndForget("scheduleCanonicalReload", {
         purpose: "recovery",
       });
     }
-    function R() {
-      return L.apply(this, arguments);
-    }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebCanonicalGating").isCachedNonceRecoveryEnabled()) {
             o("WALogger").LOG(
               s ||
@@ -74,8 +76,8 @@ __d(
                     ])),
                 ),
                 r("WAWebODS").incr("web.app.canonical.recovery.success"),
-                v(),
                 S(),
+                R(),
                 !0
               );
             o("WALogger").LOG(
@@ -105,16 +107,26 @@ __d(
             !1
           );
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
+            if (!o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd)
+              return (
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[canonical] backend not ready, deferring recovery",
+                    ])),
+                ),
+                C
+              );
             if (o("WAWebCanonicalUtils").getCanonicalReloadPending() != null)
               return o("WATimeUtils").DAY_SECONDS;
             var e = o("WAWebCanonicalUtils").getTokenCreationState();
@@ -123,12 +135,12 @@ __d(
             if (e === o("WAWebCanonicalUtils").TokenCreationState.PRESENT)
               return (
                 o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] token present, scheduling reload",
                     ])),
                 ),
-                S(),
+                R(),
                 o("WATimeUtils").DAY_SECONDS
               );
             if (o("WAWebCanonicalUtils").isCurrentUserLoggedIn()) {
@@ -138,36 +150,36 @@ __d(
               if (t !== !1)
                 return (
                   o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[canonical] token valid, reschedule in 1 day",
                       ])),
                   ),
-                  v(),
+                  S(),
                   o("WATimeUtils").DAY_SECONDS
                 );
               o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] token invalid, starting recovery",
                   ])),
               );
             } else
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] token missing, starting recovery",
                   ])),
               );
             r("WAWebODS").incr("web.app.canonical.recovery.attempt");
-            var n = yield R();
-            return n ? o("WATimeUtils").DAY_SECONDS : b();
+            var n = yield L();
+            return n ? o("WATimeUtils").DAY_SECONDS : v();
           } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] recovery job failed: ",
                       "",
                     ])),
@@ -180,14 +192,14 @@ __d(
                 "recovery",
                 String(e),
               ),
-              b()
+              v()
             );
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    l.maybeRecoverCanonicalCredentials = E;
+    l.maybeRecoverCanonicalCredentials = k;
   },
   98,
 );

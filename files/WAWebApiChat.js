@@ -52,7 +52,8 @@ __d(
       k,
       I,
       T,
-      D = (function (e) {
+      D,
+      x = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -65,12 +66,12 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
             b ||
               (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -99,19 +100,19 @@ __d(
                   )
                   .verbose(),
                 n instanceof r("WAWeb-dexie").ConstraintError
-                  ? (yield G(e, t), new D())
+                  ? (yield K(e, t), new x())
                   : r("err")("create chat table failed"));
           }
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaChat")
             .getChatTable()
             .get(e.toString(), !1);
@@ -125,14 +126,14 @@ __d(
                   ])),
                 e.toString(),
               ),
-              (T || (T = n("Promise"))).reject(
+              (D || (D = n("Promise"))).reject(
                 r("err")("Failed to find row in chat table"),
               ));
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(t) {
+    function w(t) {
       return (
         o("WALogger").LOG(
           e ||
@@ -184,7 +185,7 @@ __d(
           )
       );
     }
-    function w(e) {
+    function A(e) {
       var t = e.chatId,
         a = e.keepChatUnread,
         i = e.lastReadRowId,
@@ -346,12 +347,12 @@ __d(
                           );
                         }),
                       )),
-                  yield (T || (T = n("Promise"))).all(R),
+                  yield (D || (D = n("Promise"))).all(R),
                   p && s != null && b.add(s.toString()),
                   b.size === 0)
                 )
                   return { fullyReadThreadIds: [] };
-                var D = Array.from(b).map(function (e) {
+                var T = Array.from(b).map(function (e) {
                   return r("WAWebThreadId").from(e);
                 });
                 return (
@@ -359,12 +360,12 @@ __d(
                     "WAWebThreadMetadataBulkJob",
                   ).bulkUpdateThreadUnreadCountWithTable(
                     _,
-                    D.map(function (e) {
+                    T.map(function (e) {
                       return { threadId: e, unreadCount: 0 };
                     }),
                   ),
                   {
-                    fullyReadThreadIds: D,
+                    fullyReadThreadIds: T,
                     chatUnreadUpdate: L != null ? L : void 0,
                   }
                 );
@@ -376,7 +377,7 @@ __d(
           })(),
         );
     }
-    function A(e) {
+    function F(e) {
       var t = e.chatId,
         a = e.readMsgKeys,
         i = e.threadId,
@@ -475,7 +476,79 @@ __d(
           })(),
         );
     }
-    function F(e) {
+    function O(e) {
+      return B.apply(this, arguments);
+    }
+    function B() {
+      return (
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgKeys,
+            a = e.readAt,
+            i = yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                ["message"],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var n = e[0],
+                        r = yield n.bulkGet(
+                          t.map(function (e) {
+                            return e.toString();
+                          }),
+                        ),
+                        i = [];
+                      for (var l of r)
+                        if (l != null) {
+                          var s = l.afterReadDuration;
+                          if (
+                            !(s == null || s <= 0) &&
+                            l.expiredTimestamp != null
+                          ) {
+                            var u = a + s;
+                            u >= l.expiredTimestamp ||
+                              i.push({ id: l.id, expiredTimestamp: u });
+                          }
+                        }
+                      return (
+                        i.length === 0 ||
+                          (o("WALogger")
+                            .LOG(
+                              R ||
+                                (R = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[tightenAfterReadExpirationFromPeerReceipt] tightened ",
+                                  " msgs from peer-read receipt",
+                                ])),
+                              i.length,
+                            )
+                            .tags("after-read"),
+                          yield n.bulkMergeOnly(i)),
+                        i
+                      );
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              );
+          if (i.length !== 0) {
+            var l = i.map(function (e) {
+              return {
+                id: r("WAWebMsgKey").fromString(e.id),
+                expiredTimestamp: e.expiredTimestamp,
+              };
+            });
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateMsgExpiredTimestamps",
+              { updates: l },
+            );
+          }
+        })),
+        B.apply(this, arguments)
+      );
+    }
+    function W(e) {
       return (
         o("WALogger").LOG(
           f ||
@@ -488,7 +561,7 @@ __d(
           .lock(["chat"], function (t) {
             var r = t[0],
               a = Array.from(e.keys());
-            if (a.length === 0) return (T || (T = n("Promise"))).resolve();
+            if (a.length === 0) return (D || (D = n("Promise"))).resolve();
             var i = a.map(function (t) {
               var n,
                 r = (n = e.get(t)) != null ? n : !1;
@@ -508,7 +581,7 @@ __d(
           })
       );
     }
-    function O(e, t, r) {
+    function q(e, t, r) {
       return (
         t === void 0 && (t = 1),
         r === void 0 && (r = !0),
@@ -548,7 +621,7 @@ __d(
           )
       );
     }
-    function B() {
+    function U() {
       o("WALogger").LOG(
         y ||
           (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -591,7 +664,7 @@ __d(
           })(),
         );
     }
-    function W() {
+    function V() {
       var e = o("WAWebTrustedContactsUtils").tokenExpirationCutoff(
           o("WAWebTrustedContactsUtils").TcTokenMode.Receiver,
         ),
@@ -620,12 +693,12 @@ __d(
           })(),
         );
     }
-    function q(e) {
+    function H(e) {
       return o("WAWebSchemaChat")
         .getChatTable()
         .anyOf(["accountLid"], [e.toString()]);
     }
-    function U() {
+    function G() {
       return o("WAWebSchemaChat")
         .getChatTable()
         .all()
@@ -635,12 +708,12 @@ __d(
           });
         });
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function H() {
+    function j() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return e.id.toString();
             }),
@@ -666,22 +739,22 @@ __d(
             });
           return r;
         })),
-        H.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function G(e, t) {
-      return z.apply(this, arguments);
+    function K(e, t) {
+      return Q.apply(this, arguments);
     }
-    function z() {
+    function Q() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(e)) {
               if (
                 (o("WALogger")
                   .LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "createChatRecord: tried to create chat ",
                         "",
                       ])),
@@ -691,12 +764,12 @@ __d(
                 t.accountLid != null)
               ) {
                 var n = o("WAWebWidFactory").createUserLidOrThrow(t.accountLid),
-                  r = yield q(n);
+                  r = yield H(n);
                 if (r.length === 0)
                   o("WALogger")
                     .LOG(
-                      L ||
-                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                      E ||
+                        (E = babelHelpers.taggedTemplateLiteralLoose([
                           "createChatRecord: no chat with the same accountLid ",
                           "",
                         ])),
@@ -707,8 +780,8 @@ __d(
                   var a = o("WAWebWidFactory").createWid(r[0].id).toLogString();
                   o("WALogger")
                     .LOG(
-                      E ||
-                        (E = babelHelpers.taggedTemplateLiteralLoose([
+                      k ||
+                        (k = babelHelpers.taggedTemplateLiteralLoose([
                           "createChatRecord: dup accountLid ",
                           " chatId=",
                           "",
@@ -722,8 +795,8 @@ __d(
             } else
               o("WALogger")
                 .LOG(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
                       "createChatRecord: no account lid provided",
                     ])),
                 )
@@ -731,30 +804,31 @@ __d(
           } catch (e) {
             o("WALogger")
               .LOG(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "createChatRecord: failed debugging duplicate record",
                   ])),
               )
               .tags("missing-lid");
           }
         })),
-        z.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    ((l.CreateChatDuplicateError = D),
-      (l.createChatRecord = x),
-      (l.getChatMeta = P),
-      (l.updateChatForMarkAsReadSync = M),
-      (l.markMessageAndChatAsRead = w),
-      (l.markEditedMessageAndChatAsRead = A),
-      (l.updateChatArchiveDrawer = F),
-      (l.reduceChatUnreadCount = O),
-      (l.pruneExpiredTcTokens = B),
-      (l.pruneExpiredOrphanTcTokens = W),
-      (l.getChatRecordByAccountLid = q),
-      (l.getAllChatsDeserialized = U),
-      (l.injectAdditionalEphemeralInfoFromDB = V));
+    ((l.CreateChatDuplicateError = x),
+      (l.createChatRecord = $),
+      (l.getChatMeta = N),
+      (l.updateChatForMarkAsReadSync = w),
+      (l.markMessageAndChatAsRead = A),
+      (l.markEditedMessageAndChatAsRead = F),
+      (l.tightenAfterReadExpirationFromPeerReceipt = O),
+      (l.updateChatArchiveDrawer = W),
+      (l.reduceChatUnreadCount = q),
+      (l.pruneExpiredTcTokens = U),
+      (l.pruneExpiredOrphanTcTokens = V),
+      (l.getChatRecordByAccountLid = H),
+      (l.getAllChatsDeserialized = G),
+      (l.injectAdditionalEphemeralInfoFromDB = z));
   },
   98,
 );

@@ -112,7 +112,10 @@ __d(
                       var i = [];
                       (r.participants.forEach(function (e) {
                         var n = e.id;
-                        if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
+                        if (
+                          !o("WAWebUserPrefsMeUser").isMeAccount(n) &&
+                          !e.id.isBot()
+                        ) {
                           var r = o("WAWebWidFactory").asUserLidOrThrow(n);
                           (t.gadd(r),
                             i.push(

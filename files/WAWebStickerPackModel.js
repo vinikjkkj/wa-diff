@@ -9,6 +9,7 @@ __d(
     "WAWebMediaTypes",
     "WAWebStickerPackStickerCollection",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -116,12 +117,11 @@ __d(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
                             "id: ",
-                            ", error: ",
                             "",
                           ])),
                         e.id,
-                        String(t.stack || t),
                       )
+                      .catching(r("getErrorSafe")(t))
                       .sendLogs("sticker-panel:sticker-pack download failed");
                   });
           }),

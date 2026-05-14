@@ -11,13 +11,13 @@ __d(
     function e(e, t, n, r, a) {
       var i = new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
         lwiAdsIdentityType: void 0,
-        lwiScreenAction: e,
-        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
-          .LWI_SCREEN_REFERENCE.LWI_NEW_MANAGE_ADS,
         lwiExtras: JSON.stringify({
           available_account_types: n ? ["FB", "WAA"] : ["FB"],
           has_linked_fb_page: r,
         }),
+        lwiScreenAction: e,
+        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
+          .LWI_SCREEN_REFERENCE.LWI_NEW_MANAGE_ADS,
       });
       (a != null && (i.lwiFlowId = a), i.commit());
     }
@@ -27,10 +27,6 @@ __d(
           t === "WAA"
             ? o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.WHATSAPP
             : o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.PAGE,
-        lwiScreenAction: o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
-          .LWI_GENERIC_ERROR_SHOWN,
-        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
-          .LWI_SCREEN_REFERENCE.LWI_NEW_MANAGE_ADS,
         lwiExtras: JSON.stringify({
           current_account_type: e,
           target_account_type: t,
@@ -39,6 +35,10 @@ __d(
           error_message: a.message,
           error_name: a.name,
         }),
+        lwiScreenAction: o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
+          .LWI_GENERIC_ERROR_SHOWN,
+        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
+          .LWI_SCREEN_REFERENCE.LWI_NEW_MANAGE_ADS,
       });
       (i != null && (l.lwiFlowId = i), l.commit());
     }

@@ -2,7 +2,7 @@ __d(
   "WAWebHandleChatState",
   [
     "WAWebApiContact",
-    "WAWebChangePresenceHandlerAction",
+    "WAWebBackendApi",
     "WAWebJidToWid",
     "WAWebLid1X1MigrationGating",
     "asyncToGeneratorRuntime",
@@ -12,24 +12,32 @@ __d(
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.jid,
             n = e.status,
-            a = o("WAWebJidToWid").userJidToUserWid(t),
-            i;
+            r = o("WAWebJidToWid").userJidToUserWid(t),
+            a;
           if (
             o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
           )
-            i = a;
+            a = r;
           else if (
-            ((i = a),
-            a.isLid() &&
+            ((a = r),
+            r.isLid() &&
               !o(
                 "WAWebLid1X1MigrationGating",
               ).Lid1X1MigrationUtils.isLidMigrated())
           ) {
-            var l = yield o("WAWebApiContact").getPhoneNumber(a);
-            l && r("WAWebChangePresenceHandlerAction")({ id: l, type: n });
+            var i = yield o("WAWebApiContact").getPhoneNumber(r);
+            i &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "changePresenceHandler",
+                { id: i.toString(), type: n },
+              );
           }
           return (
-            i && r("WAWebChangePresenceHandlerAction")({ id: i, type: n }),
+            a &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "changePresenceHandler",
+                { id: a.toString(), type: n },
+              ),
             "NO_ACK"
           );
         });
@@ -41,15 +49,14 @@ __d(
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.jid,
             n = e.participant,
-            a = e.status,
-            i = o("WAWebJidToWid").chatJidToChatWid(t),
-            l = o("WAWebJidToWid").userJidToUserWid(n);
+            r = e.status,
+            a = o("WAWebJidToWid").chatJidToChatWid(t),
+            i = o("WAWebJidToWid").userJidToUserWid(n);
           return (
-            r("WAWebChangePresenceHandlerAction")({
-              id: i,
-              type: a,
-              participant: l,
-            }),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "changePresenceHandler",
+              { id: a.toString(), type: r, participant: i.toString() },
+            ),
             "NO_ACK"
           );
         });

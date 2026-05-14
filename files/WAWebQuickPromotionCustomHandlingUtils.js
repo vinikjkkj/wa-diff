@@ -256,7 +256,7 @@ __d(
                   .ERROR(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "QP biz-broadcast-create deep link missing required source param. Downstream WAM events will not have entry_point_details and cannot be attributed to this QP. Deep link: ",
+                        "[QP] biz-broadcast-create: missing source ",
                         "",
                       ])),
                     a,

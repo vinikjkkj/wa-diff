@@ -20,15 +20,18 @@ __d(
         babelHelpers.inheritsLoose(n, t);
         var r = n.prototype;
         return (
-          (r.getNextMsgs = function (t, n, r) {
+          (r.getNextMsgs = function (t) {
+            var e = t.count,
+              n = t.direction,
+              r = t.msgKeyAnchor;
             return o("WAWebMsgCollection").MsgCollection.queryMedia(
               void 0,
               Math.min(
                 o("WAWebAllMsgTypeCollectionUtils").HARD_LIMIT_MAX_COUNT,
-                t,
+                e,
               ),
-              r,
               n,
+              r,
               "allDocs",
             );
           }),

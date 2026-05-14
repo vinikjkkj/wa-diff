@@ -102,13 +102,15 @@ __d(
         ).WAWebFuzzySearchMatchResult.noMatch();
       var l = a(e),
         s = a(t);
-      return _({
-        costTolerance: n,
-        input: l,
-        prefixCost: r,
-        query: s,
-        separatorFunction: i,
-      });
+      return s.length - l.length > n
+        ? o("WAWebFuzzySearchMatchResult").WAWebFuzzySearchMatchResult.noMatch()
+        : _({
+            costTolerance: n,
+            input: l,
+            prefixCost: r,
+            query: s,
+            separatorFunction: i,
+          });
     }
     l.fuzzyMatch = f;
   },

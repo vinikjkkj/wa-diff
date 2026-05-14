@@ -8,6 +8,7 @@ __d(
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaTypes",
+    "getErrorSafe",
     "once",
   ],
   function (t, n, r, o, a, i, l) {
@@ -83,12 +84,11 @@ __d(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "id: ",
-                        ", error: ",
-                        "",
+                        ", error",
                       ])),
                     t.id,
-                    String(n.stack || n),
                   )
+                  .catching(r("getErrorSafe")(n))
                   .tags("non-sad")
                   .sendLogs("sticker-panel:sticker download failed");
               });

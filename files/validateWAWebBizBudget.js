@@ -17,13 +17,13 @@ __d(
         p = [],
         _ = r("WAWebBizAdCreationCurrencyUtils").formatCurrency(o, n, {
           withDecimals: !0,
-          withSymbol: !0,
           withNumberDelimiters: !0,
+          withSymbol: !0,
         }),
         f = r("WAWebBizAdCreationCurrencyUtils").formatCurrency(a, n, {
           withDecimals: !0,
-          withSymbol: !0,
           withNumberDelimiters: !0,
+          withSymbol: !0,
         });
       if (m)
         return (
@@ -68,8 +68,8 @@ __d(
         if (c != null && c > 0 && t < c) {
           var g = r("WAWebBizAdCreationCurrencyUtils").formatCurrency(c, n, {
             withDecimals: !0,
-            withSymbol: !0,
             withNumberDelimiters: !0,
+            withSymbol: !0,
           });
           p.push({
             severity: "ERROR",
@@ -84,8 +84,8 @@ __d(
           if (t < h) {
             var C = r("WAWebBizAdCreationCurrencyUtils").formatCurrency(h, n, {
               withDecimals: !0,
-              withSymbol: !0,
               withNumberDelimiters: !0,
+              withSymbol: !0,
             });
             p.push({
               severity: "ERROR",

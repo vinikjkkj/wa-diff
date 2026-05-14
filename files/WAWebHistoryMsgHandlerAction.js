@@ -614,15 +614,22 @@ __d(
                           .UNKNOWN,
                     historyChatId: y,
                   };
-                (h.isLid() && (pe.lidOriginType = G(n.lidOriginType)),
+                if (
+                  (h.isLid() && (pe.lidOriginType = G(n.lidOriginType)),
                   n.archived != null && (pe.archive = n.archived),
-                  (s = Y) != null &&
-                    s.length &&
-                    (pe.mmSignalSharingExpirationWindow = o(
-                      "WAWebMmSignalSharingExpirationWindowUtils",
-                    ).getSortedMmSignalSharingExpirationWindowFromHistorySync(
-                      Y,
-                    )));
+                  n.authAgentParentCompanyName != null &&
+                    o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled())
+                ) {
+                  var _e;
+                  ((pe.parentCompanyName = n.authAgentParentCompanyName),
+                    (pe.obaPhoneNumber =
+                      (_e = n.authAgentObaPhoneNumber) != null ? _e : ""));
+                }
+                (s = Y) != null &&
+                  s.length &&
+                  (pe.mmSignalSharingExpirationWindow = o(
+                    "WAWebMmSignalSharingExpirationWindowUtils",
+                  ).getSortedMmSignalSharingExpirationWindowFromHistorySync(Y));
                 try {
                   o(
                     "WAWebHistorySyncNotificationUtils",
@@ -637,12 +644,12 @@ __d(
                     )
                     .tags("history-sync");
                 }
-                var _e = h.toString(),
-                  fe = w.has(u);
-                fe ? j++ : w.add(u);
-                var ge = Object.prototype.hasOwnProperty.call(p, _e);
-                (ge ? K++ : fe || N.push(pe),
-                  (p[_e] = { chatInfo: pe, msgs: q, unifiedAddons: M }));
+                var fe = h.toString(),
+                  ge = w.has(u);
+                ge ? j++ : w.add(u);
+                var he = Object.prototype.hasOwnProperty.call(p, fe);
+                (he ? K++ : ge || N.push(pe),
+                  (p[fe] = { chatInfo: pe, msgs: q, unifiedAddons: M }));
               },
               Y;
             for (var J of e.conversations) Y = yield* X(J);

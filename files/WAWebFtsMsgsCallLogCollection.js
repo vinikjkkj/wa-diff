@@ -19,15 +19,15 @@ __d(
       var r = t.prototype;
       return (
         (r.getNextMsgs = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              return o("WAWebMsgCollection").MsgCollection.getVoipCallLogMsgs(
-                e,
-                t,
-              );
-            },
-          );
-          function t(t, n) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.count,
+              n = e.msgKeyAnchor;
+            return o("WAWebMsgCollection").MsgCollection.getVoipCallLogMsgs(
+              t,
+              n,
+            );
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

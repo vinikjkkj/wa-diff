@@ -62,7 +62,7 @@ __d(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[Pathfinder]",
-              " Dropped reserved metadata keys (framework-owned): ",
+              " dropped reserved keys: ",
               "",
             ])),
           i,
@@ -86,8 +86,8 @@ __d(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[Pathfinder]",
-                " Truncated metadata values longer than ",
-                " chars for keys: ",
+                " truncated values >",
+                " chars: ",
                 "",
               ])),
             i,
@@ -99,9 +99,9 @@ __d(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[Pathfinder]",
-                " Dropped ",
-                " metadata keys beyond the ",
-                "-key cap (alphabetical): ",
+                " dropped ",
+                " keys over ",
+                "-key cap: ",
                 "",
               ])),
             i,

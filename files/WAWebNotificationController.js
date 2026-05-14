@@ -9,6 +9,7 @@ __d(
     "WAWebNotificationsMsgNotification",
     "asyncToGeneratorRuntime",
     "cr:4692",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -76,11 +77,11 @@ __d(
                   n = e.buildKey();
                 this.$5(n, e);
                 try {
-                  var r,
-                    a = yield e.triggerNotification(
-                      (r = this.$2) == null ? void 0 : r.call(this),
+                  var a,
+                    i = yield e.triggerNotification(
+                      (a = this.$2) == null ? void 0 : a.call(this),
                     );
-                  if (a != null) {
+                  if (i != null) {
                     if (
                       o(
                         "WAWebNotificationsMsgNotification",
@@ -88,21 +89,21 @@ __d(
                       e instanceof
                         o("WAWebNotificationsMsgNotification").WAMsgNotification
                     ) {
-                      var i = o("WAWebFrontendMsgGetters")
+                      var l = o("WAWebFrontendMsgGetters")
                           .getChat(e.msg)
                           .id.toString(),
-                        l = this.lastMsgNotifByChat.get(i);
-                      (l &&
+                        s = this.lastMsgNotifByChat.get(l);
+                      (s &&
                         self.setTimeout(function () {
-                          return l.close();
+                          return s.close();
                         }, 2e3),
-                        this.lastMsgNotifByChat.set(i, a),
-                        a.waitForClose().then(function () {
-                          t.lastMsgNotifByChat.get(i) === a &&
-                            t.lastMsgNotifByChat.delete(i);
+                        this.lastMsgNotifByChat.set(l, i),
+                        i.waitForClose().then(function () {
+                          t.lastMsgNotifByChat.get(l) === i &&
+                            t.lastMsgNotifByChat.delete(l);
                         }));
                     }
-                    a.waitForClose().then(function () {
+                    i.waitForClose().then(function () {
                       t.$4(n);
                     });
                   } else
@@ -124,7 +125,7 @@ __d(
                       e,
                     ),
                       t.$4(n));
-                  })(e);
+                  })(r("getErrorSafe")(e));
                 }
                 return e;
               },

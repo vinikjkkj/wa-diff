@@ -72,7 +72,7 @@ __d(
                 .WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cart] findCart: no LID mapping for cartId post lid migration, falling back to PN-based lookup",
+                      "[cart] findCart: no LID mapping, fallback to PN",
                     ])),
                 )
                 .sendLogs("cart-find-cart-no-lid-mapping");

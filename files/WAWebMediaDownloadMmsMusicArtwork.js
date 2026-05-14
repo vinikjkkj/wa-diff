@@ -50,7 +50,8 @@ __d(
                 p = o("WABase64").encodeB64(m);
               return ((n.musicArtwork = p), p);
             } catch (t) {
-              if (t.name === o("WAAbortError").ABORT_ERROR) {
+              var _ = r("getErrorSafe")(t);
+              if (_.name === o("WAAbortError").ABORT_ERROR) {
                 (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -60,10 +61,7 @@ __d(
                   d.endFailWithError("download_aborted", "Download aborted"));
                 return;
               }
-              (d.endFailWithError(
-                "download_failed",
-                r("getErrorSafe")(t).message,
-              ),
+              (d.endFailWithError("download_failed", _.message),
                 o("WALogger")
                   .WARN(
                     s ||

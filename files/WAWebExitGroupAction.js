@@ -139,7 +139,9 @@ __d(
                   ])),
               )
               .verbose()
-              .sendLogs("failed to merge chat table when exiting group: " + e),
+              .sendLogs(
+                "failed to merge chat table when exiting group: " + String(e),
+              ),
             r("err")("failed to merge chat table")
           );
         });

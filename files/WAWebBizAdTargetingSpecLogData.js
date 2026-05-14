@@ -31,7 +31,7 @@ __d(
               })
               .join(", ")
           : "";
-      return { location: u, age: c, gender: d, interests: m };
+      return { age: c, gender: d, interests: m, location: u };
     }
     l.default = e;
   },

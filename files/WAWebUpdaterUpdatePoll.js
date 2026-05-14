@@ -99,7 +99,7 @@ __d(
               if (l === R.HARD_REFRESH) {
                 return (
                   o("WAWebUpdater")
-                    .Updater.update(void 0, !1, L)
+                    .Updater.update({ belowHard: L, belowSoft: !1 })
                     .catch(function (e) {
                       o("WALogger")
                         .LOG(
@@ -162,7 +162,7 @@ __d(
           var e = Date.now() - h;
           return e > C
             ? (o("WAWebUpdater")
-                .Updater.update(void 0, !1, L)
+                .Updater.update({ belowHard: L, belowSoft: !1 })
                 .catch(function (e) {
                   o("WALogger")
                     .LOG(

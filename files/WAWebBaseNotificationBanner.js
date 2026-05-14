@@ -24,6 +24,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "cr:3133",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
@@ -153,16 +154,15 @@ __d(
           try {
             this.$2(i, c, s);
           } catch (e) {
-            (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "Failed to create notification: ",
-                  ":",
-                  "",
-                ])),
-              e.name,
-              e.message,
-            ),
+            var p = r("getErrorSafe")(e);
+            (o("WALogger")
+              .LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to create notification",
+                  ])),
+              )
+              .catching(p),
               this.waitingPromise.resolver());
           }
         }
@@ -310,14 +310,14 @@ __d(
                 sendDevice: !0,
               })
               .catch(function (e) {
-                o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "mute failed: ",
-                      "",
-                    ])),
-                  e,
-                );
+                o("WALogger")
+                  .LOG(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "mute failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
               });
           }),
           (a.increaseNotificationEngagement = (function () {

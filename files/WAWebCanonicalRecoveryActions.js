@@ -18,43 +18,53 @@ __d(
     var e,
       s,
       u,
-      c = 4,
-      d = o("WATimeUtils").HOUR_MILLISECONDS * c;
-    function m() {
-      var e = o("WAWebUserPrefsCanonical").getPeerRequestTimestamp();
-      return e == null ? !1 : Date.now() - e < d;
-    }
+      c,
+      d = 4,
+      m = o("WATimeUtils").HOUR_MILLISECONDS * d;
     function p() {
-      return _.apply(this, arguments);
+      var e = o("WAWebUserPrefsCanonical").getPeerRequestTimestamp();
+      return e == null ? !1 : Date.now() - e < m;
     }
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[canonical] skipping peer nonce request, me not loaded yet",
+                ])),
+            );
+            return;
+          }
           (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[canonical] requesting nonce from primary",
               ])),
           ),
-            o("WAWebCanonicalEntRecoveryWam").logRequestNonceFromPrimary(),
-            o("WAWebUserPrefsCanonical").setPeerRequestTimestamp(Date.now()),
             yield o(
               "WAWebSendNonMessageDataRequest",
             ).sendPeerDataOperationRequest(
               o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
                 .COMPANION_CANONICAL_USER_NONCE_FETCH,
               {},
-            ));
+            ),
+            o("WAWebCanonicalEntRecoveryWam").logRequestNonceFromPrimary(),
+            o("WAWebUserPrefsCanonical").setPeerRequestTimestamp(Date.now()));
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebMexCachedTokenJob").fetchCachedNonceToken(),
               t = e.accessToken,
@@ -73,8 +83,8 @@ __d(
           } catch (e) {
             return (
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] cached nonce recovery failed: ",
                     "",
                   ])),
@@ -84,15 +94,15 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h() {
-      return y.apply(this, arguments);
-    }
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o(
               "WAWebCanonicalUserValidQuery",
@@ -109,8 +119,8 @@ __d(
               r("WAWebODS").incr("web.app.canonical.validation.error"),
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] token validation failed: ",
                       "",
                     ])),
@@ -121,13 +131,13 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((l.isWaitingForPeerResponse = m),
-      (l.requestNonceFromPrimary = p),
-      (l.fetchCachedNonce = f),
-      (l.validateExistingToken = h));
+    ((l.isWaitingForPeerResponse = p),
+      (l.requestNonceFromPrimary = _),
+      (l.fetchCachedNonce = g),
+      (l.validateExistingToken = y));
   },
   98,
 );

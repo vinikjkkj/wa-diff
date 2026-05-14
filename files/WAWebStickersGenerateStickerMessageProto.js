@@ -13,15 +13,16 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e;
     function u(t) {
-      var n = t.contextInfo,
-        a = t.json,
-        i = t.mediaMetadata;
+      var n,
+        a = t.contextInfo,
+        i = t.json,
+        l = t.mediaMetadata;
       if (
-        (i != null || s(0, 66810),
-        i.mimetype != null &&
+        (l != null || s(0, 66810),
+        l.mimetype != null &&
           !o("WAWebStickerMimeUtils")
             .getValidStickerMimeTypes()
-            .has(i.mimetype))
+            .has(l.mimetype))
       )
         throw (
           o("WALogger").WARN(
@@ -30,39 +31,40 @@ __d(
                 "invalid sticker mimetype: ",
                 "",
               ])),
-            i.mimetype,
+            l.mimetype,
           ),
           r("err")("invalid sticker mimetype")
         );
-      var l = {
-        url: i.url,
-        mimetype: i.mimetype,
-        directPath: i.directPath,
-        fileSha256: o("WAWebE2EProtoUtils").encodeBytes(i.filehash),
-        fileEncSha256: o("WAWebE2EProtoUtils").encodeBytes(i.encFilehash),
-        mediaKey: o("WAWebE2EProtoUtils").encodeBytes(i.mediaKey),
-        mediaKeyTimestamp: o("WATypeUtils").isNumber(i.mediaKeyTimestamp)
-          ? i.mediaKeyTimestamp
+      var u = {
+        url: l.url,
+        mimetype: l.mimetype,
+        directPath: l.directPath,
+        fileSha256: o("WAWebE2EProtoUtils").encodeBytes(l.filehash),
+        fileEncSha256: o("WAWebE2EProtoUtils").encodeBytes(l.encFilehash),
+        mediaKey: o("WAWebE2EProtoUtils").encodeBytes(l.mediaKey),
+        mediaKeyTimestamp: o("WATypeUtils").isNumber(l.mediaKeyTimestamp)
+          ? l.mediaKeyTimestamp
           : void 0,
-        fileLength: o("WATypeUtils").isNumber(a.size) ? a.size : void 0,
-        height: a.height,
-        width: a.width,
-        firstFrameLength: i.firstFrameLength,
-        firstFrameSidecar: a.firstFrameSidecar || void 0,
-        isAnimated: i.isAnimated,
-        isLottie: i.isLottie,
+        fileLength: o("WATypeUtils").isNumber(i.size) ? i.size : void 0,
+        height: i.height,
+        width: i.width,
+        firstFrameLength: l.firstFrameLength,
+        firstFrameSidecar: i.firstFrameSidecar || void 0,
+        isAnimated: l.isAnimated,
+        isLottie: l.isLottie,
         premium:
-          i.stickerPremiumStatus != null ? i.stickerPremiumStatus : void 0,
-        stickerSentTs: a.stickerSentTs,
-        contextInfo: n,
+          l.stickerPremiumStatus != null ? l.stickerPremiumStatus : void 0,
+        stickerSentTs: i.stickerSentTs,
+        emojis: (n = i.emojis) == null ? void 0 : n.join(" "),
+        contextInfo: a,
       };
       return (
         o("WAWebE2EProtoUtils").validateOutgoingRequiredMediaProperties(
           o("WAWebMsgType").MSG_TYPE.STICKER,
-          l,
-          r("WAWebWid").isNewsletter(a.to),
+          u,
+          r("WAWebWid").isNewsletter(i.to),
         ),
-        { stickerMessage: l }
+        { stickerMessage: u }
       );
     }
     l.default = u;
