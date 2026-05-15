@@ -35,10 +35,10 @@ __d(
         var n = t.prototype;
         return (
           (n.setLocalTimeout = function (t, n, r) {
-            return this.$4(!1, t, n, r);
+            return this.$4({ alarmId: r, expiration: n, fn: t, isGlobal: !1 });
           }),
           (n.setGlobalTimeout = function (t, n, r) {
-            return this.$4(!0, t, n, r);
+            return this.$4({ alarmId: r, expiration: n, fn: t, isGlobal: !0 });
           }),
           (n.clearTimeout = function (t) {
             if (!r("isStringNullOrEmpty")(t)) {
@@ -46,16 +46,20 @@ __d(
               e && (self.clearTimeout(e.timeoutId), this.$1.delete(t));
             }
           }),
-          (n.$4 = function (n, a, i, l) {
+          (n.$4 = function (n) {
             var t = this,
-              u = !r("isStringNullOrEmpty")(l);
-            u && this.clearTimeout(l);
-            var c = r("isStringNullOrEmpty")(l)
+              a = n.alarmId,
+              i = n.expiration,
+              l = n.fn,
+              u = n.isGlobal,
+              c = !r("isStringNullOrEmpty")(a);
+            c && this.clearTimeout(a);
+            var d = r("isStringNullOrEmpty")(a)
                 ? r("uniqueID")("alarm_timer_")
-                : l,
-              d = i - this.$5(n),
-              m = Math.min(d, s);
-            if (d < 0)
+                : a,
+              m = i - this.$5(u),
+              p = Math.min(m, s);
+            if (m < 0)
               return (
                 o("WALogger").LOG(
                   e ||
@@ -63,16 +67,16 @@ __d(
                       "Alarm:setTimeout:Cannot set alarm in the past.",
                     ])),
                 ),
-                a(),
-                c
+                l(),
+                d
               );
-            var p = self.setTimeout(function () {
-                i - t.$5(n) < o("WAWebJSHaltDetector").DEFAULT_THRESHOLD
-                  ? (t.$1.delete(c), a())
-                  : t.$4(n, a, i, c);
-              }, m),
-              _ = { isGlobal: n, fn: a, expiration: i, timeoutId: p };
-            return (this.$1.set(c, _), c);
+            var _ = self.setTimeout(function () {
+                i - t.$5(u) < o("WAWebJSHaltDetector").DEFAULT_THRESHOLD
+                  ? (t.$1.delete(d), l())
+                  : t.$4({ alarmId: d, expiration: i, fn: l, isGlobal: u });
+              }, p),
+              f = { isGlobal: u, fn: l, expiration: i, timeoutId: _ };
+            return (this.$1.set(d, f), d);
           }),
           (n.$2 = function () {
             var e = this,
@@ -81,7 +85,9 @@ __d(
               var r = t.expiration,
                 o = t.fn,
                 a = t.isGlobal;
-              r < e.$5(a) ? (e.clearTimeout(n), o()) : e.$4(a, o, r, n);
+              r < e.$5(a)
+                ? (e.clearTimeout(n), o())
+                : e.$4({ alarmId: n, expiration: r, fn: o, isGlobal: a });
             });
           }),
           (n.$3 = function () {
@@ -91,7 +97,7 @@ __d(
               var r = t.expiration,
                 o = t.fn,
                 a = t.isGlobal;
-              a && e.$4(a, o, r, n);
+              a && e.$4({ alarmId: n, expiration: r, fn: o, isGlobal: a });
             });
           }),
           (n.$5 = function (t) {

@@ -10,40 +10,43 @@ __d(
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      var a = !!e.fromMe,
-        i = o("WAWebDecodeJid").decodeJid(e.remoteJid),
-        l =
+    function e(e) {
+      var t = e.isFromCag,
+        n = e.key,
+        a = e.outerParticipant,
+        i = !!n.fromMe,
+        l = o("WAWebDecodeJid").decodeJid(n.remoteJid),
+        s =
           t === !0
             ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
             : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        s;
+        u;
       if (
-        (a
-          ? i != null && typeof i != "string" && !i.isUser() && (s = l)
-          : (s =
-              n != null
-                ? o("WAWebDecodeJid").decodeJid(n)
-                : o("WAWebDecodeJid").decodeJid(e.participant)),
-        typeof i == "string" || i == null)
+        (i
+          ? l != null && typeof l != "string" && !l.isUser() && (u = s)
+          : (u =
+              a != null
+                ? o("WAWebDecodeJid").decodeJid(a)
+                : o("WAWebDecodeJid").decodeJid(n.participant)),
+        typeof l == "string" || l == null)
       )
         return null;
-      var u;
-      s != null && typeof s != "string"
-        ? (u = new (r("WAWebMsgKey"))({
-            id: r("WANullthrows")(e.id),
-            fromMe: a,
-            remote: i,
-            participant: s,
+      var c;
+      u != null && typeof u != "string"
+        ? (c = new (r("WAWebMsgKey"))({
+            id: r("WANullthrows")(n.id),
+            fromMe: i,
+            remote: l,
+            participant: u,
           }))
-        : (u = new (r("WAWebMsgKey"))({
-            id: r("WANullthrows")(e.id),
-            fromMe: a,
-            remote: i,
+        : (c = new (r("WAWebMsgKey"))({
+            id: r("WANullthrows")(n.id),
+            fromMe: i,
+            remote: l,
           }));
-      var c = u.participant || u.remote,
-        d = o("WAWebWidFactory").asUserWidOrThrow(a === !0 ? l : c);
-      return { msgKey: u, sender: d };
+      var d = c.participant || c.remote,
+        m = o("WAWebWidFactory").asUserWidOrThrow(i === !0 ? s : d);
+      return { msgKey: c, sender: m };
     }
     function s(e) {
       return e == null

@@ -11,7 +11,6 @@ __d(
     "WAWebSchemaMessageOrphans",
     "WAWebStoreMsgs",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -21,53 +20,53 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(t.id),
-            i = yield o(
+          var r = o("WAWebLidMigrationUtils").getAlternateMsgKey(t.id),
+            a = yield o(
               "WAWebDBGetByParentMsgKey",
-            ).bulkGetMessageOrphansByParentMsgKey([t.id, a].filter(Boolean));
-          i.length &&
+            ).bulkGetMessageOrphansByParentMsgKey([t.id, r].filter(Boolean));
+          a.length &&
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "processOrphansForNewMsg: found orphans",
                 ])),
             );
-          var l = o("WAWebAddonProcessMsgsUtils").sortAddonOrphans(i),
-            u = l.legacyReactionAddons,
-            c = l.otherOrphans,
-            d = l.unifiedAddons,
-            m = yield o("WAWebDBMapOrphansToProviders").mapOrphansToProviders(
-              c,
+          var i = o("WAWebAddonProcessMsgsUtils").sortAddonOrphans(a),
+            l = i.legacyReactionAddons,
+            u = i.otherOrphans,
+            c = i.unifiedAddons,
+            d = yield o("WAWebDBMapOrphansToProviders").mapOrphansToProviders(
+              u,
             ),
-            p = [
-              o("WAWebStoreMsgs").storeMsgs(d),
-              o("WAWebDBProcessReactionsMsgs").processReactionMsgs(u),
+            m = [
+              o("WAWebStoreMsgs").storeMsgs(c),
+              o("WAWebDBProcessReactionsMsgs").processReactionMsgs(l),
             ];
-          for (var _ of m.entries()) {
-            var f = _[0],
-              g = _[1];
-            p.push(f.processOrphansForNewMsg(t, g));
+          for (var p of d.entries()) {
+            var _ = p[0],
+              f = p[1];
+            m.push(_.processOrphansForNewMsg(t, f));
           }
-          yield (s || (s = n("Promise"))).all(p);
-          var h = r("lodash")
-            .flatten(Array.from(m.values()))
+          yield (s || (s = n("Promise"))).all(m);
+          var g = Array.from(d.values())
+            .flat()
             .map(function (e) {
               return e.msgKey;
             });
-          ((h = h.concat(
-            d.map(function (e) {
+          ((g = g.concat(
+            c.map(function (e) {
               return e.id.toString();
             }),
           )),
-            u.length &&
-              (h = h.concat(
-                u.map(function (e) {
+            l.length &&
+              (g = g.concat(
+                l.map(function (e) {
                   return e.id.toString();
                 }),
               )),
             yield o("WAWebSchemaMessageOrphans")
               .getMessageOrphanTable()
-              .bulkRemove(h));
+              .bulkRemove(g));
         })),
         c.apply(this, arguments)
       );

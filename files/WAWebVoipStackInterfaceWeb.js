@@ -8,6 +8,7 @@ __d(
     "WAWebABProps",
     "WAWebBackendApi",
     "WAWebBweMLModelManager",
+    "WAWebCoreActionsODS",
     "WAWebLowEndDeviceExperimentGating",
     "WAWebNoop",
     "WAWebReleaseToEventLoop",
@@ -572,16 +573,17 @@ __d(
                     "voip: joinOngoingCall: failed to join ongoing call",
                   );
               } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: joinOngoingCall: failed to join ongoing call ",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .sendLogs("voip-join-ongoing-call-failed");
+                (o("WAWebCoreActionsODS").logCallGroupJoinError(),
+                  o("WALogger")
+                    .ERROR(
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: joinOngoingCall: failed to join ongoing call ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("voip-join-ongoing-call-failed"));
               } finally {
                 (S.delete(), R.delete(), L.delete());
               }

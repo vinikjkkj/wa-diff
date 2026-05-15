@@ -372,15 +372,16 @@ __d(
         Good: 4,
         Max: 5,
       }),
-      I = e({
+      I = e({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
+      T = e({
         None: 0,
         QuerySent: 1,
         QueryAcked: 2,
         JoinSent: 3,
         JoinAcked: 4,
       }),
-      T = e({ RelayBindsFailed: "relay_binds_failed" }),
-      D = e({
+      D = e({ RelayBindsFailed: "relay_binds_failed" }),
+      x = e({
         Legacy: 0,
         CallLinkJoinedCreator: 1,
         CallLinkJoinedJoiner: 2,
@@ -408,9 +409,10 @@ __d(
       (l.ScreenShareVersion = L),
       (l.ReconnectingOption = E),
       (l.NetHealthStatus = k),
-      (l.CallLinkState = I),
-      (l.CallFailedReason = T),
-      (l.ServerReminderType = D));
+      (l.CallUserType = I),
+      (l.CallLinkState = T),
+      (l.CallFailedReason = D),
+      (l.ServerReminderType = x));
   },
   98,
 );

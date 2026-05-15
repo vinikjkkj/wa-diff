@@ -447,6 +447,10 @@ __d(
                               abstractKey: "__isNode",
                             },
                             {
+                              kind: "TypeDiscriminator",
+                              abstractKey: "__isLWIAdsManagementCommonWrapper",
+                            },
+                            {
                               alias: null,
                               args: [
                                 {

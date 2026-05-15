@@ -76,14 +76,14 @@ __d(
             );
             return;
           }
-          o("WAWebCopyTextWithToast").copyTextWithToast(
-            o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(a, i),
-            s._(/*BTDS*/ "Pix key copied"),
-            s._(/*BTDS*/ "Couldn't copy Pix key"),
-            function () {
+          o("WAWebCopyTextWithToast").copyTextWithToast({
+            failureMsg: s._(/*BTDS*/ "Couldn't copy Pix key"),
+            onSuccess: function () {
               p(t);
             },
-          );
+            successMsg: s._(/*BTDS*/ "Pix key copied"),
+            text: o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(a, i),
+          });
         },
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
       };
@@ -248,18 +248,18 @@ __d(
             );
             return;
           }
-          o("WAWebCopyTextWithToast").copyTextWithToast(
-            i,
-            s._(/*BTDS*/ "Boleto code copied"),
-            s._(/*BTDS*/ "Couldn't copy boleto code"),
-            function () {
+          o("WAWebCopyTextWithToast").copyTextWithToast({
+            failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
+            onSuccess: function () {
               R(
                 t,
                 e,
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
               ).catch(r("WAWebNoop"));
             },
-          );
+            successMsg: s._(/*BTDS*/ "Boleto code copied"),
+            text: i,
+          });
         },
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
       };
@@ -291,8 +291,13 @@ __d(
       return {
         label: s._(/*BTDS*/ "Copy Pix code"),
         onClick: function () {
-          o("WAWebCopyTextWithToast").copyTextWithToast(c, d, m, function () {
-            y(e, t);
+          o("WAWebCopyTextWithToast").copyTextWithToast({
+            failureMsg: m,
+            onSuccess: function () {
+              y(e, t);
+            },
+            successMsg: d,
+            text: c,
           });
         },
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
@@ -453,18 +458,18 @@ __d(
             );
             return;
           }
-          o("WAWebCopyTextWithToast").copyTextWithToast(
-            o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(i),
-            s._(/*BTDS*/ "Pix Code copied"),
-            s._(/*BTDS*/ "Couldn't copy Pix Code"),
-            function () {
+          o("WAWebCopyTextWithToast").copyTextWithToast({
+            failureMsg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
+            onSuccess: function () {
               R(
                 t,
                 e,
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               ).catch(r("WAWebNoop"));
             },
-          );
+            successMsg: s._(/*BTDS*/ "Pix Code copied"),
+            text: o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(i),
+          });
         },
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
       };

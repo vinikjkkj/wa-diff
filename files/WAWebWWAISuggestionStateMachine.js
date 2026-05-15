@@ -16,18 +16,18 @@ __d(
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
           n.type === "OPEN_TRAY" &&
-          "hasAcceptedTos" in n
+          "hasSeenNux" in n
         ) {
-          var o = n.hasAcceptedTos;
+          var o = n.hasSeenNux;
           if (t.state === "idle" || t.state === "word_limit_not_met")
             return o
               ? babelHelpers.extends({}, t, { state: "loading" })
-              : babelHelpers.extends({}, t, { state: "privacy_tos" });
+              : babelHelpers.extends({}, t, { state: "nux_pending" });
         }
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.type === "ACCEPT_TOS" &&
-          t.state === "privacy_tos"
+          n.type === "ACCEPT_NUX" &&
+          t.state === "nux_pending"
         )
           return babelHelpers.extends({}, t, { state: "loading" });
         if (

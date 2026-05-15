@@ -9,7 +9,6 @@ __d(
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebWebcStorageStatWamEvent",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = { DEFAULT: "default", WEBP: "webp" };
@@ -20,8 +19,8 @@ __d(
         o("WAWebFeatureDetectionDetectWebpSupport")
           .detectWebpSupport()
           .then(function (n) {
-            var o = r("lodash")
-              .flatMap(t.keep, function (e) {
+            var o = t.keep
+              .flatMap(function (e) {
                 return [
                   e[r("WAWebAssetLoaderDpiChangeDispatch").RES.LOW],
                   e[r("WAWebAssetLoaderDpiChangeDispatch").RES.HIGH],

@@ -860,6 +860,7 @@ __d(
                   P,
                 )
                 .color(r("WAWebConstantsDeprecated").VOIP_LOG_COLOR),
+                o("WAWebCoreActionsODS").logCallGroupJoin(),
                 yield C == null
                   ? void 0
                   : C.joinOngoingCall(

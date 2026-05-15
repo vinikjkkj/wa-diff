@@ -65,67 +65,60 @@ __d(
           name: "flow_id",
           storageKey: null,
         },
-        _ = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "last_updated",
-          storageKey: null,
-        },
-        f = [{ kind: "Literal", name: "is_forced", value: !0 }],
-        g = {
+        _ = [{ kind: "Literal", name: "is_forced", value: !0 }],
+        f = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "legacy_account_id",
           storageKey: null,
         },
-        h = {
+        g = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "message",
           storageKey: null,
         },
-        y = {
+        h = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "picture",
           storageKey: null,
         },
-        C = {
+        y = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "image_hash",
           storageKey: null,
         },
-        b = {
+        C = {
           alias: null,
           args: null,
           concreteType: "AdObjectStoryChildLinkDataSpecification",
           kind: "LinkedField",
           name: "child_attachments",
           plural: !0,
-          selections: [y],
+          selections: [h],
           storageKey: null,
         },
-        v = {
+        b = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "image_url",
           storageKey: null,
         },
-        S = {
+        v = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "video_id",
           storageKey: null,
         },
-        R = {
+        S = {
           alias: null,
           args: null,
           concreteType: "AdsCreativeSpecification",
@@ -148,7 +141,7 @@ __d(
                   kind: "LinkedField",
                   name: "link_data",
                   plural: !1,
-                  selections: [h, y, C, b],
+                  selections: [g, h, y, C],
                   storageKey: null,
                 },
                 {
@@ -158,7 +151,7 @@ __d(
                   kind: "LinkedField",
                   name: "video_data",
                   plural: !1,
-                  selections: [h, v, C, S],
+                  selections: [g, b, y, v],
                   storageKey: null,
                 },
               ],
@@ -167,38 +160,38 @@ __d(
           ],
           storageKey: null,
         },
-        L = [
+        R = [
           { kind: "Variable", name: "after", variableName: "after" },
           { kind: "Variable", name: "first", variableName: "first" },
           { kind: "Variable", name: "options", variableName: "options" },
           { kind: "Variable", name: "page_id_1", variableName: "page_id_1" },
           { kind: "Variable", name: "page_id_2", variableName: "page_id_2" },
         ],
-        E = {
+        L = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        k = {
+        E = {
           alias: null,
-          args: f,
+          args: _,
           concreteType: "AdAccount",
           kind: "LinkedField",
           name: "ad_account",
           plural: !1,
-          selections: [g, m],
+          selections: [f, m],
           storageKey: "ad_account(is_forced:true)",
         },
-        I = {
+        k = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "formatted_for_lwi",
           storageKey: null,
         },
-        T = [
+        I = [
           {
             alias: null,
             args: null,
@@ -207,7 +200,7 @@ __d(
             name: "spec",
             plural: !1,
             selections: [
-              E,
+              L,
               {
                 alias: null,
                 args: null,
@@ -243,10 +236,10 @@ __d(
                 kind: "LinkedField",
                 name: "budget",
                 plural: !1,
-                selections: [I],
+                selections: [k],
                 storageKey: null,
               },
-              k,
+              E,
               {
                 alias: null,
                 args: null,
@@ -277,7 +270,7 @@ __d(
                         name: "body",
                         storageKey: null,
                       },
-                      v,
+                      b,
                       {
                         alias: null,
                         args: null,
@@ -301,7 +294,7 @@ __d(
                             name: "link_data",
                             plural: !1,
                             selections: [
-                              h,
+                              g,
                               {
                                 alias: null,
                                 args: null,
@@ -309,7 +302,7 @@ __d(
                                 name: "link",
                                 storageKey: null,
                               },
-                              b,
+                              C,
                             ],
                             storageKey: null,
                           },
@@ -320,7 +313,7 @@ __d(
                             kind: "LinkedField",
                             name: "video_data",
                             plural: !1,
-                            selections: [h, S, v],
+                            selections: [g, v, b],
                             storageKey: null,
                           },
                         ],
@@ -371,7 +364,7 @@ __d(
             name: "boosting_info",
             plural: !1,
             selections: [
-              E,
+              L,
               {
                 alias: null,
                 args: [
@@ -397,7 +390,7 @@ __d(
                     name: "currency",
                     storageKey: null,
                   },
-                  I,
+                  k,
                 ],
                 storageKey: null,
               },
@@ -498,7 +491,15 @@ __d(
               kind: "LinkedField",
               name: "page",
               plural: !1,
-              selections: [s, u, c],
+              selections: [
+                {
+                  kind: "InlineDataFragmentSpread",
+                  name: "extractWAWebBizBoostedComponentData_page",
+                  selections: [s, u, c],
+                  args: null,
+                  argumentDefinitions: [],
+                },
+              ],
               storageKey: null,
             },
             {
@@ -517,39 +518,46 @@ __d(
                   name: "latest_wa_web_draft",
                   plural: !1,
                   selections: [
-                    m,
-                    p,
-                    _,
                     {
-                      alias: null,
-                      args: null,
-                      concreteType: null,
-                      kind: "LinkedField",
-                      name: "spec",
-                      plural: !1,
+                      kind: "InlineDataFragmentSpread",
+                      name: "useWAWebBizAdManagementDraftItem_draft",
                       selections: [
-                        {
-                          alias: null,
-                          args: f,
-                          concreteType: "AdAccount",
-                          kind: "LinkedField",
-                          name: "ad_account",
-                          plural: !1,
-                          selections: [g],
-                          storageKey: "ad_account(is_forced:true)",
-                        },
+                        m,
+                        p,
                         {
                           alias: null,
                           args: null,
-                          concreteType: "AdsLWIAdGroupSpec",
+                          concreteType: null,
                           kind: "LinkedField",
-                          name: "adgroup_spec",
-                          plural: !0,
-                          selections: [R],
+                          name: "spec",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: _,
+                              concreteType: "AdAccount",
+                              kind: "LinkedField",
+                              name: "ad_account",
+                              plural: !1,
+                              selections: [f],
+                              storageKey: "ad_account(is_forced:true)",
+                            },
+                            {
+                              alias: null,
+                              args: null,
+                              concreteType: "AdsLWIAdGroupSpec",
+                              kind: "LinkedField",
+                              name: "adgroup_spec",
+                              plural: !0,
+                              selections: [S],
+                              storageKey: null,
+                            },
+                          ],
                           storageKey: null,
                         },
                       ],
-                      storageKey: null,
+                      args: null,
+                      argumentDefinitions: [],
                     },
                   ],
                   storageKey: null,
@@ -558,7 +566,7 @@ __d(
               storageKey: null,
             },
             {
-              args: L,
+              args: R,
               kind: "FragmentSpread",
               name: "WAWebBizAdManagementRoot_query",
             },
@@ -600,7 +608,6 @@ __d(
                   selections: [
                     m,
                     p,
-                    _,
                     {
                       alias: null,
                       args: null,
@@ -609,8 +616,8 @@ __d(
                       name: "spec",
                       plural: !1,
                       selections: [
+                        L,
                         E,
-                        k,
                         {
                           alias: null,
                           args: null,
@@ -618,7 +625,7 @@ __d(
                           kind: "LinkedField",
                           name: "adgroup_spec",
                           plural: !0,
-                          selections: [R, m],
+                          selections: [S, m],
                           storageKey: null,
                         },
                       ],
@@ -629,7 +636,7 @@ __d(
                 },
                 {
                   alias: null,
-                  args: L,
+                  args: R,
                   concreteType: "CTWAAPIAllUserAdsConnection",
                   kind: "LinkedField",
                   name: "all_user_ads",
@@ -651,12 +658,16 @@ __d(
                           name: "node",
                           plural: !1,
                           selections: [
-                            E,
+                            L,
                             {
                               kind: "InlineFragment",
                               selections: [m],
                               type: "Node",
                               abstractKey: "__isNode",
+                            },
+                            {
+                              kind: "TypeDiscriminator",
+                              abstractKey: "__isLWIAdsManagementCommonWrapper",
                             },
                             {
                               alias: null,
@@ -672,7 +683,7 @@ __d(
                               name: "wrapper_renderer",
                               plural: !1,
                               selections: [
-                                E,
+                                L,
                                 {
                                   kind: "InlineFragment",
                                   selections: [
@@ -684,7 +695,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "boosted_component",
                                       plural: !1,
-                                      selections: T,
+                                      selections: I,
                                       storageKey: null,
                                     },
                                   ],
@@ -702,7 +713,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "async_request",
                                       plural: !1,
-                                      selections: T,
+                                      selections: I,
                                       storageKey: null,
                                     },
                                   ],
@@ -756,7 +767,7 @@ __d(
                 },
                 {
                   alias: null,
-                  args: L,
+                  args: R,
                   filters: ["page_id_1", "page_id_2", "options"],
                   handle: "connection",
                   key: "WAWebBizAdManagementRoot_all_user_ads",

@@ -4,22 +4,26 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t, n, r) {
+    function u(e) {
+      var t = e.failureMsg,
+        n = e.onSuccess,
+        r = e.successMsg,
+        a = e.text;
       o("WAWebCopyToClipboard")
-        .copyTextToClipboard(e)
+        .copyTextToClipboard(a)
         .then(function (e) {
           e
             ? (o("WAWebToastManager").ToastManager.open(
-                s.jsx(o("WAWebToast.react").Toast, { msg: t }),
+                s.jsx(o("WAWebToast.react").Toast, { msg: r }),
               ),
-              r == null || r())
+              n == null || n())
             : o("WAWebToastManager").ToastManager.open(
-                s.jsx(o("WAWebToast.react").Toast, { msg: n }),
+                s.jsx(o("WAWebToast.react").Toast, { msg: t }),
               );
         })
         .catch(function () {
           o("WAWebToastManager").ToastManager.open(
-            s.jsx(o("WAWebToast.react").Toast, { msg: n }),
+            s.jsx(o("WAWebToast.react").Toast, { msg: t }),
           );
         });
     }

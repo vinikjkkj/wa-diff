@@ -738,6 +738,7 @@ __d(
                 ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
                     H,
                     G,
+                    s.statusPostFunnelContext,
                   ))
                 : (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                     i,
@@ -776,6 +777,7 @@ __d(
                 ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
                     yield z,
                     W,
+                    s.statusPostFunnelContext,
                   ))
                 : A.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
                   ? (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(

@@ -45,7 +45,6 @@ __d(
               r("WAWebWid").isSupportAccount(e) ||
               r("WAWebWid").isCAPISupportAccount(e) ||
               r("WAWebWid").isAiHub(e) ||
-              r("WAWebWid").isBot(e) ||
               o("WAWebBotUtils").isMetaAiBot(e)
             ) &&
             !(yield o("WAWebApiContact").isAddressBookContact(e.toJid()))

@@ -35,8 +35,8 @@ __d(
       if (f) return s._(/*BTDS*/ "Ends tomorrow");
       if (g) {
         var h = new Intl.DateTimeFormat(o, {
-          month: "short",
           day: "numeric",
+          month: "short",
         }).format(l);
         return s._(/*BTDS*/ "Ended on {date}", [s._param("date", h)]);
       }

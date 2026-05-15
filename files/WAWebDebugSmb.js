@@ -41,6 +41,7 @@ __d(
     "WAWebSmbPerCustomerDataSharingOptOutModal",
     "WAWebSubscriptionSource",
     "WAWebWamEnumSmbDataSharingConsentScreenEntryPoint",
+    "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -520,6 +521,10 @@ __d(
         o("WAWebModalManager").ModalManager.open(
           E.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
             accountLid: t,
+            entryPoint: o(
+              "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
+            ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
+              .CONTACT_INFO_CARD,
           }),
         );
       },
@@ -527,6 +532,10 @@ __d(
         o("WAWebModalManager").ModalManager.open(
           E.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
             accountLids: [t],
+            entryPoint: o(
+              "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
+            ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
+              .CONTACT_INFO_CARD,
           }),
         );
       };

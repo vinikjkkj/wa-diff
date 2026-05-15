@@ -19,7 +19,6 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,11 +33,11 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.context,
-            a = e.phash,
-            i = e.wids;
-          if (a != null) {
-            var l = yield o("WAWebApiDeviceList").getDeviceIds(i),
-              s = l.map(function (e) {
+            r = e.phash,
+            a = e.wids;
+          if (r != null) {
+            var i = yield o("WAWebApiDeviceList").getDeviceIds(a),
+              l = i.map(function (e) {
                 return e == null
                   ? []
                   : e.devices.map(function (t) {
@@ -47,30 +46,27 @@ __d(
                       ).createDeviceWidFromDeviceListPk(e.id, t.id, t.isHosted);
                     });
               }),
-              u = r("lodash").flatMap(
-                s,
-                o("WAWebIdentityFunction").identityFunction,
-              ),
-              m = yield o("WAWebPhashUtils").phashV2(u);
-            if (a === m) return;
+              s = l.flatMap(o("WAWebIdentityFunction").identityFunction),
+              u = yield o("WAWebPhashUtils").phashV2(s);
+            if (r === u) return;
           }
-          var p = new Set(),
-            f = [];
+          var m = new Set(),
+            p = [];
           if (
-            (i.forEach(function (e) {
+            (a.forEach(function (e) {
               var t = d.get(o("WAWebDeviceListPk").createDeviceListPK(e));
-              t ? p.add(t) : f.push(e);
+              t ? m.add(t) : p.push(e);
             }),
-            f.length === 0)
+            p.length === 0)
           ) {
-            yield (c || (c = n("Promise"))).all(Array.from(p));
+            yield (c || (c = n("Promise"))).all(Array.from(m));
             return;
           }
-          var g = _(f, t);
-          (f.map(function (e) {
-            d.set(o("WAWebDeviceListPk").createDeviceListPK(e), g);
+          var f = _(p, t);
+          (p.map(function (e) {
+            d.set(o("WAWebDeviceListPk").createDeviceListPK(e), f);
           }),
-            yield (c || (c = n("Promise"))).all([g].concat(Array.from(p))));
+            yield (c || (c = n("Promise"))).all([f].concat(Array.from(m))));
         })),
         p.apply(this, arguments)
       );

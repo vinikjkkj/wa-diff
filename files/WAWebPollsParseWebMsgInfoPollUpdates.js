@@ -67,7 +67,12 @@ __d(
                 var a,
                   i = (a = r("WANullthrows"))(t.pollUpdateMessageKey),
                   l = a(t.vote),
-                  s = a(o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey(i, n)),
+                  s = a(
+                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
+                      isFromCag: n,
+                      key: i,
+                    }),
+                  ),
                   u = s.msgKey,
                   m = s.sender;
                 return o("WAWebPollsProtobufConversion").voteFromProtobuf({

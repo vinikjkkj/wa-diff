@@ -7,6 +7,7 @@ __d(
     "WAWebDataSharing3pdLidCollection",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgType",
+    "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -34,7 +35,12 @@ __d(
           var n = o("WAWebWidFactory").createUserLidOrThrow(e);
           return r(
             "WAWebCtwaPerCustomerDataSharingSync",
-          ).sendPerCustomerDataSharingUpdate(n, t);
+          ).sendPerCustomerDataSharingUpdate(
+            n,
+            t,
+            o("WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint")
+              .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT.SYNCD_MUTATION,
+          );
         })),
         S.apply(this, arguments)
       );

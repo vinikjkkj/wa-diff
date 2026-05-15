@@ -12,6 +12,7 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdCoreApi",
     "WAWebSyncdIndexUtils",
+    "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -93,6 +94,11 @@ __d(
                                       {
                                         accountLid: u,
                                         perCustomerDataSharingState: d,
+                                        entryPoint: o(
+                                          "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
+                                        )
+                                          .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
+                                          .SYNCD_MUTATION,
                                       },
                                     ));
                                 }
@@ -232,30 +238,34 @@ __d(
           }),
           (a.sendPerCustomerDataSharingUpdate = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var r = this,
-                  a = this.getCtwaPerCustomerDataSharingMutation({
+              function* (e, t, r) {
+                var a = this,
+                  i = this.getCtwaPerCustomerDataSharingMutation({
                     accountLid: e,
                     isEnabled: t,
                   }),
-                  i = o(
+                  l = o(
                     "WAWebSchemaDataSharing3pdLidV2",
                   ).getDataSharing3pdLidTable(),
-                  l = e.toString();
+                  s = e.toString();
                 (yield o("WAWebSyncdCoreApi").lockForSync(
                   ["data-sharing-3pd-lid-v2"],
-                  [a],
+                  [i],
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    yield r.$CtwaPerCustomerDataSharingSync$p_1(i, l, t);
+                    yield a.$CtwaPerCustomerDataSharingSync$p_1(l, s, t);
                   }),
                 ),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "maybeGeneratePerCustomerDataSharingSystemMessage",
-                    { accountLid: l, perCustomerDataSharingState: t },
+                    {
+                      accountLid: s,
+                      perCustomerDataSharingState: t,
+                      entryPoint: r,
+                    },
                   ));
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;

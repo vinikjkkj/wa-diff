@@ -223,7 +223,7 @@ __d(
     function te(e) {
       var t = e == null ? void 0 : e.claim,
         n = t != null ? [t] : [];
-      if (x === 2 || x === 3 || x === 4) {
+      if (x === 2 || x === 3 || x === 4 || x === 5) {
         var r = e == null ? void 0 : e.appScopedIdentity;
         if (r !== void 0)
           return { appScopedIdentity: { uid: r, identifier: r, claims: n } };

@@ -198,21 +198,21 @@ __d(
                   ? yield g
                   : null,
             L = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario({
-              isWAAEligible: b,
+              activeIdentityType: v,
               fbPageHasCreatedAd:
                 (d = R == null ? void 0 : R.fbPageHasCreatedAd) != null
                   ? d
-                  : !1,
-              waAdsIdentityPageHasCreatedAd:
-                (p = R == null ? void 0 : R.waAdsIdentityPageHasCreatedAd) !=
-                null
-                  ? p
                   : !1,
               hasValidFBAccessToken:
                 o(
                   "WAWebBizAdCreationResolveStoredIdentity",
                 ).resolveStoredIdentityForAccountType("FB") != null,
-              activeIdentityType: v,
+              isWAAEligible: b,
+              waAdsIdentityPageHasCreatedAd:
+                (p = R == null ? void 0 : R.waAdsIdentityPageHasCreatedAd) !=
+                null
+                  ? p
+                  : !1,
             }),
             E =
               L === "FIRST_TIME_WAA_ELIGIBLE"

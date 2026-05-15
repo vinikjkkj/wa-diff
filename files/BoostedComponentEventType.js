@@ -532,6 +532,9 @@ __d(
       IG_CONNECT_ADMIN_BUTTON_IMPRESSION: "ig_connect_admin_button_impression",
       IG_CONNECT_ADMIN_BUTTON_CLICK: "ig_connect_admin_button_click",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
+      PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
+        "product_picker_ig_page_load_eligibility",
+      AD_CENTER_IG_PAGE_LOAD_ELIGIBILITY: "ad_center_ig_page_load_eligibility",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_NON_ADMIN_IMPRESSION:
         "boosted_item_picker_no_ig_tab_non_admin_impression",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_ADMIN_IMPRESSION:

@@ -42,6 +42,9 @@ __d(
         SAVE_COVER_PHOTO: "save_cover_photo",
         SAVE_EMAIL: "save_email",
         SAVE_FB_ACCOUNT: "save_fb_account",
+        SAVE_FIELDS_GRAPHQL: "save_fields_graphql",
+        SAVE_FIELDS_GRAPHQL_ERROR: "save_fields_graphql_error",
+        SAVE_FIELDS_GRAPHQL_MUTATION: "save_fields_graphql_mutation",
         SAVE_IG_ACCOUNT: "save_ig_account",
         SAVE_MANAGE_SERVICES: "save_manage_services",
         SAVE_PHONE_NUMBER: "save_phone_number",
@@ -258,6 +261,28 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
               extraAttributes: { website_edit_op: n },
               userActionTarget: e.SAVE_SECONDARY_WEBSITE,
+            });
+          }),
+          (n.clickSaveFieldsGraphQL = function () {
+            this.$1({
+              action: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+              userActionTarget: e.SAVE_FIELDS_GRAPHQL,
+            });
+          }),
+          (n.callSaveFieldsGraphQLMutation = function () {
+            this.$1({
+              action: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+              userActionTarget: e.SAVE_FIELDS_GRAPHQL_MUTATION,
+            });
+          }),
+          (n.saveFieldsGraphQLError = function (n) {
+            this.$1({
+              action: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+              extraAttributes: { error_message: String(n) },
+              userActionTarget: e.SAVE_FIELDS_GRAPHQL_ERROR,
             });
           }),
           (n.logProfileFieldsSave = function (t, n) {

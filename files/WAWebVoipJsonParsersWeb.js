@@ -681,6 +681,7 @@ __d(
         pushName: o,
         accountKind: (r = e.account_kind) != null ? r : null,
         guestName: o,
+        userType: e.type,
       };
     }
     l.default = d;

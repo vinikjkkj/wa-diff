@@ -11,6 +11,7 @@ __d(
               options: { fetchPolicy: "network-only" },
               parameters: r("WAWebBizAdCreationRootQuery$Parameters"),
               variables: {
+                draftID: t.draft_id,
                 input: {
                   page_id: t.page_id,
                   flow_id: t.flow_id,
@@ -18,7 +19,6 @@ __d(
                   ad_account_id: t.ad_account_id,
                   boost_id: t.boost_id,
                 },
-                draftID: t.draft_id,
                 isFBAccount: t.ad_account_type === "FB",
                 isWAAccount: t.ad_account_type === "WAA",
                 pageID: t.page_id,

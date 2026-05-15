@@ -162,14 +162,15 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function R(e, t, n, r, a, i) {
-      var l = { contact_count: t, save_result: n };
-      (a != null && (l.errorType = a),
-        i != null && (l.campaign_sent_error_type = i),
-        r != null && (l.attachmentExt = r),
+    function R(e, t, n, r, a, i, l) {
+      var s = { contact_count: t, save_result: n };
+      (a != null && (s.errorType = a),
+        i != null && (s.campaign_sent_error_type = i),
+        r != null && (s.attachmentExt = r),
+        l != null && (s.attachment_type = l),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
-          extraAttributes: l,
+          extraAttributes: s,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
@@ -238,15 +239,17 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function $(e, t, n, r) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: r,
-        extraAttributes: { audience_id: t.join(","), recipient_count: n },
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
-      });
+    function $(e, t, n, r, a) {
+      var i = { audience_id: t.join(","), recipient_count: n };
+      (a != null && (i.attachment_type = a),
+        e({
+          action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+          entryPoint: r,
+          extraAttributes: i,
+          surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+          userActionTarget:
+            o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
+        }));
     }
     function P(e, t, n) {
       e({

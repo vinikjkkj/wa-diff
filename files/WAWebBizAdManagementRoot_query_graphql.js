@@ -13,20 +13,26 @@ __d(
           storageKey: null,
         },
         r = {
+          kind: "InlineFragment",
+          selections: [t],
+          type: "Node",
+          abstractKey: "__isNode",
+        },
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "boosting_status_display_text",
           storageKey: null,
         },
-        o = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "formatted_for_lwi",
           storageKey: null,
         },
-        a = {
+        i = {
           alias: null,
           args: null,
           concreteType: null,
@@ -59,28 +65,28 @@ __d(
                   name: "currency",
                   storageKey: null,
                 },
-                o,
+                a,
               ],
               storageKey: null,
             },
           ],
           storageKey: null,
         },
-        i = {
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "image_url",
           storageKey: null,
         },
-        l = {
+        s = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "message",
           storageKey: null,
         },
-        s = {
+        u = {
           alias: null,
           args: null,
           concreteType: null,
@@ -123,7 +129,7 @@ __d(
               kind: "LinkedField",
               name: "budget",
               plural: !1,
-              selections: [o],
+              selections: [a],
               storageKey: null,
             },
             {
@@ -174,7 +180,7 @@ __d(
                       name: "body",
                       storageKey: null,
                     },
-                    i,
+                    l,
                     {
                       alias: null,
                       args: null,
@@ -198,7 +204,7 @@ __d(
                           name: "link_data",
                           plural: !1,
                           selections: [
-                            l,
+                            s,
                             {
                               alias: null,
                               args: null,
@@ -236,7 +242,7 @@ __d(
                           name: "video_data",
                           plural: !1,
                           selections: [
-                            l,
+                            s,
                             {
                               alias: null,
                               args: null,
@@ -244,7 +250,7 @@ __d(
                               name: "video_id",
                               storageKey: null,
                             },
-                            i,
+                            l,
                           ],
                           storageKey: null,
                         },
@@ -278,7 +284,7 @@ __d(
           ],
           storageKey: null,
         },
-        u = {
+        c = {
           alias: null,
           args: null,
           concreteType: "AdCampaignGroup",
@@ -431,87 +437,91 @@ __d(
                           name: "node",
                           plural: !1,
                           selections: [
+                            r,
                             {
-                              kind: "InlineFragment",
-                              selections: [t],
-                              type: "Node",
-                              abstractKey: "__isNode",
-                            },
-                            {
-                              alias: null,
-                              args: [
-                                {
-                                  kind: "Literal",
-                                  name: "supported",
-                                  value: "304s3R",
-                                },
-                              ],
-                              concreteType: null,
-                              kind: "LinkedField",
-                              name: "wrapper_renderer",
-                              plural: !1,
+                              kind: "InlineDataFragmentSpread",
+                              name: "extractWAWebBizBoostedComponentData_node",
                               selections: [
+                                r,
                                 {
-                                  kind: "InlineFragment",
-                                  selections: [
+                                  alias: null,
+                                  args: [
                                     {
-                                      alias: null,
-                                      args: null,
-                                      concreteType:
-                                        "CTWABoostedComponentWrapper",
-                                      kind: "LinkedField",
-                                      name: "boosted_component",
-                                      plural: !1,
-                                      selections: [
-                                        {
-                                          args: null,
-                                          kind: "FragmentSpread",
-                                          name: "WAWebBizAdDetailsDrawer_boostedComponent",
-                                        },
-                                        t,
-                                        r,
-                                        a,
-                                        s,
-                                        u,
-                                      ],
-                                      storageKey: null,
+                                      kind: "Literal",
+                                      name: "supported",
+                                      value: "304s3R",
                                     },
                                   ],
-                                  type: "CTWAAdsManagementBoostedComponent",
-                                  abstractKey: null,
-                                },
-                                {
-                                  kind: "InlineFragment",
+                                  concreteType: null,
+                                  kind: "LinkedField",
+                                  name: "wrapper_renderer",
+                                  plural: !1,
                                   selections: [
                                     {
-                                      alias: null,
-                                      args: null,
-                                      concreteType:
-                                        "BoostedComponentAsyncWrapper",
-                                      kind: "LinkedField",
-                                      name: "async_request",
-                                      plural: !1,
+                                      kind: "InlineFragment",
                                       selections: [
                                         {
+                                          alias: null,
                                           args: null,
-                                          kind: "FragmentSpread",
-                                          name: "WAWebBizAdDetailsDrawer_asyncRequest",
+                                          concreteType:
+                                            "CTWABoostedComponentWrapper",
+                                          kind: "LinkedField",
+                                          name: "boosted_component",
+                                          plural: !1,
+                                          selections: [
+                                            {
+                                              args: null,
+                                              kind: "FragmentSpread",
+                                              name: "WAWebBizAdDetailsDrawer_boostedComponent",
+                                            },
+                                            t,
+                                            o,
+                                            i,
+                                            u,
+                                            c,
+                                          ],
+                                          storageKey: null,
                                         },
-                                        t,
-                                        r,
-                                        a,
-                                        s,
-                                        u,
                                       ],
-                                      storageKey: null,
+                                      type: "CTWAAdsManagementBoostedComponent",
+                                      abstractKey: null,
+                                    },
+                                    {
+                                      kind: "InlineFragment",
+                                      selections: [
+                                        {
+                                          alias: null,
+                                          args: null,
+                                          concreteType:
+                                            "BoostedComponentAsyncWrapper",
+                                          kind: "LinkedField",
+                                          name: "async_request",
+                                          plural: !1,
+                                          selections: [
+                                            {
+                                              args: null,
+                                              kind: "FragmentSpread",
+                                              name: "WAWebBizAdDetailsDrawer_asyncRequest",
+                                            },
+                                            t,
+                                            o,
+                                            i,
+                                            u,
+                                            c,
+                                          ],
+                                          storageKey: null,
+                                        },
+                                      ],
+                                      type: "LWIAdsManagementBoostedComponentAsyncRequest",
+                                      abstractKey: null,
                                     },
                                   ],
-                                  type: "LWIAdsManagementBoostedComponentAsyncRequest",
-                                  abstractKey: null,
+                                  storageKey:
+                                    'wrapper_renderer(supported:"304s3R")',
                                 },
                               ],
-                              storageKey:
-                                'wrapper_renderer(supported:"304s3R")',
+                              args: null,
+                              argumentDefinitions: [],
                             },
                             {
                               alias: null,

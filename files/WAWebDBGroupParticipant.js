@@ -272,7 +272,11 @@ __d(
                                         )
                                       : o(
                                           "WAWebDBGroupParticipantHelpers",
-                                        ).addParticipantInfo(s, c, t.deviceIds);
+                                        ).addParticipantInfo({
+                                          deviceIds: t.deviceIds,
+                                          oldDBRecord: s,
+                                          participantsAdded: c,
+                                        });
                                     break;
                                   case o("WAWebDBParticipantTypes")
                                     .PARTICIPANT_OPERATION.REMOVE:
@@ -614,7 +618,11 @@ __d(
                           ).addParticipantInfoCAG(a, s, t.deviceIds)
                         : o(
                             "WAWebDBGroupParticipantHelpers",
-                          ).addParticipantInfo(a, s, t.deviceIds),
+                          ).addParticipantInfo({
+                            deviceIds: t.deviceIds,
+                            oldDBRecord: a,
+                            participantsAdded: s,
+                          }),
                     );
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                     .REMOVE:

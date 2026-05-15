@@ -296,7 +296,7 @@ __d(
           (t.createBroadcastViewed = function (t) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
           }),
-          (t.sendBroadcastResult = function (t, n, r, a, i) {
+          (t.sendBroadcastResult = function (t, n, r, a, i, l) {
             o("WAWebBBBroadcastCreationLogs").sendBroadcastResult(
               this.$1,
               t,
@@ -304,6 +304,7 @@ __d(
               r,
               a,
               i,
+              l,
             );
           }),
           (t.sendCampaignAck = function (t) {
@@ -357,12 +358,13 @@ __d(
               n,
             );
           }),
-          (t.createBroadcastSendClicked = function (t, n, r) {
+          (t.createBroadcastSendClicked = function (t, n, r, a) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastSendClicked(
               this.$1,
               t,
               n,
               r,
+              a,
             );
           }),
           (t.sendBroadcastButtonViewed = function (t, n) {

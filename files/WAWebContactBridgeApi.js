@@ -132,6 +132,93 @@ __d(
             });
           });
         },
+        getFrequentChatsForSharing: function () {
+          var t =
+              o("WAWebABProps").getABPropConfigValue("calling_lid_version") > 0,
+            r = o("WAWebChatCollection").ChatCollection.getModelsArray(),
+            a = [];
+          for (var i of r) {
+            var l = i.id.isGroup(),
+              s = i.id.isRegularUser();
+            if (!(!s && !l)) {
+              if (s) {
+                var u = o("WAWebContactCollection").ContactCollection.get(i.id);
+                if (u == null) continue;
+              }
+              a.push(i);
+            }
+          }
+          var c = a
+              .filter(function (e) {
+                return e.pin != null;
+              })
+              .sort(function (e, t) {
+                var n, r;
+                return (
+                  ((n = t.pin) != null ? n : 0) - ((r = e.pin) != null ? r : 0)
+                );
+              }),
+            d = a
+              .filter(function (e) {
+                return e.pin == null;
+              })
+              .sort(function (e, t) {
+                var n, r;
+                return (
+                  ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0)
+                );
+              }),
+            m = [].concat(c, d),
+            p = [];
+          for (var _ of m) {
+            var f, g, h;
+            if (_.id.isGroup()) {
+              var y, C, b;
+              p.push({
+                lid: _.id.toString(),
+                name:
+                  (y =
+                    (C = _.formattedTitle) != null
+                      ? C
+                      : (b = _.groupMetadata) == null
+                        ? void 0
+                        : b.subject) != null
+                    ? y
+                    : "",
+                contactType: "group",
+              });
+              continue;
+            }
+            var v = o("WAWebContactCollection").ContactCollection.get(_.id);
+            if (v != null) {
+              var S = null;
+              if (t) {
+                var R = o("WAWebLidMigrationUtils").toLid(v.id);
+                if (R == null) continue;
+                S = R.toString();
+              } else S = v.id.toString();
+              var L = "personal";
+              (v.isEnterprise
+                ? (L = "enterprise")
+                : v.isSmb
+                  ? (L = "smb")
+                  : v.isBusiness && (L = "business"),
+                p.push({
+                  lid: S,
+                  name:
+                    (f =
+                      (g = (h = _.formattedTitle) != null ? h : v.pushname) !=
+                      null
+                        ? g
+                        : v.name) != null
+                      ? f
+                      : "",
+                  contactType: L,
+                }));
+            }
+          }
+          return (e || (e = n("Promise"))).resolve(p);
+        },
         setContactsNotMyUsernameContacts: function (t) {
           var e = t.usernameContactIdsToRemove,
             n = { merge: !0 };

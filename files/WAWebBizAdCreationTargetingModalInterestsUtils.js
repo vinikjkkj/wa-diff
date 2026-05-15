@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationTargetingModalInterestsUtils",
-  ["fbt", "LWICometTargetingUtils"],
+  ["fbt", "LWICometTargetingUtils", "justknobx"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
@@ -27,35 +27,55 @@ __d(
       var t;
       return e == null ? "" : (t = e.split("_")[0]) != null ? t : "";
     }
-    function c(e) {
-      if (e.length === 0) return [];
-      var t = [];
-      for (var n of e) {
-        var r,
-          a,
-          i,
+    function c(e, t) {
+      var n = t[0];
+      if (n == null) return e;
+      var r = e[0],
+        o = { type: n.type },
+        a = babelHelpers.extends({}, r != null ? r : o);
+      (n.college_years != null && (a.college_years = n.college_years),
+        n.education_statuses != null &&
+          (a.education_statuses = n.education_statuses),
+        n.interested_in != null && (a.interested_in = n.interested_in),
+        n.relationship_statuses != null &&
+          (a.relationship_statuses = n.relationship_statuses),
+        n.custom_audiences != null && (a.custom_audiences = n.custom_audiences),
+        n.product_audience_specs != null &&
+          (a.product_audience_specs = n.product_audience_specs));
+      var i = t.slice(1);
+      return [a].concat(i);
+    }
+    function d(e, t) {
+      var n = [];
+      for (var a of e) {
+        var i,
           l,
-          s = (r = n.node) == null ? void 0 : r.id,
-          c = (a = n.node) == null ? void 0 : a.name;
-        if (!(s == null || c == null)) {
-          var d = u(s),
-            m = (i = n.node) == null ? void 0 : i.path,
-            p = (l = n.node) == null ? void 0 : l.target_type;
-          if (p != null) {
-            var _ = {
-                key: s,
-                label: c,
-                rawData: { id: d, name: c, path: m, targetType: p },
+          s,
+          d,
+          m = (i = a.node) == null ? void 0 : i.id,
+          p = (l = a.node) == null ? void 0 : l.name;
+        if (!(m == null || p == null)) {
+          var _ = u(m),
+            f = (s = a.node) == null ? void 0 : s.path,
+            g = (d = a.node) == null ? void 0 : d.target_type;
+          if (g != null) {
+            var h = {
+                key: m,
+                label: p,
+                rawData: { id: _, name: p, path: f, targetType: g },
                 type: "entry",
               },
-              f = o("LWICometTargetingUtils").getFlexibleSpecFromEntry(_, t);
-            f != null && (t = f);
+              y = o("LWICometTargetingUtils").getFlexibleSpecFromEntry(h, n);
+            y != null && (n = y);
           }
         }
       }
-      return t;
+      return (
+        t != null && t.length > 0 && r("justknobx")._("3010") && (n = c(n, t)),
+        n
+      );
     }
-    function d(t) {
+    function m(t) {
       var n = t == null ? void 0 : t[0];
       if (n == null) return s._(/*BTDS*/ "None selected");
       var r = e(n);
@@ -68,7 +88,7 @@ __d(
         s._param("interestNames", o.join(", ")),
       ]);
     }
-    function m(t) {
+    function p(t) {
       var n = t == null ? void 0 : t[0];
       if (n == null) return [];
       var r = e(n);
@@ -88,9 +108,9 @@ __d(
         };
       });
     }
-    ((l.convertInterestsToFlexibleSpec = c),
-      (l.formatInterestsDisplayWithPlaceholder = d),
-      (l.convertFlexibleSpecToInterests = m));
+    ((l.convertInterestsToFlexibleSpec = d),
+      (l.formatInterestsDisplayWithPlaceholder = m),
+      (l.convertFlexibleSpecToInterests = p));
   },
   226,
 );

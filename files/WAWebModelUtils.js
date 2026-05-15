@@ -159,14 +159,11 @@ __d(
         ),
         l = r("lodash").memoize(function (e) {
           var t,
-            n = r("lodash").flatMap(
-              (t = e.dependencies) != null ? t : [],
-              function (e) {
-                if (e.dependencyKey != null) return [e.dependencyKey];
-                var t = i.get(e);
-                return t != null ? [t] : l(e);
-              },
-            );
+            n = ((t = e.dependencies) != null ? t : []).flatMap(function (e) {
+              if (e.dependencyKey != null) return [e.dependencyKey];
+              var t = i.get(e);
+              return t != null ? [t] : l(e);
+            });
           return Array.from(new Set(n));
         });
       v(t).forEach(function (t) {

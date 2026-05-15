@@ -24,7 +24,6 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "compactMap",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -262,7 +261,7 @@ __d(
                 var a = this.$9(e),
                   i = Array.from(
                     new Set(
-                      r("lodash").flatMap(e, function (e) {
+                      e.flatMap(function (e) {
                         return e.msgKeys;
                       }),
                     ),
@@ -392,8 +391,8 @@ __d(
                     },
                   ),
                   o("WAWebBackendApi").frontendFireAndForget("updateMsgInfo", {
-                    updates: r("lodash")
-                      .flatMap(e, function (e) {
+                    updates: e
+                      .flatMap(function (e) {
                         var t = e.ack,
                           n = e.msgKeys,
                           a = e.receiverId,

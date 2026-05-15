@@ -7,6 +7,7 @@ __d(
         INSTAGRAM: 2,
         OCULUS: 3,
         WHATSAPP: 4,
+        MT: 5,
       }),
       l = e;
     i.default = l;

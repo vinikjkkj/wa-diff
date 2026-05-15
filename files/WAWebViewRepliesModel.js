@@ -73,14 +73,12 @@ __d(
                 t != null &&
                   this.msgs.get(e) == null &&
                   (this.msgs.add(t, { at: 0 }),
-                  o("WALogger")
-                    .LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[ThreadChatParity] hydrateRootMessage: added root to MRM",
-                        ])),
-                    )
-                    .sendLogs("hydrate-root-msg-success"));
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[ThreadChatParity] hydrateRootMessage: added root to MRM",
+                      ])),
+                  ));
               }
             });
             function t() {

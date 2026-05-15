@@ -9,7 +9,6 @@ __d(
     "WAWebSendReadReceiptJob",
     "asyncToGeneratorRuntime",
     "err",
-    "lodash",
     "react",
     "react-compiler-runtime",
     "useLazyRef",
@@ -24,16 +23,16 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("lodash").flatten(Array.from(e.values()));
+          var t = Array.from(e.values()).flat();
           if (t.length !== 0) {
             yield o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t);
             var n = new Map();
-            for (var a of e) {
-              var i = a[0],
-                l = a[1];
+            for (var r of e) {
+              var a = r[0],
+                i = r[1];
               n.set(
-                i,
-                l.map(function (e) {
+                a,
+                i.map(function (e) {
                   var t = e.msgKey;
                   return t;
                 }),

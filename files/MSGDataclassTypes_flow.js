@@ -36,7 +36,7 @@ __d(
         FollowUpPrompt: "FOLLOW_UP_PROMPT",
         SendToChat: "SEND_TO_CHAT",
       }),
-      y = e({ Html: "HTML", Pdf: "PDF", Svg: "SVG" }),
+      y = e({ Html: "HTML", Markdown: "MARKDOWN", Pdf: "PDF", Svg: "SVG" }),
       C = e({
         Comment: "COMMENT",
         Default: "DEFAULT",

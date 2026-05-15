@@ -14,23 +14,26 @@ __d(
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      var r = new Map(e.senderKey);
-      n.forEach(function (e) {
+    function e(e) {
+      var t = e.deviceIds,
+        n = e.oldDBRecord,
+        r = e.participantsAdded,
+        a = new Map(n.senderKey);
+      t.forEach(function (e) {
         o("WAWebUserPrefsMeUser").isMeDevice(e) ||
           e.isHosted() ||
-          r.set(e.toString(), !1);
+          a.set(e.toString(), !1);
       });
-      var a = new Set(
-          t.map(function (e) {
+      var i = new Set(
+          r.map(function (e) {
             var t = e.id;
             return t.toString();
           }),
         ),
-        i = u(e.pastParticipants, a),
-        l = [].concat(
-          e.participants,
-          a
+        l = u(n.pastParticipants, i),
+        s = [].concat(
+          n.participants,
+          i
             .values()
             .toArray()
             .map(function (e) {
@@ -38,14 +41,14 @@ __d(
             }),
         );
       return {
-        groupId: e.groupId,
-        senderKey: r,
-        participants: l,
-        pastParticipants: i,
-        admins: e.admins,
-        superAdmins: e.superAdmins,
-        rotateKey: e.rotateKey,
-        staleType: e.staleType,
+        groupId: n.groupId,
+        senderKey: a,
+        participants: s,
+        pastParticipants: l,
+        admins: n.admins,
+        superAdmins: n.superAdmins,
+        rotateKey: n.rotateKey,
+        staleType: n.staleType,
       };
     }
     function s(e, t, n) {

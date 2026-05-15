@@ -6,6 +6,7 @@ __d(
     "WAWebBizBroadcastMarketingMessagesEligibilityQuickPromotionFilter",
     "WAWebBizBroadcastSmbaPlatformQuickPromotionFilter",
     "WAWebBizBroadcastSmbiPlatformQuickPromotionFilter",
+    "WAWebBizBroadcastWebSendEnabledNoExposureQuickPromotionFilter",
     "WAWebProfilePhotoRemovedQuickPromotionFilter",
     "WAWebQuickPromotionFilterOtherPromotionEvent",
     "WAWebQuickPromotionFilterSecondsSinceLastImpression",
@@ -42,6 +43,12 @@ __d(
           .bizBroadcastSmbiPlatformFilter.name,
         o("WAWebBizBroadcastSmbiPlatformQuickPromotionFilter")
           .bizBroadcastSmbiPlatformFilter,
+      ],
+      [
+        o("WAWebBizBroadcastWebSendEnabledNoExposureQuickPromotionFilter")
+          .bizBroadcastWebSendEnabledNoExposureFilter.name,
+        o("WAWebBizBroadcastWebSendEnabledNoExposureQuickPromotionFilter")
+          .bizBroadcastWebSendEnabledNoExposureFilter,
       ],
       [
         o("WAWebQuickPromotionFilterOtherPromotionEvent")

@@ -214,6 +214,7 @@ __d(
               "cancelCallNotification",
               { wid: n.PeerUserJid },
             ),
+            o("WAWebCoreActionsODS").logCallIncomingMissed(),
             o("WAWebBackendApi").frontendFireAndForget(
               "generateCallLogFromEventCallMissed",
               { callMissedData: n },

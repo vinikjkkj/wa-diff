@@ -203,7 +203,9 @@ __d(
                     : c
                       ? s._(/*BTDS*/ "Message can't be empty")
                       : n
-                        ? s._(/*BTDS*/ "Something went wrong")
+                        ? s._(
+                            /*BTDS*/ "Something went wrong. Please try again later.",
+                          )
                         : null
               : s._(
                   /*BTDS*/ "Account data missing. Check your payment details and try again.",

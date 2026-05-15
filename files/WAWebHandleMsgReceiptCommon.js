@@ -24,7 +24,6 @@ __d(
     "WAWebThreadId",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -98,9 +97,7 @@ __d(
             n = t.updatedAddOns,
             a = t.updatedOrphans;
           return new Set(
-            []
-              .concat(a, r("lodash").flatten(Array.from(n.values())))
-              .map(String),
+            [].concat(a, Array.from(n.values()).flat()).map(String),
           );
         })),
         S.apply(this, arguments)

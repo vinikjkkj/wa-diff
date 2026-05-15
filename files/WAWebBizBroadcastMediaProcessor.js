@@ -24,11 +24,24 @@ __d(
         o("WAWebMsgType").MSG_TYPE.VIDEO,
       ]);
     function f(e, t, n) {
-      return g.apply(this, arguments);
+      return e != null
+        ? t != null
+          ? "product"
+          : "catalog"
+        : n === o("WAWebMsgType").MSG_TYPE.IMAGE
+          ? "image"
+          : n === o("WAWebMsgType").MSG_TYPE.VIDEO
+            ? "video"
+            : n === o("WAWebMsgType").MSG_TYPE.DOCUMENT
+              ? "document"
+              : null;
     }
-    function g() {
+    function g(e, t, n) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -70,17 +83,17 @@ __d(
             { freshMedia: l, mediaProps: u }
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
+    function y(e, t, n, r) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield f(e, t, r),
+            var a = yield g(e, t, r),
               i = a.freshMedia,
               l = a.mediaProps,
               s = yield o(
@@ -97,10 +110,10 @@ __d(
             );
           },
         )),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(t) {
+    function b(t) {
       return (function () {
         var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
           var a;
@@ -166,14 +179,14 @@ __d(
         };
       })();
     }
-    function b(e, t, n, r, o) {
-      return v.apply(this, arguments);
+    function v(e, t, n, r, o) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
-            var i = yield f(e, t, r),
+            var i = yield g(e, t, r),
               l = i.freshMedia,
               s = i.mediaProps,
               u = yield o(
@@ -190,13 +203,14 @@ __d(
             );
           },
         )),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.SUPPORTED_MEDIA_TYPES = _),
-      (l.processMediaForBroadcast = h),
-      (l.createBroadcastMediaUploadCallback = C),
-      (l.processMediaWithCTAForBroadcast = b));
+      (l.getAttachmentType = f),
+      (l.processMediaForBroadcast = y),
+      (l.createBroadcastMediaUploadCallback = b),
+      (l.processMediaWithCTAForBroadcast = v));
   },
   98,
 );

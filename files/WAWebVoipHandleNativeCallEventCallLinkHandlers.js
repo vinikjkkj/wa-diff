@@ -241,10 +241,12 @@ __d(
       );
     }
     function x() {
-      o("WAWebBackendApi").frontendFireAndForget("handleLobbyNacked", {});
+      (o("WAWebCoreActionsODS").logCallGroupJoinError(),
+        o("WAWebBackendApi").frontendFireAndForget("handleLobbyNacked", {}));
     }
     function $() {
-      o("WAWebBackendApi").frontendFireAndForget("handleLobbyTimeout", {});
+      (o("WAWebCoreActionsODS").logCallGroupJoinError(),
+        o("WAWebBackendApi").frontendFireAndForget("handleLobbyTimeout", {}));
     }
     function P() {
       return N.apply(this, arguments);

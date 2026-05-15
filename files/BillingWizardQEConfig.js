@@ -136,10 +136,6 @@ __d(
           params: { dummy_param: e },
           type: "PAYMENT_ACCOUNT",
         },
-        billing_react_xmds_migration_catch_all__logging: {
-          params: { dummy_param: e },
-          type: "PAYMENT_ACCOUNT",
-        },
         billing_save_momo_universe_logging: {
           params: { dummy_param: e },
           type: "PAYMENT_ACCOUNT",
@@ -301,6 +297,7 @@ __d(
           type: "PAYMENT_ACCOUNT",
         },
         save_add_funds_combined_india__logging: { params: { dummy_param: e } },
+        save_and_add_funds_combined_global: { params: { enable: e } },
         scheduled_payments_universe: {
           params: { one_time_schedule_enabled: e },
           type: "PAYMENT_ACCOUNT",

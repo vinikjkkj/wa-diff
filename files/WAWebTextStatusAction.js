@@ -25,34 +25,35 @@ __d(
       var t = m.get(e);
       return t == null ? !1 : Date.now() - t < d ? !0 : (m.delete(e), !1);
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function _(e, t, n) {
+      var r = e == null ? void 0 : e.promises.getTextStatus;
+      if (r != null) return { fetchPromise: r, isOwnFetch: !1 };
+      var a = o("WAWebContactTextStatusBridge").getTextStatus(t, n);
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        e != null &&
+          ((e.promises.getTextStatus = a),
+          a.finally(function () {
+            e.promises.getTextStatus === a && delete e.promises.getTextStatus;
+          })),
+        { fetchPromise: a, isOwnFetch: !0 }
+      );
+    }
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
             var n = e.toString();
             if (!p(n)) {
               var r = o("WAWebContactCollection").ContactCollection.get(e),
-                a = new AbortController(),
-                i;
-              try {
-                if (
-                  ((i = o("WAWebContactTextStatusBridge").getTextStatus(e, t)),
-                  r)
-                ) {
-                  var l,
-                    s = r.promises;
-                  ((l = s.getTextStatus) == null || l.abortController.abort(),
-                    (r.promises.getTextStatus = {
-                      promise: i,
-                      abortController: a,
-                    }));
-                }
-                var u = yield i;
-                if (a.signal.aborted) return;
-                if (u.error) {
+                a = _(r, e, t),
+                i = a.fetchPromise,
+                l = a.isOwnFetch,
+                s = yield i;
+              if (l) {
+                if (s.error) {
                   m.set(n, Date.now());
                   return;
                 }
@@ -61,27 +62,17 @@ __d(
                     "WAWebUpdateTextStatusForContact",
                   ).updateTextStatusForContact(
                     e,
-                    u.text,
-                    u.emoji,
-                    u.ephemeralDurationSeconds,
-                    u.lastUpdateTime,
+                    s.text,
+                    s.emoji,
+                    s.ephemeralDurationSeconds,
+                    s.lastUpdateTime,
                   ));
-              } finally {
-                var c;
-                r != null &&
-                  ((c = r.promises) == null || (c = c.getTextStatus) == null
-                    ? void 0
-                    : c.promise) === i &&
-                  delete r.promises.getTextStatus;
               }
             }
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
-    }
-    function g() {
-      m.clear();
     }
     function h(e, t, n, r, o) {
       return y.apply(this, arguments);
@@ -184,8 +175,7 @@ __d(
         S.apply(this, arguments)
       );
     }
-    ((l.getTextStatus = _),
-      (l.clearRecentTextStatusFailuresForTesting = g),
+    ((l.getTextStatus = f),
       (l.setMyTextStatus = h),
       (l.getSuggestions = C),
       (l.setSuggestions = v));

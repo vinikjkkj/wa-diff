@@ -8,6 +8,7 @@ __d(
     "WAWebApiContact",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
+    "WAWebBizCoexGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
@@ -324,6 +325,11 @@ __d(
           e.contact.isContactBlocked ||
           o("WAWebChatGetters").getIsPSA(e) ||
           o("WAWebChatGetters").getIsIAS(e) ||
+          (e.parentCompanyName != null &&
+            e.obaPhoneNumber != null &&
+            e.contact.type === "out" &&
+            o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled() &&
+            o("WAWebBizCoexGatingUtils").agentOffboardingEnabled()) ||
           (o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked() &&
             !o("WAWebReachoutTimelockUtils").canSendMsgWhileTimelocked({
               chat: e,

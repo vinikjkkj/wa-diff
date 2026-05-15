@@ -44,8 +44,8 @@ __d(
         a = s.jsx(l, { entryPoint: e, manageAdsFlowID: t });
       }
       o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(a, {
-        transition: "slide-left",
         focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+        transition: "slide-left",
       });
     }
     l.default = u;

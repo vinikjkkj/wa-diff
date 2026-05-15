@@ -92,10 +92,6 @@ __d(
         },
       },
       {
-        key: "reach",
-        header: p(),
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .reach,
         cell: function (t) {
           var e = t.item;
           return e.isDraft
@@ -104,12 +100,12 @@ __d(
                 reach: e.reach,
               });
         },
+        header: p(),
+        key: "reach",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .reach,
       },
       {
-        key: "conversations",
-        header: d(),
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .conversations,
         cell: function (t) {
           var e = t.item;
           return e.isDraft
@@ -118,6 +114,10 @@ __d(
                 conversations: e.conversations,
               });
         },
+        header: d(),
+        key: "conversations",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .conversations,
       },
       {
         key: "costPerConversation",
@@ -135,10 +135,6 @@ __d(
         },
       },
       {
-        key: "amountSpent",
-        header: c(),
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .amountSpent,
         cell: function (t) {
           var e = t.item;
           return e.isDraft
@@ -149,11 +145,12 @@ __d(
                 formattedSpent: e.formattedSpent,
               });
         },
+        header: c(),
+        key: "amountSpent",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .amountSpent,
       },
       {
-        key: "actions",
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .actions,
         cell: function (t) {
           var e = t.isRowHovered,
             n = t.item;
@@ -175,6 +172,9 @@ __d(
                 onViewResults: n.onViewResults,
               });
         },
+        key: "actions",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .actions,
       },
     ];
     ((l.adManagementColumnWidths = o(

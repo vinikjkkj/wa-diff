@@ -13,7 +13,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1778490132531" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1778772053486" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -763,10 +763,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1287659: function () {
+            1287009: function () {
               return Date.now();
             },
-            1287682: function (t, n) {
+            1287032: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -901,19 +901,24 @@ __d(
               { data: i, len: t, ip: Xt(n), port: r },
             );
           }
-          function ot(e, t, n, r) {
+          function ot(e, t, n, r, o) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.initCaptureDriverJS({
               sample_rate: e,
               channels: t,
               bits_per_sample: n,
               frames_per_chunk: r,
+              device_type: o,
             });
           }
-          function at() {
-            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startCaptureJS();
+          function at(e) {
+            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startCaptureJS({
+              device_type: e,
+            });
           }
-          function it() {
-            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopCaptureJS();
+          function it(e) {
+            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopCaptureJS({
+              device_type: e,
+            });
           }
           function lt(e, t, n, r) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.initPlaybackDriverJS(
@@ -3399,7 +3404,7 @@ __d(
               L(e, new gt(e)));
           }
           var Zt = function (t, n) {
-              if (((H = t), wu(), D)) throw (G(!n), ln(t), "unwind");
+              if (((H = t), Fu(), D)) throw (G(!n), ln(t), "unwind");
               if (me() && !n) {
                 var e =
                   "program exited (with status: " +
@@ -7473,31 +7478,32 @@ __d(
               get_random_bytes_js: Ze,
               getentropy: Za,
               gethostbyname: ai,
-              invoke_d: Su,
-              invoke_diii: Iu,
+              invoke_d: Lu,
+              invoke_diii: Du,
+              invoke_fi: lu,
               invoke_fii: os,
-              invoke_fiii: ku,
-              invoke_fiiiiii: au,
+              invoke_fiii: Tu,
+              invoke_fiiiiii: iu,
               invoke_i: ml,
               invoke_ii: _l,
-              invoke_iid: yu,
-              invoke_iidi: Ru,
-              invoke_iidii: cu,
+              invoke_iid: bu,
+              invoke_iidi: Eu,
+              invoke_iidii: mu,
               invoke_iidjjjidjjjdjjji: Kl,
               invoke_iidjjjii: ns,
               invoke_iidjjjiii: Xl,
               invoke_iiffiii: is,
               invoke_iiffiiiii: as,
-              invoke_iifi: zs,
+              invoke_iifi: js,
               invoke_iii: fl,
-              invoke_iiid: bu,
-              invoke_iiifi: Vs,
+              invoke_iiid: Su,
+              invoke_iiifi: Hs,
               invoke_iiii: hl,
-              invoke_iiiidd: _u,
+              invoke_iiiidd: gu,
               invoke_iiiifiii: ds,
               invoke_iiiifiiiiii: _s,
               invoke_iiiii: vl,
-              invoke_iiiiid: Lu,
+              invoke_iiiiid: ku,
               invoke_iiiiii: Il,
               invoke_iiiiiii: yl,
               invoke_iiiiiiii: El,
@@ -7510,7 +7516,7 @@ __d(
               invoke_iiiiiiiiiiiii: fs,
               invoke_iiiiiiiiiiiiii: Pl,
               invoke_iiiiiiiiiiiiiiffiiiii: ms,
-              invoke_iiiiiiiiiiiiiii: xs,
+              invoke_iiiiiiiiiiiiiii: $s,
               invoke_iiiiiiiiiiiiiiiffiiiii: ss,
               invoke_iiiiiiiiiiiiiiiiiffiiiii: us,
               invoke_iiiiiiiiiiiiiiiiii: Nl,
@@ -7518,56 +7524,57 @@ __d(
               invoke_iiiiiiiiij: ks,
               invoke_iiiiiiiij: Rs,
               invoke_iiiiiiij: Cs,
-              invoke_iiiiiiijjii: Os,
+              invoke_iiiiiiijjii: Bs,
               invoke_iiiiiij: Ls,
               invoke_iiiiiijiiii: Is,
-              invoke_iiiiiijjijiiiiiiiiii: Ws,
-              invoke_iiiiij: iu,
+              invoke_iiiiiijjijiiiiiiiiii: qs,
+              invoke_iiiiij: su,
               invoke_iiiiijjii: es,
               invoke_iiiiijjiii: ts,
               invoke_iiiiijjjii: Jl,
               invoke_iiiiijjjiii: Zl,
               invoke_iiiij: vs,
-              invoke_iiiijiii: su,
+              invoke_iiiijiii: cu,
               invoke_iiiijiiji: zl,
               invoke_iiiijjii: rs,
               invoke_iiiijjiii: Yl,
               invoke_iiij: bs,
-              invoke_iiijddddddd: tu,
+              invoke_iiijddddddd: nu,
               invoke_iiiji: Wl,
               invoke_iiijii: Ol,
               invoke_iiijiiji: Gl,
               invoke_iiijji: Hl,
-              invoke_iiijjiiii: Xs,
-              invoke_iij: As,
+              invoke_iiijjiiii: Ys,
+              invoke_iij: Fs,
               invoke_iiji: Ts,
               invoke_iijii: Es,
-              invoke_iijiii: ou,
-              invoke_iijijijiji: hu,
-              invoke_iijj: Js,
-              invoke_iijjjiiii: Ks,
-              invoke_iijjjj: js,
-              invoke_iijjjji: eu,
-              invoke_ij: uu,
-              invoke_iji: fu,
+              invoke_iijiii: au,
+              invoke_iijijijiji: Cu,
+              invoke_iijj: Zs,
+              invoke_iijjjiiii: Qs,
+              invoke_iijjjj: Ks,
+              invoke_iijjjji: tu,
+              invoke_ij: du,
+              invoke_iji: hu,
               invoke_j: Ml,
               invoke_ji: gs,
-              invoke_jii: Bs,
+              invoke_jii: Ws,
               invoke_jiii: Rl,
-              invoke_jiiii: Eu,
+              invoke_jiiii: Iu,
+              invoke_jiiiii: xs,
               invoke_jiiiiiiii: Ss,
               invoke_jiiiiiji: Ds,
-              invoke_jiij: Zs,
-              invoke_jij: qs,
+              invoke_jiij: eu,
+              invoke_jij: Us,
               invoke_v: gl,
-              invoke_vd: vu,
+              invoke_vd: Ru,
               invoke_vi: Cl,
-              invoke_vid: gu,
-              invoke_viddjjii: Qs,
+              invoke_vid: yu,
+              invoke_viddjjii: Xs,
               invoke_vif: hs,
               invoke_vii: pl,
-              invoke_viid: lu,
-              invoke_viif: Du,
+              invoke_viid: uu,
+              invoke_viif: $u,
               invoke_viii: dl,
               invoke_viiii: bl,
               invoke_viiiii: kl,
@@ -7579,26 +7586,26 @@ __d(
               invoke_viiiiiiiii: Tl,
               invoke_viiiiiiiiii: Ul,
               invoke_viiiiiiiiiiii: ys,
-              invoke_viiiiiiiiiiiii: mu,
-              invoke_viiiiiiiiiiiiiii: Tu,
-              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: nu,
-              invoke_viiiiiiij: du,
-              invoke_viiiiij: Hs,
-              invoke_viiiiiji: Cu,
-              invoke_viiiij: Gs,
-              invoke_viiij: $s,
+              invoke_viiiiiiiiiiiii: _u,
+              invoke_viiiiiiiiiiiiiii: xu,
+              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: ru,
+              invoke_viiiiiiij: pu,
+              invoke_viiiiij: Gs,
+              invoke_viiiiiji: vu,
+              invoke_viiiij: zs,
+              invoke_viiij: Ps,
               invoke_viiiji: jl,
-              invoke_viij: Fs,
-              invoke_viiji: Ps,
-              invoke_viijii: Ns,
-              invoke_viijiiii: ws,
-              invoke_viijj: pu,
+              invoke_viij: Os,
+              invoke_viiji: Ns,
+              invoke_viijii: Ms,
+              invoke_viijiiii: As,
+              invoke_viijj: fu,
               invoke_viijjdiii: Ql,
-              invoke_vij: Ms,
-              invoke_viji: ru,
+              invoke_vij: ws,
+              invoke_viji: ou,
               invoke_vijiiiii: wl,
-              invoke_vijj: Us,
-              invoke_vijji: Ys,
+              invoke_vijj: Vs,
+              invoke_vijji: Js,
               invoke_vjiiiiii: Al,
               is_participant_known_contact_js: et,
               llvm_eh_typeid_for: ii,
@@ -7673,8 +7680,8 @@ __d(
             il = (y.___get_exception_message = xe("__get_exception_message")),
             ll = xe("__cxa_can_catch"),
             sl = xe("__cxa_is_pointer_type"),
-            ul = (y.___start_em_js = 1282364),
-            cl = (y.___stop_em_js = 1287659);
+            ul = (y.___start_em_js = 1281628),
+            cl = (y.___stop_em_js = 1287009);
           function dl(e, t, n, r) {
             var o = el();
             try {
@@ -8469,21 +8476,21 @@ __d(
               return (Qi(1, 0), BigInt(0));
             }
           }
-          function xs(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
+          function xs(e, t, n, r, o, a) {
+            var i = el();
+            try {
+              return dn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((tl(i), !(e instanceof $e))) throw e;
+              return (Qi(1, 0), BigInt(0));
+            }
+          }
+          function $s(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
             var f = el();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
             } catch (e) {
               if ((tl(f), !(e instanceof $e))) throw e;
-              Qi(1, 0);
-            }
-          }
-          function $s(e, t, n, r, o) {
-            var a = el();
-            try {
-              dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((tl(a), !(e instanceof $e))) throw e;
               Qi(1, 0);
             }
           }
@@ -8496,7 +8503,16 @@ __d(
               Qi(1, 0);
             }
           }
-          function Ns(e, t, n, r, o, a) {
+          function Ns(e, t, n, r, o) {
+            var a = el();
+            try {
+              dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((tl(a), !(e instanceof $e))) throw e;
+              Qi(1, 0);
+            }
+          }
+          function Ms(e, t, n, r, o, a) {
             var i = el();
             try {
               dn(e)(t, n, r, o, a);
@@ -8505,7 +8521,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Ms(e, t, n) {
+          function ws(e, t, n) {
             var r = el();
             try {
               dn(e)(t, n);
@@ -8514,7 +8530,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function ws(e, t, n, r, o, a, i, l) {
+          function As(e, t, n, r, o, a, i, l) {
             var s = el();
             try {
               dn(e)(t, n, r, o, a, i, l);
@@ -8523,7 +8539,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function As(e, t, n) {
+          function Fs(e, t, n) {
             var r = el();
             try {
               return dn(e)(t, n);
@@ -8532,7 +8548,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Fs(e, t, n, r) {
+          function Os(e, t, n, r) {
             var o = el();
             try {
               dn(e)(t, n, r);
@@ -8541,7 +8557,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Os(e, t, n, r, o, a, i, l, s, u, c) {
+          function Bs(e, t, n, r, o, a, i, l, s, u, c) {
             var d = el();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8550,7 +8566,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Bs(e, t, n) {
+          function Ws(e, t, n) {
             var r = el();
             try {
               return dn(e)(t, n);
@@ -8559,7 +8575,7 @@ __d(
               return (Qi(1, 0), BigInt(0));
             }
           }
-          function Ws(
+          function qs(
             e,
             t,
             n,
@@ -8609,7 +8625,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function qs(e, t, n) {
+          function Us(e, t, n) {
             var r = el();
             try {
               return dn(e)(t, n);
@@ -8618,7 +8634,7 @@ __d(
               return (Qi(1, 0), BigInt(0));
             }
           }
-          function Us(e, t, n, r) {
+          function Vs(e, t, n, r) {
             var o = el();
             try {
               dn(e)(t, n, r);
@@ -8627,7 +8643,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Vs(e, t, n, r, o) {
+          function Hs(e, t, n, r, o) {
             var a = el();
             try {
               return dn(e)(t, n, r, o);
@@ -8636,7 +8652,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Hs(e, t, n, r, o, a, i) {
+          function Gs(e, t, n, r, o, a, i) {
             var l = el();
             try {
               dn(e)(t, n, r, o, a, i);
@@ -8645,7 +8661,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Gs(e, t, n, r, o, a) {
+          function zs(e, t, n, r, o, a) {
             var i = el();
             try {
               dn(e)(t, n, r, o, a);
@@ -8654,7 +8670,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function zs(e, t, n, r) {
+          function js(e, t, n, r) {
             var o = el();
             try {
               return dn(e)(t, n, r);
@@ -8663,7 +8679,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function js(e, t, n, r, o, a) {
+          function Ks(e, t, n, r, o, a) {
             var i = el();
             try {
               return dn(e)(t, n, r, o, a);
@@ -8672,7 +8688,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Ks(e, t, n, r, o, a, i, l, s) {
+          function Qs(e, t, n, r, o, a, i, l, s) {
             var u = el();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
@@ -8681,7 +8697,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Qs(e, t, n, r, o, a, i, l) {
+          function Xs(e, t, n, r, o, a, i, l) {
             var s = el();
             try {
               dn(e)(t, n, r, o, a, i, l);
@@ -8690,7 +8706,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Xs(e, t, n, r, o, a, i, l, s) {
+          function Ys(e, t, n, r, o, a, i, l, s) {
             var u = el();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
@@ -8699,21 +8715,12 @@ __d(
               Qi(1, 0);
             }
           }
-          function Ys(e, t, n, r, o) {
+          function Js(e, t, n, r, o) {
             var a = el();
             try {
               dn(e)(t, n, r, o);
             } catch (e) {
               if ((tl(a), !(e instanceof $e))) throw e;
-              Qi(1, 0);
-            }
-          }
-          function Js(e, t, n, r) {
-            var o = el();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((tl(o), !(e instanceof $e))) throw e;
               Qi(1, 0);
             }
           }
@@ -8723,10 +8730,19 @@ __d(
               return dn(e)(t, n, r);
             } catch (e) {
               if ((tl(o), !(e instanceof $e))) throw e;
+              Qi(1, 0);
+            }
+          }
+          function eu(e, t, n, r) {
+            var o = el();
+            try {
+              return dn(e)(t, n, r);
+            } catch (e) {
+              if ((tl(o), !(e instanceof $e))) throw e;
               return (Qi(1, 0), BigInt(0));
             }
           }
-          function eu(e, t, n, r, o, a, i) {
+          function tu(e, t, n, r, o, a, i) {
             var l = el();
             try {
               return dn(e)(t, n, r, o, a, i);
@@ -8735,7 +8751,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function tu(e, t, n, r, o, a, i, l, s, u, c) {
+          function nu(e, t, n, r, o, a, i, l, s, u, c) {
             var d = el();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8744,7 +8760,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function nu(
+          function ru(
             e,
             t,
             n,
@@ -8818,7 +8834,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function ru(e, t, n, r) {
+          function ou(e, t, n, r) {
             var o = el();
             try {
               dn(e)(t, n, r);
@@ -8827,7 +8843,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function ou(e, t, n, r, o, a) {
+          function au(e, t, n, r, o, a) {
             var i = el();
             try {
               return dn(e)(t, n, r, o, a);
@@ -8836,7 +8852,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function au(e, t, n, r, o, a, i) {
+          function iu(e, t, n, r, o, a, i) {
             var l = el();
             try {
               return dn(e)(t, n, r, o, a, i);
@@ -8845,34 +8861,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function iu(e, t, n, r, o, a) {
-            var i = el();
-            try {
-              return dn(e)(t, n, r, o, a);
-            } catch (e) {
-              if ((tl(i), !(e instanceof $e))) throw e;
-              Qi(1, 0);
-            }
-          }
-          function lu(e, t, n, r) {
-            var o = el();
-            try {
-              dn(e)(t, n, r);
-            } catch (e) {
-              if ((tl(o), !(e instanceof $e))) throw e;
-              Qi(1, 0);
-            }
-          }
-          function su(e, t, n, r, o, a, i, l) {
-            var s = el();
-            try {
-              return dn(e)(t, n, r, o, a, i, l);
-            } catch (e) {
-              if ((tl(s), !(e instanceof $e))) throw e;
-              Qi(1, 0);
-            }
-          }
-          function uu(e, t) {
+          function lu(e, t) {
             var n = el();
             try {
               return dn(e)(t);
@@ -8881,7 +8870,43 @@ __d(
               Qi(1, 0);
             }
           }
-          function cu(e, t, n, r, o) {
+          function su(e, t, n, r, o, a) {
+            var i = el();
+            try {
+              return dn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((tl(i), !(e instanceof $e))) throw e;
+              Qi(1, 0);
+            }
+          }
+          function uu(e, t, n, r) {
+            var o = el();
+            try {
+              dn(e)(t, n, r);
+            } catch (e) {
+              if ((tl(o), !(e instanceof $e))) throw e;
+              Qi(1, 0);
+            }
+          }
+          function cu(e, t, n, r, o, a, i, l) {
+            var s = el();
+            try {
+              return dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((tl(s), !(e instanceof $e))) throw e;
+              Qi(1, 0);
+            }
+          }
+          function du(e, t) {
+            var n = el();
+            try {
+              return dn(e)(t);
+            } catch (e) {
+              if ((tl(n), !(e instanceof $e))) throw e;
+              Qi(1, 0);
+            }
+          }
+          function mu(e, t, n, r, o) {
             var a = el();
             try {
               return dn(e)(t, n, r, o);
@@ -8890,7 +8915,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function du(e, t, n, r, o, a, i, l, s) {
+          function pu(e, t, n, r, o, a, i, l, s) {
             var u = el();
             try {
               dn(e)(t, n, r, o, a, i, l, s);
@@ -8899,7 +8924,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function mu(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+          function _u(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
             var _ = el();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
@@ -8908,7 +8933,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function pu(e, t, n, r, o) {
+          function fu(e, t, n, r, o) {
             var a = el();
             try {
               dn(e)(t, n, r, o);
@@ -8917,7 +8942,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function _u(e, t, n, r, o, a) {
+          function gu(e, t, n, r, o, a) {
             var i = el();
             try {
               return dn(e)(t, n, r, o, a);
@@ -8926,7 +8951,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function fu(e, t, n) {
+          function hu(e, t, n) {
             var r = el();
             try {
               return dn(e)(t, n);
@@ -8935,7 +8960,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function gu(e, t, n) {
+          function yu(e, t, n) {
             var r = el();
             try {
               dn(e)(t, n);
@@ -8944,7 +8969,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function hu(e, t, n, r, o, a, i, l, s, u) {
+          function Cu(e, t, n, r, o, a, i, l, s, u) {
             var c = el();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u);
@@ -8953,7 +8978,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function yu(e, t, n) {
+          function bu(e, t, n) {
             var r = el();
             try {
               return dn(e)(t, n);
@@ -8962,7 +8987,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Cu(e, t, n, r, o, a, i, l) {
+          function vu(e, t, n, r, o, a, i, l) {
             var s = el();
             try {
               dn(e)(t, n, r, o, a, i, l);
@@ -8971,7 +8996,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function bu(e, t, n, r) {
+          function Su(e, t, n, r) {
             var o = el();
             try {
               return dn(e)(t, n, r);
@@ -8980,7 +9005,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function vu(e, t) {
+          function Ru(e, t) {
             var n = el();
             try {
               dn(e)(t);
@@ -8989,7 +9014,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Su(e) {
+          function Lu(e) {
             var t = el();
             try {
               return dn(e)();
@@ -8998,7 +9023,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Ru(e, t, n, r) {
+          function Eu(e, t, n, r) {
             var o = el();
             try {
               return dn(e)(t, n, r);
@@ -9007,7 +9032,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Lu(e, t, n, r, o, a) {
+          function ku(e, t, n, r, o, a) {
             var i = el();
             try {
               return dn(e)(t, n, r, o, a);
@@ -9016,7 +9041,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Eu(e, t, n, r, o) {
+          function Iu(e, t, n, r, o) {
             var a = el();
             try {
               return dn(e)(t, n, r, o);
@@ -9025,7 +9050,7 @@ __d(
               return (Qi(1, 0), BigInt(0));
             }
           }
-          function ku(e, t, n, r) {
+          function Tu(e, t, n, r) {
             var o = el();
             try {
               return dn(e)(t, n, r);
@@ -9034,7 +9059,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Iu(e, t, n, r) {
+          function Du(e, t, n, r) {
             var o = el();
             try {
               return dn(e)(t, n, r);
@@ -9043,7 +9068,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Tu(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+          function xu(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
             var g = el();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
@@ -9052,7 +9077,7 @@ __d(
               Qi(1, 0);
             }
           }
-          function Du(e, t, n, r) {
+          function $u(e, t, n, r) {
             var o = el();
             try {
               dn(e)(t, n, r);
@@ -9069,7 +9094,7 @@ __d(
             (y.FS = Qt),
             (y.PThread = rn),
             (y.registeredTypes = Zn));
-          var xu = [
+          var Pu = [
             "writeI53ToI64",
             "writeI53ToI64Clamped",
             "writeI53ToI64Signaling",
@@ -9223,8 +9248,8 @@ __d(
             "emval_allocateDestructors",
             "emval_addMethodCaller",
           ];
-          xu.forEach(He);
-          var $u = [
+          Pu.forEach(He);
+          var Nu = [
             "run",
             "addOnPreRun",
             "addOnInit",
@@ -9474,24 +9499,24 @@ __d(
             "emval_registeredMethods",
             "IDBFS",
           ];
-          $u.forEach(Ge);
-          var Pu;
+          Nu.forEach(Ge);
+          var Mu;
           ve = function e() {
-            (Pu || Mu(), Pu || (ve = e));
+            (Mu || Au(), Mu || (ve = e));
           };
-          function Nu() {
+          function wu() {
             (G(!D), Yi(), ae());
           }
-          function Mu() {
+          function Au() {
             if (Ce > 0) return;
-            if ((D || Nu(), D)) {
+            if ((D || wu(), D)) {
               (C(y), _e(), startWorker(y));
               return;
             }
             if ((pe(), Ce > 0)) return;
             function e() {
-              Pu ||
-                ((Pu = !0),
+              Mu ||
+                ((Mu = !0),
                 (y.calledRun = !0),
                 !V &&
                   (_e(),
@@ -9514,7 +9539,7 @@ __d(
               : e(),
               ie());
           }
-          function wu() {
+          function Fu() {
             var e = A,
               t = F,
               n = !1;
@@ -9546,7 +9571,7 @@ __d(
               y.preInit.length > 0;
             )
               y.preInit.pop()();
-          return (Mu(), a.ready);
+          return (Au(), a.ready);
         };
       })();
     typeof l == "object" && typeof i == "object"

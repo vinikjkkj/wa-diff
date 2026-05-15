@@ -4,9 +4,9 @@ __d(
     "WALogger",
     "WAWebWWAICacheStore",
     "WAWebWWAILogging",
+    "WAWebWWAINUXState",
     "WAWebWWAISendRequest",
     "WAWebWWAISuggestionStateMachine",
-    "WAWebWWAITOSAcceptance",
     "err",
     "react",
     "react-compiler-runtime",
@@ -80,9 +80,8 @@ __d(
         c;
       t[1] === Symbol.for("react.memo_cache_sentinel")
         ? ((c = function (t) {
-            var e = o("WAWebWWAITOSAcceptance").hasAcceptedWWAITos();
-            (i({ type: "OPEN_TRAY", hasAcceptedTos: e }),
-              e && u(t, "rephrase"));
+            var e = o("WAWebWWAINUXState").hasSeenWWAINux();
+            (i({ type: "OPEN_TRAY", hasSeenNux: e }), e && u(t, "rephrase"));
           }),
           (t[1] = c))
         : (c = t[1]);
@@ -107,7 +106,7 @@ __d(
         b;
       t[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((b = function (t) {
-            (i({ type: "ACCEPT_TOS" }), u(t, "rephrase"));
+            (i({ type: "ACCEPT_NUX" }), u(t, "rephrase"));
           }),
           (t[4] = b))
         : (b = t[4]);
@@ -121,7 +120,7 @@ __d(
               closeTray: g,
               changeTone: y,
               selectSuggestion: C,
-              acceptTos: v,
+              acceptNux: v,
             }),
             (t[5] = a),
             (t[6] = S))

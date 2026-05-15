@@ -716,11 +716,9 @@ __d(
             : {
                 label: s._(/*BTDS*/ "Copy boleto code"),
                 onClick: function () {
-                  o("WAWebCopyTextWithToast").copyTextWithToast(
-                    r,
-                    s._(/*BTDS*/ "Boleto code copied"),
-                    s._(/*BTDS*/ "Couldn't copy boleto code"),
-                    function () {
+                  o("WAWebCopyTextWithToast").copyTextWithToast({
+                    failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
+                    onSuccess: function () {
                       o(
                         "WAWebPaymentRequestWamLogger",
                       ).logPaymentRequestInteractionWAMEvent(
@@ -728,7 +726,9 @@ __d(
                         o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO,
                       );
                     },
-                  );
+                    successMsg: s._(/*BTDS*/ "Boleto code copied"),
+                    text: r,
+                  });
                 },
                 Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
               };
@@ -741,11 +741,9 @@ __d(
             : {
                 label: s._(/*BTDS*/ "Copy Pix code"),
                 onClick: function () {
-                  o("WAWebCopyTextWithToast").copyTextWithToast(
-                    a,
-                    s._(/*BTDS*/ "Pix Code copied"),
-                    s._(/*BTDS*/ "Couldn't copy Pix Code"),
-                    function () {
+                  o("WAWebCopyTextWithToast").copyTextWithToast({
+                    failureMsg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
+                    onSuccess: function () {
                       o(
                         "WAWebPaymentRequestWamLogger",
                       ).logPaymentRequestInteractionWAMEvent(
@@ -754,7 +752,9 @@ __d(
                           .PIX_DYNAMIC_CODE,
                       );
                     },
-                  );
+                    successMsg: s._(/*BTDS*/ "Pix Code copied"),
+                    text: a,
+                  });
                 },
                 Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
               };

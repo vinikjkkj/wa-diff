@@ -23,11 +23,11 @@ __d(
       if (i == null || (c == null ? void 0 : c.commentParentKey) == null)
         return d;
       var m = r("WANullthrows")(
-          o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey(
-            i.key,
-            a,
-            i.participant,
-          ),
+          o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
+            isFromCag: a,
+            key: i.key,
+            outerParticipant: i.participant,
+          }),
         ),
         p = m.msgKey,
         _ = r("WANullthrows")(i.messageTimestamp),

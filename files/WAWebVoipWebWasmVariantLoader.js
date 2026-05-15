@@ -99,23 +99,37 @@ __d(
         _
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function R(e) {
+      return e === "prod-nonlab"
+        ? null
+        : e === "prod-lab"
+          ? "prod-lab"
+          : e === "prod-labvideo"
+            ? "prod-labvideo"
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return b(t);
-        })),
-        L.apply(this, arguments)
-      );
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
     function E() {
-      return k.apply(this, arguments);
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return b(t);
+        })),
+        E.apply(this, arguments)
+      );
     }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebABPropsConfigs").ABPropConfigs
             .web_voip_load_wasm_variant;
           if (e == null) return b();
@@ -155,11 +169,10 @@ __d(
             );
           var a = C();
           try {
-            if (n("cr:12201") != null) {
-              var i = yield n("cr:12201").tryLoadLabVariant(r, a);
-              if (i != null) return i;
-            }
-            return R(r, a);
+            var i = R(r);
+            return i != null && n("cr:12201") != null
+              ? yield n("cr:12201").tryLoadLabVariant(i, a)
+              : L(r, a);
           } catch (e) {
             return (
               o("WALogger").ERROR(
@@ -176,13 +189,13 @@ __d(
             );
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I() {
+    function T() {
       return _;
     }
-    ((l.loadVoipWasmVariant = E), (l.getVoipWasmVariant = I));
+    ((l.loadVoipWasmVariant = k), (l.getVoipWasmVariant = T));
   },
   98,
 );

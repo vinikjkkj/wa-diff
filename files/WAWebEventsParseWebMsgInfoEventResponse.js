@@ -67,7 +67,12 @@ __d(
                     "eventResponseMessageKey",
                   ),
                   l = a(t.eventResponseMessage, "eventResponseMessage"),
-                  s = a(o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey(i, n)),
+                  s = a(
+                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
+                      isFromCag: n,
+                      key: i,
+                    }),
+                  ),
                   u = s.msgKey;
                 return o(
                   "WAWebEventResponseMsgDataConversion",

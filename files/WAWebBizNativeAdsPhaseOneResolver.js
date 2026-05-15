@@ -60,26 +60,25 @@ __d(
           }
           var y = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario(
             {
-              isWAAEligible: f,
+              activeIdentityType: g,
               fbPageHasCreatedAd:
                 (a = (i = h) == null ? void 0 : i.fbPageHasCreatedAd) != null
                   ? a
                   : !1,
+              hasValidFBAccessToken:
+                o(
+                  "WAWebBizAdCreationResolveStoredIdentity",
+                ).resolveStoredIdentityForAccountType("FB") != null,
+              isWAAEligible: f,
               waAdsIdentityPageHasCreatedAd:
                 (l =
                   (s = h) == null ? void 0 : s.waAdsIdentityPageHasCreatedAd) !=
                 null
                   ? l
                   : !1,
-              hasValidFBAccessToken:
-                o(
-                  "WAWebBizAdCreationResolveStoredIdentity",
-                ).resolveStoredIdentityForAccountType("FB") != null,
-              activeIdentityType: g,
             },
           );
           return {
-            scenario: y,
             accountType: g,
             isWAAEligible: f,
             linkedPagesPromise:
@@ -102,6 +101,7 @@ __d(
                         }
                       );
                     }),
+            scenario: y,
           };
         })),
         u.apply(this, arguments)

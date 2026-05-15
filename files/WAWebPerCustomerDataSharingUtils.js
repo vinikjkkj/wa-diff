@@ -105,21 +105,23 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      var a = o(
+    function _(e, t, n, a) {
+      var i = o(
           "WAWebDataSharing3pdLidCollection",
         ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
-        i = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
-      i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
-        ? a
+        l = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
+      l === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+        ? i
           ? o("WAWebModalManager").ModalManager.open(
               s.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
                 accountLid: e,
+                entryPoint: n,
               }),
             )
           : o("WAWebModalManager").ModalManager.open(
               s.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
                 accountLids: [e],
+                entryPoint: n,
               }),
             )
         : o("WAWebModalManager").ModalManager.open(
@@ -128,13 +130,15 @@ __d(
                 .SmbDataSharingOptInModalDialog,
               {
                 entrypoint: t,
-                chat: n,
+                chat: a,
+                perCustomerEntryPoint: n,
                 callback: function () {
                   o(
                     "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
                   ).maybeGeneratePerCustomerDataSharingSystemMessage({
                     accountLid: e,
-                    perCustomerDataSharingState: a,
+                    perCustomerDataSharingState: i,
+                    entryPoint: n,
                   });
                 },
               },

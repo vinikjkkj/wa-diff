@@ -73,7 +73,7 @@ __d(
                 }),
                 t
                   ._loadAssets(
-                    r("lodash").values(t._requestedAssets),
+                    Object.values(t._requestedAssets),
                     y.INITIAL_EMOJI_LOAD,
                     { forceCheck: !1 },
                   )
@@ -387,22 +387,22 @@ __d(
           }),
           (a._loadAssets = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, o) {
-                var a = this,
-                  i = (o == null ? void 0 : o.forceCheck) !== !1,
-                  l = (o == null ? void 0 : o.estimateStorage) === !0,
-                  s = yield (h || (h = n("Promise"))).all(
+              function* (e, t, r) {
+                var o = this,
+                  a = (r == null ? void 0 : r.forceCheck) !== !1,
+                  i = (r == null ? void 0 : r.estimateStorage) === !0,
+                  l = yield (h || (h = n("Promise"))).all(
                     e.map(function (e) {
-                      return a.loadAsset(e, t, i);
+                      return o.loadAsset(e, t, a);
                     }),
                   );
                 return (
                   n("cr:5624") &&
                     n("cr:5624")({
-                      keep: r("lodash").values(this._requestedAssets),
-                      estimateStorage: l,
+                      keep: Object.values(this._requestedAssets),
+                      estimateStorage: i,
                     }),
-                  s
+                  l
                 );
               },
             );

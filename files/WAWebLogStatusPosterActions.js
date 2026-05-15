@@ -132,27 +132,30 @@ __d(
             statusAudienceSize: t,
           });
         }),
-        (n.logPostStatusRequest = function (t, n) {
+        (n.logPostStatusRequest = function (t, n, r) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .POST_STATUS_REQUEST,
             statusContentType: t,
+            statusCreationEntryPoint: r,
             retryCount: n,
           });
         }),
-        (n.logPostStatusSuccess = function (t, n) {
+        (n.logPostStatusSuccess = function (t, n, r) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .POST_STATUS_SUCCESS,
             statusContentType: t,
+            statusCreationEntryPoint: r,
             statusId: n,
           });
         }),
-        (n.logPostStatusFailure = function (t, n, r) {
+        (n.logPostStatusFailure = function (t, n, r, a) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .POST_STATUS_FAILURE,
             statusContentType: t,
+            statusCreationEntryPoint: a,
             statusPostFailureReason: n,
             retryCount: r,
           });

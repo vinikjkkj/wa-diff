@@ -7,53 +7,67 @@ __d(
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgType",
     "WAWebPerCustomerDataSharingUtils",
+    "WAWebSmbPerCustomerDataSharingControlWamEvent",
+    "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    var e = 1;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.accountLid,
-            n = e.perCustomerDataSharingState,
-            r = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.accountLid,
+            r = t.entryPoint,
+            a = t.perCustomerDataSharingState,
+            i = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
           if (
             o(
               "WAWebPerCustomerDataSharingUtils",
-            ).isPerCustomerDataSharingFeatureEnabled(t, r)
+            ).isPerCustomerDataSharingFeatureEnabled(n, i)
           ) {
-            var a = o("WAWebWidFactory").createWid(t),
-              i = yield o(
+            var l = o("WAWebWidFactory").createWid(n),
+              s = yield o(
                 "WAWebPerCustomerDataSharingUtils",
-              ).getLastDataSharingState(a),
-              l =
-                n &&
-                r === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true;
-            if (!(i != null && i === l)) {
-              var s = o("WAWebContactSystemMsg").genNotificationMsg(a, {
+              ).getLastDataSharingState(l),
+              u =
+                a &&
+                i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true;
+            if (!(s != null && s === u)) {
+              var c = o("WAWebContactSystemMsg").genNotificationMsg(l, {
                 type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
                 kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-                subtype: l
+                subtype: u
                   ? "biz_per_customer_3pd_data_share_opt_in"
                   : "biz_per_customer_3pd_data_share_opt_out",
                 templateParams: [],
               });
               yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-                chatId: a,
-                newMsg: s,
+                chatId: l,
+                newMsg: c,
                 handleSingleMsgOrigin: "perCustomerDataSharingNotification",
                 preserveOrder: !1,
               });
+              var d = new (o(
+                "WAWebSmbPerCustomerDataSharingControlWamEvent",
+              ).SmbPerCustomerDataSharingControlWamEvent)();
+              ((d.smbPerCustomerDataSharingControlAction = o(
+                "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
+              ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION.SYSTEM_MESSAGE_INSERTED),
+                (d.smbPerCustomerDataSharingControlCurrentOptInStatus = u),
+                r != null && (d.smbPerCustomerDataSharingControlEntryPoint = r),
+                (d.smbPerCustomerDataSharingControlVersion = e),
+                d.commit());
             }
           }
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.maybeGeneratePerCustomerDataSharingSystemMessage = e;
+    l.maybeGeneratePerCustomerDataSharingSystemMessage = s;
   },
   98,
 );

@@ -1,20 +1,11 @@
 __d(
   "WASmaxInPresenceAvailableMixin",
-  [
-    "WAResultOrError",
-    "WASmaxInPresenceEnums",
-    "WASmaxParseJid",
-    "WASmaxParseUtils",
-  ],
+  ["WAResultOrError", "WASmaxParseJid", "WASmaxParseUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "presence");
       if (!t.success) return t;
-      var n = o("WASmaxParseJid").attrJidEnum(
-        e,
-        "from",
-        o("WASmaxInPresenceEnums").GROUPJID_LIDUSERJID,
-      );
+      var n = o("WASmaxParseJid").attrLidUserJid(e, "from");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optionalLiteral(
         o("WASmaxParseUtils").attrString,

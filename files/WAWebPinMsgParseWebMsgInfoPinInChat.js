@@ -64,9 +64,9 @@ __d(
             h = p.serverTimestampMs,
             y = p.type,
             C = r("WANullthrows")(
-              o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey(
-                r("WANullthrows")(_),
-              ),
+              o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
+                key: r("WANullthrows")(_),
+              }),
             ),
             b = C.msgKey,
             v = C.sender;
