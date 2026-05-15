@@ -24,6 +24,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "gkx",
     "partitionArray",
   ],
   function (t, n, r, o, a, i, l) {
@@ -302,57 +303,59 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.hasStateDiscrepancy()
-          )
-            return yield o("WAWebSocketLogoutJob").socketLogout(
-              o("WAWebLogoutReasonConstants").LogoutReason
-                .LidMigrationStateDiscrepancy,
-            );
-          var e = o(
-            "WAWebLid1X1ThreadAccountMigrations",
-          ).getLidThreadMigrationStatus().state;
-          if (
-            o(
-              "WAWebLid1x1MigrationTimeoutUtils",
-            ).PEER_MAPPING_RECEIVED_STATUSES.includes(e)
-          )
-            return (
-              o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[blocklist] received a lid blocklist after peer migration stanza, will migrate blocklist after refresh",
+          if (!r("gkx")("26198")) {
+            if (
+              o(
+                "WAWebLid1X1MigrationGating",
+              ).Lid1X1MigrationUtils.hasStateDiscrepancy()
+            )
+              return yield o("WAWebSocketLogoutJob").socketLogout(
+                o("WAWebLogoutReasonConstants").LogoutReason
+                  .LidMigrationStateDiscrepancy,
+              );
+            var e = o(
+              "WAWebLid1X1ThreadAccountMigrations",
+            ).getLidThreadMigrationStatus().state;
+            if (
+              o(
+                "WAWebLid1x1MigrationTimeoutUtils",
+              ).PEER_MAPPING_RECEIVED_STATUSES.includes(e)
+            )
+              return (
+                o("WALogger").WARN(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[blocklist] received a lid blocklist after peer migration stanza, will migrate blocklist after refresh",
+                    ])),
+                ),
+                yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                  "WAReceivedBlocklistMigrationBefore1x1Migration",
+                  !0,
+                )
+              );
+            (o("WALogger")
+              .ERROR(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[blocklist] received a lid-based blocklist on an unmigrated device. ChatDB migration status: ",
+                    ", will send critical event and log out",
+                  ])),
+                e,
+              )
+              .sendLogs("LidBlocklistUnmigratedChatDb"),
+              yield T("LidBlocklistUnmigratedChatDb"),
+              o("WALogger").LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[blocklist] critical event committed",
                   ])),
               ),
-              yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                "WAReceivedBlocklistMigrationBefore1x1Migration",
-                !0,
-              )
-            );
-          (o("WALogger")
-            .ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[blocklist] received a lid-based blocklist on an unmigrated device. ChatDB migration status: ",
-                  ", will send critical event and log out",
-                ])),
-              e,
-            )
-            .sendLogs("LidBlocklistUnmigratedChatDb"),
-            yield T("LidBlocklistUnmigratedChatDb"),
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "[blocklist] critical event committed",
-                ])),
-            ),
-            yield o("WAAsyncSleep").asyncSleep(5e3),
-            yield o("WAWebSocketLogoutJob").socketLogout(
-              o("WAWebLogoutReasonConstants").LogoutReason
-                .LidBlocklistChatDbUnmigrated,
-            ));
+              yield o("WAAsyncSleep").asyncSleep(5e3),
+              yield o("WAWebSocketLogoutJob").socketLogout(
+                o("WAWebLogoutReasonConstants").LogoutReason
+                  .LidBlocklistChatDbUnmigrated,
+              ));
+          }
         })),
         x.apply(this, arguments)
       );

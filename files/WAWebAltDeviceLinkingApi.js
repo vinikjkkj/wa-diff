@@ -367,16 +367,19 @@ __d(
               "alt pairing: cannot process primaryHello for an old code",
             );
           var a = t.helloCached,
-            i = yield o("WAWebAltDeviceLinkingAlgorithm").companionFinish(
-              o("WAByteArray").uint8ArrayToBuffer(
+            i = yield o("WAWebAltDeviceLinkingAlgorithm").companionFinish({
+              linkCodeKey: a.linkCodeKey,
+              linkCodePairingCompanionADVEphemeralKeyPair:
+                a.linkCodePairingCompanionADVEphemeralKeyPair,
+              linkCodePairingWrappedPrimaryEphemeralPub: o(
+                "WAByteArray",
+              ).uint8ArrayToBuffer(
                 e.linkCodeCompanionRegLinkCodePairingWrappedPrimaryEphemeralPubElementValue,
               ),
-              o("WAByteArray").uint8ArrayToBuffer(
+              primaryIdentityPublic: o("WAByteArray").uint8ArrayToBuffer(
                 e.linkCodeCompanionRegPrimaryIdentityPubElementValue,
               ),
-              a.linkCodeKey,
-              a.linkCodePairingCompanionADVEphemeralKeyPair,
-            );
+            });
           (o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([

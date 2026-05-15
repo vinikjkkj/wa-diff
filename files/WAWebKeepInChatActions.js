@@ -171,7 +171,7 @@ __d(
                   };
           if (
             (o("WAWebKicNux.react").shouldShowKicNux(a) &&
-              (yield o("WAWebKicNux.react").openKicNux(
+              (yield o("WAWebKicNux.react").openKicNuxAndWaitForClose(
                 a,
                 o("WAWebWamEnumTriggerType").TRIGGER_TYPE
                   .KEEP_MESSAGE_FIRST_TIME,
@@ -234,7 +234,7 @@ __d(
                   };
           if (
             (o("WAWebKicNux.react").shouldShowKicNux(i) &&
-              (yield o("WAWebKicNux.react").openKicNux(
+              (yield o("WAWebKicNux.react").openKicNuxAndWaitForClose(
                 i,
                 o("WAWebWamEnumTriggerType").TRIGGER_TYPE
                   .KEEP_MESSAGE_FIRST_TIME,

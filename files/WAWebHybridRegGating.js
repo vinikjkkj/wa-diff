@@ -7,7 +7,11 @@ __d(
       return r("gkx")("3701") ? "test" : "control";
     }
     function s() {
-      return r("WAWebEnvironment").isWindows && r("gkx")("4131") ? e() : "none";
+      return r("WAWebEnvironment").getIsShowroom()
+        ? "test"
+        : r("WAWebEnvironment").isWindows && r("gkx")("4131")
+          ? e()
+          : "none";
     }
     function u() {
       return s() === "test";

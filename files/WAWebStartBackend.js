@@ -113,7 +113,6 @@ __d(
     "cr:10196",
     "cr:17219",
     "cr:37961",
-    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -294,21 +293,19 @@ __d(
               "WAWebBackendEventBus",
             ).BackendEventBus.triggerStorageInitializationError(e);
           }
-          if (
-            (o("WAWebLid1X1ThreadAccountMigrations").checkIfMigrationEnabled(),
+          (o("WAWebLid1X1ThreadAccountMigrations").checkIfMigrationEnabled(),
             o("WAWebInitWaitForEvents").initOfflineResumeWaitForEvents(),
             o(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.setLastPushCompleteTimestamp(),
             O(),
             yield o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
-            o("WAWebMediaHosts").mediaHosts.maybeLoadMediaConnFromStorage(),
-            r("gkx")("20906"))
-          ) {
-            var c = o(
-              "WAWebUserPrefsHistorySync",
-            ).getInitialHistorySyncComplete();
-            c ||
+            o("WAWebMediaHosts").mediaHosts.maybeLoadMediaConnFromStorage());
+          var c = o(
+            "WAWebUserPrefsHistorySync",
+          ).getInitialHistorySyncComplete();
+          if (
+            (c ||
               (o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -317,10 +314,8 @@ __d(
               ),
               o(
                 "WAWebWaitForInitialChatsSynced",
-              ).initWaitForInitialChatsSynced());
-          }
-          if (
-            (yield W(),
+              ).initWaitForInitialChatsSynced()),
+            yield W(),
             N(),
             o("WAWebABPropsWamGlobals").setAbPropDependingGlobalWamAttributes(),
             o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled() &&

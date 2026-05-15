@@ -6,24 +6,31 @@ __d(
       s = !e,
       u = r("gkx")("10314");
     function c() {
-      return r("gkx")("26258") ? "prod" : r("gkx")("26259") ? "intern" : "dev";
+      return (
+        typeof window != "undefined" &&
+        window.location.pathname.startsWith("/showroom")
+      );
     }
     function d() {
+      return r("gkx")("26258") ? "prod" : r("gkx")("26259") ? "intern" : "dev";
+    }
+    function m() {
       return e
         ? "win_hybrid"
         : o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa()
           ? "pwa"
           : "web";
     }
-    var m = {
+    var p = {
         isWeb: s,
         isWindows: e,
         isGuest: u,
-        getEnvironment: c,
-        getSubPlatform: d,
+        getEnvironment: d,
+        getSubPlatform: m,
+        getIsShowroom: c,
       },
-      p = m;
-    l.default = p;
+      _ = p;
+    l.default = _;
   },
   98,
 );

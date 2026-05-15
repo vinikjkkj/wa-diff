@@ -203,7 +203,7 @@ __d(
                 e.tag,
                 r,
               )
-              .sendLogs("stanza-validation-pnless-to-pn-leak");
+              .sendLogs("stanza-validation-pnless-to-pn-leak-" + e.tag);
           }
         }
       }

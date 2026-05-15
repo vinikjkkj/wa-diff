@@ -53,7 +53,7 @@ __d(
             (n._setSupported = function (e) {
               n.supported = e;
             }),
-            e && s.on("serviceworker", n._setSupported));
+            e && s.on && s.on("serviceworker", n._setSupported));
           var a = n;
           return (
             Object.defineProperty(n, "streamingSupported", {

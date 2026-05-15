@@ -88,7 +88,14 @@ __d(
                 o("WAWebUserPrefsMeUser").isMePrimary(e.from)
               ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
               : t === o("WAWebMsgType").MSG_TYPE.CALL_LOG
-                ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
+                ? (a =
+                    e.viewMode ===
+                      o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
+                    e.viewMode ===
+                      o("WAWebViewMode.flow").ViewModeType
+                        .CALL_LOG_AD_HOC_GROUP_CALL
+                      ? o("WAWebCommonMsgUtils").EventType.IGNORE
+                      : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
                 : e.broadcast === !0
                   ? r("WAWebWid").isBroadcast(e.id.remote)
                     ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)

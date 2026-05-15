@@ -242,39 +242,41 @@ __d(
         P.apply(this, arguments)
       );
     }
-    function N(e, t, n, r) {
+    function N(e) {
       return M.apply(this, arguments);
     }
     function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = yield o(
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.linkCodeKey,
+            n = e.linkCodePairingCompanionADVEphemeralKeyPair,
+            a = e.linkCodePairingWrappedPrimaryEphemeralPub,
+            i = e.primaryIdentityPublic,
+            l = yield o(
               "WAWebSignalStoreApi",
             ).waSignalStore.getRegistrationInfo();
-            if (i == null)
-              throw r("err")("alt pairing: Did not find registration info");
-            var l = new Uint8Array(32);
-            self.crypto.getRandomValues(l);
-            var s = new Uint8Array(32);
-            self.crypto.getRandomValues(s);
-            var u = new Uint8Array(12);
-            return (
-              self.crypto.getRandomValues(u),
-              w(
-                e,
-                t,
-                n,
-                a,
-                i.identityKeyPair.pubKey,
-                i.identityKeyPair.privKey,
-                l,
-                s,
-                u,
-              )
-            );
-          },
-        )),
+          if (l == null)
+            throw r("err")("alt pairing: Did not find registration info");
+          var s = new Uint8Array(32);
+          self.crypto.getRandomValues(s);
+          var u = new Uint8Array(32);
+          self.crypto.getRandomValues(u);
+          var c = new Uint8Array(12);
+          return (
+            self.crypto.getRandomValues(c),
+            w(
+              a,
+              i,
+              t,
+              n,
+              l.identityKeyPair.pubKey,
+              l.identityKeyPair.privKey,
+              s,
+              u,
+              c,
+            )
+          );
+        })),
         M.apply(this, arguments)
       );
     }

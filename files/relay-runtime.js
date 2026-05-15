@@ -35,6 +35,7 @@ __d(
     "relay-runtime/store/createFragmentSpecResolver",
     "relay-runtime/store/createRelayContext",
     "relay-runtime/store/createRelayLoggingContext",
+    "relay-runtime/store/defaultGetDataID",
     "relay-runtime/store/isRelayModernEnvironment",
     "relay-runtime/store/live-resolvers/LiveResolverSuspenseSentinel",
     "relay-runtime/store/normalizeResponse",
@@ -149,6 +150,7 @@ __d(
         createRelayLoggingContext: n(
           "relay-runtime/store/createRelayLoggingContext",
         ),
+        defaultGetDataID: n("relay-runtime/store/defaultGetDataID"),
         getOperationVariables: n("relay-runtime/store/RelayConcreteVariables")
           .getOperationVariables,
         getLocalVariables: n("relay-runtime/store/RelayConcreteVariables")

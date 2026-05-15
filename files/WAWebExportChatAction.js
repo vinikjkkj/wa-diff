@@ -136,36 +136,41 @@ __d(
             y = _(a),
             C = l ? "with_media" : "text_only",
             b = g != null || i != null;
-          if (f) throw new Error("An export is already in progress");
-          if (o("WAWebLimitSharingUIUtils").isLimitSharingReceiverEnabled(a))
-            throw new Error("Cannot export limit-sharing enabled chat");
-          var v = Date.now(),
-            S = (r = t.messageLimit) != null ? r : m;
+          if (f) {
+            var v = new Error("An export is already in progress");
+            throw (v.stack, v);
+          }
+          if (o("WAWebLimitSharingUIUtils").isLimitSharingReceiverEnabled(a)) {
+            var S = new Error("Cannot export limit-sharing enabled chat");
+            throw (S.stack, S);
+          }
+          var R = Date.now(),
+            L = (r = t.messageLimit) != null ? r : m;
           f = !0;
           try {
             s == null || s("loading", 0, 1);
-            var R = yield h(a, S, g, i, u, s);
+            var E = yield h(a, L, g, i, u, s);
             if (u != null && u.aborted)
               throw new (o("WAAbortError").AbortError)("Export cancelled");
-            var L = R.map(function (e) {
+            var k = E.map(function (e) {
                 return o("WAWebMsgModelFromData").msgModelFromMsgData(e);
               }),
-              E = a.formattedTitle || a.name || "Chat",
-              k = R.length >= S,
-              I = [],
-              T = new Set();
+              I = a.formattedTitle || a.name || "Chat",
+              T = E.length >= L,
+              D = [],
+              x = new Set();
             if (l) {
-              var D = L.filter(function (e) {
+              var $ = k.filter(function (e) {
                 return o("WAWebExportChatMarkdownFormatter").MEDIA_TYPES.has(
                   e.type,
                 );
               });
               if (
-                (s == null || s("downloading_media", 0, D.length),
+                (s == null || s("downloading_media", 0, $.length),
                 u != null && u.aborted)
               )
                 throw new (o("WAAbortError").AbortError)("Export cancelled");
-              yield D.reduce(
+              yield $.reduce(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e, t, n) {
@@ -184,12 +189,12 @@ __d(
                           r.blob.size <= c
                         ) {
                           var a;
-                          I.push({ blob: r.blob, name: p + "/" + r.name });
+                          D.push({ blob: r.blob, name: p + "/" + r.name });
                           var i = (a = t.id) == null ? void 0 : a.toString();
-                          i != null && T.add(i);
+                          i != null && x.add(i);
                         }
                       } catch (e) {}
-                      s == null || s("downloading_media", n + 1, D.length);
+                      s == null || s("downloading_media", n + 1, $.length);
                     },
                   );
                   return function (t, n, r) {
@@ -200,57 +205,57 @@ __d(
               );
             }
             s == null || s("formatting", 0, 1);
-            var x = o("WAWebExportChatMarkdownFormatter").formatChatAsMarkdown({
-                chatTitle: E,
-                messages: L,
+            var P = o("WAWebExportChatMarkdownFormatter").formatChatAsMarkdown({
+                chatTitle: I,
+                messages: k,
                 includeMedia: l,
                 mediaFolder: p,
-                hasMoreHistory: k,
-                downloadedMediaMsgIds: T,
+                hasMoreHistory: T,
+                downloadedMediaMsgIds: x,
               }),
-              $ = o("WAWebExportChatPlainTextFormatter").formatChatAsPlainText({
-                messages: L,
+              N = o("WAWebExportChatPlainTextFormatter").formatChatAsPlainText({
+                messages: k,
                 includeMedia: l,
-                hasMoreHistory: k,
-                downloadedMediaMsgIds: T,
+                hasMoreHistory: T,
+                downloadedMediaMsgIds: x,
               });
             if (u != null && u.aborted)
               throw new (o("WAAbortError").AbortError)("Export cancelled");
             s == null || s("saving", 0, 1);
-            var P = E.replace(/[/\\?%*:|\"<>]/g, "_"),
-              N = new Blob([$], { type: "text/plain" }),
-              M = new Blob([x], { type: "text/markdown" }),
-              w = [
-                { blob: N, name: "chat.txt" },
-                { blob: M, name: "chat.md" },
-              ].concat(I),
-              A = yield o("WAWebZipUtils").zipFiles(w);
+            var M = I.replace(/[/\\?%*:|\"<>]/g, "_"),
+              w = new Blob([N], { type: "text/plain" }),
+              A = new Blob([P], { type: "text/markdown" }),
+              F = [
+                { blob: w, name: "chat.txt" },
+                { blob: A, name: "chat.md" },
+              ].concat(D),
+              O = yield o("WAWebZipUtils").zipFiles(F);
             yield o("WAWebFileSaver").FileSaver.downloadData(
-              A,
-              P,
+              O,
+              M,
               o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
             );
-            var F = Date.now() - v,
-              O = {
-                messageCount: L.length,
-                mediaCount: I.length,
-                durationMs: F,
+            var B = Date.now() - R,
+              W = {
+                messageCount: k.length,
+                mediaCount: D.length,
+                durationMs: B,
               };
             return (
               o("WAWebExportChatLogging").logExportChat({
                 exportMode: C,
                 chatType: y,
-                messageCount: O.messageCount,
-                mediaCount: O.mediaCount,
-                exportDurationMs: F,
+                messageCount: W.messageCount,
+                mediaCount: W.mediaCount,
+                exportDurationMs: B,
                 exportResult: "success",
                 dateRangeUsed: b,
-                fileSizeBytes: A.size,
+                fileSizeBytes: O.size,
               }),
-              O
+              W
             );
           } catch (e) {
-            var B = Date.now() - v;
+            var q = Date.now() - R;
             throw (
               e instanceof o("WAAbortError").AbortError
                 ? o("WAWebExportChatLogging").logExportChat({
@@ -258,7 +263,7 @@ __d(
                     chatType: y,
                     messageCount: 0,
                     mediaCount: 0,
-                    exportDurationMs: B,
+                    exportDurationMs: q,
                     exportResult: "cancelled",
                     dateRangeUsed: b,
                   })
@@ -267,7 +272,7 @@ __d(
                     chatType: y,
                     messageCount: 0,
                     mediaCount: 0,
-                    exportDurationMs: B,
+                    exportDurationMs: q,
                     exportResult: "error",
                     errorReason: e instanceof Error ? e.message : "unknown",
                     dateRangeUsed: b,

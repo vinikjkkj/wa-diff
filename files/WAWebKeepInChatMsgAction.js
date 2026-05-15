@@ -61,6 +61,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -74,13 +75,14 @@ __d(
       f,
       g,
       h,
-      y = h || (h = o("react"));
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+      y,
+      C = y || (y = o("react"));
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = [];
           a.push(
             o("WAWebDBUpdateMessageTable").updateMessageTable(
@@ -110,14 +112,14 @@ __d(
                 "WAWebDBDeleteAssociatedMsgsByMsgKey",
               ).bulkDeleteMessagesByMsgKeys([e.toString()]),
             ),
-            yield (g || (g = n("Promise"))).all(a));
+            yield (h || (h = n("Promise"))).all(a));
           var s = o("WAWebMsgCollection").MsgCollection.get(e);
           s && (i && s.detachAssociatedMsg(), s.set(t));
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t, n, r, a) {
+    function S(e, t, n, r, a) {
       var i = {
         kicState: o("WAWebEphemeralConstants").KeepInChatState.KEPT,
         kicKey: n,
@@ -142,22 +144,22 @@ __d(
             parentMsgKey: null,
           }));
       }
-      return C(e, i, t);
+      return b(e, i, t);
     }
-    function S(e, t, n) {
+    function R(e, t, n) {
       var r = {
         kicState: o("WAWebEphemeralConstants").KeepInChatState.UNKEPT,
         kicKey: t,
         kicTimestampMs: n,
       };
-      return C(e, r);
+      return b(e, r);
     }
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+    function L(e, t, n) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           var l,
             s,
             u,
@@ -208,8 +210,8 @@ __d(
               mediaType: o("WAWebWamMsgUtils").getWamMediaType(y),
               messageType: o("WAWebWamMsgUtils").getWamMessageType(y),
             })));
-          var R = o("WAWebMsgGetters").getIsGroupMsg(t),
-            L = R
+          var v = o("WAWebMsgGetters").getIsGroupMsg(t),
+            L = v
               ? !!(
                   !(
                     (s = _.groupMetadata) == null ||
@@ -217,8 +219,8 @@ __d(
                   ) && s.isAdmin
                 )
               : void 0,
-            k = {
-              isAGroup: R,
+            E = {
+              isAGroup: v,
               messagesSelected: 1,
               mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
               chatEphemeralityDuration:
@@ -246,11 +248,11 @@ __d(
           ) {
             case o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL: {
               var I = (t.keptCount || 0) + 1;
-              yield v(t.id, t.associationType, f, g, I);
+              yield S(t.id, t.associationType, f, g, I);
               var T = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(
-                babelHelpers.extends({}, k, {
+                babelHelpers.extends({}, E, {
                   kicActionName: o("WAWebWamEnumKicActionNameType")
                     .KIC_ACTION_NAME_TYPE.KEEP_MESSAGE,
                   keptCount: I,
@@ -261,14 +263,14 @@ __d(
             }
             case o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL: {
               var D;
-              yield S(t.id, f, g);
+              yield R(t.id, f, g);
               var x = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(
-                babelHelpers.extends({}, k, {
+                babelHelpers.extends({}, E, {
                   kicActionName: o("WAWebWamEnumKicActionNameType")
                     .KIC_ACTION_NAME_TYPE.UNKEEP_MESSAGE,
-                  keptDelta: E(t.kicTimestampMs),
+                  keptDelta: k(t.kicTimestampMs),
                   messageExpiryTimer:
                     (D =
                       o("WAWebMsgModelUtils").getMsgTimeUntilExpiration(t)) !=
@@ -322,24 +324,24 @@ __d(
               .waitUntilCompleted()
           );
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
+    function k(e) {
       return Math.round(
         (o("WATimeUtils").unixTime() - r("WANullthrows")(e) / 1e3) / 3600,
       );
     }
-    function k(e, t) {
-      return R(e, o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL, t);
+    function I(e, t) {
+      return L(e, o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL, t);
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield R(
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield L(
             e,
             o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL,
             n,
@@ -348,43 +350,43 @@ __d(
             t != null &&
               t.deleteExpired &&
               o("WAWebKeepInChatMsgUtils").isExpired(e) &&
-              (o("WAWebChatSendMessages").sendDeleteMsgs({
+              (o("WAWebToastManager").ToastManager.open(
+                C.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(/*BTDS*/ "Message disappeared."),
+                }),
+              ),
+              yield o("WAWebChatSendMessages").sendDeleteMsgs({
                 chat_: o("WAWebFrontendMsgGetters").getChat(e),
                 clearMedia: !0,
                 record: { type: "message", list: [e] },
-              }),
-              o("WAWebToastManager").ToastManager.open(
-                y.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Message disappeared."),
-                }),
-              )),
+              })),
             r
           );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (g || (g = n("Promise"))).all(
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield (h || (h = n("Promise"))).all(
             e.map(function (e) {
-              return $(e, { allowNotification: !1 });
+              return P(e, { allowNotification: !1 });
             }),
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.allowNotification,
             a = o("WAWebMsgModelFromData").msgModelFromMsgData(e),
             i = yield o("WAWebDBMsgUtils").getMsgByMsgKey(a.keptMessageKey);
@@ -403,13 +405,13 @@ __d(
                 })));
           }
           var s = o("WAWebChatCollection").ChatCollection.get(a.id.remote),
-            g = o("WAWebWidFactory").asUserWidOrThrow(
+            h = o("WAWebWidFactory").asUserWidOrThrow(
               r("WANullthrows")(o("WAWebMsgGetters").getSender(a)),
             ),
-            h;
+            y;
           if (
             (s &&
-              (h = yield o("WAWebChatThreadLogging").getChatThreadID(
+              (y = yield o("WAWebChatThreadLogging").getChatThreadID(
                 s.id.toJid(),
               )),
             i == null || i.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN)
@@ -421,8 +423,8 @@ __d(
                     "KIC: cannot find associated message",
                   ])),
               ),
-              N(a, s, h)),
-              o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
+              M(a, s, y)),
+              yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
                 [a],
                 function (e) {
                   return e.keptMessageKey;
@@ -430,22 +432,22 @@ __d(
               ));
             return;
           }
-          var y = o("WAWebWidFactory").asUserWidOrThrow(
+          var C = o("WAWebWidFactory").asUserWidOrThrow(
               r("WANullthrows")(o("WAWebMsgGetters").getSender(i)),
             ),
-            C = r("WAWebWid").equals.apply(
+            b = r("WAWebWid").equals.apply(
               r("WAWebWid"),
-              o("WAWebLidMigrationUtils").toCommonAddressingMode(g, y),
+              o("WAWebLidMigrationUtils").toCommonAddressingMode(h, C),
             ),
-            b =
-              C &&
+            v =
+              b &&
               a.keepType ===
                 o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL;
           if (
             s != null &&
             o("WAWebChatGetters").getIsGroup(s) &&
-            o("WAWebKeepInChatMsgUtils").keepIsLockedForUser(a, g) &&
-            b !== !0
+            o("WAWebKeepInChatMsgUtils").keepIsLockedForUser(a, h) &&
+            v !== !0
           ) {
             o("WALogger").ERROR(
               c ||
@@ -462,15 +464,15 @@ __d(
                   "KIC: msg revoked, cannot keep/unkeep",
                 ])),
             ),
-              M(a, i, s, h));
+              w(a, i, s, y));
             return;
           }
           if (i.kicKey != null && i.kicTimestampMs != null) {
-            var R = { id: i.kicKey, senderTimestampMs: i.kicTimestampMs };
+            var L = { id: i.kicKey, senderTimestampMs: i.kicTimestampMs };
             if (
               o("WAWebEphemeralKeepInChatUtils").compareKeepInChatMessages(
                 a,
-                R,
+                L,
               ) === -1
             ) {
               (o("WAWebEphemeralKeepInChatWamUtils").logOlderRequestKic(a),
@@ -485,7 +487,7 @@ __d(
           }
           if (
             o("WAWebEphemeralKeepInChatUtils").kicSenderSuperPowerActive(i) &&
-            !C
+            !b
           ) {
             o("WALogger").ERROR(
               p ||
@@ -502,15 +504,15 @@ __d(
           switch (a.keepType) {
             case o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL: {
               if (n) {
-                var L,
-                  E =
-                    (L = o("WAWebMsgCollection").MsgCollection.get(
+                var E,
+                  k =
+                    (E = o("WAWebMsgCollection").MsgCollection.get(
                       a.keptMessageKey,
                     )) != null
-                      ? L
+                      ? E
                       : o("WAWebMsgCollection").MsgCollection.get(i.id);
-                if (E != null) {
-                  var k = function () {
+                if (k != null) {
+                  var I = function () {
                     s &&
                       o("WAWebKicNux.react").shouldShowKicNux(s) &&
                       o("WAWebKicNux.react").openKicNux(
@@ -519,65 +521,75 @@ __d(
                           .USER_MESSAGE_KEPT,
                       );
                   };
-                  o(
-                    "WAWebNotificationController",
-                  ).WANotificationController.triggerNotification(
-                    new (o(
-                      "WAWebNotificationsKeepInChatNotification",
-                    ).WAKeepInChatNotification)({
-                      keepInChatMessage: a,
-                      parentMessage: E,
-                      onClick: k,
-                    }),
-                  );
+                  o("WAWebNotificationController")
+                    .WANotificationController.triggerNotification(
+                      new (o(
+                        "WAWebNotificationsKeepInChatNotification",
+                      ).WAKeepInChatNotification)({
+                        keepInChatMessage: a,
+                        parentMessage: k,
+                        onClick: I,
+                      }),
+                    )
+                    .catch(function (e) {
+                      o("WALogger")
+                        .ERROR(
+                          _ ||
+                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                              "KIC: triggerNotification failed",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("kic-trigger-notification-failed");
+                    });
                 } else
                   o("WALogger").ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "KIC: cannot find parent message model!",
                       ])),
                   );
               }
-              var I = (i.keptCount || 0) + 1;
-              (yield v(
+              var T = (i.keptCount || 0) + 1;
+              (yield S(
                 i.id,
                 i.associationType,
                 a.id,
                 r("WANullthrows")(a.senderTimestampMs),
-                I,
+                T,
               ),
                 yield o(
                   "WAWebDBMarkFutureproofMessagesReparsed",
                 ).markFutureproofMessagesReparsed([a.id.toString()]),
-                w(
+                A(
                   a,
                   i,
                   o("WAWebWamEnumKicRequestTypeType").KIC_REQUEST_TYPE_TYPE
                     .KEEP,
                   s,
-                  h,
+                  y,
                 ));
               break;
             }
             case o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL:
-              (yield S(i.id, a.id, r("WANullthrows")(a.senderTimestampMs)),
+              (yield R(i.id, a.id, r("WANullthrows")(a.senderTimestampMs)),
                 yield o(
                   "WAWebDBMarkFutureproofMessagesReparsed",
                 ).markFutureproofMessagesReparsed([a.id.toString()]),
-                w(
+                A(
                   a,
                   i,
                   o("WAWebWamEnumKicRequestTypeType").KIC_REQUEST_TYPE_TYPE
                     .UNKEEP,
                   s,
-                  h,
+                  y,
                 ));
               break;
             default:
               o("WALogger")
                 .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "KIC: unknown keepType ",
                       "",
                     ])),
@@ -587,10 +599,10 @@ __d(
               break;
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t, n) {
+    function M(e, t, n) {
       var r = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
         response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
         requestSendTime: e.t,
@@ -605,7 +617,7 @@ __d(
       );
       (a && r.set({ kicRequestType: a }), r.commit());
     }
-    function M(e, t, n, r) {
+    function w(e, t, n, r) {
       var a = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
           response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
           requestSendTime: e.t,
@@ -623,7 +635,7 @@ __d(
         r != null && a.set({ threadId: r }),
         a.commit());
     }
-    function w(e, t, n, r, a) {
+    function A(e, t, n, r, a) {
       var i = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
         kicRequestType: n,
         response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.SUCCESS,
@@ -637,10 +649,10 @@ __d(
       });
       (a != null && i.set({ threadId: a }), i.commit());
     }
-    ((l.keepMessage = k),
-      (l.undoKeepMessage = I),
-      (l.processKeepInChatMessages = D),
-      (l.processKeepInChatMessage = $));
+    ((l.keepMessage = I),
+      (l.undoKeepMessage = T),
+      (l.processKeepInChatMessages = x),
+      (l.processKeepInChatMessage = P));
   },
   226,
 );
