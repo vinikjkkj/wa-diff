@@ -3,9 +3,13 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebAcquisitionSourceNames",
+    "WAWebContactImportTemplateParsingUtils",
     "WAWebCustomerDataFieldSaver",
+    "WAWebCustomerManagerImportTemplateUtils",
     "WAWebFindChatAction",
     "WAWebLeadStage",
+    "WAWebLeadStageNames",
     "WAWebNoteAction",
     "WAWebSaveContactAction",
     "WAWebWidFactory",
@@ -25,14 +29,14 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n, a, i, l, s, u;
+          var t, n, a, i, l, s, u, c, d, m;
           if (e.lid == null)
             throw r("err")(
               "Imported contact missing lid; cannot resolve chatJid",
             );
-          var c = o("WAWebWidFactory").createUserWidOrThrow(e.lid),
-            d = o("WAWebWidToJid").widToChatJid(c),
-            m = e.phone.replace(/\D/g, "");
+          var p = o("WAWebWidFactory").createUserWidOrThrow(e.lid),
+            _ = o("WAWebWidToJid").widToChatJid(p),
+            f = e.phone.replace(/\D/g, "");
           (yield o("WAWebSaveContactAction").saveContactAction({
             firstName:
               (t = (n = e.firstName) == null ? void 0 : n.trim()) != null
@@ -43,38 +47,64 @@ __d(
                 ? a
                 : "",
             isExistingContact: !1,
-            phoneNumber: m,
+            phoneNumber: f,
             prevPhoneNumber: null,
             syncToAddressbook: !1,
           }),
             yield o("WAWebFindChatAction").findOrCreateLatestChat(
-              c,
+              p,
               "createContact",
-            ),
-            yield o("WAWebCustomerDataFieldSaver").upsertAsCustomer(
-              d,
-              o("WAWebLeadStage").LeadStage.NONE,
-              {
-                email: "",
-                altPhoneNumbers: "",
-                address: "",
-                acquisitionSource: void 0,
-              },
             ));
-          var p =
-            (l = (s = e.rawRow) == null ? void 0 : s.Notes) != null
-              ? l
-              : (u = e.rawRow) == null
+          var g =
+              (l = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+                e.rawRow,
+                [
+                  "Email",
+                  o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL,
+                ],
+              )) != null
+                ? l
+                : "",
+            h = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+              e.rawRow,
+              ["Lead stage"],
+            ),
+            y =
+              h != null &&
+              (s = o("WAWebLeadStageNames").getLeadStageFromName(h)) != null
+                ? s
+                : o("WAWebLeadStage").LeadStage.INTAKE,
+            C = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
+              e.rawRow,
+              ["Acquisition source"],
+            ),
+            b =
+              C != null &&
+              (u = o(
+                "WAWebAcquisitionSourceNames",
+              ).getAcquisitionSourceIdFromName(C)) != null
+                ? u
+                : void 0;
+          yield o("WAWebCustomerDataFieldSaver").upsertAsCustomer(_, y, {
+            email: g,
+            altPhoneNumbers: "",
+            address: "",
+            acquisitionSource: b,
+          });
+          var v =
+            (c = (d = e.rawRow) == null ? void 0 : d.Notes) != null
+              ? c
+              : (m = e.rawRow) == null
                 ? void 0
-                : u.notes;
-          p != null &&
-            p.trim() !== "" &&
+                : m.notes;
+          v != null &&
+            v.trim() !== "" &&
             (yield o("WAWebNoteAction").addOrEditNoteAction(
               {
                 actionType: "add",
                 noteType: "unstructured",
-                chatJid: d,
-                content: p.trim(),
+                chatJid: _,
+                content: v.trim(),
               },
               !0,
             ));

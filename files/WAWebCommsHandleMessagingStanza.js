@@ -38,7 +38,8 @@ __d(
           try {
             if (
               !o("WAWebCommsHandleStanzaUtils").isCallReceipt(e) &&
-              n.type !== "retry"
+              n.type !== "retry" &&
+              n.type !== "enc_rekey_retry"
             )
               return r("WAWebHandleMsgReceipt")(e);
           } catch (t) {

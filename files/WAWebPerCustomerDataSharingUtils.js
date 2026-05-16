@@ -29,6 +29,7 @@ __d(
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
+        !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() ||
         !e
       )
         return !1;
@@ -106,44 +107,46 @@ __d(
       );
     }
     function _(e, t, n, a) {
-      var i = o(
-          "WAWebDataSharing3pdLidCollection",
-        ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
-        l = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
-      l === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
-        ? i
-          ? o("WAWebModalManager").ModalManager.open(
-              s.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
-                accountLid: e,
-                entryPoint: n,
-              }),
-            )
+      if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
+        var i = o(
+            "WAWebDataSharing3pdLidCollection",
+          ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
+          l = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
+        l === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+          ? i
+            ? o("WAWebModalManager").ModalManager.open(
+                s.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
+                  accountLid: e,
+                  entryPoint: n,
+                }),
+              )
+            : o("WAWebModalManager").ModalManager.open(
+                s.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
+                  accountLids: [e],
+                  entryPoint: n,
+                }),
+              )
           : o("WAWebModalManager").ModalManager.open(
-              s.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
-                accountLids: [e],
-                entryPoint: n,
-              }),
-            )
-        : o("WAWebModalManager").ModalManager.open(
-            s.jsx(
-              r("WAWebSmbDataSharingOptInModalDialog")
-                .SmbDataSharingOptInModalDialog,
-              {
-                entrypoint: t,
-                chat: a,
-                perCustomerEntryPoint: n,
-                callback: function () {
-                  o(
-                    "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
-                  ).maybeGeneratePerCustomerDataSharingSystemMessage({
-                    accountLid: e,
-                    perCustomerDataSharingState: i,
-                    entryPoint: n,
-                  });
+              s.jsx(
+                r("WAWebSmbDataSharingOptInModalDialog")
+                  .SmbDataSharingOptInModalDialog,
+                {
+                  entrypoint: t,
+                  chat: a,
+                  perCustomerEntryPoint: n,
+                  callback: function () {
+                    o(
+                      "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
+                    ).maybeGeneratePerCustomerDataSharingSystemMessage({
+                      accountLid: e,
+                      perCustomerDataSharingState: i,
+                      entryPoint: n,
+                    });
+                  },
                 },
-              },
-            ),
-          );
+              ),
+            );
+      }
     }
     ((l.isPerCustomerDataSharingFeatureEnabled = u),
       (l.getCurrentDataSharingState = c),

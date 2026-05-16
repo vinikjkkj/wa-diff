@@ -14,6 +14,7 @@ __d(
     "WAWebClock",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebDebounce",
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
@@ -178,7 +179,7 @@ __d(
                 this.listenTo(
                   o("WAWebPresenceCollection").PresenceCollection,
                   "change:isOnline",
-                  r("lodash").debounce(function () {
+                  r("WAWebDebounce")(function () {
                     return e.$PresenceImpl$p_1();
                   }, 100),
                 ))
@@ -218,7 +219,7 @@ __d(
           return this.hasData && (e === "typing" || e === "recording_audio");
         }),
         (a.getGroupSubtitleText = function (n) {
-          var t;
+          var t, r;
           if (!this.hasData) return null;
           if (!this.isGroup)
             return (
@@ -232,16 +233,23 @@ __d(
                 .sendLogs("getGroupSubtitleText-not-group"),
               null
             );
-          var r =
-            (t = n == null ? void 0 : n.elevatedPushNamesEnabled) != null
-              ? t
-              : !1;
+          var a =
+              (t = n == null ? void 0 : n.elevatedPushNamesEnabled) != null
+                ? t
+                : !1,
+            i =
+              (r =
+                n == null ? void 0 : n.isTypingIndicatorMessageBubbleEnabled) !=
+              null
+                ? r
+                : !1;
           return v(
             this.chatstate.type,
             this.typingUserIds,
             this.recordingUserIds,
             this.groupOnlineCount,
-            r,
+            a,
+            i,
           );
         }),
         (a.$PresenceImpl$p_3 = function () {
@@ -501,24 +509,26 @@ __d(
       }
     }
     var b = d.defineModel(y);
-    function v(e, t, n, r, o) {
-      if (e === "typing" && t.length > 0) return S(t, o);
-      if (e === "recording_audio" && n.length > 0) {
-        var a = R(n[n.length - 1], o),
-          i = a.accessibleName,
-          l = a.name;
+    function v(e, t, n, r, o, a) {
+      if (!a && e === "typing" && t.length > 0) return S(t, o);
+      if (!a && e === "recording_audio" && n.length > 0) {
+        var i = R(n[n.length - 1], o),
+          l = i.accessibleName,
+          u = i.name;
         return {
           text: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", l),
+            s._param("member", u),
           ]),
           ariaLabel: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", i),
+            s._param("member", l),
           ]),
         };
       }
       if (r > 1) {
-        var u = s._(/*BTDS*/ "{count} online", [s._param("count", r)]);
-        return { text: u, ariaLabel: u };
+        var c = s._(/*BTDS*/ '_j{"*":"{count} online","_1":"1 online"}', [
+          s._plural(r, "count"),
+        ]);
+        return { text: c, ariaLabel: c };
       }
       return null;
     }

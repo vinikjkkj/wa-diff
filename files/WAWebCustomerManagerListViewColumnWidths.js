@@ -45,7 +45,7 @@ __d(
         value: 7,
       },
       notes: { options: { minWidth: 200 }, type: "proportional", value: 25 },
-      actions: { px: 80, type: "pixel" },
+      actions: { options: { minWidth: 100 }, type: "fill" },
     };
     i.customerManagerColumnWidths = e;
   },

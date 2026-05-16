@@ -21,15 +21,22 @@ __d(
       u = 20,
       c = 22;
     function d() {
-      return o("WAWebConnModel").Conn.platform ===
-        o("WAWebMobilePlatforms").PLATFORMS.SMBI
-        ? o("WAWebLabelConstants").IPHONE_LABEL_COLOR_PALETTE
-        : o("WAWebLabelConstants").ANDROID_LABEL_COLOR_PALETTE;
+      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
+        ? Array.from(
+            { length: o("WAWebLabelPillColors").PILL_COLOR_PALETTE_SIZE },
+            function (e, t) {
+              return o("WAWebLabelPillColors").getDotColor(t);
+            },
+          )
+        : o("WAWebConnModel").Conn.platform ===
+            o("WAWebMobilePlatforms").PLATFORMS.SMBI
+          ? o("WAWebLabelConstants").IPHONE_LABEL_COLOR_PALETTE
+          : o("WAWebLabelConstants").ANDROID_LABEL_COLOR_PALETTE;
     }
     function m(e) {
-      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? o("WAWebLabelPillColors").getDotColor(e)
-        : d()[e];
+      var t,
+        n = d();
+      return (t = n[e]) != null ? t : n[0];
     }
     function p() {
       var e = o("WAWebListsGatingUtils").isListsChatListRowPillEnabled();

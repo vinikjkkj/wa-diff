@@ -9,13 +9,13 @@ __d(
     "WAWebContactGetters",
     "WAWebContactModel",
     "WAWebContactSearchGatingUtils",
+    "WAWebDebounce",
     "WAWebFrontendContactGetters",
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebWid",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,10 +26,10 @@ __d(
           var e;
           return (
             (e = t.call(this) || this),
-            (e._sort = r("lodash").debounce(function () {
+            (e._sort = r("WAWebDebounce")(function () {
               return t.prototype.sort.call(e);
             }, 1e3)),
-            (e._silentSort = r("lodash").debounce(function () {
+            (e._silentSort = r("WAWebDebounce")(function () {
               return t.prototype.sort.call(e, { silent: !0 });
             }, 1e3)),
             (e.findImpl = function (t) {

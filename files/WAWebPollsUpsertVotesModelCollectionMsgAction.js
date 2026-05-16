@@ -18,7 +18,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "compactMap",
-    "lodash",
+    "uniqueBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -89,7 +89,7 @@ __d(
           if (
             !(i || o("WAWebNotificationHelpers").isOfflineResumeInProgress())
           ) {
-            var n = r("lodash").uniqBy(
+            var n = r("uniqueBy")(
                 t
                   .filter(function (e) {
                     return !o("WAWebUserPrefsMeUser").isMeAccount(e.sender);

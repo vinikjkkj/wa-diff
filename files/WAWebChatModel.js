@@ -55,6 +55,7 @@ __d(
     "WAWebDBEphemeralMessage",
     "WAWebDBUpdateChatTable",
     "WAWebDBUpdateContactTable",
+    "WAWebDebounce",
     "WAWebDecrementThreadUnreadCountsAction",
     "WAWebEphemeralKeepInChatAbpropUtils",
     "WAWebEventMsgsCollection",
@@ -77,6 +78,7 @@ __d(
     "WAWebLogoutReasonConstants",
     "WAWebMedia",
     "WAWebMobilePlatforms",
+    "WAWebMsgCollection",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
@@ -113,7 +115,6 @@ __d(
     "asyncToGeneratorRuntime",
     "countWhere",
     "isStringNullOrEmpty",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -561,7 +562,7 @@ __d(
               this.listenTo(this, "change:msgs", function () {
                 return o("WAWebChatMedia").resetMediaMsgs(n);
               }),
-              (this.saveAssignedColorsDebounced = r("lodash").debounce(
+              (this.saveAssignedColorsDebounced = r("WAWebDebounce")(
                 function () {
                   return o("WAWebChatParticipantColor").saveAssignedColors(n);
                 },
@@ -887,6 +888,9 @@ __d(
                 var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
                   n = e.getModelsArray().slice(0, t);
                 (e.remove(n, { silent: !0 }, !0),
+                  o("WAWebMsgCollection").MsgCollection.remove(n, {
+                    silent: !0,
+                  }),
                   (e.msgLoadState.noEarlierMsgs = !1));
               }
             }
@@ -1184,15 +1188,15 @@ __d(
           (i.deleteMsgsPartial = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
-            var a = this.unreadCount,
-              i = [];
+            var r = this.unreadCount,
+              a = [];
             this.getAllCMCs().forEach(function (r) {
-              var a = r.filter(function (n, r, o) {
+              var i = r.filter(function (n, r, o) {
                 return !t.apply(e, [n, r, o]);
               });
-              (r.remove(a, void 0, n),
-                i.push.apply(i, a),
-                a.forEach(function (e) {
+              (r.remove(i, void 0, n),
+                a.push.apply(a, i),
+                i.forEach(function (e) {
                   (o("WAWebMsgGetters").getIsAuthenticationMessage(e) &&
                     o("WAWebOTPLoggingHelper").logOTPMessageDeleted(
                       o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
@@ -1200,28 +1204,26 @@ __d(
                     e.delete());
                 }));
             });
-            var l = this.aiThreads;
-            if (l != null) {
-              var s = o(
+            var i = this.aiThreads;
+            if (i != null) {
+              var l = o(
                 "WAWebDecrementThreadUnreadCountsAction",
-              ).getThreadUnreadDeltasFromMessages(i);
+              ).getThreadUnreadDeltasFromMessages(a);
               o(
                 "WAWebDecrementThreadUnreadCountsAction",
-              ).decrementThreadUnreadCountsAction(s, l);
+              ).decrementThreadUnreadCountsAction(l, i);
             }
             if (
-              (r("lodash")
-                .clone(this.msgChunks)
-                .forEach(function (t) {
-                  t.length === 0 && e.removeMsgsCollection(t);
-                }),
+              ([].concat(this.msgChunks).forEach(function (t) {
+                t.length === 0 && e.removeMsgsCollection(t);
+              }),
               this.msgs.length > 0)
             ) {
-              var u = a > this.msgs.length ? this.msgs.length : a;
+              var s = r > this.msgs.length ? this.msgs.length : r;
               o("WAWebDBUpdateChatTable")
-                .updateChatTable(this.id, { unreadCount: u })
+                .updateChatTable(this.id, { unreadCount: s })
                 .then(function () {
-                  ((e.unreadCount = u),
+                  ((e.unreadCount = s),
                     (e.msgs.msgLoadState.noEarlierMsgs =
                       e.endOfHistoryTransferType !==
                       o("WAWebChatConstants")

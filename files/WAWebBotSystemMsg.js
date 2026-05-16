@@ -16,17 +16,19 @@ __d(
       });
     }
     function s(e, t) {
-      var n;
+      var n, r, a;
       if (
         o("WAWebBotBaseGating").isBotEnabled() &&
         !t.id.isBot() &&
+        ((n = t.groupMetadata) == null ? void 0 : n.isOpenBotGroup) !== !0 &&
+        ((r = t.groupMetadata) == null ? void 0 : r.isTeeBotGroup) !== !0 &&
         e.botMessageSecret != null &&
         t.hasCreatedBotInvokeSystemMsg !== !0 &&
-        (n = e.invokedBotWid) != null &&
-        n.isBot()
+        (a = e.invokedBotWid) != null &&
+        a.isBot()
       ) {
-        var r = u(t.id);
-        return r;
+        var i = u(t.id);
+        return i;
       }
       return null;
     }

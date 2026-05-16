@@ -21,8 +21,9 @@ __d(
       )
         return !1;
       var t = e.getProtocol();
+      if (t === "tel") return !1;
       if (r("justknobx")._("3409")) {
-        if (t !== "http" && t !== "https" && t !== "tel") return !1;
+        if (t !== "http" && t !== "https") return !1;
       } else if (t !== "http" && t !== "https") return !1;
       return !r("isTrustedDestination")(e);
     }

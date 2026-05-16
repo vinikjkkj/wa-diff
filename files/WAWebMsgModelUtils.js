@@ -18,6 +18,7 @@ __d(
     "WAWebFileUtils",
     "WAWebFindChatAction",
     "WAWebFrontendMsgGetters",
+    "WAWebGetPlainTextFromBotMsg",
     "WAWebGroupMetadataCollection",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebKeepInChatMsgUtils",
@@ -141,9 +142,23 @@ __d(
       return ((a.fromQuotedMsg = !0), a);
     }
     function v(e) {
-      return new (o("WAWebMsgModel").Msg)(e.toJSON());
+      var t = new (o("WAWebMsgModel").Msg)(e.toJSON());
+      return (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE && S(t), t);
     }
     function S(e) {
+      var t,
+        n =
+          (t = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e)) !=
+          null
+            ? t
+            : "";
+      ((e.type = o("WAWebMsgType").MSG_TYPE.CHAT),
+        (e.subtype = void 0),
+        (e.body = n),
+        (e.richResponse = void 0),
+        (e.unifiedResponse = void 0));
+    }
+    function R(e) {
       var t = e.filter(function (e) {
         return (
           !o("WAWebMsgGetters").getHasOriginatedFromNewsletter(e) &&
@@ -154,7 +169,7 @@ __d(
       });
       return t;
     }
-    function R(t) {
+    function L(t) {
       var n, a, i, l;
       if (t instanceof o("WAWebMsgModel").Msg) ((i = t), (l = t.id));
       else if (t instanceof r("WAWebMsgKey")) l = t;
@@ -198,10 +213,10 @@ __d(
           : void 0;
       }
     }
-    function L(e) {
+    function E(e) {
       var t;
       if (!e.invis) {
-        var n = R(e);
+        var n = L(e);
         n &&
           ((t = n.map(function (e) {
             return e.remote;
@@ -212,7 +227,7 @@ __d(
                 return e.id.equals(t);
               })
             ) {
-              var n = T(e);
+              var n = D(e);
               ((n.to = t.remote), (n.id = t), (n.broadcast = !0));
               var a = o("WAWebMsgCollection").MsgCollection.add(n, {
                 merge: !0,
@@ -242,7 +257,7 @@ __d(
                       }
                       return (e.push(n), e);
                     }, []);
-                  E({ insertAfter: !0, newRecords: n, threadOrChat: t });
+                  k({ insertAfter: !0, newRecords: n, threadOrChat: t });
                 },
               );
             }
@@ -250,7 +265,7 @@ __d(
       }
       return t;
     }
-    function E(e) {
+    function k(e) {
       var t = e.anchorMsgKey,
         n = e.chatMsgsCollection,
         r = e.firstUnreadKey,
@@ -269,16 +284,16 @@ __d(
                   "models:msg:store:resetMostRecentMsgs .msgs === cmc !",
                 ])),
             ),
-              k(s, d, i));
+              I(s, d, i));
           else {
-            ((m = !0), k(s, d, i));
+            ((m = !0), I(s, d, i));
             var p = new (o("WAWebChatMsgsCollection").ChatMsgsCollection)();
             (p.replace(s.msgs),
               s.msgChunks.push(p),
               s.replaceMsgsCollection(d),
               s.msgs.trigger("change:last", s.msgs.last()));
           }
-        else if (a) m ? k(s, d, i) : I(d, i);
+        else if (a) m ? I(s, d, i) : T(d, i);
         else {
           var _ = 0;
           if (t) {
@@ -299,7 +314,7 @@ __d(
                 ));
             }
           }
-          I(d, i, { at: _, silent: i.every(D) });
+          T(d, i, { at: _, silent: i.every(x) });
         }
         var h = r;
         h &&
@@ -311,11 +326,11 @@ __d(
               })));
       }
     }
-    function k(e, t, n) {
-      var r = n.at(-1);
-      r && (I(t, n), (e.lastReceivedKey = r.id));
-    }
     function I(e, t, n) {
+      var r = n.at(-1);
+      r && (T(t, n), (e.lastReceivedKey = r.id));
+    }
+    function T(e, t, n) {
       try {
         e.add(t, n);
       } catch (e) {
@@ -331,18 +346,18 @@ __d(
         else throw e;
       }
     }
-    function T(e) {
+    function D(e) {
       return e != null && typeof e == "object"
         ? JSON.parse(JSON.stringify(e), o("WAWebWidJsonReviver").jsonWidReviver)
         : e;
     }
-    function D(e) {
+    function x(e) {
       return (
         o("WAWebFrontendMsgGetters").getEventType(e) ===
         o("WAWebCommonMsgUtils").EventType.IGNORE
       );
     }
-    function x(e) {
+    function $(e) {
       return e
         .filter(function (e) {
           return e.ack === o("WAWebAck").ACK.READ;
@@ -351,8 +366,8 @@ __d(
           return e.id.toString();
         });
     }
-    var $ = new RegExp(["congratulations", "congrats"].join("|"));
-    function P(e) {
+    var P = new RegExp(["congratulations", "congrats"].join("|"));
+    function N(e) {
       if (
         !o(
           "WAWebCongratulationsAnimationsGatingUtils",
@@ -360,14 +375,14 @@ __d(
       )
         return null;
       if (e != null) {
-        var t = $.test(e.toLocaleLowerCase());
+        var t = P.test(e.toLocaleLowerCase());
         if (t)
           return o("WAWebCongratulationsAnimationsUtils")
             .CelebrationAnimationType.DEFAULT;
       }
       return null;
     }
-    function N(e, t) {
+    function M(e, t) {
       if (t === o("WAWebMsgType").MSG_TYPE.CHAT && !(e == null || e === "")) {
         var n = o("WAWebEmoji").EmojiUtil.matchLargeEmojiPattern(e);
         if (!(n == null || n.length !== 1)) {
@@ -376,19 +391,19 @@ __d(
         }
       }
     }
-    function M(e, t) {
+    function w(e, t) {
       if (
         !o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiEnabled() ||
         !r("WAWebChatPreferenceCollection").get("autoplayAnimatedImages")
       )
         return !1;
-      var n = N(e, t);
+      var n = M(e, t);
       return (
         n != null &&
         o("WAWebEmojiConst").getSupportedAnimatedEmojis().includes(n)
       );
     }
-    var w = new Set([
+    var A = new Set([
       (_ = o("WAWebMsgType")).MSG_TYPE.NOTIFICATION,
       _.MSG_TYPE.NOTIFICATION_TEMPLATE,
       _.MSG_TYPE.GP2,
@@ -399,9 +414,9 @@ __d(
       _.MSG_TYPE.DEBUG,
       _.MSG_TYPE.CIPHERTEXT,
     ]);
-    function A(e) {
+    function F(e) {
       var t = o("WAWebMsgGetters").getSender(e);
-      if (t == null && !w.has(e.type)) {
+      if (t == null && !A.has(e.type)) {
         var n, r, a;
         (o("WALogger").LOG(
           m ||
@@ -428,7 +443,7 @@ __d(
       }
       return t;
     }
-    function F(e) {
+    function O(e) {
       var t = o("WAWebMsgGetters").getSender(e);
       return (
         o("WAWebMsgGetters").getIsNewsletterMsg(e)
@@ -437,16 +452,16 @@ __d(
         t
       );
     }
-    function O(e) {
+    function B(e) {
       return (
         o("WAWebMsgGetters").getIsSentByMe(e) && e.ack < o("WAWebAck").ACK.SENT
       );
     }
-    function B(e) {
+    function W(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e).msgs.last();
       return e.id.equals(t == null ? void 0 : t.id);
     }
-    function W(e) {
+    function q(e) {
       var t = 5,
         n =
           o("WAWebMsgGetters").getNumTimesForwarded(e) +
@@ -455,7 +470,7 @@ __d(
         ? r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
         : n;
     }
-    function q(e) {
+    function U(e) {
       var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
       return t == null
         ? null
@@ -463,7 +478,7 @@ __d(
           ? 0
           : t - o("WATimeUtils").unixTime();
     }
-    function U(e) {
+    function V(e) {
       var t;
       return (
         !(
@@ -478,21 +493,21 @@ __d(
       (l.msgMatchesType = C),
       (l.createQuotedMsg = b),
       (l.createMsgSnapshot = v),
-      (l.getMediaMsgWithCaptionForForwarding = S),
-      (l.getBroadcastFanoutKeys = R),
-      (l.broadcastFanout = L),
-      (l.addRecordsToChat = E),
-      (l.getReadMsgKeys = x),
-      (l.getCelebrationAnimationType = P),
-      (l.isSingleEmojiMessageText = N),
-      (l.isAnimatedEmoji = M),
-      (l.getValidatedSender = A),
-      (l.getQuotedParticipantForContextInfo = F),
-      (l.msgMayFail = O),
-      (l.isLastMsg = B),
-      (l.getMsgForwardingScoreWhenForwarded = W),
-      (l.getMsgTimeUntilExpiration = q),
-      (l.shouldShowMsgNotificationPreview = U));
+      (l.getMediaMsgWithCaptionForForwarding = R),
+      (l.getBroadcastFanoutKeys = L),
+      (l.broadcastFanout = E),
+      (l.addRecordsToChat = k),
+      (l.getReadMsgKeys = $),
+      (l.getCelebrationAnimationType = N),
+      (l.isSingleEmojiMessageText = M),
+      (l.isAnimatedEmoji = w),
+      (l.getValidatedSender = F),
+      (l.getQuotedParticipantForContextInfo = O),
+      (l.msgMayFail = B),
+      (l.isLastMsg = W),
+      (l.getMsgForwardingScoreWhenForwarded = q),
+      (l.getMsgTimeUntilExpiration = U),
+      (l.shouldShowMsgNotificationPreview = V));
   },
   98,
 );

@@ -16,9 +16,8 @@ __d(
             l = n[i],
             s = l.SELECTOR,
             c = Math.ceil(
-              (e || (e = r("distinctArray")))(
-                r("lodash").values(l.UNICODE_TO_EMOJI),
-              ).length / o("WAWebEmojiConst").BUCKET_SIZE,
+              (e || (e = r("distinctArray")))(l.UNICODE_TO_EMOJI).length /
+                o("WAWebEmojiConst").BUCKET_SIZE,
             ),
             d = 0;
           d < c;

@@ -2,27 +2,29 @@ __d(
   "WAWebChatMuteBridge",
   ["WAWebMuteChatSync", "WAWebSyncdCoreApi", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = yield r("WAWebMuteChatSync").generateMuteMutation(e, t, a),
-              l = { muteExpiration: t };
-            a != null && (l.mentionAllMuteExpiration = a);
-            var s = o("WAWebSyncdCoreApi")
-              .lockForSync(["chat"], [i], function (t) {
-                var n = t[0];
-                return n.merge(e.toString(), l);
-              })
-              .then(function () {
-                return { status: 200 };
-              });
-            return s;
-          },
-        )),
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e._expirationNew,
+            n = e.chatId,
+            a = e.expiration,
+            i = e.mentionAllMuteExpiration,
+            l = yield r("WAWebMuteChatSync").generateMuteMutation(n, a, i),
+            s = { muteExpiration: a };
+          i != null && (s.mentionAllMuteExpiration = i);
+          var u = o("WAWebSyncdCoreApi")
+            .lockForSync(["chat"], [l], function (e) {
+              var t = e[0];
+              return t.merge(n.toString(), s);
+            })
+            .then(function () {
+              return { status: 200 };
+            });
+          return u;
+        })),
         s.apply(this, arguments)
       );
     }

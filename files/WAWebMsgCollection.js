@@ -441,12 +441,12 @@ __d(
               function* (e, t, n) {
                 var r = e != null ? e : g,
                   a = n === "after" ? "after" : "before",
-                  i = yield o("WAWebDBMessageFindLocal").getAllDocsMessages(
-                    r,
-                    t,
-                    a,
-                    t == null ? void 0 : t.remote,
-                  );
+                  i = yield o("WAWebDBMessageFindLocal").getAllDocsMessages({
+                    chat: t == null ? void 0 : t.remote,
+                    count: r,
+                    direction: a,
+                    msgKey: t,
+                  });
                 return this.processMultipleMessages(
                   void 0,
                   i,

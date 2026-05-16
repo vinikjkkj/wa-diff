@@ -160,32 +160,35 @@ __d(
         },
       ],
       l = 4,
-      s = e[l];
-    function u(t, n) {
+      s = e.length,
+      u = e[l];
+    function c(t, n) {
       var r,
-        o = (r = e[t]) != null ? r : s;
+        o = (r = e[t]) != null ? r : u;
       return n
         ? { bg: o.pillBgDark, text: o.pillTextDark }
         : { bg: o.pillBg, text: o.pillText };
     }
-    function c(t) {
+    function d(t) {
       var n;
-      return ((n = e[t]) != null ? n : s).dot;
+      return ((n = e[t]) != null ? n : u).dot;
     }
-    var d = 0,
-      m = 10,
-      p = 21,
-      _ = new Set([d, m]),
-      f = [
+    var m = 0,
+      p = 10,
+      _ = 21,
+      f = new Set([m, p]),
+      g = [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
       ];
-    ((i.getPillColors = u),
-      (i.getDotColor = c),
-      (i.AI_HANDOFF_COLOR_INDEX = d),
-      (i.AI_RESPONDING_COLOR_INDEX = m),
-      (i.OVERFLOW_COLOR_INDEX = p),
-      (i.AI_RESERVED_COLOR_INDICES = _),
-      (i.CUSTOM_LABEL_COLOR_INDICES = f));
+    ((i.DEFAULT_COLOR_INDEX = l),
+      (i.PILL_COLOR_PALETTE_SIZE = s),
+      (i.getPillColors = c),
+      (i.getDotColor = d),
+      (i.AI_HANDOFF_COLOR_INDEX = m),
+      (i.AI_RESPONDING_COLOR_INDEX = p),
+      (i.OVERFLOW_COLOR_INDEX = _),
+      (i.AI_RESERVED_COLOR_INDICES = f),
+      (i.CUSTOM_LABEL_COLOR_INDICES = g));
   },
   66,
 );

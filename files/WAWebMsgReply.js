@@ -16,6 +16,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebQuotedMsgModelUtils",
+    "WAWebRichResponseFrontendUtils",
     "WAWebStateUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -57,7 +58,8 @@ __d(
           ).isNewsletterSendingAdminRepliesEnabled()) ||
         t.isCarouselCard ||
         o("WAWebMsgGetters").getIsBotFutureproofPlaceholder(t) ||
-        o("WAWebFrontendMsgGetters").getAsRichResponse(e)
+        (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
+          !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e))
         ? !1
         : o("WAWebFrontendChatGetters").getIsCAG(n)
           ? t.messageSecret != null
@@ -79,7 +81,8 @@ __d(
         : r.isCarouselCard
           ? r.isCarouselCard
           : o("WAWebMsgGetters").getIsBotFutureproofPlaceholder(r) ||
-              o("WAWebFrontendMsgGetters").getAsRichResponse(e) ||
+              (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
+                !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
               ((t = r.author) != null &&
                 t.isLid() &&
                 (n = a.groupMetadata) != null &&
@@ -116,7 +119,8 @@ __d(
           a,
           o("WAWebFrontendMsgGetters").getSenderObj(r),
         ) ||
-        o("WAWebFrontendMsgGetters").getAsRichResponse(e) ||
+        (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
+          !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
         (r.author != null &&
           o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(r.author))
         ? !1

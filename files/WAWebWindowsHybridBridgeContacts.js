@@ -22,8 +22,9 @@ __d(
     var e,
       s,
       u,
-      c = r("qpl")._(891427936, "2894"),
-      d = new Set([
+      c,
+      d = r("qpl")._(891427936, "2894"),
+      m = new Set([
         "phoneNumber",
         "name",
         "pushname",
@@ -32,14 +33,14 @@ __d(
         "usernameCountryCode",
         "isHosted",
       ]);
-    function m(e) {
+    function p(e) {
       for (var t of e)
         if (!(t == null || typeof t != "object")) {
-          for (var n of Object.keys(t)) if (d.has(n)) return !0;
+          for (var n of Object.keys(t)) if (m.has(n)) return !0;
         }
       return !1;
     }
-    var p = (function () {
+    var _ = (function () {
       function t(t, a, i) {
         var l = this;
         ((this.$4 = "contacts"),
@@ -155,11 +156,61 @@ __d(
               return e.apply(this, arguments);
             };
           })()),
+          (this.$8 = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {
+              try {
+                var e = yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "getFrequentChatsForSharing",
+                  {},
+                );
+                (r("WAWebODS").incr(
+                  "web.hybrid.bridge.contacts.send.frequent_chats_for_sharing",
+                ),
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    {
+                      bridge: "contacts",
+                      method: "receiveFrequentChatsForSharing-1",
+                      type: "sync",
+                    },
+                    function () {
+                      return l.$1.receiveFrequentChatsForSharing(
+                        JSON.stringify(e),
+                      );
+                    },
+                  ));
+              } catch (e) {
+                (o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WinUi] getFrequentChatsForSharing error ",
+                      "",
+                    ])),
+                  e,
+                ),
+                  r("WAWebODS").incr(
+                    "web.hybrid.bridge.contacts.send.frequent_chats_for_sharing",
+                  ),
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    {
+                      bridge: "contacts",
+                      method: "receiveFrequentChatsForSharing-2",
+                      type: "sync",
+                    },
+                    function () {
+                      return l.$1.receiveFrequentChatsForSharing(
+                        JSON.stringify([]),
+                      );
+                    },
+                  ));
+              }
+            },
+          )),
           (this.$1 = t),
           (this.$2 = a),
           (this.$3 = i),
           t.addEventListener("requestUpdateEvent", this.$6),
           t.addEventListener("requestFrequentContactsEvent", this.$7),
+          t.addEventListener("requestFrequentChatsForSharingEvent", this.$8),
           t.subscribe(null));
       }
       var a = t.prototype;
@@ -173,8 +224,8 @@ __d(
                   "web_anr_skip_unused_contacts_db_updates_enabled",
                 ) &&
                   n != null &&
-                  !m(n)) ||
-                  e.$8(t);
+                  !p(n)) ||
+                  e.$9(t);
               }),
               yield r("WAWebEventsWaitForMainStreamReadyMd")(),
               !this.$3 && !r("WAWebSyncBootstrap").isSyncDBootstrapInProcess())
@@ -223,8 +274,8 @@ __d(
                   ));
               } catch (e) {
                 o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[WinUi] setInitialData ",
                       " error ",
                       "",
@@ -240,7 +291,7 @@ __d(
           }
           return t;
         })()),
-        (a.$8 = function (t) {
+        (a.$9 = function (t) {
           var e = this;
           if (this.$3) {
             var n = t.filter(function (t) {
@@ -262,15 +313,15 @@ __d(
                 },
                 function () {
                   if (o("WAWebWindowsConstants").WINDOWS_BUILD_IS_BETA) {
-                    var t = o("WAWebQplFlowWrapper").QPL.markerStart(c);
+                    var t = o("WAWebQplFlowWrapper").QPL.markerStart(d);
                     (e.$2.invalidateContacts(n), t.end(2));
                   } else e.$2.invalidateContacts(n);
                 },
               );
               var i = self.performance.now() - a;
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[hybrid-contacts] invalidate path=direct keys=",
                     " bridge=",
                     "ms",
@@ -284,7 +335,7 @@ __d(
         t
       );
     })();
-    l.WindowsHybridBridgeContacts = p;
+    l.WindowsHybridBridgeContacts = _;
   },
   98,
 );

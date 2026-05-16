@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaEditorGeometryPoint",
-  ["lodash"],
+  ["WADeepEquals"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -14,7 +14,7 @@ __d(
           return (
             n.x != null && (t.x = n.x),
             n.y != null && (t.y = n.y),
-            r("lodash").isEqual(this.$1, t) ? this : new e(t)
+            o("WADeepEquals").deepEqual(this.$1, t) ? this : new e(t)
           );
         }),
         (t.clone = function () {

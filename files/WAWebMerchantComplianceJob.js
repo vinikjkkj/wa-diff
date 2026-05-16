@@ -168,7 +168,14 @@ __d(
             s = t.isRegistered,
             u = s === void 0 ? !1 : s;
           return o("WAWebBizGatingUtils").graphQLForSetComplianceInfo()
-            ? C(r, a, u, i, n, l)
+            ? C({
+                customerCareDetails: n,
+                entityName: r,
+                entityType: a,
+                entityTypeCustom: i,
+                grievanceOfficerDetails: l,
+                isRegistered: u,
+              })
             : h({
                 entityName: r,
                 entityType: a,
@@ -266,56 +273,60 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o, a) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            n === void 0 && (n = !1);
-            var s = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              u = {};
-            if (
-              ((u.is_registered = n),
-              e !== void 0 && (u.entity_name = e),
-              (u.entity_type = v(t)),
-              a !== void 0 && (u.entity_type_custom = a),
-              i)
-            ) {
-              var c = {};
-              (i.email !== void 0 && (c.email = i.email),
-                i.landlineNumber !== void 0 &&
-                  (c.landline_number = i.landlineNumber),
-                i.mobileNumber !== void 0 && (c.mobile_number = i.mobileNumber),
-                (u.customer_care_details = c));
-            }
-            if (l) {
-              var d = {};
-              (l.name !== void 0 && (d.name = l.name),
-                l.email !== void 0 && (d.email = l.email),
-                l.landlineNumber !== void 0 &&
-                  (d.landline_number = l.landlineNumber),
-                l.mobileNumber !== void 0 && (d.mobile_number = l.mobileNumber),
-                (u.grievance_officer_details = d));
-            }
-            var m = yield o(
-              "WAWebBizSetMerchantCompliance",
-            ).setMerchantCompliance({ biz_jid: s.toJid(), merchant_info: u });
-            if (m.type === "success") return m.merchant_info;
-            throw (
-              m.type === "graphql-error"
-                ? o(
-                    "WAWebMaybeThrowCatalogErrors",
-                  ).maybeThrowLocalErrorForCatalogQuery(m.error)
-                : m.type,
-              r("err")(
-                "setMerchantComplianceGraphQL: error handling flow not implemented for " +
-                  JSON.stringify(m),
-              )
-            );
-          },
-        )),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.customerCareDetails,
+            n = e.entityName,
+            a = e.entityType,
+            i = e.entityTypeCustom,
+            l = e.grievanceOfficerDetails,
+            s = e.isRegistered,
+            u = s === void 0 ? !1 : s,
+            c = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            d = {};
+          if (
+            ((d.is_registered = u),
+            n !== void 0 && (d.entity_name = n),
+            (d.entity_type = v(a)),
+            i !== void 0 && (d.entity_type_custom = i),
+            t)
+          ) {
+            var m = {};
+            (t.email !== void 0 && (m.email = t.email),
+              t.landlineNumber !== void 0 &&
+                (m.landline_number = t.landlineNumber),
+              t.mobileNumber !== void 0 && (m.mobile_number = t.mobileNumber),
+              (d.customer_care_details = m));
+          }
+          if (l) {
+            var p = {};
+            (l.name !== void 0 && (p.name = l.name),
+              l.email !== void 0 && (p.email = l.email),
+              l.landlineNumber !== void 0 &&
+                (p.landline_number = l.landlineNumber),
+              l.mobileNumber !== void 0 && (p.mobile_number = l.mobileNumber),
+              (d.grievance_officer_details = p));
+          }
+          var _ = yield o(
+            "WAWebBizSetMerchantCompliance",
+          ).setMerchantCompliance({ biz_jid: c.toJid(), merchant_info: d });
+          if (_.type === "success") return _.merchant_info;
+          throw (
+            _.type === "graphql-error"
+              ? o(
+                  "WAWebMaybeThrowCatalogErrors",
+                ).maybeThrowLocalErrorForCatalogQuery(_.error)
+              : _.type,
+            r("err")(
+              "setMerchantComplianceGraphQL: error handling flow not implemented for " +
+                JSON.stringify(_),
+            )
+          );
+        })),
         b.apply(this, arguments)
       );
     }

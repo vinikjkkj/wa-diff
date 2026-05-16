@@ -22,10 +22,21 @@ __d(
     function m() {
       return Array.from(e.keys());
     }
+    function p(t) {
+      var n = t.trim().toLowerCase();
+      if (n === "") return null;
+      for (var r of e) {
+        var o = r[0],
+          a = r[1];
+        if (String(a).toLowerCase() === n) return o;
+      }
+      return null;
+    }
     ((l.registerAcquisitionSource = u),
       (l.getUnknownAcquisitionSourceLabel = c),
       (l.getAcquisitionSourceDisplayName = d),
-      (l.getRegisteredAcquisitionSourceIds = m));
+      (l.getRegisteredAcquisitionSourceIds = m),
+      (l.getAcquisitionSourceIdFromName = p));
   },
   226,
 );

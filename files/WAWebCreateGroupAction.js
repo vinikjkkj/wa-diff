@@ -18,7 +18,6 @@ __d(
     "WAWebGroupGatingUtils",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupQueryBridge",
-    "WAWebHandleMsgCommon",
     "WAWebJidToWid",
     "WAWebModalManager",
     "WAWebModifyParticipantsRateLimitText",
@@ -57,16 +56,12 @@ __d(
         f = t.parentGroupId,
         g = t.thumb,
         h = t.title,
-        y =
-          o("WAWebUsernameGatingUtils").usernameGroupMutationEnabled() ||
-          t.addressingModeOverride ===
-            o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid,
-        C;
+        y;
       try {
-        C = a.map(function (e) {
+        y = a.map(function (e) {
           return o(
             "WAWebGroupMutationParticipantUtils",
-          ).getGroupMutationParticipant(e, y, "createGroup");
+          ).getGroupMutationParticipant(e, !0, "createGroup");
         });
       } catch (e) {
         return (
@@ -74,11 +69,11 @@ __d(
           (u || (u = n("Promise"))).resolve(void 0)
         );
       }
-      var b = l.map(function (e) {
+      var C = l.map(function (e) {
           return o("WAWebJidToWid").userJidToUserWid(e.id);
         }),
-        v = o("WAWebGroupCreateJob")
-          .createGroup(t, C, b)
+        b = o("WAWebGroupCreateJob")
+          .createGroup(t, y, C)
           .then(function (e) {
             var n = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
             (o("WAWebCoreActionsODS").logGroupCreate(),
@@ -103,10 +98,10 @@ __d(
               invitedOutContacts: e.invitedOutContacts,
             };
           }),
-        S = new (o("WAWebActionToast.react").ActionType)(
+        v = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Creating group"),
         ),
-        R = v
+        S = b
           .then(function (e) {
             return new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Created group"),
@@ -199,11 +194,11 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
             id: i,
-            initialAction: S,
-            pendingAction: R,
+            initialAction: v,
+            pendingAction: S,
           }),
         ),
-        v
+        b
           .then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(

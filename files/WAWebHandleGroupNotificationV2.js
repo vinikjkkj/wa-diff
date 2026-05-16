@@ -171,10 +171,15 @@ __d(
               writeSystemMessages: (function () {
                 var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
-                    return y(e.chatId, yield g(e, r), t, function () {
-                      return o(
-                        "WAWebHandleGroupNotificationConst",
-                      ).shouldSkipGenMsg(e, r);
+                    return y({
+                      chatId: e.chatId,
+                      shouldProcessOffline: t,
+                      shouldSkip: function () {
+                        return o(
+                          "WAWebHandleGroupNotificationConst",
+                        ).shouldSkipGenMsg(e, r);
+                      },
+                      systemMessages: yield g(e, r),
                     });
                   },
                 );
@@ -258,6 +263,25 @@ __d(
                 ).genGroupTransitionToTeeBotGroupNotificationMsg(e.chatId);
                 n.push(l);
               }
+              if (
+                o(
+                  "WAWebBotGroupGatingUtils",
+                ).isOpenGroupBotParticipantAddEnabled() ||
+                o(
+                  "WAWebBotGroupGatingUtils",
+                ).isTEEGroupBotParticipantAddEnabled()
+              ) {
+                var c =
+                  o("WAWebBotUtils").participantListIncludOpenOrTeeGroupBotWid(
+                    a,
+                  );
+                (c.includeOpenMetabot || c.includeTeeMetabot) &&
+                  o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
+                    id: e.chatId,
+                    actionType: o("WAWebHandleGroupNotificationConst")
+                      .GROUP_NOTIFICATION_TAG.ADD,
+                  });
+              }
             }
           } else if (
             t.actionType !==
@@ -288,10 +312,10 @@ __d(
                 o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
                   .REMOVE)
           ) {
-            var c = o(
+            var d = o(
               "WAWebBotUtils",
             ).participantListIncludOpenOrTeeGroupBotWid(t.participants);
-            (c.includeOpenMetabot || c.includeTeeMetabot) &&
+            (d.includeOpenMetabot || d.includeTeeMetabot) &&
               o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
                 id: e.chatId,
                 actionType: o("WAWebHandleGroupNotificationConst")
@@ -303,41 +327,45 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e, t, r, a) {
-      var i = function () {},
-        l = new (c || (c = n("Promise")))(function (e) {
-          return (i = e);
+    function y(e) {
+      var t = e.chatId,
+        r = e.shouldProcessOffline,
+        a = e.shouldSkip,
+        i = e.systemMessages,
+        l = function () {},
+        s = new (c || (c = n("Promise")))(function (e) {
+          return (l = e);
         });
       return (
         o("WAWebMessageQueue").onMessageQueue({
-          chatWid: e,
+          chatWid: t,
           isOffline: r,
           msgCategory: null,
           action: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (yield a()) {
-                i();
+                l();
                 return;
               }
-              var e = s(t).then(function () {
-                i();
+              var e = u(i).then(function () {
+                l();
               });
               return r ? (c || (c = n("Promise"))).resolve() : e;
             });
-            function o() {
+            function t() {
               return e.apply(this, arguments);
             }
-            return o;
+            return t;
           })(),
         }),
-        l
+        s
       );
-      function s(e) {
-        return u.apply(this, arguments);
+      function u(e) {
+        return d.apply(this, arguments);
       }
-      function u() {
+      function d() {
         return (
-          (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             if (e.length !== 0) {
               if (r)
                 return (
@@ -371,7 +399,7 @@ __d(
               );
             }
           })),
-          u.apply(this, arguments)
+          d.apply(this, arguments)
         );
       }
     }

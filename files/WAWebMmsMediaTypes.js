@@ -6,7 +6,6 @@ __d(
     "WAWebMsgType",
     "WAWebStickerMimeUtils",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = Object.freeze({
@@ -53,7 +52,7 @@ __d(
         WAFFLE_VIDEO: "waffle-video",
         MAIBA_FILE: "maiba-file",
       }),
-      s = r("lodash").values(e);
+      s = Object.values(e);
     function u(t) {
       var n;
       if (t == null) n = e.DOCUMENT;

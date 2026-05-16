@@ -13,13 +13,14 @@ __d(
       u,
       c = {},
       d = {
-        _: function (n) {
+        _: function (n, a) {
           var t = r("MetaConfigMap").get(n);
           t != null || s(0, 57910, n);
-          var a = t.log_id,
-            i = t.value;
+          var i = t.log_id,
+            l = t.value;
           return (
-            a != null &&
+            a !== !0 &&
+              i != null &&
               c[n] !== !0 &&
               ((u || (u = r("ExecutionEnvironment"))).isInBrowser &&
                 ((e || (e = o("ODS"))).bumpEntityKey(
@@ -29,11 +30,11 @@ __d(
                 ),
                 r("MetaconfigWebExposureFalcoEvent").logImmediately(
                   function () {
-                    return { identifier: n, log_id: a };
+                    return { identifier: n, log_id: i };
                   },
                 )),
               (c[n] = !0)),
-            i
+            l
           );
         },
       },

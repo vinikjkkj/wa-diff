@@ -36,13 +36,17 @@ __d(
         "advanced_chat_privacy_content_update_july_25",
       );
     }
+    function _() {
+      return o("WAWebABProps").getABPropConfigValue("opus_admin");
+    }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),
       (l.isRenderUpdatedDisclosureGatingEnabled = u),
       (l.isLimitSharingSetterGatingEnabledFor1on1Chat = c),
       (l.isLimitSharingSetterUpdateGatingEnabledForWeb = d),
       (l.isLimitSharingReceiverGatingEnabledForChat = m),
-      (l.isLimitSharingContentUpdateJuly25Enabled = p));
+      (l.isLimitSharingContentUpdateJuly25Enabled = p),
+      (l.isOpusAdminOnly = _));
   },
   98,
 );

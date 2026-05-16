@@ -313,17 +313,17 @@ __d(
               z.length !== 0
                 ? yield o(
                     "WAWebHandleHistorySyncMsg",
-                  ).handleProgressiveHistorySyncMsgs(
-                    z,
-                    Array.from(V),
-                    Q,
-                    H,
-                    t.syncType,
-                    t.chunkOrder,
-                    q,
-                    G,
-                    j,
-                  )
+                  ).handleProgressiveHistorySyncMsgs({
+                    associatedMsgs: q,
+                    chatsWithRecentOrFullSyncMsgs: Array.from(V),
+                    chunkOrder: t.chunkOrder,
+                    lastMsgs: H,
+                    missingParentsCache: G,
+                    recentOrFullSyncMsgs: z,
+                    syncType: t.syncType,
+                    threadMsgs: j,
+                    unifiedAddons: Q,
+                  })
                 : o("WALogger").LOG(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([

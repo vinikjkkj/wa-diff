@@ -4,6 +4,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBotSystemMsg",
+    "WAWebDBGroupsGroupMetadata",
     "WAWebSchemaChat",
     "asyncToGeneratorRuntime",
   ],
@@ -17,8 +18,14 @@ __d(
           var t = e.id.remote,
             n = e.t;
           if ((yield u(t)) !== !0 && !t.isBot()) {
-            var r = o("WAWebBotSystemMsg").createBotInvokeSystemMsg(t, n);
-            return r;
+            var r = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
+            if (
+              (r == null ? void 0 : r.isOpenBotGroup) === !0 ||
+              (r == null ? void 0 : r.isTeeBotGroup) === !0
+            )
+              return null;
+            var a = o("WAWebBotSystemMsg").createBotInvokeSystemMsg(t, n);
+            return a;
           }
           return null;
         })),

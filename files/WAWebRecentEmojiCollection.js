@@ -3,10 +3,10 @@ __d(
   [
     "WAWebBaseCachePolicy",
     "WAWebBaseCollection",
+    "WAWebDebounce",
     "WAWebEmoji",
     "WAWebRecentEmojiModel",
     "WAWebUserPrefsKeys",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 100,
@@ -20,7 +20,9 @@ __d(
             n.listenTo(
               n,
               "change:weight change:length",
-              r("lodash").debounce(n._sortTrimScale, e),
+              r("WAWebDebounce")(function () {
+                return n._sortTrimScale();
+              }, e),
             ),
             n
           );

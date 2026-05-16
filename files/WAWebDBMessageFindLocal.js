@@ -383,7 +383,7 @@ __d(
         : l === "allLinks"
           ? B(a, t, i)
           : l === "allDocs"
-            ? q(a, t, i, r)
+            ? q({ chat: r, count: a, direction: i, msgKey: t })
             : l === "url"
               ? r != null
                 ? y(r, a, i, "hasLink", t).then(function (e) {
@@ -479,29 +479,31 @@ __d(
         W.apply(this, arguments)
       );
     }
-    function q(e, t, n, r) {
+    function q(e) {
       return U.apply(this, arguments);
     }
     function U() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (r != null)
-              return y(r, e, n, "isDocMsg", t).then(function (e) {
-                return e.map(function (e) {
-                  return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-                });
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.count,
+            r = e.direction,
+            a = e.msgKey;
+          if (t != null)
+            return y(t, n, r, "isDocMsg", a).then(function (e) {
+              return e.map(function (e) {
+                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
               });
-            var a = yield M(e, t, n, void 0, [
-              o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG,
-              o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG |
-                o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
-            ]);
-            return a.map(function (e) {
-              return o("WAWebDBMessageSerialization").messageFromDbRow(e);
             });
-          },
-        )),
+          var i = yield M(n, a, r, void 0, [
+            o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG,
+            o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG |
+              o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
+          ]);
+          return i.map(function (e) {
+            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          });
+        })),
         U.apply(this, arguments)
       );
     }

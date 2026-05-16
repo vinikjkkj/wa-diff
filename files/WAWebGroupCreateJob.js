@@ -21,7 +21,6 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "compactMap",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -70,18 +69,17 @@ __d(
           p() &&
             _.length > 0 &&
             (f = o("WAWebGroupsPrivacyTokenUtils").getPermissionTokenMap(_, l));
-          var g = t.addressingModeOverride,
-            h = t.announce,
-            y = t.ephemeralDuration,
-            C = y === void 0 ? 0 : y,
-            b = t.memberAddMode,
-            v = t.memberLinkMode,
-            S = t.memberShareGroupHistoryMode,
-            R = t.membershipApprovalMode,
-            L = t.parentGroupId,
-            E = t.restrict,
-            k = t.title,
-            I = babelHelpers.extends(
+          var g = t.announce,
+            h = t.ephemeralDuration,
+            y = h === void 0 ? 0 : h,
+            C = t.memberAddMode,
+            b = t.memberLinkMode,
+            v = t.memberShareGroupHistoryMode,
+            S = t.membershipApprovalMode,
+            R = t.parentGroupId,
+            L = t.restrict,
+            E = t.title,
+            k = babelHelpers.extends(
               {
                 participantArgs: [].concat(
                   l.map(function (e, t) {
@@ -108,36 +106,36 @@ __d(
                   }),
                 ),
                 namedSubjectOrUnnamedSubjectFallbackMixinGroupArgs:
-                  k === ""
+                  E === ""
                     ? { unnamedSubjectFallback: {} }
-                    : { namedSubject: { anySubject: k } },
-                hasAnnouncement: !h,
+                    : { namedSubject: { anySubject: E } },
+                hasAnnouncement: !g,
                 hasCapi: !1,
                 hasNoFrequentlyForwarded: !1,
                 hasHiddenGroup: !1,
-                hasLocked: !E,
+                hasLocked: !L,
                 hasBreakout: !1,
                 hasAllowNonAdminSubGroupCreation: !1,
                 hasCreateGeneralChat: !1,
                 hasCreatedAsLid: !1,
                 membershipApprovalModeArgs: {
                   membershipApprovalModesArgs:
-                    R === !1
+                    S === !1
                       ? { isGroupJoinMembershipApprovalModeDisabled: !0 }
                       : { isGroupJoinMembershipApprovalModeEnabled: !0 },
                 },
                 groupMemberAddModeMixinArgs: {
                   memberAddModesArgs:
-                    b === !1
+                    C === !1
                       ? { isAdminAddMode: !0 }
                       : { isAllMembersAddMode: !0 },
                 },
               },
-              v != null
+              b != null
                 ? {
                     groupMemberLinkModeMixinArgs: {
                       memberLinkModesArgs:
-                        v === !0
+                        b === !0
                           ? { isAllMembersLinkMode: !0 }
                           : { isAdminLinkMode: !0 },
                     },
@@ -146,81 +144,72 @@ __d(
               {
                 groupMemberShareGroupHistoryModeMixinArgs: {
                   memberShareGroupHistoryModesArgs:
-                    S === !0
+                    v === !0
                       ? { isAllMembersShareMode: !0 }
                       : { isAdminShareMode: !0 },
                 },
               },
             );
-          if (C !== 0)
+          if (y !== 0)
             if (
               o("WAWebABProps").getABPropConfigValue(
                 "dm_initiator_trigger_groups",
               )
             ) {
-              var T = yield o("WAWebApiContact").getContactRecord(
+              var I = yield o("WAWebApiContact").getContactRecord(
                   o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
                 ),
-                D = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-                  T,
+                T = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+                  I,
                 ),
-                x = o(
+                D = o(
                   "WAWebEphemeralityUtils",
-                ).getEphemeralTriggerForGroupCreation(C, D);
-              x != null &&
-                (I = babelHelpers.extends({}, I, {
+                ).getEphemeralTriggerForGroupCreation(y, T);
+              D != null &&
+                (k = babelHelpers.extends({}, k, {
                   ephemeralArgs: {
-                    ephemeralExpiration: C,
-                    ephemeralTrigger: x,
+                    ephemeralExpiration: y,
+                    ephemeralTrigger: D,
                   },
                 }));
             } else
-              I = babelHelpers.extends({}, I, {
-                ephemeralArgs: { ephemeralExpiration: C },
+              k = babelHelpers.extends({}, k, {
+                ephemeralArgs: { ephemeralExpiration: y },
               });
           else
-            I = babelHelpers.extends({}, I, {
-              ephemeralArgs: { ephemeralExpiration: C },
+            k = babelHelpers.extends({}, k, {
+              ephemeralArgs: { ephemeralExpiration: y },
             });
-          (L != null &&
-            (I = babelHelpers.extends({}, I, {
+          R != null &&
+            (k = babelHelpers.extends({}, k, {
               linkedParentArgs: {
-                linkedParentJid: o("WAWebWidToJid").widToGroupJid(L),
+                linkedParentJid: o("WAWebWidToJid").widToGroupJid(R),
               },
-            })),
-            (!r("gkx")("26258") || r("gkx")("26256")) &&
-              g != null &&
-              L == null &&
-              o("WAWebABProps").getABPropConfigValue(
-                "lid_group_creation_addressing_mode_override",
-              ) &&
-              (I = babelHelpers.extends({}, I, {
-                addressingModeOverrideArgs: { addressingModeOverrideMode: g },
-              })));
-          var $ = yield o("WASmaxGroupsCreateRPC").sendCreateRPC(I, {
+            }));
+          var x = yield o("WASmaxGroupsCreateRPC").sendCreateRPC(k, {
             timeoutSeconds: 10,
           });
-          switch ($.name) {
+          switch (x.name) {
             case "CreateResponseSuccess": {
-              var P = $.value,
-                N = P.groupCreation,
-                M = P.groupCreator,
-                w = P.groupId,
-                A =
-                  P.groupNamedSubjectOrUnnamedSubjectFallbackMixinGroup.value
+              var $ = x.value,
+                P = $.groupCreation,
+                N = $.groupCreator,
+                M = $.groupId,
+                w =
+                  $.groupNamedSubjectOrUnnamedSubjectFallbackMixinGroup.value
                     .subject,
-                F = P.groupParticipant,
-                O = o("WAWebWidFactory").createWid(w + "@g.us");
+                A = $.groupParticipant,
+                F = o("WAWebWidFactory").createWid(M + "@g.us");
               return (
                 new (o(
                   "WAWebGroupCreateCWamEvent",
                 ).GroupCreateCWamEvent)().commit(),
                 {
-                  wid: O,
-                  subject: A != null ? A : "",
-                  creator: o("WAWebJidToWid").userJidToUserWid(M),
-                  ts: o("WATimeUtils").castToUnixTime(N),
-                  participants: r("compactMap")(F, function (e) {
+                  wid: F,
+                  subject: w != null ? w : "",
+                  creator: o("WAWebJidToWid").userJidToUserWid(N),
+                  ts: o("WATimeUtils").castToUnixTime(P),
+                  participants: r("compactMap")(A, function (e) {
                     var t,
                       n =
                         e.createParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
@@ -257,7 +246,7 @@ __d(
                       }
                     }
                   }),
-                  invitedOutContacts: r("compactMap")(F, function (e) {
+                  invitedOutContacts: r("compactMap")(A, function (e) {
                     var t,
                       n =
                         e.createParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
@@ -324,65 +313,65 @@ __d(
                     "createGroup failed: ",
                     "",
                   ])),
-                $.name,
+                x.name,
               );
-              var B = $.value.errorCreateClientErrors.value,
-                W = B.code,
-                q = B.text,
-                U =
-                  $.value.errorCreateClientErrors.value
+              var O = x.value.errorCreateClientErrors.value,
+                B = O.code,
+                W = O.text,
+                q =
+                  x.value.errorCreateClientErrors.value
                     .rateLimitAddParticipantTimeOrCountRateLimitMixinGroup;
-              if (U != null)
+              if (q != null)
                 e: {
-                  var V = U;
+                  var U = q;
                   if (
-                    ((typeof V == "object" && V !== null) ||
-                      typeof V == "function") &&
-                    V.name === "AddParticipantTimeRateLimit" &&
-                    ((typeof V.value == "object" && V.value !== null) ||
-                      typeof V.value == "function") &&
-                    "backoff" in V.value &&
-                    "type" in V.value
+                    ((typeof U == "object" && U !== null) ||
+                      typeof U == "function") &&
+                    U.name === "AddParticipantTimeRateLimit" &&
+                    ((typeof U.value == "object" && U.value !== null) ||
+                      typeof U.value == "function") &&
+                    "backoff" in U.value &&
+                    "type" in U.value
                   ) {
-                    var H = V.value.backoff,
-                      G = V.value.type;
+                    var V = U.value.backoff,
+                      H = U.value.type;
                     return (d || (d = n("Promise"))).reject(
                       new (o(
                         "WAWebBackendErrors",
                       ).GroupAddParticipantTimeRateLimitServerError)(
-                        Number(W),
+                        Number(B),
+                        V,
                         H,
-                        G,
                       ),
                     );
                   }
                   if (
-                    ((typeof V == "object" && V !== null) ||
-                      typeof V == "function") &&
-                    V.name === "AddParticipantCountRateLimit" &&
-                    ((typeof V.value == "object" && V.value !== null) ||
-                      typeof V.value == "function") &&
-                    "participantLimit" in V.value
+                    ((typeof U == "object" && U !== null) ||
+                      typeof U == "function") &&
+                    U.name === "AddParticipantCountRateLimit" &&
+                    ((typeof U.value == "object" && U.value !== null) ||
+                      typeof U.value == "function") &&
+                    "participantLimit" in U.value
                   ) {
-                    var z = V.value.participantLimit;
+                    var G = U.value.participantLimit;
                     return (d || (d = n("Promise"))).reject(
                       new (o(
                         "WAWebBackendErrors",
                       ).GroupAddParticipantCountRateLimitServerError)(
-                        Number(W),
-                        z,
+                        Number(B),
+                        G,
                       ),
                     );
                   }
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      V,
+                      U,
                   );
                 }
               return (d || (d = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  Number(W),
-                  q,
+                  Number(B),
+                  W,
                 ),
               );
             }
@@ -393,15 +382,15 @@ __d(
                     "createGroup failed: ",
                     "",
                   ])),
-                $.name,
+                x.name,
               );
-              var j = $.value.errorServerErrors.value,
-                K = j.code,
-                Q = j.text;
+              var z = x.value.errorServerErrors.value,
+                j = z.code,
+                K = z.text;
               return (d || (d = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  Number(K),
-                  Q,
+                  Number(j),
+                  K,
                 ),
               );
             }
@@ -413,7 +402,7 @@ __d(
                       "createGroup failed: ",
                       "",
                     ])),
-                  $.name,
+                  x.name,
                 ),
                 (d || (d = n("Promise"))).reject(new m())
               );

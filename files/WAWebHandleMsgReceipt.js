@@ -54,7 +54,12 @@ __d(
             d;
           if (a.type === "simple")
             if (i === o("WAWebAck").ACK.CONTENT_GONE)
-              d = o("WAWebReceiptAck").buildReceiptAck(s, c, l, null);
+              d = o("WAWebReceiptAck").buildReceiptAck({
+                ackString: l,
+                from: s,
+                participant: null,
+                stanzaId: c,
+              });
             else {
               try {
                 (o("WALogger").LOG(
@@ -84,7 +89,12 @@ __d(
                   )
                   .tags("messaging");
               }
-              d = o("WAWebReceiptAck").buildReceiptAck(s, c, l, a.participant);
+              d = o("WAWebReceiptAck").buildReceiptAck({
+                ackString: l,
+                from: s,
+                participant: a.participant,
+                stanzaId: c,
+              });
             }
           else if (a.type === "aggregated_by_type") {
             try {
@@ -102,7 +112,12 @@ __d(
               ),
                 yield S(a));
             } catch (e) {}
-            d = o("WAWebReceiptAck").buildReceiptAck(s, c, l, null);
+            d = o("WAWebReceiptAck").buildReceiptAck({
+              ackString: l,
+              from: s,
+              participant: null,
+              stanzaId: c,
+            });
           } else if (a.type === "aggregated_by_message") {
             try {
               (o("WALogger").LOG(
@@ -130,7 +145,12 @@ __d(
                   sampling: 0.001,
                 });
             }
-            d = o("WAWebReceiptAck").buildReceiptAck(s, c, l, null);
+            d = o("WAWebReceiptAck").buildReceiptAck({
+              ackString: l,
+              from: s,
+              participant: null,
+              stanzaId: c,
+            });
           } else a.type;
           return (u == null && t(a), d);
         })),

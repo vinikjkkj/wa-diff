@@ -97,6 +97,19 @@ __d(
           params: { india_cc_pending_default: e },
           type: "PAYMENT_ACCOUNT",
         },
+        billing_india_translation_imprv_q2_26: {
+          params: { use_new_content: e },
+          type: "PAYMENT_ACCOUNT",
+        },
+        billing_mobile_modular_ptt_api_migration_ama_ios_logging: {
+          params: { modular_ptt_api_enabled: e },
+        },
+        billing_mobile_modular_ptt_api_migration_fb_android__logging: {
+          params: { dummy_param: e },
+        },
+        billing_mobile_modular_ptt_api_migration_fb_ios__logging: {
+          params: { dummy_param: e },
+        },
         billing_momo_recurring_2025: { params: { recurring_enabled: e } },
         billing_native_otp_input_polish_h126: {
           params: { enable_input_polish: e },

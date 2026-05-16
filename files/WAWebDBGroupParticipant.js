@@ -507,10 +507,14 @@ __d(
           })(),
         );
       })();
-    function R(e, t, a) {
-      if ((a === void 0 && (a = !1), a)) return S({ id: String(e), data: t });
-      var i = t.participants,
-        l = e.toString();
+    function R(e) {
+      var t = e.data,
+        a = e.group,
+        i = e.isOffline,
+        l = i === void 0 ? !1 : i;
+      if (l) return S({ id: String(a), data: t });
+      var s = t.participants,
+        u = a.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -519,7 +523,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var n = e[0],
-                  a = yield n.get(l);
+                  a = yield n.get(u);
                 if (!a)
                   throw new (o("WAWebDBParticipantTypes").GroupUnSyncedError)(
                     "updateCommunityParticipants: group participant info missing for action " +
@@ -533,7 +537,7 @@ __d(
                         "WAWebDBGroupParticipantHelpers",
                       ).changeCommunityParticipantAdminInfo(
                         a,
-                        i,
+                        s,
                         o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                           .LINKED_GROUP_PROMOTE,
                       ),
@@ -545,7 +549,7 @@ __d(
                         "WAWebDBGroupParticipantHelpers",
                       ).changeCommunityParticipantAdminInfo(
                         a,
-                        i,
+                        s,
                         o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                           .LINKED_GROUP_DEMOTE,
                       ),

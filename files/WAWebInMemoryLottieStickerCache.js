@@ -13,8 +13,9 @@ __d(
     var e = 5e3,
       s = new (o("WAWebLruCacheMap").LruCacheMap)({ sizeLimit: e }),
       u = new (o("WAWebLruCacheMap").LruCacheMap)({ sizeLimit: e });
-    function c(e, t) {
+    function c(e, t, n) {
       return (
+        n &&
         o("WAWebABProps").getABPropConfigValue(
           "aura_stickers_overlay_animation_enabled",
         ) &&

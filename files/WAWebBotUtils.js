@@ -17,56 +17,57 @@ __d(
       m = s.createUserWidOrThrow("1807055946647696@bot"),
       p = s.createUserWidOrThrow("1807055946647697@bot"),
       _ = s.createUserWidOrThrow("867051314767696555@bot"),
-      f = [m, p];
-    function g(e) {
+      f = s.createUserWidOrThrow("103242709127222@lid"),
+      g = [m, p];
+    function h(e) {
       return e.equals(u) || e.equals(c);
     }
-    function h(e) {
-      return g(e) || y(e) || C(e) || b(e) || e.equals(d) || e.equals(_);
-    }
     function y(e) {
-      return e.equals(m);
+      return h(e) || C(e) || b(e) || v(e) || e.equals(d) || e.equals(_);
     }
     function C(e) {
-      return e.equals(p);
+      return e.equals(m);
     }
     function b(e) {
-      return f.some(function (t) {
+      return e.equals(p);
+    }
+    function v(e) {
+      return g.some(function (t) {
         return e.equals(t);
       });
     }
-    function v(e) {
+    function S(e) {
       var t = e.botResponseTargetId;
       return t == null
         ? null
         : new (r("WAWebMsgKey"))({ fromMe: !0, remote: e.id.remote, id: t });
     }
-    function S(e) {
+    function R(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(c)
         : !1;
     }
-    function R(e) {
+    function L(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(d)
         : !1;
     }
-    function L(e) {
+    function E(e) {
       return o("WAWebDebugHiddenBotChats").isShowHiddenBotChatsEnabled()
         ? !1
         : e instanceof r("WAWebWid")
-          ? e.equals(d) || e.equals(_)
+          ? e.equals(d) || e.equals(_) || e.equals(f)
           : !1;
     }
-    function E(t) {
+    function k(t) {
       var n = !1;
       for (var r of t) {
-        var a = S(r.id),
-          i = R(r.id);
+        var a = R(r.id),
+          i = L(r.id);
         if (a)
           return (
             n &&
@@ -90,16 +91,17 @@ __d(
       (l.MANUS_BOT_FBID_WID = m),
       (l.HATCH_BOT_FBID_WID = p),
       (l.META_BOT_SIDECHAT_FBID_WID = _),
-      (l.isMetaAiBot = g),
-      (l.isAnyMetaAiBot = h),
-      (l.isManusBot = y),
-      (l.isHatchBot = C),
-      (l.isBotChannelFBID = b),
-      (l.getBotResponseTargetMsgKey = v),
-      (l.isWidOpenGroupMetaBotFbidWid = S),
-      (l.isWidTeeGroupMetaBotFbidWid = R),
-      (l.isHiddenBotWid = L),
-      (l.participantListIncludOpenOrTeeGroupBotWid = E));
+      (l.META_BOT_LID_WID = f),
+      (l.isMetaAiBot = h),
+      (l.isAnyMetaAiBot = y),
+      (l.isManusBot = C),
+      (l.isHatchBot = b),
+      (l.isBotChannelFBID = v),
+      (l.getBotResponseTargetMsgKey = S),
+      (l.isWidOpenGroupMetaBotFbidWid = R),
+      (l.isWidTeeGroupMetaBotFbidWid = L),
+      (l.isHiddenBotWid = E),
+      (l.participantListIncludOpenOrTeeGroupBotWid = k));
   },
   98,
 );

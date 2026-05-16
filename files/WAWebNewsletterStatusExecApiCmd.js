@@ -80,7 +80,7 @@ __d(
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[newsletter-status-deeplink] Resolving channel by invite code",
+                  "[newsletter-status-deeplink] Resolve channel by invite",
                 ])),
             );
             var i = yield o(

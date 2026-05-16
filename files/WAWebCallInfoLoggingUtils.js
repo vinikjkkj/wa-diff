@@ -1,6 +1,11 @@
 __d(
   "WAWebCallInfoLoggingUtils",
-  ["WAWebVoipGatingUtils", "WAWebWamEnumCallFromUi"],
+  [
+    "WAWebVoipGatingUtils",
+    "WAWebWamEnumCallFromUi",
+    "WAWebWamEnumCallSizeBucket",
+    "WAWebWamEnumCallSizeType",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -41,8 +46,30 @@ __d(
         ? o("WAWebWamEnumCallFromUi").CALL_FROM_UI.GROUP_CALL_INFO
         : o("WAWebWamEnumCallFromUi").CALL_FROM_UI.CALL_INFO;
     }
+    function c(e) {
+      return e.isCallLink === !0
+        ? o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE.CALL_LINK
+        : e.isAdHocGroupCall
+          ? o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE.ADHOC
+          : e.isGroup
+            ? o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE.LGC
+            : o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE.ONE_TO_ONE;
+    }
+    function d(e) {
+      return e < 2
+        ? null
+        : e <= 8
+          ? o("WAWebWamEnumCallSizeBucket").CALL_SIZE_BUCKET.SMALL
+          : e <= 16
+            ? o("WAWebWamEnumCallSizeBucket").CALL_SIZE_BUCKET.MEDIUM
+            : e <= 32
+              ? o("WAWebWamEnumCallSizeBucket").CALL_SIZE_BUCKET.LARGE
+              : o("WAWebWamEnumCallSizeBucket").CALL_SIZE_BUCKET.XLARGE;
+    }
     ((l.getCallInfoHeaderCallFromUI = e),
-      (l.getCallInfoParticipantMiniContactSheetCallFromUI = s));
+      (l.getCallInfoParticipantMiniContactSheetCallFromUI = s),
+      (l.getCallSizeTypeForCallInfo = c),
+      (l.getCallGroupSizeBucket = d));
   },
   98,
 );

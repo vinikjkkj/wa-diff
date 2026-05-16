@@ -12,6 +12,7 @@ __d(
     "WAWebLowEndDeviceExperimentGating",
     "WAWebNoop",
     "WAWebReleaseToEventLoop",
+    "WAWebUA",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParsersWeb",
@@ -154,7 +155,7 @@ __d(
                       "WAWebVoipVideoWebCodecsRenderer",
                     ).WAWebVoipVideoWebCodecsRenderer.checkAvailability());
                 _ =
-                  h && g === !0
+                  !o("WAWebUA").UA.isFirefox && h && g === !0
                     ? yield o(
                         "WAWebVoipWebCodecsEncoderState",
                       ).checkEncoderSupport()

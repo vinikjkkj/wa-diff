@@ -7,12 +7,12 @@ __d(
     "WAWebChatGetters",
     "WAWebChatLockUpdateDailyStats",
     "WAWebChatModel",
+    "WAWebDebounce",
     "WAWebIdleTaskRunner",
     "WAWebLidMigrationUtils",
     "WAWebSendUnstarAllChatAction",
     "WAWebSocketConstants",
     "WAWebSocketModel",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -43,12 +43,12 @@ __d(
                   });
               },
             ),
-            e.listenToOnce(e, "sort", r("lodash").debounce(e.setIndexes, 100)),
+            e.listenToOnce(e, "sort", r("WAWebDebounce")(e.setIndexes, 100)),
             e._scheduleViewOnceMediaCleanup(),
             e.listenTo(
               e,
               "change:isLocked",
-              r("lodash").debounce(function () {
+              r("WAWebDebounce")(function () {
                 o("WAWebChatLockUpdateDailyStats").updateChatLockDailyStats({
                   totalFolderChatsCount: e.countWhere(function (e) {
                     return e.isLocked;
@@ -155,7 +155,7 @@ __d(
               this.listenToOnce(
                 this,
                 "sort",
-                r("lodash").debounce(this.setIndexes, 100),
+                r("WAWebDebounce")(this.setIndexes, 100),
               ));
           }),
           n

@@ -206,15 +206,15 @@ __d(
       var t = e.group,
         n = e.isOffline,
         r = e.participants;
-      return o("WAWebDBGroupParticipant").updateCommunityParticipants(
-        t,
-        {
+      return o("WAWebDBGroupParticipant").updateCommunityParticipants({
+        data: {
           action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
             .LINKED_GROUP_PROMOTE,
           participants: r,
         },
-        n,
-      );
+        group: t,
+        isOffline: n,
+      });
     }
     function g(e) {
       return h.apply(this, arguments);
@@ -233,15 +233,15 @@ __d(
       var t = e.group,
         n = e.isOffline,
         r = e.participants;
-      return o("WAWebDBGroupParticipant").updateCommunityParticipants(
-        t,
-        {
+      return o("WAWebDBGroupParticipant").updateCommunityParticipants({
+        data: {
           action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
             .LINKED_GROUP_DEMOTE,
           participants: r,
         },
-        n,
-      );
+        group: t,
+        isOffline: n,
+      });
     }
     function C(e, t) {
       return b.apply(this, arguments);

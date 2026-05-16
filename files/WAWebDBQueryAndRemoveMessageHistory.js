@@ -54,11 +54,11 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = yield o("WAWebDBMessageRange").deleteMessagesInMessageRange(
-            e,
-            t,
-            n,
-          );
+          var a = yield o("WAWebDBMessageRange").deleteMessagesInMessageRange({
+            chatId: e,
+            options: n,
+            range: t,
+          });
           return (
             o("WAWebFtsClient").ftsClient.purge(a).catch(r("WAWebNoop")),
             a

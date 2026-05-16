@@ -2,10 +2,10 @@ __d(
   "WAWebGroupPendingParticipantCollection",
   [
     "WAWebCollection",
+    "WAWebDebounce",
     "WAWebGroupParticipantComparator",
     "WAWebGroupParticipantModel",
     "WAWebL10N",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -14,7 +14,7 @@ __d(
         return (
           n === void 0 && (n = {}),
           (o = e.call(this, t, n) || this),
-          (o.$PendingParticipantCollection$p_1 = r("lodash").debounce(
+          (o.$PendingParticipantCollection$p_1 = r("WAWebDebounce")(
             function () {
               return o.sort();
             },

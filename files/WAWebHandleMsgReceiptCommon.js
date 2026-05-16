@@ -324,8 +324,7 @@ __d(
               return r("WAWebThreadId").from(e);
             });
           } else c = yield P({ chatId: u, msgs: g, msgKeys: t, readAt: a });
-          (a != null &&
-            t.length > 0 &&
+          (t.length > 0 &&
             (yield o("WAWebApiChat").tightenAfterReadExpirationFromPeerReceipt({
               msgKeys: t,
               readAt: a,

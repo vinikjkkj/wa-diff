@@ -342,26 +342,29 @@ __d(
         L.apply(this, arguments)
       );
     }
-    function E(e, t, r) {
-      var a = t.lastMessageTimestamp,
-        i = t.lastSystemMessageTimestamp,
-        l = t.messages;
+    function E(e) {
+      var t = e.chatId,
+        r = e.options,
+        a = e.range,
+        i = a.lastMessageTimestamp,
+        l = a.lastSystemMessageTimestamp,
+        s = a.messages;
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
           ["message", "message-association"],
           (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var s,
-                  u = t[0],
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var a,
+                  u = e[0],
                   d = [],
                   m = [];
-                a != null &&
+                i != null &&
                   (m.push(
                     C(
-                      e,
-                      a,
+                      t,
+                      i,
                       o("WAWebDBMessageUtils").MessagePropertyType
                         .IncomingChatMessage,
                       r,
@@ -369,28 +372,28 @@ __d(
                   ),
                   m.push(
                     C(
-                      e,
-                      a,
+                      t,
+                      i,
                       o("WAWebDBMessageUtils").MessagePropertyType.Outgoing,
                       r,
                     ),
                   ));
-                var p = i != null ? i : a;
+                var p = l != null ? l : i;
                 (p != null &&
                   m.push(
                     C(
-                      e,
+                      t,
                       p,
                       o("WAWebDBMessageUtils").MessagePropertyType
                         .SystemMessage,
                       r,
                     ),
                   ),
-                  m.push(R(e, l, r)),
+                  m.push(R(t, s, r)),
                   (r == null ? void 0 : r.deleteAutomatedGreetingMessages) ===
-                    !0 && m.push(v(e)));
+                    !0 && m.push(v(t)));
                 var _ = yield (c || (c = n("Promise"))).all(m);
-                d = (s = d).concat.apply(s, _);
+                d = (a = d).concat.apply(a, _);
                 var f = r == null ? void 0 : r.skipMessages;
                 f &&
                   (d = d.filter(function (e) {
@@ -411,8 +414,8 @@ __d(
                 );
               },
             );
-            return function (e) {
-              return t.apply(this, arguments);
+            return function (t) {
+              return e.apply(this, arguments);
             };
           })(),
         );

@@ -7,7 +7,6 @@ __d(
       l = (e = n("$InternalEnum")).Mirrored([
         "ERROR",
         "LANDING",
-        "FAKE_CHAT_LANDING",
         "CHAT",
         "DOWNLOAD_CTA",
         "LOADING",

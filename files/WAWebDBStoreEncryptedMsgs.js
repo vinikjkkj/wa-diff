@@ -108,14 +108,15 @@ __d(
                       return o("WAWebWidFactory").createWid(e);
                     }),
                     E = new Map();
-                  (yield P(
-                    L,
-                    a,
-                    C,
-                    E,
-                    o("WAWebDBMessageUtils").InternalIdPrefix.Default,
-                    l,
-                  ),
+                  (yield P({
+                    chatWids: L,
+                    groupHistoryAnchor: l,
+                    internalIdPrefix: o("WAWebDBMessageUtils").InternalIdPrefix
+                      .Default,
+                    isHistory: a,
+                    messageTable: C,
+                    output: E,
+                  }),
                     a &&
                       o("WALogger").LOG(
                         d ||
@@ -130,16 +131,17 @@ __d(
                         n = e[1];
                       return t.isGroupStatus === !0;
                     }) &&
-                      (yield P(
-                        L.filter(function (e) {
+                      (yield P({
+                        chatWids: L.filter(function (e) {
                           return e.isGroup();
                         }),
-                        a,
-                        C,
-                        E,
-                        o("WAWebDBMessageUtils").InternalIdPrefix.GroupStatus,
-                        l,
-                      ),
+                        groupHistoryAnchor: l,
+                        internalIdPrefix: o("WAWebDBMessageUtils")
+                          .InternalIdPrefix.GroupStatus,
+                        isHistory: a,
+                        messageTable: C,
+                        output: E,
+                      }),
                       a &&
                         o("WALogger").LOG(
                           m ||
@@ -455,56 +457,58 @@ __d(
           );
       }
     }
-    function P(e, t, n, r, o, a) {
+    function P(e) {
       return N.apply(this, arguments);
     }
     function N() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i, l) {
-            if (
-              (i === void 0 &&
-                (i = o("WAWebDBMessageUtils").InternalIdPrefix.Default),
-              l === void 0 && (l = null),
-              e.length === 0)
-            )
-              return (E || (E = n("Promise"))).resolve();
-            var s = i;
-            yield (E || (E = n("Promise"))).all(
-              e.map(function (e) {
-                if (
-                  !(
-                    i ===
-                      o("WAWebDBMessageUtils").InternalIdPrefix.GroupStatus &&
-                    !e.isGroup()
-                  )
-                ) {
-                  if (l != null && l.chatId.equals(e)) {
-                    a.set(M(e.toString(), s), l.anchorInChatMsgId);
-                    return;
-                  }
-                  var n = s + o("WAWebDBMessageUtils").beginningOfChat(e),
-                    u = s + o("WAWebDBMessageUtils").endOfChat(e);
-                  return r
-                    .between(["internalId"], n, u, {
-                      limit: 1,
-                      reverse: !t,
-                      returnKeyType: "keys",
-                    })
-                    .then(function (t) {
-                      var n = o(
-                        "WAWebDBStoreMsgsUtils",
-                      ).INLINE_MESSAGE_STARTING_INDEX;
-                      (t.length > 0 &&
-                        t[0] != null &&
-                        (n = o("WAWebDBMessageUtils").getInChatMsgId(t[0])),
-                        a.set(M(e.toString(), s), n));
-                    });
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatWids,
+            r = e.groupHistoryAnchor,
+            a = r === void 0 ? null : r,
+            i = e.internalIdPrefix,
+            l =
+              i === void 0
+                ? o("WAWebDBMessageUtils").InternalIdPrefix.Default
+                : i,
+            s = e.isHistory,
+            u = e.messageTable,
+            c = e.output;
+          if (t.length === 0) return (E || (E = n("Promise"))).resolve();
+          var d = l;
+          yield (E || (E = n("Promise"))).all(
+            t.map(function (e) {
+              if (
+                !(
+                  l === o("WAWebDBMessageUtils").InternalIdPrefix.GroupStatus &&
+                  !e.isGroup()
+                )
+              ) {
+                if (a != null && a.chatId.equals(e)) {
+                  c.set(M(e.toString(), d), a.anchorInChatMsgId);
+                  return;
                 }
-              }),
-            );
-          },
-        )),
+                var t = d + o("WAWebDBMessageUtils").beginningOfChat(e),
+                  n = d + o("WAWebDBMessageUtils").endOfChat(e);
+                return u
+                  .between(["internalId"], t, n, {
+                    limit: 1,
+                    reverse: !s,
+                    returnKeyType: "keys",
+                  })
+                  .then(function (t) {
+                    var n = o(
+                      "WAWebDBStoreMsgsUtils",
+                    ).INLINE_MESSAGE_STARTING_INDEX;
+                    (t.length > 0 &&
+                      t[0] != null &&
+                      (n = o("WAWebDBMessageUtils").getInChatMsgId(t[0])),
+                      c.set(M(e.toString(), d), n));
+                  });
+              }
+            }),
+          );
+        })),
         N.apply(this, arguments)
       );
     }

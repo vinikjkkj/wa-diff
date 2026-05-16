@@ -24,6 +24,7 @@ __d(
     "WAWebConnModel",
     "WAWebContactCollection",
     "WAWebDBUpdateMessageTable",
+    "WAWebDebounce",
     "WAWebDirectConnectionGatingUtils",
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendContactGetters",
@@ -67,7 +68,6 @@ __d(
     "getErrorSafe",
     "gkx",
     "isStringNullOrEmpty",
-    "lodash",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -566,7 +566,7 @@ __d(
             (e.newType = o("WAWebBaseModel").session()),
             (e.typeOnInit = o("WAWebBaseModel").session()),
             (e.calledCiphertextDecrypted = o("WAWebBaseModel").session(!1)),
-            (e.$MsgImpl$p_23 = r("lodash").debounce(function (e, t) {
+            (e.$MsgImpl$p_23 = r("WAWebDebounce")(function (e, t) {
               o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
                 lastPlaybackProgress: t,
               });

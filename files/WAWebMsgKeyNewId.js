@@ -11,9 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       var e = o("WATimeUtils").unixTime(),
-        t = o("WAWebUserPrefsMeUser")
-          .getMePnUserOrThrow_DO_NOT_USE()
-          .toString(),
+        t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
         n = o("WAHex").parseHex(o("WARandomHex").randomHex(16)),
         r = new (o("WABinary").Binary)();
       return (

@@ -189,14 +189,14 @@ __d(
                     )
                 : (this.promises.mute = o(
                     "WAWebChatMuteBridge",
-                  ).sendConversationMute(
-                    this.id,
-                    b,
-                    this.expiration,
-                    r("WAWebWid").isGroup(this.id)
+                  ).sendConversationMute({
+                    $MuteImpl3: this.expiration,
+                    chatId: this.id,
+                    expiration: b,
+                    mentionAllMuteExpiration: r("WAWebWid").isGroup(this.id)
                       ? this.mentionAllMuteExpiration
                       : void 0,
-                  )),
+                  })),
               E = new (o("WAWebActionToast.react").ActionType)(
                 s._(/*BTDS*/ "Muting chat"),
               );
@@ -362,7 +362,7 @@ __d(
             ),
               (this.$MuteImpl$p_2 = r("WAWebAlarm").setGlobalTimeout(
                 function () {
-                  return void e.$MuteImpl$p_3();
+                  return void e.$MuteImpl$p_4();
                 },
                 a * 1e3,
               )));
@@ -392,12 +392,12 @@ __d(
             r("WAWebWid").isBroadcast(this.id)
           );
         }),
-        (i.$MuteImpl$p_4 = function () {
+        (i.$MuteImpl$p_5 = function () {
           (r("WAWebAlarm").clearTimeout(this.$MuteImpl$p_1),
             this.unset("_unmuteTimer"),
             (this.expiration = 0));
         }),
-        (i.$MuteImpl$p_5 = function () {
+        (i.$MuteImpl$p_6 = function () {
           (r("WAWebAlarm").clearTimeout(this.$MuteImpl$p_2),
             this.unset("_unmuteCallTimer"),
             (this.callExpiration = 0));
@@ -421,7 +421,7 @@ __d(
                   ])),
                 e.id.toString(),
               ),
-                e.$MuteImpl$p_4(),
+                e.$MuteImpl$p_5(),
                 e.set(
                   babelHelpers.extends(
                     { isAutoMuted: p },
@@ -444,7 +444,11 @@ __d(
                     )
                 : (this.promises.unmute = o(
                     "WAWebChatMuteBridge",
-                  ).sendConversationMute(this.id, 0, this.expiration)),
+                  ).sendConversationMute({
+                    $MuteImpl3: this.expiration,
+                    chatId: this.id,
+                    expiration: 0,
+                  })),
               b = new (o("WAWebActionToast.react").ActionType)(
                 s._(/*BTDS*/ "Unmuting chat"),
               );
@@ -544,7 +548,7 @@ __d(
           }
           return (_(), (k || (k = n("Promise"))).resolve());
         }),
-        (i.$MuteImpl$p_3 = function () {
+        (i.$MuteImpl$p_4 = function () {
           return (
             o("WALogger").LOG(
               C ||
@@ -554,7 +558,7 @@ __d(
                 ])),
               this.id.toString(),
             ),
-            this.$MuteImpl$p_5(),
+            this.$MuteImpl$p_6(),
             (k || (k = n("Promise"))).resolve()
           );
         }),
@@ -626,12 +630,12 @@ __d(
             ? this.promises.muteMentionAll.then(r("WAWebNoop"))
             : ((this.promises.muteMentionAll = o(
                 "WAWebChatMuteBridge",
-              ).sendConversationMute(
-                this.id,
-                (e = this.expiration) != null ? e : 0,
-                this.expiration,
-                i,
-              )),
+              ).sendConversationMute({
+                $MuteImpl3: this.expiration,
+                chatId: this.id,
+                expiration: (e = this.expiration) != null ? e : 0,
+                mentionAllMuteExpiration: i,
+              })),
               this.promises.muteMentionAll
                 .then(function (e) {
                   e.status === 200 && a.set({ mentionAllMuteExpiration: i });
@@ -656,12 +660,12 @@ __d(
               ? this.promises.unmuteMentionAll.then(r("WAWebNoop"))
               : ((this.promises.unmuteMentionAll = o(
                   "WAWebChatMuteBridge",
-                ).sendConversationMute(
-                  this.id,
-                  (e = this.expiration) != null ? e : 0,
-                  this.expiration,
-                  0,
-                )),
+                ).sendConversationMute({
+                  $MuteImpl3: this.expiration,
+                  chatId: this.id,
+                  expiration: (e = this.expiration) != null ? e : 0,
+                  mentionAllMuteExpiration: 0,
+                })),
                 this.promises.unmuteMentionAll
                   .then(function (e) {
                     e.status === 200 && t.set({ mentionAllMuteExpiration: 0 });
@@ -687,7 +691,7 @@ __d(
         (i.delete = function () {
           (t.prototype.delete.call(this),
             this.getCollection().remove(this.id),
-            this.$MuteImpl$p_4(),
+            this.$MuteImpl$p_5(),
             o("WAWebMuteGetters").clearMuteGetterCacheFor(this));
         }),
         (i.getCollection = function () {

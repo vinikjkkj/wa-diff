@@ -356,6 +356,7 @@ __d(
             });
           },
           key: "actions",
+          stickyEnd: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.actions,
         },

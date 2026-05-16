@@ -47,6 +47,7 @@ __d(
     "WebBloksDummy",
     "WebBloksFindComponentContext",
     "WebBloksGetAttr",
+    "WebBloksGetClientTimezone",
     "WebBloksGetDatetimeText",
     "WebBloksGetDeserializedEmbeddedPayload",
     "WebBloksGetHeightV2",
@@ -194,6 +195,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = {
+        "bk.action.GetClientTimezone": r("WebBloksGetClientTimezone"),
         "bk.action.GetDatetimeText": r("WebBloksGetDatetimeText"),
         "bk.action.OpenUniversalLink": r("WebBloksOpenUniversalLink"),
         "bk.action.accessibility.Announcement": r(

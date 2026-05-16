@@ -1,6 +1,6 @@
 __d(
   "WAWebMemberLabelGating",
-  ["WAWebABProps", "WAWebMemberLabelDeviceCapabilityCommon"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -14,13 +14,8 @@ __d(
       );
     }
     function u() {
-      return (
-        o(
-          "WAWebMemberLabelDeviceCapabilityCommon",
-        ).canPrimarySendMemberNameTags() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "member_name_tag_web_sender_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "member_name_tag_web_sender_enabled",
       );
     }
     ((l.isMemberLabelInfraEnabled = e),

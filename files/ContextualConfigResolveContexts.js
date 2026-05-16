@@ -1,6 +1,6 @@
 __d(
   "ContextualConfigResolveContexts",
-  ["ContextualConfigConstants"],
+  ["ContextualConfigConstants", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function (t, n) {
@@ -14,38 +14,37 @@ __d(
       }
       return null;
     };
-    function s(t, n, r) {
-      var a = null,
-        i = t.map(function (t) {
-          var i = t.name,
-            l = { name: i };
-          if (a != null) return l;
-          var s;
+    function s(t, n, a) {
+      var i = null,
+        l = t.map(function (t) {
+          var l = t.name,
+            s = { name: l };
+          if (i != null) return s;
+          var u;
           if (
-            (r[i] != null
-              ? (s = r[i])
-              : n[i] != null
-                ? (s = n[i]())
-                : (s = null),
-            (l.value = s),
+            (a[l] != null
+              ? (u = a[l])
+              : n[l] != null
+                ? (u = n[l]())
+                : (u = null),
+            (s.value = u),
             t.buckets != null)
           ) {
-            var u = e(t.buckets, s);
-            if (u == null)
+            var c = e(t.buckets, u);
+            if (c == null)
               return (
-                (a = new Error(
+                (i = r("err")(
                   o("ContextualConfigConstants").ERROR.MISSING_BUCKET_MATCH,
                 )),
-                a.stack,
-                l
+                s
               );
-            var c = u[0],
-              d = u[1];
-            ((l.bucketName = c), (l.bucketIndex = d));
+            var d = c[0],
+              m = c[1];
+            ((s.bucketName = d), (s.bucketIndex = m));
           }
-          return l;
+          return s;
         });
-      return [a, i];
+      return [i, l];
     }
     l.default = s;
   },

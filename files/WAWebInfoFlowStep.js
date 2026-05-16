@@ -27,6 +27,7 @@ __d(
       "Wallpaper",
       "ChatTheme",
       "Kept",
+      "ScheduledMessages",
       "GroupSettings",
       "MediaGallery",
       "GroupInviteLink",

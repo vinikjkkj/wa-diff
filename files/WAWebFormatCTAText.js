@@ -2,6 +2,7 @@ __d(
   "WAWebFormatCTAText",
   [
     "fbt",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebFbtCommon",
     "WAWebMsgType",
     "WAWebText_DONOTUSE.react",
@@ -37,6 +38,12 @@ __d(
         }
         case o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED: {
           l = s._(/*BTDS*/ "View poll");
+          break;
+        }
+        case o("WAWebMsgType").MSG_TYPE.NOTIFICATION: {
+          a ===
+            o("WAWebCommonMsgSubtypeTypes").MsgSubtype
+              .ScheduledMessageCreated && (l = s._(/*BTDS*/ "View"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE: {
