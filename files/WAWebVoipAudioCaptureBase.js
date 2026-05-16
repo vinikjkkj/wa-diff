@@ -159,6 +159,7 @@ __d(
             "web_voip_audio_capture_impl",
           ),
           n = (e = Fe.cast(t)) != null ? e : Fe.DEFAULT;
+        o("WAWebUA").UA.isFirefox && (n = Fe.SCRIPT_PROCESSOR);
         e: {
           if (n === Fe.SCRIPT_PROCESSOR) {
             this.implementation = new (o(
@@ -191,7 +192,11 @@ __d(
               "voip: [AV:AudioCapture] using implementation: ",
               "",
             ])),
-          t != null ? t : "default",
+          o("WAWebUA").UA.isFirefox
+            ? "script-processor (Firefox override)"
+            : t != null
+              ? t
+              : "default",
         );
       }
       var t = e.prototype;

@@ -8,6 +8,7 @@ __d(
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
     "WAWebDebounce",
+    "WAWebUA",
     "WAWebVoipAudioPlaybackScriptProcessor",
     "WAWebVoipAudioPlaybackSharedBufferWorklet",
     "WAWebVoipAudioPlaybackWorklet",
@@ -36,46 +37,48 @@ __d(
       L,
       E,
       k,
-      I = n("$InternalEnum").Mirrored([
+      I,
+      T = n("$InternalEnum").Mirrored([
         "Uninitialized",
         "Initializing",
         "Ready",
         "Error",
       ]),
-      T = n("$InternalEnum")({
+      D = n("$InternalEnum")({
         DEFAULT: 0,
         SCRIPT_PROCESSOR: 1,
         AUDIO_WORKLET: 2,
         SHARED_BUFFER_WORKLET: 3,
       }),
-      D = (function () {
+      x = (function () {
         function t() {
-          var e;
+          var t;
           ((this.playbackAudioContext = null),
             (this.playbackBuffer = null),
             (this.playbackParams = null),
-            (this.audioPlaybackInitState = I.Uninitialized),
+            (this.audioPlaybackInitState = T.Uninitialized),
             (this.audioPlaybackInitResolvable = null),
             (this.implementation = null),
             (this.deviceChangeHandler = null));
-          var t = o("WAWebABProps").getABPropConfigValue(
+          var n = o("WAWebABProps").getABPropConfigValue(
               "web_voip_audio_playback_impl",
             ),
-            n = (e = T.cast(t)) != null ? e : T.DEFAULT;
+            r = (t = D.cast(n)) != null ? t : D.DEFAULT;
+          o("WAWebUA").UA.isFirefox && (r = D.SCRIPT_PROCESSOR);
           e: {
-            if (n === T.SCRIPT_PROCESSOR) {
+            if (r === D.SCRIPT_PROCESSOR) {
               this.implementation = new (o(
                 "WAWebVoipAudioPlaybackScriptProcessor",
               ).WAWebVoipAudioPlaybackScriptProcessor)();
               break e;
             }
-            if (n === T.AUDIO_WORKLET) {
+            if (r === D.AUDIO_WORKLET) {
               this.implementation = new (o(
                 "WAWebVoipAudioPlaybackWorklet",
               ).WAWebVoipAudioPlaybackWorklet)();
               break e;
             }
-            if (n === T.SHARED_BUFFER_WORKLET) {
+            if (r === D.SHARED_BUFFER_WORKLET) {
               this.implementation = new (o(
                 "WAWebVoipAudioPlaybackSharedBufferWorklet",
               ).WAWebVoipAudioPlaybackSharedBufferWorklet)();
@@ -88,22 +91,34 @@ __d(
               break e;
             }
           }
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [AV:AudioPlayback] using implementation: ",
+                "",
+              ])),
+            o("WAWebUA").UA.isFirefox
+              ? "script-processor (Firefox override)"
+              : n != null
+                ? n
+                : "default",
+          );
         }
         var a = t.prototype;
         return (
           (a.initPlaybackDriver = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = this,
-                  i = t.bits_per_sample,
-                  l = t.channels,
-                  m = t.frames_per_chunk,
-                  p = t.sample_rate;
-                if (this.audioPlaybackInitState !== I.Uninitialized) {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  a = e.bits_per_sample,
+                  i = e.channels,
+                  l = e.frames_per_chunk,
+                  p = e.sample_rate;
+                if (this.audioPlaybackInitState !== T.Uninitialized) {
                   (o("WALogger")
                     .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:initPlaybackDriver] invalid initialization. state = ",
                           "",
                         ])),
@@ -115,15 +130,15 @@ __d(
                     yield this.cleanup());
                   return;
                 }
-                ((this.audioPlaybackInitState = I.Initializing),
+                ((this.audioPlaybackInitState = T.Initializing),
                   (this.audioPlaybackInitResolvable = new (o(
                     "WAResolvable",
                   ).Resolvable)()),
                   (this.playbackParams = {
                     sampleRate: p,
-                    channels: l,
-                    bitsPerSample: i,
-                    framesPerChunk: m,
+                    channels: i,
+                    bitsPerSample: a,
+                    framesPerChunk: l,
                   }));
                 var _ = this.playbackParams;
                 try {
@@ -153,24 +168,24 @@ __d(
                           ).selectAudioOutputDevice();
                           e != null
                             ? (o("WALogger").LOG(
-                                s ||
-                                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                                u ||
+                                  (u = babelHelpers.taggedTemplateLiteralLoose([
                                     "voip: [AV:AudioOutputHandleDeviceChange] Auto-switching output to device: ",
                                     "",
                                   ])),
                                 e,
                               ),
-                              yield a.switchOutputDevice(e))
+                              yield t.switchOutputDevice(e))
                             : o("WALogger").WARN(
-                                u ||
-                                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                                c ||
+                                  (c = babelHelpers.taggedTemplateLiteralLoose([
                                     "voip: [AV:AudioOutputHandleDeviceChange] Output device change detected but new deviceId is null",
                                   ])),
                               );
                         } catch (e) {
                           o("WALogger").ERROR(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                            d ||
+                              (d = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: [AV:AudioOutputHandleDeviceChange] Output device change handler error: ",
                                 "",
                               ])),
@@ -189,34 +204,34 @@ __d(
                         "devicechange",
                         this.deviceChangeHandler,
                       ),
-                    (this.audioPlaybackInitState = I.Ready),
+                    (this.audioPlaybackInitState = T.Ready),
                     (g = this.audioPlaybackInitResolvable) == null ||
                       g.resolve());
                 } catch (e) {
                   var y;
                   (o("WALogger").ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:initPlaybackDriver] error: ",
                         "",
                       ])),
                     e,
                   ),
-                    (this.audioPlaybackInitState = I.Error),
+                    (this.audioPlaybackInitState = T.Error),
                     (y = this.audioPlaybackInitResolvable) == null ||
                       y.reject(e),
                     yield this.cleanup());
                 }
               },
             );
-            function a(e) {
-              return t.apply(this, arguments);
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return a;
+            return t;
           })()),
           (a.startPlayback = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.audioPlaybackInitState === I.Initializing)
+              if (this.audioPlaybackInitState === T.Initializing)
                 try {
                   var e;
                   yield (e = this.audioPlaybackInitResolvable) == null
@@ -225,8 +240,8 @@ __d(
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:startPlayback] error: ",
                           "",
                         ])),
@@ -235,11 +250,11 @@ __d(
                     .sendLogs("voip: startPlayback error: ${error}");
                   return;
                 }
-              if (this.audioPlaybackInitState !== I.Ready) {
+              if (this.audioPlaybackInitState !== T.Ready) {
                 o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startPlayback] invalid initialization. state = ",
                         "",
                       ])),
@@ -253,8 +268,8 @@ __d(
               if (!this.playbackAudioContext) {
                 o("WALogger")
                   .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startPlayback] audio context is null",
                       ])),
                   )
@@ -265,8 +280,8 @@ __d(
               if (!t) {
                 o("WALogger")
                   .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startPlayback] playback parameters are null",
                       ])),
                   )
@@ -278,15 +293,15 @@ __d(
                 n &&
                   n.state === "suspended" &&
                   (o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startPlayback] resuming suspended AudioContext",
                       ])),
                   ),
                   yield n.resume(),
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startPlayback] AudioContext resumed successfully",
                       ])),
                   ));
@@ -304,8 +319,8 @@ __d(
               } catch (e) {
                 if (
                   (o("WALogger").ERROR(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startPlayback] failed to start audio playback: ",
                         "",
                       ])),
@@ -323,10 +338,10 @@ __d(
           })()),
           (a.stopPlayback = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              this.audioPlaybackInitState !== I.Ready &&
+              this.audioPlaybackInitState !== T.Ready &&
                 o("WALogger").ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopPlayback] invalid initialization. state = ",
                       "",
                     ])),
@@ -336,8 +351,8 @@ __d(
                 yield this.cleanup();
               } catch (e) {
                 o("WALogger").ERROR(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopPlayback] error: ",
                       "",
                     ])),
@@ -375,8 +390,8 @@ __d(
                     yield o("WAWebAudioUtility").freeWasmBuffer(t);
                   } catch (e) {
                     o("WALogger").WARN(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:stopPlayback] error freeing WASM playback buffer: ",
                           "",
                         ])),
@@ -385,7 +400,7 @@ __d(
                   }
                   this.playbackBuffer = null;
                 }
-                this.audioPlaybackInitState = I.Uninitialized;
+                this.audioPlaybackInitState = T.Uninitialized;
               }
             });
             function t() {
@@ -412,19 +427,19 @@ __d(
               function* (e) {
                 if (
                   (o("WALogger").LOG(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchOutputDevice] switchOutputDevice called with deviceId: ",
                         "",
                       ])),
                     e,
                   ),
-                  this.audioPlaybackInitState !== I.Ready)
+                  this.audioPlaybackInitState !== T.Ready)
                 )
                   return (
                     o("WALogger").WARN(
-                      R ||
-                        (R = babelHelpers.taggedTemplateLiteralLoose([
+                      L ||
+                        (L = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchOutputDevice] playback not ready, saving preference only",
                         ])),
                     ),
@@ -440,8 +455,8 @@ __d(
                 if (t == null)
                   return (
                     o("WALogger").WARN(
-                      L ||
-                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                      E ||
+                        (E = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchOutputDevice] playback implementation not initialized, saving preference only",
                         ])),
                     ),
@@ -462,16 +477,16 @@ __d(
                 return (
                   n
                     ? o("WALogger").LOG(
-                        E ||
-                          (E = babelHelpers.taggedTemplateLiteralLoose([
+                        k ||
+                          (k = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchOutputDevice] Successfully switched output to device: ",
                             "",
                           ])),
                         e,
                       )
                     : o("WALogger").ERROR(
-                        k ||
-                          (k = babelHelpers.taggedTemplateLiteralLoose([
+                        I ||
+                          (I = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchOutputDevice] Failed to switch output to device: ",
                             "",
                           ])),
@@ -515,7 +530,7 @@ __d(
           t
         );
       })();
-    l.WAWebVoipAudioPlaybackBase = D;
+    l.WAWebVoipAudioPlaybackBase = x;
   },
   98,
 );

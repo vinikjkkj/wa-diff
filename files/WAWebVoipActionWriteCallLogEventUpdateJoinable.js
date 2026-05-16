@@ -303,9 +303,10 @@ __d(
           ).writeVoipCallLogMessageImpl(f, _, !1);
           m ===
           o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Delete
-            ? o(
+            ? (o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n),
+              o(
                 "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.remove(_.id)
+              ).WAWebVoipOngoingCallCollection.remove(_.id))
             : T &&
               (o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n),
               o(
