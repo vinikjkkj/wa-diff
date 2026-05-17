@@ -25,6 +25,7 @@ __d(
       MIMICRY_ATTRIBUTION: 19,
       MEDIA_VIEWER: 20,
       EVENT_COVER_BOTTOM_SHEET: 21,
+      FORWARD: 22,
     });
     i.IMAGINE_ACTION_SOURCE = e;
   },
