@@ -74,6 +74,7 @@ __d(
             (e.captureParams = null),
             (e.currentDeviceId = null),
             (e.__lastCapturedStream = null),
+            (e.__lastTargetWindow = null),
             (e.__frameMonitorCleanup = null),
             (e.__healthCheckRetryCount = 0),
             (e.__stopping = !1),
@@ -88,7 +89,7 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, a, i, l, f, g) {
                 var h = this;
-                o("WALogger").LOG(
+                (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
                       "[AV:startCameraCapture] cam=",
@@ -105,7 +106,8 @@ __d(
                   l,
                   f,
                   String(g != null),
-                );
+                ),
+                  (this.__lastTargetWindow = g != null ? g : null));
                 var y = t;
                 if (r("isStringNullOrEmpty")(y)) {
                   var C = o("WAWebUserPrefsVoip").getLandingPageVideoDeviceId();
@@ -308,6 +310,7 @@ __d(
                   a,
                 ),
                   (this.captureParams = { width: t, height: r, maxFps: a }),
+                  (this.__lastTargetWindow = null),
                   yield this.__startCapture({
                     getMediaStream: (function () {
                       var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -686,7 +689,11 @@ __d(
                   ((i = this.__frameMonitorCleanup) == null || i.call(this),
                     (this.__frameMonitorCleanup = null));
                   var l = this.__lastCapturedStream;
-                  if (((this.__lastCapturedStream = null), r != null)) {
+                  if (
+                    ((this.__lastCapturedStream = null),
+                    (this.__lastTargetWindow = null),
+                    r != null)
+                  ) {
                     var s = [],
                       u = 0;
                     (r.getTracks().forEach(function (e) {
@@ -773,17 +780,20 @@ __d(
                   ),
                   !1
                 );
-              var e = this.captureParams;
+              var e = this.captureParams,
+                t = this.__lastTargetWindow,
+                n = t != null && t.document != null ? t : null;
               try {
-                var t;
+                var r;
                 return (
                   yield this.__cleanup(),
                   yield this.startCameraCapture(
-                    (t = this.currentDeviceId) != null ? t : "",
+                    (r = this.currentDeviceId) != null ? r : "",
                     e.width,
                     e.height,
                     e.maxFps,
                     !1,
+                    n,
                   ),
                   !0
                 );

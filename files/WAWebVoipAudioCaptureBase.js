@@ -393,7 +393,7 @@ __d(
                                 ])),
                               e,
                             ),
-                            yield t.switchDevice(e))
+                            yield t.switchDevice(e, void 0, void 0, !0))
                           : o("WALogger").WARN(
                               b ||
                                 (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -783,8 +783,8 @@ __d(
         })()),
         (t.switchDevice = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              var r = this;
+            function* (e, t, n, r) {
+              var a = this;
               if (
                 (o("WALogger").LOG(
                   j ||
@@ -807,8 +807,8 @@ __d(
                   ),
                   !1
                 );
-              var a = this.captureParams;
-              if (!a)
+              var i = this.captureParams;
+              if (!i)
                 return (
                   o("WALogger").ERROR(
                     Q ||
@@ -818,8 +818,8 @@ __d(
                   ),
                   !1
                 );
-              var i = n === !0 || !document.hasFocus();
-              if (o("WAWebUA").UA.isFirefox && t != null && i)
+              var l = n === !0 || !document.hasFocus();
+              if (o("WAWebUA").UA.isFirefox && t != null && l)
                 return (
                   o("WALogger").LOG(
                     X ||
@@ -827,10 +827,10 @@ __d(
                         "voip: [AV:switchDevice] Firefox context recreation needed, will recreate AudioContext in target window context",
                       ])),
                   ),
-                  this.$1(e, t, t !== window)
+                  this.$1(e, t, t !== window, r)
                 );
-              var l = this.audioContext;
-              if (l == null)
+              var s = this.audioContext;
+              if (s == null)
                 return (
                   o("WALogger").ERROR(
                     Y ||
@@ -840,17 +840,18 @@ __d(
                   ),
                   !1
                 );
-              var s = yield o(
+              var u = yield o(
                 "WAWebAudioDeviceManager",
               ).switchAudioInputDeviceInternal({
                 deviceId: e,
-                captureParams: a,
-                audioContext: l,
+                captureParams: i,
+                audioContext: s,
                 targetWindow: t,
+                isAutoSwitch: r,
                 onStreamUpdate: function (t) {
                   var e;
-                  if (r.audioStream) {
-                    var n = r.audioStream.getTracks();
+                  if (a.audioStream) {
+                    var n = a.audioStream.getTracks();
                     (n.forEach(function (e) {
                       e.stop();
                     }),
@@ -867,23 +868,23 @@ __d(
                         }),
                       ));
                   }
-                  (r.mediaStreamSource &&
-                    (r.mediaStreamSource.disconnect(),
+                  (a.mediaStreamSource &&
+                    (a.mediaStreamSource.disconnect(),
                     o("WALogger").LOG(
                       Z ||
                         (Z = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] disconnected media stream source",
                         ])),
                     )),
-                    (r.mediaStreamSource =
-                      (e = l == null ? void 0 : l.createMediaStreamSource(t)) !=
+                    (a.mediaStreamSource =
+                      (e = s == null ? void 0 : s.createMediaStreamSource(t)) !=
                       null
                         ? e
                         : null),
-                    (r.audioStream = t),
-                    r.implementation != null &&
-                      r.mediaStreamSource != null &&
-                      r.implementation.reconnect(r.mediaStreamSource),
+                    (a.audioStream = t),
+                    a.implementation != null &&
+                      a.mediaStreamSource != null &&
+                      a.implementation.reconnect(a.mediaStreamSource),
                     o("WALogger").LOG(
                       ee ||
                         (ee = babelHelpers.taggedTemplateLiteralLoose([
@@ -893,7 +894,7 @@ __d(
                 },
               });
               return (
-                s
+                u
                   ? o("WALogger").LOG(
                       te ||
                         (te = babelHelpers.taggedTemplateLiteralLoose([
@@ -910,11 +911,11 @@ __d(
                         ])),
                       e.slice(0, 8),
                     ),
-                s
+                u
               );
             },
           );
-          function t(t, n, r) {
+          function t(t, n, r, o) {
             return e.apply(this, arguments);
           }
           return t;
@@ -1279,7 +1280,7 @@ __d(
         })()),
         (t.$1 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
+            function* (e, t, n, r) {
               o("WALogger").LOG(
                 ve ||
                   (ve = babelHelpers.taggedTemplateLiteralLoose([
@@ -1288,8 +1289,8 @@ __d(
                   ])),
                 e.slice(0, 8),
               );
-              var r = this.captureParams;
-              if (!r)
+              var a = this.captureParams;
+              if (!a)
                 return (
                   o("WALogger").ERROR(
                     Se ||
@@ -1309,20 +1310,20 @@ __d(
                   ),
                   !1
                 );
-              var a = null,
-                i = null,
+              var i = null,
                 l = null,
                 s = null,
                 u = null,
                 c = null,
-                d = !1,
-                m = !1;
+                d = null,
+                m = !1,
+                p = !1;
               try {
-                if (((a = this.$2(t)), !this.$12()))
-                  return (this.$8(a, null, null, "replacement"), !1);
+                if (((i = this.$2(t)), !this.$12()))
+                  return (this.$8(i, null, null, "replacement"), !1);
                 if (!n && !(yield this.$14()))
-                  return (this.$8(a, null, null, "replacement"), !1);
-                if (((i = yield this.$3(e, t, r, a)), !i))
+                  return (this.$8(i, null, null, "replacement"), !1);
+                if (((l = yield this.$3(e, t, a, i)), !l))
                   return (
                     n
                       ? o("WALogger")
@@ -1345,7 +1346,7 @@ __d(
                           .sendLogs(
                             "voip: switchDevice main reacquisition failed after popout release",
                           ),
-                    this.$8(a, null, null, "replacement"),
+                    this.$8(i, null, null, "replacement"),
                     !1
                   );
                 if (
@@ -1357,19 +1358,19 @@ __d(
                   ),
                   !this.$11("stream acquisition"))
                 )
-                  return (this.$8(a, null, i, "replacement"), !1);
+                  return (this.$8(i, null, l, "replacement"), !1);
                 if (
-                  ((l = a.createMediaStreamSource(i)),
-                  (s = this.audioContext),
-                  (u = this.mediaStreamSource),
-                  (c = this.audioStream),
-                  n && (yield this.$13(), (d = !0)),
+                  ((s = i.createMediaStreamSource(l)),
+                  (u = this.audioContext),
+                  (c = this.mediaStreamSource),
+                  (d = this.audioStream),
+                  n && (yield this.$13(), (m = !0)),
                   !this.$11("capture stop"))
                 )
-                  return (this.$8(a, l, i, "replacement"), !1);
+                  return (this.$8(i, s, l, "replacement"), !1);
                 if (
-                  (Oe(a),
-                  yield this.$4(a, l, r),
+                  (Oe(i),
+                  yield this.$4(i, s, a),
                   o("WALogger").LOG(
                     Ie ||
                       (Ie = babelHelpers.taggedTemplateLiteralLoose([
@@ -1380,14 +1381,14 @@ __d(
                 )
                   return (
                     yield this.$15(),
-                    this.$8(a, l, i, "replacement"),
+                    this.$8(i, s, l, "replacement"),
                     !1
                   );
                 if (
-                  ((this.audioContext = a),
-                  (this.mediaStreamSource = l),
-                  (this.audioStream = i),
-                  (m = !0),
+                  ((this.audioContext = i),
+                  (this.mediaStreamSource = s),
+                  (this.audioStream = l),
+                  (p = !0),
                   o("WALogger").LOG(
                     Te ||
                       (Te = babelHelpers.taggedTemplateLiteralLoose([
@@ -1397,7 +1398,7 @@ __d(
                   n)
                 )
                   try {
-                    this.$8(s, u, c, "old");
+                    this.$8(u, c, d, "old");
                   } catch (e) {
                     o("WALogger").WARN(
                       De ||
@@ -1409,7 +1410,8 @@ __d(
                     );
                   }
                 try {
-                  (o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e),
+                  (r !== !0 &&
+                    o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e),
                     o("WAWebAudioDeviceManager").AudioDeviceEvents.trigger(
                       "deviceSelectionChanged",
                       [e],
@@ -1447,7 +1449,7 @@ __d(
                       e,
                     )
                     .sendLogs("voip: switchDevice context recreation failed"),
-                  m)
+                  p)
                 )
                   try {
                     yield this.cleanup();
@@ -1466,13 +1468,13 @@ __d(
                       );
                   }
                 else
-                  (this.$8(a, l, i, "replacement"),
-                    d && (yield this.$16(r, s, u)));
+                  (this.$8(i, s, l, "replacement"),
+                    m && (yield this.$16(a, u, c)));
                 return !1;
               }
             },
           );
-          function t(t, n, r) {
+          function t(t, n, r, o) {
             return e.apply(this, arguments);
           }
           return t;

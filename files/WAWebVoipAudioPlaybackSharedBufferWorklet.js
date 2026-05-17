@@ -118,28 +118,28 @@ __d(
           }),
           (this.switchOutputDevice = (function () {
             var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                var r = t.playbackOutputRoute,
-                  a = t.playbackOutputSink,
-                  i = P(r),
-                  l = yield o(
+              function* (n, r) {
+                var a = t.playbackOutputRoute,
+                  i = t.playbackOutputSink,
+                  l = P(a),
+                  s = yield o(
                     "WAWebAudioDeviceManager",
-                  ).switchAudioOutputSinkIdInternal(n, a, i);
-                return a != null &&
-                  (t.playbackOutputSink !== a || t.playbackOutputRoute !== r)
+                  ).switchAudioOutputSinkIdInternal(n, i, l, r);
+                return i != null &&
+                  (t.playbackOutputSink !== i || t.playbackOutputRoute !== a)
                   ? (o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [",
                           "] output route changed during device switch",
                         ])),
-                      i,
+                      l,
                     ),
                     !1)
-                  : l;
+                  : s;
               },
             );
-            return function (e) {
+            return function (e, t) {
               return r.apply(this, arguments);
             };
           })()),

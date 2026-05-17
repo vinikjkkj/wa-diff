@@ -149,6 +149,11 @@ __d(
         case o("WAWebCommonNewsletterEnums").NewsletterCapability
           .CHANNEL_STATUS_PRODUCER:
           return "CHANNEL_STATUS_PRODUCER";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS_M2:
+          return "QUESTIONS_M2";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .JARVIS_INTEGRATION_ENABLED:
+          return "JARVIS_INTEGRATION_ENABLED";
       }
     }
     ((l.mapMembershipTypeToViewRole = s),

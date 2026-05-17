@@ -59,8 +59,9 @@ __d(
               codec: c,
               width: 320,
               height: 240,
+              hardwareAcceleration: "prefer-hardware",
               latencyMode: "realtime",
-              bitrateMode: "constant",
+              bitrateMode: "variable",
               avc: { format: "annexb" },
             });
             return e.supported === !0;

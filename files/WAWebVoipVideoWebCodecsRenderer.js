@@ -5,6 +5,7 @@ __d(
     "WAWebVoipMediaEnums",
     "WAWebVoipVideoRasterRenderer",
     "WAWebVoipVideoRendererLogging",
+    "WAWebVoipWebCodecsEncoderState",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -270,73 +271,74 @@ __d(
               var e = 2e3,
                 t = null,
                 r = null,
-                o = null;
+                i = null;
               try {
-                var i = yield new (h || (h = n("Promise")))(function (n) {
-                  var i,
-                    l,
-                    s = !1,
-                    u = function (t) {
-                      s || ((s = !0), n(t));
+                var l = yield new (h || (h = n("Promise")))(function (n) {
+                  var l,
+                    s,
+                    u = !1,
+                    c = function (t) {
+                      u || ((u = !0), n(t));
                     },
-                    c = window.setTimeout(function () {
-                      return u(!1);
+                    d = window.setTimeout(function () {
+                      return c(!1);
                     }, e);
                   ((r = new VideoDecoder({
                     output: function (t) {
-                      (t.close(), window.clearTimeout(c), u(!0));
+                      (t.close(), window.clearTimeout(d), c(!0));
                     },
                     error: function () {
-                      (window.clearTimeout(c), u(!1));
+                      (window.clearTimeout(d), c(!1));
                     },
                   })),
                     r.configure(a.$WAWebVoipVideoWebCodecsRenderer$p_13),
                     (t = new VideoEncoder({
                       output: function (t) {
                         if (r == null || r.state === "closed") {
-                          (window.clearTimeout(c), u(!1));
+                          (window.clearTimeout(d), c(!1));
                           return;
                         }
                         var e = r;
                         (e.decode(t),
                           e.flush().then(
                             function () {
-                              (window.clearTimeout(c), u(!1));
+                              (window.clearTimeout(d), c(!1));
                             },
                             function () {
-                              (window.clearTimeout(c), u(!1));
+                              (window.clearTimeout(d), c(!1));
                             },
                           ));
                       },
                       error: function () {
-                        (window.clearTimeout(c), u(!1));
+                        (window.clearTimeout(d), c(!1));
                       },
                     })),
                     t.configure({
-                      codec: "avc1.42001E",
+                      codec: o("WAWebVoipWebCodecsEncoderState")
+                        .WEBCODECS_H264_CODEC,
                       width: 16,
                       height: 16,
                       avc: { format: "annexb" },
                     }));
-                  var d = new Uint8Array(256 * 4);
-                  ((o = new VideoFrame(d, {
+                  var m = new Uint8Array(256 * 4);
+                  ((i = new VideoFrame(m, {
                     format: "RGBA",
                     codedWidth: 16,
                     codedHeight: 16,
                     timestamp: 0,
                   })),
-                    (i = t) == null || i.encode(o, { keyFrame: !0 }),
-                    (l = t) == null ||
-                      l.flush().catch(function () {
-                        (window.clearTimeout(c), u(!1));
+                    (l = t) == null || l.encode(i, { keyFrame: !0 }),
+                    (s = t) == null ||
+                      s.flush().catch(function () {
+                        (window.clearTimeout(d), c(!1));
                       }));
                 });
-                return i;
+                return l;
               } catch (e) {
                 return !1;
               } finally {
-                var l;
-                ((l = o) == null || l.close(),
+                var s;
+                ((s = i) == null || s.close(),
                   t != null && t.state !== "closed" && t.close(),
                   r != null && r.state !== "closed" && r.close());
               }
@@ -468,7 +470,7 @@ __d(
         );
       })(o("WAWebVoipVideoRasterRenderer").WAWebVoipVideoFrameRenderer);
     ((k.$WAWebVoipVideoWebCodecsRenderer$p_13 = {
-      codec: "avc1.42001E",
+      codec: o("WAWebVoipWebCodecsEncoderState").WEBCODECS_H264_CODEC,
       optimizeForLatency: !0,
     }),
       (l.KeyFrameNeededError = y),

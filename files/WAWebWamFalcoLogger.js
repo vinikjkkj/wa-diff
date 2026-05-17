@@ -80,6 +80,10 @@ __d(
           (c(t + "_shadow_sampled", n), c(t + "_shadow", n));
           break e;
         }
+        if (e === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY) {
+          c(t, n);
+          break e;
+        }
         return;
       }
     }

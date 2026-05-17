@@ -163,20 +163,24 @@ __d(
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
                         try {
-                          var e = yield o(
-                            "WAWebAudioDeviceManager",
-                          ).selectAudioOutputDevice();
-                          e != null
+                          var e = o(
+                              "WAWebAudioDeviceManager",
+                            ).getCurrentSelectedAudioOutputDevice(),
+                            n = yield o(
+                              "WAWebAudioDeviceManager",
+                            ).selectAudioOutputDevice();
+                          n != null && n !== e
                             ? (o("WALogger").LOG(
                                 u ||
                                   (u = babelHelpers.taggedTemplateLiteralLoose([
                                     "voip: [AV:AudioOutputHandleDeviceChange] Auto-switching output to device: ",
                                     "",
                                   ])),
-                                e,
+                                n,
                               ),
-                              yield t.switchOutputDevice(e))
-                            : o("WALogger").WARN(
+                              yield t.switchOutputDevice(n, !0))
+                            : n == null &&
+                              o("WALogger").WARN(
                                 c ||
                                   (c = babelHelpers.taggedTemplateLiteralLoose([
                                     "voip: [AV:AudioOutputHandleDeviceChange] Output device change detected but new deviceId is null",
@@ -424,7 +428,7 @@ __d(
           }),
           (a.switchOutputDevice = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
+              function* (e, t) {
                 if (
                   (o("WALogger").LOG(
                     R ||
@@ -440,42 +444,52 @@ __d(
                     o("WALogger").WARN(
                       L ||
                         (L = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:switchOutputDevice] playback not ready, saving preference only",
+                          "voip: [AV:switchOutputDevice] playback not ready",
+                          "",
                         ])),
+                      t === !0 ? "" : ", saving preference",
                     ),
-                    o(
-                      "WAWebAudioDeviceManager",
-                    ).saveAudioOutputDevicePreference(
-                      e,
-                      "AV:switchOutputDevice",
-                    ),
+                    t !== !0 &&
+                      o(
+                        "WAWebAudioDeviceManager",
+                      ).saveAudioOutputDevicePreference(
+                        e,
+                        "AV:switchOutputDevice",
+                      ),
                     !1
                   );
-                var t = this.implementation;
-                if (t == null)
+                var n = this.implementation;
+                if (n == null)
                   return (
                     o("WALogger").WARN(
                       E ||
                         (E = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:switchOutputDevice] playback implementation not initialized, saving preference only",
+                          "voip: [AV:switchOutputDevice] playback implementation not initialized",
+                          "",
                         ])),
+                      t === !0 ? "" : ", saving preference",
                     ),
-                    o(
-                      "WAWebAudioDeviceManager",
-                    ).saveAudioOutputDevicePreference(
-                      e,
-                      "AV:switchOutputDevice",
-                    ),
+                    t !== !0 &&
+                      o(
+                        "WAWebAudioDeviceManager",
+                      ).saveAudioOutputDevicePreference(
+                        e,
+                        "AV:switchOutputDevice",
+                      ),
                     !1
                   );
-                var n =
-                  t.switchOutputDevice != null
-                    ? yield t.switchOutputDevice(e)
+                var r =
+                  n.switchOutputDevice != null
+                    ? yield n.switchOutputDevice(e, t)
                     : yield o(
                         "WAWebAudioDeviceManager",
-                      ).switchAudioOutputDeviceInternal(e, t.getAudioElement());
+                      ).switchAudioOutputDeviceInternal(
+                        e,
+                        n.getAudioElement(),
+                        t,
+                      );
                 return (
-                  n
+                  r
                     ? o("WALogger").LOG(
                         k ||
                           (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -492,11 +506,11 @@ __d(
                           ])),
                         e,
                       ),
-                  n
+                  r
                 );
               },
             );
-            function t(t) {
+            function t(t, n) {
               return e.apply(this, arguments);
             }
             return t;

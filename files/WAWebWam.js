@@ -154,7 +154,7 @@ __d(
         (o("WAWebWamFalcoABProps").isFalcoLoggingEnabled() &&
           (o("WAWebWamFalcoLogger").maybeSetTraceIdForShadowLogging(e),
           o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, l)),
-        l)
+        l || o("WAWebWamFalcoABProps").isWamLoggingDisabled())
       )
         return (
           (e.commitTime =

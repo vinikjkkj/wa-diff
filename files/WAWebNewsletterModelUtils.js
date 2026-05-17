@@ -384,6 +384,12 @@ __d(
         case "CHANNEL_STATUS_PRODUCER":
           return o("WAWebCommonNewsletterEnums").NewsletterCapability
             .CHANNEL_STATUS_PRODUCER;
+        case "QUESTIONS_M2":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .QUESTIONS_M2;
+        case "JARVIS_INTEGRATION_ENABLED":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .JARVIS_INTEGRATION_ENABLED;
         default:
           return (
             o("WALogger")
