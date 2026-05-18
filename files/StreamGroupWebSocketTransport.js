@@ -493,7 +493,10 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var a,
-                  i = new (e || (e = n("Promise")))(function (e, n) {
+                  i = t.$1.onerror,
+                  l = t.$1.onmessage,
+                  s = t.$1.onclose,
+                  u = new (e || (e = n("Promise")))(function (e, n) {
                     a = window.setTimeout(function () {
                       (t.$15(),
                         t.$13.transportClosed(!1, "TIMEOUT"),
@@ -507,12 +510,9 @@ __d(
                         ));
                     }, t.$23);
                   }),
-                  l = new e(function (e, n) {
-                    var a = t.$1.onerror,
-                      i = t.$1.onmessage,
-                      l = t.$1.onclose;
+                  c = new e(function (e, n) {
                     ((t.$1.onerror = function () {
-                      (a(),
+                      (i(),
                         t.close(),
                         n(
                           r("err")(
@@ -521,7 +521,7 @@ __d(
                         ));
                     }),
                       (t.$1.onclose = function (e) {
-                        (l(e),
+                        (s(e),
                           e.code ===
                           o("DGWConstants").WebsocketCloseCodes.UNAUTHORIZED
                             ? n(
@@ -532,14 +532,17 @@ __d(
                             : n(r("err")(e.code + ":" + e.reason)));
                       }),
                       (t.$1.onmessage = function (n) {
-                        (i(n),
+                        (l(n),
                           t.$3 || (t.__markerPoint("connect_success"), e(t)));
                       }));
                   });
                 try {
-                  return yield (e || (e = n("Promise"))).race([l, i]);
+                  return yield (e || (e = n("Promise"))).race([c, u]);
                 } finally {
-                  a != null && window.clearTimeout(a);
+                  (a != null && window.clearTimeout(a),
+                    (t.$1.onerror = i),
+                    (t.$1.onmessage = l),
+                    (t.$1.onclose = s));
                 }
               },
             );

@@ -9,7 +9,6 @@ __d(
     "WAWebEmojiSetup",
     "WAWebExecApiCmd",
     "WAWebFeatureDetectionSwSupport",
-    "WAWebIdbAsyncAwaitConfig",
     "WAWebKaleidoscopeWasmFeatureSupport",
     "WAWebMain.react",
     "WAWebMediaWorkerProxy",
@@ -33,16 +32,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
-      if (
-        (o("WAWebIdbAsyncAwaitConfig").setIsAsyncAwaitPrepEnabledImpl(
-          function () {
-            return o("WAWebABProps").getABPropConfigValue(
-              "wmi_async_await_prep",
-            );
-          },
-        ),
-        !r("gkx")("26258"))
-      ) {
+      if (!r("gkx")("26258")) {
         window.Store = n("cr:8753");
         try {
           ((window.Debug = Object.assign(n("cr:8752"), window.Debug)),

@@ -7,10 +7,12 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebModalManager",
+    "WAWebNoop",
     "WAWebSendHistoryBundleAction",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWidToJid",
+    "WDSTextualLink.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -21,9 +23,15 @@ __d(
     function d(e, t) {
       var n = t.joinTime;
       if (n != null) {
-        var r = o("WAWebFrontendContactGetters").getFormattedShortName(
-          t.contact,
-        );
+        var a = o("WAWebFrontendContactGetters").getFormattedShortName(
+            t.contact,
+          ),
+          i = c.jsx(r("WDSTextualLink.react"), {
+            onClick: r("WAWebNoop"),
+            testid: "group-history-post-join-recent-messages-link",
+            textConfig: "Body2",
+            children: s._(/*BTDS*/ "recent messages"),
+          });
         o("WAWebModalManager").ModalManager.openSupportModal(
           c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
             tsNavigationData: {
@@ -32,14 +40,14 @@ __d(
             },
             onOK: function () {
               (o("WAWebModalManager").ModalManager.close(),
-                m(e, t.contact.id, n, r));
+                m(e, t.contact.id, n, a));
             },
-            okText: s._(/*BTDS*/ "Send"),
+            okText: s._(/*BTDS*/ "Send recent"),
             onCancel: o("WAWebModalManager").closeModalManager,
             cancelText: s._(/*BTDS*/ "Cancel"),
             children: s._(
-              /*BTDS*/ "You are sending message history to {contactName}. Messages you share may not be complete or accurate. You are responsible for the history you share.",
-              [s._param("contactName", r)],
+              /*BTDS*/ "Send {recentMessagesLink} from this group to {contactName}.",
+              [s._param("recentMessagesLink", i), s._param("contactName", a)],
             ),
           }),
         );

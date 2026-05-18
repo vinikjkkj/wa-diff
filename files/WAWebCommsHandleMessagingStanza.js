@@ -9,6 +9,7 @@ __d(
     "WAWebPostUnknownStanzaMetric",
     "WAWebStatusGatingUtils",
     "WAWebWid",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -30,7 +31,7 @@ __d(
               return r("WAWebHandleMsg")(e).catch(function (t) {
                 return o(
                   "WAWebCommsHandleStanzaUtils",
-                ).handleMessageParsingFailure(e, t);
+                ).handleMessageParsingFailure(e, r("getErrorSafe")(t));
               });
           }
           break;

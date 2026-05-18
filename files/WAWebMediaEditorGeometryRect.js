@@ -1,6 +1,10 @@
 __d(
   "WAWebMediaEditorGeometryRect",
-  ["WAWebMediaEditorGeometryPoint", "WAWebMediaEditorGeometrySize", "lodash"],
+  [
+    "WADeepEquals",
+    "WAWebMediaEditorGeometryPoint",
+    "WAWebMediaEditorGeometrySize",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = 1e-6,
       s = (function () {
@@ -36,12 +40,12 @@ __d(
               this.update(e)
             );
           }),
-          (n.update = function (o) {
+          (n.update = function (r) {
             var n = babelHelpers.extends({}, this.$1),
-              a = o.origin,
-              i = o.rotation,
-              l = o.scale,
-              s = o.size;
+              a = r.origin,
+              i = r.rotation,
+              l = r.scale,
+              s = r.size;
             return (
               a != null && (n.origin = a),
               s != null && (n.size = s),
@@ -50,7 +54,7 @@ __d(
                 Math.abs(n.scale.x - l.x) > e &&
                 Math.abs(n.scale.y - l.y) > e &&
                 (n.scale = l),
-              r("lodash").isEqual(this.$1, n) ? this : new t(n)
+              o("WADeepEquals").deepEqual(this.$1, n) ? this : new t(n)
             );
           }),
           (n.clone = function () {

@@ -644,7 +644,59 @@ __d(
                                               kind: "LinkedField",
                                               name: "clauses",
                                               plural: !0,
-                                              selections: [x],
+                                              selections: [
+                                                x,
+                                                {
+                                                  alias: null,
+                                                  args: null,
+                                                  concreteType:
+                                                    "QuickPromotionFlattenedFilterClause",
+                                                  kind: "LinkedField",
+                                                  name: "clauses",
+                                                  plural: !0,
+                                                  selections: [
+                                                    x,
+                                                    {
+                                                      alias: null,
+                                                      args: null,
+                                                      concreteType:
+                                                        "QuickPromotionFlattenedFilterClause",
+                                                      kind: "LinkedField",
+                                                      name: "clauses",
+                                                      plural: !0,
+                                                      selections: [
+                                                        x,
+                                                        {
+                                                          alias: null,
+                                                          args: null,
+                                                          concreteType:
+                                                            "QuickPromotionFlattenedFilterClause",
+                                                          kind: "LinkedField",
+                                                          name: "clauses",
+                                                          plural: !0,
+                                                          selections: [
+                                                            x,
+                                                            {
+                                                              alias: null,
+                                                              args: null,
+                                                              concreteType:
+                                                                "QuickPromotionFlattenedFilterClause",
+                                                              kind: "LinkedField",
+                                                              name: "clauses",
+                                                              plural: !0,
+                                                              selections: [x],
+                                                              storageKey: null,
+                                                            },
+                                                          ],
+                                                          storageKey: null,
+                                                        },
+                                                      ],
+                                                      storageKey: null,
+                                                    },
+                                                  ],
+                                                  storageKey: null,
+                                                },
+                                              ],
                                               storageKey: null,
                                             },
                                           ],
@@ -818,7 +870,63 @@ __d(
                                           kind: "LinkedField",
                                           name: "clauses",
                                           plural: !0,
-                                          selections: [T, M],
+                                          selections: [
+                                            T,
+                                            M,
+                                            {
+                                              alias: null,
+                                              args: null,
+                                              concreteType:
+                                                "QuickPromotionFlattenedFilterClause",
+                                              kind: "LinkedField",
+                                              name: "clauses",
+                                              plural: !0,
+                                              selections: [
+                                                T,
+                                                M,
+                                                {
+                                                  alias: null,
+                                                  args: null,
+                                                  concreteType:
+                                                    "QuickPromotionFlattenedFilterClause",
+                                                  kind: "LinkedField",
+                                                  name: "clauses",
+                                                  plural: !0,
+                                                  selections: [
+                                                    T,
+                                                    M,
+                                                    {
+                                                      alias: null,
+                                                      args: null,
+                                                      concreteType:
+                                                        "QuickPromotionFlattenedFilterClause",
+                                                      kind: "LinkedField",
+                                                      name: "clauses",
+                                                      plural: !0,
+                                                      selections: [
+                                                        T,
+                                                        M,
+                                                        {
+                                                          alias: null,
+                                                          args: null,
+                                                          concreteType:
+                                                            "QuickPromotionFlattenedFilterClause",
+                                                          kind: "LinkedField",
+                                                          name: "clauses",
+                                                          plural: !0,
+                                                          selections: [T, M],
+                                                          storageKey: null,
+                                                        },
+                                                      ],
+                                                      storageKey: null,
+                                                    },
+                                                  ],
+                                                  storageKey: null,
+                                                },
+                                              ],
+                                              storageKey: null,
+                                            },
+                                          ],
                                           storageKey: null,
                                         },
                                       ],

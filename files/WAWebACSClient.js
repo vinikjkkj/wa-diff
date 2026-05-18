@@ -2,6 +2,7 @@ __d(
   "WAWebACSClient",
   [
     "ACSClient",
+    "ACSClientBuilder",
     "WAWebACSServerProvider",
     "WAWebACSStorageManager",
     "asyncToGeneratorRuntime",
@@ -15,7 +16,7 @@ __d(
         a = e.get(r);
       return (
         a == null &&
-          ((a = o("ACSClient").buildACSClient(
+          ((a = o("ACSClientBuilder").buildACSClient(
             t,
             n,
             new (o("WAWebACSServerProvider").WAWebACSServerProvider)(),

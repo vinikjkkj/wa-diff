@@ -17,6 +17,7 @@ __d(
     "WAWebMediaInMemoryBlobCache",
     "WAWebPromiseQueue",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -245,7 +246,7 @@ __d(
             }
             return t;
           })()),
-          (a.handleProgress = function (t, r) {
+          (a.handleProgress = function (t, a) {
             var e = this;
             return this._promiseQueue.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -257,58 +258,61 @@ __d(
                     t,
                   );
                   for (var n = 0; n < e._alignedScanLengths.length; n++) {
-                    var a = e._alignedScanLengths[n],
-                      i = n === 0 ? a : e._increasingScanLengths[n - 1] + a;
-                    e._increasingScanLengths.push(i);
+                    var i = e._alignedScanLengths[n],
+                      l = n === 0 ? i : e._increasingScanLengths[n - 1] + i;
+                    e._increasingScanLengths.push(l);
                   }
                 }
-                var l =
-                    typeof r == "string"
-                      ? r.length
-                      : r.byteLength + e._downloadedBytes.byteLength,
-                  s = e._getLastFullyLoadedChunkIndex(l),
-                  _ = e._cryptoKeys;
-                if (s <= e._lastDecryptedChunk || _ == null)
+                var s =
+                    typeof a == "string"
+                      ? a.length
+                      : a.byteLength + e._downloadedBytes.byteLength,
+                  _ = e._getLastFullyLoadedChunkIndex(s),
+                  g = e._cryptoKeys;
+                if (_ <= e._lastDecryptedChunk || g == null)
                   return (
                     (e._downloadedBytes = o(
                       "WAArrayBuffersConcat",
                     ).concatArrayBuffers(
                       e._downloadedBytes,
-                      typeof r == "string"
+                      typeof a == "string"
                         ? yield o(
                             "WAArrayBufferUtils",
                           ).largeStringToArrayBuffer(
-                            r.slice(e._downloadedBytes.byteLength),
+                            a.slice(e._downloadedBytes.byteLength),
                           )
-                        : r,
+                        : a,
                     )),
                     null
                   );
                 try {
-                  var g =
-                    typeof r == "string"
+                  var h =
+                    typeof a == "string"
                       ? yield o("WAArrayBufferUtils").largeStringToArrayBuffer(
-                          r.slice(e._downloadedBytes.byteLength),
+                          a.slice(e._downloadedBytes.byteLength),
                         )
-                      : r;
+                      : a;
                   return (
                     (e._downloadedBytes = o(
                       "WAArrayBuffersConcat",
-                    ).concatArrayBuffers(e._downloadedBytes, g)),
-                    yield e._decryptFullyLoadedChunks(e._downloadedBytes, s, _),
-                    yield e._generateBlobFromFullyLoadedChunks(s)
+                    ).concatArrayBuffers(e._downloadedBytes, h)),
+                    yield e._decryptFullyLoadedChunks(e._downloadedBytes, _, g),
+                    yield e._generateBlobFromFullyLoadedChunks(_)
                   );
                 } catch (t) {
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "ImageStreamer:handleProgress error: ",
-                        "",
-                      ])),
-                    t.message,
-                  );
-                  var h =
-                    t.message +
+                  var y = r("getErrorSafe")(t);
+                  o("WALogger")
+                    .WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "ImageStreamer:handleProgress error: ",
+                          "",
+                        ])),
+                      y.message,
+                    )
+                    .catching(y);
+                  var C =
+                    y.message +
                     ", [" +
                     e._debugString +
                     "]" +
@@ -324,7 +328,7 @@ __d(
                             "ImageStreamer:chunk validation error: ",
                             "",
                           ])),
-                        h,
+                        C,
                       ),
                       o("WALogger")
                         .ERROR(
@@ -343,7 +347,7 @@ __d(
                             "ImageStreamer:handleProgress error: ",
                             "",
                           ])),
-                        h,
+                        C,
                       ),
                       o("WALogger")
                         .ERROR(

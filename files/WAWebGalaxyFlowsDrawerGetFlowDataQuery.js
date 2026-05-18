@@ -13,38 +13,39 @@ __d(
     "WAWebRelayClient",
     "WAWebWamEnumInteractionType",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(t, r, a, i) {
-      var l, u, d;
+    function u(t, a, i, l) {
+      var u, d, m;
       (o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataStart(),
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataAnnotate(
-          o("WAWebGalaxyFlowQPLLoggerUtils").getWaeMetadataAnnotations(r, t),
+          o("WAWebGalaxyFlowQPLLoggerUtils").getWaeMetadataAnnotations(a, t),
         ));
-      var m =
-        ((l = t.flowMetadata) == null ? void 0 : l.data_api_version) != null;
+      var p =
+        ((u = t.flowMetadata) == null ? void 0 : u.data_api_version) != null;
       if (o("WAWebGalaxyFlowQPLLoggerUtils").isGalaxyFlowSanctioned()) {
-        var p = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
+        var _ = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
           o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors.SANCTIONED,
         );
-        return (p.stack, (s || (s = n("Promise"))).reject(p));
-      }
-      if (i != null && i.aborted) {
-        var _ = new Error("Request aborted");
         return (_.stack, (s || (s = n("Promise"))).reject(_));
       }
-      var f = a.contact.id,
-        g = f.isLid()
-          ? (u =
-              (d = o("WAWebLidMigrationUtils").toPn(f)) == null
+      if (l != null && l.aborted) {
+        var f = r("err")("Request aborted");
+        return (s || (s = n("Promise"))).reject(f);
+      }
+      var g = i.contact.id,
+        h = g.isLid()
+          ? (d =
+              (m = o("WAWebLidMigrationUtils").toPn(g)) == null
                 ? void 0
-                : d.toString()) != null
-            ? u
+                : m.toString()) != null
+            ? d
             : ""
-          : f.toString(),
-        h = t.flowId;
+          : g.toString(),
+        y = t.flowId;
       return (
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataPoint(
           o("WAWebGalaxyFlowQPLLoggerUtils").WaeMetadataQPLPoints
@@ -59,13 +60,13 @@ __d(
             e !== void 0
               ? e
               : (e = n("WAWebGalaxyFlowsDrawerGetFlowDataQuery.graphql")),
-            { request: { extensions: { biz_jid: g, flow_id: h } } },
+            { request: { extensions: { biz_jid: h, flow_id: y } } },
           )
           .then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  if (!(i != null && i.aborted)) {
+                  if (!(l != null && l.aborted)) {
                     var t;
                     if (
                       ((t = o(
@@ -103,7 +104,7 @@ __d(
                       );
                       throw (n.stack, n);
                     }
-                    if (m)
+                    if (p)
                       if (c(e)) {
                         (o(
                           "WAWebGalaxyFlowQPLLoggerUtils",
@@ -127,7 +128,7 @@ __d(
                         );
                         throw (r.stack, r);
                       } else {
-                        var a, l;
+                        var a, i;
                         (o(
                           "WAWebGalaxyFlowQPLLoggerUtils",
                         ).qplWaeMetadataAnnotate({
@@ -136,15 +137,15 @@ __d(
                           yield o(
                             "WAWebGalaxyFlowsUnifiedEncryptionVerifier",
                           ).UnifiedEncryptionVerifier.arePublicKeyWithSignatureValid(
-                            f,
+                            g,
                             (a = e.xwa_extensions_get_flow_data) == null ||
                               (a = a.endpoint_public_key) == null
                               ? void 0
                               : a.key,
-                            (l = e.xwa_extensions_get_flow_data) == null ||
-                              (l = l.endpoint_public_key) == null
+                            (i = e.xwa_extensions_get_flow_data) == null ||
+                              (i = i.endpoint_public_key) == null
                               ? void 0
-                              : l.signature,
+                              : i.signature,
                             {
                               onComplete: function (t) {
                                 if (!t) {
@@ -163,7 +164,7 @@ __d(
                       }
                     if (
                       o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
-                        h,
+                        y,
                         e,
                       ) == null
                     ) {
@@ -200,8 +201,8 @@ __d(
                 "WAWebGalaxyFlowWamLoggerUtils",
               ).logStructuredMessageInteractionWAMEvent(
                 t,
+                i,
                 a,
-                r,
                 o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_ERROR,
                 o("WAWebGalaxyFlowQPLLoggerUtils")
                   .WaeScreenNavigationQPLErrorTypes

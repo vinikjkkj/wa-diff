@@ -5,7 +5,6 @@ __d(
     "WAWeb-dexie",
     "WAWebDbEncryptionKey",
     "WAWebDexieCastTypes",
-    "WAWebIdbAsyncAwaitConfig",
     "WAWebIdbHelpers",
     "WAWebStorageSchema",
     "asyncToGeneratorRuntime",
@@ -46,12 +45,8 @@ __d(
                   l.key,
                   c,
                 ),
-                m;
-              o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled() ||
-              r("WAWeb-dexie").currentTransaction != null
-                ? (m = r("WAWeb-dexie").waitFor(d))
-                : (m = d);
-              var p = yield o("WAWebDexieCastTypes").dexieCastToPromise(m);
+                m = r("WAWeb-dexie").waitFor(d),
+                p = yield o("WAWebDexieCastTypes").dexieCastToPromise(m);
               return { _data: p, iv: u, _keyId: l.id, _scheme: a ? 1 : 0 };
             } catch (e) {
               var _ = r("getErrorSafe")(e);

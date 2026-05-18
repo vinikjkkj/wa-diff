@@ -2,6 +2,7 @@ __d(
   "WAWebGroupHistoryPostJoinEligibility",
   [
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBotUtils",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes.flow",
@@ -10,8 +11,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 1209600;
-    function s(e) {
+    function e(e) {
       return {
         groupType: e.groupType,
         hasCapi: e.hasCapi,
@@ -20,56 +20,59 @@ __d(
         memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
       };
     }
-    function u(e) {
+    function s(e) {
       return e === o("WAWebGroupType").GroupType.DEFAULT ||
         e === o("WAWebGroupType").GroupType.LINKED_SUBGROUP
         ? !0
         : e === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP;
     }
-    function c(e) {
-      return e.iAmAdmin || e.iAmSuperAdmin
+    function u(e, t, n) {
+      return e || t
         ? !0
-        : e.memberShareGroupHistoryMode ===
+        : n ===
             o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
               .ALL_MEMBER_SHARE;
     }
-    function d(t, n) {
+    function c(e, t) {
       if (
         !o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled() ||
-        !u(n.groupType) ||
-        n.hasCapi === !0 ||
-        !c(n) ||
-        o("WAWebBotUtils").isMetaAiBot(t.id) ||
-        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t.id)
+        !s(t.groupType) ||
+        t.hasCapi === !0 ||
+        !u(t.iAmAdmin, t.iAmSuperAdmin, t.memberShareGroupHistoryMode) ||
+        o("WAWebBotUtils").isMetaAiBot(e.id) ||
+        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)
       )
         return !1;
-      var r = t.groupHistorySentState,
-        a = t.joinTime;
+      var n = e.groupHistorySentState,
+        r = e.joinTime;
       if (
-        a == null ||
-        r ===
+        r == null ||
+        n ===
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
             .HISTORY_SENT ||
-        r ===
+        n ===
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
             .NOTICE_SENT
       )
         return !1;
-      var i = e,
-        l = o("WATimeUtils").unixTime();
-      return !(l - a > i);
+      var a = o("WAWebABProps").getABPropConfigValue(
+          "group_history_new_user_threshold_secs",
+        ),
+        i = o("WATimeUtils").unixTime();
+      return !(i - r > a);
     }
-    function m(e) {
+    function d(t) {
       if (!o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled())
         return [];
-      var t = s(e);
-      return e.participants.getModelsArray().filter(function (e) {
-        return d(e, t);
+      var n = e(t);
+      return t.participants.getModelsArray().filter(function (e) {
+        return c(e, n);
       });
     }
-    ((l.groupContextFromMetadata = s),
-      (l.isEligibleForPostJoinHistory = d),
-      (l.getEligiblePostJoinParticipants = m));
+    ((l.groupContextFromMetadata = e),
+      (l.canCurrentUserShareHistory = u),
+      (l.isEligibleForPostJoinHistory = c),
+      (l.getEligiblePostJoinParticipants = d));
   },
   98,
 );

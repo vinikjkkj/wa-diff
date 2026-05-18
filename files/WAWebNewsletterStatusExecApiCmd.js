@@ -5,13 +5,13 @@ __d(
     "JSResourceForInteraction",
     "WAJids",
     "WALogger",
-    "WAWebABProps",
     "WAWebCmd",
     "WAWebConfirmPopup.react",
     "WAWebKeyboardTabUtils",
     "WAWebLoadNewsletterPreviewChatAction",
     "WAWebModalManager",
     "WAWebNavBarTypes",
+    "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterStatusFetchAction",
     "WAWebNewsletterStatusGapFillAction",
@@ -31,10 +31,8 @@ __d(
       p,
       _ = p || (p = o("react"));
     function f() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "channel_status_deeplink_enabled",
-        ) === !0
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channel_status_deeplink_enabled",
       );
     }
     function g(e) {

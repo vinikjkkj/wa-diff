@@ -7,6 +7,7 @@ __d(
     "WAWebMiscErrors",
     "WAWebStorageCmd",
     "WAWebStorageErrorHandlingUtils",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -83,7 +84,7 @@ __d(
                 );
               })
               .catch(function (e) {
-                return t.$6(e);
+                return t.$6(r("getErrorSafe")(e));
               });
           }),
           (a.create = function (t) {

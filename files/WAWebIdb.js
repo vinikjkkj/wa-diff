@@ -9,7 +9,6 @@ __d(
     "WAWebAppTracker",
     "WAWebDexieCastTypes",
     "WAWebGlobals",
-    "WAWebIdbAsyncAwaitConfig",
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
     "asyncToGeneratorRuntime",
@@ -370,10 +369,7 @@ __d(
               n = this;
             (e = this.updateListener) == null || e.call(this, [this.$15(t)]);
             var r = this.propFilter(t);
-            if (
-              !this.$3() &&
-              o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
-            ) {
+            if (!this.$3()) {
               var a = this.$5(r);
               return o("WAWebDexieCastTypes")
                 .dexieCastToPromise(this.table.add(a))
@@ -392,10 +388,7 @@ __d(
               n = this;
             (e = this.updateListener) == null || e.call(this, [this.$15(t)]);
             var r = this.propFilter(t);
-            if (
-              !this.$3() &&
-              o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
-            ) {
+            if (!this.$3()) {
               var a = this.$5(r);
               return o("WAWebDexieCastTypes")
                 .dexieCastToPromise(this.table.put(a))
@@ -416,11 +409,7 @@ __d(
                   r = this;
                 (n = this.updateListener) == null || n.call(this, [e], [t]);
                 var a = this.propFilter(t),
-                  i =
-                    this.$3() ||
-                    !o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
-                      ? yield this.$7(a, !0)
-                      : this.$5(a, !0);
+                  i = this.$3() ? yield this.$7(a, !0) : this.$5(a, !0);
                 return o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     this.db
@@ -474,11 +463,7 @@ __d(
                   (i = this.updateListener) == null || i.call(this, [e]);
                 }
                 var l = this.propFilter(t),
-                  s =
-                    this.$3() ||
-                    !o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
-                      ? yield this.$7(l, !0)
-                      : this.$5(l, !0);
+                  s = this.$3() ? yield this.$7(l, !0) : this.$5(l, !0);
                 if (a) {
                   var u;
                   (u = this.updateListener) == null || u.call(this, [e], [t]);

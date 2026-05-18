@@ -173,7 +173,7 @@ __d(
                               "[open socket stream] failed to open stream",
                             ])),
                         )
-                        .catching(t)
+                        .catching(r("getErrorSafe")(t))
                         .sendLogs("socket-model-failed-to-open-stream");
                     }),
                     t.hasSynced &&
@@ -402,7 +402,7 @@ __d(
                           "[socket model] failed to set logout state",
                         ])),
                     )
-                    .catching(e)
+                    .catching(r("getErrorSafe")(e))
                     .sendLogs("socket-model-set-logout-state-failed");
                 }),
               o("WAWebBackendEventBus").BackendEventBus.triggerStartingLogout(),
@@ -461,7 +461,7 @@ __d(
                   })
                   .catch(
                     (function () {
-                      var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (n) {
                           (o("WALogger")
                             .ERROR(
@@ -470,7 +470,7 @@ __d(
                                   "ws2: [logout error] sendCurrentLogoutPromise errored",
                                 ])),
                             )
-                            .catching(n),
+                            .catching(r("getErrorSafe")(n)),
                             yield e.clearCredentialsAndStoredData(t),
                             o(
                               "WAWebBackendEventBus",
@@ -478,7 +478,7 @@ __d(
                         },
                       );
                       return function (e) {
-                        return r.apply(this, arguments);
+                        return a.apply(this, arguments);
                       };
                     })(),
                   ),
@@ -496,7 +496,7 @@ __d(
               )
               .catch(
                 (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
                       (o("WALogger")
                         .ERROR(
@@ -505,7 +505,7 @@ __d(
                               "ws2: [logout] sentinel or sendCurrentLogout timed out",
                             ])),
                         )
-                        .catching(n),
+                        .catching(r("getErrorSafe")(n)),
                         yield e.clearCredentialsAndStoredData(t),
                         o(
                           "WAWebBackendEventBus",
@@ -513,7 +513,7 @@ __d(
                     },
                   );
                   return function (e) {
-                    return r.apply(this, arguments);
+                    return a.apply(this, arguments);
                   };
                 })(),
               )
@@ -529,7 +529,7 @@ __d(
                             "[socket model] failed to set logout state",
                           ])),
                       )
-                      .catching(e)
+                      .catching(r("getErrorSafe")(e))
                       .sendLogs("socket-model-set-logout-state-failed");
                   });
               });
@@ -726,6 +726,7 @@ __d(
                   o("WAComms").stopComms());
               })
               .catch(function (e) {
+                var t = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
                     F ||
@@ -733,7 +734,7 @@ __d(
                         "[CRITICAL] unpairDevice failed, proceeding with local logout",
                       ])),
                   )
-                  .catching(e)
+                  .catching(t)
                   .verbose();
               });
           }),
@@ -751,7 +752,7 @@ __d(
                             "[socket model] failed to restart updater",
                           ])),
                       )
-                      .catching(e)
+                      .catching(r("getErrorSafe")(e))
                       .sendLogs("socket-model-failed-to-restart-updater");
                   });
               });

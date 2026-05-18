@@ -13835,7 +13835,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 241,
+        sampleRate: 191,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13900,7 +13900,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 50765,
+        sampleRate: 45740,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13915,7 +13915,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 319627,
+        sampleRate: 363389,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15059,7 +15059,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 26156,
+        sampleRate: 241338,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -15069,7 +15069,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 15508,
+        sampleRate: 13488,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -20862,6 +20862,11 @@ __d(
       217261851: {
         moduleName: "WHATSAPP_BUSINESS_AI_SMB",
         name: "BIZ_AI_BIZ_CHAT_THREAD",
+        sampleRate: 10,
+      },
+      217264885: {
+        moduleName: "WHATSAPP_BUSINESS_AI_SMB",
+        name: "BIZ_AI_CONSUMER_CHAT_THREAD",
         sampleRate: 10,
       },
       217265792: {
@@ -46966,7 +46971,7 @@ __d(
       614596609: {
         moduleName: "IG_ASSET_MANAGEMENT",
         name: "CREATE_ASSET_FILE",
-        sampleRate: 1,
+        sampleRate: 5,
       },
       614596610: {
         moduleName: "IG_ASSET_MANAGEMENT",
@@ -48374,6 +48379,11 @@ __d(
       650641409: {
         moduleName: "BCN_DEAR_ALGO_PERF",
         name: "COMPOSER_TO_PUSH_NOTIF",
+        sampleRate: 250,
+      },
+      650655550: {
+        moduleName: "BCN_DEAR_ALGO_PERF",
+        name: "PERSONALIZED_KEYWORD_CHIPS_QUERY",
         sampleRate: 250,
       },
       650982693: {
@@ -53046,6 +53056,11 @@ __d(
         moduleName: "CAA_AR",
         name: "AUTH_METHOD_TRY_ANOTHER_WAY",
         sampleRate: 200,
+      },
+      725099053: {
+        moduleName: "CAA_AR",
+        name: "SAVE_PASSWORD_INTERSTITIAL_WWW",
+        sampleRate: 1,
       },
       725099742: {
         moduleName: "CAA_AR",
@@ -66445,7 +66460,7 @@ __d(
       891429592: {
         moduleName: "WHATSAPP_WEB",
         name: "MEDIA_DOWNLOAD",
-        sampleRate: 1e3,
+        sampleRate: 600,
       },
       891429758: {
         moduleName: "WHATSAPP_WEB",

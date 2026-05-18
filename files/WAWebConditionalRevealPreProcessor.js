@@ -11,6 +11,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebScheduledMessagesGatingUtils",
     "WAWebScheduledMsgCrypto",
+    "WAWebScheduledMsgOrphanRevealKeyStore",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebScheduledMsgStore",
     "WAWebUserPrefsMeUser",
@@ -178,7 +179,9 @@ __d(
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = null;
           try {
-            ((a = yield W(n)),
+            ((a = yield o(
+              "WAWebScheduledMsgOrphanRevealKeyStore",
+            ).getOrphanRevealKeyByRevealKeyId(n)),
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -217,9 +220,9 @@ __d(
                 l,
               );
             return (
-              yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(
-                a.msgId,
-              ),
+              yield o(
+                "WAWebScheduledMsgOrphanRevealKeyStore",
+              ).deleteOrphanRevealKey(a.revealKeyId),
               o("WALogger").LOG(
                 C ||
                   (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -407,27 +410,12 @@ __d(
         );
       }
     }
-    function W(e) {
+    function W(e, t, n, r, o) {
       return q.apply(this, arguments);
     }
     function q() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebScheduledMsgRevealKeyStore").getOrphanKeys();
-          for (var n of t)
-            if (n.revealKeyId === e)
-              return { msgId: n.msgId, revealKey: n.revealKey };
-          return null;
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    function U(e, t, n, r, o) {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             try {
               var l = o("WAJids").validateChatJid(n);
@@ -465,10 +453,10 @@ __d(
             };
           },
         )),
-        V.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function H(e, t) {
+    function U(e, t) {
       if (t == null) return e;
       var n = e.map(function (e) {
         return babelHelpers.extends({}, e, { viewMode: t });
@@ -488,8 +476,8 @@ __d(
       );
     }
     ((l.preProcessConditionalRevealMessage = F),
-      (l.maybePreProcessConditionalRevealForReceive = U),
-      (l.applyScheduledMsgViewMode = H));
+      (l.maybePreProcessConditionalRevealForReceive = W),
+      (l.applyScheduledMsgViewMode = U));
   },
   98,
 );

@@ -1,13 +1,6 @@
 __d(
   "WAWebScheduledMsgRevealKeyStore",
-  [
-    "WATimeUtils",
-    "WAWebModelStorageUtils",
-    "WAWebScheduledMsgConstants",
-    "WAWebSchemaScheduledMsgRevealKey",
-    "asyncToGeneratorRuntime",
-    "countWhere",
-  ],
+  ["WAWebSchemaScheduledMsgRevealKey", "asyncToGeneratorRuntime", "countWhere"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -43,12 +36,12 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
+          var t,
+            n = o(
               "WAWebSchemaScheduledMsgRevealKey",
             ).getScheduledMsgRevealKeyTable(),
-            n = yield t.equals(["revealKeyId"], e);
-          for (var r of n) if (r.isOrphan === 0) return r;
-          return null;
+            r = yield n.equals(["revealKeyId"], e);
+          return (t = r[0]) != null ? t : null;
         })),
         m.apply(this, arguments)
       );
@@ -81,38 +74,16 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["scheduled-msg-reveal-key"],
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var r = n[0],
-                      o = yield r.get(e);
-                    o != null &&
-                      (e === t
-                        ? yield r.merge(e, { isOrphan: 0 })
-                        : (yield r.remove(e),
-                          yield r.createOrReplace(
-                            babelHelpers.extends({}, o, {
-                              msgId: t,
-                              isOrphan: 0,
-                            }),
-                          )));
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            );
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o(
+            "WAWebSchemaScheduledMsgRevealKey",
+          ).getScheduledMsgRevealKeyTable();
+          yield t.remove(e);
         })),
         y.apply(this, arguments)
       );
@@ -123,62 +94,12 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          yield t.remove(e);
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          return e.equals(["isOrphan"], 1);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = 86400,
-            t =
-              o("WAWebScheduledMsgConstants")
-                .SCHEDULED_MSG_ORPHAN_KEY_RETENTION_DAYS * e,
-            n = o("WATimeUtils").unixTime() - t,
-            r = o(
-              "WAWebSchemaScheduledMsgRevealKey",
-            ).getScheduledMsgRevealKeyTable(),
-            a = yield r.equals(["isOrphan"], 1),
-            i = [];
-          for (var l of a) l.createdAt < n && i.push(l.msgId);
-          return (i.length > 0 && (yield r.bulkRemove(i)), i.length);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield p(e);
           return r("countWhere")(t, function (e) {
             return e.status === "PENDING" || e.status === "FAILED";
           });
         })),
-        k.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.storeRevealKey = e),
@@ -186,11 +107,8 @@ __d(
       (l.getRevealKeyByRevealKeyId = d),
       (l.getRevealKeysForChat = p),
       (l.updateRevealKeyStatus = f),
-      (l.linkKeyToMessage = h),
-      (l.deleteRevealKey = C),
-      (l.getOrphanKeys = v),
-      (l.cleanupExpiredKeys = R),
-      (l.countPendingKeysForChat = E));
+      (l.deleteRevealKey = h),
+      (l.countPendingKeysForChat = C));
   },
   98,
 );

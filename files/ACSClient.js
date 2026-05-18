@@ -3,7 +3,6 @@ __d(
   [
     "ACSCachedTokenModule",
     "ACSTokenUtil",
-    "LSVoprfWasm",
     "Promise",
     "asyncToGeneratorRuntime",
   ],
@@ -239,30 +238,17 @@ __d(
         s = o("ACSTokenUtil").getCachedTokens(l, t, e.voprfWasm, e.voprfInfo);
       return s;
     }
-    function M(e, t, n, r) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o("LSVoprfWasm").LSVoprfWasm({
-                locateFile: o("LSVoprfWasm").locateFile,
-              }),
-              i = a.createCurveRistretto(),
-              l = a.createVoprfExpTwohashdh(i);
-            return {
-              projectName: e,
-              attributeIdentifier: t,
-              serverProvider: n,
-              storageManager: r,
-              voprfInfo: { curvePtr: i, voprfPtr: l },
-              voprfWasm: a,
-            };
-          },
-        )),
-        w.apply(this, arguments)
-      );
+    function M(e, t, n, r, o) {
+      var a = o.createCurveRistretto(),
+        i = o.createVoprfExpTwohashdh(a);
+      return {
+        projectName: e,
+        attributeIdentifier: t,
+        serverProvider: n,
+        storageManager: r,
+        voprfInfo: { curvePtr: a, voprfPtr: i },
+        voprfWasm: o,
+      };
     }
     ((l.ACSClientError = s),
       (l.loadACSServerConfig = c),

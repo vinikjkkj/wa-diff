@@ -87,6 +87,7 @@ __d(
       "AskMetaAI",
       "AskMetaAI1on1",
       "AskMetaAIGroup",
+      "MetaAISearchAskButton",
       "RefreshRestore",
     ]);
     i.ChatEntryPoint = e;

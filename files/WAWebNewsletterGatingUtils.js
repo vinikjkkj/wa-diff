@@ -705,38 +705,46 @@ __d(
       return (
         Tt() &&
         o("WAWebABProps").getABPropConfigValue(
-          "channel_status_forwarding_enabled",
+          "channel_status_resharing_enabled",
         )
       );
     }
     function xt() {
+      return (
+        Tt() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "channel_status_forwarding_enabled",
+        )
+      );
+    }
+    function $t() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_status_creation",
       );
     }
-    var $t = n("$InternalEnum")({
+    var Pt = n("$InternalEnum")({
       Disabled: 0,
       ProfileRing: 1,
       ThreadRing: 2,
       AllEntrypoints: 3,
     });
-    function Pt(e) {
+    function Nt(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_status_consumption_entrypoints",
         ) >= e
       );
     }
-    function Nt() {
-      return Tt() && Pt($t.ProfileRing);
-    }
     function Mt() {
-      return Tt() && Pt($t.ThreadRing);
+      return Tt() && Nt(Pt.ProfileRing);
     }
     function wt() {
-      return Tt() && Pt($t.AllEntrypoints);
+      return Tt() && Nt(Pt.ThreadRing);
     }
     function At() {
+      return Tt() && Nt(Pt.AllEntrypoints);
+    }
+    function Ft() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -868,12 +876,13 @@ __d(
       (l.isNewsletterAdminProfilesListEnabled = kt),
       (l.isChannelsInChatListEnabled = It),
       (l.isNewsletterStatusReceiverEnabled = Tt),
-      (l.isNewsletterStatusForwardEnabled = Dt),
-      (l.isNewsletterStatusCreationEnabled = xt),
-      (l.isNewsletterStatusProfileRingEnabled = Nt),
-      (l.isNewsletterStatusThreadRingEnabled = Mt),
-      (l.isNewsletterStatusAllEntrypointsEnabled = wt),
-      (l.isNewsletterTabPulseEnabled = At));
+      (l.isNewsletterStatusReshareEnabled = Dt),
+      (l.isNewsletterStatusForwardEnabled = xt),
+      (l.isNewsletterStatusCreationEnabled = $t),
+      (l.isNewsletterStatusProfileRingEnabled = Mt),
+      (l.isNewsletterStatusThreadRingEnabled = wt),
+      (l.isNewsletterStatusAllEntrypointsEnabled = At),
+      (l.isNewsletterTabPulseEnabled = Ft));
   },
   98,
 );

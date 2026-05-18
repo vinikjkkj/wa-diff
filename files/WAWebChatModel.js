@@ -78,7 +78,6 @@ __d(
     "WAWebLogoutReasonConstants",
     "WAWebMedia",
     "WAWebMobilePlatforms",
-    "WAWebMsgCollection",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
@@ -888,9 +887,6 @@ __d(
                 var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
                   n = e.getModelsArray().slice(0, t);
                 (e.remove(n, { silent: !0 }, !0),
-                  o("WAWebMsgCollection").MsgCollection.remove(n, {
-                    silent: !0,
-                  }),
                   (e.msgLoadState.noEarlierMsgs = !1));
               }
             }

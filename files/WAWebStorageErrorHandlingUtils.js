@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAStorageEstimator",
     "WAWebAppTracker",
+    "WAWebClearFalcoBufferApi",
     "WAWebEnvironment",
     "WAWebLocalStorage",
     "asyncToGeneratorRuntime",
@@ -18,8 +19,9 @@ __d(
       p,
       _ = 1048576,
       f = 1024 * 1024 * 1024,
-      g = "storage_recovery_app_reload";
-    function h() {
+      g = "storage_recovery_app_reload",
+      h = !1;
+    function y() {
       var t = window.location.search.includes(g);
       if (t)
         try {
@@ -44,7 +46,7 @@ __d(
           );
         }
     }
-    function y() {
+    function C() {
       try {
         var e =
           r("WAWebLocalStorage") == null
@@ -79,17 +81,17 @@ __d(
       }
       return window.location.search.includes(g);
     }
-    function C() {
+    function b() {
       var e = new URL(window.location.href);
       (e.searchParams.set(g, "1"),
         window.history.replaceState(null, "", e.toString()));
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAStorageEstimator").estimateStorage(),
             t = e.success,
             n = e.value;
@@ -99,34 +101,38 @@ __d(
             i = 5 * _;
           return r >= 0.95 || a < i;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       return (
         e.name === "QuotaExceededError" ||
         e.message.includes("QuotaExceededError")
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (S(e)) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (R(e) && !h) {
+            h = !0;
             var n = "",
               a = "";
             try {
-              var i = yield E();
+              var i = yield k();
               (i &&
                 (n = JSON.stringify(
                   babelHelpers.extends({}, i, {
                     win: r("WAWebEnvironment").isWindows,
-                    didReload: y(),
+                    didReload: C(),
                   }),
                 )),
-                (a = JSON.stringify(t != null ? t : {})));
+                (a = JSON.stringify(t != null ? t : {})),
+                yield o("WAWebClearFalcoBufferApi").clearFalcoBuffer({
+                  force: !0,
+                }));
             } catch (e) {
               o("WALogger").ERROR(
                 c ||
@@ -169,15 +175,15 @@ __d(
               .sendLogs("storage-quota-exceeded", { sampling: 0.01 });
           }
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
             n,
@@ -207,16 +213,16 @@ __d(
             s
           );
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    ((l.persistAppReloadMarker = h),
-      (l.didReloadAppForStorageRecovery = y),
-      (l.markAppReloadForStorageRecovery = C),
-      (l.isQuotaActuallyExceeded = b),
-      (l.isQuotaExceededError = S),
-      (l.reportQuotaExceededError = R),
-      (l.estimateStorageLogFormatted = E));
+    ((l.persistAppReloadMarker = y),
+      (l.didReloadAppForStorageRecovery = C),
+      (l.markAppReloadForStorageRecovery = b),
+      (l.isQuotaActuallyExceeded = v),
+      (l.isQuotaExceededError = R),
+      (l.reportQuotaExceededError = L),
+      (l.estimateStorageLogFormatted = k));
   },
   98,
 );

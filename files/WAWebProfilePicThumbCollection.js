@@ -26,6 +26,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "cr:17219",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -300,14 +301,14 @@ __d(
                     ),
                   )
                   .catch(function (e) {
-                    o("WALogger").WARN(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "ProfilePicThumbStore:resyncPictures dropped: ",
-                          "",
-                        ])),
-                      String(e),
-                    );
+                    o("WALogger")
+                      .WARN(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "ProfilePicThumbStore:resyncPictures dropped",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e));
                   });
           }),
           (i.findThumbnailWid = function (t) {

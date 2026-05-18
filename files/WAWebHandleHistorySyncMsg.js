@@ -12,6 +12,7 @@ __d(
     "WAWebSyncdOrphanWorkerCompatible",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -93,6 +94,7 @@ __d(
                 ),
               )
               .catch(function (e) {
+                var t = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
                     s ||
@@ -100,7 +102,7 @@ __d(
                         "[history sync] error occurred",
                       ])),
                   )
-                  .catching(e)
+                  .catching(t)
                   .sendLogs(
                     "handleProgressiveHistorySyncMsgs: error storing/processing multiple messages",
                   );

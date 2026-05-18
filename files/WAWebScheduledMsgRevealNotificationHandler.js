@@ -12,6 +12,7 @@ __d(
     "WAWebScheduledMessagesGatingUtils",
     "WAWebScheduledMsgDecryptInnerProto",
     "WAWebScheduledMsgExtractText",
+    "WAWebScheduledMsgOrphanRevealKeyStore",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
@@ -479,26 +480,19 @@ __d(
     function Y() {
       return (
         (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          o("WALogger").LOG(
+          (o("WALogger").LOG(
             $ ||
               ($ = babelHelpers.taggedTemplateLiteralLoose([
                 "[scheduled_msg][mex][reveal] no msg for rkid, storing orphan",
               ])),
-          );
-          var n = "orphan_" + e;
-          (yield o("WAWebScheduledMsgRevealKeyStore").storeRevealKey({
-            chatId: null,
-            encIv: new Uint8Array(0),
-            encPayload: new Uint8Array(0),
-            isOrphan: 1,
-            msgId: n,
-            revealKey: t,
-            revealKeyId: e,
-            scheduledTimestampS: o("WATimeUtils").castToUnixTime(0),
-            status: "PENDING",
-            createdAt: o("WATimeUtils").unixTime(),
-            senderJid: null,
-          }),
+          ),
+            yield o(
+              "WAWebScheduledMsgOrphanRevealKeyStore",
+            ).storeOrphanRevealKey({
+              revealKeyId: e,
+              revealKey: t,
+              createdAt: o("WATimeUtils").unixTime(),
+            }),
             o("WALogger").LOG(
               P ||
                 (P = babelHelpers.taggedTemplateLiteralLoose([

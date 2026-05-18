@@ -460,15 +460,15 @@ __d(
                 .handleStatusMessages(ae, e, U, q, ce)
                 .catch(function (e) {
                   throw (
-                    o("WALogger").LOG(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] storing status messages failed: ",
-                          "",
-                        ])),
-                      e,
-                    ),
-                    de("" + e),
+                    o("WALogger")
+                      .LOG(
+                        b ||
+                          (b = babelHelpers.taggedTemplateLiteralLoose([
+                            "[history sync] storing status messages failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e)),
+                    de(String(e)),
                     e
                   );
                 })
@@ -479,15 +479,15 @@ __d(
                   .handleNonBlockingData(ae, e, U, q, ce)
                   .catch(function (e) {
                     throw (
-                      o("WALogger").LOG(
-                        v ||
-                          (v = babelHelpers.taggedTemplateLiteralLoose([
-                            "[history sync] storing non blocking data failed: ",
-                            "",
-                          ])),
-                        e,
-                      ),
-                      de("" + e),
+                      o("WALogger")
+                        .LOG(
+                          v ||
+                            (v = babelHelpers.taggedTemplateLiteralLoose([
+                              "[history sync] storing non blocking data failed",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e)),
+                      de(String(e)),
                       e
                     );
                   })
@@ -526,15 +526,15 @@ __d(
               .handleInitialSyncMsgs(ae, e, me, U, q, ce, _e, ie)
               .catch(function (e) {
                 throw (
-                  o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] storing initial sync messages failed: ",
-                        "",
-                      ])),
-                    e,
-                  ),
-                  de("" + e),
+                  o("WALogger")
+                    .LOG(
+                      R ||
+                        (R = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync] storing initial sync messages failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e)),
+                  de(String(e)),
                   e
                 );
               });
@@ -547,15 +547,15 @@ __d(
               .handlePushName(ae, e, U, q, ce)
               .catch(function (e) {
                 throw (
-                  o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] storing initial pushname failed: ",
-                        "",
-                      ])),
-                    e,
-                  ),
-                  de("" + e),
+                  o("WALogger")
+                    .LOG(
+                      L ||
+                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync] storing initial pushname failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e)),
+                  de(String(e)),
                   e
                 );
               });

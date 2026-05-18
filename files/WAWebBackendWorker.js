@@ -9,7 +9,6 @@ __d(
     "WALogger",
     "WAResolvable",
     "WATransferableResult",
-    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebBackendEventBusWorker",
     "WAWebBackendEventBusWorkerCompatible",
@@ -28,7 +27,6 @@ __d(
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebHistorySyncBackendWorkerV2",
     "WAWebHistorySyncProgress",
-    "WAWebIdbAsyncAwaitConfig",
     "WAWebIdentityChangeApiWorker",
     "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebLogger",
@@ -398,13 +396,6 @@ __d(
           o("WAWebHistorySyncProgress").initHistorySyncProgressListeners(),
           o("WAWebWorkerQplProxy").initWorkerQplProxy(i),
           o("WAWebBackendWorkerABPropsCache").initializeWorkerABProps(i),
-          o("WAWebIdbAsyncAwaitConfig").setIsAsyncAwaitPrepEnabledImpl(
-            function () {
-              return o("WAWebABProps").getABPropConfigValue(
-                "wmi_async_await_prep",
-              );
-            },
-          ),
           o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.setSyncCallback(
             function (e) {
               switch (e.action) {

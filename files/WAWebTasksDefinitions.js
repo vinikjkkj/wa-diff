@@ -21,11 +21,11 @@ __d(
     "WAWebCanonicalCredentialRecoveryJob",
     "WAWebCanonicalGating",
     "WAWebCleanUtmJob",
+    "WAWebClearFalcoBufferJob",
     "WAWebContactSyncBridge",
     "WAWebDBPurgeExpiredRecords",
     "WAWebDBReportingTokenUtils",
     "WAWebDownloads3PDSignalsDatabaseApi",
-    "WAWebFalcoStorageClearJob",
     "WAWebFetchQuickPromotions",
     "WAWebFingerprintJob",
     "WAWebGalaxyFlowsUtils",
@@ -943,7 +943,7 @@ __d(
                                                                       return (
                                                                         e ||
                                                                           (yield o(
-                                                                            "WAWebFalcoStorageClearJob",
+                                                                            "WAWebClearFalcoBufferJob",
                                                                           ).clearFalcoBufferJob()),
                                                                         o(
                                                                           "WATimeUtils",

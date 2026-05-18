@@ -21,6 +21,7 @@ __d(
     "WAWebPREGatingUtils",
     "WAWebWebpParseWebp",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -232,7 +233,10 @@ __d(
               e instanceof o("WAWebMiscErrors").MediaEncryptionError
                 ? e
                 : new (o("WAWebMiscErrors").MediaEncryptionError)(
-                    "encryption error: " + String(e) + "; stack: " + e.stack,
+                    "encryption error: " +
+                      String(e) +
+                      "; stack: " +
+                      r("getErrorSafe")(e).stack,
                   )
             );
           })

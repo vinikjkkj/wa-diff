@@ -129,6 +129,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAISearchAskButton:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ForwardedAiBotMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Initialization:
