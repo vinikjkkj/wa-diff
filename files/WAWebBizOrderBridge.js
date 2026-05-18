@@ -20,7 +20,13 @@ __d(
       var s = o(
         "WAWebBusinessDirectConnectionBridge",
       ).attemptWithDirectConnectionRetry(t, function (e) {
-        return o("WAWebBizQueryOrderJob").queryOrder(r, a, i, l, e);
+        return o("WAWebBizQueryOrderJob").queryOrder({
+          directConnectionEncryptedInfo: e,
+          height: i,
+          orderId: r,
+          token: l,
+          width: a,
+        });
       });
       return s.then(function (e) {
         return (

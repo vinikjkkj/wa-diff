@@ -17,9 +17,10 @@ __d(
       u,
       c,
       d,
-      m = 4,
-      p = 5e3,
-      _ = (function () {
+      m,
+      p = 4,
+      _ = 5e3,
+      f = (function () {
         function t(e, n, r, o) {
           var a = t.rendererIdCounter++;
           this.$1 = a;
@@ -61,43 +62,57 @@ __d(
                 "WAWebVoipVideoRendererWorker",
               ),
               l = Date.now(),
-              m = !1;
+              p = !1,
+              f = !1;
             (i.onMessage.add(function () {
-              m ||
-                ((m = !0),
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: VideoRendererWorker first message received in ",
-                      "ms",
-                    ])),
-                  Date.now() - l,
-                ));
+              if (!p) {
+                p = !0;
+                var t = Date.now() - l;
+                f
+                  ? o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: VideoRendererWorker recovered after ",
+                          "ms (watchdog had fired)",
+                        ])),
+                      t,
+                    )
+                  : o("WALogger").LOG(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: VideoRendererWorker first message received in ",
+                          "ms",
+                        ])),
+                      t,
+                    );
+              }
             }),
               i.onError.add(function (e) {
-                o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: VideoRendererWorker port error: ",
-                      "",
-                    ])),
-                  (e == null ? void 0 : e.message) || String(e),
-                );
-              }));
-            var _ = window.setTimeout(function () {
-              m ||
+                var t;
                 o("WALogger").ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: VideoRendererWorker no reply in ",
-                      "ms (bundle fail?)",
+                      "voip: VideoRendererWorker port error: ",
+                      "",
                     ])),
-                  p,
+                  (t = e == null ? void 0 : e.message) != null ? t : String(e),
                 );
-            }, p);
+              }));
+            var g = window.setTimeout(function () {
+              p ||
+                ((f = !0),
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: VideoRendererWorker silent >",
+                      'ms (still waiting; watch for "recovered" or stays gray)',
+                    ])),
+                  _,
+                ));
+            }, _);
             return (
               i.addMessageListener("shutdown", function () {
-                window.clearTimeout(_);
+                window.clearTimeout(g);
                 var e = t.workerPool.get(i);
                 if (e != null) {
                   if (e.size > 0) return;
@@ -119,16 +134,16 @@ __d(
                     l.close();
                     return;
                   }
-                  var d = u.$2.getContext("bitmaprenderer");
-                  if (!d)
+                  var c = u.$2.getContext("bitmaprenderer");
+                  if (!c)
                     throw r("err")(
                       "Could not get bitmaprenderer context for " + s,
                     );
-                  d.transferFromImageBitmap(l);
+                  c.transferFromImageBitmap(l);
                 } catch (e) {
                   (o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererWorker: main thread render failed: ",
                         "",
                       ])),
@@ -147,8 +162,8 @@ __d(
                   ).videoRendererRegistry.requestKeyFrameForCanvas(l.$2);
                 } catch (e) {
                   o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererWorker: Failed to request key frame: ",
                         "",
                       ])),
@@ -178,7 +193,7 @@ __d(
                 o("WAWebVoipVideoRendererInterface")
                   .WAWebVoipVideoRendererThreadingMode.SINGLE_WORKER
                   ? 1 / 0
-                  : m;
+                  : p;
               for (var r of t.workerPool) {
                 var a = r[0],
                   i = r[1];
@@ -243,7 +258,7 @@ __d(
           t
         );
       })();
-    ((_.rendererIdCounter = 0), (_.workerPool = new Map()), (l.default = _));
+    ((f.rendererIdCounter = 0), (f.workerPool = new Map()), (l.default = f));
   },
   98,
 );

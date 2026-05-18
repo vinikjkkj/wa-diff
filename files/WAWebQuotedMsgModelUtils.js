@@ -12,12 +12,12 @@ __d(
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      var t = d(e);
+    var e, s;
+    function u(e) {
+      var t = c(e);
       return t ? o("WAWebMsgGetters").getIsSentByMe(t) : !1;
     }
-    function d(t) {
+    function c(t) {
       var n = o("WAWebStateUtils").unproxy(t);
       if (n.quotedMsgKey == null) {
         try {
@@ -49,7 +49,7 @@ __d(
       }
       var c;
       return (
-        n.quotedMsg ? (c = m(n)) : n.paymentRequestMessageKey && (c = p(n)),
+        n.quotedMsg ? (c = d(n)) : n.paymentRequestMessageKey && (c = m(n)),
         c == null
           ? null
           : ((n.quotedMsgKey = c.id),
@@ -58,13 +58,13 @@ __d(
             c)
       );
     }
-    function m(e) {
+    function d(e) {
       var t,
-        n = h(e),
+        n = g(e),
         a = e.quotedStanzaID,
         i = e.quotedRemoteJid ? e.quotedRemoteJid : e.id.remote,
-        l = y(e, i);
-      if (!n || !l || r("isStringNullOrEmpty")(a)) return null;
+        l = o("WAWebUserPrefsMeUser").getMeUserMatchingAddressingMode(i);
+      if (!n || r("isStringNullOrEmpty")(a)) return null;
       var s = o("WAWebUserPrefsMeUser").isMeAccount(n),
         u = s ? "out" : "in",
         c = {
@@ -86,16 +86,16 @@ __d(
             ((m.interactiveHeader = void 0), (m.isCarouselCard = !1)),
           m.safe());
     }
-    function p(e) {
+    function m(e) {
       var t,
         n,
-        r = h(e),
+        r = g(e),
         a =
           (t = e.paymentRequestMessageKey) != null && t.remote
             ? e.paymentRequestMessageKey.remote
             : e.id.remote,
-        i = y(e, a);
-      if (!e.paymentRequestMessageKey || !r || !i) return null;
+        i = o("WAWebUserPrefsMeUser").getMeUserMatchingAddressingMode(a);
+      if (!e.paymentRequestMessageKey || !r) return null;
       var l = e.paymentRequestMessageKey.fromMe,
         s = l ? "out" : "in",
         u =
@@ -123,55 +123,38 @@ __d(
         ? void 0
         : n.safe();
     }
-    function _(e) {
+    function p(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return t.quotedMsg == null ? t.quotedRemoteJid : null;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return t.quotedMsg == null ? t.quotedGroupSubject : null;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return t.quotedMsg == null ? t.quotedParentGroupJid : null;
     }
-    var h = function (t) {
-        return (
-          t.quotedParticipant == null &&
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "null quotedParticipant in quotedMsg",
-                  ])),
-              )
-              .sendLogs("null-quoted-participant"),
-          t.quotedParticipant
-        );
-      },
-      y = function (t, n) {
-        var e = n.isLid()
-          ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser()
-          : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-        return (
-          e == null &&
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "null meUser in quotedMsg",
-                  ])),
-              )
-              .sendLogs("null-me-user"),
-          e
-        );
-      };
-    ((l.isMyQuotedMsg = c),
-      (l.getQuotedMsgObj = d),
-      (l.createQuotedMsgObj = m),
-      (l.getQuotedMsgAdminGroupJid = _),
-      (l.getQuotedMsgAdminGroupSubject = f),
-      (l.getQuotedMsgAdminParentGroupJid = g));
+    var g = function (t) {
+      return (
+        t.quotedParticipant == null &&
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "null quotedParticipant in quotedMsg",
+                ])),
+            )
+            .sendLogs("null-quoted-participant"),
+        t.quotedParticipant
+      );
+    };
+    ((l.isMyQuotedMsg = u),
+      (l.getQuotedMsgObj = c),
+      (l.createQuotedMsgObj = d),
+      (l.getQuotedMsgAdminGroupJid = p),
+      (l.getQuotedMsgAdminGroupSubject = _),
+      (l.getQuotedMsgAdminParentGroupJid = f));
   },
   98,
 );

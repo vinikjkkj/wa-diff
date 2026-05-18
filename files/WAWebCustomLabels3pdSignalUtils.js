@@ -11,6 +11,7 @@ __d(
     "WAWebSessionStorage",
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXLabelAction",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -155,7 +156,7 @@ __d(
                         "getCustomLabel3pdEvent: failed to call GraphQL endpoint",
                       ])),
                   )
-                  .catching(e);
+                  .catching(r("getErrorSafe")(e));
               });
           }
         }

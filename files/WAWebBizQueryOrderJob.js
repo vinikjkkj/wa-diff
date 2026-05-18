@@ -86,25 +86,26 @@ __d(
           }
         );
       });
-    function m(e, t, n, r, o) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i) {
-            return (
-              i === void 0 && (i = null),
-              o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions()
-                ? (u || (u = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").E451)(),
-                  )
-                : o("WAWebBizGatingUtils").graphQLForGetOrderInfoEnabled()
-                  ? _(e, t, r, a, i)
-                  : g(e, t, r, a, i)
-            );
-          },
-        )),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.directConnectionEncryptedInfo,
+            r = t === void 0 ? null : t,
+            a = e.height,
+            i = e.orderId,
+            l = e.token,
+            s = e.width;
+          return o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions()
+            ? (u || (u = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").E451)(),
+              )
+            : o("WAWebBizGatingUtils").graphQLForGetOrderInfoEnabled()
+              ? _(i, s, a, l, r)
+              : g(i, s, a, l, r);
+        })),
         p.apply(this, arguments)
       );
     }

@@ -279,28 +279,22 @@ __d(
             i = a.fanout,
             l = a.msgId;
           if (i) {
-            var s,
-              u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              c =
-                u.isLid() &&
-                (s = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) != null
-                  ? s
-                  : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-              d = { wids: [c] },
-              m = yield o("WAWebDBDeviceListFanout").getFanOutList(d),
-              p = yield (b || (b = n("Promise"))).all(
-                m.map(function (e) {
+            var s = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+              u = { wids: [s] },
+              c = yield o("WAWebDBDeviceListFanout").getFanOutList(u),
+              d = yield (b || (b = n("Promise"))).all(
+                c.map(function (e) {
                   return r("WAWebMsgKey").newId();
                 }),
               );
-            return m.map(function (t, n) {
+            return c.map(function (t, n) {
               return {
                 id: new (r("WAWebMsgKey"))({
                   fromMe: !0,
                   remote: o(
                     "WAWebUserPrefsMeUser",
                   ).getMePnUserOrThrow_DO_NOT_USE(),
-                  id: p[n],
+                  id: d[n],
                 }),
                 to: t,
                 type: "protocol",
@@ -310,14 +304,14 @@ __d(
               };
             });
           }
-          var _ = new (r("WAWebMsgKey"))({
+          var m = new (r("WAWebMsgKey"))({
             fromMe: !0,
             remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
             id: l != null ? l : yield r("WAWebMsgKey").newId(),
           });
           return [
             {
-              id: _,
+              id: m,
               to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
                 o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
                   .user,

@@ -47,7 +47,8 @@ __d(
               });
               return;
             }
-            var l = o("WAWebJidToWid").chatJidToChatWid(i.value.from);
+            i.name;
+            var l = o("WAWebJidToWid").lidUserJidToUserLid(i.value.from);
             if (
               !o(
                 "WAWebLid1X1MigrationGating",
