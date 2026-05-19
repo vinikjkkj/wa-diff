@@ -29,6 +29,7 @@ __d(
     "WAWebKeepInChatMsgUtils",
     "WAWebMediaTypes",
     "WAWebMessageAssociation.flow",
+    "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
@@ -104,11 +105,13 @@ __d(
     function f(e, t, n) {
       if (!e.isBot()) return !0;
       if (o("WAWebBotUtils").isMetaAiBot(e))
-        return o("WAWebBotForwardCapability").canForwardMsgToMetaAi(t);
+        return o("WAWebBotForwardCapability").isMetaAiForwardRowVisibleForMsgs(
+          t,
+        );
       var r = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return (r == null ? void 0 : r.isDefault) !== !0
         ? !1
-        : o("WAWebBotForwardCapability").canForwardMsgToMetaAi(t);
+        : o("WAWebBotForwardCapability").isMetaAiForwardRowVisibleForMsgs(t);
     }
     function g(e, t) {
       return e.isNewsletter() ? !0 : t.hasMusicAnnotations !== !0;
@@ -442,7 +445,10 @@ __d(
       return (
         o("WAWebMsgGetters").getIsSentByMe(e) &&
         !e.isForwarded &&
-        e.local &&
+        (e.local ||
+          o(
+            "WAWebMessageEditGatingUtils",
+          ).isCrossDeviceMessageEditingEnabled()) &&
         i &&
         o("WAWebFrontendMsgGetters").getChat(e).canSend &&
         !o("WAWebFrontendMsgGetters").getChat(e).contact.isEnterprise

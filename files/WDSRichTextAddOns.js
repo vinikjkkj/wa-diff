@@ -99,18 +99,18 @@ __d(
     p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n = t.EndIcon,
-        o = t.endIconAriaLabel,
-        a = t.isDisabled,
-        i = t.loading,
-        l = t.onEndIconClick,
-        s = t.onSecondaryIconClick,
-        p = t.platform,
-        _ = t.SecondaryIcon,
+        o = t.SecondaryIcon,
+        a = t.endIconAriaLabel,
+        i = t.isDisabled,
+        l = t.loading,
+        s = t.onEndIconClick,
+        p = t.onSecondaryIconClick,
+        _ = t.platform,
         f = t.secondaryIconAriaLabel,
         g = t.suffix;
-      if (n == null && _ == null && g == null && i == null) return null;
+      if (n == null && o == null && g == null && l == null) return null;
       var h, y, C, b, v, S, R;
-      p === "android"
+      _ === "android"
         ? ((h = 24),
           (y = c.iconContainer),
           (C = c.EndIconContainer),
@@ -125,8 +125,8 @@ __d(
           (v = "Body2"));
       var L = [m.iconContainer, y, C],
         E = null;
-      _ != null &&
-        (s != null
+      o != null &&
+        (p != null
           ? (E = u.jsx(
               "div",
               babelHelpers.extends(
@@ -135,18 +135,18 @@ __d(
                 {
                   children: u.jsx(r("WDSButton.react"), {
                     variant: "borderless",
-                    size: p === "android" ? "medium" : "small",
-                    onPress: s,
-                    Icon: _,
+                    size: _ === "android" ? "medium" : "small",
+                    onPress: p,
+                    Icon: o,
                     xstyle: S,
                     "aria-label": f != null ? f : void 0,
                     widthMode: "fit",
-                    disabled: a === !0,
+                    disabled: i === !0,
                   }),
                 },
               ),
             ))
-          : (E = u.jsx(_, {
+          : (E = u.jsx(o, {
               colorName: "contentDefault",
               xstyle: [].concat(L, [R]),
               height: h,
@@ -154,7 +154,7 @@ __d(
             })));
       var k = null;
       return (
-        i === !0
+        l === !0
           ? (k = u.jsx(
               "div",
               babelHelpers.extends(
@@ -164,7 +164,7 @@ __d(
               ),
             ))
           : n != null &&
-            (l != null
+            (s != null
               ? (k = u.jsx(
                   "div",
                   babelHelpers.extends(
@@ -173,13 +173,13 @@ __d(
                     {
                       children: u.jsx(r("WDSButton.react"), {
                         variant: "borderless",
-                        size: p === "android" ? "medium" : "small",
-                        onPress: l,
+                        size: _ === "android" ? "medium" : "small",
+                        onPress: s,
                         Icon: n,
                         xstyle: S,
-                        "aria-label": o != null ? o : void 0,
+                        "aria-label": a != null ? a : void 0,
                         widthMode: "fit",
-                        disabled: a === !0,
+                        disabled: i === !0,
                       }),
                     },
                   ),
@@ -202,7 +202,7 @@ __d(
                   xstyle: [
                     m.textAffixes,
                     m.textSuffix,
-                    n == null && _ == null && b,
+                    n == null && o == null && b,
                   ],
                   children: g,
                 }),

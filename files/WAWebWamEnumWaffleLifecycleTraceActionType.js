@@ -1,0 +1,24 @@
+__d(
+  "WAWebWamEnumWaffleLifecycleTraceActionType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      NOT_APPLICABLE: 0,
+      SYNCD_BROADCAST: 1,
+      SYNCD_RECEIVED: 2,
+      SYNCD_RECEIVED_NO_EXISTING_ROW: 3,
+      SYNCD_RECEIVED_ALREADY_ACTIVE: 4,
+      SYNCD_RECEIVED_STATE_TRANSITION: 5,
+      NONCE_FETCH_INITIATED: 6,
+      NONCE_FETCH_DEDUPLICATED: 7,
+      REFRESH_TOKEN_INITIATED: 8,
+      REFRESH_TOKEN_DEDUPLICATED: 9,
+      REFRESH_TOKEN_SUCCESS: 10,
+      REFRESH_TOKEN_ERROR: 11,
+      PURGE: 12,
+      PING: 13,
+    });
+    i.WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE = e;
+  },
+  66,
+);

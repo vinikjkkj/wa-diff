@@ -24,19 +24,20 @@ __d(
       u,
       c,
       d,
-      m = "WhatsApp Web";
-    function p() {
-      return _.apply(this, arguments);
-    }
+      m,
+      p = "WhatsApp Web";
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")("js-flipper")
               .__setRef("WAWebDebugFlipper")
               .load(),
             t = e.flipperClient,
             a = !0;
-          t.start(m, {
+          t.start(p, {
             websocketFactory: function (t) {
               var e = new (r("ReconnectingWebSocket"))(t, void 0, {
                 reconnectInterval: 2e3,
@@ -48,7 +49,7 @@ __d(
             onError: r("WAWebNoop"),
             reconnectTimeout: 1e4,
           });
-          var i = yield (d || (d = n("Promise"))).all([
+          var i = yield (m || (m = n("Promise"))).all([
               o("WAComms").getComms(),
               r("WASmaxMocksWasm")({
                 instantiateWasm: function (t, n) {
@@ -65,8 +66,8 @@ __d(
                       })
                       .catch(function (e) {
                         o("WALogger").ERROR(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "[smax] ",
                               "",
                             ])),
@@ -81,27 +82,27 @@ __d(
             l = i[0],
             s = i[1];
           if (l == null) throw r("err")("[smax] Failed to get comms");
-          t.addPlugin(new h(l, s));
+          t.addPlugin(new y(l, s));
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")("js-flipper")
               .__setRef("WAWebDebugFlipper")
               .load(),
             t = e.flipperClient;
           t.stop();
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    var h = (function () {
+    var y = (function () {
         function t(e, t) {
           ((this.backend = null),
             (this.loggerId = null),
@@ -139,7 +140,7 @@ __d(
                     i.runnerPointer,
                   );
                 l.addSyncdKey(new Uint8Array(32));
-                var c = yield (d || (d = n("Promise"))).all([
+                var d = yield (m || (m = n("Promise"))).all([
                     o(
                       "WAWebSignalStoreApi",
                     ).waSignalStore.getRegistrationInfo(),
@@ -148,37 +149,46 @@ __d(
                     ),
                     o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
                   ]),
-                  m = c[0],
-                  p = c[1],
-                  _ = c[2];
-                if (
-                  (yield o(
-                    "WAWebSignalStoreApi",
-                  ).waSignalStore.markKeyAsUploaded(p.keyId),
-                  m == null || _ == null)
-                )
-                  throw r("err")("[smax] Registration info is null");
-                (l.processPreKeyBundle("alice", {
-                  registrationId: m.registrationId,
-                  identity: new Uint8Array(m.identityKeyPair.pubKey),
-                  preKeys: [
-                    {
-                      id: p.keyId,
-                      data: new Uint8Array(p.keyPair.pubKey),
-                      signature: null,
-                    },
-                  ],
-                  signedPreKey: {
-                    id: _.keyId,
-                    data: new Uint8Array(_.keyPair.pubKey),
-                    signature: new Uint8Array(_.signature),
-                  },
-                  privateIdentity: null,
-                }),
+                  p = d[0],
+                  _ = d[1],
+                  f = d[2],
+                  g = !1;
+                (p != null && f != null
+                  ? ((g = !0),
+                    yield o(
+                      "WAWebSignalStoreApi",
+                    ).waSignalStore.markKeyAsUploaded(_.keyId),
+                    l.processPreKeyBundle("alice", {
+                      registrationId: p.registrationId,
+                      identity: new Uint8Array(p.identityKeyPair.pubKey),
+                      preKeys: [
+                        {
+                          id: _.keyId,
+                          data: new Uint8Array(_.keyPair.pubKey),
+                          signature: null,
+                        },
+                      ],
+                      signedPreKey: {
+                        id: f.keyId,
+                        data: new Uint8Array(f.keyPair.pubKey),
+                        signature: new Uint8Array(f.signature),
+                      },
+                      privateIdentity: null,
+                    }))
+                  : (o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[smax] Signal keys not available - running in pre-pairing mode (plaintext stanza injection only)",
+                        ])),
+                    ),
+                    t.send("log", {
+                      message:
+                        "Signal keys not available. Running in pre-pairing mode: plaintext stanza injection works, but encrypted message mocks require pairing first.",
+                    })),
                   l.subscribe(function (e) {
                     if (e.type === "Injection") {
                       var t = o("WAWap").decodeStanzaDebug(e.data),
-                        i = (d || (d = n("Promise"))).resolve(
+                        i = (m || (m = n("Promise"))).resolve(
                           a.comms.handleStanza(
                             t,
                             a.comms.socketId,
@@ -190,8 +200,8 @@ __d(
                           return a.comms.castStanza(e);
                       }).catch(function (e) {
                         o("WALogger").ERROR(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
                               "[smax] ",
                               "",
                             ])),
@@ -204,24 +214,25 @@ __d(
                     return i.handleRpc(e);
                   }),
                   (this.backend = i),
-                  (this.comms.config.handlers.onBeforeCastStanzaForE2E =
-                    function (e) {
-                      try {
-                        var n = o("WAWap").encodeStanza(e);
-                        return (l.match(n), []);
-                      } catch (e) {
-                        var a = r("getErrorSafe")(e);
-                        (o("WALogger").WARN(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "[smax] ",
-                              "",
-                            ])),
-                          a,
-                        ),
-                          t.send("log", { message: a.message }));
-                      }
-                    }),
+                  g &&
+                    (this.comms.config.handlers.onBeforeCastStanzaForE2E =
+                      function (e) {
+                        try {
+                          var n = o("WAWap").encodeStanza(e);
+                          return (l.match(n), []);
+                        } catch (e) {
+                          var a = r("getErrorSafe")(e);
+                          (o("WALogger").WARN(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                                "[smax] ",
+                                "",
+                              ])),
+                            a,
+                          ),
+                            t.send("log", { message: a.message }));
+                        }
+                      }),
                   (this.loggerId = o("WASmaxMockRunner")
                     .getSmaxLogEmitter(this.wasmModule)
                     .subscribe(function (e) {
@@ -249,8 +260,8 @@ __d(
           t
         );
       })(),
-      y = { enableFlipperConnection: p, disableFlipperConnection: f };
-    l.default = y;
+      C = { enableFlipperConnection: _, disableFlipperConnection: g };
+    l.default = C;
   },
   98,
 );

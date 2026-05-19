@@ -13,11 +13,11 @@ __d(
               variables: {
                 draftID: t.draft_id,
                 input: {
-                  page_id: t.page_id,
-                  flow_id: t.flow_id,
-                  product: "BOOSTED_MESSAGE",
                   ad_account_id: t.ad_account_id,
                   boost_id: t.boost_id,
+                  flow_id: t.flow_id,
+                  page_id: t.page_id,
+                  product: "BOOSTED_MESSAGE",
                 },
                 isFBAccount: t.ad_account_type === "FB",
                 isWAAccount: t.ad_account_type === "WAA",

@@ -132,7 +132,6 @@ __d(
     }
     ((l.KnowledgeStep = e),
       (l.MAX_PREVIEW_ITEMS = u),
-      (l.getKnowledgeTypeLabel = c),
       (l.fetchFaqItems = d),
       (l.fetchSourceItems = p),
       (l.getCachedProductData = g),

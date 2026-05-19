@@ -66,15 +66,10 @@ __d(
           var e,
             n = t.loggerContext;
           return {
-            event: "render_warning_message",
-            codebase: n == null ? void 0 : n.codebase,
-            product: n.product,
-            platform: n.platform,
-            entry_point: n.entryPoint,
-            flow: n == null ? void 0 : n.flow,
-            flow_id: n.flowID,
-            page_id: o("WAWebBizAdLoggerUtils").toInt64(n.pageID),
             ad_account_id: o("WAWebBizAdLoggerUtils").toInt64(t.adAccountID),
+            codebase: n == null ? void 0 : n.codebase,
+            entry_point: n.entryPoint,
+            event: "render_warning_message",
             extra_data: o("WAWebBizAdLoggerUtils").convertExtraData(
               babelHelpers.extends({}, (e = t.extra) != null ? e : {}, {
                 message_type: t.messageType,
@@ -82,6 +77,11 @@ __d(
                 spec_element: t.specElement,
               }),
             ),
+            flow: n == null ? void 0 : n.flow,
+            flow_id: n.flowID,
+            page_id: o("WAWebBizAdLoggerUtils").toInt64(n.pageID),
+            platform: n.platform,
+            product: n.product,
             wa_ad_account_type: n == null ? void 0 : n.waAdAccountType,
           };
         },

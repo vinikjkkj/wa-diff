@@ -11,6 +11,7 @@ __d(
       "VoipUiDebug",
       "VoipWasmSamples",
       "TeeDebugInspector",
+      "MetaConfig",
     ]);
     i.DeveloperMenu = e;
   },

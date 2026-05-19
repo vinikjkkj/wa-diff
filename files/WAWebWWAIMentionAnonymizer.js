@@ -3,8 +3,9 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = "__MENTION_",
-      l = /__MENTION_(\d+)__/g;
-    function s(t, n) {
+      l = /__MENTION_(\d+)__/g,
+      s = /\b[\w.+-]+@(?:lid|s\.whatsapp\.net|c\.us)\b/g;
+    function u(t, n) {
       var r = new Map(),
         o = t,
         a = n.map(function (e, t) {
@@ -15,18 +16,26 @@ __d(
       });
       for (var i of a) {
         var l = i[0],
-          s = i[1],
-          u = "" + e + l + "__";
-        r.set(String(l), s);
-        var d = c(s.split("@")[0]);
+          u = i[1],
+          c = "" + e + l + "__";
+        r.set(String(l), u);
+        var m = d(u.split("@")[0]);
         o = o.replace(
-          new RegExp("(^|[^A-Za-z0-9])@" + d + "(?!\\d)", "g"),
-          "$1" + u,
+          new RegExp("(^|[^A-Za-z0-9])@" + m + "(?!\\d)", "g"),
+          "$1" + c,
         );
       }
-      return { text: o, mentionMap: r };
+      var p = n.length;
+      return (
+        (o = o.replace(s, function (t) {
+          if (t.includes(e)) return t;
+          var n = "" + e + p + "__";
+          return (r.set(String(p), t), p++, n);
+        })),
+        { text: o, mentionMap: r }
+      );
     }
-    function u(e, t) {
+    function c(e, t) {
       return t.size === 0
         ? e
         : e.replace(l, function (e, n) {
@@ -34,10 +43,10 @@ __d(
             return r != null ? "@" + r.split("@")[0] : e;
           });
     }
-    function c(e) {
+    function d(e) {
       return e.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     }
-    ((i.anonymizeMentions = s), (i.restoreMentions = u));
+    ((i.anonymizeMentions = u), (i.restoreMentions = c));
   },
   66,
 );

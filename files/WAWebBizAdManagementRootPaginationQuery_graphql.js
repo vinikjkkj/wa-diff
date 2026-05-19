@@ -395,7 +395,7 @@ __d(
             {
               args: t,
               kind: "FragmentSpread",
-              name: "WAWebBizAdManagementRoot_query",
+              name: "WAWebBizAdManagementRootContent_query",
             },
           ],
           type: "Query",

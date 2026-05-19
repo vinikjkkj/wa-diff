@@ -7,30 +7,30 @@ __d(
     "WAWebTeeEnums",
     "WAWebTeeRequestBuilder",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
+      c = new Set([
+        (u = o("WAWebTeeEnums")).TEEResponseStatus.SUCCESS,
+        u.TEEResponseStatus.SUCCESS_NO_RESPONSE,
+        u.TEEResponseStatus.SUCCESS_RATE_LIMITED,
+      ]),
       d = new Set([
-        (c = o("WAWebTeeEnums")).TEEResponseStatus.SUCCESS,
-        c.TEEResponseStatus.SUCCESS_NO_RESPONSE,
-        c.TEEResponseStatus.SUCCESS_RATE_LIMITED,
+        u.TEEResponseStatus.FAILED_LOW_CONFIDENCE,
+        u.TEEResponseStatus.FAILED_TOO_MANY_TOKENS,
+        u.TEEResponseStatus.FAILED_VIOLATION,
+        u.TEEResponseStatus.FAILED_UNKNOWN,
+        u.TEEResponseStatus.FAILURE_NO_RESPONSE,
+        u.TEEResponseStatus.FAILED_CANNED_RESPONSE,
       ]),
-      m = new Set([
-        c.TEEResponseStatus.FAILED_LOW_CONFIDENCE,
-        c.TEEResponseStatus.FAILED_TOO_MANY_TOKENS,
-        c.TEEResponseStatus.FAILED_VIOLATION,
-        c.TEEResponseStatus.FAILED_UNKNOWN,
-        c.TEEResponseStatus.FAILURE_NO_RESPONSE,
-        c.TEEResponseStatus.FAILED_CANNED_RESPONSE,
-      ]),
-      p = (function () {
+      m = (function () {
         function t() {}
-        var r = t.prototype;
+        var a = t.prototype;
         return (
-          (r.sendRequest = function (t) {
+          (a.sendRequest = function (t) {
             var e = o("WAWebTeeRequestBuilder").buildWriteWithAIRequest(
               t.text,
               t.tone,
@@ -38,7 +38,7 @@ __d(
             );
             return this.$1(e, t);
           }),
-          (r.isAvailable = function () {
+          (a.isAvailable = function () {
             try {
               return o("WAWebTeeClientProvider").getClient() != null;
             } catch (t) {
@@ -55,63 +55,50 @@ __d(
               );
             }
           }),
-          (r.getName = function () {
+          (a.getName = function () {
             return "TeeWWAITransport";
           }),
-          (r.$1 = (function () {
+          (a.$1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var n = o("WAWebTeeClientProvider").getClient(),
-                  r = n.sendRequest(e),
-                  a = [],
-                  i = !0,
-                  l = !1,
-                  c = !1,
+                  a = n.sendRequest(e),
+                  i = [],
+                  l = new Set(),
+                  u = !1,
+                  m = !1,
                   p;
                 try {
                   for (
-                    var _ = babelHelpers.asyncIterator(r), f;
-                    (l = !(f = yield _.next()).done);
-                    l = !1
+                    var _ = babelHelpers.asyncIterator(a), f;
+                    (u = !(f = yield _.next()).done);
+                    u = !1
                   ) {
                     var g = f.value;
                     {
                       var h = g.common_metadata.status,
                         y = g.wwai_response;
                       if (y != null && y.suggestions.length > 0)
-                        for (var C of y.suggestions) a.includes(C) || a.push(C);
-                      if (d.has(h)) {
-                        i = !1;
-                        break;
-                      }
-                      if (m.has(h)) {
-                        (o("WALogger")
-                          .WARN(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "[WWAI][TEE] Request failed with status ",
-                                "",
-                              ])),
-                            String(h),
-                          )
-                          .sendLogs("wwai-tee-request-failed"),
-                          (i = !1));
-                        break;
-                      }
+                        for (var C of y.suggestions)
+                          l.has(C) || (l.add(C), i.push(C));
+                      if (c.has(h)) break;
+                      if (d.has(h))
+                        throw r("err")(
+                          "TEE request failed with status " + String(h),
+                        );
                     }
                   }
                 } catch (e) {
-                  ((c = !0), (p = e));
+                  ((m = !0), (p = e));
                 } finally {
                   try {
-                    l && _.return != null && (yield _.return());
+                    u && _.return != null && (yield _.return());
                   } finally {
-                    if (c) throw p;
+                    if (m) throw p;
                   }
                 }
-                i = !1;
                 var b = o("WATimeUtils").unixTime(),
-                  v = a.map(function (e, n) {
+                  v = i.map(function (e, n) {
                     return {
                       text: e,
                       tone: t.tone,
@@ -121,14 +108,14 @@ __d(
                   });
                 return (
                   o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "[WWAI][TEE] Received ",
                         " suggestions",
                       ])),
                     String(v.length),
                   ),
-                  { suggestions: v, requestId: t.requestId, inProgress: i }
+                  { suggestions: v, requestId: t.requestId, inProgress: !1 }
                 );
               },
             );
@@ -140,7 +127,7 @@ __d(
           t
         );
       })();
-    l.default = p;
+    l.default = m;
   },
   98,
 );

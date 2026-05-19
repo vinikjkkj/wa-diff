@@ -1,55 +1,64 @@
 __d(
   "WAWebWamSmbListEventReporter",
   [
+    "WAWebGetSharedSessionId",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
     "WAWebListsLogging",
     "WAWebMobilePlatforms",
     "WAWebSmbListEventWamEvent",
+    "WAWebUnifiedSession",
     "WAWebWamEnumListType",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e,
+      s =
+        (e = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId()) !=
+        null
+          ? e
+          : o("WAWebGetSharedSessionId").getSharedSessionId();
+    function u(e) {
       if (
         !(
           !o("WAWebMobilePlatforms").isSMB() ||
           !o("WAWebListsGatingUtils").isListsEnabled()
         )
       ) {
+        e.appSessionId = s;
         var t = new (o("WAWebSmbListEventWamEvent").SmbListEventWamEvent)(e);
         t.commit();
       }
     }
-    function s(t) {
-      var n = t.bulkLabeling,
-        r = t.currentListState,
-        a = t.customListTitle,
-        i = t.entryPointConversionSource,
-        l = t.labelOperation,
-        s = t.labelTarget,
-        u = t.lastMessageDirection,
-        c = t.listId,
-        d = t.listIndex,
-        m = t.listsApplied,
-        p = t.listsRemoved,
-        _ = t.messageDepth,
-        f = t.predefinedId,
-        g = t.threadIdHmac,
-        h = t.updateEntryPoint,
-        y = { labelOperation: l };
+    function c(e) {
+      var t = e.bulkLabeling,
+        n = e.currentListState,
+        r = e.customListTitle,
+        a = e.entryPointConversionSource,
+        i = e.labelOperation,
+        l = e.labelTarget,
+        s = e.lastMessageDirection,
+        c = e.listId,
+        d = e.listIndex,
+        m = e.listsApplied,
+        p = e.listsRemoved,
+        _ = e.messageDepth,
+        f = e.predefinedId,
+        g = e.threadIdHmac,
+        h = e.updateEntryPoint,
+        y = { labelOperation: i };
       if (
         (h != null && (y.updateEntryPoint = h),
-        s != null && (y.labelTarget = s),
+        l != null && (y.labelTarget = l),
         g != null && (y.threadIdHmac = g),
         d != null && (y.listIndex = d),
-        r != null && (y.currentListState = r),
-        n != null && (y.bulkLabeling = n),
-        a != null && (y.customListTitle = a),
+        n != null && (y.currentListState = n),
+        t != null && (y.bulkLabeling = t),
+        r != null && (y.customListTitle = r),
         m != null && (y.listsApplied = m),
         p != null && (y.listsRemoved = p),
-        i != null && (y.entryPointConversionSource = i),
+        a != null && (y.entryPointConversionSource = a),
         _ != null && (y.messageDepth = _),
-        u != null && (y.lastMessageDirection = u),
+        s != null && (y.lastMessageDirection = s),
         c != null)
       ) {
         y.listId = c;
@@ -73,9 +82,9 @@ __d(
         y.predefinedId != null &&
           y.predefinedId > 0 &&
           (y.listType = o("WAWebWamEnumListType").LIST_TYPE.PREDEFINED),
-        e(y));
+        u(y));
     }
-    l.logSmbListEvent = s;
+    l.logSmbListEvent = c;
   },
   98,
 );

@@ -94,10 +94,10 @@ __d(
                             "PhaseOneResolver: retry queryLinkedPagesInfo also failed",
                           ),
                         {
-                          fbPageId: null,
-                          waPageId: null,
                           fbPageHasCreatedAd: !1,
+                          fbPageId: null,
                           waAdsIdentityPageHasCreatedAd: !1,
+                          waPageId: null,
                         }
                       );
                     }),

@@ -71,6 +71,10 @@ __d(
         billing_add_pm_ranking: {
           params: { should_rank: e, should_rank_all: e, should_show_badge: e },
         },
+        billing_add_pm_ranking__logging: {
+          params: { dummy_param: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_auto_reload_failed_v2__logging: {
           params: { dummy_param: e },
           type: "PAYMENT_ACCOUNT",
@@ -363,9 +367,6 @@ __d(
         wizard_preloading_refactor_add_pm__logging: {
           params: { dummy_param: e },
           type: "PAYMENT_ACCOUNT",
-        },
-        xmds_web_billing_address_typeahead_enablement__logging: {
-          params: { dummy_param: e },
         },
       },
       c = r("getBillingQEUniverses")(u);

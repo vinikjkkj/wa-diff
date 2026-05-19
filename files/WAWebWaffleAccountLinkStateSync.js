@@ -10,16 +10,18 @@ __d(
     "WAWebAccountLinkingUtils",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
+    "WAWebWaffleLifecycleWamLogger",
+    "WAWebWamEnumWaffleLifecycleLinkStateType",
+    "WAWebWamEnumWaffleLifecycleTraceActionType",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      u = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       ),
-      d = (function (t) {
+      c = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -46,7 +48,7 @@ __d(
                   a,
                   i = 0,
                   l = 0,
-                  d = t.map(function (e) {
+                  c = t.map(function (e) {
                     var t;
                     return e.operation !== "set"
                       ? (i++,
@@ -88,46 +90,73 @@ __d(
                     ),
                   a != null)
                 ) {
-                  var m,
-                    p,
-                    _ = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
+                  var d,
+                    m,
+                    p = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
                       r("WANullthrows")(
-                        (m = a.value.waffleAccountLinkStateAction) == null
+                        (d = a.value.waffleAccountLinkStateAction) == null
                           ? void 0
-                          : m.linkState,
+                          : d.linkState,
                       ),
                     ),
-                    f = Number(
+                    _ = Number(
                       r("WANullthrows")(
-                        (p = a) == null ? void 0 : p.value.timestamp,
+                        (m = a) == null ? void 0 : m.value.timestamp,
                       ),
                     );
                   if (
-                    _ ===
+                    p ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Active
                   ) {
-                    var g = yield c.getAccountLinkingData();
-                    g == null
-                      ? (yield this.storeLinkState(_, f),
+                    var f = yield u.getAccountLinkingData();
+                    f == null
+                      ? (o("WAWebWaffleLifecycleWamLogger").logSyncdReceived({
+                          hasAccessToken: !1,
+                          hasExistingRow: !1,
+                          linkState: o(
+                            "WAWebWamEnumWaffleLifecycleLinkStateType",
+                          ).WAFFLE_LIFECYCLE_LINK_STATE_TYPE.NOT_APPLICABLE,
+                          traceAction: o(
+                            "WAWebWamEnumWaffleLifecycleTraceActionType",
+                          ).WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE
+                            .SYNCD_RECEIVED_NO_EXISTING_ROW,
+                        }),
+                        yield this.storeLinkState(p, _),
                         yield o(
                           "WAWebAccountLinkingNonceFetchAPI",
                         ).requestNonceFromPrimary())
-                      : g.linkState !==
+                      : f.linkState !==
                           o("WAWebAccountLinkingConstants").AccountLinkState
                             .Active
-                        ? (yield this.storeLinkState(_, f),
+                        ? (o("WAWebWaffleLifecycleWamLogger").logSyncdReceived({
+                            hasAccessToken: f.accesstoken != null,
+                            hasExistingRow: !0,
+                            linkState: o(
+                              "WAWebWaffleLifecycleWamLogger",
+                            ).mapLinkStateToWam(f.linkState),
+                            traceAction: o(
+                              "WAWebWamEnumWaffleLifecycleTraceActionType",
+                            ).WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE
+                              .SYNCD_RECEIVED_STATE_TRANSITION,
+                          }),
+                          yield this.storeLinkState(p, _),
                           yield o(
                             "WAWebAccountLinkingNonceFetchAPI",
                           ).requestNonceFromPrimary())
-                        : o("WALogger").LOG(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "[WAFFLE-TRACE] syncd: already Active, skipping nonce fetch",
-                              ])),
-                          );
+                        : o("WAWebWaffleLifecycleWamLogger").logSyncdReceived({
+                            hasAccessToken: f.accesstoken != null,
+                            hasExistingRow: !0,
+                            linkState: o(
+                              "WAWebWamEnumWaffleLifecycleLinkStateType",
+                            ).WAFFLE_LIFECYCLE_LINK_STATE_TYPE.ACTIVE,
+                            traceAction: o(
+                              "WAWebWamEnumWaffleLifecycleTraceActionType",
+                            ).WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE
+                              .SYNCD_RECEIVED_ALREADY_ACTIVE,
+                          });
                   }
                 }
-                return d;
+                return c;
               },
             );
             function a(e) {
@@ -136,7 +165,7 @@ __d(
             return a;
           })()),
           (i.storeLinkState = function (t, n) {
-            return c.createOrUpdateAccountLinkingState({
+            return u.createOrUpdateAccountLinkingState({
               accountLinkKey: o("WAWebAccountLinkingConstants").AccountLinkKey,
               linkState: t,
               linkTimestamp: n,
@@ -145,8 +174,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      m = new d();
-    l.default = m;
+      d = new c();
+    l.default = d;
   },
   98,
 );

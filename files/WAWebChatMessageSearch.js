@@ -2,6 +2,7 @@ __d(
   "WAWebChatMessageSearch",
   [
     "WANullthrows",
+    "WAWebBizAiAgentStatusUtils",
     "WAWebChatAssignmentUtils",
     "WAWebChatConstants",
     "WAWebChatGetters",
@@ -16,6 +17,7 @@ __d(
     "WAWebMessageAssociation.flow",
     "WAWebMsgCollection",
     "WAWebMsgCountReporter",
+    "WAWebProtobufsE2E.pb",
     "WAWebStateUtils",
     "WAWebThreadModelResolver",
     "WAWebViewMode.flow",
@@ -24,7 +26,8 @@ __d(
     "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e;
+    function s(e) {
       var t,
         n,
         a,
@@ -120,7 +123,7 @@ __d(
       }
       return { collection: y, msg: d, key: m, highlightMsg: !0 };
     }
-    function s(e) {
+    function u(e) {
       var t = e.chat,
         n = e.count,
         r = e.page,
@@ -143,11 +146,11 @@ __d(
       }
       return o("WAWebMsgCollection").MsgCollection.search(i, a, n, l.id);
     }
-    function u(e) {
+    function c(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       t.ftsCache = {};
     }
-    function c(e) {
+    function d(e) {
       return (
         (!!o("WAWebChatGetters").getHasUnread(e) &&
           !o("WAWebChatGetters").getIsBroadcast(e)) ||
@@ -156,60 +159,102 @@ __d(
           e.unopenedByAssignedAgent)
       );
     }
-    function d(e, t) {
+    function m(e) {
+      return (
+        o("WAWebFrontendContactGetters").getIsMyContact(e.contact) &&
+        !o("WAWebContactGetters").getIsGroup(e.contact) &&
+        !o("WAWebChatGetters").getIsBroadcast(e)
+      );
+    }
+    function p(e) {
+      return (
+        !o("WAWebFrontendContactGetters").getIsMyContact(e.contact) &&
+        !o("WAWebContactGetters").getIsGroup(e.contact) &&
+        !o("WAWebChatGetters").getIsBroadcast(e)
+      );
+    }
+    function _(e) {
+      var t,
+        n = (t = e.groupMetadata) == null ? void 0 : t.groupType;
+      return (
+        o("WAWebContactGetters").getIsGroup(e.contact) &&
+        (n === o("WAWebGroupType").GroupType.COMMUNITY ||
+          n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
+          n === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+          n === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
+      );
+    }
+    function f(e) {
+      return (
+        e.capiThreadControl ===
+          o("WAWebProtobufsE2E.pb")
+            .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+            .CONTROL_PASSED &&
+        o("WAWebBizAiAgentStatusUtils").shouldShowAiChipsForChat(e)
+      );
+    }
+    var g = new Map([
+      [(e = o("WAWebChatSearchFilters")).SearchFilters.UNREAD, d],
+      [
+        e.SearchFilters.FAVORITES,
+        function (e) {
+          return e.isFavorite;
+        },
+      ],
+      [
+        e.SearchFilters.CHANNELS,
+        function (e) {
+          var t;
+          return (
+            ((t = e.newsletterMetadata) == null
+              ? void 0
+              : t.isSubscribedOrOwned) === !0 && !e.archive
+          );
+        },
+      ],
+      [e.SearchFilters.CONTACT, m],
+      [e.SearchFilters.NON_CONTACT, p],
+      [
+        e.SearchFilters.ASSIGNED_TO_YOU,
+        function (e) {
+          return (
+            o("WAWebChatAssignmentUtils").canAssignChats() && e.isAssignedToMe
+          );
+        },
+      ],
+      [e.SearchFilters.COMMUNITY, _],
+      [
+        e.SearchFilters.AI_RESPONDING,
+        function (e) {
+          return (
+            e.capiThreadControl ===
+              o("WAWebProtobufsE2E.pb")
+                .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                .CONTROL_TAKEN &&
+            o("WAWebBizAiAgentStatusUtils").shouldShowAiChipsForChat(e)
+          );
+        },
+      ],
+      [e.SearchFilters.AI_HANDOFF, f],
+    ]);
+    function h(e, t) {
       t === void 0 && (t = {});
       var n = o("WAWebStateUtils").unproxy(e);
       if (r("isEmptyObject")(t)) return !0;
-      if (t.label) return n.labels != null && n.labels.includes(t.label);
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.UNREAD)
-        return c(n);
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.FAVORITES)
-        return n.isFavorite;
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.CHANNELS) {
-        var a;
-        return (
-          ((a = n.newsletterMetadata) == null
-            ? void 0
-            : a.isSubscribedOrOwned) === !0 && !n.archive
-        );
-      }
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.CONTACT)
-        return (
-          o("WAWebFrontendContactGetters").getIsMyContact(n.contact) &&
-          !o("WAWebContactGetters").getIsGroup(n.contact) &&
-          !o("WAWebChatGetters").getIsBroadcast(n)
-        );
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.NON_CONTACT)
-        return (
-          !o("WAWebFrontendContactGetters").getIsMyContact(n.contact) &&
-          !o("WAWebContactGetters").getIsGroup(n.contact) &&
-          !o("WAWebChatGetters").getIsBroadcast(n)
-        );
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.ASSIGNED_TO_YOU)
-        return (
-          o("WAWebChatAssignmentUtils").canAssignChats() && n.isAssignedToMe
-        );
-      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.COMMUNITY) {
-        var i,
-          l = (i = n.groupMetadata) == null ? void 0 : i.groupType;
-        return (
-          o("WAWebContactGetters").getIsGroup(n.contact) &&
-          (l === o("WAWebGroupType").GroupType.COMMUNITY ||
-            l === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
-            l === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-            l === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
-        );
-      }
-      var s = o("WAWebFrontendChatGetters").getKind(n);
+      if (t.label != null && t.label !== "")
+        return n.labels != null && n.labels.includes(t.label);
+      var a = t.kind != null ? g.get(t.kind) : null;
+      if (a != null) return a(n);
+      var i = o("WAWebFrontendChatGetters").getKind(n);
       return (
-        s != null &&
-        t.kind === o("WAWebChatSearchFilters").SearchFilters.cast(s)
+        i != null &&
+        t.kind === o("WAWebChatSearchFilters").SearchFilters.cast(i)
       );
     }
-    ((l.getSearchContext = e),
-      (l.fts = s),
-      (l.clearFtsCache = u),
-      (l.matchFilter = d));
+    ((l.getSearchContext = s),
+      (l.fts = u),
+      (l.clearFtsCache = c),
+      (l.matchFilter = h));
   },
   98,
 );

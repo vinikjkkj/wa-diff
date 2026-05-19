@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WATimeUtils",
     "WAWebAgentCollection",
+    "WAWebBizAiAgentStatusUtils",
     "WAWebBizChatAssignmentOpenedAction",
     "WAWebBizGatingUtils",
     "WAWebChatAssignmentCollection",
@@ -174,26 +175,27 @@ __d(
             n = e.chatId,
             r = e.timestamp,
             a = o("WAWebChatCollection").ChatCollection.get(n);
-          o("WAWebHandleSingleMsgWorkerCompatible")
-            .handleSingleMsg({
-              chatId: n,
-              newMsg: o(
-                "WAWebChatAssignmentSystemMsg",
-              ).genChatAssignmentNotificationTemplateMsg(n, t, r),
-              handleSingleMsgOrigin: "chatAssignmentSystemMsg",
-            })
-            .then(function () {
-              a != null &&
-                o(
-                  "WAWebChatAssignmentLogEvents",
-                ).logSystemMessageGeneratedFromCompanion(a);
-            })
-            .catch(function () {
-              a != null &&
-                o(
-                  "WAWebChatAssignmentLogEvents",
-                ).logSystemMessageFailedToGenerate(a);
-            });
+          (a != null && o("WAWebBizAiAgentStatusUtils").isChatAiEnabled(a)) ||
+            o("WAWebHandleSingleMsgWorkerCompatible")
+              .handleSingleMsg({
+                chatId: n,
+                newMsg: o(
+                  "WAWebChatAssignmentSystemMsg",
+                ).genChatAssignmentNotificationTemplateMsg(n, t, r),
+                handleSingleMsgOrigin: "chatAssignmentSystemMsg",
+              })
+              .then(function () {
+                a != null &&
+                  o(
+                    "WAWebChatAssignmentLogEvents",
+                  ).logSystemMessageGeneratedFromCompanion(a);
+              })
+              .catch(function () {
+                a != null &&
+                  o(
+                    "WAWebChatAssignmentLogEvents",
+                  ).logSystemMessageFailedToGenerate(a);
+              });
         });
     }
     function _(e) {

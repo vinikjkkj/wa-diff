@@ -7,6 +7,9 @@ __d(
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingNonceFetchAPI",
+    "WAWebWaffleLifecycleWamLogger",
+    "WAWebWamEnumWaffleLifecycleLinkStateType",
+    "WAWebWamEnumWaffleLifecycleTraceSourceType",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,11 +35,25 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF)
-            yield _.purgeWaffleData();
+            (yield _.purgeWaffleData(),
+              o("WAWebWaffleLifecycleWamLogger").logPurge({
+                linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                  .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
+                traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                  .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
+                unlinkType: 0,
+              }));
           else
             try {
               (yield o("WAWebAccountLinkingAPI").ping(),
-                yield o("WAWebAccountLinkingAPI").fetchServiceData());
+                yield o("WAWebAccountLinkingAPI").fetchServiceData(),
+                o("WAWebWaffleLifecycleWamLogger").logNotification({
+                  linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                    .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.NOT_APPLICABLE,
+                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
+                  unlinkType: 1,
+                }));
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -228,13 +245,26 @@ __d(
             try {
               var t = yield _.getAccountLinkingData();
               (t != null
-                ? (t.linkState ===
+                ? (o("WAWebWaffleLifecycleWamLogger").logNotification({
+                    linkState: o(
+                      "WAWebWaffleLifecycleWamLogger",
+                    ).mapLinkStateToWam(t.linkState),
+                    traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                      .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
+                  }),
+                  t.linkState ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Active &&
                     (yield y()),
                   t.linkState ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Paused &&
                     (yield b()))
-                : yield S(),
+                : (o("WAWebWaffleLifecycleWamLogger").logNotification({
+                    linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                      .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
+                    traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                      .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
+                  }),
+                  yield S()),
                 yield _.updateLastResyncTimestamp(o("WATimeUtils").unixTime()));
             } catch (e) {
               o("WALogger")

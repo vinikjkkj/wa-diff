@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugMC",
-  ["MetaConfig", "WALogger"],
+  ["MetaConfig", "MetaConfigMap", "WALogger", "WAWebMetaConfigDebugOverrides"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u() {
@@ -25,8 +25,32 @@ __d(
     }
     ((u.doc = "Logs the MobileConfig value for chat entity thread key"),
       (u.paramsToExecute = []));
-    var c = { logTestMCKey: u };
-    l.default = c;
+    function c() {
+      var e = r("MetaConfigMap").getAll_DO_NOT_USE();
+      return Object.keys(e).map(function (t) {
+        var n = e[t];
+        return { key: t, value: n.value, type: typeof n.value };
+      });
+    }
+    ((c.doc = "List all MetaConfig values with key, value, and type"),
+      (c.paramsToExecute = []));
+    function d(e, t) {
+      o("WAWebMetaConfigDebugOverrides").overrideMetaConfig(e, t);
+    }
+    ((d.doc = "Override a MetaConfig value at runtime"),
+      (d.paramsToExecute = ["key", "value"]));
+    function m(e) {
+      o("WAWebMetaConfigDebugOverrides").resetMetaConfig(e);
+    }
+    ((m.doc = "Reset a MetaConfig value to its original"),
+      (m.paramsToExecute = ["key"]));
+    var p = {
+      logTestMCKey: u,
+      listMetaConfigs: c,
+      overrideMetaConfig: d,
+      resetMetaConfig: m,
+    };
+    l.default = p;
   },
   98,
 );

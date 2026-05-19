@@ -219,7 +219,6 @@ __d(
       (l.markRecording = h),
       (l.sendPresenceAvailable = y),
       (l.sendPresenceUnavailable = C),
-      (l.getChatIdentifier = b),
       (l.presenceOnlineChanged = E),
       (l.clearPresence = k));
   },

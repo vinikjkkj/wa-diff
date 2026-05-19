@@ -35,7 +35,7 @@ __d(
                 .WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bug-remote-logs] skipping client log request without bug id",
+                      "[bug-remote-logs] skip log request: no bug id",
                     ])),
                 )
                 .sendLogs("bug-remote-logs-request-missing-bug-id"),
@@ -48,7 +48,7 @@ __d(
                 .WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bug-remote-logs] skipping client log request without self LID",
+                      "[bug-remote-logs] skip log request: no self LID",
                     ])),
                 )
                 .sendLogs("bug-remote-logs-request-missing-self-lid"),

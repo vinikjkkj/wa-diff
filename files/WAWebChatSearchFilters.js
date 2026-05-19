@@ -15,6 +15,8 @@ __d(
       BUSINESS: "business",
       LABELS: "labels",
       CHANNELS: "channels",
+      AI_RESPONDING: "ai_responding",
+      AI_HANDOFF: "ai_handoff",
     });
     function l(t) {
       switch (t) {
@@ -26,6 +28,8 @@ __d(
         case e.LABELS:
         case e.FAVORITES:
         case e.CHANNELS:
+        case e.AI_RESPONDING:
+        case e.AI_HANDOFF:
           return !0;
         case e.BROADCAST:
         case e.NON_CONTACT:
@@ -49,6 +53,8 @@ __d(
         case e.LABELS:
         case e.FAVORITES:
         case e.CHANNELS:
+        case e.AI_RESPONDING:
+        case e.AI_HANDOFF:
           return !1;
       }
     }

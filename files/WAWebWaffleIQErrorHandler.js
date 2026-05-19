@@ -1,22 +1,25 @@
 __d(
   "WAWebWaffleIQErrorHandler",
   [
+    "Promise",
     "WAAsyncSleep",
     "WAExponentialBackoffIterator",
     "WALogger",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingHandler",
     "WAWebAccountLinkingNonceFetchAPI",
+    "WAWebWaffleLifecycleWamLogger",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 3,
-      u = 1e3,
-      c = 3e4;
-    function d(e) {
-      e === void 0 && (e = s);
-      var t = { minTimeout: u, maxTimeout: c, retries: e, jitter: 0.5 },
+      s,
+      u = 3,
+      c = 1e3,
+      d = 3e4;
+    function m(e) {
+      e === void 0 && (e = u);
+      var t = { minTimeout: c, maxTimeout: d, retries: e, jitter: 0.5 },
         n = o("WAExponentialBackoffIterator").exponentialBackoffIterator(t);
       return {
         nextBackoffMs: function () {
@@ -28,46 +31,54 @@ __d(
         },
       };
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          switch (e) {
-            case "IQErrorRequestTimeout":
-            case "IQErrorRateOverlimit":
-              return "retry";
-            case "IQErrorNotAuthorized":
-              return "request_nonce";
-            case "IQErrorWFNotAuthorizedInvalidPassword":
-              return "fail";
-            case "IQErrorWFNotFound":
-            case "IQErrorWFStateMismatch":
-              return (
-                yield o("WAWebAccountLinkingDBOperationsAPI")
-                  .getAccountLinkingDBOps("account_linking")
-                  .purgeWaffleData(),
-                "handled"
-              );
-            case "IQErrorWFSuspended":
-              return (
-                yield o("WAWebAccountLinkingHandler").handlePausedState(),
-                "handled"
-              );
-            default:
-              return "fail";
-          }
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield e === "IQErrorRequestTimeout" ||
+          e === "IQErrorRateOverlimit"
+            ? (s || (s = n("Promise"))).resolve("retry")
+            : e === "IQErrorNotAuthorized"
+              ? (s || (s = n("Promise"))).resolve("request_nonce")
+              : e === "IQErrorWFNotAuthorizedInvalidPassword"
+                ? (s || (s = n("Promise"))).resolve("fail")
+                : e === "IQErrorWFNotFound" || e === "IQErrorWFStateMismatch"
+                  ? o("WAWebAccountLinkingDBOperationsAPI")
+                      .getAccountLinkingDBOps("account_linking")
+                      .purgeWaffleData()
+                      .then(function () {
+                        return "handled";
+                      })
+                  : e === "IQErrorWFSuspended"
+                    ? o("WAWebAccountLinkingHandler")
+                        .handlePausedState()
+                        .then(function () {
+                          return "handled";
+                        })
+                    : (s || (s = n("Promise"))).resolve("fail");
+          return (
+            o("WAWebWaffleLifecycleWamLogger").logErrorClassification({
+              errorAction: o(
+                "WAWebWaffleLifecycleWamLogger",
+              ).mapIQErrorActionToWam(t),
+              errorCode: o(
+                "WAWebWaffleLifecycleWamLogger",
+              ).mapIQErrorNameToWamCode(e),
+            }),
+            t
+          );
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.nextBackoffMs();
           return n == null
             ? (o("WALogger")
@@ -82,12 +93,12 @@ __d(
             : (yield o("WAAsyncSleep").asyncSleep(n),
               o("WAWebAccountLinkingNonceFetchAPI").requestNonceFromPrimary());
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.createWaffleOperationRetryState = d),
-      (l.handleCommonWaffleIQError = m),
-      (l.handleNonceRetry = _));
+    ((l.createWaffleOperationRetryState = m),
+      (l.handleCommonWaffleIQError = p),
+      (l.handleNonceRetry = f));
   },
   98,
 );

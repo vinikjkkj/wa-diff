@@ -7,7 +7,6 @@ __d(
     "WAWapDeprecatedSmaxID",
     "WAWebBackendErrors",
     "WAWebBizCatalogManagementUpdateCommerceSettings",
-    "WAWebBizGatingUtils",
     "WAWebBizGetPriceTiersQuery",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
@@ -147,9 +146,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebBizGatingUtils").graphQLForCommerceSettingsEnabled()
-            ? m(e)
-            : c(e);
+          return m(e);
         })),
         f.apply(this, arguments)
       );

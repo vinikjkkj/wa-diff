@@ -56,12 +56,18 @@ __d(
         function t() {}
         var n = t.prototype;
         return (
-          (n.viewList = function (t, n) {
+          (n.$1 = function (t) {
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log(
-              babelHelpers.extends({}, t != null ? { entryPoint: t } : {}, {
-                extraAttributes: n,
+              babelHelpers.extends({}, t, {
                 featureName: o("WAWebWamEnumSmbFeatureNameEnum")
                   .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              }),
+            );
+          }),
+          (n.viewList = function (t, n) {
+            this.$1(
+              babelHelpers.extends({}, t != null ? { entryPoint: t } : {}, {
+                extraAttributes: n,
                 surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                   .CUSTOMER_MANAGER_LIST,
                 userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -70,9 +76,7 @@ __d(
             );
           }),
           (n.clickAddCustomerOnList = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.ADD_CUSTOMER_BUTTON,
@@ -81,9 +85,7 @@ __d(
             });
           }),
           (n.clickImportOnList = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_BUTTON,
@@ -92,9 +94,7 @@ __d(
             });
           }),
           (n.clickImportUploadFile = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_UPLOAD_FILE_BUTTON,
@@ -103,9 +103,7 @@ __d(
             });
           }),
           (n.clickImportSaveTemplate = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_SAVE_TEMPLATE_LINK,
@@ -114,9 +112,7 @@ __d(
             });
           }),
           (n.clickImportDeleteContact = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_DELETE_CONTACT_BUTTON,
@@ -125,9 +121,7 @@ __d(
             });
           }),
           (n.clickImportDeleteError = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_DELETE_ERROR_BUTTON,
@@ -136,9 +130,7 @@ __d(
             });
           }),
           (n.clickImportDeleteAllErrors = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_DELETE_ALL_ERRORS_BUTTON,
@@ -147,10 +139,8 @@ __d(
             });
           }),
           (n.clickImportSaveContacts = function (n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { total_count: n },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_SAVE_BUTTON,
@@ -159,14 +149,12 @@ __d(
             });
           }),
           (n.importSaveResult = function (n, r, a) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: {
                 duration_ms: a,
                 failure_count: r,
                 success_count: n,
               },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_SAVE_BUTTON,
@@ -175,10 +163,8 @@ __d(
             });
           }),
           (n.clickEmptyStateAddCustomer = function (n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { empty_reason: n },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.EMPTY_STATE_ADD_CUSTOMER,
@@ -187,9 +173,7 @@ __d(
             });
           }),
           (n.clickRow = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.ROW,
@@ -198,9 +182,7 @@ __d(
             });
           }),
           (n.clickRowChat = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.ROW_CHAT_BUTTON,
@@ -209,9 +191,7 @@ __d(
             });
           }),
           (n.clickRowActions = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.ROW_ACTIONS_BUTTON,
@@ -221,10 +201,8 @@ __d(
           }),
           (n.clickToggleView = function (n) {
             var t = n === "list" ? "pipeline" : "list";
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { from_view: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface:
                 t === "pipeline"
                   ? o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -238,10 +216,8 @@ __d(
             });
           }),
           (n.searchList = function (n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { query_length: n, result_count: r },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.SEARCH_INPUT,
@@ -250,14 +226,12 @@ __d(
             });
           }),
           (n.changeLeadStageFilter = function (n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: {
                 applied_stages: n,
                 previously_applied: r,
                 selection_grew: n.length > r.length,
               },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.LEAD_STAGE_FILTER_CHIP,
@@ -266,10 +240,8 @@ __d(
             });
           }),
           (n.changeLastMessageFilter = function (n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { preset: n != null ? n : "all_time" },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.LAST_MESSAGE_FILTER_CHIP,
@@ -278,10 +250,8 @@ __d(
             });
           }),
           (n.viewColumnsMenu = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { visible_column_count: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_COLUMNS_MENU,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -289,10 +259,8 @@ __d(
             });
           }),
           (n.editColumnToggle = function (t, n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { column_key: t, new_state: n },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_COLUMNS_MENU,
               userActionTarget: "column_toggle_" + t,
@@ -301,14 +269,12 @@ __d(
             });
           }),
           (n.clickColumnHeader = function (t, n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: {
                 column_key: t,
                 direction: n,
                 prev_sort_column: r != null ? r : null,
               },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: "column_header_" + t,
@@ -317,10 +283,8 @@ __d(
             });
           }),
           (n.clickRowLeadStagePill = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { current_stage: t != null ? t : null },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: "row_lead_stage_pill",
@@ -329,9 +293,7 @@ __d(
             });
           }),
           (n.viewActionsMenu = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ACTIONS_MENU,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -339,10 +301,8 @@ __d(
             });
           }),
           (n.clickActionsMenuOption = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { option: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ACTIONS_MENU,
               userActionTarget: "actions_menu_" + t,
@@ -351,9 +311,7 @@ __d(
             });
           }),
           (n.dismissActionsMenu = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ACTIONS_MENU,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -361,10 +319,8 @@ __d(
             });
           }),
           (n.viewPipeline = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { stage_counts: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_PIPELINE,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -372,10 +328,8 @@ __d(
             });
           }),
           (n.clickPipelineCustomerCard = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { stage: t != null ? t : null },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_PIPELINE,
               userActionTarget: "pipeline_customer_card",
@@ -384,10 +338,8 @@ __d(
             });
           }),
           (n.editPipelineCardDrag = function (t, n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { new_stage: n, prev_stage: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_PIPELINE,
               userActionTarget: "pipeline_card_drag",
@@ -396,10 +348,8 @@ __d(
             });
           }),
           (n.viewAddCustomer = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { entry: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -407,13 +357,11 @@ __d(
             });
           }),
           (n.clickSaveCustomer = function (n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: {
                 filled_field_count: n,
                 is_existing_contact: r,
               },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: e.SAVE_BUTTON,
@@ -422,10 +370,8 @@ __d(
             });
           }),
           (n.saveCustomerResult = function (n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { duration_ms: r, result: n },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: e.SAVE_ACTION,
@@ -434,13 +380,11 @@ __d(
             });
           }),
           (n.dismissAddCustomer = function (n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: {
                 filled_field_count: r,
                 had_unsaved_changes: n,
               },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: e.CANCEL_BUTTON,
@@ -449,10 +393,8 @@ __d(
             });
           }),
           (n.enterAddCustomerField = function (t, n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: babelHelpers.extends({}, n, { field: t }),
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: "add_customer_field_" + t,
@@ -461,10 +403,8 @@ __d(
             });
           }),
           (n.clickAddCustomerLeadStageDropdown = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { selected: t != null ? t : null },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: "add_customer_lead_stage_dropdown",
@@ -473,10 +413,8 @@ __d(
             });
           }),
           (n.clickAddCustomerAcquisitionSource = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { selected: t != null ? t : null },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: "add_customer_acquisition_source_dropdown",
@@ -485,10 +423,8 @@ __d(
             });
           }),
           (n.clickAddCustomerContactSuggestion = function (t, n) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { position: t, prefilled_field_count: n },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_ADD_CUSTOMER,
               userActionTarget: "add_customer_contact_suggestion",
@@ -497,10 +433,8 @@ __d(
             });
           }),
           (n.viewRemoveConfirm = function (t) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { triggered_from: t },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_REMOVE_CONFIRM,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -508,9 +442,7 @@ __d(
             });
           }),
           (n.clickRemoveConfirm = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_REMOVE_CONFIRM,
               userActionTarget: e.CONFIRM_BUTTON,
@@ -519,10 +451,8 @@ __d(
             });
           }),
           (n.removeCustomerResult = function (n, r) {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+            this.$1({
               extraAttributes: { duration_ms: r, result: n },
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_REMOVE_CONFIRM,
               userActionTarget: e.REMOVE_ACTION,
@@ -531,9 +461,7 @@ __d(
             });
           }),
           (n.dismissRemoveConfirm = function () {
-            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+            this.$1({
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_REMOVE_CONFIRM,
               userActionTarget: e.CANCEL_BUTTON,

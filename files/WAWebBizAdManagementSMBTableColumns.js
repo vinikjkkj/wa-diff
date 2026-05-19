@@ -50,10 +50,6 @@ __d(
     h.displayName = h.name + " [from " + i.id + "]";
     var y = [
       {
-        key: "yourAds",
-        header: f(),
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .yourAds,
         cell: function (t) {
           var e = t.item;
           return e.isDraft
@@ -70,12 +66,12 @@ __d(
                 thumbnailUrl: e.thumbnailUrl,
               });
         },
+        header: f(),
+        key: "yourAds",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .yourAds,
       },
       {
-        key: "status",
-        header: _(),
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .status,
         cell: function (t) {
           var e = t.item;
           return e.isDraft
@@ -90,6 +86,10 @@ __d(
                 boostingStatusDisplayText: e.boostingStatusDisplayText,
               });
         },
+        header: _(),
+        key: "status",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .status,
       },
       {
         cell: function (t) {
@@ -120,10 +120,6 @@ __d(
           .conversations,
       },
       {
-        key: "costPerConversation",
-        header: m(),
-        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
-          .costPerConversation,
         cell: function (t) {
           var e = t.item;
           return e.isDraft
@@ -133,6 +129,10 @@ __d(
                 formattedSpent: e.formattedSpent,
               });
         },
+        header: m(),
+        key: "costPerConversation",
+        width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
+          .costPerConversation,
       },
       {
         cell: function (t) {

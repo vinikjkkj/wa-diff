@@ -16,7 +16,6 @@ __d(
     "WAWebGroupQueryBridge",
     "WAWebLidAwareContactsDB",
     "WAWebModelStorageInitialize",
-    "WAWebOutContactInviteGating",
     "WAWebPerformanceUtils",
     "WAWebReleaseToEventLoop",
     "WAWebSchemaGroupMetadata",
@@ -197,45 +196,46 @@ __d(
             }),
           )
           .then(function () {
-            (o("WAWebOutContactInviteGating").isOutContactInviteEnabled() &&
-              o("WAWebDBOutContactDatabaseApi")
-                .getAllOutContacts()
-                .then(function (e) {
-                  var t = e.map(function (e) {
-                    return {
-                      id: e.id,
-                      fullName: e.fullName,
-                      firstName: e.firstName,
-                    };
-                  });
-                  (o("WAWebBackendApi").frontendFireAndForget(
-                    "bulkUpsertOutContacts",
-                    { contacts: t },
-                  ),
-                    o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[init-from-storage] out-contacts: restored ",
-                          "",
-                        ])),
-                      o("WAWebWamMemoryStat").roundIntForMetrics(e.length),
-                    ));
-                })
-                .catch(function (e) {
+            o(
+              "WAWebWamOfflineResumeReporter",
+            ).OfflineResumeReporter.qpl.addPoint(
+              "RestoreGroupsAndContacts_end",
+            );
+          })
+          .then(function () {
+            o("WAWebDBOutContactDatabaseApi")
+              .getAllOutContacts()
+              .then(function (e) {
+                var t = e.map(function (e) {
+                  return {
+                    id: e.id,
+                    fullName: e.fullName,
+                    firstName: e.firstName,
+                  };
+                });
+                (o("WAWebBackendApi").frontendFireAndForget(
+                  "bulkUpsertOutContacts",
+                  { contacts: t },
+                ),
                   o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[init-from-storage] restoreOutContacts failed: ",
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[init-from-storage] out-contacts: restored ",
                         "",
                       ])),
-                    String(e),
-                  );
-                }),
-              o(
-                "WAWebWamOfflineResumeReporter",
-              ).OfflineResumeReporter.qpl.addPoint(
-                "RestoreGroupsAndContacts_end",
-              ));
+                    o("WAWebWamMemoryStat").roundIntForMetrics(e.length),
+                  ));
+              })
+              .catch(function (e) {
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[init-from-storage] restoreOutContacts failed: ",
+                      "",
+                    ])),
+                  String(e),
+                );
+              });
           })
       );
     }

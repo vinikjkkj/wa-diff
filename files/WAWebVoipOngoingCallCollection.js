@@ -11,6 +11,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgModel",
     "WAWebProcessMultipleMsgsAction",
+    "WAWebVoipGatingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,6 +52,19 @@ __d(
           (i.getByChat = function (t) {
             return this.toArray().find(function (e) {
               return e.id.remote === t.id;
+            });
+          }),
+          (i.findOngoingCallActiveOnOtherSelfDevice = function () {
+            var e;
+            if (!o("WAWebVoipGatingUtils").isDeviceSwitchingEnabled())
+              return null;
+            var t =
+              (e = r("WAWebCallCollection").activeCall) == null ? void 0 : e.id;
+            return this.toArray().find(function (e) {
+              return (
+                o("WAWebMsgGetters").getSelfOtherDeviceConnected(e) === !0 &&
+                e.id.id !== t
+              );
             });
           }),
           (i.waitUntilLoaded = (function () {

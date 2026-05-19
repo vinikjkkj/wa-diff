@@ -150,9 +150,12 @@ __d(
         a = e.isExternal,
         i = e.partnerToken;
       o("WAWebExternalCtxConfig").isCtxLoggingEnabled() &&
-        r("WAWebExternalCtxAuthoriseWAChat")(t, n, i, a).finally(
-          r("WAWebNoop"),
-        );
+        r("WAWebExternalCtxAuthoriseWAChat")({
+          chatId: t,
+          deepLinkType: n,
+          isExternal: a,
+          partnerToken: i,
+        }).finally(r("WAWebNoop"));
     }
     function f(e, t) {
       var n = e.headers.get("content-disposition");

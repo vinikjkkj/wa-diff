@@ -20,6 +20,7 @@ __d(
     "WAWebDBThreadMetadataBulkHelper",
     "WAWebHandleMsgValidate",
     "WAWebLidMigrationUtils",
+    "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
     "WAWebMessagingGatingUtils",
     "WAWebModelStorageUtils",
@@ -434,7 +435,8 @@ __d(
         (o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
           !o("WAWebUserPrefsMeUser").isMeAccount(t.from)) ||
         e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ||
-        e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION
+        e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
+        o("WAWebMessageEditGatingUtils").isCrossDeviceMessageEditingEnabled()
       );
     }
     function x(e, t) {

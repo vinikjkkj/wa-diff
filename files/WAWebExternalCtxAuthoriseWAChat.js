@@ -12,7 +12,11 @@ __d(
       u,
       c = "1",
       d = "2";
-    function m(t, n, a, i) {
+    function m(t) {
+      var n = t.chatId,
+        a = t.deepLinkType,
+        i = t.isExternal,
+        l = t.partnerToken;
       return (
         o("WALogger").LOG(
           e ||
@@ -23,15 +27,15 @@ __d(
         o("WAWebRelayClient")
           .commitMutation(r("WAWebExternalCtxAuthoriseWAChatMutation"), {
             input: {
-              recipient_jid: t.toString(),
-              deeplink_type: n,
+              recipient_jid: n.toString(),
+              deeplink_type: a,
               deeplink_source: i ? c : d,
               deeplink_platform: "Web",
-              partner_token: a,
+              partner_token: l,
             },
           })
           .then(function (e) {
-            var r, a;
+            var t, r;
             (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -39,14 +43,14 @@ __d(
                 ])),
             ),
               o("WAWebExternalEntryPointPrefs").saveExternalEntryPoint(
-                t,
                 n,
-                (e == null || (r = e.xwa_external_ctx_authorise_wa_chat) == null
+                a,
+                (e == null || (t = e.xwa_external_ctx_authorise_wa_chat) == null
                   ? void 0
-                  : r.success) === !0,
-                e == null || (a = e.xwa_external_ctx_authorise_wa_chat) == null
+                  : t.success) === !0,
+                e == null || (r = e.xwa_external_ctx_authorise_wa_chat) == null
                   ? void 0
-                  : a.partner_name,
+                  : r.partner_name,
               ));
           })
           .catch(function (e) {

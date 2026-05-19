@@ -25,7 +25,7 @@ __d(
             .ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ai_media_collection] parent envelope missing collectionId; dropping message",
+                  "[ai_media_collection] missing collectionId, dropping msg",
                 ])),
             )
             .sendLogs("ai-media-collection-parse-missing-collection-id"),

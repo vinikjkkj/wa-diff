@@ -19,117 +19,151 @@ __d(
       d = u.useReducer,
       m = u.useRef;
     function p() {
-      var t = o("react-compiler-runtime").c(7),
+      var t = o("react-compiler-runtime").c(9),
         n = d(
           o("WAWebWWAISuggestionStateMachine").wwaiReducer,
           o("WAWebWWAISuggestionStateMachine").INITIAL_STATE,
         ),
         a = n[0],
         i = n[1],
-        l = m(0),
-        s;
+        l;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = function (n, a) {
+        ? ((l = new Map()), (t[0] = l))
+        : (l = t[0]);
+      var s = m(l),
+        u = m(""),
+        c = m("rephrase"),
+        p;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = function () {
+            for (var e of s.current.values()) e.cancelled = !0;
+            s.current.clear();
+          }),
+          (t[1] = p))
+        : (p = t[1]);
+      var g = p,
+        h;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = function (n, a) {
             var t = o("WAWebWWAICacheStore").getCachedSuggestions(n, a);
             if (t != null) {
-              ((l.current = l.current + 1),
-                i({
-                  type: "RECEIVE_SUGGESTIONS",
-                  suggestions: t,
-                  inProgress: !1,
-                }));
+              i({
+                type: "RECEIVE_SUGGESTIONS",
+                suggestions: t,
+                inProgress: !1,
+              });
               return;
             }
-            (i({ type: "START_LOADING", tone: a }),
-              (l.current = l.current + 1));
-            var s = l.current;
-            o("WAWebWWAISendRequest")
-              .sendWWAIRequest(n, a, [])
-              .then(function (e) {
-                s === l.current &&
-                  (e.suggestions.length === 0
-                    ? i({ type: "RECEIVE_EMPTY" })
-                    : (o("WAWebWWAICacheStore").cacheSuggestions(
-                        n,
-                        a,
-                        e.suggestions,
-                      ),
-                      i({
-                        type: "RECEIVE_SUGGESTIONS",
-                        suggestions: e.suggestions,
-                        inProgress: e.inProgress,
-                      })));
-              })
-              .catch(function (t) {
-                s === l.current &&
-                  (o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[WWAI] Request failed",
-                        ])),
-                    )
-                    .catching(t instanceof Error ? t : r("err")(String(t)))
-                    .sendLogs("wwai-request-failed"),
-                  i({ type: "RECEIVE_ERROR", errorType: "network" }));
-              });
+            var l = n + ":" + a;
+            if (s.current.has(l)) {
+              i({ type: "START_LOADING", tone: a });
+              return;
+            }
+            i({ type: "START_LOADING", tone: a });
+            var u = { cancelled: !1 };
+            (s.current.set(l, u),
+              o("WAWebWWAISendRequest")
+                .sendWWAIRequest(n, a, [])
+                .then(function (e) {
+                  (f(s, l, u),
+                    !u.cancelled &&
+                      (e.suggestions.length > 0 &&
+                        o("WAWebWWAICacheStore").cacheSuggestions(
+                          n,
+                          a,
+                          e.suggestions,
+                        ),
+                      c.current === a &&
+                        (e.suggestions.length === 0
+                          ? i({ type: "RECEIVE_EMPTY" })
+                          : i({
+                              type: "RECEIVE_SUGGESTIONS",
+                              suggestions: e.suggestions,
+                              inProgress: e.inProgress,
+                            }))));
+                })
+                .catch(function (t) {
+                  if ((f(s, l, u), !(u.cancelled || c.current !== a))) {
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[WWAI] Request failed",
+                          ])),
+                      )
+                      .catching(t instanceof Error ? t : r("err")(String(t)))
+                      .sendLogs("wwai-request-failed");
+                    var n =
+                      t instanceof Error && t.message.includes("timeout")
+                        ? "timeout"
+                        : "unknown";
+                    i({ type: "RECEIVE_ERROR", errorType: n });
+                  }
+                }));
           }),
-          (t[0] = s))
-        : (s = t[0]);
-      var u = s,
-        c;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = function (t) {
-            var e = o("WAWebWWAINUXState").hasSeenWWAINux();
-            (i({ type: "OPEN_TRAY", hasSeenNux: e }), e && u(t, "rephrase"));
-          }),
-          (t[1] = c))
-        : (c = t[1]);
-      var p = c,
-        f;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = function () {
-            ((l.current = l.current + 1), i({ type: "CLOSE_TRAY" }));
-          }),
-          (t[2] = f))
-        : (f = t[2]);
-      var g = f,
-        h;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = function (t, n) {
-            (i({ type: "CHANGE_TONE", tone: n }), u(t, n));
-          }),
-          (t[3] = h))
-        : (h = t[3]);
+          (t[2] = h))
+        : (h = t[2]);
       var y = h,
-        C = _,
-        b;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = function (t) {
-            (i({ type: "ACCEPT_NUX" }), u(t, "rephrase"));
+        C;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = function (t) {
+            ((u.current = t), (c.current = "rephrase"));
+            var e = o("WAWebWWAINUXState").hasSeenWWAINux();
+            (i({ type: "OPEN_TRAY", hasSeenNux: e }), e && y(t, "rephrase"));
           }),
-          (t[4] = b))
-        : (b = t[4]);
-      var v = b,
-        S;
+          (t[3] = C))
+        : (C = t[3]);
+      var b = C,
+        v;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = function () {
+            (g(), i({ type: "CLOSE_TRAY" }));
+          }),
+          (t[4] = v))
+        : (v = t[4]);
+      var S = v,
+        R;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = function (t, n) {
+            ((c.current = n),
+              t !== u.current && (g(), (u.current = t)),
+              i({ type: "CHANGE_TONE", tone: n }),
+              y(t, n));
+          }),
+          (t[5] = R))
+        : (R = t[5]);
+      var L = R,
+        E = _,
+        k;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = function (t) {
+            (i({ type: "ACCEPT_NUX" }), y(t, "rephrase"));
+          }),
+          (t[6] = k))
+        : (k = t[6]);
+      var I = k,
+        T;
       return (
-        t[5] !== a
-          ? ((S = {
+        t[7] !== a
+          ? ((T = {
               state: a,
-              openTray: p,
-              closeTray: g,
-              changeTone: y,
-              selectSuggestion: C,
-              acceptNux: v,
+              openTray: b,
+              closeTray: S,
+              changeTone: L,
+              selectSuggestion: E,
+              acceptNux: I,
             }),
-            (t[5] = a),
-            (t[6] = S))
-          : (S = t[6]),
-        S
+            (t[7] = a),
+            (t[8] = T))
+          : (T = t[8]),
+        T
       );
     }
     function _(e) {
       o("WAWebWWAILogging").logSuggestionAccepted(e.tone);
+    }
+    function f(e, t, n) {
+      e.current.get(t) === n && e.current.delete(t);
     }
     l.useWWAISuggestions = p;
   },

@@ -23,7 +23,7 @@ __d(
       return u;
     }
     function f(e) {
-      ((u = e), b());
+      ((u = e), v());
     }
     function g(t, n) {
       var o = {
@@ -44,7 +44,7 @@ __d(
           (a.rejectResponse = null),
           (a.resolveResponse = null));
       }
-      return (b(), o);
+      return (v(), o);
     }
     function h(e, t, n) {
       var r,
@@ -77,10 +77,26 @@ __d(
             : (a.status = "streaming"),
           a.resolveResponse != null &&
             (a.resolveResponse(s), (a.resolveResponse = null)),
-          b());
+          v());
       }
     }
     function y(e, t) {
+      var n,
+        r = c.find(function (t) {
+          return t.id === e;
+        });
+      if (r != null) {
+        var a = Number((n = t.common_metadata) == null ? void 0 : n.status);
+        (r.responses.push(t),
+          a !== Number(o("WAWebTeeEnums").TEEResponseStatus.IN_PROGRESS)
+            ? (r.status = "completed")
+            : (r.status = "streaming"),
+          r.resolveResponse != null &&
+            (r.resolveResponse(t), (r.resolveResponse = null)),
+          v());
+      }
+    }
+    function C(e, t) {
       var n = c.find(function (t) {
         return t.id === e;
       });
@@ -90,17 +106,17 @@ __d(
           (n.rejectResponse(r("err")(t)),
           (n.rejectResponse = null),
           (n.resolveResponse = null)),
-        b());
+        v());
     }
-    function C() {
+    function b() {
       for (var e of c)
         e.rejectResponse != null &&
           (e.rejectResponse(r("err")("TEE debug entries cleared")),
           (e.rejectResponse = null),
           (e.resolveResponse = null));
-      ((c.length = 0), b());
+      ((c.length = 0), v());
     }
-    function b() {
+    function v() {
       for (var e of d) e();
     }
     ((l.subscribe = m),
@@ -109,8 +125,9 @@ __d(
       (l.updateMode = f),
       (l.addRequest = g),
       (l.submitResponse = h),
-      (l.rejectEntry = y),
-      (l.clearEntries = C));
+      (l.submitRawResponse = y),
+      (l.rejectEntry = C),
+      (l.clearEntries = b));
   },
   98,
 );

@@ -15,8 +15,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react"));
-    function c(t, n) {
+      u,
+      c = u || (u = o("react"));
+    function d(t, n) {
       var a = o("WAWebApiParse").parseAPICmd(t);
       if (a.resultType === o("WAWebApi").APICmd.INVALID) {
         o("WALogger").LOG(
@@ -27,22 +28,31 @@ __d(
         );
         return;
       }
+      if (a.resultType === "CALL_RECEIVED") {
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "URL is a Windows hybrid XDR command and is not exposed via debug",
+            ])),
+        );
+        return;
+      }
       (a.resultType,
         r("WAWebExecApiCmd")({ cmdData: a, isExternal: n != null ? n : !0 }));
     }
-    c.doc =
+    d.doc =
       "Manually execute an API command like Group Invite or CTWA (Click to WhatsApp)";
-    function d(e, t) {
+    function m(e, t) {
       e == null
         ? o("WAWebModalManager").ModalManager.open(
-            u.jsx(
+            c.jsx(
               o("WAWebSendMsgMultiModalLoadable").SendMsgMultiModalLoadable,
               { msgText: t, urlText: !0 },
             ),
             { transition: "modal-flow" },
           )
         : o("WAWebModalManager").ModalManager.open(
-            u.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+            c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
               target: { wid: o("WAWebWidFactory").createUserWidOrThrow(e) },
               msgText: t,
               onSuccess: r("WAWebNoop"),
@@ -50,10 +60,10 @@ __d(
             { transition: "modal-flow" },
           );
     }
-    d.doc =
+    m.doc =
       "Trigger the API link opening flow (e.g. api.whatsapp.com/send?phone=1234567890&text=Hello)";
-    var m = { executeApiCmd: c, openViaAPILink: d };
-    l.default = m;
+    var p = { executeApiCmd: d, openViaAPILink: m };
+    l.default = p;
   },
   98,
 );

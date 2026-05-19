@@ -1432,7 +1432,8 @@ __d(
               colorSchemeId: e,
             });
           }),
-          (i.setCapiThreadControl = function (t) {
+          (i.setCapiThreadControl = function (t, n) {
+            var e = (n == null ? void 0 : n.skipSideEffects) === !0;
             return (
               o("WALogger").LOG(
                 f ||
@@ -1441,17 +1442,20 @@ __d(
                     " -> ",
                     " for chat=",
                     "",
+                    "",
                   ])),
                 this.capiThreadControl,
                 t,
                 this.id.toLogString(),
+                e ? " (silent)" : "",
               ),
               (this.capiThreadControl = t),
               (this.forceDismissAiAgentBlockBar = !1),
-              t ===
-                o("WAWebProtobufsE2E.pb")
-                  .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                  .CONTROL_PASSED &&
+              !e &&
+                t ===
+                  o("WAWebProtobufsE2E.pb")
+                    .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                    .CONTROL_PASSED &&
                 ((this.unreadCount = 1),
                 o("WAWebNotificationBackend")
                   .showAiHandoffNotification(this)

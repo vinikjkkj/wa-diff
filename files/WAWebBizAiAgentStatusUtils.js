@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizAiAgentGating",
     "WAWebBizGatingUtils",
+    "WAWebBotTypes",
     "WAWebBusinessProfileCollection",
     "WAWebChatGetters",
     "WAWebCommunityGatingUtils",
@@ -93,7 +94,10 @@ __d(
         o("WAWebBizAiAgentGating").isAiHandoffListEnabled()
       ) {
         var n = o("WAWebFrontendChatGetters").getPreviewMessage(e);
-        return (n == null ? void 0 : n.id.fromMe) !== !0;
+        return n == null ||
+          n.bizBotType === o("WAWebBotTypes").BizBotType.BIZ_1P
+          ? !0
+          : n.id.fromMe !== !0;
       }
       return !1;
     }

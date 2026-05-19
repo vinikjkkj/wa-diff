@@ -202,14 +202,7 @@ __d(
             ? g(e.videoMessage.caption)
             : e.documentMessage != null
               ? g(e.documentMessage.caption)
-              : e.conversation != null ||
-                  e.protocolMessage != null ||
-                  e.reactionMessage != null ||
-                  e.encReactionMessage != null ||
-                  e.pollUpdateMessage != null ||
-                  e.keepInChatMessage != null ||
-                  e.pinInChatMessage != null ||
-                  e.albumMessage != null
+              : k(e)
                 ? m.NoQuarantine
                 : e.highlyStructuredMessage != null ||
                     e.templateMessage != null ||
@@ -224,6 +217,18 @@ __d(
                     : m.QuarantineWithoutText;
     }
     function k(e) {
+      return (
+        e.conversation != null ||
+        e.protocolMessage != null ||
+        e.reactionMessage != null ||
+        e.encReactionMessage != null ||
+        e.pollUpdateMessage != null ||
+        e.keepInChatMessage != null ||
+        e.pinInChatMessage != null ||
+        e.albumMessage != null
+      );
+    }
+    function I(e) {
       switch (e.type) {
         case "NoQuarantine":
           return 0;
@@ -235,12 +240,12 @@ __d(
           return 0;
       }
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             e == null ||
             !o("WAWebABProps").getABPropConfigValue(
@@ -255,14 +260,14 @@ __d(
           if ((r == null ? void 0 : r.message) == null) return n;
           var a = r.message,
             i = E(a);
-          return k(i) > k(n) ? i : n;
+          return I(i) > I(n) ? i : n;
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
     ((l.QuarantineAction = m),
       (l.maybeGetQuarantineText = f),
-      (l.getQuarantineAction = I));
+      (l.getQuarantineAction = T));
   },
   98,
 );

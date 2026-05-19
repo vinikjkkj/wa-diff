@@ -1,10 +1,8 @@
 __d(
   "WAWebBizCatalogManagementUpdateCommerceSettings",
   [
-    "Promise",
     "WALogger",
     "WAWebBizCatalogManagementUpdateCommerceSettingsMutation.graphql",
-    "WAWebBizGatingUtils",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
@@ -15,44 +13,41 @@ __d(
       s,
       u,
       c,
-      d,
-      m = { type: "error" },
-      p =
+      d = { type: "error" },
+      m =
         e !== void 0
           ? e
           : (e = n(
               "WAWebBizCatalogManagementUpdateCommerceSettingsMutation.graphql",
             ));
-    function _(e) {
-      return o("WAWebBizGatingUtils").graphQLForCommerceSettingsEnabled()
-        ? f(e).then(function (e) {
-            return e.type === "success"
-              ? (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "updateCommerceSettings: success",
-                    ])),
-                ),
-                e)
-              : (e.type,
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      'updateCommerceSettings: failed as "',
-                      '"',
-                    ])),
-                  e.type,
-                ),
-                e);
-          })
-        : (d || (d = n("Promise"))).resolve({ type: "not-enabled" });
+    function p(e) {
+      return _(e).then(function (e) {
+        return e.type === "success"
+          ? (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "updateCommerceSettings: success",
+                ])),
+            ),
+            e)
+          : (e.type,
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  'updateCommerceSettings: failed as "',
+                  '"',
+                ])),
+              e.type,
+            ),
+            e);
+      });
     }
-    function f(e) {
+    function _(e) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (t) {
           return t.type === "success"
-            ? g(t.token, e).then(function (e) {
+            ? f(t.token, e).then(function (e) {
                 return (
                   e.type !== "success" && e.type === "auth-failure"
                     ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
@@ -63,21 +58,21 @@ __d(
             : (t.type, t);
         });
     }
-    function g(e, t) {
+    function f(e, t) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAWebRelayClient").commitMutation(
-            p,
+            m,
             { input: t },
             { environmentType: "facebook", accessToken: e },
           );
         })
         .then(function (e) {
-          if (e == null) return m;
+          if (e == null) return d;
           var t = e.xfb_whatsapp_smb_commerce_settings;
           return t == null || (t == null ? void 0 : t.cart_enabled) == null
-            ? m
+            ? d
             : { type: "success", result: t.cart_enabled };
         })
         .catch(function (e) {
@@ -92,11 +87,11 @@ __d(
               ? { type: "auth-failure" }
               : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                 ? { type: "graphql-error", error: e }
-                : m
+                : d
           );
         });
     }
-    l.updateCommerceSettings = _;
+    l.updateCommerceSettings = p;
   },
   98,
 );

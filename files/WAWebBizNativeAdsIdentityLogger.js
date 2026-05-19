@@ -28,12 +28,12 @@ __d(
             ? o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.WHATSAPP
             : o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.PAGE,
         lwiExtras: JSON.stringify({
-          current_account_type: e,
-          target_account_type: t,
           available_account_types: n ? ["FB", "WAA"] : ["FB"],
-          has_linked_fb_page: r,
+          current_account_type: e,
           error_message: a.message,
           error_name: a.name,
+          has_linked_fb_page: r,
+          target_account_type: t,
         }),
         lwiScreenAction: o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
           .LWI_GENERIC_ERROR_SHOWN,

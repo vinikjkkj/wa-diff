@@ -5,6 +5,9 @@ __d(
     "WAWebBoolFunc",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
+    "WAWebWaffleLifecycleWamLogger",
+    "WAWebWamEnumWaffleLifecycleTraceActionType",
+    "WAWebWamEnumWaffleLifecycleTraceSourceType",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -20,11 +23,26 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = u;
-          if (t != null) return t;
+          if (t != null)
+            return (
+              o("WAWebWaffleLifecycleWamLogger").logNonceFetch({
+                traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
+                  .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.NONCE_FETCH_DEDUPLICATED,
+                traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                  .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.PRIMARY_NONCE_REQUEST,
+              }),
+              t
+            );
           var n = Date.now();
           return c > 0 && n - c < s
             ? !1
             : ((c = n),
+              o("WAWebWaffleLifecycleWamLogger").logNonceFetch({
+                traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
+                  .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.NONCE_FETCH_INITIATED,
+                traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                  .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.PRIMARY_NONCE_REQUEST,
+              }),
               (u = o("WAWebSendNonMessageDataRequest")
                 .sendPeerDataOperationRequest(
                   o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType

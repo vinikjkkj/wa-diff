@@ -4,6 +4,9 @@ __d(
     "WALogger",
     "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingDBOperationsAPI",
+    "WAWebWaffleLifecycleWamLogger",
+    "WAWebWamEnumWaffleLifecycleTraceActionType",
+    "WAWebWamEnumWaffleLifecycleTraceSourceType",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,6 +21,12 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          o("WAWebWaffleLifecycleWamLogger").logNonceFetch({
+            traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
+              .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.SYNCD_RECEIVED,
+            traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+              .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.PRIMARY_NONCE_RESPONSE,
+          });
           var n = 0,
             r = 0;
           for (var a of t) {

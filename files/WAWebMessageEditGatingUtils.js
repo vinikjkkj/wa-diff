@@ -12,8 +12,15 @@ __d(
         "message_edit_to_message_secret_sender_enabled",
       );
     }
+    function u() {
+      return (
+        s() &&
+        o("WAWebABProps").getABPropConfigValue("cross_device_message_editing")
+      );
+    }
     ((l.isMessageEditToMessageSecretReceiverEnabled = e),
-      (l.isMessageEditToMessageSecretSenderEnabled = s));
+      (l.isMessageEditToMessageSecretSenderEnabled = s),
+      (l.isCrossDeviceMessageEditingEnabled = u));
   },
   98,
 );

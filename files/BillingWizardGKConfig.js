@@ -122,6 +122,10 @@ __d(
         L5_CREDENTIAL_SHARING_GK: { type: "PAYMENT_ACCOUNT_ID" },
         LLMDC_BILLING_GLOBAL_EXPANSION: { type: "PAYMENT_ACCOUNT_ID" },
         LOG_REFACTORED_PRELOADING_QUERY_ERRORS: { type: "PAYMENT_ACCOUNT_ID" },
+        MFT_IREV_SHIPPING_GK_2026H1_AD_ACCOUNT_ID_V1: {
+          enableExposureLogging: !0,
+          type: "PAYMENT_ACCOUNT_ID",
+        },
         MFT_NONREV_SHIPPING_GK_2026H1_AD_ACCOUNT_ID_V1: {
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",

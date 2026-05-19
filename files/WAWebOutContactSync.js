@@ -7,7 +7,6 @@ __d(
     "WAWebBackendApi",
     "WAWebDBOutContactDatabaseApi",
     "WAWebSyncdAction",
-    "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,11 +45,9 @@ __d(
                   var d = l.indexParts[1];
                   if (d == null) {
                     (n++,
-                      i.push(
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          this.collectionName,
-                        ),
-                      ));
+                      i.push({
+                        actionState: o("WASyncdConst").SyncActionState.Skipped,
+                      }));
                     continue;
                   }
                   var _ = o("WAJids").interpretAndValidateJid(d);
@@ -64,11 +61,9 @@ __d(
                       d,
                     ),
                       n++,
-                      i.push(
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          this.collectionName,
-                        ),
-                      ));
+                      i.push({
+                        actionState: o("WASyncdConst").SyncActionState.Skipped,
+                      }));
                     continue;
                   }
                   var f = _.userJid;
@@ -77,11 +72,10 @@ __d(
                       h = l.value.outContactAction;
                     if (h == null) {
                       (n++,
-                        i.push(
-                          o("WAWebSyncdIndexUtils").malformedActionValue(
-                            this.collectionName,
-                          ),
-                        ));
+                        i.push({
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Skipped,
+                        }));
                       continue;
                     }
                     var y = m(h.fullName),
@@ -114,11 +108,10 @@ __d(
                             o("WASyncdConst").SyncActionState.Success,
                         }))
                       : (n++,
-                        i.push(
-                          o("WAWebSyncdIndexUtils").malformedActionValue(
-                            this.collectionName,
-                          ),
-                        ));
+                        i.push({
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Skipped,
+                        }));
                 }
                 return (
                   r.length > 0 &&

@@ -317,6 +317,7 @@ __d(
         INJECTED_PARTIAL: 2,
         INJECTION_FAILED: 3,
         INJECTION_FAILED_NO_RETRY: 4,
+        DEDUPED: 5,
       }),
       v = {},
       S = {},

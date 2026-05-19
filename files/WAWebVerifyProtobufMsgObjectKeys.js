@@ -351,6 +351,8 @@ __d(
                                                                                                                 e ===
                                                                                                                   "newsletterAdminProfileMessageV2" ||
                                                                                                                 e ===
+                                                                                                                  "newsletterAdminProfileStatusMessage" ||
+                                                                                                                e ===
                                                                                                                   "placeholderMessage" ||
                                                                                                                 e ===
                                                                                                                   "pollCreationMessageV4" ||
@@ -397,7 +399,7 @@ __d(
                                                                                                                 e ===
                                                                                                                   "groupRootKeyShare" ||
                                                                                                                 e ===
-                                                                                                                  "p2PPaymentReminderNotification" ||
+                                                                                                                  "paymentReminderMessage" ||
                                                                                                                 e ===
                                                                                                                   "splitPaymentMessage"
                                                                                                               ? s.UnknownMessageKey

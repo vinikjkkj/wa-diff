@@ -86,6 +86,7 @@ __d(
       AYMT_PREAUTH_RISK_TIP: "aymt_preauth_risk_tip",
       AYMT_PREAUTH_FIRST_SUCCESSFUL_AUTH_TIP:
         "aymt_preauth_first_successful_auth_tip",
+      AYMT_BILLING_ADD_FUNDS_DROPOFF_TIP: "aymt_billing_add_funds_dropoff_tip",
       AYMT_BIZAPP_PREPAY_EMPTY_BALANCE_REMINDER_TIP:
         "aymt_bizapp_prepay_empty_balance_reminder_tip",
       AYMT_BIZAPP_PREPAY_EMPTY_BALANCE_REMINDER_TIP_INBOX:
@@ -359,6 +360,7 @@ __d(
       BPI_LEGAL_ENTITY_MANAGEMENT: "bpi_legal_entity_management",
       BIZAPP_BALANCE_TRACKER: "bizapp_balance_tracker",
       BIZWEB_IG_MULTI_ADMIN: "bizweb_ig_multi_admin",
+      BIZWEB_ADD_FUNDS: "bizweb_add_funds",
       BM_PARTNER_CONSOLE: "bm_partner_console",
       BIZAPP_PREPAY_WARNING_ALERT_CARD: "bizapp_prepay_warning_alert_card",
       BIZAPP_SPEND_CAP_ALERT_CARD: "bizapp_spend_cap_alert_card",
