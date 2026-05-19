@@ -563,12 +563,12 @@ __d(
             return (
               o(
                 "WAWebLogMissingGroupParticipantMappings",
-              ).logMissingGroupParticipantMappings(
-                c.chat,
-                c.author,
-                c.addressingMode,
-                ye,
-              ),
+              ).logMissingGroupParticipantMappings({
+                author: c.author,
+                groupId: c.chat,
+                localAddressingMode: ye,
+                serverAddressingMode: c.addressingMode,
+              }),
               o("WAWebLogReceivedMessages").logReceivedMessagesInWAM({
                 msgs: de,
                 offline: B(c.offline),
@@ -617,7 +617,14 @@ __d(
                 ])),
             ),
             (R = !0),
-            S.push(A(E, s, v, h)))
+            S.push(
+              A({
+                messageOverwriteOption: h,
+                msg: E,
+                msgInfo: s,
+                reparsing: v,
+              }),
+            ))
           : L != null && L.kind === o("WAWebMsgType").MsgKind.PollVoteEncrypted
             ? (o("WALogger").LOG(
                 c ||
@@ -749,31 +756,31 @@ __d(
         w.apply(this, arguments)
       );
     }
-    function A(e, t, n, r) {
+    function A(e) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = t.offline != null && !n,
-              i = e,
-              l = o("WAWebGetMessageCache")
-                .getMessageCache()
-                .addMessages([{ msg: i }], !a);
-            ((n ||
-              (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
-                o("WAWebBackendEventBus").BackendEventBus
-                  .isOfflineDeliveryEnd)) &&
-              (yield l),
-              r ===
-                o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.RETRY &&
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "removePlaceholder",
-                  { msg: e },
-                ));
-          },
-        )),
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.messageOverwriteOption,
+            n = e.msg,
+            r = e.msgInfo,
+            a = e.reparsing,
+            i = r.offline != null && !a,
+            l = n,
+            s = o("WAWebGetMessageCache")
+              .getMessageCache()
+              .addMessages([{ msg: l }], !i);
+          ((a ||
+            (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
+              o("WAWebBackendEventBus").BackendEventBus
+                .isOfflineDeliveryEnd)) &&
+            (yield s),
+            t === o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.RETRY &&
+              o("WAWebBackendApi").frontendFireAndForget("removePlaceholder", {
+                msg: n,
+              }));
+        })),
         F.apply(this, arguments)
       );
     }

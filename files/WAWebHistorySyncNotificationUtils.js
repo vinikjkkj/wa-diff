@@ -370,15 +370,19 @@ __d(
     function S(e, t, n) {
       ((e.mdTimestamp = n), (e.mdBootstrapStepDuration = n - t), e.commit());
     }
-    function R(e, t, n, r) {
-      ((e.mdTimestamp = r),
-        (e.mdBootstrapStepDuration = r - t),
-        (e.mdBootstrapStepResult = n
+    function R(e) {
+      var t = e.chunkDownloadFinishTimestamp,
+        n = e.historySyncDownloadMetric,
+        r = e.isSuccess,
+        a = e.startTs;
+      ((n.mdTimestamp = t),
+        (n.mdBootstrapStepDuration = t - a),
+        (n.mdBootstrapStepResult = r
           ? o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
               .SUCCESS
           : o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
               .FAILURE),
-        e.commit());
+        n.commit());
     }
     function L(e) {
       return E.apply(this, arguments);

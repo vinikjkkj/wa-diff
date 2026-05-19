@@ -224,13 +224,16 @@ __d(
       }
       return o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(l);
     }
-    function p(e, t, n) {
+    function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ephemeralExpiration,
+            n = e.groupWid,
+            r = e.trigger,
+            a = {
               hasLocked: !1,
               hasAnnouncement: !1,
               hasNoFrequentlyForwarded: !1,
@@ -246,23 +249,23 @@ __d(
               hasNotAllowNonAdminSubGroupCreation: !1,
               hasGroupHistory: !1,
               hasNoGroupHistory: !1,
-              iqTo: o("WAWebWidToJid").widToGroupJid(e),
+              iqTo: o("WAWebWidToJid").widToGroupJid(n),
             },
-            a = o("WAWebEphemeralityUtils").getGroupEphemeralTrigger(n);
+            i = o("WAWebEphemeralityUtils").getGroupEphemeralTrigger(r);
           return (
-            n != null
-              ? (r = babelHelpers.extends({}, r, {
+            r != null
+              ? (a = babelHelpers.extends({}, a, {
                   ephemeralArgs:
                     t > 0
-                      ? { ephemeralExpiration: t, ephemeralTrigger: a }
+                      ? { ephemeralExpiration: t, ephemeralTrigger: i }
                       : null,
                   hasNotEphemeral: t <= 0,
                 }))
-              : (r = babelHelpers.extends({}, r, {
+              : (a = babelHelpers.extends({}, a, {
                   ephemeralArgs: t > 0 ? { ephemeralExpiration: t } : null,
                   hasNotEphemeral: t <= 0,
                 })),
-            o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(r)
+            o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(a)
           );
         })),
         _.apply(this, arguments)

@@ -14,12 +14,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = new Map();
-    function u(t, n, r) {
-      var a = void 0,
-        i = o("WATimeUtils").unixTimeMs();
-      if (t != null) {
-        var l = s.get(t);
-        l != null && (a = i - l);
+    function u(t) {
+      var n = t.didRespondHqPreview,
+        r = t.isPreviewSuccess,
+        a = t.stanzaId,
+        i = void 0,
+        l = o("WATimeUtils").unixTimeMs();
+      if (a != null) {
+        var u = s.get(a);
+        u != null && (i = l - u);
       }
       (o("WALogger").LOG(
         e ||
@@ -29,19 +32,19 @@ __d(
             ", durationMs: ",
             "",
           ])),
-        t,
-        n,
         a,
+        r,
+        i,
       ),
         new (o(
           "WAWebWebcLinkPreviewResponseHandleWamEvent",
         ).WebcLinkPreviewResponseHandleWamEvent)({
-          previewSessionId: t,
-          isPreviewSuccess: n,
-          previewDurationMs: a != null ? a : void 0,
-          didRespondHqPreview: r,
+          previewSessionId: a,
+          isPreviewSuccess: r,
+          previewDurationMs: i != null ? i : void 0,
+          didRespondHqPreview: n,
         }).commit(),
-        t != null && s.delete(t));
+        a != null && s.delete(a));
     }
     function c(e, t) {
       var n = m(e);

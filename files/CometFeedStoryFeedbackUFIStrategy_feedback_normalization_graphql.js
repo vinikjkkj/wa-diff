@@ -5,6 +5,13 @@ __d(
     "use strict";
     var e = (function () {
       var e = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        t = {
           fields: [
             {
               kind: "Variable",
@@ -20,18 +27,11 @@ __d(
           kind: "ObjectValue",
           name: "feed_rendering_context",
         },
-        t = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "__typename",
-          storageKey: null,
-        },
         n = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "id",
+          name: "__typename",
           storageKey: null,
         };
       return {
@@ -49,7 +49,53 @@ __d(
             selections: [
               {
                 alias: null,
-                args: [e],
+                args: null,
+                concreteType: "Feedback",
+                kind: "LinkedField",
+                name: "feedback",
+                plural: !1,
+                selections: [
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "Feedback",
+                    kind: "LinkedField",
+                    name: "if_viewer_can_comment_anonymously",
+                    plural: !1,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        concreteType: "Group",
+                        kind: "LinkedField",
+                        name: "associated_group",
+                        plural: !1,
+                        selections: [
+                          e,
+                          {
+                            alias: null,
+                            args: null,
+                            concreteType: "Group",
+                            kind: "LinkedField",
+                            name: "if_viewer_can_use_nickname_on_comet",
+                            plural: !1,
+                            selections: [e],
+                            storageKey: null,
+                          },
+                        ],
+                        storageKey: null,
+                      },
+                      e,
+                    ],
+                    storageKey: null,
+                  },
+                  e,
+                ],
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: [t],
                 concreteType: "FeedbackContext",
                 kind: "LinkedField",
                 name: "feedback_context",
@@ -76,10 +122,10 @@ __d(
                         kind: "LinkedField",
                         name: "viewer_actor",
                         plural: !1,
-                        selections: [t, n],
+                        selections: [n, e],
                         storageKey: null,
                       },
-                      n,
+                      e,
                     ],
                     storageKey: null,
                   },
@@ -89,7 +135,7 @@ __d(
               {
                 alias: null,
                 args: [
-                  e,
+                  t,
                   { kind: "Literal", name: "supported", value: "1Xp8gG" },
                 ],
                 concreteType: null,
@@ -97,7 +143,7 @@ __d(
                 name: "story_ufi_container",
                 plural: !1,
                 selections: [
-                  t,
+                  n,
                   {
                     kind: "InlineFragment",
                     selections: [
@@ -143,14 +189,14 @@ __d(
                 ],
                 storageKey: null,
               },
-              n,
+              e,
             ],
             storageKey: null,
           },
           {
             kind: "InlineFragment",
             selections: [
-              t,
+              n,
               {
                 alias: null,
                 args: null,

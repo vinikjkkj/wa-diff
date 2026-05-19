@@ -20,7 +20,19 @@ __d(
         var c = s[u];
         a = n.propertyIsEnumerable(c) && e(t[c], n[c]);
       }
-      return a && Object.keys(n).length === s.length;
+      if (!a || Object.keys(n).length !== s.length) return !1;
+      if (s.length === 0) {
+        var d = Object.prototype.toString.call(t),
+          m = Object.prototype.toString.call(n);
+        return ArrayBuffer.isView(t) &&
+          ArrayBuffer.isView(n) &&
+          !(t instanceof DataView) &&
+          !(n instanceof DataView) &&
+          t.constructor === n.constructor
+          ? !0
+          : d === "[object Object]" && m === "[object Object]";
+      }
+      return !0;
     }
     i.deepEqual = e;
   },

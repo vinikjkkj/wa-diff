@@ -2,7 +2,7 @@ __d(
   "CometFeedStoryMenuQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "26578139061874750";
+    a.exports = "25902277709447823";
   },
   null,
 );

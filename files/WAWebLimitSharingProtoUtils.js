@@ -146,8 +146,7 @@ __d(
     }
     ((l.getLimitSharingFromProtocolHistorySyncConversation = e),
       (l.parseLimitSharingFromMessage = s),
-      (l.updateChatWithLimitSharingIfNewer = _),
-      (l.isMoreRecentThanExistingLimitSharingSetting = g));
+      (l.updateChatWithLimitSharingIfNewer = _));
   },
   98,
 );

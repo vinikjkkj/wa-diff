@@ -705,12 +705,12 @@ __d(
               (i.mdBootstrapChatsCount = e.conversations.length),
               o(
                 "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric(
-                i,
-                t.historySyncStepStartedTs,
-                !0,
-                s,
-              ),
+              ).commitHistoryDownloadedMetric({
+                chunkDownloadFinishTimestamp: s,
+                historySyncDownloadMetric: i,
+                isSuccess: !0,
+                startTs: t.historySyncStepStartedTs,
+              }),
               r("WAWebSyncBootstrap").markInitialHistorySyncCountDebugStats(
                 A,
                 N.length,
@@ -850,12 +850,12 @@ __d(
             ),
               o(
                 "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric(
-                n,
-                t.historySyncStepStartedTs,
-                !0,
-                a,
-              ),
+              ).commitHistoryDownloadedMetric({
+                chunkDownloadFinishTimestamp: a,
+                historySyncDownloadMetric: n,
+                isSuccess: !0,
+                startTs: t.historySyncStepStartedTs,
+              }),
               e.pastParticipants != null &&
                 e.pastParticipants.length > 0 &&
                 (yield o(

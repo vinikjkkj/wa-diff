@@ -29,7 +29,12 @@ __d(
       if (n("cr:3749") != null && n("cr:3258") != null) {
         var i = n("cr:3258").extractDataFromGenericLinkUrl(a);
         if (i != null)
-          return u.jsx(n("cr:3749"), { data: i.data, type: i.type });
+          return u.jsx(n("cr:3749"), {
+            data: i.data,
+            fileId: i.fileId,
+            shortCode: i.shortCode,
+            type: i.type,
+          });
       }
       if (
         n("cr:3118") !== null &&

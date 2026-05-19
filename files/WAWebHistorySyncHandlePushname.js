@@ -26,12 +26,12 @@ __d(
             ),
               o(
                 "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric(
-                a,
-                n.historySyncStepStartedTs,
-                !0,
-                l,
-              ));
+              ).commitHistoryDownloadedMetric({
+                chunkDownloadFinishTimestamp: l,
+                historySyncDownloadMetric: a,
+                isSuccess: !0,
+                startTs: n.historySyncStepStartedTs,
+              }));
             var u = t.pushnames.map(function (e) {
               return { id: e.id || "", pushname: e.pushname || "" };
             });

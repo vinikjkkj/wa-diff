@@ -76,7 +76,7 @@ __d(
         ).isPrivacyDisallowedListTypeLidMigrated(y(r))
       )
         try {
-          return f(r, i, a, n);
+          return f({ dhash: n, name: r, users: a, value: i });
         } catch (t) {
           return (
             o("WALogger")
@@ -105,22 +105,26 @@ __d(
         }),
       );
     }
-    function f(e, t, n, r) {
-      var a,
-        i = n.map(function (e) {
+    function f(e) {
+      var t,
+        n = e.dhash,
+        r = e.name,
+        a = e.users,
+        i = e.value,
+        l = a.map(function (e) {
           return h(e);
         });
-      return (a = o("WAWap")).wap(
+      return (t = o("WAWap")).wap(
         "privacy",
-        { addressing_mode: a.CUSTOM_STRING("lid") },
-        a.wap(
+        { addressing_mode: t.CUSTOM_STRING("lid") },
+        t.wap(
           "category",
           {
-            name: a.CUSTOM_STRING(e),
-            value: a.CUSTOM_STRING(t),
-            dhash: a.CUSTOM_STRING(r != null ? r : "none"),
+            name: t.CUSTOM_STRING(r),
+            value: t.CUSTOM_STRING(i),
+            dhash: t.CUSTOM_STRING(n != null ? n : "none"),
           },
-          i,
+          l,
         ),
       );
     }

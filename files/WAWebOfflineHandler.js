@@ -331,19 +331,24 @@ __d(
           t
         );
       })();
-    function k(e, t, n, r) {
-      if ((r === void 0 && (r = 0.2), e === 0)) return v;
-      if (e > 3) return b;
-      var o = null,
-        a = e - (t != null ? t : 0);
-      if (a === 0) {
-        var i;
-        ((o = Math.floor(n * r) + n),
-          ((i = R.get(e - 1)) != null ? i : v) <= o && (o = n));
-      } else o = R.get(e);
+    function k(e) {
+      var t = e.currentSize,
+        n = e.multiplier,
+        r = n === void 0 ? 0.2 : n,
+        o = e.prevRetryCount,
+        a = e.retryCount;
+      if (a === 0) return v;
+      if (a > 3) return b;
+      var i = null,
+        l = a - (o != null ? o : 0);
+      if (l === 0) {
+        var u;
+        ((i = Math.floor(t * r) + t),
+          ((u = R.get(a - 1)) != null ? u : v) <= i && (i = t));
+      } else i = R.get(a);
       return (
-        o != null || s(0, 75725, e, t != null ? t : "N/A", n),
-        o != null ? o : v
+        i != null || s(0, 75725, a, o != null ? o : "N/A", t),
+        i != null ? i : v
       );
     }
     function I() {
@@ -353,7 +358,17 @@ __d(
           a = r.multiplier,
           i = r.version,
           l = e;
-        return ((e = t), i === "progressive" ? k(t, l, n, a) : v);
+        return (
+          (e = t),
+          i === "progressive"
+            ? k({
+                currentSize: n,
+                multiplier: a,
+                prevRetryCount: l,
+                retryCount: t,
+              })
+            : v
+        );
       };
     }
     function T(e) {

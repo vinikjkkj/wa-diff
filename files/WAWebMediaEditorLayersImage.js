@@ -2,11 +2,11 @@ __d(
   "WAWebMediaEditorLayersImage",
   [
     "$InternalEnum",
+    "WADeepEquals",
     "WAWebMediaEditorGeometryRect",
     "WAWebMediaEditorGeometrySize",
     "WAWebMediaEditorUtilsGenerateLayerId",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored([
@@ -68,16 +68,16 @@ __d(
           (n.$2 = function (n) {
             var e = babelHelpers.extends({}, this.$1);
             if (n.image != null) {
-              var o = n.image.width,
-                a = n.image.height;
-              if (!o || !a)
+              var a = n.image.width,
+                i = n.image.height;
+              if (!a || !i)
                 throw r("err")("Image must have valid width and height");
               ((e.image = n.image),
                 (e.frame = new (r("WAWebMediaEditorGeometryRect"))({
                   origin: this.getFrame().getOrigin(),
                   size: new (r("WAWebMediaEditorGeometrySize"))({
-                    width: o,
-                    height: a,
+                    width: a,
+                    height: i,
                   }),
                   rotation: this.getFrame().getRotation(),
                   scale: this.getFrame().getScale(),
@@ -86,7 +86,7 @@ __d(
             return (
               n.editable != null && (e.editable = n.editable),
               n.frame != null && (e.frame = n.frame),
-              r("lodash").isEqual(this.$1, e) ? this : new t(e)
+              o("WADeepEquals").deepEqual(this.$1, e) ? this : new t(e)
             );
           }),
           (n.getImage = function () {

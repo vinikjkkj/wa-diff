@@ -20,7 +20,7 @@ __d(
           : o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WWAI][TEE] TEE transport not available, keeping current transport",
+                  "[WWAI][TEE] unavailable, keeping current transport",
                 ])),
             );
       }

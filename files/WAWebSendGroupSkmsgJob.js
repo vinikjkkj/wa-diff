@@ -56,37 +56,42 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
-    function g(e, t, n) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a, i, l;
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            r,
+            a,
+            i = t.groupData,
+            l = t.metricReporter,
+            s = t.skDistribList;
           if (
-            ((a = t.sendPerfReporter) == null || a.startPrekeysFetchStage(),
-            (i = t.sendPerfReporter) == null || i.setFetchedPrekeyCount(0),
-            n.length > 0)
+            ((n = l.sendPerfReporter) == null || n.startPrekeysFetchStage(),
+            (r = l.sendPerfReporter) == null || r.setFetchedPrekeyCount(0),
+            s.length > 0)
           )
             try {
-              var s,
-                u = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                  n,
+              var u,
+                c = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
+                  s,
                   !1,
                   o("WAWebSessionScope").SessionScope.DEFAULT,
                 );
-              ((s = t.sendPerfReporter) == null ||
-                s.setFetchedPrekeyCount(
-                  u == null ? void 0 : u.missedPrekeyCount,
+              ((u = l.sendPerfReporter) == null ||
+                u.setFetchedPrekeyCount(
+                  c == null ? void 0 : c.missedPrekeyCount,
                 ),
                 o(
                   "WAWebPostPrekeysDepletionMetric",
                 ).maybePostPrekeysDepletionMetric({
-                  count: u == null ? void 0 : u.depletedPrekeyCount,
+                  count: c == null ? void 0 : c.depletedPrekeyCount,
                   prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                     .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                   messageType: o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP,
-                  deviceSizeBucket: r.deviceSizeBucket,
+                  deviceSizeBucket: i.deviceSizeBucket,
                 }));
             } catch (t) {
               o("WALogger")
@@ -97,12 +102,12 @@ __d(
                       " devices: ",
                       "",
                     ])),
-                  n.length,
+                  s.length,
                   t,
                 )
                 .tags("messaging");
             }
-          (l = t.sendPerfReporter) == null || l.postPrekeysFetchStage();
+          (a = l.sendPerfReporter) == null || a.postPrekeysFetchStage();
         })),
         h.apply(this, arguments)
       );
@@ -347,7 +352,7 @@ __d(
             ),
               N &&
                 (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(x, B)),
-              yield g(l, M, i));
+              yield g({ groupData: i, metricReporter: l, skDistribList: M }));
             var U = yield y($, x, M, w, t, i, l, h),
               V = U.botMsgNode,
               H = U.identityNode,
@@ -389,7 +394,13 @@ __d(
                 z,
                 H,
                 b(t, e),
-                o("WAWebSendMsgMetaNode").genMetaNode(x, e, t, i, {}),
+                o("WAWebSendMsgMetaNode").genMetaNode({
+                  chatId: x,
+                  groupData: i,
+                  includeAttributes: {},
+                  msgProtobuf: t,
+                  msgRecord: e,
+                }),
                 C != null
                   ? o(
                       "WAWebScheduledMsgStanzaContributor",

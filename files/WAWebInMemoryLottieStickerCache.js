@@ -6,6 +6,7 @@ __d(
     "WAWebMediaMmsV4Download",
     "WAWebStickerErrorWamEvent",
     "WAWebStickerMimeUtils",
+    "WAWebStickerPremiumStatus",
     "WAWebWamEnumStickerErrorType",
     "asyncToGeneratorRuntime",
   ],
@@ -15,7 +16,7 @@ __d(
       u = new (o("WAWebLruCacheMap").LruCacheMap)({ sizeLimit: e });
     function c(e, t, n) {
       return (
-        n &&
+        n === o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM &&
         o("WAWebABProps").getABPropConfigValue(
           "aura_stickers_overlay_animation_enabled",
         ) &&

@@ -123,7 +123,7 @@ __d(
         i
       );
     }
-    ((l.showPinOverflowAlert = c), (l.getAiThreadContextMenuItems = m));
+    l.getAiThreadContextMenuItems = m;
   },
   226,
 );

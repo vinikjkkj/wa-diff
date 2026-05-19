@@ -14,18 +14,20 @@ __d(
     function u(t) {
       var n, r;
       if (
-        (o("WAWebNonMessageDataRequestLoggingUtils").logLinkPreviewResponse(
-          t.stanzaId,
-          ((n = t.peerDataOperationResult[0]) == null
-            ? void 0
-            : n.mediaUploadResult) ===
+        (o("WAWebNonMessageDataRequestLoggingUtils").logLinkPreviewResponse({
+          didRespondHqPreview:
+            ((n = t.peerDataOperationResult[0]) == null ||
+            (n = n.linkPreviewResponse) == null
+              ? void 0
+              : n.hqThumbnail) != null,
+          isPreviewSuccess:
+            ((r = t.peerDataOperationResult[0]) == null
+              ? void 0
+              : r.mediaUploadResult) ===
             o("WAWebProtobufsMmsRetry.pb").MediaRetryNotification$ResultType
               .SUCCESS,
-          ((r = t.peerDataOperationResult[0]) == null ||
-          (r = r.linkPreviewResponse) == null
-            ? void 0
-            : r.hqThumbnail) != null,
-        ),
+          stanzaId: t.stanzaId,
+        }),
         t.stanzaId != null)
       ) {
         var a = t.stanzaId;

@@ -446,7 +446,7 @@ __d(
         C.apply(this, arguments)
       );
     }
-    ((l.encryptAndSendBroadcastMsg = g), (l.genBroadcastMessageBody = y));
+    l.encryptAndSendBroadcastMsg = g;
   },
   98,
 );

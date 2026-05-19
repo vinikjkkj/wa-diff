@@ -15,6 +15,7 @@ __d(
     "WAWebDBChatValidation",
     "WAWebDBMessageUtils",
     "WAWebDBPendingReadReceiptQueries",
+    "WAWebEphemeralKeepInChatUtils",
     "WAWebEphemeralityUtils",
     "WAWebLidMigrationUtils",
     "WAWebMiscErrors",
@@ -249,7 +250,8 @@ __d(
                   if (
                     a != null &&
                     a > 0 &&
-                    (r == null || r < o("WAWebAck").ACK.READ)
+                    (r == null || r < o("WAWebAck").ACK.READ) &&
+                    !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState)
                   ) {
                     var u = l != null ? l : o("WATimeUtils").unixTime();
                     if (

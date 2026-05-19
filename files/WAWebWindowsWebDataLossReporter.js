@@ -38,7 +38,7 @@ __d(
               o("WALogger").WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "reportPotentialWebDataLoss: web logged out, native session active",
+                    "reportPotentialWebDataLoss: web logout, native active",
                   ])),
               ),
               r("justknobx")._("1288") &&

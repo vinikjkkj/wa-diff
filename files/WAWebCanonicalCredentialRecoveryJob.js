@@ -83,7 +83,7 @@ __d(
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[canonical] cached nonce recovery failed, falling back to peer request",
+                  "[canonical] cached nonce failed, trying peer request",
                 ])),
             );
           }
@@ -92,7 +92,7 @@ __d(
               ? o("WALogger").LOG(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[canonical] peer request throttled, waiting for primary response",
+                      "[canonical] peer request throttled, awaiting response",
                     ])),
                 )
               : (o("WALogger").LOG(

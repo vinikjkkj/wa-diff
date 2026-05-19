@@ -2,13 +2,13 @@ __d(
   "WAWebMediaEditorLayersShape",
   [
     "$InternalEnum",
+    "WADeepEquals",
     "WAWebMediaEditorEnumsColors",
     "WAWebMediaEditorGeometryRect",
     "WAWebMediaEditorGeometrySize",
     "WAWebMediaEditorUtilsGenerateLayerId",
     "WAWebMediaEditorUtilsShapes",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["mode"],
@@ -109,16 +109,16 @@ __d(
           (n.$2 = function (n) {
             var e = babelHelpers.extends({}, this.$1);
             if (n.image != null) {
-              var o = n.image.width,
-                a = n.image.height;
-              if (!o || !a)
+              var a = n.image.width,
+                i = n.image.height;
+              if (!a || !i)
                 throw r("err")("Image must have valid width and height");
               ((e.image = n.image),
                 (e.backgroundFrame = new (r("WAWebMediaEditorGeometryRect"))({
                   origin: this.getBackgroundFrame().getOrigin(),
                   size: new (r("WAWebMediaEditorGeometrySize"))({
-                    width: o,
-                    height: a,
+                    width: a,
+                    height: i,
                   }),
                   rotation: this.getBackgroundFrame().getRotation(),
                   scale: this.getBackgroundFrame().getScale(),
@@ -137,7 +137,9 @@ __d(
                 (e.backgroundFrame = n.backgroundFrame),
               n.confirmed != null && (e.confirmed = n.confirmed),
               n.mode != null && (e.mode = n.mode),
-              r("lodash").isEqual(this.$1, e) ? this : new t(e).setConfirmed()
+              o("WADeepEquals").deepEqual(this.$1, e)
+                ? this
+                : new t(e).setConfirmed()
             );
           }),
           (n.getImage = function () {

@@ -17,6 +17,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
+      return e.serverId == null
+        ? t.serverId == null
+          ? 0
+          : 1
+        : t.serverId == null
+          ? -1
+          : e.serverId - t.serverId;
+    }
+    function u(e, t) {
       t === void 0 && (t = new Set());
       for (
         var n = [],
@@ -52,37 +61,37 @@ __d(
         a = r();
       return n;
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.jid,
             i = t.msgs,
             l = t.range,
-            u = t.serverIdsToSkip,
-            c = u === void 0 ? new Set() : u;
+            c = t.serverIdsToSkip,
+            d = c === void 0 ? new Set() : c;
           if (i.length < 2 && l == null) return i;
-          var d = i[0].serverId,
-            m = i[i.length - 1].serverId;
-          if (d == null || m == null) return [];
+          var m = i[0].serverId,
+            p = i[i.length - 1].serverId;
+          if (m == null || p == null) return [];
           if (
-            d >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
             m >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
-            (m - d + 1 === i.length && l == null)
+            p >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
+            (p - m + 1 === i.length && l == null)
           )
             return i;
-          var p;
+          var _;
           if (l != null) {
-            var _ = l.end,
-              f = l.start,
-              g = { serverId: Math.min(f, _) - 1 },
-              h = { serverId: Math.max(f, _) + 1 };
-            p = s([g].concat(i).concat(h), c);
-          } else p = s(i, c);
-          if (p.length === 0) return i;
-          var y = p.map(
+            var f = l.end,
+              g = l.start,
+              h = { serverId: Math.min(g, f) - 1 },
+              y = { serverId: Math.max(g, f) + 1 };
+            _ = u([h].concat(i).concat(y), d);
+          } else _ = u(i, d);
+          if (_.length === 0) return i;
+          var C = _.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -113,20 +122,20 @@ __d(
                 };
               })(),
             ),
-            C = r("lodash")
-              .flatten(yield (e || (e = n("Promise"))).all(y))
+            b = r("lodash")
+              .flatten(yield (e || (e = n("Promise"))).all(C))
               .filter(Boolean);
           return (
             o("WAWebNewsletterUpdateMsgsRecordsJob")
-              .addNewsletterMsgsRecordsJob(C)
+              .addNewsletterMsgsRecordsJob(b)
               .fireAndForget(),
-            r("lodash").sortBy(i.concat(C), "serverId")
+            i.concat(b).sort(s)
           );
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    ((l.identifyMsgGaps = s), (l.fillMsgHistoryGaps = u));
+    ((l.identifyMsgGaps = u), (l.fillMsgHistoryGaps = c));
   },
   98,
 );

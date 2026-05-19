@@ -314,7 +314,12 @@ __d(
             u = r.map(function (e) {
               return o(
                 "WAWebDBReportingTokenUtils",
-              ).createReportingValidationArgs(e, l, i, a);
+              ).createReportingValidationArgs({
+                msgSecret: i,
+                remoteJid: l,
+                reportingInfo: e,
+                senderWid: a,
+              });
             });
           return {
             reportingValidationArgs: yield (s || (s = n("Promise"))).all(u),

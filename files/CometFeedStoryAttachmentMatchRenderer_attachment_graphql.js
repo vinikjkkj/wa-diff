@@ -17,7 +17,7 @@ __d(
               name: "render_location",
               variableName: "renderLocation",
             },
-            { kind: "Literal", name: "supported", value: "4xEQPx" },
+            { kind: "Literal", name: "supported", value: "pKL3v" },
           ],
           concreteType: null,
           kind: "LinkedField",
@@ -310,22 +310,6 @@ __d(
                 },
               ],
               type: "StoryAttachmentVolunteeringEventStyleRenderer",
-              abstractKey: null,
-            },
-            {
-              kind: "InlineFragment",
-              selections: [
-                {
-                  args: null,
-                  documentName:
-                    "CometFeedStoryAttachmentMatchRenderer_attachment",
-                  fragmentName:
-                    "CometFeedStoryVolunteeringEventActivityShiftAttachmentStyle_styleTypeRenderer",
-                  fragmentPropName: "styleTypeRenderer",
-                  kind: "ModuleImport",
-                },
-              ],
-              type: "StoryAttachmentVolunteeringEventActivityShiftStyleRenderer",
               abstractKey: null,
             },
             {
@@ -998,22 +982,6 @@ __d(
                 },
               ],
               type: "StoryAttachmentFallbackStyleRenderer",
-              abstractKey: null,
-            },
-            {
-              kind: "InlineFragment",
-              selections: [
-                {
-                  args: null,
-                  documentName:
-                    "CometFeedStoryAttachmentMatchRenderer_attachment",
-                  fragmentName:
-                    "CometFeedStoryLinkToVideoAttachmentStyle_styleTypeRenderer",
-                  fragmentPropName: "styleTypeRenderer",
-                  kind: "ModuleImport",
-                },
-              ],
-              type: "StoryAttachmentLinkToVideoStyleRenderer",
               abstractKey: null,
             },
             {

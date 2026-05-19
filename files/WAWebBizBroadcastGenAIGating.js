@@ -64,8 +64,7 @@ __d(
     function f(e) {
       return r("countWhere")(e.split(/\W+/), Boolean);
     }
-    ((l.isGenAIMasterEnabled = s),
-      (l.isGenAITextEnabled = u),
+    ((l.isGenAITextEnabled = u),
       (l.isGenAICustomUserPromptEnabled = c),
       (l.getGenAIComposerMinWords = d),
       (l.getGenAIMaxDaily = m),

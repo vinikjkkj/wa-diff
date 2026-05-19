@@ -81,15 +81,16 @@ __d(
           a = o("WAWebStateUtils").unproxy(t);
         return o(
           "WAWebSubgroupSuggestionsActionJob",
-        ).sendSubgroupSuggestionsAction(
-          a.id,
-          n.map(function (e) {
+        ).sendSubgroupSuggestionsAction({
+          action: r,
+          isLidAddressingMode:
+            ((e = a.groupMetadata) == null ? void 0 : e.isLidAddressingMode) ===
+            !0,
+          parentGroupId: a.id,
+          subgroupSuggestions: n.map(function (e) {
             return { id: e.groupId, creator: e.owner };
           }),
-          r,
-          ((e = a.groupMetadata) == null ? void 0 : e.isLidAddressingMode) ===
-            !0,
-        );
+        });
       },
       g = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {

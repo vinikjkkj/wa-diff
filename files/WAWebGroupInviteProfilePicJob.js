@@ -6,19 +6,22 @@ __d(
     "WAWebQueryGroupInviteProfilePicApi",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      var r = { groupWid: e, code: t, option: n };
+    function e(e) {
+      var t = e.code,
+        n = e.groupWid,
+        r = e.option,
+        a = { groupWid: n, code: t, option: r };
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "queryGroupInviteLinkProfilePic",
           function (e) {
             return o(
               "WAWebQueryGroupInviteProfilePicApi",
-            ).queryGroupInviteLinkProfilePic(r);
+            ).queryGroupInviteLinkProfilePic(a);
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
-        .waitUntilCompleted(r);
+        .waitUntilCompleted(a);
     }
     function s(e, t, n, r, a) {
       var i = { groupWid: e, code: t, expiration: n, adminWid: r, option: a };

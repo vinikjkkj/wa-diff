@@ -56,7 +56,12 @@ __d(
                   enc: c,
                 }),
                 o("WAWebMessageDedupUtils").isPengingMessageCacheEnabled()
-                  ? o("WAWebHandleMsgSendAck").sendAck(d, m, _.type, f)
+                  ? o("WAWebHandleMsgSendAck").sendAck({
+                      externalId: d,
+                      from: m,
+                      participant: f,
+                      type: _.type,
+                    })
                   : n.push({ externalId: d, from: m, author: u }))
               : (o("WALogger").LOG(
                   s ||

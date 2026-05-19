@@ -77,7 +77,6 @@ __d(
     }
     ((l.UnifiedResponseQPLLogger = s),
       (l.isUnifiedResponseVisible = c),
-      (l.shouldShowImagineUnifiedResponse = d),
       (l.isImagineResponse = m),
       (l.unifiedResponseHasMediaContent = _));
   },

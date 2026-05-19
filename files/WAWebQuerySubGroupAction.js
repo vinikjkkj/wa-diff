@@ -68,13 +68,14 @@ __d(
           var a = r("WAWebGroupMetadataCollection").get(n),
             i;
           try {
-            i = yield o("WAWebGroupQuerySubGroupsJob").querySubgroup(
-              t,
-              n,
-              a != null && a.joinedSubgroups.length
-                ? a.joinedSubgroups[0]
-                : void 0,
-            );
+            i = yield o("WAWebGroupQuerySubGroupsJob").querySubgroup({
+              anyJoinedSubgroupId:
+                a != null && a.joinedSubgroups.length
+                  ? a.joinedSubgroups[0]
+                  : void 0,
+              parentGroupId: n,
+              subgroupId: t,
+            });
           } catch (t) {
             return o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,

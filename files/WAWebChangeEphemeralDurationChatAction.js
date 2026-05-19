@@ -164,11 +164,11 @@ __d(
               "changeGroupEphemeralDuration should not be called for 1-1 chats. Use changeEphemeralDuration which handles both 1-1 and group cases",
             );
           o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger_groups")
-            ? yield o("WAWebGroupModifyInfoJob").setEphemeralGroupProperty(
-                e.id,
-                t,
-                n,
-              )
+            ? yield o("WAWebGroupModifyInfoJob").setEphemeralGroupProperty({
+                ephemeralExpiration: t,
+                groupWid: e.id,
+                trigger: n,
+              })
             : yield o("WAWebGroupModifyInfoJob").setGroupProperty(
                 e.id,
                 o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL,

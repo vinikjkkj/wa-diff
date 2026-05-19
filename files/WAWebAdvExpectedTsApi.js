@@ -2,22 +2,25 @@ __d(
   "WAWebAdvExpectedTsApi",
   ["WATimeUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      var r = t == null ? void 0 : t.timestamp;
-      if (r == null)
+    function e(e) {
+      var t = e.deviceRecord,
+        n = e.incomingTs,
+        r = e.lastDeviceJobTs,
+        o = t == null ? void 0 : t.timestamp;
+      if (o == null)
         return {
           expectedTs: void 0,
           expectedTsLastDeviceJobTs: void 0,
           expectedTsUpdateTs: void 0,
         };
-      var o, a, i;
+      var a, i, l;
       return (
         t != null &&
           !t.deleted &&
-          ((o = t.expectedTs),
-          (a = t.expectedTsLastDeviceJobTs),
-          (i = t.expectedTsUpdateTs)),
-        s(e, r, n, o, a, i)
+          ((a = t.expectedTs),
+          (i = t.expectedTsLastDeviceJobTs),
+          (l = t.expectedTsUpdateTs)),
+        s(n, o, r, a, i, l)
       );
     }
     function s(e, t, n, r, a, i) {

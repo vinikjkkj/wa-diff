@@ -28,7 +28,16 @@ __d(
                 (i != null && o("WAWebUserPrefsMeUser").isMeAccount(i)),
               m = s.hasInactiveMsg === !0 && !d,
               p = !m;
-            c(t, n, a, i, p, d, l, u === !0).catch(function (t) {
+            c({
+              externalId: t,
+              isActiveReceipt: p,
+              isFromPeer: d,
+              isPeerMsg: l,
+              isStatusContext: u === !0,
+              participant: i,
+              recipient: a,
+              to: n,
+            }).catch(function (t) {
               o("WALogger")
                 .ERROR(
                   e ||
@@ -44,49 +53,54 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n, r, o, a, i, l) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s) {
-            var u = o("WAWap").DROP_ATTR;
-            l
-              ? (u = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG)
-              : i
-                ? (u = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
-                : a ||
-                  (u = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
-            var c =
-                s && o("WAWebStatusGatingUtils").isStatusStanzaSendEnabled()
-                  ? o("WAWap").CUSTOM_STRING("status")
-                  : o("WAWap").DROP_ATTR,
-              d = o("WAJids").extractJidFromJidWithType(
-                o("WAWebWidToJid").widToJidWithType(t),
-              ),
-              m = o("WAWap").wap("receipt", {
-                id: o("WAWap").CUSTOM_STRING(e),
-                to: o("WAWap").JID(d),
-                participant:
-                  (t.isGroup() || t.isBroadcast()) && r
-                    ? o("WAWebCommsWapMd").DEVICE_JID(r)
-                    : o("WAWap").DROP_ATTR,
-                recipient:
-                  !l && i && n
-                    ? o("WAWebCommsWapMd").USER_JID(n)
-                    : o("WAWap").DROP_ATTR,
-                type: u,
-                context: c,
-              });
-            (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts(
-              t,
-              r || t,
-              e,
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.externalId,
+            n = e.isActiveReceipt,
+            r = e.isFromPeer,
+            a = e.isPeerMsg,
+            i = e.isStatusContext,
+            l = e.participant,
+            s = e.recipient,
+            u = e.to,
+            c = o("WAWap").DROP_ATTR;
+          a
+            ? (c = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG)
+            : r
+              ? (c = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
+              : n || (c = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
+          var d =
+              i && o("WAWebStatusGatingUtils").isStatusStanzaSendEnabled()
+                ? o("WAWap").CUSTOM_STRING("status")
+                : o("WAWap").DROP_ATTR,
+            m = o("WAJids").extractJidFromJidWithType(
+              o("WAWebWidToJid").widToJidWithType(u),
             ),
-              o("WADeprecatedSendIq").deprecatedCastStanza(m));
-          },
-        )),
+            p = o("WAWap").wap("receipt", {
+              id: o("WAWap").CUSTOM_STRING(t),
+              to: o("WAWap").JID(m),
+              participant:
+                (u.isGroup() || u.isBroadcast()) && l
+                  ? o("WAWebCommsWapMd").DEVICE_JID(l)
+                  : o("WAWap").DROP_ATTR,
+              recipient:
+                !a && r && s
+                  ? o("WAWebCommsWapMd").USER_JID(s)
+                  : o("WAWap").DROP_ATTR,
+              type: c,
+              context: d,
+            });
+          (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts(
+            u,
+            l || u,
+            t,
+          ),
+            o("WADeprecatedSendIq").deprecatedCastStanza(p));
+        })),
         d.apply(this, arguments)
       );
     }

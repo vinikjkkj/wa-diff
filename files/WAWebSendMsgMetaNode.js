@@ -23,75 +23,80 @@ __d(
         ? n
         : null;
     }
-    function s(t, n, r, a, i) {
-      var l,
-        s,
-        _,
-        f =
-          (l = o(
+    function s(t) {
+      var n,
+        r,
+        a,
+        i = t.chatId,
+        l = t.groupData,
+        s = t.includeAttributes,
+        _ = t.msgProtobuf,
+        f = t.msgRecord,
+        g =
+          (n = o(
             "WAWebVerifyProtobufMsgObjectKeys",
-          ).getUnwrappedProtobufMessage(r)) != null
-            ? l
-            : r,
-        g = u(f),
-        h = c(f),
-        y = m(i),
-        C;
-      n.type === "addon" &&
-        (C = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
-          n.data,
+          ).getUnwrappedProtobufMessage(_)) != null
+            ? n
+            : _,
+        h = u(g),
+        y = c(g),
+        C = m(s),
+        b;
+      f.type === "addon" &&
+        (b = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
+          f.data,
         ));
-      var b = n.data.botMetricsMetadata,
-        v =
-          b != null
+      var v = f.data.botMetricsMetadata,
+        S =
+          v != null
             ? o("WAWebBotLoggingUtils").getBotOriginFromBotMetricsEntryPoint(
-                b.destinationEntryPoint,
+                v.destinationEntryPoint,
               )
             : null,
-        S = (s = b == null ? void 0 : b.destinationId) != null ? s : null,
-        R = v != null && o("WAWebBotUtils").isMetaAiBot(t) ? v : e(t, i),
-        L = d(n, i),
-        E = p(n),
-        k = ((_ = n.data.mediaData) == null ? void 0 : _.isViewOnce) === !0,
-        I =
-          g != null ||
+        R = (r = v == null ? void 0 : v.destinationId) != null ? r : null,
+        L = S != null && o("WAWebBotUtils").isMetaAiBot(i) ? S : e(i, s),
+        E = d(f, s),
+        k = p(f),
+        I = ((a = f.data.mediaData) == null ? void 0 : a.isViewOnce) === !0,
+        T =
           h != null ||
-          C != null ||
-          R != null ||
-          S != null ||
-          (i == null ? void 0 : i.appendHostedSenderIntent) === !0 ||
-          L != null ||
-          k ||
           y != null ||
-          E != null;
-      if (I) {
-        var T, D;
+          b != null ||
+          L != null ||
+          R != null ||
+          (s == null ? void 0 : s.appendHostedSenderIntent) === !0 ||
+          E != null ||
+          I ||
+          C != null ||
+          k != null;
+      if (T) {
+        var D, x;
         return o("WAWap").wap("meta", {
           origin:
-            R != null ? o("WAWap").CUSTOM_STRING(R) : o("WAWap").DROP_ATTR,
+            L != null ? o("WAWap").CUSTOM_STRING(L) : o("WAWap").DROP_ATTR,
           destination_id:
-            S != null ? o("WAWap").CUSTOM_STRING(S) : o("WAWap").DROP_ATTR,
+            R != null ? o("WAWap").CUSTOM_STRING(R) : o("WAWap").DROP_ATTR,
           sender_intent:
-            (i == null ? void 0 : i.appendHostedSenderIntent) === !0
+            (s == null ? void 0 : s.appendHostedSenderIntent) === !0
               ? "hosted"
               : o("WAWap").DROP_ATTR,
-          polltype: g != null ? g : o("WAWap").DROP_ATTR,
-          event_type: h != null ? h : o("WAWap").DROP_ATTR,
+          polltype: h != null ? h : o("WAWap").DROP_ATTR,
+          event_type: y != null ? y : o("WAWap").DROP_ATTR,
           thread_msg_id:
-            ((T = C) == null ? void 0 : T.threadMsgId) != null
-              ? o("WAWap").CUSTOM_STRING(C.threadMsgId)
+            ((D = b) == null ? void 0 : D.threadMsgId) != null
+              ? o("WAWap").CUSTOM_STRING(b.threadMsgId)
               : o("WAWap").DROP_ATTR,
           thread_msg_sender_jid:
-            (D = C) != null && D.threadMsgSenderLid
-              ? o("WAWebCommsWapMd").USER_JID(C.threadMsgSenderLid)
+            (x = b) != null && x.threadMsgSenderLid
+              ? o("WAWebCommsWapMd").USER_JID(b.threadMsgSenderLid)
               : o("WAWap").DROP_ATTR,
           appdata:
-            L != null ? o("WAWap").CUSTOM_STRING(L) : o("WAWap").DROP_ATTR,
-          view_once: k ? "true" : o("WAWap").DROP_ATTR,
-          conversation_thread_id:
-            y != null ? o("WAWap").CUSTOM_STRING(y) : o("WAWap").DROP_ATTR,
-          tag_reason:
             E != null ? o("WAWap").CUSTOM_STRING(E) : o("WAWap").DROP_ATTR,
+          view_once: I ? "true" : o("WAWap").DROP_ATTR,
+          conversation_thread_id:
+            C != null ? o("WAWap").CUSTOM_STRING(C) : o("WAWap").DROP_ATTR,
+          tag_reason:
+            k != null ? o("WAWap").CUSTOM_STRING(k) : o("WAWap").DROP_ATTR,
         });
       }
     }

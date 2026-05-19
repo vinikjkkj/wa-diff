@@ -10,19 +10,24 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, a) {
+    function s(e) {
+      var t = e.externalId,
+        n = e.from,
+        r = e.participant,
+        a = e.stanzaClass,
+        i = e.type;
       o("WADeprecatedSendIq").deprecatedCastStanza(
         o("WAWap").wap("ack", {
-          id: o("WAWap").CUSTOM_STRING(e),
+          id: o("WAWap").CUSTOM_STRING(t),
           class: o("WAWap").CUSTOM_STRING(a != null ? a : "message"),
           from: o("WAWebCommsWapMd").DEVICE_JID(
             o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
           ),
-          to: t ? o("WAWebCommsWapMd").JID(t) : o("WAWap").DROP_ATTR,
+          to: n ? o("WAWebCommsWapMd").JID(n) : o("WAWap").DROP_ATTR,
           participant: r
             ? o("WAWebCommsWapMd").DEVICE_JID(r)
             : o("WAWap").DROP_ATTR,
-          type: n != null ? n : o("WAWap").DROP_ATTR,
+          type: i != null ? i : o("WAWap").DROP_ATTR,
         }),
       );
     }

@@ -116,7 +116,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    var p = o("WABatcher").batch({ delayMs: 50 }, d);
+    var p = o("WABatcher").batch({ delayMs: 200 }, d);
     function _(e, t) {
       return f.apply(this, arguments);
     }

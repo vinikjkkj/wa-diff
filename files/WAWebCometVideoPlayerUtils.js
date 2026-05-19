@@ -11,7 +11,7 @@ __d(
     function e(e) {
       switch (e) {
         case o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS:
-          return "status_viewer";
+          return "whatsapp_status_organic_videos";
         case o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL:
           return "whatsapp_channels";
         default:

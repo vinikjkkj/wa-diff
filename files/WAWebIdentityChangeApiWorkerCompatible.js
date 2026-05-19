@@ -16,7 +16,6 @@ __d(
       return u().clearDeviceRecordForIdentityChange(e);
     }
     ((l.setInstance = s),
-      (l.getInstance = u),
       (l.handleNewIdentity = c),
       (l.clearDeviceRecordForIdentityChange = d));
   },

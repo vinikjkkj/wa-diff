@@ -17,29 +17,13 @@ __d(
               name: "location",
               variableName: "renderLocation",
             },
-            { kind: "Literal", name: "supported", value: "1oCS4f" },
+            { kind: "Literal", name: "supported", value: "cwbfj" },
           ],
           concreteType: null,
           kind: "LinkedField",
           name: "comet_footer_renderer",
           plural: !1,
           selections: [
-            {
-              kind: "InlineFragment",
-              selections: [
-                {
-                  args: null,
-                  documentName:
-                    "CometFeedStoryAttachmentFooterMatchRenderer_attachment",
-                  fragmentName:
-                    "CometStoryAttachmentFooterVideoPageLikeStrategy_attachmentFooter",
-                  fragmentPropName: "attachmentFooter",
-                  kind: "ModuleImport",
-                },
-              ],
-              type: "CometStoryAttachmentFooterVideoPageLikeStrategy",
-              abstractKey: null,
-            },
             {
               kind: "InlineFragment",
               selections: [

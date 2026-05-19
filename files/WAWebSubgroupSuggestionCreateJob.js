@@ -116,110 +116,114 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r, o, a, i, l) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i, l, c, d) {
-            function m(e) {
-              var t = e.code,
-                r = e.text;
-              return (
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "createNewGroupSubgroupSuggestion failed: ",
-                      ":",
-                      "",
-                    ])),
-                  t,
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.announce,
+            r = e.description,
+            a = e.memberAddMode,
+            i = e.memberShareGroupHistoryMode,
+            l = e.membershipApprovalMode,
+            c = e.parentGroupId,
+            d = e.restrict,
+            m = e.subject;
+          function p(e) {
+            var t = e.code,
+              r = e.text;
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "createNewGroupSubgroupSuggestion failed: ",
+                    ":",
+                    "",
+                  ])),
+                t,
+                r,
+              ),
+              (u || (u = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(t),
                   r,
                 ),
-                (u || (u = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(t),
-                    r,
+              )
+            );
+          }
+          var _ = yield o(
+            "WASmaxGroupsCreateSubGroupSuggestionRPC",
+          ).sendCreateSubGroupSuggestionRPC({
+            iqTo: o("WAWebWidToJid").widToGroupJid(c),
+            suggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroupArgs:
+              {
+                createSubGroupSuggestionSuggestionForNewGroup: {
+                  subjectElementValue: m,
+                  hasAnnouncement: !t,
+                  hasLocked: !d,
+                  hasHiddenGroup: !1,
+                  membershipApprovalModeArgs: {
+                    membershipApprovalModesArgs:
+                      l === !1
+                        ? { isGroupJoinMembershipApprovalModeDisabled: !0 }
+                        : { isGroupJoinMembershipApprovalModeEnabled: !0 },
+                  },
+                  groupMemberAddModeMixinArgs: {
+                    memberAddModesArgs:
+                      a === !1
+                        ? { isAdminAddMode: !0 }
+                        : { isAllMembersAddMode: !0 },
+                  },
+                  groupMemberShareGroupHistoryModeMixinArgs: {
+                    memberShareGroupHistoryModesArgs:
+                      i === !0
+                        ? { isAllMembersShareMode: !0 }
+                        : { isAdminShareMode: !0 },
+                  },
+                  descriptionArgs: r != null ? { bodyElementValue: r } : void 0,
+                },
+              },
+          });
+          switch (_.name) {
+            case "CreateSubGroupSuggestionResponseNewGroupSuggestionSuccess": {
+              var f,
+                g =
+                  (f = _.value.subGroupSuggestionDescription) != null && f.error
+                    ? void 0
+                    : r;
+              return (
+                o("WAWebCoreActionsODS").logGroupCreate(),
+                {
+                  id: o("WAWebWidFactory").createWid(
+                    _.value.subGroupSuggestionJid,
                   ),
-                )
+                  owner: o("WAWebWidFactory").createWid(
+                    _.value.subGroupSuggestionCreator,
+                  ),
+                  t: _.value.subGroupSuggestionCreation,
+                  parentGroupId: c,
+                  subject: m,
+                  desc: g,
+                  isExistingGroup: !1,
+                  participantCount: void 0,
+                  hiddenSubgroup: void 0,
+                }
               );
             }
-            var p = yield o(
-              "WASmaxGroupsCreateSubGroupSuggestionRPC",
-            ).sendCreateSubGroupSuggestionRPC({
-              iqTo: o("WAWebWidToJid").widToGroupJid(e),
-              suggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroupArgs:
-                {
-                  createSubGroupSuggestionSuggestionForNewGroup: {
-                    subjectElementValue: t,
-                    hasAnnouncement: !i,
-                    hasLocked: !a,
-                    hasHiddenGroup: !1,
-                    membershipApprovalModeArgs: {
-                      membershipApprovalModesArgs:
-                        l === !1
-                          ? { isGroupJoinMembershipApprovalModeDisabled: !0 }
-                          : { isGroupJoinMembershipApprovalModeEnabled: !0 },
-                    },
-                    groupMemberAddModeMixinArgs: {
-                      memberAddModesArgs:
-                        c === !1
-                          ? { isAdminAddMode: !0 }
-                          : { isAllMembersAddMode: !0 },
-                    },
-                    groupMemberShareGroupHistoryModeMixinArgs: {
-                      memberShareGroupHistoryModesArgs:
-                        d === !0
-                          ? { isAllMembersShareMode: !0 }
-                          : { isAdminShareMode: !0 },
-                    },
-                    descriptionArgs:
-                      r != null ? { bodyElementValue: r } : void 0,
-                  },
-                },
-            });
-            switch (p.name) {
-              case "CreateSubGroupSuggestionResponseNewGroupSuggestionSuccess": {
-                var _,
-                  f =
-                    (_ = p.value.subGroupSuggestionDescription) != null &&
-                    _.error
-                      ? void 0
-                      : r;
-                return (
-                  o("WAWebCoreActionsODS").logGroupCreate(),
-                  {
-                    id: o("WAWebWidFactory").createWid(
-                      p.value.subGroupSuggestionJid,
-                    ),
-                    owner: o("WAWebWidFactory").createWid(
-                      p.value.subGroupSuggestionCreator,
-                    ),
-                    t: p.value.subGroupSuggestionCreation,
-                    parentGroupId: e,
-                    subject: t,
-                    desc: f,
-                    isExistingGroup: !1,
-                    participantCount: void 0,
-                    hiddenSubgroup: void 0,
-                  }
-                );
-              }
-              case "CreateSubGroupSuggestionResponseClientError": {
-                var g = p.value.errorCreateSubGroupSuggestionErrors;
-                return m(g.value);
-              }
-              case "CreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess":
-                return m({
-                  code: 500,
-                  text: "Received invalid existing group success response for create new subgroup suggestion",
-                });
-              default:
-                return (p.name, m(p.value.errorServerErrors.value));
+            case "CreateSubGroupSuggestionResponseClientError": {
+              var h = _.value.errorCreateSubGroupSuggestionErrors;
+              return p(h.value);
             }
-          },
-        )),
+            case "CreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess":
+              return p({
+                code: 500,
+                text: "Received invalid existing group success response for create new subgroup suggestion",
+              });
+            default:
+              return (_.name, p(_.value.errorServerErrors.value));
+          }
+        })),
         p.apply(this, arguments)
       );
     }

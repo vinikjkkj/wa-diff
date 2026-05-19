@@ -99,12 +99,14 @@ __d(
           else
             try {
               (yield o("WAWebGroupQueryBridge").sendQueryGroup(T),
-                E(
-                  a,
-                  T,
-                  b,
-                  D.map(o("WAWebWidFactory").createWidFromWidLike),
-                ).catch(function (e) {
+                E({
+                  groupData: a,
+                  groupId: T,
+                  msgProtobuf: b,
+                  oldParticipantList: D.map(
+                    o("WAWebWidFactory").createWidFromWidLike,
+                  ),
+                }).catch(function (e) {
                   o("WALogger")
                     .WARN(
                       u ||
@@ -254,17 +256,17 @@ __d(
             }
             (yield o(
               "WAWebSendDirectMsgToDeviceList",
-            ).sendDirectMsgToDeviceList(
-              v,
-              b,
-              U,
-              {
+            ).sendDirectMsgToDeviceList({
+              deviceList: U,
+              groupData: a,
+              metricReporter: l,
+              msgProtobuf: b,
+              msgRecord: v,
+              option: {
                 fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
                 isResendingMsg: !0,
               },
-              a,
-              l,
-            ),
+            }),
               o("WALogger")
                 .LOG(
                   h ||
@@ -327,43 +329,45 @@ __d(
         }),
         (e.sendReporter = null));
     }
-    function E(e, t, n, r) {
+    function E(e) {
       return k.apply(this, arguments);
     }
     function k() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupData,
+            n = e.groupId,
+            r = e.msgProtobuf,
+            a = e.oldParticipantList;
+          o("WALogger").LOG(
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
+                "postGroupParticipantSyncMetric: start",
+              ])),
+          );
+          var i = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+            String(n),
+          );
+          if (!i) {
+            var l = String(n);
             o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "postGroupParticipantSyncMetric: start",
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
+                  "postGroupParticipantSyncMetric: no participant record ",
+                  "",
                 ])),
-            );
-            var a = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
-              String(t),
-            );
-            if (!a) {
-              var i = String(t);
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "postGroupParticipantSyncMetric: no participant record ",
-                    "",
-                  ])),
-                i,
-              );
-              return;
-            }
-            var l = a.participants.map(o("WAWebWidFactory").createWid);
-            o("WAWebMaybePostMdGroupSyncMetrics").maybePostGroupSyncMetrics(
-              r,
               l,
-              n,
-              e,
             );
-          },
-        )),
+            return;
+          }
+          var s = i.participants.map(o("WAWebWidFactory").createWid);
+          o("WAWebMaybePostMdGroupSyncMetrics").maybePostGroupSyncMetrics({
+            currentParticipantList: s,
+            groupData: t,
+            msgProtobuf: r,
+            oldParticipantList: a,
+          });
+        })),
         k.apply(this, arguments)
       );
     }

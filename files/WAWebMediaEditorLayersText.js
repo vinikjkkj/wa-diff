@@ -1,6 +1,7 @@
 __d(
   "WAWebMediaEditorLayersText",
   [
+    "WADeepEquals",
     "WAWebMediaEditorEnumsColors",
     "WAWebMediaEditorGeometryPoint",
     "WAWebMediaEditorGeometryRect",
@@ -9,7 +10,6 @@ __d(
     "WAWebMediaEditorUtilsGenerateLayerId",
     "WAWebMediaEditorUtilsTextBackground",
     "WAWebMediaEditorUtilsTextInCanvas",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 18,
@@ -138,7 +138,7 @@ __d(
                 },
               });
             }
-            return r("lodash").isEqual(this.$1, n) ? this : new t(n);
+            return o("WADeepEquals").deepEqual(this.$1, n) ? this : new t(n);
           }),
           (n.getLines = function () {
             return this.$1.lines;

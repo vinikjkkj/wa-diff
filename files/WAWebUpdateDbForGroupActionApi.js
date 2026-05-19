@@ -113,7 +113,12 @@ __d(
               if (
                 (O.push(
                   o("WAWebGroupParticipantsJob")
-                    .addParticipantsJob(l, a.participants, i, a.reason)
+                    .addParticipantsJob({
+                      group: l,
+                      isOffline: i,
+                      participants: a.participants,
+                      reason: a.reason,
+                    })
                     .catch(
                       o("WAFilteredCatch").filteredCatch(
                         o("WAWebDBParticipantTypes").GroupUnSyncedError,

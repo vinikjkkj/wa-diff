@@ -697,22 +697,37 @@ __d(
           name: "type",
           storageKey: null,
         },
-        b = {
+        b = { kind: "TypeDiscriminator", abstractKey: "__isNFXAction" },
+        v = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "context",
+          storageKey: null,
+        },
+        S = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "height",
           storageKey: null,
         },
-        v = {
+        R = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "uri",
+          storageKey: null,
+        },
+        L = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "width",
           storageKey: null,
         },
-        S = [
-          b,
+        E = [
+          S,
           {
             alias: null,
             args: null,
@@ -720,43 +735,29 @@ __d(
             name: "scale",
             storageKey: null,
           },
-          {
-            alias: null,
-            args: null,
-            kind: "ScalarField",
-            name: "uri",
-            storageKey: null,
-          },
-          v,
+          R,
+          L,
         ],
-        R = {
+        k = {
           alias: null,
           args: null,
           concreteType: "Image",
           kind: "LinkedField",
           name: "icon",
           plural: !1,
-          selections: S,
+          selections: E,
           storageKey: null,
         },
-        L = { kind: "TypeDiscriminator", abstractKey: "__isNFXAction" },
-        E = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "context",
-          storageKey: null,
-        },
-        k = [{ kind: "Literal", name: "site", value: "www" }],
-        I = {
+        I = [{ kind: "Literal", name: "site", value: "www" }],
+        T = {
           args: null,
           fragment: n(
             "CometTextWithEntitiesRelay_textWithEntities$normalization.graphql",
           ),
           kind: "FragmentSpread",
         },
-        T = [I],
-        D = [
+        D = [T],
+        x = [
           {
             alias: null,
             args: null,
@@ -764,9 +765,9 @@ __d(
             name: "text",
             storageKey: null,
           },
-          I,
+          T,
         ],
-        x = {
+        $ = {
           alias: null,
           args: null,
           concreteType: "TombstoneFeedUnit",
@@ -900,11 +901,112 @@ __d(
                 {
                   alias: null,
                   args: null,
+                  concreteType: "CometTellUsWhyContext",
+                  kind: "LinkedField",
+                  name: "tell_us_why_context",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "comet_tombstone_design_layout",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "CometTellUsWhyFeedbackOption",
+                      kind: "LinkedField",
+                      name: "feedback_options",
+                      plural: !0,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "label",
+                          storageKey: null,
+                        },
+                        C,
+                      ],
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "followup_actions_header_text",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "frx_session_id",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "header_text",
+                      storageKey: null,
+                    },
+                    a,
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "post_type",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "should_process_shape_your_feed",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "submitted_toast_text",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "tracking_data",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "trigger_action",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "undo_action_label",
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
                   concreteType: null,
                   kind: "LinkedField",
                   name: "executed_action",
                   plural: !1,
-                  selections: [e, C, R, L, E, t],
+                  selections: [e, b, v, C, t, k],
                   storageKey: null,
                 },
                 {
@@ -917,9 +1019,9 @@ __d(
                   selections: [
                     e,
                     C,
-                    L,
+                    b,
                     t,
-                    E,
+                    v,
                     {
                       alias: null,
                       args: null,
@@ -939,14 +1041,14 @@ __d(
                       selections: [
                         {
                           alias: null,
-                          args: k,
+                          args: I,
                           kind: "ScalarField",
                           name: "redirect_uri",
                           storageKey: 'redirect_uri(site:"www")',
                         },
                         {
                           alias: null,
-                          args: k,
+                          args: I,
                           kind: "ScalarField",
                           name: "redirect_style",
                           storageKey: 'redirect_style(site:"www")',
@@ -976,7 +1078,7 @@ __d(
                       kind: "LinkedField",
                       name: "title",
                       plural: !1,
-                      selections: T,
+                      selections: D,
                       storageKey: null,
                     },
                     {
@@ -986,10 +1088,10 @@ __d(
                       kind: "LinkedField",
                       name: "subtitle",
                       plural: !1,
-                      selections: T,
+                      selections: D,
                       storageKey: null,
                     },
-                    R,
+                    k,
                     {
                       alias: null,
                       args: null,
@@ -1018,7 +1120,7 @@ __d(
                       kind: "LinkedField",
                       name: "loading_text",
                       plural: !1,
-                      selections: T,
+                      selections: D,
                       storageKey: null,
                     },
                     {
@@ -1028,7 +1130,7 @@ __d(
                       kind: "LinkedField",
                       name: "confirmation_message",
                       plural: !1,
-                      selections: T,
+                      selections: D,
                       storageKey: null,
                     },
                     {
@@ -1038,7 +1140,7 @@ __d(
                       kind: "LinkedField",
                       name: "confirmation_button_label",
                       plural: !1,
-                      selections: D,
+                      selections: x,
                       storageKey: null,
                     },
                     {
@@ -1055,7 +1157,7 @@ __d(
                       kind: "LinkedField",
                       name: "confirmed_icon",
                       plural: !1,
-                      selections: S,
+                      selections: E,
                       storageKey: null,
                     },
                     {
@@ -1065,7 +1167,7 @@ __d(
                       kind: "LinkedField",
                       name: "confirmed_title",
                       plural: !1,
-                      selections: T,
+                      selections: D,
                       storageKey: null,
                     },
                     {
@@ -1075,7 +1177,7 @@ __d(
                       kind: "LinkedField",
                       name: "confirmed_subtitle",
                       plural: !1,
-                      selections: T,
+                      selections: D,
                       storageKey: null,
                     },
                     {
@@ -1092,7 +1194,7 @@ __d(
                       kind: "LinkedField",
                       name: "undo_button_label",
                       plural: !1,
-                      selections: D,
+                      selections: x,
                       storageKey: null,
                     },
                   ],
@@ -1104,7 +1206,7 @@ __d(
           ],
           storageKey: null,
         },
-        $ = {
+        P = {
           alias: null,
           args: null,
           concreteType: "Story",
@@ -1136,11 +1238,11 @@ __d(
               selections: [t, y],
               storageKey: null,
             },
-            { kind: "ClientExtension", selections: [x] },
+            { kind: "ClientExtension", selections: [$] },
           ],
           storageKey: null,
         },
-        P = {
+        N = {
           alias: null,
           args: null,
           concreteType: "StoryBumperData",
@@ -1182,7 +1284,7 @@ __d(
           ],
           storageKey: null,
         },
-        N = {
+        M = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "20GvtT" }],
           concreteType: null,
@@ -1253,7 +1355,7 @@ __d(
           ],
           storageKey: 'content(supported:"20GvtT")',
         },
-        M = {
+        w = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "67WoN" }],
           concreteType: null,
@@ -1324,7 +1426,7 @@ __d(
           ],
           storageKey: 'layout(supported:"67WoN")',
         },
-        w = {
+        A = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "2lQ7jN" }],
           concreteType: null,
@@ -1352,7 +1454,7 @@ __d(
           ],
           storageKey: 'copyright_violation_header(supported:"2lQ7jN")',
         },
-        A = {
+        F = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "XP1YS" }],
           concreteType: null,
@@ -1613,7 +1715,7 @@ __d(
           ],
           storageKey: 'header(supported:"XP1YS")',
         },
-        F = {
+        O = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "4f12sh" }],
           concreteType: null,
@@ -1640,9 +1742,9 @@ __d(
           ],
           storageKey: 'aymt_footer(supported:"4f12sh")',
         },
-        O = {
+        B = {
           alias: null,
-          args: [{ kind: "Literal", name: "supported", value: "3a0SQa" }],
+          args: [{ kind: "Literal", name: "supported", value: "Ohi5B" }],
           concreteType: null,
           kind: "LinkedField",
           name: "feedback",
@@ -1984,21 +2086,6 @@ __d(
                   args: null,
                   documentName: "CometFeedStoryFeedbackSection_story",
                   fragmentName:
-                    "GeminiStoryFeedbackKeyUpdateFeedUnitPreviewStrategy_feedback",
-                  fragmentPropName: "feedback",
-                  kind: "ModuleImport",
-                },
-              ],
-              type: "GeminiStoryFeedbackKeyUpdateFeedUnitPreviewStrategy",
-              abstractKey: null,
-            },
-            {
-              kind: "InlineFragment",
-              selections: [
-                {
-                  args: null,
-                  documentName: "CometFeedStoryFeedbackSection_story",
-                  fragmentName:
                     "CometFeedStoryFeedbackEventModminReviewFolderPostStrategy_feedback",
                   fragmentPropName: "feedback",
                   kind: "ModuleImport",
@@ -2008,9 +2095,9 @@ __d(
               abstractKey: null,
             },
           ],
-          storageKey: 'feedback(supported:"3a0SQa")',
+          storageKey: 'feedback(supported:"Ohi5B")',
         },
-        B = {
+        W = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "1u8Znq" }],
           concreteType: null,
@@ -2127,9 +2214,9 @@ __d(
           ],
           storageKey: 'outer_footer(supported:"1u8Znq")',
         },
-        W = {
+        q = {
           alias: null,
-          args: [{ kind: "Literal", name: "supported", value: "4pc70y" }],
+          args: [{ kind: "Literal", name: "supported", value: "1KRCKe" }],
           concreteType: null,
           kind: "LinkedField",
           name: "call_to_action",
@@ -2150,10 +2237,24 @@ __d(
               type: "CometStoryDefaultCallToActionStrategy",
               abstractKey: null,
             },
+            {
+              kind: "InlineFragment",
+              selections: [
+                {
+                  args: null,
+                  documentName: "CometFeedStoryCallToActionSection_story",
+                  fragmentName: "GeminiFeedStoryWorkplaceAIVoiceCallCTA_cta",
+                  fragmentPropName: "cta",
+                  kind: "ModuleImport",
+                },
+              ],
+              type: "CometWorkplaceAIVoiceCallToActionStrategy",
+              abstractKey: null,
+            },
           ],
-          storageKey: 'call_to_action(supported:"4pc70y")',
+          storageKey: 'call_to_action(supported:"1KRCKe")',
         },
-        q = {
+        U = {
           alias: null,
           args: [{ kind: "Literal", name: "supported", value: "3t3kTK" }],
           concreteType: null,
@@ -2181,7 +2282,9 @@ __d(
           ],
           storageKey: 'post_inform_treatment(supported:"3t3kTK")',
         },
-        U = {
+        V = { kind: "Variable", name: "scale", variableName: "scale" },
+        H = [R],
+        G = {
           alias: null,
           args: null,
           concreteType: "Feedback",
@@ -2201,17 +2304,100 @@ __d(
               selections: i,
               storageKey: null,
             },
+            {
+              condition:
+                "__relay_internal__pv__CometFeedStory_enable_reactor_facepilerelayprovider",
+              kind: "Condition",
+              passingValue: !0,
+              selections: [
+                {
+                  alias: null,
+                  args: [
+                    { kind: "Literal", name: "fetch_creators", value: !0 },
+                    { kind: "Literal", name: "first", value: 3 },
+                  ],
+                  concreteType: "ImportantReactorsConnection",
+                  kind: "LinkedField",
+                  name: "important_reactors",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "ImportantReactorsEdge",
+                      kind: "LinkedField",
+                      name: "edges",
+                      plural: !0,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: "FeedbackReactionInfo",
+                          kind: "LinkedField",
+                          name: "feedback_reaction_info",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: [V],
+                              concreteType: "Image",
+                              kind: "LinkedField",
+                              name: "face_image",
+                              plural: !1,
+                              selections: H,
+                              storageKey: null,
+                            },
+                            t,
+                          ],
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: null,
+                          kind: "LinkedField",
+                          name: "node",
+                          plural: !1,
+                          selections: [
+                            e,
+                            t,
+                            h,
+                            {
+                              alias: null,
+                              args: [
+                                { kind: "Literal", name: "height", value: 36 },
+                                V,
+                                { kind: "Literal", name: "width", value: 36 },
+                              ],
+                              concreteType: "Image",
+                              kind: "LinkedField",
+                              name: "profile_picture",
+                              plural: !1,
+                              selections: H,
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: "important_reactors(fetch_creators:true,first:3)",
+                },
+              ],
+            },
           ],
           storageKey: null,
         },
-        V = {
+        z = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "debug_info",
           storageKey: null,
         },
-        H = {
+        j = {
           alias: null,
           args: null,
           concreteType: "WhatsAppStoryAdContext",
@@ -2229,28 +2415,28 @@ __d(
           ],
           storageKey: null,
         },
-        G = {
+        K = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "schema_context",
           storageKey: null,
         },
-        z = {
+        Q = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "click_tracking_linkshim_cb",
           storageKey: null,
         },
-        j = {
+        X = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "encrypted_click_tracking",
           storageKey: null,
         },
-        K = {
+        Y = {
           alias: null,
           args: null,
           concreteType: "WorkForeignEntityInfo",
@@ -2260,7 +2446,7 @@ __d(
           selections: [C],
           storageKey: null,
         },
-        Q = {
+        J = {
           kind: "InlineFragment",
           selections: [
             {
@@ -2287,7 +2473,7 @@ __d(
             {
               kind: "InlineFragment",
               selections: [
-                K,
+                Y,
                 {
                   alias: null,
                   args: null,
@@ -2306,13 +2492,6 @@ __d(
                   ],
                   storageKey: null,
                 },
-                {
-                  alias: null,
-                  args: [{ kind: "Literal", name: "surface", value: "FEED" }],
-                  kind: "ScalarField",
-                  name: "show_promode_badge",
-                  storageKey: 'show_promode_badge(surface:"FEED")',
-                },
               ],
               type: "User",
               abstractKey: null,
@@ -2320,7 +2499,7 @@ __d(
             {
               kind: "InlineFragment",
               selections: [
-                K,
+                Y,
                 {
                   alias: null,
                   args: null,
@@ -2343,7 +2522,7 @@ __d(
           type: "Entity",
           abstractKey: "__isEntity",
         },
-        X = {
+        Z = {
           kind: "ClientExtension",
           selections: [
             {
@@ -2353,7 +2532,7 @@ __d(
               name: "tombstone_is_loading",
               storageKey: null,
             },
-            x,
+            $,
             {
               alias: null,
               args: null,
@@ -2376,7 +2555,7 @@ __d(
                   name: "entID",
                   storageKey: null,
                 },
-                b,
+                S,
                 {
                   alias: null,
                   args: null,
@@ -2392,7 +2571,7 @@ __d(
                   name: "useCDNPreview",
                   storageKey: null,
                 },
-                v,
+                L,
               ],
               storageKey: null,
             },
@@ -2433,7 +2612,7 @@ __d(
                     name: "render_location",
                     variableName: "renderLocation",
                   },
-                  { kind: "Literal", name: "supported", value: "4xEQPx" },
+                  { kind: "Literal", name: "supported", value: "pKL3v" },
                 ],
                 concreteType: null,
                 kind: "LinkedField",
@@ -2727,22 +2906,6 @@ __d(
                       },
                     ],
                     type: "StoryAttachmentVolunteeringEventStyleRenderer",
-                    abstractKey: null,
-                  },
-                  {
-                    kind: "InlineFragment",
-                    selections: [
-                      {
-                        args: null,
-                        documentName:
-                          "CometFeedStoryAttachmentMatchRenderer_attachment",
-                        fragmentName:
-                          "CometFeedStoryVolunteeringEventActivityShiftAttachmentStyle_styleTypeRenderer",
-                        fragmentPropName: "styleTypeRenderer",
-                        kind: "ModuleImport",
-                      },
-                    ],
-                    type: "StoryAttachmentVolunteeringEventActivityShiftStyleRenderer",
                     abstractKey: null,
                   },
                   {
@@ -3415,22 +3578,6 @@ __d(
                       },
                     ],
                     type: "StoryAttachmentFallbackStyleRenderer",
-                    abstractKey: null,
-                  },
-                  {
-                    kind: "InlineFragment",
-                    selections: [
-                      {
-                        args: null,
-                        documentName:
-                          "CometFeedStoryAttachmentMatchRenderer_attachment",
-                        fragmentName:
-                          "CometFeedStoryLinkToVideoAttachmentStyle_styleTypeRenderer",
-                        fragmentPropName: "styleTypeRenderer",
-                        kind: "ModuleImport",
-                      },
-                    ],
-                    type: "StoryAttachmentLinkToVideoStyleRenderer",
                     abstractKey: null,
                   },
                   {
@@ -4272,8 +4419,8 @@ __d(
             storageKey: null,
           },
           c,
-          $,
           P,
+          N,
           {
             alias: null,
             args: d,
@@ -4283,17 +4430,17 @@ __d(
             plural: !1,
             selections: [
               e,
-              N,
               M,
               w,
               A,
-              p,
               F,
-              _,
+              p,
               O,
+              _,
               B,
               W,
               q,
+              U,
               {
                 alias: null,
                 args: [{ kind: "Literal", name: "supported", value: "2rhVpW" }],
@@ -4444,12 +4591,12 @@ __d(
           f,
           m,
           g,
-          U,
-          V,
-          H,
           G,
           z,
           j,
+          K,
+          Q,
+          X,
           {
             alias: null,
             args: null,
@@ -4476,7 +4623,7 @@ __d(
               h,
               t,
               { kind: "TypeDiscriminator", abstractKey: "__isActor" },
-              Q,
+              J,
             ],
             storageKey: null,
           },
@@ -4493,7 +4640,7 @@ __d(
               t,
               {
                 kind: "InlineFragment",
-                selections: [Q],
+                selections: [J],
                 type: "Actor",
                 abstractKey: "__isActor",
               },
@@ -4532,8 +4679,8 @@ __d(
                 storageKey: null,
               },
               c,
-              $,
               P,
+              N,
               {
                 alias: null,
                 args: d,
@@ -4541,23 +4688,23 @@ __d(
                 kind: "LinkedField",
                 name: "comet_sections",
                 plural: !1,
-                selections: [e, N, M, w, A, p, F, _, O, B, W, q],
+                selections: [e, M, w, A, F, p, O, _, B, W, q, U],
                 storageKey: null,
               },
               f,
               m,
               g,
-              U,
-              V,
-              H,
               G,
               z,
               j,
+              K,
+              Q,
               X,
+              Z,
             ],
             storageKey: null,
           },
-          X,
+          Z,
         ],
       };
     })();

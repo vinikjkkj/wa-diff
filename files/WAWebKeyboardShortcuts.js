@@ -705,6 +705,7 @@ __d(
       );
     }
     ((l.Modifier = s),
+      (l.CALLING_ACTIONS = f),
       (l.getAction = h),
       (l.getActionFromMouseEvent = y),
       (l.buildShortcutMap = C),

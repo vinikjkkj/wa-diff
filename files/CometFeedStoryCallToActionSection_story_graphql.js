@@ -25,7 +25,7 @@ __d(
           selections: [
             {
               alias: null,
-              args: [{ kind: "Literal", name: "supported", value: "4pc70y" }],
+              args: [{ kind: "Literal", name: "supported", value: "1KRCKe" }],
               concreteType: null,
               kind: "LinkedField",
               name: "call_to_action",
@@ -46,8 +46,23 @@ __d(
                   type: "CometStoryDefaultCallToActionStrategy",
                   abstractKey: null,
                 },
+                {
+                  kind: "InlineFragment",
+                  selections: [
+                    {
+                      args: null,
+                      documentName: "CometFeedStoryCallToActionSection_story",
+                      fragmentName:
+                        "GeminiFeedStoryWorkplaceAIVoiceCallCTA_cta",
+                      fragmentPropName: "cta",
+                      kind: "ModuleImport",
+                    },
+                  ],
+                  type: "CometWorkplaceAIVoiceCallToActionStrategy",
+                  abstractKey: null,
+                },
               ],
-              storageKey: 'call_to_action(supported:"4pc70y")',
+              storageKey: 'call_to_action(supported:"1KRCKe")',
             },
           ],
           storageKey: null,

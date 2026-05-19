@@ -33,17 +33,17 @@ __d(
               .tags("messaging");
             var m = yield o(
                 "WAWebSendDirectMsgToDeviceList",
-              ).sendDirectMsgToDeviceList(
-                t,
-                n,
-                r,
-                {
+              ).sendDirectMsgToDeviceList({
+                deviceList: r,
+                groupData: a,
+                metricReporter: i,
+                msgProtobuf: n,
+                msgRecord: t,
+                option: {
                   fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
                 },
-                a,
-                i,
-                l,
-              ),
+                scheduledMsgMetadata: l,
+              }),
               p = m.addressingMode,
               _ = m.phash;
             return (

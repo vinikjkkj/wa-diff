@@ -1119,6 +1119,8 @@ __d(
       is_individual_suspicious_fmx_enabled: [26191, "bool", !1, !0],
       is_meta_employee_or_internal_tester: [1777, "bool", !1, !1],
       is_part_of_gsc_experiment: [14279, "bool", !1, !1],
+      is_pmx_funnel_metrics_logging_enabled: [6816, "bool", !1, !0],
+      is_pmx_hashed_msg_key_logging_enabled: [6837, "bool", !1, !0],
       is_spoiler_rich_format_enabled: [22221, "bool", !1, !1],
       is_spoiler_rich_format_sender_enabled: [24210, "bool", !1, !0],
       keep_in_chat_undo_duration_limit: [1698, "int", 2592e3, 2592e3],

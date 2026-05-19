@@ -1,12 +1,6 @@
 __d(
   "WAWebKeyboardTabUtils",
-  [
-    "$InternalEnum",
-    "WAWebBoolFunc",
-    "WAWebMiscGatingUtils",
-    "lodash",
-    "tabbable",
-  ],
+  ["$InternalEnum", "WAWebBoolFunc", "WAWebMiscGatingUtils", "tabbable"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored([
         "CUSTOM",
@@ -16,29 +10,31 @@ __d(
       s = n("$InternalEnum").Mirrored(["FORWARD", "BACKWARD"]);
     function u(t) {
       var n = t.container,
-        a = t.customSelector,
-        i = t.focusType;
-      return i === e.TABBABLE
+        r = t.customSelector,
+        a = t.focusType;
+      return a === e.TABBABLE
         ? {
             candidateElements: o("tabbable").tabbable(n),
             isElementTabbable: function (t) {
               return !0;
             },
           }
-        : i === e.CUSTOM_SELECTOR && a != null
+        : a === e.CUSTOM_SELECTOR && r != null
           ? {
-              candidateElements: Array.from(n.querySelectorAll(a)),
+              candidateElements: Array.from(n.querySelectorAll(r)),
               isElementTabbable: function (t) {
                 return !0;
               },
             }
           : {
-              candidateElements: r("lodash").sortBy(
-                Array.from(n.querySelectorAll("[data-tab]")),
-                function (e) {
-                  return parseInt(e.getAttribute("data-tab"), 10) || 0;
-                },
-              ),
+              candidateElements: Array.from(
+                n.querySelectorAll("[data-tab]"),
+              ).sort(function (e, t) {
+                return (
+                  (parseInt(e.getAttribute("data-tab"), 10) || 0) -
+                  (parseInt(t.getAttribute("data-tab"), 10) || 0)
+                );
+              }),
               isElementTabbable: p,
             };
     }

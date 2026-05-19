@@ -150,12 +150,12 @@ __d(
               },
               _,
             ),
-            h = o("WAWebSendMsgMetaNode").genMetaNode(
-              c,
-              { type: "message", data: t },
-              s,
-              null,
-            ),
+            h = o("WAWebSendMsgMetaNode").genMetaNode({
+              chatId: c,
+              groupData: null,
+              msgProtobuf: s,
+              msgRecord: { type: "message", data: t },
+            }),
             y = t.id.participant;
           return a.wap(
             "message",

@@ -11,7 +11,11 @@ __d(
           var n = { type: "preview", query: "url" },
             r = yield o(
               "WAWebGroupInviteProfilePicJob",
-            ).queryGroupInviteLinkProfilePicJob(e, t, n);
+            ).queryGroupInviteLinkProfilePicJob({
+              code: t,
+              groupWid: e,
+              option: n,
+            });
           return r.url;
         })),
         s.apply(this, arguments)

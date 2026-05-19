@@ -88,7 +88,12 @@ __d(
       );
     }
     function u(e, t, n, r) {
-      return o("WAWebGroupInviteV4Job").joinGroupViaInviteV4(e, t, n, r);
+      return o("WAWebGroupInviteV4Job").joinGroupViaInviteV4({
+        from: r,
+        inviteCode: e,
+        inviteCodeExp: t,
+        inviteGrp: n,
+      });
     }
     function c(e, t) {
       return o("WAWebGroupInviteV4Job").revokeGroupInviteV4(e, t);

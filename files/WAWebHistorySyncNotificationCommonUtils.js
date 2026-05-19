@@ -45,7 +45,12 @@ __d(
       for (var r of e) if ((n.push(r), t++ === 50)) break;
       return n.join(",");
     }
-    function R(e, t, n, r) {}
+    function R(e) {
+      var t = e.allLidMapping,
+        n = e.message,
+        r = e.parsedMsg,
+        o = e.totalMissingMapping;
+    }
     function L(e) {
       var t = e.allLidMapping,
         n = e.chunkInfo,
@@ -56,8 +61,14 @@ __d(
         u = e.totalMissingMapping,
         c = null;
       try {
-        l != null &&
-          (c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(l, i));
+        (l != null &&
+          (c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(l, i)),
+          R({
+            allLidMapping: t,
+            message: l,
+            parsedMsg: c,
+            totalMissingMapping: u,
+          }));
       } catch (e) {
         var d = r("getErrorSafe")(e);
         (o("WALogger")

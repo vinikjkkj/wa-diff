@@ -164,114 +164,123 @@ __d(
                 .ENCRYPTED,
               i,
             ),
-              yield C(D, r, E, L, T),
+              yield C({
+                chatsWithRecentOrFullSyncMsgs: r,
+                encryptedMessages: D,
+                pendingUnreadMentionsMap: L,
+                quarantineTableEntries: T,
+                unreadMentionsToAdd: E,
+              }),
               yield v(u));
           },
         )),
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i) {
-            try {
-              if (
-                (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "storeEncryptedRecentAndFullSyncMsgs: storing ",
-                      " msgs: start",
-                    ])),
-                  e.length,
-                ),
-                o("WAWebABProps").getABPropConfigValue(
-                  "web_anr_throttle_history_sync_db_writes",
-                ))
-              )
-                try {
-                  yield o("WAWebRunInBatches").runInBatches(
-                    e,
-                    (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          yield o(
-                            "WAWebDBStoreEncryptedMsgs",
-                          ).storeEncryptedDBMessages(e, t, !0);
-                        },
-                      );
-                      return function (t) {
-                        return e.apply(this, arguments);
-                      };
-                    })(),
-                    { batchSize: _, delayMs: f },
-                  );
-                } catch (t) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "storeEncryptedDBMessages: failed to store ",
-                            " in batches: ",
-                            "",
-                          ])),
-                        e.length,
-                        t,
-                      )
-                      .sendLogs(
-                        "failed-to-store-encrypted-db-messages-in-batches",
-                      ),
-                    t
-                  );
-                }
-              else
-                yield o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
-                  e,
-                  t,
-                  !0,
-                );
-              if (
-                (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "storeEncryptedRecentAndFullSyncMsgs: storing ",
-                      " messages: done",
-                    ])),
-                  e.length,
-                ),
-                yield o(
-                  "WAWebQuarantineDataStore",
-                ).bulkCreateOrReplaceQuarantineData(i),
-                r.size > 0)
-              ) {
-                var l = yield o("WAWebBackendApi").frontendSendAndReceive(
-                  "getChatIdsNeedToBeDeletedFromUnreadMentionInfo",
-                  { unreadMentionsToAdd: r, pendingUnreadMentionsMap: a },
-                );
-                (l.forEach(function (e) {
-                  r.delete(e);
-                }),
-                  r.size > 0 &&
-                    o("WAWebApiChatUnreadMention").addUnreadMentionChat(r, a));
-              }
-            } catch (t) {
-              o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] error storing ",
-                    " recent or full sync messages: ",
-                    "",
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatsWithRecentOrFullSyncMsgs,
+            r = e.encryptedMessages,
+            a = e.pendingUnreadMentionsMap,
+            i = e.quarantineTableEntries,
+            l = e.unreadMentionsToAdd;
+          try {
+            if (
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "storeEncryptedRecentAndFullSyncMsgs: storing ",
+                    " msgs: start",
                   ])),
-                e.length,
+                r.length,
+              ),
+              o("WAWebABProps").getABPropConfigValue(
+                "web_anr_throttle_history_sync_db_writes",
+              ))
+            )
+              try {
+                yield o("WAWebRunInBatches").runInBatches(
+                  r,
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        yield o(
+                          "WAWebDBStoreEncryptedMsgs",
+                        ).storeEncryptedDBMessages(e, t, !0);
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                  { batchSize: _, delayMs: f },
+                );
+              } catch (e) {
+                throw (
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "storeEncryptedDBMessages: failed to store ",
+                          " in batches: ",
+                          "",
+                        ])),
+                      r.length,
+                      e,
+                    )
+                    .sendLogs(
+                      "failed-to-store-encrypted-db-messages-in-batches",
+                    ),
+                  e
+                );
+              }
+            else
+              yield o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
+                r,
                 t,
+                !0,
               );
+            if (
+              (o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "storeEncryptedRecentAndFullSyncMsgs: storing ",
+                    " messages: done",
+                  ])),
+                r.length,
+              ),
+              yield o(
+                "WAWebQuarantineDataStore",
+              ).bulkCreateOrReplaceQuarantineData(i),
+              l.size > 0)
+            ) {
+              var m = yield o("WAWebBackendApi").frontendSendAndReceive(
+                "getChatIdsNeedToBeDeletedFromUnreadMentionInfo",
+                { unreadMentionsToAdd: l, pendingUnreadMentionsMap: a },
+              );
+              (m.forEach(function (e) {
+                l.delete(e);
+              }),
+                l.size > 0 &&
+                  o("WAWebApiChatUnreadMention").addUnreadMentionChat(l, a));
             }
-          },
-        )),
+          } catch (e) {
+            o("WALogger").WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] error storing ",
+                  " recent or full sync messages: ",
+                  "",
+                ])),
+              r.length,
+              e,
+            );
+          }
+        })),
         b.apply(this, arguments)
       );
     }

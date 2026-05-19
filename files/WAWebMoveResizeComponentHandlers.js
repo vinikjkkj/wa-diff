@@ -1,11 +1,11 @@
 __d(
   "WAWebMoveResizeComponentHandlers",
   [
+    "WADeepEquals",
     "WALogger",
     "WAWebMoveResizeComponentUtils",
     "WAWebMoveResizeLogic",
     "WAWebMoveResizeValidation",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -224,77 +224,77 @@ __d(
     function m(e) {
       var t = e.aspectRatio,
         n = e.bottom,
-        a = e.escapeConversationHeader,
-        i = e.extraBottomContentHeight,
-        l = e.extraTopContentHeight,
-        s = e.getConversationHeaderOffset,
-        u = e.height,
-        c = e.independentResize,
-        d = e.left,
-        m = e.margin,
-        p = e.minWidth,
-        _ = e.previousConvPanelRightBorder,
-        f = e.previousWindowSize,
-        g = e.width,
-        h = window.innerHeight - 2 * m.y - l - i,
-        y = window.innerWidth - 2 * m.x,
-        C = g,
-        b = C / t,
-        v = null;
-      c && (v = Math.min(u, h));
-      var S = n,
-        R = d;
-      (b > h && ((b = h), (C = h * t)), C > y && ((b = y / t), (C = y)));
-      var L = v != null ? v : b;
-      (S + L > h + m.y + i && (S = h + m.y + i - L),
-        R + C > y + m.x && (R = y + m.x - C),
-        f.width <
-          R + C + m.x + o("WAWebMoveResizeComponentUtils").BORDER_TOLERANCE &&
-          (R = y + m.x - C),
-        f.height <
-          S +
-            L +
-            m.y +
-            i +
+        r = e.escapeConversationHeader,
+        a = e.extraBottomContentHeight,
+        i = e.extraTopContentHeight,
+        l = e.getConversationHeaderOffset,
+        s = e.height,
+        u = e.independentResize,
+        c = e.left,
+        d = e.margin,
+        m = e.minWidth,
+        p = e.previousConvPanelRightBorder,
+        _ = e.previousWindowSize,
+        f = e.width,
+        g = window.innerHeight - 2 * d.y - i - a,
+        h = window.innerWidth - 2 * d.x,
+        y = f,
+        C = y / t,
+        b = null;
+      u && (b = Math.min(s, g));
+      var v = n,
+        S = c;
+      (C > g && ((C = g), (y = g * t)), y > h && ((C = h / t), (y = h)));
+      var R = b != null ? b : C;
+      (v + R > g + d.y + a && (v = g + d.y + a - R),
+        S + y > h + d.x && (S = h + d.x - y),
+        _.width <
+          S + y + d.x + o("WAWebMoveResizeComponentUtils").BORDER_TOLERANCE &&
+          (S = h + d.x - y),
+        _.height <
+          v +
+            R +
+            d.y +
+            a +
             o("WAWebMoveResizeComponentUtils").BORDER_TOLERANCE &&
-          (S = h + m.y + i - L));
-      var E =
-          _ != null &&
-          _ > 0 &&
-          Math.abs(d + C + m.x - _) <
+          (v = g + d.y + a - R));
+      var L =
+          p != null &&
+          p > 0 &&
+          Math.abs(c + y + d.x - p) <
             o("WAWebMoveResizeComponentUtils").BORDER_TOLERANCE,
-        k;
+        E;
       if (
-        (a &&
-          s(function (e) {
-            k = e == null ? void 0 : e.right;
+        (r &&
+          l(function (e) {
+            E = e == null ? void 0 : e.right;
           }),
-        E && k != null && k !== 0)
+        L && E != null && E !== 0)
       ) {
-        var I = k < window.innerWidth;
-        I && (R = k - m.x - C);
+        var k = E < window.innerWidth;
+        k && (S = E - d.x - y);
       }
-      var T = {
-          bottom: Math.max(m.y, S),
-          height: v,
-          left: Math.max(m.x, R),
-          width: Math.max(Math.min(p, y), C),
+      var I = {
+          bottom: Math.max(d.y, v),
+          height: b,
+          left: Math.max(d.x, S),
+          width: Math.max(Math.min(m, h), y),
           previousWindowSize: {
             height: window.innerHeight,
             width: window.innerWidth,
           },
-          previousConvPanelRightBorder: k,
+          previousConvPanelRightBorder: E,
         },
-        D = {
+        T = {
           bottom: n,
-          height: c ? u : null,
-          left: d,
-          width: g,
-          previousWindowSize: f,
-          previousConvPanelRightBorder: _,
+          height: u ? s : null,
+          left: c,
+          width: f,
+          previousWindowSize: _,
+          previousConvPanelRightBorder: p,
         },
-        x = !r("lodash").isEqual(T, D);
-      return babelHelpers.extends({}, T, { hasChanges: x });
+        D = !o("WADeepEquals").deepEqual(I, T);
+      return babelHelpers.extends({}, I, { hasChanges: D });
     }
     ((l.processResizeAction = c),
       (l.processMoveAction = d),

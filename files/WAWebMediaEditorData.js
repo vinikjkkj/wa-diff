@@ -1,6 +1,7 @@
 __d(
   "WAWebMediaEditorData",
   [
+    "WADeepEquals",
     "WAWebMediaEditorEnumsFonts",
     "WAWebMediaEditorGeometryPoint",
     "WAWebMediaEditorGeometryRect",
@@ -13,7 +14,6 @@ __d(
     "WAWebMediaEditorUtilsGetDominantColor",
     "cr:10202",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 0,
@@ -91,7 +91,7 @@ __d(
               n.rotation != null && (e.rotation = n.rotation),
               n.activeFilter != null && (e.activeFilter = n.activeFilter),
               n.sending != null && (e.sending = n.sending),
-              r("lodash").isEqual(this.$1, e) ? this : new t(e)
+              o("WADeepEquals").deepEqual(this.$1, e) ? this : new t(e)
             );
           }),
           (n.updateLayer = function (t, n) {

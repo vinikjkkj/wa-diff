@@ -56,6 +56,24 @@ __d(
               storageKey: null,
             },
             {
+              alias: null,
+              args: null,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "actors",
+              plural: !0,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "name",
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+            {
               args: null,
               kind: "FragmentSpread",
               name: "CometFeedStoryBaseContextLayout_story",

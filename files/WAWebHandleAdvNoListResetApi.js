@@ -67,9 +67,7 @@ __d(
                 }),
                 h = babelHelpers.extends({}, i, { devices: g, deleted: !1 }),
                 y = o("WAWebAdvExpectedTsApi").computeExpectedTsForDeviceRecord(
-                  p,
-                  h,
-                  u,
+                  { deviceRecord: h, incomingTs: p, lastDeviceJobTs: u },
                 );
               ((h.expectedTs = y.expectedTs),
                 (h.expectedTsLastDeviceJobTs = y.expectedTsLastDeviceJobTs),

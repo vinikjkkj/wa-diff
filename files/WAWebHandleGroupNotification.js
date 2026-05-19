@@ -1025,7 +1025,7 @@ __d(
                       e.actions.map(function (n) {
                         return o(
                           "WAWebHandleGroupNotificationAction",
-                        ).handleAction(e, n, t);
+                        ).handleAction({ action: n, isOffline: t, meta: e });
                       }),
                     ),
                     o("WAWap").wap("ack", {

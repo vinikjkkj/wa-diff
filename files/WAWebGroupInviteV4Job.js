@@ -121,71 +121,65 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n, r) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-              "WASmaxGroupsAcceptGroupAddRPC",
-            ).sendAcceptGroupAddRPC({
-              iqTo: n,
-              acceptCode: e,
-              acceptExpiration: parseInt(t, 10),
-              acceptAdmin: o("WAWebWidToJid").widToUserJid(r),
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = e.inviteCode,
+            r = e.inviteCodeExp,
+            a = e.inviteGrp,
+            i = yield o("WASmaxGroupsAcceptGroupAddRPC").sendAcceptGroupAddRPC({
+              iqTo: a,
+              acceptCode: n,
+              acceptExpiration: parseInt(r, 10),
+              acceptAdmin: o("WAWebWidToJid").widToUserJid(t),
             });
-            switch (a.name) {
-              case "AcceptGroupAddResponseSuccess":
-                return {
-                  status: 200,
-                  gid: o("WAWebJidToWid").groupJidToWid(n),
-                };
-              case "AcceptGroupAddResponseGroupJoinRequestSuccess":
-                return {
-                  status: 200,
-                  gid: o("WAWebJidToWid").groupJidToWid(n),
-                };
-              case "AcceptGroupAddResponseClientError": {
-                var i = a.value.errorAcceptGroupAddClientErrors.value,
-                  l = i.code,
-                  s = i.text;
-                return (
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "joinGroupViaInviteV4: failed ",
-                        ":",
-                        "",
-                      ])),
-                    l,
-                    s,
-                  ),
-                  { status: Number(l) }
-                );
-              }
-              case "AcceptGroupAddResponseServerError": {
-                var d = a.value.errorServerErrors.value,
-                  m = d.code,
-                  p = d.text;
-                return (
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "joinGroupViaInviteV4: failed ",
-                        ":",
-                        "",
-                      ])),
-                    m,
-                    p,
-                  ),
-                  { status: Number(m) }
-                );
-              }
+          switch (i.name) {
+            case "AcceptGroupAddResponseSuccess":
+              return { status: 200, gid: o("WAWebJidToWid").groupJidToWid(a) };
+            case "AcceptGroupAddResponseGroupJoinRequestSuccess":
+              return { status: 200, gid: o("WAWebJidToWid").groupJidToWid(a) };
+            case "AcceptGroupAddResponseClientError": {
+              var l = i.value.errorAcceptGroupAddClientErrors.value,
+                s = l.code,
+                d = l.text;
+              return (
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "joinGroupViaInviteV4: failed ",
+                      ":",
+                      "",
+                    ])),
+                  s,
+                  d,
+                ),
+                { status: Number(s) }
+              );
             }
-          },
-        )),
+            case "AcceptGroupAddResponseServerError": {
+              var m = i.value.errorServerErrors.value,
+                p = m.code,
+                _ = m.text;
+              return (
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "joinGroupViaInviteV4: failed ",
+                      ":",
+                      "",
+                    ])),
+                  p,
+                  _,
+                ),
+                { status: Number(p) }
+              );
+            }
+          }
+        })),
         g.apply(this, arguments)
       );
     }

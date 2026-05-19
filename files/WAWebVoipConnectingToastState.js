@@ -33,8 +33,7 @@ __d(
       for (var t of e.values()) t.timer != null && window.clearTimeout(t.timer);
       e.clear();
     }
-    ((l.CONNECTING_TOAST_DELAY_MS = s),
-      (l.subscribeToConnectingToast = u),
+    ((l.subscribeToConnectingToast = u),
       (l.resetConnectingToastStateForTesting = c));
   },
   98,

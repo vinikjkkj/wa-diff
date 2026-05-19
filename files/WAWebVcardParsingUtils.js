@@ -75,8 +75,8 @@ __d(
       var t = {};
       return (
         r("lodash").forOwn(e, function (e, n) {
-          t[n] = r("lodash").sortBy(e, function (e) {
-            return e.index;
+          t[n] = [].concat(e).sort(function (e, t) {
+            return e.index - t.index;
           });
         }),
         t
@@ -85,21 +85,17 @@ __d(
     function h(e) {
       var t = [/-([^-]*)-([^-]*)-([^-]*)/, /([^-]*)-([^-]*)-([^-]*)/],
         n = e;
-      return (
-        r("lodash").forEach(t, function (t) {
-          var o = e.match(t);
-          if (o) {
-            var a = !o[1].length || o[1] === "1604",
-              i = a ? "0000" : o[1];
-            return (
-              (n = r("WAWeb-moment")(i + "-" + o[2] + "-" + o[3]).format("l")),
-              a && (n = n.replace(/[.,-\/\s]*0000[.,-\/\s]*/, "")),
-              !1
-            );
-          }
-        }),
-        n
-      );
+      for (var o of t) {
+        var a = e.match(o);
+        if (a) {
+          var i = !a[1].length || a[1] === "1604",
+            l = i ? "0000" : a[1];
+          ((n = r("WAWeb-moment")(l + "-" + a[2] + "-" + a[3]).format("l")),
+            i && (n = n.replace(/[.,-\/\s]*0000[.,-\/\s]*/, "")));
+          break;
+        }
+      }
+      return n;
     }
     function y(e) {
       var t = [];

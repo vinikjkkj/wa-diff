@@ -91,11 +91,11 @@ __d(
                 currentIndex: null,
                 deleted: !1,
               },
-              v = o("WAWebAdvExpectedTsApi").computeExpectedTsForDeviceRecord(
-                g,
-                b,
-                c,
-              );
+              v = o("WAWebAdvExpectedTsApi").computeExpectedTsForDeviceRecord({
+                deviceRecord: b,
+                incomingTs: g,
+                lastDeviceJobTs: c,
+              });
             ((b.expectedTs = v.expectedTs),
               (b.expectedTsLastDeviceJobTs = v.expectedTsLastDeviceJobTs),
               (b.expectedTsUpdateTs = v.expectedTsUpdateTs),

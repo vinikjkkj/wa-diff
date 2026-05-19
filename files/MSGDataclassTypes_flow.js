@@ -616,6 +616,7 @@ __d(
       }),
       st = e({
         AiWidget: "AI_WIDGET",
+        GamePrediction: "GAME_PREDICTION",
         HorizonWeelXma: "HORIZON_WEEL_XMA",
         MomentLink: "MOMENT_LINK",
         ThreadsPostShare: "THREADS_POST_SHARE",

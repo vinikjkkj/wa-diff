@@ -438,22 +438,17 @@ __d(
                       )
                     : null,
                 P = l.has(T) ? l.get(T) : void 0;
-              ((v = S(
-                D.wid,
-                y[T],
-                o("WAWebHandleAdvForUsyncApi").handleADVSyncResultSync(
-                  D.wid,
-                  D.devices,
-                  $,
-                  y[T],
-                  void 0,
-                  P,
-                ),
-                C,
-                b,
-                R,
-                v,
-              )),
+              ((v = S({
+                clearRecords: C,
+                deviceADVResult: o(
+                  "WAWebHandleAdvForUsyncApi",
+                ).handleADVSyncResultSync(D.wid, D.devices, $, y[T], void 0, P),
+                identityUpdates: R,
+                localDeviceRecord: y[T],
+                shouldAddHosted: v,
+                updates: b,
+                wid: D.wid,
+              })),
                 yield d.yield());
             }
           else {
@@ -478,7 +473,16 @@ __d(
                     void 0,
                     B,
                   );
-                ((v = S(A.wid, y[w], W, C, b, R, v)), yield N());
+                ((v = S({
+                  clearRecords: C,
+                  deviceADVResult: W,
+                  identityUpdates: R,
+                  localDeviceRecord: y[w],
+                  shouldAddHosted: v,
+                  updates: b,
+                  wid: A.wid,
+                })),
+                  yield N());
               }
             }
           }
@@ -520,42 +524,49 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e, t, n, r, a, i, l) {
-      if (n == null) return l;
+    function S(e) {
+      var t = e.clearRecords,
+        n = e.deviceADVResult,
+        r = e.identityUpdates,
+        a = e.localDeviceRecord,
+        i = e.shouldAddHosted,
+        l = e.updates,
+        s = e.wid;
+      if (n == null) return i;
       if (
-        (n.identityUpdatePromise && i.push(n.identityUpdatePromise),
+        (n.identityUpdatePromise && r.push(n.identityUpdatePromise),
         n.clearRecord)
       ) {
-        var s;
+        var u;
         return (
-          r.push({
-            wid: e,
-            currentList: (t == null ? void 0 : t.devices) || [],
-            currentAdvAccountType: t == null ? void 0 : t.advAccountType,
+          t.push({
+            wid: s,
+            currentList: (a == null ? void 0 : a.devices) || [],
+            currentAdvAccountType: a == null ? void 0 : a.advAccountType,
             incomingAdvAccountType:
-              (s = n.update) == null ? void 0 : s.advAccountType,
+              (u = n.update) == null ? void 0 : u.advAccountType,
           }),
-          a.push({
-            wid: e,
+          l.push({
+            wid: s,
             currentRecord: {
-              id: o("WAWebDeviceListPk").createDeviceListPK(e),
+              id: o("WAWebDeviceListPk").createDeviceListPK(s),
               deleted: !0,
             },
             update: n.update,
           }),
-          l
+          i
         );
       }
-      var u = l;
+      var c = i;
       if ((n == null ? void 0 : n.fromHandleOmittedResult) === !0) {
-        var c;
-        (t == null ? void 0 : t.advAccountType) ===
+        var d;
+        (a == null ? void 0 : a.advAccountType) ===
           o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-          (n == null || (c = n.update) == null ? void 0 : c.advAccountType) ===
+          (n == null || (d = n.update) == null ? void 0 : d.advAccountType) ===
             o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE &&
-          (u = !0);
+          (c = !0);
       }
-      return (a.push({ wid: e, currentRecord: t, update: n.update }), u);
+      return (l.push({ wid: s, currentRecord: a, update: n.update }), c);
     }
     var R = 100,
       L = 25,

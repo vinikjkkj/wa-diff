@@ -37,7 +37,7 @@ __d(
                     : !a.isUser ||
                         r("WAWebWid").isServer(t) ||
                         r("WAWebWid").isPSA(t) ||
-                        r("WAWebWid").isFbidBot(t) ||
+                        r("WAWebWid").isBot(t) ||
                         o("WAWebUserPrefsMeUser").isMeAccount(a.id)
                       ? { id: t }
                       : (yield e._subscribe(n), { id: t });

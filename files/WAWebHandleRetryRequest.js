@@ -122,7 +122,14 @@ __d(
                         } else if (h !== "voip_1x1_retry") {
                           var S = yield o(
                               "WAWebProcessRetryKeyBundle",
-                            ).getMsgIfAuthorized(C, i, b, u, g, s),
+                            ).getMsgIfAuthorized({
+                              chat: i,
+                              identity: s,
+                              isLidBot: u,
+                              originalMsgId: C,
+                              requester: b,
+                              retryCount: g,
+                            }),
                             R =
                               S == null
                                 ? o("WAWebApiContact").getAlternateDeviceWid(
@@ -135,7 +142,14 @@ __d(
                             (R &&
                               (S = yield o(
                                 "WAWebProcessRetryKeyBundle",
-                              ).getMsgIfAuthorized(C, i, R, u, g, s)),
+                              ).getMsgIfAuthorized({
+                                chat: i,
+                                identity: s,
+                                isLidBot: u,
+                                originalMsgId: C,
+                                requester: R,
+                                retryCount: g,
+                              })),
                             !S)
                           ) {
                             var L;

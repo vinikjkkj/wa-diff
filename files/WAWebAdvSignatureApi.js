@@ -344,20 +344,23 @@ __d(
         }
       );
     }
-    function N(e, t, n) {
-      var r = e.details,
-        a = o("WABinary")
+    function N(e) {
+      var t = e.advSignedDeviceIdentity,
+        n = e.identityKeyPair,
+        r = e.primarySignatureKey,
+        a = t.details,
+        i = o("WABinary")
           .Binary.build(
             o("WAWebAdvSignatureConstants")
               .ADV_PREFIX_DEVICE_IDENTITY_DEVICE_SIGNATURE,
+            a,
+            n.pubKey,
             r,
-            t.pubKey,
-            n,
           )
           .readByteArrayView().buffer;
       return o("WAWebCryptoCurve25519CalculateSignature").calculateSignature(
-        t,
-        a,
+        n,
+        i,
       );
     }
     function M(e, t, n, r, a) {

@@ -25,12 +25,12 @@ __d(
                 a = t.jobPriority,
                 i = t.pendingJobsCount,
                 l = r("WAWebBrokerGlobalAppState").getCurrentScenario(),
-                s = new (o("WAWebOrchestratorJobInfoEvent").JobInfoEvent)(
-                  n,
-                  a,
-                  i,
-                  l,
-                );
+                s = new (o("WAWebOrchestratorJobInfoEvent").JobInfoEvent)({
+                  jobName: n,
+                  jobPriority: a,
+                  pendingJobsCount: i,
+                  scenario: l,
+                });
               (s.logJobAdded(), this.$1.set(e, s));
             }
           }),

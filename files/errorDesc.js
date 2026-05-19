@@ -3,10 +3,10 @@ __d(
   ["fbt", "invariant"],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
-    function e(e) {
+    function e() {
       u(0, 3625);
     }
-    ((e.withParams = function (e, t) {
+    ((e.withParams = function () {
       u(0, 3625);
     }),
       (e._ = function (e, t) {

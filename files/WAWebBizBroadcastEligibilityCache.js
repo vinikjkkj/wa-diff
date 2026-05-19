@@ -121,7 +121,6 @@ __d(
       (l.isInFailureBackoff = h),
       (l.getEligibilityRefreshIntervalMs = y),
       (l.getEligibilityFailureBackoffMs = C),
-      (l.getPausedExpirationSecToMs = b),
       (l.isEligibilityCachingEnabled = v),
       (l.clearCache = S));
   },

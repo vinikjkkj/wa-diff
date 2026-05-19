@@ -113,6 +113,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "countWhere",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -128,8 +129,10 @@ __d(
       h,
       y,
       C,
-      b = 1e3,
-      v = (function (t) {
+      b,
+      v,
+      S = 1e3,
+      R = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -870,6 +873,22 @@ __d(
                           "WAWebPersistedJobDefinitions",
                         ).jobSerializers.deleteAddOns(e.id.toString(), t),
                       ));
+                })
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "[ephemeral-leak] drain DB delete failed count=",
+                          "",
+                        ])),
+                      a.length,
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .tags("ephemeral-messages")
+                    .sendLogs("ephemeral-leak-drain-failed", {
+                      sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                    });
                 }),
                 this.$ChatImpl$p_1.forEach(function (t) {
                   (e.$ChatImpl$p_1.delete(t),
@@ -1140,8 +1159,8 @@ __d(
           }),
           (i.onEmptyMRM = function () {
             (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "models:Chat:removeMsg 0 messages left, querying...",
                 ])),
             ),
@@ -1155,8 +1174,8 @@ __d(
                 )
                 .catch(function (e) {
                   o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose(
                         ["chat:onEmptyMRM failed\n", ""],
                         ["chat:onEmptyMRM failed\\n", ""],
                       )),
@@ -1329,40 +1348,64 @@ __d(
               )
             ) {
               var i = (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
-                    e.$ChatImpl$p_2.delete(t);
-                    var n =
-                      t.afterReadDuration != null && t.afterReadDuration > 0;
-                    if (!e.active || n) {
-                      var r = n && e.active;
-                      (r &&
-                        ((t.isFadingOut = !0),
-                        yield o("WAAsyncSleep").asyncSleep(b)),
-                        yield o(
-                          "WAWebDBEphemeralMessage",
-                        ).removeExpiredMessagesFromHistory([t]),
-                        o(
+                    if (
+                      (e.$ChatImpl$p_2.delete(t),
+                      !o("WAWebMsgGetters").getIsKept(t))
+                    ) {
+                      var n =
+                        t.afterReadDuration != null && t.afterReadDuration > 0;
+                      if (!e.active || n) {
+                        var a = n && e.active;
+                        a &&
+                          ((t.isFadingOut = !0),
+                          yield o("WAAsyncSleep").asyncSleep(S));
+                        try {
+                          yield o(
+                            "WAWebDBEphemeralMessage",
+                          ).removeExpiredMessagesFromHistory([t]);
+                        } catch (e) {
+                          o("WALogger")
+                            .ERROR(
+                              g ||
+                                (g = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[ephemeral-leak] handleExpiration DB delete failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .tags("ephemeral-messages")
+                            .sendLogs(
+                              "ephemeral-leak-handle-expiration-failed",
+                              {
+                                sendLogsType:
+                                  o("WALogger").SendLogsType.INVESTIGATION,
+                              },
+                            );
+                          return;
+                        }
+                        (o(
                           "WAWebUpdateLastAddOnPreviewChatAction",
                         ).deleteModelsForLastAddOnPreview([t.id.toString()]),
-                        yield o("WAWebPersistedJobManagerWorkerCompatible")
-                          .getJobManager()
-                          .waitUntilPersisted(
-                            o(
-                              "WAWebPersistedJobDefinitions",
-                            ).jobSerializers.deleteAddOns(e.id.toString(), [
-                              t.id.toString(),
-                            ]),
-                          ),
-                        t.delete({
-                          skipUpdatingSortTime: !0,
-                          doNotResetLastReceived: !0,
-                        }));
-                    } else e.$ChatImpl$p_1.add(t);
+                          yield o("WAWebPersistedJobManagerWorkerCompatible")
+                            .getJobManager()
+                            .waitUntilPersisted(
+                              o(
+                                "WAWebPersistedJobDefinitions",
+                              ).jobSerializers.deleteAddOns(e.id.toString(), [
+                                t.id.toString(),
+                              ]),
+                            ),
+                          t.delete({
+                            skipUpdatingSortTime: !0,
+                            doNotResetLastReceived: !0,
+                          }));
+                      } else e.$ChatImpl$p_1.add(t);
+                    }
                   },
                 );
                 return function () {
-                  return r.apply(this, arguments);
+                  return a.apply(this, arguments);
                 };
               })();
               if (o("WAWebKeepInChatMsgUtils").isExpired(t)) i();
@@ -1436,8 +1479,8 @@ __d(
             var e = (n == null ? void 0 : n.skipSideEffects) === !0;
             return (
               o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[Maiba] setCapiThreadControl: ",
                     " -> ",
                     " for chat=",
@@ -1462,8 +1505,8 @@ __d(
                   .catch(
                     o("WAAbortError").catchAbort(function (e) {
                       o("WALogger").LOG(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                        y ||
+                          (y = babelHelpers.taggedTemplateLiteralLoose([
                             "[Maiba] Aborted notification ",
                             "",
                           ])),
@@ -1494,8 +1537,8 @@ __d(
               var n = !t.participants.iAmAdmin() && t.announce;
               this.isAnnounceGrpRestrict !== n &&
                 (o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "chat:_updateIsAnnounceGrpRestrict:old ",
                       ", new: ",
                       "",
@@ -1531,7 +1574,7 @@ __d(
           }),
           (i.waitForChatLoading = function () {
             var e = this,
-              t = (C || (C = n("Promise"))).resolve();
+              t = (v || (v = n("Promise"))).resolve();
             return (
               this.pendingInitialLoading &&
                 (t = r("WAWebEventsWaitForBbEvent")(
@@ -1813,8 +1856,8 @@ __d(
               ? this.accountLid == null
                 ? (o("WALogger")
                     .ERROR(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
                           "[presence] getPresenceKey: lid-migrated regular user has no accountLid",
                         ])),
                     )
@@ -1834,9 +1877,9 @@ __d(
           a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((v.Proxy = "chat"), (v.idClass = r("WAWebWid")));
-    var S = o("WAWebBaseModel").defineModel(v);
-    l.Chat = S;
+    ((R.Proxy = "chat"), (R.idClass = r("WAWebWid")));
+    var L = o("WAWebBaseModel").defineModel(R);
+    l.Chat = L;
   },
   226,
 );

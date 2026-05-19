@@ -33,8 +33,12 @@ __d(
         )
         .waitUntilCompleted(n);
     }
-    function u(e, t, n, r) {
-      var a = { group: e, participants: t, isOffline: n, reason: r };
+    function u(e) {
+      var t = e.group,
+        n = e.isOffline,
+        r = e.participants,
+        a = e.reason,
+        i = { group: t, participants: r, isOffline: n, reason: a };
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "addParticipants",
@@ -43,7 +47,7 @@ __d(
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
         )
-        .waitUntilCompleted(a);
+        .waitUntilCompleted(i);
     }
     function c(e, t, n, r, a, i, l) {
       var s = {

@@ -79,12 +79,12 @@ __d(
         : !1;
     }
     function f(e) {
-      return g(e) || h(e);
+      return g(e) || y(e);
     }
     function g(e) {
       return (
         _(e) &&
-        (e.afterReadDuration == null || e.afterReadDuration === 0) &&
+        h(e) &&
         o("WAWebChatGroupUtils").canSendToGroup(
           o("WAWebFrontendMsgGetters").getChat(e),
         ) &&
@@ -95,13 +95,19 @@ __d(
       );
     }
     function h(e) {
+      var t = e.afterReadDuration;
+      if (t == null || t === 0) return !0;
+      var n = o("WAWebMsgGetters").getT(e);
+      return n == null || n === 0 ? !0 : o("WATimeUtils").unixTime() - n <= t;
+    }
+    function y(e) {
       return (
         o("WAWebMsgGetters").getIsKept(e) &&
         _(e) &&
-        (y(e) || g(e) || e.isGif || o("WAWebMsgGetters").getIsStickerMsg(e))
+        (C(e) || g(e) || e.isGif || o("WAWebMsgGetters").getIsStickerMsg(e))
       );
     }
-    function y(e) {
+    function C(e) {
       if (o("WAWebMsgGetters").getIsSentByMe(e)) {
         var t;
         if (
@@ -123,7 +129,7 @@ __d(
       }
       return !1;
     }
-    function C(e) {
+    function b(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
       if (t == null) return !1;
       var n = o("WAWebMsgGetters").getSender(e);
@@ -137,12 +143,12 @@ __d(
           : null;
       return r == null ? !1 : t.participants.get(r) != null;
     }
-    function b(e) {
+    function v(e) {
       var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
       return t == null ? !1 : t <= o("WATimeUtils").unixTime();
     }
-    function v(e) {
-      return b(e) && !o("WAWebMsgGetters").getIsKept(e);
+    function S(e) {
+      return v(e) && !o("WAWebMsgGetters").getIsKept(e);
     }
     ((l.supportsStarWithKeepInChat = e),
       (l.keepIsLockedForMeSenderSuperpower = s),
@@ -151,10 +157,10 @@ __d(
       (l.keepIsLockedForUser = m),
       (l.canShowKeepOrUnkeepOption = f),
       (l.canShowKeepOption = g),
-      (l.canShowUnkeepOption = h),
-      (l.senderIsGroupParticipant = C),
-      (l.isExpired = b),
-      (l.isExpiredAndNotKept = v));
+      (l.canShowUnkeepOption = y),
+      (l.senderIsGroupParticipant = b),
+      (l.isExpired = v),
+      (l.isExpiredAndNotKept = S));
   },
   98,
 );

@@ -15,9 +15,7 @@ __d(
     function c(e) {
       return s()(e);
     }
-    ((l.getInstance = s),
-      (l.setInstance = u),
-      (l.maybeInsertDebugPlaceholder = c));
+    ((l.setInstance = u), (l.maybeInsertDebugPlaceholder = c));
   },
   98,
 );

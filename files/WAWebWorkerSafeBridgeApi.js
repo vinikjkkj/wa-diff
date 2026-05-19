@@ -301,7 +301,13 @@ __d(
             i = t.msgType;
           return o(
             "WAWebResendUserMsgMainThreadOnly",
-          ).resendUserMsgMainThreadOnly(r, i, a, n, e);
+          ).resendUserMsgMainThreadOnly({
+            ackTime: e,
+            excludeList: n,
+            msgId: r,
+            msgRecordType: a,
+            msgType: i,
+          });
         },
         resendGroupMsg: function (t) {
           var e = t.ackTime,

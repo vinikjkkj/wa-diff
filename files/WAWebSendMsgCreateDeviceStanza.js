@@ -226,17 +226,17 @@ __d(
                 r.groupData.isLidAddressingMode === !0
                   ? o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid
                   : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn);
-            var B = o("WAWebSendMsgMetaNode").genMetaNode(
-                f,
-                t,
-                n,
-                r.type === "group" ? r.groupData : void 0,
-                {
+            var B = o("WAWebSendMsgMetaNode").genMetaNode({
+                chatId: f,
+                groupData: r.type === "group" ? r.groupData : void 0,
+                includeAttributes: {
                   appendHostedSenderIntent: R,
                   isCategoryPeerMessage: _.type === c.AppStateSync,
                   origin: a,
                 },
-              ),
+                msgProtobuf: n,
+                msgRecord: t,
+              }),
               W = g && E ? g : f,
               q = o("WAWap").wap(
                 "enc",

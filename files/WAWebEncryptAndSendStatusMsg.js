@@ -161,7 +161,16 @@ __d(
                 wids: [].concat(O, [R]),
                 shouldMergeAltDevices: !0,
               });
-              return (S(B, "direct revoke deviceList"), $(e, t, B, n, k));
+              return (
+                S(B, "direct revoke deviceList"),
+                $({
+                  deviceList: B,
+                  metricsReporter: n,
+                  msgProtobuf: t,
+                  sendMsgRecord: e,
+                  sessionScope: k,
+                })
+              );
             }
             N = O;
           } else {
@@ -477,87 +486,88 @@ __d(
         );
       });
     }
-    function $(e, t, n, r, o) {
+    function $(e) {
       return P.apply(this, arguments);
     }
     function P() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i,
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r = e.deviceList,
+            a = e.metricsReporter,
+            i = e.msgProtobuf,
+            l = e.sendMsgRecord,
+            s = e.sessionScope,
+            u = l.data.id,
+            c = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID);
+          o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "encryptAndSendStatusDirectMsg: send ",
+                " to ",
+                " device",
+              ])),
+            u.id,
+            r.length,
+          );
+          var d = l.data.to,
+            m = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
               l,
-              s = e.data.id,
-              u = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID);
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "encryptAndSendStatusDirectMsg: send ",
-                  " to ",
-                  " device",
-                ])),
-              s.id,
-              n.length,
-            );
-            var c = e.data.to,
-              d = yield o(
-                "WAWebSendMsgCreateFanoutStanza",
-              ).createFanoutMsgStanza(
-                e,
-                t,
-                n,
-                {
-                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
-                  sessionScope: a,
-                },
-                r,
-                c,
-              ),
-              m = d.stanza,
-              p = I(m);
-            if (a === o("WAWebSessionScope").SessionScope.STATUS) {
-              var _,
-                f =
-                  (_ = m.content) == null
-                    ? void 0
-                    : _.find(function (e) {
-                        return (
-                          e instanceof o("WAWap").WapNode && e.tag === "meta"
-                        );
-                      });
-              if (f instanceof o("WAWap").WapNode)
-                f.attrs.session_scope = o("WAWap").CUSTOM_STRING("status");
-              else {
-                var g = new (o("WAWap").WapNode)("meta", {
-                    session_scope: o("WAWap").CUSTOM_STRING("status"),
-                  }),
-                  h = m.content;
-                m.content = Array.isArray(h) ? [].concat(h, [g]) : [g];
-              }
-            }
-            (yield o("WAWebSignalProtocolStore")
-              .getSignalProtocolStore()
-              .flushBufferToDiskIfNotMemOnlyMode(),
-              (i = r.sendPerfReporter) == null || i.startWrittenWireStage(),
-              o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "encryptAndSendStatusDirectMsg: start sending ",
-                    "",
-                  ])),
-                s.id,
-              ),
-              yield o("WADeprecatedSendIq").deprecatedSendStanzaAndReturnAck(
-                m,
-                o("WAWebCommsAckParser").toCoreAckTemplate({
-                  id: s.id,
-                  class: p,
-                  from: u,
-                  participant: null,
+              i,
+              r,
+              {
+                fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                sessionScope: s,
+              },
+              a,
+              d,
+            ),
+            p = m.stanza,
+            _ = I(p);
+          if (s === o("WAWebSessionScope").SessionScope.STATUS) {
+            var f,
+              g =
+                (f = p.content) == null
+                  ? void 0
+                  : f.find(function (e) {
+                      return (
+                        e instanceof o("WAWap").WapNode && e.tag === "meta"
+                      );
+                    });
+            if (g instanceof o("WAWap").WapNode)
+              g.attrs.session_scope = o("WAWap").CUSTOM_STRING("status");
+            else {
+              var h = new (o("WAWap").WapNode)("meta", {
+                  session_scope: o("WAWap").CUSTOM_STRING("status"),
                 }),
-              ),
-              (l = r.sendPerfReporter) == null || l.postWrittenWireStage());
-          },
-        )),
+                b = p.content;
+              p.content = Array.isArray(b) ? [].concat(b, [h]) : [h];
+            }
+          }
+          (yield o("WAWebSignalProtocolStore")
+            .getSignalProtocolStore()
+            .flushBufferToDiskIfNotMemOnlyMode(),
+            (t = a.sendPerfReporter) == null || t.startWrittenWireStage(),
+            o("WALogger").LOG(
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
+                  "encryptAndSendStatusDirectMsg: start sending ",
+                  "",
+                ])),
+              u.id,
+            ),
+            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndReturnAck(
+              p,
+              o("WAWebCommsAckParser").toCoreAckTemplate({
+                id: u.id,
+                class: _,
+                from: c,
+                participant: null,
+              }),
+            ),
+            (n = a.sendPerfReporter) == null || n.postWrittenWireStage());
+        })),
         P.apply(this, arguments)
       );
     }

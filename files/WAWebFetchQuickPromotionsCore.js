@@ -74,9 +74,7 @@ __d(
         if (r === e) return n;
       }
     }
-    ((l.mapFilterClauseType = e),
-      (l.mapFilterResult = s),
-      (l.parseFilterClause = u),
+    ((l.parseFilterClause = u),
       (l.parseFilter = c),
       (l.getSurfaceIdByNuxId = d));
   },

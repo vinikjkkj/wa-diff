@@ -98,10 +98,12 @@ __d(
                           .LATEST_TOKENIZER_VERSION,
                       ),
                       r("WAWebEnvironment").isWindows
-                        ? (this.$3 = new (r("WAFtsSQLiteIndexer"))(
-                            new (r("WAWebFtsV3MessageSource"))(t),
-                            new (r("WAFtsSQLiteTableAdapter"))(C),
-                          ))
+                        ? (this.$3 = new (r("WAFtsSQLiteIndexer"))({
+                            messageSource: new (r("WAWebFtsV3MessageSource"))(
+                              t,
+                            ),
+                            tableAdapter: new (r("WAFtsSQLiteTableAdapter"))(C),
+                          }))
                         : (this.$3 = new (r("WAFtsQuickSwitchOrchestrator"))(
                             this.$7,
                             this.$6,

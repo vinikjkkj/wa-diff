@@ -55,54 +55,59 @@ __d(
           })()),
           (t.getCredentials = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a) {
-                var i, l;
-                if (a == null)
+              function* (e) {
+                var t,
+                  n,
+                  a = e.blindedTokens,
+                  i = e.config,
+                  l = e.projectName,
+                  s = e.requestProof;
+                if (l == null)
                   throw r("err")(
                     "WAWebACSServerProvider: missing project name",
                   );
-                var s = t.map(function (e) {
+                var u = a.map(function (e) {
                     return { issue_data: o("WABase64").encodeB64UrlSafe(e) };
                   }),
-                  u = yield o("WAWebRelayClient").commitMutation(
+                  d = yield o("WAWebRelayClient").commitMutation(
                     c,
                     {
                       input: {
-                        project_name: a,
-                        config_id: e.configId,
-                        issue_element: s,
-                        request_proof: n,
+                        project_name: l,
+                        config_id: i.configId,
+                        issue_element: u,
+                        request_proof: s,
                       },
                     },
                     { environmentType: "whatsapp_web" },
                   ),
-                  d = u == null ? void 0 : u.xwa_wa_acs_issue_credentials;
-                if (d == null || d.success !== !0) {
-                  var m;
+                  m = d == null ? void 0 : d.xwa_wa_acs_issue_credentials;
+                if (m == null || m.success !== !0) {
+                  var p;
                   throw r("err")(
                     "WAWebACSServerProvider: issuance failed: " +
-                      ((m = d == null ? void 0 : d.error_message) != null
-                        ? m
+                      ((p = m == null ? void 0 : m.error_message) != null
+                        ? p
                         : "unknown error"),
                   );
                 }
-                var p = (i = d.creds) == null ? void 0 : i.evaluation;
-                if (!Array.isArray(p))
+                var _ = (t = m.creds) == null ? void 0 : t.evaluation;
+                if (!Array.isArray(_))
                   throw r("err")(
                     "WAWebACSServerProvider: evaluation results not an array",
                   );
-                var _ = [];
-                for (var f of p) {
-                  var g = f.data;
-                  if (g == null || g === "")
+                var f = [];
+                for (var g of _) {
+                  var h = g.data;
+                  if (h == null || h === "")
                     throw r("err")(
                       "WAWebACSServerProvider: empty evaluation result",
                     );
                   try {
-                    var h = JSON.parse(g);
-                    _.push(
+                    var y = JSON.parse(h);
+                    f.push(
                       new Uint8Array(
-                        o("WABase64").decodeB64UrlSafe(h.evaluation_data),
+                        o("WABase64").decodeB64UrlSafe(y.evaluation_data),
                       ),
                     );
                   } catch (e) {
@@ -111,28 +116,28 @@ __d(
                     );
                   }
                 }
-                var y = (l = d.creds) == null ? void 0 : l.proof;
-                if (y == null)
-                  return { signedBlindedTokens: _, dleqProofs: null };
-                if (!Array.isArray(y))
+                var C = (n = m.creds) == null ? void 0 : n.proof;
+                if (C == null)
+                  return { signedBlindedTokens: f, dleqProofs: null };
+                if (!Array.isArray(C))
                   throw r("err")(
                     "WAWebACSServerProvider: proof results not an array",
                   );
-                var C = [];
-                for (var b of y) {
-                  var v = b.c,
-                    S = b.s;
-                  if (v == null || v === "" || S == null || S === "")
+                var b = [];
+                for (var v of C) {
+                  var S = v.c,
+                    R = v.s;
+                  if (S == null || S === "" || R == null || R === "")
                     throw r("err")("WAWebACSServerProvider: empty DLEQ proof");
-                  C.push({
-                    c: new Uint8Array(o("WABase64").decodeB64UrlSafe(v)),
-                    s: new Uint8Array(o("WABase64").decodeB64UrlSafe(S)),
+                  b.push({
+                    c: new Uint8Array(o("WABase64").decodeB64UrlSafe(S)),
+                    s: new Uint8Array(o("WABase64").decodeB64UrlSafe(R)),
                   });
                 }
-                return { signedBlindedTokens: _, dleqProofs: C };
+                return { signedBlindedTokens: f, dleqProofs: b };
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

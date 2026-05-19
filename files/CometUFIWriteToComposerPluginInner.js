@@ -6,7 +6,6 @@ __d(
     "react",
     "react-compiler-runtime",
     "useCometUFILexicalEmptyListeners",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -159,7 +158,7 @@ __d(
                 p(D),
                 m($),
                 function () {
-                  (r("vulture")("y0DknKXqz6GVfAy8tU9EN62i5JE="), y(), h(), g());
+                  (y(), h(), g());
                 }
               );
             }),

@@ -226,7 +226,11 @@ __d(
                 );
               (($.deviceSignature = yield o(
                 "WAWebAdvSignatureApi",
-              ).generateDeviceSignature($, M.identityKeyPair, P)),
+              ).generateDeviceSignature({
+                advSignedDeviceIdentity: $,
+                identityKeyPair: M.identityKeyPair,
+                primarySignatureKey: P,
+              })),
                 yield o("WAWebSignalStoreApi").waSignalStore.putIdentity(
                   o("WAWebSignalCommonUtils")
                     .createSignalAddress(

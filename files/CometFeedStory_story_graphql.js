@@ -62,14 +62,36 @@ __d(
             },
           ],
           storageKey: null,
-        };
+        },
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        i = { kind: "Variable", name: "scale", variableName: "scale" },
+        l = [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "uri",
+            storageKey: null,
+          },
+        ];
       return {
         argumentDefinitions: [
           {
             kind: "RootArgument",
             name: "__relay_internal__pv__CometFeedStory_enable_post_permalink_white_space_clickrelayprovider",
           },
+          {
+            kind: "RootArgument",
+            name: "__relay_internal__pv__CometFeedStory_enable_reactor_facepilerelayprovider",
+          },
           { kind: "RootArgument", name: "renderLocation" },
+          { kind: "RootArgument", name: "scale" },
         ],
         kind: "Fragment",
         metadata: null,
@@ -195,15 +217,7 @@ __d(
             kind: "LinkedField",
             name: "comet_sections",
             plural: !1,
-            selections: [
-              {
-                alias: null,
-                args: null,
-                kind: "ScalarField",
-                name: "__typename",
-                storageKey: null,
-              },
-            ],
+            selections: [a],
             storageKey: null,
           },
           {
@@ -290,6 +304,99 @@ __d(
                 plural: !1,
                 selections: t,
                 storageKey: null,
+              },
+              {
+                condition:
+                  "__relay_internal__pv__CometFeedStory_enable_reactor_facepilerelayprovider",
+                kind: "Condition",
+                passingValue: !0,
+                selections: [
+                  {
+                    alias: null,
+                    args: [
+                      { kind: "Literal", name: "fetch_creators", value: !0 },
+                      { kind: "Literal", name: "first", value: 3 },
+                    ],
+                    concreteType: "ImportantReactorsConnection",
+                    kind: "LinkedField",
+                    name: "important_reactors",
+                    plural: !1,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        concreteType: "ImportantReactorsEdge",
+                        kind: "LinkedField",
+                        name: "edges",
+                        plural: !0,
+                        selections: [
+                          {
+                            alias: null,
+                            args: null,
+                            concreteType: "FeedbackReactionInfo",
+                            kind: "LinkedField",
+                            name: "feedback_reaction_info",
+                            plural: !1,
+                            selections: [
+                              {
+                                alias: null,
+                                args: [i],
+                                concreteType: "Image",
+                                kind: "LinkedField",
+                                name: "face_image",
+                                plural: !1,
+                                selections: l,
+                                storageKey: null,
+                              },
+                            ],
+                            storageKey: null,
+                          },
+                          {
+                            alias: null,
+                            args: null,
+                            concreteType: null,
+                            kind: "LinkedField",
+                            name: "node",
+                            plural: !1,
+                            selections: [
+                              a,
+                              e,
+                              {
+                                alias: null,
+                                args: null,
+                                kind: "ScalarField",
+                                name: "name",
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: [
+                                  {
+                                    kind: "Literal",
+                                    name: "height",
+                                    value: 36,
+                                  },
+                                  i,
+                                  { kind: "Literal", name: "width", value: 36 },
+                                ],
+                                concreteType: "Image",
+                                kind: "LinkedField",
+                                name: "profile_picture",
+                                plural: !1,
+                                selections: l,
+                                storageKey: null,
+                              },
+                            ],
+                            storageKey: null,
+                          },
+                        ],
+                        storageKey: null,
+                      },
+                    ],
+                    storageKey:
+                      "important_reactors(fetch_creators:true,first:3)",
+                  },
+                ],
               },
             ],
             storageKey: null,

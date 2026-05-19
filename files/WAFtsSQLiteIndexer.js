@@ -6,11 +6,13 @@ __d(
     var e,
       s = 2e3,
       u = (function (e) {
-        function t(t, n, r, o) {
-          return (
-            r === void 0 && (r = s),
-            e.call(this, new c(), t, n, r, o) || this
-          );
+        function t(t) {
+          var n = t.batchSize,
+            r = n === void 0 ? s : n,
+            o = t.messageSource,
+            a = t.scheduler,
+            i = t.tableAdapter;
+          return e.call(this, new c(), o, i, r, a) || this;
         }
         babelHelpers.inheritsLoose(t, e);
         var r = t.prototype;

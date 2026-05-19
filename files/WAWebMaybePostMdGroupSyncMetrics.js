@@ -10,11 +10,15 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t, n, a, i) {
-      var l = d(t, n),
-        c = l.added,
-        m = l.removed;
-      if (c !== 0 || m !== 0) {
+    function c(t) {
+      var n = t.currentParticipantList,
+        a = t.groupData,
+        i = t.msgProtobuf,
+        l = t.oldParticipantList,
+        c = d(l, n),
+        m = c.added,
+        p = c.removed;
+      if (m !== 0 || p !== 0) {
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -22,26 +26,26 @@ __d(
               ", removed: ",
               "",
             ])),
-          c,
           m,
+          p,
         );
-        var p = new (o(
+        var _ = new (o(
           "WAWebMdGroupParticipantMissAckWamEvent",
         ).MdGroupParticipantMissAckWamEvent)();
-        ((p.messageIsRevoke = o("WAWebSendMsgCommonApi").isRevokeMsg(a)),
-          (p.groupSizeBucket = r("WAWebWamNumberToClientGroupSizeBucket")(
-            (i == null ? void 0 : i.participantCount) || 0,
+        ((_.messageIsRevoke = o("WAWebSendMsgCommonApi").isRevokeMsg(i)),
+          (_.groupSizeBucket = r("WAWebWamNumberToClientGroupSizeBucket")(
+            (a == null ? void 0 : a.participantCount) || 0,
           )),
-          (p.typeOfGroup =
-            (i == null ? void 0 : i.wamTypeOfGroup) ||
+          (_.typeOfGroup =
+            (a == null ? void 0 : a.wamTypeOfGroup) ||
             o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM.GROUP),
-          (p.isLid = p.isLid =
-            t.some(function (e) {
+          (_.isLid = _.isLid =
+            l.some(function (e) {
               return e.isLid();
             })),
-          (p.participantAddCount = c),
-          (p.participantRemoveCount = m),
-          p.commitAndWaitForFlush().catch(function (e) {
+          (_.participantAddCount = m),
+          (_.participantRemoveCount = p),
+          _.commitAndWaitForFlush().catch(function (e) {
             o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([

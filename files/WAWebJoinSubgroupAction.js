@@ -33,7 +33,12 @@ __d(
               i = !0,
               l;
             try {
-              l = yield o("WAWebGroupJoinSubgroupJob").joinSubgroup(e, t, n, r);
+              l = yield o("WAWebGroupJoinSubgroupJob").joinSubgroup({
+                groupType: n,
+                parentGroupId: e,
+                request: r,
+                subgroupId: t,
+              });
             } catch (n) {
               return (
                 (i = !1),

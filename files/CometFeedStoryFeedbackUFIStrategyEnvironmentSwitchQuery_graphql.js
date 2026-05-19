@@ -10,6 +10,7 @@ __d(
     "CometUFISingleLineUFI.relayprovider",
     "CometUFIShareActionMigration.relayprovider",
     "GHLShouldChangeSponsoredDataFieldName.relayprovider",
+    "relay_provider_comet_ufi_ssr_seo_defer.relayprovider",
     "GHLShouldChangeAdIdFieldName.relayprovider",
     "CometUFI_dedicated_comment_routable_dialog_gk.relayprovider",
   ],
@@ -150,6 +151,11 @@ __d(
               defaultValue: null,
               kind: "LocalArgument",
               name: "__relay_internal__pv__GHLShouldChangeSponsoredDataFieldNamerelayprovider",
+            },
+            {
+              defaultValue: null,
+              kind: "LocalArgument",
+              name: "__relay_internal__pv__relay_provider_comet_ufi_ssr_seo_deferrelayprovider",
             },
             {
               defaultValue: null,
@@ -313,6 +319,8 @@ __d(
             ),
             __relay_internal__pv__GHLShouldChangeSponsoredDataFieldNamerelayprovider:
               n("GHLShouldChangeSponsoredDataFieldName.relayprovider"),
+            __relay_internal__pv__relay_provider_comet_ufi_ssr_seo_deferrelayprovider:
+              n("relay_provider_comet_ufi_ssr_seo_defer.relayprovider"),
             __relay_internal__pv__GHLShouldChangeAdIdFieldNamerelayprovider: n(
               "GHLShouldChangeAdIdFieldName.relayprovider",
             ),

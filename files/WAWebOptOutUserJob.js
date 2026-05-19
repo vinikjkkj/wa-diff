@@ -36,90 +36,105 @@ __d(
       QUICK_ACTION: "quick_action",
       SYSTEM_EVENT_MESSAGE: "system_event_message",
     };
-    function f(e, t, n, r, o) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i) {
-            var l = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
-              c = {
-                itemJid: t,
-                itemCategory: r,
-                itemAction: n ? "block" : "unblock",
-                itemDhash: l != null ? l : null,
-                itemReason: i,
-                itemEntryPoint: a,
-              },
-              d = yield o(
-                "WASmaxBlocklistsUpdateOptOutListRPC",
-              ).sendUpdateOptOutListRPC(c);
-            switch (d.name) {
-              case "UpdateOptOutListResponseInvalidRequest": {
-                var m = d.value.errorUpdateOptoutErrors.value,
-                  p = m.code,
-                  _ = m.text;
-                return (
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[OptOutUserJob] optInOutUser: server response with ",
-                        "",
-                      ])),
-                    p,
-                  ),
-                  {
-                    errorCode: Number(p),
-                    errorText: _,
-                    errorKind: "invalid_request",
-                  }
-                );
-              }
-              case "UpdateOptOutListResponseServerError": {
-                var f = d.value.errorServerErrors.value,
-                  g = f.code,
-                  h = f.text;
-                return (
-                  o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[OptOutUserJob] optInOutUser: server response with ",
-                        ", ",
-                        "",
-                      ])),
-                    g,
-                    h,
-                  ),
-                  {
-                    errorCode: Number(g),
-                    errorText: h,
-                    errorKind: "server_error",
-                  }
-                );
-              }
-              default:
-                return (
-                  d.name,
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[OptOutUserJob] opt in/out biz success",
-                      ])),
-                  ),
-                  d.value
-                );
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.block,
+            r = t.itemCategory,
+            a = t.itemEntryPoint,
+            i = t.itemReason,
+            l = t.jid,
+            c = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
+            d = {
+              itemJid: l,
+              itemCategory: r,
+              itemAction: n ? "block" : "unblock",
+              itemDhash: c != null ? c : null,
+              itemReason: i,
+              itemEntryPoint: a,
+            },
+            m = yield o(
+              "WASmaxBlocklistsUpdateOptOutListRPC",
+            ).sendUpdateOptOutListRPC(d);
+          switch (m.name) {
+            case "UpdateOptOutListResponseInvalidRequest": {
+              var p = m.value.errorUpdateOptoutErrors.value,
+                _ = p.code,
+                f = p.text;
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[OptOutUserJob] optInOutUser: server response with ",
+                      "",
+                    ])),
+                  _,
+                ),
+                {
+                  errorCode: Number(_),
+                  errorText: f,
+                  errorKind: "invalid_request",
+                }
+              );
             }
-          },
-        )),
+            case "UpdateOptOutListResponseServerError": {
+              var g = m.value.errorServerErrors.value,
+                h = g.code,
+                y = g.text;
+              return (
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[OptOutUserJob] optInOutUser: server response with ",
+                      ", ",
+                      "",
+                    ])),
+                  h,
+                  y,
+                ),
+                {
+                  errorCode: Number(h),
+                  errorText: y,
+                  errorKind: "server_error",
+                }
+              );
+            }
+            default:
+              return (
+                m.name,
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[OptOutUserJob] opt in/out biz success",
+                    ])),
+                ),
+                m.value
+              );
+          }
+        })),
         g.apply(this, arguments)
       );
     }
     function h(e, t, n, r) {
-      return f(e, !0, t, n, r);
+      return f({
+        block: !0,
+        itemCategory: t,
+        itemEntryPoint: n,
+        itemReason: r,
+        jid: e,
+      });
     }
     function y(e, t, n, r) {
-      return f(e, !1, t, n, r);
+      return f({
+        block: !1,
+        itemCategory: t,
+        itemEntryPoint: n,
+        itemReason: r,
+        jid: e,
+      });
     }
     var C = 1e4;
     function b(e, t) {

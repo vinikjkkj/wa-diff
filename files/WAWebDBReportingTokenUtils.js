@@ -283,61 +283,63 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e, t, n, r) {
+    function k(e) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = e.version,
-              i = a === void 0 ? -1 : a,
-              l = e.reportingTokenContentOpaqueData,
-              s = e.reportingToken,
-              u = e.reportingTokenKey,
-              c = l != null ? { reportingContentElementValue: l } : null,
-              d;
-            u != null
-              ? (d = u)
-              : n != null &&
-                r != null &&
-                t != null &&
-                (d = yield o(
-                  "WAWebReportingTokenUtils",
-                ).genReportingTokenKeyFromMessageSecret({
-                  messageSecret: n,
-                  stanzaId: e.stanzaId,
-                  senderJid: o("WAWebWidToJid").widToUserJid(r),
-                  remoteJid: t,
-                }));
-            var m =
-                d != null
-                  ? new Uint8Array(d)
-                  : new Uint8Array(
-                      o("WAWebReportingTokenUtils").REPORTING_TOKEN_KEY_SIZE,
-                    ),
-              p =
-                i != null && s != null
-                  ? {
-                      reportingTokenV: i,
-                      reportingTokenElementValue: s,
-                      reportingTokenKeyElementValue: m,
-                    }
-                  : null,
-              _ =
-                e.reportingTagParticipant != null
-                  ? o("WAJids").unsafeCoerceToUserJid(e.reportingTagParticipant)
-                  : void 0;
-            return {
-              reportingTagElementValue: e.reportingTag,
-              reportingTagTsS: e.msgTs,
-              reportingTagId: o("WAStanzaUtils").toStanzaId(e.stanzaId),
-              reportingContentArgs: c,
-              contentValidationArgs: p,
-              reportingTagParticipant: _,
-            };
-          },
-        )),
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgSecret,
+            n = e.remoteJid,
+            r = e.reportingInfo,
+            a = e.senderWid,
+            i = r.version,
+            l = i === void 0 ? -1 : i,
+            s = r.reportingTokenContentOpaqueData,
+            u = r.reportingToken,
+            c = r.reportingTokenKey,
+            d = s != null ? { reportingContentElementValue: s } : null,
+            m;
+          c != null
+            ? (m = c)
+            : t != null &&
+              a != null &&
+              n != null &&
+              (m = yield o(
+                "WAWebReportingTokenUtils",
+              ).genReportingTokenKeyFromMessageSecret({
+                messageSecret: t,
+                stanzaId: r.stanzaId,
+                senderJid: o("WAWebWidToJid").widToUserJid(a),
+                remoteJid: n,
+              }));
+          var p =
+              m != null
+                ? new Uint8Array(m)
+                : new Uint8Array(
+                    o("WAWebReportingTokenUtils").REPORTING_TOKEN_KEY_SIZE,
+                  ),
+            _ =
+              l != null && u != null
+                ? {
+                    reportingTokenV: l,
+                    reportingTokenElementValue: u,
+                    reportingTokenKeyElementValue: p,
+                  }
+                : null,
+            f =
+              r.reportingTagParticipant != null
+                ? o("WAJids").unsafeCoerceToUserJid(r.reportingTagParticipant)
+                : void 0;
+          return {
+            reportingTagElementValue: r.reportingTag,
+            reportingTagTsS: r.msgTs,
+            reportingTagId: o("WAStanzaUtils").toStanzaId(r.stanzaId),
+            reportingContentArgs: d,
+            contentValidationArgs: _,
+            reportingTagParticipant: f,
+          };
+        })),
         I.apply(this, arguments)
       );
     }

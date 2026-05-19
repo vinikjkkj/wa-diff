@@ -15,7 +15,7 @@ __d(
           .WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WWAI] Transport not registered. Feature gated on but TEE connection unavailable.",
+                "[WWAI] Transport not registered, TEE conn unavailable",
               ])),
           )
           .sendLogs("wwai-transport-missing"));

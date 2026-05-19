@@ -444,12 +444,13 @@ __d(
                           (T.downloadOptions.mediaKey = ""),
                           o(
                             "WAWebHistorySyncNotificationUtils",
-                          ).commitHistoryDownloadedMetric(
-                            B,
-                            T.historySyncStepStartedTs,
-                            !0,
-                            o("WATimeUtils").unixTimeMs(),
-                          ));
+                          ).commitHistoryDownloadedMetric({
+                            chunkDownloadFinishTimestamp:
+                              o("WATimeUtils").unixTimeMs(),
+                            historySyncDownloadMetric: B,
+                            isSuccess: !0,
+                            startTs: T.historySyncStepStartedTs,
+                          }));
                       } catch (e) {
                         if (
                           (q.endFailWithError(
@@ -467,12 +468,13 @@ __d(
                           var H = r("WAWebMsgKey").fromString(T.msgKey);
                           (o(
                             "WAWebHistorySyncNotificationUtils",
-                          ).commitHistoryDownloadedMetric(
-                            B,
-                            T.historySyncStepStartedTs,
-                            !1,
-                            o("WATimeUtils").unixTimeMs(),
-                          ),
+                          ).commitHistoryDownloadedMetric({
+                            chunkDownloadFinishTimestamp:
+                              o("WATimeUtils").unixTimeMs(),
+                            historySyncDownloadMetric: B,
+                            isSuccess: !1,
+                            startTs: T.historySyncStepStartedTs,
+                          }),
                             r("WAWebSendHistSyncServerErrorReceiptJob")(
                               H.remote,
                               H.id,

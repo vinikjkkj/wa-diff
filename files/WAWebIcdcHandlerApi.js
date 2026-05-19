@@ -223,11 +223,11 @@ __d(
               if (!(e == null || e.deleted || n == null)) {
                 var r = o(
                   "WAWebAdvExpectedTsApi",
-                ).computeExpectedTsForDeviceRecord(
-                  o("WALongInt").numberOrThrowIfTooLarge(n),
-                  e,
-                  u,
-                );
+                ).computeExpectedTsForDeviceRecord({
+                  deviceRecord: e,
+                  incomingTs: o("WALongInt").numberOrThrowIfTooLarge(n),
+                  lastDeviceJobTs: u,
+                });
                 (r.expectedTs !== e.expectedTs ||
                   r.expectedTsLastDeviceJobTs !== e.expectedTsLastDeviceJobTs ||
                   r.expectedTsUpdateTs !== e.expectedTsUpdateTs) &&

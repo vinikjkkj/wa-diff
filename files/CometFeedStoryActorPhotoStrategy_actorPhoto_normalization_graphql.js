@@ -223,19 +223,6 @@ __d(
                             ],
                             storageKey: null,
                           },
-                          {
-                            alias: null,
-                            args: [
-                              {
-                                kind: "Literal",
-                                name: "surface",
-                                value: "FEED",
-                              },
-                            ],
-                            kind: "ScalarField",
-                            name: "show_promode_badge",
-                            storageKey: 'show_promode_badge(surface:"FEED")',
-                          },
                         ],
                         type: "User",
                         abstractKey: null,

@@ -25,7 +25,7 @@ __d(
           selections: [
             {
               alias: null,
-              args: [{ kind: "Literal", name: "supported", value: "3a0SQa" }],
+              args: [{ kind: "Literal", name: "supported", value: "Ohi5B" }],
               concreteType: null,
               kind: "LinkedField",
               name: "feedback",
@@ -368,21 +368,6 @@ __d(
                       args: null,
                       documentName: "CometFeedStoryFeedbackSection_story",
                       fragmentName:
-                        "GeminiStoryFeedbackKeyUpdateFeedUnitPreviewStrategy_feedback",
-                      fragmentPropName: "feedback",
-                      kind: "ModuleImport",
-                    },
-                  ],
-                  type: "GeminiStoryFeedbackKeyUpdateFeedUnitPreviewStrategy",
-                  abstractKey: null,
-                },
-                {
-                  kind: "InlineFragment",
-                  selections: [
-                    {
-                      args: null,
-                      documentName: "CometFeedStoryFeedbackSection_story",
-                      fragmentName:
                         "CometFeedStoryFeedbackEventModminReviewFolderPostStrategy_feedback",
                       fragmentPropName: "feedback",
                       kind: "ModuleImport",
@@ -392,7 +377,7 @@ __d(
                   abstractKey: null,
                 },
               ],
-              storageKey: 'feedback(supported:"3a0SQa")',
+              storageKey: 'feedback(supported:"Ohi5B")',
             },
           ],
           storageKey: null,

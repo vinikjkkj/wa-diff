@@ -14,6 +14,7 @@ __d(
       ACTOR_GATEWAY: "actor_gateway",
       ADMIN_FEED: "admin_feed",
       ADS_PREVIEW: "ads_preview",
+      ADS_SUBFEED_MINIFEED: "ads_subfeed_minifeed",
       ADS_TRANSPARENCY_SHOW_ADS: "ads_transparency_show_ads",
       AGGREGATED_NOTIFICATIONS_PERMALINK: "aggregated_notifications_permalink",
       AGORA_BREAKING_NEWS: "agora_breaking_news",
@@ -363,6 +364,7 @@ __d(
       NOTIF_DISTANT_FRIEND_FEED: "notif_distant_friend_feed",
       NOTIF_FB_IG_CREATOR_SHADOW_FOLLOW: "notif_fb_ig_creator_shadow_follow",
       NOTIF_FEED_COMMENT: "notif_feed_comment",
+      NOTIF_FEED_POST_INSIGHTS_RECAP: "notif_feed_post_insights_recap",
       NOTIF_FEEDBACK_REACTION_GENERIC: "notif_feedback_reaction_generic",
       NOTIF_FEEDBACK_REACTION_GENERIC_TAGGED:
         "notif_feedback_reaction_generic_tagged",
@@ -385,6 +387,7 @@ __d(
         "notif_stale_friend_confirm_activity",
       NOTIF_STALE_NOTIFICATIONS: "notif_stale_notifications",
       NOTIF_STORY_RESHARE: "notif_story_reshare",
+      NOTIF_TAGGED_WITH_STORY: "notif_tagged_with_story",
       NOTIF_TRENDING_FEED: "notif_trending_feed",
       NOTIF_WIDGET: "notif_widget",
       NOTIF_YOUR_TOP_UPDATES: "notif_your_top_updates",

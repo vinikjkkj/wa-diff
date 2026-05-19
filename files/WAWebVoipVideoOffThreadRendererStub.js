@@ -72,8 +72,8 @@ __d(
                   ? o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: VideoRendererWorker recovered after ",
-                          "ms (watchdog had fired)",
+                          "voip: VideoRendererWorker recovered ",
+                          "ms (watchdog)",
                         ])),
                       t,
                     )
@@ -105,7 +105,7 @@ __d(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: VideoRendererWorker silent >",
-                      'ms (still waiting; watch for "recovered" or stays gray)',
+                      "ms, may stay gray",
                     ])),
                   _,
                 ));

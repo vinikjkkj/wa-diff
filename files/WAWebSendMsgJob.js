@@ -85,20 +85,25 @@ __d(
               o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
               o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
               (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(_));
-            var g = o("WAWebSendUserMsgJob").encryptAndSendUserMsg(
-              t,
-              _,
-              a,
-              d,
-              f,
-            );
+            var g = o("WAWebSendUserMsgJob").encryptAndSendUserMsg({
+              chatId: d,
+              metricReporter: a,
+              msgProtobuf: _,
+              msgRecord: t,
+              scheduledMsgMetadata: f,
+            });
             return (
               t.data.type !== "protocol" &&
                 o("WAWebSendTcTokenChatAction").sendTcToken(c),
               g
             );
           } else if (c.isGroup())
-            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg(t, _, a, f);
+            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg({
+              metricReporter: a,
+              msgProtobuf: _,
+              msgRecord: t,
+              scheduledMsgMetadata: f,
+            });
           return (s || (s = n("Promise"))).reject(
             r("err")("[messaging] unsupported remote jid type"),
           );

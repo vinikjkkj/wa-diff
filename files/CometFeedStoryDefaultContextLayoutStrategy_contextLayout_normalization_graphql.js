@@ -120,6 +120,26 @@ __d(
               },
               {
                 alias: null,
+                args: null,
+                concreteType: null,
+                kind: "LinkedField",
+                name: "actors",
+                plural: !0,
+                selections: [
+                  e,
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "name",
+                    storageKey: null,
+                  },
+                  t,
+                ],
+                storageKey: null,
+              },
+              {
+                alias: null,
                 args: n,
                 concreteType: "CometStorySections",
                 kind: "LinkedField",
@@ -223,7 +243,7 @@ __d(
                   {
                     alias: null,
                     args: [
-                      { kind: "Literal", name: "supported", value: "2wXrop" },
+                      { kind: "Literal", name: "supported", value: "2agJ7w" },
                     ],
                     concreteType: null,
                     kind: "LinkedField",
@@ -421,22 +441,6 @@ __d(
                           },
                         ],
                         type: "CometStoryPaidPartnershipLabelStrategy",
-                        abstractKey: null,
-                      },
-                      {
-                        kind: "InlineFragment",
-                        selections: [
-                          {
-                            args: null,
-                            documentName:
-                              "CometFeedStoryMetadataSectionMatchRenderer_story",
-                            fragmentName:
-                              "CometStoriesSingleBucketFeedUnitLabelStrategy_storiesFeedUnitLabel",
-                            fragmentPropName: "storiesFeedUnitLabel",
-                            kind: "ModuleImport",
-                          },
-                        ],
-                        type: "CometStoriesSingleBucketFeedUnitLabelStrategy",
                         abstractKey: null,
                       },
                       {
@@ -872,7 +876,7 @@ __d(
                         abstractKey: null,
                       },
                     ],
-                    storageKey: 'metadata(supported:"2wXrop")',
+                    storageKey: 'metadata(supported:"2agJ7w")',
                   },
                   {
                     alias: null,

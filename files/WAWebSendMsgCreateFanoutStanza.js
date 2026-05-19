@@ -599,9 +599,15 @@ __d(
               yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
                 .flushBufferToDiskIfNotMemOnlyMode());
-            var ue = o("WAWebSendMsgMetaNode").genMetaNode(s, e, t, p, {
-                origin: te == null ? void 0 : te.lidOriginType,
-                hashedAiThreadId: q,
+            var ue = o("WAWebSendMsgMetaNode").genMetaNode({
+                chatId: s,
+                groupData: p,
+                includeAttributes: {
+                  origin: te == null ? void 0 : te.lidOriginType,
+                  hashedAiThreadId: q,
+                },
+                msgProtobuf: t,
+                msgRecord: e,
               }),
               ce =
                 _ != null

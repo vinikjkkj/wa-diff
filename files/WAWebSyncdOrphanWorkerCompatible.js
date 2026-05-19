@@ -12,7 +12,7 @@ __d(
     function c(e, t, n) {
       return s()(e, t, n);
     }
-    ((l.getInstance = s), (l.setInstance = u), (l.checkOrphanMutations = c));
+    ((l.setInstance = u), (l.checkOrphanMutations = c));
   },
   98,
 );

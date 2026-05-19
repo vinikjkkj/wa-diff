@@ -153,16 +153,16 @@ __d(
               u = i.initialAction,
               d = o(
                 "WAWebSubgroupSuggestionCreateJob",
-              ).createNewGroupSubgroupSuggestion(
-                a.id,
-                t.subject,
-                t.description,
-                t.restrict,
-                t.announce,
-                t.membershipApprovalMode,
-                t.memberAddMode,
-                t.memberShareGroupHistoryMode,
-              ),
+              ).createNewGroupSubgroupSuggestion({
+                announce: t.announce,
+                description: t.description,
+                memberAddMode: t.memberAddMode,
+                memberShareGroupHistoryMode: t.memberShareGroupHistoryMode,
+                membershipApprovalMode: t.membershipApprovalMode,
+                parentGroupId: a.id,
+                restrict: t.restrict,
+                subject: t.subject,
+              }),
               m = d
                 .then(function (e) {
                   return (C(a, e), r == null || r(), s);

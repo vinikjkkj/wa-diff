@@ -731,10 +731,7 @@ __d(
             },
             {
               alias: "styles",
-              args: [
-                f,
-                { kind: "Literal", name: "supported", value: "4xEQPx" },
-              ],
+              args: [f, { kind: "Literal", name: "supported", value: "pKL3v" }],
               concreteType: null,
               kind: "LinkedField",
               name: "style_type_renderer",
@@ -1027,22 +1024,6 @@ __d(
                     },
                   ],
                   type: "StoryAttachmentVolunteeringEventStyleRenderer",
-                  abstractKey: null,
-                },
-                {
-                  kind: "InlineFragment",
-                  selections: [
-                    {
-                      args: null,
-                      documentName:
-                        "CometFeedStoryAttachmentMatchRenderer_attachment",
-                      fragmentName:
-                        "CometFeedStoryVolunteeringEventActivityShiftAttachmentStyle_styleTypeRenderer",
-                      fragmentPropName: "styleTypeRenderer",
-                      kind: "ModuleImport",
-                    },
-                  ],
-                  type: "StoryAttachmentVolunteeringEventActivityShiftStyleRenderer",
                   abstractKey: null,
                 },
                 {
@@ -1715,22 +1696,6 @@ __d(
                     },
                   ],
                   type: "StoryAttachmentFallbackStyleRenderer",
-                  abstractKey: null,
-                },
-                {
-                  kind: "InlineFragment",
-                  selections: [
-                    {
-                      args: null,
-                      documentName:
-                        "CometFeedStoryAttachmentMatchRenderer_attachment",
-                      fragmentName:
-                        "CometFeedStoryLinkToVideoAttachmentStyle_styleTypeRenderer",
-                      fragmentPropName: "styleTypeRenderer",
-                      kind: "ModuleImport",
-                    },
-                  ],
-                  type: "StoryAttachmentLinkToVideoStyleRenderer",
                   abstractKey: null,
                 },
                 {
@@ -2601,32 +2566,13 @@ __d(
             },
             {
               alias: null,
-              args: [
-                n,
-                { kind: "Literal", name: "supported", value: "1oCS4f" },
-              ],
+              args: [n, { kind: "Literal", name: "supported", value: "cwbfj" }],
               concreteType: null,
               kind: "LinkedField",
               name: "comet_footer_renderer",
               plural: !1,
               selections: [
                 o,
-                {
-                  kind: "InlineFragment",
-                  selections: [
-                    {
-                      args: null,
-                      documentName:
-                        "CometFeedStoryAttachmentFooterMatchRenderer_attachment",
-                      fragmentName:
-                        "CometStoryAttachmentFooterVideoPageLikeStrategy_attachmentFooter",
-                      fragmentPropName: "attachmentFooter",
-                      kind: "ModuleImport",
-                    },
-                  ],
-                  type: "CometStoryAttachmentFooterVideoPageLikeStrategy",
-                  abstractKey: null,
-                },
                 {
                   kind: "InlineFragment",
                   selections: [

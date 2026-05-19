@@ -43,12 +43,12 @@ __d(
               (i.mdBootstrapMessagesCount = t.statusV3Messages.length),
               o(
                 "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric(
-                i,
-                a.historySyncStepStartedTs,
-                !0,
-                d,
-              ),
+              ).commitHistoryDownloadedMetric({
+                chunkDownloadFinishTimestamp: d,
+                historySyncDownloadMetric: i,
+                isSuccess: !0,
+                startTs: a.historySyncStepStartedTs,
+              }),
               t.statusV3Messages.sort(function (e, t) {
                 var n = e.messageTimestamp,
                   r = t.messageTimestamp;

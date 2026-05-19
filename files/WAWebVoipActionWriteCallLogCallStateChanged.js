@@ -42,7 +42,7 @@ __d(
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: skipping call link fallback create, terminal & processed: ",
+                      "voip: skip call link create, terminal+processed ",
                       "",
                     ])),
                   t.callId,

@@ -284,12 +284,12 @@ __d(
               if (
                 (o(
                   "WAWebHistorySyncNotificationUtils",
-                ).commitHistoryDownloadedMetric(
-                  U,
-                  e.historySyncStepStartedTs,
-                  !1,
-                  o("WATimeUtils").unixTimeMs(),
-                ),
+                ).commitHistoryDownloadedMetric({
+                  chunkDownloadFinishTimestamp: o("WATimeUtils").unixTimeMs(),
+                  historySyncDownloadMetric: U,
+                  isSuccess: !1,
+                  startTs: e.historySyncStepStartedTs,
+                }),
                 e.syncType ===
                   o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                     .ON_DEMAND)
@@ -908,12 +908,12 @@ __d(
               (U.mdBootstrapChatsCount = ae.conversations.length),
               o(
                 "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric(
-                U,
-                e.historySyncStepStartedTs,
-                !0,
-                ce,
-              ),
+              ).commitHistoryDownloadedMetric({
+                chunkDownloadFinishTimestamp: ce,
+                historySyncDownloadMetric: U,
+                isSuccess: !0,
+                startTs: e.historySyncStepStartedTs,
+              }),
               o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 e.syncType,
                 o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
@@ -974,7 +974,12 @@ __d(
                     ));
               }
               (yield (H || (H = n("Promise"))).all(ht),
-                X(e, ae, Ee, Ae),
+                X({
+                  applyHistorySyncOnDemandFailure: Ee,
+                  chatRows: Ae,
+                  chunkInfo: e,
+                  proto: ae,
+                }),
                 o(
                   "WAWebBackendEventBus",
                 ).BackendEventBus.triggerHistorySyncChunkProcessed(gt),
@@ -1108,38 +1113,42 @@ __d(
       }
       return !1;
     }
-    function X(e, t, n, r) {
+    function X(e) {
+      var t = e.applyHistorySyncOnDemandFailure,
+        n = e.chatRows,
+        r = e.chunkInfo,
+        a = e.proto;
       if (
-        e.syncType ===
+        r.syncType ===
           o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
             .ON_DEMAND &&
-        t.conversations.length === 1
+        a.conversations.length === 1
       ) {
-        var a, i;
+        var i, l;
         o("WAWebMetricsAttributionActions").stopHistorySyncAttributionTracking(
-          e.syncType,
+          r.syncType,
         );
-        var l = t.conversations[0].id,
-          s =
-            ((a = r[0]) == null ? void 0 : a.id) != null
-              ? o("WAWebWidFactory").createWid(r[0].id).toJid()
-              : l;
-        (n
+        var s = a.conversations[0].id,
+          u =
+            ((i = n[0]) == null ? void 0 : i.id) != null
+              ? o("WAWebWidFactory").createWid(n[0].id).toJid()
+              : s;
+        (t
           ? o(
               "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-            ).handleHistorySyncOnDemandFailure(s)
+            ).handleHistorySyncOnDemandFailure(u)
           : o(
               "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-            ).handleHistorySyncOnDemandSuccess(s),
+            ).handleHistorySyncOnDemandSuccess(u),
           o(
             "WAWebNonMessageDataRequestLoggingUtils",
           ).logHistorySyncOnDemandResponse(
-            n
+            t
               ? o("WAWebWamEnumPeerDataResponseApplyResultType")
                   .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.OTHER_ERROR
               : o("WAWebWamEnumPeerDataResponseApplyResultType")
                   .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.SUCCESS,
-            (i = e.peerDataRequestSessionId) != null ? i : "",
+            (l = r.peerDataRequestSessionId) != null ? l : "",
           ));
       }
     }

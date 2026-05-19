@@ -69,7 +69,13 @@ __d(
                     r.result,
                   )
                   .sendLogs("send-receipt-missing-e2e-process-result"),
-                o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b)
+                o("WAWebHandleMsgSendAck").sendAck({
+                  externalId: l,
+                  from: p,
+                  participant: g,
+                  stanzaClass: b,
+                  type: m,
+                })
               );
             e: {
               if (
@@ -96,7 +102,13 @@ __d(
                   n.type ===
                   o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.medianotify
                 )
-                  return o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b);
+                  return o("WAWebHandleMsgSendAck").sendAck({
+                    externalId: l,
+                    from: p,
+                    participant: g,
+                    stanzaClass: b,
+                    type: m,
+                  });
                 return o(
                   "WAWebSendDeliveryReceiptJob",
                 ).sendDeliveryReceiptsAfterDecryption(l, p, _, g, h, r, C);
@@ -133,7 +145,13 @@ __d(
                           "Drop retry for coex when feature is disabled",
                         ])),
                     ),
-                    o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b)
+                    o("WAWebHandleMsgSendAck").sendAck({
+                      externalId: l,
+                      from: p,
+                      participant: g,
+                      stanzaClass: b,
+                      type: m,
+                    })
                   );
                 var L = r.retryCount == null ? 1 : r.retryCount + 1;
                 (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
@@ -156,14 +174,26 @@ __d(
                 r.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.BACKFILL
               )
-                return o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b);
+                return o("WAWebHandleMsgSendAck").sendAck({
+                  externalId: l,
+                  from: p,
+                  participant: g,
+                  stanzaClass: b,
+                  type: m,
+                });
               if (
                 r.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult
                   .PARSE_VALIDATION_ERROR
               )
                 return (a == null ? void 0 : a.canNack) === !1
-                  ? o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b)
+                  ? o("WAWebHandleMsgSendAck").sendAck({
+                      externalId: l,
+                      from: p,
+                      participant: g,
+                      stanzaClass: b,
+                      type: m,
+                    })
                   : o("WAWebHandleMsgSendAck").sendNack(
                       l,
                       p,
@@ -177,13 +207,25 @@ __d(
                 r.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.DEFERRED
               )
-                return o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b);
+                return o("WAWebHandleMsgSendAck").sendAck({
+                  externalId: l,
+                  from: p,
+                  participant: g,
+                  stanzaClass: b,
+                  type: m,
+                });
               if (
                 r.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR
               )
                 return (a == null ? void 0 : a.canNack) === !1
-                  ? o("WAWebHandleMsgSendAck").sendAck(l, p, m, g, b)
+                  ? o("WAWebHandleMsgSendAck").sendAck({
+                      externalId: l,
+                      from: p,
+                      participant: g,
+                      stanzaClass: b,
+                      type: m,
+                    })
                   : o("WAWebHandleMsgSendAck").sendNack(
                       l,
                       p,

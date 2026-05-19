@@ -218,7 +218,12 @@ __d(
                 e.voprfInfo,
               ),
               i = o("ACSTokenUtil").getBlindedNonces(a),
-              l = yield e.serverProvider.getCredentials(t, i, r, e.projectName);
+              l = yield e.serverProvider.getCredentials({
+                blindedTokens: i,
+                config: t,
+                projectName: e.projectName,
+                requestProof: r,
+              });
             return N(e, t, a, l.signedBlindedTokens, l.dleqProofs, r);
           },
         )),

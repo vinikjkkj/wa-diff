@@ -209,10 +209,12 @@ __d(
           (i.add = function (n, a) {
             var e = Array.isArray(n) ? n : [n],
               i = e.filter(function (e) {
-                if (e.ephemeralDuration == null || e.ephemeralDuration === 0)
-                  return !0;
-                var t = new (o("WAWebMsgModel").Msg)(e);
-                return !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(t);
+                var t =
+                    e.ephemeralDuration != null && e.ephemeralDuration !== 0,
+                  n = e.afterReadDuration != null && e.afterReadDuration !== 0;
+                if (!t && !n) return !0;
+                var r = new (o("WAWebMsgModel").Msg)(e);
+                return !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(r);
               }),
               l = t.prototype.add.call(this, i, a);
             return (

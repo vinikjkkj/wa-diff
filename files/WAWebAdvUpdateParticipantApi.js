@@ -70,7 +70,7 @@ __d(
                   !1,
                 );
               }),
-              p(t, a, e, n, r),
+              p({ added: n, oldRecord: e, removed: r, rotateKey: a, wid: t }),
               babelHelpers.extends({}, e, { senderKey: i, rotateKey: a })
             );
           });
@@ -161,7 +161,13 @@ __d(
                             !1,
                           );
                         }),
-                        p(u, t, e, l, s));
+                        p({
+                          added: l,
+                          oldRecord: e,
+                          removed: s,
+                          rotateKey: t,
+                          wid: u,
+                        }));
                     }
                   }),
                   babelHelpers.extends({}, e, { senderKey: r, rotateKey: t })
@@ -176,22 +182,27 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n, r, a) {
-      if (t && !n.rotateKey) {
-        var i, l;
-        (a.includes(o("WAJids").DEFAULT_DEVICE_ID) &&
-        r.includes(o("WAJids").DEFAULT_DEVICE_ID)
-          ? (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON.IDENTITY_CHANGE)
-          : (i = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null &&
-              i.equals(e)
-            ? (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
+    function p(e) {
+      var t = e.added,
+        n = e.oldRecord,
+        r = e.removed,
+        a = e.rotateKey,
+        i = e.wid;
+      if (a && !n.rotateKey) {
+        var l, s;
+        (r.includes(o("WAJids").DEFAULT_DEVICE_ID) &&
+        t.includes(o("WAJids").DEFAULT_DEVICE_ID)
+          ? (s = o("WAWebWamEnumExpiryReason").EXPIRY_REASON.IDENTITY_CHANGE)
+          : (l = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null &&
+              l.equals(i)
+            ? (s = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
                 .PEER_COMPANION_UNPAIR)
-            : (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
+            : (s = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
                 .OTHER_DEVICE_UNPAIR),
           o("WAWebPostSenderKeyExpiredMetric").postSenderKeyExpiredMetric({
             chatId: n.groupId,
             deviceCount: n.senderKey.size,
-            expiryReason: l,
+            expiryReason: s,
           }));
       }
     }

@@ -28,6 +28,7 @@ __d(
       o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
         ? (n = s.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {
             contactId: e.id,
+            waitIdle: !0,
           }))
         : (n = s.jsx(o("WAWebChatStatus").StatusWrapper, { id: e.id }));
       var a = s.jsx(r("WAWebContactImage.react"), { contact: e, size: 40 });
