@@ -6,6 +6,8 @@ __d(
     "WAWebWamEnumLabelTargets",
     "WAWebWamEnumLastMessageDirection",
     "WAWebWamEnumListType",
+    "WAWebWamEnumSmbListFeatureNameType",
+    "WAWebWamEnumSmbListSurfaceType",
     "WAWebWamEnumUpdateEntryPoint",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,6 +22,7 @@ __d(
               currentListState: [13, e.TYPES.STRING],
               customListTitle: [1, e.TYPES.STRING],
               entryPointConversionSource: [2, e.TYPES.STRING],
+              extraAttributes: [18, e.TYPES.STRING],
               labelOperation: [
                 3,
                 o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS,
@@ -36,11 +39,21 @@ __d(
               listsRemoved: [16, e.TYPES.STRING],
               messageDepth: [8, e.TYPES.INTEGER],
               predefinedId: [9, e.TYPES.INTEGER],
+              smbListFeatureName: [
+                20,
+                o("WAWebWamEnumSmbListFeatureNameType")
+                  .SMB_LIST_FEATURE_NAME_TYPE,
+              ],
+              smbListSurface: [
+                21,
+                o("WAWebWamEnumSmbListSurfaceType").SMB_LIST_SURFACE_TYPE,
+              ],
               threadIdHmac: [10, e.TYPES.STRING],
               updateEntryPoint: [
                 11,
                 o("WAWebWamEnumUpdateEntryPoint").UPDATE_ENTRY_POINT,
               ],
+              userActionTarget: [19, e.TYPES.STRING],
             },
             [1, 1, 1],
             "regular",

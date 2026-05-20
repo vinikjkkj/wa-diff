@@ -154,8 +154,14 @@ __d(
                     .INJECTION_FAILED
                 ? o("WAWebGroupHistoryMsgData.flow")
                     .MessageHistoryBundleProcessState.FAILED
-                : o("WAWebGroupHistoryMsgData.flow")
-                    .MessageHistoryBundleProcessState.NONE;
+                : e ===
+                    o("WAWebProtobufsWeb.pb")
+                      .GroupHistoryBundleInfo$ProcessState
+                      .INJECTION_FAILED_NO_RETRY
+                  ? o("WAWebGroupHistoryMsgData.flow")
+                      .MessageHistoryBundleProcessState.FAILED_NO_RETRY
+                  : o("WAWebGroupHistoryMsgData.flow")
+                      .MessageHistoryBundleProcessState.NONE;
       })(e == null ? void 0 : e.processState);
     }
     l.default = s;

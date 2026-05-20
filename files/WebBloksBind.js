@@ -5,9 +5,11 @@ __d(
     "WebBloksErrors",
     "WebBloksInterpreterEnvironment",
     "WebBloksModel",
+    "WebBloksModelParser",
     "WebBloksNormaliseYogaDimension",
     "WebBloksScopedIds",
     "WebBloksScriptExecutor",
+    "WebBloksScriptTokens",
     "WebBloksUpdateTraversal",
     "WebBloksUtils",
   ],
@@ -65,49 +67,74 @@ __d(
             ((m.scope =
               (t = c.keyPath) != null ? t : o("WebBloksUtils").EMPTY_KEY_PATH),
               (m.variableAccessLog = l));
-            for (
-              var p = o("WebBloksScriptExecutor").execute(
+            var p = d.getValue(),
+              _ =
+                Array.isArray(p) &&
+                p.length > 0 &&
+                !(
+                  p[0] instanceof
+                  o("WebBloksScriptTokens").WebBloksIdentifierToken
+                ),
+              f;
+            if (_) {
+              var g = o("WebBloksUtils").cast(p);
+              f = [];
+              for (var v = 0; v < g.length; v += 2) {
+                var S = g[v],
+                  R = o("WebBloksUtils").cast(g[v + 1]),
+                  L = o("WebBloksScriptExecutor").execute(
+                    m,
+                    R,
+                    o("WebBloksUtils").EMPTY_ARRAY,
+                  );
+                f.push(S, L);
+              }
+            } else
+              f = o("WebBloksUtils").cast(
+                o("WebBloksScriptExecutor").execute(
                   m,
-                  d.getValue(),
+                  p,
                   o("WebBloksUtils").EMPTY_ARRAY,
                 ),
-                _ = null,
-                f = c.getId(),
-                g = (u = c.keyPath) != null ? u : [],
-                v = this.bloksContext.objectSet.environment.traversalKeys,
-                S = p.length > 0 && !Array.isArray(p[0]),
-                R = 0;
-              R < p.length;
-              R++
+              );
+            for (
+              var E = null,
+                k = c.getId(),
+                I = (u = c.keyPath) != null ? u : [],
+                T = this.bloksContext.objectSet.environment.traversalKeys,
+                D = _ || (f.length > 0 && !Array.isArray(f[0])),
+                x = 0;
+              x < f.length;
+              x++
             ) {
-              var L = null,
-                E = void 0,
-                k = void 0;
-              if (S) ((k = p[R]), (E = p[++R]));
+              var $ = null,
+                P = void 0,
+                N = void 0;
+              if (D) ((N = f[x]), (P = f[++x]));
               else {
-                var I = p[R];
-                ((L = I[0] == null ? null : "" + I[0]),
-                  (k = "" + I[1]),
-                  (E = I[2]));
+                var M = f[x];
+                (($ = M[0] == null ? null : "" + M[0]),
+                  (N = "" + M[1]),
+                  (P = M[2]));
               }
-              var T = void 0;
-              if (h(k, c.styleId, v)) {
-                var D = C(this, c, i, g, s, E, v);
-                for (var x of D) _ = this.addToTemplateCache(_, x);
-                T = D;
-              } else if (y(k, c.styleId, v)) {
-                var $ = b(this, c, i, g, s, E, v);
-                ((T = $), $ != null && (_ = this.addToTemplateCache(_, $)));
-              } else T = E;
-              if (S || L === f) c = e.applyOperation(c, a, k, T);
+              var w = void 0;
+              if (h(N, c.styleId, T)) {
+                var A = C(this, c, i, I, s, P, T);
+                for (var F of A) E = this.addToTemplateCache(E, F);
+                w = A;
+              } else if (y(N, c.styleId, T)) {
+                var O = b(this, c, i, I, s, P, T);
+                ((w = O), O != null && (E = this.addToTemplateCache(E, O)));
+              } else w = P;
+              if (D || $ === k) c = e.applyOperation(c, a, N, w);
               else
                 throw new (o("WebBloksErrors").WebBloksError)(
                   'Encountered binding targeted for a descendant from bind script "' +
-                    k +
+                    N +
                     '"',
                 );
             }
-            return (this.nextCache.cacheUnboundChildTemplates(c, _), c);
+            return (this.nextCache.cacheUnboundChildTemplates(c, E), c);
           }),
           (t.addToTemplateCache = function (t, n) {
             var e = t != null ? t : new Map();
@@ -342,20 +369,40 @@ __d(
         u = d[c];
       } else {
         var m = e.resources.templates.get(s.templateId);
-        if (m == null)
-          throw new (o("WebBloksErrors").WebBloksError)(
-            "No such template in tree resources: " + s.templateId,
+        if (m != null) u = m;
+        else {
+          var p,
+            _ = e.resources.payloads.get(String(s.templateId));
+          if (_ == null)
+            throw new (o("WebBloksErrors").WebBloksError)(
+              "No such template in tree resources: " + s.templateId,
+            );
+          var f =
+            (p = _.payload) == null ||
+            (p = p.layout) == null ||
+            (p = p.bloks_payload) == null
+              ? void 0
+              : p.tree;
+          if (f == null)
+            throw new (o("WebBloksErrors").WebBloksError)(
+              "Embedded payload has no tree: " + s.templateId,
+            );
+          var g = e.bloksContext.objectSet.environment.traversalKeys;
+          u = o("WebBloksModelParser").parseBloksModelFromJSON(
+            o("WebBloksUtils").cast(f),
+            g,
+            null,
           );
-        u = m;
+        }
       }
-      var p = e.clientIdToScopedIdMapper.getScopedClientId(u, s.scopeKey),
-        _ = o("WebBloksScopedIds").extendKeyPath(s.keyPathBase, p),
-        f = o("WebBloksScopedIds").buildKeypathBase(_);
-      s.expandedVariables.size > 0 && v(e, s.expandedVariables, f, a);
-      var g = e.cache.getUnboundChildTemplates(n);
-      if (g) {
-        var h = g.get(p);
-        if (h) return h;
+      var h = e.clientIdToScopedIdMapper.getScopedClientId(u, s.scopeKey),
+        y = o("WebBloksScopedIds").extendKeyPath(s.keyPathBase, h),
+        C = o("WebBloksScopedIds").buildKeypathBase(y);
+      s.expandedVariables.size > 0 && v(e, s.expandedVariables, C, a);
+      var b = e.cache.getUnboundChildTemplates(n);
+      if (b) {
+        var S = b.get(h);
+        if (S) return S;
       }
       return o("WebBloksUpdateTraversal").runUpdateTraversal(
         u,
@@ -363,7 +410,7 @@ __d(
           apply: function (n) {
             return e.clientIdToScopedIdMapper.copyModelWithKeyPath(
               n,
-              _,
+              y,
               s.scopeKey,
             );
           },

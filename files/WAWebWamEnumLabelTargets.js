@@ -17,6 +17,7 @@ __d(
       LABEL_COMBINED_DIALOG: 12,
       GROUP: 13,
       BROADCAST: 14,
+      NEW_LIST_SCREEN: 15,
     });
     i.LABEL_TARGETS = e;
   },

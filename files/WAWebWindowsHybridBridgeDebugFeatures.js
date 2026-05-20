@@ -15,9 +15,9 @@ __d(
       c = (function () {
         function t(t) {
           var n = this,
+            r,
             a,
-            i,
-            l;
+            i;
           ((this.$2 = null),
             (this.$3 = 0),
             (this.$4 = null),
@@ -41,19 +41,18 @@ __d(
             }),
             (this.ping = function (e) {
               var t;
-              (o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
                 { bridge: "debugFeatures", method: "pong", type: "sync" },
                 function () {
                   return n.$1.pong(e.valueOf());
                 },
-              ),
-                r("WAWebODS").incr("web.hybrid.bridge.debug.send.pong"));
-              var a = self.performance.now(),
-                i = a - ((t = n.$2) != null ? t : a);
-              if (((n.$2 = a), (n.$3 = e), i > 1300)) {
-                var l = o(
+              );
+              var r = self.performance.now(),
+                a = r - ((t = n.$2) != null ? t : r);
+              if (((n.$2 = r), (n.$3 = e), a > 1300)) {
+                var i = o(
                   "WAWebAppTracker",
-                ).AppTracker.getAppContextWithLookback(i, a);
+                ).AppTracker.getAppContextWithLookback(a, r);
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -63,8 +62,8 @@ __d(
                       "",
                     ])),
                   e,
-                  i.toFixed(0),
-                  l || "none",
+                  a.toFixed(0),
+                  i || "none",
                 );
               }
               (n.$4 != null && self.clearTimeout(n.$4),
@@ -74,15 +73,15 @@ __d(
                 }, 5e3)));
             }),
             (this.$1 = t),
-            (a = this.$1) == null ||
-              a.addEventListener("jsLogs", function () {
+            (r = this.$1) == null ||
+              r.addEventListener("jsLogs", function () {
                 n.saveJSLogs();
               }),
-            (i = this.$1) == null ||
-              i.addEventListener("requestWebLogStringEvent", function (e) {
+            (a = this.$1) == null ||
+              a.addEventListener("requestWebLogStringEvent", function (e) {
                 n.requestWebLogString(e);
               }),
-            (l = this.$1) == null || l.addEventListener("pingEvent", this.ping),
+            (i = this.$1) == null || i.addEventListener("pingEvent", this.ping),
             this.$1.subscribe(null));
         }
         var a = t.prototype;

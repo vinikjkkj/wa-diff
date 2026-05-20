@@ -10,6 +10,8 @@ __d(
       UPDATE_MEMBERS: 5,
       MUTE: 6,
       UNMUTE: 7,
+      HIDE: 8,
+      UNHIDE: 9,
     });
     i.LIST_ACTION = e;
   },

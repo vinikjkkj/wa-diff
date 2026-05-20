@@ -5,6 +5,8 @@ __d(
     "WAWebWamEnumLabelOperations",
     "WAWebWamEnumLabelTargets",
     "WAWebWamEnumLastMessageDirection",
+    "WAWebWamEnumSmbListFeatureNameType",
+    "WAWebWamEnumSmbListSurfaceType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -16,6 +18,7 @@ __d(
               appSessionId: [16, e.TYPES.STRING],
               customLabelTitle: [9, e.TYPES.STRING],
               entryPointConversionSource: [10, e.TYPES.STRING],
+              extraAttributes: [17, e.TYPES.STRING],
               itemsLabeledCount: [5, e.TYPES.INTEGER],
               labelCount: [4, e.TYPES.INTEGER],
               labelOperation: [
@@ -30,9 +33,19 @@ __d(
               ],
               messageDepth: [15, e.TYPES.INTEGER],
               predefinedLabelNumber: [3, e.TYPES.INTEGER],
+              smbListFeatureName: [
+                19,
+                o("WAWebWamEnumSmbListFeatureNameType")
+                  .SMB_LIST_FEATURE_NAME_TYPE,
+              ],
+              smbListSurface: [
+                20,
+                o("WAWebWamEnumSmbListSurfaceType").SMB_LIST_SURFACE_TYPE,
+              ],
               threadCreationDate: [11, e.TYPES.STRING],
               threadId: [12, e.TYPES.STRING],
               threadIdHmac: [13, e.TYPES.STRING],
+              userActionTarget: [18, e.TYPES.STRING],
             },
             [1, 1, 1],
             "regular",

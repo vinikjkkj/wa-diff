@@ -18,6 +18,7 @@ __d(
       UNMUTE: 13,
       SUGGESTION_CLICKED: 14,
       UPDATED_COLOR: 15,
+      SWIPE: 16,
     });
     i.LABEL_OPERATIONS = e;
   },

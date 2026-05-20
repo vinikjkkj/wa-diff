@@ -16,6 +16,7 @@ __d(
             {
               editDuration: [1, e.TYPES.INTEGER],
               editType: [2, o("WAWebWamEnumEditType").EDIT_TYPE],
+              editedMessageId: [10, e.TYPES.STRING],
               mediaType: [8, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messageSendResultIsTerminal: [3, e.TYPES.BOOLEAN],
               messageType: [4, o("WAWebWamEnumMessageType").MESSAGE_TYPE],

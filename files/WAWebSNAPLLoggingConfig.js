@@ -11,29 +11,30 @@ __d(
     "use strict";
     function e(e) {
       var t = e.isCopyrightMuted,
-        n = e.mediaId,
-        r = e.mediaIdString,
-        a = e.videoOrigin,
-        i = {
-          media_id_string: r != null ? r : "",
+        n = e.isStatusWithMusic,
+        r = e.mediaId,
+        a = e.mediaIdString,
+        i = e.videoOrigin,
+        l = {
+          media_id_string: a != null ? a : "",
           current_watching_module: o(
             "WAWebCometVideoPlayerUtils",
-          ).getCurrentWatchingModule(a),
+          ).getCurrentWatchingModule(i, n),
           is_copyright_muted: t,
         };
-      n != null &&
-        (i.persistent_id = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId(n, a));
-      var l = {
+      r != null &&
+        (l.persistent_id = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId(r, i));
+      var s = {
         loggingToSNAPLCreateLogFlusher: function (t, n) {
           return new (o(
             "WAWebMediaPlaybackLogFlusher",
-          ).WhatsAppMediaPlaybackLogFlusher)(n, a);
+          ).WhatsAppMediaPlaybackLogFlusher)(n, i);
         },
         loggingToSNAPLCreateMetadataProvider: o("WAWebVideoMetadataProvider")
           .createWAVideoMetadataProvider,
         loggingToSNAPLEnabled: !0,
       };
-      return { loggingConfig: l, loggingToSNAPLAdditionalData: i };
+      return { loggingConfig: s, loggingToSNAPLAdditionalData: l };
     }
     function s() {
       return {

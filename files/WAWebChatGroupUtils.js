@@ -14,6 +14,7 @@ __d(
     "WAWebBotGating",
     "WAWebBotTos",
     "WAWebChatGetters",
+    "WAWebConversationDeprecatedLidChatUtils",
     "WAWebCurrentUser",
     "WAWebDBUpdateChatTable",
     "WAWebFrontendContactGetters",
@@ -338,7 +339,10 @@ __d(
           (o("WAWebIndividualNewChatMessageCappingLimitUtils").isUserCapped() &&
             !o(
               "WAWebIndividualNewChatMessageCappingLimitUtils",
-            ).canSendMsgWhileCapped({ chat: e, contact: e.contact }))
+            ).canSendMsgWhileCapped({ chat: e, contact: e.contact })) ||
+          o(
+            "WAWebConversationDeprecatedLidChatUtils",
+          ).isDeprecatedLidChatSendBlocked(e)
         ));
       if (o("WAWebChatGetters").getIsNewsletter(e)) {
         var r, a;

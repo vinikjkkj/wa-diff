@@ -11,6 +11,8 @@ __d(
       INJECTED: 4,
       FAILED: 5,
       INJECTED_PARTIAL: 6,
+      FAILED_NO_RETRY: 7,
+      DEDUPED: 8,
     });
     l.MessageHistoryBundleProcessState = e;
   },

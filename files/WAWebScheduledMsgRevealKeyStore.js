@@ -1,6 +1,11 @@
 __d(
   "WAWebScheduledMsgRevealKeyStore",
-  ["WAWebSchemaScheduledMsgRevealKey", "asyncToGeneratorRuntime", "countWhere"],
+  [
+    "WAWebBackendApi",
+    "WAWebSchemaScheduledMsgRevealKey",
+    "asyncToGeneratorRuntime",
+    "countWhere",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -83,7 +88,11 @@ __d(
           var t = o(
             "WAWebSchemaScheduledMsgRevealKey",
           ).getScheduledMsgRevealKeyTable();
-          yield t.remove(e);
+          (yield t.remove(e),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "triggerScheduledMsgRevealedFromBridge",
+              { msgId: e },
+            ));
         })),
         y.apply(this, arguments)
       );

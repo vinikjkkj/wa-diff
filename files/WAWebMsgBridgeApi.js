@@ -281,6 +281,11 @@ __d(
           }
           return r;
         })(),
+        removeScheduledMsgModelForReveal: function (t) {
+          var e = t.msgKey,
+            n = o("WAWebMsgCollection").MsgCollection.get(e);
+          n != null && n.delete();
+        },
         updateMsgRcat: function (t) {
           var e = t.msgKey,
             n = t.rcat,

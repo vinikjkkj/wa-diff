@@ -6,6 +6,7 @@ __d(
     "WAWebMsgType",
     "WAWebRichResponseParseUtils",
     "WAWebRichResponseValidationError",
+    "WAWebUnifiedResponseUtils",
     "WAWebWamEnumE2eFailureReason",
   ],
   function (t, n, r, o, a, i, l) {
@@ -52,25 +53,32 @@ __d(
               ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
                   i.unifiedResponse,
                 )
-              : null,
-            f =
+              : null;
+          if (
+            !(
+              l &&
+              o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(_)
+            )
+          ) {
+            var f =
               ((n = i.unifiedResponse) == null ? void 0 : n.data) != null
                 ? new Uint8Array(i.unifiedResponse.data)
                 : null;
-          return {
-            msgData: babelHelpers.extends({}, r, {
-              type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
-              kind: o("WAWebMsgType").MsgKind.RichResponse,
-              richResponse: p,
-              unifiedResponse: _,
-              unifiedResponseRawData: f,
-            }),
-            contextInfo: o(
-              "WAWebBotBaseGating",
-            ).isRichResponseForwardReceivingEnabled()
-              ? i.contextInfo
-              : void 0,
-          };
+            return {
+              msgData: babelHelpers.extends({}, r, {
+                type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
+                kind: o("WAWebMsgType").MsgKind.RichResponse,
+                richResponse: p,
+                unifiedResponse: _,
+                unifiedResponseRawData: f,
+              }),
+              contextInfo: o(
+                "WAWebBotBaseGating",
+              ).isRichResponseForwardReceivingEnabled()
+                ? i.contextInfo
+                : void 0,
+            };
+          }
         }
       }
     }

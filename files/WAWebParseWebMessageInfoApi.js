@@ -3,41 +3,52 @@ __d(
   [
     "WABase64",
     "WALogger",
+    "WATimeUtils",
     "WAWebABPropsSaga",
     "WAWebAfterReadUtils",
     "WAWebBotTypes",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebDecodeJid",
     "WAWebE2EProtoParser",
     "WAWebEphemeralKeepInChat",
     "WAWebGroupHistoryProtoUtils",
     "WAWebMessagingGatingUtils",
+    "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebParseLimitSharingHistorySyncProto",
     "WAWebParseWebMessageInfoUtils",
+    "WAWebProtobufsE2E.pb",
     "WAWebReportingTokenConstants",
+    "WAWebScheduledMsgCrypto",
+    "WAWebScheduledMsgStore",
     "WAWebViewMode.flow",
     "WAWebWid",
+    "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
+    "encodeProtobuf",
+    "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t, n) {
+    var e, s, u;
+    function c(t, n) {
       var a,
         i,
         l,
         u,
         c,
-        d,
-        m,
-        p = t.key,
-        _ = o("WAWebDecodeJid").decodeJidAndValidate(p.remoteJid, "remoteJid"),
-        f = o("WAWebParseWebMessageInfoUtils").getMeJid(t),
-        g = p.fromMe === !0 ? _ : f,
-        h = p.fromMe === !0 ? f : _,
-        y = o("WAWebParseWebMessageInfoUtils").buildMsgKey(t, p);
-      if (y != null) {
-        var C = y.author,
-          b = y.msgKey;
-        if (g === "broadcast") {
+        p,
+        _,
+        f = t.key,
+        g = o("WAWebDecodeJid").decodeJidAndValidate(f.remoteJid, "remoteJid"),
+        h = o("WAWebParseWebMessageInfoUtils").getMeJid(t),
+        y = f.fromMe === !0 ? g : h,
+        C = f.fromMe === !0 ? h : g,
+        b = o("WAWebParseWebMessageInfoUtils").buildMsgKey(t, f);
+      if (b != null) {
+        var v = b.author,
+          S = b.msgKey;
+        if (y === "broadcast") {
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,24 +57,24 @@ __d(
           );
           return;
         }
-        var v = !1;
-        v = t.reactions.some(function (e) {
+        var R = !1;
+        R = t.reactions.some(function (e) {
           return e.text != null;
         });
-        var S = {
-          id: b,
-          from: h,
-          to: g,
-          participant: b.participant,
+        var L = {
+          id: S,
+          from: C,
+          to: y,
+          participant: S.participant,
           type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
           kind: o("WAWebMsgType").MsgKind.Unknown,
           t: (a = t.messageTimestamp) != null ? a : 0,
           ack: t.status - 1,
-          author: C,
+          author: v,
           invis: !!t.ignore,
           star: !!t.starred,
-          broadcast: p.fromMe === !0 && t.broadcast,
+          broadcast: f.fromMe === !0 && t.broadcast,
           notifyName: t.pushName || "",
           encFilehash: t.mediaCiphertextSha256
             ? o("WABase64").encodeB64(t.mediaCiphertextSha256)
@@ -78,7 +89,7 @@ __d(
           bizPrivacyStatus: t.bizPrivacyStatus,
           verifiedBizName: t.verifiedBizName,
           reactions: t.reactions,
-          hasReaction: v,
+          hasReaction: R,
           agentId: t.agentId,
           revokeTimestamp: t.revokeMessageTimestamp,
           kicKey: void 0,
@@ -105,9 +116,9 @@ __d(
                 !0
               : void 0,
           bizSource:
-            ((d = t.premiumMessageInfo) == null
+            ((p = t.premiumMessageInfo) == null
               ? void 0
-              : d.serverCampaignId) != null
+              : p.serverCampaignId) != null
               ? "smb_promo"
               : void 0,
           bizBotType:
@@ -122,26 +133,26 @@ __d(
                 )
               : null,
           groupHistoryBundleInfo: t.groupHistoryBundleInfo,
-          hsmTag: (m = t.hsmTag) != null ? m : void 0,
+          hsmTag: (_ = t.hsmTag) != null ? _ : void 0,
         };
         if (
-          (r("WAWebWid").isCAPISupportAccount(b.remote) &&
+          (r("WAWebWid").isCAPISupportAccount(S.remote) &&
             (t.isSupportAiMessage != null &&
               o("WAWebABPropsSaga").getIsSagaProtobufAIStardustEnabled() &&
-              (S.isSupportAIMessage = t.isSupportAiMessage),
+              (L.isSupportAIMessage = t.isSupportAiMessage),
             t.supportAiCitations != null &&
               t.supportAiCitations.length > 0 &&
-              (S.supportCitations = t.supportAiCitations)),
+              (L.supportCitations = t.supportAiCitations)),
           o("WAWebMessagingGatingUtils").isReportingTagSyncingEnabled())
         ) {
-          var R;
-          S.reportingTokenInfo =
+          var E;
+          L.reportingTokenInfo =
             t.reportingTokenInfo != null
               ? {
                   reportingTag:
-                    (R = t.reportingTokenInfo) == null
+                    (E = t.reportingTokenInfo) == null
                       ? void 0
-                      : R.reportingTag,
+                      : E.reportingTag,
                   version: o("WAWebReportingTokenConstants")
                     .REPORTING_TOKEN_VERSION.HISTORY_SYNC,
                 }
@@ -149,10 +160,10 @@ __d(
         }
         if (t.keepInChat != null)
           try {
-            var L = o(
+            var k = o(
               "WAWebEphemeralKeepInChat",
             ).parseKeepInChatHistorySyncMessage(t);
-            L != null && Object.assign(S, L);
+            k != null && Object.assign(L, k);
           } catch (e) {
             o("WALogger").WARN(
               s ||
@@ -161,36 +172,133 @@ __d(
                 ])),
             );
           }
-        var E = o(
+        var I = o(
           "WAWebGroupHistoryProtoUtils",
         ).getGroupHistoryIndividualMessageInfoMetadataFromProto(
           t.groupHistoryIndividualMessageInfo,
         );
-        return (
-          E != null && (S.groupHistoryIndividualMessageInfo = E),
-          t.message
-            ? o("WAWebE2EProtoParser").parseMsgProto({
-                messageProtobuf: t.message,
-                message: S,
-                msgContext: "history",
-                paymentInfo: t.paymentInfo,
-                finalLocation: t.finalLiveLocation,
-                quotedPaymentInfo: t.quotedPaymentInfo,
-                bizSource: S.bizSource,
-                historyLidPnMappings: n,
-              })
-            : (o(
-                "WAWebParseLimitSharingHistorySyncProto",
-              ).parseLimitSharingFromProtocolHistorySyncMessage(t, S),
-              o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(t, S))
-        );
+        if (
+          (I != null && (L.groupHistoryIndividualMessageInfo = I), t.message)
+        ) {
+          var T = o("WAWebE2EProtoParser").parseMsgProto({
+            messageProtobuf: t.message,
+            message: L,
+            msgContext: "history",
+            paymentInfo: t.paymentInfo,
+            finalLocation: t.finalLiveLocation,
+            quotedPaymentInfo: t.quotedPaymentInfo,
+            bizSource: L.bizSource,
+            historyLidPnMappings: n,
+          });
+          return (m(t, T), T);
+        }
+        o(
+          "WAWebParseLimitSharingHistorySyncProto",
+        ).parseLimitSharingFromProtocolHistorySyncMessage(t, L);
+        var D = o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(t, L);
+        return (d(D), D);
       }
+    }
+    function d(e) {
+      if (
+        !(
+          e == null ||
+          e.subtype !==
+            o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ScheduledMessageCreated
+        )
+      ) {
+        var t = e.id;
+        t == null ||
+          typeof t.id != "string" ||
+          t.id.startsWith("SYSSCHED") ||
+          (e.id = new (r("WAWebMsgKey"))({
+            fromMe: t.fromMe === !0,
+            remote: t.remote,
+            id: "SYSSCHED" + t.id,
+            participant: t.participant,
+          }));
+      }
+    }
+    function m(e, t) {
+      var n,
+        a,
+        i = e.scheduledMessageMetadata;
+      if (!(i == null || t == null)) {
+        var l = i.revealKey,
+          s = i.revealKeyId,
+          c = i.scheduledTime;
+        if (!(l == null || s == null || c == null)) {
+          var d = (n = t.id) == null ? void 0 : n.remote,
+            m = (a = t.id) == null ? void 0 : a.id;
+          if (!(d == null || m == null)) {
+            var _ = o("WAWebWidToJid").widToChatJid(d),
+              f = typeof t.body == "string" ? t.body : null,
+              g = o("WATimeUtils").castToUnixTime(Number(c)),
+              h = new Uint8Array(l);
+            (p({
+              msgId: m,
+              chatId: _,
+              revealKeyId: s,
+              revealKey: h,
+              scheduledTimestampS: g,
+              body: f,
+            }).catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[scheduled_msg][history_sync] scheduled message not persisted; inline row is hidden but scheduled-messages list will be empty for msg ",
+                      "",
+                    ])),
+                  m,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("scheduled-msg-history-sync-persist-failed");
+            }),
+              (t.viewMode =
+                o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE));
+          }
+        }
+      }
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t =
+              e.body != null && e.body !== ""
+                ? { conversation: e.body }
+                : { conversation: "" },
+            n = o("encodeProtobuf")
+              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, t)
+              .readByteArrayView(),
+            a = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(
+              n,
+              e.revealKey,
+            ),
+            i = a.encIv,
+            l = a.encPayload,
+            s = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
+              msgId: e.msgId,
+              chatId: e.chatId,
+              revealKeyId: e.revealKeyId,
+              revealKey: e.revealKey,
+              scheduledTimestampS: e.scheduledTimestampS,
+              encPayload: new Uint8Array(l),
+              encIv: new Uint8Array(i),
+            });
+          if (!s) throw r("err")("per-chat scheduled message limit reached");
+        })),
+        _.apply(this, arguments)
+      );
     }
     ((l.buildMsgKey = o("WAWebParseWebMessageInfoUtils").buildMsgKey),
       (l.parseMsgStubProto = o(
         "WAWebParseWebMessageInfoUtils",
       ).parseMsgStubProto),
-      (l.parseWebMessageInfo = u));
+      (l.parseWebMessageInfo = c));
   },
   98,
 );

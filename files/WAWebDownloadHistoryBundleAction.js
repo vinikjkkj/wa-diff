@@ -4,6 +4,8 @@ __d(
     "WALogger",
     "WAWebFrontendMsgGetters",
     "WAWebGroupHistoryBundleProcessor",
+    "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryMessageManager",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReceiverUserJourneyLogger",
     "WAWebGroupHistoryUtils",
@@ -22,83 +24,113 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (o("WAWebGroupHistoryUtils").isValidHistoryBundleToProcess(t, n)) {
-            var i = t.id.remote.toJid();
-            try {
-              (o(
-                "WAWebGroupHistoryReceiverUserJourneyLogger",
-              ).GroupHistoryReceiverUserJourneyLogger.downloadStarted(
-                i,
-                a.isUserInitiated,
-              ),
-                yield o(
-                  "WAWebUpdateGroupHistoryBundleStateAction",
-                ).updateGroupHistoryBundleState(
-                  t.id,
-                  o("WAWebGroupHistoryMsgData.flow")
-                    .MessageHistoryBundleProcessState.DOWNLOADING,
-                ),
-                yield t.downloadMedia(a),
-                o(
-                  "WAWebGroupHistoryReceiverUserJourneyLogger",
-                ).GroupHistoryReceiverUserJourneyLogger.downloadSucceeded(i));
-            } catch (n) {
-              (o(
-                "WAWebGroupHistoryReceiverUserJourneyLogger",
-              ).GroupHistoryReceiverUserJourneyLogger.downloadFailed(i),
-                o("WALogger").ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] download bundle failed - ",
-                      "",
-                    ])),
-                  r("WAWebSerializeError")(n),
-                ),
-                yield o(
-                  "WAWebUpdateGroupHistoryBundleStateAction",
-                ).updateGroupHistoryBundleState(
-                  t.id,
-                  o("WAWebGroupHistoryMsgData.flow")
-                    .MessageHistoryBundleProcessState.FAILED,
-                ));
-              return;
-            }
-            try {
-              var l = o("WAWebFrontendMsgGetters").getMediaData(t.unsafe()),
-                u = l == null ? void 0 : l.mediaBlob,
-                c;
-              if (
-                (u instanceof Blob
-                  ? (c = u)
-                  : (c = u == null ? void 0 : u.getBlob()),
-                !c)
+            var i = yield o(
+              "WAWebGroupHistoryMessageManager",
+            ).findMostRecentJoinSystemMessage(t.id.remote, t.id);
+            if (
+              !(
+                i != null &&
+                !o("WAWebGroupHistoryUtils").isJoinMessageWithinReceiverWindow(
+                  i,
+                )
               )
-                throw r("err")("group history blob is null");
-              var d = yield c.arrayBuffer();
-              yield o(
-                "WAWebGroupHistoryBundleProcessor",
-              ).processMessageHistoryBundle(t, d, t.id.remote);
-            } catch (e) {
-              (o(
-                "WAWebGroupHistoryReceiverUserJourneyLogger",
-              ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed(
-                i,
-                0,
-              ),
-                o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] Failed to process history bundle message - ",
-                      "",
-                    ])),
-                  r("WAWebSerializeError")(e),
-                ),
+            ) {
+              if (
+                !a.isUserInitiated &&
+                o(
+                  "WAWebGroupHistoryGating",
+                ).isGroupHistoryReceiverDedupEnabled() &&
+                (yield o(
+                  "WAWebGroupHistoryMessageManager",
+                ).hasReceivedBundleForJoinSession(t.id.remote, t.id, i))
+              ) {
                 yield o(
                   "WAWebUpdateGroupHistoryBundleStateAction",
                 ).updateGroupHistoryBundleState(
                   t.id,
                   o("WAWebGroupHistoryMsgData.flow")
-                    .MessageHistoryBundleProcessState.FAILED,
-                ));
+                    .MessageHistoryBundleProcessState.DEDUPED,
+                );
+                return;
+              }
+              var l = t.id.remote.toJid();
+              try {
+                (o(
+                  "WAWebGroupHistoryReceiverUserJourneyLogger",
+                ).GroupHistoryReceiverUserJourneyLogger.downloadStarted(
+                  l,
+                  a.isUserInitiated,
+                ),
+                  yield o(
+                    "WAWebUpdateGroupHistoryBundleStateAction",
+                  ).updateGroupHistoryBundleState(
+                    t.id,
+                    o("WAWebGroupHistoryMsgData.flow")
+                      .MessageHistoryBundleProcessState.DOWNLOADING,
+                  ),
+                  yield t.downloadMedia(a),
+                  o(
+                    "WAWebGroupHistoryReceiverUserJourneyLogger",
+                  ).GroupHistoryReceiverUserJourneyLogger.downloadSucceeded(l));
+              } catch (n) {
+                (o(
+                  "WAWebGroupHistoryReceiverUserJourneyLogger",
+                ).GroupHistoryReceiverUserJourneyLogger.downloadFailed(l),
+                  o("WALogger").ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[group-history] download bundle failed - ",
+                        "",
+                      ])),
+                    r("WAWebSerializeError")(n),
+                  ),
+                  yield o(
+                    "WAWebUpdateGroupHistoryBundleStateAction",
+                  ).updateGroupHistoryBundleState(
+                    t.id,
+                    o("WAWebGroupHistoryMsgData.flow")
+                      .MessageHistoryBundleProcessState.FAILED,
+                  ));
+                return;
+              }
+              try {
+                var u = o("WAWebFrontendMsgGetters").getMediaData(t.unsafe()),
+                  c = u == null ? void 0 : u.mediaBlob,
+                  d;
+                if (
+                  (c instanceof Blob
+                    ? (d = c)
+                    : (d = c == null ? void 0 : c.getBlob()),
+                  !d)
+                )
+                  throw r("err")("group history blob is null");
+                var m = yield d.arrayBuffer();
+                yield o(
+                  "WAWebGroupHistoryBundleProcessor",
+                ).processMessageHistoryBundle(t, m, t.id.remote);
+              } catch (e) {
+                (o(
+                  "WAWebGroupHistoryReceiverUserJourneyLogger",
+                ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoFailed(
+                  l,
+                  0,
+                ),
+                  o("WALogger").ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[group-history] Failed to process history bundle message - ",
+                        "",
+                      ])),
+                    r("WAWebSerializeError")(e),
+                  ),
+                  yield o(
+                    "WAWebUpdateGroupHistoryBundleStateAction",
+                  ).updateGroupHistoryBundleState(
+                    t.id,
+                    o("WAWebGroupHistoryMsgData.flow")
+                      .MessageHistoryBundleProcessState.FAILED,
+                  ));
+              }
             }
           }
         })),

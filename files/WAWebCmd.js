@@ -983,6 +983,9 @@ __d(
           (i.onServiceUnavailableFromBridge = function () {
             this.trigger("service_unavailable_503_from_bridge");
           }),
+          (i.onScheduledMsgRevealedFromBridge = function (t) {
+            this.trigger("scheduled_msg_revealed_from_bridge", t);
+          }),
           (i.merchantDetailsDrawer = function (t) {
             this.trigger("merchant_details_drawer", t);
           }),

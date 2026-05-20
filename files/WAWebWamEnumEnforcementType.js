@@ -9,6 +9,7 @@ __d(
       CH_GSI: 3,
       CH_HCH: 4,
       CH_PPD: 5,
+      CH_HAP: 6,
     });
     i.ENFORCEMENT_TYPE = e;
   },

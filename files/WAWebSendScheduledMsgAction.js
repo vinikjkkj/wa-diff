@@ -19,19 +19,20 @@ __d(
     "WAWebSendMsgRecordAction",
     "WAWebSendTextMsgChatAction",
     "WAWebStateUtils",
+    "WAWebViewMode.flow",
     "WAWebWamMsgUtils",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t, n, r) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t, n, r) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l) {
             if (
               (l === void 0 && (l = {}),
@@ -49,9 +50,11 @@ __d(
                 l,
               );
             if (d != null) {
-              var p = babelHelpers.extends({}, d, {
+              var m = babelHelpers.extends({}, d, {
                 isScheduledMsg: !0,
                 scheduledTimestampS: i,
+                viewMode:
+                  o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
               });
               o("WALogger").LOG(
                 e ||
@@ -67,14 +70,14 @@ __d(
                 var _;
                 yield o(
                   "WAWebLidMigrationFrontendUtils",
-                ).validateMissingAccountLid(c, p, "addAndSendTextMsg");
-                var f = new (o("WAWebMsgModel").Msg)(p),
+                ).validateMissingAccountLid(c, m, "addAndSendTextMsg");
+                var f = new (o("WAWebMsgModel").Msg)(m),
                   g = !!(
                     (_ = c.groupMetadata) != null && _.isLidAddressingMode
                   ),
                   h = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
                     c.id,
-                    o("WAWebWamMsgUtils").msgIsLid(p, c.id, g),
+                    o("WAWebWamMsgUtils").msgIsLid(m, c.id, g),
                   );
                 ((f.wamMessageSendReporter = new (o(
                   "WAWebMessageSendReporter",
@@ -101,7 +104,7 @@ __d(
                           ((e = f.wamMessageSendPerfReporter) == null ||
                             e.startSavedStage(),
                             yield o("WAWebDBProcessMessage").storeMessages(
-                              [p],
+                              [m],
                               c.id,
                             ),
                             (t = f.wamMessageSendPerfReporter) == null ||
@@ -133,7 +136,7 @@ __d(
                 );
               }
               try {
-                m(c, p.id.id);
+                yield p(c, m.id.id);
               } catch (e) {
                 o("WALogger")
                   .ERROR(
@@ -148,30 +151,52 @@ __d(
             }
           },
         )),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      var n = new (r("WAWebMsgKey"))({
-          fromMe: !0,
-          remote: e.id,
-          id: "SYSSCHED" + t,
-        }),
-        a = {
-          id: n,
-          type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
-          subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-            .ScheduledMessageCreated,
-          from: e.id,
-          to: e.id,
-          t: o("WATimeUtils").unixTime(),
-          isNewMsg: !0,
-          local: !0,
-        },
-        i = new (o("WAWebMsgModel").Msg)(a);
-      e.msgs.add(i);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    l.sendScheduledTextMsgToChat = c;
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new (r("WAWebMsgKey"))({
+              fromMe: !0,
+              remote: e.id,
+              id: "SYSSCHED" + t,
+            }),
+            a = {
+              id: n,
+              type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
+              subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
+                .ScheduledMessageCreated,
+              kind: o("WAWebMsgType").MsgKind.Notification,
+              from: e.id,
+              to: e.id,
+              t: o("WATimeUtils").unixTime(),
+              isNewMsg: !0,
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            };
+          try {
+            yield o("WAWebDBProcessMessage").storeMessages([a], e.id);
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[scheduled_msg] Failed to persist ScheduledMessageCreated bubble",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("scheduled-msg-sys-persist-error");
+          }
+          var i = new (o("WAWebMsgModel").Msg)(a);
+          e.msgs.add(i);
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    l.sendScheduledTextMsgToChat = d;
   },
   98,
 );

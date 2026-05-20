@@ -316,6 +316,7 @@ __d(
       dependencies: [
         require("LexicalDragon").DragonExtension,
         require("LexicalExtension").NormalizeInlineElementsExtension,
+        require("LexicalExtension").NormalizeTripleClickSelectionExtension,
       ],
       name: "LexicalPlainText",
       register: M,

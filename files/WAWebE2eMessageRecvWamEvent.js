@@ -84,6 +84,7 @@ __d(
               ],
               messageMediaType: [7, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               offline: [9, e.TYPES.BOOLEAN],
+              processingDeferred: [29, e.TYPES.BOOLEAN],
               retryCount: [3, e.TYPES.INTEGER],
               revokeType: [10, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
               serverAddressingMode: [

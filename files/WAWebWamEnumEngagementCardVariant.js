@@ -9,6 +9,7 @@ __d(
       CONTINUE_CHAIN: 4,
       MIMICRY_UPDATES_TAB: 5,
       AD4AD_BOOST_POPULAR_ALL_STATUSES: 6,
+      CHANNEL_PROMO: 7,
     });
     i.ENGAGEMENT_CARD_VARIANT = e;
   },

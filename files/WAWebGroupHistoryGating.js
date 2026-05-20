@@ -81,6 +81,11 @@ __d(
         "group_history_send_after_join",
       );
     }
+    function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_receiver_dedup",
+      );
+    }
     ((l.isGroupHistoryReceiverEnabled = e),
       (l.isGroupHistoryNoticeReceiverEnabled = s),
       (l.isGroupHistorySenderEnabled = u),
@@ -90,7 +95,8 @@ __d(
       (l.isGroupHistoryReceiverReportingTokenEnabled = p),
       (l.isOutOfWindowPinSenderEnabled = _),
       (l.isOutOfWindowPinsReceiverEnabled = f),
-      (l.isGroupHistoryPostJoinSenderEnabled = g));
+      (l.isGroupHistoryPostJoinSenderEnabled = g),
+      (l.isGroupHistoryReceiverDedupEnabled = h));
   },
   98,
 );

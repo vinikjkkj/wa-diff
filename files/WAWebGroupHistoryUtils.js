@@ -1,8 +1,8 @@
 __d(
   "WAWebGroupHistoryUtils",
   [
+    "WATimeUtils",
     "WAWebABProps",
-    "WAWebClock",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebMsgGetters",
@@ -18,6 +18,8 @@ __d(
         e.MessageHistoryBundleProcessState.PROCESSING,
         e.MessageHistoryBundleProcessState.INJECTED,
         e.MessageHistoryBundleProcessState.INJECTED_PARTIAL,
+        e.MessageHistoryBundleProcessState.FAILED_NO_RETRY,
+        e.MessageHistoryBundleProcessState.DEDUPED,
       ];
     function u(e, t) {
       var n;
@@ -36,12 +38,24 @@ __d(
       );
     }
     function c(e) {
+      return o("WATimeUtils").unixTimeMs() <= m(e.t);
+    }
+    function d(e) {
+      return o("WATimeUtils").unixTimeMs() <= p(e.t);
+    }
+    function m(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "group_history_bundle_time_limit_receiver_enforcement_secs",
       );
-      return o("WAWebClock").Clock.getServerTimeMs() <= e.t * 1e3 + t * 1e3;
+      return (e + t) * 1e3;
     }
-    function d(e) {
+    function p(e) {
+      var t = o("WAWebABProps").getABPropConfigValue(
+        "group_history_new_user_threshold_receiver_enforcement_secs",
+      );
+      return m(e) + t * 1e3;
+    }
+    function _(e) {
       return (
         o("WAWebGroupHistoryGating").isGroupHistoryReceiverEnabled() &&
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e) != null &&
@@ -49,7 +63,8 @@ __d(
       );
     }
     ((l.isValidHistoryBundleToProcess = u),
-      (l.shouldReportGroupHistoryBundleSender = d));
+      (l.isJoinMessageWithinReceiverWindow = d),
+      (l.shouldReportGroupHistoryBundleSender = _));
   },
   98,
 );

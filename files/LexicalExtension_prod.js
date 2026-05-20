@@ -15,47 +15,47 @@ __d(
     var n = Symbol["for"]("preact-signals");
     function i() {
       if (d > 1) return void d--;
-      var t,
-        e = !1;
+      var e,
+        t = !1;
       for (
         !(function () {
-          var t = c;
-          for (c = void 0; void 0 !== t; )
-            (t.S.v === t.v && (t.S.i = t.i), (t = t.o));
+          var e = c;
+          for (c = void 0; void 0 !== e; )
+            (e.S.v === e.v && (e.S.i = e.i), (e = e.o));
         })();
         void 0 !== r;
       ) {
         var _n = r;
         for (r = void 0, l++; void 0 !== _n; ) {
           var _i = _n.u;
-          if (((_n.u = void 0), (_n.f &= -3), !(8 & _n.f) && x(_n)))
+          if (((_n.u = void 0), (_n.f &= -3), !(8 & _n.f) && E(_n)))
             try {
               _n.c();
             } catch (n) {
-              e || ((t = n), (e = !0));
+              t || ((e = n), (t = !0));
             }
           _n = _i;
         }
       }
-      if (((l = 0), d--, e)) throw t;
+      if (((l = 0), d--, t)) throw e;
     }
-    function o(t) {
-      if (d > 0) return t();
+    function o(e) {
+      if (d > 0) return e();
       ((f = ++u), d++);
       try {
-        return t();
+        return e();
       } finally {
         i();
       }
     }
     var s, r;
-    function a(t) {
-      var e = s;
+    function a(e) {
+      var t = s;
       s = void 0;
       try {
-        return t();
+        return e();
       } finally {
-        s = e;
+        s = t;
       }
     }
     var c,
@@ -63,136 +63,136 @@ __d(
       l = 0,
       u = 0,
       f = 0,
-      h = 0;
-    function g(t) {
+      g = 0;
+    function h(e) {
       if (void 0 === s) return;
-      var e = t.n;
-      return void 0 === e || e.t !== s
-        ? ((e = {
+      var t = e.n;
+      return void 0 === t || t.t !== s
+        ? ((t = {
             i: 0,
-            S: t,
+            S: e,
             p: s.s,
             n: void 0,
             t: s,
             e: void 0,
             x: void 0,
-            r: e,
+            r: t,
           }),
-          void 0 !== s.s && (s.s.n = e),
-          (s.s = e),
-          (t.n = e),
-          32 & s.f && t.S(e),
-          e)
-        : -1 === e.i
-          ? ((e.i = 0),
-            void 0 !== e.n &&
-              ((e.n.p = e.p),
-              void 0 !== e.p && (e.p.n = e.n),
-              (e.p = s.s),
-              (e.n = void 0),
-              (s.s.n = e),
-              (s.s = e)),
-            e)
+          void 0 !== s.s && (s.s.n = t),
+          (s.s = t),
+          (e.n = t),
+          32 & s.f && e.S(t),
+          t)
+        : -1 === t.i
+          ? ((t.i = 0),
+            void 0 !== t.n &&
+              ((t.n.p = t.p),
+              void 0 !== t.p && (t.p.n = t.n),
+              (t.p = s.s),
+              (t.n = void 0),
+              (s.s.n = t),
+              (s.s = t)),
+            t)
           : void 0;
     }
-    function p(t, e) {
-      ((this.v = t),
+    function p(e, t) {
+      ((this.v = e),
         (this.i = 0),
         (this.n = void 0),
         (this.t = void 0),
         (this.l = 0),
-        (this.W = null == e ? void 0 : e.watched),
-        (this.Z = null == e ? void 0 : e.unwatched),
-        (this.name = null == e ? void 0 : e.name));
+        (this.W = null == t ? void 0 : t.watched),
+        (this.Z = null == t ? void 0 : t.unwatched),
+        (this.name = null == t ? void 0 : t.name));
     }
-    function m(t, e) {
-      return new p(t, e);
+    function m(e, t) {
+      return new p(e, t);
     }
-    function x(t) {
-      for (var _e = t.s; void 0 !== _e; _e = _e.n)
-        if (_e.S.i !== _e.i || !_e.S.h() || _e.S.i !== _e.i) return !0;
+    function E(e) {
+      for (var _t = e.s; void 0 !== _t; _t = _t.n)
+        if (_t.S.i !== _t.i || !_t.S.h() || _t.S.i !== _t.i) return !0;
       return !1;
     }
-    function E(t) {
-      for (var _e2 = t.s; void 0 !== _e2; _e2 = _e2.n) {
-        var _n2 = _e2.S.n;
+    function x(e) {
+      for (var _t2 = e.s; void 0 !== _t2; _t2 = _t2.n) {
+        var _n2 = _t2.S.n;
         if (
-          (void 0 !== _n2 && (_e2.r = _n2),
-          (_e2.S.n = _e2),
-          (_e2.i = -1),
-          void 0 === _e2.n)
+          (void 0 !== _n2 && (_t2.r = _n2),
+          (_t2.S.n = _t2),
+          (_t2.i = -1),
+          void 0 === _t2.n)
         ) {
-          t.s = _e2;
+          e.s = _t2;
           break;
         }
       }
     }
-    function v(t) {
-      var e,
-        n = t.s;
+    function S(e) {
+      var t,
+        n = e.s;
       for (; void 0 !== n; ) {
-        var _t = n.p;
+        var _e = n.p;
         (-1 === n.i
           ? (n.S.U(n),
-            void 0 !== _t && (_t.n = n.n),
-            void 0 !== n.n && (n.n.p = _t))
-          : (e = n),
+            void 0 !== _e && (_e.n = n.n),
+            void 0 !== n.n && (n.n.p = _e))
+          : (t = n),
           (n.S.n = n.r),
           void 0 !== n.r && (n.r = void 0),
-          (n = _t));
+          (n = _e));
       }
-      t.s = e;
+      e.s = t;
     }
-    function S(t, e) {
+    function v(e, t) {
       (p.call(this, void 0),
-        (this.x = t),
+        (this.x = e),
         (this.s = void 0),
-        (this.g = h - 1),
+        (this.g = g - 1),
         (this.f = 4),
-        (this.W = null == e ? void 0 : e.watched),
-        (this.Z = null == e ? void 0 : e.unwatched),
-        (this.name = null == e ? void 0 : e.name));
+        (this.W = null == t ? void 0 : t.watched),
+        (this.Z = null == t ? void 0 : t.unwatched),
+        (this.name = null == t ? void 0 : t.name));
     }
-    function y(t, e) {
-      return new S(t, e);
+    function y(e, t) {
+      return new v(e, t);
     }
-    function N(t) {
-      var e = t.m;
-      if (((t.m = void 0), "function" == typeof e)) {
+    function N(e) {
+      var t = e.m;
+      if (((e.m = void 0), "function" == typeof t)) {
         d++;
         var _n3 = s;
         s = void 0;
         try {
-          e();
-        } catch (e) {
-          throw ((t.f &= -2), (t.f |= 8), b(t), e);
+          t();
+        } catch (t) {
+          throw ((e.f &= -2), (e.f |= 8), b(e), t);
         } finally {
           ((s = _n3), i());
         }
       }
     }
-    function b(t) {
-      for (var _e3 = t.s; void 0 !== _e3; _e3 = _e3.n) _e3.S.U(_e3);
-      ((t.x = void 0), (t.s = void 0), N(t));
+    function b(e) {
+      for (var _t3 = e.s; void 0 !== _t3; _t3 = _t3.n) _t3.S.U(_t3);
+      ((e.x = void 0), (e.s = void 0), N(e));
     }
-    function O(t) {
+    function C(e) {
       if (s !== this) throw new Error("Out-of-order effect");
-      (v(this), (s = t), (this.f &= -2), 8 & this.f && b(this), i());
+      (S(this), (s = e), (this.f &= -2), 8 & this.f && b(this), i());
     }
-    function R(t, e) {
-      ((this.x = t),
+    function O(e, t) {
+      ((this.x = e),
         (this.m = void 0),
         (this.s = void 0),
         (this.u = void 0),
         (this.f = 32),
-        (this.name = null == e ? void 0 : e.name));
+        (this.name = null == t ? void 0 : t.name));
     }
-    function C(t, e) {
-      var n = new R(t, e);
+    function R(e, t) {
+      var n = new O(e, t);
       try {
         n.c();
-      } catch (t) {
-        throw (n.d(), t);
+      } catch (e) {
+        throw (n.d(), e);
       }
       var i = n.d.bind(n);
       return (
@@ -200,14 +200,14 @@ __d(
         i
       );
     }
-    function D(t, e) {
-      if (e === void 0) {
-        e = {};
+    function D(e, t) {
+      if (t === void 0) {
+        t = {};
       }
       var n = {};
-      for (var _i2 in t) {
-        var _o = e[_i2],
-          _s = m(void 0 === _o ? t[_i2] : _o);
+      for (var _i2 in e) {
+        var _o = t[_i2],
+          _s = m(void 0 === _o ? e[_i2] : _o);
         n[_i2] = _s;
       }
       return n;
@@ -216,45 +216,45 @@ __d(
       (p.prototype.h = function () {
         return !0;
       }),
-      (p.prototype.S = function (t) {
+      (p.prototype.S = function (e) {
         var _this = this;
-        var e = this.t;
-        e !== t &&
-          void 0 === t.e &&
-          ((t.x = e),
-          (this.t = t),
-          void 0 !== e
-            ? (e.e = t)
+        var t = this.t;
+        t !== e &&
+          void 0 === e.e &&
+          ((e.x = t),
+          (this.t = e),
+          void 0 !== t
+            ? (t.e = e)
             : a(function () {
-                var t;
-                null == (t = _this.W) || t.call(_this);
+                var e;
+                null == (e = _this.W) || e.call(_this);
               }));
       }),
-      (p.prototype.U = function (t) {
+      (p.prototype.U = function (e) {
         var _this2 = this;
         if (void 0 !== this.t) {
-          var _e4 = t.e,
-            _n4 = t.x;
-          (void 0 !== _e4 && ((_e4.x = _n4), (t.e = void 0)),
-            void 0 !== _n4 && ((_n4.e = _e4), (t.x = void 0)),
-            t === this.t &&
+          var _t4 = e.e,
+            _n4 = e.x;
+          (void 0 !== _t4 && ((_t4.x = _n4), (e.e = void 0)),
+            void 0 !== _n4 && ((_n4.e = _t4), (e.x = void 0)),
+            e === this.t &&
               ((this.t = _n4),
               void 0 === _n4 &&
                 a(function () {
-                  var t;
-                  null == (t = _this2.Z) || t.call(_this2);
+                  var e;
+                  null == (e = _this2.Z) || e.call(_this2);
                 })));
         }
       }),
-      (p.prototype.subscribe = function (t) {
+      (p.prototype.subscribe = function (e) {
         var _this3 = this;
-        return C(
+        return R(
           function () {
-            var e = _this3.value,
+            var t = _this3.value,
               n = s;
             s = void 0;
             try {
-              t(e);
+              e(t);
             } finally {
               s = n;
             }
@@ -272,136 +272,136 @@ __d(
         return this.value;
       }),
       (p.prototype.peek = function () {
-        var t = s;
+        var e = s;
         s = void 0;
         try {
           return this.value;
         } finally {
-          s = t;
+          s = e;
         }
       }),
       Object.defineProperty(p.prototype, "value", {
         get: function get() {
-          var t = g(this);
-          return (void 0 !== t && (t.i = this.i), this.v);
+          var e = h(this);
+          return (void 0 !== e && (e.i = this.i), this.v);
         },
-        set: function set(t) {
-          if (t !== this.v) {
+        set: function set(e) {
+          if (e !== this.v) {
             if (l > 100) throw new Error("Cycle detected");
-            (!(function (t) {
+            (!(function (e) {
               0 !== d &&
                 0 === l &&
-                t.l !== f &&
-                ((t.l = f), (c = { S: t, v: t.v, i: t.i, o: c }));
+                e.l !== f &&
+                ((e.l = f), (c = { S: e, v: e.v, i: e.i, o: c }));
             })(this),
-              (this.v = t),
+              (this.v = e),
               this.i++,
-              h++,
+              g++,
               d++);
             try {
-              for (var _t2 = this.t; void 0 !== _t2; _t2 = _t2.x) _t2.t.N();
+              for (var _e2 = this.t; void 0 !== _e2; _e2 = _e2.x) _e2.t.N();
             } finally {
               i();
             }
           }
         },
       }),
-      (S.prototype = new p()),
-      (S.prototype.h = function () {
+      (v.prototype = new p()),
+      (v.prototype.h = function () {
         if (((this.f &= -3), 1 & this.f)) return !1;
         if (32 == (36 & this.f)) return !0;
-        if (((this.f &= -5), this.g === h)) return !0;
-        if (((this.g = h), (this.f |= 1), this.i > 0 && !x(this)))
+        if (((this.f &= -5), this.g === g)) return !0;
+        if (((this.g = g), (this.f |= 1), this.i > 0 && !E(this)))
           return ((this.f &= -2), !0);
-        var t = s;
+        var e = s;
         try {
-          (E(this), (s = this));
-          var _t3 = this.x();
-          (16 & this.f || this.v !== _t3 || 0 === this.i) &&
-            ((this.v = _t3), (this.f &= -17), this.i++);
-        } catch (t) {
-          ((this.v = t), (this.f |= 16), this.i++);
+          (x(this), (s = this));
+          var _e3 = this.x();
+          (16 & this.f || this.v !== _e3 || 0 === this.i) &&
+            ((this.v = _e3), (this.f &= -17), this.i++);
+        } catch (e) {
+          ((this.v = e), (this.f |= 16), this.i++);
         }
-        return ((s = t), v(this), (this.f &= -2), !0);
+        return ((s = e), S(this), (this.f &= -2), !0);
       }),
-      (S.prototype.S = function (t) {
+      (v.prototype.S = function (e) {
         if (void 0 === this.t) {
           this.f |= 36;
-          for (var _t4 = this.s; void 0 !== _t4; _t4 = _t4.n) _t4.S.S(_t4);
+          for (var _e4 = this.s; void 0 !== _e4; _e4 = _e4.n) _e4.S.S(_e4);
         }
-        p.prototype.S.call(this, t);
+        p.prototype.S.call(this, e);
       }),
-      (S.prototype.U = function (t) {
+      (v.prototype.U = function (e) {
         if (
           void 0 !== this.t &&
-          (p.prototype.U.call(this, t), void 0 === this.t)
+          (p.prototype.U.call(this, e), void 0 === this.t)
         ) {
           this.f &= -33;
-          for (var _t5 = this.s; void 0 !== _t5; _t5 = _t5.n) _t5.S.U(_t5);
+          for (var _e5 = this.s; void 0 !== _e5; _e5 = _e5.n) _e5.S.U(_e5);
         }
       }),
-      (S.prototype.N = function () {
+      (v.prototype.N = function () {
         if (!(2 & this.f)) {
           this.f |= 6;
-          for (var _t6 = this.t; void 0 !== _t6; _t6 = _t6.x) _t6.t.N();
+          for (var _e6 = this.t; void 0 !== _e6; _e6 = _e6.x) _e6.t.N();
         }
       }),
-      Object.defineProperty(S.prototype, "value", {
+      Object.defineProperty(v.prototype, "value", {
         get: function get() {
           if (1 & this.f) throw new Error("Cycle detected");
-          var t = g(this);
-          if ((this.h(), void 0 !== t && (t.i = this.i), 16 & this.f))
+          var e = h(this);
+          if ((this.h(), void 0 !== e && (e.i = this.i), 16 & this.f))
             throw this.v;
           return this.v;
         },
       }),
-      (R.prototype.c = function () {
-        var t = this.S();
+      (O.prototype.c = function () {
+        var e = this.S();
         try {
           if (8 & this.f) return;
           if (void 0 === this.x) return;
-          var _t7 = this.x();
-          "function" == typeof _t7 && (this.m = _t7);
+          var _e7 = this.x();
+          "function" == typeof _e7 && (this.m = _e7);
         } finally {
-          t();
+          e();
         }
       }),
-      (R.prototype.S = function () {
+      (O.prototype.S = function () {
         if (1 & this.f) throw new Error("Cycle detected");
-        ((this.f |= 1), (this.f &= -9), N(this), E(this), d++);
-        var t = s;
-        return ((s = this), O.bind(this, t));
+        ((this.f |= 1), (this.f &= -9), N(this), x(this), d++);
+        var e = s;
+        return ((s = this), C.bind(this, e));
       }),
-      (R.prototype.N = function () {
+      (O.prototype.N = function () {
         2 & this.f || ((this.f |= 2), (this.u = r), (r = this));
       }),
-      (R.prototype.d = function () {
+      (O.prototype.d = function () {
         ((this.f |= 8), 1 & this.f || b(this));
       }),
-      (R.prototype.dispose = function () {
+      (O.prototype.dispose = function () {
         this.d();
       }));
     var M = (_require_Lexical = require("Lexical")).defineExtension({
-      build: function build(t, e, n) {
-        return D(e);
+      build: function build(e, t, n) {
+        return D(t);
       },
       config: _require_Lexical.safeCast({
         defaultSelection: "rootEnd",
         disabled: !1,
       }),
       name: "@lexical/extension/AutoFocus",
-      register: function register(t, e, n) {
+      register: function register(e, t, n) {
         var i = n.getOutput();
-        return C(function () {
+        return R(function () {
           return i.disabled.value
             ? void 0
-            : t.registerRootListener(function (e) {
-                t.focus(
+            : e.registerRootListener(function (t) {
+                e.focus(
                   function () {
-                    var t = document.activeElement;
-                    null === e ||
-                      (null !== t && e.contains(t)) ||
-                      e.focus({ preventScroll: !0 });
+                    var e = document.activeElement;
+                    null === t ||
+                      (null !== e && t.contains(e)) ||
+                      t.focus({ preventScroll: !0 });
                   },
                   { defaultSelection: i.defaultSelection.peek() },
                 );
@@ -409,77 +409,77 @@ __d(
         });
       },
     });
-    function w() {
-      var e = require("Lexical").$getRoot(),
+    function _() {
+      var t = require("Lexical").$getRoot(),
         n = require("Lexical").$getSelection(),
         i = require("Lexical").$createParagraphNode();
-      (e.clear(),
-        e.append(i),
+      (t.clear(),
+        t.append(i),
         null !== n && i.select(),
         require("Lexical").$isRangeSelection(n) && (n.format = 0));
     }
-    function _(e, n) {
+    function w(t, n) {
       if (n === void 0) {
-        n = w;
+        n = _;
       }
-      return e.registerCommand(
+      return t.registerCommand(
         require("Lexical").CLEAR_EDITOR_COMMAND,
-        function (t) {
-          return (e.update(n), !0);
+        function (e) {
+          return (t.update(n), !0);
         },
         require("Lexical").COMMAND_PRIORITY_EDITOR,
       );
     }
-    var I = _require_Lexical.defineExtension({
-      build: function build(t, e, n) {
-        return D(e);
+    var $ = _require_Lexical.defineExtension({
+      build: function build(e, t, n) {
+        return D(t);
       },
-      config: _require_Lexical.safeCast({ $onClear: w }),
+      config: _require_Lexical.safeCast({ $onClear: _ }),
       name: "@lexical/extension/ClearEditor",
-      register: function register(t, e, n) {
+      register: function register(e, t, n) {
         var _n$getOutput = n.getOutput(),
           i = _n$getOutput.$onClear;
-        return C(function () {
-          return _(t, i.value);
+        return R(function () {
+          return w(e, i.value);
         });
       },
     });
-    function T(t) {
-      return ("function" == typeof t.nodes ? t.nodes() : t.nodes) || [];
+    function I(e) {
+      return ("function" == typeof e.nodes ? e.nodes() : e.nodes) || [];
     }
-    var $ = _require_Lexical.createState("format", {
-      parse: function parse(t) {
-        return "number" == typeof t ? t : 0;
+    var T = _require_Lexical.createState("format", {
+      parse: function parse(e) {
+        return "number" == typeof e ? e : 0;
       },
     });
-    var _A = (function (_t$DecoratorNode) {
+    var _A = (function (_e$DecoratorNode) {
       function A() {
-        return _t$DecoratorNode.apply(this, arguments) || this;
+        return _e$DecoratorNode.apply(this, arguments) || this;
       }
-      babelHelpers.inheritsLoose(A, _t$DecoratorNode);
+      babelHelpers.inheritsLoose(A, _e$DecoratorNode);
       var _proto = A.prototype;
       _proto.$config = function $config() {
         return this.config("decorator-text", {
           extends: require("Lexical").DecoratorNode,
-          stateConfigs: [{ flat: !0, stateConfig: $ }],
+          stateConfigs: [{ flat: !0, stateConfig: T }],
         });
       };
       _proto.getFormat = function getFormat() {
-        return require("Lexical").$getState(this, $);
+        return require("Lexical").$getState(this, T);
       };
-      _proto.getFormatFlags = function getFormatFlags(e, n) {
-        return require("Lexical").toggleTextFormatType(this.getFormat(), e, n);
+      _proto.getFormatFlags = function getFormatFlags(t, n) {
+        return require("Lexical").toggleTextFormatType(this.getFormat(), t, n);
       };
-      _proto.hasFormat = function hasFormat(e) {
-        var n = require("Lexical").TEXT_TYPE_TO_FORMAT[e];
+      _proto.hasFormat = function hasFormat(t) {
+        var n = require("Lexical").TEXT_TYPE_TO_FORMAT[t];
         return 0 !== (this.getFormat() & n);
       };
-      _proto.setFormat = function setFormat(e) {
-        return require("Lexical").$setState(this, $, e);
+      _proto.setFormat = function setFormat(t) {
+        return require("Lexical").$setState(this, T, t);
       };
-      _proto.toggleFormat = function toggleFormat(e) {
+      _proto.toggleFormat = function toggleFormat(t) {
         var n = this.getFormat(),
-          i = require("Lexical").toggleTextFormatType(n, e, null);
+          i = require("Lexical").toggleTextFormatType(n, t, null);
         return this.setFormat(i);
       };
       _proto.isInline = function isInline() {
@@ -493,14 +493,14 @@ __d(
       };
       return A;
     })(_require_Lexical.DecoratorNode);
-    function F(t) {
-      return t instanceof _A;
+    function F(e) {
+      return e instanceof _A;
     }
-    function P(t, e) {
-      var n = document.createElement(e);
-      return (n.appendChild(t), n);
+    function P(e, t) {
+      var n = document.createElement(t);
+      return (n.appendChild(e), n);
     }
-    var k = {
+    var L = {
         b: "bold",
         code: "code",
         em: "italic",
@@ -512,135 +512,135 @@ __d(
         sup: "superscript",
         u: "underline",
       },
-      L = _require_Lexical.defineExtension({
+      k = _require_Lexical.defineExtension({
         name: "@lexical/extension/DecoratorText",
         nodes: function nodes() {
           return [_A];
         },
-        register: function register(e, n, i) {
-          return e.registerCommand(
+        register: function register(t, n, i) {
+          return t.registerCommand(
             require("Lexical").FORMAT_TEXT_COMMAND,
-            function (e) {
+            function (t) {
               var n = require("Lexical").$getSelection();
               if (
                 require("Lexical").$isNodeSelection(n) ||
                 require("Lexical").$isRangeSelection(n)
               )
-                for (var _t8 of n.getNodes()) F(_t8) && _t8.toggleFormat(e);
+                for (var _e8 of n.getNodes()) F(_e8) && _e8.toggleFormat(t);
               return !1;
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           );
         },
       });
-    function j(t, e) {
+    function z(e, t) {
       var n;
-      return m(t(), {
+      return m(e(), {
         unwatched: function unwatched() {
           n && (n(), (n = void 0));
         },
         watched: function watched() {
-          ((this.value = t()), (n = e(this)));
+          ((this.value = e()), (n = t(this)));
         },
       });
     }
     var K = _require_Lexical.defineExtension({
-      build: function build(t) {
-        return j(
+      build: function build(e) {
+        return z(
           function () {
-            return t.getEditorState();
+            return e.getEditorState();
           },
-          function (e) {
-            return t.registerUpdateListener(function (t) {
-              e.value = t.editorState;
+          function (t) {
+            return e.registerUpdateListener(function (e) {
+              t.value = e.editorState;
             });
           },
         );
       },
       name: "@lexical/extension/EditorState",
     });
-    function z(t) {
+    function j(e) {
       var n = new URL("https://lexical.dev/docs/error"),
         i = new URLSearchParams();
-      i.append("code", t);
+      i.append("code", e);
       for (
         var _len = arguments.length,
-          e = new Array(_len > 1 ? _len - 1 : 0),
+          t = new Array(_len > 1 ? _len - 1 : 0),
           _key = 1;
         _key < _len;
         _key++
       ) {
-        e[_key - 1] = arguments[_key];
+        t[_key - 1] = arguments[_key];
       }
-      for (var _t9 of e) i.append("v", _t9);
+      for (var _e9 of t) i.append("v", _e9);
       throw (
         (n.search = i.toString()),
         Error(
           "Minified Lexical error #" +
-            t +
+            e +
             "; visit " +
             n.toString() +
             " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
         )
       );
     }
-    function U(t, e) {
+    function U(e, t) {
       if (
-        t &&
         e &&
-        !Array.isArray(e) &&
-        "object" == typeof t &&
-        "object" == typeof e
+        t &&
+        !Array.isArray(t) &&
+        "object" == typeof e &&
+        "object" == typeof t
       ) {
-        var _n5 = t,
-          _i3 = e;
-        for (var _t0 in _i3) _n5[_t0] = U(_n5[_t0], _i3[_t0]);
-        return t;
+        var _n5 = e,
+          _i3 = t;
+        for (var _e0 in _i3) _n5[_e0] = U(_n5[_e0], _i3[_e0]);
+        return e;
       }
-      return e;
+      return t;
     }
     var B = 0,
       Y = 1,
-      H = 2,
-      W = 3,
-      G = 4,
-      Z = 5,
-      V = 6,
+      G = 2,
+      H = 3,
+      W = 4,
+      V = 5,
+      Z = 6,
       J = 7;
-    function X(t) {
-      return t.id === B;
+    function X(e) {
+      return e.id === B;
     }
-    function q(t) {
-      return t.id === H;
+    function q(e) {
+      return e.id === G;
     }
-    function Q(t) {
+    function Q(e) {
       return (
-        (function (t) {
-          return t.id === Y;
-        })(t) || z(305, String(t.id), String(Y)),
-        Object.assign(t, { id: H })
+        (function (e) {
+          return e.id === Y;
+        })(e) || j(305, String(e.id), String(Y)),
+        Object.assign(e, { id: G })
       );
     }
-    var tt = new Set();
-    var _et = (function () {
-      function et(t, e) {
-        ((this.builder = t),
-          (this.extension = e),
+    var ee = new Set();
+    var _te = (function () {
+      function te(e, t) {
+        ((this.builder = e),
+          (this.extension = t),
           (this.configs = new Set()),
           (this.state = { id: B }));
       }
-      var _proto2 = et.prototype;
+      var _proto2 = te.prototype;
       _proto2.mergeConfigs = function mergeConfigs() {
-        var e = this.extension.config || {};
+        var t = this.extension.config || {};
         var n = this.extension.mergeConfig
           ? this.extension.mergeConfig.bind(this.extension)
           : require("Lexical").shallowMergeConfig;
-        for (var _t1 of this.configs) e = n(e, _t1);
-        return e;
+        for (var _e1 of this.configs) t = n(t, _e1);
+        return t;
       };
-      _proto2.init = function init(t) {
-        var e = this.state;
-        q(e) || z(306, String(e.id));
+      _proto2.init = function init(e) {
+        var t = this.state;
+        q(t) || j(306, String(t.id));
         var n = {
             getDependency: this.getInitDependency.bind(this),
             getDirectDependentNames: this.getDirectDependentNames.bind(this),
@@ -652,174 +652,174 @@ __d(
             getInitResult: this.getInitResult.bind(this),
             getPeer: this.getPeer.bind(this),
           }),
-          o = (function (t, e, n) {
-            return Object.assign(t, { config: e, id: W, registerState: n });
-          })(e, this.mergeConfigs(), n);
+          o = (function (e, t, n) {
+            return Object.assign(e, { config: t, id: H, registerState: n });
+          })(t, this.mergeConfigs(), n);
         var s;
         ((this.state = o),
-          this.extension.init && (s = this.extension.init(t, o.config, n)),
-          (this.state = (function (t, e, n) {
-            return Object.assign(t, { id: G, initResult: e, registerState: n });
+          this.extension.init && (s = this.extension.init(e, o.config, n)),
+          (this.state = (function (e, t, n) {
+            return Object.assign(e, { id: W, initResult: t, registerState: n });
           })(o, s, i)));
       };
-      _proto2.build = function build(t) {
-        var e = this.state;
+      _proto2.build = function build(e) {
+        var t = this.state;
         var n;
-        (e.id !== G && z(307, String(e.id), String(Z)),
+        (t.id !== W && j(307, String(t.id), String(V)),
           this.extension.build &&
-            (n = this.extension.build(t, e.config, e.registerState)));
-        var i = babelHelpers["extends"]({}, e.registerState, {
+            (n = this.extension.build(e, t.config, t.registerState)));
+        var i = babelHelpers["extends"]({}, t.registerState, {
           getOutput: function getOutput() {
             return n;
           },
           getSignal: this.getSignal.bind(this),
         });
-        this.state = (function (t, e, n) {
-          return Object.assign(t, { id: Z, output: e, registerState: n });
-        })(e, n, i);
+        this.state = (function (e, t, n) {
+          return Object.assign(e, { id: V, output: t, registerState: n });
+        })(t, n, i);
       };
-      _proto2.register = function register(t, e) {
+      _proto2.register = function register(e, t) {
         var _this4 = this;
-        this._signal = e;
+        this._signal = t;
         var n = this.state;
-        n.id !== Z && z(308, String(n.id), String(Z));
+        n.id !== V && j(308, String(n.id), String(V));
         var i =
           this.extension.register &&
-          this.extension.register(t, n.config, n.registerState);
+          this.extension.register(e, n.config, n.registerState);
         return (
-          (this.state = (function (t) {
-            return Object.assign(t, { id: V });
+          (this.state = (function (e) {
+            return Object.assign(e, { id: Z });
           })(n)),
           function () {
-            var t = _this4.state;
-            (t.id !== J && z(309, String(n.id), String(J)),
-              (_this4.state = (function (t) {
-                return Object.assign(t, { id: Z });
-              })(t)),
+            var e = _this4.state;
+            (e.id !== J && j(309, String(n.id), String(J)),
+              (_this4.state = (function (e) {
+                return Object.assign(e, { id: V });
+              })(e)),
               i && i());
           }
         );
       };
-      _proto2.afterRegistration = function afterRegistration(t) {
-        var e = this.state;
+      _proto2.afterRegistration = function afterRegistration(e) {
+        var t = this.state;
         var n;
         return (
-          e.id !== V && z(310, String(e.id), String(V)),
+          t.id !== Z && j(310, String(t.id), String(Z)),
           this.extension.afterRegistration &&
             (n = this.extension.afterRegistration(
-              t,
-              e.config,
-              e.registerState,
+              e,
+              t.config,
+              t.registerState,
             )),
-          (this.state = (function (t) {
-            return Object.assign(t, { id: J });
-          })(e)),
+          (this.state = (function (e) {
+            return Object.assign(e, { id: J });
+          })(t)),
           n
         );
       };
       _proto2.getSignal = function getSignal() {
-        return (void 0 === this._signal && z(311), this._signal);
+        return (void 0 === this._signal && j(311), this._signal);
       };
       _proto2.getInitResult = function getInitResult() {
-        void 0 === this.extension.init && z(312, this.extension.name);
-        var t = this.state;
+        void 0 === this.extension.init && j(312, this.extension.name);
+        var e = this.state;
         return (
-          (function (t) {
-            return t.id >= G;
-          })(t) || z(313, String(t.id), String(G)),
-          t.initResult
+          (function (e) {
+            return e.id >= W;
+          })(e) || j(313, String(e.id), String(W)),
+          e.initResult
         );
       };
-      _proto2.getInitPeer = function getInitPeer(t) {
-        var e = this.builder.extensionNameMap.get(t);
-        return e ? e.getExtensionInitDependency() : void 0;
+      _proto2.getInitPeer = function getInitPeer(e) {
+        var t = this.builder.extensionNameMap.get(e);
+        return t ? t.getExtensionInitDependency() : void 0;
       };
       _proto2.getExtensionInitDependency =
         function getExtensionInitDependency() {
-          var t = this.state;
+          var e = this.state;
           return (
-            (function (t) {
-              return t.id >= W;
-            })(t) || z(314, String(t.id), String(W)),
-            { config: t.config }
+            (function (e) {
+              return e.id >= H;
+            })(e) || j(314, String(e.id), String(H)),
+            { config: e.config }
           );
         };
-      _proto2.getPeer = function getPeer(t) {
-        var e = this.builder.extensionNameMap.get(t);
-        return e ? e.getExtensionDependency() : void 0;
+      _proto2.getPeer = function getPeer(e) {
+        var t = this.builder.extensionNameMap.get(e);
+        return t ? t.getExtensionDependency() : void 0;
       };
-      _proto2.getInitDependency = function getInitDependency(t) {
-        var e = this.builder.getExtensionRep(t);
+      _proto2.getInitDependency = function getInitDependency(e) {
+        var t = this.builder.getExtensionRep(e);
         return (
-          void 0 === e && z(315, this.extension.name, t.name),
-          e.getExtensionInitDependency()
+          void 0 === t && j(315, this.extension.name, e.name),
+          t.getExtensionInitDependency()
         );
       };
-      _proto2.getDependency = function getDependency(t) {
-        var e = this.builder.getExtensionRep(t);
+      _proto2.getDependency = function getDependency(e) {
+        var t = this.builder.getExtensionRep(e);
         return (
-          void 0 === e && z(315, this.extension.name, t.name),
-          e.getExtensionDependency()
+          void 0 === t && j(315, this.extension.name, e.name),
+          t.getExtensionDependency()
         );
       };
       _proto2.getState = function getState() {
-        var t = this.state;
+        var e = this.state;
         return (
-          (function (t) {
-            return t.id >= J;
-          })(t) || z(316, String(t.id), String(J)),
-          t
+          (function (e) {
+            return e.id >= J;
+          })(e) || j(316, String(e.id), String(J)),
+          e
         );
       };
       _proto2.getDirectDependentNames = function getDirectDependentNames() {
-        return this.builder.incomingEdges.get(this.extension.name) || tt;
+        return this.builder.incomingEdges.get(this.extension.name) || ee;
       };
       _proto2.getPeerNameSet = function getPeerNameSet() {
-        var t = this._peerNameSet;
+        var e = this._peerNameSet;
         return (
-          t ||
-            ((t = new Set(
+          e ||
+            ((e = new Set(
               (this.extension.peerDependencies || []).map(function (_ref) {
-                var t = _ref[0];
-                return t;
+                var e = _ref[0];
+                return e;
               }),
             )),
-            (this._peerNameSet = t)),
-          t
+            (this._peerNameSet = e)),
+          e
         );
       };
       _proto2.getExtensionDependency = function getExtensionDependency() {
         if (!this._dependency) {
-          var _t10 = this.state;
-          ((function (t) {
-            return t.id >= Z;
-          })(_t10) || z(317, this.extension.name),
+          var _e10 = this.state;
+          ((function (e) {
+            return e.id >= V;
+          })(_e10) || j(317, this.extension.name),
             (this._dependency = {
-              config: _t10.config,
-              init: _t10.initResult,
-              output: _t10.output,
+              config: _e10.config,
+              init: _e10.initResult,
+              output: _e10.output,
             }));
         }
         return this._dependency;
       };
-      return et;
+      return te;
     })();
-    var nt = { tag: _require_Lexical.HISTORY_MERGE_TAG };
-    function it() {
-      var e = require("Lexical").$getRoot();
-      e.isEmpty() && e.append(require("Lexical").$createParagraphNode());
+    var ne = { tag: _require_Lexical.HISTORY_MERGE_TAG };
+    function ie() {
+      var t = require("Lexical").$getRoot();
+      t.isEmpty() && t.append(require("Lexical").$createParagraphNode());
     }
-    var ot = _require_Lexical.defineExtension({
+    var oe = _require_Lexical.defineExtension({
         config: _require_Lexical.safeCast({
-          setOptions: nt,
-          updateOptions: nt,
+          setOptions: ne,
+          updateOptions: ne,
         }),
         init: function init(_ref2) {
           var _ref2$$initialEditorS = _ref2.$initialEditorState,
-            t = _ref2$$initialEditorS === void 0 ? it : _ref2$$initialEditorS;
-          return { $initialEditorState: t, initialized: !1 };
+            e = _ref2$$initialEditorS === void 0 ? ie : _ref2$$initialEditorS;
+          return { $initialEditorState: e, initialized: !1 };
         },
-        afterRegistration: function afterRegistration(e, _ref3, o) {
+        afterRegistration: function afterRegistration(t, _ref3, o) {
           var n = _ref3.updateOptions,
             i = _ref3.setOptions;
           var s = o.getInitResult();
@@ -827,17 +827,17 @@ __d(
             s.initialized = !0;
             var _o2 = s.$initialEditorState;
             if (require("Lexical").$isEditorState(_o2))
-              e.setEditorState(_o2, i);
+              t.setEditorState(_o2, i);
             else if ("function" == typeof _o2)
-              e.update(function () {
-                _o2(e);
+              t.update(function () {
+                _o2(t);
               }, n);
             else if (
               _o2 &&
               ("string" == typeof _o2 || "object" == typeof _o2)
             ) {
-              var _t11 = e.parseEditorState(_o2);
-              e.setEditorState(_t11, i);
+              var _e11 = t.parseEditorState(_o2);
+              t.setEditorState(_e11, i);
             }
           }
           return function () {};
@@ -851,48 +851,48 @@ __d(
           _require_Lexical.ParagraphNode,
         ],
       }),
-      st = Symbol["for"]("@lexical/extension/LexicalBuilder");
-    function rt() {}
-    function at(t) {
-      throw t;
+      se = Symbol["for"]("@lexical/extension/LexicalBuilder");
+    function re() {}
+    function ae(e) {
+      throw e;
     }
-    function ct(t) {
-      return Array.isArray(t) ? t : [t];
+    function ce(e) {
+      return Array.isArray(e) ? e : [e];
     }
-    var dt = "0.44.0+prod.cjs";
-    var _lt = (function () {
-      function lt(t) {
+    var de = "0.44.0+prod.cjs";
+    var _le = (function () {
+      function le(e) {
         ((this.outgoingConfigEdges = new Map()),
           (this.incomingEdges = new Map()),
           (this.extensionNameMap = new Map()),
           (this.conflicts = new Map()),
-          (this.PACKAGE_VERSION = dt),
-          (this.roots = t));
-        for (var _e5 of t) this.addExtension(_e5);
+          (this.PACKAGE_VERSION = de),
+          (this.roots = e));
+        for (var _t5 of e) this.addExtension(_t5);
       }
-      lt.fromExtensions = function fromExtensions(t) {
-        var e = [ct(ot)];
-        for (var _n6 of t) e.push(ct(_n6));
-        return new lt(e);
+      le.fromExtensions = function fromExtensions(e) {
+        var t = [ce(oe)];
+        for (var _n6 of e) t.push(ce(_n6));
+        return new le(t);
       };
-      lt.maybeFromEditor = function maybeFromEditor(t) {
-        var e = t[st];
+      le.maybeFromEditor = function maybeFromEditor(e) {
+        var t = e[se];
         return (
-          e &&
-            (e.PACKAGE_VERSION !== dt && z(292, e.PACKAGE_VERSION, dt),
-            e instanceof lt || z(293)),
-          e
+          t &&
+            (t.PACKAGE_VERSION !== de && j(292, t.PACKAGE_VERSION, de),
+            t instanceof le || j(293)),
+          t
         );
       };
-      lt.fromEditor = function fromEditor(t) {
-        var e = lt.maybeFromEditor(t);
-        return (void 0 === e && z(294), e);
+      le.fromEditor = function fromEditor(e) {
+        var t = le.maybeFromEditor(e);
+        return (void 0 === t && j(294), t);
       };
-      var _proto3 = lt.prototype;
+      var _proto3 = le.prototype;
       _proto3.constructEditor = function constructEditor() {
         var _Object$assign;
         var _this$buildCreateEdit = this.buildCreateEditorArgs(),
-          e = _this$buildCreateEdit.$initialEditorState,
+          t = _this$buildCreateEdit.$initialEditorState,
           n = _this$buildCreateEdit.onError,
           i = babelHelpers.objectWithoutPropertiesLoose(
             _this$buildCreateEdit,
@@ -905,28 +905,28 @@ __d(
                 i,
                 n
                   ? {
-                      onError: function onError(t) {
-                        n(t, o);
+                      onError: function onError(e) {
+                        n(e, o);
                       },
                     }
                   : {},
               ),
             ),
             ((_Object$assign = {}),
-            (_Object$assign[st] = this),
+            (_Object$assign[se] = this),
             _Object$assign),
           );
-        for (var _t12 of this.sortedExtensionReps()) _t12.build(o);
+        for (var _e12 of this.sortedExtensionReps()) _e12.build(o);
         return o;
       };
       _proto3.buildEditor = function buildEditor() {
         var _Object$assign2;
-        var e = rt;
+        var t = re;
         function n() {
           try {
-            e();
+            t();
           } finally {
-            e = rt;
+            t = re;
           }
         }
         var i = Object.assign(
@@ -938,7 +938,7 @@ __d(
           _Object$assign2),
         );
         return (
-          (e = require("Lexical").mergeRegister(
+          (t = require("Lexical").mergeRegister(
             this.registerEditor(i),
             function () {
               return i.setRootElement(null);
@@ -947,89 +947,89 @@ __d(
           i
         );
       };
-      _proto3.hasExtensionByName = function hasExtensionByName(t) {
-        return this.extensionNameMap.has(t);
+      _proto3.hasExtensionByName = function hasExtensionByName(e) {
+        return this.extensionNameMap.has(e);
       };
-      _proto3.getExtensionRep = function getExtensionRep(t) {
-        var e = this.extensionNameMap.get(t.name);
-        if (e) return (e.extension !== t && z(295, t.name), e);
+      _proto3.getExtensionRep = function getExtensionRep(e) {
+        var t = this.extensionNameMap.get(e.name);
+        if (t) return (t.extension !== e && j(295, e.name), t);
       };
-      _proto3.addEdge = function addEdge(t, e, n) {
-        var i = this.outgoingConfigEdges.get(t);
-        i ? i.set(e, n) : this.outgoingConfigEdges.set(t, new Map([[e, n]]));
-        var o = this.incomingEdges.get(e);
-        o ? o.add(t) : this.incomingEdges.set(e, new Set([t]));
+      _proto3.addEdge = function addEdge(e, t, n) {
+        var i = this.outgoingConfigEdges.get(e);
+        i ? i.set(t, n) : this.outgoingConfigEdges.set(e, new Map([[t, n]]));
+        var o = this.incomingEdges.get(t);
+        o ? o.add(e) : this.incomingEdges.set(t, new Set([e]));
       };
-      _proto3.addExtension = function addExtension(t) {
-        void 0 !== this._sortedExtensionReps && z(296);
-        var e = ct(t),
-          n = e[0];
-        "string" != typeof n.name && z(297, typeof n.name);
+      _proto3.addExtension = function addExtension(e) {
+        void 0 !== this._sortedExtensionReps && j(296);
+        var t = ce(e),
+          n = t[0];
+        "string" != typeof n.name && j(297, typeof n.name);
         var i = this.extensionNameMap.get(n.name);
-        if ((void 0 !== i && i.extension !== n && z(298, n.name), !i)) {
-          ((i = new _et(this, n)), this.extensionNameMap.set(n.name, i));
-          var _t13 = this.conflicts.get(n.name);
-          "string" == typeof _t13 && z(299, n.name, _t13);
-          for (var _t14 of n.conflictsWith || [])
-            (this.extensionNameMap.has(_t14) && z(299, n.name, _t14),
-              this.conflicts.set(_t14, n.name));
-          for (var _t15 of n.dependencies || []) {
-            var _e6 = ct(_t15);
-            (this.addEdge(n.name, _e6[0].name, _e6.slice(1)),
-              this.addExtension(_e6));
+        if ((void 0 !== i && i.extension !== n && j(298, n.name), !i)) {
+          ((i = new _te(this, n)), this.extensionNameMap.set(n.name, i));
+          var _e13 = this.conflicts.get(n.name);
+          "string" == typeof _e13 && j(299, n.name, _e13);
+          for (var _e14 of n.conflictsWith || [])
+            (this.extensionNameMap.has(_e14) && j(299, n.name, _e14),
+              this.conflicts.set(_e14, n.name));
+          for (var _e15 of n.dependencies || []) {
+            var _t6 = ce(_e15);
+            (this.addEdge(n.name, _t6[0].name, _t6.slice(1)),
+              this.addExtension(_t6));
           }
           for (var _ref5 of n.peerDependencies || []) {
-            var _t16 = _ref5[0];
-            var _e7 = _ref5[1];
-            this.addEdge(n.name, _t16, _e7 ? [_e7] : []);
+            var _e16 = _ref5[0];
+            var _t7 = _ref5[1];
+            this.addEdge(n.name, _e16, _t7 ? [_t7] : []);
           }
         }
       };
       _proto3.sortedExtensionReps = function sortedExtensionReps() {
         var _this5 = this;
         if (this._sortedExtensionReps) return this._sortedExtensionReps;
-        var t = [],
-          _e8 = function e(n, i) {
+        var e = [],
+          _t8 = function t(n, i) {
             var o = n.state;
             if (q(o)) return;
             var s = n.extension.name;
             var r;
-            (X(o) || z(300, s, i || "[unknown]"),
-              X((r = o)) || z(304, String(r.id), String(B)),
+            (X(o) || j(300, s, i || "[unknown]"),
+              X((r = o)) || j(304, String(r.id), String(B)),
               (o = Object.assign(r, { id: Y })),
               (n.state = o));
             var a = _this5.outgoingConfigEdges.get(s);
             if (a)
-              for (var _t17 of a.keys()) {
-                var _n7 = _this5.extensionNameMap.get(_t17);
-                _n7 && _e8(_n7, s);
+              for (var _e17 of a.keys()) {
+                var _n7 = _this5.extensionNameMap.get(_e17);
+                _n7 && _t8(_n7, s);
               }
-            ((o = Q(o)), (n.state = o), t.push(n));
+            ((o = Q(o)), (n.state = o), e.push(n));
           };
-        for (var _t18 of this.extensionNameMap.values())
-          X(_t18.state) && _e8(_t18);
-        for (var _e9 of t)
-          for (var _ref7 of this.outgoingConfigEdges.get(_e9.extension.name) ||
+        for (var _e18 of this.extensionNameMap.values())
+          X(_e18.state) && _t8(_e18);
+        for (var _t9 of e)
+          for (var _ref7 of this.outgoingConfigEdges.get(_t9.extension.name) ||
             []) {
-            var _t19 = _ref7[0];
+            var _e19 = _ref7[0];
             var _n8 = _ref7[1];
             if (_n8.length > 0) {
-              var _e0 = this.extensionNameMap.get(_t19);
-              if (_e0) for (var _t20 of _n8) _e0.configs.add(_t20);
+              var _t0 = this.extensionNameMap.get(_e19);
+              if (_t0) for (var _e20 of _n8) _t0.configs.add(_e20);
             }
           }
         for (var _ref9 of this.roots) {
-          var _t21 = _ref9[0];
-          var _e1 = babelHelpers.arrayLikeToArray(_ref9).slice(1);
-          if (_e1.length > 0) {
-            var _n9 = this.extensionNameMap.get(_t21.name);
-            void 0 === _n9 && z(301, _t21.name);
-            for (var _t22 of _e1) _n9.configs.add(_t22);
+          var _e21 = _ref9[0];
+          var _t1 = babelHelpers.arrayLikeToArray(_ref9).slice(1);
+          if (_t1.length > 0) {
+            var _n9 = this.extensionNameMap.get(_e21.name);
+            void 0 === _n9 && j(301, _e21.name);
+            for (var _e22 of _t1) _n9.configs.add(_e22);
           }
         }
-        return ((this._sortedExtensionReps = t), this._sortedExtensionReps);
+        return ((this._sortedExtensionReps = e), this._sortedExtensionReps);
       };
-      _proto3.registerEditor = function registerEditor(e) {
+      _proto3.registerEditor = function registerEditor(t) {
         var n = this.sortedExtensionReps(),
           i = new AbortController(),
           o = [
@@ -1038,19 +1038,19 @@ __d(
             },
           ],
           s = i.signal;
-        for (var _t23 of n) {
-          var _n0 = _t23.register(e, s);
+        for (var _e23 of n) {
+          var _n0 = _e23.register(t, s);
           _n0 && o.push(_n0);
         }
-        for (var _t24 of n) {
-          var _n1 = _t24.afterRegistration(e);
+        for (var _e24 of n) {
+          var _n1 = _e24.afterRegistration(t);
           _n1 && o.push(_n1);
         }
         return require("Lexical").mergeRegister.apply(require("Lexical"), o);
       };
       _proto3.buildCreateEditorArgs = function buildCreateEditorArgs() {
-        var t = {},
-          e = new Set(),
+        var e = {},
+          t = new Set(),
           n = new Map(),
           i = new Map(),
           o = {},
@@ -1059,64 +1059,64 @@ __d(
         for (var _a of r) {
           var _r = _a.extension;
           if (
-            (void 0 !== _r.onError && (t.onError = _r.onError),
-            void 0 !== _r.disableEvents && (t.disableEvents = _r.disableEvents),
-            void 0 !== _r.parentEditor && (t.parentEditor = _r.parentEditor),
-            void 0 !== _r.editable && (t.editable = _r.editable),
-            void 0 !== _r.namespace && (t.namespace = _r.namespace),
+            (void 0 !== _r.onError && (e.onError = _r.onError),
+            void 0 !== _r.disableEvents && (e.disableEvents = _r.disableEvents),
+            void 0 !== _r.parentEditor && (e.parentEditor = _r.parentEditor),
+            void 0 !== _r.editable && (e.editable = _r.editable),
+            void 0 !== _r.namespace && (e.namespace = _r.namespace),
             void 0 !== _r.$initialEditorState &&
-              (t.$initialEditorState = _r.$initialEditorState),
+              (e.$initialEditorState = _r.$initialEditorState),
             _r.nodes)
           )
-            for (var _t25 of T(_r)) {
-              if ("function" != typeof _t25) {
-                var _e10 = n.get(_t25.replace);
-                (_e10 &&
-                  z(302, _r.name, _t25.replace.name, _e10.extension.name),
-                  n.set(_t25.replace, _a));
+            for (var _e25 of I(_r)) {
+              if ("function" != typeof _e25) {
+                var _t10 = n.get(_e25.replace);
+                (_t10 &&
+                  j(302, _r.name, _e25.replace.name, _t10.extension.name),
+                  n.set(_e25.replace, _a));
               }
-              e.add(_t25);
+              t.add(_e25);
             }
           if (_r.html) {
             if (_r.html["export"])
               for (var _ref1 of _r.html["export"].entries()) {
-                var _t26 = _ref1[0];
-                var _e11 = _ref1[1];
-                i.set(_t26, _e11);
+                var _e26 = _ref1[0];
+                var _t11 = _ref1[1];
+                i.set(_e26, _t11);
               }
             _r.html["import"] && Object.assign(o, _r.html["import"]);
           }
           _r.theme && U(s, _r.theme);
         }
-        (Object.keys(s).length > 0 && (t.theme = s),
-          e.size && (t.nodes = [].concat(e)));
+        (Object.keys(s).length > 0 && (e.theme = s),
+          t.size && (e.nodes = [].concat(t)));
         var a = Object.keys(o).length > 0,
           c = i.size > 0;
         (a || c) &&
-          ((t.html = {}),
-          a && (t.html["import"] = o),
-          c && (t.html["export"] = i));
-        for (var _e12 of r) _e12.init(t);
-        return (t.onError || (t.onError = at), t);
+          ((e.html = {}),
+          a && (e.html["import"] = o),
+          c && (e.html["export"] = i));
+        for (var _t12 of r) _t12.init(e);
+        return (e.onError || (e.onError = ae), e);
       };
-      return lt;
+      return le;
     })();
-    function ut(t, e) {
-      var n = _lt.maybeFromEditor(t);
+    function ue(e, t) {
+      var n = _le.maybeFromEditor(e);
       if (!n) return;
-      var i = n.extensionNameMap.get(e);
+      var i = n.extensionNameMap.get(t);
       return i ? i.getExtensionDependency() : void 0;
     }
-    var ft = new Set(),
-      ht = _require_Lexical.defineExtension({
-        build: function build(e, n, i) {
+    var fe = new Set(),
+      ge = _require_Lexical.defineExtension({
+        build: function build(t, n, i) {
           var o = i.getDependency(K).output,
             s = m({ watchedNodeKeys: new Map() }),
-            r = j(
+            r = z(
               function () {},
               function () {
-                return C(function () {
-                  var e = r.peek(),
+                return R(function () {
+                  var t = r.peek(),
                     n = s.value.watchedNodeKeys;
                   var i,
                     a = !1;
@@ -1132,29 +1132,29 @@ __d(
                           }
                           var _r2 = require("Lexical").$getNodeByKey(_o3),
                             _c = (_r2 && _r2.isSelected()) || !1;
-                          ((a = a || _c !== (!!e && e.has(_o3))),
+                          ((a = a || _c !== (!!t && t.has(_o3))),
                             _c && ((i = i || new Set()), i.add(_o3)));
                         }
                       }
                   }),
-                    (!a && i && e && i.size === e.size) || (r.value = i));
+                    (!a && i && t && i.size === t.size) || (r.value = i));
                 });
               },
             );
           return {
-            watchNodeKey: function watchNodeKey(t) {
-              var e = y(function () {
-                  return (r.value || ft).has(t);
+            watchNodeKey: function watchNodeKey(e) {
+              var t = y(function () {
+                  return (r.value || fe).has(e);
                 }),
                 _s$peek = s.peek(),
                 n = _s$peek.watchedNodeKeys;
-              var i = n.get(t);
+              var i = n.get(e);
               var o = void 0 !== i;
               return (
                 (i = i || new Set()),
-                i.add(e),
-                o || (n.set(t, i), (s.value = { watchedNodeKeys: n })),
-                e
+                i.add(t),
+                o || (n.set(e, i), (s.value = { watchedNodeKeys: n })),
+                t
               );
             },
           };
@@ -1162,35 +1162,35 @@ __d(
         dependencies: [K],
         name: "@lexical/extension/NodeSelection",
       }),
-      gt = _require_Lexical.createCommand("INSERT_HORIZONTAL_RULE_COMMAND");
-    var _pt = (function (_t$DecoratorNode2) {
-      function pt() {
-        return _t$DecoratorNode2.apply(this, arguments) || this;
+      he = _require_Lexical.createCommand("INSERT_HORIZONTAL_RULE_COMMAND");
+    var _pe = (function (_e$DecoratorNode2) {
+      function pe() {
+        return _e$DecoratorNode2.apply(this, arguments) || this;
       }
-      babelHelpers.inheritsLoose(pt, _t$DecoratorNode2);
-      pt.getType = function getType() {
+      babelHelpers.inheritsLoose(pe, _e$DecoratorNode2);
+      pe.getType = function getType() {
         return "horizontalrule";
       };
-      pt.clone = function clone(t) {
-        return new pt(t.__key);
+      pe.clone = function clone(e) {
+        return new pe(e.__key);
       };
-      pt.importJSON = function importJSON(t) {
-        return xt().updateFromJSON(t);
+      pe.importJSON = function importJSON(e) {
+        return Ee().updateFromJSON(e);
       };
-      pt.importDOM = function importDOM() {
+      pe.importDOM = function importDOM() {
         return {
           hr: function hr() {
-            return { conversion: mt, priority: 0 };
+            return { conversion: me, priority: 0 };
           },
         };
       };
-      var _proto4 = pt.prototype;
+      var _proto4 = pe.prototype;
       _proto4.exportDOM = function exportDOM() {
         return { element: document.createElement("hr") };
       };
-      _proto4.createDOM = function createDOM(e) {
+      _proto4.createDOM = function createDOM(t) {
         var n = document.createElement("hr");
-        return (require("Lexical").addClassNamesToElement(n, e.theme.hr), n);
+        return (require("Lexical").addClassNamesToElement(n, t.theme.hr), n);
       };
       _proto4.getTextContent = function getTextContent() {
         return "\n";
@@ -1201,26 +1201,26 @@ __d(
       _proto4.updateDOM = function updateDOM() {
         return !1;
       };
-      return pt;
+      return pe;
     })(_require_Lexical.DecoratorNode);
-    function mt() {
-      return { node: xt() };
+    function me() {
+      return { node: Ee() };
     }
-    function xt() {
-      return require("Lexical").$create(_pt);
+    function Ee() {
+      return require("Lexical").$create(_pe);
     }
-    function Et(t) {
-      return t instanceof _pt;
+    function xe(e) {
+      return e instanceof _pe;
     }
-    var vt = _require_Lexical.defineExtension({
-      dependencies: [K, ht],
+    var Se = _require_Lexical.defineExtension({
+      dependencies: [K, ge],
       name: "@lexical/extension/HorizontalRule",
       nodes: function nodes() {
-        return [_pt];
+        return [_pe];
       },
       register: function register(n, i, s) {
         var _n$_config$theme$hrSe;
-        var r = s.getDependency(ht).output.watchNodeKey,
+        var r = s.getDependency(ge).output.watchNodeKey,
           a = m({ nodeSelections: new Map() }),
           c =
             (_n$_config$theme$hrSe = n._config.theme.hrSelected) != null
@@ -1228,13 +1228,13 @@ __d(
               : "selected";
         return require("Lexical").mergeRegister(
           n.registerCommand(
-            gt,
+            he,
             function (n) {
               var i = require("Lexical").$getSelection();
               if (!require("Lexical").$isRangeSelection(i)) return !1;
               if (null !== i.focus.getNode()) {
-                var _t27 = xt();
-                require("LexicalUtils").$insertNodeToNearestRoot(_t27);
+                var _e27 = Ee();
+                require("LexicalUtils").$insertNodeToNearestRoot(_e27);
               }
               return !0;
             },
@@ -1242,25 +1242,25 @@ __d(
           ),
           n.registerCommand(
             require("Lexical").CLICK_COMMAND,
-            function (e) {
-              if (require("Lexical").isDOMNode(e.target)) {
-                var _n10 = require("Lexical").$getNodeFromDOMNode(e.target);
-                if (Et(_n10))
+            function (t) {
+              if (require("Lexical").isDOMNode(t.target)) {
+                var _n10 = require("Lexical").$getNodeFromDOMNode(t.target);
+                if (xe(_n10))
                   return (
-                    (function (e, n) {
+                    (function (t, n) {
                       if (n === void 0) {
                         n = !1;
                       }
                       var i = require("Lexical").$getSelection(),
-                        o = e.isSelected(),
-                        s = e.getKey();
+                        o = t.isSelected(),
+                        s = t.getKey();
                       var r;
                       (n && require("Lexical").$isNodeSelection(i)
                         ? (r = i)
                         : ((r = require("Lexical").$createNodeSelection()),
                           require("Lexical").$setSelection(r)),
                         o ? r["delete"](s) : r.add(s));
-                    })(_n10, e.shiftKey),
+                    })(_n10, t.shiftKey),
                     !0
                   );
               }
@@ -1268,39 +1268,39 @@ __d(
             },
             require("Lexical").COMMAND_PRIORITY_LOW,
           ),
-          n.registerMutationListener(_pt, function (t, e) {
+          n.registerMutationListener(_pe, function (e, t) {
             o(function () {
-              var e = !1;
+              var t = !1;
               var _a$peek = a.peek(),
                 i = _a$peek.nodeSelections;
-              for (var _ref13 of t.entries()) {
+              for (var _ref13 of e.entries()) {
                 var _o4 = _ref13[0];
                 var _s3 = _ref13[1];
-                if ("destroyed" === _s3) (i["delete"](_o4), (e = !0));
+                if ("destroyed" === _s3) (i["delete"](_o4), (t = !0));
                 else {
-                  var _t28 = i.get(_o4),
+                  var _e28 = i.get(_o4),
                     _s4 = n.getElementByKey(_o4);
-                  _t28
-                    ? (_t28.domNode.value = _s4)
-                    : ((e = !0),
+                  _e28
+                    ? (_e28.domNode.value = _s4)
+                    : ((t = !0),
                       i.set(_o4, { domNode: m(_s4), selectedSignal: r(_o4) }));
                 }
               }
-              e && (a.value = { nodeSelections: i });
+              t && (a.value = { nodeSelections: i });
             });
           }),
-          C(function () {
-            var e = [];
+          R(function () {
+            var t = [];
             var _loop = function _loop() {
               var n = _ref15.domNode;
               var i = _ref15.selectedSignal;
-              e.push(
-                C(function () {
-                  var e = n.value;
-                  if (e) {
+              t.push(
+                R(function () {
+                  var t = n.value;
+                  if (t) {
                     i.value
-                      ? require("Lexical").addClassNamesToElement(e, c)
-                      : require("Lexical").removeClassNamesFromElement(e, c);
+                      ? require("Lexical").addClassNamesToElement(t, c)
+                      : require("Lexical").removeClassNamesFromElement(t, c);
                   }
                 }),
               );
@@ -1310,54 +1310,54 @@ __d(
             }
             return require("Lexical").mergeRegister.apply(
               require("Lexical"),
-              e,
+              t,
             );
           }),
         );
       },
     });
-    var St = _require_Lexical.defineExtension({
-      build: function build(t, e) {
-        return D({ inheritEditableFromParent: e.inheritEditableFromParent });
+    var ve = _require_Lexical.defineExtension({
+      build: function build(e, t) {
+        return D({ inheritEditableFromParent: t.inheritEditableFromParent });
       },
       config: _require_Lexical.safeCast({
         $getParentEditor: function $getParentEditor() {
-          var e = require("Lexical").$getEditor();
-          return (_lt.fromEditor(e), e);
+          var t = require("Lexical").$getEditor();
+          return (_le.fromEditor(t), t);
         },
         inheritEditableFromParent: !1,
       }),
-      init: function init(t, e, n) {
-        var i = e.$getParentEditor();
-        ((t.parentEditor = i), (t.theme = t.theme || i._config.theme));
+      init: function init(e, t, n) {
+        var i = t.$getParentEditor();
+        ((e.parentEditor = i), (e.theme = e.theme || i._config.theme));
       },
       name: "@lexical/extension/NestedEditor",
-      register: function register(t, e, n) {
-        return C(function () {
-          var e = t._parentEditor;
-          if (e && n.getOutput().inheritEditableFromParent.value)
+      register: function register(e, t, n) {
+        return R(function () {
+          var t = e._parentEditor;
+          if (t && n.getOutput().inheritEditableFromParent.value)
             return (
-              t.setEditable(e.isEditable()),
-              e.registerEditableListener(t.setEditable.bind(t))
+              e.setEditable(t.isEditable()),
+              t.registerEditableListener(e.setEditable.bind(e))
             );
         });
       },
     });
-    function yt(e) {
-      require("Lexical").$isElementNode(e) &&
-        e.isInline() &&
-        e.isEmpty() &&
-        e.remove();
+    function ye(t) {
+      require("Lexical").$isElementNode(t) &&
+        t.isInline() &&
+        t.isEmpty() &&
+        t.remove();
     }
-    var Nt = _require_Lexical.defineExtension({
-        build: function build(t, e, n) {
-          return D(e);
+    var Ne = _require_Lexical.defineExtension({
+        build: function build(e, t, n) {
+          return D(t);
         },
         config: _require_Lexical.safeCast({ disabled: !1 }),
         name: "@lexical/NormalizeInlineElements",
-        register: function register(e, n, i) {
+        register: function register(t, n, i) {
           var o = i.getOutput();
-          return C(function () {
+          return R(function () {
             if (!o.disabled.value) {
               var _n11 = [];
               var _loop2 = function _loop2() {
@@ -1366,49 +1366,167 @@ __d(
                 i.prototype instanceof require("Lexical").ElementNode &&
                   i.prototype.isInline !==
                     require("Lexical").ElementNode.prototype.isInline &&
-                  (o.add(yt),
+                  (o.add(ye),
                   _n11.push(function () {
-                    return o["delete"](yt);
+                    return o["delete"](ye);
                   }));
               };
-              for (var _ref17 of e._nodes.values()) {
+              for (var _ref17 of t._nodes.values()) {
                 _loop2();
               }
               return function () {
-                return _n11.forEach(function (t) {
-                  return t();
+                return _n11.forEach(function (e) {
+                  return e();
                 });
               };
             }
           });
         },
       }),
-      bt = _require_Lexical.defineExtension({
-        build: function build(t, e, n) {
-          return D(e);
+      be = new Set([
+        _require_Lexical.SKIP_SELECTION_FOCUS_TAG,
+        _require_Lexical.SKIP_SCROLL_INTO_VIEW_TAG,
+      ]);
+    var Ce = _require_Lexical.defineExtension({
+        build: function build(e, t, n) {
+          return D(t);
+        },
+        config: _require_Lexical.safeCast({
+          $fixFocusOverselection: function $fixFocusOverselection() {
+            var t = require("Lexical").$getSelection();
+            if (require("Lexical").$isRangeSelection(t) && !t.isCollapsed()) {
+              var _n12 = require("Lexical").$getCaretRangeInDirection(
+                require("Lexical").$caretRangeFromSelection(t),
+                "next",
+              );
+              var _i4 = _n12.focus;
+              for (
+                require("Lexical").$isTextPointCaret(_i4) &&
+                  _n12.anchor.origin !== _i4.origin &&
+                  0 === _i4.offset &&
+                  (_i4 = require("Lexical").$rewindSiblingCaret(
+                    _i4.getSiblingCaret(),
+                  )),
+                  require("Lexical").$isSiblingCaret(_i4) &&
+                    _n12.anchor.origin !== _i4.origin &&
+                    require("Lexical").$isLineBreakNode(_i4.origin) &&
+                    (_i4 = require("Lexical").$rewindSiblingCaret(_i4));
+                require("Lexical").$isChildCaret(_i4) &&
+                _n12.anchor.origin !== _i4.origin;
+              )
+                _i4 = require("Lexical").$rewindSiblingCaret(
+                  require("Lexical").$getSiblingCaret(_i4.origin, "next"),
+                );
+              if (
+                (require("Lexical").$isSiblingCaret(_i4) &&
+                  require("Lexical").$isElementNode(_i4.origin) &&
+                  (_i4 = require("Lexical")
+                    .$normalizeCaret(
+                      require("Lexical").$getChildCaret(_i4.origin, "previous"),
+                    )
+                    .getFlipped()),
+                (_i4 = require("Lexical").$normalizeCaret(_i4)),
+                !_i4.isSamePointCaret(_n12.focus))
+              ) {
+                var _t13 = require("Lexical").$setSelectionFromCaretRange(
+                    require("Lexical").$getCaretRange(_n12.anchor, _i4),
+                  ),
+                  _o5 = require("Lexical").$getEditor().getRootElement(),
+                  _s5 =
+                    _o5 &&
+                    require("Lexical").getDOMSelection(
+                      _o5.ownerDocument.defaultView,
+                    );
+                _s5 &&
+                  require("Lexical").$updateDOMSelection(
+                    require("Lexical").$getPreviousSelection(),
+                    _t13,
+                    require("Lexical").$getEditor(),
+                    _s5,
+                    be,
+                    _o5,
+                  );
+              }
+            }
+          },
+          dateNow: Date.now,
+          disabled: !1,
+          thresholdMsec: 100,
+        }),
+        name: "@lexical/NormalizeTripleClickSelection",
+        register: function register(t, n, i) {
+          return R(function () {
+            var n = i.getOutput();
+            if (!n.disabled.value)
+              return t.registerRootListener(function (i) {
+                if (!i) return;
+                var o = 0;
+                var s = function s(e) {
+                  if (e ? 3 === e.detail : o > 0) {
+                    var _t14 = n.dateNow.peek()();
+                    o =
+                      (e && "mousedown" === e.type) ||
+                      _t14 - o <= n.thresholdMsec.peek()
+                        ? _t14
+                        : 0;
+                  }
+                  return o;
+                };
+                return require("Lexical").mergeRegister(
+                  t.registerCommand(
+                    require("Lexical").SELECTION_CHANGE_COMMAND,
+                    function () {
+                      return (
+                        s(null) && ((o = 0), n.$fixFocusOverselection.peek()()),
+                        !1
+                      );
+                    },
+                    require("Lexical").COMMAND_PRIORITY_BEFORE_CRITICAL,
+                  ),
+                  (function () {
+                    var e = ["mouseup", "mousedown"];
+                    return (
+                      e.forEach(function (e) {
+                        return i.addEventListener(e, s, !0);
+                      }),
+                      function () {
+                        return e.forEach(function (e) {
+                          return i.removeEventListener(e, s, !0);
+                        });
+                      }
+                    );
+                  })(),
+                );
+              });
+          });
+        },
+      }),
+      Oe = _require_Lexical.defineExtension({
+        build: function build(e, t, n) {
+          return D(t);
         },
         config: _require_Lexical.safeCast({
           disabled: !1,
           onReposition: void 0,
         }),
         name: "@lexical/utils/SelectionAlwaysOnDisplay",
-        register: function register(t, n, i) {
+        register: function register(e, n, i) {
           var o = i.getOutput();
-          return C(function () {
+          return R(function () {
             if (!o.disabled.value)
               return require("LexicalUtils").selectionAlwaysOnDisplay(
-                t,
+                e,
                 o.onReposition.value,
               );
           });
         },
       });
-    function Ot(t) {
-      return t.canIndent();
+    function Re(e) {
+      return e.canIndent();
     }
-    function Rt(n, i, o) {
+    function De(n, i, o) {
       if (o === void 0) {
-        o = Ot;
+        o = Re;
       }
       return require("Lexical").mergeRegister(
         n.registerCommand(
@@ -1419,9 +1537,9 @@ __d(
             i.preventDefault();
             var s = (function (n) {
               if (
-                n.getNodes().filter(function (e) {
+                n.getNodes().filter(function (t) {
                   return (
-                    require("Lexical").$isBlockElementNode(e) && e.canIndent()
+                    require("Lexical").$isBlockElementNode(t) && t.canIndent()
                   );
                 }).length > 0
               )
@@ -1435,14 +1553,14 @@ __d(
                     r,
                   );
               if (a.canIndent()) {
-                var _e13 = a.getKey();
-                var _n12 = require("Lexical").$createRangeSelection();
+                var _t15 = a.getKey();
+                var _n13 = require("Lexical").$createRangeSelection();
                 if (
-                  (_n12.anchor.set(_e13, 0, "element"),
-                  _n12.focus.set(_e13, 0, "element"),
-                  (_n12 =
-                    require("Lexical").$normalizeSelection__EXPERIMENTAL(_n12)),
-                  _n12.anchor.is(s))
+                  (_n13.anchor.set(_t15, 0, "element"),
+                  _n13.focus.set(_t15, 0, "element"),
+                  (_n13 =
+                    require("Lexical").$normalizeSelection__EXPERIMENTAL(_n13)),
+                  _n13.anchor.is(s))
                 )
                   return !0;
               }
@@ -1464,10 +1582,10 @@ __d(
             if (!require("Lexical").$isRangeSelection(s)) return !1;
             var r = "function" == typeof o ? o : o.peek();
             return require("LexicalUtils").$handleIndentAndOutdent(
-              function (t) {
-                if (r(t)) {
-                  var _e14 = t.getIndent() + 1;
-                  (!n || _e14 < n) && t.setIndent(_e14);
+              function (e) {
+                if (r(e)) {
+                  var _t16 = e.getIndent() + 1;
+                  (!n || _t16 < n) && e.setIndent(_t16);
                 }
               },
             );
@@ -1476,23 +1594,23 @@ __d(
         ),
       );
     }
-    var Ct = _require_Lexical.defineExtension({
-      build: function build(t, e, n) {
-        return D(e);
+    var Me = _require_Lexical.defineExtension({
+      build: function build(e, t, n) {
+        return D(t);
       },
       config: _require_Lexical.safeCast({
-        $canIndent: Ot,
+        $canIndent: Re,
         disabled: !1,
         maxIndent: null,
       }),
       name: "@lexical/extension/TabIndentation",
-      register: function register(t, e, n) {
+      register: function register(e, t, n) {
         var _n$getOutput2 = n.getOutput(),
           i = _n$getOutput2.disabled,
           o = _n$getOutput2.maxIndent,
           s = _n$getOutput2.$canIndent;
-        return C(function () {
-          if (!i.value) return Rt(t, o, s);
+        return R(function () {
+          if (!i.value) return De(e, o, s);
         });
       },
     });
@@ -1501,97 +1619,98 @@ __d(
       (exports.defineExtension = _require_Lexical.defineExtension),
       (exports.safeCast = _require_Lexical.safeCast),
       (exports.shallowMergeConfig = _require_Lexical.shallowMergeConfig),
-      (exports.$createHorizontalRuleNode = xt),
+      (exports.$createHorizontalRuleNode = Ee),
       (exports.$isDecoratorTextNode = F),
-      (exports.$isHorizontalRuleNode = Et),
+      (exports.$isHorizontalRuleNode = xe),
       (exports.AutoFocusExtension = M),
-      (exports.ClearEditorExtension = I),
-      (exports.DecoratorTextExtension = L),
+      (exports.ClearEditorExtension = $),
+      (exports.DecoratorTextExtension = k),
       (exports.DecoratorTextNode = _A),
       (exports.EditorStateExtension = K),
-      (exports.HorizontalRuleExtension = vt),
-      (exports.HorizontalRuleNode = _pt),
-      (exports.INSERT_HORIZONTAL_RULE_COMMAND = gt),
-      (exports.InitialStateExtension = ot),
-      (exports.LexicalBuilder = _lt),
-      (exports.NestedEditorExtension = St),
-      (exports.NodeSelectionExtension = ht),
-      (exports.NormalizeInlineElementsExtension = Nt),
-      (exports.SelectionAlwaysOnDisplayExtension = bt),
-      (exports.TabIndentationExtension = Ct),
-      (exports.applyFormatFromStyle = function (t, e, n) {
-        var i = e.fontWeight,
-          o = e.textDecoration.split(" "),
+      (exports.HorizontalRuleExtension = Se),
+      (exports.HorizontalRuleNode = _pe),
+      (exports.INSERT_HORIZONTAL_RULE_COMMAND = he),
+      (exports.InitialStateExtension = oe),
+      (exports.LexicalBuilder = _le),
+      (exports.NestedEditorExtension = ve),
+      (exports.NodeSelectionExtension = ge),
+      (exports.NormalizeInlineElementsExtension = Ne),
+      (exports.NormalizeTripleClickSelectionExtension = Ce),
+      (exports.SelectionAlwaysOnDisplayExtension = Oe),
+      (exports.TabIndentationExtension = Me),
+      (exports.applyFormatFromStyle = function (e, t, n) {
+        var i = t.fontWeight,
+          o = t.textDecoration.split(" "),
           s = "700" === i || "bold" === i,
           r = o.includes("line-through"),
-          a = "italic" === e.fontStyle,
+          a = "italic" === t.fontStyle,
           c = o.includes("underline"),
-          d = e.verticalAlign;
+          d = t.verticalAlign;
         return (
-          s && !t.hasFormat("bold") && t.toggleFormat("bold"),
-          r && !t.hasFormat("strikethrough") && t.toggleFormat("strikethrough"),
-          a && !t.hasFormat("italic") && t.toggleFormat("italic"),
-          c && !t.hasFormat("underline") && t.toggleFormat("underline"),
+          s && !e.hasFormat("bold") && e.toggleFormat("bold"),
+          r && !e.hasFormat("strikethrough") && e.toggleFormat("strikethrough"),
+          a && !e.hasFormat("italic") && e.toggleFormat("italic"),
+          c && !e.hasFormat("underline") && e.toggleFormat("underline"),
           "sub" !== d ||
-            t.hasFormat("subscript") ||
-            t.toggleFormat("subscript"),
+            e.hasFormat("subscript") ||
+            e.toggleFormat("subscript"),
           "super" !== d ||
-            t.hasFormat("superscript") ||
-            t.toggleFormat("superscript"),
-          n && !t.hasFormat(n) && t.toggleFormat(n),
-          t
+            e.hasFormat("superscript") ||
+            e.toggleFormat("superscript"),
+          n && !e.hasFormat(n) && e.toggleFormat(n),
+          e
         );
       }),
-      (exports.applyFormatToDom = function (t, e, n) {
+      (exports.applyFormatToDom = function (e, t, n) {
         if (n === void 0) {
-          n = k;
+          n = L;
         }
         for (var _ref19 of Object.entries(n)) {
-          var _i4 = _ref19[0];
-          var _o5 = _ref19[1];
-          t.hasFormat(_o5) && (e = P(e, _i4));
+          var _i5 = _ref19[0];
+          var _o6 = _ref19[1];
+          e.hasFormat(_o6) && (t = P(t, _i5));
         }
-        return e;
+        return t;
       }),
       (exports.batch = o),
       (exports.buildEditorFromExtensions = function () {
         for (
-          var _len2 = arguments.length, t = new Array(_len2), _key2 = 0;
+          var _len2 = arguments.length, e = new Array(_len2), _key2 = 0;
           _key2 < _len2;
           _key2++
         ) {
-          t[_key2] = arguments[_key2];
+          e[_key2] = arguments[_key2];
         }
-        return _lt.fromExtensions(t).buildEditor();
+        return _le.fromExtensions(e).buildEditor();
       }),
       (exports.computed = y),
-      (exports.effect = C),
-      (exports.getExtensionDependencyFromEditor = function (t, e) {
-        var n = _lt.fromEditor(t).getExtensionRep(e);
-        return (void 0 === n && z(303, e.name), n.getExtensionDependency());
+      (exports.effect = R),
+      (exports.getExtensionDependencyFromEditor = function (e, t) {
+        var n = _le.fromEditor(e).getExtensionRep(t);
+        return (void 0 === n && j(303, t.name), n.getExtensionDependency());
       }),
-      (exports.getKnownTypesAndNodes = function (e) {
+      (exports.getKnownTypesAndNodes = function (t) {
         var n = new Set(),
           i = new Set();
-        for (var _o6 of T(e)) {
-          var _e15 = "function" == typeof _o6 ? _o6 : _o6.replace;
-          (require("Lexical").getStaticNodeConfig(_e15),
-            n.add(_e15.getType()),
-            i.add(_e15));
+        for (var _o7 of I(t)) {
+          var _t17 = "function" == typeof _o7 ? _o7 : _o7.replace;
+          (require("Lexical").getStaticNodeConfig(_t17),
+            n.add(_t17.getType()),
+            i.add(_t17));
         }
         return { nodes: i, types: n };
       }),
-      (exports.getPeerDependencyFromEditor = ut),
-      (exports.getPeerDependencyFromEditorOrThrow = function (t, e) {
-        var n = ut(t, e);
-        return (void 0 === n && z(291, e), n);
+      (exports.getPeerDependencyFromEditor = ue),
+      (exports.getPeerDependencyFromEditorOrThrow = function (e, t) {
+        var n = ue(e, t);
+        return (void 0 === n && j(291, t), n);
       }),
       (exports.namedSignals = D),
-      (exports.registerClearEditor = _),
-      (exports.registerTabIndentation = Rt),
+      (exports.registerClearEditor = w),
+      (exports.registerTabIndentation = De),
       (exports.signal = m),
       (exports.untracked = a),
-      (exports.watchedSignal = j));
+      (exports.watchedSignal = z));
   },
   null,
 );

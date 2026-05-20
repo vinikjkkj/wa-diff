@@ -8,10 +8,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    function e(e, t) {
       switch (e) {
         case o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS:
-          return "whatsapp_status_organic_videos";
+          return t === !0
+            ? "whatsapp_status"
+            : "whatsapp_status_organic_videos";
         case o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL:
           return "whatsapp_channels";
         default:

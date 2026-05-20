@@ -245,17 +245,13 @@ __d(
           name: "country_codes",
           storageKey: null,
         },
-        R = [
-          {
-            alias: null,
-            args: null,
-            kind: "ScalarField",
-            name: "__typename",
-            storageKey: null,
-          },
-          _,
-          f,
-        ],
+        R = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
         L = {
           alias: null,
           args: null,
@@ -263,7 +259,25 @@ __d(
           kind: "LinkedField",
           name: "enforcement_target_data",
           plural: !1,
-          selections: R,
+          selections: [
+            R,
+            _,
+            f,
+            {
+              kind: "InlineFragment",
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "id",
+                  storageKey: null,
+                },
+              ],
+              type: "XWA2NewsletterAdminProfile",
+              abstractKey: null,
+            },
+          ],
           storageKey: null,
         };
       return {
@@ -474,7 +488,7 @@ __d(
                       kind: "LinkedField",
                       name: "content_data",
                       plural: !1,
-                      selections: R,
+                      selections: [R, _, f],
                       storageKey: null,
                     },
                   ],
@@ -526,7 +540,7 @@ __d(
           ],
         },
         params: {
-          id: "25987882310910935",
+          id: "26807357005541676",
           metadata: {},
           name: "WAWebMexFetchNewsletterEnforcementsJobQuery",
           operationKind: "query",

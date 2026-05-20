@@ -53,6 +53,7 @@ __d(
     "WAWebQuickReplyBridgeApi",
     "WAWebReachoutTimelockBridgeApi",
     "WAWebReactionsBridgeApi",
+    "WAWebScheduledMsgBridgeApi",
     "WAWebSettingsBridgeApi",
     "WAWebSocketBridgeApi",
     "WAWebStatusBridgeApi",
@@ -148,6 +149,7 @@ __d(
             o("WAWebUsernameBridgeApi").UsernameBridgeApi,
             o("WAWebPushBridgeApi").PushBridgeApi,
             o("WAWebQuickReplyBridgeApi").QuickReplyBridgeApi,
+            o("WAWebScheduledMsgBridgeApi").ScheduledMsgBridgeApi,
           ),
         ));
     }
