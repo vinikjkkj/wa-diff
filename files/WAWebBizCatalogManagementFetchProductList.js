@@ -1,11 +1,9 @@
 __d(
   "WAWebBizCatalogManagementFetchProductList",
   [
-    "Promise",
     "WALogger",
     "WAWebBizCatalogManagementFetchProductListQuery.graphql",
     "WAWebBizCatalogManagementParseProductGraphql",
-    "WAWebBizGatingUtils",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
@@ -16,42 +14,39 @@ __d(
       s,
       u,
       c,
-      d,
-      m = { type: "error" },
-      p =
+      d = { type: "error" },
+      m =
         e !== void 0
           ? e
           : (e = n("WAWebBizCatalogManagementFetchProductListQuery.graphql"));
-    function _(e) {
-      return o("WAWebBizGatingUtils").graphQLForGetProductListEnabled()
-        ? f(e).then(function (e) {
-            return e.type === "success"
-              ? (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "fetchProductList: success",
-                    ])),
-                ),
-                e)
-              : (e.type,
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      'fetchProductList: failed as "',
-                      '"',
-                    ])),
-                  e.type,
-                ),
-                e);
-          })
-        : (d || (d = n("Promise"))).resolve({ type: "not-enabled" });
+    function p(e) {
+      return _(e).then(function (e) {
+        return e.type === "success"
+          ? (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "fetchProductList: success",
+                ])),
+            ),
+            e)
+          : (e.type,
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  'fetchProductList: failed as "',
+                  '"',
+                ])),
+              e.type,
+            ),
+            e);
+      });
     }
-    function f(e) {
+    function _(e) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (t) {
           return t.type === "success"
-            ? g(t.token, e).then(function (e) {
+            ? f(t.token, e).then(function (e) {
                 return (
                   e.type !== "success" && e.type === "auth-failure"
                     ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
@@ -62,13 +57,13 @@ __d(
             : (t.type, t);
         });
     }
-    function g(e, t) {
+    function f(e, t) {
       var n;
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAWebRelayClient").fetchQuery(
-            p,
+            m,
             { request: t },
             {
               environmentType: "facebook",
@@ -81,13 +76,13 @@ __d(
         })
         .then(function (e) {
           var t;
-          if (e == null) return m;
+          if (e == null) return d;
           var r =
             (t = e.xfb_whatsapp_catalog_product_list) == null ||
             (t = t.product_list) == null
               ? void 0
               : t.products;
-          if (r == null) return m;
+          if (r == null) return d;
           var a = r
             .map(function (e) {
               return n(
@@ -114,11 +109,11 @@ __d(
               ? { type: "auth-failure" }
               : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                 ? { type: "graphql-error", error: e }
-                : m
+                : d
           );
         });
     }
-    l.fetchProductList = _;
+    l.fetchProductList = p;
   },
   98,
 );

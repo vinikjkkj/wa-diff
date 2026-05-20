@@ -11,6 +11,7 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
+    "WAWebUprPaymentKeySyncGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -57,10 +58,15 @@ __d(
                       };
                     })
                   );
-                if (
+                var r =
                   o("WAWebABProps").getABPropConfigValue(
                     "payments_br_pix_phase_1_seller_sync_enabled",
-                  ) !== !0
+                  ) === !0;
+                if (
+                  !r &&
+                  !o(
+                    "WAWebUprPaymentKeySyncGating",
+                  ).isCustomPaymentMethodsSyncEnabled()
                 )
                   return (
                     o("WALogger").WARN(
@@ -76,30 +82,30 @@ __d(
                       };
                     })
                   );
-                var r = 0,
-                  a = 0,
-                  i = t.map(function (e) {
+                var a = 0,
+                  i = 0,
+                  l = t.map(function (e) {
                     var t;
                     if (e.operation !== "set")
                       return (
-                        r++,
+                        a++,
                         {
                           actionState:
                             o("WASyncdConst").SyncActionState.Unsupported,
                         }
                       );
-                    var i =
+                    var r =
                       (t = e.value.customPaymentMethodsAction) == null
                         ? void 0
                         : t.customPaymentMethods;
-                    return i == null
-                      ? (a++,
+                    return r == null
+                      ? (i++,
                         o("WAWebSyncdIndexUtils").malformedActionValue(
                           n.collectionName,
                         ))
                       : (o("WAWebBackendApi").frontendFireAndForget(
                           "setCustomPaymentMethods",
-                          { customPaymentMethods: i },
+                          { customPaymentMethods: r },
                         ),
                         {
                           actionState:
@@ -107,25 +113,25 @@ __d(
                         });
                   });
                 return (
-                  r > 0 &&
+                  a > 0 &&
                     o("WALogger").WARN(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Custom Payment Methods sync: ",
                           " operations not supported",
                         ])),
-                      r,
+                      a,
                     ),
-                  a > 0 &&
+                  i > 0 &&
                     o("WALogger").WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
                           "Custom Payment Methods sync: ",
                           " malformed mutations",
                         ])),
-                      a,
+                      i,
                     ),
-                  i
+                  l
                 );
               },
             );

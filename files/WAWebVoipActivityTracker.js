@@ -176,17 +176,11 @@ __d(
             t,
             S != null ? S : "none",
           ),
-            U());
+            W());
         }
       }
     }
     function F() {
-      return L;
-    }
-    function O() {
-      return b;
-    }
-    function B() {
       if (!L) return null;
       if (k == null)
         return (
@@ -196,7 +190,7 @@ __d(
                 "[voip:activityTracker] consumed, no ANR occurred",
               ])),
           ),
-          W(),
+          O(),
           null
         );
       var e = S,
@@ -217,7 +211,7 @@ __d(
           t != null ? t : "none",
           n != null ? n : "none",
         ),
-        W(),
+        O(),
         {
           lastVoipActivity: e,
           lastVoipActivityTimestampSec: n,
@@ -225,7 +219,7 @@ __d(
         }
       );
     }
-    function W() {
+    function O() {
       ((b = null),
         (v = null),
         (S = null),
@@ -239,7 +233,7 @@ __d(
             ])),
         ));
     }
-    function q() {
+    function B() {
       P ||
         ((I = null),
         (T = null),
@@ -254,7 +248,7 @@ __d(
             ])),
         ));
     }
-    function U() {
+    function W() {
       P &&
         ($ ||
           (($ = !0),
@@ -269,7 +263,7 @@ __d(
             D != null ? D : "none",
           )));
     }
-    function V(e, t) {
+    function q(e, t) {
       if (P) {
         var n = e,
           r = t != null ? n + ":" + t : n;
@@ -285,13 +279,7 @@ __d(
           ));
       }
     }
-    function H() {
-      return P;
-    }
-    function G() {
-      return I;
-    }
-    function z() {
+    function U() {
       if (!P) return null;
       var e = D,
         t = null;
@@ -307,11 +295,11 @@ __d(
           e != null ? e : "none",
           t != null ? t : "none",
         ),
-        j(),
+        V(),
         { lastVoipUiActivity: e, lastVoipUiActivityTimestampSec: t }
       );
     }
-    function j() {
+    function V() {
       ((I = null),
         (T = null),
         (D = null),
@@ -325,8 +313,8 @@ __d(
             ])),
         ));
     }
-    function K() {
-      (W(), j(), (E = null));
+    function H() {
+      (O(), V(), (E = null));
     }
     ((l.VoipActivity = y),
       (l.VoipUiActivity = C),
@@ -334,18 +322,13 @@ __d(
       (l.trackActivity = M),
       (l.trackCallStateChange = w),
       (l.recordFirstAnrTimestamp = A),
-      (l.isActivityTrackingActive = F),
-      (l.getLastActivity = O),
-      (l.consumeActivityData = B),
-      (l.clearActivityTracking = W),
-      (l.startUiActivityTracking = q),
-      (l.freezeUiActivityOnFirstAnr = U),
-      (l.trackUiActivity = V),
-      (l.isUiActivityTrackingActive = H),
-      (l.getLastUiActivity = G),
-      (l.consumeUiActivityData = z),
-      (l.clearUiActivityTracking = j),
-      (l.clearAllActivityTracking = K));
+      (l.consumeActivityData = F),
+      (l.clearActivityTracking = O),
+      (l.startUiActivityTracking = B),
+      (l.trackUiActivity = q),
+      (l.consumeUiActivityData = U),
+      (l.clearUiActivityTracking = V),
+      (l.clearAllActivityTracking = H));
   },
   98,
 );

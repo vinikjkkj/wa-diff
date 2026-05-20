@@ -2,21 +2,35 @@ __d(
   "WAWebCustomPaymentMethods",
   [
     "WAWebEventEmitter",
+    "WAWebPaymentMethodTypeRegistry",
     "WAWebQuickReplySmartDefaults",
     "WAWebUserPrefsCustomPaymentMethods",
+    "WAWebUserPrefsTypes",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "custom_payment_methods_change",
       s = (function (t) {
         function n() {
-          return t.apply(this, arguments) || this;
+          var e;
+          return (
+            (e = t.call(this) || this),
+            o(
+              "WAWebPaymentMethodTypeRegistry",
+            ).registerPaymentMethodSmartDefault(
+              o("WAWebUserPrefsTypes").WACustomPaymentMethodType.PIX_KEY,
+              o("WAWebQuickReplySmartDefaults").getOrUpdatePixKeySmartDefault,
+            ),
+            e
+          );
         }
         babelHelpers.inheritsLoose(n, t);
         var r = n.prototype;
         return (
           (r.setCustomPaymentMethods = function (n) {
             (o("WAWebUserPrefsCustomPaymentMethods").setCustomPaymentMethods(n),
-              o("WAWebQuickReplySmartDefaults").getOrUpdatePixKeySmartDefault(),
+              o(
+                "WAWebPaymentMethodTypeRegistry",
+              ).runAllPaymentMethodSmartDefaults(),
               this.trigger(e));
           }),
           n

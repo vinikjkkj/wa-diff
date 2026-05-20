@@ -251,9 +251,7 @@ __d(
       }
       return M.NonSTUN;
     }
-    ((l.RELAY_PROTO_UDP = u),
-      (l.CONNECTION_TIMEOUT_MS = c),
-      (l.MAX_BUFFER_SIZE = d),
+    ((l.CONNECTION_TIMEOUT_MS = c),
       (l.ConnectionState = m),
       (l.getConnectionIdentifier = p),
       (l.createEmptyConnectionStats = _),
@@ -271,7 +269,6 @@ __d(
       (l.replaceDtlsFingerprint = T),
       (l.removeIceCandidates = D),
       (l.dataToArrayBuffer = x),
-      (l.addIceCandidates = P),
       (l.createAnswerSdp = N),
       (l.PacketType = M),
       (l.inspectPacketType = w));

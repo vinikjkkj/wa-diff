@@ -2,6 +2,7 @@ __d(
   "WAWebApiStatus",
   [
     "Promise",
+    "WAArrayUtils",
     "WAJids",
     "WALogger",
     "WATimeUtils",
@@ -21,7 +22,6 @@ __d(
     "asyncToGeneratorRuntime",
     "countWhere",
     "justknobx",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -103,27 +103,31 @@ __d(
                               ),
                       });
                     }),
-                    m = r("lodash").groupBy(d, function (e) {
-                      var t;
+                    m = o("WAArrayUtils").groupBy(d, function (e) {
+                      var t, n;
                       return e.from.isStatus() && e.author != null
                         ? e.author.toString()
-                        : (t = o("WAWebMsgGetters").getSender(e)) != null
+                        : (t =
+                              (n = o("WAWebMsgGetters").getSender(e)) == null
+                                ? void 0
+                                : n.toString()) != null
                           ? t
                           : e.from.toString();
                     }),
                     p = [];
-                  for (var _ in m) {
-                    var f = m[_],
-                      g = r("countWhere")(f, function (e) {
+                  for (var _ of m) {
+                    var f = _[0],
+                      g = _[1],
+                      h = r("countWhere")(g, function (e) {
                         return e.ack < o("WAWebAck").ACK.READ;
                       }),
-                      h = f[f.length - 1].t;
+                      y = g[g.length - 1].t;
                     p.push({
-                      id: o("WAWebWidFactory").createWid(_),
-                      unreadCount: g,
-                      totalCount: f.length,
-                      t: h,
-                      statusMsgs: f,
+                      id: o("WAWebWidFactory").createWid(f),
+                      unreadCount: h,
+                      totalCount: g.length,
+                      t: y,
+                      statusMsgs: g,
                     });
                   }
                   return p;

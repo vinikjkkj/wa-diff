@@ -121,6 +121,7 @@ __d(
               (p = yield o(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
               ).prepareDeferredAdCreationEntrypoint(p, t)),
+            h(d),
             n == null || n(),
             function (e) {
               return u.jsx(
@@ -142,7 +143,14 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(t, a, i, l) {
+    function h(e) {
+      (e === "FIRST_TIME_WAA_ELIGIBLE" &&
+        o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplCancel(),
+        (e === "HAS_FB_ADS_NO_FB_ACCESS_TOKEN" ||
+          e === "HAS_FB_ADS_WAA_ACTIVE") &&
+          o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplSuccess());
+    }
+    function y(t, a, i, l) {
       var s = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var i, s, d, p;
@@ -261,7 +269,7 @@ __d(
         },
       });
     }
-    ((l.resolveAccountType = _), (l.createBizNativeAdsFlowLoadable = h));
+    ((l.resolveAccountType = _), (l.createBizNativeAdsFlowLoadable = y));
   },
   98,
 );

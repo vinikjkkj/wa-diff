@@ -61,15 +61,7 @@ __d(
         l = Math.floor(Math.log2((i * o * a) / (2.5 * e)));
       return Math.max(1, Math.min(l, s));
     }
-    function L(e) {
-      if (e == null || e === "") return !1;
-      try {
-        return new URL(e).host === _;
-      } catch (e) {
-        return !1;
-      }
-    }
-    function E(t, n, o) {
+    function L(t, n, o) {
       var a = r("WAWebL10N").getNormalizedLocale();
       return o
         ? g +
@@ -85,7 +77,7 @@ __d(
             a
         : r("WAWebURLUtils").build(h, { q: t + "," + n, z: e, hl: a });
     }
-    function k(e) {
+    function E(e) {
       var t = e.height,
         n = e.isDarkTheme,
         o = e.lat,
@@ -106,10 +98,10 @@ __d(
         L = c + "x" + f,
         E;
       _ != null ? (E = _) : i != null && i > 0 ? (E = R(i, o, c, f)) : (E = s);
-      var k = { zoom: E.toString(), size: L, scale: g.toString(), language: h };
-      ((k.key = r("WAWebURLUtils").GSM_API_KEY),
-        l ? (k.markers = S) : (k.center = y));
-      var T = I(k, n);
+      var I = { zoom: E.toString(), size: L, scale: g.toString(), language: h };
+      ((I.key = r("WAWebURLUtils").GSM_API_KEY),
+        l ? (I.markers = S) : (I.center = y));
+      var T = k(I, n);
       if (i != null && i > 0) {
         var D = b({ lat: o, lng: a, numPoints: u, radiusMeters: i }),
           x = v(D),
@@ -118,11 +110,11 @@ __d(
       }
       return T;
     }
-    function I(e, t) {
+    function k(e, t) {
       var n = r("WAWebURLUtils").build(f, e);
       return t ? n + "&" + y : n;
     }
-    ((l.isGoogleStaticMapUrl = L), (l.getMapUrl = E), (l.getMapImgSrcUrl = k));
+    ((l.getMapUrl = L), (l.getMapImgSrcUrl = E));
   },
   98,
 );

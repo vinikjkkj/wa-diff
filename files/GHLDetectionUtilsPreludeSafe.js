@@ -17,7 +17,10 @@ __d(
         var e = document.body || document.documentElement;
         if (e != null) {
           var t = document.createElement("iframe");
-          t.style.display = "none";
+          ((t.style.display = "none"),
+            window.Env != null &&
+              "p9fk3wmn" in window.Env &&
+              ((t.src = "about:blank"), (t.srcdoc = "")));
           try {
             (e.appendChild(t),
               (s = t.contentWindow.String),

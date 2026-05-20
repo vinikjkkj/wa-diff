@@ -26,6 +26,7 @@ __d(
     "WAWebJobsStorage",
     "WAWebLocalStorage",
     "WAWebLogForCrash",
+    "WAWebLogStorageSizeForCrash",
     "WAWebLogoutReasonConstants",
     "WAWebLruMediaStorageUtils",
     "WAWebMediaStore",
@@ -140,6 +141,7 @@ __d(
                     V,
                   ));
               }),
+              o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
               }),

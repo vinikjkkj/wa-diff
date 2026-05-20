@@ -13,11 +13,12 @@ __d(
         : !1;
     }
     function c() {
-      return u()
-        ? o("WAWebABProps").getABPropConfigValue(
-            "non_wa_contact_invite_cta_enabled",
-          ) === s
-        : !1;
+      return (
+        u() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "non_wa_contact_invite_cta_enabled",
+        ) === s
+      );
     }
     ((l.isOutContactInviteEnabled = u), (l.isContactEditInviteCtaEnabled = c));
   },

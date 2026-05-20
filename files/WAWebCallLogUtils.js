@@ -385,25 +385,31 @@ __d(
     }
     function D(e) {
       if (e.length === 0) return [];
+      var t = e.filter(function (e) {
+        return (
+          e.callOutcome !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
+        );
+      });
+      if (t.length === 0) return [];
       for (
-        var t = e.map(function (e) {
+        var n = t.map(function (e) {
             return r("WANullthrows")(
               o("WAWebFrontendMsgGetters").getAsCallLog(e),
               "[mergeCallRecords] record is not a call log record",
             );
           }),
-          n = t.map(k),
-          a = [],
-          i = 0,
-          l = [t[0].unsafe()],
-          s = 1;
-        s < t.length;
-        s++
+          a = n.map(k),
+          i = [],
+          l = 0,
+          s = [n[0].unsafe()],
+          u = 1;
+        u < n.length;
+        u++
       )
-        I(n[i], n[s])
-          ? l.push(t[s].unsafe())
-          : (a.push({ mergedMsgs: l }), (i = s), (l = [t[s].unsafe()]));
-      return (a.push({ mergedMsgs: l }), a);
+        I(a[l], a[u])
+          ? s.push(n[u].unsafe())
+          : (i.push({ mergedMsgs: s }), (l = u), (s = [n[u].unsafe()]));
+      return (i.push({ mergedMsgs: s }), i);
     }
     var x = 1e5,
       $ = 1e4,

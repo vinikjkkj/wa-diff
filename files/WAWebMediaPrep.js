@@ -814,6 +814,7 @@ __d(
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.OK,
+                    msg: O,
                   }
                 );
               O && (O.ack = o("WAWebAck").ACK.FAILED);

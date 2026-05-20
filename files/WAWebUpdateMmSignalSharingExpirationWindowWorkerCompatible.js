@@ -15,9 +15,7 @@ __d(
     function c(e, t) {
       return s()(e, t);
     }
-    ((l.getInstance = s),
-      (l.setInstance = u),
-      (l.updateMmSignalSharingExpirationWindow = c));
+    ((l.setInstance = u), (l.updateMmSignalSharingExpirationWindow = c));
   },
   98,
 );

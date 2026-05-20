@@ -329,12 +329,7 @@ __d(
       );
     }
     function re() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_catalog_graphql_get_product_list",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function oe() {
       return o("WAWebABProps").getABPropConfigValue(

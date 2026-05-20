@@ -14,7 +14,9 @@ __d(
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
     "WAWebDBMsgUtils",
+    "WAWebDBStoreMessageAssociations",
     "WAWebLinkify",
+    "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgDataUtils",
     "WAWebMsgGetters",
@@ -55,7 +57,7 @@ __d(
             ((l == null ? void 0 : l.toString()) || "-"),
         ),
         _ = o("WAWebQuarantineDataStore").extractQuarantineDataFromMessages(t),
-        h = ["chat", "message"],
+        h = ["chat", "message", "message-association"],
         y = _.length > 0 ? [].concat(h, ["quarantine-data"]) : h;
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -66,13 +68,14 @@ __d(
               function* (r) {
                 var a = r[0],
                   h = r[1],
-                  y = r[2];
+                  y = r[2],
+                  b = r[3];
                 d.addStage("got table lock");
-                var b = yield a.get(l.toString());
+                var v = yield a.get(l.toString());
                 if (
-                  (d.addStage("got chat"), !l.isStatus() && (b != null || p(t)))
+                  (d.addStage("got chat"), !l.isStatus() && (v != null || p(t)))
                 ) {
-                  var v = g(b, t, l);
+                  var S = g(v, t, l);
                   (o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -81,12 +84,12 @@ __d(
                         "",
                       ])),
                     l.toLogString(),
-                    b != null,
+                    v != null,
                   ),
-                    yield a.createOrMerge(l.toString(), v));
+                    yield a.createOrMerge(l.toString(), S));
                 }
                 d.addStage("got messages meta");
-                var S = h
+                var R = h
                     .all({
                       reverse: !i,
                       limit: 1,
@@ -99,7 +102,7 @@ __d(
                         e.length === 0 ? m : e[0]
                       );
                     }),
-                  R = h
+                  L = h
                     .between(["internalId"], s, u, {
                       limit: 1,
                       reverse: !i,
@@ -113,13 +116,13 @@ __d(
                           : o("WAWebDBMessageUtils").getInChatMsgId(e[0])
                       );
                     }),
-                  L = yield (c || (c = n("Promise"))).all([S, R]),
-                  E = L[0],
-                  k = L[1];
+                  E = yield (c || (c = n("Promise"))).all([R, L]),
+                  k = E[0],
+                  I = E[1];
                 d.addStage("got boundaries");
-                var I = i ? E - t.length : E + 1,
-                  T = i ? k - t.length : k + 1,
-                  D = yield o("WAPromiseMap").promiseMap(
+                var T = i ? k - t.length : k + 1,
+                  D = i ? I - t.length : I + 1,
+                  x = yield o("WAPromiseMap").promiseMap(
                     t,
                     (function () {
                       var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -133,7 +136,7 @@ __d(
                             msg: r,
                             chatId: l.toString(),
                             hasLink: o("WAWebLinkify").hasHttpLink(e),
-                            rowId: I + t,
+                            rowId: T + t,
                             inChatMsgId: o(
                               "WAWebMsgGetters",
                             ).getIsNewsletterMsg(e)
@@ -150,7 +153,7 @@ __d(
                                       isNewsletterStatus: e.isNewsletterStatus,
                                     }),
                                   )
-                              : T +
+                              : D +
                                 t +
                                 o(
                                   "WAWebDBGroupHistoryPreProcessor",
@@ -166,11 +169,17 @@ __d(
                   );
                 return (
                   d.addStage("messages ready for storing in db"),
-                  yield h.bulkCreate(D),
+                  yield h.bulkCreate(x),
+                  o(
+                    "WAWebMessageAssociationGatingUtils",
+                  ).isMessageAssociationInfraEnabled() &&
+                    (yield o(
+                      "WAWebDBStoreMessageAssociations",
+                    ).bulkStoreMessageAssociations(x)),
                   yield o(
                     "WAWebQuarantineDataStore",
-                  ).bulkCreateOrReplaceQuarantineData(_, y),
-                  D
+                  ).bulkCreateOrReplaceQuarantineData(_, b),
+                  x
                 );
               },
             );

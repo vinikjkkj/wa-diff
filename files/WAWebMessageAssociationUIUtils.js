@@ -90,17 +90,17 @@ __d(
       var n = e.parentMsgKey
         ? o("WAWebMsgCollection").MsgCollection.get(e.parentMsgKey)
         : null;
-      switch (t) {
-        case o("WAWebMessageAssociation.flow").MessageAssociationType
-          .MEDIA_POLL:
-          return (
-            n != null &&
+      e: return t ===
+        o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
+        ? n != null &&
             n.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
             !p({ parentMsg: n })
-          );
-        default:
-          return !0;
-      }
+        : t ===
+            o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_ALBUM
+          ? n != null &&
+            n.type === o("WAWebMsgType").MSG_TYPE.ALBUM &&
+            !p({ parentMsg: n })
+          : !0;
     }
     ((l.getLowestAckState = s),
       (l.getHiddenAssociatedMessages = u),

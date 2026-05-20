@@ -66,7 +66,11 @@ __d(
       ],
       f = s.Mirrored(["CPF", "CNPJ", "EMAIL", "PHONE", "EVP"]),
       g = s.Mirrored(["PEER", "HISTORY"]),
-      h = s({ PIX_KEY: "pix_key" }),
+      h = s({
+        PIX_KEY: "pix_key",
+        CLABE: "CLABE",
+        ID_PAYMENT_ACCOUNT: "IDPAYMENTACCOUNT",
+      }),
       y = s.Mirrored(["ACTIVE", "INACTIVE"]),
       C = s.Mirrored(["HIDDEN", "VISIBLE"]),
       b = s.Mirrored(["NONE", "FIRST_WARNING", "SECOND_WARNING", "CAPPED"]),

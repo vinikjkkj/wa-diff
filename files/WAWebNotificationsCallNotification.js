@@ -21,6 +21,7 @@ __d(
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebUserPrefsMeUser",
+    "WAWebVoipCallsTabNavigateTo",
     "WAWebVoipGatingUtils",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWid",
@@ -106,7 +107,7 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return C({
+            return b({
               abortSignal: this.abortController.signal,
               groupCallParticipants: this.groupCallParticipants,
               groupJid: this.groupJid,
@@ -145,7 +146,7 @@ __d(
         }),
         (a.$WACallNotification$p_1 = function (t) {
           var e,
-            n = y(this.groupJid, this.groupCallParticipants).toString(),
+            n = C(this.groupJid, this.groupCallParticipants).toString(),
             r = this.isVideo
               ? s
                   ._(/*BTDS*/ "Incoming video call from {caller_name}", [
@@ -231,7 +232,10 @@ __d(
           )
           .catch(r("WAWebNoop"));
     }
-    var g = (function (e) {
+    function g() {
+      o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({});
+    }
+    var h = (function (e) {
       function t(t) {
         var n,
           r = t.groupCallParticipants,
@@ -275,7 +279,7 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return C({
+            return b({
               abortSignal: this.abortController.signal,
               groupCallParticipants: this.groupCallParticipants,
               groupJid: this.groupJid,
@@ -295,7 +299,7 @@ __d(
               : o("WAWebWidFormat").widToFormattedUser(this.wid);
           if (this.isGroup) {
             var n,
-              a = y(this.groupJid, this.groupCallParticipants).toString(),
+              a = C(this.groupJid, this.groupCallParticipants).toString(),
               i = this.isVideo
                 ? s
                     ._(/*BTDS*/ "Missed video call from {caller_name}", [
@@ -313,6 +317,8 @@ __d(
               tag: "missed_" + this.msgId,
               title: a,
               body: i,
+              doNotOpenChat: !0,
+              onClick: g,
             };
           }
           var l = this.isVideo
@@ -324,6 +330,8 @@ __d(
             tag: "missed_" + this.msgId,
             title: t,
             body: l,
+            doNotOpenChat: !0,
+            onClick: g,
           };
         }),
         (a.shouldShowBanner = function () {
@@ -361,12 +369,12 @@ __d(
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);
-    function h(e) {
+    function y(e) {
       return o(
         "WAWebNotificationController",
-      ).WANotificationController.triggerNotification(new g(e));
+      ).WANotificationController.triggerNotification(new h(e));
     }
-    function y(e, t) {
+    function C(e, t) {
       if (e != null) {
         var n = r("WAWebGroupMetadataCollection").get(e);
         if ((n == null ? void 0 : n.subject) != null && n.subject !== "")
@@ -385,7 +393,7 @@ __d(
           )
         : r("fbs")._(/*BTDS*/ "Group call");
     }
-    function C(t) {
+    function b(t) {
       var r = t.abortSignal,
         a = t.groupCallParticipants,
         i = t.groupJid,
@@ -415,7 +423,7 @@ __d(
     }
     ((l.showCallNotification = d),
       (l.cancelCallNotification = m),
-      (l.showMissedCallNotification = h));
+      (l.showMissedCallNotification = y));
   },
   226,
 );

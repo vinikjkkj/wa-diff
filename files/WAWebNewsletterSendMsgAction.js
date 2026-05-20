@@ -388,6 +388,7 @@ __d(
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.OK,
+                    msg: u,
                   }
                 );
               }

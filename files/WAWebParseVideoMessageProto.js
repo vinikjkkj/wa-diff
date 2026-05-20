@@ -7,10 +7,13 @@ __d(
     "WAWebBotBaseGating",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
+    "WAWebIsAlbumV2ReceiverEnabled",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMediaProtoUtils",
+    "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationGatingUtils",
     "WAWebMsgType",
+    "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -110,13 +113,28 @@ __d(
             ).getValidatedAssociationFieldsFromProto(n, t, a),
             A = w.associationParentMsgKey,
             F = w.associationType,
-            O = w.viewMode,
-            B = babelHelpers.extends({}, M, {
-              kind: "associatedVideo",
-              parentMsgKey: A,
-              associationType: F,
-              viewMode: O,
-            });
+            O = w.viewMode;
+          if (
+            F ===
+              o("WAWebMessageAssociation.flow").MessageAssociationType
+                .MEDIA_ALBUM &&
+            !o("WAWebIsAlbumV2ReceiverEnabled").isAlbumV2MsgReceiverEnabled(t)
+          )
+            return {
+              msgData: babelHelpers.extends({}, t, {
+                type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+                kind: o("WAWebMsgType").MsgKind.Unknown,
+                futureproofType: o("WAWebMsgType").MSG_TYPE.VIDEO,
+                viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+              }),
+              contextInfo: d,
+            };
+          var B = babelHelpers.extends({}, M, {
+            kind: "associatedVideo",
+            parentMsgKey: A,
+            associationType: F,
+            viewMode: O,
+          });
           return { msgData: B, contextInfo: d };
         }
         return { msgData: M, contextInfo: d };

@@ -7,12 +7,14 @@ __d(
     "WAWebBotBaseGating",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
+    "WAWebIsAlbumV2ReceiverEnabled",
     "WAWebIsPhotoPollReceiverEnabled",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMediaProtoUtils",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationGatingUtils",
     "WAWebMsgType",
+    "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -117,6 +119,21 @@ __d(
                 type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
                 kind: o("WAWebMsgType").MsgKind.Unknown,
                 futureproofType: o("WAWebMsgType").MSG_TYPE.IMAGE,
+              }),
+              contextInfo: c,
+            };
+          if (
+            N ===
+              o("WAWebMessageAssociation.flow").MessageAssociationType
+                .MEDIA_ALBUM &&
+            !o("WAWebIsAlbumV2ReceiverEnabled").isAlbumV2MsgReceiverEnabled(t)
+          )
+            return {
+              msgData: babelHelpers.extends({}, t, {
+                type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+                kind: o("WAWebMsgType").MsgKind.Unknown,
+                futureproofType: o("WAWebMsgType").MSG_TYPE.IMAGE,
+                viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
               }),
               contextInfo: c,
             };

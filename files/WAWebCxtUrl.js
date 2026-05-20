@@ -30,8 +30,6 @@ __d(
     }
     ((l.getGroupInviteGrowthLockedFaqUrl = u),
       (l.getCommunityNotAvailableFaqUrl = c),
-      (l.getGroupSuspensionAppealsFaqUrl = d),
-      (l.getCommunitySuspensionAppealsFaqUrl = m),
       (l.getSuspensionAppealsFaqUrl = p));
   },
   98,

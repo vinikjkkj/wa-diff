@@ -52,7 +52,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
-    "lodash",
     "react",
   ],
   function (t, n, r, o, a, i, l, s, u) {
@@ -806,7 +805,8 @@ __d(
                     .FROM_CONVERSATION,
                   pttResult: e,
                   pttDuration: Math.round(this.duration) * 1e3,
-                  pttSize: r("lodash").round((t = a.size) != null ? t : 0, -3),
+                  pttSize:
+                    Math.round(((t = a.size) != null ? t : 0) / 1e3) * 1e3,
                   pttStop: this._draftPreviewSeen,
                   pttDraftPlayCnt: this._draftPlayCount,
                   pttDraftSeekCnt: this._draftSeekCount,

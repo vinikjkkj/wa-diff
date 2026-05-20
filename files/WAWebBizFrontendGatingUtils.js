@@ -5,6 +5,7 @@ __d(
     "WAWebContactUtils",
     "WAWebMobilePlatforms",
     "WAWebPrimaryFeaturesModel",
+    "WAWebUprPaymentKeySyncGating",
     "WAWebWamEnumBizPlatform",
   ],
   function (t, n, r, o, a, i, l) {
@@ -94,6 +95,26 @@ __d(
         )
       );
     }
+    function h() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+          .customPaymentMethodsSyncSupport &&
+        o(
+          "WAWebUprPaymentKeySyncGating",
+        ).isCustomPaymentMethodsSyncEnabledForCountry("MX")
+      );
+    }
+    function y() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+          .customPaymentMethodsSyncSupport &&
+        o(
+          "WAWebUprPaymentKeySyncGating",
+        ).isCustomPaymentMethodsSyncEnabledForCountry("ID")
+      );
+    }
     ((l.isOrderDetailsPaymentInstructionsSyncEnabled = e),
       (l.isCustomPaymentMethodsSyncEnabled = s),
       (l.isPixInQuickReplyEnabled = u),
@@ -103,7 +124,9 @@ __d(
       (l.isCopyPixCodeBuyerLoggingEnabled = p),
       (l.isPixOnWebEnabled = _),
       (l.isCTWASMBListsMultiSelectEnabled = f),
-      (l.isCTWASMBListsDropdownApplicationFixEnabled = g));
+      (l.isCTWASMBListsDropdownApplicationFixEnabled = g),
+      (l.isClabeSyncEnabled = h),
+      (l.isIdPaymentAccountSyncEnabled = y));
   },
   98,
 );

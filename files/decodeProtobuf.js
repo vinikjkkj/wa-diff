@@ -33,8 +33,10 @@ __d(
         : null;
     }
     function d(e, t, n) {
-      if (e !== o("WAProtoUtils").typeToEncType(t))
-        throw new Error("FormatError: " + n + " encoded with wire type " + e);
+      if (e !== o("WAProtoUtils").typeToEncType(t)) {
+        var r = new Error("FormatError: " + n + " encoded with wire type " + e);
+        throw (r.stack, r);
+      }
     }
     function m(e, t, n) {
       switch (t) {
@@ -82,10 +84,12 @@ __d(
     }
     function p(e, t, n, r, o) {
       var a = e.readVarInt(o);
-      if (a < t || a >= n)
-        throw new Error(
+      if (a < t || a >= n) {
+        var i = new Error(
           "FormatError: " + r + " encoded with out-of-range value " + a,
         );
+        throw (i.stack, i);
+      }
       return a;
     }
     function _(e, t) {

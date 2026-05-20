@@ -21,48 +21,55 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e, t, r) {
-      return (d || (d = n("Promise"))).all(
+    var e, s, u, c, d, m;
+    function p(e, t, r) {
+      return (m || (m = n("Promise"))).all(
         t.map(function (t) {
-          return p(e, t, r);
+          return _(e, t, r);
         }),
       );
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = yield f(e, t, r);
-          return (
-            a.messageSendResult !==
-              o("WAWebSendMsgResultAction").SendMsgResult.OK ||
-              (d || (d = n("Promise"))).all(
-                yield o(
-                  "WAWebAssociatedMessagesRevokeUtils",
-                ).getAssociatedChildMessageRevokePromises(t, function (t) {
-                  return f(e, t, r);
-                }),
-              ),
-            a
-          );
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          o("WAWebAssociatedMessagesRevokeUtils")
+            .getAssociatedChildMessageRevokePromises(r, function (e) {
+              return g(t, e, a);
+            })
+            .then(function (e) {
+              return (m || (m = n("Promise"))).all(e);
+            })
+            .catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter] Failed to revoke associated child messages",
+                    ])),
+                )
+                .tags("newsletter")
+                .sendLogs("newsletter-revoke-child-messages-fail");
+            });
+          var i = yield g(t, r, a);
+          return i;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          if (!o("WAWebMsgActionCapability").canRevokeNewsletterMsg(n))
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (!o("WAWebMsgActionCapability").canRevokeNewsletterMsg(t))
             return (
               o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "sendNewsletterRevokeMsg: msg cannot be revoked",
                   ])),
               ),
@@ -71,13 +78,13 @@ __d(
                   .ERROR_CANCELLED,
               }
             );
-          var a = n.serverId;
-          if (a == null)
+          var r = t.serverId;
+          if (r == null)
             return (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[sendNewsletterRevokeMsg] missing serverId",
                     ])),
                 )
@@ -88,29 +95,29 @@ __d(
                   .ERROR_CANCELLED,
               }
             );
-          var i = o("WAWebUserPrefsMeUser").getMeUser(),
-            l = h(n, r, i);
+          var a = o("WAWebUserPrefsMeUser").getMeUser(),
+            i = y(t, n, a);
           try {
-            var d = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
-                t.id.toJid(),
+            var l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+                e.id.toJid(),
               ),
               m = yield o(
                 "WAWebNewsletterSendMessageJob",
               ).sendNewsletterMessageJob({
-                newsletterJid: d,
-                messageId: n.id.id,
-                isContentMedia: n.mediaObject != null,
+                newsletterJid: l,
+                messageId: t.id.id,
+                isContentMedia: t.mediaObject != null,
                 type: "revoke",
-                isWamoSub: n.isWamoSub,
+                isWamoSub: t.isWamoSub,
               });
             return m.success
-              ? yield y({ chat: t, msgToBeRevoked: n, revokeMsg: l, me: i })
+              ? yield C({ chat: e, msgToBeRevoked: t, revokeMsg: i, me: a })
               : m.ack.error === "404"
-                ? b({ chat: t, msgToBeRevoked: n, clearMedia: r })
+                ? v({ chat: e, msgToBeRevoked: t, clearMedia: n })
                 : (o("WALogger")
                     .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "[newsletter] Failed to send message, ",
                           " from server",
                         ])),
@@ -118,7 +125,7 @@ __d(
                     )
                     .tags("newsletter")
                     .sendLogs("newsletter-send-revoke-message-fail-server"),
-                  l.updateAck(o("WAAckLevel").ACK.FAILED, !0),
+                  i.updateAck(o("WAAckLevel").ACK.FAILED, !0),
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.ERROR_NETWORK,
@@ -127,14 +134,14 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[newsletter] Failed to send message",
                     ])),
                 )
                 .tags("newsletter")
                 .sendLogs("newsletter-send-revoke-message-fail-client"),
-              l.updateAck(o("WAAckLevel").ACK.FAILED, !0),
+              i.updateAck(o("WAAckLevel").ACK.FAILED, !0),
               {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                   .ERROR_UNKNOWN,
@@ -142,10 +149,10 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       var a = new (r("WAWebMsgKey"))({
           id: r("WAWebMsgKey").newId_DEPRECATED(),
           remote: e.id.remote,
@@ -170,12 +177,12 @@ __d(
         };
       return new (o("WAWebMsgModel").Msg)(s);
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.me,
             r = e.msgToBeRevoked,
@@ -201,15 +208,15 @@ __d(
             }
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.clearMedia,
             r = e.msgToBeRevoked;
@@ -224,10 +231,10 @@ __d(
             }
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.sendNewsletterRevokeMsgs = m), (l.sendNewsletterRevokeMsg = p));
+    ((l.sendNewsletterRevokeMsgs = p), (l.sendNewsletterRevokeMsg = _));
   },
   98,
 );

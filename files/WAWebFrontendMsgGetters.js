@@ -27,9 +27,9 @@ __d(
     "WAWebProductCatalogCatalogConstants",
     "WAWebProtobufsAICommon.pb",
     "WAWebStickerPremiumStatus",
+    "WAWebStringTruncation",
     "WAWebTemplateButtonSubtype",
     "WAWebUserPrefsMeUser",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -98,66 +98,67 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
-            a = e[2],
-            i = e[3],
-            l = e[4],
-            s = e[5],
-            u = e[6],
-            c = e[7],
-            d = e[8],
-            m = e[9],
-            p = e[10],
-            _ = e[11],
-            f = e[12],
-            g = e[13],
-            h = e[14],
-            C = e[15],
-            b = e[16];
-          if ((m || p) && !o("WAWebOrderStatus").hasOrderStatusButton(t))
-            return n === o("WAWebMsgType").MSG_TYPE.CHAT ? i : l;
+            r = e[2],
+            a = e[3],
+            i = e[4],
+            l = e[5],
+            s = e[6],
+            u = e[7],
+            c = e[8],
+            d = e[9],
+            m = e[10],
+            p = e[11],
+            _ = e[12],
+            f = e[13],
+            g = e[14],
+            h = e[15],
+            C = e[16];
+          if ((d || m) && !o("WAWebOrderStatus").hasOrderStatusButton(t))
+            return n === o("WAWebMsgType").MSG_TYPE.CHAT ? a : i;
           switch (n) {
             case "chat":
             case "interactive_response":
             case "automated_greeting_message":
-              return i;
+              return a;
             case "image":
             case "video":
             case "ptv":
             case "document":
             case "sticker-pack":
-              return l;
+              return i;
             case "location":
-              return u ? s : void 0;
+              return s ? l : void 0;
             case "payment":
-              return c == null ? void 0 : c.body;
+              return u == null ? void 0 : u.body;
             case "groups_v4_invite":
-              return s;
+              return l;
             case "list":
-              return _ == null ? void 0 : _.description;
+              return p == null ? void 0 : p.description;
             case "product":
-              return r("lodash").truncate(a, {
-                length: o("WAWebProductCatalogCatalogConstants")
+              return o("WAWebStringTruncation").truncateAtCodepoints(
+                r,
+                o("WAWebProductCatalogCatalogConstants")
                   .MAX_REPLY_PRODUCT_TITLE_LENGTH,
-              });
+              );
             case "hsm":
-              return i;
+              return a;
             case "template_button_reply":
-              return i;
+              return a;
             case "interactive":
-              return f != null ? y(t) : l;
+              return _ != null ? y(t) : i;
             case "native_flow":
               return y(t);
             case "poll_creation":
             case "poll_result_snapshot":
-              return d;
+              return c;
             case "newsletter_admin_invite":
-              return g == null ? void 0 : g.inviteMessage;
+              return f == null ? void 0 : f.inviteMessage;
             case "newsletter_follower_invite":
-              return h == null ? void 0 : h.inviteMessage;
+              return g == null ? void 0 : g.inviteMessage;
             case "event_creation":
-              return C;
+              return h;
             case "quarantined":
-              return b;
+              return C;
             default:
               return;
           }

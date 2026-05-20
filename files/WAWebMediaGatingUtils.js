@@ -58,40 +58,53 @@ __d(
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_original_photo_quality_upload_enabled",
+        "album_v2_forward_as_album_enabled",
       );
     }
     function c() {
+      return o("WAWebABProps").getABPropConfigValue("album_v2_sender_enabled");
+    }
+    function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "album_v2_receiving_enabled",
+      );
+    }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_original_photo_quality_upload_enabled",
+      );
+    }
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_sticky_hd_photo_setting_enabled",
       );
     }
-    function d(e) {
+    function _(e) {
       return e * 1024 * 1024;
     }
-    function m(e, t, n) {
+    function f(e, t, n) {
       return t ===
         o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
           .STATUS_TAB_CAMERA_PHOTO_LIBRARY
-        ? d(
+        ? _(
             o("WAWebABProps").getABPropConfigValue(
               "default_status_media_limit_mb",
             ),
           )
         : e === "audio"
-          ? d(o("WAWebABProps").getABPropConfigValue("default_audio_limit_mb"))
+          ? _(o("WAWebABProps").getABPropConfigValue("default_audio_limit_mb"))
           : e === "document" || e === "sticker-pack"
             ? n === !0
               ? o("WAWebServerPropConstants").VCARD_MAX_SIZE_KB * 1024
               : o("WAWebServerPropConstants").MAX_FILE_SIZE_BYTES
             : e === "video"
-              ? d(
+              ? _(
                   o("WAWebABProps").getABPropConfigValue(
                     "default_video_limit_mb",
                   ),
                 )
               : e === "image" || e === "sticker"
-                ? d(
+                ? _(
                     o("WAWebABProps").getABPropConfigValue(
                       "default_media_limit_mb",
                     ),
@@ -103,7 +116,7 @@ __d(
                     );
                   })();
     }
-    function p(e) {
+    function g(e) {
       if (
         o("WAWebChatGetters").getIsNewsletter(o("WAWebStateUtils").unproxy(e))
       ) {
@@ -156,26 +169,26 @@ __d(
       }
       return o("WAWebMsgType").ALL_MSG_TYPES_SET;
     }
-    function _() {
+    function h() {
       return typeof self.BigInt == "function";
     }
-    function f(e) {
+    function y(e) {
       var t = e.type.startsWith("video/");
-      return t && _();
+      return t && h();
     }
-    function g() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue("web_larger_link_previews");
     }
-    function h(e) {
+    function b(e) {
       var t = o("WAWebMmsMediaTypes").msgToMediaType({
         type: e.type,
         isGif: e.isGif,
         interactiveHeader: e.interactiveHeader,
         isNewsletter: r("WAWebWid").isNewsletter(e.to),
       });
-      return y(t);
+      return v(t);
     }
-    function y(e) {
+    function v(e) {
       switch (e) {
         case o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_IMAGE:
           return !0;
@@ -187,66 +200,69 @@ __d(
           return !1;
       }
     }
-    function C() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "media_viewer_accelerated_playback_enabled",
       );
     }
-    function b() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_video_comet_video_player_enabled",
       );
     }
-    function v() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_base_video_comet_video_player_enabled",
       );
     }
-    function S() {
+    function E() {
       return r("justknobx")._("1920");
     }
-    function R() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_download_mimetype_check_block_enabled",
       );
     }
-    function L() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_show_hd_photo");
     }
-    function E() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_hq_image_thumbnail_in_chat_scans",
       );
     }
-    function k() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_media_upload_retry_retries_count",
       );
     }
-    function I() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_enable_camera_capture_refresh",
       );
     }
     ((l.getMaxNumberSelectableMedia = e),
       (l.supportsMultipleUploads = s),
-      (l.isSendHQPhotoEnabled = u),
-      (l.isStickyHQPhotoSettingEnabled = c),
-      (l.getUploadLimit = m),
-      (l.getSupportedMediaTypesForChat = p),
-      (l.shouldUseWasmMediaWorkerForFile = f),
-      (l.shouldUseLargeHQPreviewInComposer = g),
-      (l.isThumbnailGenerationForMsgOnServerEnabled = h),
-      (l.isThumbnailGenerationOnServerEnabledForMediaType = y),
-      (l.isVideoPlaybackSpeedEnabled = C),
-      (l.isVideoCometVideoPlayerEnabled = b),
-      (l.isBaseVideoCometVideoPlayerEnabled = v),
-      (l.isDownloadMimeTypeCheckLogEnabled = S),
-      (l.isDownloadMimeTypeCheckBlockEnabled = R),
-      (l.isHdImageDualUploadConsumptionEnabled = L),
-      (l.getHQImageThumbnailInChatScans = E),
-      (l.getMediaUploadRetryCount = k),
-      (l.isCameraCaptureRefreshEnabled = I));
+      (l.isAlbumsV2ForwardAsAlbumEnabled = u),
+      (l.isAlbumV2SenderEnabled = c),
+      (l.isAlbumV2ReceivingEnabled = d),
+      (l.isSendHQPhotoEnabled = m),
+      (l.isStickyHQPhotoSettingEnabled = p),
+      (l.getUploadLimit = f),
+      (l.getSupportedMediaTypesForChat = g),
+      (l.shouldUseWasmMediaWorkerForFile = y),
+      (l.shouldUseLargeHQPreviewInComposer = C),
+      (l.isThumbnailGenerationForMsgOnServerEnabled = b),
+      (l.isThumbnailGenerationOnServerEnabledForMediaType = v),
+      (l.isVideoPlaybackSpeedEnabled = S),
+      (l.isVideoCometVideoPlayerEnabled = R),
+      (l.isBaseVideoCometVideoPlayerEnabled = L),
+      (l.isDownloadMimeTypeCheckLogEnabled = E),
+      (l.isDownloadMimeTypeCheckBlockEnabled = k),
+      (l.isHdImageDualUploadConsumptionEnabled = I),
+      (l.getHQImageThumbnailInChatScans = T),
+      (l.getMediaUploadRetryCount = D),
+      (l.isCameraCaptureRefreshEnabled = x));
   },
   98,
 );

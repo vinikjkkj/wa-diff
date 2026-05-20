@@ -38,6 +38,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
+    "err",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -167,9 +168,9 @@ __d(
         ((n = t.limitSharing) == null ? void 0 : n.sharingLimited) === !0 &&
         o("WAWebLimitSharingGatingUtils").isOpusEnabled()
       ) {
-        var r = o("WAWebABProps").getABPropConfigValue("opus_t");
+        var a = o("WAWebABProps").getABPropConfigValue("opus_t");
         o("WAWebOpusUtils")
-          .opusProcessChat(t.id.toString(), { beforeTimestamp: r })
+          .opusProcessChat(t.id.toString(), { beforeTimestamp: a })
           .catch(function (n) {
             o("WALogger")
               .ERROR(
@@ -180,7 +181,7 @@ __d(
                   ])),
                 t.id.toString(),
               )
-              .catching(n instanceof Error ? n : new Error(String(n)))
+              .catching(n instanceof Error ? n : r("err")(String(n)))
               .sendLogs("opus-guardrail-fail");
           });
       }

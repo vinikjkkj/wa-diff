@@ -12,10 +12,10 @@ __d(
     "WAWebOrderDetailProductLabel",
     "WAWebOrderDetails",
     "WAWebProductCatalogCatalogConstants",
+    "WAWebStringTruncation",
     "WAWebUserPrefsTypes",
     "WAWebVcardGetNameFromParsed",
     "fbs",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = ["conversation", "starred", "msgInfo"],
@@ -76,27 +76,29 @@ __d(
     function p(e) {
       var t = e.currencyCode,
         n = e.description,
-        a = e.priceAmount1000,
-        i = e.salePriceAmount1000,
-        l = e.title,
-        s;
-      if (t != null && a != null) {
-        var u = function (n) {
+        r = e.priceAmount1000,
+        a = e.salePriceAmount1000,
+        i = e.title,
+        l;
+      if (t != null && r != null) {
+        var s = function (n) {
           return o("WAWebCurrencyUtils").formatAmount1000(t, n);
         };
-        s = i != null ? u(i) + " ~" + u(a) + "~" : u(a);
+        l = a != null ? s(a) + " ~" + s(r) + "~" : s(r);
       } else
         n &&
-          (s = r("lodash").truncate(n, {
-            length: o("WAWebProductCatalogCatalogConstants")
+          (l = o("WAWebStringTruncation").truncateAtCodepoints(
+            n,
+            o("WAWebProductCatalogCatalogConstants")
               .MAX_REPLY_PRODUCT_DESC_LENGTH,
-          }));
+          ));
       return [
-        r("lodash").truncate(l, {
-          length: o("WAWebProductCatalogCatalogConstants")
+        o("WAWebStringTruncation").truncateAtCodepoints(
+          i,
+          o("WAWebProductCatalogCatalogConstants")
             .MAX_REPLY_PRODUCT_TITLE_LENGTH,
-        }),
-        s,
+        ),
+        l,
       ]
         .filter(Boolean)
         .join("\n");

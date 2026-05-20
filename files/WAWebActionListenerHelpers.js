@@ -300,22 +300,22 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return new (o(
-            "WAWebSnackbarDeleteUndoWamEvent",
-          ).SnackbarDeleteUndoWamEvent)({
-            snackbarActionType:
-              n === "shown"
-                ? o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
-                    .SNACKBAR_SHOWN
-                : o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
-                    .MESSAGE_UNDELETE,
-            isAGroup: o("WAWebChatGetters").getIsGroup(e),
-            messagesUndeleted: t.list.length,
-            threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
-              e.id.toJid(),
-            ),
-            mediaType: y(t.list),
-          }).commitAndWaitForFlush();
+          new (o("WAWebSnackbarDeleteUndoWamEvent").SnackbarDeleteUndoWamEvent)(
+            {
+              snackbarActionType:
+                n === "shown"
+                  ? o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
+                      .SNACKBAR_SHOWN
+                  : o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
+                      .MESSAGE_UNDELETE,
+              isAGroup: o("WAWebChatGetters").getIsGroup(e),
+              messagesUndeleted: t.list.length,
+              threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
+                e.id.toJid(),
+              ),
+              mediaType: y(t.list),
+            },
+          ).commit();
         })),
         S.apply(this, arguments)
       );
