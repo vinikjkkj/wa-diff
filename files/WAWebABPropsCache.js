@@ -8,7 +8,7 @@ __d(
     "WAWebABPropsGlobals",
     "WAWebABPropsParseConfigValue",
     "WAWebApiAbPropConfig",
-    "WAWebBackendWorkerClient",
+    "WAWebBackendWorkerInitState",
     "WAWebGroupABPropsCache",
     "WAWebRuntimeEnvironmentUtils",
     "cr:4941",
@@ -140,7 +140,7 @@ __d(
         r = Array.from(n.values()).map(function (e) {
           return { configCode: e.configCode, configValue: e.configValue };
         });
-      o("WAWebBackendWorkerClient").recordInitAbProps({
+      o("WAWebBackendWorkerInitState").recordInitAbProps({
         configs: r,
         urlSearch: window.location.search,
       });

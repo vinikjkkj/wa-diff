@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumEditType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageType",
+    "WAWebWamEnumPlatformType",
     "WAWebWamEnumReportingTokenValidationFailureReason",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,6 +31,7 @@ __d(
                   .REPORTING_TOKEN_VALIDATION_FAILURE_REASON,
               ],
               reportingTokenVersion: [9, e.TYPES.INTEGER],
+              senderPlatform: [14, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
             },
             [1, 1, 1],
             "regular",

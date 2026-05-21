@@ -1,6 +1,6 @@
 __d(
   "WebBloksHasteTTRCAnalytics",
-  ["QPLJoinUtils", "QuickPerformanceLogger", "Random", "guid", "qpl"],
+  ["QuickPerformanceLogger", "Random", "guid", "qpl"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = Math.round(o("Random").random() * 1e3),
@@ -16,17 +16,15 @@ __d(
           (n.setMarkerId = function (t) {
             t === 720000263 ? (this.$1 = c) : (this.$1 = u);
           }),
-          (n.onStart = function (n, a) {
-            ((e || (e = r("QuickPerformanceLogger"))).markerStart(
+          (n.onStart = function (n, o) {
+            ((e || (e = r("QuickPerformanceLogger"))).markerStartForJoin(
               this.$1,
-              s,
-              n,
-              { cancelExisting: !0 },
+              d,
+              { instanceKey: s, monotonicTimestamp: n, cancelExisting: !0 },
             ),
-              o("QPLJoinUtils").setJoinId(e, this.$1, d, { instanceKey: s }),
               e.markerAnnotate(
                 this.$1,
-                { string: { app_id: a } },
+                { string: { app_id: o } },
                 { instanceKey: s },
               ));
           }),

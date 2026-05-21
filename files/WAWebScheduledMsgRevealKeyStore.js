@@ -4,7 +4,6 @@ __d(
     "WAWebBackendApi",
     "WAWebSchemaScheduledMsgRevealKey",
     "asyncToGeneratorRuntime",
-    "countWhere",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -97,27 +96,12 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(e);
-          return r("countWhere")(t, function (e) {
-            return e.status === "PENDING" || e.status === "FAILED";
-          });
-        })),
-        b.apply(this, arguments)
-      );
-    }
     ((l.storeRevealKey = e),
       (l.getRevealKeyByMsgId = u),
       (l.getRevealKeyByRevealKeyId = d),
       (l.getRevealKeysForChat = p),
       (l.updateRevealKeyStatus = f),
-      (l.deleteRevealKey = h),
-      (l.countPendingKeysForChat = C));
+      (l.deleteRevealKey = h));
   },
   98,
 );

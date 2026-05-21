@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAMediaCalculateFilehash",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDBMessageSerialization",
@@ -77,9 +76,9 @@ __d(
               g.length,
             );
             var h = _ != null ? _ : o("WATimeUtils").unixTime(),
-              y = o("WAWebABProps").getABPropConfigValue(
-                "group_history_messages_time_limit_secs",
-              ),
+              y = o(
+                "WAWebGroupHistoryGating",
+              ).getGroupHistoryMessagesTimeLimitSecs(f),
               C = h - y,
               b = new Set(
                 g.map(function (e) {

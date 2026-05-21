@@ -276,7 +276,6 @@ __d(
                     : o("WATimeUtils").castToUnixTime(0),
                 status: "PENDING",
                 createdAt: o("WATimeUtils").unixTime(),
-                isOrphan: 0,
                 senderJid: s != null ? s : null,
               }),
               o("WALogger").LOG(

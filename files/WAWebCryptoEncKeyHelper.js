@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WAWebBackendEventBus",
-    "WAWebBackendWorkerClient",
+    "WAWebBackendWorkerInitState",
     "WAWebCryptoEncryptionSaltHelper",
     "WAWebDbEncryptionKey",
     "WAWebInvocationInterface",
@@ -46,7 +46,7 @@ __d(
     }
     function _(e) {
       return (
-        o("WAWebBackendWorkerClient").recordInitDbFinalKey({ salt: e }),
+        o("WAWebBackendWorkerInitState").recordInitDbFinalKey({ salt: e }),
         o("WAWebInvocationInterface")
           .get()
           .generateFinalDbEncryptionAndFtsKey(e)

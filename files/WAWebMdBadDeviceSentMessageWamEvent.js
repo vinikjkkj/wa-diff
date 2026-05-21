@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumEncryptionTypeCode",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageType",
+    "WAWebWamEnumPlatformType",
     "WAWebWamEnumRevokeType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,6 +28,7 @@ __d(
             messageType: [6, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
             peerType: [1, o("WAWebWamEnumDeviceType").DEVICE_TYPE],
             revokeType: [7, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
+            senderPlatform: [10, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
           },
           [1, 1, 1],
           "regular",

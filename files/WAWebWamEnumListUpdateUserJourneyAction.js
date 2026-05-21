@@ -9,6 +9,8 @@ __d(
       MORE_BOTTOM_SHEET_OPEN: 3,
       MORE_BUTTON_TAP: 4,
       LIST_ITEM_TAP: 5,
+      CREATE_LIST_TAP: 6,
+      EDIT_TAP: 7,
     });
     i.LIST_UPDATE_USER_JOURNEY_ACTION = e;
   },

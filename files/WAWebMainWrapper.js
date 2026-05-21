@@ -4,7 +4,6 @@ __d(
     "FBLogger",
     "WALogger",
     "WAWebABProps",
-    "WAWebBackendWorkerClient",
     "WAWebEmojiAssetLoader",
     "WAWebEmojiSetup",
     "WAWebExecApiCmd",
@@ -18,6 +17,7 @@ __d(
     "WAWebProfilePicThumbCollection",
     "WAWebSWBus",
     "WAWebSWBusActions",
+    "WAWebStartBackendWorker",
     "WAWebUserPrefsGeneral",
     "WAWebWamLoginReporter",
     "cr:13598",
@@ -78,7 +78,7 @@ __d(
                   "kaleidoscopeClassify",
                 );
             }),
-        o("WAWebBackendWorkerClient").startBackendWorker(),
+        o("WAWebStartBackendWorker").startBackendWorker(),
         u());
       try {
         n("cr:37102") == null || n("cr:37102").run();

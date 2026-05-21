@@ -25,14 +25,13 @@ __d(
       d,
       m,
       p = 100,
-      _ = 100,
-      f = 5;
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+      _ = 5;
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i;
           if (!(n <= a)) {
             var l = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
@@ -85,19 +84,19 @@ __d(
                 var n;
                 return Math.min(e, (n = t.serverId) != null ? n : 1 / 0);
               }, 1 / 0);
-              if (!(m >= n)) return g(t, m, a);
+              if (!(m >= n)) return f(t, m, a);
             }
           }
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
           if (
             (n === void 0 && (n = !1),
@@ -139,10 +138,9 @@ __d(
                 ).getFilledStatusCursor(e)) != null
                   ? i
                   : p - 1;
-              if (!(c >= l)) {
-                var d = Math.max(l - _, c);
+              if (!(c >= l))
                 try {
-                  (yield g(e, l + 1, d),
+                  (yield f(e, l + 1, c),
                     o(
                       "WAWebNewsletterStatusProcessingUtils",
                     ).syncFilledStatusCursor(e, l));
@@ -160,20 +158,19 @@ __d(
                     .tags("newsletter", "status")
                     .sendLogs("newsletter-status-gapfill-failed");
                 }
-              }
             }
           }
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    var b = new Set();
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    var C = new Set();
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r;
           if (
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
@@ -196,8 +193,8 @@ __d(
                 ).syncFilledStatusCursor(e, t);
                 return;
               }
-              if (!b.has(e)) {
-                b.add(e);
+              if (!C.has(e)) {
+                C.add(e);
                 try {
                   (o("WALogger").LOG(
                     c ||
@@ -211,23 +208,23 @@ __d(
                     String(t),
                     String(a),
                   ),
-                    yield y(e, t));
+                    yield h(e, t));
                 } finally {
-                  b.delete(e);
+                  C.delete(e);
                 }
               }
             }
           }
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R() {
-      return L.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           if (
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
@@ -272,7 +269,7 @@ __d(
                               (t = e.statusMetadata) == null
                                 ? void 0
                                 : t.lastStatusServerId;
-                          return y(n, r);
+                          return h(n, r);
                         }),
                       );
                     },
@@ -281,16 +278,16 @@ __d(
                     return e.apply(this, arguments);
                   };
                 })(),
-                { batchSize: f },
+                { batchSize: _ },
               ));
           }
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.fillNewsletterStatusGap = y),
-      (l.fillGapFromIncomingStanza = v),
-      (l.fillSubscribedStatusGaps = R));
+    ((l.fillNewsletterStatusGap = h),
+      (l.fillGapFromIncomingStanza = b),
+      (l.fillSubscribedStatusGaps = S));
   },
   98,
 );

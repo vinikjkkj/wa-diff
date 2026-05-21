@@ -17,6 +17,7 @@ __d(
     "WAWebWamEnumMessageType",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "WAWebWamEnumPairedMediaType",
+    "WAWebWamEnumPlatformType",
     "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
@@ -129,6 +130,7 @@ __d(
               receiverDefaultDisappearingDuration: [12, e.TYPES.INTEGER],
               revokeType: [20, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
               senderDefaultDisappearingDuration: [11, e.TYPES.INTEGER],
+              senderPlatform: [64, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
               serverAddressingMode: [
                 35,
                 o("WAWebWamEnumAddressingMode").ADDRESSING_MODE,

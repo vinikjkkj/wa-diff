@@ -13,6 +13,7 @@ __d(
     "WAWebWamEnumPlaceholderPopulationType",
     "WAWebWamEnumPlaceholderReasonType",
     "WAWebWamEnumPlaceholderType",
+    "WAWebWamEnumPlatformType",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
@@ -69,6 +70,7 @@ __d(
                 1,
                 o("WAWebWamEnumPlaceholderType").PLACEHOLDER_TYPE,
               ],
+              senderPlatform: [25, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
               typeOfGroup: [
                 13,
                 o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM,

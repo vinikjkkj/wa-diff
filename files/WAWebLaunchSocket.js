@@ -9,7 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendEventBusWorkerCompatible",
-    "WAWebBackendWorkerClient",
+    "WAWebBackendWorkerInitState",
     "WAWebBlocklistMigration",
     "WAWebBridgeInitialization",
     "WAWebBrokerGlobalAppState",
@@ -307,7 +307,7 @@ __d(
           var e = o("WAWebSchemaVersions").getSchemaVersions(),
             t = yield o("WAWebCryptoEncKeyHelper").getSalt();
           t != null &&
-            o("WAWebBackendWorkerClient").recordInitDbInit({
+            o("WAWebBackendWorkerInitState").recordInitDbInit({
               versionsToSet: e,
               salt: t,
             });

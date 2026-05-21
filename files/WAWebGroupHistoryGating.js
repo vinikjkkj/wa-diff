@@ -81,7 +81,22 @@ __d(
         "group_history_send_after_join",
       );
     }
-    function h() {
+    var h = 1209600;
+    function y(e) {
+      var t = o("WAWebABProps").getABPropConfigValue(
+        "group_history_messages_time_limit_secs",
+      );
+      if (t !== h || e == null) return t;
+      try {
+        return o("WAWebGroupABProps").getGroupABPropConfigValue(
+          o("WAWebWidToJid").widToGroupJid(e),
+          "group_history_messages_time_limit_secs_group_level",
+        );
+      } catch (e) {
+        return t;
+      }
+    }
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_receiver_dedup",
       );
@@ -96,7 +111,8 @@ __d(
       (l.isOutOfWindowPinSenderEnabled = _),
       (l.isOutOfWindowPinsReceiverEnabled = f),
       (l.isGroupHistoryPostJoinSenderEnabled = g),
-      (l.isGroupHistoryReceiverDedupEnabled = h));
+      (l.getGroupHistoryMessagesTimeLimitSecs = y),
+      (l.isGroupHistoryReceiverDedupEnabled = C));
   },
   98,
 );

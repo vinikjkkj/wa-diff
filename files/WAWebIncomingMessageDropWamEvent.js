@@ -13,6 +13,7 @@ __d(
     "WAWebWamEnumInvisibleMessageCategoryType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDropReasonType",
+    "WAWebWamEnumPlatformType",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumTypeOfGroupEnum",
@@ -72,6 +73,7 @@ __d(
               processingDeferred: [22, e.TYPES.BOOLEAN],
               retryCount: [7, e.TYPES.INTEGER],
               revokeType: [8, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
+              senderPlatform: [23, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
               sessionScope: [
                 21,
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,

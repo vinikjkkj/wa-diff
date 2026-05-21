@@ -9,6 +9,7 @@ __d(
     "WAWebDBMessageRange",
     "WAWebDBMessageUtils",
     "WAWebEphemeralKeepInChatUtils",
+    "WAWebGroupHistoryGating",
     "WAWebGroupHistorySupportedMessageTypesUtil",
     "WAWebMessageAssociation.flow",
     "WAWebModelStorageUtils",
@@ -28,12 +29,12 @@ __d(
         o("WAWebMessageAssociation.flow").MessageAssociationType
           .HEVC_VIDEO_DUAL_UPLOAD,
       ];
-    function d(e) {
-      var t = e != null ? e : o("WATimeUtils").unixTime(),
-        n = o("WAWebABProps").getABPropConfigValue(
-          "group_history_messages_time_limit_secs",
+    function d(e, t) {
+      var n = t != null ? t : o("WATimeUtils").unixTime(),
+        r = o("WAWebGroupHistoryGating").getGroupHistoryMessagesTimeLimitSecs(
+          e,
         );
-      return t - n;
+      return n - r;
     }
     function m(e, t) {
       if (
@@ -79,7 +80,7 @@ __d(
                 "group_history_message_count_limit",
               ),
             ),
-            c = d(a),
+            c = d(t, a),
             p = [];
           return (
             yield o("WAWebModelStorageUtils")

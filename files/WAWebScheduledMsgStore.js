@@ -23,7 +23,6 @@ __d(
                 chatId: e.chatId,
                 encIv: e.encIv,
                 encPayload: e.encPayload,
-                isOrphan: 0,
                 msgId: e.msgId,
                 revealKey: e.revealKey,
                 revealKeyId: e.revealKeyId,
@@ -43,15 +42,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            e.encPayload == null ||
-            e.encIv == null ||
-            e.revealKey == null ||
-            e.encPayload.byteLength === 0 ||
-            e.encIv.byteLength === 0 ||
-            e.revealKey.byteLength === 0
-          )
-            return null;
+          if (e.revealKey.byteLength === 0) return null;
           var t = yield o(
             "WAWebScheduledMsgDecryptInnerProto",
           ).decryptAndDecodeRevealPayload(e.encPayload, e.encIv, e.revealKey);

@@ -39,8 +39,7 @@ __d(
         g = t.voteCount,
         h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
         y = h.pollDetailsOptionTextSize,
-        C = h.pollDetailsTagTextSize,
-        b = o("WAWebFormatConfiguration").Conversation({
+        C = o("WAWebFormatConfiguration").Conversation({
           links: s != null ? s : [],
           phoneNumbers: [],
           selectable: !0,
@@ -67,7 +66,7 @@ __d(
           c.jsx(o("WAWebEmojiText.react").EmojiText, {
             text: u,
             selectable: !0,
-            formatters: b,
+            formatters: C,
             className: (e || (e = r("stylex")))(
               d.option,
               o("WAWebUISpacing").uiMargin.end6,
@@ -82,16 +81,8 @@ __d(
               {
                 children:
                   a == null
-                    ? c.jsx(p, {
-                        count: g,
-                        isCurrentLeader: i,
-                        fontSizeXStyle: C,
-                      })
-                    : c.jsx(_, {
-                        count: g,
-                        isCorrectOption: a,
-                        fontSizeXStyle: C,
-                      }),
+                    ? c.jsx(p, { count: g, isCurrentLeader: i })
+                    : c.jsx(_, { count: g, isCorrectOption: a }),
               },
             ),
           ),
@@ -99,68 +90,55 @@ __d(
       });
     }
     m.displayName = m.name + " [from " + i.id + "]";
-    function p(t) {
-      var n = o("react-compiler-runtime").c(13),
-        a = t.count,
-        i = t.fontSizeXStyle,
-        l = t.isCurrentLeader,
-        u;
-      n[0] !== l
-        ? ((u = l
+    function p(e) {
+      var t = o("react-compiler-runtime").c(8),
+        n = e.count,
+        r = e.isCurrentLeader,
+        a;
+      t[0] !== r
+        ? ((a = r
             ? [
                 o("WAWebTag.react").TagTheme.Primary,
                 o("WAWebTag.react").TagIconName.STAR,
               ]
             : [o("WAWebTag.react").TagTheme.Secondary, null]),
-          (n[0] = l),
-          (n[1] = u))
-        : (u = n[1]);
-      var d = u,
-        m = d[0],
-        p = d[1],
-        _;
-      n[2] !== i
-        ? ((_ = (e || (e = r("stylex"))).props(i)), (n[2] = i), (n[3] = _))
-        : (_ = n[3]);
-      var f;
-      n[4] !== a
-        ? ((f = s._(/*BTDS*/ '_j{"*":"{vote} votes","_1":"1 vote"}', [
-            s._plural(a, "vote"),
+          (t[0] = r),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l = i[0],
+        u = i[1],
+        d;
+      t[2] !== n
+        ? ((d = s._(/*BTDS*/ '_j{"*":"{vote} votes","_1":"1 vote"}', [
+            s._plural(n, "vote"),
           ])),
-          (n[4] = a),
-          (n[5] = f))
-        : (f = n[5]);
-      var g;
-      n[6] !== _ || n[7] !== f
-        ? ((g = c.jsx("span", babelHelpers.extends({}, _, { children: f }))),
-          (n[6] = _),
-          (n[7] = f),
-          (n[8] = g))
-        : (g = n[8]);
-      var h;
+          (t[2] = n),
+          (t[3] = d))
+        : (d = t[3]);
+      var m;
       return (
-        n[9] !== p || n[10] !== g || n[11] !== m
-          ? ((h = c.jsx(o("WAWebTag.react").Tag, {
-              theme: m,
-              icon: p,
-              children: g,
+        t[4] !== u || t[5] !== d || t[6] !== l
+          ? ((m = c.jsx(o("WAWebTag.react").Tag, {
+              theme: l,
+              icon: u,
+              children: d,
             })),
-            (n[9] = p),
-            (n[10] = g),
-            (n[11] = m),
-            (n[12] = h))
-          : (h = n[12]),
-        h
+            (t[4] = u),
+            (t[5] = d),
+            (t[6] = l),
+            (t[7] = m))
+          : (m = t[7]),
+        m
       );
     }
-    function _(t) {
-      var n = o("react-compiler-runtime").c(11),
-        a = t.count,
-        i = t.fontSizeXStyle,
-        l = t.isCorrectOption,
-        s;
-      n[0] !== l
-        ? ((s = l
+    function _(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n = e.count,
+        r = e.isCorrectOption,
+        a;
+      t[0] !== r
+        ? ((a = r
             ? [
                 o("WAWebTag.react").TagTheme.Primary,
                 o("WAWebTag.react").TagIconName.CHECK,
@@ -169,37 +147,26 @@ __d(
                 o("WAWebTag.react").TagTheme.Secondary,
                 o("WAWebTag.react").TagIconName.CLOSE,
               ]),
-          (n[0] = l),
-          (n[1] = s))
-        : (s = n[1]);
-      var u = s,
-        d = u[0],
-        m = u[1],
-        p;
-      n[2] !== i
-        ? ((p = (e || (e = r("stylex"))).props(i)), (n[2] = i), (n[3] = p))
-        : (p = n[3]);
-      var _;
-      n[4] !== a || n[5] !== p
-        ? ((_ = c.jsx("span", babelHelpers.extends({}, p, { children: a }))),
-          (n[4] = a),
-          (n[5] = p),
-          (n[6] = _))
-        : (_ = n[6]);
-      var f;
+          (t[0] = r),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l = i[0],
+        s = i[1],
+        u;
       return (
-        n[7] !== m || n[8] !== _ || n[9] !== d
-          ? ((f = c.jsx(o("WAWebTag.react").Tag, {
-              theme: d,
-              icon: m,
-              children: _,
+        t[2] !== n || t[3] !== s || t[4] !== l
+          ? ((u = c.jsx(o("WAWebTag.react").Tag, {
+              theme: l,
+              icon: s,
+              children: n,
             })),
-            (n[7] = m),
-            (n[8] = _),
-            (n[9] = d),
-            (n[10] = f))
-          : (f = n[10]),
-        f
+            (t[2] = n),
+            (t[3] = s),
+            (t[4] = l),
+            (t[5] = u))
+          : (u = t[5]),
+        u
       );
     }
     l.default = m;

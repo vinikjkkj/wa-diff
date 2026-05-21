@@ -66,6 +66,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebModelStorage",
     "WAWebNewsletterCommonGatingUtils",
+    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMetadataInitFromStorage",
     "WAWebOffdStorage",
     "WAWebOfflineHandler",
@@ -587,10 +588,13 @@ __d(
                       "clearStatusForRemovedContact",
                       {},
                     ),
-                      o("WAWebBackendApi").frontendFireAndForget(
-                        "fillSubscribedStatusGaps",
-                        {},
-                      ));
+                      o(
+                        "WAWebNewsletterGatingUtils",
+                      ).isNewsletterStatusReceiverEnabled() &&
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "fillSubscribedStatusGaps",
+                          {},
+                        ));
                   })
                   .catch(function (e) {
                     o("WALogger").WARN(

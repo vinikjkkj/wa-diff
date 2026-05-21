@@ -15,6 +15,7 @@ __d(
     "WAWebWamEnumInvisibleMessageCategoryType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDistributionEnumType",
+    "WAWebWamEnumPlatformType",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumStanzaType",
@@ -87,6 +88,7 @@ __d(
               processingDeferred: [29, e.TYPES.BOOLEAN],
               retryCount: [3, e.TYPES.INTEGER],
               revokeType: [10, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
+              senderPlatform: [30, o("WAWebWamEnumPlatformType").PLATFORM_TYPE],
               serverAddressingMode: [
                 18,
                 o("WAWebWamEnumAddressingMode").ADDRESSING_MODE,

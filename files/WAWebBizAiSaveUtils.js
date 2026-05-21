@@ -65,7 +65,7 @@ __d(
         return;
       }
       n.then(function (e) {
-        e.isSuccess ? t.onSuccess() : (c(), t.onError());
+        e.isSuccess ? (g(), t.onSuccess()) : (c(), t.onError());
       }).catch(function () {
         (c(), t.onError());
       });
