@@ -252,7 +252,6 @@ __d(
         };
       };
     ((l.sidneeAbrSelectQualityImpl = c),
-      (l.calculateRiskRewardResult = d),
       (l.calculateRewardResult = m),
       (l.calculateRiskResult = p));
   },

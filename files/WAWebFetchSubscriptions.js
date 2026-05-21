@@ -4,6 +4,7 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebFeatureFlagName",
     "WAWebFetchAdAccountToken",
     "WAWebFetchSubscriptionsQuery.graphql",
     "WAWebGraphQLServerError",
@@ -115,26 +116,32 @@ __d(
             : {
                 type: "success",
                 subscriptions: i.map(function (e) {
-                  var t, n, r, o, a, i, s, u;
+                  var t, n, r, a, i, s, u, c;
                   return {
                     expirationDate: (t = e.end_time) != null ? t : null,
                     id: (n = e.id) != null ? n : "",
                     status: y(e.status),
                     creationTime: (r = e.creation_time) != null ? r : null,
                     newMessageCappingEnabled:
-                      (o =
-                        (a = l.find(function (e) {
-                          return e.name === "NEW_CHATS_LIMIT";
+                      (a =
+                        (i = l.find(function (e) {
+                          return (
+                            o("WAWebFeatureFlagName").FeatureFlagName.cast(
+                              e.name,
+                            ) ===
+                            o("WAWebFeatureFlagName").FeatureFlagName
+                              .NEW_CHATS_LIMIT
+                          );
                         })) == null
                           ? void 0
-                          : a.enabled) != null
-                        ? o
+                          : i.enabled) != null
+                        ? a
                         : !1,
-                    tier: (i = e.tier) != null ? i : null,
+                    tier: (s = e.tier) != null ? s : null,
                     source: C(e.source),
                     isPlatformChanged:
-                      (s = e.is_platform_changed) != null ? s : null,
-                    startTime: (u = e.start_time) != null ? u : null,
+                      (u = e.is_platform_changed) != null ? u : null,
+                    startTime: (c = e.start_time) != null ? c : null,
                   };
                 }),
                 featureFlags: l.map(function (e) {

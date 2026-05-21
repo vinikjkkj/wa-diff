@@ -23,6 +23,8 @@ __d(
     "WAWebMessageReceiveWamEvent",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebOrderDetailsReceivedWamLogger",
+    "WAWebPaymentInfoReceivedWamLogger",
     "WAWebPaymentRequestWamLogger",
     "WAWebQbmIncomingMessageLogger",
     "WAWebRuntimeEnvironmentUtils",
@@ -570,6 +572,12 @@ __d(
             o(
               "WAWebGalaxyFlowWamLoggerUtils",
             ).logStructuredMessageReceivedWAMEvent(r),
+            o(
+              "WAWebOrderDetailsReceivedWamLogger",
+            ).logOrderDetailsReceivedWAMEvent(r),
+            o(
+              "WAWebPaymentInfoReceivedWamLogger",
+            ).logPaymentInfoReceivedWAMEvent(r),
             o("WAWebPaymentRequestWamLogger").logPaymentRequestReceivedWAMEvent(
               r,
             ),

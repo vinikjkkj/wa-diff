@@ -14,6 +14,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebStructuredMessageBuyerReceiveWamEvent",
     "WAWebStructuredMessageReceiveWamEvent",
     "WAWebWamCodegenWamEvent",
     "WAWebWamEnumBizPlatform",
@@ -36,15 +37,25 @@ __d(
       );
     }
     function c(e) {
+      var t, n, r;
+      return ((t = e.from) == null ? void 0 : t.isGroup()) === !0
+        ? "group"
+        : ((n = e.broadcastId) == null ? void 0 : n.isBroadcast()) === !0
+          ? "broadcast"
+          : ((r = e.from) == null ? void 0 : r.isNewsletter()) === !0
+            ? "newsletter"
+            : "individual";
+    }
+    function d(e) {
       var t;
       return (t = o("WAWebMsgGetters").getSender(e)) == null ? void 0 : t.user;
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o(
             "WAWebStructuredMessageReceiveWamEvent",
           ).StructuredMessageReceiveWamEvent)({
@@ -52,15 +63,30 @@ __d(
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
             messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
             bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-            messageClassAttributes: _(e),
-            businessOwnerJid: c(e),
+            messageClassAttributes: f(e),
+            businessOwnerJid: d(e),
           });
-          t.commit();
+          (t.commit(),
+            o("WAWebABProps").getABPropConfigValue(
+              "payments_br_p2m_buyer_logging_phase_2",
+            ) &&
+              new (o(
+                "WAWebStructuredMessageBuyerReceiveWamEvent",
+              ).StructuredMessageBuyerReceiveWamEvent)({
+                messageClass: o("WAWebWamEnumStructuredMessageClass")
+                  .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+                messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
+                messageClassAttributes: JSON.stringify({
+                  cta: r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW,
+                  is_template: e.templateId != null ? 1 : 0,
+                  chat_type: c(e),
+                }),
+              }).commit());
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
       var t,
         n = [];
       return (
@@ -81,12 +107,12 @@ __d(
         n.length === 0 ? null : n[0]
       );
     }
-    function _(e) {
+    function f(e) {
       var t,
         n,
         a,
         i,
-        l = p(e);
+        l = _(e);
       return JSON.stringify({
         cta: r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW,
         flow_id: l == null || (t = l.data) == null ? void 0 : t.flowId,
@@ -103,7 +129,7 @@ __d(
         extension_status: l == null || (i = l.data) == null ? void 0 : i.mode,
       });
     }
-    function f(e) {
+    function g(e) {
       try {
         var t, n, r;
         if ((t = e.from) != null && t.isLid()) {
@@ -123,7 +149,7 @@ __d(
         return (l = (s = e.from) == null ? void 0 : s.user) != null ? l : "";
       }
     }
-    function g(e) {
+    function h(e) {
       var t;
       if (e.contact.id == null)
         return o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN;
@@ -139,19 +165,19 @@ __d(
             ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT
             : o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.SMB;
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           yield (s || (s = n("Promise"))).all(
             t.map(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
                     u(t) &&
-                      (yield d(t).catch(function (t) {
+                      (yield m(t).catch(function (t) {
                         o("WALogger").WARN(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -170,16 +196,16 @@ __d(
             ),
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t, n, a, i) {
+    function b(e, t, n, a, i) {
       var l;
       new (o(
         "WAWebExtensionsStructuredMessageInteractionWamEvent",
       ).ExtensionsStructuredMessageInteractionWamEvent)({
-        bizPlatform: g(t),
-        businessOwnerJid: f(n),
+        bizPlatform: h(t),
+        businessOwnerJid: g(n),
         flowEntryPoint: o("WAWebWamEnumFlowEntryPoint").FLOW_ENTRY_POINT
           .MESSAGE_CTA,
         messageClass: o("WAWebWamEnumStructuredMessageClass")
@@ -207,13 +233,13 @@ __d(
         ),
       }).commit();
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       var r;
       new (o(
         "WAWebExtensionScreenProgressWamEvent",
       ).ExtensionScreenProgressWamEvent)({
-        bizPlatform: g(t),
-        businessOwnerJid: (r = f(n)) != null ? r : "",
+        bizPlatform: h(t),
+        businessOwnerJid: (r = g(n)) != null ? r : "",
         extensionCategory: JSON.stringify(e == null ? void 0 : e.categories),
         extensionRestoredFromCache: e == null ? void 0 : e.isRestoredFromCache,
         extensionScreenLength: e == null ? void 0 : e.screenLength,
@@ -233,7 +259,7 @@ __d(
         isSuccessScreen: e.isSuccess === !0,
       }).commit();
     }
-    function v(e) {
+    function S(e) {
       var t = e.bizPlatform,
         n = e.businessOwnerJid,
         r = e.clickType,
@@ -255,12 +281,12 @@ __d(
         14: 1,
       }).commit();
     }
-    ((l.getFlowBusinessPhoneNumber = f),
-      (l.getFlowsMaybeBizPlatform = g),
-      (l.logStructuredMessageReceivedWAMEvent = h),
-      (l.logStructuredMessageInteractionWAMEvent = C),
-      (l.logExtensionScreenProgressWAMEvent = b),
-      (l.logFlowsScreenActionWAMEvent = v));
+    ((l.getFlowBusinessPhoneNumber = g),
+      (l.getFlowsMaybeBizPlatform = h),
+      (l.logStructuredMessageReceivedWAMEvent = y),
+      (l.logStructuredMessageInteractionWAMEvent = b),
+      (l.logExtensionScreenProgressWAMEvent = v),
+      (l.logFlowsScreenActionWAMEvent = S));
   },
   98,
 );

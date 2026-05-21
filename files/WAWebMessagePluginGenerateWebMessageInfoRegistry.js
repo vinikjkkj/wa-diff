@@ -244,6 +244,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "scheduled_message_unschedule",
+          generateWebMessageInfo: null,
+        },
+        {
+          type: "protocol",
           subtype: "sender_revoke",
           generateWebMessageInfo: null,
         },

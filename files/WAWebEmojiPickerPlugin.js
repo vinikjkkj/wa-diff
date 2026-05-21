@@ -7,6 +7,7 @@ __d(
     "WAWebEmojiKeywordToUnicode",
     "WAWebEmojiVariantCollection",
     "WAWebLexicalTypeAheadRow.react",
+    "WAWebRecentEmojiCollection",
     "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
@@ -78,7 +79,8 @@ __d(
         L;
       t[4] !== C
         ? ((L = function (t) {
-            C(t);
+            (o("WAWebRecentEmojiCollection").RecentEmojiCollection.increment(t),
+              C(t));
           }),
           (t[4] = C),
           (t[5] = L))

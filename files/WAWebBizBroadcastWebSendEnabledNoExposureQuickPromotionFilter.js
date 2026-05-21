@@ -1,6 +1,6 @@
 __d(
   "WAWebBizBroadcastWebSendEnabledNoExposureQuickPromotionFilter",
-  ["WAWebBizGatingUtils", "WAWebCommonQPSurfacesTypes"],
+  ["WAWebBusinessBroadcastsGatingUtils", "WAWebCommonQPSurfacesTypes"],
   function (t, n, r, o, a, i, l) {
     var e = {
         reason:
@@ -10,7 +10,7 @@ __d(
         name: "whatsapp_smb_biz_broadcast_web_send_enabled_no_exposure",
         filter: function (n, r, a) {
           return o(
-            "WAWebBizGatingUtils",
+            "WAWebBusinessBroadcastsGatingUtils",
           ).isBizBroadcastSendWebEnabledNoExposure()
             ? o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
             : e;

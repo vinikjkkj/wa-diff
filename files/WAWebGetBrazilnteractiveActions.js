@@ -496,34 +496,34 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a;
+          var a, i;
           if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
-            var i = [];
+            var l = [];
             o("WAWebBizFrontendGatingUtils").isAPICopyPixCTAEnabled() &&
               E(t) &&
-              i.push(
+              l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               );
-            var l = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
-            (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(l) &&
+            var s = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
+            (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(s) &&
               I(t) &&
-              i.push(
+              l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
               ),
-              o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(l) &&
+              o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(s) &&
                 T(t) &&
-                i.push(
+                l.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .PAYMENT_LINK,
                 ),
               P(t) &&
-                i.push(
+                l.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .NATIVE,
                 ));
-            var s = JSON.stringify(i),
-              u = yield v(e, c),
-              d = new (o(
+            var u = JSON.stringify(l),
+              d = yield v(e, c),
+              m = new (o(
                 "WAWebPsStructuredMessageInteractionWamEvent",
               ).PsStructuredMessageInteractionWamEvent)({
                 bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
@@ -532,7 +532,7 @@ __d(
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
                 messageClassAttributes: JSON.stringify({
-                  order_funnel_id: u,
+                  order_funnel_id: d,
                   wa_pay_registered: !1,
                   is_template: !1,
                   is_cta_available: !0,
@@ -540,7 +540,7 @@ __d(
                     .P2MFlow.ORDER,
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
-                  accepted_pay_methods: s,
+                  accepted_pay_methods: u,
                   p2m_type: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
                   payment_method_choice: n,
                 }),
@@ -553,19 +553,14 @@ __d(
                         .USER_PAY_NOW,
                 messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
               });
-            if (
-              (d.commit(),
-              n ===
-                o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX)
-            ) {
-              var m;
+            (m.commit(),
               o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
                 isLoggingEnabled: o(
                   "WAWebBizFrontendGatingUtils",
                 ).isCopyPixCodeBuyerLoggingEnabled(
-                  (m = e.senderObj) == null ? void 0 : m.id.toJid(),
+                  (i = e.senderObj) == null ? void 0 : i.id.toJid(),
                 ),
-                psFunnelId: u,
+                psFunnelId: d,
                 attributes: {
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
@@ -575,7 +570,7 @@ __d(
                     .P2MFlow.ORDER,
                   currency: "BRL",
                   isTemplate: !1,
-                  acceptedPaymentMethod: i.map(function (e) {
+                  acceptedPaymentMethod: l.map(function (e) {
                     return e;
                   }),
                   p2mType: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
@@ -584,14 +579,18 @@ __d(
                   )[
                     o(
                       "WAWebGetMessageChatTypeFromWid",
-                    ).getMessageChatTypeFromWid(l.id)
+                    ).getMessageChatTypeFromWid(s.id)
                   ].toLowerCase(),
                 },
-                interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
-                  .COPY_PIX_CODE,
+                interaction:
+                  n ===
+                  o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX
+                    ? o("WAWebWamEnumInteractionType").INTERACTION_TYPE
+                        .COPY_PIX_CODE
+                    : o("WAWebWamEnumInteractionType").INTERACTION_TYPE
+                        .USER_PAY_NOW,
                 bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
-              });
-            }
+              }));
           }
         })),
         L.apply(this, arguments)

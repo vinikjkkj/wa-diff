@@ -3,10 +3,10 @@ __d(
   [
     "WALogger",
     "WALruCache",
+    "WAThrottle",
     "WAWebMediaStorage",
     "WAWebMediaTypes",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -39,7 +39,7 @@ __d(
                 (t.$3.delete(e), window.URL.revokeObjectURL(n));
               }
             }),
-            (this.$8 = r("lodash").throttle(
+            (this.$8 = o("WAThrottle").throttle(
               function () {
                 (t.$4.forEach(function (e) {
                   var n = t.$3.get(e);

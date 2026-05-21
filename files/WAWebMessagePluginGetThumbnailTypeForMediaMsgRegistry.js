@@ -306,6 +306,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "scheduled_message_unschedule",
+        getThumbnailTypeForMediaMsg: null,
+      },
+      {
+        type: "protocol",
         subtype: "sender_revoke",
         getThumbnailTypeForMediaMsg: null,
       },

@@ -6,6 +6,7 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WAMediaCalculateFilehash",
+    "WAThrottle",
     "WAWebCreateMediaUploadMetrics",
     "WAWebDownloadManagerErrors",
     "WAWebEnvironment",
@@ -31,7 +32,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -110,7 +110,7 @@ __d(
                 uploadStage: o("WAWebMediaTypes").UploadStage.FINALIZING,
               });
             },
-            C = r("lodash").throttle(function (e, t) {
+            C = o("WAThrottle").throttle(function (e, t) {
               var n = e.loaded + t;
               Number.isFinite(n) && m.consolidate({ loadedSize: n });
             }, o("WAWebMmsConst").FILE_PROGRESS_THROTTLE_WAIT_MS),

@@ -123,6 +123,7 @@ __d(
             return {
               msgProtobuf: u.wrappedProtobuf,
               scheduledMsgMetadata: {
+                kind: "schedule",
                 scheduledTimestampS: u.scheduledTimestampS,
                 revealKeyId: u.revealKeyId,
                 revealKey: u.revealKey,

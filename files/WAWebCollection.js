@@ -30,7 +30,7 @@ __d(
             throw r("err")(
               "Collection initialized without model. It is likely that you have a circular dependency. Set a breakpoint to find it and use inline `require` instead of `import` to avoid it.",
             );
-          ((o.modelClass = l), i && (o._comparator = i), o._reset());
+          ((o.modelClass = l), i && (o._comparator = i), o.$Collection$p_1());
           var s = o;
           return (
             Object.defineProperty(o, "length", {
@@ -101,14 +101,14 @@ __d(
                       g === !0 &&
                         ((c = l && c === l ? l.attributes : c),
                         e.set(c, a),
-                        t.$Collection$p_1(function (t) {
+                        t.$Collection$p_2(function (t) {
                           t.add([e]);
                         })),
                       (n[S] = e));
                   } else if (f === !0)
-                    if (((l = n[S] = t.$Collection$p_2(c, a)), l)) {
+                    if (((l = n[S] = t.$Collection$p_3(c, a)), l)) {
                       var r = l;
-                      (m.push(r), t.$Collection$p_3(r));
+                      (m.push(r), t.$Collection$p_4(r));
                     } else return 0;
                   if (((l = u || l), !l)) return 0;
                   var d = l;
@@ -138,13 +138,13 @@ __d(
               } else
                 for (var D = C || m, x = 0, $ = D.length; x < $; x++)
                   this._models.push(D[x]);
-              this.$Collection$p_1(function (e) {
+              this.$Collection$p_2(function (e) {
                 e.add(m);
               });
             }
             return (
               I && this.sort({ silent: !0 }),
-              this.$Collection$p_4(m, I, C, a),
+              this.$Collection$p_5(m, I, C, a),
               n
             );
           }),
@@ -170,7 +170,7 @@ __d(
                   e))
               ) {
                 var c = e;
-                (this.$Collection$p_5(e),
+                (this.$Collection$p_6(e),
                   (r = this._models.indexOf(e)),
                   this._models.splice(r, 1),
                   n.silent !== !0 &&
@@ -178,10 +178,10 @@ __d(
                     c.trigger
                       ? c.trigger("remove", e, this, n)
                       : this.trigger("remove", e, this, n)),
-                  this.$Collection$p_6(c));
+                  this.$Collection$p_7(c));
               }
             return (
-              this.$Collection$p_1(function (e) {
+              this.$Collection$p_2(function (e) {
                 e.remove(l);
               }),
               l
@@ -189,8 +189,8 @@ __d(
           }),
           (a.reset = function () {
             for (var e = 0, t = this._models.length; e < t; e++)
-              this.$Collection$p_6(this._models[e]);
-            (this._reset(), this.trigger("reset", this));
+              this.$Collection$p_7(this._models[e]);
+            (this.$Collection$p_1(), this.trigger("reset", this));
           }),
           (a.sort = function (t) {
             var e;
@@ -206,9 +206,9 @@ __d(
           (a.replaceId = function (t, n) {
             var e = this.get(t);
             e &&
-              (this.$Collection$p_7(t),
+              (this.$Collection$p_8(t),
               e.set({ id: n }),
-              this.$Collection$p_8(e));
+              this.$Collection$p_9(e));
           }),
           (a.reorderMutate = function (t, n) {
             o("WAArrayMove").arrayMoveMutate(this._models, t, n);
@@ -330,14 +330,14 @@ __d(
           (a.reorder = function (t, n) {
             return o("WAArrayMove").arrayMove(this._models, t, n);
           }),
-          (a._reset = function () {
+          (a.$Collection$p_1 = function () {
             ((this._models = []),
               (this._index = {}),
-              this.$Collection$p_1(function (e) {
+              this.$Collection$p_2(function (e) {
                 e.reset();
               }, !1));
           }),
-          (a.$Collection$p_2 = function (t, n) {
+          (a.$Collection$p_3 = function (t, n) {
             if (this.isModel(t))
               return (t.collection == null && (t.collection = this), t);
             var e = babelHelpers.extends({}, n, { collection: this });
@@ -377,26 +377,26 @@ __d(
               return;
             }
           }),
-          (a.$Collection$p_3 = function (t) {
-            (this.$Collection$p_8(t),
+          (a.$Collection$p_4 = function (t) {
+            (this.$Collection$p_9(t),
               t.collection || (t.collection = this),
-              t.on && t.on("all", this.$Collection$p_9, this));
-          }),
-          (a.$Collection$p_6 = function (t) {
-            (this === t.collection && delete t.collection,
-              this.$Collection$p_5(t),
-              t.off && t.off("all", this.$Collection$p_9, this));
-          }),
-          (a.$Collection$p_8 = function (t) {
-            this._index[t.id] = t;
-          }),
-          (a.$Collection$p_5 = function (t) {
-            delete this._index[t.id];
+              t.on && t.on("all", this.$Collection$p_10, this));
           }),
           (a.$Collection$p_7 = function (t) {
+            (this === t.collection && delete t.collection,
+              this.$Collection$p_6(t),
+              t.off && t.off("all", this.$Collection$p_10, this));
+          }),
+          (a.$Collection$p_9 = function (t) {
+            this._index[t.id] = t;
+          }),
+          (a.$Collection$p_6 = function (t) {
+            delete this._index[t.id];
+          }),
+          (a.$Collection$p_8 = function (t) {
             this.get(t) && delete this._index[t];
           }),
-          (a.$Collection$p_4 = function (t, n, r, o) {
+          (a.$Collection$p_5 = function (t, n, r, o) {
             if (o.silent !== !0) {
               for (var e = 0, a = t.length; e < a; e++) {
                 var i = t[e];
@@ -408,22 +408,22 @@ __d(
                 this.trigger("sort", this, o);
             }
           }),
-          (a.$Collection$p_9 = function (t, n, r, o) {
+          (a.$Collection$p_10 = function (t, n, r, o) {
             var e = t.indexOf(":"),
               a = e === -1 ? t : t.slice(0, e);
             ((a === "add" || a === "remove") && r !== this) ||
               (a === "destroy" && this.remove(n, o),
               this.trigger.apply(this, arguments));
           }),
-          (a.$Collection$p_1 = function (t, n) {
+          (a.$Collection$p_2 = function (t, n) {
             var e;
-            if ((n === void 0 && (n = !0), this._aggregators == null)) {
+            if ((n === void 0 && (n = !0), this.$Collection$p_11 == null)) {
               if (!n) return;
-              this._aggregators = o(
+              this.$Collection$p_11 = o(
                 "WAWebCollectionInternalUtils",
               ).groupMethodsByKind(this).aggregate;
             }
-            (e = this._aggregators) == null || e.forEach(t);
+            (e = this.$Collection$p_11) == null || e.forEach(t);
           }),
           n
         );

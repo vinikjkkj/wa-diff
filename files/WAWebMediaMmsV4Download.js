@@ -8,6 +8,7 @@ __d(
     "WALogger",
     "WANullthrows",
     "WARaceSignal",
+    "WAThrottle",
     "WAWebCryptoImageStreamer",
     "WAWebDownloadManager",
     "WAWebDownloadManagerErrors",
@@ -44,7 +45,6 @@ __d(
     "getErrorSafe",
     "isStringNullOrEmpty",
     "justknobx",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -132,7 +132,7 @@ __d(
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.mimetype,
-            n = r("lodash").throttle(function (t) {
+            n = o("WAThrottle").throttle(function (t) {
               e.mediaObject.consolidate({ loadedSize: t.loaded });
             }, o("WAWebMmsConst").FILE_PROGRESS_THROTTLE_WAIT_MS),
             a = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({

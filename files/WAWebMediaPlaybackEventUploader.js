@@ -3,6 +3,7 @@ __d(
   [
     "WAExponentialBackoff",
     "WALogger",
+    "WAThrottle",
     "WAWebABProps",
     "WAWebCRUDOperationsMediaPlaybackEvent",
     "WAWebNetworkStatus",
@@ -10,7 +11,6 @@ __d(
     "WAWebSNAPLUploadMusicConsumptionLogs",
     "asyncToGeneratorRuntime",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,7 +18,7 @@ __d(
       s = 100,
       u = 3e3,
       c = new (o("WAWebPromiseQueue").PromiseQueue)(),
-      d = r("lodash").throttle(m, u);
+      d = o("WAThrottle").throttle(m, u);
     function m() {
       return p.apply(this, arguments);
     }

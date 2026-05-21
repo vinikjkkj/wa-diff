@@ -1,6 +1,10 @@
 __d(
   "WAWebBizBroadcastDeviceCapabilityCommon",
-  ["WAWebBizGatingUtils", "WAWebUserPrefsKeys", "WAWebUserPrefsStore"],
+  [
+    "WAWebBusinessBroadcastsGatingUtils",
+    "WAWebUserPrefsKeys",
+    "WAWebUserPrefsStore",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       r("WAWebUserPrefsStore").setUser(
@@ -34,8 +38,12 @@ __d(
         e === void 0 && (e = !0),
         s()
           ? e
-            ? o("WAWebBizGatingUtils").isBizBroadcastSendWebEnabled()
-            : o("WAWebBizGatingUtils").isBizBroadcastSendWebEnabledNoExposure()
+            ? o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastSendWebEnabled()
+            : o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastSendWebEnabledNoExposure()
           : !1
       );
     }

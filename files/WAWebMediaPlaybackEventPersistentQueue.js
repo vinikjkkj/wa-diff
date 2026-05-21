@@ -2,16 +2,16 @@ __d(
   "WAWebMediaPlaybackEventPersistentQueue",
   [
     "WALogger",
+    "WAThrottle",
     "WAWebCRUDOperationsMediaPlaybackEvent",
     "WAWebPromiseQueue",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = new (o("WAWebPromiseQueue").PromiseQueue)(),
       u = 200,
-      c = r("lodash").throttle(function (e) {
+      c = o("WAThrottle").throttle(function (e) {
         return d(e);
       }, u);
     function d(t) {

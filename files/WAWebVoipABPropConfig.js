@@ -19,6 +19,11 @@ __d(
           type: "int",
         },
         {
+          abProp: "calling_screen_share_milestone_version",
+          wasmKey: "calling_screen_share_milestone_version",
+          type: "int",
+        },
+        {
           abProp: "max_group_size_for_long_ringtone",
           wasmKey: "max_group_size_for_long_ringtone",
           type: "int",

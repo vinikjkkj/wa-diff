@@ -377,6 +377,11 @@ __d(
           subtype: "poll_edit_decrypted",
           generateProtobuf: null,
         },
+        {
+          type: "protocol",
+          subtype: "scheduled_message_unschedule",
+          generateProtobuf: null,
+        },
         { type: "protocol", subtype: "sender_revoke", generateProtobuf: e },
         {
           type: "protocol",

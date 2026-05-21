@@ -137,7 +137,7 @@ __d(
           };
         return (
           e.status === "CANCELED" &&
-            (a.expirationDate || 0) > new Date().getTime() / 1e3 &&
+            (a.expirationDate || 0) > Date.now() / 1e3 &&
             (a.isDeactivated = !1),
           a
         );

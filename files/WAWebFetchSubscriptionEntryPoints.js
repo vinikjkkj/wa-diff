@@ -86,20 +86,17 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebFetchAdAccountToken")
-            .fetchToken()
-            .then(function (e) {
-              return e.type === "success"
-                ? h(e.token).then(function (e) {
-                    return (
-                      e.type !== "success" && e.type === "auth-failure"
-                        ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
-                        : e.type,
-                      e
-                    );
-                  })
-                : (e.type, e);
-            });
+          var e = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (e.type !== "success") return (e.type, e);
+          var t = yield h(e.token);
+          return (
+            t.type === "success"
+              ? t.type
+              : t.type === "auth-failure"
+                ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
+                : t.type,
+            t
+          );
         })),
         g.apply(this, arguments)
       );

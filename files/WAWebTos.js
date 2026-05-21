@@ -14,6 +14,7 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotTosIds",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebEventEmitter",
     "WAWebGetUserDisclosuresAction",
     "WAWebMmSignalSharingGatingUtils",
@@ -185,7 +186,7 @@ __d(
                       "WAWebNewsletterCommonGatingUtils",
                     ).isNewsletterEnabled() &&
                     !o(
-                      "WAWebBizGatingUtils",
+                      "WAWebBusinessBroadcastsGatingUtils",
                     ).isBizBroadcastSendWebEnabledNoExposure()
                   )
                 ) {
@@ -326,7 +327,7 @@ __d(
               o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
                 this.populateTosManagerNewsletterIds(),
               o(
-                "WAWebBizGatingUtils",
+                "WAWebBusinessBroadcastsGatingUtils",
               ).isBizBroadcastSendWebEnabledNoExposure() &&
                 this.populateTosManagerBizBroadcastIds(),
               this.$TosManagerImpl$p_1.length === 0
@@ -464,7 +465,9 @@ __d(
           }),
           (i.populateTosManagerBizBroadcastIds = function () {
             if (
-              o("WAWebBizGatingUtils").isBizBroadcastSendWebEnabledNoExposure()
+              o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastSendWebEnabledNoExposure()
             ) {
               var e = o("WAWebBizBroadcastTos").getBizBroadcastTosId();
               e !== "" && this.$TosManagerImpl$p_5([e]);

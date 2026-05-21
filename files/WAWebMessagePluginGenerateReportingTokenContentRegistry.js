@@ -328,6 +328,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "scheduled_message_unschedule",
+        generateReportingTokenContent: null,
+      },
+      {
+        type: "protocol",
         subtype: "sender_revoke",
         generateReportingTokenContent: null,
       },

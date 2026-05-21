@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "Promise",
     "WALogger",
+    "WAThrottle",
     "WAWebABProps",
     "WAWebBoolFunc",
     "WAWebBrokerGlobalAppState",
@@ -34,7 +35,6 @@ __d(
     "err",
     "gkx",
     "isStringNullOrEmpty",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -187,7 +187,7 @@ __d(
       return (!r("gkx")("26258") && e) || n ? Z : t ? te : ee;
     }
     var ie = 72e5,
-      le = r("lodash").throttle(pe, ie, { trailing: !1 });
+      le = o("WAThrottle").throttle(pe, ie, { trailing: !1 });
     function se(e) {
       V = e;
     }

@@ -2,6 +2,7 @@ __d(
   "JSResourceReferenceImpl",
   [
     "BootloaderEvents",
+    "ErrorMetadata",
     "JSResourceEvents",
     "Promise",
     "PromiseAnnotate",
@@ -48,15 +49,20 @@ __d(
               var l = o("BootloaderEvents").onBootloadEndpointError(
                 function (e) {
                   if (e.module === i) {
+                    var t;
                     l == null || l.unsubscribe();
-                    var t = r("err")(
-                      "[INTERNAL ONLY] Bootloading module " +
-                        i +
-                        " failed with error MID opes:" +
-                        e.errorMID +
-                        ". This issue may cause infinite spinners in production.",
+                    var o = r("err")(
+                      "[INTERNAL ONLY] Bootloading module %s failed with error MID opes:%s. This issue may cause infinite spinners in production.",
+                      i,
+                      e.errorMID,
                     );
-                    ((t.opes_mids = [e.errorMID]), n(t));
+                    ((o.forcedKey = i + ":" + e.errorMID),
+                      (o.opes_mids = [e.errorMID]));
+                    var a =
+                      (t = o.metadata) != null ? t : new (r("ErrorMetadata"))();
+                    (a.addEntry("OPES", "MID", e.errorMID),
+                      (o.metadata = a),
+                      n(o));
                   }
                 },
               );

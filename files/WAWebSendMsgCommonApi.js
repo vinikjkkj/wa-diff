@@ -105,13 +105,23 @@ __d(
               ? o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
               : o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
           return o("WAWap").CUSTOM_STRING(String(s));
-        } else if (
-          l ===
-          o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
-        )
-          return o("WAWap").CUSTOM_STRING(
-            String(o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT),
-          );
+        } else {
+          if (
+            l ===
+            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
+          )
+            return o("WAWap").CUSTOM_STRING(
+              String(o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT),
+            );
+          if (
+            l ===
+            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+              .MESSAGE_UNSCHEDULE
+          )
+            return o("WAWap").CUSTOM_STRING(
+              String(o("WAWebAck").EDIT_ATTR.SENDER_REVOKE),
+            );
+        }
       } else {
         if (
           r.has(o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED) ||

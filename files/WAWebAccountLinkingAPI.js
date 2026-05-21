@@ -60,34 +60,35 @@ __d(
       w,
       A,
       F,
-      O = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      O,
+      B = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       ),
-      B = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      W = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "gpc_uoom",
       );
-    function W() {
-      return q.apply(this, arguments);
-    }
     function q() {
+      return U.apply(this, arguments);
+    }
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebWaffleCertificateCache").loadCertFromIDB();
           if (e != null) {
-            var t = yield U(e.encryptionPem, e.passwordPem, e.passwordKeyId);
+            var t = yield V(e.encryptionPem, e.passwordPem, e.passwordKeyId);
             if (t != null) return t;
           }
-          return H();
+          return G();
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e, t, n) {
-      return V.apply(this, arguments);
+    function V(e, t, n) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           try {
             var i = yield o("WAWebDirectConnectionX509").extractCertificates(t),
               l = yield o(
@@ -125,15 +126,15 @@ __d(
           }
           return null;
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H() {
-      return G.apply(this, arguments);
-    }
     function G() {
+      return z.apply(this, arguments);
+    }
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Math.floor(Date.now() / 1e3);
           try {
             var t = yield o(
@@ -237,28 +238,28 @@ __d(
               .catching(r("getErrorSafe")(e));
           }
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    var z = (F = o(
+    var j = (O = o(
         "WAWebWaffleIQErrorHandler",
       )).createWaffleOperationRetryState(),
-      j = F.createWaffleOperationRetryState(),
-      K = F.createWaffleOperationRetryState(),
-      Q = F.createWaffleOperationRetryState(),
-      X = null;
-    function Y(e) {
-      return J.apply(this, arguments);
+      K = O.createWaffleOperationRetryState(),
+      Q = O.createWaffleOperationRetryState(),
+      X = O.createWaffleOperationRetryState(),
+      Y = null;
+    function J(e) {
+      return Z.apply(this, arguments);
     }
-    function J() {
+    function Z() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.disclosureId,
             n = e.disclosureLc,
             a = e.disclosureLg,
             i = e.disclosureVersion,
             l = e.rawPassword,
-            s = yield W();
+            s = yield q();
           if (s == null) {
             o("WALogger").ERROR(
               m ||
@@ -314,7 +315,7 @@ __d(
               disclosureLc: n,
             });
           if (R.name === "GenerateWAEntACUserResponseSuccess") {
-            z.reset();
+            j.reset();
             var L = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
                 R.value.encryptionMetadataRSAEncryptionMetadataMixin,
               ),
@@ -327,7 +328,7 @@ __d(
                 "WAWebAccountLinkingCryptoUtils",
               ).decryptRSAEncryptedPayload(y, k, E, I, T);
               "fbid" in D
-                ? yield O.updateEntCreationData(String(D.fbid), d)
+                ? yield B.updateEntCreationData(String(D.fbid), d)
                 : o("WALogger").ERROR(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -350,7 +351,7 @@ __d(
                 "WAWebWaffleIQErrorHandler",
               ).handleCommonWaffleIQError(x.name);
             ($ === "request_nonce" &&
-              (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(z)),
+              (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(j)),
               o("WALogger").ERROR(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -361,16 +362,16 @@ __d(
               ));
           }
         })),
-        J.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function Z() {
-      return ee.apply(this, arguments);
-    }
     function ee() {
+      return te.apply(this, arguments);
+    }
+    function te() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield O.getAccountLinkingData();
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield B.getAccountLinkingData();
           if (e == null) {
             o("WALogger").ERROR(
               h ||
@@ -420,7 +421,7 @@ __d(
               idSignElementValue: c,
             });
           if (d.name === "GenerateAccessTokensResponseSuccess") {
-            j.reset();
+            K.reset();
             var m = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
                 d.value.encryptionMetadataRSAEncryptionMetadataMixin,
               ),
@@ -442,7 +443,7 @@ __d(
                 return;
               }
               var R = d.value.pingIntervalElementValue;
-              yield O.updateGenerateAccessTokensData(
+              yield B.updateGenerateAccessTokensData(
                 S.access_token,
                 "nonce" in S ? S.nonce : null,
                 "fbid" in S ? String(S.fbid) : null,
@@ -469,7 +470,7 @@ __d(
                 "WAWebWaffleIQErrorHandler",
               ).handleCommonWaffleIQError(L.name);
             (E === "request_nonce" &&
-              (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(j)),
+              (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(K)),
               o("WALogger").ERROR(
                 v ||
                   (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -480,16 +481,16 @@ __d(
               ));
           }
         })),
-        ee.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function te() {
-      return ne.apply(this, arguments);
-    }
     function ne() {
+      return re.apply(this, arguments);
+    }
+    function re() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = X;
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = Y;
           return e != null
             ? (o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
                 traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
@@ -497,27 +498,27 @@ __d(
                   .REFRESH_TOKEN_DEDUPLICATED,
               }),
               e)
-            : ((X = re().finally(function () {
-                X = null;
+            : ((Y = oe().finally(function () {
+                Y = null;
               })),
-              X);
+              Y);
         })),
-        ne.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function re() {
-      return oe.apply(this, arguments);
-    }
     function oe() {
+      return ae.apply(this, arguments);
+    }
+    function ae() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Date.now();
           o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
             traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
               .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_INITIATED,
           });
-          var t = yield O.getAccountLinkingData();
-          if (t == null) return (ae(e, !1), !1);
+          var t = yield B.getAccountLinkingData();
+          if (t == null) return (ie(e, !1), !1);
           var n = t.fbid,
             a = t.nonce,
             i = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
@@ -548,7 +549,7 @@ __d(
               fbidElementValue: n,
             });
             if (m.name === "RefreshAccessTokensResponseSuccess") {
-              K.reset();
+              Q.reset();
               var p = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
                   m.value.encryptionMetadataRSAEncryptionMetadataMixin,
                 ),
@@ -562,7 +563,7 @@ __d(
                 ).decryptRSAEncryptedPayload(l, f, _, g, h);
                 if ("access_token" in y)
                   return (
-                    yield O.updateAccesstoken(y.access_token),
+                    yield B.updateAccesstoken(y.access_token),
                     o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
                       elapsedMs: Date.now() - e,
                       hasAccessToken: !0,
@@ -573,7 +574,7 @@ __d(
                     }),
                     !0
                   );
-                ae(e, !1);
+                ie(e, !1);
               } catch (t) {
                 (o("WALogger")
                   .ERROR(
@@ -583,7 +584,7 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                  ae(e, !1));
+                  ie(e, !1));
               }
             } else {
               var C = m.value.errorRefreshAccessTokensErrors,
@@ -602,7 +603,7 @@ __d(
                   .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
               }),
                 b === "request_nonce" &&
-                  (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(K)),
+                  (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(Q)),
                 o("WALogger").ERROR(
                   R ||
                     (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -612,13 +613,13 @@ __d(
                   C.name,
                 ));
             }
-          } else ae(e, !1);
+          } else ie(e, !1);
           return !1;
         })),
-        oe.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function ae(e, t) {
+    function ie(e, t) {
       o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
         elapsedMs: Date.now() - e,
         hasAccessToken: t,
@@ -626,14 +627,14 @@ __d(
           .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
       });
     }
-    function ie() {
-      return le.apply(this, arguments);
-    }
     function le() {
+      return se.apply(this, arguments);
+    }
+    function se() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = Date.now(),
-            t = yield O.getAccountLinkingData();
+            t = yield B.getAccountLinkingData();
           if (t != null) {
             var n = t.accesstoken,
               r = t.fbid;
@@ -654,9 +655,9 @@ __d(
                   fbidElementValue: r,
                 });
                 if (l.name === "WFPingResponseSuccess") {
-                  Q.reset();
+                  X.reset();
                   var s = l.value.pingIntervalElementValue;
-                  (yield O.updatePingInterval(s),
+                  (yield B.updatePingInterval(s),
                     o("WAWebWaffleLifecycleWamLogger").logPing({
                       elapsedMs: Date.now() - e,
                       hasAccessToken: !0,
@@ -678,7 +679,7 @@ __d(
                   }),
                     c === "request_nonce" &&
                       (yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(
-                        Q,
+                        X,
                       )),
                     o("WALogger").ERROR(
                       L ||
@@ -703,15 +704,15 @@ __d(
             }
           }
         })),
-        le.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function se() {
-      return ue.apply(this, arguments);
-    }
     function ue() {
+      return ce.apply(this, arguments);
+    }
+    function ce() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WASmaxWaffleStateExistsRPC").sendStateExistsRPC({
             timestampElementValue: Date.now(),
           });
@@ -741,16 +742,16 @@ __d(
               ));
           }
         })),
-        ue.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function ce() {
-      return de.apply(this, arguments);
-    }
     function de() {
+      return me.apply(this, arguments);
+    }
+    function me() {
       return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield O.getAccountLinkingData();
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield B.getAccountLinkingData();
           if (e != null) {
             var t = e.accesstoken,
               n;
@@ -799,19 +800,19 @@ __d(
               );
               return;
             }
-            yield O.updateServiceData(i);
+            yield B.updateServiceData(i);
           }
         })),
-        de.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    function me() {
-      return pe.apply(this, arguments);
-    }
     function pe() {
+      return _e.apply(this, arguments);
+    }
+    function _e() {
       return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield B.getAccountLinkingData();
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield W.getAccountLinkingData();
           if (e != null) {
             var t = e.accesstoken,
               n;
@@ -854,34 +855,34 @@ __d(
               o("WAWebUserPrefsGeneral").setGPCcompleted(!0);
           }
         })),
-        pe.apply(this, arguments)
+        _e.apply(this, arguments)
       );
-    }
-    function _e() {
-      return fe.apply(this, arguments);
     }
     function fe() {
+      return ge.apply(this, arguments);
+    }
+    function ge() {
       return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           !o("WAWebUserPrefsGeneral").getGPCCompleted() &&
             o("WAWebAccountLinkingUtils").checkGPCSetting() &&
-            (yield me());
+            (yield pe());
         })),
-        fe.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    var ge = { FB: 0, IG: 1 },
-      he = {
+    var he = { FB: 0, IG: 1 },
+      ye = {
         FB: "wa_nta_username_reservation_on_fb",
         IG: "wa_nta_username_reservation_on_ig",
       };
-    function ye(e, t) {
-      return Ce.apply(this, arguments);
+    function Ce(e, t) {
+      return be.apply(this, arguments);
     }
-    function Ce() {
+    function be() {
       return (
-        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield O.getAccountLinkingData();
+        (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield B.getAccountLinkingData();
           if (n == null)
             throw (
               o("WALogger")
@@ -919,9 +920,9 @@ __d(
               client_pub_key: c,
               client_pub_key_type: "RSA 2048",
               action: "waffle_100",
-              target_account_type: ge[t],
+              target_account_type: he[t],
               opaque_target_accounts_to_be_linked_strings: [e],
-              linking_entry_point: he[t],
+              linking_entry_point: ye[t],
               family_device_id: "waffle_debug",
             },
             m = yield o(
@@ -965,40 +966,58 @@ __d(
               y = _.tag,
               C = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).decryptRSAEncryptedPayload(s, g, f, h, y);
-            yield O.updateAccountLinkingState(
-              o("WAWebAccountLinkingConstants").AccountLinkState.Active,
-            );
+              ).decryptRSAEncryptedPayload(s, g, f, h, y),
+              b = C;
+            if (b.success === !0 && b.link_mutation_succeeded === !0)
+              yield B.updateAccountLinkingState(
+                o("WAWebAccountLinkingConstants").AccountLinkState.Active,
+              );
+            else
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WAFFLE] Linking mutation failed: success=",
+                        " link_mutation_succeeded=",
+                        "",
+                      ])),
+                    String(b.success),
+                    String(b.link_mutation_succeeded),
+                  )
+                  .sendLogs("waffle-linking-mutation-failed"),
+                r("err")("Linking mutation failed")
+              );
           } else {
-            var b = p.value.errorEncryptedPayloadRequestErrors;
+            var v = p.value.errorEncryptedPayloadRequestErrors;
             throw (
               o("WALogger")
                 .ERROR(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Linking mutation RPC error: ",
                       "",
                     ])),
-                  b.name,
+                  v.name,
                 )
                 .sendLogs("waffle-linking-mutation-rpc-error"),
-              r("err")("Linking mutation RPC error: %s", b.name)
+              r("err")("Linking mutation RPC error: %s", v.name)
             );
           }
         })),
-        Ce.apply(this, arguments)
+        be.apply(this, arguments)
       );
     }
-    ((l.fetchValidCertificate = W),
-      (l.generateWAEntACUser = Y),
-      (l.generateAccessTokens = Z),
-      (l.refreshAccessToken = te),
-      (l.ping = ie),
-      (l.stateExists = se),
-      (l.fetchServiceData = ce),
-      (l.updateUOOMData = me),
-      (l.checkAndTriggerUOOMMutation = _e),
-      (l.sendLinkingMutation = ye));
+    ((l.fetchValidCertificate = q),
+      (l.generateWAEntACUser = J),
+      (l.generateAccessTokens = ee),
+      (l.refreshAccessToken = ne),
+      (l.ping = le),
+      (l.stateExists = ue),
+      (l.fetchServiceData = de),
+      (l.updateUOOMData = pe),
+      (l.checkAndTriggerUOOMMutation = fe),
+      (l.sendLinkingMutation = Ce));
   },
   98,
 );

@@ -26,7 +26,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(e, t, n) {
+    function u(e) {
+      var t = e.getBoundingClientRect(),
+        n = window.innerHeight || document.documentElement.clientHeight;
+      return t.bottom > 0 && t.top < n;
+    }
+    function c(e, t, n) {
       var r =
         typeof e == "object" && e != null && typeof e.name == "string"
           ? e.name
@@ -39,16 +44,6 @@ __d(
         t,
         n,
       );
-    }
-    function c(e) {
-      if ((s || (s = r("ExecutionEnvironment"))).canUseDOM) {
-        var t = e.getBoundingClientRect();
-        if (t.width === 0 || t.height === 0) return !1;
-        var n = window.innerHeight || document.documentElement.clientHeight,
-          o = window.innerWidth || document.documentElement.clientWidth;
-        return t.bottom > 0 && t.top < n && t.right > 0 && t.left < o;
-      }
-      return !0;
     }
     function d(t) {
       var a = t.initialProps,
@@ -64,21 +59,29 @@ __d(
           var t = D(),
             i = l.current;
           if (!(t == null || i == null)) {
-            var u = 0,
+            var c = 0,
               m = !1,
               p = null,
               _ = !1,
               C = null,
               b = 0,
               v = function () {
-                (u === 0 && (b = t.currentTime), u++);
+                (c === 0 && (b = t.currentTime), c++);
                 var e =
                   p != null
                     ? p
-                    : o("VideoPlayerRetryConfig").computeBackoffMs(u - 1);
+                    : o("VideoPlayerRetryConfig").computeBackoffMs(c - 1);
                 ((p = null),
                   h.current != null && r("clearTimeout")(h.current),
                   (h.current = r("setTimeout")(function () {
+                    if (
+                      r("gkx")("25633") &&
+                      (document.visibilityState === "hidden" || !u(t))
+                    ) {
+                      ((h.current = null),
+                        C != null && $(C.implementationError, C.errorLocation));
+                      return;
+                    }
                     h.current = null;
                     var e = function () {
                       !g.current &&
@@ -89,7 +92,7 @@ __d(
                       var n =
                         (s || (s = r("ExecutionEnvironment"))).canUseDOM &&
                         document.visibilityState === "hidden";
-                      if (n || !c(t)) {
+                      if (n || !u(t)) {
                         e();
                         return;
                       }
@@ -102,7 +105,7 @@ __d(
                           !g.current &&
                             (b > 0 && (t.currentTime = b),
                             (m = !1),
-                            (u = 0),
+                            (c = 0),
                             (p = null),
                             (_ = !1),
                             (C = null),
@@ -123,7 +126,7 @@ __d(
                   ((m = !1),
                   r("gkx")("25633") &&
                     _ &&
-                    u <
+                    c <
                       o("VideoPlayerRetryConfig").PROGRESSIVE_RETRY_CONFIG
                         .retryCount)
                 ) {
@@ -135,7 +138,7 @@ __d(
               }
               var l = t.error,
                 s = l == null ? void 0 : l.code,
-                c = r("getErrorNameFromMediaErrorCode")(s),
+                u = r("getErrorNameFromMediaErrorCode")(s),
                 d = l == null ? void 0 : l.message,
                 f = d == null || d === "" ? "Unknown media error" : d,
                 g = [],
@@ -222,7 +225,7 @@ __d(
                   })
                   .finally(function () {
                     var e = r("err").apply(void 0, [f].concat(g));
-                    e.name = [c, h, b].filter(Boolean).join("/");
+                    e.name = [u, h, b].filter(Boolean).join("/");
                     var t = "progressive_implementation_error_with_more_info";
                     if (
                       ((C = { errorLocation: t, implementationError: e }),
@@ -231,7 +234,7 @@ __d(
                       ).isRetriableTransientHttpResponseErrorName(b)),
                       r("gkx")("25633") &&
                         _ &&
-                        u <
+                        c <
                           o("VideoPlayerRetryConfig").PROGRESSIVE_RETRY_CONFIG
                             .retryCount)
                     ) {
@@ -242,7 +245,7 @@ __d(
                   });
               } else {
                 var S = r("err").apply(void 0, [f].concat(g));
-                ((S.name = [c, h, "VIDEO_ELEMENT_SRC_EMPTY"]
+                ((S.name = [u, h, "VIDEO_ELEMENT_SRC_EMPTY"]
                   .filter(Boolean)
                   .join("/")),
                   $(S, "progressive_implementation_error_with_empty_src"));
@@ -495,7 +498,7 @@ __d(
           },
           createVideoPlayerError: function (t, n) {
             var e;
-            return u(t, n, (e = d.current) == null ? void 0 : e.targetSrc);
+            return c(t, n, (e = d.current) == null ? void 0 : e.targetSrc);
           },
           destroyEngineParts: function () {
             ((g.current = !0),
@@ -570,7 +573,8 @@ __d(
     function _(e, t) {
       r("assignMediaStream")(e, t);
     }
-    ((l.createVideoPlayerProgressiveImplementationEngine = d),
+    ((l.isVideoElementOnScreen = u),
+      (l.createVideoPlayerProgressiveImplementationEngine = d),
       (l.internal_setHTMLVideoElementSrc = p),
       (l.internal_setHTMLVideoElementSrcObject = _));
   },

@@ -6,7 +6,7 @@ __d(
     "WASyncdConst",
     "WAWebBackendApi",
     "WAWebBizBroadcastCampaignStorageUtils",
-    "WAWebBizGatingUtils",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebSyncdAction",
@@ -43,7 +43,7 @@ __d(
                 var r = this;
                 if (
                   !o(
-                    "WAWebBizGatingUtils",
+                    "WAWebBusinessBroadcastsGatingUtils",
                   ).isBizBroadcastSendWebEnabledNoExposure()
                 )
                   return t.map(function () {

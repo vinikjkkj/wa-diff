@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebApiDeviceList",
     "WAWebBizBroadcastCampaignAPI",
-    "WAWebBizGatingUtils",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -101,7 +101,9 @@ __d(
               return;
             }
             if (
-              !o("WAWebBizGatingUtils").isBizBroadcastSendWebEnabledNoExposure()
+              !o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastSendWebEnabledNoExposure()
             ) {
               o("WALogger").LOG(
                 p ||

@@ -326,6 +326,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "scheduled_message_unschedule",
+        getAriaLabelForMsgTextComponent: null,
+      },
+      {
+        type: "protocol",
         subtype: "sender_revoke",
         getAriaLabelForMsgTextComponent: null,
       },

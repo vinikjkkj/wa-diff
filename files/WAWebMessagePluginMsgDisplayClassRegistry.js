@@ -249,6 +249,11 @@ __d(
         subtype: "poll_edit_decrypted",
         msgDisplayClass: null,
       },
+      {
+        type: "protocol",
+        subtype: "scheduled_message_unschedule",
+        msgDisplayClass: null,
+      },
       { type: "protocol", subtype: "sender_revoke", msgDisplayClass: null },
       {
         type: "protocol",

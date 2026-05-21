@@ -222,6 +222,11 @@ __d(
         subtype: "poll_edit_decrypted",
         futureproofMsgText: null,
       },
+      {
+        type: "protocol",
+        subtype: "scheduled_message_unschedule",
+        futureproofMsgText: null,
+      },
       { type: "protocol", subtype: "sender_revoke", futureproofMsgText: null },
       {
         type: "protocol",

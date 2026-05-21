@@ -4,6 +4,12 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+      group_history_messages_time_limit_secs_group_level: [
+        26270,
+        "int",
+        1209600,
+        1209600,
+      ],
       group_history_out_of_window_pin_sender_group_level: [
         26269,
         "bool",

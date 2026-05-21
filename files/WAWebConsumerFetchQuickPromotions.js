@@ -10,6 +10,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBuildConstants",
     "WAWebCTWAConstants",
+    "WAWebCanonicalUtils",
     "WAWebCommonCTWAQplHelpers",
     "WAWebConsumerFetchQuickPromotionsQuery.graphql",
     "WAWebConsumerFetchQuickPromotionsQuery_QPAction.graphql",
@@ -99,15 +100,20 @@ __d(
     }
     function F() {
       return o("WAWebQuickPromotionGating").consumerQpGraphQLEnabled()
-        ? o("WAWebOrchestratorNonPersistedJob")
-            .createNonPersistedJob("fetchConsumerQuickPromotions", function () {
-              return o("WAWebBackendApi")
-                .frontendSendAndReceive("getUserLocale")
-                .then(function (e) {
-                  return O(e);
-                });
-            })
-            .waitUntilCompleted()
+        ? o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
+          ? o("WAWebOrchestratorNonPersistedJob")
+              .createNonPersistedJob(
+                "fetchConsumerQuickPromotions",
+                function () {
+                  return o("WAWebBackendApi")
+                    .frontendSendAndReceive("getUserLocale")
+                    .then(function (e) {
+                      return O(e);
+                    });
+                },
+              )
+              .waitUntilCompleted()
+          : (R || (R = n("Promise"))).resolve({ type: "error" })
         : (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
     }
     function O(e) {

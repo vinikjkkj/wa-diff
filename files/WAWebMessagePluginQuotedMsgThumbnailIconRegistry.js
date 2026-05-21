@@ -302,6 +302,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "scheduled_message_unschedule",
+          quotedMsgThumbnailIcon: null,
+        },
+        {
+          type: "protocol",
           subtype: "sender_revoke",
           quotedMsgThumbnailIcon: null,
         },

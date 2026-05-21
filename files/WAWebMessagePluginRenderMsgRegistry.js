@@ -117,6 +117,11 @@ __d(
       { type: "protocol", subtype: "message_edit", renderMsg: null },
       { type: "protocol", subtype: "message_edit_decrypted", renderMsg: null },
       { type: "protocol", subtype: "poll_edit_decrypted", renderMsg: null },
+      {
+        type: "protocol",
+        subtype: "scheduled_message_unschedule",
+        renderMsg: null,
+      },
       { type: "protocol", subtype: "sender_revoke", renderMsg: null },
       { type: "protocol", subtype: "share_phone_number", renderMsg: null },
       {

@@ -287,6 +287,10 @@ __d(
           params: { enable_l5_cc_as_backup_ui_improvement: e },
           type: "PAYMENT_ACCOUNT",
         },
+        l5_credential_sharing__logging: {
+          params: { dummy_param: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         lwi_subscription_universe: {
           params: { subscription_enable: e },
           type: "PAYMENT_ACCOUNT",

@@ -193,7 +193,10 @@ __d(
           u.editedMessage ||
           u.type ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-              .GROUP_MEMBER_LABEL_CHANGE)
+              .GROUP_MEMBER_LABEL_CHANGE ||
+          u.type ===
+            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+              .MESSAGE_UNSCHEDULE)
         ? o("WAWebBackendJobs.flow").DecryptFailType.Hide
         : o("WAWebBackendJobs.flow").DecryptFailType.Show;
     }

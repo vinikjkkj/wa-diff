@@ -206,12 +206,15 @@ __d(
                 if (k == null) continue;
                 E = k.toString();
               } else E = L.id.toString();
-              var I = "personal";
-              (L.isEnterprise
-                ? (I = "enterprise")
-                : L.isSmb
-                  ? (I = "smb")
-                  : L.isBusiness && (I = "business"),
+              var I = o("WAWebUserPrefsMeUser").isMeAccount(_.id),
+                T = "personal";
+              (I
+                ? (T = "me")
+                : L.isEnterprise
+                  ? (T = "enterprise")
+                  : L.isSmb
+                    ? (T = "smb")
+                    : L.isBusiness && (T = "business"),
                 p.push({
                   lid: E,
                   name:
@@ -222,7 +225,7 @@ __d(
                         : L.name) != null
                       ? g
                       : "",
-                  contactType: I,
+                  contactType: T,
                   imgUrl: b,
                 }));
             }

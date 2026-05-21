@@ -74,6 +74,11 @@ __d(
           );
     }
     function _() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "payments_br_payment_links_buyer_logging",
+      );
+    }
+    function f() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -81,13 +86,13 @@ __d(
         o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web")
       );
     }
-    function f() {
+    function g() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("ctwa_smb_multiselect_enabled")
       );
     }
-    function g() {
+    function h() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -95,7 +100,7 @@ __d(
         )
       );
     }
-    function h() {
+    function y() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -105,7 +110,7 @@ __d(
         ).isCustomPaymentMethodsSyncEnabledForCountry("MX")
       );
     }
-    function y() {
+    function C() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -122,11 +127,12 @@ __d(
       (l.isAPICopyPixCTAEnabled = d),
       (l.isCopyPixKeyBuyerLoggingEnabled = m),
       (l.isCopyPixCodeBuyerLoggingEnabled = p),
-      (l.isPixOnWebEnabled = _),
-      (l.isCTWASMBListsMultiSelectEnabled = f),
-      (l.isCTWASMBListsDropdownApplicationFixEnabled = g),
-      (l.isClabeSyncEnabled = h),
-      (l.isIdPaymentAccountSyncEnabled = y));
+      (l.isPaymentLinkBuyerLoggingEnabled = _),
+      (l.isPixOnWebEnabled = f),
+      (l.isCTWASMBListsMultiSelectEnabled = g),
+      (l.isCTWASMBListsDropdownApplicationFixEnabled = h),
+      (l.isClabeSyncEnabled = y),
+      (l.isIdPaymentAccountSyncEnabled = C));
   },
   98,
 );

@@ -3,19 +3,29 @@ __d(
   ["WAWap", "WAWebScheduledMsgConstants"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t,
-        n = e.revealKey,
-        r = e.revealKeyId,
-        a = e.scheduledTimestampS;
-      return (t = o("WAWap")).wap(
+      var t =
+          e.kind === "schedule"
+            ? o("WAWap").CUSTOM_STRING(String(e.scheduledTimestampS))
+            : o("WAWap").DROP_ATTR,
+        n =
+          e.kind === "schedule"
+            ? o("WAWap").wap(
+                "key",
+                { rkid: o("WAWap").CUSTOM_STRING(e.revealKeyId) },
+                e.revealKey,
+              )
+            : o("WAWap").wap("key", {
+                rkid: o("WAWap").CUSTOM_STRING(e.revealKeyId),
+              });
+      return o("WAWap").wap(
         "meta",
         {
-          type: t.CUSTOM_STRING(
+          type: o("WAWap").CUSTOM_STRING(
             o("WAWebScheduledMsgConstants").SCHEDULED_MSG_META_TYPE,
           ),
-          st: t.CUSTOM_STRING(String(a)),
+          st: t,
         },
-        t.wap("key", { rkid: t.CUSTOM_STRING(r) }, n),
+        n,
       );
     }
     l.genScheduledMsgMetaNode = e;
