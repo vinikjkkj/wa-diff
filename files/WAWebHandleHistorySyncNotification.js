@@ -48,14 +48,13 @@ __d(
       y,
       C,
       b,
-      v,
-      S = 11;
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+      v = 11;
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i;
           if (
             (o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
@@ -63,25 +62,12 @@ __d(
             ),
             !!t)
           ) {
-            try {
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] Assert get me is empty during history sync",
-                    ])),
-                )
-                .sendLogs("Assert get me is empty during history sync");
-              return;
-            }
             if (!o("WAWebUserPrefsMeUser").isMePrimary(n)) {
               if (n == null || !(n instanceof r("WAWebWid"))) {
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync] History sync empty wid error",
                       ])),
                   )
@@ -90,8 +76,8 @@ __d(
               }
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync] History sync payload wid error",
                     ])),
                 )
@@ -120,16 +106,16 @@ __d(
                   o("WAWebProtobufsE2E.pb").Message$HistorySyncType.FULL
               )
             ) {
-              var R = !!t.historySyncNotification.originalMessageId,
-                L = R ? t.historySyncNotification.originalMessageId : a,
-                E = new (r("WAWebMsgKey"))({
+              var S = !!t.historySyncNotification.originalMessageId,
+                R = S ? t.historySyncNotification.originalMessageId : a,
+                L = new (r("WAWebMsgKey"))({
                   remote: n,
                   fromMe: !0,
-                  id: L,
+                  id: R,
                 }).toString(),
-                k = (i = t.historySyncNotification.progress) != null ? i : 0,
-                I = {
-                  msgKey: E,
+                E = (i = t.historySyncNotification.progress) != null ? i : 0,
+                k = {
+                  msgKey: L,
                   processed: 0,
                   downloadOptions: l,
                   isReupload: 1,
@@ -142,44 +128,44 @@ __d(
                     t.historySyncNotification.initialHistBootstrapInlinePayload,
                   peerDataRequestSessionId:
                     t.historySyncNotification.peerDataRequestSessionId,
-                  progress: k,
+                  progress: E,
                   encHandle: t.historySyncNotification.encHandle,
                 };
-              (!R ||
+              (!S ||
                 t.historySyncNotification.syncType ===
                   o("WAWebProtobufsE2E.pb").Message$HistorySyncType
                     .INITIAL_BOOTSTRAP) &&
-                ((I.syncType = t.historySyncNotification.syncType),
-                (I.chunkOrder = t.historySyncNotification.chunkOrder || 0),
-                (I.isReupload = 0));
-              var T = I;
+                ((k.syncType = t.historySyncNotification.syncType),
+                (k.chunkOrder = t.historySyncNotification.chunkOrder || 0),
+                (k.isReupload = 0));
+              var I = k;
               if (
-                T.syncType ===
+                I.syncType ===
                   o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                     .RECENT &&
-                k === 100
+                E === 100
               ) {
-                var D = T.chunkOrder;
+                var T = I.chunkOrder;
                 (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync] setting total chunk count when receiving: ",
                       "",
                     ])),
-                  D,
+                  T,
                 ),
                   yield o(
                     "WAWebUserPrefsHistorySync",
-                  ).setChunkCountForEndOfRecentHistorySync(D != null ? D : 1),
+                  ).setChunkCountForEndOfRecentHistorySync(T != null ? T : 1),
                   o(
                     "WAWebHistorySyncProgress",
                   ).updateHistorySyncProgressModel());
               }
-              var x = new (o(
+              var D = new (o(
                 "WAWebMdBootstrapHistoryDataReceivedWamEvent",
               ).MdBootstrapHistoryDataReceivedWamEvent)({
                 mdBootstrapPayloadType:
-                  T.syncType ===
+                  I.syncType ===
                   o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                     .INITIAL_BOOTSTRAP
                     ? o("WAWebWamEnumMdBootstrapPayloadType")
@@ -188,204 +174,204 @@ __d(
                         .MD_BOOTSTRAP_PAYLOAD_TYPE.NON_CRITICAL,
                 mdBootstrapHistoryPayloadType: o(
                   "WAWebGetMetricHistorySyncPayloadType",
-                ).getMetricHistorySyncPayloadType(T.syncType),
+                ).getMetricHistorySyncPayloadType(I.syncType),
                 mdTimestamp: o("WATimeUtils").unixTimeMs(),
                 mdSessionId: yield o(
                   "WAWebSyncdMdSyncFieldstatMeta",
                 ).MdSyncFieldStatsMeta.getMdSessionId(),
-                historySyncStageProgress: k,
+                historySyncStageProgress: E,
               });
-              (T.chunkOrder != null && (x.historySyncChunkOrder = T.chunkOrder),
-                x.commit());
+              (I.chunkOrder != null && (D.historySyncChunkOrder = I.chunkOrder),
+                D.commit());
               e: {
-                var $ = T.syncType;
+                var x = I.syncType;
                 if (
-                  $ ===
+                  x ===
                     o("WAWebProtobufsHistorySync.pb")
                       .HistorySync$HistorySyncType.INITIAL_BOOTSTRAP ||
-                  $ ===
+                  x ===
                     o("WAWebProtobufsHistorySync.pb")
                       .HistorySync$HistorySyncType.INITIAL_STATUS_V3 ||
-                  $ ===
+                  x ===
                     o("WAWebProtobufsHistorySync.pb")
                       .HistorySync$HistorySyncType.NON_BLOCKING_DATA
                 ) {
                   (o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync] initial sync received ",
                         "",
                       ])),
                     o(
                       "WAWebHistorySyncLogUtils",
-                    ).getHistorySyncLogDetailsString(T),
+                    ).getHistorySyncLogDetailsString(I),
                   ),
-                    o("WAWebHandleHistorySyncChunk").handleHistorySyncChunk(T));
+                    o("WAWebHandleHistorySyncChunk").handleHistorySyncChunk(I));
                   return;
                 }
                 if (
-                  $ ===
+                  x ===
                   o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                     .PUSH_NAME
                 ) {
                   (o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[history sync] initial pushname received ",
                         "",
                       ])),
                     o(
                       "WAWebHistorySyncLogUtils",
-                    ).getHistorySyncLogDetailsString(T),
+                    ).getHistorySyncLogDetailsString(I),
                   ),
                     yield o(
                       "WAWebApiHistorySyncNotification",
                     ).enqueueNotification(
-                      babelHelpers.extends({}, T, {
+                      babelHelpers.extends({}, I, {
                         downloadOptions: babelHelpers.extends(
                           {},
-                          T.downloadOptions,
+                          I.downloadOptions,
                         ),
                       }),
                       !0,
                     ),
-                    o("WAWebHandleHistorySyncChunk").handleHistorySyncChunk(T));
+                    o("WAWebHandleHistorySyncChunk").handleHistorySyncChunk(I));
                   return;
                 }
                 if (
-                  $ ===
+                  x ===
                   o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                     .ON_DEMAND
                 ) {
                   if (
                     o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled()
                   ) {
-                    var P, N, M;
+                    var $, P, N;
                     if (
                       (o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync] on demand history sync received ",
                             "",
                           ])),
                         o(
                           "WAWebHistorySyncLogUtils",
-                        ).getHistorySyncLogDetailsString(T),
+                        ).getHistorySyncLogDetailsString(I),
                       ),
-                      T.peerDataRequestSessionId == null &&
+                      I.peerDataRequestSessionId == null &&
                         o("WALogger").LOG(
-                          _ ||
-                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
                               "[history sync][rdu] on demand chunk missing session id",
                             ])),
                         ),
                       !o(
                         "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
                       ).inFlightHistorySyncOnDemandRequests.has(
-                        (P = T.peerDataRequestSessionId) != null ? P : "",
+                        ($ = I.peerDataRequestSessionId) != null ? $ : "",
                       ))
                     ) {
                       o("WALogger").LOG(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync][rdu] drop on demand notif, timeout key=",
                             "",
                           ])),
-                        r("gkx")("26258") ? "" : T.peerDataRequestSessionId,
+                        r("gkx")("26258") ? "" : I.peerDataRequestSessionId,
                       );
                       return;
                     }
                     (o("WALogger").LOG(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
                           "[history sync][rdu] clean on demand req, received key=",
                           "",
                         ])),
-                      r("gkx")("26258") ? "" : T.peerDataRequestSessionId,
+                      r("gkx")("26258") ? "" : I.peerDataRequestSessionId,
                     ),
-                      (T.peerDataRequestChatId = o(
+                      (I.peerDataRequestChatId = o(
                         "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
                       ).inFlightHistorySyncOnDemandRequests.get(
-                        (N = T.peerDataRequestSessionId) != null ? N : "",
+                        (P = I.peerDataRequestSessionId) != null ? P : "",
                       )),
                       o(
                         "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
                       ).inFlightHistorySyncOnDemandRequests.delete(
-                        (M = T.peerDataRequestSessionId) != null ? M : "",
+                        (N = I.peerDataRequestSessionId) != null ? N : "",
                       ),
                       yield o(
                         "WAWebApiHistorySyncNotification",
-                      ).enqueueNotification(T));
+                      ).enqueueNotification(I));
                   }
                   break e;
                 }
                 {
                   if (
                     (o("WALogger").LOG(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
                           "[history sync] recent/full chunk received, add to db: ",
                           "",
                         ])),
                       o(
                         "WAWebHistorySyncLogUtils",
-                      ).getHistorySyncLogDetailsString(T),
+                      ).getHistorySyncLogDetailsString(I),
                     ),
-                    T.syncType ===
+                    I.syncType ===
                       o("WAWebProtobufsHistorySync.pb")
                         .HistorySync$HistorySyncType.RECENT)
                   ) {
                     if (
-                      I.chunkOrder != null &&
+                      k.chunkOrder != null &&
                       t.progress != null &&
                       t.progress !== 0
                     ) {
-                      var w = Math.ceil(I.chunkOrder / (t.progress / 100));
+                      var M = Math.ceil(k.chunkOrder / (t.progress / 100));
                       (o("WALogger").LOG(
-                        y ||
-                          (y = babelHelpers.taggedTemplateLiteralLoose([
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
                             "[history sync] setting estimated total chunk count: ",
                             "",
                           ])),
-                        w,
+                        M,
                       ),
                         o(
                           "WAWebUserPrefsHistorySync",
-                        ).setEstimatedChunkCountForEndOfRecentHistorySync(w));
+                        ).setEstimatedChunkCountForEndOfRecentHistorySync(M));
                     }
-                    if (I.oldestMsgInChunkTimestampSec != null) {
-                      var A = o(
+                    if (k.oldestMsgInChunkTimestampSec != null) {
+                      var w = o(
                         "WAWebUserPrefsHistorySync",
                       ).getHistorySyncEarliestDate();
-                      A &&
-                        I.oldestMsgInChunkTimestampSec < A &&
+                      w &&
+                        k.oldestMsgInChunkTimestampSec < w &&
                         o(
                           "WAWebUserPrefsHistorySync",
                         ).setHistorySyncEarliestDate(
-                          I.oldestMsgInChunkTimestampSec,
+                          k.oldestMsgInChunkTimestampSec,
                         );
                     }
                     o(
                       "WAWebUserPrefsHistorySync",
                     ).setRecentSyncSingleChunkStatus(
-                      T.syncType,
+                      I.syncType,
                       o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
                         .RECEIVED,
-                      T.chunkOrder,
+                      I.chunkOrder,
                     );
-                    var F = T.chunkOrder != null && T.chunkOrder <= S;
+                    var A = I.chunkOrder != null && I.chunkOrder <= v;
                     if (
                       o(
                         "WAWebSyncGatingUtils",
                       ).isRecentSyncDownloadOptimizationEnabled() &&
-                      F
+                      A
                     ) {
-                      var O = yield o(
+                      var F = yield o(
                           "WAWebHistorySyncNotificationUtils",
-                        ).getHistorySyncMetrics(T, !0),
-                        B = O.historySyncDownloadedMetric,
-                        W = O.historySyncStartDownloadingMetric,
-                        q = o(
+                        ).getHistorySyncMetrics(I, !0),
+                        O = F.historySyncDownloadedMetric,
+                        B = F.historySyncStartDownloadingMetric,
+                        W = o(
                           "WAWebStartMediaDownloadQpl",
                         ).startMediaDownloadQpl({
                           entryPoint: "HandleHistorySyncNotification",
@@ -394,91 +380,91 @@ __d(
                         (o(
                           "WAWebUserPrefsHistorySync",
                         ).setRecentSyncSingleChunkStatus(
-                          T.syncType,
+                          I.syncType,
                           o("WAWebUserPrefsTypes")
                             .HistorySyncSingleChunkStatusType.DOWNLOADING,
-                          T.chunkOrder,
+                          I.chunkOrder,
                         ),
                           o(
                             "WAWebHistorySyncNotificationUtils",
                           ).commitHistoryStartDownloadingMetric(
-                            W,
-                            T.historySyncStepStartedTs,
+                            B,
+                            I.historySyncStepStartedTs,
                             o("WATimeUtils").unixTimeMs(),
                           ),
                           o("WALogger")
                             .LOG(
-                              C ||
-                                (C = babelHelpers.taggedTemplateLiteralLoose([
+                              y ||
+                                (y = babelHelpers.taggedTemplateLiteralLoose([
                                   "[history sync] start download on notif, ",
                                   "",
                                 ])),
                               o(
                                 "WAWebHistorySyncLogUtils",
-                              ).getHistorySyncLogDetailsString(T),
+                              ).getHistorySyncLogDetailsString(I),
                             )
                             .tags("history-sync"));
-                        var U = T.chunkOrder !== 1,
-                          V = yield o(
+                        var q = I.chunkOrder !== 1,
+                          U = yield o(
                             "WAWebDownloadManager",
                           ).downloadManager.downloadAndMaybeDecrypt(
                             babelHelpers.extends(
                               {
                                 signal: new AbortController().signal,
-                                downloadQpl: q,
+                                downloadQpl: W,
                               },
-                              T.downloadOptions,
-                              { isPreload: U },
+                              I.downloadOptions,
+                              { isPreload: q },
                             ),
                           );
-                        ((T.downloadedHistorySyncPayload = V),
-                          q.endSuccess(),
+                        ((I.downloadedHistorySyncPayload = U),
+                          W.endSuccess(),
                           o(
                             "WAWebUserPrefsHistorySync",
                           ).setRecentSyncSingleChunkStatus(
-                            T.syncType,
+                            I.syncType,
                             o("WAWebUserPrefsTypes")
                               .HistorySyncSingleChunkStatusType.DOWNLOADED,
-                            T.chunkOrder,
+                            I.chunkOrder,
                           ),
-                          (T.downloadOptions.mediaKey = ""),
+                          (I.downloadOptions.mediaKey = ""),
                           o(
                             "WAWebHistorySyncNotificationUtils",
                           ).commitHistoryDownloadedMetric({
                             chunkDownloadFinishTimestamp:
                               o("WATimeUtils").unixTimeMs(),
-                            historySyncDownloadMetric: B,
+                            historySyncDownloadMetric: O,
                             isSuccess: !0,
-                            startTs: T.historySyncStepStartedTs,
+                            startTs: I.historySyncStepStartedTs,
                           }));
                       } catch (e) {
                         if (
-                          (q.endFailWithError(
+                          (W.endFailWithError(
                             "download_failed",
                             r("getErrorSafe")(e).message,
                           ),
                           o("WALogger").WARN(
-                            b ||
-                              (b = babelHelpers.taggedTemplateLiteralLoose([
+                            C ||
+                              (C = babelHelpers.taggedTemplateLiteralLoose([
                                 "[history sync][recent sync] history sync download failed",
                               ])),
                           ),
                           !(e instanceof o("WAWebHttpErrors").HttpNetworkError))
                         ) {
-                          var H = r("WAWebMsgKey").fromString(T.msgKey);
+                          var V = r("WAWebMsgKey").fromString(I.msgKey);
                           (o(
                             "WAWebHistorySyncNotificationUtils",
                           ).commitHistoryDownloadedMetric({
                             chunkDownloadFinishTimestamp:
                               o("WATimeUtils").unixTimeMs(),
-                            historySyncDownloadMetric: B,
+                            historySyncDownloadMetric: O,
                             isSuccess: !1,
-                            startTs: T.historySyncStepStartedTs,
+                            startTs: I.historySyncStepStartedTs,
                           }),
                             r("WAWebSendHistSyncServerErrorReceiptJob")(
-                              H.remote,
-                              H.id,
-                              T.downloadOptions.mediaKey,
+                              V.remote,
+                              V.id,
+                              I.downloadOptions.mediaKey,
                             ));
                           return;
                         }
@@ -487,17 +473,17 @@ __d(
                   }
                   yield o(
                     "WAWebApiHistorySyncNotification",
-                  ).enqueueNotification(T);
+                  ).enqueueNotification(I);
                   break e;
                 }
               }
               (o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync] continueProgressiveHistorySyncProcessingV2 ",
                     "",
                   ])),
-                o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(T),
+                o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(I),
               ),
                 r(
                   "WAWebSyncBootstrap",
@@ -508,10 +494,10 @@ __d(
             }
           }
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    l.handleHistorySyncNotification = R;
+    l.handleHistorySyncNotification = S;
   },
   98,
 );

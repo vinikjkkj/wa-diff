@@ -2,21 +2,31 @@ __d(
   "WAWebFBLoggerWorker",
   ["err"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return function (t) {
-        var n,
-          o =
-            (n = t.error) != null
-              ? n
-              : r("err")("synthesized for worker FBLogger blame");
-        e.sendAndReceive(
+    var e = ["error"];
+    function s(t) {
+      return function (n) {
+        var o,
+          a,
+          i =
+            (o = n.error) != null
+              ? o
+              : r("err")("synthesized for worker FBLogger blame"),
+          l = n.error,
+          s = babelHelpers.objectWithoutPropertiesLoose(n, e);
+        t.sendAndReceive(
           "mainthread_fblogger",
           "logFBError",
-          babelHelpers.extends({}, t, { error: o }),
+          babelHelpers.extends({}, s, {
+            serializedError: {
+              message: i.message,
+              stack: (a = i.stack) != null ? a : "",
+              name: i.name,
+            },
+          }),
         );
       };
     }
-    l.createLogToFBLoggerWorker = e;
+    l.createLogToFBLoggerWorker = s;
   },
   98,
 );

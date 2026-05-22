@@ -13,6 +13,7 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebEphemeralDecodeBroadcastSetting",
     "WAWebHandleMsgError",
+    "WAWebSendReceiptJobCommon",
     "WAWebSignalCommonErrors",
     "WAWebSignalKeyApi",
     "WAWebSignalProtocolStore",
@@ -61,44 +62,45 @@ __d(
             d = u === void 0 ? !1 : u,
             m = t.participant,
             p = t.rawTs,
-            _ = t.recipient,
-            g = t.retryCount,
-            h = t.retryReason,
-            y = t.to;
+            _ = t.receiptModeBitmask,
+            g = t.recipient,
+            h = t.retryCount,
+            y = t.retryReason,
+            C = t.to;
           if (
             (r("gkx")("26258") ||
               n("cr:10198") == null ||
               n("cr:10198").injectDebug(
-                y,
+                C,
                 "RetryReceiptSent",
                 "externalId:" + a,
               ),
             !r("gkx")("26258"))
           ) {
-            var C =
+            var b =
               n("cr:4533") == null
                 ? void 0
                 : n("cr:4533").getDebugDoNotSendRetryReceipt();
-            if (C != null && C > 0)
+            if (b != null && b > 0)
               return (
                 n("cr:4533") == null ||
-                  n("cr:4533").setDebugDoNotSendRetryReceipt(C - 1),
+                  n("cr:4533").setDebugDoNotSendRetryReceipt(b - 1),
                 (c || (c = n("Promise"))).resolve()
               );
           }
           try {
-            var b = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
-              v = yield (c || (c = n("Promise"))).all([
-                b.getLocalRegistrationId(),
-                b.getIdentityKeyPair(),
+            var v = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
+              S = yield (c || (c = n("Promise"))).all([
+                v.getLocalRegistrationId(),
+                v.getIdentityKeyPair(),
               ]),
-              S = v[0],
-              R = v[1];
-            if (S == null || R == null)
+              R = S[0],
+              L = S[1];
+            if (R == null || L == null)
               throw r("err")("No registration info found");
-            var L;
+            var E;
             try {
-              L = yield f(g, o("WAWebCryptoCurve25519").toCurveKeyPair(R), d);
+              E = yield f(h, o("WAWebCryptoCurve25519").toCurveKeyPair(L), d);
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -113,21 +115,21 @@ __d(
                   "sendRetryReceipt: error while creating key section in retry receipt",
                 );
             }
-            var E = !y.isBot() && !!(m != null && m.isBot());
-            if (E) return;
-            var k = o("WAWap").DROP_ATTR,
-              I = o("WAWap").DROP_ATTR,
+            var k = !C.isBot() && !!(m != null && m.isBot());
+            if (k) return;
+            var I = o("WAWap").DROP_ATTR,
               T = o("WAWap").DROP_ATTR,
-              D;
-            if (y.isUser()) {
+              D = o("WAWap").DROP_ATTR,
+              x;
+            if (C.isUser()) {
               if (
-                ((D = o("WAWebCommsWapMd").DEVICE_JID(y)),
+                ((x = o("WAWebCommsWapMd").DEVICE_JID(C)),
                 o("WAWebUserPrefsMeUser").isMeAccount(
-                  o("WAWebWidFactory").asUserWidOrThrow(y),
+                  o("WAWebWidFactory").asUserWidOrThrow(C),
                 ))
               )
-                if (l) k = "peer";
-                else if (_) I = o("WAWebCommsWapMd").USER_JID(_);
+                if (l) I = "peer";
+                else if (g) T = o("WAWebCommsWapMd").USER_JID(g);
                 else
                   return (c || (c = n("Promise"))).reject(
                     r("err")(
@@ -135,40 +137,44 @@ __d(
                     ),
                   );
             } else
-              ((D = o("WAWebCommsWapMd").CHAT_JID(y)),
-                (T = m
+              ((x = o("WAWebCommsWapMd").CHAT_JID(C)),
+                (D = m
                   ? o("WAWebCommsWapMd").DEVICE_JID(m)
                   : o("WAWap").DROP_ATTR));
-            var x = o("WAWap").wap(
-              "receipt",
-              {
-                id: o("WAWap").CUSTOM_STRING(a),
-                to: D,
-                participant: T,
-                recipient: I,
-                type: "retry",
-                category: k,
-              },
-              o("WAWap").wap("retry", {
-                v: "1",
-                count: o("WAWap").INT(g),
-                id: o("WAWap").CUSTOM_STRING(a),
-                t: o("WAWap").CUSTOM_STRING(p),
-                error: h != null ? o("WAWap").INT(h) : o("WAWap").DROP_ATTR,
-              }),
-              o("WAWap").wap(
-                "registration",
-                null,
-                o("WAWap").BIG_ENDIAN_CONTENT(S),
+            var $ = o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(
+                _ != null ? _ : 0,
               ),
-              L,
-            );
+              P = o("WAWap").wap(
+                "receipt",
+                {
+                  id: o("WAWap").CUSTOM_STRING(a),
+                  to: x,
+                  participant: D,
+                  recipient: T,
+                  type: "retry",
+                  category: I,
+                },
+                o("WAWap").wap("retry", {
+                  v: "1",
+                  count: o("WAWap").INT(h),
+                  id: o("WAWap").CUSTOM_STRING(a),
+                  t: o("WAWap").CUSTOM_STRING(p),
+                  error: y != null ? o("WAWap").INT(y) : o("WAWap").DROP_ATTR,
+                }),
+                o("WAWap").wap(
+                  "registration",
+                  null,
+                  o("WAWap").BIG_ENDIAN_CONTENT(R),
+                ),
+                E,
+                $,
+              );
             return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-              x,
+              P,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "receipt",
-                from: y,
+                from: C,
                 participant: m,
                 type: "retry",
               }),

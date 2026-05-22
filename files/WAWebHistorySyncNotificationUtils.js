@@ -32,6 +32,7 @@ __d(
     "WAWebWamEnumMdBootstrapStepResult",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -307,60 +308,61 @@ __d(
                     .MD_BOOTSTRAP_PAYLOAD_TYPE.CRITICAL
                 : o("WAWebWamEnumMdBootstrapPayloadType")
                     .MD_BOOTSTRAP_PAYLOAD_TYPE.NON_CRITICAL,
-            r = o(
+            a = o(
               "WAWebGetMetricHistorySyncPayloadType",
             ).getMetricHistorySyncPayloadType(e.syncType),
-            a = yield o(
+            i = yield o(
               "WAWebSyncdMdSyncFieldstatMeta",
             ).MdSyncFieldStatsMeta.getMdSessionId(),
-            i = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
+            l = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
               e,
             ),
-            l = new (o(
+            s = new (o(
               "WAWebMdBootstrapHistoryDataStartDownloadingWamEvent",
             ).MdBootstrapHistoryDataStartDownloadingWamEvent)({
               mdBootstrapPayloadType: n,
               mdBootstrapPayloadSize: e.historySyncPayloadSize,
-              mdBootstrapHistoryPayloadType: r,
-              mdSessionId: a,
-              historySyncStageProgress: i,
+              mdBootstrapHistoryPayloadType: a,
+              mdSessionId: i,
+              historySyncStageProgress: l,
             }),
-            s = new (o(
+            u = new (o(
               "WAWebMdBootstrapHistoryDataDownloadedWamEvent",
             ).MdBootstrapHistoryDataDownloadedWamEvent)({
               mdBootstrapPayloadType: n,
               mdBootstrapPayloadSize: e.historySyncPayloadSize,
-              mdBootstrapHistoryPayloadType: r,
-              mdSessionId: a,
-              historySyncStageProgress: i,
+              mdBootstrapHistoryPayloadType: a,
+              mdSessionId: i,
+              historySyncStageProgress: l,
             }),
-            u = new (o(
+            c = new (o(
               "WAWebMdBootstrapDataAppliedWamEvent",
             ).MdBootstrapDataAppliedWamEvent)({
               mdBootstrapPayloadType: n,
               mdBootstrapSource: o("WAWebWamEnumMdBootstrapSource")
                 .MD_BOOTSTRAP_SOURCE.HISTORY,
-              mdBootstrapHistoryPayloadType: r,
-              mdSessionId: a,
+              mdBootstrapHistoryPayloadType: a,
+              mdSessionId: i,
               sentViaMms: t,
-              historySyncStageProgress: i,
+              historySyncStageProgress: l,
+              gkContext: r("gkx")("20033") === !0 ? "workerV2" : "",
             });
           e.chunkOrder != null &&
-            ((l.historySyncChunkOrder = e.chunkOrder),
-            (s.historySyncChunkOrder = e.chunkOrder),
-            (u.historySyncChunkOrder = e.chunkOrder));
-          var c = yield o(
+            ((s.historySyncChunkOrder = e.chunkOrder),
+            (u.historySyncChunkOrder = e.chunkOrder),
+            (c.historySyncChunkOrder = e.chunkOrder));
+          var d = yield o(
             "WAWebSyncdMdSyncFieldstatMeta",
           ).MdSyncFieldStatsMeta.getStorageEstimation();
           return (
-            c.mdStorageQuotaBytes !==
+            d.mdStorageQuotaBytes !==
               o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
-              ((s.mdStorageQuotaUsedBytes = c.mdStorageQuotaUsedBytes),
-              (s.mdStorageQuotaBytes = c.mdStorageQuotaBytes)),
+              ((u.mdStorageQuotaUsedBytes = d.mdStorageQuotaUsedBytes),
+              (u.mdStorageQuotaBytes = d.mdStorageQuotaBytes)),
             {
-              historySyncStartDownloadingMetric: l,
-              historySyncDownloadedMetric: s,
-              historySyncDataAppliedMetric: u,
+              historySyncStartDownloadingMetric: s,
+              historySyncDownloadedMetric: u,
+              historySyncDataAppliedMetric: c,
             }
           );
         })),

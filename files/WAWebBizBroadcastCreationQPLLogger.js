@@ -4,8 +4,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({
+        AUDIENCE_FIRST_SELECTED: "audience_first_selected",
         BILLING_FETCH_END: "billing_fetch_end",
+        BILLING_FETCH_START: "billing_fetch_start",
         CHECKOUT_FETCH_END: "checkout_fetch_end",
+        CHECKOUT_FETCH_START: "checkout_fetch_start",
         DRAWER_MOUNTED: "drawer_mounted",
         FLOW_MOUNTED: "flow_mounted",
       }),

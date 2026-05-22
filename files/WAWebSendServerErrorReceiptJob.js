@@ -6,7 +6,6 @@ __d(
     "WADeprecatedSendIq",
     "WALogger",
     "WAWap",
-    "WAWebABProps",
     "WAWebChatGetters",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
@@ -15,7 +14,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -79,11 +77,7 @@ __d(
               f != null
                 ? o("WAWebCommsWapMd").USER_JID(f)
                 : o("WAWap").DROP_ATTR,
-            h =
-              o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") ===
-              !0
-                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            h = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             y = o("WAWap").wap(
               "receipt",
               {
@@ -120,10 +114,6 @@ __d(
       );
     }
     function _(t) {
-      if (o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") !== !0)
-        return t.historyChatId != null
-          ? o("WAWebWidFactory").createWid(t.historyChatId)
-          : t.id;
       if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(t.id)) {
         if (t.accountLid != null) return t.accountLid;
         o("WALogger")

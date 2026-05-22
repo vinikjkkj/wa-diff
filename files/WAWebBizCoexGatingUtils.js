@@ -43,10 +43,15 @@ __d(
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_auth_agents_feature_control_enabled",
+        "wa_auth_agent_offboarding_enabled",
       );
     }
     function y() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_auth_agents_feature_control_enabled",
+      );
+    }
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_auth_agents_feature_control_enabled",
       );
@@ -58,8 +63,9 @@ __d(
       (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = _),
       (l.authorizedAgentsEnabled = f),
       (l.agentOffboardingEnabled = g),
-      (l.agentBizProfileFeatureControlEnabled = h),
-      (l.authAgentFeatureControlEnabled = y));
+      (l.agentSmbOffboardingEnabled = h),
+      (l.agentBizProfileFeatureControlEnabled = y),
+      (l.authAgentFeatureControlEnabled = C));
   },
   98,
 );

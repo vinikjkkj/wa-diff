@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebAgentTransitionUtils",
     "WAWebApiContact",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
@@ -21,12 +22,14 @@ __d(
     "WAWebGroupType",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebLid1X1MigrationGating",
+    "WAWebMobilePlatforms",
     "WAWebNoop",
     "WAWebReachoutTimelockUtils",
     "WAWebStateUtils",
     "WAWebTosCountryGating",
     "WAWebTosGating",
     "WAWebUserPrefsMeUser",
+    "WAWebUserPrefsMultiDevice",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -323,6 +326,12 @@ __d(
         return ((e.canSend = !1), !1);
       if (o("WAWebChatGetters").getIsUser(e))
         return (e.canSend = !(
+          (o("WAWebMobilePlatforms").isSMB() &&
+            !o(
+              "WAWebUserPrefsMultiDevice",
+            ).getIsHostedMeAccountFromLocalStorage() &&
+            o("WAWebAgentTransitionUtils").getMeSmbOffboardingState() &&
+            o("WAWebBizCoexGatingUtils").agentSmbOffboardingEnabled()) ||
           e.contact.isContactBlocked ||
           o("WAWebChatGetters").getIsPSA(e) ||
           o("WAWebChatGetters").getIsIAS(e) ||

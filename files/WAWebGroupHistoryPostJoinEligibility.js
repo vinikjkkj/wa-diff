@@ -35,7 +35,10 @@ __d(
     }
     function c(e, t) {
       if (
-        !o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled() ||
+        (!o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled() &&
+          !o(
+            "WAWebGroupHistoryGating",
+          ).isGroupHistoryPostJoinInternalTesterEnabled()) ||
         !s(t.groupType) ||
         t.hasCapi === !0 ||
         !u(t.iAmAdmin, t.iAmSuperAdmin, t.memberShareGroupHistoryMode) ||

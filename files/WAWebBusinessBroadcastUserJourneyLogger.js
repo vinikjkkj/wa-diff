@@ -868,11 +868,17 @@ __d(
           (t.billingInfoFetchFailed = function (t) {
             o("WAWebBBPaymentLogs").billingInfoFetchFailed(this.$1, t);
           }),
+          (t.businessInfoFetchFailed = function (t) {
+            o("WAWebBBPaymentLogs").businessInfoFetchFailed(this.$1, t);
+          }),
           (t.emailOnboardingCheckFailed = function (t) {
             o("WAWebBBPaymentLogs").emailOnboardingCheckFailed(this.$1, t);
           }),
           (t.checkoutFetchFailed = function (t, n) {
             o("WAWebBBPaymentLogs").checkoutFetchFailed(this.$1, t, n);
+          }),
+          (t.quotaFetchFailed = function (t) {
+            o("WAWebBBPaymentLogs").quotaFetchFailed(this.$1, t);
           }),
           (t.billingSummaryFaqLinkClicked = function (t) {
             o("WAWebBBPaymentLogs").billingSummaryFaqLinkClicked(this.$1, t);

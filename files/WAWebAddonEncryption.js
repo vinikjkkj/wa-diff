@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WANullthrows",
     "WAUseCaseSecret",
-    "WAWebABProps",
     "WAWebAddonEncryptionError",
     "WAWebApiContact",
     "WAWebLidMigrationUtils",
@@ -19,8 +18,8 @@ __d(
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f;
-    function g(e, t) {
+    var e, s, u, c, d, m, p;
+    function _(e, t) {
       switch (e) {
         case o("WAWebMsgType").MsgKind.PollVoteEncrypted:
         case o("WAWebMsgType").MsgKind.PollVoteDecrypted:
@@ -32,77 +31,60 @@ __d(
           return;
       }
     }
-    function h(t) {
-      var n = t.addOnSender,
-        r = t.addonType,
-        a = t.originalMessageSender,
-        i = t.parentWid,
-        l = o("WAWebWidToJid").widToUserJid(a),
-        u = o("WAWebWidToJid").widToUserJid(n);
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "lid_one_to_one_migration_event_response_force_pn_jid",
-        ) &&
-        i != null &&
-        i.isRegularUser() &&
-        (r === o("WAWebMsgType").MsgKind.EventResponseDecrypted ||
-          r === o("WAWebMsgType").MsgKind.EventEditDecrypted)
-      ) {
-        if (a.isLid()) {
-          var c = o("WAWebApiContact").getPhoneNumber(a);
-          c
-            ? (l = o("WAWebWidToJid").widToUserJid(c))
-            : o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "LID to PN Mapping not found for message sender",
-                    ])),
-                )
-                .sendLogs("missing-lid-to-pn-mapping-for-message-sender");
-        }
-        if (n.isLid()) {
-          var d = o("WAWebApiContact").getPhoneNumber(n);
-          d
-            ? (u = o("WAWebWidToJid").widToUserJid(d))
-            : o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "LID to PN Mapping not found for addon sender",
-                    ])),
-                )
-                .sendLogs("missing-lid-to-pn-mapping-for-addon-sender");
-        }
-      }
-      return (
-        o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") &&
-          ((l = y(a, "message-sender")), (u = y(n, "addon-sender"))),
-        { originalMessageSenderJid: l, addOnSenderJid: u }
-      );
+    function f(e) {
+      var t = e.addOnSender,
+        n = e.originalMessageSender,
+        r = g(n, "message-sender"),
+        o = g(t, "addon-sender");
+      return { originalMessageSenderJid: r, addOnSenderJid: o };
     }
-    function y(e, t) {
-      var n = o("WAWebWidToJid").widToUserJid(e);
+    function g(t, n) {
+      var r = o("WAWebWidToJid").widToUserJid(t);
       if (
-        !e.isRegularUserPn() ||
-        !o("WAWebLidMigrationUtils").shouldHaveAccountLid(e)
+        !t.isRegularUserPn() ||
+        !o("WAWebLidMigrationUtils").shouldHaveAccountLid(t)
       )
-        return n;
-      var r = o("WAWebApiContact").getCurrentLid(e);
-      return r
-        ? o("WAWebWidToJid").widToUserJid(r)
+        return r;
+      var a = o("WAWebApiContact").getCurrentLid(t);
+      return a
+        ? o("WAWebWidToJid").widToUserJid(a)
         : (o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "PN to LID Mapping not found for ",
                   "",
                 ])),
-              t,
+              n,
             )
             .tags("pnless-stanzas")
             .sendLogs("missing-pn-to-lid-mapping"),
-          n);
+          r);
+    }
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.addOnSender,
+            r = t.iv,
+            o = t.messageSecret,
+            a = t.originalMessageSender,
+            i = t.stanzaId,
+            l = f({ addOnSender: n, originalMessageSender: a }),
+            s = l.addOnSenderJid,
+            u = l.originalMessageSenderJid;
+          return C(e, {
+            iv: r,
+            messageSecret: o,
+            stanzaId: i,
+            originalMessageSenderJid: u,
+            addOnSenderJid: s,
+          });
+        })),
+        y.apply(this, arguments)
+      );
     }
     function C(e, t) {
       return b.apply(this, arguments);
@@ -110,39 +92,30 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.addOnSender,
+          var n = t.addOnSenderJid,
             a = t.iv,
             i = t.messageSecret,
-            l = t.originalMessageSender,
-            s = t.parentWid,
+            l = t.originalMessageSenderJid,
             u = t.stanzaId;
           try {
-            var d = h({
-                addOnSender: n,
-                addonType: e.type,
-                originalMessageSender: l,
-                parentWid: s,
-              }),
-              m = d.addOnSenderJid,
-              p = d.originalMessageSenderJid,
-              _ = r("WANullthrows")(E(e.type)),
-              f = _.spec,
-              y = _.usecase,
-              C = yield o("WAUseCaseSecret").createUseCaseSecret({
+            var c = r("WANullthrows")(E(e.type)),
+              d = c.spec,
+              m = c.usecase,
+              p = yield o("WAUseCaseSecret").createUseCaseSecret({
                 messageSecret: i,
                 stanzaId: u,
-                parentMsgOriginalSender: p,
-                modificationSender: m,
-                modificationType: y,
+                parentMsgOriginalSender: l,
+                modificationSender: n,
+                modificationType: m,
               }),
-              b = o("encodeProtobuf").encodeProtobuf(f, e.encode).readBuffer(),
-              v = yield o("WACryptoAesGcm").gcmEncrypt(
-                C,
+              f = o("encodeProtobuf").encodeProtobuf(d, e.encode).readBuffer(),
+              g = yield o("WACryptoAesGcm").gcmEncrypt(
+                p,
                 a,
-                b,
-                g(e.type, { stanzaId: u, addOnSenderJid: m }),
+                f,
+                _(e.type, { stanzaId: u, addOnSenderJid: n }),
               ),
-              S =
+              h =
                 (e.type === o("WAWebMsgType").MsgKind.CommentDecrypted ||
                   e.type === o("WAWebMsgType").MsgKind.EventEditDecrypted ||
                   e.type === o("WAWebMsgType").MsgKind.MessageEditDecrypted) &&
@@ -152,7 +125,7 @@ __d(
                   ? new (o(
                       "WAWebReportingTokenContent",
                     ).ReportingTokenContentCalculator)(
-                      new Uint8Array(b),
+                      new Uint8Array(f),
                       o("WAWebReportingTokenConfig").getReportingTokenConfig(
                         o(
                           "WAWebMessagingGatingUtils",
@@ -161,14 +134,14 @@ __d(
                     ).getReportingTokenContent()
                   : null;
             return babelHelpers.extends(
-              { encPayload: v },
-              S != null && { reportingTokenContent: S },
+              { encPayload: g },
+              h != null && { reportingTokenContent: h },
             );
           } catch (t) {
             throw (
               o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Failed encrypting an addon ",
                     " ",
                     " ",
@@ -215,7 +188,7 @@ __d(
             d,
             a,
             e.encryptedAddOn,
-            g(e.type, { stanzaId: s, addOnSenderJid: n }),
+            _(e.type, { stanzaId: s, addOnSenderJid: n }),
           );
         })),
         S.apply(this, arguments)
@@ -233,21 +206,21 @@ __d(
             i = t.originalMessageSender,
             l = t.stanzaId,
             s = { messageSecret: a, iv: r, stanzaId: l },
-            u = o("WAWebLidMigrationUtils").toUserLid(i),
-            c = o("WAWebLidMigrationUtils").toUserLid(n);
-          if (u != null && c != null)
+            _ = o("WAWebLidMigrationUtils").toUserLid(i),
+            f = o("WAWebLidMigrationUtils").toUserLid(n);
+          if (_ != null && f != null)
             try {
               return yield v(
                 e,
                 babelHelpers.extends({}, s, {
-                  originalMessageSenderJid: o("WAWebWidToJid").widToUserJid(u),
-                  addOnSenderJid: o("WAWebWidToJid").widToUserJid(c),
+                  originalMessageSenderJid: o("WAWebWidToJid").widToUserJid(_),
+                  addOnSenderJid: o("WAWebWidToJid").widToUserJid(f),
                 }),
               );
             } catch (t) {
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "decryptAddOn: LID attempt failed for ",
                     " ",
                     ", trying PN",
@@ -269,8 +242,8 @@ __d(
               );
             } catch (t) {
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "decryptAddOn: PN attempt failed for ",
                     " ",
                     ", trying original",
@@ -291,8 +264,8 @@ __d(
               i.isLid() && !n.isLid()
                 ? o("WALogger")
                     .WARN(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "decryptAddOn: fallback orig=LID addon=PN ",
                           " ",
                           "",
@@ -308,8 +281,8 @@ __d(
                   n.isLid() &&
                   o("WALogger")
                     .WARN(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "decryptAddOn: fallback orig=PN addon=LID ",
                           " ",
                           "",
@@ -326,8 +299,8 @@ __d(
           } catch (t) {
             o("WALogger")
               .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "decryptAddOn: original WIDs failed ",
                     " ",
                     " ",
@@ -417,7 +390,9 @@ __d(
           };
       }
     }
-    ((l.encryptAddOn = C), (l.decryptAddOn = R));
+    ((l.encryptAddOn = h),
+      (l.encryptAddOnRaw_DONT_CALL_DIRECTLY = C),
+      (l.decryptAddOn = R));
   },
   98,
 );

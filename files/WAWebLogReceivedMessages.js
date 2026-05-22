@@ -113,11 +113,7 @@ __d(
             g = f[0],
             h = f[1],
             y =
-              (a = r.get(
-                o("WAWebUserPrefsMeUser")
-                  .getMePnUserOrThrow_DO_NOT_USE()
-                  .toJid(),
-              )) == null
+              (a = r.get(o("WAWebUserPrefsMeUser").getMeUser().toJid())) == null
                 ? void 0
                 : a.ephemeralDuration;
           yield c.all(
@@ -324,9 +320,7 @@ __d(
                 return e.id.remote.toJid();
               }),
           );
-          t.add(
-            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().toJid(),
-          );
+          t.add(o("WAWebUserPrefsMeUser").getMeUser().toJid());
           var n = Array.from(t),
             a;
           return o("WAWebRuntimeEnvironmentUtils").isWorker()

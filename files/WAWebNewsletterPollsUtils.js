@@ -86,7 +86,7 @@ __d(
           });
     }
     function m(t) {
-      t.isUser()
+      t.isLid()
         ? t.getDeviceId() !== 0 &&
           o("WALogger")
             .ERROR(
@@ -102,12 +102,12 @@ __d(
             .ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[newsletter] poll voter id is not a user wid: ",
+                  "[newsletter] poll voter id is not a user lid: ",
                   "",
                 ])),
               t.toLogString(),
             )
-            .sendLogs("newsletter-pollvoter-not-plain-user-id");
+            .sendLogs("newsletter-pollvoter-not-user-lid");
     }
     ((l.aggregateNewsletterVotes = u),
       (l.mapNewsletterVoteToDbRecord = c),

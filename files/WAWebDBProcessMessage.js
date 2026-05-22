@@ -194,7 +194,9 @@ __d(
                     var i = e.from,
                       l = babelHelpers.extends({}, e);
                     (a.t != null && (l.t = a.t),
-                      a.ack > e.ack && (l.ack = a.ack));
+                      a.ack > e.ack && (l.ack = a.ack),
+                      a.serverStoreTimeMicros != null &&
+                        (l.serverStoreTimeMicros = a.serverStoreTimeMicros));
                     var s = o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
                       msg: o("WAWebDBMessageSerialization").dbRowFromMessage(l),
                       chatId: i.toString(),

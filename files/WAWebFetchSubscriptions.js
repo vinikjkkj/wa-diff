@@ -183,8 +183,6 @@ __d(
       if (e == null) return null;
       var t = e;
       switch (t) {
-        case "ASTERIA":
-          return o("WAWebSubscriptionSource").SubscriptionSource.ASTERIA;
         case "AURA":
           return o("WAWebSubscriptionSource").SubscriptionSource.AURA;
         case "META_NOVA":

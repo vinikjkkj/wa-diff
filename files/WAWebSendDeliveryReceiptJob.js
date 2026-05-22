@@ -16,27 +16,29 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, o, a, i) {
+    function s(e, t, n, r, o, a, i, l) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l, s, u) {
-            var d =
+          function* (t, n, a, i, l, s, u, d) {
+            d === void 0 && (d = 0);
+            var m =
                 (n.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(n)) ||
                 (i != null && o("WAWebUserPrefsMeUser").isMeAccount(i)),
-              m = s.hasInactiveMsg === !0 && !d,
-              p = !m;
+              p = s.hasInactiveMsg === !0 && !m,
+              _ = !p;
             c({
               externalId: t,
-              isActiveReceipt: p,
-              isFromPeer: d,
+              isActiveReceipt: _,
+              isFromPeer: m,
               isPeerMsg: l,
               isStatusContext: u === !0,
               participant: i,
               recipient: a,
               to: n,
+              receiptModeBitmask: d,
             }).catch(function (t) {
               o("WALogger")
                 .ERROR(
@@ -65,41 +67,47 @@ __d(
             a = e.isPeerMsg,
             i = e.isStatusContext,
             l = e.participant,
-            s = e.recipient,
-            u = e.to,
-            c = o("WAWap").DROP_ATTR;
+            s = e.receiptModeBitmask,
+            u = e.recipient,
+            c = e.to,
+            d = o("WAWap").DROP_ATTR;
           a
-            ? (c = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG)
+            ? (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG)
             : r
-              ? (c = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
-              : n || (c = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
-          var d =
+              ? (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
+              : n || (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
+          var m =
               i && o("WAWebStatusGatingUtils").isStatusStanzaSendEnabled()
                 ? o("WAWap").CUSTOM_STRING("status")
                 : o("WAWap").DROP_ATTR,
-            m = o("WAJids").extractJidFromJidWithType(
-              o("WAWebWidToJid").widToJidWithType(u),
+            p = o("WAJids").extractJidFromJidWithType(
+              o("WAWebWidToJid").widToJidWithType(c),
             ),
-            p = o("WAWap").wap("receipt", {
-              id: o("WAWap").CUSTOM_STRING(t),
-              to: o("WAWap").JID(m),
-              participant:
-                (u.isGroup() || u.isBroadcast()) && l
-                  ? o("WAWebCommsWapMd").DEVICE_JID(l)
-                  : o("WAWap").DROP_ATTR,
-              recipient:
-                !a && r && s
-                  ? o("WAWebCommsWapMd").USER_JID(s)
-                  : o("WAWap").DROP_ATTR,
-              type: c,
-              context: d,
-            });
+            _ = o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(s),
+            f = o("WAWap").wap(
+              "receipt",
+              {
+                id: o("WAWap").CUSTOM_STRING(t),
+                to: o("WAWap").JID(p),
+                participant:
+                  (c.isGroup() || c.isBroadcast()) && l
+                    ? o("WAWebCommsWapMd").DEVICE_JID(l)
+                    : o("WAWap").DROP_ATTR,
+                recipient:
+                  !a && r && u
+                    ? o("WAWebCommsWapMd").USER_JID(u)
+                    : o("WAWap").DROP_ATTR,
+                type: d,
+                context: m,
+              },
+              _,
+            );
           (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts(
-            u,
-            l || u,
+            c,
+            l || c,
             t,
           ),
-            o("WADeprecatedSendIq").deprecatedCastStanza(p));
+            o("WADeprecatedSendIq").deprecatedCastStanza(f));
         })),
         d.apply(this, arguments)
       );

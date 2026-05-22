@@ -5,7 +5,6 @@ __d(
     "WAWebBizBroadcastsDeviceCapability",
     "WAWebBotGating",
     "WAWebDeviceCapabilitiesSync",
-    "WAWebMemberLabelDeviceCapabilityBackend",
     "WAWebPrimaryDeviceCapabilities",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
@@ -39,9 +38,6 @@ __d(
                 "WAWebUserPrefsDeviceCapabilities",
               ).mergeDeviceCapabilitiesToStorage(e, "self");
             return (
-              yield o(
-                "WAWebMemberLabelDeviceCapabilityBackend",
-              ).bootstrapMemberLabelPrimaryCapability(),
               yield o(
                 "WAWebBizBroadcastsDeviceCapability",
               ).bootstrapBizBroadcastPrimaryCapability(),

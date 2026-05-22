@@ -274,7 +274,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var t = o("WAWebUserPrefsMeUser").getMeUser(),
             r;
           if (
             o("WAWebABProps").getABPropConfigValue("mex_usync_about_status")
@@ -361,13 +361,10 @@ __d(
           var t = e.devices,
             n = e.wid,
             r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
-          return o("WAWebUserPrefsMeUser").isMeAccount(n)
-            ? [
-                { wid: a, devices: t },
-                { wid: r, devices: t },
-              ]
-            : (o("WALogger")
+            a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (!o("WAWebUserPrefsMeUser").isMeAccount(n))
+            return (
+              o("WALogger")
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -375,7 +372,10 @@ __d(
                     ])),
                 )
                 .sendLogs("wid-is-not-self"),
-              [{ wid: n, devices: t }]);
+              [{ wid: n, devices: t }]
+            );
+          var i = [{ wid: r, devices: t }];
+          return (a != null && i.push({ wid: a, devices: t }), i);
         })),
         C.apply(this, arguments)
       );

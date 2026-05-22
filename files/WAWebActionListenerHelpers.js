@@ -275,7 +275,7 @@ __d(
                 );
               });
           }
-          return new (o(
+          new (o(
             "WAWebMessageDeleteActionsWamEvent",
           ).MessageDeleteActionsWamEvent)({
             deleteActionType: n
@@ -289,7 +289,7 @@ __d(
               e.id.toJid(),
             ),
             mediaType: y(t.list),
-          }).commitAndWaitForFlush();
+          }).commit();
         })),
         b.apply(this, arguments)
       );

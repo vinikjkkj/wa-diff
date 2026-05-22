@@ -43,6 +43,15 @@ __d(
         );
       if (
         t ===
+        o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
+          .DEDUPED
+      )
+        return s._(
+          /*BTDS*/ "{sender contact name} sent you message history, but you already received history before",
+          [s._param("sender contact name", m)],
+        );
+      if (
+        t ===
           o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
             .DOWNLOADING ||
         t ===

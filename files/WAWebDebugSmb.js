@@ -386,65 +386,50 @@ __d(
     function Z() {
       return (
         (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = [
-              {
-                id: "WA_PREMIUM_1",
-                isAutoRenewing: !0,
-                isDeactivated: !1,
-                expirationDate: void 0,
-                creationTime: void 0,
-                newMessageCappingEnabled: !1,
-                tier: 1,
-                status: "ACTIVE",
-                source: (e = o("WAWebSubscriptionSource")).SubscriptionSource
-                  .BLUE,
-                isPlatformChanged: !1,
-                startTime: 1e3,
-              },
-              {
-                id: "WA_PREMIUM_2",
-                isAutoRenewing: !1,
-                isDeactivated: !1,
-                expirationDate: void 0,
-                creationTime: null,
-                newMessageCappingEnabled: !1,
-                tier: 2,
-                status: "ACTIVE",
-                source: e.SubscriptionSource.META_NOVA,
-                isPlatformChanged: !1,
-                startTime: 2e3,
-              },
-              {
-                id: "WA_PREMIUM_3",
-                isAutoRenewing: !1,
-                isDeactivated: !1,
-                expirationDate: 100,
-                creationTime: 50,
-                newMessageCappingEnabled: !0,
-                tier: 1,
-                status: "ACTIVE",
-                source: e.SubscriptionSource.ASTERIA,
-                isPlatformChanged: !0,
-                startTime: 50,
-              },
-              {
-                id: "WA_PREMIUM_4",
-                isAutoRenewing: !1,
-                isDeactivated: !0,
-                expirationDate: 200,
-                creationTime: 50,
-                newMessageCappingEnabled: !0,
-                tier: 1,
-                status: "EXPIRED",
-                source: e.SubscriptionSource.BLUE,
-                isPlatformChanged: !1,
-                startTime: 100,
-              },
-            ];
+          var e = [
+            {
+              id: "WA_PREMIUM_1",
+              isAutoRenewing: !0,
+              isDeactivated: !1,
+              expirationDate: void 0,
+              creationTime: void 0,
+              newMessageCappingEnabled: !1,
+              tier: 1,
+              status: "ACTIVE",
+              source: o("WAWebSubscriptionSource").SubscriptionSource.BLUE,
+              isPlatformChanged: !1,
+              startTime: 1e3,
+            },
+            {
+              id: "WA_PREMIUM_2",
+              isAutoRenewing: !1,
+              isDeactivated: !1,
+              expirationDate: void 0,
+              creationTime: null,
+              newMessageCappingEnabled: !1,
+              tier: 2,
+              status: "ACTIVE",
+              source: o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA,
+              isPlatformChanged: !1,
+              startTime: 2e3,
+            },
+            {
+              id: "WA_PREMIUM_4",
+              isAutoRenewing: !1,
+              isDeactivated: !0,
+              expirationDate: 200,
+              creationTime: 50,
+              newMessageCappingEnabled: !0,
+              tier: 1,
+              status: "EXPIRED",
+              source: o("WAWebSubscriptionSource").SubscriptionSource.BLUE,
+              isPlatformChanged: !1,
+              startTime: 100,
+            },
+          ];
           yield o("WAWebSchemaSubscription")
             .getSubscriptionTable()
-            .bulkCreateOrReplace(t);
+            .bulkCreateOrReplace(e);
         })),
         Z.apply(this, arguments)
       );

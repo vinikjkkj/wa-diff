@@ -64,6 +64,7 @@ __d(
                         fileName: r,
                         isAnnotationsEnabled:
                           o == null ? void 0 : o.isAnnotationsEnabled,
+                        isWindowsHybrid: o == null ? void 0 : o.isWindowsHybrid,
                       })
                       .catch(n));
                 });

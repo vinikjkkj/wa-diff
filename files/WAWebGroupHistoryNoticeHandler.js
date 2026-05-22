@@ -68,7 +68,7 @@ __d(
                                     : null,
                                 groupHistorySentState: o(
                                   "WAWebGroupHistoryPostJoinTypes.flow",
-                                ).GroupHistorySentState.HISTORY_SENT,
+                                ).GroupHistorySentState.NOTICE_SENT,
                               });
                             }
                           }

@@ -97,6 +97,9 @@ __d(
       }
     }
     function C() {
+      return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
+    }
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_receiver_dedup",
       );
@@ -112,7 +115,8 @@ __d(
       (l.isOutOfWindowPinsReceiverEnabled = f),
       (l.isGroupHistoryPostJoinSenderEnabled = g),
       (l.getGroupHistoryMessagesTimeLimitSecs = y),
-      (l.isGroupHistoryReceiverDedupEnabled = C));
+      (l.isGroupHistoryPostJoinInternalTesterEnabled = C),
+      (l.isGroupHistoryReceiverDedupEnabled = b));
   },
   98,
 );

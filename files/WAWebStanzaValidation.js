@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWap",
-    "WAWebABProps",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -195,8 +194,7 @@ __d(
                 o("WAWebWidFactory").createWid(n),
               )
             ) &&
-            !v(e) &&
-            o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
+            !v(e)
           ) {
             var r = b(n);
             o("WALogger")
@@ -205,7 +203,7 @@ __d(
                   (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[stanza-validation] pnless-stanza: <",
                     "> to=",
-                    " is PN despite web_pnless_stanzas being enabled",
+                    " is PN",
                   ])),
                 e.tag,
                 r,
@@ -229,17 +227,14 @@ __d(
       if (L(e) != null) {
         var t = y(e),
           n = t.filter(S);
-        if (
-          n.length !== 0 &&
-          o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
-        ) {
+        if (n.length !== 0) {
           var r = n.map(b).join(",");
           o("WALogger")
             .ERROR(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[stanza-validation] pnless-stanza: <",
-                  "> participant(s) using PN despite web_pnless_stanzas being enabled: ",
+                  "> participant(s) using PN: ",
                   "",
                 ])),
               e.tag,

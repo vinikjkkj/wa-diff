@@ -32,6 +32,8 @@ __d(
       AUTO_CREATED: 27,
       MULTI_SELECT: 28,
       QUICK_REPLIES: 29,
+      LISTS_MORE_BOTTOM_SHEET: 30,
+      LIST_MORE_BOTTOM_SHEET_OPEN: 31,
     });
     i.UPDATE_ENTRY_POINT = e;
   },

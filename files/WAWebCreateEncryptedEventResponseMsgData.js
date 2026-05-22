@@ -52,7 +52,6 @@ __d(
               addOnSender: o("WAWebWidFactory").asUserWidOrThrow(
                 r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
               ),
-              parentWid: t.from,
             }),
             c = u.encPayload;
           return babelHelpers.extends(

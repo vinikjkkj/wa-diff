@@ -6456,7 +6456,9 @@ __d(
           e = _Jn3$prototype$export.element;
         if (Ns(e)) {
           var _t182 = this.getIndent();
-          _t182 > 0 && (e.style.paddingInlineStart = 40 * _t182 + "px");
+          _t182 > 0 &&
+            ((e.style.paddingInlineStart = 40 * _t182 + "px"),
+            e.setAttribute("data-lexical-indent", String(_t182)));
           var _n88 = this.getDirection();
           _n88 && (e.dir = _n88);
         }
@@ -7904,9 +7906,15 @@ __d(
       return (e.afterCloneFrom(t), e);
     }
     function Ls(t, e) {
-      var n = parseInt(t.style.paddingInlineStart, 10) || 0,
-        r = Math.round(n / 40);
-      e.setIndent(r);
+      var n = t.getAttribute("data-lexical-indent");
+      if (null !== n) {
+        var _t207 = parseInt(n, 10);
+        if (Number.isFinite(_t207) && _t207 >= 0)
+          return void e.setIndent(_t207);
+      }
+      var r = parseInt(t.style.paddingInlineStart, 10) || 0,
+        i = Math.round(r / 40);
+      e.setIndent(i);
     }
     function Ks(t, e) {
       var n = e.getAttribute("dir");
@@ -7949,9 +7957,9 @@ __d(
         if (i) o = n[i];
         else
           for (var _ref29 of Object.entries(n)) {
-            var _t207 = _ref29[0];
+            var _t208 = _ref29[0];
             var _e134 = _ref29[1];
-            ((s = _t207), (o = _e134));
+            ((s = _t208), (o = _e134));
           }
       if (
         !r &&
@@ -7973,10 +7981,10 @@ __d(
         !zs(e, "importDOM") && o)
       ) {
         var _o27 = o,
-          _t208 = _o27.importDOM;
-        _t208 &&
+          _t209 = _o27.importDOM;
+        _t209 &&
           (e.importDOM = function () {
-            return _t208;
+            return _t209;
           });
       }
       return { ownNodeConfig: o, ownNodeType: s };
@@ -8045,11 +8053,11 @@ __d(
         var s = this.getParentAtCaret(),
           l = new Map();
         for (
-          var _t209 = o.getAdjacentCaret();
-          null !== _t209 && l.size < e;
-          _t209 = _t209.getAdjacentCaret()
+          var _t210 = o.getAdjacentCaret();
+          null !== _t210 && l.size < e;
+          _t210 = _t210.getAdjacentCaret()
         ) {
-          var _e136 = _t209.origin.getWritable();
+          var _e136 = _t210.origin.getWritable();
           l.set(_e136.getKey(), _e136);
         }
         for (var _e137 of i) {
@@ -8062,14 +8070,14 @@ __d(
                 _n98.is(_e137) || o.origin.is(_e137))
               );
               else {
-                var _t210 = _e137.getParent();
-                (_t210 && _t210.is(s) && _e137.remove(), _n98.replace(_e137));
+                var _t211 = _e137.getParent();
+                (_t211 && _t211.is(s) && _e137.remove(), _n98.replace(_e137));
               }
             } else null === _n98 && t(263, Array.from(l).join(" "));
           } else o.insert(_e137);
           o = ol(_e137, this.direction);
         }
-        for (var _t211 of l.values()) _t211.remove();
+        for (var _t212 of l.values()) _t212.remove();
         return this;
       };
       return Js;
@@ -8477,24 +8485,24 @@ __d(
       };
       _proto27.getTextSlices = function getTextSlices() {
         var _this14 = this;
-        var t = function t(_t212) {
-            var e = _this14[_t212].getLatest();
+        var t = function t(_t213) {
+            var e = _this14[_t213].getLatest();
             return Zs(e)
               ? (function (t, e) {
                   var n = t.direction,
                     r = t.origin,
                     i = ll(r, "focus" === e ? Vs(n) : n);
                   return cl(t, i - t.offset);
-                })(e, _t212)
+                })(e, _t213)
               : null;
           },
           e = t("anchor"),
           n = t("focus");
         if (e && n) {
-          var _t213 = e.caret,
+          var _t214 = e.caret,
             _r69 = n.caret;
-          if (_t213.isSameNodeCaret(_r69))
-            return [cl(_t213, _r69.offset - _t213.offset), null];
+          if (_t214.isSameNodeCaret(_r69))
+            return [cl(_t214, _r69.offset - _t214.offset), null];
         }
         return [e, n];
       };
@@ -8599,15 +8607,15 @@ __d(
         (null === r && t(275, e.origin.getKey(), n.origin.getKey()), r.type)
       ) {
         case "same": {
-          var _t214 = "text" === e.type,
+          var _t215 = "text" === e.type,
             _r70 = "text" === n.type;
-          return _t214 && _r70
+          return _t215 && _r70
             ? (function (t, e) {
                 return Math.sign(t - e);
               })(e.offset, n.offset)
             : e.type === n.type
               ? 0
-              : _t214
+              : _t215
                 ? -1
                 : _r70
                   ? 1
@@ -8646,11 +8654,11 @@ __d(
       if (e.is(n)) return { commonAncestor: e, type: "same" };
       var r = new Map();
       for (
-        var _Sl = Sl(e), _t215 = _Sl[0], _n99 = _Sl[1];
-        _t215;
-        _n99 = _t215, _t215 = _t215.getParent()
+        var _Sl = Sl(e), _t216 = _Sl[0], _n99 = _Sl[1];
+        _t216;
+        _n99 = _t216, _t216 = _t216.getParent()
       )
-        r.set(_t215, _n99);
+        r.set(_t216, _n99);
       for (
         var _Sl2 = Sl(n), _i59 = _Sl2[0], _o28 = _Sl2[1];
         _i59;
@@ -8750,33 +8758,33 @@ __d(
         c = bl(s.focus.getFlipped(), r),
         a = new Set(),
         u = [];
-      for (var _t216 of s.iterNodeCarets(r))
-        if (el(_t216)) a.add(_t216.origin.getKey());
-        else if (tl(_t216)) {
-          var _e138 = _t216.origin;
+      for (var _t217 of s.iterNodeCarets(r))
+        if (el(_t217)) a.add(_t217.origin.getKey());
+        else if (tl(_t217)) {
+          var _e138 = _t217.origin;
           (Ki(_e138) && !a.has(_e138.getKey())) || u.push(_e138);
         }
-      for (var _t217 of u) _t217.remove();
-      for (var _t218 of s.getTextSlices()) {
-        if (!_t218) continue;
-        var _e139 = _t218.caret.origin,
+      for (var _t218 of u) _t218.remove();
+      for (var _t219 of s.getTextSlices()) {
+        if (!_t219) continue;
+        var _e139 = _t219.caret.origin,
           _n100 = _e139.getTextContentSize(),
           _r72 = El(ol(_e139, i)),
           _s20 = _e139.getMode();
         if (
-          (Math.abs(_t218.distance) === _n100 && "removeEmptySlices" === o) ||
-          ("token" === _s20 && 0 !== _t218.distance)
+          (Math.abs(_t219.distance) === _n100 && "removeEmptySlices" === o) ||
+          ("token" === _s20 && 0 !== _t219.distance)
         )
           _r72.remove();
-        else if (0 !== _t218.distance) {
+        else if (0 !== _t219.distance) {
           o = "removeEmptySlices";
-          var _e140 = _t218.removeTextSlice();
-          var _n101 = _t218.caret.origin;
+          var _e140 = _t219.removeTextSlice();
+          var _n101 = _t219.caret.origin;
           if ("segmented" === _s20) {
-            var _t219 = _e140.origin,
-              _n102 = vr(_t219.getTextContent())
-                .setStyle(_t219.getStyle())
-                .setFormat(_t219.getFormat());
+            var _t220 = _e140.origin,
+              _n102 = vr(_t220.getTextContent())
+                .setStyle(_t220.getStyle())
+                .setFormat(_t220.getFormat());
             (_r72.replaceOrInsert(_n102), (_e140 = sl(_n102, i, _e140.offset)));
           }
           (_n101.is(l[0].origin) && (l[0] = _e140),
@@ -8784,14 +8792,14 @@ __d(
         }
       }
       var f, d;
-      for (var _t220 of l)
-        if (Al(_t220)) {
-          f = wl(_t220);
+      for (var _t221 of l)
+        if (Al(_t221)) {
+          f = wl(_t221);
           break;
         }
-      for (var _t221 of c)
-        if (Al(_t221)) {
-          d = wl(_t221);
+      for (var _t222 of c)
+        if (Al(_t222)) {
+          d = wl(_t222);
           break;
         }
       var h = (function (t, e, n) {
@@ -8824,13 +8832,13 @@ __d(
         return u && f ? [u, f] : null;
       })(f, d, a);
       if (h) {
-        var _t222 = h[0],
+        var _t223 = h[0],
           _e141 = h[1];
-        al(_t222, "previous").splice(0, _e141.getChildren());
+        al(_t223, "previous").splice(0, _e141.getChildren());
         var _n103 = _e141.getParent();
         for (_e141.remove(!0); _n103 && _n103.isEmpty(); ) {
-          var _t223 = _n103;
-          ((_n103 = _n103.getParent()), _t223.remove(!0));
+          var _t224 = _n103;
+          ((_n103 = _n103.getParent()), _t224.remove(!0));
         }
       }
       var g = [f, d].concat(l, c).find(Al);
@@ -8850,9 +8858,9 @@ __d(
       var e = (function (t) {
           var e = t;
           for (; el(e); ) {
-            var _t224 = fl(e);
-            if (!el(_t224)) break;
-            e = _t224;
+            var _t225 = fl(e);
+            if (!el(_t225)) break;
+            e = _t225;
           }
           return e;
         })(t.getLatest()),
@@ -8872,10 +8880,10 @@ __d(
     }
     function Rl(t, e, n) {
       var r = al(t, "next");
-      for (var _t225 = 0; _t225 < e; _t225++) {
-        var _t226 = r.getAdjacentCaret();
-        if (null === _t226) break;
-        r = _t226;
+      for (var _t226 = 0; _t226 < e; _t226++) {
+        var _t227 = r.getAdjacentCaret();
+        if (null === _t227) break;
+        r = _t227;
       }
       return Pl(r, n);
     }
@@ -8904,8 +8912,8 @@ __d(
       for (var _n104 of t)
         if (_n104 && "string" == typeof _n104)
           for (var _ref32 of _n104.matchAll(/\S+/g)) {
-            var _t227 = _ref32[0];
-            e.push(_t227);
+            var _t228 = _ref32[0];
+            e.push(_t228);
           }
       return e;
     }
@@ -9052,8 +9060,8 @@ __d(
         var e = t.getType(),
           n = xi();
         if (n._readOnly) {
-          var _t228 = Fs(n).get(e);
-          return _t228 ? Array.from(_t228.values()) : [];
+          var _t229 = Fs(n).get(e);
+          return _t229 ? Array.from(_t229.values()) : [];
         }
         var r = n._nodeMap,
           i = [];
@@ -9091,8 +9099,8 @@ __d(
           );
         }
         {
-          var _t229 = e.select(0, e.getChildrenSize());
-          return (Ko(dt(_t229)), _t229);
+          var _t230 = e.select(0, e.getChildrenSize());
+          return (Ko(dt(_t230)), _t230);
         }
       }),
       (exports.$setCompositionKey = Eo),
@@ -9128,9 +9136,9 @@ __d(
         if (s) {
           var _n107 = s.origin;
           if (el(t)) {
-            var _t230 = El(s);
-            if (o && _n107.isEmpty()) return (_n107.remove(), _t230);
-            if (!_n107.canBeEmpty() || !i(_n107, "first")) return _t230;
+            var _t231 = El(s);
+            if (o && _n107.isEmpty()) return (_n107.remove(), _t231);
+            if (!_n107.canBeEmpty() || !i(_n107, "first")) return _t231;
           }
           var _r75 = (function (t) {
             var e = [];
@@ -9158,13 +9166,13 @@ __d(
               return ((Ki(e) && Ki(s)) || t(133), e.insertAfter(s), [e, s, s]);
             {
               var _i63 = _i64(n),
-                _t231 = _i63[0],
+                _t232 = _i63[0],
                 _r76 = _i63[1],
                 _o30 = _i63[2],
                 _l12 = e.getNextSiblings();
               return (
                 _o30.append.apply(_o30, [s].concat(_l12)),
-                [_t231, _r76, s]
+                [_t232, _r76, s]
               );
             }
           },
@@ -9312,15 +9320,15 @@ __d(
         if (void 0 === t && null !== n) h = n._nodes;
         else {
           h = new Map();
-          for (var _t232 = 0; _t232 < a.length; _t232++) {
-            var _e144 = a[_t232],
+          for (var _t233 = 0; _t233 < a.length; _t233++) {
+            var _e144 = a[_t233],
               _n109 = null,
               _r77 = null;
             if ("function" != typeof _e144) {
-              var _t233 = _e144;
-              ((_e144 = _t233.replace),
-                (_n109 = _t233["with"]),
-                (_r77 = _t233.withKlass || null));
+              var _t234 = _e144;
+              ((_e144 = _t234.replace),
+                (_n109 = _t234["with"]),
+                (_r77 = _t234.withKlass || null));
             }
             Ws(_e144);
             var _i65 = _e144.getType(),
@@ -9330,7 +9338,7 @@ __d(
               klass: _e144,
               replace: _n109,
               replaceWithKlass: _r77,
-              sharedNodeState: tt(a[_t232]),
+              sharedNodeState: tt(a[_t233]),
               transforms: _o31,
             });
           }

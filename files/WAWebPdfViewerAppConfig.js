@@ -2,6 +2,7 @@ __d(
   "WAWebPdfViewerAppConfig",
   [
     "WAWebConnModel",
+    "WAWebEnvironment",
     "WAWebRobotoVariableFontLoadable",
     "WAWebStylesEnv",
     "WAWebTPPdfViewerGatingUtils",
@@ -36,6 +37,7 @@ __d(
         ).isRobotoFontEnabled(),
         isColorRefreshEnabled: !0,
         isSmb: o("WAWebConnModel").Conn.isSMB,
+        isWindowsHybrid: r("WAWebEnvironment").isWindows,
         isOSMac: t.isOSMac,
         isOSWindows: t.isOSWin,
         isKeyboardUser: !1,

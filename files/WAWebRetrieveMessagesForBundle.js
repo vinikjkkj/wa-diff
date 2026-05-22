@@ -36,20 +36,21 @@ __d(
         );
       return n - r;
     }
-    function m(e, t) {
+    function m(e, t, n) {
       if (
         !r("WAWebGroupHistorySupportedMessageTypesUtil")(e.type) ||
         (e.t != null && e.t < t) ||
+        (n != null && e.t != null && e.t > n) ||
         (e.associationType != null && c.includes(e.associationType))
       )
         return !1;
-      var n =
+      var a =
         r("WAWebMsgKey").fromString(e.id).fromMe &&
         e.ack === o("WAWebAck").ACK.CLOCK;
       return !(
         e.isSendFailure === !0 ||
         e.ack < o("WAWebAck").ACK.CLOCK ||
-        n ||
+        a ||
         (e.expiredTimestamp != null &&
           e.expiredTimestamp < o("WATimeUtils").unixTime() &&
           !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState))
@@ -93,16 +94,16 @@ __d(
                       for (
                         var n = e[0],
                           r = o("WAWebDBMessageUtils").endOfChat(t),
-                          a = !0;
+                          i = !0;
                         p.length < l;
                       ) {
-                        var i = yield n.between(
+                        var s = yield n.between(
                           ["internalId"],
                           o("WAWebDBMessageUtils").beginningOfChat(t),
                           r,
                           {
                             lowerInclusive: !0,
-                            upperInclusive: a,
+                            upperInclusive: i,
                             reverse: !0,
                             limit: u,
                           },
@@ -110,18 +111,18 @@ __d(
                             return e.t != null && e.t < c;
                           },
                         );
-                        if (i.length === 0) break;
-                        var s = l - p.length;
+                        if (s.length === 0) break;
+                        var d = l - p.length;
                         p.push.apply(
                           p,
-                          i
+                          s
                             .filter(function (e) {
-                              return m(e, c);
+                              return m(e, c, a);
                             })
-                            .slice(0, s),
+                            .slice(0, d),
                         );
-                        var d = i[i.length - 1];
-                        ((r = d.internalId), (a = !1));
+                        var _ = s[s.length - 1];
+                        ((r = _.internalId), (i = !1));
                       }
                     },
                   );

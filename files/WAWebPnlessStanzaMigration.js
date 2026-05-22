@@ -2,7 +2,6 @@ __d(
   "WAWebPnlessStanzaMigration",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebApiChatCommon",
     "WAWebLid1X1MigrationGating",
     "WAWebWidFactory",
@@ -13,9 +12,7 @@ __d(
     function c(t, n) {
       return !o(
         "WAWebLid1X1MigrationGating",
-      ).Lid1X1MigrationUtils.isLidMigrated() ||
-        !t.isRegularUserPn() ||
-        o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") !== !0
+      ).Lid1X1MigrationUtils.isLidMigrated() || !t.isRegularUserPn()
         ? !1
         : t.getDeviceId() !== 0
           ? (o("WALogger")

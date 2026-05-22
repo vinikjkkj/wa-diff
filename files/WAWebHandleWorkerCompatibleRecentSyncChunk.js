@@ -41,6 +41,7 @@ __d(
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "err",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R;
@@ -190,7 +191,7 @@ __d(
             ) === !0;
           if (
             (a.addPoint("history_sync_process_start", {
-              bool: { isInWorker: $ },
+              bool: { isInWorker: $, isWorkerV2: r("gkx")("20033") },
             }),
             $)
           ) {

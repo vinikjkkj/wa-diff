@@ -158,7 +158,7 @@ __d(
       return t;
     }
     function N(e) {
-      return e == null || !P(e) ? !1 : w(e) || A(e);
+      return e == null || !P(e) ? !1 : A(e) || w(e);
     }
     function M(e) {
       return e == null || !P(e) ? !1 : w(e);
@@ -179,27 +179,25 @@ __d(
     }
     function O(e) {
       if (e == null || !P(e)) return !1;
-      if (e.equals(v())) return !0;
       var t = C();
-      return t != null && e.equals(t);
+      if (t != null && e.equals(t)) return !0;
+      var n = g();
+      return n != null && e.equals(n);
     }
     function B(e) {
-      return e == null || !P(e) ? !1 : !!e.equals(v());
-    }
-    function W(e) {
       return N(o("WAWebWidFactory").createWid(e));
     }
-    function q() {
+    function W() {
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
       );
       return (
         (typeof e != "string" || e === "") &&
-          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), U(e)),
+          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), q(e)),
         e
       );
     }
-    function U(e) {
+    function q(e) {
       return o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
         e,
@@ -230,10 +228,9 @@ __d(
       (l.isMePnUser = w),
       (l.isMeDevice = F),
       (l.isMePrimary = O),
-      (l.isMePrimaryNonLid = B),
-      (l.isSerializedWidMe = W),
-      (l.getUnknownId = q),
-      (l.setUnknownId = U));
+      (l.isSerializedWidMe = B),
+      (l.getUnknownId = W),
+      (l.setUnknownId = q));
   },
   98,
 );

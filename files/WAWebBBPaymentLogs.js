@@ -66,10 +66,19 @@ __d(
         extraAttributes: { error_type: t },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.BUSINESS_INFO_FETCH,
+      });
+    }
+    function _(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        extraAttributes: { error_type: t },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.EMAIL_ONBOARDING,
       });
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         extraAttributes: {
@@ -81,22 +90,12 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CHECKOUT_FETCH,
       });
     }
-    function f(e, t) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_FAQ_LINK,
-      });
-    }
     function g(e, t) {
       e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        extraAttributes: { error_type: t },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_TOS_LINK,
+        userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.QUOTA_FETCH,
       });
     }
     function h(e, t) {
@@ -105,10 +104,28 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_FAQ_LINK,
+      });
+    }
+    function y(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_TOS_LINK,
+      });
+    }
+    function C(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.BILLING_PRIVACY_POLICY_LINK,
       });
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -118,7 +135,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.PAYMENT_METHOD_SECTION,
       });
     }
-    function C(e, t, n) {
+    function v(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
@@ -134,13 +151,15 @@ __d(
       (l.billingWizardCompleted = c),
       (l.addFundsWizardOpened = d),
       (l.billingInfoFetchFailed = m),
-      (l.emailOnboardingCheckFailed = p),
-      (l.checkoutFetchFailed = _),
-      (l.billingSummaryFaqLinkClicked = f),
-      (l.billingSummaryTosLinkClicked = g),
-      (l.billingSummaryPrivacyPolicyLinkClicked = h),
-      (l.paymentMethodSectionViewed = y),
-      (l.billingWizardFailed = C));
+      (l.businessInfoFetchFailed = p),
+      (l.emailOnboardingCheckFailed = _),
+      (l.checkoutFetchFailed = f),
+      (l.quotaFetchFailed = g),
+      (l.billingSummaryFaqLinkClicked = h),
+      (l.billingSummaryTosLinkClicked = y),
+      (l.billingSummaryPrivacyPolicyLinkClicked = C),
+      (l.paymentMethodSectionViewed = b),
+      (l.billingWizardFailed = v));
   },
   98,
 );
