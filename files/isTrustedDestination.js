@@ -59,74 +59,84 @@ __d(
       );
     }
     function f() {
-      return /(^|\.)threads\.(com|net)$/.test(
+      return /(^|\.)messenger\.com$/.test(
         r("LinkshimHandlerConfig").current_domain,
       );
     }
     function g() {
-      return /(^|\.)instagram\.com$/.test(
+      return /(^|\.)threads\.(com|net)$/.test(
         r("LinkshimHandlerConfig").current_domain,
       );
     }
     function h() {
-      return /(^|\.)whatsapp\.com$/.test(
+      return /(^|\.)instagram\.com$/.test(
         r("LinkshimHandlerConfig").current_domain,
       );
     }
     function y() {
-      return /(^|\.)meta\.com$/.test(r("LinkshimHandlerConfig").current_domain);
+      return /(^|\.)whatsapp\.com$/.test(
+        r("LinkshimHandlerConfig").current_domain,
+      );
     }
     function C() {
+      return /(^|\.)meta\.com$/.test(r("LinkshimHandlerConfig").current_domain);
+    }
+    function b() {
       return /(^|\.)meta\.ai$/.test(r("LinkshimHandlerConfig").current_domain);
     }
-    function b(e) {
+    function v(e) {
+      return /(^|\.)familycenter.*\.messenger\.com$/.test(e.getDomain());
+    }
+    function S(e) {
       return r("isFacebookURI")(e);
     }
-    function v(e) {
+    function R(e) {
       return r("isWorkplaceDotComURI")(e);
     }
-    function S(t) {
+    function L(t) {
       return r("LinkshimHandlerConfig").is_mobile_device === !0 &&
         r("isRoomsURI")(t)
         ? !0
         : s()
-          ? v(t) || r("isMetaDotComURI")(t)
+          ? R(t) || r("isMetaDotComURI")(t)
           : u()
             ? r("isMetaDotComURI")(t)
             : _()
-              ? r("isInternalFBURI")(t) || b(t)
+              ? r("isInternalFBURI")(t) || S(t)
               : e()
                 ? r("isOculusDotComURI")(t) ||
                   r("isSecureOculusDotComURI")(t) ||
                   r("isMetaDotComURI")(t)
-                : f()
+                : g()
                   ? r("isBarcelonaURI")(t) || r("isMetaAIURI")(t)
-                  : g()
+                  : h()
                     ? r("isBarcelonaURI")(t) || r("isInstagramURI")(t)
-                    : h()
+                    : y()
                       ? r("isWhatsAppURI")(t)
                       : c()
-                        ? b(t) || r("isInstagramURI")(t)
+                        ? S(t) || r("isInstagramURI")(t)
                         : d()
                           ? r("isEnterpriseURI")(t)
                           : m() || p()
                             ? r("isTrustedCMSContentURI")(t)
-                            : y()
+                            : C()
                               ? r("isMetaDotComURI")(t)
-                              : C()
+                              : b()
                                 ? r("isMetaAIURI")(t) ||
                                   r("isInternalFBURI")(t) ||
-                                  v(t) ||
+                                  R(t) ||
                                   r("isMetaDotComURI")(t) ||
                                   r("isInstagramURI")(t) ||
-                                  b(t) ||
+                                  S(t) ||
                                   r("isWhatsAppURI")(t) ||
                                   r("isBarcelonaURI")(t) ||
                                   r("isOculusDotComURI")(t) ||
                                   r("isSecureOculusDotComURI")(t)
-                                : b(t);
+                                : f() && v(t)
+                                  ? !0
+                                  : S(t);
     }
-    l.default = S;
+    l.default = L;
   },
   98,
 );

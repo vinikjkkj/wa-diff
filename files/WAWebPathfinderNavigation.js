@@ -1,6 +1,7 @@
 __d(
   "WAWebPathfinderNavigation",
   [
+    "WAWebPathfinderChatInfo",
     "WAWebPathfinderLogger",
     "WAWebPathfinderUserTouch",
     "WAWebTimeSpentLoggingNavigation",
@@ -35,6 +36,9 @@ __d(
           triggeringTestId: o(
             "WAWebPathfinderUserTouch",
           ).consumeLastTapTrackingId(),
+          customMetadata: o(
+            "WAWebPathfinderChatInfo",
+          ).getActiveChatInfoMetadata(),
         }));
     }
     function u() {

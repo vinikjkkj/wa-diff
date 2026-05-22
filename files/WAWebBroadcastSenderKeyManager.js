@@ -247,19 +247,16 @@ __d(
                           ? a
                           : [];
                     s.includes(r) &&
-                      (o("WALogger")
-                        .LOG(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
-                              "[broadcast:senderkey] Removing device from sender key tracking (retry received), deviceType=",
-                              "",
-                            ])),
-                          o(
-                            "WAWebBroadcastDeviceClassifier",
-                          ).classifyBroadcastDevice(e),
-                        )
-                        .tags("non-sad")
-                        .sendLogs("broadcast-senderkey-device-forget"),
+                      (o("WALogger").LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[broadcast:senderkey] Removing device from sender key tracking (retry received), deviceType=",
+                            "",
+                          ])),
+                        o(
+                          "WAWebBroadcastDeviceClassifier",
+                        ).classifyBroadcastDevice(e),
+                      ),
                       yield i.merge(t, {
                         senderKeyDevices: s.filter(function (e) {
                           return e !== r;

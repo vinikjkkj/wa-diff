@@ -11,6 +11,7 @@ __d(
     "WAWebPonyfillsUrlSearchParams",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLValidSchemes",
+    "justknobx",
     "lodash",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,7 +19,10 @@ __d(
       s =
         /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/,
       u = "https://l.wl.co/l",
-      c = {
+      c = "AIzaSyC2fN-v_A00tijlZwyrKQBfpKW9t10DgXc",
+      d = "AIzaSyBsgqekZoWfPW9nHXH-d2XRNSHW11GPibg",
+      m = r("justknobx")._("753") ? d : c,
+      p = {
         URL_REGEX: s,
         build: function (t, n) {
           var e = new (r("WAWebPonyfillsUrlSearchParams"))();
@@ -92,7 +96,7 @@ __d(
             { type: e },
           );
         },
-        GSM_API_KEY: "AIzaSyC2fN-v_A00tijlZwyrKQBfpKW9t10DgXc",
+        GSM_API_KEY: m,
         GSM_API_KEY_SECRET: "TkKfl2pAWhxFWBWx7_4NI8DMuMs=",
         gsmURL: function (t, n) {
           var e = n.replace(/\-/g, "+").replace(/_/g, "/"),
@@ -109,7 +113,7 @@ __d(
         thumbToCSSURL: function (t) {
           var e;
           return (
-            c.isHttp(t) || t.startsWith("data:")
+            p.isHttp(t) || t.startsWith("data:")
               ? (e = t)
               : (e = "data:image/jpeg;base64," + t),
             'url("' + e + '")'
@@ -127,8 +131,8 @@ __d(
             : u + "?u=" + encodeURIComponent(t);
         },
       },
-      d = c;
-    l.default = d;
+      _ = p;
+    l.default = _;
   },
   98,
 );

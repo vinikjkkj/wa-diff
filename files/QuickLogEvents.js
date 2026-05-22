@@ -10441,6 +10441,11 @@ __d(
         name: "ACS_MNEMO_PIPELINE",
         sampleRate: 1,
       },
+      55119861: {
+        moduleName: "STELLA_APP",
+        name: "MENTION_TYPEAHEAD_SEARCH",
+        sampleRate: 1,
+      },
       55122354: {
         moduleName: "STELLA_APP",
         name: "PERMALINK_SNAPSHOT_LOAD",
@@ -13845,7 +13850,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 275,
+        sampleRate: 205,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13955,7 +13960,7 @@ __d(
       85539254: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_INDIVIDUAL_REVIEWS",
-        sampleRate: 22,
+        sampleRate: 68,
       },
       85539874: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15065,7 +15070,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 133208,
+        sampleRate: 57414,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -21854,6 +21859,11 @@ __d(
       235539794: {
         moduleName: "AIRWAVE_MANAGED_MOBILE_ERRORS",
         name: "ANDROID_VIDEO_PLAYBACK_UNEXPECTED_EVENT",
+        sampleRate: 1,
+      },
+      235543462: {
+        moduleName: "AIRWAVE_MANAGED_MOBILE_ERRORS",
+        name: "WORK_MANAGER_ERROR",
         sampleRate: 1,
       },
       235545895: {
@@ -29670,6 +29680,11 @@ __d(
         moduleName: "CRM_GOALS_MANAGEMENT",
         name: "UPDATE_FORECAST",
         sampleRate: null,
+      },
+      346106986: {
+        moduleName: "FB_SHORTS_CACHE_STATE_PASSBACK",
+        name: "ANDROID_TRACKER",
+        sampleRate: 100,
       },
       346111514: {
         moduleName: "FB_SHORTS_CACHE_STATE_PASSBACK",
@@ -63078,6 +63093,11 @@ __d(
         name: "ECLIPSE_REMIX_CONVERSATION_TURN",
         sampleRate: 1,
       },
+      843328032: {
+        moduleName: "MOBILE_WORLD_REMIXING",
+        name: "ECLIPSE_REMIX_BR_CONNECTION_ESTABLISH",
+        sampleRate: 250,
+      },
       844632122: {
         moduleName: "IOS_CLIPS_NC_LOADING_LATENCY",
         name: "LOAD",
@@ -74713,6 +74733,11 @@ __d(
         moduleName: "GENAI_PERSONAS_PLATFORM",
         name: "GEN_FB_WEB_CIFU_FEED_UNITS",
         sampleRate: 1e3,
+      },
+      1032534953: {
+        moduleName: "GENAI_PERSONAS_PLATFORM",
+        name: "PF_COMMON_POOL_RANKING",
+        sampleRate: 500,
       },
       1032535087: {
         moduleName: "GENAI_PERSONAS_PLATFORM",

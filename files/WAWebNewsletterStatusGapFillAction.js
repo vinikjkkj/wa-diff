@@ -230,34 +230,55 @@ __d(
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
           ) {
             var t =
-              (e =
-                r("WAWebNewsletterMetadataCollection") == null
-                  ? void 0
-                  : r("WAWebNewsletterMetadataCollection").filter(function (e) {
-                      var t;
-                      return (
-                        e.isSubscribedOrOwned &&
-                        !o(
-                          "WAWebNewsletterSyntheticStatusUtils",
-                        ).isNewsletterStatusExpired(
-                          (t = e.statusMetadata) == null
-                            ? void 0
-                            : t.lastStatusSentTime,
-                        )
-                      );
-                    })) != null
-                ? e
-                : [];
+                (e =
+                  r("WAWebNewsletterMetadataCollection") == null
+                    ? void 0
+                    : r("WAWebNewsletterMetadataCollection").filter(
+                        function (e) {
+                          var t;
+                          return (
+                            e.isSubscribedOrOwned &&
+                            !o(
+                              "WAWebNewsletterSyntheticStatusUtils",
+                            ).isNewsletterStatusExpired(
+                              (t = e.statusMetadata) == null
+                                ? void 0
+                                : t.lastStatusSentTime,
+                            )
+                          );
+                        },
+                      )) != null
+                  ? e
+                  : [],
+              a = t.filter(function (e) {
+                var t,
+                  n,
+                  r =
+                    (t = e.statusMetadata) == null
+                      ? void 0
+                      : t.lastStatusServerId;
+                if (r == null) return !1;
+                var a = o("WAJids").toNewsletterJid(e.id.toString()),
+                  i =
+                    (n = o(
+                      "WAWebNewsletterSyntheticStatusUtils",
+                    ).getFilledStatusCursor(a)) != null
+                      ? n
+                      : p - 1;
+                return i < r;
+              });
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[newsletter][status][gapfill] bulk backward fill: ",
-                  " channels",
+                  " candidates / ",
+                  " subscribed",
                 ])),
+              String(a.length),
               String(t.length),
             ),
               yield o("WAWebRunInBatches").runInBatches(
-                t,
+                a,
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {

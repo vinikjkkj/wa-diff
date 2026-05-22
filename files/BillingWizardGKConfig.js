@@ -197,6 +197,7 @@ __d(
           type: "PAYMENT_ACCOUNT_ID",
         },
         TURKEY_TAX_OFFICE_COLLECTION: { type: "PAYMENT_ACCOUNT_ID" },
+        UAA_MFT_2026_LAUNCH: { type: "PAYMENT_ACCOUNT_ID" },
       },
       l = Object.keys(e).map(function (t) {
         return { name: t, type: e[t].type };

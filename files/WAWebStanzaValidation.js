@@ -29,8 +29,11 @@ __d(
       }
     }
     function h(e) {
-      if (!(e.tag !== "receipt" || e.attrs.type !== "sender")) {
-        e.attrs.recipient == null &&
+      if (e.tag === "receipt") {
+        var t = e.attrs.type,
+          n = t != null ? o("WAWap").decodeAsString(t) : "unknown";
+        n === "sender" &&
+          e.attrs.recipient == null &&
           e.attrs.participant == null &&
           o("WALogger")
             .ERROR(
@@ -42,40 +45,44 @@ __d(
             .sendLogs(
               "stanza-validation-sender-receipt-without-participant-nor-recipient",
             );
-        var t = e.attrs.recipient,
-          n = e.attrs.to;
-        if (t != null && n != null) {
-          var r = o("WAWap").decodeAsString(t),
-            a = o("WAWap").decodeAsString(n),
-            i = b(r),
-            l = b(a);
-          a.includes("@lid") && r.includes("@s.whatsapp.net")
+        var r = e.attrs.recipient,
+          a = e.attrs.to;
+        if (r != null && a != null) {
+          var i = o("WAWap").decodeAsString(r),
+            l = o("WAWap").decodeAsString(a),
+            d = b(i),
+            m = b(l);
+          l.includes("@lid") && i.includes("@s.whatsapp.net")
             ? o("WALogger")
                 .ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[stanza-validation] sender rcpt: pn recipient=",
+                      "[stanza-validation] ",
+                      " rcpt: pn recipient=",
                       " to=",
                       "",
                     ])),
-                  i,
-                  l,
+                  n,
+                  d,
+                  m,
                 )
-                .sendLogs("stanza-validation-sender-receipt-pn-recipient")
-            : a.includes("@s.whatsapp.net") &&
-              r.includes("@lid") &&
+                .sendLogs("stanza-validation-" + n + "-receipt-pn-recipient")
+            : l.includes("@s.whatsapp.net") &&
+              i.includes("@lid") &&
               o("WALogger")
                 .ERROR(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[stanza-validation] sender rcpt: pn to=",
+                      "[stanza-validation] ",
+                      " rcpt: pn to=",
                       " recipient=",
                       "",
                     ])),
-                  l,
-                  i,
+                  n,
+                  m,
+                  d,
                 )
-                .sendLogs("stanza-validation-sender-receipt-pn-to");
+                .sendLogs("stanza-validation-" + n + "-receipt-pn-to");
         }
       }
     }

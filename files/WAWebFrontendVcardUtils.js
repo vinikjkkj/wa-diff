@@ -63,17 +63,15 @@ __d(
               o("WAWebWidFormat").widToFormattedUser(y),
           ]);
       }
-      var C = [];
-      if (!r("isStringNullOrEmpty")(p) && g) {
-        var b = _.isLid()
+      if (h.length === 0 && g && !r("isStringNullOrEmpty")(p)) {
+        var C = _.isLid()
           ? _
           : o("WAWebApiContact").getCurrentLid(
               o("WAWebWidFactory").asUserWidOrThrow(_),
             );
-        b && (C = ["X-WA-LID:" + String(r("WAWebWid").user(b))]);
+        C && (h = ["X-WA-LID:" + String(r("WAWebWid").user(C))]);
       }
-      var v = [].concat(h, C);
-      v.length === 0 &&
+      h.length === 0 &&
         o("WALogger")
           .ERROR(
             e ||
@@ -82,20 +80,20 @@ __d(
               ])),
           )
           .sendLogs("vcard-no-phone-number-or-username", { sampling: 0.01 });
-      var S = (l = t.businessProfile) == null ? void 0 : l.automatedType,
-        R = ["BEGIN:VCARD", "VERSION:3.0", "N:" + u(t), "FN:" + m]
-          .concat(v, [
+      var b = (l = t.businessProfile) == null ? void 0 : l.automatedType,
+        v = ["BEGIN:VCARD", "VERSION:3.0", "N:" + u(t), "FN:" + m]
+          .concat(h, [
             t.isBusiness ? "X-WA-BIZ-NAME:" + m : null,
             r("isStringNullOrEmpty")(
               (c = t.businessProfile) == null ? void 0 : c.description,
             )
               ? null
               : "X-WA-BIZ-DESCRIPTION:" + s(t.businessProfile.description),
-            S ? "X-WA-BIZ-AUTOMATED-TYPE:" + s(String(S)) : null,
+            b ? "X-WA-BIZ-AUTOMATED-TYPE:" + s(String(b)) : null,
             "END:VCARD",
           ])
           .filter(Boolean);
-      return { displayName: m, vcard: R.join("\n"), isMultiVcard: !1 };
+      return { displayName: m, vcard: v.join("\n"), isMultiVcard: !1 };
     }
     l.vcardFromContactModel = c;
   },

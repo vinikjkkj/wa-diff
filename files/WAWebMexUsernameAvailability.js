@@ -7,36 +7,36 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
+    function s(e, t) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r,
-            a,
-            i =
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a,
+            i,
+            l =
               e !== void 0
                 ? e
                 : (e = n("WAWebMexUsernameAvailabilityQuery.graphql")),
-            l = { input: t },
-            s = yield o("WAWebMexClient").fetchQuery(i, l),
-            u = [];
+            s = { input: t, session_id: r, source: "USER_INPUT" },
+            u = yield o("WAWebMexClient").fetchQuery(l, s),
+            c = [];
           if (
-            ((r = s.xwa2_username_check) == null ? void 0 : r.suggestions) !=
+            ((a = u.xwa2_username_check) == null ? void 0 : a.suggestions) !=
             null
           ) {
-            var c;
-            u.push.apply(
-              u,
-              (c = s.xwa2_username_check) == null ? void 0 : c.suggestions,
+            var d;
+            c.push.apply(
+              c,
+              (d = u.xwa2_username_check) == null ? void 0 : d.suggestions,
             );
           }
           return {
             isUsernameAvailable:
-              ((a = s.xwa2_username_check) == null ? void 0 : a.result) ===
+              ((i = u.xwa2_username_check) == null ? void 0 : i.result) ===
               "SUCCESS",
-            suggestedUsernames: u,
+            suggestedUsernames: c,
           };
         })),
         u.apply(this, arguments)

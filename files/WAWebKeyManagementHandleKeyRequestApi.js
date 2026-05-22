@@ -19,7 +19,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (!o("WAWebUserPrefsMeUser").isMeAccountNonLid(n)) {
+          if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
             o("WALogger")
               .ERROR(
                 e ||

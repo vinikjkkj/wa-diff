@@ -87,6 +87,10 @@ __d(
           params: { in_option_1: e, in_option_2: e },
           type: "PAYMENT_ACCOUNT",
         },
+        billing_card_type_not_supported_banner: {
+          params: { enabled: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_country_currency_redesign_h2_2025_v2: {
           params: { use_new_redesign: e },
           type: "PAYMENT_ACCOUNT",

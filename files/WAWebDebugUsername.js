@@ -27,10 +27,11 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebMexUsernameAvailability",
-          ).mexCheckUsernameAvailabilityQueryJob(e);
-          return t;
+          var t = "debug",
+            n = yield o(
+              "WAWebMexUsernameAvailability",
+            ).mexCheckUsernameAvailabilityQueryJob(e, t);
+          return n;
         })),
         c.apply(this, arguments)
       );

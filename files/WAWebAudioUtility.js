@@ -8,60 +8,61 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = null,
-      s = null;
-    function u() {
-      return c.apply(this, arguments);
-    }
+    var e = { kMicrophone: 0, kInternalAudio: 1 },
+      s = null,
+      u = null;
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          e == null &&
-            (e =
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          s == null &&
+            (s =
               o("WAWebBackendApi").frontendSendAndReceive(
                 "initializeVoipWasm",
               ));
-          var t = yield e;
-          return ((s = t), t);
+          var e = yield s;
+          return ((u = e), e);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d() {
-      return s;
+    function m() {
+      return u;
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u();
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield c();
           return t._malloc(e);
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u();
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield c();
           t._free(e);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      var n = s;
+    function h(e, t) {
+      var n = u;
       if (!n) throw r("err")("WASM module not initialized");
       var o = Math.floor(e / 4);
       (n.GROWABLE_HEAP_F32().set(t, o), n.onAudioDataFromJs(e, t.length));
     }
-    function h(e, t) {
-      var n = s;
+    function y(e, t) {
+      var n = u;
       if (!n) throw r("err")("WASM module not initialized");
       n.requestAudioDataFromWasmVoip(e, t);
       var o = Math.floor(e / 4),
@@ -69,7 +70,7 @@ __d(
         i = n.GROWABLE_HEAP_F32();
       return i.subarray(o, o + a);
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       if (
         (n === void 0 && (n = o("WAWebIdentityFunction").identityFunction),
         t.length === 0)
@@ -83,7 +84,7 @@ __d(
         for (var s = 0; s < t.length; s++) a[i++] = n(t[s][l]);
       return a;
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       if (n === t) return e;
       for (
         var r = t / n,
@@ -103,13 +104,14 @@ __d(
       }
       return a;
     }
-    ((l.getCachedWasmModule = d),
-      (l.mallocWasmBuffer = m),
-      (l.freeWasmBuffer = _),
-      (l.sendAudioToWasm = g),
-      (l.requestAudioFromWasm = h),
-      (l.interleaveTypedArrays = y),
-      (l.maybeDownsampleBuffer = C));
+    ((l.AudioCaptureDevType = e),
+      (l.getCachedWasmModule = m),
+      (l.mallocWasmBuffer = p),
+      (l.freeWasmBuffer = f),
+      (l.sendAudioToWasm = h),
+      (l.requestAudioFromWasm = y),
+      (l.interleaveTypedArrays = C),
+      (l.maybeDownsampleBuffer = b));
   },
   98,
 );

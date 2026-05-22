@@ -36,17 +36,19 @@ __d(
       );
     }
     function c(e) {
-      if (e instanceof Error) {
-        if (e.message.includes("timeout") || e.name === "TimeoutError")
-          return "timeout";
-        if (/\b5\d{2}\b/.test(e.message)) return "server";
-      }
-      return "unknown";
+      return e instanceof Error
+        ? e.name === "TimeoutError"
+          ? "timeout"
+          : e.name === "WWAIServerError"
+            ? "server"
+            : "unknown"
+        : "unknown";
     }
     function d(t, o) {
       return new (e || (e = n("Promise")))(function (e, n) {
         var a = window.setTimeout(function () {
-          n(r("err")("timeout"));
+          var e = r("err")("timeout");
+          ((e.name = "TimeoutError"), n(e));
         }, o);
         t.then(
           function (t) {

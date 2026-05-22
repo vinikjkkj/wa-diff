@@ -429,7 +429,7 @@ __d(
               },
             );
           else if (oe.securityNotificationEnabled)
-            o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null
+            o("WAWebUserPrefsMeUser").getMaybeMeDeviceId() == null
               ? o("WALogger")
                   .ERROR(
                     v ||
@@ -449,7 +449,7 @@ __d(
                         ])),
                     )
                     .sendLogs("Handle security notification empty wid error")
-                : o("WAWebUserPrefsMeUser").isMePrimaryNonLid(z)
+                : o("WAWebUserPrefsMeUser").isMePrimary(z)
                   ? o(
                       "WAWebUserPrefsNotifications",
                     ).setGlobalSecurityNotifications(

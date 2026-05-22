@@ -55,6 +55,7 @@ __d(
     "WAWebReactionsBridgeApi",
     "WAWebScheduledMsgBridgeApi",
     "WAWebSettingsBridgeApi",
+    "WAWebShortcakeLinkingBridgeApi",
     "WAWebSocketBridgeApi",
     "WAWebStatusBridgeApi",
     "WAWebStickerBridgeApi",
@@ -150,6 +151,7 @@ __d(
             o("WAWebPushBridgeApi").PushBridgeApi,
             o("WAWebQuickReplyBridgeApi").QuickReplyBridgeApi,
             o("WAWebScheduledMsgBridgeApi").ScheduledMsgBridgeApi,
+            o("WAWebShortcakeLinkingBridgeApi").ShortcakeLinkingBridgeApi,
           ),
         ));
     }

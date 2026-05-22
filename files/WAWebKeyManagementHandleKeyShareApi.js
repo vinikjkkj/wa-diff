@@ -192,7 +192,7 @@ __d(
         };
       })();
     function y(e, t) {
-      return o("WAWebUserPrefsMeUser").isMeAccountNonLid(t)
+      return o("WAWebUserPrefsMeUser").isMeAccount(t)
         ? h(e, t)
         : (o("WALogger")
             .ERROR(

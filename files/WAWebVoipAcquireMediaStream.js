@@ -1492,33 +1492,41 @@ __d(
     function pt() {
       return (
         (pt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.params,
-            n = e.targetWindow,
-            r = t ? Ze(t) : { video: !0 },
-            a = babelHelpers.extends({}, r, {
+          var t,
+            n = e.params,
+            r = e.targetWindow,
+            a = n ? Ze(n) : { video: !0 },
+            i =
+              ((t = o("WAWebABProps").getABPropConfigValue(
+                "calling_audio_share_version",
+              )) != null
+                ? t
+                : 1) > 0,
+            l = babelHelpers.extends({}, a, {
+              audio: i,
               preferCurrentTab: !1,
               selfBrowserSurface: "exclude",
-              systemAudio: "exclude",
+              systemAudio: i ? "include" : "exclude",
               surfaceSwitching: "include",
               monitorTypeSurfaces: "include",
             }),
-            i = Date.now();
+            s = Date.now();
           try {
-            var l = yield o("WAWebMediaCapture").start({
+            var u = yield o("WAWebMediaCapture").start({
                 type: o("WAWebMediaCaptureStreamType")
                   .WAWebMediaCaptureStreamType.DESKTOP,
                 featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
-                mediaConstraints: [a],
-                targetWindow: n,
+                mediaConstraints: [l],
+                targetWindow: r,
               }),
-              s = l.asyncStream,
-              u = l.disposeStream;
-            return dt(s, u, n).catch(function (e) {
+              c = u.asyncStream,
+              d = u.disposeStream;
+            return dt(c, d, r).catch(function (e) {
               if (
                 e instanceof o("WAWebMiscErrors").GetUserMedia.NotAllowedError
               ) {
                 o("WAWebCoreActionsODS").logCallScreenShareDenied();
-                var t = Date.now() - i;
+                var t = Date.now() - s;
                 if (t < le) {
                   o("WALogger").LOG(
                     j ||
@@ -1528,11 +1536,11 @@ __d(
                       ])),
                     t,
                   );
-                  var r =
-                    n != null
+                  var n =
+                    r != null
                       ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
                       : o("WAWebModalManager").ModalManager;
-                  r.open(
+                  n.open(
                     X.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                       messaging: o("WAWebGuidePopup.react").Messaging
                         .SCREEN_SHARE_FAIL,
@@ -1541,7 +1549,7 @@ __d(
                       featureSurface: o("WAWebGuidePopup.react").FeatureSurface
                         .VOIP,
                       onConfirm: function () {
-                        return r.close();
+                        return n.close();
                       },
                     }),
                   );
@@ -1555,13 +1563,13 @@ __d(
               e instanceof o("WAWebMiscErrors").GetUserMedia.NotAllowedError
             ) {
               o("WAWebCoreActionsODS").logCallScreenShareDenied();
-              var c = Date.now() - i;
-              if (c < le) {
-                var d =
-                  n != null
+              var m = Date.now() - s;
+              if (m < le) {
+                var p =
+                  r != null
                     ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
                     : o("WAWebModalManager").ModalManager;
-                d.open(
+                p.open(
                   X.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: o("WAWebGuidePopup.react").Messaging
                       .SCREEN_SHARE_FAIL,
@@ -1570,7 +1578,7 @@ __d(
                     featureSurface: o("WAWebGuidePopup.react").FeatureSurface
                       .VOIP,
                     onConfirm: function () {
-                      return d.close();
+                      return p.close();
                     },
                   }),
                 );

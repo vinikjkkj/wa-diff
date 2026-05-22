@@ -2,18 +2,18 @@ __d(
   "WAWebCheckUsernameAvailabilityJob",
   ["WAWebMexUsernameAvailability", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
               "WAWebMexUsernameAvailability",
-            ).mexCheckUsernameAvailabilityQueryJob(e),
-            n = t.isUsernameAvailable,
-            r = t.suggestedUsernames;
-          return { isUsernameAvailable: n, suggestedUsernames: r };
+            ).mexCheckUsernameAvailabilityQueryJob(e, t),
+            r = n.isUsernameAvailable,
+            a = n.suggestedUsernames;
+          return { isUsernameAvailable: r, suggestedUsernames: a };
         })),
         s.apply(this, arguments)
       );

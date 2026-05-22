@@ -76,7 +76,7 @@ __d(
                 .sendLogs("Assert get me is empty during history sync");
               return;
             }
-            if (!o("WAWebUserPrefsMeUser").isMePrimaryNonLid(n)) {
+            if (!o("WAWebUserPrefsMeUser").isMePrimary(n)) {
               if (n == null || !(n instanceof r("WAWebWid"))) {
                 o("WALogger")
                   .ERROR(

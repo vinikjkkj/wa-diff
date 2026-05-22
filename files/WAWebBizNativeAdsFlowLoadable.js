@@ -74,10 +74,16 @@ __d(
                 ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
                     .AdCreation
                 : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
-                    .AdManagement;
+                    .AdManagement,
+            p =
+              d === "FIRST_TIME_NOT_WAA_ELIGIBLE" &&
+              o(
+                "WAWebBizAdCreationResolveStoredIdentity",
+              ).resolveStoredIdentityForAccountType("FB") != null;
           if (
-            d === "FIRST_TIME_NOT_WAA_ELIGIBLE" ||
-            d === "HAS_FB_ADS_NOT_WAA_ELIGIBLE"
+            (d === "FIRST_TIME_NOT_WAA_ELIGIBLE" ||
+              d === "HAS_FB_ADS_NOT_WAA_ELIGIBLE") &&
+            !p
           )
             return (
               n == null || n(),
@@ -98,9 +104,9 @@ __d(
                 );
               }
             );
-          var p;
+          var _;
           try {
-            p = yield o(
+            _ = yield o(
               "WAWebBizNativeAdsResolveRelayIdentityBundle",
             ).resolveBizNativeAdsRelayIdentityBundle(i, t, s);
           } catch (e) {
@@ -116,11 +122,11 @@ __d(
           }
           return (
             d === "FIRST_TIME_WAA_ELIGIBLE" &&
-              p != null &&
-              p.adCreationEntrypointReference == null &&
-              (p = yield o(
+              _ != null &&
+              _.adCreationEntrypointReference == null &&
+              (_ = yield o(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
-              ).prepareDeferredAdCreationEntrypoint(p, t)),
+              ).prepareDeferredAdCreationEntrypoint(_, t)),
             h(d),
             n == null || n(),
             function (e) {
@@ -128,7 +134,7 @@ __d(
                 a,
                 babelHelpers.extends(
                   {
-                    identityBundle: p,
+                    identityBundle: _,
                     initialAdCreationFlowID: t,
                     initialStep: m,
                     isWAAEligible: l,
@@ -146,7 +152,8 @@ __d(
     function h(e) {
       (e === "FIRST_TIME_WAA_ELIGIBLE" &&
         o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplCancel(),
-        (e === "HAS_FB_ADS_NO_FB_ACCESS_TOKEN" ||
+        (e === "FIRST_TIME_NOT_WAA_ELIGIBLE" ||
+          e === "HAS_FB_ADS_NO_FB_ACCESS_TOKEN" ||
           e === "HAS_FB_ADS_WAA_ACTIVE") &&
           o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplSuccess());
     }

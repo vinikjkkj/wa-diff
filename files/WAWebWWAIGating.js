@@ -6,6 +6,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebWWAILogging",
     "WAWebWWAITransportRegistry",
+    "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -44,7 +45,7 @@ __d(
       }
     }
     function u(t) {
-      return t === "bot" || t === "newsletter" ? !1 : e();
+      return r("WAWebWid").isNewsletter(t) ? !1 : e();
     }
     ((l.isWWAIEnabled = e),
       (l.isContextualWritingHelpEnabled = s),

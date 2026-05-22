@@ -21,8 +21,9 @@ __d(
             window.Env != null &&
               "p9fk3wmn" in window.Env &&
               ((t.src = "about:blank"), (t.srcdoc = "")));
+          var n = window.Env != null && "w6jt4rnq" in window.Env;
           try {
-            (e.appendChild(t),
+            (n ? e.insertAdjacentElement("beforeend", t) : e.appendChild(t),
               (s = t.contentWindow.String),
               (u = t.contentWindow.Function.prototype.call),
               (c = t.contentWindow.JSON.parse),
@@ -33,7 +34,7 @@ __d(
             );
           } finally {
             try {
-              e.removeChild(t);
+              n ? t.remove() : e.removeChild(t);
             } catch (e) {}
           }
         }

@@ -18,6 +18,21 @@ __d(
           (n.triggerPrimaryHelloReceived = function () {
             this.trigger("link_device_events:primary_hello_received");
           }),
+          (n.triggerPasskeyPrologueRequest = function () {
+            this.trigger("link_device_events:passkey_prologue_request");
+          }),
+          (n.triggerShortcakePrologueSent = function () {
+            this.trigger("link_device_events:shortcake_prologue_sent");
+          }),
+          (n.triggerShortcakeVerificationCodeReady = function (t) {
+            this.trigger(
+              "link_device_events:shortcake_verification_code_ready",
+              t,
+            );
+          }),
+          (n.triggerShortcakeError = function (t) {
+            this.trigger("link_device_events:shortcake_error", t);
+          }),
           t
         );
       })(r("WAWebEventEmitter")),

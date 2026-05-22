@@ -14,6 +14,7 @@ __d(
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -109,9 +110,7 @@ __d(
                               "[biz-broadcast-tos] sync error",
                             ])),
                         )
-                        .catching(n instanceof Error ? n : r("err")(String(n)))
-                        .tags("non-sad")
-                        .sendLogs("business-broadcast-tos-sync-error"),
+                        .catching(r("getErrorSafe")(n)),
                       t(n instanceof Error ? n : r("err")(String(n)))
                     );
                   }

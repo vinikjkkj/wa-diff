@@ -25,7 +25,8 @@ __d(
       g,
       h,
       y,
-      C = (function () {
+      C,
+      b = (function () {
         function t(e, t, n, r, a) {
           var i = this,
             l;
@@ -245,10 +246,10 @@ __d(
                 u = i.name,
                 c = i.namespace,
                 d = i.opts,
-                h = i.requestId,
-                C = i.silentLog;
+                y = i.requestId,
+                b = i.silentLog;
               if (
-                (C ||
+                (b ||
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -256,13 +257,13 @@ __d(
                         " request for ",
                         "",
                       ])),
-                    h,
+                    y,
                     u,
                   ),
                 (d == null ? void 0 : d.toClientId) != null &&
                   d.toClientId !== this.clientId)
               ) {
-                C ||
+                b ||
                   o("WALogger").LOG(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -270,27 +271,27 @@ __d(
                         " not intended for client ",
                         "",
                       ])),
-                    h,
+                    y,
                     this.clientId,
                   );
                 return;
               }
-              var b = this.$1,
-                v = {
+              var v = this.$1,
+                S = {
                   type: "result",
                   content: {
-                    requestId: h,
+                    requestId: y,
                     type: "handled",
                     result: {
-                      payload: b.getAckPayoad(),
+                      payload: v.getAckPayoad(),
                       timestamp: Date.now(),
                     },
-                    silentLog: C,
+                    silentLog: b,
                     opts: d,
                   },
                 };
-              if ((this.$7(v, "outgoing"), t.postMessage([v]), s)) {
-                var S = b.sendAndReceive(c, u, l, C, void 0, d).then(
+              if ((this.$7(S, "outgoing"), t.postMessage([S]), s)) {
+                var R = v.sendAndReceive(c, u, l, b, void 0, d).then(
                   function (n) {
                     var r = n,
                       a = null;
@@ -298,90 +299,111 @@ __d(
                       o("WATransferableResult").TransferableResult &&
                       ((r = n.result), (a = n.transferList)),
                       e.$10(t, {
-                        requestId: h,
+                        requestId: y,
                         type: "success",
                         result: r,
-                        silentLog: C,
+                        silentLog: b,
                         opts: d,
                         transferList: a,
                       }));
                   },
                   function (n) {
                     e.$10(t, {
-                      requestId: h,
+                      requestId: y,
                       type: "error",
                       result: String(n),
-                      silentLog: C,
+                      silentLog: b,
                       opts: d,
                     });
                   },
                 );
-                o("WAPromiseManagement").preventGarbageCollection(S);
-              } else b.fireAndForget(c, u, l, C, void 0, d);
+                o("WAPromiseManagement").preventGarbageCollection(R);
+              } else v.fireAndForget(c, u, l, b, void 0, d);
             } else {
+              var L;
               a.type;
-              var R = a.content,
-                L = R.requestId,
-                E = R.result,
-                k = R.silentLog,
-                I = R.type,
-                T = this.$6(L);
-              if (T !== this.clientId || this.processedRequests.has(L)) return;
-              var D = this.openRequests.get(L);
-              if (!D) {
+              var E = a.content,
+                k = E.requestId,
+                I = E.result,
+                T = E.silentLog,
+                D = E.type,
+                x = this.$6(k);
+              if (x !== this.clientId || this.processedRequests.has(k)) return;
+              var $ = this.openRequests.get(k);
+              if (!$) {
                 o("WALogger").WARN(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "Bridge unrecognized result ",
                       "",
                     ])),
-                  L,
+                  k,
                 );
                 return;
               }
-              switch (I) {
+              if (
+                ((L = this.config) == null ? void 0 : L.onReceiveAcross) != null
+              )
+                try {
+                  this.config.onReceiveAcross(
+                    $.request.namespace,
+                    $.request.name,
+                    D,
+                  );
+                } catch (e) {
+                  var P = r("getErrorSafe")(e);
+                  r("FBLogger")("wmi")
+                    .catching(P)
+                    .MUSTFIX(
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to execute onReceiveAcross",
+                        ])),
+                    );
+                }
+              switch (D) {
                 case "success":
                 case "error": {
-                  (this.openRequests.delete(L), this.processedRequests.add(L));
-                  var x = D.resolver;
-                  x
-                    ? x(
-                        I === "success"
-                          ? E
-                          : (y || (y = n("Promise"))).reject(
-                              r("err")(E != null ? E : ""),
+                  (this.openRequests.delete(k), this.processedRequests.add(k));
+                  var N = $.resolver;
+                  N
+                    ? N(
+                        D === "success"
+                          ? I
+                          : (C || (C = n("Promise"))).reject(
+                              r("err")(I != null ? I : ""),
                             ),
                       )
                     : o("WALogger").ERROR(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
                             "Bridge unexpected result to cast: ",
                             "",
                           ])),
-                        E,
+                        I,
                       );
                   break;
                 }
                 case "handled":
                   try {
-                    var $;
-                    ($ = D.eventCallbacks) == null ||
-                      $.onAck == null ||
-                      $.onAck(E);
+                    var M;
+                    (M = $.eventCallbacks) == null ||
+                      M.onAck == null ||
+                      M.onAck(I);
                   } catch (e) {
-                    var P = r("getErrorSafe")(e);
+                    var w = r("getErrorSafe")(e);
                     o("WALogger").ERROR(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to execute onAck: ",
                           "",
                         ])),
-                      P.message,
+                      w.message,
                     );
                   }
-                  D.resolver ||
-                    (this.openRequests.delete(L),
-                    this.processedRequests.add(L));
+                  $.resolver ||
+                    (this.openRequests.delete(k),
+                    this.processedRequests.add(k));
                   break;
               }
             }
@@ -389,10 +411,10 @@ __d(
           t
         );
       })();
-    function b(e, t, n, r, o) {
-      return new C(e, n, t, r, o);
+    function v(e, t, n, r, o) {
+      return new b(e, n, t, r, o);
     }
-    function v(e) {
+    function S(e) {
       var t;
       ((t = e.port) == null || t.close(),
         (e.port = null),
@@ -408,8 +430,8 @@ __d(
           l = t.namespace,
           s = t.silentLog;
         (o("WALogger").LOG(
-          h ||
-            (h = babelHelpers.taggedTemplateLiteralLoose([
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
               "absorbPortal: transferring request #",
               "",
             ])),
@@ -418,9 +440,9 @@ __d(
           n ? n(r.sendAndReceive(l, i, a, s)) : r.fireAndForget(l, i, a, s));
       });
     }
-    ((l.CrossWorkerPortal = C),
-      (l.attachPortal = b),
-      (l.killPortalAndSendPendingToBridge = v));
+    ((l.CrossWorkerPortal = b),
+      (l.attachPortal = v),
+      (l.killPortalAndSendPendingToBridge = S));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "WACryptoHkdfSync",
     "WACryptoSha256HmacBuilder",
     "WALogger",
+    "WAWebAudioUtility",
     "WAWebBweModelPathProvider",
     "WAWebChatCollection",
     "WAWebContactCollection",
@@ -316,20 +317,28 @@ __d(
         initCaptureDriverJS: function (t) {
           var e = t.bits_per_sample,
             n = t.channels,
-            r = t.frames_per_chunk,
-            a = t.sample_rate;
+            r = t.device_type,
+            a = t.frames_per_chunk,
+            i = t.sample_rate,
+            l =
+              r === o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
+                ? "system_audio"
+                : "mic";
           (o("WALogger").LOG(
             b ||
               (b = babelHelpers.taggedTemplateLiteralLoose([
-                "wasm: [AV:initCaptureDriverJS]",
+                "wasm: [AV:initCaptureDriverJS] (",
+                ")",
               ])),
+            l,
           ),
             o("WAWebVoipAudioCaptureAndPlayback")
               .initCaptureDriverJS({
-                sample_rate: a,
+                sample_rate: i,
                 channels: n,
                 bits_per_sample: e,
-                frames_per_chunk: r,
+                frames_per_chunk: a,
+                device_type: r,
               })
               .catch(function (e) {
                 o("WALogger").WARN(
@@ -342,15 +351,22 @@ __d(
                 );
               }));
         },
-        startCaptureJS: function () {
+        startCaptureJS: function (t) {
+          var e =
+            (t == null ? void 0 : t.device_type) ===
+            o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
+              ? "system_audio"
+              : "mic";
           (o("WALogger").LOG(
             S ||
               (S = babelHelpers.taggedTemplateLiteralLoose([
-                "wasm: [AV:startCaptureJS]",
+                "wasm: [AV:startCaptureJS] (",
+                ")",
               ])),
+            e,
           ),
             o("WAWebVoipAudioCaptureAndPlayback")
-              .startCaptureJS()
+              .startCaptureJS(t)
               .catch(function (e) {
                 o("WALogger").WARN(
                   R ||
@@ -362,15 +378,22 @@ __d(
                 );
               }));
         },
-        stopCaptureJS: function () {
+        stopCaptureJS: function (t) {
+          var e =
+            (t == null ? void 0 : t.device_type) ===
+            o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
+              ? "system_audio"
+              : "mic";
           (o("WALogger").LOG(
             L ||
               (L = babelHelpers.taggedTemplateLiteralLoose([
-                "wasm: [AV:stopCaptureJS]",
+                "wasm: [AV:stopCaptureJS] (",
+                ")",
               ])),
+            e,
           ),
             o("WAWebVoipAudioCaptureAndPlayback")
-              .stopCaptureJS()
+              .stopCaptureJS(t)
               .catch(function (e) {
                 o("WALogger").WARN(
                   E ||
