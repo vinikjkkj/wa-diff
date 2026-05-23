@@ -106,16 +106,6 @@ __d(
         ) === 1
       );
     }
-    function D() {
-      return !1;
-    }
-    function x() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_biz_simple_signal_group_enabled",
-        ) === !0
-      );
-    }
     ((l.sendKeyDistributionMsgToNewGroups = e),
       (l.sendKeyDistributionMsgMinGroupSize = s),
       (l.sendKeyDistributionMsgMaxGroupSize = u),
@@ -137,9 +127,7 @@ __d(
       (l.isTopLevelMessageSecretCheckEnabled = E),
       (l.isRemoveMessageSecretFromQuotedEnabled = k),
       (l.isMoveMessageSecretTopLevelEnabled = I),
-      (l.isSimpleSignalEnabled = T),
-      (l.isCoexSimpleSignalEnabled = D),
-      (l.isGroupSimpleSignalEnabled = x));
+      (l.isSimpleSignalEnabled = T));
   },
   98,
 );

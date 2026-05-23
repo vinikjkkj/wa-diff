@@ -13,6 +13,7 @@ __d(
     "WAWebNewsletterSyntheticStatusUtils",
     "WAWebRunInBatches",
     "WAWebSyncNewsletterStatusMetadataAction",
+    "WAWebUserPrefsGeneral",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -24,16 +25,18 @@ __d(
       c,
       d,
       m,
-      p = 100,
-      _ = 5;
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+      p,
+      _ = 100,
+      f = 5,
+      g = 14400 * 1e3;
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i;
-          if (!(n <= a)) {
+          if (!(n <= a + 1)) {
             var l = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
                 r("WAWebNewsletterMetadataCollection") == null ||
                   (i = r("WAWebNewsletterMetadataCollection").get(t)) == null
@@ -42,7 +45,10 @@ __d(
               ),
               s = yield o(
                 "WAWebNewsletterGetStatusesJob",
-              ).getNewsletterStatuses(t, l, { beforeServerId: n }),
+              ).getNewsletterStatuses(t, l, {
+                beforeServerId: n,
+                count: n - a - 1,
+              }),
               u = s.from,
               c = s.msgs,
               d = s.viewCounts;
@@ -84,19 +90,19 @@ __d(
                 var n;
                 return Math.min(e, (n = t.serverId) != null ? n : 1 / 0);
               }, 1 / 0);
-              if (!(m >= n)) return f(t, m, a);
+              if (!(m >= n)) return h(t, m, a);
             }
           }
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function C(e, t, n) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
           if (
             (n === void 0 && (n = !1),
@@ -137,10 +143,10 @@ __d(
                   "WAWebNewsletterSyntheticStatusUtils",
                 ).getFilledStatusCursor(e)) != null
                   ? i
-                  : p - 1;
+                  : _ - 1;
               if (!(c >= l))
                 try {
-                  (yield f(e, l + 1, c),
+                  (yield h(e, l + 1, c),
                     o(
                       "WAWebNewsletterStatusProcessingUtils",
                     ).syncFilledStatusCursor(e, l));
@@ -161,16 +167,16 @@ __d(
             }
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    var C = new Set();
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    var v = new Set();
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r;
           if (
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
@@ -185,7 +191,7 @@ __d(
                 "WAWebNewsletterSyntheticStatusUtils",
               ).getFilledStatusCursor(e)) != null
                 ? r
-                : p - 1;
+                : _ - 1;
             if (!(t <= a)) {
               if (t === a + 1) {
                 o(
@@ -193,8 +199,8 @@ __d(
                 ).syncFilledStatusCursor(e, t);
                 return;
               }
-              if (!C.has(e)) {
-                C.add(e);
+              if (!v.has(e)) {
+                v.add(e);
                 try {
                   (o("WALogger").LOG(
                     c ||
@@ -208,28 +214,42 @@ __d(
                     String(t),
                     String(a),
                   ),
-                    yield h(e, t));
+                    yield C(e, t));
                 } finally {
-                  C.delete(e);
+                  v.delete(e);
                 }
               }
             }
           }
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
+    function L() {
+      return E.apply(this, arguments);
     }
-    function R() {
+    function E() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           if (
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
           ) {
-            var t =
+            var t = o(
+              "WAWebUserPrefsGeneral",
+            ).getLastNewsletterStatusBackfillTimestamp();
+            if (t != null && Date.now() - t < g) {
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[newsletter][status][gapfill] bulk backfill throttled (last run ",
+                    "ms ago)",
+                  ])),
+                String(Date.now() - t),
+              );
+              return;
+            }
+            var a =
                 (e =
                   r("WAWebNewsletterMetadataCollection") == null
                     ? void 0
@@ -250,7 +270,7 @@ __d(
                       )) != null
                   ? e
                   : [],
-              a = t.filter(function (e) {
+              i = a.filter(function (e) {
                 var t,
                   n,
                   r =
@@ -264,25 +284,25 @@ __d(
                       "WAWebNewsletterSyntheticStatusUtils",
                     ).getFilledStatusCursor(a)) != null
                       ? n
-                      : p - 1;
+                      : _ - 1;
                 return i < r;
               });
             (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[newsletter][status][gapfill] bulk backward fill: ",
                   " candidates / ",
                   " subscribed",
                 ])),
+              String(i.length),
               String(a.length),
-              String(t.length),
             ),
               yield o("WAWebRunInBatches").runInBatches(
-                a,
+                i,
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      yield (m || (m = n("Promise"))).allSettled(
+                      yield (p || (p = n("Promise"))).allSettled(
                         e.map(function (e) {
                           var t,
                             n = o("WAJids").toNewsletterJid(e.id.toString()),
@@ -290,7 +310,7 @@ __d(
                               (t = e.statusMetadata) == null
                                 ? void 0
                                 : t.lastStatusServerId;
-                          return h(n, r);
+                          return C(n, r);
                         }),
                       );
                     },
@@ -299,16 +319,19 @@ __d(
                     return e.apply(this, arguments);
                   };
                 })(),
-                { batchSize: _ },
-              ));
+                { batchSize: f },
+              ),
+              o(
+                "WAWebUserPrefsGeneral",
+              ).setLastNewsletterStatusBackfillTimestamp());
           }
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    ((l.fillNewsletterStatusGap = h),
-      (l.fillGapFromIncomingStanza = b),
-      (l.fillSubscribedStatusGaps = S));
+    ((l.fillNewsletterStatusGap = C),
+      (l.fillGapFromIncomingStanza = S),
+      (l.fillSubscribedStatusGaps = L));
   },
   98,
 );

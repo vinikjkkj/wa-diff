@@ -176,11 +176,9 @@ __d(
       })(),
       g = new f();
     ((l.SYNC_REQUEST_ORIGIN = e),
-      (l.PROTOCOL_BIT = s),
       (l.createUpdateCounter = u),
       (l.createUpdateCounterWith = c),
       (l.getSyncTypeString = d),
-      (l.computeFailureProtocolBitmask = _),
       (l.contactSyncLogger = g));
   },
   98,

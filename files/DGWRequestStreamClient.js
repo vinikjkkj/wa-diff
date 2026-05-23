@@ -61,6 +61,7 @@ __d(
                   this.$1.qosNetworkProbeUrl,
                   f,
                   a.method,
+                  this.$1.qosLoggingUserId,
                 ),
               );
             }

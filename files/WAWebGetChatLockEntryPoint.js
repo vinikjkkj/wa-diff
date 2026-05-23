@@ -62,6 +62,17 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect:
         case o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpToBottom:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatLoadAroundFallback:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpBackToContext:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpToMention:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatMsgDrawer:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatDatePicker:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatQuestionReply:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatMessageEditComplete:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatPollNotification:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatScrollBoundary:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatReactionMediaThumb:
         case o("WAWebChatEntryPoint").ChatEntryPoint.QuotedMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MediaViewer:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub:

@@ -382,6 +382,22 @@ __d(
           e === o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpToBottom ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.InChatLoadAroundFallback ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpBackToContext ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpToMention ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatMsgDrawer ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatDatePicker ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatQuestionReply ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.InChatMessageEditComplete ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.InChatPollNotification ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatScrollBoundary ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.InChatReactionMediaThumb ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.QuotedMessage ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.MediaViewer ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub ||

@@ -16,10 +16,7 @@ __d(
       h = 1400,
       y = 1500,
       C = 1600,
-      b = 1601,
-      v = 1700,
-      S = 1701,
-      R = 1702;
+      b = 1601;
     ((i.SAVE_CONTACT = e),
       (i.SAVE_CONTACT_BATCH = l),
       (i.DELETE_CONTACT = s),
@@ -34,10 +31,7 @@ __d(
       (i.BACKGROUND_SYNC = h),
       (i.BOT_PROFILE = y),
       (i.BIZ_BROADCAST_VERIFY = C),
-      (i.CUSTOMER_MANAGER_IMPORT_VERIFY = b),
-      (i.HANDLE_LID_SYNC = v),
-      (i.HANDLE_USERNAME_SYNC = S),
-      (i.MARK_SYNC_COMPLETED = R));
+      (i.CUSTOMER_MANAGER_IMPORT_VERIFY = b));
   },
   66,
 );

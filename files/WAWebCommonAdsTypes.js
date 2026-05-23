@@ -36,13 +36,7 @@ __d(
         UNABLE_TO_CREATE: "ERROR",
         UNKNOWN: "UNKNOWN",
       };
-    function u(e) {
-      return e;
-    }
-    function c(e) {
-      return e;
-    }
-    function d(t, n, r, o) {
+    function u(t, n, r, o) {
       return (
         r === void 0 && (r = "WAA"),
         o === void 0 && (o = e.STRONG),
@@ -54,9 +48,7 @@ __d(
     ((i.WAAIdentityTokenStrengthEnum = e),
       (i.BoostingStatusEnum = l),
       (i.BoostingStatus = s),
-      (i.asAdId = u),
-      (i.asAdCampaignGroupId = c),
-      (i.asAdAccountToken = d));
+      (i.asAdAccountToken = u));
   },
   66,
 );

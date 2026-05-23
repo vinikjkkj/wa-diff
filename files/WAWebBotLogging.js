@@ -58,6 +58,37 @@ __d(
                       .ExistingGroupRedirect ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatJumpToBottom ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatLoadAroundFallback ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatJumpBackToContext ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatJumpToMention ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.InChatMsgDrawer ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.InChatDatePicker ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatQuestionReply ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatMessageEditComplete ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatPollNotification ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatScrollBoundary ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .InChatReactionMediaThumb ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.QuotedMessage ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.MediaViewer ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub ||

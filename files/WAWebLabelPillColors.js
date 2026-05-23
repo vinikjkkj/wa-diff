@@ -180,6 +180,12 @@ __d(
       g = [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
       ];
+    function h() {
+      return g;
+    }
+    function y() {
+      return Array.from(f);
+    }
     ((i.DEFAULT_COLOR_INDEX = l),
       (i.PILL_COLOR_PALETTE_SIZE = s),
       (i.getPillColors = c),
@@ -188,7 +194,9 @@ __d(
       (i.AI_RESPONDING_COLOR_INDEX = p),
       (i.OVERFLOW_COLOR_INDEX = _),
       (i.AI_RESERVED_COLOR_INDICES = f),
-      (i.CUSTOM_LABEL_COLOR_INDICES = g));
+      (i.CUSTOM_LABEL_COLOR_INDICES = g),
+      (i.getCustomLabelColorIndices = h),
+      (i.getAIReservedColorIndices = y));
   },
   66,
 );

@@ -21,8 +21,7 @@ __d(
       _ = 20 * 1e3,
       f = 20 * 1e3,
       g = 20 * 1e3,
-      h = 20 * 1e3,
-      y = Object.freeze({
+      h = Object.freeze({
         FOLLOW_UP: 7,
         LEAD: 8,
         NEW_CUSTOMER: 1,
@@ -31,15 +30,15 @@ __d(
         PAID: 4,
         PENDING_PAYMENT: 3,
       }),
-      C = new Set(
-        Object.keys(y).map(function (e) {
-          return y[e];
+      y = new Set(
+        Object.keys(h).map(function (e) {
+          return h[e];
         }),
       ),
-      b = 7,
-      v = 8,
-      S = 6,
-      R = 2;
+      C = 7,
+      b = 8,
+      v = 6,
+      S = 2;
     ((i.QP_SURFACE_ID_CHAT_LIST_TOP = e),
       (i.QP_SURFACE_ID_WA_BANNER_WEB = l),
       (i.QP_SURFACE_ID_EXITED_GROUP = s),
@@ -50,14 +49,13 @@ __d(
       (i.KNOWN_QP_SURFACES = p),
       (i.QP_FETCH_TIMEOUT_MS = _),
       (i.QP_ACTION_MUTATION_TIMEOUT_MS = f),
-      (i.MANAGE_ADS_FETCH_TIMEOUT_MS = g),
-      (i.AD_ENTRY_POINTS_FETCH_TIMEOUT_MS = h),
-      (i.ALLOWED_PREDEFINED_LABEL_IDS = y),
-      (i.ALLOWED_PREDEFINED_LABEL_IDS_SET = C),
-      (i.FOLLOW_UP_PREDEFINED_ID = b),
-      (i.LEAD_PREDEFINED_ID = v),
-      (i.IMPORTANT_PREDEFINED_ID = S),
-      (i.NEW_ORDER_PREDEFINED_ID = R));
+      (i.AD_ENTRY_POINTS_FETCH_TIMEOUT_MS = g),
+      (i.ALLOWED_PREDEFINED_LABEL_IDS = h),
+      (i.ALLOWED_PREDEFINED_LABEL_IDS_SET = y),
+      (i.FOLLOW_UP_PREDEFINED_ID = C),
+      (i.LEAD_PREDEFINED_ID = b),
+      (i.IMPORTANT_PREDEFINED_ID = v),
+      (i.NEW_ORDER_PREDEFINED_ID = S));
   },
   66,
 );

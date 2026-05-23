@@ -41,14 +41,14 @@ __d(
     function p() {
       var e = o("WAWebListsGatingUtils").isListsChatListRowPillEnabled();
       return e
-        ? o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES.map(
-            function (e) {
+        ? o("WAWebLabelPillColors")
+            .getCustomLabelColorIndices()
+            .map(function (e) {
               return {
                 hexColor: o("WAWebLabelPillColors").getDotColor(e),
                 originalIndex: e,
               };
-            },
-          )
+            })
         : d().map(function (e, t) {
             return { hexColor: e, originalIndex: t };
           });

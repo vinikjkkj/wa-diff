@@ -108,9 +108,7 @@ __d(
         d.apply(this, arguments)
       );
     }
-    ((l.DEFAULT_TTL_SECONDS = e),
-      (l.loadCertFromIDB = s),
-      (l.saveCertToIDB = c));
+    ((l.loadCertFromIDB = s), (l.saveCertToIDB = c));
   },
   98,
 );

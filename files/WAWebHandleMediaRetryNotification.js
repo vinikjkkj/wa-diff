@@ -104,7 +104,7 @@ __d(
               l != null
                 ? l
                 : o("WAWebCommsWapMd").USER_JID(
-                    o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                    o("WAWebUserPrefsMeUser").getMeUser(),
                   ),
             participant: f || o("WAWap").DROP_ATTR,
           });

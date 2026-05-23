@@ -37,7 +37,7 @@ __d(
               a.count,
               c,
             )
-            .sendLogs("hybrid-bridge-burst", { sampling: 0.001 })));
+            .sendLogs("hybrid-bridge-burst", { sampling: 0.01 })));
     }
     function _(e, t) {
       var n = self.performance.now() - t;
@@ -57,7 +57,7 @@ __d(
             e.type,
             n.toFixed(0),
           )
-          .sendLogs("hybrid-bridge-slow", { sampling: 0.001 });
+          .sendLogs("hybrid-bridge-slow", { sampling: 0.01 });
     }
     function f(e, t) {
       var n = self.performance.now();

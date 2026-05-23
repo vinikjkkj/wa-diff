@@ -908,13 +908,23 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WAWebLidAwareContactsDB")
-              .equals(["isAddressBookContact"], 1)
-              .then(function (e) {
-                return r("countWhere")(e, function (e) {
-                  return !r("WAWebWid").isStringLid(e.id);
-                });
-              }),
+          var e = o("WAWebABProps").getABPropConfigValue(
+              "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
+            )
+              ? r("WAWebLidAwareContactsDB")
+                  .equalsPrimaryKeys(["isAddressBookContact"], 1)
+                  .then(function (e) {
+                    return r("countWhere")(e, function (e) {
+                      return !r("WAWebWid").isStringLid(e);
+                    });
+                  })
+              : r("WAWebLidAwareContactsDB")
+                  .equals(["isAddressBookContact"], 1)
+                  .then(function (e) {
+                    return r("countWhere")(e, function (e) {
+                      return !r("WAWebWid").isStringLid(e.id);
+                    });
+                  }),
             t = o("WAStorageEstimator").estimateStorage(),
             a = o("WAWebMediaStore").LruMediaStore.count(),
             i = r("WAWebLidAwareContactsDB").count(),
@@ -1098,29 +1108,50 @@ __d(
     function G() {
       return (
         (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("WAWebLidAwareContactsDB").all(),
-            t = e.filter(function (e) {
-              return r("WAWebWid").isStringLid(e.id);
-            }),
+          var e = new Set(),
+            t = 0,
             n = new Set(),
-            a = 0,
-            i = new Set(),
-            l = 0;
-          for (var s of t) {
-            var u = o("WAWebWidFactory").createUserLidOrThrow(s.id),
-              c = o("WAWebApiContact").getLatestLid(u);
-            (c != null && !u.equals(c) && n.add(s.id),
-              s.isUsernameContact === !0 && !n.has(s.id) && a++,
-              !r("isStringNullOrEmpty")(s.phoneNumber) &&
-                !r("isStringNullOrEmpty")(s.username) &&
-                i.add(r("nullthrows")(s.phoneNumber)),
-              s.isContactSyncCompleted === 0 && l++);
+            a = 0;
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
+            )
+          )
+            o("WAWebContactCollection").ContactCollection.forEach(function (i) {
+              if (i.id.isLid()) {
+                var l = i.id.toString(),
+                  s = o("WAWebWidFactory").asUserLidOrThrow(i.id),
+                  u = o("WAWebApiContact").getLatestLid(s);
+                (u != null && !s.equals(u) && e.add(l),
+                  i.isUsernameContact === !0 && !e.has(l) && t++);
+                var c = i.phoneNumber;
+                (c != null &&
+                  !r("isStringNullOrEmpty")(i.username) &&
+                  n.add(c.toString()),
+                  i.isContactSyncCompleted === 0 && a++);
+              }
+            });
+          else {
+            var i = yield r("WAWebLidAwareContactsDB").all(),
+              l = i.filter(function (e) {
+                return r("WAWebWid").isStringLid(e.id);
+              });
+            for (var s of l) {
+              var u = o("WAWebWidFactory").createUserLidOrThrow(s.id),
+                c = o("WAWebApiContact").getLatestLid(u);
+              (c != null && !u.equals(c) && e.add(s.id),
+                s.isUsernameContact === !0 && !e.has(s.id) && t++,
+                !r("isStringNullOrEmpty")(s.phoneNumber) &&
+                  !r("isStringNullOrEmpty")(s.username) &&
+                  n.add(r("nullthrows")(s.phoneNumber)),
+                s.isContactSyncCompleted === 0 && a++);
+            }
           }
           return {
-            usernameOnlyContactsSize: a,
-            deprecatedContactsSize: n.size,
-            uniquePhoneNumberContactsSizeWithUsername: i.size,
-            contactsRequiringSyncBeforeDisplaySize: l,
+            usernameOnlyContactsSize: t,
+            deprecatedContactsSize: e.size,
+            uniquePhoneNumberContactsSizeWithUsername: n.size,
+            contactsRequiringSyncBeforeDisplaySize: a,
           };
         })),
         G.apply(this, arguments)

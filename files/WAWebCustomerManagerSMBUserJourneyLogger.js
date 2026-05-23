@@ -162,12 +162,30 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.VIEW,
             });
           }),
+          (n.clickLearnMore = function () {
+            this.$1({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "learn_more_button",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
           (n.clickEmptyStateAddCustomer = function (n) {
             this.$1({
               extraAttributes: { empty_reason: n },
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.EMPTY_STATE_ADD_CUSTOMER,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickEmptyStateManageLabels = function () {
+            this.$1({
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "empty_state_manage_labels",
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
@@ -245,6 +263,26 @@ __d(
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.LAST_MESSAGE_FILTER_CHIP,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.changeLabelFilter = function (t) {
+            this.$1({
+              extraAttributes: { label_id: t != null ? t : "cleared" },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "label_filter_chip",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.changeAcquisitionSourceFilter = function (t) {
+            this.$1({
+              extraAttributes: { source: t != null ? t : "cleared" },
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "acquisition_source_filter_chip",
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });

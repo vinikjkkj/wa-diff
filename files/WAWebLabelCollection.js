@@ -260,38 +260,29 @@ __d(
             this.forEach(function (t) {
               t.colorIndex != null && e.add(t.colorIndex);
             });
-            var t = o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES.find(
-              function (t) {
+            var t = o("WAWebLabelPillColors").getCustomLabelColorIndices(),
+              n = t.find(function (t) {
                 return !e.has(t);
-              },
-            );
-            return t != null
-              ? t
-              : o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES[
-                  Math.floor(
-                    Math.random() *
-                      o("WAWebLabelPillColors").CUSTOM_LABEL_COLOR_INDICES
-                        .length,
-                  )
-                ];
+              });
+            return n != null ? n : t[Math.floor(Math.random() * t.length)];
           }
-          var n = o("WAWebListUtils").getAllLabelColors(),
-            r = new Set();
+          var r = o("WAWebListUtils").getAllLabelColors(),
+            a = new Set();
           this.forEach(function (e) {
-            e.colorIndex != null && r.add(e.colorIndex);
+            e.colorIndex != null && a.add(e.colorIndex);
           });
-          var a = Array.from(r).sort(function (e, t) {
+          var i = Array.from(a).sort(function (e, t) {
             return Number(e) - Number(t);
           });
-          if (a.length === 0) return 0;
-          var i = a.findIndex(function (e, t) {
+          if (i.length === 0) return 0;
+          var l = i.findIndex(function (e, t) {
             return e !== t;
           });
-          return i >= 0
-            ? i
-            : a.length < n.length
-              ? a.length
-              : Math.floor(Math.random() * n.length);
+          return l >= 0
+            ? l
+            : i.length < r.length
+              ? i.length
+              : Math.floor(Math.random() * r.length);
         }),
         (a.getChatLabelsWithUnarchivedAssociations = function () {
           return this.filter(function (e) {

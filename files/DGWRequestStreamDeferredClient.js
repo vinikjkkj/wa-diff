@@ -2,6 +2,7 @@ __d(
   "DGWRequestStreamDeferredClient",
   [
     "ConstUriUtils",
+    "CurrentUser",
     "Promise",
     "RequestStreamE2EClientSamplingConfig",
     "RtiRequestStreamE2eClientBatchFalcoEvent",
@@ -116,6 +117,7 @@ __d(
             .getDGWEndpoint()
             .replace(/^wss:\/\//, "https://")
             .replace(/\/ws$/, "") + "/proxygen/health",
+        qosLoggingUserId: String(r("CurrentUser").getID()),
       };
     }
     var c = new s();

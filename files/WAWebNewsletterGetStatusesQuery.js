@@ -10,13 +10,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = 100;
-    function u(e, t, n, r) {
+    function u(e, t, n, r, o) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
+          function* (t, r, a, i, l) {
             return (
               !(a != null && i != null) || s(0, 145243),
               o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
@@ -29,7 +29,7 @@ __d(
                     ? (n = { statusAfterMixin: { statusesAfter: a } })
                     : i != null &&
                       (n = { statusBeforeMixin: { statusesBefore: i } });
-                  var l = yield o(
+                  var s = yield o(
                     "WASmaxNewslettersGetNewsletterStatusesRPC",
                   ).sendGetNewsletterStatusesRPC({
                     queryNewsletterParamsMixinArgs: {
@@ -38,82 +38,82 @@ __d(
                       },
                     },
                     newsletterStatusRequestPayloadMixinArgs: {
-                      statusesCount: e,
+                      statusesCount: Math.min(l != null ? l : e, e),
                       statusDirectionsArgs: n,
                     },
                   });
-                  switch (l.name) {
+                  switch (s.name) {
                     case "GetNewsletterStatusesResponseSuccess": {
-                      var s =
-                        l.value.statusesNewsletterStatusResponsePayloadMixin;
-                      return s.status;
+                      var u =
+                        s.value.statusesNewsletterStatusResponsePayloadMixin;
+                      return u.status;
                     }
                     case "GetNewsletterStatusesResponseClientError": {
-                      var u = l.value.getNewsletterStatusesClientErrors;
-                      switch (u.name) {
+                      var c = s.value.getNewsletterStatusesClientErrors;
+                      switch (c.name) {
                         case "ItemNotFoundIQErrorResponse": {
-                          var c = u.value.errorIQErrorItemNotFoundMixin,
-                            d = c.code,
-                            m = c.text;
+                          var d = c.value.errorIQErrorItemNotFoundMixin,
+                            m = d.code,
+                            p = d.text;
                           throw new (o(
                             "WAWebBackendErrors",
-                          ).ServerStatusCodeError)(d, m);
+                          ).ServerStatusCodeError)(m, p);
                         }
                         case "RateLimitedIQErrorResponse": {
-                          var p = u.value.errorIQErrorRateOverlimitMixin,
-                            _ = p.code,
-                            f = p.text;
+                          var _ = c.value.errorIQErrorRateOverlimitMixin,
+                            f = _.code,
+                            g = _.text;
                           throw new (o(
                             "WAWebBackendErrors",
-                          ).ServerStatusCodeError)(_, f);
+                          ).ServerStatusCodeError)(f, g);
                         }
                         case "BadRequestIQErrorResponse": {
-                          var g = u.value.errorIQErrorBadRequestMixin,
-                            h = g.code,
-                            y = g.text;
+                          var h = c.value.errorIQErrorBadRequestMixin,
+                            y = h.code,
+                            C = h.text;
                           throw new (o(
                             "WAWebBackendErrors",
-                          ).ServerStatusCodeError)(h, y);
+                          ).ServerStatusCodeError)(y, C);
                         }
                         case "SuspendedIQErrorResponse": {
-                          var C = u.value.errorIQErrorLockedMixin,
-                            b = C.code,
-                            v = C.text;
+                          var b = c.value.errorIQErrorLockedMixin,
+                            v = b.code,
+                            S = b.text;
                           throw new (o(
                             "WAWebBackendErrors",
-                          ).ServerStatusCodeError)(b, v);
+                          ).ServerStatusCodeError)(v, S);
                         }
                         case "UnavailableForLegalReasonsResponse": {
-                          var S =
-                              u.value
+                          var R =
+                              c.value
                                 .errorIQErrorUnavailableForLegalReasonsGenericMixin,
-                            R = S.code,
-                            L = S.text;
+                            L = R.code,
+                            E = R.text;
                           throw new (o(
                             "WAWebBackendErrors",
-                          ).ServerStatusCodeError)(R, L);
+                          ).ServerStatusCodeError)(L, E);
                         }
                         case "NotAllowedIQErrorResponse": {
-                          var E = u.value.errorIQErrorNotAllowedMixin,
-                            k = E.code,
-                            I = E.text;
+                          var k = c.value.errorIQErrorNotAllowedMixin,
+                            I = k.code,
+                            T = k.text;
                           throw new (o(
                             "WAWebBackendErrors",
-                          ).ServerStatusCodeError)(k, I);
+                          ).ServerStatusCodeError)(I, T);
                         }
                       }
                       throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
                         0,
-                        "Unhandled client error: " + u.name,
+                        "Unhandled client error: " + c.name,
                       );
                     }
                     case "GetNewsletterStatusesResponseServerError": {
-                      var T = l.value.errorIQErrorInternalServerErrorMixin,
-                        D = T.code,
-                        x = T.text;
+                      var D = s.value.errorIQErrorInternalServerErrorMixin,
+                        x = D.code,
+                        $ = D.text;
                       throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                        Number(D),
-                        x,
+                        Number(x),
+                        $,
                       );
                     }
                   }

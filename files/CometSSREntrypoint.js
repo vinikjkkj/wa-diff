@@ -141,47 +141,39 @@ __d(
       );
       throw (e.stack, e);
     }
-    function f(t, n) {
-      var o,
-        a,
-        i = t.map(function (e) {
-          return s(e.entryPoint, e.entryPointParams);
-        }),
-        l = i.map(function (t) {
-          var n = t.queries,
-            r = t.roots;
-          return {
-            queries: n.map(e),
-            roots: r.map(function (e) {
-              return e.getModuleId();
-            }),
-          };
-        }),
-        u = r("objectValues")(
-          (o =
-            n == null || n.getDisplayQueries == null
+    function f(t) {
+      var n,
+        o,
+        a = r("objectValues")(
+          (n =
+            t == null || t.getDisplayQueries == null
               ? void 0
-              : n.getDisplayQueries()) != null
-            ? o
+              : t.getDisplayQueries()) != null
+            ? n
             : {},
         )
           .filter(function (e) {
             return e != null;
           })
           .map(e),
-        c = r("objectValues")(
-          (a =
-            n == null || n.getDeferredQueries == null
+        i = r("objectValues")(
+          (o =
+            t == null || t.getDeferredQueries == null
               ? void 0
-              : n.getDeferredQueries()) != null
-            ? a
+              : t.getDeferredQueries()) != null
+            ? o
             : {},
         )
           .filter(function (e) {
             return e != null;
           })
           .map(e);
-      return { appshellQueries: { deferred: c, display: u }, routeObjects: l };
+      return { deferred: i, display: a };
+    }
+    function g(e, t) {
+      var n = c(e),
+        r = f(t);
+      return { appshellQueries: r, routeObjects: n };
     }
     ((l.processRootEntryPoint = u),
       (l.processRootEntryPoints = c),
@@ -189,7 +181,7 @@ __d(
       (l.processRootEntryPointDataWithExtraProps = m),
       (l.processRootEntryPointDataWithJSResources = p),
       (l.preloadQuery = _),
-      (l.processServerEntryPoints = f));
+      (l.processServerEntryPoints = g));
   },
   98,
 );

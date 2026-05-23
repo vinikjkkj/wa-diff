@@ -116,7 +116,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             if (t.length === 0) return null;
-            var i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            var i = o("WAWebUserPrefsMeUser").getMeUser(),
               l = yield o("WAWebApiDeviceList").bulkGetDeviceRecord([i]),
               s = l[0],
               d = null;
@@ -200,7 +200,7 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a, i) {
-            var l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            var l = o("WAWebUserPrefsMeUser").getMeUser(),
               s = [].concat(
                 Array.from(
                   new Set(t.map(o("WAWebWidFactory").asUserWidOrThrow)),

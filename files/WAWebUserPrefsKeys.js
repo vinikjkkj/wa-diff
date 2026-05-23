@@ -144,6 +144,8 @@ __d(
             ME_DISPLAY_NAME: "me-display-name",
             PRESERVED_USER_KEYS: "preserved_user_keys",
             LAST_STATUS_USAGE: "last-status-usage",
+            LAST_NEWSLETTER_STATUS_BACKFILL_TS:
+              "last-newsletter-status-backfill-ts",
             REMEMBER_ME: "remember-me",
             NO_TAKEOVER: "no-takeover",
             WHATSAPP_LS_VERSION: "ver",

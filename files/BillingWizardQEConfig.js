@@ -350,7 +350,6 @@ __d(
           type: "PAYMENT_ACCOUNT",
         },
         trustly_sepa_bacs: { params: { use_trustly: e } },
-        trustly_sepa_bacs__logging: { params: { dummy_param: e } },
         unblock_low_future_spend_advertiser_preauth: { params: { enabled: s } },
         unblock_low_future_spend_advertiser_preauth_global: {
           params: { is_enabled: s },

@@ -12,6 +12,9 @@ __d(
     "WAWebEncryptAndSendBroadcastMsg",
     "WAWebHandleMsgError",
     "WAWebMessageProcessUtils",
+    "WAWebMsgCollection",
+    "WAWebMsgModelUtils",
+    "WAWebMsgUtilsBridge",
     "WAWebOutgoingMessage",
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
@@ -21,59 +24,109 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h;
-    function y() {
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b;
+    function v() {
       return o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            var l = t.id.toString(),
-              p = n.length;
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            var a = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(t);
+            if (a == null) {
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[broadcast:ctl] no fanout keys; skipping CTL emission",
+                  ])),
+              );
+              return;
+            }
+            var i = [];
+            for (var l of a) {
+              var c = o("WAWebMsgCollection").MsgCollection.get(l);
+              if (c == null) {
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[broadcast:ctl] missing clone for fanoutKey=",
+                      "",
+                    ])),
+                  l.toString(),
+                );
+                continue;
+              }
+              i.push(
+                o("WAWebMsgUtilsBridge").logMessageSendForChatThreadLogging(c),
+              );
+            }
+            yield (b || (b = n("Promise"))).all(i);
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[broadcast:ctl] emission failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e));
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e, t, n, r) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            var i = e.id.toString(),
+              l = t.length;
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:send] Starting broadcast message send: msgId=",
                   ", recipients=",
                   "",
                 ])),
+              i,
               l,
-              p,
             );
-            var _ = {
+            var s = {
                 type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-                data: t,
+                data: e,
               },
-              f = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+              u = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
                 o("WAWebOutgoingMessage").OutgoingMessageOriginType.Chat,
-                _,
+                s,
               );
             (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:send] Protobuf created: msgId=",
                   "",
                 ])),
-              l,
+              i,
             ),
               o("WAWebBroadcastODS").bumpBroadcastSend());
             try {
               yield o(
                 "WAWebEncryptAndSendBroadcastMsg",
-              ).encryptAndSendBroadcastMsg(_, f, n, a, i);
+              ).encryptAndSendBroadcastMsg(s, u, t, n, a);
               var g = yield o(
                 "WAWebBatchUpdateBroadcastAck",
-              ).batchUpdateAckForBroadcastMessages(t, o("WAWebAck").ACK.SENT);
+              ).batchUpdateAckForBroadcastMessages(e, o("WAWebAck").ACK.SENT);
               return (
                 g != null &&
                   o("WALogger")
                     .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "[broadcast:send] Batch ack update failed after send: error=",
                           "",
                         ])),
@@ -81,31 +134,32 @@ __d(
                     )
                     .sendLogs("broadcast-batch-ack-sent-" + g),
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:send] Successfully sent: msgId=",
                       ", ack=",
                       "",
                     ])),
-                  l,
+                  i,
                   o("WAWebAck").ACK.SENT,
                 ),
                 o("WAWebBroadcastODS").bumpBroadcastSendSuccess(),
+                g == null && S(e),
                 {
                   messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                     .OK,
-                  msgId: l,
+                  msgId: i,
                 }
               );
-            } catch (e) {
+            } catch (t) {
               var h = yield o(
                 "WAWebBatchUpdateBroadcastAck",
-              ).batchUpdateAckForBroadcastMessages(t, o("WAWebAck").ACK.FAILED);
+              ).batchUpdateAckForBroadcastMessages(e, o("WAWebAck").ACK.FAILED);
               (h != null &&
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:send] Batch ack update failed after send failure: error=",
                         "",
                       ])),
@@ -114,43 +168,43 @@ __d(
                   .sendLogs("broadcast-batch-ack-failed-" + h),
                 o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:send] Send failed: recipientCount=",
                         ", ack=",
                         "",
                       ])),
-                    p,
+                    l,
                     o("WAWebAck").ACK.FAILED,
                   )
-                  .catching(r("getErrorSafe")(e))
+                  .catching(r("getErrorSafe")(t))
                   .sendLogs("broadcast-send-failure"),
                 o("WAWebBroadcastODS").bumpBroadcastSendError());
               var y =
-                e instanceof o("WAWebHandleMsgError").MessageSentAckError
-                  ? e.ackErrorCode
+                t instanceof o("WAWebHandleMsgError").MessageSentAckError
+                  ? t.ackErrorCode
                   : null;
               return {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                   .ERROR_UNKNOWN,
-                msgId: l,
+                msgId: i,
                 ackErrorCode: y,
               };
             }
           },
         )),
-        b.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function S() {
+    function I() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgData,
-            a = y(),
-            i = yield (h || (h = n("Promise"))).all(
+            a = v(),
+            i = yield (b || (b = n("Promise"))).all(
               e.recipients.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -190,8 +244,8 @@ __d(
             m != null &&
               (yield d.waitForPrep(),
               o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Media prep complete: msgId=",
                     "",
                   ])),
@@ -199,8 +253,8 @@ __d(
               ),
               yield m(d),
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Media upload complete: msgId=",
                     "",
                   ])),
@@ -210,8 +264,8 @@ __d(
                 "WAWebBuildBroadcastMsgModels",
               ).propagateMediaFieldsToBroadcastClones(d),
               o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Media fields persisted for all clone messages: msgId=",
                     "",
                   ])),
@@ -221,8 +275,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:send] Media prep/upload failed",
                     ])),
                 )
@@ -237,12 +291,12 @@ __d(
               }
             );
           }
-          return C(d, e.recipients, a, e.businessMetadata);
+          return L(d, e.recipients, a, e.businessMetadata);
         })),
-        S.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    l.sendBroadcastMsgAction = v;
+    l.sendBroadcastMsgAction = k;
   },
   98,
 );

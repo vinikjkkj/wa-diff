@@ -39,7 +39,11 @@ __d(
           }),
           (n.logViewCard = function (n, r, a) {
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              extraAttributes: { card_id: n, card_idx: r, view_source: a },
+              extraAttributes: {
+                insight_card_id: n,
+                card_seq_id: r,
+                view_source: a,
+              },
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
                 .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_REC_CARD,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -87,7 +91,7 @@ __d(
           }),
           (n.$1 = function (t, n, r, a) {
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              extraAttributes: { card_id: r, card_idx: a },
+              extraAttributes: { insight_card_id: r, card_seq_id: a },
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
                 .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_REC_CARD,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE

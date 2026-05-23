@@ -66,12 +66,6 @@ __d(
             this
           );
         }),
-        (n._hasListeners = function () {
-          var e = this.eventMap;
-          if (e == null) return !1;
-          for (var t in e) if (e[t] != null && e[t].length > 0) return !0;
-          return !1;
-        }),
         (n.$AggregatedProxyView$p_6 = function () {
           var e = this,
             t = this.$AggregatedProxyView$p_5();
@@ -114,7 +108,7 @@ __d(
         }),
         (n.$AggregatedProxyView$p_7 = function () {
           var e;
-          this._hasListeners() ||
+          this.isListening() ||
             ((e = this.$AggregatedProxyView$p_4) == null || e.call(this),
             (this.$AggregatedProxyView$p_4 = null));
         }),

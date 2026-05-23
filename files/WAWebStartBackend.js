@@ -589,8 +589,11 @@ __d(
                       {},
                     ),
                       o(
-                        "WAWebNewsletterGatingUtils",
-                      ).isNewsletterStatusReceiverEnabled() &&
+                        "WAWebUserPrefsMultiDevice",
+                      ).getNewsletterWasBootstrapped() &&
+                        o(
+                          "WAWebNewsletterGatingUtils",
+                        ).isNewsletterStatusReceiverEnabled() &&
                         o("WAWebBackendApi").frontendFireAndForget(
                           "fillSubscribedStatusGaps",
                           {},
