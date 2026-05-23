@@ -2532,6 +2532,11 @@ __d(
         name: "SPOTLIGHT_STORY",
         sampleRate: 1,
       },
+      18947240: {
+        moduleName: "IG_STORIES",
+        name: "STATE_HOLDER_INIT",
+        sampleRate: 100,
+      },
       18947877: {
         moduleName: "IG_STORIES",
         name: "EXTEND_STORY",
@@ -2541,6 +2546,11 @@ __d(
         moduleName: "IG_STORIES",
         name: "VIEWERS_LIST_SEARCH",
         sampleRate: 1e3,
+      },
+      18950874: {
+        moduleName: "IG_STORIES",
+        name: "STATE_HOLDER_UPDATE",
+        sampleRate: 100,
       },
       18953116: {
         moduleName: "IG_STORIES",
@@ -13760,6 +13770,11 @@ __d(
         name: "VIBE_EDITING_OPTIMISTIC_UPLOAD",
         sampleRate: 1e3,
       },
+      82197418: {
+        moduleName: "CREATOR_TOOLS",
+        name: "VIBE_EDITING_LATENCY_ESTIMATE",
+        sampleRate: 1,
+      },
       82316322: { moduleName: "UCR", name: "ACRO_USAGE", sampleRate: 400 },
       82325841: { moduleName: "UCR", name: "ACRO_CREATION", sampleRate: 400 },
       83176270: {
@@ -13960,7 +13975,7 @@ __d(
       85539254: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_INDIVIDUAL_REVIEWS",
-        sampleRate: 68,
+        sampleRate: 83,
       },
       85539874: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14372,6 +14387,11 @@ __d(
       92615944: {
         moduleName: "VOICE_SDK_DEV",
         name: "GENERATE_MANIFEST",
+        sampleRate: 1,
+      },
+      93339300: {
+        moduleName: "HATCH_GATEWAY",
+        name: "GATEWAY_CONNECT",
         sampleRate: 1,
       },
       93456163: {
@@ -15080,7 +15100,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 12202,
+        sampleRate: 11034,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -16168,6 +16188,11 @@ __d(
         moduleName: "WHATSAPP_CONNECTIVITY",
         name: "CHATD_CONNECTION_SINGLE_STEP",
         sampleRate: 5e3,
+      },
+      126746625: {
+        moduleName: "LIVE_SHOPPING_LEADERBOARD",
+        name: "BOTTOMSHEET_LOAD",
+        sampleRate: 1,
       },
       127273010: {
         moduleName: "ENTERPRISE_CENTER_LMM",
@@ -19480,6 +19505,11 @@ __d(
       183050135: {
         moduleName: "WHATSAPP_SMB_BUSINESS_BROADCAST",
         name: "WHATSAPP_BUSINESS_BROADCAST_PAYMENT_WEB",
+        sampleRate: 1,
+      },
+      183054653: {
+        moduleName: "WHATSAPP_SMB_BUSINESS_BROADCAST",
+        name: "WHATSAPP_BUSINESS_BROADCAST_HOME_WEB",
         sampleRate: 1,
       },
       183054996: {
@@ -27716,6 +27746,11 @@ __d(
         name: "IRIS_SERVER_PUBLISH",
         sampleRate: null,
       },
+      305269190: {
+        moduleName: "IDENTITY_SWITCHER_PERF",
+        name: "IOS_IDENTITY_SWITCHING_TTI",
+        sampleRate: 1,
+      },
       306649636: { moduleName: "XDS_BUGNUB", name: "FILE_TASK", sampleRate: 1 },
       306656200: {
         moduleName: "XDS_BUGNUB",
@@ -29067,7 +29102,7 @@ __d(
       328861249: {
         moduleName: "DISK_WRITES",
         name: "IOS_IGDATAUSERDEFAULTSSTORAGE_V2_ORPHAN_CLEANUP",
-        sampleRate: 1e4,
+        sampleRate: 1e5,
       },
       328875930: {
         moduleName: "DISK_WRITES",
@@ -33307,6 +33342,11 @@ __d(
         moduleName: "MMA_ZTP",
         name: "SHARE_BUTTON_CLICK",
         sampleRate: 1,
+      },
+      401670145: {
+        moduleName: "WHATSAPP_CONTACTS_HUB",
+        name: "CONTACTS_HUB_LOAD",
+        sampleRate: 250,
       },
       402199066: {
         moduleName: "IG_METRICS_CLIENT",
@@ -39984,6 +40024,8 @@ __d(
         name: "REG_TRANSITION_TO_NEXT",
         sampleRate: 1,
       },
+      505025663: { moduleName: "WEAVE", name: "INITIAL_LOAD", sampleRate: 1 },
+      505027078: { moduleName: "WEAVE", name: "NAVIGATION", sampleRate: 1 },
       505353229: {
         moduleName: "RP_POLLS",
         name: "INCALL_POLLS_SETUP",
@@ -51823,6 +51865,11 @@ __d(
       718410312: {
         moduleName: "IFU_DELIVERY_RELIABILITY",
         name: "NEWSFEED_IFU_DELIVERY_CLARITY",
+        sampleRate: 1,
+      },
+      718413993: {
+        moduleName: "IFU_DELIVERY_RELIABILITY",
+        name: "FT_IFU_CSR",
         sampleRate: 1,
       },
       718420758: {
@@ -65146,6 +65193,11 @@ __d(
         name: "FB4A_BRS_LOGGING_FLOW",
         sampleRate: 100,
       },
+      879829986: {
+        moduleName: "FB_BRAND_SAFETY_LOGGING",
+        name: "FBIOS_BRS_LOGGING_FLOW",
+        sampleRate: 100,
+      },
       879831587: {
         moduleName: "FB_BRAND_SAFETY_LOGGING",
         name: "FB4A_GOLDEN_SET_FILTERING",
@@ -73607,6 +73659,16 @@ __d(
         moduleName: "CM_ROLL_CALL",
         name: "ROLL_CALL_XMA_CTA_CLICK",
         sampleRate: 1,
+      },
+      1014575166: {
+        moduleName: "WA_MFGRAPH",
+        name: "OPERATION",
+        sampleRate: 1e3,
+      },
+      1014577424: {
+        moduleName: "WA_MFGRAPH",
+        name: "UPLOAD_JOB",
+        sampleRate: 1e3,
       },
       1015487256: {
         moduleName: "IOS_CLIPS_NC_RETRIEVAL",
