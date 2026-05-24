@@ -1,22 +1,12 @@
 const fs = require('node:fs/promises')
 const path = require('node:path')
-const { spawn } = require('node:child_process')
-const puppeteer = require('puppeteer-real-browser')
+const { execSync, spawn } = require('node:child_process')
+const { discoverBundleUrls } = require('@vinikjkkj/wa-fetcher')
 
-const WHATSAPP_URL = 'https://web.whatsapp.com/'
-const FETCH_SCRIPT_PATH = path.resolve(__dirname, 'fetch.js')
 const OUTPUT_PATH = path.resolve(__dirname, 'urls.json')
 const EXPORT_DIR = path.resolve(__dirname, 'files')
 const WORKERS = '50'
-const MODULE_FILTER =
-    '/^(?!use[A-Z])(?!.*(?:[Rr][Ee][Aa][Cc][Tt]|[Ss][Tt][Yy][Ll][Ee][Xx])).+$/'
-
-const MAX_WAIT_MS = 5 * 60 * 1000
-const POLL_INTERVAL_MS = 2000
-
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-}
+const MODULE_FILTER = '/^(?!use[A-Z])(?!.*(?:[Rr][Ee][Aa][Cc][Tt]|[Ss][Tt][Yy][Ll][Ee][Xx])).+$/'
 
 function runCommand(command, args, name, options = {}) {
     console.log(`Running: ${command} ${args.join(' ')}`)
@@ -73,9 +63,7 @@ function resolvePackageBin(packageName, binName = packageName) {
         }
     }
 
-    throw new Error(
-        `Unable to resolve bin "${binName}" from package "${packageName}"`
-    )
+    throw new Error(`Unable to resolve bin "${binName}" from package "${packageName}"`)
 }
 
 function runWaExport() {
@@ -94,82 +82,72 @@ function runWaExport() {
     return runCommand(process.execPath, [waExportScript, ...args], 'wa-export')
 }
 
-function runPrettier() {
+async function runPrettier() {
     const prettierScript = resolvePackageBin('prettier', 'prettier')
 
+    let changedFiles
+    try {
+        changedFiles = execSync('git diff --name-only HEAD -- files/', {
+            cwd: __dirname,
+            encoding: 'utf8'
+        })
+            .trim()
+            .split('\n')
+            .filter(Boolean)
+    } catch {
+        changedFiles = []
+    }
+
+    const untrackedFiles = (() => {
+        try {
+            return execSync('git ls-files --others --exclude-standard -- files/', {
+                cwd: __dirname,
+                encoding: 'utf8'
+            })
+                .trim()
+                .split('\n')
+                .filter(Boolean)
+        } catch {
+            return []
+        }
+    })()
+
+    const files = [...new Set([...changedFiles, ...untrackedFiles])]
+
+    if (files.length === 0) {
+        console.log('No changed files to format.')
+        return
+    }
+
+    console.log(`Formatting ${files.length} changed files (instead of all).`)
     return runCommand(
         process.execPath,
-        [prettierScript, '--write', EXPORT_DIR, '--ignore-unknown'],
+        [prettierScript, '--write', '--ignore-unknown', ...files],
         'prettier'
     )
 }
 
-async function runFetchScript(page, fetchScript) {
-    return page.evaluate((scriptCode) => {
-        try {
-            const result = (0, eval)(scriptCode)
-            if (!Array.isArray(result)) return []
-
-            return result.filter((url) => typeof url === 'string')
-        } catch {
-            return []
-        }
-    }, fetchScript)
-}
-
-async function waitForUrls(page, fetchScript) {
-    const startedAt = Date.now()
-
-    while (Date.now() - startedAt < MAX_WAIT_MS) {
-        const urls = await runFetchScript(page, fetchScript)
-        if (urls.length > 0) return urls
-
-        const elapsedSeconds = Math.floor((Date.now() - startedAt) / 1000)
-        console.log(`[${elapsedSeconds}s] waiting for WhatsApp to load/login...`)
-        await sleep(POLL_INTERVAL_MS)
-    }
-
-    return []
-}
-
 async function main() {
-    const fetchScript = await fs.readFile(FETCH_SCRIPT_PATH, 'utf8')
+    const { waVersion, urls } = await discoverBundleUrls()
 
-    const { browser } = await puppeteer.connect({
-        headless: true
-    })
+    await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(urls, null, 4)}\n`, 'utf8')
 
-    try {
-        const page = await browser.newPage()
-        page.setDefaultNavigationTimeout(120000)
+    console.log(`WA version: ${waVersion ?? 'unknown'}`)
+    console.log(`Total URLs found: ${urls.length}`)
+    console.log(`Saved file: ${OUTPUT_PATH}`)
 
-        await page.goto(WHATSAPP_URL, { waitUntil: 'domcontentloaded' })
-        await sleep(3000)
-
-        const urls = [...new Set(await waitForUrls(page, fetchScript))].sort()
-
-        await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(urls, null, 4)}\n`, 'utf8')
-
-        console.log(`Total URLs found: ${urls.length}`)
-        console.log(`Saved file: ${OUTPUT_PATH}`)
-
-        if (urls.length === 0) {
-            console.log(
-                'No URLs found. If a QR code is visible, log in to WhatsApp Web and run again.'
-            )
-            return
-        }
-
-        await runWaExport()
-        console.log(`Export finished at: ${EXPORT_DIR}`)
-        await runPrettier()
-        console.log(`Prettier finished for: ${EXPORT_DIR}`)
-
-        console.log('First 10 URLs:')
-        urls.slice(0, 10).forEach((url) => console.log(url))
-    } finally {
-        await browser.close()
+    if (urls.length === 0) {
+        console.log('No URLs found.')
+        return
     }
+
+    await runWaExport()
+    console.log(`Export finished at: ${EXPORT_DIR}`)
+    await runPrettier()
+    console.log(`Prettier finished for: ${EXPORT_DIR}`)
+
+    console.log('First 10 URLs:')
+    urls.slice(0, 10).forEach((url) => console.log(url))
 }
 
 main().catch((error) => {

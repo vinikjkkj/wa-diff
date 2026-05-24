@@ -4,17 +4,14 @@ Tooling to version WhatsApp Web JavaScript bundles and inspect diffs across rele
 
 ## What it does
 
-1. Opens WhatsApp Web with `puppeteer-real-browser` in headless mode.
-2. Runs [`fetch.js`](./fetch.js) inside the page to collect `.js` bundle URLs.
-3. Filters URLs to `static.whatsapp.net`.
-4. Saves all collected URLs to `urls.json`.
-5. Exports bundles with `wa-export` into `files/` (flat mode).
-6. Runs Prettier on the exported files.
+1. Uses [`@vinikjkkj/wa-fetcher`](https://www.npmjs.com/package/@vinikjkkj/wa-fetcher) (`discoverBundleUrls`, URL-only mode) to discover every `.js` bundle URL referenced by `web.whatsapp.com`.
+2. Saves the collected URLs to `urls.json`.
+3. Exports bundles with `wa-export` into `files/` (flat mode).
+4. Runs Prettier on the exported files.
 
 ## Project files
 
 - `main.js`: end-to-end runner (fetch URLs, export bundles, format files).
-- `fetch.js`: browser-side script that discovers bundle URLs.
 - `urls.json`: generated list of collected bundle URLs.
 - `files/`: generated exported JavaScript files from `wa-export`.
 
@@ -59,7 +56,7 @@ prettier --write files --ignore-unknown
 
 - `npm run start`: run `main.js`
 - `npm run fetch`: run `main.js`
-- `npm run check`: syntax-check `main.js` and `fetch.js`
+- `npm run check`: syntax-check `main.js`
 - `npm run format`: run Prettier on the repo
 - `npm run format:check`: check Prettier formatting
 

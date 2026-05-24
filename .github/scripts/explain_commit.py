@@ -10,7 +10,7 @@ import time
 import urllib.request
 
 MODEL = "gemini-2.5-flash"
-MAX_DIFF_CHARS = 600_000  # ~150k tokens; leaves headroom under 250k TPM cap
+MAX_DIFF_CHARS = 600_000
 
 
 def run(cmd: list[str]) -> str:
@@ -31,9 +31,11 @@ def build_context(sha: str) -> tuple[str, bool]:
 def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
     if has_diff:
         guidance = (
-            "You have the FULL diff (zero context). Be technical: cite short code snippets in "
-            "fenced ```js blocks when they reveal a feature, new function/identifier, or notable "
-            "refactor. Ignore pure minification noise (variable renames, module ID shuffles)."
+            "You have the FULL diff. Be technical and ALWAYS include code evidence.\n"
+            "For EACH bullet point you MUST include at least one short ```js snippet (1-3 lines) "
+            "showing a new function, identifier, string literal, or config value from the diff.\n"
+            "Pick the most revealing line — e.g. a new export, a feature gate string, a new enum value.\n"
+            "Ignore pure minification noise (variable renames, module ID shuffles)."
         )
     else:
         guidance = (
@@ -56,7 +58,7 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
         f"{context}"
     )
 
-    body = json.dumps({
+    payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json"},
     }).encode()
@@ -64,14 +66,16 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={api_key}"
     for attempt in range(1, 4):
         try:
-            req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=120) as r:
+            req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=180) as r:
                 data = json.loads(r.read())
         except urllib.error.HTTPError as e:
-            if attempt == 3 or e.code < 500:
+            retryable = e.code == 429 or e.code >= 500
+            if attempt == 3 or not retryable:
                 raise
-            print(f"Gemini returned {e.code}, retrying in {attempt * 10}s...")
-            time.sleep(attempt * 10)
+            delay = attempt * 30
+            print(f"Gemini returned {e.code}, retrying in {delay}s...")
+            time.sleep(delay)
             continue
 
         text = data["candidates"][0]["content"]["parts"][0]["text"]
@@ -83,7 +87,7 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
                 "title_pt": parsed["title_pt"].strip(),
                 "body_pt": parsed["body_pt"].strip(),
             }
-        print(f"Gemini returned invalid output (attempt {attempt}): {text[:200]}")
+        print(f"Invalid output (attempt {attempt}): {text[:200]}")
         time.sleep(attempt * 10)
 
     raise RuntimeError("Gemini failed to return valid output after 3 attempts")
@@ -92,7 +96,7 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
 def emit_outputs(title: str, body: str, tag: str) -> None:
     out_path = os.environ.get("GITHUB_OUTPUT")
     if not out_path:
-        print(f"title={title}\ntag={tag}\n\n{body}")
+        sys.stdout.buffer.write(f"title={title}\ntag={tag}\n\n{body}\n".encode("utf-8"))
         return
     with open(out_path, "a", encoding="utf-8") as f:
         f.write(f"title={title}\n")
