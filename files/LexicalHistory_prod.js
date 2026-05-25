@@ -25,7 +25,7 @@ __d(
         )
       )
         return 0;
-      var d = (function (e, t, o) {
+      var l = (function (e, t, o) {
         var r = e._nodeMap,
           i = [];
         for (var _e of t) {
@@ -43,8 +43,8 @@ __d(
         }
         return i;
       })(t, o, r);
-      if (0 === d.length) return 0;
-      if (d.length > 1) {
+      if (0 === l.length) return 0;
+      if (l.length > 1) {
         var _o2 = t._nodeMap,
           _r = _o2.get(a.anchor.key),
           _i = _o2.get(s.anchor.key);
@@ -57,28 +57,28 @@ __d(
           ? 2
           : 0;
       }
-      var l = d[0],
-        c = e._nodeMap.get(l.__key);
+      var d = l[0],
+        u = e._nodeMap.get(d.__key);
       if (
-        !require("Lexical").$isTextNode(c) ||
-        !require("Lexical").$isTextNode(l) ||
-        c.__mode !== l.__mode
+        !require("Lexical").$isTextNode(u) ||
+        !require("Lexical").$isTextNode(d) ||
+        u.__mode !== d.__mode
       )
         return 0;
-      var u = c.__text,
-        _ = l.__text;
-      if (u === _) return 0;
+      var c = u.__text,
+        _ = d.__text;
+      if (c === _) return 0;
       var f = a.anchor,
         p = s.anchor;
       if (f.key !== p.key || "text" !== f.type) return 0;
-      var O = f.offset,
-        g = p.offset,
-        S = _.length - u.length;
-      return 1 === S && g === O - 1
+      var g = f.offset,
+        h = p.offset,
+        O = _.length - c.length;
+      return 1 === O && h === g - 1
         ? 2
-        : -1 === S && g === O + 1
+        : -1 === O && h === g + 1
           ? 3
-          : -1 === S && g === O
+          : -1 === O && h === g
             ? 4
             : 0;
     }
@@ -86,31 +86,31 @@ __d(
       var i = r(),
         a = 0,
         s = i,
-        d = 0,
-        l = null;
-      return function (c, u, _, f, p, O) {
-        var g = r();
+        l = 0,
+        d = null;
+      return function (u, c, _, f, p, g) {
+        var h = r();
         if (
-          (O.has(require("Lexical").COMPOSITION_START_TAG) &&
-            ((s = i), (d = a), (l = c)),
-          O.has(require("Lexical").HISTORIC_TAG))
+          (g.has(require("Lexical").COMPOSITION_START_TAG) &&
+            ((s = i), (l = a), (d = u)),
+          g.has(require("Lexical").HISTORIC_TAG))
         )
-          return ((a = 0), (i = g), 2);
-        O.has(require("Lexical").COMPOSITION_END_TAG) &&
-          l &&
-          ((i = s), (a = d), (c = l));
-        var S = o(c, u, f, p, e.isComposing()),
-          h = (function () {
+          return ((a = 0), (i = h), 2);
+        g.has(require("Lexical").COMPOSITION_END_TAG) &&
+          d &&
+          ((i = s), (a = l), (u = d));
+        var O = o(u, c, f, p, e.isComposing()),
+          S = (function () {
             var o = null === _ || _.editor === e,
-              r = O.has(require("Lexical").HISTORY_PUSH_TAG);
-            if (!r && o && O.has(require("Lexical").HISTORY_MERGE_TAG))
+              r = g.has(require("Lexical").HISTORY_PUSH_TAG);
+            if (!r && o && g.has(require("Lexical").HISTORY_MERGE_TAG))
               return 0;
-            if (1 === S) return 2;
-            if (null === c) return 1;
-            var s = u._selection;
+            if (1 === O) return 2;
+            if (null === u) return 1;
+            var s = c._selection;
             if (!(f.size > 0 || p.size > 0)) return null !== s ? 0 : 2;
-            var d = "number" == typeof t ? t : t.peek();
-            if (!1 === r && 0 !== S && S === a && g < i + d && o) return 0;
+            var l = "number" == typeof t ? t : t.peek();
+            if (!1 === r && 0 !== O && O === a && h < i + l && o) return 0;
             if (1 === f.size) {
               if (
                 (function (e, t, o) {
@@ -141,25 +141,28 @@ __d(
                         }),
                       )
                   );
-                })(Array.from(f)[0], c, u)
+                })(Array.from(f)[0], u, c)
               )
                 return 0;
             }
             return 1;
           })();
-        return ((i = g), (a = S), h);
+        return ((i = h), (a = O), S);
       };
     }
     function i(e, t) {
       ((e.undoStack = []), (e.redoStack = []), (e.current = null), t && t(e));
     }
-    function a(e, o, a, s, d) {
+    function a(e, o, a, s, l, d) {
       if (s === void 0) {
         s = Date.now;
       }
-      var l = r(e, a, s),
+      if (d === void 0) {
+        d = null;
+      }
+      var u = r(e, a, s),
         c = function c() {
-          d && d(o);
+          l && l(o);
         };
       return (
         c(),
@@ -192,7 +195,7 @@ __d(
                           tag: require("Lexical").HISTORIC_TAG,
                         }));
                   }
-                })(e, o, d),
+                })(e, o, l),
                 !0
               );
             },
@@ -226,7 +229,7 @@ __d(
                           tag: require("Lexical").HISTORIC_TAG,
                         }));
                   }
-                })(e, o, d),
+                })(e, o, l),
                 !0
               );
             },
@@ -235,7 +238,7 @@ __d(
           e.registerCommand(
             require("Lexical").CLEAR_EDITOR_COMMAND,
             function () {
-              return (i(o, d), !1);
+              return (i(o, l), !1);
             },
             require("Lexical").COMMAND_PRIORITY_EDITOR,
           ),
@@ -243,7 +246,7 @@ __d(
             require("Lexical").CLEAR_HISTORY_COMMAND,
             function () {
               return (
-                i(o, d),
+                i(o, l),
                 e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1),
                 e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !1),
                 !0
@@ -257,20 +260,25 @@ __d(
               i = _ref3.dirtyLeaves,
               a = _ref3.dirtyElements,
               s = _ref3.tags;
-            var d = o.current,
-              u = o.redoStack,
-              _ = o.undoStack,
-              f = null === d ? null : d.editorState;
-            if (null !== d && t === f) return;
-            var p = l(r, t, d, i, a, s);
-            if (1 === p)
-              (0 !== u.length &&
-                ((o.redoStack = []),
-                e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1)),
-                null !== d &&
-                  (_.push(babelHelpers["extends"]({}, d)),
-                  e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !0)));
-            else if (2 === p) return;
+            var l = o.current,
+              _ = o.redoStack,
+              f = o.undoStack,
+              p = null === l ? null : l.editorState;
+            if (null !== l && t === p) return;
+            var g = u(r, t, l, i, a, s);
+            if (1 === g) {
+              if (
+                (0 !== _.length &&
+                  ((o.redoStack = []),
+                  e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1)),
+                null !== l)
+              ) {
+                f.push(babelHelpers["extends"]({}, l));
+                var _t3 = "number" == typeof d || null === d ? d : d.peek();
+                (null !== _t3 && f.length > _t3 && f.splice(0, f.length - _t3),
+                  e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !0));
+              }
+            } else if (2 === g) return;
             ((o.current = { editor: e, editorState: t }), c());
           }),
         )
@@ -279,27 +287,30 @@ __d(
     function s() {
       return { current: null, redoStack: [], undoStack: [] };
     }
-    var d = (_require_Lexical = require("Lexical")).defineExtension({
-      build: function build(t, _ref4, a) {
+    var l = (_require_Lexical = require("Lexical")).defineExtension({
+      build: function build(t, _ref4, s) {
         var n = _ref4.delay,
           o = _ref4.createInitialHistoryState,
           r = _ref4.disabled,
-          i = _ref4.now;
+          i = _ref4.maxDepth,
+          a = _ref4.now;
         return babelHelpers["extends"](
           {},
           require("LexicalExtension").namedSignals({
             delay: n,
             disabled: r,
             historyState: o(t),
-            now: i,
+            maxDepth: i,
+            now: a,
           }),
-          a.getInitResult(),
+          s.getInitResult(),
         );
       },
       config: _require_Lexical.safeCast({
         createInitialHistoryState: s,
         delay: 300,
         disabled: "undefined" == typeof window,
+        maxDepth: null,
         now: Date.now,
       }),
       init: function init() {
@@ -314,7 +325,7 @@ __d(
           r = _o$getInitResult.canUndo,
           i = _o$getInitResult.canRedo,
           s = o.getOutput(),
-          d = function d(t) {
+          l = function l(t) {
             return require("LexicalExtension").batch(function () {
               ((r.value = null != t && t.undoStack.length > 0),
                 (i.value = null != t && t.redoStack.length > 0));
@@ -329,13 +340,14 @@ __d(
               function () {
                 return s.now.peek()();
               },
-              d,
+              l,
+              s.maxDepth,
             );
-          d(null);
+          l(null);
         });
       },
     });
-    var l = _require_Lexical.defineExtension({
+    var d = _require_Lexical.defineExtension({
       build: function build(t, _ref5) {
         var n = _ref5.disabled,
           o = _ref5.parentEditor;
@@ -345,7 +357,7 @@ __d(
         });
       },
       config: _require_Lexical.safeCast({ disabled: !1, parentEditor: null }),
-      dependencies: [_require_Lexical.configExtension(d, { disabled: !0 })],
+      dependencies: [_require_Lexical.configExtension(l, { disabled: !0 })],
       name: "@lexical/history/SharedHistory",
       register: function register(t, n, o) {
         return require("LexicalExtension").effect(function () {
@@ -353,30 +365,30 @@ __d(
             t = _o$getOutput.disabled,
             n = _o$getOutput.parentEditor;
           if (!t.value) {
-            var _o$getDependency = o.getDependency(d),
-              _t3 = _o$getDependency.output,
+            var _o$getDependency = o.getDependency(l),
+              _t4 = _o$getDependency.output,
               _r2 = (function (t) {
                 return t
                   ? require("LexicalExtension").getPeerDependencyFromEditor(
                       t,
-                      d.name,
+                      l.name,
                     )
                   : null;
               })(n.value);
             if (!_r2) return;
             var _i2 = _r2.output;
             require("LexicalExtension").batch(function () {
-              ((_t3.delay.value = _i2.delay.value),
-                (_t3.historyState.value = _i2.historyState.value),
-                (_t3.now.value = _i2.now.value),
-                (_t3.disabled.value = _i2.disabled.value));
+              ((_t4.delay.value = _i2.delay.value),
+                (_t4.historyState.value = _i2.historyState.value),
+                (_t4.now.value = _i2.now.value),
+                (_t4.disabled.value = _i2.disabled.value));
             });
           }
         });
       },
     });
-    ((exports.HistoryExtension = d),
-      (exports.SharedHistoryExtension = l),
+    ((exports.HistoryExtension = l),
+      (exports.SharedHistoryExtension = d),
       (exports.createEmptyHistoryState = s),
       (exports.registerHistory = a));
   },
