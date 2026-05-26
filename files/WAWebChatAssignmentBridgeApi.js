@@ -2,8 +2,8 @@ __d(
   "WAWebChatAssignmentBridgeApi",
   [
     "WAWebBizChatAssignmentAction",
-    "WAWebBizGatingUtils",
     "WAWebChatAssignmentCollection",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebSchemaChatAssignment",
     "asyncToGeneratorRuntime",
   ],
@@ -14,7 +14,7 @@ __d(
       },
       restoreChatAssignments: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebBizGatingUtils").chatAssignmentEnabled()) {
+          if (o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled()) {
             var e = yield o("WAWebSchemaChatAssignment")
               .getChatAssignmentTable()
               .all();

@@ -37,17 +37,14 @@ __d(
       );
     }
     function g(e) {
-      return (e == null ? void 0 : e.type) === l;
-    }
-    function h(e) {
       var t,
         n = (t = e.broadcastMetadata) == null ? void 0 : t.audienceExpression;
       return n != null && n.type === l ? n : null;
     }
-    function y(e) {
+    function h(e) {
       return JSON.stringify(e);
     }
-    function C(t) {
+    function y(t) {
       try {
         var n = JSON.parse(t);
         return (n == null ? void 0 : n.type) === e && Array.isArray(n.userJids)
@@ -59,7 +56,7 @@ __d(
         return null;
       }
     }
-    var b = m([]);
+    var C = m([]);
     ((i.EXPRESSION_TYPE_EXPLICIT = e),
       (i.EXPRESSION_TYPE_PREDICATE = l),
       (i.PREDICATE_TYPE_LABEL = s),
@@ -70,11 +67,10 @@ __d(
       (i.createLabelPredicateExpression = p),
       (i.getLabelIdsFromExpression = _),
       (i.expressionUsesLabel = f),
-      (i.isPredicateExpression = g),
-      (i.getPredicateExpressionFromChat = h),
-      (i.serializeAudienceExpression = y),
-      (i.parseAudienceExpressionJson = C),
-      (i.DEFAULT_AUDIENCE_EXPRESSION = b));
+      (i.getPredicateExpressionFromChat = g),
+      (i.serializeAudienceExpression = h),
+      (i.parseAudienceExpressionJson = y),
+      (i.DEFAULT_AUDIENCE_EXPRESSION = C));
   },
   66,
 );

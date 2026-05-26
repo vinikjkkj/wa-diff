@@ -39,12 +39,13 @@ __d(
         "biz_ai_responding_list_enabled",
       );
     }
-    var f = 0,
-      g = 1,
-      h = 2,
-      y = 3;
-    function C() {
-      return f;
+    var f = 1,
+      g = 2,
+      h = 3;
+    function y() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "biz_ai_agent_3p_store_links_enabled",
+      );
     }
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isAiHubTapCtaShowAlertEnabled = s),
@@ -54,10 +55,10 @@ __d(
       (l.isAiAgentThreadStatusHistorySyncEnabled = m),
       (l.isAiHandoffListEnabled = p),
       (l.isAiRespondingChipEnabled = _),
-      (l.MULTI_WEBSITE_BRAZIL = g),
-      (l.MULTI_WEBSITE_LATAM = h),
-      (l.MULTI_WEBSITE_DYNAMIC = y),
-      (l.getMultiWebsiteMode = C));
+      (l.MULTI_WEBSITE_BRAZIL = f),
+      (l.MULTI_WEBSITE_LATAM = g),
+      (l.MULTI_WEBSITE_DYNAMIC = h),
+      (l.getMultiWebsiteMode = y));
   },
   98,
 );

@@ -3,9 +3,9 @@ __d(
   [
     "invariant",
     "WATimeUtils",
-    "WAWebBizGatingUtils",
     "WAWebQuickRepliesSync",
     "WAWebQuickReplyCollection",
+    "WAWebQuickReplyGatingUtils",
     "WAWebQuickReplyLogging",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
@@ -17,7 +17,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WAWebBizGatingUtils").quickRepliesManagementEnabled() ||
+          (o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
             s(0, 73617),
             o("WAWebQuickReplyLogging").logQuickReplyDeleteEvent());
           var t = o("WATimeUtils").unixTime(),

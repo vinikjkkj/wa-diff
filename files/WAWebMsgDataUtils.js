@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
-    "WAWebBizGatingUtils",
     "WAWebBotTypes",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebChatGetters",
     "WAWebCommonMsgUtils",
     "WAWebCurrentUser",
@@ -117,7 +117,7 @@ __d(
                             ((n === "chat_assignment" ||
                               n === "chat_assignment_unassign") &&
                               o(
-                                "WAWebBizGatingUtils",
+                                "WAWebChatAssignmentGatingUtils",
                               ).shouldReorderChatOnAssignment(
                                 n === "chat_assignment_unassign",
                               ))

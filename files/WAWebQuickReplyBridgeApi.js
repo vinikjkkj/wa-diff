@@ -2,8 +2,8 @@ __d(
   "WAWebQuickReplyBridgeApi",
   [
     "Promise",
-    "WAWebBizGatingUtils",
     "WAWebQuickReplyCollection",
+    "WAWebQuickReplyGatingUtils",
     "WAWebSchemaQuickReply",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,7 +25,7 @@ __d(
           );
         },
         restoreQuickReplies: function () {
-          return o("WAWebBizGatingUtils").canSendQuickReply()
+          return o("WAWebQuickReplyGatingUtils").canSendQuickReply()
             ? o("WAWebSchemaQuickReply")
                 .getQuickReplyTable()
                 .all()

@@ -1,15 +1,15 @@
 __d(
   "WAWebGetMessageWithLinkAction",
   [
-    "WAWebBizGatingUtils",
     "WAWebExternalLink.react",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "WAWebPaymentsGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (o("WAWebBizGatingUtils").isMessageWithLinkNfmEnabled()) {
+      if (o("WAWebPaymentsGatingUtils").isMessageWithLinkNfmEnabled()) {
         if (
           e.nativeFlowName !==
             r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK ||

@@ -101,6 +101,7 @@ __d(
         !1,
       ],
       ai_hatch_integration_tab_enabled: [27356, "bool", !1, !1],
+      ai_hatch_secret_encrypted_message_enabled: [31040, "bool", !1, !0],
       ai_hatch_video_upload_enabled: [27470, "bool", !1, !1],
       ai_home_bot_profile_sync_interval_sec: [11168, "int", 86400, 86400],
       ai_imagine_loading_indicator_enabled: [22795, "bool", !1, !1],
@@ -162,6 +163,7 @@ __d(
       ai_rich_response_main_gate_enabled: [12539, "bool", !0, !0],
       ai_rich_response_post_citations_enabled: [22672, "bool", !1, !1],
       ai_rich_response_reasoning_enabled: [15589, "bool", !1, !1],
+      ai_rich_response_remove_grouped_citations_count: [31010, "bool", !1, !1],
       ai_rich_response_side_by_side_survey_enabled: [17408, "bool", !1, !1],
       ai_rich_response_unknown_sender_preview_enabled: [27355, "bool", !1, !1],
       ai_rich_response_unknown_sender_verification_masking_enabled: [
@@ -254,6 +256,7 @@ __d(
       auth_agents_consumer_offboarding_exp_enabled: [30360, "bool", !1, !0],
       backfill_supports_coex_companion: [27975, "bool", !1, !1],
       banned_shops_ux_enabled: [957, "bool", !1, !0],
+      biz_ai_agent_3p_store_links_enabled: [24114, "int", 0, 0],
       biz_ai_agent_thread_status_history_sync_enabled: [20099, "bool", !1, !0],
       biz_ai_auto_save_enabled: [13464, "bool", !1, !1],
       biz_ai_coaching_enabled: [13465, "bool", !1, !1],

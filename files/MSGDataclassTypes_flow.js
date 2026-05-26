@@ -822,6 +822,7 @@ __d(
         MsgEarlyAccessFbShare: "MSG_EARLY_ACCESS_FB_SHARE",
         MsgExternalLinkShare: "MSG_EXTERNAL_LINK_SHARE",
         MsgFile: "MSG_FILE",
+        MsgGamePrediction: "MSG_GAME_PREDICTION",
         MsgGenAi_1PSearchResult: "MSG_GEN_AI_1P_SEARCH_RESULT",
         MsgGenAiMemuOnboardingResponse: "MSG_GEN_AI_MEMU_ONBOARDING_RESPONSE",
         MsgGenAiReminder: "MSG_GEN_AI_REMINDER",

@@ -2,7 +2,7 @@ __d(
   "WAWebBizTemplateAndInteractiveMessagesUtils",
   [
     "WAWebABProps",
-    "WAWebBizGatingUtils",
+    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
   ],
@@ -116,7 +116,7 @@ __d(
           )
         : n === "quoted_carousel_card" &&
             e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY
-          ? o("WAWebBizGatingUtils").carouselsEnabled()
+          ? o("WAWebHsmGatingUtils").carouselsEnabled()
           : _(e)
             ? !0
             : t === !0

@@ -61,26 +61,27 @@ __d(
               );
           }
           var b = !1,
-            v = o(
+            v = !1,
+            S = o(
               "WAWebMsgProcessingDecryptionHandler",
             ).createDecryptionHandler(e);
-          for (var S of i)
+          for (var R of i)
             try {
-              if (!v.canDecryptNext(S)) continue;
-              var R = o(
+              if (!S.canDecryptNext(R)) continue;
+              var L = o(
                   "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                 ).msgProcessReporter.startMarker(
                   o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
                     .msgProcessReporter.stage.Decryption,
                 ),
-                L = yield o("WAWebMsgProcessingDecryptEnc").decryptEnc(
-                  S,
+                E = yield o("WAWebMsgProcessingDecryptEnc").decryptEnc(
+                  R,
                   y,
                   m.author,
                   e,
                   n,
                 );
-              (R == null || R(),
+              (L == null || L(),
                 o("WALogger")
                   .LOG(
                     u ||
@@ -90,30 +91,30 @@ __d(
                         " done",
                       ])),
                     m.externalId,
-                    S.e2eType,
+                    R.e2eType,
                   )
                   .tags("messaging"),
                 o(
                   "WAWebPostE2eMessageRecvMetric",
                 ).postSuccessE2eMessageRecvMetric({
-                  enc: S,
+                  enc: R,
                   from: y,
                   msgMeta: _,
                   msgInfo: m,
                   msgBotInfo: d,
                   error: null,
                 }));
-              var E = {
-                  retryCount: S.retryCount,
-                  e2eType: S.e2eType,
-                  encMediaType: S.encMediaType,
-                  hideFail: S.hideFail,
+              var k = {
+                  retryCount: R.retryCount,
+                  e2eType: R.e2eType,
+                  encMediaType: R.encMediaType,
+                  hideFail: R.hideFail,
                 },
-                k = yield t({
-                  decrypted: L,
+                I = yield t({
+                  decrypted: E,
                   info: m,
                   paymentInfo: f,
-                  e2eInfo: E,
+                  e2eInfo: k,
                   bizInfo: r,
                   hsmInfo: l,
                   msgMeta: _,
@@ -121,7 +122,8 @@ __d(
                   msgBotInfo: d,
                   reportingTokenInfo: h,
                 });
-              (k.hasInactiveMsg && (b = !0),
+              (I.hasInactiveMsg && (b = !0),
+                I.isOrphanAddon === !0 && (v = !0),
                 o("WALogger")
                   .LOG(
                     c ||
@@ -131,17 +133,17 @@ __d(
                         " done",
                       ])),
                     m.externalId,
-                    S.e2eType,
+                    R.e2eType,
                   )
                   .tags("messaging"));
             } catch (e) {
-              v.handleError(S, e);
+              S.handleError(R, e);
             }
           return (
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            v.getResult(b)
+            S.getResult(b, v)
           );
         })),
         m.apply(this, arguments)

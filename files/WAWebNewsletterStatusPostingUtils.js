@@ -1,17 +1,17 @@
 __d(
   "WAWebNewsletterStatusPostingUtils",
-  ["WAWebNewsletterCollection"],
+  ["WAWebNewsletterCollection", "WAWebNewsletterGatingUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return e == null ? !1 : e.iAmAdminOrOwner() && !e.isSuspendedOrTerminated;
+    function e() {
+      return r("WAWebNewsletterCollection")
+        .getModelsArray()
+        .filter(function (e) {
+          return o(
+            "WAWebNewsletterGatingUtils",
+          ).isNewsletterStatusCreationEnabled(e.newsletterMetadata);
+        });
     }
-    function s() {
-      var t = r("WAWebNewsletterCollection").getModelsArray();
-      return t.filter(function (t) {
-        return e(t.newsletterMetadata);
-      });
-    }
-    ((l.canPostToNewsletterStatus = e), (l.getStatusPostableNewsletters = s));
+    l.getStatusPostableNewsletters = e;
   },
   98,
 );

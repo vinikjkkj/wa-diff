@@ -2,7 +2,6 @@ __d(
   "WAWebInteractiveNativeFlowOrderHeader",
   [
     "WAWebBizFrontendGatingUtils",
-    "WAWebBizGatingUtils",
     "WAWebBrazilPaymentsGeoGating",
     "WAWebCurrencyUtils",
     "WAWebFrontendMsgGetters",
@@ -25,6 +24,7 @@ __d(
     "WAWebPaymentBoletoLogoIcon.react",
     "WAWebPaymentLogoPixIcon.react",
     "WAWebPaymentVisaLogoIcon.react",
+    "WAWebPaymentsGatingUtils",
     "WAWebSimplifiedPaymentHeader.react",
     "WAWebThemeContext",
     "react",
@@ -241,7 +241,7 @@ __d(
       if (
         t == null ||
         !o("WAWebBrazilPaymentsGeoGating").isPaymentLogoEnabled() ||
-        !o("WAWebBizGatingUtils").isBrazilToBrazilOrder(e)
+        !o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
       )
         return [];
       var n = [];

@@ -1,7 +1,7 @@
 __d(
   "WAWebChatAssignmentUtils",
   [
-    "WAWebBizGatingUtils",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebFeatureFlagName",
     "WAWebProtobufsE2E.pb",
     "WAWebSubscriptionFeatureFlagActions",
@@ -9,7 +9,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
-        o("WAWebBizGatingUtils").chatAssignmentEnabled() &&
+        o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled() &&
         o(
           "WAWebSubscriptionFeatureFlagActions",
         ).isSubscriptionFeatureFlagEnabled(
@@ -35,7 +35,9 @@ __d(
     }
     function c(t) {
       return (
-        t !== !0 && o("WAWebBizGatingUtils").chatAssignmentEnabled() && e()
+        t !== !0 &&
+        o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled() &&
+        e()
       );
     }
     ((l.canAssignChats = e),

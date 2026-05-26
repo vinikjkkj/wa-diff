@@ -2,7 +2,7 @@ __d(
   "WAWebNotesUtils",
   [
     "WAWebABProps",
-    "WAWebBizGatingUtils",
+    "WAWebBizNotesGatingUtils",
     "WAWebFrontendMsgGetters",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
@@ -22,7 +22,7 @@ __d(
         !e.isSupportAccount() &&
         !e.isCAPISupportAccount() &&
         !e.isBot() &&
-        o("WAWebBizGatingUtils").smbNotesV1Enabled()
+        o("WAWebBizNotesGatingUtils").smbNotesV1Enabled()
       );
     }
     function u(e) {

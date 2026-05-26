@@ -6,8 +6,8 @@ __d(
     "WAWebAgentCollection",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizChatAssignmentOpenedAction",
-    "WAWebBizGatingUtils",
     "WAWebChatAssignmentCollection",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebChatAssignmentLogEvents",
     "WAWebChatAssignmentLogEvents.flow",
     "WAWebChatAssignmentModel",
@@ -169,7 +169,7 @@ __d(
       );
     }
     function p(e) {
-      o("WAWebBizGatingUtils").chatAssignmentEnabled() &&
+      o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled() &&
         e.forEach(function (e) {
           var t = e.agent,
             n = e.chatId,
@@ -243,7 +243,9 @@ __d(
     function h(e, t) {
       if (
         !(
-          !o("WAWebBizGatingUtils").chatAssignmentNotificationsEnabled() ||
+          !o(
+            "WAWebChatAssignmentGatingUtils",
+          ).chatAssignmentNotificationsEnabled() ||
           !o("WAWebChatAssignmentUtils").canAssignChats()
         )
       ) {

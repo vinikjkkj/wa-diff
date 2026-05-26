@@ -1,10 +1,10 @@
 __d(
   "WAWebMexFetchNewsletterPollVotersJob",
   [
+    "WALogger",
     "WATimeUtils",
     "WAWebMexClient",
     "WAWebMexFetchNewsletterPollVotersJobQuery.graphql",
-    "WAWebNewsletterPollsUtils",
     "WAWebPollOptionHashUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -13,16 +13,17 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s =
+      s,
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchNewsletterPollVotersJobQuery.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.limit,
             n = e.newsletterId,
             a = e.serverId,
@@ -35,36 +36,47 @@ __d(
                 vote_hash: i,
               },
             },
-            u = yield o("WAWebMexClient").fetchQuery(s, l),
-            c = u.voter_list,
-            m = new Map();
+            s = yield o("WAWebMexClient").fetchQuery(u, l),
+            c = s.voter_list,
+            d = new Map();
           return (c == null ? void 0 : c.votes) == null
-            ? m
+            ? d
             : c.votes.reduce(function (e, t) {
                 return t.vote_hash == null
                   ? e
                   : e.set(
                       o("WAWebPollOptionHashUtils").base64ToHex(t.vote_hash),
-                      r("compactMap")(t.voter_list.edges, d),
+                      r("compactMap")(t.voter_list.edges, m),
                     );
-              }, m);
+              }, d);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
+    function m(e) {
       var t = e.action_time,
         n = e.node,
         r = n == null ? void 0 : n.id;
       if (r == null || t == null) return null;
-      var a = parseInt(t, 10) / 1e6,
-        i = o("WAWebWidFactory").createWid(r);
-      return (
-        o("WAWebNewsletterPollsUtils").logIfPollVoterIdNotPlainUser(i),
-        { id: i, time: o("WATimeUtils").castToUnixTime(a) }
-      );
+      var a = o("WAWebWidFactory").createWid(r);
+      if (!a.isLid() || a.getDeviceId() !== 0)
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter] poll voter id is not a user lid: ",
+                  "",
+                ])),
+              a.toLogString(),
+            )
+            .sendLogs("newsletter-pollvoter-not-user-lid"),
+          null
+        );
+      var i = parseInt(t, 10) / 1e6;
+      return { id: a, time: o("WATimeUtils").castToUnixTime(i) };
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

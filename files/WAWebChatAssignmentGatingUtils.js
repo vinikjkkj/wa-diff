@@ -1,0 +1,78 @@
+__d(
+  "WAWebChatAssignmentGatingUtils",
+  ["WAWebABProps", "WAWebMobilePlatforms"],
+  function (t, n, r, o, a, i, l) {
+    function e() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_md_agent_chat_assignment_enabled",
+        )
+      );
+    }
+    function s() {
+      return e()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "smb_md_agent_chat_assignment_nux_impressions",
+          )
+        : 0;
+    }
+    function u() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_md_agent_chat_assignment_notifications_enabled",
+      );
+    }
+    function c(e) {
+      return e
+        ? o("WAWebABProps").getABPropConfigValue(
+            "smb_md_agent_chat_assignment_chats_reorder_on_chat_unassignment_enabled",
+          )
+        : o("WAWebABProps").getABPropConfigValue(
+            "smb_md_agent_chat_assignment_chats_reorder_on_chat_assignment_enabled",
+          );
+    }
+    function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_ai_agents_web_chat_assignment_interop_enabled",
+      );
+    }
+    function m() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
+      );
+    }
+    function p() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("biz_ai_web_onboarding_handoff")
+      );
+    }
+    function _() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_multi_device_message_attribution_enabled",
+        )
+      );
+    }
+    function f() {
+      return (
+        _() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_multi_device_agents_logging_V2_enabled",
+        )
+      );
+    }
+    ((l.chatAssignmentEnabled = e),
+      (l.chatAssignmentMaxNuxImpressions = s),
+      (l.chatAssignmentNotificationsEnabled = u),
+      (l.shouldReorderChatOnAssignment = c),
+      (l.isBizAiChatAssignmentInteropTosEnabled = d),
+      (l.isBizAIToolsSettingsEnabled = m),
+      (l.isBizAiWebOnboardingHandoffEnabled = p),
+      (l.isMultiDeviceMessageAttributionEnabled = _),
+      (l.isMultiDeviceAgentsLoggingEnabled = f));
+  },
+  98,
+);

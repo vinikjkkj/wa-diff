@@ -1,7 +1,7 @@
 __d(
   "WAWebUserPrefsNuxPreferences",
   [
-    "WAWebBizGatingUtils",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebEventEmitter",
     "WAWebNux",
     "WAWebNuxSyncKey",
@@ -150,7 +150,9 @@ __d(
         case "desktop_upsell":
           return Number.POSITIVE_INFINITY;
         case "chat_assignment":
-          return o("WAWebBizGatingUtils").chatAssignmentMaxNuxImpressions();
+          return o(
+            "WAWebChatAssignmentGatingUtils",
+          ).chatAssignmentMaxNuxImpressions();
         case "status_quick_replies":
           return 3;
         case "web_ui_refresh":

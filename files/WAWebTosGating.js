@@ -3,18 +3,18 @@ __d(
   [
     "WAWebABProps",
     "WAWebABPropsInternalNumber",
-    "WAWebBizGatingUtils",
     "WAWebBotGating",
     "WAWebBotTos",
     "WAWebBotTosIds",
     "WAWebBotUtils",
     "WAWebHandleMsgTypes.flow",
     "WAWebTos",
+    "WAWebTosGatingUtils",
     "WaWebPDFNCommonUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (o("WAWebBizGatingUtils").tos3GatingEnabled()) {
+      if (o("WAWebTosGatingUtils").tos3GatingEnabled()) {
         var t;
         if (
           o("WAWebTos").TosManager.getState(o("WAWebTos").TOS_3_ID) ===

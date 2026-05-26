@@ -3,8 +3,8 @@ __d(
   [
     "invariant",
     "WATimeUtils",
-    "WAWebBizGatingUtils",
     "WAWebQuickRepliesSync",
+    "WAWebQuickReplyGatingUtils",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
   ],
@@ -16,7 +16,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l) {
-            o("WAWebBizGatingUtils").quickRepliesManagementEnabled() ||
+            o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
               s(0, 73617);
             var u = o("WATimeUtils").unixTime(),
               c = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation(

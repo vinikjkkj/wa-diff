@@ -2,12 +2,12 @@ __d(
   "WAWebTosCountryGating",
   [
     "WAWebABPropsInternalNumber",
-    "WAWebBizGatingUtils",
     "WAWebHandleMsgTypes.flow",
+    "WAWebTosGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (o("WAWebBizGatingUtils").countryGatingEnabled()) {
+      if (o("WAWebTosGatingUtils").countryGatingEnabled()) {
         var t;
         return (
           ((t = e.privacyMode) == null ? void 0 : t.hostStorage) ===

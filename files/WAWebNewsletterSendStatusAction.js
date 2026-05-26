@@ -9,6 +9,7 @@ __d(
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgModel",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterSendStatusJob",
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebProtobufsStatusAttributions.pb",
@@ -46,10 +47,12 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled()
+            !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled(
+              r("WAWebNewsletterMetadataCollection").get(e),
+            )
           )
             throw r("err")(
-              "[newsletter][status] Status creation is not enabled",
+              "[newsletter][status] Newsletter status posting not allowed: capability missing or not admin",
             );
           var n = o("WAWebWidToJid").widToNewsletterJid(e),
             a = yield o("WAWebStatusMsgDataUtils").createTextStatusMsgData(
@@ -111,14 +114,16 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebWidFactory").asNewsletterWidOrThrow(e.id.remote);
           if (
-            !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled()
+            !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled(
+              r("WAWebNewsletterMetadataCollection").get(n),
+            )
           )
             throw r("err")(
-              "[newsletter][status] Status creation is not enabled",
+              "[newsletter][status] Newsletter status posting not allowed: capability missing or not admin",
             );
-          var n = o("WAWebWidFactory").asNewsletterWidOrThrow(e.id.remote),
-            a = o("WAWebWidToJid").widToNewsletterJid(n),
+          var a = o("WAWebWidToJid").widToNewsletterJid(n),
             i = babelHelpers.extends({}, e, {
               isNewsletterStatus: !0,
               author: n,

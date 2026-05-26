@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebBizEntryPoint",
     "WAWebBizFrontendGatingUtils",
-    "WAWebBizGatingUtils",
     "WAWebBizOrderDetailAction",
     "WAWebBizShopsAction",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
@@ -23,6 +22,7 @@ __d(
     "WAWebOrderExpansionAction",
     "WAWebOrderStatus",
     "WAWebOrdersExpansionCountries",
+    "WAWebPaymentsGatingUtils",
     "WAWebShowMessageActionFallbackErrorAction",
     "WAWebUserPrefsMeUser",
     "react",
@@ -83,7 +83,7 @@ __d(
               if (
                 (b.contact.isEnterprise ||
                   ((y = b.contact) == null ? void 0 : y.isHosted) === !0) &&
-                o("WAWebBizGatingUtils").isBrazilToBrazilOrder(b)
+                o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(b)
               ) {
                 var E = [],
                   k = 2,
@@ -129,7 +129,7 @@ __d(
                 T != null && f.push(T);
               } else {
                 var D = null;
-                (o("WAWebBizGatingUtils").isBrazilToBrazilOrder(b) &&
+                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(b) &&
                   o("WAWebGetBrazilnteractiveActions").hasValidStaticPix(C) &&
                   (D = o(
                     "WAWebGetBrazilnteractiveActions",
@@ -199,10 +199,10 @@ __d(
       var a = function () {
         return o("WAWebMsgGetters").getIsSentByMe(e) || n
           ? s._(/*BTDS*/ "View details")
-          : o("WAWebBizGatingUtils").isWidInPaymentsCountry(
+          : o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(
                 o("WAWebMsgGetters").getSender(e),
               ) &&
-              o("WAWebBizGatingUtils").isWidInPaymentsCountry(
+              o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(
                 o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
               )
             ? s._(/*BTDS*/ "Review and pay")

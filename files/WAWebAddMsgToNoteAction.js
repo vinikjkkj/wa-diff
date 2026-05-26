@@ -7,7 +7,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebActionToast.react",
-    "WAWebBizGatingUtils",
+    "WAWebBizNotesGatingUtils",
     "WAWebCmd",
     "WAWebFrontendMsgGetters",
     "WAWebNoteAction",
@@ -93,7 +93,7 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n, r;
-          o("WAWebBizGatingUtils").smbNotesV1Enabled() || u(0, 78461);
+          o("WAWebBizNotesGatingUtils").smbNotesV1Enabled() || u(0, 78461);
           var a = o("WAWebFrontendMsgGetters").getChat(t);
           if (a == null)
             return (

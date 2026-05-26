@@ -726,10 +726,27 @@ __d(
         )
       );
     }
-    function Pt() {
-      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channel_status_creation",
-      );
+    function Pt(e) {
+      var t, n;
+      return e == null ||
+        !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channel_status_creation",
+        ) ||
+        !e.iAmAdminOrOwner() ||
+        e.isSuspendedOrTerminated
+        ? !1
+        : ((t =
+            (n = e.capabilities) == null
+              ? void 0
+              : n.has(
+                  o("WAWebCommonNewsletterEnums").NewsletterCapability
+                    .CHANNEL_STATUS_PRODUCER,
+                )) != null
+            ? t
+            : !1) &&
+            o("WAWebABProps").getABPropConfigValue(
+              "channels_capabilities_enabled",
+            );
     }
     var Nt = n("$InternalEnum")({
       Disabled: 0,

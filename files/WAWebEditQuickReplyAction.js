@@ -2,8 +2,8 @@ __d(
   "WAWebEditQuickReplyAction",
   [
     "invariant",
-    "WAWebBizGatingUtils",
     "WAWebQuickReplyCollection",
+    "WAWebQuickReplyGatingUtils",
     "WAWebQuickReplyLogging",
     "WAWebSendQuickReplyAddOrEditMutation",
     "asyncToGeneratorRuntime",
@@ -16,7 +16,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
-            (o("WAWebBizGatingUtils").quickRepliesManagementEnabled() ||
+            (o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
               s(0, 73617),
               o("WAWebQuickReplyLogging").logQuickReplyEditEvent(),
               yield o(

@@ -19,7 +19,6 @@ __d(
     "WAWebBackendErrors",
     "WAWebBaseModel",
     "WAWebBizAiAgentGating",
-    "WAWebBizGatingUtils",
     "WAWebBizLabelUtils",
     "WAWebBotBaseGating",
     "WAWebBotFrontendGating",
@@ -28,6 +27,7 @@ __d(
     "WAWebBotUtils",
     "WAWebBroadcastMetadataCollection",
     "WAWebChatAssignmentCollection",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebChatCollection",
     "WAWebChatConstants",
     "WAWebChatDocMsgsCollection",
@@ -636,7 +636,7 @@ __d(
           }),
           (i.$ChatImpl$p_16 = function () {
             var e = this;
-            if (o("WAWebBizGatingUtils").chatAssignmentEnabled()) {
+            if (o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled()) {
               this.set(
                 "unopenedByAssignedAgent",
                 o(

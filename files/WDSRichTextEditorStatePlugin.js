@@ -7,7 +7,19 @@ __d(
       s = e || (e = o("react")),
       u = s.useEffect,
       c = s.useRef;
-    function d(e) {
+    function d() {
+      return o("Lexical")
+        .$getRoot()
+        .getChildren()
+        .map(function (e) {
+          return e.getTextContent();
+        })
+        .join("\n");
+    }
+    function m(e) {
+      return e.read(d);
+    }
+    function p(e) {
       var t = e.onBlur,
         n = e.onFocus,
         r = e.onValueChange,
@@ -17,22 +29,18 @@ __d(
       return (
         u(
           function () {
-            var e = i.getEditorState().read(function () {
-              return o("Lexical").$getRoot().getTextContent();
-            });
-            l.current = e;
+            l.current = m(i.getEditorState());
           },
           [i],
         ),
         u(
           function () {
             return i.registerUpdateListener(function (e) {
-              var t = e.editorState;
-              if (!i.isComposing()) {
-                var n = t.read(function () {
-                  return o("Lexical").$getRoot().getTextContent();
-                });
-                l.current !== n && ((l.current = n), r == null || r(n));
+              var t = e.editorState,
+                n = e.tags;
+              if (!i.isComposing() && !n.has("history-merge")) {
+                var o = m(t);
+                l.current !== o && ((l.current = o), r == null || r(o));
               }
             });
           },
@@ -65,7 +73,7 @@ __d(
         null
       );
     }
-    l.default = d;
+    l.default = p;
   },
   98,
 );

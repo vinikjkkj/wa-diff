@@ -6,10 +6,10 @@ __d(
     "WAPromiseDelays",
     "WAWebBackendApi",
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
     "WAWebFetchSubscriptions",
     "WAWebSchemaFeatureFlag",
     "WAWebSchemaSubscription",
+    "WAWebSubscriptionsGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsSubscription",
     "asyncToGeneratorRuntime",
@@ -34,7 +34,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebBizGatingUtils").subscriptionFetchEnabled()) {
+          if (o("WAWebSubscriptionsGatingUtils").subscriptionFetchEnabled()) {
             var t = o("WAWebUserPrefsSubscription").getNextSubscriptionQuery();
             if (t) {
               var n = t - Date.now();

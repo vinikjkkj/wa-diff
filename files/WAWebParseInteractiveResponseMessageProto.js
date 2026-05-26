@@ -1,10 +1,10 @@
 __d(
   "WAWebParseInteractiveResponseMessageProto",
   [
-    "WAWebBizGatingUtils",
     "WAWebE2EProtoUtils",
     "WAWebGalaxyFlowMessageInteractiveResponseMessageParser",
     "WAWebGalaxyFlowsUtils",
+    "WAWebHsmGatingUtils",
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +19,7 @@ __d(
           o("WAWebE2EProtoUtils").getInteractiveResponseMessageTypeForProto(i);
         if (
           !o(
-            "WAWebBizGatingUtils",
+            "WAWebHsmGatingUtils",
           ).interactiveNativeFlowResponseMessagesEnabled() ||
           !l ||
           !o("WAWebE2EProtoUtils").isInteractiveResponseMessageTypeEnabled(l)

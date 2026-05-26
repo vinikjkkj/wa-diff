@@ -3,8 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebDBMessageDelete",
-    "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterRevokeStatusQueryJob",
+    "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
@@ -18,25 +19,22 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (
-            !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled()
-          )
-            throw r("err")(
-              "[newsletter][status] Status creation is not enabled",
-            );
-          var a = n.id.remote,
-            i = o("WAWebWidToJid").widToNewsletterJid(a);
+          var a = o("WAWebWidFactory").asNewsletterWidOrThrow(n.id.remote),
+            i = r("WAWebNewsletterMetadataCollection").get(a);
+          if ((i == null ? void 0 : i.iAmAdminOrOwner()) !== !0)
+            throw r("err")("[newsletter][status] User is not admin or owner");
+          var l = o("WAWebWidToJid").widToNewsletterJid(a);
           try {
-            var l = yield o(
+            var u = yield o(
               "WAWebNewsletterRevokeStatusQueryJob",
             ).queryRevokeNewsletterStatus({
-              newsletterJid: i,
+              newsletterJid: l,
               statusId: n.id.id,
             });
-            if (l.success) {
-              var u = n.id.toString();
+            if (u.success) {
+              var c = n.id.toString();
               return (
-                t.revokeMsgs([u]),
+                t.revokeMsgs([c]),
                 yield o("WAWebDBMessageDelete").removeStatusMessage([n]),
                 !0
               );
@@ -49,7 +47,7 @@ __d(
                       "[newsletter][status][revoke] Revoke failed: ",
                       "",
                     ])),
-                  l.ack.error,
+                  u.ack.error,
                 )
                 .sendLogs("newsletter-status-revoke-action-failed"),
               !1

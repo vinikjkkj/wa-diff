@@ -28,8 +28,7 @@ __d(
           return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
         },
       });
-    ((l.requireBundle = u),
-      (l.WAWebBizBroadcastsManageAudiencePanelLoadable = c));
+    l.WAWebBizBroadcastsManageAudiencePanelLoadable = c;
   },
   98,
 );

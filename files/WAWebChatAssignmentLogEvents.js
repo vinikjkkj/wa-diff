@@ -3,7 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebAgentCollection",
-    "WAWebBizGatingUtils",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebChatAssignmentLogEvents.flow",
     "WAWebChatCollection",
     "WAWebMdChatAssignmentSecondaryActionWamEvent",
@@ -57,7 +57,7 @@ __d(
       );
     }
     function u(e) {
-      o("WAWebBizGatingUtils").chatAssignmentEnabled() &&
+      o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled() &&
         s(e, {
           mdChatAssignmentSecondaryActionSource: o(
             "WAWebWamEnumMdChatAssignmentSourceType",
@@ -68,7 +68,7 @@ __d(
         }).commit();
     }
     function c(e) {
-      o("WAWebBizGatingUtils").chatAssignmentEnabled() &&
+      o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled() &&
         s(e, {
           mdChatAssignmentSecondaryActionAssignmentType:
             e.assignedAgent == null
@@ -86,7 +86,7 @@ __d(
         }).commit();
     }
     function d(e) {
-      o("WAWebBizGatingUtils").chatAssignmentEnabled() &&
+      o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled() &&
         s(e, {
           mdChatAssignmentSecondaryActionAssignmentType:
             e.assignedAgent == null
@@ -104,7 +104,7 @@ __d(
         }).commit();
     }
     function m(e) {
-      if (o("WAWebBizGatingUtils").chatAssignmentEnabled()) {
+      if (o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled()) {
         var t = o("WAWebChatCollection").ChatCollection.get(e);
         t != null &&
           s(t, {
@@ -170,7 +170,7 @@ __d(
       }
     }
     function f(e, t, n, r, a) {
-      if (o("WAWebBizGatingUtils").chatAssignmentEnabled()) {
+      if (o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled()) {
         var i;
         (t === ""
           ? (i = o("WAWebWamEnumChatAssignmentActionType")

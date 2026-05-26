@@ -4,7 +4,7 @@ __d(
     "invariant",
     "WALogger",
     "WATimeUtils",
-    "WAWebBizGatingUtils",
+    "WAWebBizNotesGatingUtils",
     "WAWebDBNoteDatabaseApi",
     "WAWebGetOnlyNoteByChatJidJob",
     "WAWebNoteCollection",
@@ -85,7 +85,7 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           var i, l;
-          o("WAWebBizGatingUtils").smbNotesV1Enabled() || s(0, 79042);
+          o("WAWebBizNotesGatingUtils").smbNotesV1Enabled() || s(0, 79042);
           var u = o("WATimeUtils").unixTime(),
             c = t.id;
           c == null &&

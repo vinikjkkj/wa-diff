@@ -2,7 +2,7 @@ __d(
   "WAWebAgentModelUtils",
   [
     "fbt",
-    "WAWebBizGatingUtils",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebConnModel",
     "WAWebFeatureFlagName",
     "WAWebSubscriptionFeatureFlagActions",
@@ -15,7 +15,9 @@ __d(
     }
     function u() {
       return (
-        o("WAWebBizGatingUtils").isMultiDeviceMessageAttributionEnabled() &&
+        o(
+          "WAWebChatAssignmentGatingUtils",
+        ).isMultiDeviceMessageAttributionEnabled() &&
         o(
           "WAWebSubscriptionFeatureFlagActions",
         ).isSubscriptionFeatureFlagEnabled(

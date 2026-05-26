@@ -6,7 +6,6 @@ __d(
     "WANullthrows",
     "WAWebBizAiAgentGating",
     "WAWebBizAiKnowledgeReivewDrawerLoadable.react",
-    "WAWebBizGatingUtils",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebBizMessageOpenCallModal",
     "WAWebBizOpenBookingConfirmationDrawer.react",
@@ -38,6 +37,7 @@ __d(
     "WAWebOrderStatus",
     "WAWebPaymentRequestWamLogger",
     "WAWebPhoneIcon.react",
+    "WAWebPremiumMessagesGatingUtils",
     "WAWebQbmMessageClickLogEvent",
     "WAWebQbmMessageLevelActionEvent",
     "WAWebReplyChatIcon.react",
@@ -288,7 +288,9 @@ __d(
     function h(e, t, n, r, a) {
       if (
         (a === void 0 && (a = !1),
-        o("WAWebBizGatingUtils").isPremiumMessagesUrlCtaDialogEnabled() && !a)
+        o(
+          "WAWebPremiumMessagesGatingUtils",
+        ).isPremiumMessagesUrlCtaDialogEnabled() && !a)
       )
         y({ btn: n, chat: e, ctaLink: r, hasShownDisclosure: a, msg: t });
       else {
@@ -556,7 +558,9 @@ __d(
     }
     function L(e, t) {
       var n;
-      o("WAWebBizGatingUtils").isPremiumMessagesClickLoggingEnabled() &&
+      o(
+        "WAWebPremiumMessagesGatingUtils",
+      ).isPremiumMessagesClickLoggingEnabled() &&
         o("WAWebMsgGetters").getIsMarketingMessage(t) &&
         new (o(
           "WAWebSmbPaidMessagesButtonLoggerWamEvent",

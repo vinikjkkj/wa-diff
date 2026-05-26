@@ -5,6 +5,7 @@ __d(
     "$InternalEnum",
     "WAWebABProps",
     "WAWebBizGatingUtils",
+    "WAWebBizToolsGatingUtils",
     "WAWebCurrentUser",
     "err",
     "gkx",
@@ -42,7 +43,7 @@ __d(
     function u(t) {
       switch (t) {
         case e.BusinessTools:
-          return o("WAWebBizGatingUtils").isBizToolsDrawerEnabled();
+          return o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled();
         case e.DataSharing:
           return o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() === !0;
         case e.PrivacySettings:

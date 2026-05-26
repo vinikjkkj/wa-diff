@@ -186,12 +186,21 @@ __d(
         : c(t, o("WAWebCommonNewsletterEnums").NewsletterCapability.PhotoPolls);
     }
     function b(e) {
+      return e == null
+        ? !1
+        : c(
+            e,
+            o("WAWebCommonNewsletterEnums").NewsletterCapability
+              .CHANNEL_STATUS_PRODUCER,
+          );
+    }
+    function v(e) {
       var t = e.newsletterMetadata;
       return t == null
         ? !1
         : c(t, o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS);
     }
-    function v(e) {
+    function S(e) {
       return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -204,7 +213,7 @@ __d(
                 .ADMIN_PROFILE,
             );
     }
-    function S(t) {
+    function R(t) {
       if (!o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled())
         return !1;
       var n = e.get(t);
@@ -226,9 +235,10 @@ __d(
       (l.isNewsletterProducerInsightsEnabled = h),
       (l.isNewsletterAdminNotificationsEnabled = y),
       (l.isNewsletterPhotoPollCapabilityEnabled = C),
-      (l.isNewsletterQuestionsCapabilityEnabled = b),
-      (l.isNewsletterAdminProfilesSenderEnabled = v),
-      (l.isNewsletterQplLoggingEnabledForMarkerId = S));
+      (l.isNewsletterStatusCapabilityEnabled = b),
+      (l.isNewsletterQuestionsCapabilityEnabled = v),
+      (l.isNewsletterAdminProfilesSenderEnabled = S),
+      (l.isNewsletterQplLoggingEnabledForMarkerId = R));
   },
   98,
 );

@@ -3,7 +3,8 @@ __d(
   [
     "WAWebABProps",
     "WAWebBizAiAgentStatusUtils",
-    "WAWebBizGatingUtils",
+    "WAWebBizToolsGatingUtils",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebChatThemeGatingUtils",
     "WAWebCommonCTWADataSharing",
     "WAWebCurrentUser",
@@ -213,7 +214,7 @@ __d(
       };
     function P(e) {
       e === void 0 && (e = !1);
-      var t = o("WAWebBizGatingUtils").isBizToolsDrawerEnabled(),
+      var t = o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled(),
         n = [
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
@@ -240,9 +241,13 @@ __d(
             id: "business_tools_business_ai",
             isAvailable:
               t &&
-              o("WAWebBizGatingUtils").isBizAIToolsSettingsEnabled() &&
+              o(
+                "WAWebChatAssignmentGatingUtils",
+              ).isBizAIToolsSettingsEnabled() &&
               (o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent() ||
-                o("WAWebBizGatingUtils").isBizAiWebOnboardingHandoffEnabled()),
+                o(
+                  "WAWebChatAssignmentGatingUtils",
+                ).isBizAiWebOnboardingHandoffEnabled()),
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsBusinessAITitle(),
             ),

@@ -1,7 +1,6 @@
 __d(
   "WAWebNativeFlowValidation",
   [
-    "WAWebBizGatingUtils",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBookingConfirmation",
     "WAWebBrPaymentRequest",
@@ -16,6 +15,7 @@ __d(
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
     "WAWebPaymentReminder",
+    "WAWebPaymentsGatingUtils",
     "WAWebSignupGating",
     "WAWebVoipGatingUtils",
   ],
@@ -58,7 +58,9 @@ __d(
                     : e.nativeFlowName ===
                         r("WAWebInteractiveMessagesNativeFlowName")
                           .MESSAGE_WITH_LINK_STATUS
-                      ? o("WAWebBizGatingUtils").isMessageWithLinkNfmEnabled()
+                      ? o(
+                          "WAWebPaymentsGatingUtils",
+                        ).isMessageWithLinkNfmEnabled()
                       : e.nativeFlowName ===
                           r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL
                         ? o(
@@ -191,7 +193,7 @@ __d(
                                                     })();
     }
     function s(e) {
-      if (o("WAWebBizGatingUtils").isMessageWithLinkNfmEnabled()) {
+      if (o("WAWebPaymentsGatingUtils").isMessageWithLinkNfmEnabled()) {
         if (
           e.nativeFlowName !==
             r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK ||

@@ -11,12 +11,12 @@ __d(
     "WAWebAddonProcessingError",
     "WAWebApiContact",
     "WAWebBackendJobs.flow",
-    "WAWebBizGatingUtils",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebConvertToTextWithoutSpecialEmojis",
     "WAWebDecodeJid",
     "WAWebEphemeralityTypes",
     "WAWebHandleMsgCommon",
+    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebInteractiveResponseMessageType",
@@ -349,11 +349,11 @@ __d(
     }
     function S(e) {
       return e === r("WAWebInteractiveMessageType").NATIVE_FLOW
-        ? o("WAWebBizGatingUtils").interactiveNativeFlowMessagesEnabled()
+        ? o("WAWebHsmGatingUtils").interactiveNativeFlowMessagesEnabled()
         : e === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
-          ? o("WAWebBizGatingUtils").shopsInteractiveMessageEnabled()
+          ? o("WAWebHsmGatingUtils").shopsInteractiveMessageEnabled()
           : e === r("WAWebInteractiveMessageType").CAROUSEL
-            ? o("WAWebBizGatingUtils").carouselsEnabled()
+            ? o("WAWebHsmGatingUtils").carouselsEnabled()
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -403,7 +403,7 @@ __d(
       switch (e) {
         case r("WAWebInteractiveResponseMessageType").NATIVE_FLOW:
           return o(
-            "WAWebBizGatingUtils",
+            "WAWebHsmGatingUtils",
           ).interactiveNativeFlowResponseMessagesEnabled();
       }
     }

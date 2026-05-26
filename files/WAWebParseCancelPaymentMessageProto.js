@@ -5,6 +5,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebWid",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,26 +39,25 @@ __d(
         throw r("err")(
           "parseProtocolMessageProto: no message id is defined for cancel payment request message",
         );
-      var a = void 0;
+      var a = o("WAWebDecodeJid").decodeJid(e.participant),
+        i =
+          typeof a == "string"
+            ? r("WAWebWid").isWid(a) &&
+              o("WAWebUserPrefsMeUser").isSerializedWidMe(a)
+            : o("WAWebUserPrefsMeUser").isMeAccount(a),
+        l = void 0;
       if (t.id.remote.isGroup()) {
-        var i;
-        if (((a = t.id.participant), t.id.fromMe))
-          a = o("WAWebDecodeJid").decodeJid(t.from);
-        else if (
-          !(
-            (i = o("WAWebDecodeJid").decodeJid(e.participant)) != null &&
-            i.equals(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE())
-          )
-        )
-          return null;
+        if (((l = t.id.participant), t.id.fromMe))
+          l = o("WAWebDecodeJid").decodeJid(t.from);
+        else if (i) return null;
       }
-      var l = new (r("WAWebMsgKey"))({
+      var s = new (r("WAWebMsgKey"))({
         id: n,
         fromMe: t.id.fromMe,
         remote: t.id.remote,
-        participant: a,
+        participant: l,
       });
-      return l;
+      return s;
     }
     l.default = e;
   },

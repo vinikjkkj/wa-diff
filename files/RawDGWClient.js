@@ -8,6 +8,7 @@ __d(
     "StreamGroupRegistry",
     "err",
     "isFastRefreshEnabledForCurrentDomain",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -49,13 +50,16 @@ __d(
           };
         }),
         (t.createStreamGroup = function (t, n) {
-          var e, r;
+          var e, a, i;
           this.handleUserChecks((e = n.authType) != null ? e : this.$3);
-          var a = (r = n.authToken) != null ? r : this.$4;
-          a != null &&
-            this.$3 === o("DGWAuth").DGWAuth.GUEST &&
-            (n.authToken = a);
-          var i = this.$10(n.serviceId, n.loggingId);
+          var l = (a = n.authToken) != null ? a : this.$4,
+            s = r("justknobx")._("443")
+              ? (i = n.authType) != null
+                ? i
+                : this.$3
+              : this.$3;
+          l != null && s === o("DGWAuth").DGWAuth.GUEST && (n.authToken = l);
+          var u = this.$10(n.serviceId, n.loggingId);
           return new (o("StreamGroup").StreamGroup)(
             this.$1,
             this.$2,
@@ -66,7 +70,7 @@ __d(
             n,
             t,
             this.$8,
-            i,
+            u,
           );
         }),
         (t.handleUserChecks = function (t) {

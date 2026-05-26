@@ -10,7 +10,6 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizBroadcastGenAIToS",
     "WAWebBizBroadcastTos",
-    "WAWebBizGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotTosIds",
@@ -21,6 +20,7 @@ __d(
     "WAWebMmSignalSharingTos",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebTosGatingUtils",
     "WAWebTosJob",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
@@ -76,7 +76,7 @@ __d(
           (i.$TosManagerImpl$p_3 = function () {
             var e = new Set();
             if (
-              (o("WAWebBizGatingUtils").tosFetchEnabled() && e.add(_),
+              (o("WAWebTosGatingUtils").tosFetchEnabled() && e.add(_),
               o("WAWebBotBaseGating").isBotEnabled())
             ) {
               var t;
@@ -296,7 +296,7 @@ __d(
                   }),
                   r("WAWebUserPrefsStore").setUser(
                     o("WAWebUserPrefsKeys").KEYS.TOS_STATE_FETCH_ITERATION,
-                    o("WAWebBizGatingUtils").tosFetchIteration(),
+                    o("WAWebTosGatingUtils").tosFetchIteration(),
                   ),
                   u && this.trigger("change"));
               }
@@ -344,7 +344,7 @@ __d(
                   ),
                   10,
                 ) || 0;
-            if (o("WAWebBizGatingUtils").tosFetchIteration() > n) return t;
+            if (o("WAWebTosGatingUtils").tosFetchIteration() > n) return t;
             var a = t.map(function (t) {
               return e.getState(t);
             });
@@ -482,7 +482,7 @@ __d(
       })(r("WAWebEventEmitter"));
     function y() {
       return (
-        o("WAWebBizGatingUtils").tosFetchEnabled() ||
+        o("WAWebTosGatingUtils").tosFetchEnabled() ||
         o("WAWebBotBaseGating").isBizBot1pEnabled() ||
         o("WAWebBotBaseGating").isBizBot3pEnabled()
       );

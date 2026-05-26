@@ -21,42 +21,54 @@ __d(
             var _ = m.diff(p, "days"),
               f = _ === 0;
             if (f) ((u = { title: "", subtitle: "" }), (c = "today"));
-            else {
-              var g = _ <= 7 && _ > 0;
-              if (g) {
-                var h = m.clone().subtract(7, "days"),
-                  y = m.clone().subtract(1, "day"),
-                  C = new Intl.DateTimeFormat(a, {
+            else if (_ === 1) {
+              var g = new Intl.DateTimeFormat(a, {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }),
+                h = m.clone().subtract(1, "day");
+              ((u = {
+                title: r("fbs")._(/*BTDS*/ "Yesterday").toString(),
+                subtitle: g.format(h.toDate()),
+              }),
+                (c = "yesterday"));
+            } else {
+              var y = _ <= 7 && _ > 1;
+              if (y) {
+                var C = m.clone().subtract(7, "days"),
+                  b = m.clone().subtract(2, "days"),
+                  v = new Intl.DateTimeFormat(a, {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   }),
-                  b = C.formatRange(h.toDate(), y.toDate());
+                  S = v.formatRange(C.toDate(), b.toDate());
                 ((u = {
                   title: r("fbs")._(/*BTDS*/ "Last week").toString(),
-                  subtitle: b,
+                  subtitle: S,
                 }),
                   (c = "lastweek"));
               } else {
-                var v = m.year(),
-                  S = p.year(),
-                  R = S === v,
-                  L = new Intl.DateTimeFormat(a, {
-                    year: R ? void 0 : "numeric",
+                var R = m.year(),
+                  L = p.year(),
+                  E = L === R,
+                  k = new Intl.DateTimeFormat(a, {
+                    year: E ? void 0 : "numeric",
                     month: "long",
                   }),
-                  E = r("WAWeb-moment").unix(d).toDate(),
-                  k = L.format(E),
-                  I = r("WAWeb-moment").unix(d).startOf("month"),
-                  T = r("WAWeb-moment").unix(d).endOf("month"),
-                  D = new Intl.DateTimeFormat(a, {
+                  I = r("WAWeb-moment").unix(d).toDate(),
+                  T = k.format(I),
+                  D = r("WAWeb-moment").unix(d).startOf("month"),
+                  x = r("WAWeb-moment").unix(d).endOf("month"),
+                  $ = new Intl.DateTimeFormat(a, {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   }),
-                  x = D.formatRange(I.toDate(), T.toDate());
-                ((u = { title: k, subtitle: x }),
-                  (c = I.year() + "-" + I.month()));
+                  P = $.formatRange(D.toDate(), x.toDate());
+                ((u = { title: T, subtitle: P }),
+                  (c = D.year() + "-" + D.month()));
               }
             }
           } catch (t) {

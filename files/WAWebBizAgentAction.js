@@ -5,7 +5,7 @@ __d(
     "WAWebAgentCollection",
     "WAWebAgentModelUtils",
     "WAWebBizAgentLoginState",
-    "WAWebBizGatingUtils",
+    "WAWebChatAssignmentGatingUtils",
     "WAWebCmd",
     "WAWebMdExpansionAgentBrowserMdIdWamEvent",
     "WAWebMiscBrowserUtils",
@@ -86,7 +86,9 @@ __d(
     var d;
     function m(e, t) {
       (t === void 0 && (t = !1),
-        o("WAWebBizGatingUtils").isMultiDeviceAgentsLoggingEnabled() &&
+        o(
+          "WAWebChatAssignmentGatingUtils",
+        ).isMultiDeviceAgentsLoggingEnabled() &&
           new (o(
             "WAWebMdExpansionAgentBrowserMdIdWamEvent",
           ).MdExpansionAgentBrowserMdIdWamEvent)(
@@ -110,7 +112,9 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
-            o("WAWebBizGatingUtils").isMultiDeviceMessageAttributionEnabled()
+            o(
+              "WAWebChatAssignmentGatingUtils",
+            ).isMultiDeviceMessageAttributionEnabled()
           ) {
             var e = yield o("WAWebSchemaAgent").getAgentTable().all();
             o("WAWebAgentCollection").AgentCollection.initializeFromCache(e);
@@ -127,7 +131,9 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (yield _(),
-            !!o("WAWebBizGatingUtils").isMultiDeviceAgentsLoggingEnabled())
+            !!o(
+              "WAWebChatAssignmentGatingUtils",
+            ).isMultiDeviceAgentsLoggingEnabled())
           ) {
             var e = o("WAWebUserPrefsMeUser")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
