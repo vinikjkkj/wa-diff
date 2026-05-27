@@ -157,7 +157,7 @@ __d(
             }),
             from: e,
             subtype: "sender_invite",
-            to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            to: o("WAWebUserPrefsMeUser").getMeUser(),
             type: "notification_template",
             kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,

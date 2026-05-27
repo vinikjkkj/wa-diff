@@ -11,7 +11,6 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendJobsCommon",
     "WAWebChangeProfilePicThumb",
-    "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebContactSyncBridge",
@@ -150,7 +149,7 @@ __d(
             throw r("err")(
               "Error: genContactChangeNotificationMsg invalid type",
             );
-          var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var n = o("WAWebUserPrefsMeUser").getMeUser(),
             a = r("WANullthrows")(t.oldJid),
             i = r("WANullthrows")(t.jid),
             l;
@@ -255,24 +254,19 @@ __d(
                 changeNumberNewJid: void 0,
                 changeNumberOldJid: t.toString(),
               }),
-              yield o("WAWebSchemaChat")
-                .getChatTable()
-                .bulkCreateOrMerge(l)
-                .then(function () {
-                  l.forEach(function (e) {
-                    var t = o("WAWebChatCollection").ChatCollection.get(e.id);
-                    if (t) {
-                      var n = e.changeNumberNewJid,
-                        r = e.changeNumberOldJid;
-                      ((t.changeNumberNewJid =
-                        n != null ? o("WAWebWidFactory").createWid(n) : void 0),
-                        (t.changeNumberOldJid =
-                          r != null
-                            ? o("WAWebWidFactory").createWid(r)
-                            : void 0));
-                    }
-                  });
-                }),
+              yield o("WAWebSchemaChat").getChatTable().bulkCreateOrMerge(l),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateChatChangeNumberJids",
+                {
+                  updates: l.map(function (e) {
+                    return {
+                      id: e.id.toString(),
+                      changeNumberNewJid: e.changeNumberNewJid,
+                      changeNumberOldJid: e.changeNumberOldJid,
+                    };
+                  }),
+                },
+              ),
               a != null &&
                 i != null &&
                 (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({

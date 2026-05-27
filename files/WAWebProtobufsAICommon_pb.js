@@ -151,6 +151,7 @@ __d(
         UNIFIED_RESPONSE_AI_CONTENT_SEARCH_ENABLED: 62,
         UNIFIED_RESPONSE_MARKDOWN_LINKS_ENABLED: 63,
         AI_RICH_RESPONSE_MAPS_V2_ENABLED: 64,
+        AI_SUBSCRIPTION_METERING_ENABLED: 65,
       }),
       I = u({ DEFAULT_MODE: 0, THINK_HARD_MODE: 1 }),
       T = u({ UNKNOWN_FEATURE: 0, REASONING_FEATURE: 1 }),
@@ -273,7 +274,10 @@ __d(
       ot = {},
       at = {},
       it = {},
-      lt = {};
+      lt = {},
+      st = {},
+      ut = {},
+      ct = {};
     ((V.name = "BotPluginMetadata"),
       (V.internalSpec = {
         provider: [1, (e = o("WAProtoConst")).TYPES.ENUM, d],
@@ -555,19 +559,29 @@ __d(
         expectedMediaCount: [2, e.TYPES.UINT32],
         hasGlobalCaption: [3, e.TYPES.BOOL],
       }),
-      (we.name = "BotCommandMetadata"),
+      (we.name = "HatchMetadataSync"),
       (we.internalSpec = {
+        data: [1, e.TYPES.BYTES],
+        timestampMs: [2, e.TYPES.INT64],
+        requestId: [3, e.TYPES.STRING],
+      }),
+      (Ae.name = "AIMetadataOperation"),
+      (Ae.internalSpec = { hatchMetadataSync: [1, e.TYPES.MESSAGE, we] }),
+      (Fe.name = "BotCommandMetadata"),
+      (Fe.internalSpec = {
         commandName: [1, e.TYPES.STRING],
         commandDescription: [2, e.TYPES.STRING],
         commandPrompt: [3, e.TYPES.STRING],
       }),
-      (Ae.name = "BotResolvedToolCallMetadata"),
-      (Ae.internalSpec = {
+      (Oe.name = "BotResolvedToolCallMetadata"),
+      (Oe.internalSpec = {
         toolCallId: [1, e.TYPES.STRING],
         resolutionDataSerialized: [2, e.TYPES.STRING],
       }),
-      (Fe.name = "BotMetadata"),
-      (Fe.internalSpec = {
+      (Be.name = "BotPttPromptMetadata"),
+      (Be.internalSpec = { transcript: [1, e.TYPES.STRING] }),
+      (We.name = "BotMetadata"),
+      (We.internalSpec = {
         personaId: [2, e.TYPES.STRING],
         pluginMetadata: [3, e.TYPES.MESSAGE, V],
         suggestedPromptMetadata: [4, e.TYPES.MESSAGE, H],
@@ -598,43 +612,44 @@ __d(
         botMessageOriginMetadata: [29, e.TYPES.MESSAGE, Ee],
         inThreadSurveyMetadata: [30, e.TYPES.MESSAGE, ve],
         botThreadInfo: [31, e.TYPES.MESSAGE, xe],
-        regenerateMetadata: [32, e.TYPES.MESSAGE, et],
-        sessionTransparencyMetadata: [33, e.TYPES.MESSAGE, tt],
-        botDocumentMessageMetadata: [34, e.TYPES.MESSAGE, nt],
-        botGroupMetadata: [35, e.TYPES.MESSAGE, Be],
-        botRenderingConfigMetadata: [36, e.TYPES.MESSAGE, We],
-        botInfrastructureDiagnostics: [37, e.TYPES.MESSAGE, at],
+        regenerateMetadata: [32, e.TYPES.MESSAGE, rt],
+        sessionTransparencyMetadata: [33, e.TYPES.MESSAGE, ot],
+        botDocumentMessageMetadata: [34, e.TYPES.MESSAGE, at],
+        botGroupMetadata: [35, e.TYPES.MESSAGE, Ue],
+        botRenderingConfigMetadata: [36, e.TYPES.MESSAGE, Ve],
+        botInfrastructureDiagnostics: [37, e.TYPES.MESSAGE, st],
         aiMediaCollectionMetadata: [38, e.TYPES.MESSAGE, Ne],
-        commandMetadata: [39, e.TYPES.MESSAGE, we],
-        resolvedToolCallMetadata: [40, e.TYPES.MESSAGE, Ae],
-        subscriptionUpsellMetadata: [41, e.TYPES.MESSAGE, Oe],
+        commandMetadata: [39, e.TYPES.MESSAGE, Fe],
+        resolvedToolCallMetadata: [40, e.TYPES.MESSAGE, Oe],
+        subscriptionUpsellMetadata: [41, e.TYPES.MESSAGE, qe],
+        pttPromptMetadata: [42, e.TYPES.MESSAGE, Be],
         internalMetadata: [999, e.TYPES.BYTES],
       }),
-      (Oe.name = "AISubscriptionUpsellMetadata"),
-      (Oe.internalSpec = { requestType: [1, e.TYPES.ENUM, M] }),
-      (Be.name = "BotGroupMetadata"),
-      (Be.internalSpec = {
-        participantsMetadata: [1, e.FLAGS.REPEATED | e.TYPES.MESSAGE, qe],
+      (qe.name = "AISubscriptionUpsellMetadata"),
+      (qe.internalSpec = { requestType: [1, e.TYPES.ENUM, M] }),
+      (Ue.name = "BotGroupMetadata"),
+      (Ue.internalSpec = {
+        participantsMetadata: [1, e.FLAGS.REPEATED | e.TYPES.MESSAGE, He],
       }),
-      (We.name = "BotRenderingConfigMetadata"),
-      (We.internalSpec = {
+      (Ve.name = "BotRenderingConfigMetadata"),
+      (Ve.internalSpec = {
         bloksVersioningId: [1, e.TYPES.STRING],
         pixelDensity: [2, e.TYPES.DOUBLE],
       }),
-      (qe.name = "BotGroupParticipantMetadata"),
-      (qe.internalSpec = { botFbid: [1, e.TYPES.STRING] }),
-      (Ue.name = "BotFeedbackMessage"),
-      (Ue.internalSpec = {
+      (He.name = "BotGroupParticipantMetadata"),
+      (He.internalSpec = { botFbid: [1, e.TYPES.STRING] }),
+      (Ge.name = "BotFeedbackMessage"),
+      (Ge.internalSpec = {
         messageKey: [1, e.TYPES.MESSAGE, s.MessageKeySpec],
         kind: [2, e.TYPES.ENUM, O],
         text: [3, e.TYPES.STRING],
         kindNegative: [4, e.TYPES.UINT64],
         kindPositive: [5, e.TYPES.UINT64],
         kindReport: [6, e.TYPES.ENUM, w],
-        sideBySideSurveyMetadata: [7, e.TYPES.MESSAGE, Ve],
+        sideBySideSurveyMetadata: [7, e.TYPES.MESSAGE, ze],
       }),
-      (Ve.name = "BotFeedbackMessage$SideBySideSurveyMetadata"),
-      (Ve.internalSpec = {
+      (ze.name = "BotFeedbackMessage$SideBySideSurveyMetadata"),
+      (ze.internalSpec = {
         selectedRequestId: [1, e.TYPES.STRING],
         surveyId: [2, e.TYPES.UINT32],
         simonSessionFbid: [3, e.TYPES.STRING],
@@ -642,84 +657,84 @@ __d(
         responseTimestampMsString: [5, e.TYPES.STRING],
         isSelectedResponsePrimary: [6, e.TYPES.BOOL],
         messageIdToEdit: [7, e.TYPES.STRING],
-        analyticsData: [8, e.TYPES.MESSAGE, Xe],
-        metaAiAnalyticsData: [9, e.TYPES.MESSAGE, He],
+        analyticsData: [8, e.TYPES.MESSAGE, Ze],
+        metaAiAnalyticsData: [9, e.TYPES.MESSAGE, je],
       }),
-      (He.name =
+      (je.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData"),
-      (He.internalSpec = {
+      (je.internalSpec = {
         surveyId: [1, e.TYPES.UINT32],
         primaryResponseId: [2, e.TYPES.STRING],
         testArmName: [3, e.TYPES.STRING],
         timestampMsString: [4, e.TYPES.STRING],
-        ctaImpressionEvent: [5, e.TYPES.MESSAGE, Qe],
-        ctaClickEvent: [6, e.TYPES.MESSAGE, Ke],
-        cardImpressionEvent: [7, e.TYPES.MESSAGE, je],
-        responseEvent: [8, e.TYPES.MESSAGE, ze],
-        abandonEvent: [9, e.TYPES.MESSAGE, Ge],
+        ctaImpressionEvent: [5, e.TYPES.MESSAGE, Je],
+        ctaClickEvent: [6, e.TYPES.MESSAGE, Ye],
+        cardImpressionEvent: [7, e.TYPES.MESSAGE, Xe],
+        responseEvent: [8, e.TYPES.MESSAGE, Qe],
+        abandonEvent: [9, e.TYPES.MESSAGE, Ke],
       }),
-      (Ge.name =
+      (Ke.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyAbandonEventData"),
-      (Ge.internalSpec = { abandonDwellTimeMsString: [1, e.TYPES.STRING] }),
-      (ze.name =
+      (Ke.internalSpec = { abandonDwellTimeMsString: [1, e.TYPES.STRING] }),
+      (Qe.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyResponseEventData"),
-      (ze.internalSpec = {
+      (Qe.internalSpec = {
         responseDwellTimeMsString: [1, e.TYPES.STRING],
         selectedResponseId: [2, e.TYPES.STRING],
       }),
-      (je.name =
+      (Xe.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCardImpressionEventData"),
-      (je.internalSpec = {}),
-      (Ke.name =
+      (Xe.internalSpec = {}),
+      (Ye.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCTAClickEventData"),
-      (Ke.internalSpec = {
+      (Ye.internalSpec = {
         isSurveyExpired: [1, e.TYPES.BOOL],
         clickDwellTimeMsString: [2, e.TYPES.STRING],
       }),
-      (Qe.name =
+      (Je.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCTAImpressionEventData"),
-      (Qe.internalSpec = { isSurveyExpired: [1, e.TYPES.BOOL] }),
-      (Xe.name =
+      (Je.internalSpec = { isSurveyExpired: [1, e.TYPES.BOOL] }),
+      (Ze.name =
         "BotFeedbackMessage$SideBySideSurveyMetadata$SideBySideSurveyAnalyticsData"),
-      (Xe.internalSpec = {
+      (Ze.internalSpec = {
         tessaEvent: [1, e.TYPES.STRING],
         tessaSessionFbid: [2, e.TYPES.STRING],
         simonSessionFbid: [3, e.TYPES.STRING],
       }),
-      (Ye.name = "ForwardedAIBotMessageInfo"),
-      (Ye.internalSpec = {
+      (et.name = "ForwardedAIBotMessageInfo"),
+      (et.internalSpec = {
         botName: [1, e.TYPES.STRING],
         botJid: [2, e.TYPES.STRING],
         creatorName: [3, e.TYPES.STRING],
       }),
-      (Je.name = "BotMessageSharingInfo"),
-      (Je.internalSpec = {
+      (tt.name = "BotMessageSharingInfo"),
+      (tt.internalSpec = {
         botEntryPointOrigin: [1, e.TYPES.ENUM, f],
         forwardScore: [2, e.TYPES.UINT32],
       }),
-      (Ze.name = "AIRichResponseUnifiedResponse"),
-      (Ze.internalSpec = { data: [1, e.TYPES.BYTES] }),
-      (et.name = "AIRegenerateMetadata"),
-      (et.internalSpec = {
+      (nt.name = "AIRichResponseUnifiedResponse"),
+      (nt.internalSpec = { data: [1, e.TYPES.BYTES] }),
+      (rt.name = "AIRegenerateMetadata"),
+      (rt.internalSpec = {
         messageKey: [1, e.TYPES.MESSAGE, s.MessageKeySpec],
         responseTimestampMs: [2, e.TYPES.INT64],
       }),
-      (tt.name = "SessionTransparencyMetadata"),
-      (tt.internalSpec = {
+      (ot.name = "SessionTransparencyMetadata"),
+      (ot.internalSpec = {
         disclaimerText: [1, e.TYPES.STRING],
         hcaId: [2, e.TYPES.STRING],
         sessionTransparencyType: [3, e.TYPES.ENUM, q],
       }),
-      (nt.name = "BotDocumentMessageMetadata"),
-      (nt.internalSpec = { pluginType: [1, e.TYPES.ENUM, B] }),
-      (rt.name = "AIHomeState"),
-      (rt.internalSpec = {
+      (at.name = "BotDocumentMessageMetadata"),
+      (at.internalSpec = { pluginType: [1, e.TYPES.ENUM, B] }),
+      (it.name = "AIHomeState"),
+      (it.internalSpec = {
         lastFetchTime: [1, e.TYPES.INT64],
-        capabilityOptions: [2, e.FLAGS.REPEATED | e.TYPES.MESSAGE, ot],
-        conversationOptions: [3, e.FLAGS.REPEATED | e.TYPES.MESSAGE, ot],
+        capabilityOptions: [2, e.FLAGS.REPEATED | e.TYPES.MESSAGE, lt],
+        conversationOptions: [3, e.FLAGS.REPEATED | e.TYPES.MESSAGE, lt],
       }),
-      (ot.name = "AIHomeState$AIHomeOption"),
-      (ot.internalSpec = {
+      (lt.name = "AIHomeState$AIHomeOption"),
+      (lt.internalSpec = {
         type: [1, e.TYPES.ENUM, W],
         title: [2, e.TYPES.STRING],
         promptText: [3, e.TYPES.STRING],
@@ -729,16 +744,16 @@ __d(
         imageBackgroundColor: [7, e.TYPES.STRING],
         cardTypeId: [8, e.TYPES.STRING],
       }),
-      (at.name = "BotInfrastructureDiagnostics"),
-      (at.internalSpec = {
+      (st.name = "BotInfrastructureDiagnostics"),
+      (st.internalSpec = {
         botBackend: [1, e.TYPES.ENUM, U],
         toolsUsed: [2, e.FLAGS.REPEATED | e.TYPES.STRING],
         isThinking: [3, e.TYPES.BOOL],
       }),
-      (it.name = "BotAgentMetadata"),
-      (it.internalSpec = { deepLinkMetadata: [1, e.TYPES.MESSAGE, lt] }),
-      (lt.name = "BotAgentDeepLinkMetadata"),
-      (lt.internalSpec = { token: [1, e.TYPES.STRING] }),
+      (ut.name = "BotAgentMetadata"),
+      (ut.internalSpec = { deepLinkMetadata: [1, e.TYPES.MESSAGE, ct] }),
+      (ct.name = "BotAgentDeepLinkMetadata"),
+      (ct.internalSpec = { token: [1, e.TYPES.STRING] }),
       (l.BotPluginMetadata$PluginType = c),
       (l.BotPluginMetadata$SearchProvider = d),
       (l.BotLinkedAccount$BotLinkedAccountType = m),
@@ -824,40 +839,43 @@ __d(
       (l.AIThreadInfo$AIThreadServerInfoSpec = Pe),
       (l.AIMediaCollectionMetadataSpec = Ne),
       (l.AIMediaCollectionMessageSpec = Me),
-      (l.BotCommandMetadataSpec = we),
-      (l.BotResolvedToolCallMetadataSpec = Ae),
-      (l.BotMetadataSpec = Fe),
-      (l.AISubscriptionUpsellMetadataSpec = Oe),
-      (l.BotGroupMetadataSpec = Be),
-      (l.BotRenderingConfigMetadataSpec = We),
-      (l.BotGroupParticipantMetadataSpec = qe),
-      (l.BotFeedbackMessageSpec = Ue),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadataSpec = Ve),
+      (l.HatchMetadataSyncSpec = we),
+      (l.AIMetadataOperationSpec = Ae),
+      (l.BotCommandMetadataSpec = Fe),
+      (l.BotResolvedToolCallMetadataSpec = Oe),
+      (l.BotPttPromptMetadataSpec = Be),
+      (l.BotMetadataSpec = We),
+      (l.AISubscriptionUpsellMetadataSpec = qe),
+      (l.BotGroupMetadataSpec = Ue),
+      (l.BotRenderingConfigMetadataSpec = Ve),
+      (l.BotGroupParticipantMetadataSpec = He),
+      (l.BotFeedbackMessageSpec = Ge),
+      (l.BotFeedbackMessage$SideBySideSurveyMetadataSpec = ze),
       (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsDataSpec =
-        He),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyAbandonEventDataSpec =
-        Ge),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyResponseEventDataSpec =
-        ze),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCardImpressionEventDataSpec =
         je),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCTAClickEventDataSpec =
+      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyAbandonEventDataSpec =
         Ke),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCTAImpressionEventDataSpec =
+      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyResponseEventDataSpec =
         Qe),
-      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SideBySideSurveyAnalyticsDataSpec =
+      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCardImpressionEventDataSpec =
         Xe),
-      (l.ForwardedAIBotMessageInfoSpec = Ye),
-      (l.BotMessageSharingInfoSpec = Je),
-      (l.AIRichResponseUnifiedResponseSpec = Ze),
-      (l.AIRegenerateMetadataSpec = et),
-      (l.SessionTransparencyMetadataSpec = tt),
-      (l.BotDocumentMessageMetadataSpec = nt),
-      (l.AIHomeStateSpec = rt),
-      (l.AIHomeState$AIHomeOptionSpec = ot),
-      (l.BotInfrastructureDiagnosticsSpec = at),
-      (l.BotAgentMetadataSpec = it),
-      (l.BotAgentDeepLinkMetadataSpec = lt));
+      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCTAClickEventDataSpec =
+        Ye),
+      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SidebySideSurveyMetaAiAnalyticsData$SideBySideSurveyCTAImpressionEventDataSpec =
+        Je),
+      (l.BotFeedbackMessage$SideBySideSurveyMetadata$SideBySideSurveyAnalyticsDataSpec =
+        Ze),
+      (l.ForwardedAIBotMessageInfoSpec = et),
+      (l.BotMessageSharingInfoSpec = tt),
+      (l.AIRichResponseUnifiedResponseSpec = nt),
+      (l.AIRegenerateMetadataSpec = rt),
+      (l.SessionTransparencyMetadataSpec = ot),
+      (l.BotDocumentMessageMetadataSpec = at),
+      (l.AIHomeStateSpec = it),
+      (l.AIHomeState$AIHomeOptionSpec = lt),
+      (l.BotInfrastructureDiagnosticsSpec = st),
+      (l.BotAgentMetadataSpec = ut),
+      (l.BotAgentDeepLinkMetadataSpec = ct));
   },
   98,
 );

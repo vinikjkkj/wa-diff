@@ -208,6 +208,10 @@ __d(
         AI_HANDOFF: 9,
         CHANNELS: 10,
         AI_RESPONDING: 11,
+        ARCHIVED: 12,
+        LOCKED: 13,
+        INVITES: 14,
+        THIRD_PARTY: 15,
       }),
       N = s({
         ANDROID: 0,

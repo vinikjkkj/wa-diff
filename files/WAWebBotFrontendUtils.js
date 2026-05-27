@@ -32,7 +32,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield D(),
+          var t = yield $(),
             n = yield o("WAWebCmd").Cmd.openChatFromUnread({
               chat: t,
               chatEntryPoint: e,
@@ -53,8 +53,8 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebBotGating").isAiChatThreadsEnabled()) {
-            var n = yield D();
-            T(n, { type: "MetaAiSearchSuggestion", query: e });
+            var n = yield $();
+            x(n, { type: "MetaAiSearchSuggestion", query: e });
           } else {
             var r = yield m(t);
             if (r == null) return;
@@ -122,7 +122,33 @@ __d(
             o("WAWebBotUtils").META_BOT_PN_WID,
           );
     }
-    function v(e) {
+    function v() {
+      return o("WAWebContactCollection").ContactCollection.get(
+        o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+      );
+    }
+    function S(e, t) {
+      var n = e.find(function (e) {
+        return o("WAWebBotUtils").isHatchBot(e.id);
+      });
+      if (n != null)
+        return {
+          itemKey: n.id.toString(),
+          type: o("WAWebMultiSelectChatListTypes").Row.ROW_CHATS,
+          data: n,
+        };
+      var r = t.find(function (e) {
+        return o("WAWebBotUtils").isHatchBot(e.id);
+      });
+      return r != null
+        ? {
+            itemKey: r.id.toString(),
+            type: o("WAWebMultiSelectChatListTypes").Row.ROW_CONTACTS,
+            data: r,
+          }
+        : null;
+    }
+    function R(e) {
       switch (e) {
         case o("WAWebBotLogging").BotEntryPointType.Search:
         case o("WAWebBotLogging").BotEntryPointType.Shortcut:
@@ -131,24 +157,24 @@ __d(
           return "invoke";
       }
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function R() {
+    function E() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n, r;
           if (o("WAWebBotGating").isImplicitThreadRoutingEnabled())
             ((n = o(
               "WAWebResolveThreadForEntryPoint",
             ).resolveThreadIdForEntryPoint(e)),
-              I(e, n),
+              D(e, n),
               (r = null));
           else {
             var a,
               i,
               l = (a = e.aiThreads) == null ? void 0 : a.head();
-            ((n = (i = l == null ? void 0 : l.id) != null ? i : E(e)),
+            ((n = (i = l == null ? void 0 : l.id) != null ? i : I(e)),
               (r = l == null ? void 0 : l.creationTimestamp));
           }
           var s = yield o("WAWebCmd").Cmd.openChatBottom({
@@ -160,22 +186,22 @@ __d(
             ? { threadId: n, threadCreationTs: r, success: !0 }
             : { success: !1 };
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       var r;
       o("WAWebBotGating").isImplicitThreadRoutingEnabled()
         ? ((r = o(
             "WAWebResolveThreadForEntryPoint",
           ).resolveThreadIdForEntryPoint(e)),
-          I(e, r),
+          D(e, r),
           o("WAWebCmd").Cmd.openChatBottom({
             chat: e,
             chatEntryPoint: n,
             threadId: r,
           }))
-        : (r = k(e, n));
+        : (r = T(e, n));
       var a = o("WAWebMaybeGetAiThreadInfo").maybeGetAiThreadInfo(e, r);
       return (
         o("WAWebSendTextMsgChatAction").sendTextMsgToChat(e, t, {
@@ -185,7 +211,7 @@ __d(
         r
       );
     }
-    function E(e) {
+    function I(e) {
       var t = o("WAWebAiThreadCreationUtils").createAiThreadId(e.id);
       if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
         var n = new (r("WAWebAiThreadModel"))({
@@ -204,8 +230,8 @@ __d(
       }
       return t;
     }
-    function k(e, t) {
-      var n = E(e);
+    function T(e, t) {
+      var n = I(e);
       return (
         o("WAWebCmd").Cmd.openChatBottom({
           chat: e,
@@ -215,7 +241,7 @@ __d(
         n
       );
     }
-    function I(e, t) {
+    function D(e, t) {
       if (
         o("WAWebThreadsGating").isThreadLoadingInfraEnabled() &&
         !(e.aiThreads != null && e.aiThreads.get(t) != null)
@@ -235,7 +261,7 @@ __d(
           e.aiThreads.add([n]));
       }
     }
-    function T(t, n) {
+    function x(t, n) {
       (o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -248,12 +274,12 @@ __d(
       ),
         o("WAWebCmd").Cmd.openMetaAiThreadDrawer(t, n));
     }
-    function D() {
-      return x.apply(this, arguments);
+    function $() {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -291,16 +317,16 @@ __d(
             );
           }
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function $(e, t) {
+    function N(e, t) {
       return !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e) ||
         !t.includePrivateProcessing
         ? s._(/*BTDS*/ "Meta AI").toString()
         : s._(/*BTDS*/ "Meta AI with Private Processing").toString();
     }
-    function P(e) {
+    function M(e) {
       return o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
         ? s._(/*BTDS*/ "with Private Processing").toString()
         : null;
@@ -311,16 +337,18 @@ __d(
       (l.getBotMsgBodyLength = h),
       (l.maybeGetTopMetaAiRow = C),
       (l.getMetaAiContact = b),
-      (l.getBotNuxOriginType = v),
-      (l.openLatestOrNewMetaAiThread = S),
-      (l.openMetaAiThreadAndSendQuery = L),
-      (l.createNewMetaAiThread = E),
-      (l.createAndOpenNewMetaAiThread = k),
-      (l.ensureThreadModelExists = I),
-      (l.runMetaAiThreadsFlow = T),
-      (l.getMetaAiChat = D),
-      (l.getMetaAiTEEBotDisplayName = $),
-      (l.getMetaAiTEEBotSecondaryLine = P));
+      (l.getHatchContact = v),
+      (l.maybeGetTopHatchRow = S),
+      (l.getBotNuxOriginType = R),
+      (l.openLatestOrNewMetaAiThread = L),
+      (l.openMetaAiThreadAndSendQuery = k),
+      (l.createNewMetaAiThread = I),
+      (l.createAndOpenNewMetaAiThread = T),
+      (l.ensureThreadModelExists = D),
+      (l.runMetaAiThreadsFlow = x),
+      (l.getMetaAiChat = $),
+      (l.getMetaAiTEEBotDisplayName = N),
+      (l.getMetaAiTEEBotSecondaryLine = M));
   },
   226,
 );

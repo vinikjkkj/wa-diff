@@ -33,7 +33,8 @@ __d(
             o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
               .ALL_MEMBER_SHARE;
     }
-    function c(e, t) {
+    function c(e, t, n) {
+      var r;
       if (
         (!o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled() &&
           !o(
@@ -46,23 +47,23 @@ __d(
         o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)
       )
         return !1;
-      var n = e.groupHistorySentState,
-        r = e.joinTime;
+      var a = e.groupHistorySentState,
+        i = (r = e.joinTime) != null ? r : n;
       if (
-        r == null ||
-        n ===
+        i == null ||
+        a ===
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
             .HISTORY_SENT ||
-        n ===
+        a ===
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
             .NOTICE_SENT
       )
         return !1;
-      var a = o("WAWebABProps").getABPropConfigValue(
+      var l = o("WAWebABProps").getABPropConfigValue(
           "group_history_new_user_threshold_secs",
         ),
-        i = o("WATimeUtils").unixTime();
-      return !(i - r > a);
+        c = o("WATimeUtils").unixTime();
+      return !(c - i > l);
     }
     function d(t) {
       if (!o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled())

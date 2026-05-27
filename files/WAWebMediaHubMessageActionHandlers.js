@@ -11,6 +11,7 @@ __d(
     "WAWebChatMessageSearch",
     "WAWebCmd",
     "WAWebComposeBoxActions",
+    "WAWebDrawerManager",
     "WAWebEnvironment",
     "WAWebFileSaver",
     "WAWebFrontendMsgGetters",
@@ -19,6 +20,7 @@ __d(
     "WAWebModalManager",
     "WAWebMsgModelUtils",
     "WAWebMultiSelectUtils",
+    "WAWebNavBarTypes",
     "WAWebReplyToMsgChatAction",
     "WAWebStateUtils",
     "WAWebThreadMsgUtils",
@@ -135,22 +137,26 @@ __d(
           o("WAWebModalManager").ModalManager.close());
         return;
       }
-      o("WAWebCmd")
-        .Cmd.openChatAt({
-          chat: t,
-          msgContext: o("WAWebChatMessageSearch").getSearchContext({
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+        o("WAWebCmd").Cmd.setActiveNavBarItem(
+          o("WAWebNavBarTypes").NavBarItems.Chats,
+        ),
+        o("WAWebCmd")
+          .Cmd.openChatAt({
             chat: t,
-            msgKey: e.id,
-          }),
-          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
-        })
-        .then(function (t) {
-          t &&
-            (o("WAWebModalManager").ModalManager.close(),
-            o("WAWebComposeBoxActions").ComposeBoxActions.focus(
-              o("WAWebFrontendMsgGetters").getChat(e),
-            ));
-        });
+            msgContext: o("WAWebChatMessageSearch").getSearchContext({
+              chat: t,
+              msgKey: e.id,
+            }),
+            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
+          })
+          .then(function (t) {
+            t &&
+              (o("WAWebModalManager").ModalManager.close(),
+              o("WAWebComposeBoxActions").ComposeBoxActions.focus(
+                o("WAWebFrontendMsgGetters").getChat(e),
+              ));
+          }));
     }
     function E(t, r, a) {
       var i = t.filter(function (e) {
@@ -352,11 +358,15 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebFrontendMsgGetters").getChat(e),
-            n = yield o("WAWebCmd").Cmd.openChatBottom({
-              chat: t,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
-            });
+          var t = o("WAWebFrontendMsgGetters").getChat(e);
+          (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+            o("WAWebCmd").Cmd.setActiveNavBarItem(
+              o("WAWebNavBarTypes").NavBarItems.Chats,
+            ));
+          var n = yield o("WAWebCmd").Cmd.openChatBottom({
+            chat: t,
+            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
+          });
           if (!n) {
             o("WALogger").ERROR(
               y ||
@@ -384,7 +394,11 @@ __d(
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield r("WAWebReplyToMsgChatAction")(e),
+          (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+            o("WAWebCmd").Cmd.setActiveNavBarItem(
+              o("WAWebNavBarTypes").NavBarItems.Chats,
+            ),
+            yield r("WAWebReplyToMsgChatAction")(e),
             o("WAWebModalManager").ModalManager.close(),
             o("WAWebComposeBoxActions").ComposeBoxActions.focus(
               o("WAWebFrontendMsgGetters").getChat(e),

@@ -369,18 +369,18 @@ __d(
               {
                 ui: u.jsx(
                   C.ModalManagerImplWrapper,
-                  { type: C.AlertType },
-                  "alert-modal-manager",
-                ),
-                errorBoundaryName: "alert-modal-manager",
-              },
-              {
-                ui: u.jsx(
-                  C.ModalManagerImplWrapper,
                   { contextMenuRef: i, type: C.SupportType },
                   "support-modal-manager",
                 ),
                 errorBoundaryName: "support-modal-manager",
+              },
+              {
+                ui: u.jsx(
+                  C.ModalManagerImplWrapper,
+                  { type: C.AlertType },
+                  "alert-modal-manager",
+                ),
+                errorBoundaryName: "alert-modal-manager",
               },
               {
                 ui: u.jsx(

@@ -51,14 +51,32 @@ __d(
                 var d,
                   m,
                   p,
-                  _ = (d = c.lid) != null ? d : c.id,
-                  f = o("WAWebLidMigrationUtils").toUserLid(_);
-                if (f != null) {
-                  var g = o("WAWebWidToJid").userLidtoLidUserJid(f);
-                  u.set(g, {
-                    joinTime: (m = c.joinTime) != null ? m : null,
+                  _,
+                  f,
+                  g = (d = c.lid) != null ? d : c.id,
+                  h = o("WAWebLidMigrationUtils").toUserLid(g);
+                if (h != null) {
+                  var y = o("WAWebWidToJid").userLidtoLidUserJid(h),
+                    C = u.get(y);
+                  u.set(y, {
+                    joinTime:
+                      (m =
+                        (p = c.joinTime) != null
+                          ? p
+                          : C == null
+                            ? void 0
+                            : C.joinTime) != null
+                        ? m
+                        : null,
                     groupHistorySentState:
-                      (p = c.groupHistorySentState) != null ? p : null,
+                      (_ =
+                        (f = c.groupHistorySentState) != null
+                          ? f
+                          : C == null
+                            ? void 0
+                            : C.groupHistorySentState) != null
+                        ? _
+                        : null,
                   });
                 }
               }

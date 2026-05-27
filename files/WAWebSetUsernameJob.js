@@ -29,7 +29,7 @@ __d(
               source: "USER_INPUT",
             });
             if (n) {
-              var r = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+              var r = o("WAWebUserPrefsMeUser").getMeUser();
               return (
                 yield p([
                   e != null
@@ -92,26 +92,27 @@ __d(
               g =
                 m != null && (p == null ? void 0 : p.usernameCountryCode) !== m,
               h = f || g,
-              y = { wasUpdated: !!h };
+              y = !!(_ || (p == null ? void 0 : p.username) != null),
+              C = { wasUpdated: !!h, wasPreviouslyKnown: y };
             if (h && f) {
-              var C;
-              y.oldUsername =
-                (C = p == null ? void 0 : p.username) != null ? C : void 0;
+              var b;
+              C.oldUsername =
+                (b = p == null ? void 0 : p.username) != null ? b : void 0;
             }
-            if ((r.set(c.toString(), y), !!h)) {
+            if ((r.set(c.toString(), C), !!h)) {
               (l++, s.length < 3 && s.push(c.toLogString()));
-              var b = c.toJid(),
-                v = { id: b };
+              var v = c.toJid(),
+                S = { id: v };
               (d != null
-                ? (v.username = d)
+                ? (S.username = d)
                 : u.deleteUsername === !0 &&
                   (_ == null
-                    ? (v.usernameSoftDeleted = !0)
-                    : (v.username = void 0),
+                    ? (S.usernameSoftDeleted = !0)
+                    : (S.username = void 0),
                   u.displayNameLID != null &&
-                    (v.displayNameLID = u.displayNameLID)),
-                m != null && (v.usernameCountryCode = m),
-                n.push(v));
+                    (S.displayNameLID = u.displayNameLID)),
+                m != null && (S.usernameCountryCode = m),
+                n.push(S));
             }
           }
           return (

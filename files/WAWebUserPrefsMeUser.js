@@ -158,46 +158,43 @@ __d(
       return t;
     }
     function N(e) {
-      return e == null || !P(e) ? !1 : A(e) || w(e);
+      return e == null || !P(e) ? !1 : w(e) || M(e);
     }
     function M(e) {
-      return e == null || !P(e) ? !1 : w(e);
-    }
-    function w(e) {
       var t = g();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function A(e) {
+    function w(e) {
       var t = d();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function F(e) {
+    function A(e) {
       if (e == null || !P(e)) return !1;
       if (e.equals(m())) return !0;
       var t = d();
       return t != null && e.equals(t);
     }
-    function O(e) {
+    function F(e) {
       if (e == null || !P(e)) return !1;
       var t = C();
       if (t != null && e.equals(t)) return !0;
       var n = g();
       return n != null && e.equals(n);
     }
-    function B(e) {
+    function O(e) {
       return N(o("WAWebWidFactory").createWid(e));
     }
-    function W() {
+    function B() {
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
       );
       return (
         (typeof e != "string" || e === "") &&
-          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), q(e)),
+          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), W(e)),
         e
       );
     }
-    function q(e) {
+    function W(e) {
       return o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
         e,
@@ -224,13 +221,12 @@ __d(
       (l.getMaybeMeDisplayName = x),
       (l.setMeDisplayName = $),
       (l.isMeAccount = N),
-      (l.isMeAccountNonLid = M),
-      (l.isMePnUser = w),
-      (l.isMeDevice = F),
-      (l.isMePrimary = O),
-      (l.isSerializedWidMe = B),
-      (l.getUnknownId = W),
-      (l.setUnknownId = q));
+      (l.isMePnUser = M),
+      (l.isMeDevice = A),
+      (l.isMePrimary = F),
+      (l.isSerializedWidMe = O),
+      (l.getUnknownId = B),
+      (l.setUnknownId = W));
   },
   98,
 );

@@ -60,11 +60,18 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return !o(
-            "WAWebStatusGatingUtils",
-          ).isStatusViewerSidePosterIdentifiersEnabled() || !e.author
-            ? null
-            : h(e.author.toJid(), t);
+          if (
+            !o(
+              "WAWebStatusGatingUtils",
+            ).isStatusViewerSidePosterIdentifiersEnabled()
+          )
+            return null;
+          if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
+            var n,
+              r = (n = e.id.remote) == null ? void 0 : n.toJid();
+            return r == null ? null : h(r, t);
+          }
+          return e.author ? h(e.author.toJid(), t) : null;
         })),
         _.apply(this, arguments)
       );

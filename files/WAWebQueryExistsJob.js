@@ -266,23 +266,31 @@ __d(
             }
             if (n != null) {
               var s = !1,
-                u;
+                u = !1,
+                c;
               if (t != null) {
-                var c = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                var d = yield o("WAWebSetUsernameJob").setUsernamesJob([
                     { userId: n, username: t },
                   ]),
-                  d = c.get(n.toString());
-                ((s = (d == null ? void 0 : d.wasUpdated) === !0),
-                  (u = d == null ? void 0 : d.oldUsername));
+                  m = d.get(n.toString());
+                ((s = (m == null ? void 0 : m.wasUpdated) === !0),
+                  (u = (m == null ? void 0 : m.wasPreviouslyKnown) === !0),
+                  (c = m == null ? void 0 : m.oldUsername));
               } else if (r === !0) {
-                var m = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                var _ = yield o("WAWebSetUsernameJob").setUsernamesJob([
                     { userId: n, deleteUsername: !0 },
                   ]),
-                  _ = m.get(n.toString());
-                ((s = (_ == null ? void 0 : _.wasUpdated) === !0),
-                  (u = _ == null ? void 0 : _.oldUsername));
+                  f = _.get(n.toString());
+                ((s = (f == null ? void 0 : f.wasUpdated) === !0),
+                  (u = (f == null ? void 0 : f.wasPreviouslyKnown) === !0),
+                  (c = f == null ? void 0 : f.oldUsername));
               }
-              return { username: t, wasUpdated: s, oldUsername: u };
+              return {
+                username: t,
+                wasUpdated: s,
+                wasPreviouslyKnown: u,
+                oldUsername: c,
+              };
             }
           }
         })),

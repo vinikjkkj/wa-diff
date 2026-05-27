@@ -5,8 +5,8 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCommonMsgSubtypeTypes",
+    "WAWebContactSystemMsg",
     "WAWebHandleSingleMsg",
-    "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebScheduledMessagesGatingUtils",
@@ -14,7 +14,6 @@ __d(
     "WAWebScheduledMsgOrphanRevealKeyStore",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebScheduledMsgStore",
-    "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -87,7 +86,7 @@ __d(
                       "[scheduled_msg] stored phone-scheduled message in scheduled list",
                     ])),
                 ),
-                yield $(t, i))
+                yield $(t))
               : o("WALogger").WARN(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -119,35 +118,24 @@ __d(
         x.apply(this, arguments)
       );
     }
-    function $(e, t) {
+    function $(e) {
       return P.apply(this, arguments);
     }
     function P() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var n = o("WAWebWidFactory").createWid(e),
-              a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-              i = new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: n,
-                id: "SYSSCHED" + t,
-              }),
-              l = {
-                id: i,
+            var t = o("WAWebWidFactory").createWid(e),
+              n = o("WAWebContactSystemMsg").genNotificationMsg(t, {
                 type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
+                kind: o("WAWebMsgType").MsgKind.Notification,
                 subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
                   .ScheduledMessageCreated,
-                kind: o("WAWebMsgType").MsgKind.Notification,
-                from: a,
-                to: n,
-                t: o("WATimeUtils").unixTime(),
-                isNewMsg: !0,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              };
+              });
             (yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
-              chatId: n,
-              newMsg: l,
+              chatId: t,
+              newMsg: n,
               handleSingleMsgOrigin: "scheduledMsgInline",
             }),
               o("WALogger").LOG(

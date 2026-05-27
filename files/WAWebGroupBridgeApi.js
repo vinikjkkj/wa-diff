@@ -93,6 +93,21 @@ __d(
         (e = r("WAWebGroupMetadataCollection").get(n)) == null ||
           e.set({ isOpenBotGroup: o });
       },
+      updateParticipantsGroupHistorySentState: function (t) {
+        var e,
+          n = t.group,
+          o = t.receiverIds,
+          a = t.state,
+          i =
+            (e = r("WAWebGroupMetadataCollection").get(n)) == null
+              ? void 0
+              : e.participants;
+        if (i != null)
+          for (var l of o) {
+            var s;
+            (s = i.get(l)) == null || s.set({ groupHistorySentState: a });
+          }
+      },
     };
     l.GroupBridgeApi = e;
   },

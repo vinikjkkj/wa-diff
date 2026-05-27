@@ -178,6 +178,7 @@ __d(
         AI_MEDIA_COLLECTION_MESSAGE: 31,
         MESSAGE_UNSCHEDULE: 32,
         CHAT_THEME_SETTING: 34,
+        AI_METADATA_OPERATION: 35,
       }),
       ee = d({ UNKNOWN: 0, CONTROL_PASSED: 1, CONTROL_TAKEN: 2, INFO: 3 }),
       te = d({ USER_VIDEO: 0, AI_GENERATED: 1 }),
@@ -1108,6 +1109,7 @@ __d(
         uuid: [1, e.TYPES.STRING],
         data: [2, e.TYPES.STRING],
         type: [3, e.TYPES.STRING],
+        fallback: [4, e.TYPES.STRING],
       }),
       (Ut.name = "Message$InteractiveMessage$Footer"),
       (Ut.internalSpec = {
@@ -1819,6 +1821,7 @@ __d(
         ],
         afterReadDuration: [29, e.TYPES.UINT32],
         chatThemeSetting: [30, e.TYPES.MESSAGE, hr],
+        aiMetadataOperation: [31, e.TYPES.MESSAGE, u.AIMetadataOperationSpec],
       }),
       (Cr.name = "Message$CloudAPIThreadControlNotification"),
       (Cr.internalSpec = {
@@ -2567,6 +2570,7 @@ __d(
         groupRootKey: [1, e.TYPES.BYTES],
         keyId: [2, e.TYPES.STRING],
         expiryTimestampMs: [3, e.TYPES.INT64],
+        createdTimestampMs: [4, e.TYPES.INT64],
       }),
       (l.Message$StickerPackMessage$StickerPackOrigin = m),
       (l.Message$PlaceholderMessage$PlaceholderType = p),

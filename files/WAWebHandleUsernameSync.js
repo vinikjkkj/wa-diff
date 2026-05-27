@@ -1,6 +1,11 @@
 __d(
   "WAWebHandleUsernameSync",
-  ["WALogger", "WAWebSetUsernameJob", "asyncToGeneratorRuntime"],
+  [
+    "WALogger",
+    "WAWebInsertUsernameChangeSystemMsg",
+    "WAWebSetUsernameJob",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
@@ -34,7 +39,12 @@ __d(
                     ? [{ userId: e.id, deleteUsername: !0 }]
                     : [{ userId: e.id, username: e.username }];
             });
-          yield o("WAWebSetUsernameJob").setUsernamesJob(a);
+          if (a.length !== 0) {
+            var i = yield o("WAWebSetUsernameJob").setUsernamesJob(a);
+            yield o(
+              "WAWebInsertUsernameChangeSystemMsg",
+            ).maybeInsertUsernameChangeSystemMsgs(a, i, "handleUsernameSync");
+          }
         })),
         u.apply(this, arguments)
       );

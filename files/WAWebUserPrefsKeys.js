@@ -25,6 +25,7 @@ __d(
         "FavoritesLidTableMigrationComplete",
         "LabelAssociationsLidTableMigrationComplete",
         "PhoneNumberHidingThreadPromotionMigrationState",
+        "AfterReadSendingRollbackMigrationState",
         "SNAPLPersistentId",
         "SNAPLNewsLetterPersistentId",
         "MusicEligibleCountries",

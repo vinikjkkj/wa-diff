@@ -57,7 +57,7 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = {
               iqFrom: o("WAWebWidToJid").widToUserJid(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMeUser(),
               ),
               descriptionElementValue: e,
               debugInformationJsonArgs: { debugInformationJsonElementValue: t },

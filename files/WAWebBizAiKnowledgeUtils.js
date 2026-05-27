@@ -22,7 +22,7 @@ __d(
                       : e === "shipping_policy"
                         ? { shipping_policy: t }
                         : e === "website"
-                          ? { website: t }
+                          ? { websites: t === "" ? [] : [{ website_url: t }] }
                           : { description: t };
     }
     i.buildKnowledgeInput = e;

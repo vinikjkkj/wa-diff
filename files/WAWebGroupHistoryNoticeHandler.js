@@ -2,6 +2,7 @@ __d(
   "WAWebGroupHistoryNoticeHandler",
   [
     "WALogger",
+    "WAWebBackendApi",
     "WAWebGroupHistoryPostJoinTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
@@ -82,7 +83,16 @@ __d(
                         return e.apply(this, arguments);
                       };
                     })(),
-                  ));
+                  ),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateParticipantsGroupHistorySentState",
+                  {
+                    group: a,
+                    receiverIds: l,
+                    state: o("WAWebGroupHistoryPostJoinTypes.flow")
+                      .GroupHistorySentState.NOTICE_SENT,
+                  },
+                ));
             }
           }
         })),

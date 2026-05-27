@@ -4,6 +4,7 @@ __d(
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
     "WAWebGroupType",
     "WAWebHandleGroupNotificationConst",
+    "WAWebInsertUsernameChangeSystemMsg",
     "WAWebSetUsernameJob",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
@@ -22,90 +23,105 @@ __d(
             ).lidGroupMigrationNonMemberIQEnabled(),
             r = [],
             a = [];
-          (e.forEach(function (e) {
-            var i;
-            if (
-              ((i = e.participants) == null ||
-                i.forEach(function (e) {
-                  var n = e.displayName,
-                    i = e.id,
-                    l = e.lid,
-                    s = e.phoneNumber,
-                    u = e.username;
-                  (r.push({
-                    id: o("WAWebWidFactory").asUserWidOrThrow(i),
-                    lid: l ? o("WAWebWidFactory").asUserWidOrThrow(l) : null,
-                    phoneNumber: s
-                      ? o("WAWebWidFactory").asUserWidOrThrow(s)
-                      : null,
-                    displayName: n,
-                  }),
-                    t &&
-                      u != null &&
-                      a.push({
-                        userId: o("WAWebWidFactory").asUserWidOrThrow(i),
-                        username: u,
-                      }));
-                }),
-              n)
-            ) {
+          if (
+            (e.forEach(function (e) {
+              var i;
               if (
-                (e.subjectOwner &&
-                  r.push({
-                    id: e.subjectOwner,
-                    lid: e.subjectOwner.isLid() ? e.subjectOwner : null,
-                    phoneNumber: e.subjectOwnerPn,
+                ((i = e.participants) == null ||
+                  i.forEach(function (e) {
+                    var n = e.displayName,
+                      i = e.id,
+                      l = e.lid,
+                      s = e.phoneNumber,
+                      u = e.username;
+                    (r.push({
+                      id: o("WAWebWidFactory").asUserWidOrThrow(i),
+                      lid: l ? o("WAWebWidFactory").asUserWidOrThrow(l) : null,
+                      phoneNumber: s
+                        ? o("WAWebWidFactory").asUserWidOrThrow(s)
+                        : null,
+                      displayName: n,
+                    }),
+                      t &&
+                        u != null &&
+                        a.push({
+                          userId: o("WAWebWidFactory").asUserWidOrThrow(i),
+                          username: u,
+                        }));
                   }),
-                e.owner)
+                n)
               ) {
-                var l;
-                r.push({
-                  id: e.owner,
-                  lid: (l = e.owner) != null && l.isLid() ? e.owner : null,
-                  phoneNumber: e.creatorPn,
-                });
+                if (
+                  (e.subjectOwner &&
+                    r.push({
+                      id: e.subjectOwner,
+                      lid: e.subjectOwner.isLid() ? e.subjectOwner : null,
+                      phoneNumber: e.subjectOwnerPn,
+                    }),
+                  e.owner)
+                ) {
+                  var l;
+                  r.push({
+                    id: e.owner,
+                    lid: (l = e.owner) != null && l.isLid() ? e.owner : null,
+                    phoneNumber: e.creatorPn,
+                  });
+                }
+                if (e.descOwner) {
+                  var s;
+                  r.push({
+                    id: e.descOwner,
+                    lid:
+                      (s = e.descOwner) != null && s.isLid()
+                        ? e.descOwner
+                        : null,
+                    phoneNumber: e.descOwnerPn,
+                  });
+                }
               }
-              if (e.descOwner) {
-                var s;
-                r.push({
-                  id: e.descOwner,
-                  lid:
-                    (s = e.descOwner) != null && s.isLid() ? e.descOwner : null,
-                  phoneNumber: e.descOwnerPn,
-                });
-              }
-            }
-            if (t) {
-              if (e.owner) {
-                var u = o(
-                  "WAWebSetUsernameJob",
-                ).maybeCreateSetUsernameInfoJobArg({
-                  userId: o("WAWebWidFactory").asUserWidOrThrow(e.owner),
-                  username: e.creatorUsername,
-                  usernameCountryCode: e.creatorCountryCode,
-                });
-                u && a.push(u);
-              }
-              (e.subjectOwner &&
-                e.subjectOwnerUsername != null &&
-                a.push({
-                  username: e.subjectOwnerUsername,
-                  userId: o("WAWebWidFactory").asUserWidOrThrow(e.subjectOwner),
-                }),
-                e.descOwner &&
-                  e.descOwnerUsername != null &&
+              if (t) {
+                if (e.owner) {
+                  var u = o(
+                    "WAWebSetUsernameJob",
+                  ).maybeCreateSetUsernameInfoJobArg({
+                    userId: o("WAWebWidFactory").asUserWidOrThrow(e.owner),
+                    username: e.creatorUsername,
+                    usernameCountryCode: e.creatorCountryCode,
+                  });
+                  u && a.push(u);
+                }
+                (e.subjectOwner &&
+                  e.subjectOwnerUsername != null &&
                   a.push({
-                    username: e.descOwnerUsername,
-                    userId: o("WAWebWidFactory").asUserWidOrThrow(e.descOwner),
-                  }));
-            }
-          }),
+                    username: e.subjectOwnerUsername,
+                    userId: o("WAWebWidFactory").asUserWidOrThrow(
+                      e.subjectOwner,
+                    ),
+                  }),
+                  e.descOwner &&
+                    e.descOwnerUsername != null &&
+                    a.push({
+                      username: e.descOwnerUsername,
+                      userId: o("WAWebWidFactory").asUserWidOrThrow(
+                        e.descOwner,
+                      ),
+                    }));
+              }
+            }),
             yield o(
               "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
             ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(r, !0),
-            t &&
-              a.length > 0 &&
-              (yield o("WAWebSetUsernameJob").setUsernamesJob(a)));
+            t && a.length > 0)
+          ) {
+            var i = yield o("WAWebSetUsernameJob").setUsernamesJob(a);
+            yield o(
+              "WAWebInsertUsernameChangeSystemMsg",
+            ).maybeInsertUsernameChangeSystemMsgs(
+              a,
+              i,
+              "processParsedGroupInfosForLidMappingAndUsernames",
+            );
+          }
         })),
         s.apply(this, arguments)
       );
@@ -212,12 +228,21 @@ __d(
               d && i.push(d);
             }
           }
-          (yield o(
-            "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-          ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(a, t),
-            r &&
-              i.length > 0 &&
-              (yield o("WAWebSetUsernameJob").setUsernamesJob(i)));
+          if (
+            (yield o(
+              "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
+            ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(a, t),
+            r && i.length > 0)
+          ) {
+            var m = yield o("WAWebSetUsernameJob").setUsernamesJob(i);
+            yield o(
+              "WAWebInsertUsernameChangeSystemMsg",
+            ).maybeInsertUsernameChangeSystemMsgs(
+              i,
+              m,
+              "processParsedGroupNotificationForLidMappingAndUsernames",
+            );
+          }
         })),
         c.apply(this, arguments)
       );

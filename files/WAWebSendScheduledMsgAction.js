@@ -3,15 +3,14 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WATimeUtils",
     "WAWebCommonMsgSubtypeTypes",
+    "WAWebContactSystemMsg",
     "WAWebDBProcessMessage",
     "WAWebLidMigrationFrontendUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgInfoUtils",
-    "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
@@ -136,7 +135,7 @@ __d(
                 );
               }
               try {
-                yield p(c, m.id.id);
+                yield p(c);
               } catch (e) {
                 o("WALogger")
                   .ERROR(
@@ -154,31 +153,21 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t) {
+    function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (r("WAWebMsgKey"))({
-              fromMe: !0,
-              remote: e.id,
-              id: "SYSSCHED" + t,
-            }),
-            a = {
-              id: n,
-              type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
-              subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-                .ScheduledMessageCreated,
-              kind: o("WAWebMsgType").MsgKind.Notification,
-              from: e.id,
-              to: e.id,
-              t: o("WATimeUtils").unixTime(),
-              isNewMsg: !0,
-              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            };
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebContactSystemMsg").genNotificationMsg(e.id, {
+            type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
+            kind: o("WAWebMsgType").MsgKind.Notification,
+            subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
+              .ScheduledMessageCreated,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          });
           try {
-            yield o("WAWebDBProcessMessage").storeMessages([a], e.id);
+            yield o("WAWebDBProcessMessage").storeMessages([t], e.id);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -190,8 +179,8 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("scheduled-msg-sys-persist-error");
           }
-          var i = new (o("WAWebMsgModel").Msg)(a);
-          e.msgs.add(i);
+          var n = new (o("WAWebMsgModel").Msg)(t);
+          e.msgs.add(n);
         })),
         _.apply(this, arguments)
       );

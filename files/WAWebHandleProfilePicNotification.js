@@ -120,10 +120,7 @@ __d(
                           l,
                           _,
                           a.ts,
-                          a.author ||
-                            o(
-                              "WAWebUserPrefsMeUser",
-                            ).getMePnUserOrThrow_DO_NOT_USE(),
+                          a.author || o("WAWebUserPrefsMeUser").getMeUser(),
                         );
                         return o(
                           "WAWebHandleSingleMsgWorkerCompatible",

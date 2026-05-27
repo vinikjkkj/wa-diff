@@ -264,6 +264,23 @@ __d(
             );
           n && n.delete();
         },
+        updateChatChangeNumberJids: function (t) {
+          var e = t.updates;
+          e.forEach(function (e) {
+            var t = o("WAWebChatCollection").ChatCollection.get(
+              o("WAWebWidFactory").createWid(e.id),
+            );
+            t &&
+              ((t.changeNumberNewJid =
+                e.changeNumberNewJid != null
+                  ? o("WAWebWidFactory").createWid(e.changeNumberNewJid)
+                  : void 0),
+              (t.changeNumberOldJid =
+                e.changeNumberOldJid != null
+                  ? o("WAWebWidFactory").createWid(e.changeNumberOldJid)
+                  : void 0));
+          });
+        },
       };
     l.ChatBridgeApi = m;
   },

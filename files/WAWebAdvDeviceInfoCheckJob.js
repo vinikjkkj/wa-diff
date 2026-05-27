@@ -172,10 +172,7 @@ __d(
               r = e.some(function (e) {
                 var t = e[0],
                   n = e[1];
-                return (
-                  t.user ===
-                  o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user
-                );
+                return t.user === o("WAWebUserPrefsMeUser").getMeUser().user;
               });
             return r &&
               o("WAWebABProps").getABPropConfigValue(

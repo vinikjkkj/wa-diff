@@ -20,38 +20,15 @@ __d(
     function d(t, n, r, a, i, l, d, m, p) {
       if ((l == null ? void 0 : l.timestamp) != null && r < l.timestamp)
         return null;
-      var _ = null;
-      if (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        n != null &&
-        n.some(function (e) {
-          return !!e.isHosted;
-        })
-      ) {
-        if (
-          ((_ = o(
-            "WAWebHandleAdvDeviceNotificationUtils",
-          ).verifySKeyIndexWithAccSigKey(t, a)),
-          !_)
-        )
-          return null;
-      } else {
-        if (p !== void 0) _ = p;
-        else {
-          if (i == null) return null;
-          _ = o(
-            "WAWebHandleAdvDeviceNotificationUtils",
-          ).decodeSignedKeyIndexBytes(i, a);
-        }
-        if (!_) return null;
-      }
-      var f = _.rawId,
-        g = o("WALongInt").numberOrThrowIfTooLarge(_.timestamp),
-        h = null;
+      var f = _(t, n, a, i, p);
+      if (!f) return null;
+      var g = f.rawId,
+        h = o("WALongInt").numberOrThrowIfTooLarge(f.timestamp),
+        y = null;
       if (
         (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          ((h = _.accountType),
-          h === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+          ((y = f.accountType),
+          y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -63,25 +40,25 @@ __d(
             o(
               "WAWebBizCoexHostedAddVerification",
             ).addToCoexHostedVerificationCache(t))),
-        g !== r)
+        h !== r)
       )
         return null;
-      var y = !1,
-        C = null,
-        b = n;
+      var C = !1,
+        b = null,
+        v = n;
       if (l && !l.deleted) {
         if (
-          (b == null && (b = l.devices),
-          l.rawId !== f ? (y = !0) : (C = l.devices),
+          (v == null && (v = l.devices),
+          l.rawId !== g ? (C = !0) : (b = l.devices),
           o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled())
         ) {
-          var v =
-            (l.advAccountType != null && l.advAccountType !== h) ||
+          var S =
+            (l.advAccountType != null && l.advAccountType !== y) ||
             (l != null &&
-              h === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-              h !== (l == null ? void 0 : l.advAccountType));
-          v &&
-            ((y = !0),
+              y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+              y !== (l == null ? void 0 : l.advAccountType));
+          S &&
+            ((C = !0),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,35 +66,35 @@ __d(
                   " for ",
                   "",
                 ])),
-              h,
+              y,
               t == null ? void 0 : t.toLogString(),
             ));
         }
       } else if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        var S =
-          h === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+        var R =
+          y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
           (l == null ? void 0 : l.deletedChangedToHost) !== !0;
-        S && (y = !0);
+        R && (C = !0);
       }
-      var R = new Map(),
-        L = new Set(_.validIndexes),
-        E = _.currentIndex || 0;
-      (b &&
-        b.forEach(function (e) {
+      var L = new Map(),
+        E = new Set(f.validIndexes),
+        k = f.currentIndex || 0;
+      (v &&
+        v.forEach(function (e) {
           var t = e.keyIndex;
           t != null &&
-            L.has(t) &&
+            E.has(t) &&
             (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
               e.id === c &&
               (e.isHosted === !0 || s(0, 76137)),
-            R.set(e.id, t));
+            L.set(e.id, t));
         }),
-        C != null &&
-          C.forEach(function (e) {
-            e.keyIndex > E && R.set(e.id, e.keyIndex);
+        b != null &&
+          b.forEach(function (e) {
+            e.keyIndex > k && L.set(e.id, e.keyIndex);
           }),
-        R.set(o("WAJids").DEFAULT_DEVICE_ID, 0));
-      var k = Array.from(R.entries()).map(function (e) {
+        L.set(o("WAJids").DEFAULT_DEVICE_ID, 0));
+      var I = Array.from(L.entries()).map(function (e) {
           var t = e[0],
             n = e[1];
           return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
@@ -125,32 +102,32 @@ __d(
             ? { id: t, keyIndex: n, isHosted: !0 }
             : { id: t, keyIndex: n };
         }),
-        I = g,
-        T = {
+        T = h,
+        D = {
           id: o("WAWebDeviceListPk").createDeviceListPK(t),
-          rawId: f,
-          timestamp: I,
-          validIndexes: Array.from(L),
-          devices: k,
-          currentIndex: _.currentIndex,
+          rawId: g,
+          timestamp: T,
+          validIndexes: Array.from(E),
+          devices: I,
+          currentIndex: f.currentIndex,
           deleted: !1,
-          advAccountType: h,
+          advAccountType: y,
         };
       return (
-        !y &&
-          !o("WAWebAdvExpectedTsApi").shouldClearExpectedTs(g, m, l, d) &&
+        !C &&
+          !o("WAWebAdvExpectedTsApi").shouldClearExpectedTs(h, m, l, d) &&
           l &&
           !l.deleted &&
-          ((T.expectedTs = l.expectedTs),
-          (T.expectedTsLastDeviceJobTs = l.expectedTsLastDeviceJobTs),
-          (T.expectedTsUpdateTs = l.expectedTsUpdateTs)),
-        _.identityUpdatePromise
+          ((D.expectedTs = l.expectedTs),
+          (D.expectedTsLastDeviceJobTs = l.expectedTsLastDeviceJobTs),
+          (D.expectedTsUpdateTs = l.expectedTsUpdateTs)),
+        f.identityUpdatePromise
           ? {
-              update: T,
-              clearRecord: y,
-              identityUpdatePromise: _.identityUpdatePromise,
+              update: D,
+              clearRecord: C,
+              identityUpdatePromise: f.identityUpdatePromise,
             }
-          : { update: T, clearRecord: y }
+          : { update: D, clearRecord: C }
       );
     }
     function m(e, t, n, r, o, a, i, l, s) {
@@ -165,6 +142,23 @@ __d(
         )),
         p.apply(this, arguments)
       );
+    }
+    function _(e, t, n, r, a) {
+      return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
+        t != null &&
+        t.some(function (e) {
+          return !!e.isHosted;
+        })
+        ? o(
+            "WAWebHandleAdvDeviceNotificationUtils",
+          ).verifySKeyIndexWithAccSigKey(e, n)
+        : a !== void 0
+          ? a
+          : r == null
+            ? null
+            : o(
+                "WAWebHandleAdvDeviceNotificationUtils",
+              ).decodeSignedKeyIndexBytes(r, n);
     }
     ((l.handleKeyIndexResultSync = d), (l.handleKeyIndexResult = m));
   },

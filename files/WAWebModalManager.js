@@ -80,10 +80,14 @@ __d(
     function d() {
       u.closeSupportOrModal();
     }
+    function m() {
+      u.closeAlert();
+    }
     ((l.ModalManagerImpl = s),
       (l.ModalManager = u),
       (l.closeModalManager = c),
-      (l.closeSupportOrModal = d));
+      (l.closeSupportOrModal = d),
+      (l.closeAlertModal = m));
   },
   98,
 );
