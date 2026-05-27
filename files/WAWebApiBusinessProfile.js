@@ -4,7 +4,7 @@ __d(
     "invariant",
     "Promise",
     "WALogger",
-    "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebBotTypes",
     "WAWebLidMigrationUtils",
     "WAWebSchemaBusinessProfile",
@@ -72,7 +72,7 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o(
-            "WAWebBizGatingUtils",
+            "WAWebBizProfileGatingUtils",
           ).isLidMigrationForBusinessProfileEnabled()
             ? o("WAWebWidFactory").createWid(e).isLid()
               ? f(e)
@@ -138,7 +138,9 @@ __d(
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            !o("WAWebBizGatingUtils").isLidMigrationForBusinessProfileEnabled()
+            !o(
+              "WAWebBizProfileGatingUtils",
+            ).isLidMigrationForBusinessProfileEnabled()
           )
             return v(e);
           var t = o("WAWebWidFactory").createWid(e);
@@ -169,7 +171,7 @@ __d(
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.id,
             r = o(
-              "WAWebBizGatingUtils",
+              "WAWebBizProfileGatingUtils",
             ).isLidMigrationForBusinessProfileEnabled()
               ? o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t)
               : [t];

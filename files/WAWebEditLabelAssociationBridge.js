@@ -3,10 +3,10 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebBizGatingUtils",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebLabelJidSync",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebSchemaLabelAssociation",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
@@ -36,7 +36,7 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             !(
-              o("WAWebBizGatingUtils").canEditLabelAssociation() ||
+              o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
               o("WAWebListsGatingUtils").isListsEnabled()
             )
           )

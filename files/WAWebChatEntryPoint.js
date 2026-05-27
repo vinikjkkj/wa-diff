@@ -56,7 +56,6 @@ __d(
       "NewBroadcastCreation",
       "InfoDrawer",
       "ExistingGroupRedirect",
-      "InChatNavigation",
       "InChatJumpToBottom",
       "InChatLoadAroundFallback",
       "InChatJumpBackToContext",

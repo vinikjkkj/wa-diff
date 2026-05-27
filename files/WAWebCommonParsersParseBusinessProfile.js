@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizCoexGatingUtils",
     "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileTypes",
     "cr:5664",
@@ -186,7 +187,7 @@ __d(
         ge = fe
           ? { id: fe.attrString("id"), url: new URL(fe.contentString()) }
           : void 0;
-      if (o("WAWebBizGatingUtils").isCustomURLViaBizProfileEnabled()) {
+      if (o("WAWebBizProfileGatingUtils").isCustomURLViaBizProfileEnabled()) {
         var he = e.maybeChild("custom_url");
         he && (ie = he.contentString());
       }

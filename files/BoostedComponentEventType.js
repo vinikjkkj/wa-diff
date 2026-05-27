@@ -1638,6 +1638,8 @@ __d(
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:
         "proactive_results_delivery_skipped_not_opted_in",
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",
+      PROACTIVE_PIPELINE_ELIGIBLE: "proactive_pipeline_eligible",
+      PROACTIVE_PIPELINE_FETCH: "proactive_pipeline_fetch",
     });
     i.default = e;
   },

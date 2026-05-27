@@ -2,7 +2,6 @@ __d(
   "WAWebChatContextMenu",
   [
     "fbt",
-    "WAWebBizGatingUtils",
     "WAWebChatAssignmentUtils",
     "WAWebChatAssignmentWithContainerIcon.react",
     "WAWebChatCellDebugMenuItems.react",
@@ -22,6 +21,7 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WDSIconIcDoNotDisturbOn.react",
@@ -73,7 +73,7 @@ __d(
         );
       var _ = o("WAWebListsGatingUtils").isListsEnabled();
       if (
-        (o("WAWebBizGatingUtils").canEditLabelAssociation() &&
+        (o("WAWebListsLabelGatingUtils").canEditLabelAssociation() &&
           !_ &&
           p.push(
             u.jsx(

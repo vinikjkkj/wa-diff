@@ -479,8 +479,10 @@ __d(
                   this.listenTo(
                     d.recipients,
                     "change:contact.formattedShortName",
-                    function () {
-                      return o("WAWebChatGroupUtils").updateTitle(n);
+                    function (e, t) {
+                      var r = d.recipients.get(e.id);
+                      (r != null && (r.formattedShortName = t),
+                        o("WAWebChatGroupUtils").updateTitle(n));
                     },
                   )));
             }

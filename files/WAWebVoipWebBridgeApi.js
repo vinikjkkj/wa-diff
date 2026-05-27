@@ -562,35 +562,39 @@ __d(
                 o("WAWebVoipCallStateUtils").isCallConnected(a),
               ));
           }
-          (o("WAWebVoipCallStateUtils").isCallTerminal(a) &&
-            T &&
-            (o(
-              "WAWebInCallWaitingRoomNotificationHelper",
-            ).closeInCallWaitingRoomNotification(n.callId),
-            r("WAWebCallCollection").setActiveCall(null),
-            r("WAWebCallCollection").setIsInConnectedCall(!1)),
+          if (
+            (o("WAWebVoipCallStateUtils").isCallTerminal(a) &&
+              T &&
+              (o(
+                "WAWebInCallWaitingRoomNotificationHelper",
+              ).closeInCallWaitingRoomNotification(n.callId),
+              r("WAWebCallCollection").setActiveCall(null),
+              r("WAWebCallCollection").setIsInConnectedCall(!1)),
+            !r("WAWebEnvironment").isGuest)
+          ) {
             n.isCaller ||
               o("WAWebVoipActivityTracker").trackActivity(
                 o("WAWebVoipActivityTracker").VoipActivity
                   .INCOMING_CALL_MSG_GENERATING,
+              );
+            var x = yield o(
+                "WAWebVoipActionWriteCallLogCallStateChanged",
+              ).generateCallLogFromCallStateChangedEvent(n),
+              $ = r("WAWebCallCollection").activeCall;
+            x &&
+              $ &&
+              (n.isCaller ||
+                o("WAWebVoipActivityTracker").trackActivity(
+                  o("WAWebVoipActivityTracker").VoipActivity
+                    .INCOMING_CALL_MSG_READY,
+                ),
+              ($.msg = x),
+              $.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
+                ),
               ));
-          var x = yield o(
-              "WAWebVoipActionWriteCallLogCallStateChanged",
-            ).generateCallLogFromCallStateChangedEvent(n),
-            $ = r("WAWebCallCollection").activeCall;
-          x &&
-            $ &&
-            (n.isCaller ||
-              o("WAWebVoipActivityTracker").trackActivity(
-                o("WAWebVoipActivityTracker").VoipActivity
-                  .INCOMING_CALL_MSG_READY,
-              ),
-            ($.msg = x),
-            $.trigger(
-              o("WAWebVoipEventConstants").getChangeEvent(
-                o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
-              ),
-            ));
+          }
         });
         function t(t) {
           return e.apply(this, arguments);

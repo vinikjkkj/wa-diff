@@ -2,7 +2,7 @@ __d(
   "WAWebHandleBusinessNameChangeLidHelpers",
   [
     "Promise",
-    "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebHandleBusinessRemoval",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
@@ -13,7 +13,9 @@ __d(
     function s(e) {
       return e
         .map(function (e) {
-          var t = o("WAWebBizGatingUtils").isLidMigrationForVnameEnabled()
+          var t = o(
+            "WAWebBizProfileGatingUtils",
+          ).isLidMigrationForVnameEnabled()
             ? o("WAWebLidMigrationUtils").getPnAndLidToUpdate(e.id)
             : [e.id];
           return t.map(function (t) {
@@ -35,7 +37,9 @@ __d(
             .lock(["contact", "verified-business-name"], function (r) {
               var a = r[0],
                 i = r[1],
-                l = o("WAWebBizGatingUtils").isLidMigrationForVnameEnabled()
+                l = o(
+                  "WAWebBizProfileGatingUtils",
+                ).isLidMigrationForVnameEnabled()
                   ? o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t)
                   : [t];
               return (e || (e = n("Promise"))).all(

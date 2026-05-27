@@ -6,6 +6,7 @@ __d(
     "WASyncdConst",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
+    "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebAccountLinkingUtils",
     "WAWebSyncdAction",
@@ -44,8 +45,14 @@ __d(
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var n = this,
-                  a,
+                var n = this;
+                if (o("WAWebAccountLinkingGatingUtils").isGuestMode())
+                  return t.map(function () {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Success,
+                    };
+                  });
+                var a,
                   i = 0,
                   l = 0,
                   c = t.map(function (e) {

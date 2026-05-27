@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBotUtils",
+    "WAWebForwardDocCaptionGating",
     "WAWebFrontendMsgGetters",
     "WAWebGetAiBotContextForForwardedMsg",
     "WAWebGetNewsletterContextForForwardedMsg",
@@ -165,6 +166,11 @@ __d(
               F.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT ||
               F.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK) &&
             (j = N.caption),
+            F.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT &&
+              j != null &&
+              j === N.filename &&
+              o("WAWebForwardDocCaptionGating").isForwardDocCaptionEnabled() &&
+              (j = void 0),
             o("WAWebBotUtils").isMetaAiBot(x.id) &&
               !r("isStringNullOrEmpty")(T) &&
               r("isStringNullOrEmpty")(j) &&

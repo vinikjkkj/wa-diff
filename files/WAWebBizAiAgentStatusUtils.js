@@ -2,7 +2,6 @@ __d(
   "WAWebBizAiAgentStatusUtils",
   [
     "WAWebBizAiAgentGating",
-    "WAWebBizGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileCollection",
     "WAWebChatGetters",
@@ -11,6 +10,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
@@ -111,7 +111,7 @@ __d(
       return t == null ||
         t.length === 0 ||
         !(
-          o("WAWebBizGatingUtils").canDisplayLabel() ||
+          o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
           o("WAWebListsGatingUtils").isListsEnabled()
         )
         ? !1

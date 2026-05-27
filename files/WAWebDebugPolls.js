@@ -40,7 +40,7 @@ __d(
             ? t
             : r("WAWebNewsletterCollection").getActive();
       if (u == null) throw r("err")("You must open a chat first");
-      var c = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var c = o("WAWebUserPrefsMeUser").getMeUser(),
         d = u.contact.id,
         m = Math.round(Date.now() / 1e3),
         p = new (r("WAWebMsgKey"))({

@@ -6,6 +6,7 @@ __d(
     "WAExponentialBackoffIterator",
     "WALogger",
     "WAWebAccountLinkingDBOperationsAPI",
+    "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingHandler",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebWaffleLifecycleWamLogger",
@@ -14,12 +15,31 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 3,
-      c = 1e3,
-      d = 3e4;
-    function m(e) {
-      e === void 0 && (e = u);
-      var t = { minTimeout: c, maxTimeout: d, retries: e, jitter: 0.5 },
+      u = {
+        generateWAEntACUser: {
+          IQErrorConflict: "server_purge",
+          IQErrorAlreadyExists: "server_pause",
+        },
+        generateAccessTokens: {
+          IQErrorWFStateMismatch: "server_pause",
+          IQErrorConflict: "server_purge",
+          IQErrorNotAuthorized: "server_pause",
+          IQErrorAlreadyExists: "refresh_token",
+        },
+        refreshAccessToken: { IQErrorNotAuthorized: "refetch_certs" },
+        ping: { IQErrorNotAuthorized: "refresh_token" },
+        stateExists: {},
+        linkAction: {
+          IQErrorNotAuthorized: "refresh_token",
+          IQErrorWFStateMismatch: "fail",
+        },
+      },
+      c = 3,
+      d = 1e3,
+      m = 3e4;
+    function p(e) {
+      e === void 0 && (e = c);
+      var t = { minTimeout: d, maxTimeout: m, retries: e, jitter: 0.5 },
         n = o("WAExponentialBackoffIterator").exponentialBackoffIterator(t);
       return {
         nextBackoffMs: function () {
@@ -31,17 +51,44 @@ __d(
         },
       };
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = (n = u[e]) == null ? void 0 : n[t];
+          return r != null
+            ? (o("WAWebWaffleLifecycleWamLogger").logErrorClassification({
+                errorAction: o(
+                  "WAWebWaffleLifecycleWamLogger",
+                ).mapIQErrorActionToWam(r),
+                errorCode: o(
+                  "WAWebWaffleLifecycleWamLogger",
+                ).mapIQErrorNameToWamCode(t),
+              }),
+              y(r))
+            : g(t);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield e === "IQErrorRequestTimeout" ||
           e === "IQErrorRateOverlimit"
             ? (s || (s = n("Promise"))).resolve("retry")
             : e === "IQErrorNotAuthorized"
-              ? (s || (s = n("Promise"))).resolve("request_nonce")
+              ? (s || (s = n("Promise"))).resolve(
+                  o("WAWebAccountLinkingGatingUtils").isGuestMode()
+                    ? "fail"
+                    : "request_nonce",
+                )
               : e === "IQErrorWFNotAuthorizedInvalidPassword"
                 ? (s || (s = n("Promise"))).resolve("fail")
                 : e === "IQErrorWFNotFound" || e === "IQErrorWFStateMismatch"
@@ -57,7 +104,9 @@ __d(
                         .then(function () {
                           return "handled";
                         })
-                    : (s || (s = n("Promise"))).resolve("fail");
+                    : e === "IQErrorPayloadEncDec"
+                      ? (s || (s = n("Promise"))).resolve("refetch_certs")
+                      : (s || (s = n("Promise"))).resolve("fail");
           return (
             o("WAWebWaffleLifecycleWamLogger").logErrorClassification({
               errorAction: o(
@@ -67,18 +116,32 @@ __d(
                 "WAWebWaffleLifecycleWamLogger",
               ).mapIQErrorNameToWamCode(e),
             }),
-            t
+            y(t)
           );
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function y(e) {
+      return !o("WAWebAccountLinkingGatingUtils").isGuestMode() ||
+        o("WAWebAccountLinkingGatingUtils").isWaffleLifecycleEnabled()
+        ? e
+        : e === "retry" ||
+            e === "request_nonce" ||
+            e === "pause" ||
+            e === "purge" ||
+            e === "server_pause" ||
+            e === "server_purge"
+          ? "fail"
+          : e;
     }
-    function g() {
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (o("WAWebAccountLinkingGatingUtils").isGuestMode()) return !1;
           var n = t.nextBackoffMs();
           return n == null
             ? (o("WALogger")
@@ -93,12 +156,12 @@ __d(
             : (yield o("WAAsyncSleep").asyncSleep(n),
               o("WAWebAccountLinkingNonceFetchAPI").requestNonceFromPrimary());
         })),
-        g.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.createWaffleOperationRetryState = m),
-      (l.handleCommonWaffleIQError = p),
-      (l.handleNonceRetry = f));
+    ((l.createWaffleOperationRetryState = p),
+      (l.handleCommonWaffleIQError = _),
+      (l.handleNonceRetry = C));
   },
   98,
 );

@@ -259,18 +259,16 @@ __d(
         n,
         r = e.name;
       if (r != null && r.trim().length > 0) return r;
-      var a = e.contact.name;
-      return a != null && a.trim().length > 0
-        ? a
+      var o = e.contact.name;
+      return o != null && o.trim().length > 0
+        ? o
         : ((t = (n = e.broadcastMetadata) == null ? void 0 : n.recipients) !=
           null
             ? t
             : []
           )
             .map(function (e) {
-              return o("WAWebFrontendContactGetters").getFormattedShortName(
-                e.contact,
-              );
+              return e.formattedShortName;
             })
             .join(", ");
     }

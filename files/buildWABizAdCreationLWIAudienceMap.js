@@ -2,7 +2,7 @@ __d(
   "buildWABizAdCreationLWIAudienceMap",
   [
     "fbt",
-    "WAWebBizGatingUtils",
+    "WAWebBizNativeAdsGatingUtils",
     "emptyObject",
     "jsonParseSafe",
     "waWebBizAdCreationTargetingModalApplyTargetingAutomation",
@@ -13,7 +13,9 @@ __d(
     function u(t) {
       if (t == null) return r("emptyObject");
       var n = {},
-        a = o("WAWebBizGatingUtils").nativeAdsAdvantagePlusAudienceEnabled()
+        a = o(
+          "WAWebBizNativeAdsGatingUtils",
+        ).nativeAdsAdvantagePlusAudienceEnabled()
           ? s._(/*BTDS*/ "Suggested audience").toString()
           : s._(/*BTDS*/ "Default").toString();
       return (
@@ -40,7 +42,7 @@ __d(
               );
             (c &&
               o(
-                "WAWebBizGatingUtils",
+                "WAWebBizNativeAdsGatingUtils",
               ).nativeAdsAdvantagePlusAudienceEnabled() &&
               ((l = d.targeting_automation) == null
                 ? void 0

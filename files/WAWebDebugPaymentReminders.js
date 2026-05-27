@@ -31,7 +31,7 @@ __d(
               );
               return;
             }
-            var f = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            var f = o("WAWebUserPrefsMeUser").getMeUser(),
               g = {
                 cta_action_url: t,
                 due_date: String(Math.floor(n / 1e3)),

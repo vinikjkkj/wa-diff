@@ -12,7 +12,6 @@ __d(
     "WAWebApiContact",
     "WAWebBaseModel",
     "WAWebBizBusinessChangeAction",
-    "WAWebBizGatingUtils",
     "WAWebBizLabelUtils",
     "WAWebBlocklistCollection",
     "WAWebBlocklistMigration",
@@ -34,6 +33,7 @@ __d(
     "WAWebL10N",
     "WAWebL10NAccentFold",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebMetaAiRingAssetResolver",
     "WAWebOptOutListCollection",
     "WAWebPrefixSearchMatchResult",
@@ -536,7 +536,7 @@ __d(
         (a.$Contact$p_9 = function (t, n, a, i) {
           var e = o("WAWebFrontendContactGetters").getSearchName(this);
           if (
-            (o("WAWebBizGatingUtils").canDisplayLabel() ||
+            (o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
               o("WAWebListsGatingUtils").isListsEnabled()) &&
             !r("isStringNullOrEmpty")(a)
           ) {

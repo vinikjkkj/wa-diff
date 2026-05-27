@@ -2,7 +2,7 @@ __d(
   "WAWebBusinessProfileCopyPnDataToLidRows",
   [
     "WALogger",
-    "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebUserPrefsKeys",
@@ -23,7 +23,7 @@ __d(
           if (
             !(
               !o(
-                "WAWebBizGatingUtils",
+                "WAWebBizProfileGatingUtils",
               ).isLidMigrationForBusinessProfileEnabled() ||
               r("WAWebUserPrefsStore").get(
                 o("WAWebUserPrefsKeys").UserPrefs

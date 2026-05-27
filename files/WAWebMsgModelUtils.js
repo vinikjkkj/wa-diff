@@ -17,6 +17,7 @@ __d(
     "WAWebEmojiConst",
     "WAWebFileUtils",
     "WAWebFindChatAction",
+    "WAWebForwardDocCaptionGating",
     "WAWebFrontendMsgGetters",
     "WAWebGetPlainTextFromBotMsg",
     "WAWebGroupMetadataCollection",
@@ -160,12 +161,14 @@ __d(
     }
     function R(e) {
       var t = e.filter(function (e) {
-        return (
-          !o("WAWebMsgGetters").getHasOriginatedFromNewsletter(e) &&
-          (o("WAWebMsgGetters").getIsMedia(e) ||
-            o("WAWebFileUtils").isDocument(e)) &&
-          !!e.caption
-        );
+        return o("WAWebMsgGetters").getHasOriginatedFromNewsletter(e) ||
+          (!o("WAWebMsgGetters").getIsMedia(e) &&
+            !o("WAWebFileUtils").isDocument(e)) ||
+          !e.caption
+          ? !1
+          : o("WAWebFileUtils").isDocument(e) && e.caption === e.filename
+            ? !o("WAWebForwardDocCaptionGating").isForwardDocCaptionEnabled()
+            : !0;
       });
       return t;
     }

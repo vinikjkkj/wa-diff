@@ -6,6 +6,7 @@ __d(
     "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
+    "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
@@ -116,9 +117,11 @@ __d(
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .ACTIVE:
-                  yield o(
-                    "WAWebAccountLinkingNonceFetchAPI",
-                  ).requestNonceFromPrimary();
+                  o("WAWebAccountLinkingGatingUtils").isGuestMode()
+                    ? yield o("WAWebAccountLinkingAPI").refreshAccessToken()
+                    : yield o(
+                        "WAWebAccountLinkingNonceFetchAPI",
+                      ).requestNonceFromPrimary();
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .PAUSED:
@@ -159,9 +162,11 @@ __d(
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .ACTIVE:
-                  yield o(
-                    "WAWebAccountLinkingNonceFetchAPI",
-                  ).requestNonceFromPrimary();
+                  o("WAWebAccountLinkingGatingUtils").isGuestMode()
+                    ? yield o("WAWebAccountLinkingAPI").refreshAccessToken()
+                    : yield o(
+                        "WAWebAccountLinkingNonceFetchAPI",
+                      ).requestNonceFromPrimary();
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .PAUSED:

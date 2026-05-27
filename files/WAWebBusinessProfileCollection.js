@@ -6,7 +6,7 @@ __d(
     "WAWebABPropsLocalStorage",
     "WAWebApiBusinessProfile",
     "WAWebBizBusinessProfileAction",
-    "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebBusinessDirectUtils",
     "WAWebBusinessProfileModel",
     "WAWebBusinessProfileUtils",
@@ -41,7 +41,7 @@ __d(
                 ).directConnectionBusinessNumbersFromAbprop()
               : null,
             i = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync()
-              ? o("WAWebBizGatingUtils").webBizProfileOptions()
+              ? o("WAWebBizProfileGatingUtils").webBizProfileOptions()
               : o("WAWebServerPropConstants")
                   .UNINITIALIZED_VALUE_WEB_BIZ_PROFILE_OPTIONS;
           return (
@@ -49,7 +49,7 @@ __d(
               o("WAWebCmd").Cmd,
               "on_ab_props_update_from_bridge",
               function () {
-                var t = o("WAWebBizGatingUtils").webBizProfileOptions();
+                var t = o("WAWebBizProfileGatingUtils").webBizProfileOptions();
                 (o("WAWebBusinessDirectUtils").isDirectConnectionFlagChanged(
                   i,
                   t,

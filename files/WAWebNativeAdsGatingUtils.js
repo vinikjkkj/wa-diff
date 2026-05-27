@@ -1,12 +1,12 @@
 __d(
   "WAWebNativeAdsGatingUtils",
-  ["WAWebBizGatingUtils"],
+  ["WAWebBizNativeAdsGatingUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       return (
-        o("WAWebBizGatingUtils").nativeAdsDogfoodEnabled() ||
-        (e && o("WAWebBizGatingUtils").nativeAdsMvpQE2Enabled())
+        o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled() ||
+        (e && o("WAWebBizNativeAdsGatingUtils").nativeAdsMvpQE2Enabled())
       );
     }
     function s(e) {
@@ -14,13 +14,15 @@ __d(
         n = e.isQE2Eligible,
         r = e.logExposure;
       return !!(
-        o("WAWebBizGatingUtils").nativeAdsDogfoodEnabled() ||
-        (n && o("WAWebBizGatingUtils").nativeAdsMvpQE2Enabled()) ||
+        o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled() ||
+        (n && o("WAWebBizNativeAdsGatingUtils").nativeAdsMvpQE2Enabled()) ||
         (!n &&
           !t &&
           (r
-            ? o("WAWebBizGatingUtils").nativeAdsMvpQE1Enabled()
-            : o("WAWebBizGatingUtils").nativeAdsMvpQE1EnabledNoExposure()))
+            ? o("WAWebBizNativeAdsGatingUtils").nativeAdsMvpQE1Enabled()
+            : o(
+                "WAWebBizNativeAdsGatingUtils",
+              ).nativeAdsMvpQE1EnabledNoExposure()))
       );
     }
     ((l.isNativeAdsMvpEntrypointEligible = e),

@@ -9,7 +9,7 @@ __d(
     "WAWebApiContact",
     "WAWebApiVerifiedBusinessName",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebCommonParsersVerifiedName",
     "WAWebCommsWapMd",
     "WAWebHandleBusinessRemoval",
@@ -212,7 +212,9 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebBizGatingUtils").isLidMigrationForVnameEnabled()
+          var t = o(
+            "WAWebBizProfileGatingUtils",
+          ).isLidMigrationForVnameEnabled()
             ? o("WAWebLidMigrationUtils").getPnAndLidToUpdate(e.wid)
             : [e.wid];
           yield (s || (s = n("Promise"))).all(

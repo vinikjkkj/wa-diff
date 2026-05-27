@@ -4,6 +4,7 @@ __d(
     "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
+    "WAWebEnvironment",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebLazyLoadedRetriable",
     "WAWebPonyfillsIdleCallback",
@@ -62,21 +63,24 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          (e = o("WAWebVoipQplHelpers")).voipInitQplAddPoint(
-            e.VoipInitQplPoint.WAIT_OFFLINE_DELIVER_START,
-          );
-          try {
-            yield o(
-              "WAWebEventsWaitForOfflineDeliveryEnd",
-            ).waitForOfflineDeliveryEnd({ ignoreInit: !0 });
-          } catch (e) {}
-          (o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-            o("WAWebVoipQplHelpers").VoipInitQplPoint.WAIT_OFFLINE_DELIVER_END,
-          ),
+          if (!r("WAWebEnvironment").isGuest) {
+            var e;
+            (e = o("WAWebVoipQplHelpers")).voipInitQplAddPoint(
+              e.VoipInitQplPoint.WAIT_OFFLINE_DELIVER_START,
+            );
+            try {
+              yield o(
+                "WAWebEventsWaitForOfflineDeliveryEnd",
+              ).waitForOfflineDeliveryEnd({ ignoreInit: !0 });
+            } catch (e) {}
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-              o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_START,
-            ));
+              o("WAWebVoipQplHelpers").VoipInitQplPoint
+                .WAIT_OFFLINE_DELIVER_END,
+            );
+          }
+          o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+            o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_START,
+          );
           var t = o("WAWebVoipGatingUtils").isWebKitBrowser(),
             n = yield o("WAWebVoipWebWasmVariantLoader").loadVoipWasmVariant();
           (o("WAWebVoipQplHelpers").voipInitQplAddPoint(

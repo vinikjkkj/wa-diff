@@ -3,11 +3,11 @@ __d(
   [
     "Promise",
     "WAWebBIzLabelReorderAction",
-    "WAWebBizGatingUtils",
     "WAWebBizLabelUtils",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebSchemaLabel",
     "asyncToGeneratorRuntime",
@@ -36,7 +36,7 @@ __d(
           o("WAWebBIzLabelReorderAction").reorderLabelsAction(e);
         },
         restoreLabels: function () {
-          return o("WAWebBizGatingUtils").canDisplayLabel() ||
+          return o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
             o("WAWebListsGatingUtils").isListsEnabled()
             ? o("WAWebSchemaLabel")
                 .getLabelTable()
@@ -51,7 +51,7 @@ __d(
         restoreLabelAssociations: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             if (
-              o("WAWebBizGatingUtils").canDisplayLabel() ||
+              o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
               o("WAWebListsGatingUtils").isListsEnabled()
             ) {
               var t = [];

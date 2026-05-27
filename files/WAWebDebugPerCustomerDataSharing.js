@@ -99,14 +99,15 @@ __d(
         n = o(
           "WAWebDataSharing3pdLidCollection",
         ).DataSharing3pdLidCollection.get(e);
-      (o("WALogger").LOG(
-        d ||
-          (d = babelHelpers.taggedTemplateLiteralLoose([
-            "[debug] Data sharing status for ",
-            ":",
-          ])),
-        e,
-      ),
+      return (
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[debug] Data sharing status for ",
+              ":",
+            ])),
+          e,
+        ),
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -131,7 +132,9 @@ __d(
                 "",
               ])),
             JSON.stringify(n.toJSON()),
-          ));
+          ),
+        t
+      );
     }
     L.doc =
       "Check data sharing status for a specific customer LID. Returns whether sharing is enabled and shows model details if it exists.";
@@ -207,15 +210,24 @@ __d(
     ((k.doc =
       "Creates and renders a system message of type biz_per_customer_3pd_data_share_opt_in or biz_per_customer_3pd_data_share_opt_out in the current chat."),
       (k.paramsToExecute = []));
-    var I = {
+    function I(e) {
+      if (e.endsWith("@lid"))
+        return { lid: e, pn: e.replace(/@lid$/, "") + "@s.whatsapp.net" };
+      var t = e.replace(/@(?:s\.whatsapp\.net|c\.us)$/, "");
+      return { lid: t + "@lid", pn: t + "@s.whatsapp.net" };
+    }
+    I.doc =
+      "Derive a LID and PN pair from a serialized WID string. Handles both LID-based (@lid) and PN-based (@s.whatsapp.net, @c.us) WIDs.";
+    var T = {
       applyPerCustomerDataSharingMutations: C,
       sendPerCustomerDataSharingMutation: v,
       inspectPerCustomerDataSharingCollection: R,
       checkPerCustomerDataSharingStatus: L,
       clearPerCustomerDataSharingCollection: E,
       renderPerCustomerDataSharingSystemMessage: k,
+      deriveLidPnFromSerializedWid: I,
     };
-    l.default = I;
+    l.default = T;
   },
   98,
 );

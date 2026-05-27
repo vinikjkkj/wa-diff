@@ -10,7 +10,6 @@ __d(
     "WAWebApiChatCommon",
     "WAWebApiOrphanTcToken",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBQueryAndRemoveMessageHistory",
     "WAWebDeleteChatSync",
@@ -18,6 +17,7 @@ __d(
     "WAWebFtsClient",
     "WAWebLabelJidSync",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebMessageRangeUtils",
     "WAWebMobilePlatforms",
     "WAWebModelStorageUtils",
@@ -132,7 +132,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            o("WAWebBizGatingUtils").canEditLabelAssociation() ||
+            o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
             o("WAWebListsGatingUtils").isListsEnabled()
           ) {
             var t = yield _(e),
@@ -313,7 +313,7 @@ __d(
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !(
-              o("WAWebBizGatingUtils").canEditLabelAssociation() ||
+              o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
               o("WAWebListsGatingUtils").isListsEnabled()
             )
           )

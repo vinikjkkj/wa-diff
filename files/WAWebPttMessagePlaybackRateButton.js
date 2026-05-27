@@ -25,7 +25,7 @@ __d(
         },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(15),
+      var t = o("react-compiler-runtime").c(18),
         n = e.onClick,
         a = e.playbackRate,
         i = e.playbackRateButtonIsVisible,
@@ -39,48 +39,57 @@ __d(
           (t[0] = n),
           (t[1] = d))
         : (d = t[1]);
-      var p = d,
-        _ = -1;
-      i && (_ = 0);
-      var f = !i,
-        g = s && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+      var _ = d,
+        f = -1;
+      i && (f = 0);
+      var g = !i,
         h;
-      t[2] !== g ? ((h = [c.wrapper, g]), (t[2] = g), (t[3] = h)) : (h = t[3]);
-      var y = _,
+      t[2] !== a ? ((h = p(a)), (t[2] = a), (t[3] = h)) : (h = t[3]);
+      var y = s && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
         C;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = {
+      t[4] !== y ? ((C = [c.wrapper, y]), (t[4] = y), (t[5] = C)) : (C = t[5]);
+      var b = f,
+        v;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = {
             className:
               "x9f619 x900493 x1nn3v0j x1gabggj x1120s5i xaso8d8 x1nxh6w3 xk50ysn x17t9dm2 x2b8uid xcpsgoo x1142k65 x9okykr x3hdh8v xr0m5pc x1muecih",
           }),
-          (t[4] = C))
-        : (C = t[4]);
-      var b;
-      t[5] !== a ? ((b = m(a)), (t[5] = a), (t[6] = b)) : (b = t[6]);
-      var v;
-      t[7] !== b
-        ? ((v = u.jsx("div", babelHelpers.extends({}, C, { children: b }))),
-          (t[7] = b),
-          (t[8] = v))
-        : (v = t[8]);
+          (t[6] = v))
+        : (v = t[6]);
       var S;
+      t[7] !== a ? ((S = m(a)), (t[7] = a), (t[8] = S)) : (S = t[8]);
+      var R;
+      t[9] !== S
+        ? ((R = u.jsx("div", babelHelpers.extends({}, v, { children: S }))),
+          (t[9] = S),
+          (t[10] = R))
+        : (R = t[10]);
+      var L;
       return (
-        t[9] !== p || t[10] !== f || t[11] !== h || t[12] !== v || t[13] !== _
-          ? ((S = u.jsx(r("WAWebUnstyledButton.react"), {
-              "aria-hidden": f,
-              xstyle: h,
-              tabIndex: y,
-              onClick: p,
-              children: v,
+        t[11] !== _ ||
+        t[12] !== g ||
+        t[13] !== h ||
+        t[14] !== C ||
+        t[15] !== R ||
+        t[16] !== f
+          ? ((L = u.jsx(r("WAWebUnstyledButton.react"), {
+              "aria-hidden": g,
+              "aria-label": h,
+              xstyle: C,
+              tabIndex: b,
+              onClick: _,
+              children: R,
             })),
-            (t[9] = p),
-            (t[10] = f),
-            (t[11] = h),
-            (t[12] = v),
-            (t[13] = _),
-            (t[14] = S))
-          : (S = t[14]),
-        S
+            (t[11] = _),
+            (t[12] = g),
+            (t[13] = h),
+            (t[14] = C),
+            (t[15] = R),
+            (t[16] = f),
+            (t[17] = L))
+          : (L = t[17]),
+        L
       );
     }
     function m(e) {
@@ -92,6 +101,20 @@ __d(
         case 2:
           return s._(/*BTDS*/ "2\u00d7");
       }
+    }
+    function p(e) {
+      return e === 1
+        ? s._(/*BTDS*/ "Change playback speed, currently 1\u00d7")
+        : e === 1.5
+          ? s._(/*BTDS*/ "Change playback speed, currently 1.5\u00d7")
+          : e === 2
+            ? s._(/*BTDS*/ "Change playback speed, currently 2\u00d7")
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
     }
     l.default = d;
   },

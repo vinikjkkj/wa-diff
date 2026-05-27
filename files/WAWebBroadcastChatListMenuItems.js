@@ -2,7 +2,6 @@ __d(
   "WAWebBroadcastChatListMenuItems",
   [
     "WAWebBizBroadcastsCreationStrings",
-    "WAWebBizGatingUtils",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebChatCellDebugMenuItems.react",
     "WAWebChatContextMenuItemArchive.react",
@@ -17,6 +16,7 @@ __d(
     "WAWebDropdownItemSeparator.react",
     "WAWebInfoRefreshedIcon.react",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
@@ -125,7 +125,7 @@ __d(
             }));
         };
       return (
-        o("WAWebBizGatingUtils").canEditLabelAssociation() &&
+        o("WAWebListsLabelGatingUtils").canEditLabelAssociation() &&
           !p &&
           _.push(
             s.jsx(

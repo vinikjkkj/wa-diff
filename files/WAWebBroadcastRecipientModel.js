@@ -1,6 +1,11 @@
 __d(
   "WAWebBroadcastRecipientModel",
-  ["WAWebBaseModel", "WAWebContactCollection", "WAWebWid"],
+  [
+    "WAWebBaseModel",
+    "WAWebContactCollection",
+    "WAWebFrontendContactGetters",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -10,6 +15,7 @@ __d(
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.id = o("WAWebBaseModel").prop()),
           (t.contact = o("WAWebBaseModel").session()),
+          (t.formattedShortName = o("WAWebBaseModel").session()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );
@@ -22,7 +28,10 @@ __d(
             this.addChild(
               "contact",
               o("WAWebContactCollection").ContactCollection.gadd(this.id),
-            ));
+            ),
+            (this.formattedShortName = o(
+              "WAWebFrontendContactGetters",
+            ).getFormattedShortName(this.contact)));
         }),
         t
       );

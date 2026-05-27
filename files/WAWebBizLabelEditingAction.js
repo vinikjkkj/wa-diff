@@ -4,7 +4,6 @@ __d(
     "invariant",
     "WALogger",
     "WATimeUtils",
-    "WAWebBizGatingUtils",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBLabelDatabaseApi",
     "WAWebLabelCollection",
@@ -12,6 +11,7 @@ __d(
     "WAWebLabelJidSync",
     "WAWebLabelSync",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
     "WAWebSyncdCoreApi",
@@ -29,7 +29,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          o("WAWebBizGatingUtils").labelsEditingEnabled() || s(0, 75240);
+          o("WAWebListsLabelGatingUtils").labelsEditingEnabled() || s(0, 75240);
           var i;
           try {
             i = yield o("WAWebDBLabelDatabaseApi").getNextLabelId();
@@ -102,7 +102,8 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, u) {
-            o("WAWebBizGatingUtils").labelsEditingEnabled() || s(0, 75241);
+            o("WAWebListsLabelGatingUtils").labelsEditingEnabled() ||
+              s(0, 75241);
             var d = o("WATimeUtils").unixTime(),
               p = r("WAWebLabelSync").getLabelMutation(
                 e,
@@ -152,7 +153,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          o("WAWebBizGatingUtils").labelsEditingEnabled() || s(0, 75242);
+          o("WAWebListsLabelGatingUtils").labelsEditingEnabled() || s(0, 75242);
           var i = yield o(
               "WAWebDBLabelAssociationDatabaseApi",
             ).queryLabelAssociationsForLabelIds([e]),

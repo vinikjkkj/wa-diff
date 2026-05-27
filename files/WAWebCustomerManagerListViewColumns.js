@@ -214,9 +214,19 @@ __d(
                   ).CustomerManagerUserJourneyLogger.clickRowLeadStagePill(t);
                 },
                 onStageChange: function (n, r) {
-                  return o(
-                    "WAWebCustomerDataFieldSaver",
-                  ).handleLeadStageTransition(t.item.chatJid, t.item, n, r);
+                  (o(
+                    "WAWebCustomerManagerSMBUserJourneyLogger",
+                  ).CustomerManagerUserJourneyLogger.editLeadStage(
+                    r,
+                    n,
+                    "list_row",
+                  ),
+                    o("WAWebCustomerDataFieldSaver").handleLeadStageTransition(
+                      t.item.chatJid,
+                      t.item,
+                      n,
+                      r,
+                    ));
                 },
                 showNoneOption: !0,
                 testid: "customer-manager-lead-stage-cell",

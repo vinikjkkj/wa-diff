@@ -10,7 +10,9 @@ __d(
         ", calc(100% - " +
         o("WAWebVoipWindowConstants").DRAWER_WIDTH +
         "))",
-      s = {
+      s = "250ms",
+      u = "x1jn504y-B",
+      c = {
         voipContainer: {
           height: "x5yr21d",
           width: "xh8yej3",
@@ -22,6 +24,7 @@ __d(
           overflowX: "x6ikm8r",
           overflowY: "x10wlt62",
           minHeight: "x2lwn1j",
+          position: "x1n2onr6",
           $$css: !0,
         },
         fullWidth: { width: "xh8yej3", $$css: !0 },
@@ -84,6 +87,30 @@ __d(
           backdropFilter: "x1dmgsgi",
           $$css: !0,
         },
+        audioToVideoOverlayBase: {
+          position: "x10l6tqk",
+          top: "x13vifvy",
+          insetInlineStart: "x1o0tod",
+          insetInlineEnd: "xtijo5x",
+          left: null,
+          right: null,
+          zIndex: "xhtitgo",
+          pointerEvents: "x47corl",
+          opacity: "xg01cxk",
+          animationName: "xxp0q0x",
+          animationDuration: "xs4xyr0 x1u6grsq",
+          animationTimingFunction: "xa3vuyk",
+          animationFillMode: "x10e4vud",
+          $$css: !0,
+        },
+        audioToVideoOverlay: {
+          bottom: "x1ey2m1c",
+          display: "x78zum5",
+          flexDirection: "xdt5ytf",
+          justifyContent: "x1nhvcw1",
+          alignItems: "x1qjc9v5",
+          $$css: !0,
+        },
         sharePanelWrapper: { height: "x5yr21d", $$css: !0 },
         mainColumn: {
           height: "x5yr21d",
@@ -93,7 +120,9 @@ __d(
         },
         callControlsRow: { marginTop: "xr1yuqi", $$css: !0 },
       };
-    ((l.WIDTH_BESIDE_DRAWER = e), (l.WAWebVoipUiBodyStyles = s));
+    ((l.WIDTH_BESIDE_DRAWER = e),
+      (l.AUDIO_TO_VIDEO_FADE_OUT_DURATION = s),
+      (l.WAWebVoipUiBodyStyles = c));
   },
   98,
 );

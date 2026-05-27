@@ -8,6 +8,7 @@ __d(
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebAccountLinkingScheduledJobs",
     "WAWebAccountLinkingUtils",
+    "WAWebGpcUoomAPI",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -165,7 +166,7 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").updateUOOMData();
+          yield o("WAWebGpcUoomAPI").updateUOOMData();
         })),
         w.apply(this, arguments)
       );

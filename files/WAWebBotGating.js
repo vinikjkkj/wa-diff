@@ -289,6 +289,9 @@ __d(
           );
     }
     function z() {
+      return !1;
+    }
+    function j() {
       var e;
       return !o("WAWebBotBaseGating").isBotEnabled() ||
         !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -303,35 +306,35 @@ __d(
             "ai_web_meta_ai_pdf_document_input_enabled",
           );
     }
-    var j = "pdf";
-    function K() {
+    var K = "pdf";
+    function Q() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_supported_file_types",
       );
-      return e !== "" ? e : j;
+      return e !== "" ? e : K;
     }
-    function Q() {
+    function X() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_count_limit",
       );
     }
-    function X() {
+    function Y() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_send_image_limit",
       );
     }
-    function Y() {
+    function J() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_document_ocr_image_conversion_enabled",
       );
     }
-    function J(e, t) {
+    function Z(e, t) {
       return t != null && o("WAWebBotUtils").isMetaAiBot(e) && F();
     }
-    function Z(e) {
+    function ee(e) {
       return o("WAWebBotUtils").isMetaAiBot(e) && F();
     }
-    function ee() {
+    function te() {
       var e,
         t = o("WAWebABProps").getABPropConfigValue(
           "ai_chat_threads_implicit_routing_strategy",
@@ -343,21 +346,21 @@ __d(
         : o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
             .NewThread;
     }
-    function te() {
+    function ne() {
       return (
-        ee() !==
+        te() !==
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .NewThread
       );
     }
-    function ne() {
+    function re() {
       return (
-        ee() ===
+        te() ===
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .DefaultThread
       );
     }
-    function re() {
+    function oe() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_bot_integration_bot_profile",
       );
@@ -370,7 +373,7 @@ __d(
         }
       return "";
     }
-    function oe() {
+    function ae() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_bot_integration_bot_profile",
       );
@@ -383,7 +386,7 @@ __d(
         }
       return "";
     }
-    function ae() {
+    function ie() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -396,7 +399,7 @@ __d(
         }
       return "";
     }
-    function ie() {
+    function le() {
       return (
         F() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -404,39 +407,43 @@ __d(
         ) === !0
       );
     }
-    function le() {
+    function se() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_pin_max_count",
       );
     }
-    function se() {
+    function ue() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_commands_enabled",
       );
     }
-    function ue() {
+    function ce() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_bot_orphan_logic_enabled",
       );
     }
-    function ce() {
+    function de() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_video_upload_enabled",
       );
     }
-    function de() {
+    function me() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function me() {
+    function pe() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function pe() {
+    var _e = 40;
+    function fe() {
+      return _e * 1024 * 1024;
+    }
+    function ge() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -487,28 +494,30 @@ __d(
       (l.getAiDynamicModeSelectorTtlSeconds = V),
       (l.isAiChatThreadsHistoricalMessageMigrationEnabled = H),
       (l.isMetaAiImageInputEnabled = G),
-      (l.isMetaAiDocUploadEnabled = z),
-      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = j),
-      (l.getMetaAiSupportedFileTypes = K),
-      (l.getMetaAiFileUploadCountLimit = Q),
-      (l.getMetaAiImageSendLimit = X),
-      (l.isMetaAiDocumentOcrImageConversionEnabled = Y),
-      (l.shouldSkipMetaAiChatlistHighlight = J),
-      (l.isMetaAiChatInThreadsMode = Z),
-      (l.getImplicitThreadRoutingStrategy = ee),
-      (l.isImplicitThreadRoutingEnabled = te),
-      (l.isDefaultThreadRoutingEnabled = ne),
-      (l.getManusBotName = re),
-      (l.getManusBotProfileThumb = oe),
-      (l.getHatchBotName = ae),
-      (l.isAiThreadPinEnabled = ie),
-      (l.getAiThreadPinMaxCount = le),
-      (l.isHatchCommandsEnabled = se),
-      (l.isBotOrphanMsgEnabled = ue),
-      (l.isHatchVideoUploadEnabled = ce),
-      (l.getHatchDocumentUploadSizeLimitBytes = de),
-      (l.getMetaAiDocumentUploadSizeLimitBytes = me),
-      (l.getHatchBotProfileThumb = pe));
+      (l.isMetaAiVideoInputEnabled = z),
+      (l.isMetaAiDocUploadEnabled = j),
+      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = K),
+      (l.getMetaAiSupportedFileTypes = Q),
+      (l.getMetaAiFileUploadCountLimit = X),
+      (l.getMetaAiImageSendLimit = Y),
+      (l.isMetaAiDocumentOcrImageConversionEnabled = J),
+      (l.shouldSkipMetaAiChatlistHighlight = Z),
+      (l.isMetaAiChatInThreadsMode = ee),
+      (l.getImplicitThreadRoutingStrategy = te),
+      (l.isImplicitThreadRoutingEnabled = ne),
+      (l.isDefaultThreadRoutingEnabled = re),
+      (l.getManusBotName = oe),
+      (l.getManusBotProfileThumb = ae),
+      (l.getHatchBotName = ie),
+      (l.isAiThreadPinEnabled = le),
+      (l.getAiThreadPinMaxCount = se),
+      (l.isHatchCommandsEnabled = ue),
+      (l.isBotOrphanMsgEnabled = ce),
+      (l.isHatchVideoUploadEnabled = de),
+      (l.getHatchDocumentUploadSizeLimitBytes = me),
+      (l.getMetaAiDocumentUploadSizeLimitBytes = pe),
+      (l.getMetaAiVideoUploadSizeLimitBytes = fe),
+      (l.getHatchBotProfileThumb = ge));
   },
   98,
 );

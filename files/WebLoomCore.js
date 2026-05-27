@@ -300,7 +300,7 @@ __d(
                       u.traceContext.buffer,
                       u.traceContext.jsSelfProfilerData,
                     );
-                  if (g != null) {
+                  if (((u.traceContext.jsSelfProfilerData = null), g != null)) {
                     var h = {
                       trace: g,
                       session_id: this.$13,

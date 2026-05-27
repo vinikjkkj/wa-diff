@@ -239,39 +239,45 @@ __d(
         C = l.isInsubContact,
         b = l.isMuted,
         v = l.messageBodyType,
-        S = l.messageFieldJsonArray,
-        R = l.messageId,
-        L = l.mmCarouselCardIndex,
-        E = l.qbmFlag,
-        k = l.readReceiptsEnabled,
-        I = l.serverTimestamp,
-        T = l.submessageFieldJsonArray,
-        D = l.urlUniqueCountInt;
+        S = l.messageBubbleHeightPx,
+        R = l.messageBubbleWidthPx,
+        L = l.messageFieldJsonArray,
+        E = l.messageId,
+        k = l.mmCarouselCardIndex,
+        I = l.qbmFlag,
+        T = l.readReceiptsEnabled,
+        D = l.serverTimestamp,
+        x = l.submessageFieldJsonArray,
+        $ = l.urlUniqueCountInt;
       if (
         o("WAWebABProps").getABPropConfigValue(
           "biz_vpv_impression_logging_enabled",
         ) === !0
       ) {
-        var x = function (r) {
+        var P = function (r) {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t,
               a = Date.now(),
               i = yield (e || (e = n("Promise"))).all([
-                o("WAWebChatThreadLogging").getMessageIDHMAC(R),
+                o("WAWebChatThreadLogging").getMessageIDHMAC(E),
                 o("WAWebChatThreadLogging").getChatThreadIDHMAC(d),
               ]),
               l = i[0],
               _ = i[1],
-              x = Math.round((a - I * 1e3) / 1e3),
-              $ = p != null ? Math.round((a - p) / 1e3) : void 0,
-              P = r.map(function (e) {
+              P = Math.round((a - D * 1e3) / 1e3),
+              N = p != null ? Math.round((a - p) / 1e3) : void 0,
+              M = r.map(function (e) {
                 return [e.enter, e.exit];
               }),
-              N = JSON.stringify({ 0: P, 50: P, 100: P });
+              w = JSON.stringify({ 0: M, 50: M, 100: M }),
+              A =
+                o("WAWebABProps").getABPropConfigValue(
+                  "biz_vpv_dimensions_logging_enabled",
+                ) === !0;
             new (o(
               "WAWebPaidMessageVpvImpressionWamEvent",
             ).PaidMessageVpvImpressionWamEvent)({
-              vpvJsonObject: N,
+              vpvJsonObject: w,
               messageIdHmac: l != null ? l : void 0,
               threadIdHmac: _ != null ? _ : void 0,
               unifiedSessionId:
@@ -280,29 +286,31 @@ __d(
                 ).UnifiedSessionManager.getSessionId()) != null
                   ? t
                   : void 0,
-              qbmFlag: E != null ? E : void 0,
+              qbmFlag: I != null ? I : void 0,
               contactType: f != null ? f : void 0,
               hsmTagStr: h != null ? h : void 0,
-              readReceiptsEnabled: k,
+              readReceiptsEnabled: T,
               chatsFolderType: m,
               isMuted: b,
               isBroadcastMessage: y,
               isInsubContact: C,
-              deltaTime: x,
-              deltaTimeReceived: $,
-              messageFieldJsonArray: S,
-              submessageFieldJsonArray: T,
+              deltaTime: P,
+              deltaTimeReceived: N,
+              messageFieldJsonArray: L,
+              submessageFieldJsonArray: x,
               buttonValueJsonArray: c,
               bodyUrlCountInt: s,
               bodyUrlUniqueCountInt: u,
               ctaUrlUniqueCountInt: g,
-              urlUniqueCountInt: D,
+              urlUniqueCountInt: $,
               messageBodyType: v != null ? v : void 0,
-              mmCarouselCardIndex: L != null ? L : void 0,
+              mmCarouselCardIndex: k != null ? k : void 0,
+              messageBubbleWidthPx: A && R != null ? R : void 0,
+              messageBubbleHeightPx: A && S != null ? S : void 0,
             }).commit();
           })();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, x);
+        o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, P);
       }
     }
     function g(e) {

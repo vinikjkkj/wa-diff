@@ -1,6 +1,6 @@
 __d(
   "WAWebBusinessProfileVersioningBridge",
-  ["WAWebBizGatingUtils"],
+  ["WAWebBizProfileGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e = 3,
       s = 4,
@@ -10,12 +10,12 @@ __d(
       m = 128,
       p = 256;
     function _() {
-      return f(o("WAWebBizGatingUtils").webBizProfileOptions());
+      return f(o("WAWebBizProfileGatingUtils").webBizProfileOptions());
     }
     function f(t) {
       var n = e | s | u | d | m | c;
       return (
-        o("WAWebBizGatingUtils").bizLinkedAccountsEnabled() && (n |= p),
+        o("WAWebBizProfileGatingUtils").bizLinkedAccountsEnabled() && (n |= p),
         t & n
       );
     }

@@ -11,20 +11,22 @@ __d(
       m = Number.MAX_SAFE_INTEGER;
     function p(e, t) {
       var n = f(e, t);
-      if (n)
-        throw (
-          n.reverse(),
-          new TypeError("Message missing required value " + n.join("."))
-        );
+      if (n) {
+        n.reverse();
+        var r = new TypeError("Message missing required value " + n.join("."));
+        throw (r.stack, r);
+      }
     }
     function _(e, t) {
       p(e, t);
       var n = v(t, e);
-      if (n)
-        throw (
-          n.path.reverse(),
-          new TypeError("Invalid value at " + n.path.join(".") + ": " + n.error)
+      if (n) {
+        n.path.reverse();
+        var r = new TypeError(
+          "Invalid value at " + n.path.join(".") + ": " + n.error,
         );
+        throw (r.stack, r);
+      }
     }
     function f(e, t) {
       for (
@@ -213,8 +215,10 @@ __d(
               y =
                 (n & o("WAProtoConst").TYPE_MASK) ===
                 o("WAProtoConst").TYPES.MAP;
-            if (h === void 0 && !y)
-              throw new Error("Can not find the validator for type " + f);
+            if (h === void 0 && !y) {
+              var v = new Error("Can not find the validator for type " + f);
+              throw (v.stack, v);
+            }
             if (
               n &
                 (o("WAProtoConst").FLAGS.PACKED |
@@ -234,35 +238,37 @@ __d(
                   .color("red"),
                   (p = { path: [t], error: "repeated field must be array" }));
               else
-                for (var v = i[g], S = 0; S < _.length && !p; S++)
-                  ((p = h(_[S], v)), p && p.path.push(t + "[" + S + "]"));
+                for (var S = i[g], R = 0; R < _.length && !p; R++)
+                  ((p = h(_[R], S)), p && p.path.push(t + "[" + R + "]"));
             else if (y && _ != null) {
-              var R = i[g],
-                L = R[0],
-                E = R[1],
-                k = typeof E == "object" ? o("WAProtoConst").TYPES.MESSAGE : E,
-                I = b[L],
-                T = b[k];
-              if (I === void 0 || T === void 0)
-                throw new Error(
+              var L = i[g],
+                E = L[0],
+                k = L[1],
+                I = typeof k == "object" ? o("WAProtoConst").TYPES.MESSAGE : k,
+                T = b[E],
+                D = b[I];
+              if (T === void 0 || D === void 0) {
+                var x = new Error(
                   "Can not find the validator for Map with key type " +
-                    L +
+                    E +
                     ", value type " +
-                    k,
+                    I,
                 );
-              for (var D of _) {
-                var x = D[0],
-                  $ = D[1];
-                if (((p = I(x, L)), p))
-                  return (p.path.push(t + "'s key [" + x + "]"), { v: p });
-                if (((p = T($, E)), p))
-                  return (p.path.push(t + "[" + x + "]'s value"), { v: p });
+                throw (x.stack, x);
+              }
+              for (var $ of _) {
+                var P = $[0],
+                  N = $[1];
+                if (((p = T(P, E)), p))
+                  return (p.path.push(t + "'s key [" + P + "]"), { v: p });
+                if (((p = D(N, k)), p))
+                  return (p.path.push(t + "[" + P + "]'s value"), { v: p });
               }
             } else if (_ != null) {
               ((p = h(_, i[g])), p && p.path.push(t));
-              var P = a[t];
-              (P &&
-                P.forEach(function (n) {
+              var M = a[t];
+              (M &&
+                M.forEach(function (n) {
                   var r = s[n].filter(function (e) {
                     return e !== t;
                   });

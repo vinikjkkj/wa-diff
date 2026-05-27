@@ -93,7 +93,6 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewBroadcastCreation:
         case o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect:
-        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation:
         case o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpToBottom:
         case o("WAWebChatEntryPoint").ChatEntryPoint.InChatLoadAroundFallback:
         case o("WAWebChatEntryPoint").ChatEntryPoint.InChatJumpBackToContext:

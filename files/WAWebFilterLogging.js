@@ -1,7 +1,6 @@
 __d(
   "WAWebFilterLogging",
   [
-    "WAWebBizGatingUtils",
     "WAWebChatFilterEventWamEvent",
     "WAWebChatSearchFilters",
     "WAWebChatThreadLogging",
@@ -10,6 +9,7 @@ __d(
     "WAWebLabelCollection",
     "WAWebListUtils",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebListsLogging",
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumChatFilterTargetScreen",
@@ -108,7 +108,7 @@ __d(
         filterType: o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE,
         sessionId: e,
       });
-      (o("WAWebBizGatingUtils").smartFiltersEnabled() &&
+      (o("WAWebListsLabelGatingUtils").smartFiltersEnabled() &&
         (t.targetScreen = o(
           "WAWebWamEnumChatFilterTargetScreen",
         ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST),
@@ -123,7 +123,7 @@ __d(
           filterType: r,
           sessionId: t,
         };
-        (o("WAWebBizGatingUtils").smartFiltersEnabled() &&
+        (o("WAWebListsLabelGatingUtils").smartFiltersEnabled() &&
           (a.targetScreen = o(
             "WAWebWamEnumChatFilterTargetScreen",
           ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST),

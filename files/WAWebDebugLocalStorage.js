@@ -15,7 +15,7 @@ __d(
         n = r("WAWebUserPrefsLocalStorage").getItemFromLocalStorage(e);
       if (n != null) return ((t.value = n), t);
       var a = r("WANullthrows")(
-          o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          o("WAWebUserPrefsMeUser").getMeUser(),
         ).toString(),
         i = o("WAMd5").md5(a + ":" + e);
       return (

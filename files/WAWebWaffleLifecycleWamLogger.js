@@ -55,18 +55,33 @@ __d(
         : e === "request_nonce"
           ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
               .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.REQUEST_NONCE
-          : e === "handled"
+          : e === "refresh_token" || e === "refetch_certs"
             ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
-            : e === "fail"
+                .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.NOT_APPLICABLE
+            : e === "purge"
               ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
-                  .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.FAIL
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
+                  .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
+              : e === "pause"
+                ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
+                    .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PAUSE
+                : e === "server_purge"
+                  ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
+                      .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
+                  : e === "server_pause"
+                    ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
+                        .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PAUSE
+                    : e === "handled"
+                      ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
+                          .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.PURGE
+                      : e === "fail"
+                        ? o("WAWebWamEnumWaffleLifecycleErrorActionType")
+                            .WAFFLE_LIFECYCLE_ERROR_ACTION_TYPE.FAIL
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                e,
+                            );
+                          })();
     }
     function c(e) {
       var t = e.hasAccessToken,

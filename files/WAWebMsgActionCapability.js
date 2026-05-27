@@ -178,10 +178,11 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.QUARANTINED:
         case o("WAWebMsgType").MSG_TYPE.REQUEST_PHONE_NUMBER:
         case o("WAWebMsgType").MSG_TYPE.REVOKED:
-        case o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE:
         case o("WAWebMsgType").MSG_TYPE.UNKNOWN:
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
           return !1;
+        case o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE:
+          return o("WAWebBotBaseGating").isRichResponseForwardSendingEnabled();
         case o("WAWebMsgType").MSG_TYPE.POLL_CREATION:
           return (
             _ &&

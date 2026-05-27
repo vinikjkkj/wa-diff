@@ -57,8 +57,6 @@ __d(
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .ExistingGroupRedirect ||
                   t ===
-                    o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation ||
-                  t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .InChatJumpToBottom ||
                   t ===

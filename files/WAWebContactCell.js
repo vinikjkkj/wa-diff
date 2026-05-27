@@ -1,11 +1,11 @@
 __d(
   "WAWebContactCell",
   [
-    "WAWebBizGatingUtils",
     "WAWebChatStatus",
     "WAWebChatTextStatusWrapper",
     "WAWebContactGetters",
     "WAWebContactImage.react",
+    "WAWebListsLabelGatingUtils",
     "WAWebName.react",
     "WAWebTextStatusGatingUtils",
     "react",
@@ -19,7 +19,7 @@ __d(
           showBusinessCheckmark: o(
             "WAWebContactGetters",
           ).getShowBusinessCheckmarkAsPrimary(e),
-          showLabelIcon: o("WAWebBizGatingUtils").canDisplayLabel(),
+          showLabelIcon: o("WAWebListsLabelGatingUtils").canDisplayLabel(),
           titlify: !0,
           ellipsify: !0,
           you: !0,

@@ -6,7 +6,7 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
+    "WAWebBizProfileGatingUtils",
     "WAWebBusinessProfileJob",
     "WAWebNoop",
     "WAWebToastManager",
@@ -62,7 +62,9 @@ __d(
           .then(function () {
             var e;
             return (
-              o("WAWebBizGatingUtils").coverPhotoPrivacyMessagingEnabled()
+              o(
+                "WAWebBizProfileGatingUtils",
+              ).coverPhotoPrivacyMessagingEnabled()
                 ? (e = s._(/*BTDS*/ "Your cover photo is now public"))
                 : (e = s._(/*BTDS*/ "Cover photo set")),
               new (o("WAWebActionToast.react").ActionType)(e)

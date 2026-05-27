@@ -214,7 +214,7 @@ __d(
             throw r("err")("You need to select a message by right clicking it");
           if (!o("WAWebMsgGetters").getIsGroupMsg(n))
             throw r("err")("You need to select a group message");
-          var a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var a = o("WAWebUserPrefsMeUser").getMeUser(),
             i = o("WAWebFrontendMsgGetters").getChat(n),
             l;
           if (e) l = a;

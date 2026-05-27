@@ -54,7 +54,7 @@ __d(
           return {
             title: "Acquisition (US Growth)",
             subtitle:
-              "Invites, Preloads, Inorganic Notifications, Contact QR Codes, Contact List, Add/Edit Contacts, Contact suggestions, Chat list suggestions, Family of Apps Settings, In-app Comms (PushPSA, StatusPSA, ChatPSA)",
+              "Invites, Preloads, Inorganic Notifications, Contact QR codes, Contact List, Add/Edit Contacts, Contact suggestions, Chat list suggestions, Family of Apps Settings, In-app Comms (PushPSA, StatusPSA, ChatPSA)",
           };
         case "infra":
           return {
