@@ -4,9 +4,9 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
-    "WAWebBizGatingUtils",
     "WAWebMsgKey",
     "WAWebNoop",
+    "WAWebOrderGatingUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
@@ -101,7 +101,7 @@ __d(
                 status: o("WAWebProtobufsE2E.pb")
                   .Message$OrderMessage$OrderStatus.INQUIRY,
                 messageVersion: o(
-                  "WAWebBizGatingUtils",
+                  "WAWebOrderGatingUtils",
                 ).isBuyerOrderRevampEnabled()
                   ? 2
                   : 1,

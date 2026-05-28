@@ -1,8 +1,6 @@
 __d(
   "WAWebCreateMediaDownloadMetrics",
   [
-    "WATimeUtils",
-    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
     "WAWebMediaDownload2WamEvent",
@@ -51,32 +49,23 @@ __d(
                   : void 0,
               isViewOnce: e.isViewOnce,
             });
-          if (
-            (o("WAWebAppTracker").AppTracker.start(
-              o("WAWebAppTracker").AppTrackerType.MediaDL,
-            ),
+          (o("WAWebAppTracker").AppTracker.start(
+            o("WAWebAppTracker").AppTrackerType.MediaDL,
+          ),
             e.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE &&
-              r.set(babelHelpers.extends({}, e.imageDimensions)),
-            o("WAWebABProps").getABPropConfigValue(
-              "enable_days_since_receive_logging",
-            ) && e.mediaKeyTimestamp != null)
-          ) {
-            var a = e.mediaKeyTimestamp,
-              i = Math.floor((o("WATimeUtils").unixTime() - a) / (1440 * 60));
-            r.set({ daysSinceReceive: i });
-          }
-          var l = e.chatWid;
-          if (l) {
-            var s = yield o("WAWebWamGroupMetricCache").getGroupMetrics(l);
-            (s == null ? void 0 : s.deviceCount) != null &&
-              r.set({ deviceCount: s.deviceCount });
+              r.set(babelHelpers.extends({}, e.imageDimensions)));
+          var a = e.chatWid;
+          if (a) {
+            var i = yield o("WAWebWamGroupMetricCache").getGroupMetrics(a);
+            (i == null ? void 0 : i.deviceCount) != null &&
+              r.set({ deviceCount: i.deviceCount });
           }
           o("WAWebMmsDownloadUploadCrashLogger").downloadUploadCrashLogger.mark(
             n,
             o("WAWebMmsDownloadUploadCrashLogger").ProgressType
               .DOWNLOAD_STARTED,
           );
-          var u = function (t) {
+          var l = function (t) {
               var e = t.failCount,
                 n = t.hostClass,
                 o = t.hostName;
@@ -86,7 +75,7 @@ __d(
                 overallRetryCount: e,
               });
             },
-            c = function (t) {
+            s = function (t) {
               (r.set({
                 overallMediaSize: t,
                 overallDownloadResult: o("WAWebWamEnumMediaDownloadResultType")
@@ -103,7 +92,7 @@ __d(
                   { overallMediaSize: t },
                 ));
             },
-            d = function (t, n) {
+            u = function (t, n) {
               var e = o(
                 "WAWebWamMediaMetricUtils",
               ).getMetricDownloadErrorResultType(t);
@@ -131,10 +120,10 @@ __d(
                           .MEDIA_DOWNLOAD_RESULT_TYPE.ERROR_NETWORK &&
                       o("WAWebCoreActionsODS").logMediaDownloadErrorNetwork()));
             },
-            m = function (t) {
+            c = function (t) {
               r.set({ overallT: t });
             },
-            p = function (t) {
+            d = function (t) {
               var e = t.error,
                 n = t.failCount,
                 a = t.overallT,
@@ -160,13 +149,13 @@ __d(
                 i.commit(),
                 o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(i, e));
             },
-            _ = function () {
+            m = function () {
               r.startOverallDecryptT();
             },
-            f = function () {
+            p = function () {
               r.markOverallDecryptT();
             },
-            g = function () {
+            _ = function () {
               (r.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
@@ -175,24 +164,24 @@ __d(
                 r.commit(),
                 o("WAWebCoreActionsODS").logMediaDownloadSuccess());
             },
-            h = function () {
+            f = function () {
               r.startDownloadNetworkT();
             },
-            y = function () {
+            g = function () {
               r.markDownloadNetworkT();
             };
           return {
             mediaId: n,
-            handleDownloadSuccess: c,
-            handleDownloadHostFound: u,
-            handleDownloadError: d,
-            handleDownloadAttemptSuccess: m,
-            handleDownloadAttemptError: p,
-            handleDownloadAndDecryptSuccess: g,
-            markDecryptionEnd: f,
-            markDecryptionStart: _,
-            startNetworkT: h,
-            markNetworkT: y,
+            handleDownloadSuccess: s,
+            handleDownloadHostFound: l,
+            handleDownloadError: u,
+            handleDownloadAttemptSuccess: c,
+            handleDownloadAttemptError: d,
+            handleDownloadAndDecryptSuccess: _,
+            markDecryptionEnd: p,
+            markDecryptionStart: m,
+            startNetworkT: f,
+            markNetworkT: g,
           };
         })),
         s.apply(this, arguments)

@@ -2,7 +2,6 @@ __d(
   "WAWebOrderDetailItems",
   [
     "fbt",
-    "WAWebBizGatingUtils",
     "WAWebCartDeleteIcon.react",
     "WAWebCellFrame.react",
     "WAWebCommonQuantityControls.react",
@@ -11,6 +10,7 @@ __d(
     "WAWebModalManager",
     "WAWebOrderAddItem",
     "WAWebOrderCatalogProductPrice",
+    "WAWebOrderGatingUtils",
     "WAWebOrderIcons",
     "WAWebOrderItemGetters",
     "WAWebText_DONOTUSE.react",
@@ -164,8 +164,8 @@ __d(
       n[12] !== u || n[13] !== x
         ? ((N =
             !x &&
-            (o("WAWebBizGatingUtils").orderDetailsFromCatalogEnabled() ||
-              o("WAWebBizGatingUtils").orderDetailsCustomItemEnabled()) &&
+            (o("WAWebOrderGatingUtils").orderDetailsFromCatalogEnabled() ||
+              o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled()) &&
             c.jsx(r("WAWebOrderAddItem"), {
               title: s._(/*BTDS*/ "Add items"),
               onClick: function () {

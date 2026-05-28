@@ -6,6 +6,7 @@ __d(
     "WAMemoizeOne",
     "WAPhoneFindCC",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAIHatchIdentityStore",
     "WAWebAIHatchIdentitySync",
     "WAWebAlarm",
@@ -228,9 +229,12 @@ __d(
                     n.set({ pushname: o("WAWebConnModel").Conn.pushname });
                   },
                 ),
-              this.listenTo(r("WAWebL10N"), "locale_change", function () {
-                n.locale = r("WAWebL10N").getLocale();
-              }),
+              o("WAWebABProps").getABPropConfigValue(
+                "web_contact_collection_locale_listener",
+              ) ||
+                this.listenTo(r("WAWebL10N"), "locale_change", function () {
+                  n.locale = r("WAWebL10N").getLocale();
+                }),
               this.id.isUser() &&
                 (this.updateContactBlocked(),
                 this.updateContactOptedOutOfMarketingMessages()),

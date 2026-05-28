@@ -23,10 +23,21 @@ __d(
           ? void 0
           : e.hardwareConcurrency;
     }
+    function m() {
+      var e = globalThis.navigator;
+      if (e != null) {
+        var t = e.cpu;
+        if (t != null) {
+          var n = t.performance;
+          return typeof n == "string" ? n : void 0;
+        }
+      }
+    }
     ((l.setMemClassOverride = s),
       (l.getMemClassOverride = u),
       (l.getMemClass = c),
-      (l.getNumCpu = d));
+      (l.getNumCpu = d),
+      (l.readCpuPerformanceClass = m));
   },
   98,
 );

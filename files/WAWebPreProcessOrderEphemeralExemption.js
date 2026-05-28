@@ -1,10 +1,10 @@
 __d(
   "WAWebPreProcessOrderEphemeralExemption",
   [
-    "WAWebBizGatingUtils",
     "WAWebDBChatEphemeralExemptionData",
     "WAWebDBEphemeralDisplayedExemptions",
     "WAWebOrderEphemeralExemptionUtil",
+    "WAWebOrderGatingUtils",
     "WAWebOrderSystemMsg",
     "asyncToGeneratorRuntime",
   ],
@@ -17,7 +17,9 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, n;
           if (
-            !o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled()
+            !o(
+              "WAWebOrderGatingUtils",
+            ).inOrderMessagesEphemeralExceptionEnabled()
           )
             return e;
           var r = e.findIndex(function (e) {

@@ -1,6 +1,6 @@
 __d(
   "WAMediaWasmWorkerQplProxy",
-  ["WAMediaWasmWorker"],
+  ["WAMediaWasmWorkerMainThreadBridge"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -13,7 +13,7 @@ __d(
       var t = e.prototype;
       return (
         (t.addAnnotations = function (t) {
-          o("WAMediaWasmWorker").sendQplToMainThread({
+          o("WAMediaWasmWorkerMainThreadBridge").sendQplToMainThread({
             action: {
               annotations: t,
               instanceKey: this.$2,
@@ -23,7 +23,7 @@ __d(
           });
         }),
         (t.addPoint = function (t, n) {
-          o("WAMediaWasmWorker").sendQplToMainThread({
+          o("WAMediaWasmWorkerMainThreadBridge").sendQplToMainThread({
             action: {
               annotations: n,
               instanceKey: this.$2,

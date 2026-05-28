@@ -22,8 +22,9 @@ __d(
         manageAdsEntryPoint: e,
       }).commit();
     }
-    function u(e, t, n, r, a, i) {
+    function u(e, t, n, r, a, i, l) {
       new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
+        ctwaAdAccountType: l != null ? l : void 0,
         lwiAdCampaignId: a != null ? a : void 0,
         lwiAdsIdentityType: n,
         lwiExtras: i != null ? i : void 0,

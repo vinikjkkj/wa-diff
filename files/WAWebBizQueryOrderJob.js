@@ -2,11 +2,7 @@ __d(
   "WAWebBizQueryOrderJob",
   [
     "Promise",
-    "WADeprecatedSendIq",
-    "WADeprecatedWapParser",
     "WALogger",
-    "WAWap",
-    "WAWapDeprecatedSmaxID",
     "WAWebBackendErrors",
     "WAWebBizGatingUtils",
     "WAWebBizQueryOrderJobQuery.graphql",
@@ -20,78 +16,13 @@ __d(
     var e,
       s,
       u,
-      c = e !== void 0 ? e : (e = n("WAWebBizQueryOrderJobQuery.graphql")),
-      d = new (r("WADeprecatedWapParser"))("queryOrderResponse", function (e) {
-        (e.assertTag("iq"), e.assertFromServer());
-        var t = e.child("order"),
-          n = t.hasAttr("creation_ts") ? t.attrTime("creation_ts") : null,
-          r = t.maybeChild("price"),
-          o = r == null ? void 0 : r.maybeChild("subtotal"),
-          a = o ? parseInt(o.contentString(), 10) : null,
-          i = r == null ? void 0 : r.maybeChild("currency"),
-          l = i ? i.contentString() : null,
-          s = r == null ? void 0 : r.maybeChild("tax"),
-          u = s ? parseInt(s.contentString(), 10) : null,
-          c = r == null ? void 0 : r.maybeChild("total"),
-          d = c ? parseInt(c.contentString(), 10) : null,
-          m = [];
-        return (
-          t.forEachChildWithTag("product", function (e) {
-            var t = e.child("id"),
-              n = t.contentString(),
-              r = e.child("name"),
-              o = r.contentString(),
-              a = e.maybeChild("price"),
-              i = a ? parseInt(a.contentString(), 10) : null,
-              l = e.maybeChild("quantity"),
-              s = l ? parseInt(l.contentString(), 10) : null,
-              u = e.maybeChild("variant_info"),
-              c = u ? u.maybeChild("properties") : null,
-              d = [];
-            c == null ||
-              c.forEachChildWithTag("property", function (e) {
-                var t = e.attrString("name"),
-                  n = e.attrString("value");
-                t != null && n != null && d.push([t, n]);
-              });
-            var p = e.maybeChild("currency"),
-              _ = p ? p.contentString() : null,
-              f = null,
-              g = null,
-              h = e.maybeChild("image");
-            if (h != null) {
-              var y = h.maybeChild("url");
-              g = y && y.hasContent() ? y.contentString() : null;
-              var C = h.maybeChild("id");
-              f = C && C.hasContent() ? C.contentString() : null;
-            }
-            m.push({
-              id: n,
-              price: i,
-              thumbnailId: f,
-              thumbnailUrl: g,
-              currency: _,
-              name: o,
-              quantity: s,
-              properties: d,
-            });
-          }),
-          {
-            currency: l,
-            createdAt: n,
-            products: m,
-            subtotal: a,
-            total: d,
-            tax: u,
-          }
-        );
-      });
-    function m(e) {
-      return p.apply(this, arguments);
+      c = e !== void 0 ? e : (e = n("WAWebBizQueryOrderJobQuery.graphql"));
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.directConnectionEncryptedInfo,
             r = t === void 0 ? null : t,
             a = e.height,
@@ -102,19 +33,17 @@ __d(
             ? (u || (u = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").E451)(),
               )
-            : o("WAWebBizGatingUtils").graphQLForGetOrderInfoEnabled()
-              ? _(i, s, a, l, r)
-              : g(i, s, a, l, r);
+            : p(i, s, a, l, r);
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function _(e, t, n, r, o) {
-      return f.apply(this, arguments);
+    function p(e, t, n, r, o) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             i === void 0 && (i = null);
             try {
@@ -221,63 +150,10 @@ __d(
             }
           },
         )),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e, t, n, r, o) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            i === void 0 && (i = null);
-            var l = o("WAWap").wap(
-                "iq",
-                {
-                  to: o("WAWap").S_WHATSAPP_NET,
-                  smax_id: o("WAWap").SMAX_ID(
-                    r("WAWapDeprecatedSmaxID").QueryOrder,
-                  ),
-                  xmlns: "fb:thrift_iq",
-                  id: o("WAWap").generateId(),
-                  type: "get",
-                },
-                o("WAWap").wap(
-                  "order",
-                  {
-                    op: o("WAWap").CUSTOM_STRING("get"),
-                    id: o("WAWap").CUSTOM_STRING(e),
-                  },
-                  o("WAWap").wap(
-                    "image_dimensions",
-                    null,
-                    o("WAWap").wap("width", null, t.toString()),
-                    o("WAWap").wap("height", null, n.toString()),
-                  ),
-                  o("WAWap").wap("token", null, a),
-                  i != null
-                    ? o("WAWap").wap(
-                        "direct_connection_encrypted_info",
-                        null,
-                        i,
-                      )
-                    : null,
-                ),
-              ),
-              s = yield o("WADeprecatedSendIq").deprecatedSendIq(l, d);
-            if (s.success) return s.result;
-            throw s.errorCode === 451
-              ? new (o("WAWebBackendErrors").E451)()
-              : new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  s.errorCode,
-                );
-          },
-        )),
-        h.apply(this, arguments)
-      );
-    }
-    ((l.queryOrderResponse = d), (l.queryOrder = m));
+    l.queryOrder = d;
   },
   98,
 );

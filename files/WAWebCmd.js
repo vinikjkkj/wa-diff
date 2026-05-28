@@ -238,7 +238,7 @@ __d(
                 !o("WAWebBotUtils").isBotChannelFBID(a.id) &&
                 (!o("WAWebBotUtils").isMetaAiBot(a.id) ||
                   !(
-                    o("WAWebBotGating").isMetaAiImageInputEnabled() ||
+                    o("WAWebBotGating").isAnyMetaAiMediaInputEnabled() ||
                     o("WAWebBotGating").isMetaAiDocUploadEnabled()
                   ))
               )

@@ -2,7 +2,7 @@ __d(
   "WAMediaStorageIoTesting",
   [
     "WAErrorMessage",
-    "WAMediaWasmWorker",
+    "WAMediaWasmWorkerMainThreadBridge",
     "WAOpfsSyncStorage",
     "WAResultOrError",
     "WAWebCacheStorage",
@@ -48,7 +48,7 @@ __d(
             });
           } catch (e) {
             return (
-              o("WAMediaWasmWorker").sendLogToMainThread(
+              o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
                 "error",
                 "failed to read/write storage operation for web cache, error: " +
                   o("WAErrorMessage").maybeGetMessageFromError(e),
@@ -108,7 +108,7 @@ __d(
             });
           } catch (e) {
             return (
-              o("WAMediaWasmWorker").sendLogToMainThread(
+              o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
                 "error",
                 "failed to read/write storage operation for opfs, error: " +
                   o("WAErrorMessage").maybeGetMessageFromError(e),

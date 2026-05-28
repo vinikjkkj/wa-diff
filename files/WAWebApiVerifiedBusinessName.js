@@ -4,7 +4,6 @@ __d(
     "invariant",
     "$InternalEnum",
     "Promise",
-    "WAWebBizProfileGatingUtils",
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebSchemaVerifiedBusinessName",
@@ -65,13 +64,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebBizProfileGatingUtils").isLidMigrationForVnameEnabled()
-            ? e.isUser()
-              ? e.isLid()
-                ? m(e)
-                : _(e)
-              : null
-            : d(e);
+          return e.isUser() ? (e.isLid() ? m(e) : _(e)) : null;
         })),
         h.apply(this, arguments)
       );
@@ -130,11 +123,7 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
           a === void 0 && (a = c.Replace);
-          var i = o(
-            "WAWebBizProfileGatingUtils",
-          ).isLidMigrationForVnameEnabled()
-            ? o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t)
-            : [t];
+          var i = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t);
           return (e || (e = n("Promise"))).all(
             i.map(function (e) {
               return y(e, r, a);

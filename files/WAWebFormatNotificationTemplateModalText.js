@@ -4,12 +4,12 @@ __d(
     "fbt",
     "WAWebABProps",
     "WAWebABPropsInternalNumber",
-    "WAWebBizGatingUtils",
     "WAWebDisplayedNameIsBizName",
     "WAWebFrontendMsgGetters",
     "WAWebGetBusinessNameFromMsg",
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
+    "WAWebOrderGatingUtils",
     "WAWebPrivacyGatingUtils",
     "WAWebSupportChatStrings",
     "WAWebWid",
@@ -310,7 +310,7 @@ __d(
         case "biz_privacy_mode_to_bsp":
           return m();
         case "order_ephemeral_exemption":
-          return o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+          return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
             ? s._(
                 /*BTDS*/ "Charges and payments will not disappear from this chat.",
               )

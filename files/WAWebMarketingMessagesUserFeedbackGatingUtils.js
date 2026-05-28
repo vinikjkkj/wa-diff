@@ -4,31 +4,26 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
-        "mm_message_level_feedback_enabled",
+        "mm_message_level_feedback_not_interested_menu_enabled",
       );
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "mm_message_level_feedback_not_interested_menu_enabled",
-      );
-    }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
         "mm_opt_out_lid_migration_enabled",
       );
     }
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue("mm_opt_out_enabled");
     }
-    function d() {
+    function c() {
       o("WAWebABProps").getABPropConfigValue("mm_user_controls_exposure");
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "mm_opt_out_fmx_stop_for_high_trust",
       );
     }
-    function p() {
+    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "mm_user_controls_exception_number_prefixes",
       );
@@ -38,21 +33,20 @@ __d(
             return e.trim();
           });
     }
-    function _(e) {
+    function p(e) {
       if (e == null) return !1;
-      var t = p();
+      var t = m();
       return t.some(function (t) {
         return e.toString().startsWith(t);
       });
     }
-    ((l.isMMMessageLevelFeedbackEnabled = e),
-      (l.isMMMessageLevelFeedbackNotInterestedMenuEnabled = s),
-      (l.isMMOptOutAlwaysUseLidInGraphQLEnabled = u),
-      (l.isMMOptOutEnabled = c),
-      (l.triggerExposureMMUserControls = d),
-      (l.isMMStopInFMXEnabled = m),
-      (l.getMMUserControlsExceptionNumberPrefixes = p),
-      (l.isMMUserControlsExceptionNumberPrefixMatch = _));
+    ((l.isMMMessageLevelFeedbackNotInterestedMenuEnabled = e),
+      (l.isMMOptOutAlwaysUseLidInGraphQLEnabled = s),
+      (l.isMMOptOutEnabled = u),
+      (l.triggerExposureMMUserControls = c),
+      (l.isMMStopInFMXEnabled = d),
+      (l.getMMUserControlsExceptionNumberPrefixes = m),
+      (l.isMMUserControlsExceptionNumberPrefixMatch = p));
   },
   98,
 );

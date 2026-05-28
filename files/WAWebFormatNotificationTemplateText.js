@@ -30,6 +30,7 @@ __d(
     "WAWebListsGatingUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
+    "WAWebOrderGatingUtils",
     "WAWebSupportChatStrings",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
@@ -1691,7 +1692,7 @@ __d(
         : s._(/*BTDS*/ "Chat was unassigned");
     }
     function U() {
-      return o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+      return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
         ? s._(
             /*BTDS*/ "Charges and payments will not disappear from this chat. Click to learn more",
           )

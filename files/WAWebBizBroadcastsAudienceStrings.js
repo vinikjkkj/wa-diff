@@ -43,12 +43,7 @@ __d(
     function C() {
       return s._(/*BTDS*/ "Suggested audiences");
     }
-    function b() {
-      return s._(
-        /*BTDS*/ "Quick-start your broadcast with these ready-to-use audiences",
-      );
-    }
-    function v(e) {
+    function b(e) {
       return e <= 7
         ? s._(/*BTDS*/ "last 7 days")
         : e <= 14
@@ -61,7 +56,7 @@ __d(
                 ? s._(/*BTDS*/ "last 6 months")
                 : s._(/*BTDS*/ "last year");
     }
-    function S(e, t) {
+    function v(e, t) {
       return t != null
         ? s._(/*BTDS*/ "{count} recipients \u00b7 {duration}", [
             s._param("count", e),
@@ -81,9 +76,8 @@ __d(
       (l.getAllContactsTitle = h),
       (l.getAllContactsDescription = y),
       (l.getSuggestedAudiencesSectionTitle = C),
-      (l.getSuggestedAudiencesSectionSubtitle = b),
-      (l.getDurationLabelForDays = v),
-      (l.getSuggestedAudienceCardSubtitle = S));
+      (l.getDurationLabelForDays = b),
+      (l.getSuggestedAudienceCardSubtitle = v));
   },
   226,
 );

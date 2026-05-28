@@ -1,9 +1,7 @@
 __d(
   "WAWebBizGetMerchantCompliance",
   [
-    "Promise",
     "WALogger",
-    "WAWebBizGatingUtils",
     "WAWebBizGetMerchantComplianceQuery.graphql",
     "WAWebBizSetMerchantCompliance",
     "WAWebFetchAdAccountToken",
@@ -16,55 +14,52 @@ __d(
       s,
       u,
       c,
-      d,
-      m = { type: "error" },
-      p =
+      d = { type: "error" },
+      m =
         e !== void 0
           ? e
           : (e = n("WAWebBizGetMerchantComplianceQuery.graphql"));
-    function _(e) {
-      return o("WAWebBizGatingUtils").graphQLForGetComplianceInfo()
-        ? f(e).then(function (e) {
-            return e.type === "success"
-              ? (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "getMerchantComplianceImpl: success",
-                    ])),
-                ),
-                e)
-              : (e.type,
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      'fetchCatalog: failed as "',
-                      '"',
-                    ])),
-                  e.type,
-                ),
-                e);
-          })
-        : (d || (d = n("Promise"))).resolve({ type: "not-enabled" });
+    function p(e) {
+      return _(e).then(function (e) {
+        return e.type === "success"
+          ? (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "getMerchantComplianceImpl: success",
+                ])),
+            ),
+            e)
+          : (e.type,
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  'fetchCatalog: failed as "',
+                  '"',
+                ])),
+              e.type,
+            ),
+            e);
+      });
     }
-    function f(e) {
+    function _(e) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAWebRelayClient").fetchQuery(
-            p,
+            m,
             { request: e },
             { environmentType: "whatsapp_catalog" },
           );
         })
         .then(function (e) {
           var t, n, r, a, i, l, s, u;
-          if (e == null) return m;
+          if (e == null) return d;
           var c =
             (t = e.xfb_whatsapp_biz_merchant_compliance_info) == null
               ? void 0
               : t.merchant_info;
-          if (c == null) return m;
-          var d = [
+          if (c == null) return d;
+          var m = [
             {
               entity_name: c.entity_name || "",
               entity_type: o(
@@ -105,7 +100,7 @@ __d(
               },
             },
           ];
-          return { type: "success", merchant_info: d };
+          return { type: "success", merchant_info: m };
         })
         .catch(function (e) {
           return (
@@ -119,11 +114,11 @@ __d(
               ? { type: "auth-failure" }
               : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                 ? { type: "graphql-error", error: e }
-                : m
+                : d
           );
         });
     }
-    l.getMerchantCompliance = _;
+    l.getMerchantCompliance = p;
   },
   98,
 );

@@ -1,8 +1,6 @@
 __d(
   "WAWebBizGatingUtils",
   [
-    "$InternalEnum",
-    "WALogger",
     "WAWebABProps",
     "WAWebBizNativeAdsGatingUtils",
     "WAWebBoolFunc",
@@ -12,13 +10,11 @@ __d(
     "WAWebL10NCountryCodes",
     "WAWebLidMigrationUtils",
     "WAWebMobilePlatforms",
-    "WAWebPaymentsGatingUtils",
     "WAWebUserPrefsMeUser",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e(e) {
       var t;
       if (e != null) {
         var n;
@@ -31,25 +27,25 @@ __d(
         )
           return !0;
       }
-      return m(t);
+      return d(t);
     }
-    function u(e) {
-      return p(e, function () {
+    function s(e) {
+      return m(e, function () {
         return o("WAWebABProps").getABPropConfigValue(
           "smb_ecommerce_compliance_india_m4",
         );
       });
     }
-    function c(e) {
-      return p(e, function () {
+    function u(e) {
+      return m(e, function () {
         return o("WAWebABProps").getABPropConfigValue(
           "smb_ecommerce_compliance_india_m4_5",
         );
       });
     }
-    function d(e) {
+    function c(e) {
       var t,
-        n = p(e == null ? void 0 : e.id, function () {
+        n = m(e == null ? void 0 : e.id, function () {
           return o("WAWebABProps").getABPropConfigValue(
             "web_abprop_block_catalog_creation_ecommerce_compliance_india",
           );
@@ -62,7 +58,7 @@ __d(
           o("WAWebBusinessProfileTypes").CommerceExperienceTypes.NONE
       );
     }
-    function m(e) {
+    function d(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""),
         n = o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA;
       return (
@@ -72,7 +68,7 @@ __d(
         )
       );
     }
-    function p(e, t) {
+    function m(e, t) {
       t === void 0 && (t = o("WAWebBoolFunc").returnFalse);
       var n;
       if (e != null) {
@@ -86,144 +82,68 @@ __d(
         )
           return !0;
       }
-      return m(n) ? t() : !1;
+      return d(n) ? t() : !1;
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue("banned_shops_ux_enabled");
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "catalog_categories_enabled",
       );
     }
-    var h = n("$InternalEnum")({
-      DIGITAL_GOODS: "digital-goods",
-      PHYSICAL_GOODS: "physical-goods",
-      ANY: "any",
-      NONE: "none",
-    });
-    function y(t) {
-      t === void 0 && (t = h.NONE);
-      try {
-        var n = JSON.parse(
-            o("WAWebABProps").getABPropConfigValue("order_details_quick_pay"),
-          ),
-          r = n.allowed_product_type;
-        if (r && r !== h.NONE) return r === h.ANY || r === t;
-      } catch (t) {
-        o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[isOrderDetailsQuickPayEnabled] config parse failed ",
-              "",
-            ])),
-          t,
-        );
-      }
-      return !1;
-    }
-    function C() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_enable_biz_catalog_view_ps_logging",
       );
     }
-    function b() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_messages_ephemeral_exception_enabled",
-      );
-    }
-    function v() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_fmx_agm_enabled");
     }
-    function S() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_ctwa_log_user_journey_enabled",
       );
     }
-    function R() {
+    function C() {
       return r("justknobx")._("5593");
     }
-    function L() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue("wamo_agm_enabled");
     }
-    function E() {
+    function v() {
       return !0;
     }
-    function k() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_hide_unsupported_currency_price",
       );
     }
-    function I() {
+    function R() {
       return o("WAWebMobilePlatforms").isSMB();
     }
-    function T() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_catalog_graphql_verify_postcode",
       );
     }
-    function D() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_catalog_graphql_get_public_key",
       );
     }
-    function x() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_orders_graphql_get_order_info",
-      );
-    }
-    function $() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_graphql_merchant_info_get_compliance",
-      );
-    }
-    function P() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_graphql_merchant_info_set_compliance",
-      );
-    }
-    function N() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_details_custom_item_enabled",
-      );
-    }
-    function M() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_details_from_catalog_enabled",
-      );
-    }
-    function w() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_details_from_cart_enabled",
-      );
-    }
-    function A() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_details_total_order_minimum_value",
-      );
-    }
-    function F(e) {
-      return o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
-        ? 5e3
-        : o("WAWebABProps").getABPropConfigValue(
-            "order_details_total_maximum_value",
-          );
-    }
-    function O() {
-      return o("WAWebABProps").getABPropConfigValue("order_management_enabled");
-    }
-    function B() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "utm_tracking_expiration_hours",
       );
     }
-    function W() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue("utm_tracking_enabled");
     }
-    function q() {
+    function T() {
       return (
         o("WAWebMobilePlatforms").isSMB() ||
         o("WAWebABProps").getABPropConfigValue(
@@ -231,49 +151,49 @@ __d(
         )
       );
     }
-    function U() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_ctwa_web_hide_ad_context_if_soft_dismissed_in_primary",
       );
     }
-    function V() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 0;
     }
-    function H() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 1;
     }
-    function G() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 2;
     }
-    function z() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3;
     }
-    function j() {
+    function M() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("ctwa_smb_data_sharing_consent")
       );
     }
-    function K() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_data_sharing_opt_in_cool_off_period",
       );
     }
-    function Q() {
+    function A() {
       return o("WAWebMobilePlatforms").isSMB();
     }
-    function X() {
+    function F() {
       return o("WAWebMobilePlatforms").isSMB();
     }
-    function Y() {
+    function O() {
       return (
-        Q() &&
+        A() &&
         o("WAWebABProps").getABPropConfigValue(
           "in_app_comms_manage_ads_web_banner_campaign_enabled",
         )
       );
     }
-    function J() {
+    function B() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -281,7 +201,7 @@ __d(
         )
       );
     }
-    function Z() {
+    function W() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -289,7 +209,7 @@ __d(
         )
       );
     }
-    function ee() {
+    function q() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -297,7 +217,7 @@ __d(
         )
       );
     }
-    function te() {
+    function U() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -305,7 +225,7 @@ __d(
         )
       );
     }
-    function ne() {
+    function V() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -313,20 +233,20 @@ __d(
         ) === !1
       );
     }
-    function re() {
+    function H() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_entry_point_config_fetch_threshhold",
       );
     }
-    function oe() {
+    function G() {
       return (
-        ne() &&
+        V() &&
         o("WAWebABProps").getABPropConfigValue(
           "ctwa_long_term_holdout_content_enabled",
         )
       );
     }
-    function ae() {
+    function z() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -334,7 +254,7 @@ __d(
         )
       );
     }
-    function ie(e) {
+    function j(e) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (e == null ? void 0 : e.hasCreatedAd) === !0 &&
@@ -344,7 +264,7 @@ __d(
         !o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled()
       );
     }
-    function le() {
+    function K() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -352,7 +272,7 @@ __d(
         )
       );
     }
-    function se() {
+    function Q() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -360,30 +280,23 @@ __d(
         ) === !1
       );
     }
-    function ue() {
+    function X() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_push_wait_timeout_web",
       );
     }
-    function ce() {
+    function Y() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_retries_max_web",
       );
     }
-    function de() {
+    function J() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("smb_labels_ctwa_data_sharing")
       );
     }
-    function me() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "payments_br_content_optimization_variant",
-        ) !== 0
-      );
-    }
-    function pe() {
+    function Z() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -391,35 +304,12 @@ __d(
         ) === !1
       );
     }
-    function _e() {
+    function ee() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_enable_biz_data_sharing_after_nux_dismiss",
       );
     }
-    function fe() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "row_buyer_order_revamp_m0_enabled",
-      );
-    }
-    function ge() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "seller_orders_management_revamp",
-      );
-    }
-    function he() {
-      return (
-        fe() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "buyer_initiated_order_request_variant_enabled",
-        )
-      );
-    }
-    function ye() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_statuses_revamp_m1_enabled",
-      );
-    }
-    function Ce() {
+    function te() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -427,213 +317,196 @@ __d(
         )
       );
     }
-    function be() {
+    function ne() {
       return o("WAWebABProps").getABPropConfigValue(
         "use_signed_shimmed_url_link",
       );
     }
-    function ve() {
+    function re() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_product_country_of_origin_m1",
       );
     }
-    function Se() {
+    function oe() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_download_3pd_signals",
       );
     }
-    function Re(e) {
-      return s(e) || ve();
+    function ae(t) {
+      return e(t) || re();
     }
-    function Le() {
-      return s(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE());
+    function ie() {
+      return e(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE());
     }
-    function Ee() {
+    function le() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_catalog_recovery_flow_enabled",
       );
     }
-    function ke(e) {
-      var t = L(),
-        n = v();
+    function se(e) {
+      var t = b(),
+        n = h();
       return e != null && (t || (n && e.sourceApp !== "whatsapp"));
     }
-    function Ie() {
+    function ue() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_catalog_viewing_variants_enabled",
       );
     }
-    function Te() {
+    function ce() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_custom_label_signals_enabled",
       );
     }
-    function De() {
+    function de() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_web_custom_label_signals_enabled",
       );
     }
-    function xe() {
+    function me() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_custom_label_algorithm",
       );
     }
-    function $e() {
+    function pe() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_opt_out_counter_optimization_enabled",
       );
     }
-    function Pe() {
+    function _e() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_title_change",
       );
     }
-    function Ne() {
+    function fe() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_additional_logging",
       );
     }
-    function Me() {
+    function ge() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
       );
     }
-    function we() {
+    function he() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
     }
-    function Ae() {
+    function ye() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_suppress_message_with_external_ad_reply_consumer_db_level_enabled",
       );
     }
-    function Fe() {
+    function Ce() {
       return o("WAWebABProps").getABPropConfigValue(
         "per_customer_data_sharing_controls_eligible",
       );
     }
-    function Oe() {
+    function be() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen",
       );
     }
-    function Be() {
+    function ve() {
       return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
     }
-    function We() {
+    function Se() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_tos_filtering_enabled",
       );
     }
-    function qe() {
+    function Re() {
       return o("WAWebABProps").getABPropConfigValue(
         "cci_compliance_ctwa_learn_more_hyperlink",
       );
     }
-    function Ue() {
+    function Le() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_on_thread_entry",
       );
     }
-    function Ve() {
+    function Ee() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_web_category_search_via_graph_enabled",
       );
     }
-    function He() {
+    function ke() {
       return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
     }
-    ((l.canSeeECommerceComplianceIndiaSoftEnforcement = s),
-      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney = u),
-      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourney = c),
-      (l.blockCatalogCreationECommerceComplianceIndia = d),
-      (l.bannedShopsEnabled = _),
-      (l.commerceFeaturesDisabledBySanctions = f),
-      (l.catalogCategoriesEnabled = g),
-      (l.QuickPayProductTypeGating = h),
-      (l.isOrderDetailsQuickPayEnabled = y),
-      (l.isPSForCatalogViewEnabled = C),
-      (l.inOrderMessagesEphemeralExceptionEnabled = b),
-      (l.getFmxAgmEnabled = v),
-      (l.getCtwaLogUserJourneyEnabled = S),
-      (l.isCtwaAgmReportingEnabled = R),
-      (l.getWamoAgmEnabled = L),
-      (l.isQuantityControlsFeatureEnabled = E),
-      (l.hideUnsupportedCurrency = k),
-      (l.graphQLForGetProductListEnabled = I),
-      (l.isGraphQLForVerifyPostcodeEnabled = T),
-      (l.isGraphQLForGetPublicKeyEnabled = D),
-      (l.graphQLForGetOrderInfoEnabled = x),
-      (l.graphQLForGetComplianceInfo = $),
-      (l.graphQLForSetComplianceInfo = P),
-      (l.orderDetailsCustomItemEnabled = N),
-      (l.orderDetailsFromCatalogEnabled = M),
-      (l.orderDetailsFromCartEnabled = w),
-      (l.orderDetailsTotalOrderMinimumValue = A),
-      (l.orderDetailsTotalMaxValue = F),
-      (l.orderManagementEnabled = O),
-      (l.utmTrackingExpirationInHours = B),
-      (l.isUtmTrackingEnabled = W),
-      (l.isAdsAttributionEnabled = q),
-      (l.isHideAdContextIfSoftDismissed = U),
-      (l.isUpdatedConsumerDisclosureUiRowEnabled = V),
-      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = H),
-      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = G),
-      (l.isUpdatedConsumerDisclosureUiEuUkEnabled = z),
-      (l.smbDataSharingConsentEnabled = j),
-      (l.smbDataSharingOptInCoolOffSeconds = K),
-      (l.adsActionBannersEnabled = Q),
-      (l.adsActionBannersLoggingEnabled = X),
+    ((l.canSeeECommerceComplianceIndiaSoftEnforcement = e),
+      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney = s),
+      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourney = u),
+      (l.blockCatalogCreationECommerceComplianceIndia = c),
+      (l.bannedShopsEnabled = p),
+      (l.commerceFeaturesDisabledBySanctions = _),
+      (l.catalogCategoriesEnabled = f),
+      (l.isPSForCatalogViewEnabled = g),
+      (l.getFmxAgmEnabled = h),
+      (l.getCtwaLogUserJourneyEnabled = y),
+      (l.isCtwaAgmReportingEnabled = C),
+      (l.getWamoAgmEnabled = b),
+      (l.isQuantityControlsFeatureEnabled = v),
+      (l.hideUnsupportedCurrency = S),
+      (l.graphQLForGetProductListEnabled = R),
+      (l.isGraphQLForVerifyPostcodeEnabled = L),
+      (l.isGraphQLForGetPublicKeyEnabled = E),
+      (l.utmTrackingExpirationInHours = k),
+      (l.isUtmTrackingEnabled = I),
+      (l.isAdsAttributionEnabled = T),
+      (l.isHideAdContextIfSoftDismissed = D),
+      (l.isUpdatedConsumerDisclosureUiRowEnabled = x),
+      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = $),
+      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = P),
+      (l.isUpdatedConsumerDisclosureUiEuUkEnabled = N),
+      (l.smbDataSharingConsentEnabled = M),
+      (l.smbDataSharingOptInCoolOffSeconds = w),
+      (l.adsActionBannersEnabled = A),
+      (l.adsActionBannersLoggingEnabled = F),
       (l.adsActionBannersEnabledOnStartup = o("WAWebMobilePlatforms").isSMB),
-      (l.adsActionManageAdsBannerEnabled = Y),
-      (l.shouldShowAdCreationIcon = J),
-      (l.shouldShowAdCreationDropdown = Z),
-      (l.adCreationEntryPointCatalogEnabled = ee),
-      (l.adCreationEntryPointCatalogProductEnabled = te),
-      (l.adEntryPointsConfigurationFetchEnabled = ne),
-      (l.adEntryPointsConfigurationFetchThreshold = re),
-      (l.adEntryPointsConfigurationFetchM1Enabled = oe),
-      (l.isInLongTermHoldoutFallbackWhenAdEntryPointsConfigurationMissing = ae),
-      (l.shouldShowManageAdsDropdown = ie),
-      (l.shouldFetchLinkedAccounts = le),
-      (l.adAccountTokenStoringEnabled = se),
-      (l.adAccountTokenNoncePushWaitTimeoutSeconds = ue),
-      (l.adAccountTokenNonceMaxRetries = ce),
-      (l.isSMBLabelsDataSharingEnabledForChats = de),
-      (l.isOrderContentOptimizationEnabled = me),
-      (l.shouldShowSMBDataSharingSettings = pe),
-      (l.showDataSharingInSettingsAfterNuxDismiss = _e),
-      (l.isBuyerOrderRevampEnabled = fe),
-      (l.isSellerOrderRevampEnabled = ge),
-      (l.isBuyerOrderRequestVariantEnabled = he),
-      (l.isOrderStatusM1Enabled = ye),
-      (l.is3pdImportantLabelSignalsEnabled = Ce),
-      (l.isUsingSignedShimmedLinkInCatalogueEnabled = be),
-      (l.isCountryOfOriginEnabled = ve),
-      (l.isDownload3PDSignalsEnabled = Se),
-      (l.showComplianceFieldsInEditProductDrawer = Re),
-      (l.showImporterInformationInEditProductDrawer = Le),
-      (l.catalogTokenRecoveryEnabled = Ee),
-      (l.shouldGenerateAGMMsgs = ke),
-      (l.isCatalogVariantsViewingEnabled = Ie),
-      (l.isCTWACustomLabelsSignalsEnabled = Te),
-      (l.isCTWAWebCustomLabelsSignalsEnabled = De),
-      (l.getCTWACustomLabelAlgorithmGroup = xe),
-      (l.isCTWA3pdOptOutCounterOptimizationEnabled = $e),
-      (l.isCTWA3pdDataSharingTitleChangeEnabled = Pe),
-      (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = Ne),
-      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = Me),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = we),
-      (l.suppressMessageWithExternalAdReplyConsumerEnabled = Ae),
-      (l.isPerCustomerDataSharingControlsEnabled = Fe),
-      (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = Oe),
-      (l.showCTWACCICompliantUI = Be),
-      (l.isCTWATosFilteringEnabled = We),
-      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = qe),
-      (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = Ue),
-      (l.isCategorySearchViaGraphEnabled = Ve),
-      (l.getCatkitVersion = He));
+      (l.adsActionManageAdsBannerEnabled = O),
+      (l.shouldShowAdCreationIcon = B),
+      (l.shouldShowAdCreationDropdown = W),
+      (l.adCreationEntryPointCatalogEnabled = q),
+      (l.adCreationEntryPointCatalogProductEnabled = U),
+      (l.adEntryPointsConfigurationFetchEnabled = V),
+      (l.adEntryPointsConfigurationFetchThreshold = H),
+      (l.adEntryPointsConfigurationFetchM1Enabled = G),
+      (l.isInLongTermHoldoutFallbackWhenAdEntryPointsConfigurationMissing = z),
+      (l.shouldShowManageAdsDropdown = j),
+      (l.shouldFetchLinkedAccounts = K),
+      (l.adAccountTokenStoringEnabled = Q),
+      (l.adAccountTokenNoncePushWaitTimeoutSeconds = X),
+      (l.adAccountTokenNonceMaxRetries = Y),
+      (l.isSMBLabelsDataSharingEnabledForChats = J),
+      (l.shouldShowSMBDataSharingSettings = Z),
+      (l.showDataSharingInSettingsAfterNuxDismiss = ee),
+      (l.is3pdImportantLabelSignalsEnabled = te),
+      (l.isUsingSignedShimmedLinkInCatalogueEnabled = ne),
+      (l.isCountryOfOriginEnabled = re),
+      (l.isDownload3PDSignalsEnabled = oe),
+      (l.showComplianceFieldsInEditProductDrawer = ae),
+      (l.showImporterInformationInEditProductDrawer = ie),
+      (l.catalogTokenRecoveryEnabled = le),
+      (l.shouldGenerateAGMMsgs = se),
+      (l.isCatalogVariantsViewingEnabled = ue),
+      (l.isCTWACustomLabelsSignalsEnabled = ce),
+      (l.isCTWAWebCustomLabelsSignalsEnabled = de),
+      (l.getCTWACustomLabelAlgorithmGroup = me),
+      (l.isCTWA3pdOptOutCounterOptimizationEnabled = pe),
+      (l.isCTWA3pdDataSharingTitleChangeEnabled = _e),
+      (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = fe),
+      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = ge),
+      (l.isCTWASMBLabelChatHeaderEnabledWeb = he),
+      (l.suppressMessageWithExternalAdReplyConsumerEnabled = ye),
+      (l.isPerCustomerDataSharingControlsEnabled = Ce),
+      (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = be),
+      (l.showCTWACCICompliantUI = ve),
+      (l.isCTWATosFilteringEnabled = Se),
+      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = Re),
+      (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = Le),
+      (l.isCategorySearchViaGraphEnabled = Ee),
+      (l.getCatkitVersion = ke));
   },
   98,
 );

@@ -5,6 +5,8 @@ __d(
     "use strict";
     var e = n("$InternalEnum")({
         CAMPAIGNS_FETCH_END: "campaigns_fetch_end",
+        CAMPAIGNS_FETCH_START: "campaigns_fetch_start",
+        CAMPAIGNS_LOADED: "campaigns_loaded",
         FLOW_MOUNTED: "flow_mounted",
         SCREEN_MOUNTED: "screen_mounted",
       }),

@@ -1640,6 +1640,9 @@ __d(
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",
       PROACTIVE_PIPELINE_ELIGIBLE: "proactive_pipeline_eligible",
       PROACTIVE_PIPELINE_FETCH: "proactive_pipeline_fetch",
+      GENAI_TRANSPARENCY_IMPRESSION: "genai_transparency_impression",
+      GENAI_TRANSPARENCY_TOGGLE_OPT_IN: "genai_transparency_toggle_opt_in",
+      GENAI_TRANSPARENCY_TOGGLE_OPT_OUT: "genai_transparency_toggle_opt_out",
     });
     i.default = e;
   },

@@ -23,19 +23,13 @@ __d(
       );
     }
     function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "carousel_message_client_enabled",
-      );
-    }
-    function m() {
       return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
     }
     ((l.interactiveNativeFlowMessagesEnabled = e),
       (l.interactiveResponseMessagesEnabled = s),
       (l.interactiveNativeFlowResponseMessagesEnabled = u),
       (l.shopsInteractiveMessageEnabled = c),
-      (l.carouselsEnabled = d),
-      (l.isBloksWidgetEnabled = m));
+      (l.isBloksWidgetEnabled = d));
   },
   98,
 );

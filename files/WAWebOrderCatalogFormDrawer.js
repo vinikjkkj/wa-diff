@@ -2,7 +2,6 @@ __d(
   "WAWebOrderCatalogFormDrawer",
   [
     "fbt",
-    "WAWebBizGatingUtils",
     "WAWebCurrencyUtils",
     "WAWebDrawer.react",
     "WAWebDrawerBody.react",
@@ -14,6 +13,7 @@ __d(
     "WAWebOrderCatalogFormProductsList",
     "WAWebOrderConfirmDiscardModal",
     "WAWebOrderExpansionDifferentCurrencyPopup.react",
+    "WAWebOrderGatingUtils",
     "WAWebOrderTotalPrice",
     "WAWebOrdersExpansionUtils",
     "WAWebUISpacing",
@@ -129,7 +129,7 @@ __d(
                 theme: "expand-height",
                 xstyle: _.drawerSection,
                 children: [
-                  o("WAWebBizGatingUtils").orderDetailsCustomItemEnabled() &&
+                  o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled() &&
                     c.jsxs(c.Fragment, {
                       children: [
                         c.jsx(r("WAWebOrderAddItem"), {
@@ -182,7 +182,7 @@ __d(
                   onConfirm: i,
                   title: s._(/*BTDS*/ "Subtotal"),
                   confirmTitle: o(
-                    "WAWebBizGatingUtils",
+                    "WAWebOrderGatingUtils",
                   ).isOrderContentOptimizationEnabled()
                     ? s._(/*BTDS*/ "Add item")
                     : s._(/*BTDS*/ "Add to order"),

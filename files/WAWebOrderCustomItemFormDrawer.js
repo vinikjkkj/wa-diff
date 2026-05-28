@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebBizCartConstants",
-    "WAWebBizGatingUtils",
     "WAWebCurrencyUtils",
     "WAWebDrawer.react",
     "WAWebDrawerBody.react",
@@ -14,6 +13,7 @@ __d(
     "WAWebMenuItems.react",
     "WAWebModalManager",
     "WAWebOrderConfirmDiscardModal",
+    "WAWebOrderGatingUtils",
     "WAWebOrderTotalPrice",
     "WAWebProductModel",
     "WAWebRichTextField.react",
@@ -204,7 +204,7 @@ __d(
       var oe = re,
         ae;
       n[33] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ae = o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+        ? ((ae = o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
             ? s._(/*BTDS*/ "Add item")
             : s._(/*BTDS*/ "Add to order")),
           (n[33] = ae))

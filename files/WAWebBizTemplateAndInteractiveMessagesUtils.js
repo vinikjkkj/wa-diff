@@ -1,11 +1,6 @@
 __d(
   "WAWebBizTemplateAndInteractiveMessagesUtils",
-  [
-    "WAWebABProps",
-    "WAWebHsmGatingUtils",
-    "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMsgGetters",
-  ],
+  ["WAWebABProps", "WAWebInteractiveMessagesNativeFlowName", "WAWebMsgGetters"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 3,
@@ -114,16 +109,15 @@ __d(
         ? o("WAWebABProps").getABPropConfigValue(
             "web_premium_messages_interactivity_rendering_enabled",
           )
-        : n === "quoted_carousel_card" &&
-            e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY
-          ? o("WAWebHsmGatingUtils").carouselsEnabled()
-          : _(e)
-            ? !0
-            : t === !0
-              ? o("WAWebABProps").getABPropConfigValue(
-                  "web_premium_messages_interactivity_rendering_enabled",
-                )
-              : !1;
+        : (n === "quoted_carousel_card" &&
+              e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY) ||
+            _(e)
+          ? !0
+          : t === !0
+            ? o("WAWebABProps").getABPropConfigValue(
+                "web_premium_messages_interactivity_rendering_enabled",
+              )
+            : !1;
     }
     var m = function (t) {
       return t.hydratedTemplateButton != null

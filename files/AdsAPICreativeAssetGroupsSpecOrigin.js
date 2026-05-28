@@ -60,6 +60,7 @@ __d(
       FORMAT_LIQUIDITY_UGC_MULTI_PRODUCT_TO_CAROUSEL:
         "format_liquidity_ugc_multi_product_to_carousel",
       FORMAT_LIQUIDITY_UGC_TO_CAROUSEL: "format_liquidity_ugc_to_carousel",
+      FORMAT_LIQUIDITY_VIDEO_COMPOSITION: "format_liquidity_video_composition",
       FORMAT_LIQUIDITY_VIDEO_TO_CAROUSEL: "format_liquidity_video_to_carousel",
       FORMAT_LIQUIDITY_WEBSITE_HIGHLIGHTS:
         "format_liquidity_website_highlights",
@@ -80,8 +81,6 @@ __d(
       NPVO_PARITY: "npvo_parity",
       ORGANIC_FLEX_POSITIVE_TEST: "organic_flex_positive_test",
       OVERLAY_TEXT_REPLACEMENT: "overlay_text_replacement",
-      OVERLAY_TEXT_REPLACEMENT_TEXT_UNIFICATION:
-        "overlay_text_replacement_text_unification",
       PA_AUTOMATED_CAMPAIGN: "pa_automated_campaign",
       PA_DYNAMIC_HEADER: "pa_dynamic_header",
       PA_NON_DHO: "pa_non_dho",

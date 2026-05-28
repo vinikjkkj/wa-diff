@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "FBLogger",
+    "WAWebBizNativeAdsStoredFBIdentityStore",
     "WAWebCommonAdsTypes",
     "WAWebGetAccessTokenFromOIDCCode",
     "WAWebResolveAccountTypeAndAdPage",
@@ -32,9 +33,12 @@ __d(
               );
             (o("WAWebUserPrefsCTWA").setFbIdentity(i),
               o(
+                "WAWebBizNativeAdsStoredFBIdentityStore",
+              ).notifyFBIdentityChanged(),
+              o(
                 "WAWebResolveAccountTypeAndAdPage",
               ).clearSavedOIDCLoginPreference(i),
-              n != null && n());
+              n != null && n(i));
           } catch (e) {
             (r("FBLogger")("wa_ctwa_web")
               .catching(r("getErrorSafe")(e))

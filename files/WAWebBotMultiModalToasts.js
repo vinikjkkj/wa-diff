@@ -25,13 +25,23 @@ __d(
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(
-            /*BTDS*/ '_j{"*":"You can\'t share more than {number} images.","_1":"You can\'t share more than 1 image."}',
+            /*BTDS*/ '_j{"*":"You can\'t share more than {number} items.","_1":"You can\'t share more than 1 item."}',
             [s._plural(e, "number")],
           ),
         }),
       );
     }
-    function p() {
+    function p(e) {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(
+            /*BTDS*/ '_j{"*":"Media is too large. {maxMb} MB is the max."}',
+            [s._param("maxMb", e, [0])],
+          ),
+        }),
+      );
+    }
+    function _() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(
@@ -40,7 +50,7 @@ __d(
         }),
       );
     }
-    function _(e, t, n, r) {
+    function f(e, t, n, r) {
       return e && t && n
         ? s._(
             /*BTDS*/ "Can't send video, audio, or images to Meta AI at this time",
@@ -51,7 +61,7 @@ __d(
             )
           : null;
     }
-    function f(e, t, n, r) {
+    function g(e, t, n, r) {
       return e && n
         ? s._(/*BTDS*/ "Can't send video or images to Meta AI at this time")
         : e && r
@@ -72,7 +82,7 @@ __d(
                   )
                 : null;
     }
-    function g(e, t, n, r) {
+    function h(e, t, n, r) {
       return e
         ? s._(/*BTDS*/ "Can't send a video file to Meta AI at this time")
         : t
@@ -83,7 +93,7 @@ __d(
               ? s._(/*BTDS*/ "Can't send documents to Meta AI at this time")
               : null;
     }
-    function h(e) {
+    function y(e) {
       var t,
         n = new Set(e),
         r = n.has("video"),
@@ -92,26 +102,26 @@ __d(
         i = n.has("document");
       if (n.size >= 3) {
         var l;
-        return (l = _(r, o, a, i)) != null ? l : y();
+        return (l = f(r, o, a, i)) != null ? l : C();
       }
       if (n.size === 2) {
         var s;
-        return (s = f(r, o, a, i)) != null ? s : y();
+        return (s = g(r, o, a, i)) != null ? s : C();
       }
-      return (t = g(r, o, a, i)) != null ? t : y();
+      return (t = h(r, o, a, i)) != null ? t : C();
     }
-    function y() {
+    function C() {
       return s._(
         /*BTDS*/ "Can't send this type of files to Meta AI at this time",
       );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C(e) {
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: h(e) }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: y(e) }),
       );
     }
-    function b(e) {
+    function v(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(
@@ -123,11 +133,12 @@ __d(
     }
     ((l.showUnsupportedFileFormatToast = c),
       (l.showDocumentUploadLimitExceededToast = d),
-      (l.showImageSendLimitExceededToast = m),
-      (l.showMixedMediaTypeToast = p),
-      (l.getUnsupportedMimeTypesMessage = h),
-      (l.showUnsupportedMimeTypesToast = C),
-      (l.showSendMediaFailedItemToast = b));
+      (l.showMediaSendLimitExceededToast = m),
+      (l.showMediaTooLargeToast = p),
+      (l.showMixedMediaTypeToast = _),
+      (l.getUnsupportedMimeTypesMessage = y),
+      (l.showUnsupportedMimeTypesToast = b),
+      (l.showSendMediaFailedItemToast = v));
   },
   226,
 );

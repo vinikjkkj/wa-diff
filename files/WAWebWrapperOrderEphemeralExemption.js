@@ -2,10 +2,10 @@ __d(
   "WAWebWrapperOrderEphemeralExemption",
   [
     "fbt",
-    "WAWebBizGatingUtils",
     "WAWebChatEphemerality",
     "WAWebMsgGetters",
     "WAWebOrderEphemeralExemptionUtil",
+    "WAWebOrderGatingUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
@@ -18,14 +18,14 @@ __d(
         r = t.interactiveType,
         a = t.nativeFlowName;
       return (
-        o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
+        o("WAWebOrderGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
         o(
           "WAWebOrderEphemeralExemptionUtil",
         ).isMessageTypeExemptedFromDisappearing(n.type, r, a)
       );
     }
     function u() {
-      return o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+      return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
         ? s._(
             /*BTDS*/ "Disappearing messages are turned on in this chat. This charge request will not disappear because it contains purchase information.",
           )

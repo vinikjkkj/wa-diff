@@ -1,106 +1,31 @@
 __d(
   "WAWebMerchantComplianceJob",
   [
-    "WADeprecatedSendIq",
-    "WADeprecatedWapParser",
-    "WAWap",
-    "WAWapDeprecatedSmaxID",
-    "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
     "WAWebBizGetMerchantCompliance",
     "WAWebBizSetMerchantCompliance",
-    "WAWebCommsWapMd",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-        var e, n, r;
-        return {
-          email:
-            (t == null || (e = t.maybeChild("email")) == null
-              ? void 0
-              : e.contentString()) || "",
-          landline_number:
-            (t == null || (n = t.maybeChild("landline_number")) == null
-              ? void 0
-              : n.contentString()) || "",
-          mobile_number:
-            (t == null || (r = t.maybeChild("mobile_number")) == null
-              ? void 0
-              : r.contentString()) || "",
-        };
-      },
-      s = new (r("WADeprecatedWapParser"))(
-        "merchantComplianceResponse",
-        function (t) {
-          (t.assertTag("iq"), t.assertFromServer());
-          var n = [];
-          return (
-            t.forEachChildWithTag("merchant_info", function (t) {
-              var r,
-                o,
-                a,
-                i,
-                l =
-                  ((r = t.maybeChild("entity_name")) == null
-                    ? void 0
-                    : r.contentString()) || "",
-                s =
-                  ((o = t.maybeChild("entity_type")) == null
-                    ? void 0
-                    : o.contentString()) || "",
-                u =
-                  (a = t.maybeChild("entity_type_custom")) == null
-                    ? void 0
-                    : a.contentString(),
-                c = t.attrString("is_registered") === "true",
-                d = t.maybeChild("customer_care_details"),
-                m = t.maybeChild("grievance_officer_details"),
-                p = babelHelpers.extends({}, e(d)),
-                _ = babelHelpers.extends(
-                  {
-                    name:
-                      (m == null || (i = m.maybeChild("name")) == null
-                        ? void 0
-                        : i.contentString()) || "",
-                  },
-                  e(m),
-                );
-              n.push({
-                entity_name: l,
-                entity_type: s,
-                is_registered: c,
-                entity_type_custom: u,
-                customer_care_details: p,
-                grievance_officer_details: _,
-              });
-            }),
-            n
-          );
-        },
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return u(e);
+        })),
+        s.apply(this, arguments)
       );
+    }
     function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebBizGatingUtils").graphQLForGetComplianceInfo()
-            ? d(e)
-            : p(e);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebBizGetMerchantCompliance",
           ).getMerchantCompliance({ biz_jid: e[0].wid.toJid() });
@@ -117,6 +42,32 @@ __d(
             )
           );
         })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e === void 0 ? {} : e,
+            n = t.customerCareDetails,
+            r = t.entityName,
+            o = t.entityType,
+            a = t.entityTypeCustom,
+            i = t.grievanceOfficerDetails,
+            l = t.isRegistered,
+            s = l === void 0 ? !1 : l;
+          return p({
+            customerCareDetails: n,
+            entityName: r,
+            entityType: o,
+            entityTypeCustom: a,
+            grievanceOfficerDetails: i,
+            isRegistered: s,
+          });
+        })),
         m.apply(this, arguments)
       );
     }
@@ -126,159 +77,6 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = (t = o("WAWap")).wap(
-              "iq",
-              {
-                to: t.S_WHATSAPP_NET,
-                xmlns: "w:biz:merchant_info",
-                id: t.generateId(),
-                type: "get",
-                smax_id: t.SMAX_ID(
-                  r("WAWapDeprecatedSmaxID").MerchantGetComplianceInfo,
-                ),
-              },
-              e.map(function (e) {
-                return o("WAWap").wap("merchant_info", {
-                  jid: o("WAWebCommsWapMd").USER_JID(e.wid),
-                });
-              }),
-            ),
-            a = yield o("WADeprecatedSendIq").deprecatedSendIq(n, s);
-          if (a.success) return a.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            a.errorCode,
-          );
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e === void 0 ? {} : e,
-            n = t.customerCareDetails,
-            r = t.entityName,
-            a = t.entityType,
-            i = t.entityTypeCustom,
-            l = t.grievanceOfficerDetails,
-            s = t.isRegistered,
-            u = s === void 0 ? !1 : s;
-          return o("WAWebBizGatingUtils").graphQLForSetComplianceInfo()
-            ? C({
-                customerCareDetails: n,
-                entityName: r,
-                entityType: a,
-                entityTypeCustom: i,
-                grievanceOfficerDetails: l,
-                isRegistered: u,
-              })
-            : h({
-                entityName: r,
-                entityType: a,
-                isRegistered: u,
-                entityTypeCustom: i,
-                customerCareDetails: n,
-                grievanceOfficerDetails: l,
-              });
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e === void 0 ? {} : e,
-            n = t.customerCareDetails,
-            a = t.entityName,
-            i = t.entityType,
-            l = t.entityTypeCustom,
-            u = t.grievanceOfficerDetails,
-            c = t.isRegistered,
-            d = c === void 0 ? !1 : c,
-            m = o("WAWap").wap(
-              "iq",
-              {
-                to: o("WAWap").S_WHATSAPP_NET,
-                xmlns: "w:biz:merchant_info",
-                id: o("WAWap").generateId(),
-                type: "set",
-                smax_id: o("WAWap").SMAX_ID(
-                  r("WAWapDeprecatedSmaxID").MerchantSetComplianceInfo,
-                ),
-              },
-              o("WAWap").wap(
-                "merchant_info",
-                { is_registered: d ? "true" : "false" },
-                a !== void 0 ? o("WAWap").wap("entity_name", null, a) : null,
-                i !== void 0 ? o("WAWap").wap("entity_type", null, i) : null,
-                l !== void 0
-                  ? o("WAWap").wap("entity_type_custom", null, l)
-                  : null,
-                n
-                  ? o("WAWap").wap(
-                      "customer_care_details",
-                      null,
-                      n.email !== void 0
-                        ? o("WAWap").wap("email", null, n.email)
-                        : null,
-                      n.landlineNumber !== void 0
-                        ? o("WAWap").wap(
-                            "landline_number",
-                            null,
-                            n.landlineNumber,
-                          )
-                        : null,
-                      n.mobileNumber !== void 0
-                        ? o("WAWap").wap("mobile_number", null, n.mobileNumber)
-                        : null,
-                    )
-                  : null,
-                u
-                  ? o("WAWap").wap(
-                      "grievance_officer_details",
-                      null,
-                      u.name !== void 0
-                        ? o("WAWap").wap("name", null, u.name)
-                        : null,
-                      u.email !== void 0
-                        ? o("WAWap").wap("email", null, u.email)
-                        : null,
-                      u.landlineNumber !== void 0
-                        ? o("WAWap").wap(
-                            "landline_number",
-                            null,
-                            u.landlineNumber,
-                          )
-                        : null,
-                      u.mobileNumber !== void 0
-                        ? o("WAWap").wap("mobile_number", null, u.mobileNumber)
-                        : null,
-                    )
-                  : null,
-              ),
-            ),
-            p = yield o("WADeprecatedSendIq").deprecatedSendIq(m, s);
-          if (p.success) return p.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            p.errorCode,
-          );
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.customerCareDetails,
             n = e.entityName,
             a = e.entityType,
@@ -291,7 +89,7 @@ __d(
           if (
             ((d.is_registered = u),
             n !== void 0 && (d.entity_name = n),
-            (d.entity_type = v(a)),
+            (d.entity_type = f(a)),
             i !== void 0 && (d.entity_type_custom = i),
             t)
           ) {
@@ -327,10 +125,10 @@ __d(
             )
           );
         })),
-        b.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function v(e) {
+    function f(e) {
       return e == null
         ? "OTHER"
         : e === "Limited liability partnership"
@@ -352,7 +150,7 @@ __d(
                         );
                       })();
     }
-    ((l.getMerchantCompliance = u), (l.setMerchantCompliance = f));
+    ((l.getMerchantCompliance = e), (l.setMerchantCompliance = d));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebAttachMenuStrings",
-  ["fbt", "WAWebBizGatingUtils"],
+  ["fbt", "WAWebOrderGatingUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "Camera");
@@ -15,7 +15,7 @@ __d(
       return s._(/*BTDS*/ "Document");
     }
     function m() {
-      return o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+      return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
         ? s._(/*BTDS*/ "Charge")
         : s._(/*BTDS*/ "Order");
     }

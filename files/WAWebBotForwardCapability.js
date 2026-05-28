@@ -19,10 +19,25 @@ __d(
             ? { state: "shown" }
             : { state: "hidden" }
           : t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT
-            ? u(t)
-            : { state: "hidden" };
+            ? c(t)
+            : t.type === o("WAWebMsgType").MSG_TYPE.VIDEO
+              ? u(t)
+              : { state: "hidden" };
     }
     function u(e) {
+      if (!o("WAWebBotGating").isMetaAiVideoInputEnabled())
+        return { state: "hidden" };
+      var t = o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes();
+      return e.size != null && e.size > t
+        ? {
+            state: "disabled",
+            reason: s._(/*BTDS*/ "Can't forward videos over {size}", [
+              s._param("size", o("WAWebL10nFilesize").getL10nFilesize(t)),
+            ]),
+          }
+        : { state: "shown" };
+    }
+    function c(e) {
       if (!o("WAWebBotGating").isMetaAiDocUploadEnabled())
         return { state: "hidden" };
       var t = o("WAWebBotGating").getMetaAiDocumentUploadSizeLimitBytes();
@@ -45,15 +60,15 @@ __d(
           }
         : { state: "shown" };
     }
-    function c(t) {
+    function d(t) {
       return e(t).state === "shown";
     }
-    function d(t) {
+    function m(t) {
       return e(t).state !== "hidden";
     }
     ((l.getForwardToMetaAiEligibility = e),
-      (l.canForwardMsgToMetaAi = c),
-      (l.isMetaAiForwardRowVisibleForMsgs = d));
+      (l.canForwardMsgToMetaAi = d),
+      (l.isMetaAiForwardRowVisibleForMsgs = m));
   },
   226,
 );

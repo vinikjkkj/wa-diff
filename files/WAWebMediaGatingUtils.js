@@ -20,6 +20,7 @@ __d(
         if (n === "document")
           return o("WAWebBotGating").getMetaAiFileUploadCountLimit();
         if (n === "image") return o("WAWebBotGating").getMetaAiImageSendLimit();
+        if (n === "video") return 1;
       }
       if (
         t.isNewsletter() &&
@@ -145,6 +146,8 @@ __d(
         return (
           o("WAWebBotGating").isMetaAiImageInputEnabled() &&
             n.add(o("WAWebMsgType").MSG_TYPE.IMAGE),
+          o("WAWebBotGating").isMetaAiVideoInputEnabled() &&
+            n.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
           o("WAWebBotGating").isMetaAiDocUploadEnabled() &&
             n.add(o("WAWebMsgType").MSG_TYPE.DOCUMENT),
           n

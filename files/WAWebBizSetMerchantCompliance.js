@@ -1,9 +1,7 @@
 __d(
   "WAWebBizSetMerchantCompliance",
   [
-    "Promise",
     "WALogger",
-    "WAWebBizGatingUtils",
     "WAWebBizSetMerchantComplianceMutation.graphql",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
@@ -11,8 +9,8 @@ __d(
     "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
+    var e, s, u, c;
+    function d(e) {
       if (e == null) return "Other";
       switch (e) {
         case "SOLE_PROPRIETORSHIP":
@@ -31,41 +29,39 @@ __d(
           return "Other";
       }
     }
-    var p = { type: "error" },
-      _ =
+    var m = { type: "error" },
+      p =
         e !== void 0
           ? e
           : (e = n("WAWebBizSetMerchantComplianceMutation.graphql"));
-    function f(e) {
-      return o("WAWebBizGatingUtils").graphQLForSetComplianceInfo()
-        ? g(e).then(function (e) {
-            return e.type === "success"
-              ? (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "setMerchantComplianceGraphQL: success",
-                    ])),
-                ),
-                e)
-              : (e.type,
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      ' setMerchantCompliance: failed as "',
-                      '"',
-                    ])),
-                  e.type,
-                ),
-                e);
-          })
-        : (d || (d = n("Promise"))).resolve({ type: "not-enabled" });
+    function _(e) {
+      return f(e).then(function (e) {
+        return e.type === "success"
+          ? (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "setMerchantComplianceGraphQL: success",
+                ])),
+            ),
+            e)
+          : (e.type,
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  ' setMerchantCompliance: failed as "',
+                  '"',
+                ])),
+              e.type,
+            ),
+            e);
+      });
     }
-    function g(e) {
+    function f(e) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (t) {
           return t.type === "success"
-            ? h(t.token, e).then(function (e) {
+            ? g(t.token, e).then(function (e) {
                 return (
                   e.type !== "success" && e.type === "auth-failure"
                     ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
@@ -76,28 +72,28 @@ __d(
             : (t.type, t);
         });
     }
-    function h(e, t) {
+    function g(e, t) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAWebRelayClient").commitMutation(
-            _,
+            p,
             { input: t },
             { environmentType: "facebook", accessToken: e },
           );
         })
         .then(function (e) {
           var t, n, r, o, a, i, l, s;
-          if (e == null) return p;
+          if (e == null) return m;
           var u =
             (t = e.xfb_whatsapp_biz_merchant_set_compliance_info) == null
               ? void 0
               : t.merchant_info;
-          if (u == null) return p;
+          if (u == null) return m;
           var c = [
             {
               entity_name: u.entity_name || "",
-              entity_type: m(u.entity_type),
+              entity_type: d(u.entity_type),
               is_registered: u.is_registered || !1,
               entity_type_custom: u.entity_type_custom || "",
               customer_care_details: {
@@ -147,11 +143,11 @@ __d(
               ? { type: "auth-failure" }
               : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
                 ? { type: "graphql-error", error: e }
-                : p
+                : m
           );
         });
     }
-    ((l.mapEntityTypeToBusinessTypeOption = m), (l.setMerchantCompliance = f));
+    ((l.mapEntityTypeToBusinessTypeOption = d), (l.setMerchantCompliance = _));
   },
   98,
 );

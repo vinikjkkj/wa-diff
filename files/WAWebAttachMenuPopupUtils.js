@@ -10,9 +10,12 @@ __d(
           : o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
               .PHOTOS_AND_VIDEOS
         : o("WAWebBotUtils").isMetaAiBot(e)
-          ? o("WAWebBotGating").isMetaAiImageInputEnabled()
-            ? o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
-                .PHOTOS
+          ? o("WAWebBotGating").isAnyMetaAiMediaInputEnabled()
+            ? o("WAWebBotGating").isMetaAiVideoInputEnabled()
+              ? o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
+                  .PHOTOS_AND_VIDEOS
+              : o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
+                  .PHOTOS
             : null
           : o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
               .PHOTOS_AND_VIDEOS;

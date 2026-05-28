@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebBizEntryPoint",
-    "WAWebBizGatingUtils",
     "WAWebBizOrderPreview.react",
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileUtils",
@@ -21,6 +20,7 @@ __d(
     "WAWebOrderCollection",
     "WAWebOrderDetailsActionCategory",
     "WAWebOrderDetailsActionsSmbWamEvent",
+    "WAWebOrderGatingUtils",
     "WAWebOrderLogEvents",
     "WAWebProductCatalogContext",
     "WAWebProductCatalogSession",
@@ -104,7 +104,7 @@ __d(
                 l = a.token;
               if (e != null && n != null && l != null) {
                 if (
-                  o("WAWebBizGatingUtils").isBuyerOrderRevampEnabled() &&
+                  o("WAWebOrderGatingUtils").isBuyerOrderRevampEnabled() &&
                   a.status != null &&
                   a.status !==
                     o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
@@ -205,7 +205,7 @@ __d(
         x;
       t[26] !== a.status
         ? ((x = function () {
-            return o("WAWebBizGatingUtils").isSellerOrderRevampEnabled()
+            return o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
               ? a.status == null ||
                   a.status ===
                     o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
@@ -218,7 +218,7 @@ __d(
       var $ = x,
         P;
       t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((P = o("WAWebBizGatingUtils").isBuyerOrderRequestVariantEnabled()
+        ? ((P = o("WAWebOrderGatingUtils").isBuyerOrderRequestVariantEnabled()
             ? s._(/*BTDS*/ "View details")
             : s._(/*BTDS*/ "View sent cart")),
           (t[28] = P))
@@ -226,7 +226,7 @@ __d(
       var N = P,
         M;
       t[29] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = o("WAWebBizGatingUtils").isSellerOrderRevampEnabled()
+        ? ((M = o("WAWebOrderGatingUtils").isSellerOrderRevampEnabled()
             ? s._(/*BTDS*/ "View order request")
             : s._(/*BTDS*/ "View received cart")),
           (t[29] = M))

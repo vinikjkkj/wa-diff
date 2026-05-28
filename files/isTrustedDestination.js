@@ -7,6 +7,7 @@ __d(
     "isFacebookURI",
     "isInstagramURI",
     "isInternalFBURI",
+    "isInternalMetaURI",
     "isMetaAIURI",
     "isMetaDotComURI",
     "isOculusDotComURI",
@@ -102,7 +103,7 @@ __d(
           : u()
             ? r("isMetaDotComURI")(t)
             : _()
-              ? r("isInternalFBURI")(t) || S(t)
+              ? r("isInternalFBURI")(t) || r("isInternalMetaURI")(t) || S(t)
               : e()
                 ? r("isOculusDotComURI")(t) ||
                   r("isSecureOculusDotComURI")(t) ||

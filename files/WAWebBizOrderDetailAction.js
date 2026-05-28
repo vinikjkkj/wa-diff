@@ -1,11 +1,11 @@
 __d(
   "WAWebBizOrderDetailAction",
   [
-    "WAWebBizGatingUtils",
     "WAWebDrawerManager",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebOrderDetails",
+    "WAWebOrderGatingUtils",
     "WAWebProductDetailsFlowLoadable",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
@@ -49,7 +49,7 @@ __d(
             : !1;
       if (i != null && l != null && c != null) {
         if (
-          o("WAWebBizGatingUtils").isBuyerOrderRevampEnabled() &&
+          o("WAWebOrderGatingUtils").isBuyerOrderRevampEnabled() &&
           u != null &&
           u !==
             o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus.INQUIRY

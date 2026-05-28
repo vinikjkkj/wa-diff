@@ -9,7 +9,6 @@ __d(
     "WAWebApiContact",
     "WAWebApiVerifiedBusinessName",
     "WAWebBackendApi",
-    "WAWebBizProfileGatingUtils",
     "WAWebCommonParsersVerifiedName",
     "WAWebCommsWapMd",
     "WAWebHandleBusinessRemoval",
@@ -212,11 +211,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebBizProfileGatingUtils",
-          ).isLidMigrationForVnameEnabled()
-            ? o("WAWebLidMigrationUtils").getPnAndLidToUpdate(e.wid)
-            : [e.wid];
+          var t = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(e.wid);
           yield (s || (s = n("Promise"))).all(
             t.map(function (t) {
               return u(babelHelpers.extends({}, e, { wid: t }));

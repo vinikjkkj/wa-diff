@@ -263,8 +263,8 @@ __d(
       return o(
         "WAWebUsernameWorkerCompatibleGatingUtils",
       ).usernameCreationOrReservationEnabled()
-        ? s._(/*BTDS*/ "Name, profile photo, username")
-        : s._(/*BTDS*/ "Name, profile photo");
+        ? s._(/*BTDS*/ "Name, profile picture, username")
+        : s._(/*BTDS*/ "Name, profile picture");
     }
     function we() {
       return s._(/*BTDS*/ "Chats");

@@ -277,10 +277,7 @@ __d(
           params: { on_iap_location_info_optimization_ig: e },
         },
         ig_fb_shared_iap_us_steering_rollout: {
-          params: {
-            is_steering_enabled: e,
-            is_steering_enabled_with_friction: e,
-          },
+          params: { is_steering_enabled_with_friction: e },
         },
         increase_min_account_spending_limit: { params: { enabled: e } },
         india_billing_pmt_unknown_card_type_allow: {

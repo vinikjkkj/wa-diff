@@ -1,7 +1,7 @@
 __d(
   "WAWebBizNativeAdsCtwaAdAccountType",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebWamEnumCtwaAdAccountType"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       return e === "WAA"
@@ -12,7 +12,19 @@ __d(
             : "ctwa_fb_pageless_account"
           : null;
     }
-    i.getCtwaAdAccountType = e;
+    function s(e, t) {
+      return e === "WAA"
+        ? o("WAWebWamEnumCtwaAdAccountType").CTWA_AD_ACCOUNT_TYPE
+            .CTWA_WA_AD_ACCOUNT
+        : e === "FB"
+          ? t === "linked_fb_page"
+            ? o("WAWebWamEnumCtwaAdAccountType").CTWA_AD_ACCOUNT_TYPE
+                .CTWA_FB_PAGE_LINKED_ACCOUNT
+            : o("WAWebWamEnumCtwaAdAccountType").CTWA_AD_ACCOUNT_TYPE
+                .CTWA_FB_PAGELESS_ACCOUNT
+          : null;
+    }
+    ((l.getCtwaAdAccountType = e), (l.getWamCtwaAdAccountType = s));
   },
-  66,
+  98,
 );

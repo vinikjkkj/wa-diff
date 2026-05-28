@@ -132,17 +132,14 @@ __d(
       );
     }
     function h(e, t) {
-      var n = t.from.user,
-        r = o("WAWebABProps").getABPropConfigValue("otp_lid_migration_enabled");
-      if (r && n != null) {
-        var a = o(
+      var n = t.from.user;
+      if (n != null) {
+        var r = o(
             "WAWebLid1X1MigrationGating",
           ).Lid1X1MigrationUtils.isLidMigrated(),
-          i = a ? o("WAWebLidMigrationUtils").toLid(t.from) : t.from;
-        e.businessLidOrJid = i ? i.toString() : n;
-        return;
+          a = r ? o("WAWebLidMigrationUtils").toLid(t.from) : t.from;
+        e.businessLidOrJid = a ? a.toString() : n;
       }
-      n != null && (e.businessPhoneNumber = Number(n));
     }
     function y(e) {
       ((e.isKeepChatsArchivedEnabled = o(

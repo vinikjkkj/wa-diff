@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WASmaxInBizSettingsEnums",
-    "WAWebBizGatingUtils",
     "WAWebCTWADataSharingModel",
     "WAWebChatEphemerality",
     "WAWebClickableLink.react",
@@ -24,6 +23,7 @@ __d(
     "WAWebOrderDetailSharedStyles",
     "WAWebOrderEphemeralExemptionPopup.react",
     "WAWebOrderExpansionNotSupportedPopup.react",
+    "WAWebOrderGatingUtils",
     "WAWebOrderStatus",
     "WAWebOrderTotalPrice",
     "WAWebOrdersExpansionUtils",
@@ -60,8 +60,8 @@ __d(
     function f(e, t, n, r) {
       if (!e) return s._(/*BTDS*/ "Items must all have a price").toString();
       var a =
-          o("WAWebBizGatingUtils").orderDetailsTotalOrderMinimumValue() * 1e3,
-        i = o("WAWebBizGatingUtils").orderDetailsTotalMaxValue(r) * 1e3;
+          o("WAWebOrderGatingUtils").orderDetailsTotalOrderMinimumValue() * 1e3,
+        i = o("WAWebOrderGatingUtils").orderDetailsTotalMaxValue(r) * 1e3;
       return t < a
         ? s
             ._(
@@ -345,7 +345,7 @@ __d(
       r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.DISAPPEARING_MSG_DISCLAIMER_DIMISSED,
       ) !== !0 &&
-      o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
+      o("WAWebOrderGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
       o("WAWebChatEphemerality").isEphemeralSettingOn(n)
         ? o("WAWebModalManager").ModalManager.open(
             c.jsx(r("WAWebOrderEphemeralExemptionPopup.react"), {
@@ -445,7 +445,9 @@ __d(
             : (z = t[38]));
         var ne;
         (t[39] === Symbol.for("react.memo_cache_sentinel")
-          ? ((ne = o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+          ? ((ne = o(
+              "WAWebOrderGatingUtils",
+            ).isOrderContentOptimizationEnabled()
               ? s._(/*BTDS*/ "Charge buyer")
               : s._(/*BTDS*/ "Create order")),
             (t[39] = ne))
@@ -607,7 +609,9 @@ __d(
               (t[83] = U))
             : (U = t[83]),
           t[84] === Symbol.for("react.memo_cache_sentinel")
-            ? ((V = o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+            ? ((V = o(
+                "WAWebOrderGatingUtils",
+              ).isOrderContentOptimizationEnabled()
                 ? s._(/*BTDS*/ "Send charge request")
                 : s._(/*BTDS*/ "Send order")),
               (t[84] = V))

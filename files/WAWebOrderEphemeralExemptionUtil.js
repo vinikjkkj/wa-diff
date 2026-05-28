@@ -1,16 +1,16 @@
 __d(
   "WAWebOrderEphemeralExemptionUtil",
   [
-    "WAWebBizGatingUtils",
     "WAWebDBEphemeralDisplayedExemptions",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "WAWebOrderGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       return (
-        o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
+        o("WAWebOrderGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
         e === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
         t === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
         (n === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||

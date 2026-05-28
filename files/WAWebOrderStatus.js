@@ -2,12 +2,12 @@ __d(
   "WAWebOrderStatus",
   [
     "$InternalEnum",
-    "WAWebBizGatingUtils",
     "WAWebE2EProtoUtils",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
     "WAWebOrderDetails",
+    "WAWebOrderGatingUtils",
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatusButton",
   ],
@@ -204,7 +204,7 @@ __d(
       return !e.contact.isEnterprise && !y(t);
     }
     function v() {
-      return o("WAWebBizGatingUtils").isOrderStatusM1Enabled()
+      return o("WAWebOrderGatingUtils").isOrderStatusM1Enabled()
         ? u.PaymentRequested
         : u.Pending;
     }

@@ -3,8 +3,11 @@ __d(
   [
     "JSResourceForInteraction",
     "Promise",
+    "WAWebBackendApi",
     "WAWebDeviceIdHeader",
     "WAWebGraphQLConstants",
+    "WAWebGraphQLRemapLocale",
+    "WAWebMiscGatingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -68,12 +71,19 @@ __d(
             _ = i[2],
             f = i[3],
             g = i[4],
-            h = new p(
-              o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
+            h = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
+            y = yield o("WAWebBackendApi").frontendSendAndReceive(
+              "getFullLocale",
+              void 0,
             ),
-            y = _(
+            C = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
+              y.replace("-", "_"),
+              o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
+            ),
+            b = new p(h + "?locale=" + C),
+            v = _(
               f({
-                graphURI: h,
+                graphURI: b,
                 accessToken: t.accessToken,
                 actorID: t.actorID,
                 getAdditionalHeaders: function () {
@@ -85,18 +95,18 @@ __d(
               }),
               g({ actorID: t.actorID, accessToken: t.accessToken }),
             ),
-            C = new u({
-              network: y,
+            S = new u({
+              network: v,
               store: new m(new d()),
               options: { actorID: t == null ? void 0 : t.actorID },
             });
           return (
             (c = {
-              environment: C,
+              environment: S,
               accessToken: t == null ? void 0 : t.accessToken,
               actorID: t == null ? void 0 : t.actorID,
             }),
-            C
+            S
           );
         })),
         m.apply(this, arguments)

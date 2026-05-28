@@ -306,35 +306,38 @@ __d(
             "ai_web_meta_ai_pdf_document_input_enabled",
           );
     }
-    var K = "pdf";
-    function Q() {
+    function K() {
+      return G() || z();
+    }
+    var Q = "pdf";
+    function X() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_supported_file_types",
       );
-      return e !== "" ? e : K;
+      return e !== "" ? e : Q;
     }
-    function X() {
+    function Y() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_count_limit",
       );
     }
-    function Y() {
+    function J() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_send_image_limit",
       );
     }
-    function J() {
+    function Z() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_document_ocr_image_conversion_enabled",
       );
     }
-    function Z(e, t) {
+    function ee(e, t) {
       return t != null && o("WAWebBotUtils").isMetaAiBot(e) && F();
     }
-    function ee(e) {
+    function te(e) {
       return o("WAWebBotUtils").isMetaAiBot(e) && F();
     }
-    function te() {
+    function ne() {
       var e,
         t = o("WAWebABProps").getABPropConfigValue(
           "ai_chat_threads_implicit_routing_strategy",
@@ -346,21 +349,21 @@ __d(
         : o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
             .NewThread;
     }
-    function ne() {
+    function re() {
       return (
-        te() !==
+        ne() !==
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .NewThread
       );
     }
-    function re() {
+    function oe() {
       return (
-        te() ===
+        ne() ===
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .DefaultThread
       );
     }
-    function oe() {
+    function ae() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_bot_integration_bot_profile",
       );
@@ -373,7 +376,7 @@ __d(
         }
       return "";
     }
-    function ae() {
+    function ie() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_bot_integration_bot_profile",
       );
@@ -386,7 +389,7 @@ __d(
         }
       return "";
     }
-    function ie() {
+    function le() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -399,7 +402,7 @@ __d(
         }
       return "";
     }
-    function le() {
+    function se() {
       return (
         F() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -407,43 +410,43 @@ __d(
         ) === !0
       );
     }
-    function se() {
+    function ue() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_pin_max_count",
       );
     }
-    function ue() {
+    function ce() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_commands_enabled",
       );
     }
-    function ce() {
+    function de() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_bot_orphan_logic_enabled",
       );
     }
-    function de() {
+    function me() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_video_upload_enabled",
       );
     }
-    function me() {
+    function pe() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function pe() {
+    function _e() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    var _e = 40;
-    function fe() {
-      return _e * 1024 * 1024;
-    }
+    var fe = 40;
     function ge() {
+      return fe * 1024 * 1024;
+    }
+    function he() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -496,28 +499,29 @@ __d(
       (l.isMetaAiImageInputEnabled = G),
       (l.isMetaAiVideoInputEnabled = z),
       (l.isMetaAiDocUploadEnabled = j),
-      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = K),
-      (l.getMetaAiSupportedFileTypes = Q),
-      (l.getMetaAiFileUploadCountLimit = X),
-      (l.getMetaAiImageSendLimit = Y),
-      (l.isMetaAiDocumentOcrImageConversionEnabled = J),
-      (l.shouldSkipMetaAiChatlistHighlight = Z),
-      (l.isMetaAiChatInThreadsMode = ee),
-      (l.getImplicitThreadRoutingStrategy = te),
-      (l.isImplicitThreadRoutingEnabled = ne),
-      (l.isDefaultThreadRoutingEnabled = re),
-      (l.getManusBotName = oe),
-      (l.getManusBotProfileThumb = ae),
-      (l.getHatchBotName = ie),
-      (l.isAiThreadPinEnabled = le),
-      (l.getAiThreadPinMaxCount = se),
-      (l.isHatchCommandsEnabled = ue),
-      (l.isBotOrphanMsgEnabled = ce),
-      (l.isHatchVideoUploadEnabled = de),
-      (l.getHatchDocumentUploadSizeLimitBytes = me),
-      (l.getMetaAiDocumentUploadSizeLimitBytes = pe),
-      (l.getMetaAiVideoUploadSizeLimitBytes = fe),
-      (l.getHatchBotProfileThumb = ge));
+      (l.isAnyMetaAiMediaInputEnabled = K),
+      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = Q),
+      (l.getMetaAiSupportedFileTypes = X),
+      (l.getMetaAiFileUploadCountLimit = Y),
+      (l.getMetaAiImageSendLimit = J),
+      (l.isMetaAiDocumentOcrImageConversionEnabled = Z),
+      (l.shouldSkipMetaAiChatlistHighlight = ee),
+      (l.isMetaAiChatInThreadsMode = te),
+      (l.getImplicitThreadRoutingStrategy = ne),
+      (l.isImplicitThreadRoutingEnabled = re),
+      (l.isDefaultThreadRoutingEnabled = oe),
+      (l.getManusBotName = ae),
+      (l.getManusBotProfileThumb = ie),
+      (l.getHatchBotName = le),
+      (l.isAiThreadPinEnabled = se),
+      (l.getAiThreadPinMaxCount = ue),
+      (l.isHatchCommandsEnabled = ce),
+      (l.isBotOrphanMsgEnabled = de),
+      (l.isHatchVideoUploadEnabled = me),
+      (l.getHatchDocumentUploadSizeLimitBytes = pe),
+      (l.getMetaAiDocumentUploadSizeLimitBytes = _e),
+      (l.getMetaAiVideoUploadSizeLimitBytes = ge),
+      (l.getHatchBotProfileThumb = he));
   },
   98,
 );

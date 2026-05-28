@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WASyncdConst",
-    "WAWebABProps",
     "WAWebDBCreateLidPnMappings",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
@@ -14,8 +13,7 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = (function (t) {
+      c = (function (t) {
         function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -38,31 +36,12 @@ __d(
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var n = this;
-                if (
-                  o("WAWebABProps").getABPropConfigValue(
-                    "pnh_pn_for_lid_chat_sync",
-                  ) !== !0
-                )
-                  return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "pn_for_lid_chat sync: operation not supported",
-                        ])),
-                    ),
-                    t.map(function () {
-                      return {
-                        actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
-                      };
-                    })
-                  );
-                var r = [],
+                var n = this,
+                  r = [],
                   a = 0,
                   i = 0,
                   l = 0,
-                  d = t.map(function (e) {
+                  c = t.map(function (e) {
                     var t;
                     if (e.operation !== "set")
                       return (
@@ -96,8 +75,8 @@ __d(
                 return (
                   a > 0 &&
                     o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "pn_for_lid_chat sync: ",
                           " operations not supported",
                         ])),
@@ -105,8 +84,8 @@ __d(
                     ),
                   i > 0 &&
                     o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "pn_for_lid_chat sync: ",
                           " malformed mutations - invalid key",
                         ])),
@@ -114,8 +93,8 @@ __d(
                     ),
                   l > 0 &&
                     o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "pn_for_lid_chat sync: ",
                           " malformed mutations - invalid pnJid",
                         ])),
@@ -126,7 +105,7 @@ __d(
                     flushImmediately: !0,
                     learningSource: "other",
                   }),
-                  d
+                  c
                 );
               },
             );
@@ -138,8 +117,8 @@ __d(
           r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      m = new d();
-    l.default = m;
+      d = new c();
+    l.default = d;
   },
   98,
 );

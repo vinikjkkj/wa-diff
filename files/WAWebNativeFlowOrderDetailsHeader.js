@@ -3,8 +3,8 @@ __d(
   [
     "fbt",
     "WAWebActionCheckCircleIcon.react",
-    "WAWebBizGatingUtils",
     "WAWebFlex.react",
+    "WAWebOrderGatingUtils",
     "WAWebOrderPaymentStatus",
     "WAWebTextLineClamp.react",
     "WAWebText_DONOTUSE.react",
@@ -92,7 +92,7 @@ __d(
         : (v = n[2]);
       var S;
       n[3] !== m
-        ? ((S = o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+        ? ((S = o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
             ? s._(/*BTDS*/ "Charge #{order}", [s._param("order", m)])
             : s._(/*BTDS*/ "Order #{order}", [s._param("order", m)])),
           (n[3] = m),

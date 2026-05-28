@@ -2,7 +2,6 @@ __d(
   "WAWebVerifiedBusinessNameCopyPnDataToLidRows",
   [
     "WALogger",
-    "WAWebBizProfileGatingUtils",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebUserPrefsKeys",
@@ -21,13 +20,8 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
-            !(
-              !o(
-                "WAWebBizProfileGatingUtils",
-              ).isLidMigrationForVnameEnabled() ||
-              o("WAWebUserPrefsKeys").UserPrefs
-                .VerifiedBusinessNameLidTableMigrationComplete
-            )
+            !o("WAWebUserPrefsKeys").UserPrefs
+              .VerifiedBusinessNameLidTableMigrationComplete
           ) {
             var a = !1;
             (yield o("WAWebModelStorageUtils")

@@ -161,7 +161,7 @@ __d(
                           n.id,
                         ),
                   u = null;
-                (o("WAWebBotUtils").isHatchBot(n.id)
+                o("WAWebBotUtils").isHatchBot(n.id)
                   ? (u =
                       o(
                         "WAWebBotGating",
@@ -170,8 +170,11 @@ __d(
                     (u =
                       o(
                         "WAWebBotGating",
-                      ).getMetaAiDocumentUploadSizeLimitBytes()),
-                  yield this.processAttachments(e, t, i, s, a, u),
+                      ).getMetaAiDocumentUploadSizeLimitBytes());
+                var c = o("WAWebBotUtils").isMetaAiBot(n.id)
+                  ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
+                  : null;
+                (yield this.processAttachments(e, t, i, s, a, u, c),
                   o("WAWebBotUtils").isMetaAiBot(n.id) && m(this, n));
               },
             );
@@ -182,17 +185,17 @@ __d(
           })()),
           (i.processAttachments = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a, i, l, s, c) {
-                var d = this,
-                  m = this.getPreviewableMedias().length,
-                  p = t.length + m > l ? Math.max(l - m, 0) : t.length,
-                  _ = t.length - p;
-                p === 0
-                  ? _ && this.trigger("max_upload_limit", _)
-                  : this.ignore(_);
-                var f = t.slice(0, p).map(function (t) {
-                  var l = d.$AttachMediaCollection$p_2(t);
-                  c != null &&
+              function* (t, a, i, l, s, c, d) {
+                var m = this,
+                  p = this.getPreviewableMedias().length,
+                  _ = t.length + p > l ? Math.max(l - p, 0) : t.length,
+                  f = t.length - _;
+                _ === 0
+                  ? f && this.trigger("max_upload_limit", f)
+                  : this.ignore(f);
+                var g = t.slice(0, _).map(function (t) {
+                  var l = m.$AttachMediaCollection$p_2(t);
+                  (c != null &&
                     (l = l.then(function (e) {
                       if (
                         e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
@@ -204,7 +207,20 @@ __d(
                           e.file.size,
                         );
                       return e;
-                    }));
+                    })),
+                    d != null &&
+                      (l = l.then(function (e) {
+                        if (
+                          e.type === o("WAWebFileUtils").FILETYPE.VIDEO &&
+                          e.file.size > d
+                        )
+                          throw new (r("WAWebMediaFileTooLargeError"))(
+                            "video",
+                            d,
+                            e.file.size,
+                          );
+                        return e;
+                      })));
                   var s = new (o("WAWebAttachMediaModel").AttachMedia)({
                     id: u++,
                     file: l,
@@ -212,53 +228,53 @@ __d(
                     supportedTypes: i,
                   });
                   if (!(t instanceof (e || (e = n("Promise"))))) {
-                    var m,
-                      p,
+                    var p,
                       _,
                       f,
-                      g =
-                        (m = t.filename) != null
-                          ? m
-                          : (p = t.file) == null
-                            ? void 0
-                            : p.name,
+                      g,
                       h =
-                        (_ = t.mimetype) != null
-                          ? _
-                          : (f = t.file) == null
+                        (p = t.filename) != null
+                          ? p
+                          : (_ = t.file) == null
                             ? void 0
-                            : f.type;
-                    (g != null || h != null) &&
-                      s.set({ filename: g, mimetype: h });
+                            : _.name,
+                      y =
+                        (f = t.mimetype) != null
+                          ? f
+                          : (g = t.file) == null
+                            ? void 0
+                            : g.type;
+                    (h != null || y != null) &&
+                      s.set({ filename: h, mimetype: y });
                   }
                   return s;
                 });
-                this.add(f);
-                var g = this.getActive();
+                this.add(g);
+                var h = this.getActive();
                 return (
                   this.unsetActive(),
-                  f.forEach(function (e) {
-                    d.listenTo(e, "change:previewable", function () {
-                      d.$AttachMediaCollection$p_3(f, g);
+                  g.forEach(function (e) {
+                    m.listenTo(e, "change:previewable", function () {
+                      m.$AttachMediaCollection$p_3(g, h);
                     });
                   }),
                   (e || (e = n("Promise"))).all(t).then(function () {
-                    d.$AttachMediaCollection$p_3(f, g);
+                    m.$AttachMediaCollection$p_3(g, h);
                   }),
                   yield e.all(
-                    f.map(function (e) {
+                    g.map(function (e) {
                       return e.processPromise;
                     }),
                   ),
                   s && s(),
-                  f.forEach(function (e) {
-                    return d.$AttachMediaCollection$p_4(e, a);
+                  g.forEach(function (e) {
+                    return m.$AttachMediaCollection$p_4(e, a);
                   }),
-                  this.$AttachMediaCollection$p_3(f, g)
+                  this.$AttachMediaCollection$p_3(g, h)
                 );
               },
             );
-            function a(e, n, r, o, a, i) {
+            function a(e, n, r, o, a, i, l) {
               return t.apply(this, arguments);
             }
             return a;

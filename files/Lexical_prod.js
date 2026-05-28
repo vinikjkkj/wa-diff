@@ -2226,11 +2226,7 @@ __d(
         rs(e, ve, t);
       else if (
         (function (t) {
-          return Ho(
-            t,
-            "ArrowRight",
-            babelHelpers["extends"]({}, Vo, { shiftKey: "any" }),
-          );
+          return Ho(t, "ArrowRight", Vo);
         })(t)
       )
         rs(e, ke, t);
@@ -2242,11 +2238,7 @@ __d(
         rs(e, Oe, t);
       else if (
         (function (t) {
-          return Ho(
-            t,
-            "ArrowLeft",
-            babelHelpers["extends"]({}, Vo, { shiftKey: "any" }),
-          );
+          return Ho(t, "ArrowLeft", Vo);
         })(t)
       )
         rs(e, Me, t);

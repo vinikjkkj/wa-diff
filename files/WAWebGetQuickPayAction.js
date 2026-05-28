@@ -1,6 +1,6 @@
 __d(
   "WAWebGetQuickPayAction",
-  ["fbt", "WAWebBizGatingUtils", "WAWebShowMessageActionFallbackErrorAction"],
+  ["fbt", "WAWebOrderGatingUtils", "WAWebShowMessageActionFallbackErrorAction"],
   function (t, n, r, o, a, i, l, s) {
     var e = function (t) {
       return {
@@ -15,8 +15,8 @@ __d(
       };
     };
     function u(t, n, r) {
-      var a = o("WAWebBizGatingUtils").QuickPayProductTypeGating.cast(n);
-      return a && o("WAWebBizGatingUtils").isOrderDetailsQuickPayEnabled(a)
+      var a = o("WAWebOrderGatingUtils").QuickPayProductTypeGating.cast(n);
+      return a && o("WAWebOrderGatingUtils").isOrderDetailsQuickPayEnabled(a)
         ? e(r)
         : null;
     }

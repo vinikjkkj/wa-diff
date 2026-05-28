@@ -10,6 +10,7 @@ __d(
     "WAWebL10NCountryCodes",
     "WAWebLidMigrationUtils",
     "WAWebLinkedCatalogHelper",
+    "WAWebOrderGatingUtils",
     "WAWebProductCatalogMetaLinkingGatingUtils",
     "WAWebUserPrefsMeUser",
   ],
@@ -43,12 +44,12 @@ __d(
         o("WAWebLinkedCatalogHelper").shouldHideComponentForSMBLinkedCatalog()
       )
         return !1;
-      if (o("WAWebBizGatingUtils").orderDetailsCustomItemEnabled()) return !0;
+      if (o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled()) return !0;
       var t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
       );
       return (
-        o("WAWebBizGatingUtils").orderDetailsFromCatalogEnabled() &&
+        o("WAWebOrderGatingUtils").orderDetailsFromCatalogEnabled() &&
         o("WAWebBusinessProfileUtils").hasCatalog(t)
       );
     }

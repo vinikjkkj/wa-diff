@@ -42,6 +42,8 @@ __d(
       var n = new Set();
       (o("WAWebBotGating").isMetaAiImageInputEnabled() &&
         n.add(o("WAWebFileUtils").FILETYPE.IMAGE),
+        o("WAWebBotGating").isMetaAiVideoInputEnabled() &&
+          n.add(o("WAWebFileUtils").FILETYPE.VIDEO),
         o("WAWebBotGating").isMetaAiDocUploadEnabled() &&
           n.add(o("WAWebFileUtils").FILETYPE.DOCUMENT));
       var r = new Set(),
@@ -76,7 +78,7 @@ __d(
           r.push({ type: "mixed_media" }),
           { validAttachments: [], errors: r }
         );
-      if (n != null && n.size > 0 && !_(o, n))
+      if (n != null && n.size > 0 && !g(o, n))
         return (
           r.push({ type: "mixed_media" }),
           { validAttachments: [], errors: r }
@@ -90,15 +92,37 @@ __d(
         a.length === 0)
       )
         return { validAttachments: [], errors: r };
-      var i = f(a, t, r);
-      return { validAttachments: i, errors: r };
+      var i = _(a, r);
+      if (i.length === 0) return { validAttachments: [], errors: r };
+      var l = h(i, t, r);
+      return { validAttachments: l, errors: r };
     }
     function _(e, t) {
+      var n = o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes(),
+        r = e.filter(function (e) {
+          return !f(e, n);
+        });
+      return (
+        r.length < e.length &&
+          t.push({
+            type: "media_size_too_large",
+            maxMb: Math.floor(n / (1024 * 1024)),
+          }),
+        r
+      );
+    }
+    function f(e, t) {
+      return (
+        o("WAWebFileUtils").typeFromMimetype(e.file.type) ===
+          o("WAWebFileUtils").FILETYPE.VIDEO && e.file.size > t
+      );
+    }
+    function g(e, t) {
       if (t.size !== 1) return !1;
       var n = o("WAWebFileUtils").typeFromMimetype(e[0].file.type);
       return t.has(n);
     }
-    function f(e, t, n) {
+    function h(e, t, n) {
       var r = o("WAWebFileUtils").typeFromMimetype(e[0].file.type),
         a = o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
           e.length,
@@ -107,13 +131,14 @@ __d(
         );
       return e.length <= a
         ? e
-        : (r === o("WAWebFileUtils").FILETYPE.IMAGE
-            ? n.push({ type: "image_limit_exceeded", limit: a })
+        : (r === o("WAWebFileUtils").FILETYPE.IMAGE ||
+          r === o("WAWebFileUtils").FILETYPE.VIDEO
+            ? n.push({ type: "media_limit_exceeded", limit: a })
             : r === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
               n.push({ type: "document_limit_exceeded", limit: a }),
           e.slice(0, a));
     }
-    function g(e) {
+    function y(e) {
       for (var t of e)
         e: {
           var n = t;
@@ -151,11 +176,11 @@ __d(
           }
           if (
             ((typeof n == "object" && n !== null) || typeof n == "function") &&
-            n.type === "image_limit_exceeded" &&
+            n.type === "media_limit_exceeded" &&
             "limit" in n
           ) {
             var i = n.limit;
-            o("WAWebBotMultiModalToasts").showImageSendLimitExceededToast(i);
+            o("WAWebBotMultiModalToasts").showMediaSendLimitExceededToast(i);
             break e;
           }
           if (
@@ -169,13 +194,22 @@ __d(
             );
             break e;
           }
+          if (
+            ((typeof n == "object" && n !== null) || typeof n == "function") &&
+            n.type === "media_size_too_large" &&
+            "maxMb" in n
+          ) {
+            var s = n.maxMb;
+            o("WAWebBotMultiModalToasts").showMediaTooLargeToast(s);
+            break e;
+          }
           throw Error(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
               n,
           );
         }
     }
-    function h(e, t) {
+    function C(e, t) {
       e !== t &&
         (e > 0
           ? o("WAWebBotMultiModalToasts").showSendMediaFailedItemToast(t - e)
@@ -187,8 +221,8 @@ __d(
       (l.hasMetaAiMixedMediaTypes = c),
       (l.getSupportedMetaAiAttachments = m),
       (l.validateMetaAiAttachments = p),
-      (l.showMetaAiAttachmentErrors = g),
-      (l.maybeShowUnsupportedFileToast = h));
+      (l.showMetaAiAttachmentErrors = y),
+      (l.maybeShowUnsupportedFileToast = C));
   },
   98,
 );

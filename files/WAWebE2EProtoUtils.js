@@ -353,7 +353,7 @@ __d(
         : e === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
           ? o("WAWebHsmGatingUtils").shopsInteractiveMessageEnabled()
           : e === r("WAWebInteractiveMessageType").CAROUSEL
-            ? o("WAWebHsmGatingUtils").carouselsEnabled()
+            ? !0
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

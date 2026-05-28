@@ -1,15 +1,17 @@
 __d(
   "WAWebBizShowOrderEphemeralSystemAction",
   [
-    "WAWebBizGatingUtils",
     "WAWebDBChatEphemeralExemptionData",
     "WAWebDBEphemeralDisplayedExemptions",
     "WAWebOrderEphemeralExemptionUtil",
+    "WAWebOrderGatingUtils",
     "WAWebOrderSystemMsg",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      if (!o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled())
+      if (
+        !o("WAWebOrderGatingUtils").inOrderMessagesEphemeralExceptionEnabled()
+      )
         return null;
       var n = e.safe(),
         r = e.interactiveType,

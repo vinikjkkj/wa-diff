@@ -196,6 +196,7 @@ __d(
       enable_webrtc_video_jb: [27591, "bool", !1, !1],
       enable_windows_hybrid_jumplist_contacts: [21057, "bool", !1, !0],
       enable_windows_jumplist_hybrid: [20899, "bool", !1, !0],
+      enable_windows_mocks_capture_drivers: [31159, "bool", !1, !1],
       enable_windows_xdr_chat_handoff: [24783, "bool", !1, !0],
       gc_device_switching_killswitch: [26182, "bool", !1, !1],
       genai_early_audio_pre_buf_size: [15306, "int", 100, 100],

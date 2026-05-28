@@ -14,8 +14,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = null,
-      u = !1;
-    function c() {
+      u = !1,
+      c = !1;
+    function d() {
       if (
         !(e || (e = r("ExecutionEnvironment"))).canUseDOM &&
         !(e || (e = r("ExecutionEnvironment"))).isInWorker
@@ -46,6 +47,15 @@ __d(
           } catch (e) {}
           u = !0;
         }
+        if (!c) {
+          try {
+            r("justknobx")._("340") &&
+              r("gkx")("999") &&
+              o("GHLDetectionUtilsPreludeSafe").isXHRResponseGetterShimmed() &&
+              o("GHLDetectionUtilsPreludeSafe").restoreNativeXHRGetters();
+          } catch (e) {}
+          c = !0;
+        }
         if (s == null)
           throw r("err")("getSameOriginTransport: XMLHttpRequestSafe is null");
         return new s();
@@ -56,7 +66,7 @@ __d(
         );
       }
     }
-    l.default = c;
+    l.default = d;
   },
   98,
 );
