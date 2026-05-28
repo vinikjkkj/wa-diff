@@ -43,56 +43,60 @@ __d(
         ? o("WAFlowsActionHandlerTypes").WELJActionType.DATA_EXCHANGE
         : o("WAFlowsActionHandlerTypes").WELJActionType.NAVIGATE;
     }
-    function g(t, n, r, a) {
-      var i,
-        l = n.isResponseFlow,
-        s = function () {
+    function g(t) {
+      var n,
+        r = t.chat,
+        a = t.flowInitData,
+        i = t.messageData,
+        l = t.responseViewer,
+        s = i.isResponseFlow,
+        u = function () {
           var e;
           o(
             "WAWebProfilePicThumbCollection",
-          ).ProfilePicThumbCollection.resyncPicturesByWid([t.contact.id]);
-          var n = t.contact.getProfilePicThumb();
-          return (e = n == null ? void 0 : n.img) != null ? e : "";
+          ).ProfilePicThumbCollection.resyncPicturesByWid([r.contact.id]);
+          var t = r.contact.getProfilePicThumb();
+          return (e = t == null ? void 0 : t.img) != null ? e : "";
         },
-        u = o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
-          n.flowId,
-          n.flowFetchedMetadata,
+        c = o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
+          i.flowId,
+          i.flowFetchedMetadata,
         );
       return {
-        public_key: h(n.flowFetchedMetadata),
-        biz_jid: t.contact.id.toString(),
-        flow_token: n.flowToken,
-        extension_status: String(_(n)),
-        qpl_message_id: n.flowQPLMessageId,
-        wam_message_id: n.flowWAMMessageId,
+        public_key: h(i.flowFetchedMetadata),
+        biz_jid: r.contact.id.toString(),
+        flow_token: i.flowToken,
+        extension_status: String(_(i)),
+        qpl_message_id: i.flowQPLMessageId,
+        wam_message_id: i.flowWAMMessageId,
         wam_session_id: "2C95C13B-5731-4508-8F88-863DAAC34A95",
-        extension_id: n.flowId,
+        extension_id: i.flowId,
         qpl_session_id: "7342BB21-9B5E-4408-895C-D5171427E19F",
         business_name:
-          (i = r == null ? void 0 : r.business_name) != null ? i : "",
-        biz_logo: s(),
-        is_template: n.isTemplate === !0,
-        hsm_tag: n.hsmTag,
-        categories: n.categories,
+          (n = a == null ? void 0 : a.business_name) != null ? n : "",
+        biz_logo: u(),
+        is_template: i.isTemplate === !0,
+        hsm_tag: i.hsmTag,
+        categories: i.categories,
         biz_platform: o(
           "WAWebGalaxyFlowWamLoggerUtils",
-        ).getFlowsMaybeBizPlatform(t),
-        entry_point_conversion_source: n.entryPointConversionSource,
-        entry_point_conversion_app: n.entryPointConversionApp,
+        ).getFlowsMaybeBizPlatform(r),
+        entry_point_conversion_source: i.entryPointConversionSource,
+        entry_point_conversion_app: i.entryPointConversionApp,
         entry_point_conversation_initiated: -1,
-        flow_action: f(n),
+        flow_action: f(i),
         flow_action_payload: o("WABase64").encodeB64(
-          new TextEncoder().encode(JSON.stringify(l ? e : n.flowActionPayload)),
+          new TextEncoder().encode(JSON.stringify(s ? e : i.flowActionPayload)),
         ),
-        flow_json: JSON.stringify(n.flowJSON),
-        flow_entry_point: n.flowEntryPoint,
+        flow_json: JSON.stringify(i.flowJSON),
+        flow_entry_point: i.flowEntryPoint,
         click_sequence_number: null,
         is_flow_interactive: !0,
-        response_viewer: a,
-        response_message: n.flowResponseMessage,
-        creation_source: n.creationSource,
-        www_proxy_secret: u == null ? void 0 : u.www_proxy_secret,
-        flow_token_signature: u == null ? void 0 : u.flow_token_signature,
+        response_viewer: l,
+        response_message: i.flowResponseMessage,
+        creation_source: i.creationSource,
+        www_proxy_secret: c == null ? void 0 : c.www_proxy_secret,
+        flow_token_signature: c == null ? void 0 : c.flow_token_signature,
       };
     }
     function h(e) {

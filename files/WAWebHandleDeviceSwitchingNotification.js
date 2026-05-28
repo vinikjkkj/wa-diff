@@ -81,7 +81,7 @@ __d(
             otpCode: c,
           });
           var d = o("WAWebUserPrefsMeUser")
-            .getMeDevicePnOrThrow_DO_NOT_USE()
+            .getMeDeviceOrThrow()
             .getDeviceId()
             .toString();
           return (

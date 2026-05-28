@@ -237,7 +237,7 @@ __d(
               },
             ).join(""),
             s = t != null ? t : "ORPHAN_TEST_" + l,
-            u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            u = o("WAWebUserPrefsMeUser").getMeUser(),
             c = i.isGroup() ? o("WAWebWidFactory").asUserWidOrThrow(u) : void 0,
             d = new (r("WAWebMsgKey"))({
               id: r("WAWebMsgKey").newId_DEPRECATED(),

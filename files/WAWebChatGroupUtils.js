@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAgentTransitionUtils",
     "WAWebApiContact",
     "WAWebBizAiAgentGating",
@@ -138,12 +137,7 @@ __d(
         _(n)
       );
     }
-    function R() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "group_suspend_appeal_include_entity_id_enabled",
-      );
-    }
-    function L(e) {
+    function R(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return (
@@ -151,10 +145,10 @@ __d(
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && _(n)
       );
     }
-    function E(e) {
+    function L(e) {
       return h(e) || _(e);
     }
-    function k(t) {
+    function E(t) {
       var a,
         i = o("WAWebStateUtils").unproxy(t);
       if (!(d(i) && i.isReadOnly)) {
@@ -168,7 +162,7 @@ __d(
             o("WAWebDBUpdateChatTable")
               .updateChatTable(i.id, { isReadOnly: u })
               .then(function () {
-                ((i.isReadOnly = u), P(i));
+                ((i.isReadOnly = u), $(i));
               })
               .catch(r("WAWebNoop"));
           return;
@@ -198,22 +192,22 @@ __d(
             (l = o("WAWebDBUpdateChatTable")
               .updateChatTable(i.id, { isReadOnly: f })
               .then(function () {
-                ((i.isReadOnly = f), P(i));
+                ((i.isReadOnly = f), $(i));
               })));
         }
         l.then(function () {
-          o("WAWebChatGetters").getIsBroadcast(i) && $(i);
+          o("WAWebChatGetters").getIsBroadcast(i) && x(i);
         });
       }
     }
-    function I(e) {
+    function k(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return (
         ((t = n.groupMetadata) == null ? void 0 : t.participants.length) || 1
       );
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
       if (r.equals(e)) return o("WAWebUserPrefsMeUser").getMeUser();
       if (
@@ -247,14 +241,14 @@ __d(
           null)
         : a;
     }
-    function D(e) {
+    function T(e) {
       var t,
         n = e.participants,
         r = (t = e.size) != null ? t : 0,
         o = n.iAmAdmin() ? r : n.length;
       return o;
     }
-    function x(e) {
+    function D(e) {
       var t,
         n,
         r = e.name;
@@ -272,8 +266,8 @@ __d(
             })
             .join(", ");
     }
-    function $(e) {
-      if (o("WAWebChatGetters").getIsBroadcast(e)) e.formattedTitle = x(e);
+    function x(e) {
+      if (o("WAWebChatGetters").getIsBroadcast(e)) e.formattedTitle = D(e);
       else if (o("WAWebChatGetters").getIsUser(e)) {
         var t;
         e.formattedTitle =
@@ -299,7 +293,7 @@ __d(
               : i.name;
       }
     }
-    function P(e, t) {
+    function $(e, t) {
       var n;
       if (
         e.isReadOnly ||
@@ -363,7 +357,7 @@ __d(
       }
       return ((e.canSend = !0), !0);
     }
-    function N(e) {
+    function P(e) {
       return o("WAWebChatGetters").getIsGroup(e) && !f(e) && !e.isReadOnly;
     }
     ((l.isSupportGroup = d),
@@ -378,17 +372,16 @@ __d(
       (l.isTerminatedGroupOrNotMember = b),
       (l.isSuspendedCommunityAnnouncementGroup = v),
       (l.isIntegrityDeactivatedCommunityAnnouncementGroup = S),
-      (l.shouldIncludeEntityIdInAppealRequest = R),
-      (l.isDeactivatedCommunityAnnouncementGroup = L),
-      (l.shouldBlockCall = E),
-      (l.updateReadOnly = k),
-      (l.getParticipantCount = I),
-      (l.getOneToOneContactFromGroupContact = T),
-      (l.getGroupParticipantsCount = D),
-      (l.getBroadcastChatTitle = x),
-      (l.updateTitle = $),
-      (l.updateCanSend = P),
-      (l.shouldShowLeaveAndReportGroupModalForChat = N));
+      (l.isDeactivatedCommunityAnnouncementGroup = R),
+      (l.shouldBlockCall = L),
+      (l.updateReadOnly = E),
+      (l.getParticipantCount = k),
+      (l.getOneToOneContactFromGroupContact = I),
+      (l.getGroupParticipantsCount = T),
+      (l.getBroadcastChatTitle = D),
+      (l.updateTitle = x),
+      (l.updateCanSend = $),
+      (l.shouldShowLeaveAndReportGroupModalForChat = P));
   },
   98,
 );

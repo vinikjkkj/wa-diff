@@ -126,6 +126,9 @@ __d(
             }
             return o;
           })()),
+          (a.listenForReturnPdf = function (t) {
+            return this.$1.listen("PDF_SHARER_RETURN_PDF", t);
+          }),
           (a.destroy = function () {
             this.$1.destroy();
           }),

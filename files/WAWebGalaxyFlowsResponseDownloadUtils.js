@@ -43,11 +43,15 @@ __d(
       }
       return "";
     }
-    function d(t, n, r, a) {
-      var i = null;
-      if (n != null && n !== "")
+    function d(t) {
+      var n = t.flowId,
+        r = t.flowResponseMessage,
+        a = t.phoneNumber,
+        i = t.timestamp,
+        l = null;
+      if (r != null && r !== "")
         try {
-          i = JSON.parse(n);
+          l = JSON.parse(r);
         } catch (t) {
           o("WALogger").ERROR(
             e ||
@@ -58,34 +62,34 @@ __d(
             t,
           );
         }
-      var l = u(i),
-        s = [];
-      s.push(Array.from(l.values()));
-      var d = [];
-      for (var m of l) {
-        var p = m[0],
-          _ = "";
-        if (p === "flow_id") _ = t;
-        else if (p === "phone_number") _ = r != null ? r : "";
-        else if (p === "date_time")
-          _ = new Date(Number(a) * 1e3).toLocaleString();
+      var s = u(l),
+        d = [];
+      d.push(Array.from(s.values()));
+      var m = [];
+      for (var p of s) {
+        var _ = p[0],
+          f = "";
+        if (_ === "flow_id") f = n;
+        else if (_ === "phone_number") f = a != null ? a : "";
+        else if (_ === "date_time")
+          f = new Date(Number(i) * 1e3).toLocaleString();
         else {
-          var f = p.split("::"),
-            g = f[0],
-            h = f[1];
-          if (!i) continue;
-          _ = c(i, h);
+          var g = _.split("::"),
+            h = g[0],
+            y = g[1];
+          if (!l) continue;
+          f = c(l, y);
         }
-        (_.includes('"') || _.includes(",") || _.includes("\n")
-          ? (_ = '"' + _.replace(/\"/g, '""') + '"')
-          : _ === ""
-            ? (_ = '" "')
-            : (_ = '"' + _ + '"'),
-          d.push(_));
+        (f.includes('"') || f.includes(",") || f.includes("\n")
+          ? (f = '"' + f.replace(/\"/g, '""') + '"')
+          : f === ""
+            ? (f = '" "')
+            : (f = '"' + f + '"'),
+          m.push(f));
       }
       return (
-        s.push(d),
-        s
+        d.push(m),
+        d
           .map(function (e) {
             return e.join(",");
           })
@@ -100,7 +104,12 @@ __d(
       var i = m(t != null ? t : e),
         l = (i.length > 0 ? i : e) + ".csv",
         s = a(),
-        u = d(e, n, r, o),
+        u = d({
+          flowId: e,
+          flowResponseMessage: n,
+          phoneNumber: r,
+          timestamp: o,
+        }),
         c = new Blob([u], { type: "text/csv;charset=utf-8;" });
       if ((s == null ? void 0 : s.download) !== void 0) {
         var p = URL.createObjectURL(c);

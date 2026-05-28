@@ -37,6 +37,7 @@ __d(
         "WindowsGroupNotificationToneSetting",
         "WindowsStatusNotificationToneSetting",
         "WindowsIsSystemTrayEnabled",
+        "WindowsIsAdaptiveLayoutEnabled",
         "WebUiRefreshNuxAcknowledged",
         "WebUiRefreshNuxViewsCount",
         "WindowsDontShowRateTheAppPromptAgain",

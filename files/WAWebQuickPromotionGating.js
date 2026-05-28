@@ -10,38 +10,34 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
-      return !o("WAWebABProps").getABPropConfigValue("privacy_tips_killswitch");
-    }
-    function u() {
-      return (
-        s() &&
-        o("WAWebABProps").getABPropConfigValue("privacy_tips_profile_build")
+      return o("WAWebABProps").getABPropConfigValue(
+        "privacy_tips_profile_build",
       );
     }
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "updates_quick_promotion_banner_enabled",
       );
     }
-    function d() {
+    function c() {
       return o("WATimeUtils").castToUnixTime(
         o("WAWebABProps").getABPropConfigValue(
           "updates_privacy_notice_rollout_date",
         ),
       );
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_qp_emergency_force_fetch_nonce",
       );
     }
-    function p() {
+    function m() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("qp_campaign_client_enabled")
       );
     }
-    function _() {
+    function p() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -49,19 +45,19 @@ __d(
         )
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_graphql_to_fetch_qp_frequency_mins",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? f()
+        ? _()
         : o("WAWebABProps").getABPropConfigValue(
             "consumer_web_qp_graphql_to_fetch_qp_frequency_mins",
           );
     }
-    function h() {
+    function g() {
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -69,10 +65,10 @@ __d(
         )
       );
     }
-    function y() {
-      return o("WAWebMobilePlatforms").isSMB() ? _() : h();
+    function h() {
+      return o("WAWebMobilePlatforms").isSMB() ? p() : g();
     }
-    function C(t) {
+    function y(t) {
       var n = new Map(
           Array.from(
             o("WAWebCTWAConstants").KNOWN_QP_SURFACES.values(),
@@ -103,37 +99,36 @@ __d(
         r
       );
     }
-    function b() {
-      return C(
+    function C() {
+      return y(
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function v() {
-      return C(
+    function b() {
+      return y(
         o("WAWebABProps").getABPropConfigValue(
           "consumer_graphql_web_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function S() {
-      return o("WAWebMobilePlatforms").isSMB() ? b() : v();
+    function v() {
+      return o("WAWebMobilePlatforms").isSMB() ? C() : b();
     }
-    ((l.privacyTipsEnabled = s),
-      (l.profilePrivacyTipsEnabled = u),
-      (l.updatesTabQuickPromotionBannerEnabled = c),
-      (l.getUpdatesTabPrivacyNoticeRolloutDate = d),
-      (l.qpEmergencyForceFetchNonce = m),
-      (l.qpCampaignsEnabledSMB = p),
-      (l.qpGraphQLEnabledSMB = _),
-      (l.qpGraphQLFetchIntervalMinutesSMB = f),
-      (l.qpGraphQLFetchIntervalMinutes = g),
-      (l.consumerQpGraphQLEnabled = h),
-      (l.qpGraphQLEnabled = y),
-      (l.qpSurfaceIdsUsingGraphQLSMB = b),
-      (l.qpSurfaceIdsUsingGraphQLConsumer = v),
-      (l.qpSurfaceIdsUsingGraphQL = S));
+    ((l.profilePrivacyTipsEnabled = s),
+      (l.updatesTabQuickPromotionBannerEnabled = u),
+      (l.getUpdatesTabPrivacyNoticeRolloutDate = c),
+      (l.qpEmergencyForceFetchNonce = d),
+      (l.qpCampaignsEnabledSMB = m),
+      (l.qpGraphQLEnabledSMB = p),
+      (l.qpGraphQLFetchIntervalMinutesSMB = _),
+      (l.qpGraphQLFetchIntervalMinutes = f),
+      (l.consumerQpGraphQLEnabled = g),
+      (l.qpGraphQLEnabled = h),
+      (l.qpSurfaceIdsUsingGraphQLSMB = C),
+      (l.qpSurfaceIdsUsingGraphQLConsumer = b),
+      (l.qpSurfaceIdsUsingGraphQL = v));
   },
   98,
 );

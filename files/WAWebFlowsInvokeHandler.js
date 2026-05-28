@@ -69,12 +69,12 @@ __d(
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsGetFlowData:
                     n(
-                      o("WAWebGalaxyFlowsDrawerUtils").getFlowInitDataPayload(
-                        t,
-                        a,
-                        i,
-                        l,
-                      ),
+                      o("WAWebGalaxyFlowsDrawerUtils").getFlowInitDataPayload({
+                        chat: t,
+                        flowInitData: i,
+                        messageData: a,
+                        responseViewer: l,
+                      }),
                     );
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
@@ -169,10 +169,7 @@ __d(
                     .WAFlowsComplete:
                     (f(),
                       o("WAWebGalaxyFlowsCompleteAction").onFlowsCompleteAction(
-                        t,
-                        d,
-                        b,
-                        a,
+                        { chat: t, messageData: a, msg: d, payload: b },
                       ));
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames

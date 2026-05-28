@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebABProps",
-    "WAWebBizGatingUtils",
     "WAWebBizManageLabelModal.react",
     "WAWebBroadcastConversationMenuItems",
     "WAWebBusinessBroadcastUserJourneyLogger",
@@ -30,6 +29,7 @@ __d(
     "WAWebLabelOutlineIcon.react",
     "WAWebLeaveCommunityModal.react",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebModalManager",
     "WAWebMuteGetters",
@@ -298,7 +298,9 @@ __d(
           : (H = l[23]),
         S.push(H),
         o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebBizGatingUtils").isCTWASMBLabelChatHeaderEnabledWeb() &&
+          o(
+            "WAWebListsLabelGatingUtils",
+          ).isCTWASMBLabelChatHeaderEnabledWeb() &&
           r("WAWebEnvironment").isWindows &&
           !r("WAWebEnvironment").isGuest &&
           o("WAWebHeader.react").isCommunityRelatedChat(m) &&

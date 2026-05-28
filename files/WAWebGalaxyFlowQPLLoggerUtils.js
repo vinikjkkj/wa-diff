@@ -170,11 +170,7 @@ __d(
       );
     }
     function N() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "extensions_geoblocking_enabled",
-        ) && o("WAWebABProps").getABPropConfigValue("commerce_sanctioned")
-      );
+      return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");
     }
     function M() {
       p() && (h(4), T(4));

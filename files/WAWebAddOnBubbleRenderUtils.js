@@ -1,6 +1,6 @@
 __d(
   "WAWebAddOnBubbleRenderUtils",
-  ["WAWebABProps", "WAWebDisplayType"],
+  ["WAWebDisplayType"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Set([
@@ -8,13 +8,7 @@ __d(
       o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT,
     ]);
     function s(t) {
-      return (
-        t != null &&
-        e.has(t) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "reactions_alignment_for_transparent_messages_enabled",
-        )
-      );
+      return t != null && e.has(t);
     }
     l.isAddOnBubbleCentered = s;
   },

@@ -12,6 +12,7 @@ __d(
     "WAWebClearCredentials",
     "WAWebCoreActionsODS",
     "WAWebLogoutReasonConstants",
+    "WAWebMdSessionIdCache",
     "WAWebModelStorage",
     "WAWebQplStorage",
     "WAWebReloadAfterLogout",
@@ -108,7 +109,9 @@ __d(
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!(_ || f)) {
-            ((f = !0), yield o("WAWebAdvSignatureApi").clearADVSecretKey());
+            ((f = !0),
+              o("WAWebMdSessionIdCache").clearMdSessionId(),
+              yield o("WAWebAdvSignatureApi").clearADVSecretKey());
             var e = yield r("WAWebClearCredentials")(),
               t = e || (yield E());
             r("WAWebReloadAfterLogout")(t);

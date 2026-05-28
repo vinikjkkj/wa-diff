@@ -162,15 +162,16 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function R(e, t, n, r, a, i, l) {
-      var s = { contact_count: t, save_result: n };
-      (a != null && (s.errorType = a),
-        i != null && (s.campaign_sent_error_type = i),
-        r != null && (s.attachmentExt = r),
-        l != null && (s.attachment_type = l),
+    function R(e, t, n, r, a, i, l, s) {
+      var u = { contact_count: t, save_result: n };
+      (s != null && ((u.audience_count = s), (u.is_multi_audience = s > 1)),
+        a != null && (u.errorType = a),
+        i != null && (u.campaign_sent_error_type = i),
+        r != null && (u.attachmentExt = r),
+        l != null && (u.attachment_type = l),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
-          extraAttributes: s,
+          extraAttributes: u,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
@@ -239,13 +240,20 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function $(e, t, n, r, a) {
-      var i = { audience_id: t.join(","), recipient_count: n };
-      (a != null && (i.attachment_type = a),
+    function $(e, t, n, r, a, i) {
+      var l = t.length,
+        s = {
+          audience_count: l,
+          audience_id: t.join(","),
+          is_multi_audience: l > 1,
+          recipient_count: n,
+        };
+      (i != null && i > 0 && (s.overlapping_recipient_count = i),
+        a != null && (s.attachment_type = a),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
           entryPoint: r,
-          extraAttributes: i,
+          extraAttributes: s,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,

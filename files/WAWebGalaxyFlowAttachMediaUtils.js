@@ -49,28 +49,32 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, a) {
+    function d(e) {
+      var t = e.body,
+        n = e.mediaResultEntry,
+        a = e.mmsThumbnailData,
+        i = e.msg;
       return babelHelpers.extends(
         {
-          deprecatedMms3Url: t == null ? void 0 : t.deprecatedMms3Url,
-          directPath: t == null ? void 0 : t.directPath,
+          deprecatedMms3Url: n == null ? void 0 : n.deprecatedMms3Url,
+          directPath: n == null ? void 0 : n.directPath,
           mediaKey:
-            t == null || t.getMediaKey == null ? void 0 : t.getMediaKey(),
+            n == null || n.getMediaKey == null ? void 0 : n.getMediaKey(),
           mediaKeyTimestamp:
-            t == null || t.getMediaKeyTimestamp == null
+            n == null || n.getMediaKeyTimestamp == null
               ? void 0
-              : t.getMediaKeyTimestamp(),
-          filehash: r("nullthrows")(e.mediaObject).filehash,
+              : n.getMediaKeyTimestamp(),
+          filehash: r("nullthrows")(i.mediaObject).filehash,
           encFilehash:
-            t == null || t.getEncfilehash == null ? void 0 : t.getEncfilehash(),
-          size: r("nullthrows")(e.mediaObject).size,
-          streamingSidecar: t == null ? void 0 : t.sidecar,
-          firstFrameSidecar: t == null ? void 0 : t.firstFrameSidecar,
-          body: n != null ? n : "",
+            n == null || n.getEncfilehash == null ? void 0 : n.getEncfilehash(),
+          size: r("nullthrows")(i.mediaObject).size,
+          streamingSidecar: n == null ? void 0 : n.sidecar,
+          firstFrameSidecar: n == null ? void 0 : n.firstFrameSidecar,
+          body: t != null ? t : "",
           stickerSentTs: o("WATimeUtils").unixTimeMs(),
           mediaHandle:
-            t instanceof o("WAWebMediaEntry").UnencryptedMediaEntry
-              ? t.handle
+            n instanceof o("WAWebMediaEntry").UnencryptedMediaEntry
+              ? n.handle
               : null,
         },
         a,
@@ -105,7 +109,12 @@ __d(
                 g = _.mediaResult.mediaEntry,
                 h = _.mmsThumbnailData;
               if (!g) throw r("err")(s.NO_MEDIA_ENTRY);
-              var y = d(p, g, f, h);
+              var y = d({
+                body: f,
+                mediaResultEntry: g,
+                mmsThumbnailData: h,
+                msg: p,
+              });
               yield r("WAWebMediaUpdateMsg")(p, y);
             } catch (t) {
               throw (

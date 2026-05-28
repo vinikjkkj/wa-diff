@@ -2,12 +2,12 @@ __d(
   "WAWebCustomLabels3pdSignalUtils",
   [
     "WALogger",
-    "WAWebBizGatingUtils",
     "WAWebChatModel",
     "WAWebCommonCTWADataSharing",
     "WAWebCustomLabel3pdEventQuery",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
+    "WAWebListsLabelGatingUtils",
     "WAWebSessionStorage",
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXLabelAction",
@@ -66,8 +66,8 @@ __d(
     function _(t, n, a) {
       if (
         !(
-          !o("WAWebBizGatingUtils").isCTWACustomLabelsSignalsEnabled() ||
-          !o("WAWebBizGatingUtils").isCTWAWebCustomLabelsSignalsEnabled()
+          !o("WAWebListsLabelGatingUtils").isCTWACustomLabelsSignalsEnabled() ||
+          !o("WAWebListsLabelGatingUtils").isCTWAWebCustomLabelsSignalsEnabled()
         )
       ) {
         var i = n.filter(function (e) {
@@ -99,7 +99,9 @@ __d(
               var t = c(e.custom_label);
               t != null ? u.push(t) : _.push(e);
             });
-            var f = o("WAWebBizGatingUtils").getCTWACustomLabelAlgorithmGroup();
+            var f = o(
+              "WAWebListsLabelGatingUtils",
+            ).getCTWACustomLabelAlgorithmGroup();
             o("WAWebCustomLabel3pdEventQuery")
               .getCustomLabel3pdEvent(_, f)
               .then(function (t) {

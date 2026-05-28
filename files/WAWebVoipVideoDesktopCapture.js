@@ -6,6 +6,7 @@ __d(
     "WAPromiseDelays",
     "WAWebAudioUtility",
     "WAWebBackendApi",
+    "WAWebBoolFunc",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipAudioCaptureSharedBufferWorklet",
     "WAWebVoipStackInterface",
@@ -259,9 +260,7 @@ __d(
                     E = yield o("WAPromiseDelays").withTimeout(
                       L,
                       5e3,
-                      function () {
-                        return !1;
-                      },
+                      o("WAWebBoolFunc").returnFalse,
                     );
                   if (E === !1)
                     throw r("err")(

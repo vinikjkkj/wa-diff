@@ -67,9 +67,7 @@ __d(
                         a = null,
                         i = [];
                       e.key.fromMe === !0
-                        ? ((a = o(
-                            "WAWebUserPrefsMeUser",
-                          ).getMePnUserOrThrow_DO_NOT_USE()),
+                        ? ((a = o("WAWebUserPrefsMeUser").getMeUser()),
                           (i = e.userReceipt.filter(function (e) {
                             return (
                               e.readTimestamp != null && e.readTimestamp !== 0

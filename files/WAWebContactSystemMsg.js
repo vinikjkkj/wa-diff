@@ -15,7 +15,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var n = o("WAWebUserPrefsMeUser").getMeUser(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -64,7 +64,7 @@ __d(
       );
     }
     function d(e, t, n, a) {
-      var i = n ? o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE() : e;
+      var i = n ? o("WAWebUserPrefsMeUser").getMeUser() : e;
       if (i == null)
         throw r("err")(
           "Cannot set null initiator for DDM system message: " +
@@ -132,7 +132,7 @@ __d(
     }
     function f(e, t) {
       var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
-        a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        a = o("WAWebUserPrefsMeUser").getMeUser(),
         i = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e),
           remote: e,

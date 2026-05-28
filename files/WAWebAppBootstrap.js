@@ -8,6 +8,7 @@ __d(
     "WAWeb-modernizr",
     "WAWebABProps",
     "WAWebABPropsCache",
+    "WAWebAdaptiveLayoutGatingUtils",
     "WAWebAppSwInitializer",
     "WAWebBrokerBackendInterface",
     "WAWebBuildConstants",
@@ -37,6 +38,8 @@ __d(
     "WAWebTransitions",
     "WAWebUA",
     "WAWebUim",
+    "WAWebUserPrefsBase",
+    "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebWam",
     "WAWebWamPageLoadReporter",
@@ -107,6 +110,14 @@ __d(
             d = (t = n("cr:34988")) != null ? t : {},
             p = d.initializeWindowsSettingChangeHandlers;
           (p == null || p(),
+            r("WAWebEnvironment").isWindows &&
+              o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
+                o("WAWebUserPrefsKeys").UserPrefs
+                  .WindowsIsAdaptiveLayoutEnabled,
+                o(
+                  "WAWebAdaptiveLayoutGatingUtils",
+                ).getIsAdaptiveLayoutEnabled(),
+              ),
             l == null || (a = l.abProps) == null || a.initialize(),
             o("WAWebEventSamplingCache").initializeEventSamplingCache(),
             o("WAWebWam").initWamRuntime(),

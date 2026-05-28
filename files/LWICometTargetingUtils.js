@@ -143,6 +143,7 @@ __d(
       C = {
         AUTO_LOOKALIKE: h,
         AUTO_TARGETING: [c.LOCATIONS],
+        MAIBA_AUTO_TARGETING: h,
         COUNTRY_AND_INTEREST: h,
         CUSTOM_AUDIENCE: h,
         DYNAMIC_TOFU_CUSTOM_AUDIENCE: h,

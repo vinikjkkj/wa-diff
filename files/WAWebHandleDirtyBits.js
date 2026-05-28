@@ -107,7 +107,7 @@ __d(
             ),
           o("WAWebAccountSyncJob").getDevices("notification")
         );
-      var t = String(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE());
+      var t = String(o("WAWebUserPrefsMeUser").getMeUser());
       if (
         o(
           "WAWebOfflineHandler",

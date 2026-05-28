@@ -50,9 +50,9 @@ __d(
         : e === u.Addon
           ? r("WAWebIsCagGroupCache").isCag(t.remote)
             ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-            : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()
+            : o("WAWebUserPrefsMeUser").getMeUser()
           : e === u.EditMessage || e === u.Message
-            ? o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()
+            ? o("WAWebUserPrefsMeUser").getMeUser()
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

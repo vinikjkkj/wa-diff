@@ -12,7 +12,12 @@ __d(
     function e(e) {
       if (typeof e == "object" && e != null && "type" in e) {
         var t = e.type;
-        if (t === "GET_PDF" || t === "PDF_DATA" || t === "GET_PDF_SUCCESS")
+        if (
+          t === "GET_PDF" ||
+          t === "PDF_DATA" ||
+          t === "GET_PDF_SUCCESS" ||
+          t === "SHARE_PDF_START"
+        )
           return babelHelpers.extends({}, e, { type: t });
       }
       return null;
@@ -87,6 +92,19 @@ __d(
               }, l)),
               this.$6.add(s)),
             c
+          );
+        }),
+        (n.listen = function (t, n) {
+          var e = this;
+          if (!this.$1) return r("WAWebNoop");
+          var o = function (t) {
+            n(t);
+          };
+          return (
+            this.$7.on(t, o),
+            function () {
+              e.$7.off(t, o);
+            }
           );
         }),
         (n.isTargetWindowClosed = function () {

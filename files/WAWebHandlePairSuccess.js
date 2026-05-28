@@ -30,6 +30,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebLogoutReasonConstants",
     "WAWebMdClientSessionIdUtils",
+    "WAWebMdSessionIdCache",
     "WAWebMobilePlatforms",
     "WAWebODS",
     "WAWebPairingType",
@@ -189,13 +190,14 @@ __d(
               ).waSignalStore.getRegistrationInfo();
               M != null || s(0, 56296);
               var w = yield o("WAWebWamDeviceLinkReporter").initDeviceLinkEvent(
-                  P,
-                  M.identityKeyPair.pubKey,
-                  a,
-                ),
-                A = yield o("WAWebMdClientSessionIdUtils").genMdClientSessionId(
-                  P,
-                );
+                P,
+                M.identityKeyPair.pubKey,
+                a,
+              );
+              o("WAWebMdSessionIdCache").setMdSessionId(w);
+              var A = yield o(
+                "WAWebMdClientSessionIdUtils",
+              ).genMdClientSessionId(P);
               (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
                 o("WAWebWamEnumMdLinkDeviceCompanionStage")
                   .MD_LINK_DEVICE_COMPANION_STAGE.PAIR_SUCCESS_RECEIVED,

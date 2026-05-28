@@ -15,6 +15,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "compactMap",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,19 +25,17 @@ __d(
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           if (
-            (a === void 0 && (a = "unknown"),
+            (i === void 0 && (i = "unknown"),
             !!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
           )
             try {
-              var i = t
-                .map(function (e) {
-                  return m(e, r);
-                })
-                .filter(Boolean);
+              var l = r("compactMap")(t, function (e) {
+                return m(e, a);
+              });
               yield (u || (u = n("Promise"))).all(
-                i.map(function (e) {
+                l.map(function (e) {
                   return p(e);
                 }),
               );
@@ -49,7 +48,7 @@ __d(
                       ": failed to insert username system msg ",
                       "",
                     ])),
-                  a,
+                  i,
                   t instanceof Error ? t.message : String(t),
                 )
                 .sendLogs("username-system-msg-insert-failed");

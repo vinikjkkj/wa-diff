@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WAWebBizGatingUtils",
     "WAWebBizLogQplEvents",
+    "WAWebBizProfileGatingUtils",
     "WAWebQueryBusinessCategoriesJob",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +18,7 @@ __d(
       o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_start");
       var r;
       return (
-        o("WAWebBizGatingUtils").isCategorySearchViaGraphEnabled()
+        o("WAWebBizProfileGatingUtils").isCategorySearchViaGraphEnabled()
           ? o("WAWebBizGatingUtils").getCatkitVersion() >= 2
             ? (r = s.load().then(function (e) {
                 return e.getBusinessCategoriesV2(t, n);

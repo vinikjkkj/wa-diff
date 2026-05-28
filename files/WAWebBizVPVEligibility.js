@@ -3,14 +3,18 @@ __d(
   ["WAWebMsgGetters", "WAWebMsgType"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r) {
-      return o("WAWebMsgGetters").getIsSentByMe(e) ||
-        r ||
+    function e(e) {
+      var t = e.isEnterprise,
+        n = e.isGroupChat,
+        r = e.isHosted,
+        a = e.msg;
+      return o("WAWebMsgGetters").getIsSentByMe(a) ||
+        n ||
         o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(
-          o("WAWebMsgGetters").getType(e),
+          o("WAWebMsgGetters").getType(a),
         )
         ? !1
-        : !!(t || o("WAWebMsgGetters").getIsMarketingMessage(e) || n);
+        : !!(t || o("WAWebMsgGetters").getIsMarketingMessage(a) || r);
     }
     l.isEligibleForBizVPV = e;
   },

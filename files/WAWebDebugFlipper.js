@@ -151,11 +151,9 @@ __d(
                   ]),
                   p = d[0],
                   _ = d[1],
-                  f = d[2],
-                  g = !1;
+                  f = d[2];
                 (p != null && f != null
-                  ? ((g = !0),
-                    yield o(
+                  ? (yield o(
                       "WAWebSignalStoreApi",
                     ).waSignalStore.markKeyAsUploaded(_.keyId),
                     l.processPreKeyBundle("alice", {
@@ -214,25 +212,24 @@ __d(
                     return i.handleRpc(e);
                   }),
                   (this.backend = i),
-                  g &&
-                    (this.comms.config.handlers.onBeforeCastStanzaForE2E =
-                      function (e) {
-                        try {
-                          var n = o("WAWap").encodeStanza(e);
-                          return (l.match(n), []);
-                        } catch (e) {
-                          var a = r("getErrorSafe")(e);
-                          (o("WALogger").WARN(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "[smax] ",
-                                "",
-                              ])),
-                            a,
-                          ),
-                            t.send("log", { message: a.message }));
-                        }
-                      }),
+                  (this.comms.config.handlers.onBeforeCastStanzaForE2E =
+                    function (e) {
+                      try {
+                        var n = o("WAWap").encodeStanza(e);
+                        return (l.match(n), []);
+                      } catch (e) {
+                        var a = r("getErrorSafe")(e);
+                        (o("WALogger").WARN(
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                              "[smax] ",
+                              "",
+                            ])),
+                          a,
+                        ),
+                          t.send("log", { message: a.message }));
+                      }
+                    }),
                   (this.loggerId = o("WASmaxMockRunner")
                     .getSmaxLogEmitter(this.wasmModule)
                     .subscribe(function (e) {

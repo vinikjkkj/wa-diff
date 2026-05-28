@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebActions",
-    "WAWebBizGatingUtils",
     "WAWebChatGetters",
     "WAWebDropdown.react",
     "WAWebEnvironment",
@@ -21,6 +20,7 @@ __d(
     "WAWebListIconStacked.react",
     "WAWebListPeopleIcon.react",
     "WAWebListsGatingUtils",
+    "WAWebListsLabelGatingUtils",
     "WAWebMenuBar.react",
     "WAWebMobilePlatforms",
     "WAWebTabOrder",
@@ -70,7 +70,7 @@ __d(
     function p(e) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
-        !o("WAWebBizGatingUtils").isCTWASMBLabelChatHeaderEnabledWeb() ||
+        !o("WAWebListsLabelGatingUtils").isCTWASMBLabelChatHeaderEnabledWeb() ||
         r("WAWebEnvironment").isGuest ||
         !e.canSend ||
         o("WAWebChatGetters").getIsBroadcast(e) ||

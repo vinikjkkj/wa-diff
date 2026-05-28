@@ -1,11 +1,6 @@
 __d(
   "WAWebBizAIKnowledgeDrawerHelpers",
-  [
-    "fbt",
-    "$InternalEnum",
-    "WAWebBizAiExampleResponsesQuery",
-    "asyncToGeneratorRuntime",
-  ],
+  ["fbt", "$InternalEnum"],
   function (t, n, r, o, a, i, l, s) {
     var e = n("$InternalEnum").Mirrored([
         "Main",
@@ -43,29 +38,9 @@ __d(
           return null;
       }
     }
-    var d = null;
-    function m() {
-      return d;
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebBizAiExampleResponsesQuery").fetchProductInfo();
-          if (!e.isSuccess) return null;
-          var t = { isEligible: e.isEligible, products: e.products };
-          return ((d = t), t);
-        })),
-        _.apply(this, arguments)
-      );
-    }
     ((l.KnowledgeStep = e),
       (l.MAX_PREVIEW_ITEMS = u),
-      (l.getKnowledgeTypeLabel = c),
-      (l.getCachedProductData = m),
-      (l.fetchProductData = p));
+      (l.getKnowledgeTypeLabel = c));
   },
   226,
 );

@@ -15,20 +15,24 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e, t, n, r) {
-      if (r != null) {
-        var a = babelHelpers.extends({}, e, {
-            isResponseFlow: e.flowResponseMessage != null,
+    function c(e) {
+      var t = e.chat,
+        n = e.flowId,
+        r = e.messageData,
+        a = e.msg;
+      if (n != null) {
+        var i = babelHelpers.extends({}, r, {
+            isResponseFlow: r.flowResponseMessage != null,
           }),
-          i = s._(/*BTDS*/ "No response to display");
-        e.isResponseFlow && m(e)
+          l = s._(/*BTDS*/ "No response to display");
+        r.isResponseFlow && m(r)
           ? o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, { msg: i }),
+              u.jsx(o("WAWebToast.react").Toast, { msg: l }),
             )
           : o("WAWebCmd").Cmd.galaxyFlowDrawer({
               chat: t,
-              messageData: a,
-              msg: n,
+              messageData: i,
+              msg: a,
               onClose: o("WAWebDrawerManager").closeDrawerRight,
             });
       }
@@ -42,7 +46,7 @@ __d(
       );
       return i
         ? function () {
-            c(t, n, e, a);
+            c({ chat: n, flowId: a, messageData: t, msg: e });
           }
         : r("WAWebNoop");
     }

@@ -20,7 +20,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var t = o("WAWebUserPrefsMeUser").getMeUser(),
             n = yield o(
               "WAWebApiContactUsernameFields",
             ).getOrFetchContactUsernameCountryCode(t),

@@ -12,58 +12,62 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, n, a, i) {
-      var l;
+    function s(t) {
+      var n,
+        a = t.chat,
+        i = t.messageData,
+        l = t.msg,
+        s = t.payload;
       if (
-        a != null &&
-        typeof a == "object" &&
-        a.extension_message_response != null &&
-        ((l = a.extension_message_response) == null ? void 0 : l.params) != null
+        s != null &&
+        typeof s == "object" &&
+        s.extension_message_response != null &&
+        ((n = s.extension_message_response) == null ? void 0 : n.params) != null
       ) {
-        var s,
-          u,
+        var u,
           c,
-          d = (s = a.extension_message_response) == null ? void 0 : s.params;
+          d,
+          m = (u = s.extension_message_response) == null ? void 0 : u.params;
         o(
           "WAWebGalaxyDisableCTACollection",
-        ).GalaxyDisableCTACollection.addMessageId(n.id.toString());
-        var m =
-          ((u = i.flowMetadata) == null ? void 0 : u.flow_name) != null
+        ).GalaxyDisableCTACollection.addMessageId(l.id.toString());
+        var p =
+          ((c = i.flowMetadata) == null ? void 0 : c.flow_name) != null
             ? { flowName: i.flowMetadata.flow_name }
             : null;
         o(
           "WAWebGalaxyFlowWamLoggerUtils",
         ).logStructuredMessageInteractionWAMEvent(
           i,
-          t,
-          n,
+          a,
+          l,
           o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_SUCCESS,
         );
-        var p =
-          n.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
-            ? (c = n.unsafe().ctwaContext) == null
+        var _ =
+          l.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
+            ? (d = l.unsafe().ctwaContext) == null
               ? void 0
-              : c.sourceId
+              : d.sourceId
             : void 0;
         (r("WAWebInteractiveMessageSync").sendDisableCTAMutation(
-          n.id,
+          l.id,
           i.flowId,
-          p,
+          _,
         ),
           o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationEnd(2),
           o("WAWebSendGalaxyFlowResponseMessage")
             .sendGalaxyFlowResponseMessage(
-              t,
-              n,
+              a,
+              l,
               babelHelpers.extends(
                 {
-                  originalMsgData: babelHelpers.extends({}, m, {
+                  originalMsgData: babelHelpers.extends({}, p, {
                     flowId: i.flowId,
                     flowToken: i.flowToken,
                     label: i.label,
                   }),
                 },
-                d,
+                m,
               ),
             )
             .catch(function (t) {
