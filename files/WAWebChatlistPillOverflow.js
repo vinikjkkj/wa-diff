@@ -26,7 +26,23 @@ __d(
         c = o.length - u;
       return c > 0 ? { hiddenCount: c, showBadge: !0 } : e;
     }
-    ((i.EMPTY_RESULT = e), (i.measureOverflow = u));
+    function c(e, t, n) {
+      var r = e.slice(e.length - n).map(function (e) {
+          return e.name;
+        }),
+        o = t.map(function (e) {
+          return e.name;
+        });
+      return []
+        .concat(r, o)
+        .filter(function (e) {
+          return e != null && e !== "";
+        })
+        .join(", ");
+    }
+    ((i.EMPTY_RESULT = e),
+      (i.measureOverflow = u),
+      (i.computeOverflowTooltip = c));
   },
   66,
 );

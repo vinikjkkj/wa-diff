@@ -15,6 +15,7 @@ __d(
         AUTO_RELOAD_FAILED_DOGFOODING: { type: "PAYMENT_ACCOUNT_ID" },
         AUTO_RELOAD_FAILED_V2_TARGETING: { type: "PAYMENT_ACCOUNT_ID" },
         BILLING_ACTIVATE_BM_CC_OMNIPE_GLOBAL: { type: "PAYMENT_ACCOUNT_ID" },
+        BILLING_AD_ACCOUNT_IN_INDIA: { type: "PAYMENT_ACCOUNT_ID" },
         BILLING_AD_ACCOUNT_IN_US: { type: "PAYMENT_ACCOUNT_ID" },
         BILLING_ADD_CC_FORM_FRONTIER_PATTERN_INTERNAL_TEST: {
           type: "PAYMENT_ACCOUNT_ID",
@@ -168,6 +169,10 @@ __d(
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",
         },
+        MFT_USABILITY_FLOW_10_1_AUTO_RELOAD_V3_HOLD_OUT: {
+          enableExposureLogging: !0,
+          type: "PAYMENT_ACCOUNT_ID",
+        },
         MFT_USABILITY_FLOW_10_1_HOLD_OUT: {
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",
@@ -197,7 +202,10 @@ __d(
           type: "PAYMENT_ACCOUNT_ID",
         },
         TURKEY_TAX_OFFICE_COLLECTION: { type: "PAYMENT_ACCOUNT_ID" },
-        UAA_MFT_2026_LAUNCH: { type: "PAYMENT_ACCOUNT_ID" },
+        UAA_MFT_2026_LAUNCH: {
+          enableExposureLogging: !0,
+          type: "PAYMENT_ACCOUNT_ID",
+        },
       },
       l = Object.keys(e).map(function (t) {
         return { name: t, type: e[t].type };

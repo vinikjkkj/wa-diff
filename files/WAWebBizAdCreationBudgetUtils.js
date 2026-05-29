@@ -1,7 +1,12 @@
 __d(
   "WAWebBizAdCreationBudgetUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  [
+    "TWAWebBizAdCreationSpec",
+    "WAWebBizAdCreationContinuousDurationUtils",
+    "WAWebBizAdCreationCurrencyUtils",
+    "justknobx",
+  ],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       var n,
@@ -25,7 +30,27 @@ __d(
         i
       );
     }
-    i.createBudgetSpec = e;
+    function s(e, t, n) {
+      var a = r("WAWebBizAdCreationCurrencyUtils").getCurrencyOffset(n);
+      if (a === 0) return null;
+      var i = o(
+          "WAWebBizAdCreationContinuousDurationUtils",
+        ).isContinuousDurationActive(t),
+        l = i ? e : e * t;
+      return { amount: (l / a).toString(), currency: n };
+    }
+    function u(e, t, n) {
+      var a = r("justknobx")._("1286"),
+        i = t === o("TWAWebBizAdCreationSpec").CONTINUOUS_DURATION;
+      return {
+        boost_duration_in_days: a && !i ? t : null,
+        budget: s(e, t, n),
+        daily_budget_payment_amount: a ? s(e, 1, n) : null,
+      };
+    }
+    ((l.createBudgetSpec = e),
+      (l.getBudgetForBillingApi = s),
+      (l.getBillingInfoQueryArgs = u));
   },
-  66,
+  98,
 );

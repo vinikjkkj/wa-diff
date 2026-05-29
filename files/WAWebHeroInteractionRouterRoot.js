@@ -4,6 +4,7 @@ __d(
     "CometAddInlineTiming",
     "Env",
     "WAWebEnvironment",
+    "WAWebNoopGC",
     "createHeroInteractionRouterRoot",
     "qpl",
   ],
@@ -21,6 +22,7 @@ __d(
         startInitialLoad: function (t) {
           var e;
           if (c == null) {
+            o("WAWebNoopGC").installGCNoopWrapper();
             var n = "wa.web." + t;
             ((c = u.startInitialLoad({
               tracePolicy: n,

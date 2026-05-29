@@ -939,8 +939,8 @@ __d(
       SCHEDULED_BOOST_ACTIVATION_DIAGNOSTIC:
         "scheduled_boost_activation_diagnostic",
       SCHEDULED_BOOST_ACTIVATION_THROW: "scheduled_boost_activation_throw",
-      SCHEDULED_BOOST_POST_CTA_PERSIST_FAILURE:
-        "scheduled_boost_post_cta_persist_failure",
+      SCHEDULED_BOOST_PRE_PROCESS_DIAGNOSTIC:
+        "scheduled_boost_pre_process_diagnostic",
       BEFORE_SCHEDULED_BOOST_VIDEO_UPLOAD:
         "before_scheduled_boost_video_upload",
       SCHEDULED_BOOST_VIDEO_UPLOAD_FAIL: "scheduled_boost_video_upload_fail",

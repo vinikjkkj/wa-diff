@@ -11,6 +11,7 @@ __d(
     "WAGetKaleidoscopeWasm",
     "WAKaleidoscopeClassify",
     "WAKaleidoscopeMp4RepairMux",
+    "WAMediaWasmWorkerMainThreadBridge",
     "WAMediaWasmWorkerQplProxy",
     "WAResultOrError",
     "WorkerMessagePort",
@@ -167,6 +168,7 @@ __d(
       );
     }
     (o("WorkerSelf").init(s),
+      o("WAMediaWasmWorkerMainThreadBridge").initBridgePort(s),
       s.addMessageListener("calculateFilehashRequest", function (t) {
         return (e || (e = n("Promise")))
           .resolve()

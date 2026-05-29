@@ -4,22 +4,42 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [
-          { defaultValue: null, kind: "LocalArgument", name: "asset_id" },
-          { defaultValue: null, kind: "LocalArgument", name: "budget" },
-        ],
-        t = [{ kind: "Variable", name: "asset_id", variableName: "asset_id" }],
-        r = [{ kind: "Variable", name: "budget", variableName: "budget" }];
+      var e = { defaultValue: null, kind: "LocalArgument", name: "asset_id" },
+        t = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "boost_duration_in_days",
+        },
+        r = { defaultValue: null, kind: "LocalArgument", name: "budget" },
+        o = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "daily_budget_payment_amount",
+        },
+        a = [{ kind: "Variable", name: "asset_id", variableName: "asset_id" }],
+        i = [
+          {
+            kind: "Variable",
+            name: "boost_duration_in_days",
+            variableName: "boost_duration_in_days",
+          },
+          { kind: "Variable", name: "budget", variableName: "budget" },
+          {
+            kind: "Variable",
+            name: "daily_budget_payment_amount",
+            variableName: "daily_budget_payment_amount",
+          },
+        ];
       return {
         fragment: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, t, r, o],
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAdCreationSuccessModalQuery",
           selections: [
             {
               alias: null,
-              args: t,
+              args: a,
               concreteType: null,
               kind: "LinkedField",
               name: "billable_account_by_asset_id",
@@ -27,7 +47,7 @@ __d(
               selections: [
                 {
                   alias: null,
-                  args: r,
+                  args: i,
                   concreteType: "XFBBillableAccountBillingInfo",
                   kind: "LinkedField",
                   name: "billing_info",
@@ -61,13 +81,13 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, r, t, o],
           kind: "Operation",
           name: "WAWebBizAdCreationSuccessModalQuery",
           selections: [
             {
               alias: null,
-              args: t,
+              args: a,
               concreteType: null,
               kind: "LinkedField",
               name: "billable_account_by_asset_id",
@@ -82,7 +102,7 @@ __d(
                 },
                 {
                   alias: null,
-                  args: r,
+                  args: i,
                   concreteType: "XFBBillableAccountBillingInfo",
                   kind: "LinkedField",
                   name: "billing_info",

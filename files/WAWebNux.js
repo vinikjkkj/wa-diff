@@ -48,6 +48,8 @@ __d(
       BUSINESS_BROADCAST_GENAI_TOOLTIP: "business_broadcast_genai_tooltip",
       EPHEMERAL_AFTER_READ: "ephemeral_after_read",
       BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
+      CUSTOMER_MANAGER_INTRO: "customer_manager_intro",
+      CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -155,6 +157,8 @@ __d(
           BUSINESS_BROADCAST_GENAI_TOOLTIP: "business_broadcast_genai_tooltip",
           EPHEMERAL_AFTER_READ: "ephemeral_after_read",
           BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
+          CUSTOMER_MANAGER_INTRO: "customer_manager_intro",
+          CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
         },
       },
       g = {

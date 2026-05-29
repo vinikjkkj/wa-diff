@@ -21,18 +21,19 @@ __d(
       p,
       _,
       f,
-      g = 6e4,
-      h = null;
-    function y(e) {
+      g,
+      h = 6e4,
+      y = null;
+    function C(e) {
       var t, n;
       if (e.length === 0) {
-        h = null;
+        y = null;
         return;
       }
       var r = Math.floor(e.length / 2);
-      h = (t = (n = e[r]) == null ? void 0 : n.toString()) != null ? t : null;
+      y = (t = (n = e[r]) == null ? void 0 : n.toString()) != null ? t : null;
     }
-    function C() {
+    function b() {
       var t = o("WAWebChatCollection").ChatCollection.getActive();
       if (t == null) {
         o("WALogger").LOG(
@@ -44,8 +45,8 @@ __d(
         return;
       }
       var n = t.id.toString(),
-        a = h,
-        i = { chatId: n, messageId: a },
+        a = y,
+        i = { chatId: n, messageId: a, chatEntryPoint: t.chatEntryPoint },
         l = o("WAWebTimedCache").createTimedCacheItem(i);
       (r("WAWebLocalStorage") == null ||
         r("WAWebLocalStorage").setItem(
@@ -57,13 +58,15 @@ __d(
             (s = babelHelpers.taggedTemplateLiteralLoose([
               "Updater: Saved refresh state for chat ",
               " at center message ",
+              " with entry point ",
               "",
             ])),
           n,
           a != null ? a : "none",
+          i.chatEntryPoint,
         ));
     }
-    function b() {
+    function v() {
       var e =
         r("WAWebLocalStorage") == null
           ? void 0
@@ -89,7 +92,7 @@ __d(
           null
         );
       }
-      var n = o("WAWebTimedCache").getTimedCacheItemValue(t, g);
+      var n = o("WAWebTimedCache").getTimedCacheItemValue(t, h);
       return (
         n != null
           ? o("WALogger").LOG(
@@ -109,7 +112,7 @@ __d(
         n
       );
     }
-    function v(e) {
+    function S(e) {
       try {
         var t = e.chatId,
           n = e.messageId,
@@ -123,51 +126,71 @@ __d(
           );
           return;
         }
+        var i =
+          e.chatEntryPoint != null
+            ? o("WAWebChatEntryPoint").ChatEntryPoint.cast(e.chatEntryPoint)
+            : null;
+        if (i == null) {
+          var l;
+          o("WALogger")
+            .LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "Updater: Could not restore entry point from ",
+                  ", falling back to RefreshRestore",
+                ])),
+              (l = e.chatEntryPoint) != null ? l : "null",
+            )
+            .sendLogs("updater-refresh-restore-entry-point-fallback");
+        }
+        var s =
+          i != null
+            ? i
+            : o("WAWebChatEntryPoint").ChatEntryPoint.RefreshRestore;
         if (n != null) {
-          var i = r("WAWebMsgKey").fromString(n),
-            l = babelHelpers.extends(
+          var u = r("WAWebMsgKey").fromString(n),
+            c = babelHelpers.extends(
               {},
               o("WAWebChatMessageSearch").getSearchContext({
                 chat: a,
-                msgKey: i,
+                msgKey: u,
               }),
               { highlightMsg: !1 },
             );
           (o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "Updater: Restoring chat ",
                 " at message ",
+                " with entry point ",
                 "",
               ])),
             t,
             n,
+            s,
           ),
             o("WAWebCmd").Cmd.openChatAt({
               chat: a,
-              msgContext: l,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .RefreshRestore,
+              msgContext: c,
+              chatEntryPoint: s,
             }));
           return;
         }
         (o("WALogger").LOG(
-          _ ||
-            (_ = babelHelpers.taggedTemplateLiteralLoose([
-              "Updater: Restoring chat ",
-              " from unread",
-            ])),
-          t,
-        ),
-          o("WAWebCmd").Cmd.openChatFromUnread({
-            chat: a,
-            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-              .RefreshRestore,
-          }));
-      } catch (e) {
-        o("WALogger").LOG(
           f ||
             (f = babelHelpers.taggedTemplateLiteralLoose([
+              "Updater: Restoring chat ",
+              " from unread with entry point ",
+              "",
+            ])),
+          t,
+          s,
+        ),
+          o("WAWebCmd").Cmd.openChatFromUnread({ chat: a, chatEntryPoint: s }));
+      } catch (e) {
+        o("WALogger").LOG(
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
               "Updater: Failed to restore refresh state: ",
               "",
             ])),
@@ -175,14 +198,14 @@ __d(
         );
       }
     }
-    function S() {
-      var e = b();
-      e != null && v(e);
+    function R() {
+      var e = v();
+      e != null && S(e);
     }
-    ((l.setCenterVisibleMsgId = y),
-      (l.saveRefreshState = C),
-      (l.getRefreshState = b),
-      (l.restoreRefreshState = S));
+    ((l.setCenterVisibleMsgId = C),
+      (l.saveRefreshState = b),
+      (l.getRefreshState = v),
+      (l.restoreRefreshState = R));
   },
   98,
 );

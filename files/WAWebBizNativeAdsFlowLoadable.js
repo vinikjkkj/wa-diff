@@ -157,112 +157,119 @@ __d(
           e === "HAS_FB_ADS_WAA_ACTIVE") &&
           o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplSuccess());
     }
-    function y(t, a, i, l) {
-      var s = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var i, s, d, p;
-          if (l != null) return f(l, t, a);
-          o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
-            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-              .BUNDLE_LOAD_START,
-          );
-          var g = o("WAWebLinkedAccountsJob").queryLinkedPagesInfo(),
-            h = yield (e || (e = n("Promise"))).all([m(), c()]),
-            y = h[0],
-            C = h[1];
-          (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
-            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-              .BUNDLE_LOAD_END,
-          ),
+    function y(t) {
+      var a = t.initialAdCreationFlowID,
+        i = t.initialLoadingStep,
+        l = t.onLoadComplete,
+        s = t.phase1Result,
+        d = r("WAWebLazyLoadedRetriable")(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t, i, d, p;
+            if (s != null) return f(s, a, l);
             o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
               o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-                .ELIGIBILITY_CHECK_START,
-            ));
-          var b = yield y(t);
-          o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
-            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-              .ELIGIBILITY_CHECK_END,
-          );
-          var v = _(b),
-            S;
-          try {
-            S = yield o(
-              "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).resolveBizNativeAdsRelayIdentityBundle(v, t, g);
-          } catch (e) {
-            throw (
-              r("FBLogger")("wa_ctwa_web")
-                .catching(r("getErrorSafe")(e))
-                .mustfix(
-                  "BizNativeAdsFlowLoadable: identity bundle resolution failed for accountType: " +
-                    v,
-                ),
-              e
+                .BUNDLE_LOAD_START,
             );
-          }
-          S == null &&
-            v === "FB" &&
-            b &&
-            (S = yield o(
-              "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).resolveBizNativeAdsRelayIdentityBundle("WAA", t, g));
-          var R =
-              (i = (s = S) == null ? void 0 : s.linkedPagesInfo) != null
-                ? i
-                : g != null
-                  ? yield g
-                  : null,
-            L = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario({
-              activeIdentityType: v,
-              fbPageHasCreatedAd:
-                (d = R == null ? void 0 : R.fbPageHasCreatedAd) != null
-                  ? d
-                  : !1,
-              hasValidFBAccessToken:
-                o(
-                  "WAWebBizAdCreationResolveStoredIdentity",
-                ).resolveStoredIdentityForAccountType("FB") != null,
-              isWAAEligible: b,
-              waAdsIdentityPageHasCreatedAd:
-                (p = R == null ? void 0 : R.waAdsIdentityPageHasCreatedAd) !=
-                null
-                  ? p
-                  : !1,
-            }),
-            E =
-              L === "FIRST_TIME_WAA_ELIGIBLE"
-                ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
-                    .AdCreation
-                : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
-                    .AdManagement;
-          (L === "FIRST_TIME_WAA_ELIGIBLE" &&
-            S != null &&
-            S.adCreationEntrypointReference == null &&
-            (S = yield o(
-              "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).prepareDeferredAdCreationEntrypoint(S, t)),
-            a == null || a());
-          var k = function (n) {
-            return u.jsx(
-              C,
-              babelHelpers.extends(
+            var g = o("WAWebLinkedAccountsJob").queryLinkedPagesInfo(),
+              h = yield (e || (e = n("Promise"))).all([m(), c()]),
+              y = h[0],
+              C = h[1];
+            (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+              o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+                .BUNDLE_LOAD_END,
+            ),
+              o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+                o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+                  .ELIGIBILITY_CHECK_START,
+              ));
+            var b = yield y(a);
+            o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+              o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+                .ELIGIBILITY_CHECK_END,
+            );
+            var v = _(b),
+              S;
+            try {
+              S = yield o(
+                "WAWebBizNativeAdsResolveRelayIdentityBundle",
+              ).resolveBizNativeAdsRelayIdentityBundle(v, a, g);
+            } catch (e) {
+              throw (
+                r("FBLogger")("wa_ctwa_web")
+                  .catching(r("getErrorSafe")(e))
+                  .mustfix(
+                    "BizNativeAdsFlowLoadable: identity bundle resolution failed for accountType: " +
+                      v,
+                  ),
+                e
+              );
+            }
+            S == null &&
+              v === "FB" &&
+              b &&
+              (S = yield o(
+                "WAWebBizNativeAdsResolveRelayIdentityBundle",
+              ).resolveBizNativeAdsRelayIdentityBundle("WAA", a, g));
+            var R =
+                (t = (i = S) == null ? void 0 : i.linkedPagesInfo) != null
+                  ? t
+                  : g != null
+                    ? yield g
+                    : null,
+              L = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario(
                 {
-                  identityBundle: S,
-                  initialAdCreationFlowID: t,
-                  initialStep: E,
+                  activeIdentityType: v,
+                  fbPageHasCreatedAd:
+                    (d = R == null ? void 0 : R.fbPageHasCreatedAd) != null
+                      ? d
+                      : !1,
+                  hasValidFBAccessToken:
+                    o(
+                      "WAWebBizAdCreationResolveStoredIdentity",
+                    ).resolveStoredIdentityForAccountType("FB") != null,
                   isWAAEligible: b,
-                  scenario: L,
+                  waAdsIdentityPageHasCreatedAd:
+                    (p =
+                      R == null ? void 0 : R.waAdsIdentityPageHasCreatedAd) !=
+                    null
+                      ? p
+                      : !1,
                 },
-                n,
               ),
-            );
-          };
-          return k;
-        }),
-        "BizNativeAdsFlow",
-      );
+              E =
+                L === "FIRST_TIME_WAA_ELIGIBLE"
+                  ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
+                      .AdCreation
+                  : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
+                      .AdManagement;
+            (L === "FIRST_TIME_WAA_ELIGIBLE" &&
+              S != null &&
+              S.adCreationEntrypointReference == null &&
+              (S = yield o(
+                "WAWebBizNativeAdsResolveRelayIdentityBundle",
+              ).prepareDeferredAdCreationEntrypoint(S, a)),
+              l == null || l());
+            var k = function (t) {
+              return u.jsx(
+                C,
+                babelHelpers.extends(
+                  {
+                    identityBundle: S,
+                    initialAdCreationFlowID: a,
+                    initialStep: E,
+                    isWAAEligible: b,
+                    scenario: L,
+                  },
+                  t,
+                ),
+              );
+            };
+            return k;
+          }),
+          "BizNativeAdsFlow",
+        );
       return r("WAWebLoadable")({
-        loader: s,
+        loader: d,
         loading: function (t) {
           return t.error
             ? u.jsx(r("WAWebBizAdsErrorPopup.react"), {
@@ -270,7 +277,7 @@ __d(
                   step: i,
                 }),
               })
-            : a != null
+            : l != null
               ? u.jsx(u.Fragment, {})
               : u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), { step: i });
         },

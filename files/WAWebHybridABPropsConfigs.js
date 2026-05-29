@@ -233,7 +233,7 @@ __d(
       group_history_notice_receive: [15722, "bool", !1, !1],
       group_history_out_of_window_pin_sender: [26037, "bool", !1, !1],
       group_history_out_of_window_pins_receiver: [26039, "bool", !1, !1],
-      group_history_receive: [15311, "bool", !1, !1],
+      group_history_receive: [15311, "bool", !1, !0],
       group_history_receiver_dedup: [30462, "bool", !1, !1],
       group_history_receiver_floating_banner: [21568, "bool", !1, !1],
       group_history_reporting: [22329, "bool", !0, !0],

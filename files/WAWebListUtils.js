@@ -185,17 +185,16 @@ __d(
         i = 0,
         l = 0,
         s = o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled()
-          ? r("WAWebNewsletterCollection").filter(function (e) {
+          ? r("WAWebNewsletterCollection").countWhere(function (e) {
               var t;
-              return (
-                ((t = e.newsletterMetadata) == null
-                  ? void 0
-                  : t.isSubscribedOrOwned) &&
+              return !!(
+                (t = e.newsletterMetadata) != null &&
+                t.isSubscribedOrOwned &&
                 !e.archive &&
                 !e.isLocked &&
                 e.unreadCount > 0
               );
-            }).length
+            })
           : 0;
       return (
         e.forEach(function (e) {

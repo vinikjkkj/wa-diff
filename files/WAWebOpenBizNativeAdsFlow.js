@@ -35,11 +35,14 @@ __d(
             "WAWebBizAdCreationResolveStoredIdentity",
           ).resolveStoredAccountType(),
           l = o("WAWebBizNativeAdsFlowLoadable").createBizNativeAdsFlowLoadable(
-            n,
-            void 0,
-            i == null
-              ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
-              : void 0,
+            {
+              initialAdCreationFlowID: n,
+              initialLoadingStep:
+                i == null
+                  ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
+                      .AdCreation
+                  : void 0,
+            },
           );
         a = s.jsx(l, { entryPoint: e, manageAdsFlowID: t });
       }

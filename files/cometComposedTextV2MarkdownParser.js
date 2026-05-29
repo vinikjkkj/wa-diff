@@ -66,14 +66,22 @@ __d(
       );
     }
     function u(e, t, n) {
+      n === void 0 && (n = 0);
+      var a;
       return (
-        n === void 0 && (n = 0),
+        e.ordered
+          ? (a = "number")
+          : e.items.some(function (e) {
+                return e.checked != null;
+              })
+            ? (a = "check")
+            : (a = "bullet"),
         new (o(
           "CometComposedTextV2ListNode.react",
         ).CometComposedTextV2ListNode)(
           {
             key: r("cometComposedTextV2NodeKey")(),
-            listType: e.ordered ? "number" : "bullet",
+            listType: a,
             start: e.start === "" ? 1 : e.start,
             tag: e.ordered ? "ol" : "ul",
           },

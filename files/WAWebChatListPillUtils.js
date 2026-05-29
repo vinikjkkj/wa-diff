@@ -15,9 +15,18 @@ __d(
         o = r.customLabels,
         a = r.staticLabels,
         i = _(a, o, t),
-        l = a.length + o.length,
-        s = Math.max(0, l - i.length);
-      return { overflowCount: s, visibleLabels: i };
+        l = new Set(
+          i.map(function (e) {
+            return e.id;
+          }),
+        ),
+        s = [].concat(o).sort(function (e, t) {
+          return e.orderIndex - t.orderIndex;
+        }),
+        u = [].concat(a, s).filter(function (e) {
+          return !l.has(e.id);
+        });
+      return { overflowCount: u.length, overflowedLabels: u, visibleLabels: i };
     }
     function m(e) {
       var t = [];

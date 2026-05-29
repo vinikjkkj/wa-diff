@@ -38,18 +38,20 @@ __d(
       f,
       g,
       h,
-      y = 1300,
-      C = 400,
-      b = (function (t) {
+      y,
+      C = 1300,
+      b = 400,
+      v = (function (t) {
         function a() {
           var e;
           return (
             (e = t.call(this) || this),
             (e.isMainStreamReadyMd = !1),
             (e.isOfflineDeliveryEnd = !1),
+            (e.$CmdImpl$p_1 = null),
             o(
               "WAWebUiIdleEventBus",
-            ).UiIdleEventBus.setDeferUntilDocumentFlushed(v),
+            ).UiIdleEventBus.setDeferUntilDocumentFlushed(S),
             e
           );
         }
@@ -224,7 +226,7 @@ __d(
             this.trigger("pause_ptt_recording");
           }),
           (i.sendPttRecording = function () {
-            S.trigger("send_ptt_recording");
+            R.trigger("send_ptt_recording");
           }),
           (i.editGroupDescription = function () {
             this.trigger("edit_group_description");
@@ -246,7 +248,7 @@ __d(
               if (o("WAWebBotUtils").isMetaAiBot(a.id)) {
                 var i = t.attachments;
                 if (i != null) {
-                  (h || (h = n("Promise"))).all(i).then(
+                  (y || (y = n("Promise"))).all(i).then(
                     (function () {
                       var o = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (n) {
@@ -262,7 +264,7 @@ __d(
                             c = s.validAttachments;
                           (i(u),
                             c.length !== 0 &&
-                              e.$CmdImpl$p_1(
+                              e.$CmdImpl$p_2(
                                 babelHelpers.extends({}, t, {
                                   attachments: c.map(function (e) {
                                     return e;
@@ -280,10 +282,10 @@ __d(
                   return;
                 }
               }
-              this.$CmdImpl$p_1(t, a);
+              this.$CmdImpl$p_2(t, a);
             }
           }),
-          (i.$CmdImpl$p_1 = function (t, n) {
+          (i.$CmdImpl$p_2 = function (t, n) {
             var e = function (r) {
                 (r.length > 0 &&
                   o("WAWebComposeBoxActions").ComposeBoxActions.setTextContent(
@@ -414,21 +416,34 @@ __d(
               r,
             );
           }),
-          (i.$CmdImpl$p_2 = function (r) {
+          (i.$CmdImpl$p_3 = function (r) {
             var t = this,
               a = r.chat,
               i = r.chatEntryPoint,
               l = r.msgContext,
-              s = r.threadId;
+              u = r.threadId,
+              c = this.$CmdImpl$p_1 != null && this.$CmdImpl$p_1 === a.id;
             return (
-              (a.chatEntryPoint = i),
+              c
+                ? o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "openChat: preserving entry point ",
+                        ", skipping ",
+                        " for same chat",
+                      ])),
+                    a.chatEntryPoint,
+                    i,
+                  )
+                : (a.chatEntryPoint = i),
+              (this.$CmdImpl$p_1 = a.id),
               o("WAWebWamMemoryStat").uploadMemoryIfChatWasOpened(a.id),
-              new (h || (h = n("Promise")))(function (e) {
+              new (y || (y = n("Promise")))(function (e) {
                 t.trigger("open_chat", {
                   chat: a,
                   msgContext: l,
                   chatEntryPoint: i,
-                  threadId: s,
+                  threadId: u,
                   onComplete: (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (t) {
@@ -441,7 +456,7 @@ __d(
                               ? n
                               : !1;
                         (a &&
-                          window.matchMedia("(max-width: " + y + "px)")
+                          window.matchMedia("(max-width: " + C + "px)")
                             .matches &&
                           (r == null || r.closeDrawer()),
                           e(t));
@@ -453,17 +468,17 @@ __d(
                     return r;
                   })(),
                 });
-              }).catch(function (t) {
+              }).catch(function (e) {
                 throw (
                   o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "Unexpected openChat error: ",
                         "",
                       ])),
-                    String(t),
+                    String(e),
                   ),
-                  t
+                  e
                 );
               })
             );
@@ -479,7 +494,7 @@ __d(
               c = o("WAWebStateUtils").unproxy(r);
             if (!i) return this.openChatBottom({ chat: c, chatEntryPoint: a });
             o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0);
-            var d = this.$CmdImpl$p_2({
+            var d = this.$CmdImpl$p_3({
               chat: c,
               msgContext: i,
               chatEntryPoint: a,
@@ -495,23 +510,23 @@ __d(
                       if (t)
                         if (t.wasVisible)
                           ((r = function () {
-                            return e.$CmdImpl$p_3({
+                            return e.$CmdImpl$p_4({
                               pos: "offset",
                               offset: t.offset,
                             });
                           }),
                             (o = function () {
-                              return e.$CmdImpl$p_3({
+                              return e.$CmdImpl$p_4({
                                 pos: "center",
                                 animate: a,
-                                duration: C,
+                                duration: b,
                                 easing: [0.7, 0, 0.3, 1],
                               });
                             }));
                         else
                           switch (
                             ((r = function () {
-                              return e.$CmdImpl$p_3({
+                              return e.$CmdImpl$p_4({
                                 pos: t.alignAt,
                                 scrollIfNeeded: !0,
                               });
@@ -521,10 +536,10 @@ __d(
                             case "top":
                             case "bottom":
                               o = function () {
-                                return e.$CmdImpl$p_3({
+                                return e.$CmdImpl$p_4({
                                   pos: "center",
                                   animate: a,
-                                  duration: C,
+                                  duration: b,
                                   easing: [0.88, 0.64, 0.13, 0.99],
                                 });
                               };
@@ -532,15 +547,15 @@ __d(
                             case "center":
                             default:
                               o = function () {
-                                return (h || (h = n("Promise"))).resolve();
+                                return (y || (y = n("Promise"))).resolve();
                               };
                           }
                       else
                         ((r = function () {
-                          return e.$CmdImpl$p_3({ pos: "center" });
+                          return e.$CmdImpl$p_4({ pos: "center" });
                         }),
                           (o = function () {
-                            return (h || (h = n("Promise"))).resolve();
+                            return (y || (y = n("Promise"))).resolve();
                           }));
                       return (yield r(), o());
                     },
@@ -575,7 +590,7 @@ __d(
                     o("WAPromiseDelays")
                       .delayMs(500)
                       .then(function () {
-                        (S.openMediaViewerForAlbumMedia(
+                        (R.openMediaViewerForAlbumMedia(
                           o("WAWebStateUtils").unproxy(e),
                         ),
                           t == null || t());
@@ -584,7 +599,7 @@ __d(
                 return !0;
               })
               .then(function (t) {
-                return (e.$CmdImpl$p_4(i), t);
+                return (e.$CmdImpl$p_5(i), t);
               })
               .catch(
                 o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
@@ -601,46 +616,46 @@ __d(
               a = t.chat,
               i = t.chatEntryPoint,
               l = t.threadId,
-              u = o("WAWebStateUtils").unproxy(a);
+              s = o("WAWebStateUtils").unproxy(a);
             if (!r("gkx")("26258")) {
-              window.chat = u;
+              window.chat = s;
               var c =
-                (u.unreadMsgAnchor && u.unreadMsgAnchor.id.toString()) ||
+                (s.unreadMsgAnchor && s.unreadMsgAnchor.id.toString()) ||
                 "No unreadMsgAnchor found";
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "openChatFromUnread anchor=",
                     " unread=",
                     "",
                   ])),
                 c,
-                u.unreadCount,
+                s.unreadCount,
               );
             }
             var d,
-              m = o("WAWebThreadModelResolver").resolveThreadOrChat(u, l);
+              m = o("WAWebThreadModelResolver").resolveThreadOrChat(s, l);
             if (
               (m.unreadMsgAnchor &&
                 (d = {
                   collection: m.unreadMsgAnchor.getMsgChunk(
-                    m !== u ? l : void 0,
+                    m !== s ? l : void 0,
                   ),
-                  promise: (h || (h = n("Promise"))).resolve(),
+                  promise: (y || (y = n("Promise"))).resolve(),
                   msg: m.unreadMsgAnchor,
-                  isUnreadDivider: u.shouldShowUnreadDivider(),
+                  isUnreadDivider: s.shouldShowUnreadDivider(),
                 }),
-              d || u.unreadCount > 0)
+              d || s.unreadCount > 0)
             ) {
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0);
-              var p = this.$CmdImpl$p_2({
-                chat: u,
+              var p = this.$CmdImpl$p_3({
+                chat: s,
                 msgContext: d,
                 chatEntryPoint: i,
                 threadId: l,
               })
                 .then(function () {
-                  return e.$CmdImpl$p_3({ pos: "top", offset: -120 });
+                  return e.$CmdImpl$p_4({ pos: "top", offset: -120 });
                 })
                 .then(o("WAWebBoolFunc").returnTrue)
                 .catch(
@@ -653,7 +668,7 @@ __d(
                 p
               );
             }
-            return this.openChatBottom({ chat: u, chatEntryPoint: i });
+            return this.openChatBottom({ chat: s, chatEntryPoint: i });
           }),
           (i.openChatBottom = function (t) {
             var e = this,
@@ -662,15 +677,15 @@ __d(
               a = t.threadId,
               i = o("WAWebStateUtils").unproxy(n);
             (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "openChatBottom",
                 ])),
             ),
               i.id.isLid() &&
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "openChatBottom. entry point: ",
                       "",
                     ])),
@@ -679,19 +694,19 @@ __d(
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0));
             var l,
               s = o("WAWebThreadModelResolver").resolveThreadOrChat(i, a),
-              d = s.msgs;
-            if (d.length > 0) {
+              u = s.msgs;
+            if (u.length > 0) {
               var m;
               (s !== i
-                ? (m = d.last())
+                ? (m = u.last())
                 : a != null
                   ? (m = i.msgs.findLast(function (e) {
                       return o("WAWebThreadMsgUtils").isMsgInThread(e, a);
                     }))
                   : (m = i.msgs.last()),
-                (l = { collection: d, msg: m, isUnreadDivider: !1 }));
+                (l = { collection: u, msg: m, isUnreadDivider: !1 }));
             }
-            var p = this.$CmdImpl$p_2({
+            var p = this.$CmdImpl$p_3({
               chat: i,
               msgContext: l,
               chatEntryPoint: r,
@@ -711,14 +726,14 @@ __d(
               p
             );
           }),
-          (i.$CmdImpl$p_3 = function (t) {
+          (i.$CmdImpl$p_4 = function (t) {
             var e = this;
-            return new (h || (h = n("Promise")))(function (n) {
+            return new (y || (y = n("Promise")))(function (n) {
               e.trigger("scroll_to_focused_msg", n, t);
             }).catch(function (e) {
               o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "Unexpected_scrollToFocusedMsg error: ",
                     "",
                   ])),
@@ -728,12 +743,12 @@ __d(
           }),
           (i.scrollChatToBottom = function () {
             var e = this;
-            return new (h || (h = n("Promise")))(function (t) {
+            return new (y || (y = n("Promise")))(function (t) {
               e.trigger("scroll_chat_to_bottom", t);
             }).catch(function (e) {
               o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "Unexpected scrollChatToBottom error: ",
                     "",
                   ])),
@@ -766,11 +781,14 @@ __d(
           }),
           (i.closeChat = function (t) {
             var e = o("WAWebStateUtils").unproxy(t);
-            (this.trigger("close_chat", e),
+            (this.$CmdImpl$p_1 != null &&
+              this.$CmdImpl$p_1 === e.id &&
+              (this.$CmdImpl$p_1 = null),
+              this.trigger("close_chat", e),
               o("WAWebWamMemoryStat").uploadMemoryInfoOnChatClose());
           }),
           (i.closeActiveChat = function () {
-            this.trigger("close_active_chat");
+            ((this.$CmdImpl$p_1 = null), this.trigger("close_active_chat"));
           }),
           (i.focusNextChat = function (t) {
             this.trigger("focus_next_chat", t);
@@ -806,8 +824,8 @@ __d(
                 e instanceof Error &&
                   o("WALogger")
                     .LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose(
                           ["CMD.onLogoutFromBridge debug: \n ", ""],
                           ["CMD.onLogoutFromBridge debug: \\n ", ""],
                         )),
@@ -940,8 +958,8 @@ __d(
             ),
               (this.isMainStreamReadyMd = !0),
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "Cmd: onMainStreamModeReadyFromBridge",
                   ])),
               ),
@@ -973,8 +991,8 @@ __d(
           }),
           (i.onInitialLoadReadyFromBridge = function () {
             (o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "Cmd: onInitialLoadReadyFromBridge",
                 ])),
             ),
@@ -1044,8 +1062,8 @@ __d(
           (i.botTogglePluginSearchDetailsToggle = function (t, n) {
             if (t == null) {
               o("WALogger").WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "botTogglePluginSearchDetailsToggle: null target id",
                   ])),
               );
@@ -1080,7 +1098,7 @@ __d(
           (i.typingIndicatorVisibilityChange = function (t) {
             this.trigger("typing_indicator_visibility_change", t);
           }),
-          (i.$CmdImpl$p_4 = function (t) {
+          (i.$CmdImpl$p_5 = function (t) {
             t.highlightTerms != null &&
               t.highlightTerms.length > 0 &&
               this.trigger("set_msg_highlight_terms", t.highlightTerms, t.key);
@@ -1088,7 +1106,7 @@ __d(
           a
         );
       })(r("WAWebEventEmitter"));
-    function v(e) {
+    function S(e) {
       var t,
         n = function () {
           if (!t) {
@@ -1120,11 +1138,11 @@ __d(
         n
       );
     }
-    var S = new b();
+    var R = new v();
     ((l.Revoke = o("WAWebCmd.flow").Revoke),
-      (l.CmdImpl = b),
-      (l.deferUntilDocumentFlushed = v),
-      (l.Cmd = S));
+      (l.CmdImpl = v),
+      (l.deferUntilDocumentFlushed = S),
+      (l.Cmd = R));
   },
   98,
 );

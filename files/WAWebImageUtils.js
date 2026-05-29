@@ -25,6 +25,7 @@ __d(
     "err",
     "exif-component",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -583,7 +584,11 @@ __d(
     function P(e) {
       if (!e) return !1;
       var t = new Image();
-      return ((t.src = e), !!t.complete);
+      return (
+        r("justknobx")._("1449") && (t.crossOrigin = "anonymous"),
+        (t.src = e),
+        !!t.complete
+      );
     }
     function N(e, t, r, a) {
       a === void 0 && (a = !1);

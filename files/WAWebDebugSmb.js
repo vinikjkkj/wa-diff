@@ -14,8 +14,10 @@ __d(
     "WAWebChatCollection",
     "WAWebConnModel",
     "WAWebContactCollection",
+    "WAWebContactInfoFieldsNuxModal.react",
     "WAWebContactType",
     "WAWebCustomerDataAction",
+    "WAWebCustomerManagerNuxModal.react",
     "WAWebDOIntroPopup.react",
     "WAWebDebugPerCustomerDataSharing",
     "WAWebDeleteQuickReplyAction",
@@ -481,6 +483,20 @@ __d(
       (re.paramsToExecute = []));
     var oe = function () {
       o("WAWebModalManager").ModalManager.open(
+        E.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
+      );
+    };
+    ((oe.doc = "Opens the Customer Manager Intro NUX Modal"),
+      (oe.paramsToExecute = []));
+    var ae = function () {
+      o("WAWebModalManager").ModalManager.open(
+        E.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
+      );
+    };
+    ((ae.doc = "Opens the new contact info fields NUX Modal"),
+      (ae.paramsToExecute = []));
+    var ie = function () {
+      o("WAWebModalManager").ModalManager.open(
         E.jsx(
           r("WAWebSmbDataSharingOptInModalDialog")
             .SmbDataSharingOptInModalDialog,
@@ -492,17 +508,17 @@ __d(
         ),
       );
     };
-    function ae(e) {
-      return ie.apply(this, arguments);
+    function le(e) {
+      return se.apply(this, arguments);
     }
-    function ie() {
+    function se() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {})),
-        ie.apply(this, arguments)
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {})),
+        se.apply(this, arguments)
       );
     }
-    ae.doc = "send delete mutation";
-    var le = function (t) {
+    le.doc = "send delete mutation";
+    var ue = function (t) {
         o("WAWebModalManager").ModalManager.open(
           E.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
             accountLid: t,
@@ -513,7 +529,7 @@ __d(
           }),
         );
       },
-      se = function (t) {
+      ce = function (t) {
         o("WAWebModalManager").ModalManager.open(
           E.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
             accountLids: [t],
@@ -524,38 +540,38 @@ __d(
           }),
         );
       };
-    function ue(e, t) {
-      return ce.apply(this, arguments);
-    }
-    function ce() {
-      return (
-        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAJids").unsafeCoerceToChatJid(e);
-          yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
-        })),
-        ce.apply(this, arguments)
-      );
-    }
-    ue.doc = "Add or update customer data for a contact";
-    function de(e) {
+    function de(e, t) {
       return me.apply(this, arguments);
     }
     function me() {
       return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAJids").unsafeCoerceToChatJid(e);
-          return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAJids").unsafeCoerceToChatJid(e);
+          yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
         })),
         me.apply(this, arguments)
       );
     }
-    de.doc = "Get customer data for a contact";
-    function pe() {
+    de.doc = "Add or update customer data for a contact";
+    function pe(e) {
       return _e.apply(this, arguments);
     }
     function _e() {
       return (
-        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAJids").unsafeCoerceToChatJid(e);
+          return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
+        })),
+        _e.apply(this, arguments)
+      );
+    }
+    pe.doc = "Get customer data for a contact";
+    function fe() {
+      return ge.apply(this, arguments);
+    }
+    function ge() {
+      return (
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebChatCollection")
             .ChatCollection.filter(function (e) {
               return r("WAWebWid").isUser(e.id);
@@ -652,18 +668,18 @@ __d(
               JSON.stringify(s),
             ));
         })),
-        _e.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    ((pe.doc =
+    ((fe.doc =
       "Seed 10 customer management test records with distributed lead stages"),
-      (pe.paramsToExecute = []));
-    function fe(e) {
-      return ge.apply(this, arguments);
+      (fe.paramsToExecute = []));
+    function he(e) {
+      return ye.apply(this, arguments);
     }
-    function ge() {
+    function ye() {
       return (
-        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             v ||
               (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -685,12 +701,12 @@ __d(
             t
           );
         })),
-        ge.apply(this, arguments)
+        ye.apply(this, arguments)
       );
     }
-    fe.doc =
+    he.doc =
       "Fetch SMB BP access token and session cookies via xwa_bp_access_token_and_session_cookies GQL endpoint";
-    var he = babelHelpers.extends(
+    var Ce = babelHelpers.extends(
       {
         createOrReplaceLabel: T,
         createOrReplaceQuickReply: x,
@@ -713,17 +729,19 @@ __d(
         createPremiumMessage: ee,
         openDOIntroPopup: ne,
         openSMBListsIntroPopup: re,
-        openSmbDataSharingDialog: oe,
-        syncQuickReplyDelete: ae,
-        showPerCustomerDataSharingOptOutModal: le,
-        showPerCustomerDataSharingOptInModal: se,
-        addCustomerData: ue,
-        getCustomerData: de,
-        gen10CustomerManagementTestDataFromChats: pe,
-        fetchBPAccessTokenGQL: fe,
+        openCustomerManagerNuxModal: oe,
+        openContactInfoFieldsNuxModal: ae,
+        openSmbDataSharingDialog: ie,
+        syncQuickReplyDelete: le,
+        showPerCustomerDataSharingOptOutModal: ue,
+        showPerCustomerDataSharingOptInModal: ce,
+        addCustomerData: de,
+        getCustomerData: pe,
+        gen10CustomerManagementTestDataFromChats: fe,
+        fetchBPAccessTokenGQL: he,
       },
     );
-    l.default = he;
+    l.default = Ce;
   },
   98,
 );

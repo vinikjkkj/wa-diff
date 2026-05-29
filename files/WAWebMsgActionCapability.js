@@ -108,6 +108,7 @@ __d(
         return o("WAWebBotForwardCapability").isMetaAiForwardRowVisibleForMsgs(
           t,
         );
+      if (o("WAWebBotUtils").isHatchBot(e)) return !0;
       var r = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return (r == null ? void 0 : r.isDefault) !== !0
         ? !1

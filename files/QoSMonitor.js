@@ -6,15 +6,17 @@ __d(
     var e = 3e4,
       s = 5e3,
       u = 5e3,
-      c = 900 * 1e3,
-      d = (function () {
-        function t(t, n, a, i, l, d) {
-          var m = this;
+      c = 5e3,
+      d = 900 * 1e3,
+      m = (function () {
+        function t(t, n, a, i, l, m) {
+          var p = this;
           ((this.$9 = null),
-            (this.$10 = !1),
+            (this.$10 = null),
+            (this.$11 = !1),
             (this.$1 = i != null ? i : r("uuidv4")().slice(0, 8)),
             (this.$2 = l != null ? l : "unknown"),
-            (this.$3 = d),
+            (this.$3 = m),
             (this.$4 = n),
             (this.$5 = new (r("StreamAvailabilityState"))()),
             (this.$6 = o("Probers").createStreamProbe(
@@ -23,10 +25,10 @@ __d(
               },
               e,
               function () {
-                return m.processEvent({ type: "stream_ping_success" });
+                return p.processEvent({ type: "stream_ping_success" });
               },
               function () {
-                return m.processEvent({ type: "stream_ping_timeout" });
+                return p.processEvent({ type: "stream_ping_timeout" });
               },
             )),
             (this.$7 = o("Probers").createStreamProbe(
@@ -35,48 +37,54 @@ __d(
               },
               s,
               function () {
-                return m.processEvent({ type: "stream_ping_success" });
+                return p.processEvent({ type: "stream_ping_success" });
               },
               function () {
-                return m.processEvent({ type: "stream_ping_timeout" });
+                return p.processEvent({ type: "stream_ping_timeout" });
               },
             )),
             (this.$8 = o("Probers").createNetworkProbe(
               u,
               a,
               function () {
-                return m.processEvent({ type: "network_ping_success" });
+                return p.processEvent({ type: "network_ping_success" });
               },
               function () {
-                return m.processEvent({ type: "network_ping_timeout" });
+                return p.processEvent({ type: "network_ping_timeout" });
               },
             )),
             (this.$9 = window.setTimeout(function () {
-              return m.$11();
+              return p.$12();
+            }, d)),
+            (this.$10 = window.setInterval(function () {
+              return p.$5.heartbeat();
             }, c)));
         }
         var n = t.prototype;
         return (
           (n.processEvent = function (t) {
-            if (!this.$10) {
+            if (!this.$11) {
               var e = this.$5.processEvent(t);
               e.becameTerminated
-                ? this.$11()
+                ? this.$12()
                 : e.streamBecameAvailable
                   ? (this.$7.stop(), this.$8.stop(), this.$6.start())
                   : e.streamBecameUnavailable &&
                     (this.$7.start(), this.$8.start(), this.$6.stop());
             }
           }),
-          (n.$11 = function () {
+          (n.$12 = function () {
             var e = this;
-            this.$10 ||
-              ((this.$10 = !0),
+            this.$11 ||
+              ((this.$11 = !0),
               this.$6.stop(),
               this.$7.stop(),
               this.$8.stop(),
               this.$9 != null &&
                 (window.clearTimeout(this.$9), (this.$9 = null)),
+              this.$10 != null &&
+                (window.clearInterval(this.$10), (this.$10 = null)),
+              this.$5.heartbeat(),
               this.$5.finalize(),
               this.$4.log(function () {
                 var t;
@@ -117,7 +125,7 @@ __d(
           t
         );
       })();
-    l.default = d;
+    l.default = m;
   },
   98,
 );

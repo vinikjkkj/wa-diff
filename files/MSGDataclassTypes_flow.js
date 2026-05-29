@@ -38,6 +38,7 @@ __d(
       }),
       y = e({
         Archive: "ARCHIVE",
+        Audio: "AUDIO",
         Document: "DOCUMENT",
         Html: "HTML",
         Markdown: "MARKDOWN",

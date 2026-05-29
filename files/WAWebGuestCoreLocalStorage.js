@@ -266,33 +266,34 @@ __d(
       for (var o of n) if (o === e) return o;
       return r;
     }
-    function j(e) {
-      var t = P(),
-        n = M(),
-        r = A() || G,
-        a = x(),
-        i = O(),
-        l = W(),
-        s = a === "otp" && t !== "",
-        u = s && Date.now() - i < o("WAWebGuestCoreConsts").GUEST_OTP_EXPIRY_MS,
-        c = s && l > Date.now();
-      if (u || c) {
-        var d = c ? Math.max(0, Math.ceil((l - Date.now()) / 1e3)) : 0;
+    function j(e, t) {
+      t === void 0 && (t = G);
+      var n = P(),
+        r = M(),
+        a = A() || t,
+        i = x(),
+        l = O(),
+        s = W(),
+        u = i === "otp" && n !== "",
+        c = u && Date.now() - l < o("WAWebGuestCoreConsts").GUEST_OTP_EXPIRY_MS,
+        d = u && s > Date.now();
+      if (c || d) {
+        var m = d ? Math.max(0, Math.ceil((s - Date.now()) / 1e3)) : 0;
         return {
-          initialPhoneNumber: t,
-          initialName: n,
-          initialCountryIso: r,
+          initialPhoneNumber: n,
+          initialName: r,
+          initialCountryIso: a,
           initialStep: z("otp", e),
-          remainingCooldownSeconds: d,
+          remainingCooldownSeconds: m,
           shouldResume: !0,
         };
       }
-      return a !== "" || t !== "" || i !== 0
+      return i !== "" || n !== "" || l !== 0
         ? (H(),
           {
             initialPhoneNumber: "",
             initialName: "",
-            initialCountryIso: G,
+            initialCountryIso: t,
             initialStep: z("", e),
             remainingCooldownSeconds: 0,
             shouldResume: !1,
@@ -300,9 +301,9 @@ __d(
         : (V(),
           {
             initialPhoneNumber: "",
-            initialName: n,
-            initialCountryIso: r,
-            initialStep: z(a, e),
+            initialName: r,
+            initialCountryIso: a,
+            initialStep: z(i, e),
             remainingCooldownSeconds: 0,
             shouldResume: !1,
           });
@@ -339,6 +340,7 @@ __d(
       (l.persistGuestPNVerificationOtpSession = U),
       (l.clearGuestPNVerificationRateLimitState = V),
       (l.clearGuestPNVerificationState = H),
+      (l.DEFAULT_RESTORE_COUNTRY_ISO = G),
       (l.getGuestPNVerificationRestoreState = j));
   },
   98,
