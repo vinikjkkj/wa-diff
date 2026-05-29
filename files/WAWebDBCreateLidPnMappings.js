@@ -145,8 +145,10 @@ __d(
                 ((b = !1), (v = c || C));
                 break;
               case "peer-pn-message":
-              case "recipient-latest-lid":
               case "peer-lid-message":
+                ((b = !1), (v = c));
+                break;
+              case "recipient-latest-lid":
               case "migration-sync-latest":
               case "migration-sync-old":
               case "blocklist-active":

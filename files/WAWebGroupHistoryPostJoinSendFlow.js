@@ -25,35 +25,36 @@ __d(
       u,
       c = u || (u = o("react")),
       d = 100;
-    function m(e, t) {
-      var a = t.joinTime;
-      if (a != null) {
-        var i = o("WAWebFrontendContactGetters").getFormattedShortName(
+    function m(e, t, a) {
+      var i,
+        l = (i = t.joinTime) != null ? i : a;
+      if (l != null) {
+        var u = o("WAWebFrontendContactGetters").getFormattedShortName(
             t.contact,
           ),
-          l = o("WAWebWidFactory").asGroupWidOrThrow(e),
-          u = (function () {
-            var u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          m = o("WAWebWidFactory").asGroupWidOrThrow(e),
+          _ = (function () {
+            var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var n = yield o(
                 "WAWebGetGroupHistoryBundleMessagesCount",
               ).getGroupHistoryBundleMessageCount({
-                groupWid: l,
-                targetStartMessageTime: a,
+                groupWid: m,
+                targetStartMessageTime: l,
               });
               if (n !== 0) {
-                var u = Math.min(d, n);
+                var a = Math.min(d, n);
                 o("WAWebModalManager").ModalManager.openSupportModal(
                   c.jsx(r("WAWebGroupHistorySendMessagesModal.react"), {
                     currentMessageCount: n,
-                    selectedMessageCount: u,
+                    selectedMessageCount: a,
                     showPinDisclaimer: o(
                       "WAWebGroupHistoryGating",
-                    ).isOutOfWindowPinSenderEnabled(l),
+                    ).isOutOfWindowPinSenderEnabled(m),
                     primaryButtonLabel: s._(/*BTDS*/ "Send"),
                     onDone: function (r) {
                       (o("WAWebModalManager").ModalManager.closeSupportModal(),
                         o("WAWebModalManager").ModalManager.close(),
-                        p(e, t.contact.id, a, i, r));
+                        p(e, t.contact.id, l, u, r));
                     },
                     onCancel: function () {
                       return o(
@@ -65,12 +66,12 @@ __d(
               }
             });
             return function () {
-              return u.apply(this, arguments);
+              return a.apply(this, arguments);
             };
           })(),
-          m = c.jsx(r("WDSTextualLink.react"), {
+          f = c.jsx(r("WDSTextualLink.react"), {
             onClick: function () {
-              u();
+              _();
             },
             testid: "group-history-post-join-recent-messages-link",
             textConfig: "Body2",
@@ -84,14 +85,14 @@ __d(
             },
             onOK: function () {
               (o("WAWebModalManager").ModalManager.close(),
-                p(e, t.contact.id, a, i, null));
+                p(e, t.contact.id, l, u, null));
             },
             okText: s._(/*BTDS*/ "Send recent"),
             onCancel: o("WAWebModalManager").closeModalManager,
             cancelText: s._(/*BTDS*/ "Cancel"),
             children: s._(
               /*BTDS*/ "Send {recentMessagesLink} from this group to {contactName}.",
-              [s._param("recentMessagesLink", m), s._param("contactName", i)],
+              [s._param("recentMessagesLink", f), s._param("contactName", u)],
             ),
           }),
         );

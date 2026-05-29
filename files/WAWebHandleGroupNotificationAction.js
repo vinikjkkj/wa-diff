@@ -108,7 +108,7 @@ __d(
       var r =
         n.defaultSubgroup === !0 || n.isLidAddressingMode === !0
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+          : o("WAWebUserPrefsMeUser").getMeUser();
       if (
         (!o("WAWebUserPrefsMeUser").isMeAccount(e.author) ||
           t.reason === o("WAWebGroupType").ADD_REASON.INVITE_AUTO_ADD) &&

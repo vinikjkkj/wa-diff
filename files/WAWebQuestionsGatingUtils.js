@@ -53,12 +53,7 @@ __d(
       ).intersection(c);
     }
     function g(e) {
-      return (
-        o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "channels_question_follower_enabled",
-        )
-      );
+      return o("WAWebMsgGetters").getIsNewsletterMsg(e);
     }
     function h(e) {
       return (

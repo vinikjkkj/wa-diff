@@ -45,10 +45,7 @@ __d(
                 : e.nativeFlowName ===
                     r("WAWebInteractiveMessagesNativeFlowName")
                       .BOOKING_CONFIRMATION
-                  ? o(
-                      "WAWebBookingConfirmation",
-                    ).isBookingConfirmationEnabled() &&
-                    o("WAWebBookingConfirmation").getBookingConfirmationInfo(
+                  ? o("WAWebBookingConfirmation").getBookingConfirmationInfo(
                       e,
                     ) != null
                   : e.nativeFlowName ===

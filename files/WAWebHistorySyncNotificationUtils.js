@@ -337,16 +337,25 @@ __d(
             }),
             c = new (o(
               "WAWebMdBootstrapDataAppliedWamEvent",
-            ).MdBootstrapDataAppliedWamEvent)({
-              mdBootstrapPayloadType: n,
-              mdBootstrapSource: o("WAWebWamEnumMdBootstrapSource")
-                .MD_BOOTSTRAP_SOURCE.HISTORY,
-              mdBootstrapHistoryPayloadType: a,
-              mdSessionId: i,
-              sentViaMms: t,
-              historySyncStageProgress: l,
-              gkContext: r("gkx")("20033") === !0 ? "workerV2" : "",
-            });
+            ).MdBootstrapDataAppliedWamEvent)(
+              babelHelpers.extends(
+                {
+                  mdBootstrapPayloadType: n,
+                  mdBootstrapSource: o("WAWebWamEnumMdBootstrapSource")
+                    .MD_BOOTSTRAP_SOURCE.HISTORY,
+                  mdBootstrapHistoryPayloadType: a,
+                  mdSessionId: i,
+                  sentViaMms: t,
+                  historySyncStageProgress: l,
+                },
+                r("gkx")("17524")
+                  ? {
+                      gkContext:
+                        r("gkx")("20033") === !0 ? "workerV2:1" : "workerV2:0",
+                    }
+                  : {},
+              ),
+            );
           e.chunkOrder != null &&
             ((s.historySyncChunkOrder = e.chunkOrder),
             (u.historySyncChunkOrder = e.chunkOrder),

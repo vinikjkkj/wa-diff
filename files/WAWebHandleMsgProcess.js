@@ -534,7 +534,7 @@ __d(
               ge = !1;
             if (
               o("WAWebABProps").getABPropConfigValue(
-                "receipt_mode_bitmask_enabled",
+                "web_send_orphan_in_receipts_enabled",
               )
             ) {
               var he = me[0],

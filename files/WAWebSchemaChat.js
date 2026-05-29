@@ -26,6 +26,7 @@ __d(
               r("muteExpiration"),
               r("isAutoMuted"),
               r("mentionAllMuteExpiration"),
+              r("callMuteExpiration"),
               r("name"),
               r("notSpam"),
               r("pin"),

@@ -191,7 +191,14 @@ __d(
             ) === !0;
           if (
             (a.addPoint("history_sync_process_start", {
-              bool: { isInWorker: $, isWorkerV2: r("gkx")("20033") },
+              bool: { isInWorker: $ },
+              int: {
+                isWorkerV2: r("gkx")("17524")
+                  ? r("gkx")("20033")
+                    ? 1
+                    : 0
+                  : -1,
+              },
             }),
             $)
           ) {

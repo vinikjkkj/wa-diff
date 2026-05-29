@@ -3,6 +3,7 @@ __d(
   [
     "WAAbortError",
     "WACommonTaskScheduler",
+    "WALogger",
     "WARaceSignal",
     "WAWebABProps",
     "WAWebChatGetMessage",
@@ -10,9 +11,11 @@ __d(
     "WAWebDBUpdateChatTable",
     "WAWebNoop",
     "WAWebReleaseToEventLoop",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e;
+    function s(e) {
       var t = Number(e.mute.expiration);
       o("WAWebDBUpdateChatTable")
         .updateChatTable(e.id, { muteExpiration: t })
@@ -20,7 +23,7 @@ __d(
           return (e.muteExpiration = t);
         });
     }
-    function s(e) {
+    function u(e) {
       var t,
         n = (t = e.mute.mentionAllMuteExpiration) != null ? t : 0;
       e.mentionAllMuteExpiration !== n &&
@@ -30,7 +33,30 @@ __d(
             e.mentionAllMuteExpiration = n;
           });
     }
-    function u(e) {
+    function c(t) {
+      var n,
+        a = (n = t.mute.callExpiration) != null ? n : 0;
+      t.callMuteExpiration !== a &&
+        o("WAWebDBUpdateChatTable")
+          .updateChatTable(t.id, { callMuteExpiration: a })
+          .then(function () {
+            t.callMuteExpiration = a;
+          })
+          .catch(function (n) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "models:Chat:updateCallMuteExpiration ",
+                    "",
+                  ])),
+                t.id.toString(),
+              )
+              .catching(r("getErrorSafe")(n))
+              .sendLogs("chat-update-call-mute-expiration-fail");
+          });
+    }
+    function d(e) {
       if (!e.promises.updateSortTime) {
         var t = new AbortController(),
           n = t.signal,
@@ -72,9 +98,10 @@ __d(
         e.promises.updateSortTime = { promise: a, abortController: t };
       }
     }
-    ((l.updateMuteExpiration = e),
-      (l.updateMentionAllMuteExpiration = s),
-      (l.updateSortTime = u));
+    ((l.updateMuteExpiration = s),
+      (l.updateMentionAllMuteExpiration = u),
+      (l.updateCallMuteExpiration = c),
+      (l.updateSortTime = d));
   },
   98,
 );

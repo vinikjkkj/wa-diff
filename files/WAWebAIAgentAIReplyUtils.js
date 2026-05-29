@@ -28,8 +28,8 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[Maiba] mutateAiReplyStatus already in-flight for chat=",
-                ", dropping concurrent call",
+                "[Maiba] mutateAiReplyStatus in-flight chat=",
+                ", drop",
               ])),
             t.id.toLogString(),
           ),

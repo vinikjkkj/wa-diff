@@ -1,18 +1,12 @@
 __d(
   "WAWebBookingConfirmation",
   [
-    "WAWebABProps",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "booking_confirmation_enabled_wa_web",
-      );
-    }
-    function s(e) {
+    function e(e) {
       try {
         var t,
           n,
@@ -92,34 +86,33 @@ __d(
         return null;
       }
     }
-    function u(e) {
-      var t, n;
+    function s(t) {
+      var n, a;
       if (
-        e.nativeFlowName !==
+        t.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
-        e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        e.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !((t = e.interactivePayload) != null && t.buttons)
+        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !((n = t.interactivePayload) != null && n.buttons)
       )
         return null;
-      var a =
-        (n = e.interactivePayload.buttons[0]) == null
+      var i =
+        (a = t.interactivePayload.buttons[0]) == null
           ? void 0
-          : n.buttonParamsJson;
-      return a == null ? null : s(a);
+          : a.buttonParamsJson;
+      return i == null ? null : e(i);
     }
-    function c(e) {
+    function u(t) {
       if (
-        (e == null ? void 0 : e.name) !==
+        (t == null ? void 0 : t.name) !==
         r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
       )
         return null;
-      var t = e.buttonParamsJson;
-      return t == null ? null : s(t);
+      var n = t.buttonParamsJson;
+      return n == null ? null : e(n);
     }
-    ((l.isBookingConfirmationEnabled = e),
-      (l.getBookingConfirmationInfo = u),
-      (l.parseBookingConfirmationButton = c));
+    ((l.getBookingConfirmationInfo = s),
+      (l.parseBookingConfirmationButton = u));
   },
   98,
 );

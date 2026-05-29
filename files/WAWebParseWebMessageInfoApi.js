@@ -226,7 +226,7 @@ __d(
                 .ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][history_sync] scheduled message not persisted; inline row is hidden but scheduled-messages list will be empty for msg ",
+                      "[scheduled_msg][history_sync] persist failed msg=",
                       "",
                     ])),
                   p,

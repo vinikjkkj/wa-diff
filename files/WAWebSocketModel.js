@@ -614,7 +614,7 @@ __d(
               }));
           }),
           (i.openStream = function () {
-            var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+            var e = o("WAWebUserPrefsMeUser").getMeUser();
             if (e) {
               var t;
               return (

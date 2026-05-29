@@ -25,7 +25,7 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                '[scheduled_msg][unschedule][send] sending edit="7" stanza for ',
+                '[scheduled_msg][unschedule] send edit="7" ',
                 "",
               ])),
             d,
@@ -57,7 +57,7 @@ __d(
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][unschedule][send] failed to send unschedule stanza for ",
+                      "[scheduled_msg][unschedule] send failed for ",
                       "",
                     ])),
                   d,
@@ -70,7 +70,7 @@ __d(
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[scheduled_msg][unschedule][send] server ACKed unschedule for ",
+                "[scheduled_msg][unschedule] ACKed ",
                 "",
               ])),
             d,

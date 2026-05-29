@@ -77,7 +77,7 @@ __d(
             y =
               f.isLid() || c
                 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+                : o("WAWebUserPrefsMeUser").getMeUser();
           var C = i.map(function (e) {
             return new (r("WAWebMsgKey"))({
               id: e,

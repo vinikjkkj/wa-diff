@@ -3,12 +3,12 @@ __d(
   [
     "WAWebAck",
     "WAWebMessageAssociationUIUtils",
-    "WAWebMsgCheckIcon.react",
-    "WAWebMsgDblcheckIcon.react",
     "WAWebMsgGetters",
-    "WAWebMsgTimeIcon.react",
     "WAWebMsgType",
     "WAWebStatusUtils",
+    "WDSIconWdsIcDelivered.react",
+    "WDSIconWdsIcRead.react",
+    "WDSIconWdsIcStatusPending.react",
     "isStringNullOrEmpty",
     "react",
     "react-compiler-runtime",
@@ -23,7 +23,7 @@ __d(
         ackBlue: { color: "x1rv0e52", $$css: !0 },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(22),
+      var t = o("react-compiler-runtime").c(24),
         n = e.associatedMessages,
         a = e.msg,
         i;
@@ -75,49 +75,55 @@ __d(
         S,
         R,
         L,
-        E;
+        E,
+        k;
       if (t[8] !== y || t[9] !== C) {
-        var k = o("WAWebStatusUtils").getMessageStatusLabel(y);
+        var I = o("WAWebStatusUtils").getMessageStatusLabel(y);
         (C < o("WAWebAck").ACK.SENT
-          ? (S = o("WAWebMsgTimeIcon.react").MsgTimeIcon)
+          ? ((S = r("WDSIconWdsIcStatusPending.react")),
+            (k = "wds-ic-status-pending"))
           : C === o("WAWebAck").ACK.SENT
-            ? (S = o("WAWebMsgCheckIcon.react").MsgCheckIcon)
+            ? ((S = r("WDSIconWdsIcDelivered.react")), (k = "wds-ic-delivered"))
             : C === o("WAWebAck").ACK.RECEIVED
-              ? (S = o("WAWebMsgDblcheckIcon.react").MsgDblcheckIcon)
-              : ((S = o("WAWebMsgDblcheckIcon.react").MsgDblcheckIcon),
+              ? ((S = r("WDSIconWdsIcRead.react")), (k = "wds-ic-read"))
+              : ((S = r("WDSIconWdsIcRead.react")),
+                (k = "wds-ic-read"),
                 (L = c.ackBlue)),
           (R = S),
-          (E = k.toString()),
+          (E = I.toString()),
           (t[8] = y),
           (t[9] = C),
           (t[10] = S),
           (t[11] = R),
           (t[12] = L),
-          (t[13] = E));
-      } else ((S = t[10]), (R = t[11]), (L = t[12]), (E = t[13]));
-      var I = " " + E + " ",
-        T = S === o("WAWebMsgTimeIcon.react").MsgTimeIcon ? void 0 : 11,
-        D = v && c.light,
-        x;
-      t[14] !== L || t[15] !== D
-        ? ((x = [D, L]), (t[14] = L), (t[15] = D), (t[16] = x))
-        : (x = t[16]);
-      var $;
+          (t[13] = E),
+          (t[14] = k));
+      } else ((S = t[10]), (R = t[11]), (L = t[12]), (E = t[13]), (k = t[14]));
+      var T = " " + E + " ",
+        D = S === r("WDSIconWdsIcStatusPending.react") ? 11 : void 0,
+        x = v && c.light,
+        $;
+      t[15] !== L || t[16] !== x
+        ? (($ = [x, L]), (t[15] = L), (t[16] = x), (t[17] = $))
+        : ($ = t[17]);
+      var P;
       return (
-        t[17] !== R || t[18] !== I || t[19] !== T || t[20] !== x
-          ? (($ = s.jsx(R, {
-              "aria-label": I,
-              height: T,
+        t[18] !== R || t[19] !== T || t[20] !== D || t[21] !== $ || t[22] !== k
+          ? ((P = s.jsx(R, {
+              "aria-label": T,
+              height: D,
+              testid: k,
               width: 16,
-              xstyle: x,
+              xstyle: $,
             })),
-            (t[17] = R),
-            (t[18] = I),
+            (t[18] = R),
             (t[19] = T),
-            (t[20] = x),
-            (t[21] = $))
-          : ($ = t[21]),
-        $
+            (t[20] = D),
+            (t[21] = $),
+            (t[22] = k),
+            (t[23] = P))
+          : (P = t[23]),
+        P
       );
     }
     l.default = d;

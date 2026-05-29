@@ -2187,6 +2187,7 @@ __d(
       wa_web_base_video_comet_video_player_enabled: [25660, "bool", !1, !1],
       wa_web_biz_broadcasts_catalog_attachment: [28471, "bool", !1, !1],
       wa_web_biz_broadcasts_contextual_entrypoints: [30270, "bool", !1, !1],
+      wa_web_biz_profile_google_integration_enabled: [31246, "bool", !1, !1],
       wa_web_biz_profile_graphql_migration: [25846, "bool", !1, !1],
       wa_web_biz_profile_graphql_migration_bypass_lid_check_dogfooding: [
         29965,

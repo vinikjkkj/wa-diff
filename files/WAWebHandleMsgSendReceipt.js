@@ -249,17 +249,19 @@ __d(
       );
     }
     function p(e) {
-      if (
-        !o("WAWebABProps").getABPropConfigValue("receipt_mode_bitmask_enabled")
-      )
-        return 0;
       var t = 0;
       return (
         e.isOrphanAddon === !0 &&
+          o("WAWebABProps").getABPropConfigValue(
+            "web_send_orphan_in_receipts_enabled",
+          ) &&
           (t |=
             1 << o("WAWebSendReceiptJobCommon").ReceiptModeBitPosition.ORPHAN),
         e.result === o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY &&
           e.placeholderCreated === !1 &&
+          o("WAWebABProps").getABPropConfigValue(
+            "web_send_hid_failed_decrypt_in_receipts_enabled",
+          ) &&
           (t |=
             1 <<
             o("WAWebSendReceiptJobCommon").ReceiptModeBitPosition

@@ -32,7 +32,7 @@ __d(
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
-              "URL is a Windows hybrid XDR command and is not exposed via debug",
+              "Windows hybrid XDR cmd not exposed via debug",
             ])),
         );
         return;

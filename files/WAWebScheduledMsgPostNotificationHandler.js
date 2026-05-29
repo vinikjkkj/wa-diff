@@ -139,7 +139,7 @@ __d(
             o("WALogger").WARN(
               _ ||
                 (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] missing body for record; keeping reveal-key for retry",
+                  "[scheduled_msg][mex][post] no body; keep reveal-key",
                 ])),
             );
             return;
@@ -179,7 +179,7 @@ __d(
               .ERROR(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] failed to drop in-memory model before reveal insert",
+                    "[scheduled_msg][mex][post] drop in-memory model failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
@@ -213,7 +213,7 @@ __d(
               .ERROR(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] handleSingleMsgImpl failed; keeping reveal-key for retry",
+                    "[scheduled_msg][mex][post] handleSingleMsgImpl failed; keep reveal-key",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
@@ -227,7 +227,7 @@ __d(
               .ERROR(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] failed to delete reveal-key after successful insert",
+                    "[scheduled_msg][mex][post] delete reveal-key failed after insert",
                   ])),
               )
               .catching(r("getErrorSafe")(e))

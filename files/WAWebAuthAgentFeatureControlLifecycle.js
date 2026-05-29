@@ -76,7 +76,7 @@ __d(
                       .ERROR(
                         c ||
                           (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[AAFC] failed to clear stale SMB offboarding state at startup",
+                            "[AAFC] clear stale SMB offboarding state failed at startup",
                           ])),
                       )
                       .catching(r("getErrorSafe")(e))

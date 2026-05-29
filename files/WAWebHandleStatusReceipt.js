@@ -45,7 +45,7 @@ __d(
               .sendLogs("handleStatusSimpleReceipt: failed");
             return;
           }
-          var g = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var g = o("WAWebUserPrefsMeUser").getMeUser(),
             h = o("WAWebWidFactory").asUserWidOrThrow(m),
             y = o("WAWebUserPrefsMeUser").isMeAccount(h),
             C = t.participantPn;

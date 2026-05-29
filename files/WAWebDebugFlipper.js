@@ -176,7 +176,7 @@ __d(
                   : (o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[smax] Signal keys not available - running in pre-pairing mode (plaintext stanza injection only)",
+                          "[smax] no signal keys - pre-pairing mode (plaintext only)",
                         ])),
                     ),
                     t.send("log", {

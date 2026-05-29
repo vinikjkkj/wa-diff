@@ -51,16 +51,8 @@ __d(
       );
     }
     function h() {
-      return (
-        (o("WAWebABProps").getABPropConfigValue(
-          "channels_question_admin_enabled",
-        ) ||
-          o("WAWebABProps").getABPropConfigValue(
-            "channels_question_follower_enabled",
-          )) &&
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_questions_integrity_m1_enabled",
-        )
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channels_questions_integrity_m1_enabled",
       );
     }
     function y() {

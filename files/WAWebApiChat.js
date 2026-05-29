@@ -518,8 +518,8 @@ __d(
                             .LOG(
                               R ||
                                 (R = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[tightenAfterReadExpirationFromPeerReceipt] tightened ",
-                                  " msgs from peer-read receipt",
+                                  "[tightenAfterReadExpirationFromPeerReceipt] ",
+                                  " msgs tightened",
                                 ])),
                               i.length,
                             )

@@ -757,6 +757,15 @@ __d(
           (t.genAIChipTapped = function (t) {
             o("WAWebBBGenAILogs").genAIChipTapped(this.$1, t);
           }),
+          (t.genAICreateModalDismissed = function () {
+            o("WAWebBBGenAILogs").genAICreateModalDismissed(this.$1);
+          }),
+          (t.genAICreateModalSubmitted = function (t) {
+            o("WAWebBBGenAILogs").genAICreateModalSubmitted(this.$1, t);
+          }),
+          (t.genAICreateModalViewed = function () {
+            o("WAWebBBGenAILogs").genAICreateModalViewed(this.$1);
+          }),
           (t.genAICustomizeBack = function (t) {
             o("WAWebBBGenAILogs").genAICustomizeBack(this.$1, t);
           }),

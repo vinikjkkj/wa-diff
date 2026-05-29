@@ -150,6 +150,7 @@ __d(
             (e.modifyTag = o("WAWebBaseModel").prop()),
             (e.muteExpiration = o("WAWebBaseModel").prop(0)),
             (e.mentionAllMuteExpiration = o("WAWebBaseModel").prop()),
+            (e.callMuteExpiration = o("WAWebBaseModel").prop()),
             (e.isAutoMuted = o("WAWebBaseModel").prop(!1)),
             (e.wallpaper = o("WAWebBaseModel").prop()),
             (e.showDoodle = o("WAWebBaseModel").prop()),
@@ -302,6 +303,7 @@ __d(
                       expiration: this.muteExpiration,
                       isAutoMuted: this.isAutoMuted,
                       mentionAllMuteExpiration: this.mentionAllMuteExpiration,
+                      callExpiration: this.callMuteExpiration,
                     }),
                   ),
               this.listenTo(this.mute, "change:expiration", function () {
@@ -319,6 +321,9 @@ __d(
                   );
                 },
               ),
+              this.listenTo(this.mute, "change:callExpiration", function () {
+                return o("WAWebChatUpdates").updateCallMuteExpiration(n);
+              }),
               this.addChild(
                 "contact",
                 o("WAWebContactCollection").ContactCollection.gadd(this.id),
@@ -725,16 +730,31 @@ __d(
                 0);
           }),
           (i.set = function (n, r, o) {
-            return (
-              typeof n == "string"
-                ? (n === "muteExpiration" && this.mute && this.mute.setMute(r),
-                  n === "isAutoMuted" && this.mute && this.mute.setAutoMuted(r))
-                : Object.prototype.hasOwnProperty.call(n, "muteExpiration") &&
-                  this.mute &&
-                  this.mute.setMute(n.muteExpiration, n.isAutoMuted),
-              t.prototype.set.call(this, n, r, o),
-              this
-            );
+            if (typeof n == "string") {
+              if (
+                (n === "muteExpiration" && this.mute && this.mute.setMute(r),
+                n === "isAutoMuted" && this.mute && this.mute.setAutoMuted(r),
+                n === "callMuteExpiration" && this.mute)
+              ) {
+                var e,
+                  a = r != null ? r : 0;
+                ((e = this.mute.callExpiration) != null ? e : 0) !== a &&
+                  this.mute.muteCall(a);
+              }
+            } else if (
+              (Object.prototype.hasOwnProperty.call(n, "muteExpiration") &&
+                this.mute &&
+                this.mute.setMute(n.muteExpiration, n.isAutoMuted),
+              Object.prototype.hasOwnProperty.call(n, "callMuteExpiration") &&
+                this.mute)
+            ) {
+              var i,
+                l,
+                s = (i = n.callMuteExpiration) != null ? i : 0;
+              ((l = this.mute.callExpiration) != null ? l : 0) !== s &&
+                this.mute.muteCall(s);
+            }
+            return (t.prototype.set.call(this, n, r, o), this);
           }),
           (i.equals = function (t) {
             return this.id.equals(t == null ? void 0 : t.id);

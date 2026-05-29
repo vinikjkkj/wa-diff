@@ -78,7 +78,7 @@ __d(
                       o("WALogger").LOG(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[reload] Updater: hard expiration deferred due to active call",
+                            "[reload] Updater: hard exp deferred (active call)",
                           ])),
                       );
                       var e = function () {

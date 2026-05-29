@@ -92,7 +92,32 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_AI_TEXT_CLEARED,
       });
     }
-    function h(e, t, n) {
+    function h(e) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CREATE_MODAL_VIEWED,
+      });
+    }
+    function y(e) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CREATE_MODAL_DISMISSED,
+      });
+    }
+    function C(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        extraAttributes: { prompt_length: t },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CREATE_MODAL_SUBMITTED,
+      });
+    }
+    function b(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         extraAttributes: { card_index: n, direction: t },
@@ -101,7 +126,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CAROUSEL_NAVIGATED,
       });
     }
-    function y(e, t) {
+    function v(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         extraAttributes: { chip_label: t },
@@ -110,7 +135,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CHIP_TAPPED,
       });
     }
-    function C(e, t) {
+    function S(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         extraAttributes: { refinement_count: t },
@@ -119,7 +144,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CUSTOMIZE_BACK,
       });
     }
-    function b(e, t) {
+    function R(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         extraAttributes: { tone: t },
@@ -128,7 +153,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CUSTOMIZE_OPENED,
       });
     }
-    function v(e, t, n, r) {
+    function L(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         extraAttributes: { card_index: n, is_original: r, refinement_count: t },
@@ -137,7 +162,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_CUSTOMIZE_USE_MESSAGE,
       });
     }
-    function S(e, t, n) {
+    function E(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         extraAttributes: { refinement_count: n, response_time_ms: t },
@@ -146,7 +171,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_REFINEMENT_COMPLETED,
       });
     }
-    function R(e, t, n) {
+    function k(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         extraAttributes: { error_type: t, prompt_text: n },
@@ -155,7 +180,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_REFINEMENT_FAILED,
       });
     }
-    function L(e, t, n) {
+    function I(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         extraAttributes: { prompt_text: n, prompt_type: t },
@@ -164,7 +189,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_REFINEMENT_SUBMITTED,
       });
     }
-    function E(e) {
+    function T(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
@@ -172,7 +197,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_ENTRY_POINT_VIEWED,
       });
     }
-    function k(e) {
+    function D(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
@@ -180,7 +205,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_ENTRY_POINT_CLICKED,
       });
     }
-    function I(e) {
+    function x(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
@@ -188,7 +213,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_MODAL,
       });
     }
-    function T(e) {
+    function $(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
@@ -196,7 +221,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_ACCEPT,
       });
     }
-    function D(e) {
+    function P(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
@@ -214,19 +239,22 @@ __d(
       (l.genAIModalClosed = _),
       (l.genAIAiTextUsed = f),
       (l.genAIAiTextCleared = g),
-      (l.genAICarouselNavigated = h),
-      (l.genAIChipTapped = y),
-      (l.genAICustomizeBack = C),
-      (l.genAICustomizeOpened = b),
-      (l.genAICustomizeUseMessage = v),
-      (l.genAIRefinementCompleted = S),
-      (l.genAIRefinementFailed = R),
-      (l.genAIRefinementSubmitted = L),
-      (l.genAIEntryPointViewed = E),
-      (l.genAIEntryPointClicked = k),
-      (l.genAINuxModalViewed = I),
-      (l.genAINuxAcceptClicked = T),
-      (l.genAINuxDismissClicked = D));
+      (l.genAICreateModalViewed = h),
+      (l.genAICreateModalDismissed = y),
+      (l.genAICreateModalSubmitted = C),
+      (l.genAICarouselNavigated = b),
+      (l.genAIChipTapped = v),
+      (l.genAICustomizeBack = S),
+      (l.genAICustomizeOpened = R),
+      (l.genAICustomizeUseMessage = L),
+      (l.genAIRefinementCompleted = E),
+      (l.genAIRefinementFailed = k),
+      (l.genAIRefinementSubmitted = I),
+      (l.genAIEntryPointViewed = T),
+      (l.genAIEntryPointClicked = D),
+      (l.genAINuxModalViewed = x),
+      (l.genAINuxAcceptClicked = $),
+      (l.genAINuxDismissClicked = P));
   },
   98,
 );

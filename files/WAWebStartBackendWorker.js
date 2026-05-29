@@ -448,24 +448,29 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = r("gkx")("20033");
-          o("WAWebLogForCrash").onLogForCrashReady(function () {
-            o("WAWebLogForCrash").logForCrash("wa_web_backend_worker_v2", t);
-          });
+          var t = null;
+          (r("gkx")("17524") && (t = r("gkx")("20033")),
+            t != null &&
+              o("WAWebLogForCrash").onLogForCrashReady(function () {
+                o("WAWebLogForCrash").logForCrash(
+                  "wa_web_backend_worker_v2",
+                  t,
+                );
+              }));
           var n = o("QPLFlow").startQPLFlow(m, {
             annotations: {
-              bool: {
-                wa_web_media_wasm_worker_split: r("gkx")("24042"),
-                isWorkerV2: t,
+              bool: { wa_web_media_wasm_worker_split: r("gkx")("24042") },
+              int: {
+                creatingWorkerCount: y++,
+                isWorkerV2: t == null ? -1 : t ? 1 : 0,
               },
-              int: { creatingWorkerCount: y++ },
             },
             timeoutInMs: 6e4,
           });
           try {
             n.addPoint("create_worker_start");
             var a;
-            t
+            t === !0
               ? (a = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
                   r("WAWebBackendWorkerV2Resource"),
                   _,

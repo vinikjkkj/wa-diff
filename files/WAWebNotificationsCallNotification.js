@@ -5,12 +5,14 @@ __d(
     "Promise",
     "WAWebBaseNotification",
     "WAWebCallRingtone",
+    "WAWebChatCollection",
     "WAWebChatFlowTypes",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
     "WAWebLidMigrationUtils",
     "WAWebMuteCollection",
+    "WAWebMuteGetters",
     "WAWebNoop",
     "WAWebNotificationController",
     "WAWebNotificationHelpers",
@@ -87,8 +89,23 @@ __d(
       var a = t.prototype;
       return (
         (a.shouldMute = function (t) {
-          return !this.wid || !this.msgId || this.isSilenced
-            ? r("WAWebNotificationMuteReason").GlobalMute
+          var e, n, a;
+          if (!this.wid || !this.msgId || this.isSilenced)
+            return r("WAWebNotificationMuteReason").GlobalMute;
+          var i =
+              (e =
+                (n = this.groupJid) != null
+                  ? n
+                  : (a = o(
+                        "WAWebChatCollection",
+                      ).ChatCollection.getLatestChatForWid(this.wid)) == null
+                    ? void 0
+                    : a.id) != null
+                ? e
+                : this.wid,
+            l = o("WAWebMuteCollection").MuteCollection.get(i);
+          return l != null && o("WAWebMuteGetters").getIsCallMuted(l)
+            ? r("WAWebNotificationMuteReason").MutedChat
             : null;
         }),
         (a.buildKey = function () {
@@ -259,8 +276,23 @@ __d(
       var a = t.prototype;
       return (
         (a.shouldMute = function (t) {
-          return !this.wid || !this.msgId
-            ? r("WAWebNotificationMuteReason").GlobalMute
+          var e, n, a;
+          if (!this.wid || !this.msgId)
+            return r("WAWebNotificationMuteReason").GlobalMute;
+          var i =
+              (e =
+                (n = this.groupJid) != null
+                  ? n
+                  : (a = o(
+                        "WAWebChatCollection",
+                      ).ChatCollection.getLatestChatForWid(this.wid)) == null
+                    ? void 0
+                    : a.id) != null
+                ? e
+                : this.wid,
+            l = o("WAWebMuteCollection").MuteCollection.get(i);
+          return l != null && o("WAWebMuteGetters").getIsCallMuted(l)
+            ? r("WAWebNotificationMuteReason").MutedChat
             : null;
         }),
         (a.buildKey = function () {

@@ -10,7 +10,7 @@ __d(
             "wa:debug default-async-await: ",
             "",
           ])),
-        r("gkx")("8891") ? "native" : "legacy",
+        r("gkx")("17532") && r("gkx")("8891") ? "native" : "legacy",
       );
     }
     s.doc = "Logs the default async/await value for WA Web";

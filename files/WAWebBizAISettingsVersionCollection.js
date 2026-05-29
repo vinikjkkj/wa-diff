@@ -56,9 +56,9 @@ __d(
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizAI] settings nudge: category=",
-                    " already up to date (local=",
-                    " >= incoming=",
+                    "[BizAI] nudge cat=",
+                    " up-to-date (local=",
+                    " >= in=",
                     ")",
                   ])),
                 i,
@@ -67,20 +67,21 @@ __d(
               );
               return;
             }
+            var u = (t = l == null ? void 0 : l.version) != null ? t : 0;
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[BizAI] settings nudge: category=",
+                  "[BizAI] nudge cat=",
                   " stale (local=",
-                  " < incoming=",
+                  " < in=",
                   ")",
                 ])),
               i,
-              (t = l == null ? void 0 : l.version) != null ? t : 0,
+              u,
               r,
             );
-            var u = this.gadd({ id: i, version: r, updatedAtMs: a });
-            u.markStale();
+            var c = this.gadd({ id: i, version: r, updatedAtMs: a });
+            c.markStale();
           }),
           (a.incrementVersion = function (t) {
             var e,
