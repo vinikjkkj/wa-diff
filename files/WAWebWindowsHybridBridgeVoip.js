@@ -405,14 +405,14 @@ __d(
                 },
               ));
           }),
-          (a.voipInit = function (t, n, a) {
+          (a.voipInit = function (t, n) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.voip_init"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
                 { bridge: "voip", method: "voipInit", type: "sync" },
                 function () {
                   var r;
-                  return (r = e.$1) == null ? void 0 : r.voipInit(t, n, a);
+                  return (r = e.$1) == null ? void 0 : r.voipInit(t, n);
                 },
               ));
           }),

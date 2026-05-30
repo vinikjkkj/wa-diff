@@ -1,6 +1,7 @@
 __d(
   "WAWebCanonicalCredentialRecoveryJob",
   [
+    "WAComms",
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
@@ -117,7 +118,10 @@ __d(
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            if (!o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd)
+            if (
+              !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd ||
+              !o("WAComms").isCommsInitialized()
+            )
               return (
                 o("WALogger").LOG(
                   p ||

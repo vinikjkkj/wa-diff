@@ -342,6 +342,7 @@ __d(
       (l.demoteCommmunityParticipants = y),
       (l.bulkGetParticipants = v),
       (l.getParticipants = S),
+      (l.checkMyMembershipForParticipantRecord = R),
       (l.checkMyMembership = L),
       (l.bulkCheckMyMembership = k));
   },

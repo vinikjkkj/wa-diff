@@ -1,25 +1,29 @@
 __d(
   "WAWebBizBroadcastsAudienceUtils",
   [
+    "fbt",
     "WAWebAudienceExpressionTypes",
     "WAWebBizBroadcastsAudienceSelectionStrings",
+    "WAWebBizBroadcastsAudienceStrings",
     "WAWebBizBroadcastsCreationStrings",
+    "WAWebBizBroadcastsRecipientUtils",
     "WAWebBroadcastListAction",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebFbtCommon",
+    "WAWebFrontendContactGetters",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "react",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e,
-      s = e || (e = o("react")),
-      u = 100;
-    function c() {
+      u = e || (e = o("react")),
+      c = 100;
+    function d() {
       var e = o("WAWebChatCollection").ChatCollection.filter(function (e) {
         return o("WAWebChatGetters").getIsBroadcast(e) && !e.id.isStatus();
       });
@@ -49,10 +53,10 @@ __d(
         };
       });
     }
-    function d(e, t, a) {
+    function m(e, t, a) {
       var i = e.broadcastJid,
         l = o("WAWebToast.react").genId(),
-        u =
+        s =
           t === "create"
             ? o(
                 "WAWebBizBroadcastsCreationStrings",
@@ -68,9 +72,9 @@ __d(
                   );
                 })();
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, {
+        u.jsx(o("WAWebToast.react").Toast, {
           id: l,
-          msg: u,
+          msg: s,
           action: {
             actionText: r("WAWebFbtCommon")("Undo"),
             onAction: function () {
@@ -89,10 +93,10 @@ __d(
         }),
       );
     }
-    function m(e, t, a, i) {
+    function p(e, t, a, i) {
       var l = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, {
+        u.jsx(o("WAWebToast.react").Toast, {
           id: l,
           msg: o(
             "WAWebBizBroadcastsCreationStrings",
@@ -115,10 +119,10 @@ __d(
         }),
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, {
+        u.jsx(o("WAWebToast.react").Toast, {
           id: n,
           msg: o(
             "WAWebBizBroadcastsAudienceSelectionStrings",
@@ -127,10 +131,10 @@ __d(
         }),
       );
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, {
+        u.jsx(o("WAWebToast.react").Toast, {
           id: n,
           msg: o(
             "WAWebBizBroadcastsAudienceSelectionStrings",
@@ -139,10 +143,10 @@ __d(
         }),
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, {
+        u.jsx(o("WAWebToast.react").Toast, {
           id: n,
           msg: o(
             "WAWebBizBroadcastsAudienceSelectionStrings",
@@ -156,13 +160,50 @@ __d(
         }),
       );
     }
-    ((l.MAX_AUDIENCE_NAME_LENGTH = u),
-      (l.getBroadcastChatsAsAudiences = c),
-      (l.showCreateAudienceSuccessToast = d),
-      (l.showUpdateAudienceSuccessToast = m),
-      (l.showImportAudienceEditContactSuccessToast = p),
-      (l.showImportAudienceDeleteAllContactsSuccessToast = _),
-      (l.showImportAudienceDeleteErrorSuccessToast = f));
+    function h(e, t) {
+      if (e == null) return "";
+      var n = o("WAWebBizBroadcastsAudienceStrings").getDurationLabelForDays(t);
+      return e === "inactive_chats"
+        ? o("WAWebBizBroadcastsAudienceStrings")
+            .getInactiveChatsAudienceName(n)
+            .toString()
+        : e === "active_chats"
+          ? o("WAWebBizBroadcastsAudienceStrings")
+              .getActiveChatsAudienceName(n)
+              .toString()
+          : "";
+    }
+    function y(e) {
+      if (e == null || e.length === 0) return "";
+      var t = [];
+      for (var n of e) {
+        if (t.length >= 3) break;
+        var r = o("WAWebBizBroadcastsRecipientUtils").getContactByUserId(n);
+        if (r != null) {
+          var a = o("WAWebFrontendContactGetters").getDisplayName(r);
+          a != null && a !== "" && t.push(a);
+        }
+      }
+      if (t.length === 0) return "";
+      var i = e.length - t.length;
+      return i > 0
+        ? s
+            ._(/*BTDS*/ "{names} and {count} more", [
+              s._param("names", t.join(", ")),
+              s._param("count", i),
+            ])
+            .toString()
+        : t.join(", ");
+    }
+    ((l.MAX_AUDIENCE_NAME_LENGTH = c),
+      (l.getBroadcastChatsAsAudiences = d),
+      (l.showCreateAudienceSuccessToast = m),
+      (l.showUpdateAudienceSuccessToast = p),
+      (l.showImportAudienceEditContactSuccessToast = _),
+      (l.showImportAudienceDeleteAllContactsSuccessToast = f),
+      (l.showImportAudienceDeleteErrorSuccessToast = g),
+      (l.buildAudienceNameForCard = h),
+      (l.buildAudienceNameFromRecipients = y));
   },
-  98,
+  226,
 );

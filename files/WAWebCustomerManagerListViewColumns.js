@@ -156,7 +156,7 @@ __d(
                   ? s._(/*BTDS*/ "List")
                   : s._(/*BTDS*/ "Label")
                 : e === "acquisitionSource"
-                  ? s._(/*BTDS*/ "Acquisition source")
+                  ? s._(/*BTDS*/ "Source")
                   : e === "lastMessage"
                     ? s._(/*BTDS*/ "Last message")
                     : e === "lastOrder"
@@ -285,12 +285,9 @@ __d(
                   ).getUnknownAcquisitionSourceLabel(),
                 });
           },
-          header: s._(/*BTDS*/ "Acquisition source"),
+          header: s._(/*BTDS*/ "Source"),
           key: "acquisitionSource",
-          renderHeader: i(
-            s._(/*BTDS*/ "Acquisition source"),
-            "acquisitionSource",
-          ),
+          renderHeader: i(s._(/*BTDS*/ "Source"), "acquisitionSource"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.acquisitionSource,

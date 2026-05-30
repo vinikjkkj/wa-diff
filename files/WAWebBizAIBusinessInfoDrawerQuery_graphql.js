@@ -58,6 +58,13 @@ __d(
                       alias: null,
                       args: null,
                       kind: "ScalarField",
+                      name: "website_type",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
                       name: "website_url",
                       storageKey: null,
                     },

@@ -45,7 +45,7 @@ __d(
             : u;
         });
     }
-    l.fetchRules = c;
+    ((l.MUTATION = s), (l.fetchRules = c));
   },
   98,
 );

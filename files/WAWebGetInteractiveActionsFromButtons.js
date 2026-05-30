@@ -34,6 +34,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModel",
+    "WAWebOpenBizAiHubDeeplink",
     "WAWebOrderStatus",
     "WAWebPaymentRequestWamLogger",
     "WAWebPhoneIcon.react",
@@ -148,14 +149,40 @@ __d(
                 );
               },
             }
-          : n && o("WAWebBizAiAgentGating").isAiHubTapCtaShowAlertEnabled()
+          : n
             ? {
                 label: e.data.label,
                 onClick: function () {
-                  o("WAWebModalManager").ModalManager.open(
-                    m.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
-                  );
+                  if (
+                    !(
+                      e.data.url != null &&
+                      o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(
+                        e.data.url,
+                      )
+                    )
+                  ) {
+                    if (
+                      o("WAWebBizAiAgentGating").isAiHubTapCtaShowAlertEnabled()
+                    ) {
+                      o("WAWebModalManager").ModalManager.open(
+                        m.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+                      );
+                      return;
+                    }
+                    g({
+                      btn: e,
+                      msg: t,
+                      eventType: o("WAWebWamEnumDisclosureEventType")
+                        .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
+                      defaultUrl: e.data.url,
+                      onLinkReady: function (r, o, a) {
+                        h(r, t, e, o, a);
+                      },
+                    });
+                  }
                 },
+                Icon: o("WAWebLaunchIcon.react").LaunchIcon,
+                testid: "cta-url-button",
               }
             : {
                 label: e.data.label,

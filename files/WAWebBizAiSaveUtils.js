@@ -1,6 +1,12 @@
 __d(
   "WAWebBizAiSaveUtils",
-  ["fbt", "WAWebToast.react", "WAWebToastManager", "react"],
+  [
+    "fbt",
+    "WAWebBizAILargeScreensLogEvents",
+    "WAWebToast.react",
+    "WAWebToastManager",
+    "react",
+  ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
@@ -54,20 +60,27 @@ __d(
     }
     function y(e, t) {
       if (h()) {
-        (c(), t.onError());
+        (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
+          c(),
+          t.onError());
         return;
       }
       var n;
       try {
         n = e();
       } catch (e) {
-        (c(), t.onError());
+        (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
+          c(),
+          t.onError());
         return;
       }
       n.then(function (e) {
-        e.isSuccess ? (g(), t.onSuccess()) : (c(), t.onError());
+        (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(e.isSuccess),
+          e.isSuccess ? (g(), t.onSuccess()) : (c(), t.onError()));
       }).catch(function () {
-        (c(), t.onError());
+        (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
+          c(),
+          t.onError());
       });
     }
     ((l.showErrorToast = c),

@@ -95,15 +95,18 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = t.getPreviewableMedias(),
-            s = [],
-            u = l.map(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.mediaCollection,
+            i = t.onMediaUploadComplete,
+            l = t.onMediaUploadFailure,
+            s = a.getPreviewableMedias(),
+            u = [],
+            m = s.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -115,7 +118,7 @@ __d(
                         e.state ===
                           o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
                             .PROCESSING),
-                      s.length < 3 && s.push(e.type));
+                      u.length < 3 && u.push(e.type));
                     var n = yield _(e, t),
                       a = n.fbid,
                       i = n.mediaResultEntry;
@@ -135,50 +138,50 @@ __d(
             );
           r("FBLogger")("wa_ctwa_web").warn(
             "[uploadAdCreativeMediaToWA] uploading " +
-              l.length +
+              s.length +
               " media types => " +
-              String(s),
+              String(u),
           );
-          var m = yield (e || (e = n("Promise"))).allSettled(u),
-            p = [],
-            f = 0;
+          var p = yield (e || (e = n("Promise"))).allSettled(m),
+            f = [],
+            g = 0;
           if (
-            (m.forEach(function (e, n) {
+            (p.forEach(function (e, t) {
               e.status === "fulfilled"
-                ? p.push(e.value)
-                : (f++,
-                  t.remove(l[n]),
+                ? f.push(e.value)
+                : (g++,
+                  a.remove(s[t]),
                   r("FBLogger")("wa_ctwa_web").mustfix(
                     "uploadAdCreativeMediaToWA: Media upload failed for item " +
-                      n +
+                      t +
                       " - " +
                       String(e.reason),
                   ));
             }),
-            p.length === 0)
+            f.length === 0)
           ) {
             (r("FBLogger")("wa_ctwa_web").mustfix(
               "uploadAdCreativeMediaToWA: All " +
-                l.length +
+                s.length +
                 " media uploads failed",
             ),
-              i());
+              l());
             return;
           }
-          (f > 0 &&
+          (g > 0 &&
             (o("WAWebToastManager").ToastManager.open(
               c.jsx(o("WAWebToast.react").Toast, { msg: d() }),
             ),
             r("FBLogger")("wa_ctwa_web").warn(
               "[uploadAdCreativeMediaToWA] partial upload: " +
-                p.length +
+                f.length +
                 "/" +
-                l.length +
+                s.length +
                 " succeeded, " +
-                f +
+                g +
                 " failed and removed",
             )),
-            a(p, t));
+            i(f, a));
         })),
         h.apply(this, arguments)
       );
@@ -190,7 +193,11 @@ __d(
         return;
       }
       o("WAWebUiIdleEventBus").UiIdleEventBus.once("ui_idle", function () {
-        return g(e, t, n);
+        return g({
+          mediaCollection: e,
+          onMediaUploadComplete: t,
+          onMediaUploadFailure: n,
+        });
       });
     }
     function C(e, t, n, r, o, a) {
@@ -297,7 +304,12 @@ __d(
                           return e.id;
                         }),
                     );
-                    (l(t, y), g(t, a, i));
+                    (l(t, y),
+                      g({
+                        mediaCollection: t,
+                        onMediaUploadComplete: a,
+                        onMediaUploadFailure: i,
+                      }));
                   }
                 },
               );

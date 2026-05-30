@@ -18,29 +18,29 @@ __d(
       c,
       d,
       m = n("$InternalEnum").Mirrored(["SUCCESS", "FAILED"]);
-    function p(e, t) {
+    function p(e, t, n) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           try {
-            var a,
-              i = t.accessToken,
-              l = t.deviceId,
-              c = t.nonce,
-              d = t.userId,
-              p = r("WAXWhatsAppWebAuthControllerRouteBuilder").buildUri({
-                access_token: i != null ? i : "",
-                nonce: c != null ? c : "",
-                user_id: d,
-                device_id: l,
+            var i,
+              l = t.accessToken,
+              c = t.deviceId,
+              d = t.nonce,
+              p = t.userId,
+              _ = r("WAXWhatsAppWebAuthControllerRouteBuilder").buildUri({
+                access_token: l != null ? l : "",
+                nonce: d != null ? d : "",
+                user_id: p,
+                device_id: c,
               }),
-              _ = yield o("WAWebXControllerFetchUtils").fetchFromXController(
-                p.toString(),
+              f = yield o("WAWebXControllerFetchUtils").fetchFromXController(
+                _.toString(),
                 { method: "POST", retry: n.retry },
               );
-            if (!_.ok)
+            if (!f.ok)
               return (
                 o("WALogger").ERROR(
                   e ||
@@ -48,32 +48,37 @@ __d(
                       "[canonical] Auth controller failed: HTTP ",
                       "",
                     ])),
-                  _.status,
+                  f.status,
+                ),
+                o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
+                  "auth_controller_http_error",
+                  a,
+                  JSON.stringify({ status: f.status }),
                 ),
                 m.FAILED
               );
-            var f = yield o(
+            var g = yield o(
               "WAWebXControllerFetchUtils",
-            ).extractJsonFromResponse(_);
+            ).extractJsonFromResponse(f);
             if (
-              f == null ||
-              ((a = f.payload) == null ? void 0 : a.status) !== "success"
+              g == null ||
+              ((i = g.payload) == null ? void 0 : i.status) !== "success"
             ) {
-              var g,
-                h,
+              var h,
                 y,
                 C,
-                b =
-                  (g =
-                    f == null || (h = f.payload) == null ? void 0 : h.status) !=
-                  null
-                    ? g
-                    : "invalid response",
+                b,
                 v =
-                  (y =
-                    f == null || (C = f.payload) == null ? void 0 : C.error) !=
+                  (h =
+                    g == null || (y = g.payload) == null ? void 0 : y.status) !=
                   null
-                    ? y
+                    ? h
+                    : "invalid response",
+                S =
+                  (C =
+                    g == null || (b = g.payload) == null ? void 0 : b.error) !=
+                  null
+                    ? C
                     : "unknown";
               return (
                 o("WALogger")
@@ -84,10 +89,15 @@ __d(
                         " err=",
                         "",
                       ])),
-                    b,
                     v,
+                    S,
                   )
                   .sendLogs("canonical-error", { sampling: 0.01 }),
+                o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
+                  "auth_controller_payload_error",
+                  a,
+                  JSON.stringify({ status: v, server_error: S }),
+                ),
                 m.FAILED
               );
             }
@@ -104,6 +114,11 @@ __d(
                   e,
                 )
                 .sendLogs("canonical-error", { sampling: 0.01 }),
+              o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
+                "auth_controller_unexpected_error",
+                a,
+                String(e),
+              ),
               m.FAILED
             );
           }
@@ -138,7 +153,7 @@ __d(
             o("WAWebCanonicalUtils").setTokenCreationState(
               o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
             ));
-          var n = yield p(e, { retry: !0 });
+          var n = yield p(e, { retry: !0 }, t);
           return (f(n, t), n);
         })),
         h.apply(this, arguments)
@@ -162,7 +177,7 @@ __d(
               o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
             ),
             r("WAWebODS").incr("web.app.canonical.exchange.attempt"));
-          var a = yield p(e, { retry: !0 });
+          var a = yield p(e, { retry: !0 }, t);
           return (
             f(a, t),
             a === m.SUCCESS

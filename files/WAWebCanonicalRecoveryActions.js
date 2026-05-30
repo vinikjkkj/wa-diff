@@ -19,18 +19,19 @@ __d(
       s,
       u,
       c,
-      d = 4,
-      m = o("WATimeUtils").HOUR_MILLISECONDS * d;
-    function p() {
-      var e = o("WAWebUserPrefsCanonical").getPeerRequestTimestamp();
-      return e == null ? !1 : Date.now() - e < m;
-    }
+      d,
+      m = 4,
+      p = o("WATimeUtils").HOUR_MILLISECONDS * m;
     function _() {
-      return f.apply(this, arguments);
+      var e = o("WAWebUserPrefsCanonical").getPeerRequestTimestamp();
+      return e == null ? !1 : Date.now() - e < p;
     }
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null) {
             o("WALogger").LOG(
               e ||
@@ -56,21 +57,30 @@ __d(
             o("WAWebCanonicalEntRecoveryWam").logRequestNonceFromPrimary(),
             o("WAWebUserPrefsCanonical").setPeerRequestTimestamp(Date.now()));
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g() {
-      return h.apply(this, arguments);
-    }
     function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebMexCachedTokenJob").fetchCachedNonceToken(),
               t = e.accessToken,
               n = e.fbid,
               r = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
-            if (r == null) return !1;
+            if (r == null)
+              return (
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[canonical] cached nonce recovery skipped, device ID not available",
+                    ])),
+                ),
+                !1
+              );
             var a = yield o(
               "WAWebCanonicalTokenExchange",
             ).storeCanonicalCredentials(
@@ -82,27 +92,34 @@ __d(
             );
           } catch (e) {
             return (
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[canonical] cached nonce recovery failed: ",
-                    "",
-                  ])),
-                e,
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[canonical] cached nonce recovery failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs("canonical-error", { sampling: 0.01 }),
+              o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
+                "cached_nonce_recovery_failed",
+                "recovery",
+                String(e),
               ),
               !1
             );
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y() {
-      return C.apply(this, arguments);
-    }
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o(
               "WAWebCanonicalUserValidQuery",
@@ -119,8 +136,8 @@ __d(
               r("WAWebODS").incr("web.app.canonical.validation.error"),
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] token validation failed: ",
                       "",
                     ])),
@@ -131,13 +148,13 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.isWaitingForPeerResponse = p),
-      (l.requestNonceFromPrimary = _),
-      (l.fetchCachedNonce = g),
-      (l.validateExistingToken = y));
+    ((l.isWaitingForPeerResponse = _),
+      (l.requestNonceFromPrimary = f),
+      (l.fetchCachedNonce = h),
+      (l.validateExistingToken = C));
   },
   98,
 );

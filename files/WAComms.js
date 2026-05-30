@@ -88,7 +88,7 @@ __d(
                     "NO_ACK"
                   );
               }
-              var c = fe(t);
+              var c = ge(t);
               if (c != null) {
                 var d = a.pendingIqs.get(c);
                 d
@@ -395,7 +395,7 @@ __d(
                   e.config.handlers.onHandleStanza == null ||
                     e.config.handlers.onHandleStanza(r, t, n.byteLength));
                 var a = e.activePing;
-                return a && a.socketId === t && a.stanzaId === fe(r)
+                return a && a.socketId === t && a.stanzaId === ge(r)
                   ? ((e.activePing = null),
                     a.handler.resolve(r),
                     e.maybeScheduleHealthCheck(),
@@ -504,7 +504,7 @@ __d(
           }),
           (a.sendPing = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = _e("sendPing");
+              var e = fe("sendPing");
               if (!e.socketId)
                 return (
                   o("WALogger").LOG(
@@ -580,11 +580,11 @@ __d(
         !q && ((q = new G(e, t, n)), r && setTimeout(J, 0)));
     }
     function K() {
-      var e = _e("stopComms");
+      var e = fe("stopComms");
       (e.socketLoop.endWithValue(), e.socket && oe(), (q = null));
     }
     function Q() {
-      var e = _e("closeSocketAndPreventRetry");
+      var e = fe("closeSocketAndPreventRetry");
       (e.socketLoop.endWithValue(),
         e.socket &&
           (o("WALogger").LOG(
@@ -596,7 +596,7 @@ __d(
           oe()));
     }
     function X() {
-      var e = _e("closeSocketAndPause");
+      var e = fe("closeSocketAndPause");
       (e.socketLoop.pauseOnNextIteration(),
         e.socket &&
           (o("WALogger").LOG(
@@ -608,7 +608,7 @@ __d(
           oe()));
     }
     function Y() {
-      var e = _e("closeSocketAndResume");
+      var e = fe("closeSocketAndResume");
       (e.socketLoop.unpause(),
         e.socket &&
           (o("WALogger").LOG(
@@ -620,7 +620,7 @@ __d(
           oe()));
     }
     function J() {
-      _e("openSocketLoop").socketLoop.start();
+      fe("openSocketLoop").socketLoop.start();
     }
     function Z() {
       (o("WALogger").LOG(
@@ -629,14 +629,14 @@ __d(
             "[comms] maybeResetSocketLoop",
           ])),
       ),
-        ne() || _e("maybeResetSocketLoop").socketLoop.reset());
+        ne() || fe("maybeResetSocketLoop").socketLoop.reset());
     }
     function ee() {
-      _e("forceResetSocketLoop").socketLoop.reset();
+      fe("forceResetSocketLoop").socketLoop.reset();
     }
     function te() {
       var e,
-        t = _e("socketAbortController");
+        t = fe("socketAbortController");
       ((e = t.socketAbortController) == null || e.abort(),
         t.softCloseSocket == null || t.softCloseSocket());
     }
@@ -646,7 +646,7 @@ __d(
     }
     function re() {
       var e,
-        t = _e("socketLoopIteration"),
+        t = fe("socketLoopIteration"),
         n = t.nextSocketId++;
       o("WALogger").LOG(
         x ||
@@ -796,7 +796,7 @@ __d(
       );
     }
     function oe() {
-      var e = _e("closeSocket");
+      var e = fe("closeSocket");
       e.socket &&
         (o("WALogger").LOG(
           F ||
@@ -815,17 +815,17 @@ __d(
         e.socket.close());
     }
     function ae() {
-      _e("onStreamErrorReceived").socketLoop.cancelReset();
+      fe("onStreamErrorReceived").socketLoop.cancelReset();
     }
     function ie() {
       return (
-        _e("waitForConnection").sendPing(),
+        fe("waitForConnection").sendPing(),
         U || (U = new (o("WAResolvable").Resolvable)()),
         U.promise
       );
     }
     function le(e, t) {
-      var n = _e("castStanza");
+      var n = fe("castStanza");
       n.socket
         ? n.castStanza(e, t)
         : o("WALogger").LOG(
@@ -836,7 +836,7 @@ __d(
           );
     }
     function se(e) {
-      var t = _e("castStanza");
+      var t = fe("castStanza");
       return t.socketId === e;
     }
     function ue(e, t, a, i, l) {
@@ -844,7 +844,7 @@ __d(
         a === void 0 && (a = 0),
         l === void 0 && (l = "iq"),
         new (W || (W = n("Promise")))(function (s) {
-          var u = _e("sendIq"),
+          var u = fe("sendIq"),
             c = e.attrs.id;
           if (!c || typeof c != "string")
             throw r("err")("[comms] sendIq given iq without id: " + String(e));
@@ -924,20 +924,23 @@ __d(
       return ue(e, a, i, l, "smax");
     }
     function de() {
-      var e = _e("sendPing");
+      var e = fe("sendPing");
       return e.sendPing();
     }
     function me() {
-      return _e("startHandlingRequests").startHandlingRequests();
+      return fe("startHandlingRequests").startHandlingRequests();
     }
     function pe() {
       q && q.deadSocketTimer.cancel();
     }
-    function _e(e) {
+    function _e() {
+      return q != null;
+    }
+    function fe(e) {
       if (q) return q;
       throw r("err")("[comms] " + e + " called before startComms");
     }
-    function fe(e) {
+    function ge(e) {
       if (e.tag === "iq") {
         var t = e.attrs.type;
         if (t === "result" || t === "error")
@@ -945,10 +948,10 @@ __d(
       }
       return null;
     }
-    function ge() {
+    function he() {
       return V++;
     }
-    function he() {
+    function ye() {
       ((q = null), (U = new (o("WAResolvable").Resolvable)()), (V = 1));
     }
     ((l.DEFAULT_SOCKET_ID = H),
@@ -974,9 +977,10 @@ __d(
       (l.sendPing = de),
       (l.startHandlingRequests = me),
       (l.cancelDeadSocketTimer = pe),
-      (l.singletonOrThrowIfUninitialized = _e),
-      (l.getAndIncrementNextOrderedId = ge),
-      (l.resetStateForTests = he));
+      (l.isCommsInitialized = _e),
+      (l.singletonOrThrowIfUninitialized = fe),
+      (l.getAndIncrementNextOrderedId = he),
+      (l.resetStateForTests = ye));
   },
   98,
 );

@@ -5,13 +5,13 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebDBMessageDelete",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterBridgeMsgAddOnsUtils",
     "WAWebNewsletterGetStatusesJob",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterQueryUtils",
     "WAWebNewsletterStatusProcessingUtils",
-    "WAWebNewsletterSyntheticStatusUtils",
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebStatusCollection",
     "asyncToGeneratorRuntime",
@@ -53,28 +53,21 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
-            a = o("WAWebNewsletterSyntheticStatusUtils").getFilledStatusCursor(
-              t,
-            ),
-            i = o("WAWebStatusCollection").StatusCollection.get(t),
-            l =
-              i != null && !i.isSyntheticFromMetadata && i.msgs.length > 0
-                ? a
-                : null,
-            u = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
+            a = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
               r("WAWebNewsletterMetadataCollection") == null ||
                 (n = r("WAWebNewsletterMetadataCollection").get(t)) == null
                 ? void 0
                 : n.membershipType,
             );
           try {
-            var d = yield o(
+            var i = yield o(
                 "WAWebNewsletterGetStatusesJob",
-              ).getNewsletterStatuses(t, u, { afterServerId: l }),
-              m = d.from,
-              p = d.msgs,
-              _ = d.reactionCounts,
-              f = d.viewCounts;
+              ).getNewsletterStatuses(t, a, {}),
+              l = i.from,
+              u = i.msgs,
+              d = i.reactionCounts,
+              m = i.revokedServerIds,
+              p = i.viewCounts;
             if (
               (o("WALogger").LOG(
                 e ||
@@ -83,28 +76,28 @@ __d(
                     " statuses for ",
                     "",
                   ])),
-                String(p.length),
+                String(u.length),
                 t,
               ),
-              p.length === 0)
+              yield g(l, m != null ? m : []),
+              u.length === 0)
             )
-              return b(m, l != null, t);
-            var h = l == null;
-            yield g({
-              from: m,
-              msgs: p,
-              viewCounts: f,
-              reactionCounts: _,
-              isFullFetch: h,
+              return S(l, t);
+            yield y({
+              from: l,
+              msgs: u,
+              viewCounts: p,
+              reactionCounts: d,
+              isFullFetch: !0,
             });
-            var y = o(
+            var _ = o(
               "WAWebNewsletterStatusProcessingUtils",
-            ).computeMaxServerId(p);
+            ).computeMaxServerId(u);
             return (
-              y > 0 &&
+              _ > 0 &&
                 o(
                   "WAWebNewsletterStatusProcessingUtils",
-                ).syncFilledStatusCursor(t, y),
+                ).syncFilledStatusCursor(t, _),
               c.NewStatuses
             );
           } catch (e) {
@@ -128,12 +121,38 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t.length !== 0) {
+            var n = o("WAWebStatusCollection").StatusCollection.get(e);
+            if (n != null) {
+              var r = new Set(t),
+                a = n.msgs.filter(function (e) {
+                  return e.serverId != null && r.has(e.serverId);
+                });
+              a.length !== 0 &&
+                (n.revokeMsgs(
+                  a.map(function (e) {
+                    return e.id.toString();
+                  }),
+                ),
+                yield o("WAWebDBMessageDelete").removeStatusMessage(a));
+            }
+          }
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.from,
             n = e.isFullFetch,
             r = e.msgs,
@@ -181,19 +200,19 @@ __d(
             n)
           ) {
             var m = o("WAWebStatusCollection").StatusCollection.get(t);
-            m != null && (yield y(m));
+            m != null && (yield b(m));
           }
           o("WAWebNewsletterStatusProcessingUtils").updateStatusUnreadCount(t);
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           e.msgs.forEach(function (e) {
             return t.push(e.id.toString());
@@ -206,34 +225,29 @@ __d(
             r != null && r >= o("WAWebAck").ACK.READ && e.set({ ack: r });
           });
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
-      var a = o("WAWebStatusCollection").StatusCollection.get(e);
-      if (!t) {
-        var i;
-        a != null && o("WAWebStatusCollection").StatusCollection.remove(a);
-        var l =
-            r("WAWebNewsletterMetadataCollection") == null
-              ? void 0
-              : r("WAWebNewsletterMetadataCollection").get(n),
-          s =
-            l == null || (i = l.statusMetadata) == null
-              ? void 0
-              : i.lastStatusServerId;
-        return (
-          s != null &&
-            o("WAWebNewsletterStatusProcessingUtils").syncFilledStatusCursor(
-              n,
-              s,
-            ),
-          c.NoNewStatuses
-        );
-      }
-      return a != null && !a.isSyntheticFromMetadata && a.totalCount > 0
-        ? c.NewStatuses
-        : c.NoNewStatuses;
+    function S(e, t) {
+      var n,
+        a = o("WAWebStatusCollection").StatusCollection.get(e);
+      a != null && o("WAWebStatusCollection").StatusCollection.remove(a);
+      var i =
+          r("WAWebNewsletterMetadataCollection") == null
+            ? void 0
+            : r("WAWebNewsletterMetadataCollection").get(t),
+        l =
+          i == null || (n = i.statusMetadata) == null
+            ? void 0
+            : n.lastStatusServerId;
+      return (
+        l != null &&
+          o("WAWebNewsletterStatusProcessingUtils").syncFilledStatusCursor(
+            t,
+            l,
+          ),
+        c.NoNewStatuses
+      );
     }
     ((l.FetchResult = c), (l.fetchNewsletterStatuses = m));
   },

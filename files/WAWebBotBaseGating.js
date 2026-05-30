@@ -76,7 +76,12 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("ai_mode_selector_enabled");
     }
     function S() {
-      return !1;
+      return (
+        v() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_mode_selector_media_editor_enabled",
+        )
+      );
     }
     function R() {
       return o("WAWebABProps").getABPropConfigValue(

@@ -46,16 +46,21 @@ __d(
       window.setTimeout(o, t);
     }
     function y(e) {
-      (e.audioDeviceId != null &&
-        o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e.audioDeviceId),
+      if (
+        (e.audioDeviceId != null &&
+          o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e.audioDeviceId),
         e.speakerDeviceId != null &&
           o("WAWebUserPrefsVoip").setSelectedAudioOutputDevice(
             e.speakerDeviceId,
           ),
-        e.videoDeviceId != null &&
-          o("WAWebUserPrefsVoip").setLandingPageVideoDeviceId(e.videoDeviceId),
-        e.colorIndex != null &&
-          o("WAWebUserPrefsVoip").saveLandingPageColorIndex(e.colorIndex));
+        e.videoDeviceId != null)
+      ) {
+        var t = e.videoDeviceId;
+        (o("WAWebUserPrefsVoip").setLandingPageVideoDeviceId(t),
+          o("WAWebUserPrefsVoip").setSelectedVideoInputDevice(t));
+      }
+      e.colorIndex != null &&
+        o("WAWebUserPrefsVoip").saveLandingPageColorIndex(e.colorIndex);
     }
     function C(e, t) {
       return b.apply(this, arguments);

@@ -15,6 +15,8 @@ __d(
       s = n("$InternalEnum")({
         AUDIENCE_CREATION: "audience_creation",
         AUDIENCE_INFO: "audience_info",
+        BB_FORWARD_MODAL: "bb_forward_modal",
+        BB_SHARE_MODAL: "bb_share_modal",
         BB_THREAD_HEADER: "bb_thread_header",
         BB_THREAD_INFO_DRAWER: "bb_thread_info_drawer",
         CHAT_HOME: "chat_home",

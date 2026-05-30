@@ -169,6 +169,10 @@ __d(
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",
         },
+        MFT_USABILITY_FLOW_10_1_AUTO_RELOAD_V3: {
+          enableExposureLogging: !0,
+          type: "PAYMENT_ACCOUNT_ID",
+        },
         MFT_USABILITY_FLOW_10_1_AUTO_RELOAD_V3_HOLD_OUT: {
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",

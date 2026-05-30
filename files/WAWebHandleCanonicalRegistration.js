@@ -105,11 +105,10 @@ __d(
       );
     }
     function R(e) {
-      var t = e.encryptedKeyElementValue,
-        n = e.nonceElementValue,
-        r = e.authTagElementValue,
-        o = e.encryptedDataElementValue;
-      return { key: t, iv: n, tag: r, data: o };
+      var t = e.nonceElementValue,
+        n = e.authTagElementValue,
+        r = e.encryptedDataElementValue;
+      return { iv: t, tag: n, data: r };
     }
     function L(e, t) {
       var n = new Uint8Array(e.length + t.length);
@@ -149,6 +148,10 @@ __d(
               ),
                 r("WAWebODS").incr(
                   "web.app.canonical.registration.missing_jid",
+                ),
+                o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
+                  "registration_missing_jid",
+                  "registration",
                 ));
               return;
             }
@@ -165,6 +168,10 @@ __d(
               ),
                 r("WAWebODS").incr(
                   "web.app.canonical.registration.missing_metadata",
+                ),
+                o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
+                  "registration_missing_metadata",
+                  "registration",
                 ));
               return;
             }

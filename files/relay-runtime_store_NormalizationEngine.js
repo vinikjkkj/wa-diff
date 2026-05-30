@@ -2,6 +2,7 @@ __d(
   "relay-runtime/store/NormalizationEngine",
   [
     "relay-runtime/store/ClientID",
+    "relay-runtime/store/RelayConcreteVariables",
     "relay-runtime/store/RelayModernRecord",
     "relay-runtime/store/RelayModernSelector",
     "relay-runtime/store/RelayStoreUtils",
@@ -14,26 +15,27 @@ __d(
       l,
       s = (e || (e = n("relay-runtime/util/stableCopy"))).stableCopy,
       u = n("relay-runtime/store/ClientID").generateClientID,
-      c = n(
+      c = n("relay-runtime/store/RelayConcreteVariables").getLocalVariables,
+      d = n(
         "relay-runtime/store/RelayModernSelector",
       ).createNormalizationSelector,
-      d = n("relay-runtime/store/RelayStoreUtils").ROOT_ID,
-      m = n("relay-runtime/store/RelayStoreUtils").ROOT_TYPE,
-      p = n("relay-runtime/store/RelayStoreUtils").getStorageKey;
-    function _(e) {
+      m = n("relay-runtime/store/RelayStoreUtils").ROOT_ID,
+      p = n("relay-runtime/store/RelayStoreUtils").ROOT_TYPE,
+      _ = n("relay-runtime/store/RelayStoreUtils").getStorageKey;
+    function f(e) {
       var t = new Error(e);
       return (t.stack, t);
     }
-    function f(e) {
+    function g(e) {
       var t;
       return (t = JSON.stringify(s(e))) != null ? t : "";
     }
-    var g = (function () {
+    var h = (function () {
       function e(e) {
         var t, r, o, a, i, l;
         ((this.$1 = e.normalizeResponse),
           (this.$2 = (t = e.operationLoader) != null ? t : null),
-          (this.$4 = { dataID: d, node: e.operation, variables: e.variables }),
+          (this.$4 = { dataID: m, node: e.operation, variables: e.variables }),
           (this.$3 = {
             deferDeduplicatedFields: !1,
             getDataID:
@@ -63,7 +65,7 @@ __d(
       var t = e.prototype;
       return (
         (t.processResponse = function (t) {
-          var e = this.$1(t, this.$4, m, this.$3, this.$5),
+          var e = this.$1(t, this.$4, p, this.$3, this.$5),
             n = [],
             r = [];
           (e.incrementalPlaceholders != null &&
@@ -77,7 +79,7 @@ __d(
             ),
             e.followupPayloads != null &&
               e.followupPayloads.length > 0 &&
-              this.$11(e.followupPayloads, n, r));
+              this.$11(e.followupPayloads, e.isFinal, n, r));
           var o = babelHelpers.extends({}, e, {
             followupPayloads: null,
             incrementalPlaceholders: null,
@@ -90,14 +92,14 @@ __d(
           var e = t.label,
             n = t.path;
           if (e == null || n == null)
-            throw _(
+            throw f(
               "NormalizationEngine: Expected incremental response to have `label` and `path` properties.",
             );
           var r = e.indexOf("$defer$") !== -1,
             o = r
               ? n.map(String).join(".")
               : n.slice(0, -2).map(String).join("."),
-            a = h(e, o),
+            a = y(e, o),
             i = this.$6.get(a);
           if (i == null) {
             var l = this.$7.get(a);
@@ -139,7 +141,7 @@ __d(
             ),
             e.followupPayloads != null &&
               e.followupPayloads.length > 0 &&
-              this.$11(e.followupPayloads, o, a));
+              this.$11(e.followupPayloads, e.isFinal, o, a));
           var i = r.selector.dataID,
             l = this.$8.get(i),
             s = e.fieldPayloads;
@@ -161,7 +163,7 @@ __d(
             a = r.variables,
             i = e.selections[0];
           if (i == null || i.kind !== "LinkedField" || i.plural !== !0)
-            throw _(
+            throw f(
               "NormalizationEngine: Expected @stream to be used on a plural field.",
             );
           var l = this.$15(t, o, i, a, n, r.path),
@@ -171,7 +173,7 @@ __d(
             d = l.prevIDs,
             m = l.relayPayload,
             p = l.storageKey,
-            f = function (t) {
+            _ = function (t) {
               var e = t.get(o);
               if (e != null) {
                 var n = e.getLinkedRecords(p);
@@ -200,7 +202,7 @@ __d(
                   incrementalPlaceholders: null,
                   isFinal: this.$12(m.isFinal),
                   isPreNormalized: !0,
-                  storeUpdater: f,
+                  storeUpdater: _,
                 }),
               ],
               pendingModules: [],
@@ -209,19 +211,19 @@ __d(
         }),
         (t.$15 = function (t, r, o, a, i, s) {
           var e,
-            d,
+            c,
             m,
-            f,
+            p,
             g = t.data;
           if (typeof g != "object")
-            throw _(
+            throw f(
               "NormalizationEngine: Expected the GraphQL @stream payload `data` value to be an object.",
             );
           var h = (e = o.alias) != null ? e : o.name,
-            y = p(o, a),
+            y = _(o, a),
             C = this.$8.get(r);
           if (C == null)
-            throw _(
+            throw f(
               "NormalizationEngine: Expected the parent record `" +
                 r +
                 "` for @stream data to exist.",
@@ -232,7 +234,7 @@ __d(
               l || (l = n("relay-runtime/store/RelayModernRecord"))
             ).getLinkedRecordIDs(v, y);
           if (S == null)
-            throw _(
+            throw f(
               "NormalizationEngine: Expected record `" +
                 r +
                 "` to have fetched field `" +
@@ -242,14 +244,14 @@ __d(
           var R = i[i.length - 1],
             L = parseInt(R, 10);
           if (L !== R || L < 0)
-            throw _(
+            throw f(
               "NormalizationEngine: Expected path for @stream to end in a positive integer index, got `" +
                 String(R) +
                 "`",
             );
-          var E = (d = o.concreteType) != null ? d : g.__typename;
+          var E = (c = o.concreteType) != null ? c : g.__typename;
           if (typeof E != "string")
-            throw _(
+            throw f(
               "NormalizationEngine: Expected @stream field `" +
                 o.name +
                 "` to have a __typename.",
@@ -257,20 +259,20 @@ __d(
           var k = this.$3.getDataID,
             I =
               (m =
-                (f = typeof k == "function" ? k(g, E) : null) != null
-                  ? f
+                (p = typeof k == "function" ? k(g, E) : null) != null
+                  ? p
                   : S == null
                     ? void 0
                     : S[L]) != null
                 ? m
                 : u(r, y, L);
           if (typeof I != "string")
-            throw _(
+            throw f(
               "NormalizationEngine: Expected id of elements of field `" +
                 y +
                 "` to be strings.",
             );
-          var T = c(o, I, a),
+          var T = d(o, I, a),
             D = l.clone(v),
             x = [].concat(S);
           ((x[L] = I),
@@ -302,24 +304,24 @@ __d(
                   d = s.label,
                   m = s.path,
                   p = m.map(String).join("."),
-                  g = h(d, p);
-                e.$6.set(g, s);
-                var y;
+                  _ = y(d, p);
+                e.$6.set(_, s);
+                var h;
                 s.kind === "stream"
-                  ? (y = s.parentID)
-                  : (y = s.selector.dataID);
-                var C = r.get(y);
+                  ? (h = s.parentID)
+                  : (h = s.selector.dataID);
+                var C = r.get(h);
                 if (C == null)
-                  throw _(
+                  throw f(
                     "NormalizationEngine: Expected record `" +
-                      y +
+                      h +
                       "` to exist.",
                   );
                 var b = (o != null ? o : []).filter(function (e) {
                     var t = u(e.dataID, e.fieldKey);
-                    return e.dataID === y || t === y;
+                    return e.dataID === h || t === h;
                   }),
-                  v = e.$8.get(y);
+                  v = e.$8.get(h);
                 if (v != null) {
                   for (
                     var S = (
@@ -331,20 +333,20 @@ __d(
                     L++
                   ) {
                     var E = v.fieldPayloads[L];
-                    R.set(f(E), E);
+                    R.set(g(E), E);
                   }
                   for (var k = 0; k < b.length; k++) {
                     var I = b[k];
-                    R.set(f(I), I);
+                    R.set(g(I), I);
                   }
-                  e.$8.set(y, {
+                  e.$8.set(h, {
                     fieldPayloads: Array.from(R.values()),
                     record: S,
                   });
-                } else e.$8.set(y, { fieldPayloads: b, record: C });
-                var T = e.$7.get(g);
+                } else e.$8.set(h, { fieldPayloads: b, record: C });
+                var T = e.$7.get(_);
                 if (T != null) {
-                  e.$7.delete(g);
+                  e.$7.delete(_);
                   for (var D = 0; D < T.length; D++) {
                     var x = T[D],
                       $ = void 0;
@@ -367,66 +369,65 @@ __d(
           )
             s();
         }),
-        (t.$11 = function (t, n, r) {
+        (t.$11 = function (t, n, r, o) {
           for (var e = 0; e < t.length; e++) {
-            var o = t[e];
-            o.kind === "ModuleImportPayload" && this.$16(o, n, r);
+            var a = t[e];
+            a.kind === "ModuleImportPayload" && this.$16(a, n, r, o);
           }
         }),
-        (t.$16 = function (t, n, r) {
+        (t.$16 = function (t, n, r, o) {
           var e = this,
-            o = this.$2;
-          if (o != null) {
-            var a = o.get(t.operationReference);
-            if (a != null) {
-              var i = this.$17(t, a);
-              (n.push.apply(n, i.payloads), r.push.apply(r, i.pendingModules));
+            a = this.$2;
+          if (a != null) {
+            var i = a.get(t.operationReference);
+            if (i != null) {
+              var l = this.$17(t, i, n);
+              (r.push.apply(r, l.payloads), o.push.apply(o, l.pendingModules));
               return;
             }
-            var l = { payloads: [], pendingModules: [] };
-            r.push(
-              o
-                .load(t.operationReference)
-                .then(function (n) {
-                  return n != null ? e.$17(t, n) : l;
-                })
-                .catch(function (e) {
-                  return l;
-                }),
+            var s = { payloads: [], pendingModules: [] };
+            o.push(
+              a.load(t.operationReference).then(function (r) {
+                return r != null ? e.$17(t, r, n) : s;
+              }),
             );
           }
         }),
-        (t.$17 = function (t, n) {
+        (t.$17 = function (t, n, r) {
           var e = n.kind === "SplitOperation" ? n : n.operation,
-            r = c(e, t.dataID, t.variables),
-            o = this.$1(
-              { data: t.data },
-              r,
+            o =
+              e.kind === "SplitOperation"
+                ? c(t.variables, e.argumentDefinitions, t.args)
+                : t.variables,
+            a = d(e, t.dataID, o),
+            i = this.$1(
+              { data: t.data, extensions: r ? { is_final: !0 } : void 0 },
+              a,
               t.typeName,
               babelHelpers.extends({}, this.$3, { path: t.path }),
               this.$5,
             ),
-            a = [],
-            i = [];
-          (o.incrementalPlaceholders != null &&
-            o.incrementalPlaceholders.length > 0 &&
+            l = [],
+            s = [];
+          (i.incrementalPlaceholders != null &&
+            i.incrementalPlaceholders.length > 0 &&
             this.$10(
-              o.incrementalPlaceholders,
-              o.source,
-              o.fieldPayloads,
-              a,
-              i,
+              i.incrementalPlaceholders,
+              i.source,
+              i.fieldPayloads,
+              l,
+              s,
             ),
-            o.followupPayloads != null &&
-              o.followupPayloads.length > 0 &&
-              this.$11(o.followupPayloads, a, i));
-          var l = babelHelpers.extends({}, o, {
+            i.followupPayloads != null &&
+              i.followupPayloads.length > 0 &&
+              this.$11(i.followupPayloads, i.isFinal, l, s));
+          var u = babelHelpers.extends({}, i, {
             followupPayloads: null,
             incrementalPlaceholders: null,
-            isFinal: this.$12(o.isFinal),
+            isFinal: this.$12(i.isFinal),
             isPreNormalized: !0,
           });
-          return { payloads: [l].concat(a), pendingModules: i };
+          return { payloads: [u].concat(l), pendingModules: s };
         }),
         (t.$12 = function (t) {
           return (t || this.$9) && this.$7.size === 0;
@@ -434,10 +435,10 @@ __d(
         e
       );
     })();
-    function h(e, t) {
+    function y(e, t) {
       return e + "::" + t;
     }
-    a.exports = g;
+    a.exports = h;
   },
   null,
 );

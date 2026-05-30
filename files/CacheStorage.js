@@ -223,10 +223,10 @@ __d(
               var e;
               typeof a == "string"
                 ? (e = d + a)
-                : i
-                  ? (e = n("cr:8958").stringify(a))
-                  : ((e = { __t: Date.now(), __v: a }),
-                    (e = n("cr:8958").stringify(e)));
+                : i !== !0
+                  ? ((e = { __t: Date.now(), __v: a }),
+                    (e = n("cr:8958").stringify(e)))
+                  : (e = n("cr:8958").stringify(a));
               for (
                 var l = this._backend,
                   s = this._key_prefix + o,

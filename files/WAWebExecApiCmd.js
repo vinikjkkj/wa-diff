@@ -1083,7 +1083,7 @@ __d(
             ).isBizBroadcastEnabledAndDeviceSupported(!1)
           )
             return !1;
-          var Ne = t.source,
+          var Ne = t.data.source,
             Me;
           switch (Ne) {
             case "qp_chat_list_banner":
@@ -1093,7 +1093,7 @@ __d(
               Me = o("WAWebWamEnumEntryPoint").ENTRY_POINT.DEEP_LINK;
               break;
           }
-          return (
+          var we = function () {
             o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
               D.jsx(
                 o("WAWebBusinessBroadcastHomeFlowLoadable")
@@ -1108,9 +1108,9 @@ __d(
                 },
               ),
               { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
-            ),
-            !0
-          );
+            );
+          };
+          return (a ? window.setTimeout(we, 0) : we(), !0);
         }
         case "WEB_REGISTRATION":
         case "WEB_REGISTRATION_CAMPAIGN":
@@ -1121,12 +1121,12 @@ __d(
             n("cr:38809") == null
           )
             return !1;
-          var we = n("cr:38809").WAWebVoipOngoingCallCollection,
-            Ae = we.findOngoingCallActiveOnOtherSelfDevice();
-          if (Ae == null) return !0;
+          var Ae = n("cr:38809").WAWebVoipOngoingCallCollection,
+            Fe = Ae.findOngoingCallActiveOnOtherSelfDevice();
+          if (Fe == null) return !0;
           try {
             o("WAWebVoipStartCall")
-              .joinOngoingCallByCallId(Ae.id.id)
+              .joinOngoingCallByCallId(Fe.id.id)
               .catch(function (e) {
                 o("WALogger").ERROR(
                   h ||
@@ -1146,9 +1146,9 @@ __d(
           return !0;
         }
         case "CHAT_OPEN": {
-          var Fe = t.data,
-            Oe = Fe.lid,
-            Be = Fe.session;
+          var Oe = t.data,
+            Be = Oe.lid,
+            We = Oe.session;
           try {
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
@@ -1156,9 +1156,9 @@ __d(
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Chats,
               ));
-            var We = o("WAWebWidFactory").createWid(Oe);
+            var qe = o("WAWebWidFactory").createWid(Be);
             o("WAWebFindChatAction")
-              .findOrCreateLatestChat(We, "newChatFlow")
+              .findOrCreateLatestChat(qe, "newChatFlow")
               .then(function (e) {
                 var t = e.chat;
                 o("WAWebCmd")
@@ -1171,7 +1171,7 @@ __d(
                     (e &&
                       (o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),
                       o("WAWebCmd").Cmd.trigger("scroll_to_active_chat")),
-                      Be != null &&
+                      We != null &&
                         new (o(
                           "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                         ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1182,7 +1182,7 @@ __d(
                             : o("WAWebWamEnumMdLinkedDevicesWindowsXdrStage")
                                 .MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                                 .DEEPLINK_NAVIGATION_FAILURE,
-                          mdXdrSessionUuid: Be,
+                          mdXdrSessionUuid: We,
                         }).commit());
                   });
               })
@@ -1193,7 +1193,7 @@ __d(
                       "Opening chat via chatOpen failed with async exception",
                     ])),
                 ),
-                  Be != null &&
+                  We != null &&
                     new (o(
                       "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                     ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1201,7 +1201,7 @@ __d(
                         "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                       ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                         .DEEPLINK_NAVIGATION_FAILURE,
-                      mdXdrSessionUuid: Be,
+                      mdXdrSessionUuid: We,
                     }).commit());
               });
           } catch (e) {
@@ -1211,7 +1211,7 @@ __d(
                   "Opening chat via chatOpen failed with exceptions",
                 ])),
             ),
-              Be != null &&
+              We != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1219,26 +1219,26 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_FAILURE,
-                  mdXdrSessionUuid: Be,
+                  mdXdrSessionUuid: We,
                 }).commit());
           }
           return !0;
         }
         case "APP_OPEN": {
-          var qe,
-            Ue = (qe = t.data) == null ? void 0 : qe.session;
+          var Ue,
+            Ve = (Ue = t.data) == null ? void 0 : Ue.session;
           try {
-            var Ve;
+            var He;
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebCmd").Cmd.closeActiveChat(),
-              (Ve = o("WAWebDrawerManager")).DrawerManager.closeDrawerLeft(),
-              Ve.DrawerManager.closeDrawerMid(),
-              Ve.DrawerManager.closeDrawerRight(),
-              Ve.DrawerManager.closeDrawerFullscreen(),
+              (He = o("WAWebDrawerManager")).DrawerManager.closeDrawerLeft(),
+              He.DrawerManager.closeDrawerMid(),
+              He.DrawerManager.closeDrawerRight(),
+              He.DrawerManager.closeDrawerFullscreen(),
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Chats,
               ),
-              Ue != null &&
+              Ve != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1246,7 +1246,7 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_SUCCESS,
-                  mdXdrSessionUuid: Ue,
+                  mdXdrSessionUuid: Ve,
                 }).commit());
           } catch (e) {
             (o("WALogger").ERROR(
@@ -1255,7 +1255,7 @@ __d(
                   "Handling appOpen failed with exceptions",
                 ])),
             ),
-              Ue != null &&
+              Ve != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1263,7 +1263,7 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_FAILURE,
-                  mdXdrSessionUuid: Ue,
+                  mdXdrSessionUuid: Ve,
                 }).commit());
           }
           return !0;
@@ -1310,19 +1310,19 @@ __d(
           return !0;
         }
         case "WORK_CONTACT_SYNC": {
-          var He;
+          var Ge;
           return r("gkx")("26258") ||
-            !((He = t.data) != null && He.compressedData)
+            !((Ge = t.data) != null && Ge.compressedData)
             ? !1
             : (n("cr:2679") == null ||
                 n("cr:2679").handleWorkContactSync(t.data.compressedData),
               !0);
         }
         case "SEND_FILE": {
-          var Ge;
-          return (Ge =
+          var ze;
+          return (ze =
             n("cr:12407") == null ? void 0 : n("cr:12407")(t.data)) != null
-            ? Ge
+            ? ze
             : !1;
         }
         case "NEWSLETTER_STATUS_DEEPLINK":

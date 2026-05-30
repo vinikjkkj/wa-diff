@@ -65,7 +65,7 @@ __d(
             "WAWebWindowsHybridBridgeFactory",
           ).getWindowsBridge()) == null || (e = e.voip) == null
             ? void 0
-            : e.voipInit(t, n, r);
+            : e.voipInit(r, t || null);
         },
         setHideMyIp: function (t) {
           var e;

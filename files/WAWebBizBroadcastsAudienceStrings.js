@@ -64,6 +64,13 @@ __d(
           ])
         : s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
     }
+    function S(e, t) {
+      return e.trim() !== ""
+        ? s._(/*BTDS*/ "No contacts match your search")
+        : t
+          ? s._(/*BTDS*/ "No contacts found for this time period")
+          : s._(/*BTDS*/ "No contacts found");
+    }
     ((l.getUntitledListName = e),
       (l.getActiveChatsTitle = u),
       (l.getActiveChatsDescription = c),
@@ -77,7 +84,8 @@ __d(
       (l.getAllContactsDescription = y),
       (l.getSuggestedAudiencesSectionTitle = C),
       (l.getDurationLabelForDays = b),
-      (l.getSuggestedAudienceCardSubtitle = v));
+      (l.getSuggestedAudienceCardSubtitle = v),
+      (l.getEmptyStateMessage = S));
   },
   226,
 );

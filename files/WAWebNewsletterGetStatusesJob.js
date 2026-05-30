@@ -51,42 +51,60 @@ __d(
                   from: n,
                   viewCounts: new Map(),
                   reactionCounts: new Map(),
+                  revokedServerIds: [],
                 }
               );
             }
             var s = [],
               u = new Map(),
-              c = new Map();
-            for (var d of l) {
-              var m = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
-                d,
+              c = new Map(),
+              d = [];
+            for (var m of l) {
+              var p;
+              if (
+                ((p = m.statusNewsletterContentMixin) == null
+                  ? void 0
+                  : p.newsletterStatusContentTypeMixins.name) ===
+                "StatusNewsletterRevoke"
+              ) {
+                d.push(m.serverId);
+                continue;
+              }
+              var _ = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
+                m,
                 n,
               );
-              if (m != null) {
-                var p,
-                  _,
-                  f =
-                    (p = d.statusNewsletterViewsCountsMixin) == null
+              if (_ != null) {
+                var f,
+                  g,
+                  h =
+                    (f = m.statusNewsletterViewsCountsMixin) == null
                       ? void 0
-                      : p.viewsCountCount,
-                  g = m.id.toString();
+                      : f.viewsCountCount,
+                  y = _.id.toString();
                 (s.push(
-                  babelHelpers.extends({}, m, {
+                  babelHelpers.extends({}, _, {
                     isNewsletterStatus: !0,
                     author: n,
-                    viewCount: f,
+                    viewCount: h,
                   }),
                 ),
-                  f != null && u.set(g, f));
-                var h = o("WAWebNewsletterStatusUtils").buildEmojiCountMap(
-                  (_ = d.statusNewsletterReactionsMixin) == null
+                  h != null && u.set(y, h));
+                var C = o("WAWebNewsletterStatusUtils").buildEmojiCountMap(
+                  (g = m.statusNewsletterReactionsMixin) == null
                     ? void 0
-                    : _.reactionsReaction,
+                    : g.reactionsReaction,
                 );
-                h != null && c.set(g, h);
+                C != null && c.set(y, C);
               }
             }
-            return { msgs: s, from: n, viewCounts: u, reactionCounts: c };
+            return {
+              msgs: s,
+              from: n,
+              viewCounts: u,
+              reactionCounts: c,
+              revokedServerIds: d,
+            };
           }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )

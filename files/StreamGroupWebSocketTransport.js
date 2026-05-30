@@ -480,8 +480,17 @@ __d(
                       ));
                   }),
                   (c.$1.onclose = t.$29(c)));
-                var d = yield t.getTransportPromise(c);
-                return d;
+                try {
+                  return yield t.getTransportPromise(c);
+                } catch (m) {
+                  if (c.$3) {
+                    var d = yield o(
+                      "DGWWebSocketTransport",
+                    ).primeInternalCertOnce(c.$1.url);
+                    if (d) return t.$26(e, n, r, a, i, l, s, u);
+                  }
+                  throw m;
+                }
               },
             );
             function r(t, n, r, o, a, i, l, s) {
