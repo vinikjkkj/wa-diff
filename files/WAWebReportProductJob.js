@@ -2,7 +2,7 @@ __d(
   "WAWebReportProductJob",
   [
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebGraphQLServerError",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebRelayClient",
@@ -52,7 +52,11 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           return u(e, t, n);
         })),

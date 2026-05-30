@@ -3,8 +3,8 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCoexGatingUtils",
-    "WAWebBizGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebCatalogCollection",
     "WAWebChatCollection",
@@ -82,7 +82,7 @@ __d(
                   var _ = o("WAWebCatalogCollection").CatalogCollection.get(r);
                   _ &&
                     o(
-                      "WAWebBizGatingUtils",
+                      "WAWebBizCatalogGatingUtils",
                     ).isCatalogVariantsViewingEnabled() &&
                     o("WAWebCatalogCollection").CatalogCollection.remove(_.id);
                 }

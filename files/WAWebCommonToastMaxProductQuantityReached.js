@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebBizCartConstants",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebFbtCommon",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -16,7 +16,8 @@ __d(
       (e === void 0 && (e = o("WAWebBizCartConstants").CART_ITEM_MAX_QUANTITY),
         t === void 0 && (t = !1));
       var n =
-          o("WAWebBizGatingUtils").isQuantityControlsFeatureEnabled() || t
+          o("WAWebBizCatalogGatingUtils").isQuantityControlsFeatureEnabled() ||
+          t
             ? null
             : {
                 actionText: r("WAWebFbtCommon")("GOT IT"),

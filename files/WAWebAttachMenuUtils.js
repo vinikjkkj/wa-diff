@@ -1,7 +1,7 @@
 __d(
   "WAWebAttachMenuUtils",
   [
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileUtils",
     "WAWebChatGetters",
@@ -22,9 +22,9 @@ __d(
       );
       return !(
         !c() ||
-        o("WAWebBizGatingUtils").blockCatalogCreationECommerceComplianceIndia(
-          t,
-        ) ||
+        o(
+          "WAWebBizCatalogGatingUtils",
+        ).blockCatalogCreationECommerceComplianceIndia(t) ||
         o(
           "WAWebProductCatalogMetaLinkingGatingUtils",
         ).shouldDisableCatalogDueToMetaLinkingForSelf()

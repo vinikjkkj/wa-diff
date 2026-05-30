@@ -1,9 +1,9 @@
 __d(
   "WAWebBizCatalogManagementParseProductGraphql",
   [
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementParseProductGraphql_product.graphql",
     "WAWebBizCatalogParseProduct",
-    "WAWebBizGatingUtils",
     "WAWebBizParseProductGraphql",
     "WAWebProductTypes.flow",
     "WAWebSyntheticCountryCode",
@@ -128,7 +128,7 @@ __d(
         (((t = e.complianceInfo) == null ? void 0 : t.countryCodeOrigin) ===
           o("WAWebSyntheticCountryCode").SyntheticCountryCode.NotApplicable ||
           (e.importerInformationExempt &&
-            o("WAWebBizGatingUtils").isCountryOfOriginEnabled())) &&
+            o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled())) &&
           (a.compliance_category = o(
             "WAWebProductTypes.flow",
           ).ProductComplianceCategory.CountryOriginExempt),

@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WAWebBaseCollection",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebProductModel",
     "isStringNullOrEmpty",
   ],
@@ -71,7 +71,9 @@ __d(
             : s.filter(function (e) {
                 return (
                   !e.isHidden &&
-                  (!o("WAWebBizGatingUtils").isCountryOfOriginEnabled() ||
+                  (!o(
+                    "WAWebBizCatalogGatingUtils",
+                  ).isCountryOfOriginEnabled() ||
                     !e.isSanctioned)
                 );
               });

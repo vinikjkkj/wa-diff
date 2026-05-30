@@ -2,9 +2,9 @@ __d(
   "WAWebCartLogEvents",
   [
     "WALogger",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogUtils",
     "WAWebBizCatalogViewWamEvent",
-    "WAWebBizGatingUtils",
     "WAWebCatalogBizWamEvent",
     "WAWebProductCatalogContext",
     "WAWebUserPrefsMeUser",
@@ -54,7 +54,7 @@ __d(
       if (
         !a &&
         p !== void 0 &&
-        o("WAWebBizGatingUtils").isPSForCatalogViewEnabled()
+        o("WAWebBizCatalogGatingUtils").isPSForCatalogViewEnabled()
       ) {
         new (o("WAWebBizCatalogViewWamEvent").BizCatalogViewWamEvent)(
           babelHelpers.extends(

@@ -1,7 +1,7 @@
 __d(
   "WAWebManageEditProductDrawerHelpers",
   [
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebComplianceConstants",
     "WAWebCurrencyUtils",
     "WAWebSyntheticCountryCode",
@@ -22,10 +22,12 @@ __d(
       }
     }
     function c(t, n) {
-      if (o("WAWebBizGatingUtils").isCountryOfOriginEnabled())
+      if (o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled())
         return d(t) && !n;
       if (
-        !o("WAWebBizGatingUtils").showImporterInformationInEditProductDrawer()
+        !o(
+          "WAWebBizCatalogGatingUtils",
+        ).showImporterInformationInEditProductDrawer()
       )
         return !1;
       var a = t == null ? void 0 : t.countryCodeOrigin;
@@ -33,8 +35,10 @@ __d(
     }
     function d(t) {
       if (
-        !o("WAWebBizGatingUtils").isCountryOfOriginEnabled() ||
-        !o("WAWebBizGatingUtils").showImporterInformationInEditProductDrawer()
+        !o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled() ||
+        !o(
+          "WAWebBizCatalogGatingUtils",
+        ).showImporterInformationInEditProductDrawer()
       )
         return !1;
       var n = t == null ? void 0 : t.countryCodeOrigin;
@@ -42,12 +46,12 @@ __d(
     }
     function m(e) {
       return o(
-        "WAWebBizGatingUtils",
+        "WAWebBizCatalogGatingUtils",
       ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(e);
     }
     function p(e, t, n) {
       if (n)
-        return o("WAWebBizGatingUtils").isCountryOfOriginEnabled() && t
+        return o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled() && t
           ? {
               countryCodeOrigin: e == null ? void 0 : e.countryCodeOrigin,
               importerName: void 0,

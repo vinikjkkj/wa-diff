@@ -3,7 +3,7 @@ __d(
   [
     "WANullthrows",
     "WAWebBizCartConstants",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizParseProductGraphql_product.graphql",
     "WAWebProductTypes.flow",
     "WAWebSignedShimmedUrl",
@@ -209,7 +209,7 @@ __d(
           b != null &&
           b.country_code_origin != null &&
           b.importer_address == null &&
-          o("WAWebBizGatingUtils").isCountryOfOriginEnabled()
+          o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled()
         ) {
           var D;
           ((T.compliance_info = {
@@ -218,7 +218,8 @@ __d(
           }),
             (T.importer_information_exempt = !0));
         } else
-          b == null && o("WAWebBizGatingUtils").isCountryOfOriginEnabled()
+          b == null &&
+          o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled()
             ? (T.importer_information_exempt = !0)
             : (T.compliance_info = {
                 country_code_origin: o("WAWebSyntheticCountryCode")

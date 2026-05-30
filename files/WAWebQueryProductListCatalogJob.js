@@ -8,9 +8,9 @@ __d(
     "WAWap",
     "WAWapDeprecatedSmaxID",
     "WAWebBackendErrors",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementFetchProductList",
     "WAWebBizCatalogParseProduct",
-    "WAWebBizGatingUtils",
     "WAWebBizParseProductGraphql",
     "WAWebCatalogEventLogger",
     "WAWebCommsWapMd",
@@ -219,7 +219,7 @@ __d(
         var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
         return e != null &&
           e.equals(o("WAWebWidFactory").createWid(t.catalogWid))
-          ? o("WAWebBizGatingUtils").graphQLForGetProductListEnabled()
+          ? o("WAWebBizCatalogGatingUtils").graphQLForGetProductListEnabled()
             ? p(t)
             : d(t)
           : m(t);

@@ -4,7 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizQueryOrderJobQuery.graphql",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
@@ -29,7 +29,9 @@ __d(
             i = e.orderId,
             l = e.token,
             s = e.width;
-          return o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions()
+          return o(
+            "WAWebBizCatalogGatingUtils",
+          ).commerceFeaturesDisabledBySanctions()
             ? (u || (u = n("Promise"))).reject(
                 new (o("WAWebBackendErrors").E451)(),
               )

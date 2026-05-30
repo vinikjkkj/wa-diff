@@ -2,7 +2,7 @@ __d(
   "WAWebManageCart",
   [
     "WAWebBizAddProductToCartAction",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebCartLogEvents",
     "WAWebCommonToastMaxProductQuantityReached",
     "WAWebToastAddedProductToCart",
@@ -15,7 +15,9 @@ __d(
         s = a.totalCartCount;
       switch (l) {
         case o("WAWebBizAddProductToCartAction").AddToCartStatus.SUCCESS:
-          (o("WAWebBizGatingUtils").isQuantityControlsFeatureEnabled() === !1 &&
+          (o(
+            "WAWebBizCatalogGatingUtils",
+          ).isQuantityControlsFeatureEnabled() === !1 &&
             r("WAWebToastAddedProductToCart")(e, t),
             s === 1 && o("WAWebCartLogEvents").logCreateNewCart(e, t, n, s),
             o("WAWebCartLogEvents").logAddProductToCart(e, t, i, n));

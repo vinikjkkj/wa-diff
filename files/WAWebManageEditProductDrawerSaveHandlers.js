@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizProductCatalogBridge",
     "WAWebDrawerManager",
     "WAWebManageActions",
@@ -76,7 +76,7 @@ __d(
             (e.name === "retailer_id" || e.name === "retailer-id") &&
               e.reason === "duplicate" &&
               m(s._(/*BTDS*/ "Item code must be unique.")),
-            o("WAWebBizGatingUtils").hideUnsupportedCurrency() &&
+            o("WAWebBizCatalogGatingUtils").hideUnsupportedCurrency() &&
               e.name === "currency" &&
               e.reason === "invalid-data" &&
               (p = s._(

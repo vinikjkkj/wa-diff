@@ -3,8 +3,8 @@ __d(
   [
     "Promise",
     "WAWebBackendErrors",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCreateOrderJob",
-    "WAWebBizGatingUtils",
     "WAWebBizLogQplEvents",
     "WAWebBizQueryOrderJob",
     "WAWebBusinessDirectConnectionBridge",
@@ -12,7 +12,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, r, a, i, l) {
-      if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (e || (e = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );
@@ -36,7 +36,7 @@ __d(
       });
     }
     function u(t, r) {
-      if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (e || (e = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );

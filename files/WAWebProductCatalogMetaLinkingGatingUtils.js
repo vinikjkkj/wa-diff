@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebABProps",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileTypes",
     "WAWebUserPrefsMeUser",
@@ -33,7 +33,10 @@ __d(
       );
     }
     function m() {
-      if (o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled() || g())
+      if (
+        o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled() ||
+        g()
+      )
         return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
@@ -66,7 +69,7 @@ __d(
       var t;
       return y()
         ? !0
-        : o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()
+        : o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled()
           ? !1
           : (e == null || (t = e.profileOptions) == null
               ? void 0

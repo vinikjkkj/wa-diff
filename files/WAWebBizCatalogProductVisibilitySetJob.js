@@ -2,8 +2,8 @@ __d(
   "WAWebBizCatalogProductVisibilitySetJob",
   [
     "WAWebBackendErrors",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementUpdateProductVisibility",
-    "WAWebBizGatingUtils",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -47,7 +47,11 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           return s(e, t);
         })),

@@ -3,8 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementFetchSingleCollection",
-    "WAWebBizGatingUtils",
     "WAWebBizParseProductGraphql",
     "WAWebCatalogEventLogger",
     "WAWebGraphQLServerError",
@@ -21,7 +21,11 @@ __d(
       u,
       c = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           try {
             var r,
@@ -127,7 +131,11 @@ __d(
       })(),
       d = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           var t = e.afterCursor,
             n = e.catalogWid,

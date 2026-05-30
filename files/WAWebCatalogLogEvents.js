@@ -2,7 +2,7 @@ __d(
   "WAWebCatalogLogEvents",
   [
     "$InternalEnum",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSmbFeatureNameEnum",
@@ -28,7 +28,7 @@ __d(
       });
     }
     function u() {
-      o("WAWebBizGatingUtils").isCountryOfOriginEnabled() &&
+      o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled() &&
         o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
           userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
             .SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -60,7 +60,7 @@ __d(
       });
     }
     function m(e, t, n) {
-      if (o("WAWebBizGatingUtils").isCountryOfOriginEnabled()) {
+      if (o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled()) {
         var r =
           n != null &&
           e === o("WAWebWamEnumSurfaceType").SURFACE_TYPE.ORIGIN_COUNTRY

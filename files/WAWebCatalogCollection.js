@@ -4,7 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizProductCatalogAction",
     "WAWebBizProductCatalogBridge",
     "WAWebCatalogModel",
@@ -182,7 +182,9 @@ __d(
                   );
                 var m, p, _;
                 try {
-                  o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled() &&
+                  o(
+                    "WAWebBizCatalogGatingUtils",
+                  ).isCatalogVariantsViewingEnabled() &&
                     ((m = o(
                       "WAWebCatalogVariantHelper",
                     ).FULL_VARIANT_INFO_FIELDS),
@@ -234,7 +236,7 @@ __d(
                       f.catalog_id != null &&
                       y.catalogId !== f.catalog_id &&
                       o(
-                        "WAWebBizGatingUtils",
+                        "WAWebBizCatalogGatingUtils",
                       ).isCatalogVariantsViewingEnabled() &&
                       this.remove(a),
                     {
@@ -292,7 +294,7 @@ __d(
                     var b = this.get(a);
                     b != null &&
                       o(
-                        "WAWebBizGatingUtils",
+                        "WAWebBizCatalogGatingUtils",
                       ).isCatalogVariantsViewingEnabled() &&
                       this.remove(a);
                   }
@@ -427,7 +429,7 @@ __d(
             return !(
               t == null ||
               !o("WAWebUserPrefsMeUser").isMeAccount(t) ||
-              !o("WAWebBizGatingUtils").catalogTokenRecoveryEnabled()
+              !o("WAWebBizCatalogGatingUtils").catalogTokenRecoveryEnabled()
             );
           }),
           a

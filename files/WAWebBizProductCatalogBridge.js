@@ -9,9 +9,9 @@ __d(
     "WAWebBizCatalogAppealProductJob",
     "WAWebBizCatalogDeleteProductsJob",
     "WAWebBizCatalogEditProductJob",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogProductVisibilitySetJob",
     "WAWebBizCreateProductCatalogJob",
-    "WAWebBizGatingUtils",
     "WAWebBizLogQplEvents",
     "WAWebBusinessDirectConnectionBridge",
     "WAWebNoop",
@@ -60,7 +60,7 @@ __d(
       );
     }
     function b(t, a, i, l, u, c, m, p, _, f) {
-      if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (d || (d = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );
@@ -111,7 +111,7 @@ __d(
       });
     }
     function v(e, t, r, a, i) {
-      if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (d || (d = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );

@@ -5,8 +5,8 @@ __d(
     "WALogger",
     "WANullthrows",
     "WAWebBackendErrors",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementFetchProduct",
-    "WAWebBizGatingUtils",
     "WAWebBizParseProductGraphql",
     "WAWebCatalogEventLogger",
     "WAWebGraphQLServerError",
@@ -22,7 +22,11 @@ __d(
       c,
       d = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           for (var t = arguments.length, a = new Array(t), i = 0; i < t; i++)
             a[i] = arguments[i];
@@ -107,7 +111,11 @@ __d(
       })(),
       m = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
             t[n] = arguments[n];
@@ -146,12 +154,12 @@ __d(
               "WAWebMaybeThrowCatalogErrors",
             ).maybeThrowLocalErrorForCatalogQuery(g.error);
           } else if (g.type === "recovery-required") {
-            if (o("WAWebBizGatingUtils").catalogTokenRecoveryEnabled())
+            if (o("WAWebBizCatalogGatingUtils").catalogTokenRecoveryEnabled())
               throw new (o(
                 "WAWebBackendErrors",
               ).AdAccountRecoveryRequiredError)(g.emailMask);
           } else if (g.type === "incorrect-nonce") {
-            if (o("WAWebBizGatingUtils").catalogTokenRecoveryEnabled())
+            if (o("WAWebBizCatalogGatingUtils").catalogTokenRecoveryEnabled())
               throw new (o("WAWebBackendErrors").CatalogIncorrectNonceError)();
           } else g.type;
           throw (

@@ -1,6 +1,11 @@
 __d(
   "WAWebCatalogVariantHelper",
-  ["fbt", "$InternalEnum", "WAWebBizGatingUtils", "WAWebLinkedCatalogHelper"],
+  [
+    "fbt",
+    "$InternalEnum",
+    "WAWebBizCatalogGatingUtils",
+    "WAWebLinkedCatalogHelper",
+  ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = 100,
@@ -18,7 +23,7 @@ __d(
         !r &&
         e &&
         o("WAWebLinkedCatalogHelper").isLinkedCatalog(e.id) &&
-        o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()
+        o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled()
       );
     }
     var d = n("$InternalEnum")({

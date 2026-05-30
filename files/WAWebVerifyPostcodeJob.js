@@ -6,7 +6,7 @@ __d(
     "WAWap",
     "WAWapDeprecatedSmaxID",
     "WAWebBackendErrors",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebCommsWapMd",
     "WAWebDefinePersistedJob",
     "WAWebGraphQLVerifyPostcodeJob",
@@ -39,7 +39,9 @@ __d(
                   a = t.directConnectionEncryptedInfo,
                   i = o("WAWebWidFactory").createWid(n);
                 if (
-                  o("WAWebBizGatingUtils").isGraphQLForVerifyPostcodeEnabled()
+                  o(
+                    "WAWebBizCatalogGatingUtils",
+                  ).isGraphQLForVerifyPostcodeEnabled()
                 )
                   return o("WAWebGraphQLVerifyPostcodeJob").verifyPostcode(
                     i,

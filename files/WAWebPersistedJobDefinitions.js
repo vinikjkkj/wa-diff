@@ -1,6 +1,6 @@
 __d(
   "WAWebPersistedJobDefinitions",
-  ["WATimeUtils", "WAWebBackendErrors", "WAWebBizGatingUtils"],
+  ["WATimeUtils", "WAWebBackendErrors", "WAWebBizCatalogGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e = {
       rotateKey: function () {
@@ -12,7 +12,7 @@ __d(
       queryProductList: function (t, n, r, a, i) {
         if (
           (r === void 0 && (r = null),
-          o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         )
           throw new (o("WAWebBackendErrors").E451)();
         return {

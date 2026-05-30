@@ -2,7 +2,7 @@ __d(
   "WAWebBizComplianceUtil",
   [
     "fbt",
-    "WAWebBizGatingUtils",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBusinessProfileTypes",
     "WAWebL10NCountryCodes",
     "WAWebLidMigrationUtils",
@@ -64,14 +64,14 @@ __d(
     }
     function m(e, t) {
       return o(
-        "WAWebBizGatingUtils",
+        "WAWebBizCatalogGatingUtils",
       ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(t)
         ? d(e)
         : !0;
     }
     var p = function (t, n, r, a, i) {
         return o(
-          "WAWebBizGatingUtils",
+          "WAWebBizCatalogGatingUtils",
         ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(n)
           ? r.some(function (e) {
               return d(e === a ? i : t == null ? void 0 : t[e]);
@@ -97,7 +97,7 @@ __d(
       if (
         (t === void 0 && (t = {}),
         !o(
-          "WAWebBizGatingUtils",
+          "WAWebBizCatalogGatingUtils",
         ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(n))
       )
         return !0;

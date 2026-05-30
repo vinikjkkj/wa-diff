@@ -3,8 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementFetchCatalog",
-    "WAWebBizGatingUtils",
     "WAWebBizParseProductGraphql",
     "WAWebCatalogEventLogger",
     "WAWebGraphQLServerError",
@@ -20,7 +20,11 @@ __d(
       u,
       c = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           try {
             var r,
@@ -128,7 +132,11 @@ __d(
             m = e.variantThumbnailHeight,
             p = e.variantThumbnailWidth,
             _ = e.width;
-          if (o("WAWebBizGatingUtils").commerceFeaturesDisabledBySanctions())
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
             throw new (o("WAWebBackendErrors").E451)();
           var f = yield o("WAWebBizCatalogManagementFetchCatalog").fetchCatalog(
             {
@@ -160,12 +168,12 @@ __d(
                 )
               : f.type,
             f.type === "recovery-required" &&
-            o("WAWebBizGatingUtils").catalogTokenRecoveryEnabled()
+            o("WAWebBizCatalogGatingUtils").catalogTokenRecoveryEnabled()
               ? new (o("WAWebBackendErrors").AdAccountRecoveryRequiredError)(
                   f.emailMask,
                 )
               : f.type === "incorrect-nonce" &&
-                  o("WAWebBizGatingUtils").catalogTokenRecoveryEnabled()
+                  o("WAWebBizCatalogGatingUtils").catalogTokenRecoveryEnabled()
                 ? new (o("WAWebBackendErrors").CatalogIncorrectNonceError)()
                 : (o("WALogger").WARN(
                     u ||

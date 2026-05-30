@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WAUpperFirst",
+    "WAWebBizCatalogGatingUtils",
     "WAWebBizGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileModel",
@@ -99,7 +100,9 @@ __d(
             : n.commerce_experience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes
               .META_CATALOG &&
-            o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()) ||
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).isCatalogVariantsViewingEnabled()) ||
           (t == null ? void 0 : t.catalog_status) === c
         );
       };
@@ -112,7 +115,9 @@ __d(
           (((n = e.profileOptions) == null ? void 0 : n.commerceExperience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes
               .META_CATALOG &&
-            o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()) ||
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).isCatalogVariantsViewingEnabled()) ||
           e.catalogStatus === c
         );
       }
