@@ -661,15 +661,22 @@ __d(
           var r = new Int32Array(t.buffer);
           (H.store(r, 1, e ? 1 : 0), H.store(r, 0, 1), H.notify(r, 0, 1));
         },
+        browserAudioProcessingStatusSyncRequest: function (t) {
+          var e = new Int32Array(t.buffer);
+          (H.store(
+            e,
+            1,
+            o(
+              "WAWebVoipBrowserAudioStatus",
+            ).getBrowserAudioProcessingStatusForVoipStack(),
+          ),
+            H.store(e, 0, 1),
+            H.notify(e, 0, 1));
+        },
         getBrowserAudioProcessingStatus: function () {
-          var e = o(
+          return o(
             "WAWebVoipBrowserAudioStatus",
-          ).getBrowserAudioProcessingApplied();
-          return e == null
-            ? -1
-            : (e.echoCancellation ? 1 : 0) +
-                (e.noiseSuppression ? 2 : 0) +
-                (e.autoGainControl ? 4 : 0);
+          ).getBrowserAudioProcessingStatusForVoipStack();
         },
         getPersistentDirectoryPath: function () {
           return o("WAWebVoipPersistentFS").getVoipPersistentDirectoryPath();
