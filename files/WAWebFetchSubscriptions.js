@@ -159,25 +159,25 @@ __d(
       );
     }
     function y(e) {
-      if (e != null) {
-        var t = e;
-        switch (t) {
-          case "STATUS_ACTIVE":
-            return "ACTIVE";
-          case "STATUS_CANCELED":
-            return "CANCELED";
-          case "STATUS_DISCOUNT_TRIAL":
-            return "DISCOUNT_TRIAL";
-          case "STATUS_EXPIRED":
-            return "EXPIRED";
-          case "STATUS_FREE_TRIAL":
-            return "FREE_TRIAL";
-          case "STATUS_IN_GRACE_PERIOD":
-            return "IN_GRACE_PERIOD";
-          case "STATUS_ON_HOLD":
-            return "ON_HOLD";
-        }
-      }
+      return e == null
+        ? null
+        : (function (e) {
+            return e === "STATUS_ACTIVE"
+              ? "ACTIVE"
+              : e === "STATUS_CANCELED"
+                ? "CANCELED"
+                : e === "STATUS_DISCOUNT_TRIAL"
+                  ? "DISCOUNT_TRIAL"
+                  : e === "STATUS_EXPIRED"
+                    ? "EXPIRED"
+                    : e === "STATUS_FREE_TRIAL"
+                      ? "FREE_TRIAL"
+                      : e === "STATUS_IN_GRACE_PERIOD"
+                        ? "IN_GRACE_PERIOD"
+                        : e === "STATUS_ON_HOLD"
+                          ? "ON_HOLD"
+                          : null;
+          })(e);
     }
     function C(e) {
       if (e == null) return null;
@@ -191,6 +191,8 @@ __d(
           return o("WAWebSubscriptionSource").SubscriptionSource.BLUE;
         case "SOURCE_PREMIUM":
           return o("WAWebSubscriptionSource").SubscriptionSource.PREMIUM;
+        case "MP4B":
+          return o("WAWebSubscriptionSource").SubscriptionSource.MP4B;
         default:
           return null;
       }

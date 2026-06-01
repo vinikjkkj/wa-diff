@@ -12,7 +12,9 @@ __d(
             ? o("WAWebSubscriptionSource").SubscriptionSource.BLUE
             : e === "PREMIUM"
               ? o("WAWebSubscriptionSource").SubscriptionSource.PREMIUM
-              : null;
+              : e === "MP4B"
+                ? o("WAWebSubscriptionSource").SubscriptionSource.MP4B
+                : null;
     }
     function s(t) {
       var n = [],

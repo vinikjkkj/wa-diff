@@ -23,6 +23,7 @@ __d(
             (e.VISIBLE = "visible"),
             (e.hiddenKey = s),
             (e.hiddenEvent = u),
+            (e.$VisibilityEmitter$p_1 = null),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -40,6 +41,12 @@ __d(
               u !== void 0
             );
           }),
+          (o.setLoggingSinkCallback = function (t) {
+            this.$VisibilityEmitter$p_1 = t;
+          }),
+          (o.getLoggingSinkCallback = function () {
+            return this.$VisibilityEmitter$p_1;
+          }),
           n
         );
       })(r("BaseEventEmitter")),
@@ -48,9 +55,10 @@ __d(
       document.addEventListener(
         d.hiddenEvent,
         r("TimeSlice").guard(function (t) {
-          d.emit(d.isHidden() ? d.HIDDEN : d.VISIBLE, {
-            changeTime: t.timeStamp,
-          });
+          var e = d.isHidden();
+          d.emit(e ? d.HIDDEN : d.VISIBLE, { changeTime: t.timeStamp });
+          var n = d.getLoggingSinkCallback();
+          n != null && n(e);
         }, "visibility change"),
       );
     var m = d;

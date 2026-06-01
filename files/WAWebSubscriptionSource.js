@@ -7,6 +7,7 @@ __d(
       "META_NOVA",
       "BLUE",
       "PREMIUM",
+      "MP4B",
     ]);
     i.SubscriptionSource = e;
   },
