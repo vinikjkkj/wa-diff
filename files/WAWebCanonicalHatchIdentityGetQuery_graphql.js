@@ -8,31 +8,42 @@ __d(
         {
           alias: null,
           args: null,
-          concreteType: "WAGenAIHatchIdentityGetResponse",
+          concreteType: "WAGenAIHatchChannelMetadata",
           kind: "LinkedField",
-          name: "wa_genai_hatch_identity_get",
+          name: "wa_genai_hatch_channel_metadata",
           plural: !1,
           selections: [
             {
               alias: null,
               args: null,
-              kind: "ScalarField",
-              name: "name",
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              concreteType: "WAGenAIHatchIdentityAvatarInfo",
+              concreteType: "WAGenAIHatchIdentityGetResponse",
               kind: "LinkedField",
-              name: "avatar",
+              name: "identity",
               plural: !1,
               selections: [
                 {
                   alias: null,
                   args: null,
                   kind: "ScalarField",
-                  name: "image_url",
+                  name: "name",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "WAGenAIHatchIdentityAvatarInfo",
+                  kind: "LinkedField",
+                  name: "avatar",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "image_url",
+                      storageKey: null,
+                    },
+                  ],
                   storageKey: null,
                 },
               ],
@@ -60,7 +71,7 @@ __d(
           selections: e,
         },
         params: {
-          id: "26226835783605669",
+          id: "26904711582547752",
           metadata: {},
           name: "WAWebCanonicalHatchIdentityGetQuery",
           operationKind: "query",

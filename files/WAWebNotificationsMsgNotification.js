@@ -27,7 +27,6 @@ __d(
     "WAWebNotificationController",
     "WAWebNotificationEngagementWamEvent",
     "WAWebNotificationHelpers",
-    "WAWebNotificationIcon",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotifyForUtils",
@@ -308,16 +307,8 @@ __d(
             var e;
             return (e = m == null ? void 0 : m(this.msg)) != null ? e : [];
           }),
-          (a.beforeBannerShown = function () {
-            return (
-              o("WAWebNotificationIcon").notifyBackgroundActivity(),
-              e.prototype.beforeBannerShown.call(this)
-            );
-          }),
           (a.playSound = function () {
-            (o("WAWebNotificationIcon").notifyBackgroundActivity(),
-              e.prototype.playSound.call(this),
-              this.$WAMsgNotification$p_1());
+            (e.prototype.playSound.call(this), this.$WAMsgNotification$p_1());
           }),
           (a.$WAMsgNotification$p_1 = function () {
             var e = o("WAWebFrontendMsgGetters").getChat(this.msg);

@@ -1,24 +1,31 @@
 __d(
   "WAWebLockScreenResolver",
   [
+    "fbt",
     "WAComms",
     "WALogger",
     "WAResolvable",
+    "WAWebCallCollection",
     "WAWebChatCollection",
     "WAWebCmd",
+    "WAWebConfirmPopup.react",
     "WAWebCryptoEncKeyHelper",
     "WAWebDbEncryptionKey",
     "WAWebModalManager",
     "WAWebMsgCollection",
     "WAWebUserPrefsInfoStore",
     "asyncToGeneratorRuntime",
+    "react",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e,
-      s,
       u,
       c,
-      d = (function () {
+      d,
+      m,
+      p,
+      _ = p || (p = o("react")),
+      f = (function () {
         function e() {
           this.deferred = new (o("WAResolvable").Resolvable)();
         }
@@ -50,28 +57,51 @@ __d(
           e
         );
       })(),
-      m = new d();
-    function p() {
-      return _.apply(this, arguments);
+      g = new f();
+    function h() {
+      return y.apply(this, arguments);
     }
-    function _() {
+    function y() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (r("WAWebCallCollection").activeCall != null) {
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[screen-lock] blocked: active call in progress",
+                ])),
+            ),
+              o("WAWebModalManager").ModalManager.open(
+                _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                  tsNavigationData: {
+                    surface: "unknown",
+                    viewName: "screen-lock-active-call-blocker",
+                  },
+                  title: s._(/*BTDS*/ "You can't lock the app during a call"),
+                  onOK: o("WAWebModalManager").closeModalManager,
+                  okText: s._(/*BTDS*/ "OK"),
+                  children: s._(
+                    /*BTDS*/ "End your call before locking the app.",
+                  ),
+                }),
+              ));
+            return;
+          }
           if (
             o("WAWebUserPrefsInfoStore").waNoiseInfo.cachedPasscodeDerivedKey ==
             null
           ) {
             (o("WALogger")
               .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[screeen-lock] passcode derived key null",
                   ])),
               )
               .sendLogs("[screeen-lock] passcode derived key null"),
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[reload] lockScreenAndTriggerUnlockFlow: no passcode key",
                   ])),
               ),
@@ -81,8 +111,8 @@ __d(
           var t = o("WAComms").getComms();
           if (t == null) {
             (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[reload] lockScreenAndTriggerUnlockFlow: no comms",
                 ])),
             ),
@@ -103,8 +133,8 @@ __d(
             t.softCloseSocket();
           else {
             (o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[reload] lockScreenAndTriggerUnlockFlow",
                 ])),
             ),
@@ -114,10 +144,10 @@ __d(
           (yield o("WAWebCryptoEncKeyHelper").initEncSalt(),
             t.socketLoop.start());
         })),
-        _.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.LockScreenResolvable = m), (l.lockScreenAndTriggerUnlockFlow = p));
+    ((l.LockScreenResolvable = g), (l.lockScreenAndTriggerUnlockFlow = h));
   },
-  98,
+  226,
 );

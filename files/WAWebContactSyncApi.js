@@ -274,7 +274,14 @@ __d(
                         i = t.text;
                       yield o(
                         "WAWebUpdateTextStatusForContact",
-                      ).updateTextStatusForContact(e.id, i, n, r, a);
+                      ).updateTextStatusForContact({
+                        contactId: e.id,
+                        textString: i,
+                        emoji: n,
+                        ephemeralDuration: r,
+                        newUpdateTime: a,
+                        source: "contact-sync",
+                      });
                     }
                   },
                 );

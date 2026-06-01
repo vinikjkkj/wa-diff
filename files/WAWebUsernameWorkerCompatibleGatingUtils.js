@@ -1,11 +1,6 @@
 __d(
   "WAWebUsernameWorkerCompatibleGatingUtils",
-  [
-    "WAWebABProps",
-    "WAWebLid1X1MigrationGating",
-    "WAWebPrimaryFeatures",
-    "WAWebUsernameGatingUtils",
-  ],
+  ["WAWebABProps", "WAWebLid1X1MigrationGating", "WAWebPrimaryFeatures"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o(
@@ -16,9 +11,7 @@ __d(
       return (
         o("WAWebPrimaryFeatures").primaryFeatureEnabled(
           "companion_lid_contact_change_enabled",
-        ) &&
-        o("WAWebUsernameGatingUtils").usernameContactSyncdEnabled() &&
-        e()
+        ) && e()
       );
     }
     function u() {

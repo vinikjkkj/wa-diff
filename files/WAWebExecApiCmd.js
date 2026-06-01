@@ -5,6 +5,7 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebABProps",
+    "WAWebAboutWamLogger",
     "WAWebActiveAccountInfoContext.react",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebAddEditPixFeature",
@@ -75,6 +76,8 @@ __d(
     "WAWebStickerStoreFlowLoadable",
     "WAWebText.react",
     "WAWebTextStatusCollection",
+    "WAWebTextStatusEditModalLoadable",
+    "WAWebTextStatusGatingUtils",
     "WAWebUpdateUtmAction",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameManagementDrawerLoadable",
@@ -1356,6 +1359,26 @@ __d(
             ),
             !0
           );
+        case "SET_ABOUT":
+          return o("WAWebTextStatusGatingUtils").sendTextStatusEnabled()
+            ? (o("WAWebCmd").Cmd.closeStatusViewer(),
+              o("WAWebModalManager").ModalManager.open(
+                D.jsx(
+                  o("WAWebTextStatusEditModalLoadable")
+                    .TextStatusEditModalLoadable,
+                  {
+                    entrypoint: o("WAWebAboutWamLogger").ABOUT_ENTRYPOINT_TYPE
+                      .DEEP_LINK,
+                  },
+                ),
+              ),
+              o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
+                deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
+                  .DEEP_LINK_SET_ABOUT,
+                isExternal: a,
+              }),
+              !0)
+            : !1;
         default:
           return (t.resultType, !1);
       }

@@ -13,24 +13,27 @@ __d(
         );
         return e > 0
           ? new (o("WAWebLruCacheMap").LruCacheMap)({ sizeLimit: e })
-          : new Map();
+          : r("WAWebEnvironment").isWindows
+            ? new (o("WAWebDummyCacheMap").FakeCacheMap)()
+            : new Map();
       },
       s = function () {
-        return r("WAWebEnvironment").isWindows
-          ? o("WAWebABProps").getABPropConfigValue(
-              "web_hybrid_getters_cache_enabled",
-            )
-            ? e()
-            : new (o("WAWebDummyCacheMap").FakeCacheMap)()
-          : e();
+        return e();
       },
-      u = s,
+      u = function () {
+        var e = o("WAWebABProps").getABPropConfigValue(
+          "web_getters_lru_cache_size_limit",
+        );
+        return e > 0
+          ? new (o("WAWebLruCacheMap").LruCacheMap)({ sizeLimit: e })
+          : new Map();
+      },
       c = s,
       d = s,
       m = s,
-      p = e,
-      _ = e,
-      f = s,
+      p = s,
+      _ = u,
+      f = u,
       g = s,
       h = s,
       y = s,
@@ -52,36 +55,37 @@ __d(
       M = s,
       w = s,
       A = s,
-      F = s;
-    ((l.createMessagesCache = u),
-      (l.createFrontendMessagesCache = c),
-      (l.createChatCache = d),
-      (l.createFrontendChatCache = m),
-      (l.createContactsCache = p),
-      (l.createFrontendContactsCache = _),
-      (l.createLabelsCache = f),
-      (l.createMuteCache = g),
-      (l.createPinInChatsCache = h),
-      (l.createFrontendPinInChatsCache = y),
-      (l.createMsgInfosCache = C),
-      (l.createPollVotesCache = b),
-      (l.createFrontendPollVotesCache = v),
-      (l.createNewsletterPollVotesCache = S),
-      (l.createFrontendNewsletterPollVotesCache = R),
-      (l.createSettingsCache = L),
-      (l.createStickerModelMdCache = E),
-      (l.createMediaEditControllerCache = k),
-      (l.createOrderCache = I),
-      (l.createOrderItemCache = T),
-      (l.createQuickReplyCache = D),
-      (l.createFrontendQuickReplyCache = x),
-      (l.createStatusCache = $),
-      (l.createFrontendStatusCache = P),
-      (l.createRecordingSessionCache = N),
-      (l.createEventResponseCache = M),
-      (l.createFrontendEventResponseCache = w),
-      (l.createCartCache = A),
-      (l.createCatalogCache = F));
+      F = s,
+      O = s;
+    ((l.createMessagesCache = c),
+      (l.createFrontendMessagesCache = d),
+      (l.createChatCache = m),
+      (l.createFrontendChatCache = p),
+      (l.createContactsCache = _),
+      (l.createFrontendContactsCache = f),
+      (l.createLabelsCache = g),
+      (l.createMuteCache = h),
+      (l.createPinInChatsCache = y),
+      (l.createFrontendPinInChatsCache = C),
+      (l.createMsgInfosCache = b),
+      (l.createPollVotesCache = v),
+      (l.createFrontendPollVotesCache = S),
+      (l.createNewsletterPollVotesCache = R),
+      (l.createFrontendNewsletterPollVotesCache = L),
+      (l.createSettingsCache = E),
+      (l.createStickerModelMdCache = k),
+      (l.createMediaEditControllerCache = I),
+      (l.createOrderCache = T),
+      (l.createOrderItemCache = D),
+      (l.createQuickReplyCache = x),
+      (l.createFrontendQuickReplyCache = $),
+      (l.createStatusCache = P),
+      (l.createFrontendStatusCache = N),
+      (l.createRecordingSessionCache = M),
+      (l.createEventResponseCache = w),
+      (l.createFrontendEventResponseCache = A),
+      (l.createCartCache = F),
+      (l.createCatalogCache = O));
   },
   98,
 );

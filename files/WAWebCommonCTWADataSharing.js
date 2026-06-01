@@ -12,6 +12,7 @@ __d(
     "WAWebDataSharingOptInCoolOffModel",
     "WAWebDataSharingUpsellModel",
     "WAWebGetCTWAEligibilityFromConversion",
+    "WAWebMobilePlatforms",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
   ],
@@ -62,7 +63,7 @@ __d(
             e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false ||
             r ||
             i) &&
-          o("WAWebBizGatingUtils").shouldShowSMBDataSharingSettings()
+          o("WAWebMobilePlatforms").isSMB()
         );
       },
       f = function (t) {

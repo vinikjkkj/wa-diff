@@ -2,6 +2,7 @@ __d(
   "WAWebUpdateTextStatusForContact",
   [
     "WAJids",
+    "WALogger",
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebDBUpdateContactTable",
@@ -11,38 +12,62 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, o) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = o("WAWebWidFactory").createUserWidOrThrow(e.user, e.server),
-              l = yield o("WAWebApiContact").getContactRecord(i);
-            if (l) {
-              var s = d(l, t, n, r, a);
-              s &&
-                (yield o("WAWebDBUpdateContactTable").updateContactTable(
-                  i,
-                  babelHelpers.extends({}, s),
-                ),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "updateTextStatus",
-                  babelHelpers.extends({}, s, { contactId: i }),
-                ));
-            }
-          },
-        )),
-        s.apply(this, arguments)
-      );
+    var e;
+    function s(e) {
+      return e === "mex-notification" || e === "mex-notification-side-sub";
     }
     function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.contactId,
+            r = t.emoji,
+            a = t.ephemeralDuration,
+            i = t.newUpdateTime,
+            l = t.source,
+            u = t.textString,
+            c = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
+            d = yield o("WAWebApiContact").getContactRecord(c);
+          if (!d) {
+            s(l) &&
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[textStatus] notification ",
+                      ": no contact for ",
+                      "",
+                    ])),
+                  l,
+                  c.toLogString(),
+                )
+                .sendLogs("text-status-notification-no-contact", {
+                  sampling: 0.1,
+                });
+            return;
+          }
+          var m = p(d, u, r, a, i);
+          m &&
+            (yield o("WAWebDBUpdateContactTable").updateContactTable(
+              c,
+              babelHelpers.extends({}, m),
+            ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateTextStatus",
+              babelHelpers.extends({}, m, { contactId: c }),
+            ));
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             for (
               var t = e.map(function (e) {
@@ -67,7 +92,7 @@ __d(
               var s = t[l],
                 u = n[l];
               if (u) {
-                var c = d(
+                var c = p(
                   u,
                   s.textString,
                   s.emoji,
@@ -75,10 +100,10 @@ __d(
                   s.newUpdateTime,
                 );
                 if (c) {
-                  var m = s.contactUserWid.isLid()
+                  var d = s.contactUserWid.isLid()
                     ? o("WAJids").toLidUserJid(s.contactUserWid.user)
                     : o("WAJids").toPhoneUserJid(s.contactUserWid.user);
-                  (a.push(babelHelpers.extends({ id: m }, c)),
+                  (a.push(babelHelpers.extends({ id: d }, c)),
                     i.push({ contactChange: c, contactId: s.contactUserWid }));
                 }
               }
@@ -88,48 +113,41 @@ __d(
                 a,
                 "updateTextStatusForContactsBatch",
               );
-              for (var p of i)
+              for (var m of i)
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateTextStatus",
-                  babelHelpers.extends({}, p.contactChange, {
-                    contactId: p.contactId,
+                  babelHelpers.extends({}, m.contactChange, {
+                    contactId: m.contactId,
                   }),
                 );
             }
           }
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function d(e, t, n, r, a) {
-      var i = e.textStatusLastUpdateTime;
-      if (
-        a == null ||
-        (i != null &&
-          a !==
-            o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL &&
-          a < i)
-      )
-        return null;
-      var l = o("WAWebTextStatusUtils").resolveTextStatusUpdateTime(a, i),
-        s;
+    function p(e, t, n, r, a) {
+      var i = e.textStatusLastUpdateTime,
+        l =
+          a ===
+            o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL ||
+          a === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_AUTHORIZED;
+      if (a == null || (i != null && !l && a < i)) return null;
+      var s = o("WAWebTextStatusUtils").resolveTextStatusUpdateTime(a, i),
+        u;
       return (
-        r != null &&
-          r > 0 &&
-          a !==
-            o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL &&
-          (s = Number(a) + Number(r)),
+        r != null && r > 0 && !l && (u = Number(a) + Number(r)),
         {
           textStatusString: t,
           textStatusEmoji: n,
           textStatusEphemeralDuration: r,
-          textStatusLastUpdateTime: l,
-          textStatusExpiryTs: s,
+          textStatusLastUpdateTime: s,
+          textStatusExpiryTs: u,
         }
       );
     }
-    ((l.updateTextStatusForContact = e),
-      (l.updateTextStatusForContactsBatch = u));
+    ((l.updateTextStatusForContact = u),
+      (l.updateTextStatusForContactsBatch = d));
   },
   98,
 );

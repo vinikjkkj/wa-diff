@@ -26,22 +26,17 @@ __d(
               s,
               {},
               { environmentType: "whatsapp_web" },
-            );
+            ),
+            i =
+              a == null || (e = a.wa_genai_hatch_channel_metadata) == null
+                ? void 0
+                : e.identity;
           return {
-            name:
-              (e =
-                a == null || (t = a.wa_genai_hatch_identity_get) == null
-                  ? void 0
-                  : t.name) != null
-                ? e
-                : null,
+            name: (t = i == null ? void 0 : i.name) != null ? t : null,
             avatarUrl:
               (n =
-                a == null ||
-                (r = a.wa_genai_hatch_identity_get) == null ||
-                (r = r.avatar) == null
-                  ? void 0
-                  : r.image_url) != null
+                i == null || (r = i.avatar) == null ? void 0 : r.image_url) !=
+              null
                 ? n
                 : null,
           };

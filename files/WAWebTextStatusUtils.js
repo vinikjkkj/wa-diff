@@ -2,63 +2,66 @@ __d(
   "WAWebTextStatusUtils",
   ["WATimeUtils", "WAWebTextStatusGatingUtils", "fbs"],
   function (t, n, r, o, a, i, l) {
-    var e = -1;
-    function s(t) {
+    var e = -1,
+      s = -3;
+    function u(t) {
       return t == null || t === e;
     }
-    var u = 50,
-      c = -2,
-      d = 0;
-    function m(e) {
+    var c = 50,
+      d = -2,
+      m = 0;
+    function p(e) {
       return e != null && e >= 0;
     }
-    function p(t, n) {
-      return t === d && (n == null || n === e || n === c) ? c : t;
+    function _(t, n) {
+      return t === m && (n == null || n === e || n === d) ? d : t;
     }
-    var _ = null,
-      f = null,
+    var f = null,
       g = null,
-      h = -1;
-    function y(e, t, n, r, a) {
-      var i = a === h || (r != null && o("WATimeUtils").unixTime() < r),
+      h = null,
+      y = -1;
+    function C(e, t, n, r, a) {
+      var i = a === y || (r != null && o("WATimeUtils").unixTime() < r),
         l = !!(e != null && e.trim()) || !!t,
-        s = n !== d;
+        s = n !== m;
       return s && i && l;
     }
-    function C(e) {
-      return e != null && e !== h;
+    function b(e) {
+      return e != null && e !== y;
     }
-    function b(t, n, r, a, i) {
+    function v(t, n, r, a, i) {
       return !(
         !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() ||
         r === e ||
-        r === c ||
-        !y(t, n, r, a, i)
+        r === d ||
+        r === s ||
+        !C(t, n, r, a, i)
       );
     }
-    function v(e) {
+    function S(e) {
       return e.status === void 0;
     }
-    function S(e) {
+    function R(e) {
       var t = r("fbs")._(/*BTDS*/ "Hey there! I am using WhatsApp.").toString();
       return e.isValidTextStatus() && e.status !== t;
     }
     ((l.TEXT_STATUS_NOT_FETCHED = e),
-      (l.isTextStatusNotFetched = s),
-      (l.SUGGESTIONS_MAX_COUNT = u),
-      (l.TEXT_STATUS_NEVER_HAD = c),
-      (l.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL = d),
-      (l.hasEverHadTextStatus = m),
-      (l.resolveTextStatusUpdateTime = p),
-      (l.CLEAR_TEXT_STATUS_STRING_VAL = _),
-      (l.CLEAR_TEXT_STATUS_EMOJI_VAL = f),
-      (l.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL = g),
-      (l.TEXT_STATUS_DURATION_INFINITE = h),
-      (l.hasTextStatusSet = y),
-      (l.isEphemeralTextStatus = C),
-      (l.shouldDisplayTextStatus = b),
-      (l.isLegacyAboutNotFetched = v),
-      (l.hasCustomAboutSet = S));
+      (l.TEXT_STATUS_NOT_AUTHORIZED = s),
+      (l.isTextStatusNotFetched = u),
+      (l.SUGGESTIONS_MAX_COUNT = c),
+      (l.TEXT_STATUS_NEVER_HAD = d),
+      (l.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL = m),
+      (l.hasEverHadTextStatus = p),
+      (l.resolveTextStatusUpdateTime = _),
+      (l.CLEAR_TEXT_STATUS_STRING_VAL = f),
+      (l.CLEAR_TEXT_STATUS_EMOJI_VAL = g),
+      (l.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL = h),
+      (l.TEXT_STATUS_DURATION_INFINITE = y),
+      (l.hasTextStatusSet = C),
+      (l.isEphemeralTextStatus = b),
+      (l.shouldDisplayTextStatus = v),
+      (l.isLegacyAboutNotFetched = S),
+      (l.hasCustomAboutSet = R));
   },
   226,
 );

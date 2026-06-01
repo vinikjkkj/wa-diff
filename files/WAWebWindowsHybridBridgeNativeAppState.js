@@ -100,6 +100,18 @@ __d(
               },
             );
           }),
+          (this.bringMainWindowToForeground = function () {
+            return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "nativeAppStateBridge",
+                method: "bringMainWindowToForeground",
+                type: "async",
+              },
+              function () {
+                return t.$1.bringMainWindowToForeground();
+              },
+            );
+          }),
           (this.getAppStateAsync = n(
             "asyncToGeneratorRuntime",
           ).asyncToGenerator(function* () {
@@ -139,6 +151,24 @@ __d(
               a
             );
           })),
+          (this.takeAppLaunchSnapshotAsync = function () {
+            var e = t.$1.takeAppLaunchSnapshotAsync;
+            return e == null
+              ? null
+              : (r("WAWebODS").incr(
+                  "web.hybrid.bridge.native_app_state.send.get_app_launch_snapshot_async",
+                ),
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                  {
+                    bridge: "nativeAppStateBridge",
+                    method: "takeAppLaunchSnapshotAsync",
+                    type: "async",
+                  },
+                  function () {
+                    return e.call(t.$1, Date.now());
+                  },
+                ));
+          }),
           (this.$1 = a),
           (this.$2 = i),
           this.$1.addEventListener("appStateChangedEvent", this.$5),

@@ -16,15 +16,16 @@ __d(
       c,
       d,
       m,
-      p = r("requireDeferred")("asn1js-2.1.1").__setRef(
+      p,
+      _ = r("requireDeferred")("asn1js-2.1.1").__setRef(
         "WAWebCertificateUtils",
       );
-    function _() {
+    function f() {
       return r("JSResourceForInteraction")("pkijs")
         .__setRef("WAWebCertificateUtils")
         .load();
     }
-    function f(t, n) {
+    function g(t, n) {
       try {
         var r,
           a,
@@ -47,55 +48,55 @@ __d(
         );
       }
     }
-    function g() {
-      return new (m || (m = n("Promise")))(function (e) {
-        p.onReady(function (t) {
+    function h() {
+      return new (p || (p = n("Promise")))(function (e) {
+        _.onReady(function (t) {
           e(t().fromBER);
         });
       });
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
-          var t = yield _(),
+          var t = yield f(),
             n = t.Certificate,
-            r = yield g(),
+            r = yield h(),
             a = [];
           for (var i of e) {
             var l = r(i.buffer),
-              u = l.result;
-            if (u.error != null && u.error !== "")
+              s = l.result;
+            if (s.error != null && s.error !== "")
               return (
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[certificate-utils] Failed to parse certificate DER",
                       ])),
                   )
                   .sendLogs("certificate-utils-cert-parse-error"),
                 []
               );
-            a.push(new n({ schema: u }));
+            a.push(new n({ schema: s }));
           }
           return a;
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = v(e),
-              n = yield g(),
+            var t = S(e),
+              n = yield h(),
               a = n(t.buffer),
               i = a.offset,
               l = a.result;
@@ -103,21 +104,21 @@ __d(
               return (
                 o("WALogger")
                   .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[certificate-utils] Failed to parse CRL DER",
                       ])),
                   )
                   .sendLogs("certificate-utils-crl-der-parse-error"),
                 null
               );
-            var s = yield _(),
-              m = s.CertificateRevocationList,
-              p = new m({ schema: l }),
-              f = p.revokedCertificates;
-            if (f == null || f.length === 0) return [];
-            var h = [];
-            for (var y of f) {
+            var s = yield f(),
+              u = s.CertificateRevocationList,
+              p = new u({ schema: l }),
+              _ = p.revokedCertificates;
+            if (_ == null || _.length === 0) return [];
+            var g = [];
+            for (var y of _) {
               var C,
                 b =
                   (C = y.userCertificate) == null || (C = C.valueBlock) == null
@@ -127,23 +128,23 @@ __d(
                 return (
                   o("WALogger")
                     .WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "[certificate-utils] Malformed CRL entry, treating CRL as unparseable",
                         ])),
                     )
                     .sendLogs("certificate-utils-crl-malformed-entry"),
                   null
                 );
-              h.push(o("WAHex").toLowerCaseHex(new Uint8Array(b)));
+              g.push(o("WAHex").toLowerCaseHex(new Uint8Array(b)));
             }
-            return h;
+            return g;
           } catch (e) {
             return (
               o("WALogger")
                 .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[certificate-utils] Failed to parse CRL binary",
                     ])),
                 )
@@ -153,10 +154,10 @@ __d(
             );
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S(e) {
       var t = e;
       if (
         (e.startsWith("-----BEGIN") || (t = atob(e)),
@@ -180,12 +181,37 @@ __d(
         i[l] = t.charCodeAt(l);
       return i;
     }
-    ((l.getPkiJs = _),
-      (l.isCertificateValidAtTime = f),
-      (l.getAsn1FromBER = g),
-      (l.parseCertificateChain = h),
-      (l.parseCrlSerialNumbers = C),
-      (l.decodePemOrBase64ToDer = v));
+    function R(e) {
+      try {
+        var t,
+          n = e.serialNumber;
+        return (n == null || (t = n.valueBlock) == null
+          ? void 0
+          : t.valueHex) != null
+          ? o("WAHex").toLowerCaseHex(new Uint8Array(n.valueBlock.valueHex))
+          : null;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[certificate-utils] Failed to extract certificate serial number",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("certificate-utils-serial-extract-error"),
+          null
+        );
+      }
+    }
+    ((l.getPkiJs = f),
+      (l.isCertificateValidAtTime = g),
+      (l.getAsn1FromBER = h),
+      (l.parseCertificateChain = y),
+      (l.parseCrlSerialNumbers = b),
+      (l.decodePemOrBase64ToDer = S),
+      (l.getCertificateSerialNumber = R));
   },
   98,
 );

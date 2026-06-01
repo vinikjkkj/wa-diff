@@ -26,24 +26,25 @@ __d(
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][unschedule][handler] no reveal-key row for ",
-                  " (or wire id ",
-                  "), nothing to clean up",
+                  "[scheduled_msg][unschedule] no row for ",
+                  "/",
+                  "",
                 ])),
               r,
               a,
             );
             return;
           }
+          var l = (n = i.chatId) != null ? n : "<unknown>";
           (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[scheduled_msg][unschedule][handler] cleaning up unscheduled msg ",
-                " in chat ",
+                "[scheduled_msg][unschedule] cleanup msg=",
+                " chat=",
                 "",
               ])),
             i.msgId,
-            (n = i.chatId) != null ? n : "<unknown>",
+            l,
           ),
             yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(
               i.msgId,

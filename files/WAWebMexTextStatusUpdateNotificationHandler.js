@@ -3,9 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
+    "WAWebBackendErrors",
     "WAWebContactTextStatusBridge",
     "WAWebMexFetchTextStatusListJob",
     "WAWebTextStatusGatingUtils",
+    "WAWebTextStatusUtils",
     "WAWebUpdateTextStatusForContact",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -32,13 +34,14 @@ __d(
             try {
               yield o(
                 "WAWebUpdateTextStatusForContact",
-              ).updateTextStatusForContact(
-                o("WAWebWidFactory").createWid(i),
-                l.textStatusString,
-                l.textStatusEmoji,
-                l.textStatusEphemeralDuration,
-                l.textStatusLastUpdateTime,
-              );
+              ).updateTextStatusForContact({
+                contactId: o("WAWebWidFactory").createWid(i),
+                textString: l.textStatusString,
+                emoji: l.textStatusEmoji,
+                ephemeralDuration: l.textStatusEphemeralDuration,
+                newUpdateTime: l.textStatusLastUpdateTime,
+                source: "mex-notification",
+              });
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -63,29 +66,46 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.xwa2_notify_text_status_on_update_side_sub,
             r = yield o("WAWebApiContact").getContactRecordByHash(n.hash);
-          if (r == null)
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[mex][textStatus] side-sub: contact hash not found",
-                ])),
-            );
-          else {
-            var a = o("WAWebWidFactory").createWid(r.id),
-              i = r.textStatusLastUpdateTime;
-            return o("WAWebContactTextStatusBridge")
-              .getTextStatus(a, i)
-              .then(function (e) {
-                var t = e.emoji,
-                  n = e.ephemeralDurationSeconds,
-                  r = e.id,
-                  a = e.lastUpdateTime,
-                  i = e.text;
-                return o(
-                  "WAWebUpdateTextStatusForContact",
-                ).updateTextStatusForContact(r, i, t, n, a);
+          if (r == null) {
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex][textStatus] side-sub: contact hash not found",
+                  ])),
+              )
+              .sendLogs("mex-text-status-side-sub-hash-not-found", {
+                sampling: 0.1,
               });
+            return;
           }
+          var a = o("WAWebWidFactory").createWid(r.id),
+            i = r.textStatusLastUpdateTime,
+            l = yield o("WAWebContactTextStatusBridge").getTextStatus(a, i);
+          return l.error != null
+            ? l.error instanceof
+                o("WAWebBackendErrors").ServerStatusCodeError &&
+              l.error.statusCode === 401
+              ? o("WAWebUpdateTextStatusForContact").updateTextStatusForContact(
+                  {
+                    contactId: a,
+                    textString: null,
+                    emoji: null,
+                    ephemeralDuration: null,
+                    newUpdateTime: o("WAWebTextStatusUtils")
+                      .TEXT_STATUS_NOT_AUTHORIZED,
+                    source: "mex-notification-side-sub",
+                  },
+                )
+              : void 0
+            : o("WAWebUpdateTextStatusForContact").updateTextStatusForContact({
+                contactId: l.id,
+                textString: l.text,
+                emoji: l.emoji,
+                ephemeralDuration: l.ephemeralDurationSeconds,
+                newUpdateTime: l.lastUpdateTime,
+                source: "mex-notification-side-sub",
+              });
         })),
         m.apply(this, arguments)
       );

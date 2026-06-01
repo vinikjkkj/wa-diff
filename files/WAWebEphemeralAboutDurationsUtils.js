@@ -9,8 +9,9 @@ __d(
         e.DAY_SECONDS,
         2 * e.DAY_SECONDS,
         e.WEEK_SECONDS,
-      ];
-    function u(e) {
+      ],
+      u = 365 * e.DAY_SECONDS;
+    function c(e) {
       var t = o("WAWebEphemeralConstants").getDurationForString(e, !0),
         n = t.duration,
         a = t.unit;
@@ -46,36 +47,38 @@ __d(
           );
       }
     }
-    function c(e, t) {
-      return { type: t, value: e, label: u(e) };
+    function d(e, t) {
+      return { type: t, value: e, label: c(e) };
     }
-    function d() {
+    function m() {
       var e = s,
         t = o("WAWebABProps")
           .getABPropConfigValue("text_status_ttl_seconds_allowlist")
           .split(",");
-      t.length !== 0 &&
-        (e = t
+      if (t.length !== 0) {
+        var n = t
           .map(function (e) {
             return Number(e);
           })
           .filter(function (e) {
-            return !Number.isNaN(e);
-          }));
-      var n = e.map(function (e) {
-        return c(e, "default");
+            return !Number.isNaN(e) && e <= u;
+          });
+        n.length !== 0 && (e = n);
+      }
+      var r = e.map(function (e) {
+        return d(e, "default");
       });
       return (
-        n.sort(function (e, t) {
+        r.sort(function (e, t) {
           var n = e.value,
             r = t.value;
           return n - r;
         }),
-        n
+        r
       );
     }
     ((l.defaultTextStatusEphemeralDuration = e.DAY_SECONDS),
-      (l.getTextStatusEphemeralityDurations = d));
+      (l.getTextStatusEphemeralityDurations = m));
   },
   226,
 );

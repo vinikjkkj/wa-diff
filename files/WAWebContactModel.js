@@ -143,13 +143,15 @@ __d(
           var e;
           (r("WAWebAlarm").clearTimeout(this.meTextStatusExpiryTimer),
             this.unset(["meTextStatusExpiryTimer"]),
-            o("WAWebUpdateTextStatusForContact").updateTextStatusForContact(
-              this.id,
-              (e = o("WAWebTextStatusUtils")).CLEAR_TEXT_STATUS_STRING_VAL,
-              e.CLEAR_TEXT_STATUS_EMOJI_VAL,
-              e.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL,
-              e.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL,
-            ));
+            o("WAWebUpdateTextStatusForContact").updateTextStatusForContact({
+              contactId: this.id,
+              textString: (e = o("WAWebTextStatusUtils"))
+                .CLEAR_TEXT_STATUS_STRING_VAL,
+              emoji: e.CLEAR_TEXT_STATUS_EMOJI_VAL,
+              ephemeralDuration: e.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL,
+              newUpdateTime: e.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL,
+              source: "clear-self-expiry",
+            }));
         }),
         (a.setupStatusExpiration = function () {
           var e = this,

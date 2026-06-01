@@ -341,13 +341,14 @@ __d(
             });
           return o(
             "WAWebUpdateTextStatusForContact",
-          ).updateTextStatusForContact(
-            u.id,
-            u.textStatusString,
-            u.textStatusEmoji,
-            u.textStatusEphemeralDuration,
-            u.textStatusLastUpdateTime,
-          );
+          ).updateTextStatusForContact({
+            contactId: u.id,
+            textString: u.textStatusString,
+            emoji: u.textStatusEmoji,
+            ephemeralDuration: u.textStatusEphemeralDuration,
+            newUpdateTime: u.textStatusLastUpdateTime,
+            source: "account-sync",
+          });
         })),
         h.apply(this, arguments)
       );
@@ -422,13 +423,14 @@ __d(
                   f = o("WAWebWidFactory").asUserWidOrThrow(r.from);
                 yield o(
                   "WAWebUpdateTextStatusForContact",
-                ).updateTextStatusForContact(
-                  f,
-                  m,
-                  i,
-                  l,
-                  s != null ? Number(s) : void 0,
-                );
+                ).updateTextStatusForContact({
+                  contactId: f,
+                  textString: m,
+                  emoji: i,
+                  ephemeralDuration: l,
+                  newUpdateTime: s != null ? Number(s) : void 0,
+                  source: "account-sync",
+                });
               }
               break;
             case o("WAWebAccountSyncJob").AccountSyncType.DEVICES: {

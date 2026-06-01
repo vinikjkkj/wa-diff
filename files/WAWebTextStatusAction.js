@@ -6,6 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebActionToast.react",
     "WAWebApiTextStatusSuggestions",
+    "WAWebBackendErrors",
     "WAWebContactCollection",
     "WAWebContactTextStatusBridge",
     "WAWebTextStatusGatingUtils",
@@ -54,19 +55,34 @@ __d(
                 s = yield i;
               if (l) {
                 if (s.error) {
-                  m.set(n, Date.now());
+                  (m.set(n, Date.now()),
+                    s.error instanceof
+                      o("WAWebBackendErrors").ServerStatusCodeError &&
+                      s.error.statusCode === 401 &&
+                      o(
+                        "WAWebUpdateTextStatusForContact",
+                      ).updateTextStatusForContact({
+                        contactId: e,
+                        textString: null,
+                        emoji: null,
+                        ephemeralDuration: null,
+                        newUpdateTime: o("WAWebTextStatusUtils")
+                          .TEXT_STATUS_NOT_AUTHORIZED,
+                        source: "fetch",
+                      }));
                   return;
                 }
                 (m.delete(n),
                   o(
                     "WAWebUpdateTextStatusForContact",
-                  ).updateTextStatusForContact(
-                    e,
-                    s.text,
-                    s.emoji,
-                    s.ephemeralDurationSeconds,
-                    s.lastUpdateTime,
-                  ));
+                  ).updateTextStatusForContact({
+                    contactId: e,
+                    textString: s.text,
+                    emoji: s.emoji,
+                    ephemeralDuration: s.ephemeralDurationSeconds,
+                    newUpdateTime: s.lastUpdateTime,
+                    source: "fetch",
+                  }));
               }
             }
           }
@@ -103,13 +119,14 @@ __d(
                       if (c.result === "SUCCESS") {
                         o(
                           "WAWebUpdateTextStatusForContact",
-                        ).updateTextStatusForContact(
-                          u.id,
-                          t,
-                          r,
-                          a,
-                          d ? 0 : o("WATimeUtils").unixTime(),
-                        );
+                        ).updateTextStatusForContact({
+                          contactId: u.id,
+                          textString: t,
+                          emoji: r,
+                          ephemeralDuration: a,
+                          newUpdateTime: d ? 0 : o("WATimeUtils").unixTime(),
+                          source: "set-self",
+                        });
                         var m = l
                           ? void 0
                           : {

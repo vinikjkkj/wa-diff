@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAResolvable",
+    "WAWebABProps",
     "WAWebAppLaunchWamEvent",
     "WAWebAppTracker",
     "WAWebNoop",
@@ -148,11 +149,23 @@ __d(
               return;
             }
             var r = Date.now(),
-              a = yield n.takeAppLaunchTimeStamp(),
-              i = yield n.getFirstAppRestoreTimeStamp(),
-              l = n.isMinimizedToTray(),
-              s = n.detectNativeClockSkew();
-            if (s != null && s > h) {
+              a,
+              i,
+              l,
+              s = o("WAWebABProps").getABPropConfigValue(
+                "web_anr_async_native_app_state_bridge_enabled",
+              )
+                ? yield n.takeAppLaunchSnapshotAsync()
+                : null;
+            s != null
+              ? ((a = s.appLaunchTimeStamp),
+                (i = s.firstAppRestoreTimeStamp),
+                (l = s.nativeClockSkew))
+              : ((a = n.takeAppLaunchTimeStamp()),
+                (i = n.getFirstAppRestoreTimeStamp()),
+                (l = n.detectNativeClockSkew()));
+            var u = n.isMinimizedToTray();
+            if (l != null && l > h) {
               o("WALogger")
                 .ERROR(
                   m ||
@@ -160,12 +173,12 @@ __d(
                       "commitEventAsync: large clock skew: ",
                       "",
                     ])),
-                  s,
+                  l,
                 )
                 .sendLogs("native-clock-skew");
               return;
             }
-            if (l || a === 0) {
+            if (u || a === 0) {
               (o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -173,39 +186,39 @@ __d(
                     ",\n      appLaunchT=",
                     "",
                   ])),
-                l,
+                u,
                 a,
               ),
                 y.resolve(a !== 0));
               return;
             }
             if (r < i) {
-              var u = Date.now() - i;
-              ((e.appLaunchT = u),
+              var c = Date.now() - i;
+              ((e.appLaunchT = c),
                 (e.appLaunchTypeT = o(
                   "WAWebWamEnumAppLaunchType",
                 ).APP_LAUNCH_TYPE.WARM),
-                o("WAWebAppTracker").attachWAMAppContext(e, u),
+                o("WAWebAppTracker").attachWAMAppContext(e, c),
                 e.commit(),
                 (b = !0),
                 y.resolve(!1));
               return;
             }
-            var c = Math.max(a, i),
-              C = r - c;
-            if (C > 6e5) {
-              var S = function (t) {
+            var C = Math.max(a, i),
+              S = r - C;
+            if (S > 6e5) {
+              var R = function (t) {
                   try {
                     return new Date(t).toISOString();
                   } catch (e) {
                     return t.toString();
                   }
                 },
-                R = S(a),
-                L = S(i),
-                E = S(c),
-                k = S(r),
-                I = S(self.performance.timing.fetchStart);
+                L = R(a),
+                E = R(i),
+                k = R(C),
+                I = R(r),
+                D = R(self.performance.timing.fetchStart);
               (o("WALogger")
                 .ERROR(
                   _ ||
@@ -215,9 +228,9 @@ __d(
                       " restore=",
                       "",
                     ])),
-                  C,
-                  R,
+                  S,
                   L,
+                  E,
                 )
                 .sendLogs("app_launch_time_is_large"),
                 o("WALogger")
@@ -229,15 +242,15 @@ __d(
                         " fetch=",
                         "",
                       ])),
-                    E,
                     k,
                     I,
+                    D,
                   )
                   .sendLogs("app_launch_time_is_large"));
             }
-            ((e.appLaunchT = C),
+            ((e.appLaunchT = S),
               (e.appLaunchTypeT = v(a, i)),
-              o("WAWebAppTracker").attachWAMAppContext(e, C),
+              o("WAWebAppTracker").attachWAMAppContext(e, S),
               T(e),
               e.commit(),
               (b = !0),

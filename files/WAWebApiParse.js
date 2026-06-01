@@ -652,45 +652,47 @@ __d(
     var rt = /^https?:\/\/wa\.me\/stickerpack\/meta-avatar$/i,
       ot = /^https?:\/\/wa\.me\/edit-profile-picture$/i,
       at =
+        /^(?:https?:\/\/wa\.me\/set-about|whatsapp:\/\/set-about)\/?(?:\?.*)?$/i,
+      it =
         /^(?:https?:\/\/wa\.me\/profile\/username|whatsapp:\/\/profile\/username)(?:\?.*)?$/i,
-      it = /^https?:\/\/wa\.me\/stickerpack\/(?!meta-avatar)/i;
-    function lt(e) {
-      var t = e.match(it);
+      lt = /^https?:\/\/wa\.me\/stickerpack\/(?!meta-avatar)/i;
+    function st(e) {
+      var t = e.match(lt);
       return t != null;
     }
-    function st(e) {
+    function ut(e) {
       var t = e.match(rt);
       return !!t;
     }
-    var ut = /^https?:\/\/wa\.me\/ais\/(\d{14,20})\/?(\?.*)?$/i,
-      ct = new RegExp(
+    var ct = /^https?:\/\/wa\.me\/ais\/(\d{14,20})\/?(\?.*)?$/i,
+      dt = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/ais/(\\d{14,20})/?(\\?.*)?$",
         "i",
       );
-    function dt(e) {
+    function mt(e) {
       var t,
         n,
         r = (
-          (t = (n = e.match(ut)) != null ? n : e.match(ct)) != null ? t : []
+          (t = (n = e.match(ct)) != null ? n : e.match(dt)) != null ? t : []
         )[1];
       return r
         ? { resultType: o("WAWebApi").APICmd.UGC_BOT, data: { fbid: r } }
         : null;
     }
-    var mt = /^https?:\/\/wa\.me\/man\/link(?:\?(.*))?$/i,
-      pt = new RegExp(
+    var pt = /^https?:\/\/wa\.me\/man\/link(?:\?(.*))?$/i,
+      _t = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/man/link(?:\\?(.*))?$",
         "i",
       );
-    function _t(e) {
+    function ft(e) {
       var t,
-        n = (t = e.match(mt)) != null ? t : e.match(pt);
+        n = (t = e.match(pt)) != null ? t : e.match(_t);
       if (n != null) {
         var r = null;
         if (n[1] != null) {
@@ -704,17 +706,17 @@ __d(
       }
       return null;
     }
-    var ft = /^https?:\/\/wa\.me\/hatch\/link(?:\?(.*))?$/i,
-      gt = new RegExp(
+    var gt = /^https?:\/\/wa\.me\/hatch\/link(?:\?(.*))?$/i,
+      ht = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/hatch/link(?:\\?(.*))?$",
         "i",
       );
-    function ht(e) {
+    function yt(e) {
       var t,
-        n = (t = e.match(ft)) != null ? t : e.match(gt);
+        n = (t = e.match(gt)) != null ? t : e.match(ht);
       if (n != null) {
         var r = null;
         if (n[1] != null) {
@@ -728,8 +730,8 @@ __d(
       }
       return null;
     }
-    function yt(e) {
-      if (lt(e)) {
+    function Ct(e) {
+      if (st(e)) {
         var t = new URL(e),
           n = t.pathname.split("/"),
           r = n[0],
@@ -738,20 +740,20 @@ __d(
         return a;
       }
     }
-    function Ct(e) {
-      var t = e.match(it);
+    function bt(e) {
+      var t = e.match(lt);
       if (t) {
-        var n = yt(e);
+        var n = Ct(e);
         return { resultType: "STICKER_PACK", data: { url: n } };
       }
     }
-    var bt = /^https:\/\/call\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
-      vt = /^whatsapp:\/\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i,
-      St = new RegExp(
+    var vt = /^https:\/\/call\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
+      St = /^whatsapp:\/\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i,
+      Rt = new RegExp(
         "^" + p.ORIGIN + "/call/(video|voice)/(\\w+)(?:\\?.*)?$",
         "i",
       );
-    function Rt(e) {
+    function Lt(e) {
       var t = e.get("audio_device"),
         n = e.get("speaker_device"),
         r = e.get("video_device"),
@@ -769,7 +771,7 @@ __d(
         audioMuted: e.get("audio_muted") === "1",
       };
     }
-    function Lt(e) {
+    function Et(e) {
       var t = e.indexOf("?");
       if (t === -1) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(e.slice(t));
@@ -786,14 +788,14 @@ __d(
           ])),
         e,
       );
-      var l = Rt(n);
+      var l = Lt(n);
       return {
         resultType: "CALL_LINK",
         data: babelHelpers.extends({ token: i, callType: a }, l),
       };
     }
-    function Et(e) {
-      var t = e.match(bt) || e.match(vt) || e.match(St);
+    function kt(e) {
+      var t = e.match(vt) || e.match(St) || e.match(Rt);
       if (t)
         return (
           o("WALogger").LOG(
@@ -806,13 +808,13 @@ __d(
           ),
           { resultType: "CALL_LINK", data: { token: t[2], callType: t[1] } }
         );
-      var n = Lt(e);
+      var n = Et(e);
       if (n != null) return n;
     }
-    function kt(e) {
-      return Et(e) != null;
-    }
     function It(e) {
+      return kt(e) != null;
+    }
+    function Tt(e) {
       var t = e.match(Le);
       if (t && t[0]) {
         var n = new URL(e),
@@ -852,12 +854,12 @@ __d(
         );
       }
     }
-    function Tt() {
+    function Dt() {
       var e = new (r("WAWebPonyfillsUrlSearchParams"))(window.location.search),
         t = e.get("work_contact_sync_data");
       return t != null && t !== "" ? { compressedData: t } : null;
     }
-    function Dt(e) {
+    function xt(e) {
       var t = e.match(q);
       if (!t) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[2]);
@@ -881,7 +883,7 @@ __d(
         utmCampaign: i != null ? i : void 0,
       };
     }
-    function xt(e, t) {
+    function $t(e, t) {
       if (typeof e != "string")
         return { resultType: o("WAWebApi").APICmd.INVALID };
       var n = y(e);
@@ -893,7 +895,7 @@ __d(
       var l = He(e);
       if (l)
         return { resultType: o("WAWebApi").APICmd.CREATE_COMMUNITY, data: l };
-      var s = st(e);
+      var s = ut(e);
       if (s) return { resultType: o("WAWebApi").APICmd.AVATAR_STICKERPACK };
       var u = o("WAWebNewsletterStatusApiParse").parseNewsletterStatusDeeplink(
         e,
@@ -933,7 +935,7 @@ __d(
           resultType: o("WAWebApi").APICmd.CATALOG_LINKING_CHAT_PSA,
           data: _,
         };
-      var f = Ct(e);
+      var f = bt(e);
       if (f) {
         var g;
         return {
@@ -947,7 +949,7 @@ __d(
       var C = Je(e);
       if (C != null)
         return { resultType: o("WAWebApi").APICmd.ADVERTISE, data: C };
-      var b = Et(e);
+      var b = kt(e);
       if (b) return b;
       if (e.match(ue))
         return {
@@ -980,7 +982,8 @@ __d(
       if (E) return E;
       if (e.match(ot))
         return { resultType: o("WAWebApi").APICmd.EDIT_PROFILE_PICTURE };
-      var k = e.match(at);
+      if (e.match(at)) return { resultType: o("WAWebApi").APICmd.SET_ABOUT };
+      var k = e.match(it);
       if (k) {
         var I,
           T = new URL(e.replace("whatsapp://", "https://")),
@@ -1014,15 +1017,15 @@ __d(
       var q = nt(e);
       if (q != null)
         return { resultType: o("WAWebApi").APICmd.PAYMENT_LINK, data: q };
-      var U = _t(e);
+      var U = ft(e);
       if (U != null) return U;
-      var V = ht(e);
+      var V = yt(e);
       if (V != null) return V;
-      var H = dt(e);
+      var H = mt(e);
       if (H) return H;
       var G = qe(e);
       if (G) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: G };
-      var z = It(e);
+      var z = Tt(e);
       if (z != null)
         return {
           resultType: o("WAWebApi").APICmd.WEB_REGISTRATION_CAMPAIGN,
@@ -1054,10 +1057,10 @@ __d(
           re && { data: ne },
         );
       }
-      var oe = r("gkx")("26258") ? null : Tt();
+      var oe = r("gkx")("26258") ? null : Dt();
       if (oe)
         return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: oe };
-      var ae = Dt(e);
+      var ae = xt(e);
       return ae
         ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: ae }
         : { resultType: o("WAWebApi").APICmd.INVALID };
@@ -1066,11 +1069,11 @@ __d(
       (l.parseCTWADeeplinkToken = T),
       (l.matchProductUrl = $e),
       (l.matchCatalogUrl = Fe),
-      (l.isStickerPackURL = lt),
-      (l.parseCallLinkDevicePrefs = Rt),
-      (l.parseCallLink = Et),
-      (l.isValidCallLink = kt),
-      (l.parseAPICmd = xt));
+      (l.isStickerPackURL = st),
+      (l.parseCallLinkDevicePrefs = Lt),
+      (l.parseCallLink = kt),
+      (l.isValidCallLink = It),
+      (l.parseAPICmd = $t));
   },
   98,
 );

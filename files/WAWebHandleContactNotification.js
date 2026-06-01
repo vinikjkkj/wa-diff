@@ -345,13 +345,14 @@ __d(
                         i = e.text;
                       return o(
                         "WAWebUpdateTextStatusForContact",
-                      ).updateTextStatusForContact(
-                        r,
-                        i,
-                        t,
-                        n,
-                        a != null ? Number(a) : void 0,
-                      );
+                      ).updateTextStatusForContact({
+                        contactId: r,
+                        textString: i,
+                        emoji: t,
+                        ephemeralDuration: n,
+                        newUpdateTime: a != null ? Number(a) : void 0,
+                        source: "contact-notification",
+                      });
                     }));
               }
               var s = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(

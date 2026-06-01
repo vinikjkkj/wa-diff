@@ -3,7 +3,6 @@ __d(
   [
     "WAAbortError",
     "WALogger",
-    "WAWebABProps",
     "WAWebAssetLoader",
     "WAWebAssetLoaderSingleton",
     "WAWebCometRouterMetaManager",
@@ -18,25 +17,8 @@ __d(
       s,
       u,
       c,
-      d = "v4",
-      m = !1,
-      p = !1,
-      _ = 0,
-      f = !1;
-    function g() {
-      f ||
-        ((f = !0),
-        (m = document.hidden),
-        document.addEventListener("visibilitychange", function () {
-          var e = m;
-          ((m = document.hidden), e === !0 && m === !1 && ((p = !1), b(_)));
-        }));
-    }
-    function h() {
-      m === !0 && ((p = !0), b(_));
-    }
-    function y(e) {
-      ((_ = e), g());
+      d = "v4";
+    function m(e) {
       var t = [];
       (e > 0 && t.push("(" + r("WAWebL10N").n(e) + ")"),
         o("WAWebMobilePlatforms").isSMB()
@@ -46,10 +28,10 @@ __d(
       (o("WAWebCometRouterMetaManager").updateUnreadTitle(n),
         o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa() &&
           o("WAWebPwaDocumentMetadataUtils").setAppBadge(e),
-        b(e));
+        _(e));
     }
-    var C;
-    function b(t) {
+    var p;
+    function _(t) {
       var n;
       if (!o("WAWebUA").UA.isSafari) {
         var r;
@@ -62,15 +44,7 @@ __d(
               : t < 100
                 ? (r = "f" + t)
                 : (r = "f00"),
-          m === !0 &&
-            p &&
-            t >= 0 &&
-            t <= 99 &&
-            o("WAWebABProps").getABPropConfigValue(
-              "wa_web_favicon_badging_enabled",
-            ) &&
-            (r += "-badged"),
-          (C = r),
+          (p = r),
           (n = document.getElementById("favicon")) == null || n.remove());
         var a = {
           id: r + "-" + d,
@@ -84,7 +58,7 @@ __d(
             !1,
           )
           .then(function (t) {
-            if (C !== r) {
+            if (p !== r) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -93,7 +67,7 @@ __d(
                     "",
                   ])),
                 r,
-                C,
+                p,
               );
               return;
             }
@@ -139,7 +113,7 @@ __d(
           });
       }
     }
-    ((l.notifyBackgroundActivity = h), (l.setTitleAndIcon = y));
+    l.setTitleAndIcon = m;
   },
   98,
 );
