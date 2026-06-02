@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebCommonMsgSubtypeTypes",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebMessageHistoryValidation",
     "WAWebMsgType",
@@ -29,32 +28,16 @@ __d(
                 o("WAWebWidFactory").createWid(e),
               );
             });
-      if (!o("WAWebGroupHistoryGating").isGroupHistoryNoticeReceiverEnabled()) {
-        var u;
-        return {
-          msgData: babelHelpers.extends({}, a, {
-            type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-            kind: o("WAWebMsgType").MsgKind.Unknown,
-            viewMode:
-              s === !1 && a.id.fromMe === !1
-                ? o("WAWebViewMode.flow").ViewModeType.VISIBLE
-                : o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-            futureproofType: o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE,
-            futureproofSubtype: "message_history_notice",
-          }),
-          contextInfo: (u = l.contextInfo) != null ? u : null,
-        };
-      }
       if (s === !1 && a.id.fromMe === !1) {
-        var c,
+        var u,
+          c,
           d,
           m,
-          p,
-          _ =
-            (c = l.messageHistoryMetadata) == null
+          p =
+            (u = l.messageHistoryMetadata) == null
               ? void 0
-              : c.oldestMessageTimestampInWindow;
-        return _ == null
+              : u.oldestMessageTimestampInWindow;
+        return p == null
           ? (o("WALogger").ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -77,18 +60,18 @@ __d(
                       processState: o("WAWebGroupHistoryMsgData.flow")
                         .MessageHistoryBundleProcessState.NONE,
                       nonHistoryReceivers:
-                        (d =
-                          (m = l.messageHistoryMetadata) == null
+                        (c =
+                          (d = l.messageHistoryMetadata) == null
                             ? void 0
-                            : m.nonHistoryReceivers.map(
+                            : d.nonHistoryReceivers.map(
                                 o("WAWebWidFactory").createWid,
                               )) != null
-                          ? d
+                          ? c
                           : [],
                     })
                   : null,
               }),
-              contextInfo: (p = l.contextInfo) != null ? p : null,
+              contextInfo: (m = l.contextInfo) != null ? m : null,
             };
       }
       return {

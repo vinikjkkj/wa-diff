@@ -2,7 +2,6 @@ __d(
   "WAWebSendMessageEditAction",
   [
     "PaymentLink",
-    "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WANullthrows",
@@ -46,92 +45,73 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWamMsgUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    var e, s, u;
+    async function c(e, t, n) {
+      o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
+        parentTsInSeconds: e.t,
+        editTsInSeconds: n,
+        msgKey: e.id,
+      })
+        ? await t.updateErrorCode(
+            o("WAWebErrorType").SendFailureErrorCode.NoError,
+          )
+        : (await e.updateErrorCode(
+            o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
+          ),
+          await t.updateErrorCode(
+            o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
+          ));
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
-            parentTsInSeconds: e.t,
-            editTsInSeconds: n,
-            msgKey: e.id,
-          })
-            ? yield t.updateErrorCode(
-                o("WAWebErrorType").SendFailureErrorCode.NoError,
-              )
-            : (yield e.updateErrorCode(
-                o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
-              ),
-              yield t.updateErrorCode(
-                o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
-              ));
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e, t) {
+      t != null &&
+        (await o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+          count: t,
+        }));
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t != null &&
-            (yield o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
-              count: t,
-            }));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
+    function m(e) {
       var t = o("WAWebMsgGetters").getLatestEditMsgKey(e);
       return t == null || !o("WAWebMsgActionCapability").canEditText(e)
-        ? (c || (c = n("Promise"))).resolve()
+        ? Promise.resolve()
         : o("WAWebDBMsgUtils")
             .getMsgByMsgKey(t)
             .then(function (t) {
               if (t)
-                return b(
+                return g(
                   o("WAWebStateUtils").unproxy(e),
                   o("WAWebMsgModelFromData").msgModelFromMsgData(t),
                 );
             })
             .catch(function (e) {});
     }
-    function g(e, t, a) {
-      var i, l, s;
+    function p(e, t, n) {
+      var a, i, l;
       if (
         !o("WAWebMsgActionCapability").canEditText(e) &&
         !o("WAWebMsgActionCapability").canEditCaption(e)
       )
-        return (c || (c = n("Promise"))).reject(
-          r("err")("Cannot edit message"),
-        );
-      var u = h(o("WAWebStateUtils").unproxy(e), t, a),
-        d = o("WAWebFrontendMsgGetters").getChat(e),
-        m =
-          (i = d == null || (l = d.id) == null ? void 0 : l.toString()) != null
-            ? i
+        return Promise.reject(r("err")("Cannot edit message"));
+      var s = _(o("WAWebStateUtils").unproxy(e), t, n),
+        u = o("WAWebFrontendMsgGetters").getChat(e),
+        c =
+          (a = u == null || (i = u.id) == null ? void 0 : i.toString()) != null
+            ? a
             : "",
-        p = (d == null || (s = d.contact) == null ? void 0 : s.isHosted) === !0,
-        _ =
+        d = (u == null || (l = u.contact) == null ? void 0 : l.isHosted) === !0,
+        m =
           o(
             "WAWebUserPrefsMultiDevice",
           ).getIsHostedMeAccountFromLocalStorage() === !0;
-      return S(o("WAWebStateUtils").unproxy(e), u).then(function () {
+      return h(o("WAWebStateUtils").unproxy(e), s).then(function () {
         o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          o("WAWebCoexEditDeleteAlertUtils").shouldShowCoexEditAlert(m, p) &&
-          (o("WAWebCoexEditDeleteAlertUtils").markCoexEditAlertShown(m),
-          o("WAWebOpenCoexEditDeleteAlertModal").openCoexEditAlertModal(_));
+          o("WAWebCoexEditDeleteAlertUtils").shouldShowCoexEditAlert(c, d) &&
+          (o("WAWebCoexEditDeleteAlertUtils").markCoexEditAlertShown(c),
+          o("WAWebOpenCoexEditDeleteAlertModal").openCoexEditAlertModal(m));
       });
     }
-    function h(e, t, n) {
+    function _(e, t, n) {
       var a,
         i,
         l,
@@ -224,169 +204,130 @@ __d(
       }
       return y;
     }
-    function y(e, t, n, r, o) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i) {
-            t.latestEditMsgKey &&
-              (yield o("WAWebDBMessageDelete").removeMessagesFromHistory([
-                t.latestEditMsgKey.toString(),
-              ]));
-            try {
-              (i.startSavedStage(),
-                yield o("WAWebDBProcessMessage").storeMessages(
-                  [r != null ? r : n],
-                  a,
-                ),
-                i.postSavedStage());
-            } catch (t) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[message-edit][sendMessageEdit] store protocol msg failed",
-                      ])),
-                  )
-                  .verbose()
-                  .sendLogs("storeSentMessageEdit failed"),
-                t
-              );
-            }
-            (i.startRenderedStage(),
-              yield o("WAWebProcessAddonsJob").processEditProtocolMsgsJob([n]),
-              i.postRenderedStage());
-          },
-        )),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebMsgGetters").getIsNewsletterMsg(e)
-              ? yield o("WAWebNewsletterSendMsgAction").sendNewsletterEditMsg(
-                  e,
-                  t,
-                )
-              : yield o("WAWebSendMsgRecordAction").sendMsgRecord(t),
-            r = n.count,
-            a = n.messageSendResult,
-            i = n.t;
-          if (a !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
-            (o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[message-edit][sendMsgEditRecord] send failed",
-                  ])),
-              )
-              .sendLogs("message-edit-send-fail"),
-              (e.isSendFailure = !0));
-            return;
-          }
-          (yield d(e, t, i),
-            yield p(e, r),
-            e.updateAck(t.ack),
-            (e.isSendFailure =
-              t.isSendFailure === !0 ||
-              t.errorCode ===
-                o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired));
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a,
-            i = o("WAWebFrontendMsgGetters").getChat(e),
-            l = !!((a = i.groupMetadata) != null && a.isLidAddressingMode),
-            s = o("WAWebWamMsgUtils").msgIsLid(e, i.id, l),
-            c = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
-              i.id,
-              s,
-            );
-          c.originalMessage = e;
-          var d =
-              e.messageSecret != null &&
-              o(
-                "WAWebMessageEditGatingUtils",
-              ).isMessageEditToMessageSecretSenderEnabled(),
-            m = t;
-          if (d)
-            try {
-              m = yield o(
-                "WAWebCreateEncryptedMessageEditMsgData",
-              ).createEncryptedMessageEditMsgData(t, e);
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[message-edit] Failed to create encrypted message edit ",
-                      "",
-                    ])),
-                  r("WAWebSerializeError")(e),
-                )
-                .sendLogs("encrypted-message-edit-failed");
-            }
-          var p = new (o("WAWebMsgModel").Msg)(m != null ? m : t);
-          ((p.wamMessageSendReporter = new (o(
-            "WAWebMessageSendReporter",
-          ).MessageSendReporter)(
-            p,
-            babelHelpers.extends({}, c, {
-              frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
-                .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
-            }),
-          )),
-            (p.wamMessageSendPerfReporter = new (o(
-              "WAWebMessageSendPerfReporter",
-            ).MessageSendPerfReporter)({
-              chatWid: p.to,
-              mediaType: o("WAWebWamMsgUtils").getWamMediaType(p),
-              messageType: o("WAWebWamMsgUtils").getWamMessageType(p),
-            })));
-          var _ = p.wamMessageSendPerfReporter;
-          yield o("WAWebOrchestratorNonPersistedJob")
-            .createNonPersistedJob(
-              "sendMessageEdit",
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var r = n.chatId,
-                      o = n.msgData;
-                    (yield y(o, t, m, r, _), yield b(e, p));
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+    async function f(t, n, r, a, i) {
+      t.latestEditMsgKey &&
+        (await o("WAWebDBMessageDelete").removeMessagesFromHistory([
+          t.latestEditMsgKey.toString(),
+        ]));
+      try {
+        (i.startSavedStage(),
+          await o("WAWebDBProcessMessage").storeMessages(
+            [r != null ? r : n],
+            a,
+          ),
+          i.postSavedStage());
+      } catch (t) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[message-edit][sendMessageEdit] store protocol msg failed",
+                ])),
             )
-            .waitUntilCompleted({
-              msgData: o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
-              chatId: o("WAWebFrontendMsgGetters").getChat(e).id,
-            });
-        })),
-        R.apply(this, arguments)
-      );
+            .verbose()
+            .sendLogs("storeSentMessageEdit failed"),
+          t
+        );
+      }
+      (i.startRenderedStage(),
+        await o("WAWebProcessAddonsJob").processEditProtocolMsgsJob([n]),
+        i.postRenderedStage());
     }
-    ((l.resendLatestEdit = f),
-      (l.sendMessageEdit = g),
-      (l.createEditMsgData = h),
-      (l.addAndSendMessageEdit = S));
+    async function g(e, t) {
+      var n = o("WAWebMsgGetters").getIsNewsletterMsg(e)
+          ? await o("WAWebNewsletterSendMsgAction").sendNewsletterEditMsg(e, t)
+          : await o("WAWebSendMsgRecordAction").sendMsgRecord(t),
+        r = n.count,
+        a = n.messageSendResult,
+        i = n.t;
+      if (a !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
+        (o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[message-edit][sendMsgEditRecord] send failed",
+              ])),
+          )
+          .sendLogs("message-edit-send-fail"),
+          (e.isSendFailure = !0));
+        return;
+      }
+      (await c(e, t, i),
+        await d(e, r),
+        e.updateAck(t.ack),
+        (e.isSendFailure =
+          t.isSendFailure === !0 ||
+          t.errorCode ===
+            o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired));
+    }
+    async function h(e, t) {
+      var n,
+        a = o("WAWebFrontendMsgGetters").getChat(e),
+        i = !!((n = a.groupMetadata) != null && n.isLidAddressingMode),
+        l = o("WAWebWamMsgUtils").msgIsLid(e, a.id, i),
+        s = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(a.id, l);
+      s.originalMessage = e;
+      var c =
+          e.messageSecret != null &&
+          o(
+            "WAWebMessageEditGatingUtils",
+          ).isMessageEditToMessageSecretSenderEnabled(),
+        d = t;
+      if (c)
+        try {
+          d = await o(
+            "WAWebCreateEncryptedMessageEditMsgData",
+          ).createEncryptedMessageEditMsgData(t, e);
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[message-edit] Failed to create encrypted message edit ",
+                  "",
+                ])),
+              r("WAWebSerializeError")(e),
+            )
+            .sendLogs("encrypted-message-edit-failed");
+        }
+      var m = new (o("WAWebMsgModel").Msg)(d != null ? d : t);
+      ((m.wamMessageSendReporter = new (o(
+        "WAWebMessageSendReporter",
+      ).MessageSendReporter)(
+        m,
+        babelHelpers.extends({}, s, {
+          frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+            .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+        }),
+      )),
+        (m.wamMessageSendPerfReporter = new (o(
+          "WAWebMessageSendPerfReporter",
+        ).MessageSendPerfReporter)({
+          chatWid: m.to,
+          mediaType: o("WAWebWamMsgUtils").getWamMediaType(m),
+          messageType: o("WAWebWamMsgUtils").getWamMessageType(m),
+        })));
+      var p = m.wamMessageSendPerfReporter;
+      await o("WAWebOrchestratorNonPersistedJob")
+        .createNonPersistedJob(
+          "sendMessageEdit",
+          async function (n) {
+            var r = n.chatId,
+              o = n.msgData;
+            (await f(o, t, d, r, p), await g(e, m));
+          },
+          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+        )
+        .waitUntilCompleted({
+          msgData: o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
+          chatId: o("WAWebFrontendMsgGetters").getChat(e).id,
+        });
+    }
+    ((l.resendLatestEdit = m),
+      (l.sendMessageEdit = p),
+      (l.createEditMsgData = _),
+      (l.addAndSendMessageEdit = h));
   },
   98,
 );

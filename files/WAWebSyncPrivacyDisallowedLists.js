@@ -1,76 +1,45 @@
 __d(
   "WAWebSyncPrivacyDisallowedLists",
-  [
-    "Promise",
-    "WAWebQueryPrivacyDisallowedListUtil",
-    "WAWebSchemaPrivacyDisallowedList",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebQueryPrivacyDisallowedListUtil", "WAWebSchemaPrivacyDisallowedList"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function e(e) {
+      var t = await Promise.all(
+          e.map(async function (e) {
+            var t = await o(
+              "WAWebQueryPrivacyDisallowedListUtil",
+            ).queryPrivacyDisallowedList(e);
+            return { type: e, response: t };
+          }),
+        ),
+        n = [];
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield (e || (e = n("Promise"))).all(
-              t.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = yield o(
-                        "WAWebQueryPrivacyDisallowedListUtil",
-                      ).queryPrivacyDisallowedList(e);
-                      return { type: e, response: t };
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            a = [];
-          return (
-            r.forEach(function (e) {
-              var t = e.response,
-                n = t.dhash,
-                r = t.status,
-                o = t.users;
-              r !== "mismatch" ||
-                o == null ||
-                n == null ||
-                a.push({
-                  id: e.type,
-                  disallowedList: o.map(function (e) {
-                    return e.toString();
-                  }),
-                  dhash: n,
-                });
-            }),
-            yield o("WAWebSchemaPrivacyDisallowedList")
-              .getPrivacyDisallowedListTable()
-              .bulkCreateOrReplace(a),
-            a
-          );
-        })),
-        u.apply(this, arguments)
+        t.forEach(function (e) {
+          var t = e.response,
+            r = t.dhash,
+            o = t.status,
+            a = t.users;
+          o !== "mismatch" ||
+            a == null ||
+            r == null ||
+            n.push({
+              id: e.type,
+              disallowedList: a.map(function (e) {
+                return e.toString();
+              }),
+              dhash: r,
+            });
+        }),
+        await o("WAWebSchemaPrivacyDisallowedList")
+          .getPrivacyDisallowedListTable()
+          .bulkCreateOrReplace(n),
+        n
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function s(t) {
+      await e([t]);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield s([e]);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    ((l.syncPrivacyDisallowedLists = s),
-      (l.syncSinglePrivacyDisallowedList = c));
+    ((l.syncPrivacyDisallowedLists = e),
+      (l.syncSinglePrivacyDisallowedList = s));
   },
   98,
 );

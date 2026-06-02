@@ -7,13 +7,12 @@ __d(
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterDeleteJob",
     "WAWebNewsletterQueues",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(t) {
       return o("WAWebNewsletterQueues").newsletterDeleteQueue.enqueue(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        async function () {
           if (!o("WAWebChatGetters").getIsNewsletter(t)) {
             o("WALogger")
               .ERROR(
@@ -28,7 +27,7 @@ __d(
           }
           var n = o("WAJids").toNewsletterJid(t.id.toJid());
           try {
-            (yield o("WAWebNewsletterDeleteJob").deleteNewsletter(n),
+            (await o("WAWebNewsletterDeleteJob").deleteNewsletter(n),
               o(
                 "WAWebNewsletterBridgeApi",
               ).NewsletterBridgeApi.deleteNewsletter({ id: t.id, keep: !1 }));
@@ -46,7 +45,7 @@ __d(
               e
             );
           }
-        }),
+        },
       );
     }
     l.deleteNewsletterAction = u;

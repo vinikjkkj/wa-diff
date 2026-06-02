@@ -2,52 +2,27 @@ __d(
   "WAWebBizAISettingsCategoryHandlers",
   [
     "WAWebBizAISettingsCategoryRegistry",
-    "WAWebBizAiExampleResponsesQuery",
-    "WAWebBizAiKnowledgeReviewQuery",
-    "WAWebBizAiLeadGenFormsQuery",
-    "WAWebBizAiReplySettingsQuery",
     "WAWebBizAiRulesGenMutation",
     "WAWebProtobufSyncAction.pb",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = new Map([
-        [
-          (e = o("WAWebProtobufSyncAction.pb"))
-            .SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
-            .INSTRUCTIONS,
-          o("WAWebBizAiRulesGenMutation").fetchRules,
-        ],
-        [
-          e.SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
-            .RESPONSE_SETTINGS,
-          o("WAWebBizAiReplySettingsQuery").fetchReplySettings,
-        ],
-        [
-          e.SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
-            .EXAMPLE_RESPONSES,
-          o("WAWebBizAiExampleResponsesQuery").fetchExampleResponses,
-        ],
-        [
-          e.SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
-            .KNOWLEDGE,
-          o("WAWebBizAiKnowledgeReviewQuery").getAllPendingKnowledge,
-        ],
-        [
-          e.SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
-            .LEAD_GEN,
-          o("WAWebBizAiLeadGenFormsQuery").fetchLeadGenForms,
-        ],
-      ]);
-    function u(e) {
-      var t = s.get(e);
-      t != null &&
-        o("WAWebBizAISettingsCategoryRegistry").registerCategory(e, {
-          fetch: t,
+    var e = new Map([
+      [
+        o("WAWebProtobufSyncAction.pb")
+          .SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
+          .INSTRUCTIONS,
+        o("WAWebBizAiRulesGenMutation").fetchRules,
+      ],
+    ]);
+    function s(t) {
+      var n = e.get(t);
+      n != null &&
+        o("WAWebBizAISettingsCategoryRegistry").registerCategory(t, {
+          fetch: n,
         });
     }
-    l.registerCategoryHandler = u;
+    l.registerCategoryHandler = s;
   },
   98,
 );

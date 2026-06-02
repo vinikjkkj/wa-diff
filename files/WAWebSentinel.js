@@ -5,27 +5,18 @@ __d(
     "WAWebGetPendingMutation",
     "WAWebSentinelMutationSync",
     "WAWebSyncd",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e() {
+      var e = await r("WAWebSentinelMutationSync").getSentinelMutations();
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("WAWebSentinelMutationSync").getSentinelMutations();
-          return (
-            yield o(
-              "WAWebGetPendingMutation",
-            ).bulkCreateSyncPendingMutationsInTransaction(e),
-            o("WAWebSyncd").markCollectionsForSync(
-              Array.from(o("WASyncdConst").CollectionName.members()),
-            )
-          );
-        })),
-        s.apply(this, arguments)
+        await o(
+          "WAWebGetPendingMutation",
+        ).bulkCreateSyncPendingMutationsInTransaction(e),
+        o("WAWebSyncd").markCollectionsForSync(
+          Array.from(o("WASyncdConst").CollectionName.members()),
+        )
       );
     }
     l.default = e;

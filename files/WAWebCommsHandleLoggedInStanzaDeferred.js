@@ -1,6 +1,6 @@
 __d(
   "WAWebCommsHandleLoggedInStanzaDeferred",
-  ["asyncToGeneratorRuntime", "requireDeferred"],
+  ["requireDeferred"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = r("requireDeferred")("WAWebCommsHandleLoggedInStanza").__setRef(
@@ -8,37 +8,21 @@ __d(
       ),
       s = null,
       u = null;
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            u == null &&
-              (u = e.load().then(function (e) {
-                return ((s = e), e);
-              })),
-            u
-          );
-        })),
-        d.apply(this, arguments)
+        u == null &&
+          (u = e.load().then(function (e) {
+            return ((s = e), e);
+          })),
+        u
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function d(e, t) {
+      if (s != null) return s.handleLoggedInStanza(e, t);
+      var n = await c();
+      return n.handleLoggedInStanza(e, t);
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (s != null) return s.handleLoggedInStanza(e, t);
-          var n = yield c();
-          return n.handleLoggedInStanza(e, t);
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.handleLoggedInStanza = m;
+    l.handleLoggedInStanza = d;
   },
   98,
 );

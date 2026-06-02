@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleDeviceNotification",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WAJids",
     "WALogger",
@@ -17,7 +16,6 @@ __d(
     "WAWebOfflineHandler",
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,9 +27,8 @@ __d(
       m,
       p,
       _,
-      f,
-      g = { add: "add", remove: "remove", update: "update" },
-      h = new (r("WADeprecatedWapParser"))(
+      f = { add: "add", remove: "remove", update: "update" },
+      g = new (r("WADeprecatedWapParser"))(
         "incomingDevicesNotification",
         function (t) {
           (t.assertTag("notification"),
@@ -41,10 +38,10 @@ __d(
             r,
             a,
             i = [];
-          if (t.hasChild("remove")) ((r = g.remove), (n = t.child("remove")));
-          else if (t.hasChild("add")) ((r = g.add), (n = t.child("add")));
+          if (t.hasChild("remove")) ((r = f.remove), (n = t.child("remove")));
+          else if (t.hasChild("add")) ((r = f.add), (n = t.child("add")));
           else if (t.hasChild("update"))
-            ((r = g.update), (n = t.child("update")));
+            ((r = f.update), (n = t.child("update")));
           else
             throw (
               o("WALogger").WARN(
@@ -55,20 +52,20 @@ __d(
               ),
               t.createParseError("Failed to parse devices notification")
             );
-          if (r === g.add || r === g.remove) {
+          if (r === f.add || r === f.remove) {
             var l = n.maybeChild("key-index-list");
             if (!l)
               throw t.createParseError(
                 "key index node is required to handle device add or remove notification",
               );
             var u = l.attrTime("ts");
-            if (r === g.remove && !u)
+            if (r === f.remove && !u)
               throw t.createParseError(
                 "timestamp is required to handle device remove notification",
               );
             a = {
               ts: u,
-              signedKeyIndexBytes: r === g.add ? l.contentBytes() : null,
+              signedKeyIndexBytes: r === f.add ? l.contentBytes() : null,
             };
             var c = n.child("device"),
               d = o("WAJids").extractDeviceId(c.attrDeviceJid("jid")),
@@ -91,7 +88,7 @@ __d(
           return {
             type: r,
             stanzaId: t.attrString("id"),
-            hash: r === g.update ? n.attrString("hash") : null,
+            hash: r === f.update ? n.attrString("hash") : null,
             user: o("WAWebJidToWid").deviceJidToUserWid(
               t.attrDeviceJid("from"),
             ),
@@ -105,200 +102,177 @@ __d(
           };
         },
       );
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = h.parse(e);
-          if (t.error)
-            throw (
-              o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                t.error.toString(),
-              ),
-              t.error
-            );
-          var a = t.success,
-            i = o("WAWap").wap("ack", {
-              to: o("WAWebCommsWapMd").USER_JID(a.user),
-              id: o("WAWap").CUSTOM_STRING(a.stanzaId),
-              class: "notification",
-            }),
-            l = {
-              wid: a.user,
-              devices: { deviceList: a.deviceList, keyIndex: a.keyIndex },
-              type: a.type,
-              hash: a.hash,
-            },
-            s = a.user.isLid()
-              ? o("WAWebLidMigrationUtils").toPn(a.user)
-              : a.lidUser,
-            y = null;
-          s != null &&
-            (y = {
-              wid: s,
-              devices: { deviceList: a.deviceList, keyIndex: a.keyIndex },
-              type: a.type,
-              hash: a.hash,
-            });
-          var C = [l, y].filter(Boolean),
-            b = [];
-          if (
-            (a.lidUser != null &&
-              a.user != null &&
-              b.push({ lid: a.lidUser, pn: a.user }),
-            !o(
-              "WAWebOfflineHandler",
-            ).OfflineMessageHandler.isResumeFromRestartComplete())
-          )
-            return (
-              b.length > 0 &&
-                (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                  mappings: b,
-                  flushImmediately: !1,
-                  learningSource: "other",
-                })),
-              C.forEach(function (e) {
-                var t = e.wid;
-                return o(
-                  "WAWebOfflineDeviceCache",
-                ).OfflinePendingDeviceCache.addOfflinePendingDevice(
-                  t.toString(),
-                  i,
-                );
-              }),
-              "NO_ACK"
-            );
-          b.length > 0 &&
-            (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-              mappings: b,
-              flushImmediately: !0,
+    async function h(e) {
+      var t = g.parse(e);
+      if (t.error)
+        throw (
+          o("WALogger").ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            t.error.toString(),
+          ),
+          t.error
+        );
+      var n = t.success,
+        a = o("WAWap").wap("ack", {
+          to: o("WAWebCommsWapMd").USER_JID(n.user),
+          id: o("WAWap").CUSTOM_STRING(n.stanzaId),
+          class: "notification",
+        }),
+        i = {
+          wid: n.user,
+          devices: { deviceList: n.deviceList, keyIndex: n.keyIndex },
+          type: n.type,
+          hash: n.hash,
+        },
+        l = n.user.isLid()
+          ? o("WAWebLidMigrationUtils").toPn(n.user)
+          : n.lidUser,
+        s = null;
+      l != null &&
+        (s = {
+          wid: l,
+          devices: { deviceList: n.deviceList, keyIndex: n.keyIndex },
+          type: n.type,
+          hash: n.hash,
+        });
+      var h = [i, s].filter(Boolean),
+        y = [];
+      if (
+        (n.lidUser != null &&
+          n.user != null &&
+          y.push({ lid: n.lidUser, pn: n.user }),
+        !o(
+          "WAWebOfflineHandler",
+        ).OfflineMessageHandler.isResumeFromRestartComplete())
+      )
+        return (
+          y.length > 0 &&
+            (await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings: y,
+              flushImmediately: !1,
               learningSource: "other",
-            }));
-          var v = 0,
-            S = 0;
-          return (
-            yield (f || (f = n("Promise"))).all(
-              C.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e.devices,
-                        n = e.hash,
-                        i = e.type,
-                        l = e.wid;
-                      if (
-                        o(
-                          "WAWebOfflineHandler",
-                        ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
-                      )
-                        yield o(
-                          "WAWebApiPendingDeviceSync",
-                        ).addUserToPendingDeviceSync([l.toString()]);
-                      else if (a.type === g.add)
-                        try {
-                          yield o(
-                            "WAWebAdvHandlerApi",
-                          ).handleADVDeviceNotification({
-                            wid: l,
-                            devices: t,
-                            type: i,
-                          });
-                        } catch (e) {
-                          o("WALogger").WARN(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "handleDevicesNotification - add error: ",
-                                "",
-                              ])),
-                            e,
-                          );
-                        }
-                      else if (a.type === g.remove)
-                        try {
-                          yield o(
-                            "WAWebAdvHandlerApi",
-                          ).handleADVDeviceNotification({
-                            wid: l,
-                            devices: t,
-                            type: i,
-                          });
-                        } catch (e) {
-                          o("WALogger").WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "handleDevicesNotification - remove error: ",
-                                "",
-                              ])),
-                            e,
-                          );
-                        }
-                      else if (a.type === g.update) {
-                        var s = yield o(
-                          "WAWebApiContact",
-                        ).getContactRecordByHash(r("nullthrows")(n));
-                        if (s == null) v++;
-                        else
-                          try {
-                            yield o(
-                              "WAWebSyncDeviceAdvDeviceListJob",
-                            ).syncDeviceListJob(
-                              [o("WAWebWidFactory").createWid(s.id)],
-                              "notification",
-                              null,
-                            );
-                          } catch (e) {
-                            o("WALogger").WARN(
-                              m ||
-                                (m = babelHelpers.taggedTemplateLiteralLoose([
-                                  "handleDevicesNotification - update error: ",
-                                  "",
-                                ])),
-                              e,
-                            );
-                          }
-                      } else S++;
-                    },
+            })),
+          h.forEach(function (e) {
+            var t = e.wid;
+            return o(
+              "WAWebOfflineDeviceCache",
+            ).OfflinePendingDeviceCache.addOfflinePendingDevice(
+              t.toString(),
+              a,
+            );
+          }),
+          "NO_ACK"
+        );
+      y.length > 0 &&
+        (await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+          mappings: y,
+          flushImmediately: !0,
+          learningSource: "other",
+        }));
+      var C = 0,
+        b = 0;
+      return (
+        await Promise.all(
+          h.map(async function (e) {
+            var t = e.devices,
+              a = e.hash,
+              i = e.type,
+              l = e.wid;
+            if (
+              o(
+                "WAWebOfflineHandler",
+              ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
+            )
+              await o("WAWebApiPendingDeviceSync").addUserToPendingDeviceSync([
+                l.toString(),
+              ]);
+            else if (n.type === f.add)
+              try {
+                await o("WAWebAdvHandlerApi").handleADVDeviceNotification({
+                  wid: l,
+                  devices: t,
+                  type: i,
+                });
+              } catch (e) {
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "handleDevicesNotification - add error: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+            else if (n.type === f.remove)
+              try {
+                await o("WAWebAdvHandlerApi").handleADVDeviceNotification({
+                  wid: l,
+                  devices: t,
+                  type: i,
+                });
+              } catch (e) {
+                o("WALogger").WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "handleDevicesNotification - remove error: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+            else if (n.type === f.update) {
+              var s = await o("WAWebApiContact").getContactRecordByHash(
+                r("nullthrows")(a),
+              );
+              if (s == null) C++;
+              else
+                try {
+                  await o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
+                    [o("WAWebWidFactory").createWid(s.id)],
+                    "notification",
+                    null,
                   );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            v > 0 &&
-              o("WALogger").WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[devices] missing side contact hash for ",
-                    " updates",
-                  ])),
-                v,
-              ),
-            S > 0 &&
-              o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "handleDevicesNotification - ",
-                    " unknown notification types: ",
-                    "",
-                  ])),
-                S,
-                a.type,
-              ),
-            i
-          );
-        })),
-        C.apply(this, arguments)
+                } catch (e) {
+                  o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "handleDevicesNotification - update error: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                }
+            } else b++;
+          }),
+        ),
+        C > 0 &&
+          o("WALogger").WARN(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[devices] missing side contact hash for ",
+                " updates",
+              ])),
+            C,
+          ),
+        b > 0 &&
+          o("WALogger").WARN(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "handleDevicesNotification - ",
+                " unknown notification types: ",
+                "",
+              ])),
+            b,
+            n.type,
+          ),
+        a
       );
     }
-    l.handleDevicesNotification = y;
+    l.handleDevicesNotification = h;
   },
   98,
 );

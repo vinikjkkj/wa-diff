@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAJids",
     "WALogger",
+    "WAMemoizeCache",
     "WATypeUtils",
     "WAWebL10N",
     "WAWebPhoneUtils",
@@ -11,13 +12,17 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "gkx",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = r("lodash").memoize(function (e) {
-        return e === "Server" ? e : o("WAWebPhoneUtils").formatPhone(e);
-      });
+      u = o("WAMemoizeCache").memoizeWithArgs(
+        function (e) {
+          return e === "Server" ? e : o("WAWebPhoneUtils").formatPhone(e);
+        },
+        function (e) {
+          return e;
+        },
+      );
     function c(e) {
       return r("WAWebL10N").isRTL() ? r("WAWebL10N").isolateLTR(u(e)) : u(e);
     }

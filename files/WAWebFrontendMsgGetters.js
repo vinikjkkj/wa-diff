@@ -704,20 +704,13 @@ __d(
       ),
       he = m(
         function (e) {
-          var t = e[0];
-          return o("WAWebMsgModelUtils").getCelebrationAnimationType(t);
-        },
-        [C],
-      ),
-      ye = m(
-        function (e) {
           var t = e[0],
             n = e[1];
           return o("WAWebMsgModelUtils").isAnimatedEmoji(t, n);
         },
         [u.getBody, u.getType],
       ),
-      Ce = m(
+      ye = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -725,7 +718,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      be = m(
+      Ce = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -733,9 +726,9 @@ __d(
             a = r != null;
           return t === o("WAWebMsgType").MSG_TYPE.CHAT && (n || a);
         },
-        [u.getType, ye, Ce],
+        [u.getType, he, ye],
       ),
-      ve = m(
+      be = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -765,14 +758,14 @@ __d(
           u.getType,
           u.getCtwaContext,
           u.getQuotedMsg,
-          be,
+          Ce,
           u.getHasOriginatedFromNewsletter,
           u.getIsForwarded,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      Se = m(
+      ve = m(
         function (e) {
           var t = e[0];
           if (t != null) {
@@ -785,7 +778,7 @@ __d(
         },
         [u.getBody],
       ),
-      Re = m(
+      Se = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -806,7 +799,7 @@ __d(
           ue,
         ],
       ),
-      Le = m(
+      Re = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -814,7 +807,7 @@ __d(
         },
         [u.getIsNewsletterMsg, u.getSender],
       ),
-      Ee = m(
+      Le = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -877,15 +870,14 @@ __d(
       (l.getIsFadingOut = pe),
       (l.getAsBotPluginCarouselMsg = fe),
       (l.getAsRichResponse = ge),
-      (l.getCelebrationAnimationCandidate = he),
-      (l.getIsAnimatedEmoji = ye),
-      (l.getIsSingleEmoji = Ce),
-      (l.getIsTransparentMsgEmoji = be),
-      (l.getIsTransparentMsg = ve),
-      (l.getJSONAssetForAnimatedEmoji = Se),
-      (l.getMsgSenderId = Re),
-      (l.getShouldDisplaySelf = Le),
-      (l.getSenderForReplyMsg = Ee));
+      (l.getIsAnimatedEmoji = he),
+      (l.getIsSingleEmoji = ye),
+      (l.getIsTransparentMsgEmoji = Ce),
+      (l.getIsTransparentMsg = be),
+      (l.getJSONAssetForAnimatedEmoji = ve),
+      (l.getMsgSenderId = Se),
+      (l.getShouldDisplaySelf = Re),
+      (l.getSenderForReplyMsg = Le));
   },
   98,
 );

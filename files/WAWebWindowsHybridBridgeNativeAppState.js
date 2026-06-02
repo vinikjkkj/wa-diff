@@ -6,7 +6,6 @@ __d(
     "WAWebEventEmitter",
     "WAWebODS",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,7 +16,7 @@ __d(
         Normal: "normal",
         MinimizedToTray: "minimizedToTray",
       }),
-      m = function (a, i) {
+      m = function (n, a) {
         var t = this;
         ((this.$4 = new (r("WAWebEventEmitter"))()),
           (this.$5 = function (n) {
@@ -112,9 +111,7 @@ __d(
               },
             );
           }),
-          (this.getAppStateAsync = n(
-            "asyncToGeneratorRuntime",
-          ).asyncToGenerator(function* () {
+          (this.getAppStateAsync = async function () {
             r("WAWebODS").incr(
               "web.hybrid.bridge.native_app_state.send.get_app_state",
             );
@@ -150,7 +147,7 @@ __d(
                   ),
               a
             );
-          })),
+          }),
           (this.takeAppLaunchSnapshotAsync = function () {
             var e = t.$1.takeAppLaunchSnapshotAsync;
             return e == null
@@ -169,8 +166,8 @@ __d(
                   },
                 ));
           }),
-          (this.$1 = a),
-          (this.$2 = i),
+          (this.$1 = n),
+          (this.$2 = a),
           this.$1.addEventListener("appStateChangedEvent", this.$5),
           this.$1.subscribe(null));
       };

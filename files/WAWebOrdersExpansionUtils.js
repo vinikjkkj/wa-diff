@@ -1,12 +1,12 @@
 __d(
   "WAWebOrdersExpansionUtils",
   [
+    "WAMemoizeCache",
     "WAWebABProps",
     "WAWebL10NCountryCodes",
     "WAWebLidMigrationUtils",
     "WAWebOrdersExpansionCountries",
     "WAWebUserPrefsMeUser",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -41,21 +41,26 @@ __d(
           : 0) > 0
       );
     }
-    var u = r("lodash").memoize(function (e) {
-      var t,
-        n =
-          (t = o(
-            "WAWebOrdersExpansionCountries",
-          ).getOrdersExpansionAllowedCountries()) != null
-            ? t
-            : [],
-        r = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e);
-      return (
-        n.find(function (e) {
-          return r === e;
-        }) != null
-      );
-    });
+    var u = o("WAMemoizeCache").memoizeWithArgs(
+      function (e) {
+        var t,
+          n =
+            (t = o(
+              "WAWebOrdersExpansionCountries",
+            ).getOrdersExpansionAllowedCountries()) != null
+              ? t
+              : [],
+          r = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e);
+        return (
+          n.find(function (e) {
+            return r === e;
+          }) != null
+        );
+      },
+      function (e) {
+        return e;
+      },
+    );
     function c(e) {
       if (!s()) return !1;
       var t = p(e.contact.id),

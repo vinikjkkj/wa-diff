@@ -5,7 +5,6 @@ __d(
     "WAWebAttachMediaCollection",
     "WAWebMimeTypes",
     "WAWebMsgType",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -32,50 +31,42 @@ __d(
           return s._(/*BTDS*/ "Kept first video. Limit reached.");
         },
       };
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t = new (r("WAWebAttachMediaCollection"))({
+          chatParticipantCount: 1,
+        }),
+        n = e.map(function (e) {
+          return r("nullthrows")(e.originalAttachment);
+        });
+      return (await t.processAttachments(n, void 0, u, c), t);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new (r("WAWebAttachMediaCollection"))({
-              chatParticipantCount: 1,
-            }),
-            n = e.map(function (e) {
-              return r("nullthrows")(e.originalAttachment);
-            });
-          return (yield t.processAttachments(n, void 0, u, c), t);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
+    function f(e) {
       var t = e.getPreviewableMedias(),
         n = t.some(function (e) {
           return e.type === o("WAWebMsgType").MSG_TYPE.VIDEO;
         });
       return n ? !1 : t.length < c;
     }
-    function h(e) {
+    function g(e) {
       return e.startsWith("video/");
     }
-    function y(e) {
+    function h(e) {
       return e.startsWith("image/");
     }
-    function C(t) {
+    function y(t) {
       var n = t.getPreviewableMedias();
       return n.length === 0 ? e : o("WAWebMimeTypes").IMAGE_MIMES;
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = e.getPreviewableMedias(),
         r = n.length,
         a = [];
       if (r === 0) {
         var i = t.filter(function (e) {
-            return e.file && h(e.file.type);
+            return e.file && g(e.file.type);
           }),
           l = t.filter(function (e) {
-            return e.file && y(e.file.type);
+            return e.file && h(e.file.type);
           });
         return i.length > 0
           ? (l.length > 0 && a.push("CROSS_MEDIA_VIDEO_ADDED"),
@@ -96,10 +87,10 @@ __d(
       if (s)
         return { attachments: [], pruneActions: a, shouldClearExisting: !1 };
       var u = t.filter(function (e) {
-          return e.file && h(e.file.type);
+          return e.file && g(e.file.type);
         }),
         m = t.filter(function (e) {
-          return e.file && y(e.file.type);
+          return e.file && h(e.file.type);
         });
       if (u.length > 0)
         return (
@@ -125,9 +116,9 @@ __d(
       (l.MAX_DESCRIPTION_LENGTH = m),
       (l.PRUNE_TOAST_MESSAGES = p),
       (l.deepCloneMediaCollection = _),
-      (l.canAddMoreAttachments = g),
-      (l.getAllowedMimeTypesForCollection = C),
-      (l.maybePruneNewAttachments = b));
+      (l.canAddMoreAttachments = f),
+      (l.getAllowedMimeTypesForCollection = y),
+      (l.maybePruneNewAttachments = C));
   },
   226,
 );

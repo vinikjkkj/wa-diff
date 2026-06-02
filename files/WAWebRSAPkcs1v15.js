@@ -1,6 +1,6 @@
 __d(
   "WAWebRSAPkcs1v15",
-  ["asyncToGeneratorRuntime", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       for (var t = e.replace(/-/g, "+").replace(/_/g, "/"); t.length % 4; )
@@ -103,39 +103,27 @@ __d(
           (o = p(m(o, o), n)));
       return r;
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var o = yield self.crypto.subtle.exportKey("jwk", t);
-          if (o.n == null || o.e == null)
-            throw r("err")("Invalid RSA public key: missing n or e");
-          var a = e(o.n),
-            i = e(o.e),
-            l = a.length,
-            s = n.length;
-          if (s > l - 11)
-            throw r("err")("Message too long for RSA PKCS1v1.5 encryption");
-          var u = l - s - 3,
-            c = new Uint8Array(u);
-          self.crypto.getRandomValues(c);
-          for (var d = 0; d < u; d++)
-            for (; c[d] === 0; )
-              c[d] = self.crypto.getRandomValues(new Uint8Array(1))[0];
-          var m = new Uint8Array(l);
-          ((m[0] = 0),
-            (m[1] = 2),
-            m.set(c, 2),
-            (m[2 + u] = 0),
-            m.set(n, 3 + u));
-          var p = f(m, i, a),
-            _ = new Uint8Array(l);
-          return (_.set(p, l - p.length), _);
-        })),
-        h.apply(this, arguments)
-      );
+    async function g(t, n) {
+      var o = await self.crypto.subtle.exportKey("jwk", t);
+      if (o.n == null || o.e == null)
+        throw r("err")("Invalid RSA public key: missing n or e");
+      var a = e(o.n),
+        i = e(o.e),
+        l = a.length,
+        s = n.length;
+      if (s > l - 11)
+        throw r("err")("Message too long for RSA PKCS1v1.5 encryption");
+      var u = l - s - 3,
+        c = new Uint8Array(u);
+      self.crypto.getRandomValues(c);
+      for (var d = 0; d < u; d++)
+        for (; c[d] === 0; )
+          c[d] = self.crypto.getRandomValues(new Uint8Array(1))[0];
+      var m = new Uint8Array(l);
+      ((m[0] = 0), (m[1] = 2), m.set(c, 2), (m[2 + u] = 0), m.set(n, 3 + u));
+      var p = f(m, i, a),
+        _ = new Uint8Array(l);
+      return (_.set(p, l - p.length), _);
     }
     l.rsaPkcs1v15Encrypt = g;
   },

@@ -7,7 +7,6 @@ __d(
     "WAWebUimUtils",
     "compactMap",
     "gkx",
-    "lodash",
     "maxBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -136,20 +135,18 @@ __d(
         (n.register = function () {
           (this.parent !== this && this.parent.children.push(this), t.pprint());
         }),
-        (n.pop = function (n, o) {
-          var e = this;
+        (n.pop = function (n, r) {
           if (
             (n === void 0 && (n = m.UIM_INTERACTION),
-            o === void 0 && (o = !0),
+            r === void 0 && (r = !0),
             this.getState() !== d.DEAD)
           ) {
-            (this.$3(this.children, n),
-              r("lodash").remove(this.parent.children, function (t) {
-                return t === e;
-              }),
+            this.$3(this.children, n);
+            var e = this.parent.children.indexOf(this);
+            (e !== -1 && this.parent.children.splice(e, 1),
               t.Manager.root === this && (t.Manager.root = void 0));
-            var a = t.findMostRecentlyActiveFocusable(this);
-            (a && (a.shouldRequestFocus = o), t.Manager.setTop(a), t.pprint());
+            var o = t.findMostRecentlyActiveFocusable(this);
+            (o && (o.shouldRequestFocus = r), t.Manager.setTop(o), t.pprint());
           }
         }),
         (n.requestDismiss = function (t, n) {

@@ -7,7 +7,6 @@ __d(
     "WAWebSchemaPendingMutations",
     "WAWebSchemaSyncActions",
     "WAWebSchemaSyncKeys",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -18,57 +17,49 @@ __d(
         .getPendingMutationsTable()
         .equals(e, t);
     }
-    function u() {
-      return c.apply(this, arguments);
+    async function u() {
+      var e = await o("WAWebSchemaPendingMutations")
+        .getPendingMutationsTable()
+        .all({ index: ["collection"], returnKeyType: "keys" });
+      return new Set(e);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaPendingMutations")
-            .getPendingMutationsTable()
-            .all({ index: ["collection"], returnKeyType: "keys" });
-          return new Set(e);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
+    function c(e, t) {
       return o("WAWebSchemaPendingMutations")
         .getPendingMutationsTable()
         .equals(e, t);
     }
-    function m(e) {
+    function d(e) {
       return o("WAWebSchemaPendingMutations")
         .getPendingMutationsTable()
         .bulkCreate(e);
     }
-    function p(e) {
+    function m(e) {
       return o("WAWebSchemaPendingMutations")
         .getPendingMutationsTable()
         .bulkRemove(e);
     }
-    function _(e, t, n) {
+    function p(e, t, n) {
       return o("WAWebSchemaCollectionVersion")
         .getCollectionVersionTable()
         .createOrMerge(e, { collection: e, version: t, ltHash: n });
     }
-    function f(e) {
+    function _(e) {
       return o("WAWebSchemaSyncActions").getSyncActionsTable().get(e);
     }
-    function g(e, t) {
+    function f(e, t) {
       return o("WAWebSchemaSyncActions").getSyncActionsTable().anyOf(e, t);
     }
-    function h(e) {
+    function g(e) {
       return o("WAWebSchemaSyncActions")
         .getSyncActionsTable()
         .createOrReplace(e);
     }
-    function y(e) {
+    function h(e) {
       return o("WAWebSchemaSyncActions")
         .getSyncActionsTable()
         .bulkCreateOrReplace(e);
     }
-    function C(e) {
+    function y(e) {
       return o("WAWebSchemaSyncActions")
         .getSyncActionsTable()
         .bulkCreateOrMerge(
@@ -77,26 +68,18 @@ __d(
           }),
         );
     }
-    function b(e) {
+    function C(e) {
       return o("WAWebSchemaSyncActions").getSyncActionsTable().bulkRemove(e);
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    async function b(e) {
+      var t = await o("WAWebSchemaSyncKeys")
+        .getSyncKeysTable()
+        .get(new Uint8Array(o("WASyncdKeyTypes").fromSyncKeyId(e)));
+      return t == null
+        ? t
+        : o("WAWebSchemaSyncKeys").convertToSyncKeyFromRow(t);
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaSyncKeys")
-            .getSyncKeysTable()
-            .get(new Uint8Array(o("WASyncdKeyTypes").fromSyncKeyId(e)));
-          return t == null
-            ? t
-            : o("WAWebSchemaSyncKeys").convertToSyncKeyFromRow(t);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R() {
+    function v() {
       return o("WAWebSchemaSyncKeys")
         .getSyncKeysTable()
         .all()
@@ -104,7 +87,7 @@ __d(
           return e.map(o("WAWebSchemaSyncKeys").convertToSyncKeyFromRow);
         });
     }
-    function L(e) {
+    function S(e) {
       return o("WAWebSchemaSyncKeys")
         .getSyncKeysTable()
         .createOrReplace(o("WAWebSchemaSyncKeys").convertFromSyncKeyToRow(e))
@@ -112,28 +95,20 @@ __d(
           return o("WASyncdKeyTypes").toSyncKeyId(e.buffer);
         });
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    async function R(e) {
+      var t = await o("WAWebSchemaSyncKeys")
+        .getSyncKeysTable()
+        .equals(["keyEpoch"], e);
+      t.forEach(function (e) {
+        return o("WAWebSchemaSyncKeys")
+          .getSyncKeysTable()
+          .merge({ keyId: e.keyId }, { timestamp: 0 });
+      });
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaSyncKeys")
-            .getSyncKeysTable()
-            .equals(["keyEpoch"], e);
-          t.forEach(function (e) {
-            return o("WAWebSchemaSyncKeys")
-              .getSyncKeysTable()
-              .merge({ keyId: e.keyId }, { timestamp: 0 });
-          });
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I() {
+    function L() {
       return o("WAWebSchemaMissingKeys").getMissingKeysTable().count();
     }
-    function T(e) {
+    function E(e) {
       return o("WAWebSchemaMissingKeys")
         .getMissingKeysTable()
         .bulkGet(e)
@@ -145,7 +120,7 @@ __d(
           });
         });
     }
-    function D() {
+    function k() {
       return o("WAWebSchemaMissingKeys")
         .getMissingKeysTable()
         .all()
@@ -153,10 +128,10 @@ __d(
           return e.map(o("WAWebSchemaMissingKeys").convertToMissingKeyFromRow);
         });
     }
-    function x(e) {
+    function I(e) {
       return o("WAWebSchemaMissingKeys").getMissingKeysTable().bulkRemove(e);
     }
-    function $(e) {
+    function T(e) {
       return o("WAWebSchemaMissingKeys")
         .getMissingKeysTable()
         .bulkCreateOrMerge(
@@ -166,25 +141,25 @@ __d(
     ((l.getAllPendingMutationsRows = e),
       (l.getPendingMutationsRows = s),
       (l.getCollectionsWithPendingMutations = u),
-      (l.getPendingMutationsRowsByIndex = d),
-      (l.appendPendingMutationsRows = m),
-      (l.bulkRemovePendingMutations = p),
-      (l.setCollectionVersion = _),
-      (l.getSyncAction = f),
-      (l.getSyncActionsRows = g),
-      (l.setSyncAction = h),
-      (l.setSyncActionRows = y),
-      (l.updateSyncActionRows = C),
-      (l.deleteSyncActionRows = b),
-      (l.getSyncKey = v),
-      (l.getAllSyncKeys = R),
-      (l.createSyncKey = L),
-      (l.expireSyncKey = E),
-      (l.getMissingKeyCount = I),
-      (l.bulkGetMissingKeys = T),
-      (l.getAllMissingKeys = D),
-      (l.bulkRemoveMissingKeys = x),
-      (l.createOrUpdateMissingKeys = $));
+      (l.getPendingMutationsRowsByIndex = c),
+      (l.appendPendingMutationsRows = d),
+      (l.bulkRemovePendingMutations = m),
+      (l.setCollectionVersion = p),
+      (l.getSyncAction = _),
+      (l.getSyncActionsRows = f),
+      (l.setSyncAction = g),
+      (l.setSyncActionRows = h),
+      (l.updateSyncActionRows = y),
+      (l.deleteSyncActionRows = C),
+      (l.getSyncKey = b),
+      (l.getAllSyncKeys = v),
+      (l.createSyncKey = S),
+      (l.expireSyncKey = R),
+      (l.getMissingKeyCount = L),
+      (l.bulkGetMissingKeys = E),
+      (l.getAllMissingKeys = k),
+      (l.bulkRemoveMissingKeys = I),
+      (l.createOrUpdateMissingKeys = T));
   },
   98,
 );

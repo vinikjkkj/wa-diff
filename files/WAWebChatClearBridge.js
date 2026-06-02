@@ -1,7 +1,6 @@
 __d(
   "WAWebChatClearBridge",
   [
-    "Promise",
     "WANullthrows",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
@@ -15,93 +14,77 @@ __d(
     "WAWebProtobufSyncAction.pb",
     "WAWebThreadMetadataJob",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function e(e, t, n) {
+      var a = o("WATimeUtils").unixTimeMs(),
+        i = await Promise.all([
+          r("WAWebClearChatSync").getClearChatMutation(a, e.id, !n, !1, !1),
+          r("WAWebClearChatSync").getClearChatMutation(a, e.id, !n, !1, !0),
+        ]),
+        l = i[0],
+        s = i[1],
+        u;
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = o("WATimeUtils").unixTimeMs(),
-            s = yield (e || (e = n("Promise"))).all([
-              r("WAWebClearChatSync").getClearChatMutation(l, t.id, !i, !1, !1),
-              r("WAWebClearChatSync").getClearChatMutation(l, t.id, !i, !1, !0),
-            ]),
-            u = s[0],
-            c = s[1],
-            d;
-          return (
-            yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
-              ["message", "message-association"],
-              [u],
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e;
-                yield o("WAWebApiActiveMessageRanges").addActiveMessageRange(
-                  t.id.toString(),
-                  o("WAWebApiActiveMessageRanges").getActiveRangeAction(
-                    "clearChat",
-                    { deleteStarred: !i },
-                  ),
-                  c.binarySyncAction,
-                );
-                var n = o("decodeProtobuf").decodeProtobuf(
-                    o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                    c.binarySyncAction,
-                  ),
-                  a = r("WANullthrows")(
-                    (e = n.clearChatAction) == null ? void 0 : e.messageRange,
-                  );
-                d = yield o(
-                  "WAWebDBQueryAndRemoveMessageHistory",
-                ).queryAndRemoveMessagesInMessageRange(t.id, a, {
-                  skipStarred: i,
-                  skipRecentSystemMessages: !1,
-                });
-              }),
-            ),
-            yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
-              o("WAWebWidToJid").widToChatJid(t.id),
-            ),
-            { result: d }
-          );
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t, r) {
-      return s(e, t, r).then(
-        (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            if (t.result != null && t.result.length > 0) {
-              var n = t.result;
-              (yield o("WAWebBackendApi").frontendSendAndReceive(
-                "deleteModelsForLastAddOnPreview",
-                { messagesIds: n },
+        await o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+          ["message", "message-association"],
+          [l],
+          async function () {
+            var t;
+            await o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+              e.id.toString(),
+              o("WAWebApiActiveMessageRanges").getActiveRangeAction(
+                "clearChat",
+                { deleteStarred: !n },
               ),
-                yield o("WAWebPersistedJobManagerWorkerCompatible")
-                  .getJobManager()
-                  .waitUntilPersisted(
-                    o(
-                      "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.deleteAddOns(e.id.toString(), n),
-                  ),
-                o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(n, {
-                  removeWholeRow: !0,
-                }));
-            }
-            return t;
-          });
-          return function (e) {
-            return t.apply(this, arguments);
-          };
-        })(),
+              s.binarySyncAction,
+            );
+            var a = o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                s.binarySyncAction,
+              ),
+              i = r("WANullthrows")(
+                (t = a.clearChatAction) == null ? void 0 : t.messageRange,
+              );
+            u = await o(
+              "WAWebDBQueryAndRemoveMessageHistory",
+            ).queryAndRemoveMessagesInMessageRange(e.id, i, {
+              skipStarred: n,
+              skipRecentSystemMessages: !1,
+            });
+          },
+        ),
+        await o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
+          o("WAWebWidToJid").widToChatJid(e.id),
+        ),
+        { result: u }
       );
     }
-    l.sendClear = c;
+    function s(t, n, r) {
+      return e(t, n, r).then(async function (e) {
+        if (e.result != null && e.result.length > 0) {
+          var n = e.result;
+          (await o("WAWebBackendApi").frontendSendAndReceive(
+            "deleteModelsForLastAddOnPreview",
+            { messagesIds: n },
+          ),
+            await o("WAWebPersistedJobManagerWorkerCompatible")
+              .getJobManager()
+              .waitUntilPersisted(
+                o("WAWebPersistedJobDefinitions").jobSerializers.deleteAddOns(
+                  t.id.toString(),
+                  n,
+                ),
+              ),
+            o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(n, {
+              removeWholeRow: !0,
+            }));
+        }
+        return e;
+      });
+    }
+    l.sendClear = s;
   },
   98,
 );

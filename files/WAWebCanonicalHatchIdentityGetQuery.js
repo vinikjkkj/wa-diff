@@ -1,9 +1,9 @@
 __d(
   "WAWebCanonicalHatchIdentityGetQuery",
   [
+    "WAWebAIHatchIdentityStore",
     "WAWebCanonicalHatchIdentityGetQuery.graphql",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -12,39 +12,41 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebCanonicalHatchIdentityGetQuery.graphql"));
-    function u() {
-      return c.apply(this, arguments);
+    function u(e) {
+      if (e == null || e.length === 0) return null;
+      var t = {},
+        n = !1;
+      for (var r of e) {
+        var a = r.variant,
+          i = r.video_url;
+        if (a != null && i != null) {
+          var l = o("WAWebAIHatchIdentityStore").validateWhatsAppNetUrl(i);
+          l != null && ((t[a] = l), (n = !0));
+        }
+      }
+      return n ? t : null;
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t,
-            n,
-            r,
-            a = yield o("WAWebRelayClient").fetchQuery(
-              s,
-              {},
-              { environmentType: "whatsapp_web" },
-            ),
-            i =
-              a == null || (e = a.wa_genai_hatch_channel_metadata) == null
-                ? void 0
-                : e.identity;
-          return {
-            name: (t = i == null ? void 0 : i.name) != null ? t : null,
-            avatarUrl:
-              (n =
-                i == null || (r = i.avatar) == null ? void 0 : r.image_url) !=
-              null
-                ? n
-                : null,
-          };
-        })),
-        c.apply(this, arguments)
-      );
+    async function c() {
+      var e,
+        t,
+        n,
+        r = await o("WAWebRelayClient").fetchQuery(
+          s,
+          {},
+          { environmentType: "whatsapp_web" },
+        ),
+        a =
+          r == null || (e = r.wa_genai_hatch_channel_metadata) == null
+            ? void 0
+            : e.identity,
+        i = a == null ? void 0 : a.avatar;
+      return {
+        name: (t = a == null ? void 0 : a.name) != null ? t : null,
+        avatarUrl: (n = i == null ? void 0 : i.image_url) != null ? n : null,
+        videoVariants: u(i == null ? void 0 : i.video_variants),
+      };
     }
-    l.fetchHatchIdentityGet = u;
+    l.fetchHatchIdentityGet = c;
   },
   98,
 );

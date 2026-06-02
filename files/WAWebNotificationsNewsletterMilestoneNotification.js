@@ -16,13 +16,12 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebPollCreationUtils",
     "WAWebUA",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c = (function (t) {
-        function a(e) {
+        function n(e) {
           var n,
             r = e.chat,
             o = e.milestoneType,
@@ -39,10 +38,10 @@ __d(
             n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.buildKey = function () {
+          (a.buildKey = function () {
             var e, t, n;
             return (
               "newsletter-milestone:" +
@@ -59,19 +58,13 @@ __d(
               ((n = this.reactionCode) != null ? n : "")
             );
           }),
-          (i.getIcon = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                this.chat,
-                this.abortController.signal,
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.shouldMute = function (n) {
+          (a.getIcon = async function () {
+            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+              this.chat,
+              this.abortController.signal,
+            );
+          }),
+          (a.shouldMute = function (n) {
             var e = t.prototype.shouldMute.call(this, n);
             if (e != null) return e;
             var a = this.chat.newsletterMetadata;
@@ -87,12 +80,12 @@ __d(
               : r("WAWebNotificationMuteReason")
                   .NewsletterFollowerActivityDisabled;
           }),
-          (i.shouldPlaySound = function () {
+          (a.shouldPlaySound = function () {
             return t.prototype.shouldPlaySound.call(this)
               ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(this.chat)
               : !1;
           }),
-          (i.getBody = function () {
+          (a.getBody = function () {
             return this.msg
               ? this.milestoneType === "FOLLOWS"
                 ? ""
@@ -101,7 +94,7 @@ __d(
                   )
               : this.getBodyForNullMsg();
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             var t = this.msg ? ":" : "";
             e: {
               var n = this.milestoneType;
@@ -199,7 +192,7 @@ __d(
               }
             }
           }),
-          (i.getBodyForNullMsg = function () {
+          (a.getBodyForNullMsg = function () {
             e: {
               var e = this.milestoneType;
               if (e === "FOLLOWS") return "";
@@ -208,7 +201,7 @@ __d(
               if (e === "MESSAGE_RESPONSES")
                 return o("WAWebUA").UA.hasEmoji ? "\u2753" : "";
               if (e === "MESSAGE_VOTES")
-                return o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCCA" : "";
+                return o("WAWebUA").UA.hasEmoji ? "\u{1F4CA}" : "";
               {
                 return (
                   o("WALogger").WARN(
@@ -225,7 +218,7 @@ __d(
               }
             }
           }),
-          (i.getBannerOptions = function () {
+          (a.getBannerOptions = function () {
             var e,
               t,
               n = o("WAWebGetNotificationStrings").getNotificationBody({
@@ -247,13 +240,13 @@ __d(
               body: n,
             };
           }),
-          (i.matchesChat = function (t) {
+          (a.matchesChat = function (t) {
             return t.equals(this.chat);
           }),
-          (i.getChatKind = function () {
+          (a.getChatKind = function () {
             return o("WAWebChatFlowTypes").ChatKindType.Newsletter;
           }),
-          a
+          n
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     l.WANewsletterMilestoneNotification = c;

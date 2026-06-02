@@ -2,17 +2,14 @@ __d(
   "WAWebInvocationDispatcher",
   [
     "invariant",
-    "Promise",
     "WANullthrows",
     "WAWebBrokerProtocolInvocation",
     "WAWebBrokerProtocolResponse",
     "WAWebInvocationId",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = (function () {
-        function t() {
+    var e = (function () {
+        function e() {
           var e = this;
           ((this.$2 = new Map()),
             (this.$3 = function (t) {
@@ -30,9 +27,9 @@ __d(
               }
             }));
         }
-        var a = t.prototype;
+        var t = e.prototype;
         return (
-          (a.setConnectionManager = function (t) {
+          (t.setConnectionManager = function (t) {
             var e = this;
             ((this.$1 = t),
               t.waitForConnection().then(function () {
@@ -43,42 +40,34 @@ __d(
                 (n.addEventListener("message", e.$3), n.start());
               }));
           }),
-          (a.invoke = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a) {
-                var i = this;
-                (this.$1 || s(0, 56298),
-                  yield this.$1.waitForConnection(),
-                  this.$1 || s(0, 56298));
-                var l = r("WANullthrows")(
-                    this.$1.getPort(),
-                    "Port obtained from ConnectionManager after connection",
-                  ),
-                  u = o("WAWebInvocationId").genInvocationId();
-                return (
-                  l.postMessage(
-                    o("WAWebBrokerProtocolInvocation").buildInvocationPayload({
-                      invocationId: u,
-                      method: t,
-                      args: a,
-                    }),
-                  ),
-                  new (e || (e = n("Promise")))(function (e, t) {
-                    i.$2.set(u, { resolve: e, reject: t });
-                  })
-                );
-              },
+          (t.invoke = async function (t, n) {
+            var e = this;
+            (this.$1 || s(0, 56298),
+              await this.$1.waitForConnection(),
+              this.$1 || s(0, 56298));
+            var a = r("WANullthrows")(
+                this.$1.getPort(),
+                "Port obtained from ConnectionManager after connection",
+              ),
+              i = o("WAWebInvocationId").genInvocationId();
+            return (
+              a.postMessage(
+                o("WAWebBrokerProtocolInvocation").buildInvocationPayload({
+                  invocationId: i,
+                  method: t,
+                  args: n,
+                }),
+              ),
+              new Promise(function (t, n) {
+                e.$2.set(i, { resolve: t, reject: n });
+              })
             );
-            function a(e, n) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          t
+          }),
+          e
         );
       })(),
-      c = new u();
-    l.default = c;
+      u = new e();
+    l.default = u;
   },
   98,
 );

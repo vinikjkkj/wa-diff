@@ -1,12 +1,6 @@
 __d(
   "WAWebDownloadAndDecryptCache",
-  [
-    "WALogger",
-    "WAWebMediaDataUtils",
-    "WAWebMediaStore",
-    "WAWebSerializeError",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebMediaDataUtils", "WAWebMediaStore", "WAWebSerializeError"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
@@ -24,62 +18,54 @@ __d(
     }
     var c = (function () {
       function t() {}
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.get = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, n) {
-              if (!o("WAWebMediaDataUtils").shouldUseLruMediaStore(n.type))
-                return null;
-              try {
-                return yield o("WAWebMediaStore").LruMediaStore.get(u(n));
-              } catch (t) {
-                return (
-                  o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose(
-                          ["downloadManager.asyncCache.get error:\n", ""],
-                          ["downloadManager.asyncCache.get error:\\n", ""],
-                        )),
-                      r("WAWebSerializeError")(t),
-                    )
-                    .verbose(),
-                  null
-                );
-              }
-            },
-          );
-          function a(e, n) {
-            return t.apply(this, arguments);
+        (n.get = async function (n, a) {
+          if (!o("WAWebMediaDataUtils").shouldUseLruMediaStore(a.type))
+            return null;
+          try {
+            return await o("WAWebMediaStore").LruMediaStore.get(u(a));
+          } catch (t) {
+            return (
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose(
+                      [
+                        `downloadManager.asyncCache.get error:
+`,
+                        "",
+                      ],
+                      ["downloadManager.asyncCache.get error:\\n", ""],
+                    )),
+                  r("WAWebSerializeError")(t),
+                )
+                .verbose(),
+              null
+            );
           }
-          return a;
-        })()),
-        (a.set = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              if (o("WAWebMediaDataUtils").shouldUseLruMediaStore(n.type))
-                try {
-                  yield o("WAWebMediaStore").LruMediaStore.put(u(n), t);
-                } catch (e) {
-                  o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose(
-                          ["downloadManager.asyncCache.set error:\n", ""],
-                          ["downloadManager.asyncCache.set error:\\n", ""],
-                        )),
-                      r("WAWebSerializeError")(e),
-                    )
-                    .verbose();
-                }
-            },
-          );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        }),
+        (n.set = async function (t, n, a) {
+          if (o("WAWebMediaDataUtils").shouldUseLruMediaStore(a.type))
+            try {
+              await o("WAWebMediaStore").LruMediaStore.put(u(a), n);
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose(
+                      [
+                        `downloadManager.asyncCache.set error:
+`,
+                        "",
+                      ],
+                      ["downloadManager.asyncCache.set error:\\n", ""],
+                    )),
+                  r("WAWebSerializeError")(e),
+                )
+                .verbose();
+            }
+        }),
         t
       );
     })();

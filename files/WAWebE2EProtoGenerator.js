@@ -31,7 +31,6 @@ __d(
     "WAWebURLUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isArrayNullOrEmpty",
     "isEmptyObject",
     "lodash",
@@ -491,7 +490,13 @@ __d(
           return (
             e.subtype === "text"
               ? ((e.type = "chat"),
-                e.title && (e.body = "*" + e.title + "*\n" + e.body))
+                e.title &&
+                  (e.body =
+                    "*" +
+                    e.title +
+                    `*
+` +
+                    e.body))
               : (e.type = e.subtype),
             y(e, t, n, r)
           );
@@ -675,86 +680,76 @@ __d(
           r != null && N(r) && P(r);
         }));
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a,
-            i,
-            l,
-            s = e.botMessageSecret,
-            u = e.isOpenBotGroup,
-            c = u === void 0 ? !1 : u,
-            d = e.mentionedJidList,
-            m = e.message,
-            p = r("lodash").cloneDeep(m),
-            _ = !1;
-          (c === !0 &&
-            o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
-            (_ = !0),
-            _ === !0 && w(p),
-            (p.messageContextInfo = babelHelpers.extends(
-              {},
-              p.messageContextInfo,
-              { messageSecret: null },
-            )),
-            s &&
-              (p.messageContextInfo = babelHelpers.extends(
-                {},
-                p.messageContextInfo,
-                { botMessageSecret: s },
-              )));
-          var f =
-            (p == null ||
-            (t = p.botInvokeMessage) == null ||
-            (t = t.message) == null ||
-            (t = t.extendedTextMessage) == null
-              ? void 0
-              : t.contextInfo) ||
-            (p == null || (n = p.extendedTextMessage) == null
-              ? void 0
-              : n.contextInfo);
-          if ((f == null ? void 0 : f.quotedMessage) != null) {
-            var g;
-            f.participant != null &&
-              ((g = o("WAWebWidFactory").createWid(f.participant)) == null
-                ? void 0
-                : g.isBot()) !== !0 &&
-              (_ !== !0 && delete f.quotedMessage,
-              delete f.stanzaId,
-              delete f.remoteJid,
-              delete f.participant);
-          }
-          var h =
-            p == null ||
-            (a = p.protocolMessage) == null ||
-            (a = a.botFeedbackMessage) == null
-              ? void 0
-              : a.messageKey;
-          h != null && h.remoteJid != null && delete h.remoteJid;
-          var y =
-            (p == null || (i = p.protocolMessage) == null ? void 0 : i.type) ===
-            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
-              ? p == null || (l = p.protocolMessage) == null
-                ? void 0
-                : l.key
-              : null;
-          return (
-            y != null && y.remoteJid != null && delete y.remoteJid,
-            yield o(
-              "WAWebBotReplaceMentionWidsWithPushnames",
-            ).replaceMentionWidsWithPushnames(p, d),
-            p
-          );
+    async function A(e) {
+      var t,
+        n,
+        a,
+        i,
+        l,
+        s = e.botMessageSecret,
+        u = e.isOpenBotGroup,
+        c = u === void 0 ? !1 : u,
+        d = e.mentionedJidList,
+        m = e.message,
+        p = r("lodash").cloneDeep(m),
+        _ = !1;
+      (c === !0 &&
+        o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
+        (_ = !0),
+        _ === !0 && w(p),
+        (p.messageContextInfo = babelHelpers.extends({}, p.messageContextInfo, {
+          messageSecret: null,
         })),
-        F.apply(this, arguments)
+        s &&
+          (p.messageContextInfo = babelHelpers.extends(
+            {},
+            p.messageContextInfo,
+            { botMessageSecret: s },
+          )));
+      var f =
+        (p == null ||
+        (t = p.botInvokeMessage) == null ||
+        (t = t.message) == null ||
+        (t = t.extendedTextMessage) == null
+          ? void 0
+          : t.contextInfo) ||
+        (p == null || (n = p.extendedTextMessage) == null
+          ? void 0
+          : n.contextInfo);
+      if ((f == null ? void 0 : f.quotedMessage) != null) {
+        var g;
+        f.participant != null &&
+          ((g = o("WAWebWidFactory").createWid(f.participant)) == null
+            ? void 0
+            : g.isBot()) !== !0 &&
+          (_ !== !0 && delete f.quotedMessage,
+          delete f.stanzaId,
+          delete f.remoteJid,
+          delete f.participant);
+      }
+      var h =
+        p == null ||
+        (a = p.protocolMessage) == null ||
+        (a = a.botFeedbackMessage) == null
+          ? void 0
+          : a.messageKey;
+      h != null && h.remoteJid != null && delete h.remoteJid;
+      var y =
+        (p == null || (i = p.protocolMessage) == null ? void 0 : i.type) ===
+        o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
+          ? p == null || (l = p.protocolMessage) == null
+            ? void 0
+            : l.key
+          : null;
+      return (
+        y != null && y.remoteJid != null && delete y.remoteJid,
+        await o(
+          "WAWebBotReplaceMentionWidsWithPushnames",
+        ).replaceMentionWidsWithPushnames(p, d),
+        p
       );
     }
-    function O(e) {
+    function F(e) {
       var t,
         n,
         a,
@@ -799,7 +794,7 @@ __d(
       }
       return i;
     }
-    function B(e) {
+    function O(e) {
       var t,
         n = e,
         a =
@@ -821,7 +816,7 @@ __d(
       }
       return n;
     }
-    function W(e) {
+    function B(e) {
       var t = e,
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
@@ -836,7 +831,7 @@ __d(
       }
       return t;
     }
-    function q(e) {
+    function W(e) {
       var t = r("lodash").cloneDeep(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -845,35 +840,21 @@ __d(
         t
       );
     }
-    function U(e) {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebBackendApi").frontendSendAndReceive(
-            "getDebugInfo",
-            {
-              addLanguageFields: !0,
-              convertFields: !0,
-              addUserAgentDetails: !0,
-            },
-          );
-          t.sagaKey = "saga_v1_enabled";
-          var n = babelHelpers.extends(
-            { version: 1, debug_information: t },
-            o("WAWebABPropsSaga").getIsSagaV1CarouselEnabled()
-              ? { citations_carousel: !0 }
-              : {},
-          );
-          e.messageContextInfo = babelHelpers.extends(
-            {},
-            e.messageContextInfo,
-            { supportPayload: JSON.stringify(n) },
-          );
-        })),
-        V.apply(this, arguments)
+    async function q(e) {
+      var t = await o("WAWebBackendApi").frontendSendAndReceive(
+        "getDebugInfo",
+        { addLanguageFields: !0, convertFields: !0, addUserAgentDetails: !0 },
       );
+      t.sagaKey = "saga_v1_enabled";
+      var n = babelHelpers.extends(
+        { version: 1, debug_information: t },
+        o("WAWebABPropsSaga").getIsSagaV1CarouselEnabled()
+          ? { citations_carousel: !0 }
+          : {},
+      );
+      e.messageContextInfo = babelHelpers.extends({}, e.messageContextInfo, {
+        supportPayload: JSON.stringify(n),
+      });
     }
     ((l.populateMessageContextInfo = c),
       (l.createPeerMsgProtobuf = d),
@@ -882,11 +863,11 @@ __d(
       (l.createProtobuf = g),
       (l.getProtobufMessage = y),
       (l.updateBotInvokeMsgProtoCopyForCapi = A),
-      (l.updateFbidBotProtobuf = O),
-      (l.updateFbidBotInvokeProtobuf = B),
-      (l.updateBotProtobuf = W),
-      (l.updateGroupMsgProtoWithCapiFlag = q),
-      (l.addDebugInfoSupportPayload = U));
+      (l.updateFbidBotProtobuf = F),
+      (l.updateFbidBotInvokeProtobuf = O),
+      (l.updateBotProtobuf = B),
+      (l.updateGroupMsgProtoWithCapiFlag = W),
+      (l.addDebugInfoSupportPayload = q));
   },
   98,
 );

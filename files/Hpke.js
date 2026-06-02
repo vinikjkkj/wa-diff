@@ -1,6 +1,6 @@
 __d(
   "Hpke",
-  ["$InternalEnum", "asyncToGeneratorRuntime"],
+  ["$InternalEnum"],
   function (t, n, r, o, a, i) {
     "use strict";
     var e = new Uint8Array([0]),
@@ -20,92 +20,52 @@ __d(
         function t(e, t, n) {
           ((this.kem = e), (this.kdf = t), (this.aead = n));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.setupBaseS = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.kem.encap(e),
-                  r = yield this.keySchedule(n.sharedSecret, t);
-                return { enc: n.enc, ctx: r };
-              },
+          (n.setupBaseS = async function (t, n) {
+            var e = await this.kem.encap(t),
+              r = await this.keySchedule(e.sharedSecret, n);
+            return { enc: e.enc, ctx: r };
+          }),
+          (n.setupBaseR = async function (t, n, r) {
+            var e = await this.kem.decap(t, n),
+              o = await this.keySchedule(e, r);
+            return o;
+          }),
+          (n.keySchedule = async function (n, r) {
+            var t = R(this.kem.kem_id, this.kdf.kdf_id, this.aead.aead_id),
+              o = await this.kdf.labeledExtract(
+                new Uint8Array(0),
+                s,
+                new Uint8Array(0),
+                t,
+              ),
+              a = await this.kdf.labeledExtract(new Uint8Array(0), u, r, t),
+              i = v(e, o, a),
+              l = await this.kdf.labeledExtract(n, c, new Uint8Array(0), t),
+              _ = await this.kdf.labeledExpand(l, d, i, this.aead.nK, t),
+              f = await this.kdf.labeledExpand(l, m, i, this.aead.nN, t),
+              g = await this.kdf.labeledExpand(l, p, i, this.kdf.nH, t);
+            return new b(
+              _,
+              f,
+              b.defaultSeq(this.aead.nN),
+              g,
+              this.aead,
+              this.kdf,
+              t,
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.setupBaseR = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = yield this.kem.decap(e, t),
-                  o = yield this.keySchedule(r, n);
-                return o;
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.keySchedule = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n) {
-                var r = R(this.kem.kem_id, this.kdf.kdf_id, this.aead.aead_id),
-                  o = yield this.kdf.labeledExtract(
-                    new Uint8Array(0),
-                    s,
-                    new Uint8Array(0),
-                    r,
-                  ),
-                  a = yield this.kdf.labeledExtract(new Uint8Array(0), u, n, r),
-                  i = v(e, o, a),
-                  l = yield this.kdf.labeledExtract(t, c, new Uint8Array(0), r),
-                  _ = yield this.kdf.labeledExpand(l, d, i, this.aead.nK, r),
-                  f = yield this.kdf.labeledExpand(l, m, i, this.aead.nN, r),
-                  g = yield this.kdf.labeledExpand(l, p, i, this.kdf.nH, r);
-                return new b(
-                  _,
-                  f,
-                  b.defaultSeq(this.aead.nN),
-                  g,
-                  this.aead,
-                  this.kdf,
-                  r,
-                );
-              },
-            );
-            function r(e, n) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (r.sealSingleShot = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var o = yield this.setupBaseS(e, t),
-                  a = yield o.ctx.seal(n, r);
-                return { ct: a, enc: o.enc };
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.openSingleShot = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, o) {
-                var a = yield this.setupBaseR(e, t, n),
-                  i = a.open(r, o);
-                return i;
-              },
-            );
-            function t(t, n, r, o, a) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
+          (n.sealSingleShot = async function (t, n, r, o) {
+            var e = await this.setupBaseS(t, n),
+              a = await e.ctx.seal(r, o);
+            return { ct: a, enc: e.enc };
+          }),
+          (n.openSingleShot = async function (t, n, r, o, a) {
+            var e = await this.setupBaseR(t, n, r),
+              i = e.open(o, a);
+            return i;
+          }),
           t
         );
       })(),
@@ -124,40 +84,14 @@ __d(
         };
         var t = e.prototype;
         return (
-          (t.seal = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.aead.seal(
-                  this.key,
-                  this.computeNonce(),
-                  e,
-                  t,
-                );
-                return (this.incrementSeq(), n);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.open = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.aead.open(
-                  this.key,
-                  this.computeNonce(),
-                  e,
-                  t,
-                );
-                return (this.incrementSeq(), n);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (t.seal = async function (t, n) {
+            var e = await this.aead.seal(this.key, this.computeNonce(), t, n);
+            return (this.incrementSeq(), e);
+          }),
+          (t.open = async function (t, n) {
+            var e = await this.aead.open(this.key, this.computeNonce(), t, n);
+            return (this.incrementSeq(), e);
+          }),
           (t.computeNonce = function () {
             return L(this.base_nonce, this.seq);
           }),
@@ -170,24 +104,16 @@ __d(
           (t.setSeq = function (t) {
             this.seq = t;
           }),
-          (t.export = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.kdf.labeledExpand(
-                  this.exporter_secret,
-                  f,
-                  e,
-                  t,
-                  this.suite_id,
-                );
-                return n;
-              },
+          (t.export = async function (t, n) {
+            var e = await this.kdf.labeledExpand(
+              this.exporter_secret,
+              f,
+              t,
+              n,
+              this.suite_id,
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+            return e;
+          }),
           e
         );
       })();

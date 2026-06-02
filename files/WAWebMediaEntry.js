@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaEntry",
   [
-    "Promise",
     "WABase64Equal",
     "WAIsMediaKeyReusable",
     "WALogger",
@@ -9,7 +8,6 @@ __d(
     "WAWebMediaHosts",
     "WAWebMmsClientFormatDownloadUrl",
     "WAWebMmsOperationsConst",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,18 +22,17 @@ __d(
         "thumbnailSha256",
       ],
       c = ["encFilehash", "mediaKey", "mediaKeyTimestamp"],
-      d,
-      m = {
+      d = {
         PROBABLY_ON_SERVER: "PROBABLY_ON_SERVER",
         PROBABLY_OFF_SERVER: "PROBABLY_OFF_SERVER",
         UNKNOWN: "UNKNOWN",
       },
-      p = (function () {
+      m = (function () {
         function e(t) {
           if (((this.useBackupUrl = !1), this.constructor === e))
             throw r("err")("AbstractMediaEntry is an abstract class");
           ((this.deprecatedMms3Url = t.deprecatedMms3Url),
-            (this.serverStatus = m.UNKNOWN),
+            (this.serverStatus = d.UNKNOWN),
             (this.sidecar = t.sidecar),
             (this.directPath = t.directPath),
             (this.firstFrameSidecar = t.firstFrameSidecar),
@@ -48,8 +45,8 @@ __d(
         return (
           (t.markWhetherOnServer = function (t) {
             this.serverStatus = t
-              ? m.PROBABLY_ON_SERVER
-              : m.PROBABLY_OFF_SERVER;
+              ? d.PROBABLY_ON_SERVER
+              : d.PROBABLY_OFF_SERVER;
           }),
           (t.getMediaKey = function () {
             return null;
@@ -70,12 +67,12 @@ __d(
             return null;
           }),
           (t.validateForDownloads = function () {
-            return this.serverStatus !== m.PROBABLY_OFF_SERVER;
+            return this.serverStatus !== d.PROBABLY_OFF_SERVER;
           }),
           e
         );
       })(),
-      _ = (function (e) {
+      p = (function (e) {
         function t(t) {
           var n,
             r = t.fbid,
@@ -110,8 +107,8 @@ __d(
           }),
           t
         );
-      })(p),
-      f = (function (e) {
+      })(m),
+      _ = (function (e) {
         function t(t) {
           var n,
             r = t.encFilehash,
@@ -127,58 +124,50 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.canReuseMediaKey = function () {
+          (n.canReuseMediaKey = function () {
             if (this.directPath == null) return !1;
             var e = o("WATimeUtils").castToUnixTime(this.mediaKeyTimestamp);
             return o("WAIsMediaKeyReusable").isMediaKeyReusable(e);
           }),
-          (a.getMediaKey = function () {
+          (n.getMediaKey = function () {
             return this.mediaKey;
           }),
-          (a.getMediaKeyTimestamp = function () {
+          (n.getMediaKeyTimestamp = function () {
             return this.mediaKeyTimestamp;
           }),
-          (a.getEncfilehash = function () {
+          (n.getEncfilehash = function () {
             return this.encFilehash;
           }),
-          (a.url = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e || {},
-                  a = t.forceHashUrl,
-                  i = t.useFallback,
-                  l = this.encFilehash;
-                if (l == null || l === "")
-                  return (d || (d = n("Promise"))).reject(
-                    r("err")("media_entry: encFilehash does not exist"),
-                  );
-                var s = yield o("WAWebMediaHosts").mediaHosts.getHostsInfo({
-                    operation: r("WAWebMmsOperationsConst").DOWNLOAD,
-                    encFilehash: l,
-                    type: this.type,
-                  }),
-                  u = s.fallbackHost,
-                  c = s.selectedHost,
-                  m = i && u ? u : c;
-                return r("WAWebMmsClientFormatDownloadUrl")({
-                  directPath: a ? null : this.directPath,
-                  encFilehash: l,
-                  hostname: m.hostname,
-                  type: this.type,
-                });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (n.url = async function (t) {
+            var e = t || {},
+              n = e.forceHashUrl,
+              a = e.useFallback,
+              i = this.encFilehash;
+            if (i == null || i === "")
+              return Promise.reject(
+                r("err")("media_entry: encFilehash does not exist"),
+              );
+            var l = await o("WAWebMediaHosts").mediaHosts.getHostsInfo({
+                operation: r("WAWebMmsOperationsConst").DOWNLOAD,
+                encFilehash: i,
+                type: this.type,
+              }),
+              s = l.fallbackHost,
+              u = l.selectedHost,
+              c = a && s ? s : u;
+            return r("WAWebMmsClientFormatDownloadUrl")({
+              directPath: n ? null : this.directPath,
+              encFilehash: i,
+              hostname: c.hostname,
+              type: this.type,
+            });
+          }),
           t
         );
-      })(p),
-      g = (function () {
+      })(m),
+      f = (function () {
         function t() {
           this.entries = [];
         }
@@ -197,13 +186,15 @@ __d(
               m = n.sidecar,
               p = n.staticUrl;
             if (
-              l instanceof f &&
+              l instanceof _ &&
               s != null &&
               s !== "" &&
               !o("WABase64Equal").b64Equal(l.mediaKey, s)
             ) {
-              var _ = l.mediaKey.replace("=", "").split("\n")[0],
-                g = s.replace("=", "").split("\n")[0];
+              var f = l.mediaKey.replace("=", "").split(`
+`)[0],
+                g = s.replace("=", "").split(`
+`)[0];
               return (
                 o("WALogger")
                   .ERROR(
@@ -212,7 +203,8 @@ __d(
                         [
                           "media-fault: mediaKey changed for the same MMS3 url. type:",
                           ". equal?:",
-                          ". Debug:\n",
+                          `. Debug:
+`,
                           "",
                         ],
                         [
@@ -223,7 +215,7 @@ __d(
                         ],
                       )),
                     l.type,
-                    _ === g,
+                    f === g,
                     JSON.stringify(
                       {
                         before: {
@@ -247,7 +239,7 @@ __d(
               );
             }
             return (
-              l instanceof f && u != null && (l.mediaKeyTimestamp = u),
+              l instanceof _ && u != null && (l.mediaKeyTimestamp = u),
               m && (l.sidecar = m),
               i && (l.firstFrameSidecar = i),
               d && (l.scansSidecar = d),
@@ -300,7 +292,7 @@ __d(
                 (e.fbid = t.fbid),
                 e
               );
-            var n = new _({
+            var n = new p({
               deprecatedMms3Url: t.directPath,
               filehash: t.filehash,
               type: t.type,
@@ -318,7 +310,7 @@ __d(
               t.directPath != null
                 ? this.getUnencryptedEntry(t.filehash, t.directPath)
                 : null;
-            return !e || !(e instanceof _)
+            return !e || !(e instanceof p)
               ? null
               : (t.directPath != null && (e.directPath = t.directPath), e);
           }),
@@ -334,7 +326,7 @@ __d(
               d = t.scansSidecar,
               m = t.sidecar,
               p = t.staticUrl,
-              _ = t.type;
+              f = t.type;
             a == null &&
               o("WALogger")
                 .ERROR(
@@ -344,10 +336,10 @@ __d(
                       " from ",
                       " is missing encFilehash",
                     ])),
-                  _,
+                  f,
                   e,
                 )
-                .sendLogs("media-entry-missing-upload-hash-" + _ + "-" + e);
+                .sendLogs("media-entry-missing-upload-hash-" + f + "-" + e);
             var g = this.entries,
               h = this.getEntryByEncFilehash({
                 encFilehash: a,
@@ -368,14 +360,14 @@ __d(
                     staticUrl: p,
                   })
                 : null;
-            if (y instanceof f) return y;
+            if (y instanceof _) return y;
             if (!l) return null;
-            var C = new f({
+            var C = new _({
               deprecatedMms3Url: n,
               mediaKey: l,
               mediaKeyTimestamp: u,
               encFilehash: a,
-              type: _,
+              type: f,
               sidecar: m,
               directPath: r,
               firstFrameSidecar: i,
@@ -391,19 +383,19 @@ __d(
             return n == null ? "mms3:" + e : n;
           }),
           (n.has = function (t) {
-            return this.getEntryByEncFilehash(t) instanceof f;
+            return this.getEntryByEncFilehash(t) instanceof _;
           }),
           (n.hasUnencryptedEntry = function (t) {
             return t.filehash == null || t.directPath == null
               ? !1
-              : this.getUnencryptedEntry(t.filehash, t.directPath) instanceof _;
+              : this.getUnencryptedEntry(t.filehash, t.directPath) instanceof p;
           }),
           (n.getEntryByEncFilehash = function (t) {
             var e = this,
               n = this.$2(t);
             return this.entries.find(function (t) {
               return (
-                t instanceof f &&
+                t instanceof _ &&
                 e.$2({
                   encFilehash: t.encFilehash,
                   deprecatedMms3Url: t.deprecatedMms3Url,
@@ -413,20 +405,20 @@ __d(
           }),
           (n.getUnencryptedEntry = function (t, n) {
             return this.entries.find(function (e) {
-              return e instanceof _ && e.filehash === t && e.directPath === n;
+              return e instanceof p && e.filehash === t && e.directPath === n;
             });
           }),
           (n.$3 = function (t) {
             return this.entries.filter(function (e) {
-              return t ? e instanceof f : e instanceof _;
+              return t ? e instanceof _ : e instanceof p;
             });
           }),
           (n.getUploadEntry = function (t) {
-            return (h(this), this.$3(t)[0]);
+            return (g(this), this.$3(t)[0]);
           }),
           (n.getDownloadEntry = function (t) {
             return (
-              h(this),
+              g(this),
               this.$3(t).find(function (e) {
                 return e.validateForDownloads();
               })
@@ -438,24 +430,24 @@ __d(
           t
         );
       })();
-    function h(e) {
+    function g(e) {
       e.entries.sort(function (e, t) {
-        var n = y(t) - y(e);
+        var n = h(t) - h(e);
         if (n !== 0) return n;
         var r = e.getMediaKeyTimestamp(),
           o = t.getMediaKeyTimestamp();
         return r == null || o == null ? n : o - r;
       });
     }
-    function y(e) {
+    function h(e) {
       var t = 0;
       e: {
-        if (e.serverStatus === m.PROBABLY_ON_SERVER) {
+        if (e.serverStatus === d.PROBABLY_ON_SERVER) {
           t += 200;
           break e;
         }
-        if (e.serverStatus === m.PROBABLY_OFF_SERVER) break e;
-        if (e.serverStatus === m.UNKNOWN) {
+        if (e.serverStatus === d.PROBABLY_OFF_SERVER) break e;
+        if (e.serverStatus === d.UNKNOWN) {
           t += 100;
           break e;
         }
@@ -466,10 +458,10 @@ __d(
       }
       return (e.getEncfilehash() != null && (t += 20), t);
     }
-    ((l.AbstractMediaEntry = p),
-      (l.UnencryptedMediaEntry = _),
-      (l.EncryptedMediaEntry = f),
-      (l.MediaEntryList = g));
+    ((l.AbstractMediaEntry = m),
+      (l.UnencryptedMediaEntry = p),
+      (l.EncryptedMediaEntry = _),
+      (l.MediaEntryList = f));
   },
   98,
 );

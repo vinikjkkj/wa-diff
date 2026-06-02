@@ -1,48 +1,38 @@
 __d(
   "WAWebRequestMediaReuploadManager",
   [
-    "Promise",
     "WALogger",
     "WANullthrows",
     "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
     "WAWebSendServerErrorReceiptJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = (function () {
+      s = (function () {
         function t() {
           var t = this;
           ((this.$1 = new Map()),
-            (this.requestMediaReupload = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var a = e.id.id;
-                  if (o("WAWebMsgGetters").getIsNewsletterMsg(e))
-                    throw new (o(
-                      "WAWebMiscErrors",
-                    ).RMRNotSupportedOnNewsletterMessagesError)(
-                      o("WAWebMmsMediaTypes").getMsgMediaType(e),
-                    );
-                  var i = t.$1.get(a);
-                  if (i) return r("WANullthrows")(i.request);
-                  var l = new (s || (s = n("Promise")))(function (n, r) {
-                    t.$1.set(a, { resolve: n, reject: r, msg: e });
-                  });
-                  return (
-                    (r("WANullthrows")(t.$1.get(a)).request = l),
-                    yield r("WAWebSendServerErrorReceiptJob")(e),
-                    l
-                  );
-                },
+            (this.requestMediaReupload = async function (e) {
+              var n = e.id.id;
+              if (o("WAWebMsgGetters").getIsNewsletterMsg(e))
+                throw new (o(
+                  "WAWebMiscErrors",
+                ).RMRNotSupportedOnNewsletterMessagesError)(
+                  o("WAWebMmsMediaTypes").getMsgMediaType(e),
+                );
+              var a = t.$1.get(n);
+              if (a) return r("WANullthrows")(a.request);
+              var i = new Promise(function (r, o) {
+                t.$1.set(n, { resolve: r, reject: o, msg: e });
+              });
+              return (
+                (r("WANullthrows")(t.$1.get(n)).request = i),
+                await r("WAWebSendServerErrorReceiptJob")(e),
+                i
               );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })()),
+            }),
             (this.resolveMediaReupload = function (n) {
               var r = n.directPath,
                 a = n.msgId,
@@ -64,17 +54,17 @@ __d(
               return (n = t.$1.get(e)) == null ? void 0 : n.msg.mediaKey;
             }));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.rmrRequests_TESTONLY = function () {
+          (n.rmrRequests_TESTONLY = function () {
             return this.$1;
           }),
           t
         );
       })(),
-      c = new u();
-    ((l.RequestMediaReuploadManagerImpl = u),
-      (l.RequestMediaReuploadManager = c));
+      u = new s();
+    ((l.RequestMediaReuploadManagerImpl = s),
+      (l.RequestMediaReuploadManager = u));
   },
   98,
 );

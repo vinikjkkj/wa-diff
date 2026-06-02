@@ -5,7 +5,6 @@ __d(
     "WAResultOrError",
     "WAWebMLDecompressionStep",
     "WAWebMLHashVerification",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,38 +16,30 @@ __d(
             new (o("WAWebMLHashVerification").HashVerificationStep)(),
           ];
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.process = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n) {
-                var r = t;
-                for (var a of this.steps) {
-                  var i = yield a.process(r, n);
-                  if (!i.success)
-                    return (
-                      o("WALogger").WARN(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "WAWebMLPostProcessingManager: Step ",
-                            " failed: ",
-                            "",
-                          ])),
-                        a.name,
-                        i.error,
-                      ),
-                      o("WAResultOrError").makeError(i.error)
-                    );
-                  r = i.value;
-                }
-                return o("WAResultOrError").makeResult(r);
-              },
-            );
-            function r(e, n) {
-              return t.apply(this, arguments);
+          (n.process = async function (n, r) {
+            var t = n;
+            for (var a of this.steps) {
+              var i = await a.process(t, r);
+              if (!i.success)
+                return (
+                  o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "WAWebMLPostProcessingManager: Step ",
+                        " failed: ",
+                        "",
+                      ])),
+                    a.name,
+                    i.error,
+                  ),
+                  o("WAResultOrError").makeError(i.error)
+                );
+              t = i.value;
             }
-            return r;
-          })()),
+            return o("WAResultOrError").makeResult(t);
+          }),
           t
         );
       })(),
@@ -56,16 +47,8 @@ __d(
     function c() {
       return (u == null && (u = new s()), u);
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return c().process(e, t);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e, t) {
+      return c().process(e, t);
     }
     ((l.PostProcessingManager = s), (l.processDownloadedModel = d));
   },

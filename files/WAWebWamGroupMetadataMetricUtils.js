@@ -1,45 +1,29 @@
 __d(
   "WAWebWamGroupMetadataMetricUtils",
-  ["WAWebDBGroupsGroupMetadata", "WAWebGroupType", "asyncToGeneratorRuntime"],
+  ["WAWebDBGroupsGroupMetadata", "WAWebGroupType"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      if (e != null && e.isGroup()) {
+        var t = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
+        if (t != null)
+          return o("WAWebGroupType").groupTypeToWamEnum(
+            o("WAWebGroupType").getGroupTypeFromGroupMetadata(t),
+          );
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e != null && e.isGroup()) {
-            var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-            if (t != null)
-              return o("WAWebGroupType").groupTypeToWamEnum(
-                o("WAWebGroupType").getGroupTypeFromGroupMetadata(t),
-              );
-          }
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      var t = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
+      return t == null ? null : u(t);
     }
     function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-          return t == null ? null : d(t);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
       return (
         o("WAWebGroupType").getGroupTypeFromGroupMetadata(e) ===
         o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       );
     }
     ((l.getGroupTypeFromChatWid = e),
-      (l.isCagFromChatWid = u),
-      (l.isCagFromGroupMetadata = d));
+      (l.isCagFromChatWid = s),
+      (l.isCagFromGroupMetadata = u));
   },
   98,
 );

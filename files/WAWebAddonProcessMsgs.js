@@ -2,7 +2,6 @@ __d(
   "WAWebAddonProcessMsgs",
   [
     "AddonPlaceholderMsgsUtils",
-    "Promise",
     "WALogger",
     "WAWebAddonConstants",
     "WAWebAddonCrossWindowUtils",
@@ -14,197 +13,152 @@ __d(
     "WAWebAddonSortUtils",
     "WAWebAddonUpdateDataUtils",
     "WAWebHandleMsgError",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f;
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    var e, s, u, c, d, m, p, _;
+    async function f(t, n) {
+      var r = n.addons,
+        a = n.processMode,
+        i = n.processor,
+        l = i.convert.toDualDecryptedMsgData;
+      if (
+        l == null ||
+        a === o("WAWebAddonConstants").AddonProcessMode.HistorySync ||
+        a !== o("WAWebAddonConstants").AddonProcessMode.OnlineReceive
+      )
+        return r;
+      var u = [],
+        c = await Promise.allSettled(
+          r.map(async function (e) {
+            return o("WAWebAddonCrossWindowUtils").isRealAddonType(e)
+              ? l(e, t.getForAddon(e))
+              : e;
+          }),
+        ),
+        d = [];
+      for (var m of c)
+        m.status === "fulfilled"
+          ? u.push(m.value)
+          : d.length < 3 && d.push(m.reason);
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = t.addons,
-            a = t.processMode,
-            i = t.processor,
-            l = i.convert.toDualDecryptedMsgData;
-          if (
-            l == null ||
-            a === o("WAWebAddonConstants").AddonProcessMode.HistorySync ||
-            a !== o("WAWebAddonConstants").AddonProcessMode.OnlineReceive
-          )
-            return r;
-          var s = [],
-            u = yield (f || (f = n("Promise"))).allSettled(
-              r.map(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      return o("WAWebAddonCrossWindowUtils").isRealAddonType(t)
-                        ? l(t, e.getForAddon(t))
-                        : t;
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            m = [];
-          for (var p of u)
-            p.status === "fulfilled"
-              ? s.push(p.value)
-              : m.length < 3 && m.push(p.reason);
-          return (
-            m.length > 0 &&
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "Cannot decrypt ",
-                    " message(s) => ",
-                    "",
-                  ])),
-                m.length,
-                m,
-              ),
-            o("WAWebAddonLogUtils").hasSettledWithError(u) &&
-              o("WALogger")
-                .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[addon-infra] Failed to decrypt a message",
-                    ])),
-                )
-                .tags("messagings", "addons")
-                .sendLogs(String(a) + "-decription-failed", { sampling: 0.01 }),
-            s
+        d.length > 0 &&
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Cannot decrypt ",
+                " message(s) => ",
+                "",
+              ])),
+            d.length,
+            d,
+          ),
+        o("WAWebAddonLogUtils").hasSettledWithError(c) &&
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[addon-infra] Failed to decrypt a message",
+                ])),
+            )
+            .tags("messagings", "addons")
+            .sendLogs(String(a) + "-decription-failed", { sampling: 0.01 }),
+        u
+      );
+    }
+    async function g(e, t) {
+      var n = t.addons,
+        r = t.processMode,
+        a = t.processor,
+        i = t.tableMode,
+        l = a.convert.toDualDecryptedMsgData,
+        s = [],
+        u = l == null ? n : await f(e, t);
+      if (
+        a.type ===
+        o("WAWebAddonConstants").AddonProcessorType
+          .DualEncryptedWithMessageTraits
+      ) {
+        var c = o("AddonPlaceholderMsgsUtils").getIncomingPlaceholderKeys(t);
+        if (c != null) {
+          var d = await o("AddonPlaceholderMsgsUtils").getPlaceholderMsgKeys(
+            i,
+            c,
           );
-        })),
-        h.apply(this, arguments)
+          u = u.filter(function (e) {
+            return !d.has(e.id.toString());
+          });
+        }
+      }
+      return (
+        (s = await a.beforeUpsert(u, { processMode: r, parents: e })),
+        { processor: a, processMode: r, tableMode: i, addons: s }
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    async function h(e, t) {
+      var n = t.addons,
+        r = t.processMode,
+        a = t.processor,
+        i = t.tableMode;
+      if (
+        a.type ===
+        o("WAWebAddonConstants").AddonProcessorType
+          .DualEncryptedWithMessageTraits
+      ) {
+        var l = await o("AddonPlaceholderMsgsUtils").getPlaceholderMsgKeys(
+          i,
+          n.map(function (e) {
+            return e.id;
+          }),
+        );
+        await a.afterUpsert(n, {
+          processMode: r,
+          parents: e,
+          existingPlaceholderKeys: l,
+        });
+      } else await a.afterUpsert(n, { processMode: r, parents: e });
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.addons,
-            r = t.processMode,
-            a = t.processor,
-            i = t.tableMode,
-            l = a.convert.toDualDecryptedMsgData,
-            s = [],
-            u = l == null ? n : yield g(e, t);
-          if (
-            a.type ===
-            o("WAWebAddonConstants").AddonProcessorType
-              .DualEncryptedWithMessageTraits
-          ) {
-            var c = o("AddonPlaceholderMsgsUtils").getIncomingPlaceholderKeys(
-              t,
-            );
-            if (c != null) {
-              var d = yield o(
-                "AddonPlaceholderMsgsUtils",
-              ).getPlaceholderMsgKeys(i, c);
-              u = u.filter(function (e) {
-                return !d.has(e.id.toString());
-              });
-            }
-          }
-          return (
-            (s = yield a.beforeUpsert(u, { processMode: r, parents: e })),
-            { processor: a, processMode: r, tableMode: i, addons: s }
-          );
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.addons,
-            r = t.processMode,
-            a = t.processor,
-            i = t.tableMode;
-          if (
-            a.type ===
-            o("WAWebAddonConstants").AddonProcessorType
-              .DualEncryptedWithMessageTraits
-          ) {
-            var l = yield o("AddonPlaceholderMsgsUtils").getPlaceholderMsgKeys(
-              i,
-              n.map(function (e) {
-                return e.id;
-              }),
-            );
-            yield a.afterUpsert(n, {
-              processMode: r,
-              parents: e,
-              existingPlaceholderKeys: l,
-            });
-          } else yield a.afterUpsert(n, { processMode: r, parents: e });
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t, n, r, o) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i) {
-            var l,
-              s = yield (f || (f = n("Promise"))).all(
-                o("WAWebAddonSortUtils")
-                  .groupAddonsByProcessor(e.mode, t, r)
-                  .map(function (e) {
-                    return y(a, e);
-                  }),
-              ),
-              u = (l = []).concat.apply(
-                l,
-                s.map(function (e) {
-                  var t = e.addons;
-                  return t;
-                }),
-              );
-            (u.length &&
-              (yield o("WAWebAddonUpdateDataUtils").updateAddonsInTableMode(
-                { processMode: e.mode, tableMode: t },
-                { add: u },
-                { metricReporter: i },
-              )),
-              yield f.all(
-                s.map(function (e) {
-                  return b(a, e);
-                }),
-              ),
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[addon-infra]: processed ",
-                    " addon(s) during ",
-                    ", table mode ",
-                    "",
-                  ])),
-                r.length,
-                e.mode,
-                o("WAWebAddonConstants").AddonTableMode.getName(t),
-              ));
-          },
+    async function y(e, t, n, r, a) {
+      var i,
+        l = await Promise.all(
+          o("WAWebAddonSortUtils")
+            .groupAddonsByProcessor(e.mode, t, n)
+            .map(function (e) {
+              return g(r, e);
+            }),
+        ),
+        s = (i = []).concat.apply(
+          i,
+          l.map(function (e) {
+            var t = e.addons;
+            return t;
+          }),
+        );
+      (s.length &&
+        (await o("WAWebAddonUpdateDataUtils").updateAddonsInTableMode(
+          { processMode: e.mode, tableMode: t },
+          { add: s },
+          { metricReporter: a },
         )),
-        R.apply(this, arguments)
-      );
+        await Promise.all(
+          l.map(function (e) {
+            return h(r, e);
+          }),
+        ),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[addon-infra]: processed ",
+              " addon(s) during ",
+              ", table mode ",
+              "",
+            ])),
+          n.length,
+          e.mode,
+          o("WAWebAddonConstants").AddonTableMode.getName(t),
+        ));
     }
-    function L(e) {
+    function C(e) {
       var t = e.addons,
         n = e.failSilently,
         a = e.metricReporter,
@@ -213,16 +167,16 @@ __d(
       return Array.from(
         o("WAWebAddonSortUtils").groupAddonsByTableMode(t),
         function (e) {
-          var c = e[0],
-            d = e[1];
-          return S(l, c, d, i, a).catch(function (e) {
+          var s = e[0],
+            u = e[1];
+          return y(l, s, u, i, a).catch(function (e) {
             var a = r("getErrorSafe")(e);
             if (e instanceof o("WAWebHandleMsgError").MessageValidationError) {
               var i;
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "failed incoming addons processing",
                     ])),
                 )
@@ -232,217 +186,158 @@ __d(
                   "processAddonMsgs: " +
                     ((i = t[0]) == null ? void 0 : i.type) +
                     " in " +
-                    String(c),
+                    String(s),
                 );
             } else {
-              var d,
-                m =
+              var u,
+                c =
                   "addon-" +
                   String(l.mode) +
                   "-error: " +
-                  ((d = t[0]) == null ? void 0 : d.type);
+                  ((u = t[0]) == null ? void 0 : u.type);
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[AddonInfraError] failed saving addons in ",
                       "",
                     ])),
-                  c,
+                  s,
                 )
                 .catching(a)
                 .tags("addons", "messaging")
-                .sendLogs(m);
+                .sendLogs(c);
             }
             if (!n) throw e;
           });
         },
       );
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    async function b(e, t, n) {
+      if (e.length === 0) return { orphans: [] };
+      var r = {
+          mode:
+            n != null
+              ? n
+              : o("WAWebAddonConstants").AddonProcessMode.OnlineReceive,
+        },
+        a = await o("WAWebAddonProcessMsgsUtils").queryAddonParentMsgs(
+          e,
+          r.mode,
+        ),
+        i = a[0],
+        l = a[1],
+        s = o("WAWebAddonSortUtils").collectValidAndOrphanAddons(l, i),
+        u = s.orphans,
+        c = s.validAddons,
+        d = C({
+          addons: c,
+          failSilently: !0,
+          metricReporter: t,
+          parents: o("WAWebAddonSelectUtils").createAddonParentSelector(i),
+          process: r,
+        });
+      return (await Promise.allSettled(d), { orphans: u });
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          if (e.length === 0) return { orphans: [] };
-          var a = {
-              mode:
-                r != null
-                  ? r
-                  : o("WAWebAddonConstants").AddonProcessMode.OnlineReceive,
-            },
-            i = yield o("WAWebAddonProcessMsgsUtils").queryAddonParentMsgs(
-              e,
-              a.mode,
-            ),
-            l = i[0],
-            s = i[1],
-            u = o("WAWebAddonSortUtils").collectValidAndOrphanAddons(s, l),
-            c = u.orphans,
-            d = u.validAddons,
-            m = L({
-              addons: d,
-              failSilently: !0,
-              metricReporter: t,
-              parents: o("WAWebAddonSelectUtils").createAddonParentSelector(l),
-              process: a,
-            });
-          return (
-            yield (f || (f = n("Promise"))).allSettled(m),
-            { orphans: c }
+    async function v(e, t, n, r) {
+      var a = { mode: e },
+        i = C({
+          addons: [t],
+          failSilently: !1,
+          metricReporter: r,
+          parents: o("WAWebAddonSelectUtils").createAddonParentSelector(n),
+          process: a,
+        });
+      await Promise.all(i);
+    }
+    async function S(e, t, n, r) {
+      var a = n.getForAddon(t),
+        i = async function () {
+          var e = o("WAWebAddonEncryptAddonMsgData").createDualEncryptionHelper(
+            t,
+            a,
           );
-        })),
-        k.apply(this, arguments)
-      );
+          return e ? e.encrypt() : t;
+        },
+        l = await Promise.all([
+          i(),
+          y(
+            { mode: e },
+            o("WAWebAddonSelectUtils").getAddonTableMode(t),
+            [t],
+            n,
+            r,
+          ),
+        ]),
+        s = l[0];
+      return { encryptedMsgData: s, decryptedMsgData: t, parent: a };
     }
-    function I(e, t, n, r) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            var i = { mode: e },
-              l = L({
-                addons: [t],
-                failSilently: !1,
-                metricReporter: a,
-                parents: o("WAWebAddonSelectUtils").createAddonParentSelector(
-                  r,
-                ),
-                process: i,
-              });
-            yield (f || (f = n("Promise"))).all(l);
-          },
-        )),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t, n, r) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            var i = r.getForAddon(t),
-              l = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var e = o(
-                      "WAWebAddonEncryptAddonMsgData",
-                    ).createDualEncryptionHelper(t, i);
-                    return e ? e.encrypt() : t;
-                  },
-                );
-                return function () {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              s = yield (f || (f = n("Promise"))).all([
-                l(),
-                S(
-                  { mode: e },
-                  o("WAWebAddonSelectUtils").getAddonTableMode(t),
-                  [t],
-                  r,
-                  a,
-                ),
-              ]),
-              u = s[0];
-            return { encryptedMsgData: u, decryptedMsgData: t, parent: i };
-          },
-        )),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t, n) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            var a,
-              i = o("WAWebAddonPluginProcessor").getAddonProcessor(t);
-            i.updateCollection({ add: [t], remove: [] }, e);
-            var l = o("WAWebAddonProcessMsgsUtils").getParentMsgKey(t),
-              s = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(t),
-              u = (a = l.participant) == null ? void 0 : a.isLid();
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[addon-infra] optimistic update ",
-                  " (",
-                  ") id=",
-                  " parent=",
-                  " lid=",
-                  "",
+    async function R(e, t, n) {
+      try {
+        var a,
+          i = o("WAWebAddonPluginProcessor").getAddonProcessor(t);
+        i.updateCollection({ add: [t], remove: [] }, e);
+        var l = o("WAWebAddonProcessMsgsUtils").getParentMsgKey(t),
+          s = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(t),
+          u = (a = l.participant) == null ? void 0 : a.isLid();
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[addon-infra] optimistic update ",
+              " (",
+              ") id=",
+              " parent=",
+              " lid=",
+              "",
+            ])),
+          s,
+          t.type,
+          t.id.id,
+          l.id,
+          u,
+        );
+        var c = await o("WAWebAddonProcessMsgsUtils").queryAddonParentMsgs(
+            [t],
+            e,
+          ),
+          d = c[0],
+          m = c[1],
+          f = await S(
+            e,
+            m[0],
+            o("WAWebAddonSelectUtils").createAddonParentSelector(d),
+            n,
+          );
+        return f;
+      } catch (e) {
+        var g = r("getErrorSafe")(e);
+        throw (
+          o("WALogger")
+            .ERROR(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "process optimistic addon msg send",
                 ])),
-              s,
-              t.type,
-              t.id.id,
-              l.id,
-              u,
-            );
-            var c = yield o("WAWebAddonProcessMsgsUtils").queryAddonParentMsgs(
-                [t],
-                e,
-              ),
-              d = c[0],
-              m = c[1],
-              f = yield D(
-                e,
-                m[0],
-                o("WAWebAddonSelectUtils").createAddonParentSelector(d),
-                n,
-              );
-            return f;
-          } catch (e) {
-            var g = r("getErrorSafe")(e);
-            throw (
-              o("WALogger")
-                .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "process optimistic addon msg send",
-                    ])),
-                )
-                .catching(g)
-                .tags("addons", "messaging")
-                .sendLogs("failed-optimistic-addon-send"),
-              g
-            );
-          }
-        })),
-        P.apply(this, arguments)
-      );
+            )
+            .catching(g)
+            .tags("addons", "messaging")
+            .sendLogs("failed-optimistic-addon-send"),
+          g
+        );
+      }
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    async function L(e) {
+      if (e.length !== 0) {
+        var t = { mode: o("WAWebAddonConstants").AddonProcessMode.HistorySync },
+          n = o("WAWebAddonSelectUtils").createAddonParentSelector(new Map()),
+          r = C({ addons: e, failSilently: !0, parents: n, process: t });
+        await Promise.allSettled(r);
+      }
     }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = {
-                mode: o("WAWebAddonConstants").AddonProcessMode.HistorySync,
-              },
-              r = o("WAWebAddonSelectUtils").createAddonParentSelector(
-                new Map(),
-              ),
-              a = L({ addons: e, failSilently: !0, parents: r, process: t });
-            yield (f || (f = n("Promise"))).allSettled(a);
-          }
-        })),
-        M.apply(this, arguments)
-      );
-    }
-    ((l.processMsgsAndGetOrphans = E),
-      (l.processOutgoingMsg = I),
-      (l.processOutgoingMsgOptimisticUpdate = $),
-      (l.processHistoryMsgs = N));
+    ((l.processMsgsAndGetOrphans = b),
+      (l.processOutgoingMsg = v),
+      (l.processOutgoingMsgOptimisticUpdate = R),
+      (l.processHistoryMsgs = L));
   },
   98,
 );

@@ -1,84 +1,74 @@
 __d(
   "WAWebDebugComments",
   [
-    "Promise",
     "WALogger",
     "WAWebAddonConstants",
     "WAWebAddonDBTable",
     "WAWebMsgCollection",
     "WAWebSendCommentMessageAction",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    var e, s, u, c;
+    async function d(t, n) {
+      n === void 0 && (n = 1);
+      var r = [],
+        a;
+      if (typeof t == "string") {
+        var i = await o("WAWebMsgCollection").MsgCollection.getMessagesById([
+            t,
+          ]),
+          l = i.messages;
+        a = l[0];
+      } else a = t;
+      for (var u = 0; u < n; u++)
+        r.push(
+          o("WAWebSendCommentMessageAction").sendCommentMessage(
+            a,
+            "This is comment message number" + u.toString(),
+          ),
+        );
+      try {
+        var c = await Promise.all(r);
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "sendNCommentDebugMsg: log ",
+              "",
+            ])),
+          String(c),
+        );
+      } catch (e) {
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "sendNCommentDebugMsg:error ",
+              "",
+            ])),
+          e,
+        );
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = 1);
-          var r = [],
-            a;
-          if (typeof e == "string") {
-            var i = yield o("WAWebMsgCollection").MsgCollection.getMessagesById(
-                [e],
-              ),
-              l = i.messages;
-            a = l[0];
-          } else a = e;
-          for (var s = 0; s < t; s++)
-            r.push(
-              o("WAWebSendCommentMessageAction").sendCommentMessage(
-                a,
-                "This is comment message number" + s.toString(),
-              ),
-            );
-          try {
-            var m = yield (d || (d = n("Promise"))).all(r);
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendNCommentDebugMsg: log ",
-                  "",
-                ])),
-              String(m),
-            );
-          } catch (e) {
-            o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendNCommentDebugMsg:error ",
-                  "",
-                ])),
-              e,
-            );
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    m.doc = "Send N Comment Messages";
-    function _(t) {
+    d.doc = "Send N Comment Messages";
+    function m(e) {
       o("WAWebAddonDBTable")
         .addonInternalDBTable.bulkUpsert(
           o("WAWebAddonConstants").AddonTableMode.Comment,
-          t,
+          e,
         )
         .then(function () {
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "createOrUpdateCommentsStorage: ",
                 "",
               ])),
-            String(t),
+            String(e),
           );
         })
         .catch(function (e) {
           o("WALogger").WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "createOrUpdateCommentsStorage: error ",
                 "",
               ])),
@@ -86,9 +76,9 @@ __d(
           );
         });
     }
-    _.doc = "Store in database comments, use msg key from param if available";
-    var f = { sendCommentDebugMsg: m, createOrUpdateCommentsStorageDebug: _ };
-    l.default = f;
+    m.doc = "Store in database comments, use msg key from param if available";
+    var p = { sendCommentDebugMsg: d, createOrUpdateCommentsStorageDebug: m };
+    l.default = p;
   },
   98,
 );

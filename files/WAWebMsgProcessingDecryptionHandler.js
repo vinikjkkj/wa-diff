@@ -22,7 +22,6 @@ __d(
     "WAWebSendRetryReceiptJob",
     "WAWebSignalCommonErrors",
     "WAWebWamEnumE2eFailureReason",
-    "asyncToGeneratorRuntime",
     "cr:4122",
     "gkx",
   ],
@@ -89,11 +88,11 @@ __d(
           (r.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
             ? (t.skMsgFailedEnc = { enc: r, error: a, errorType: n })
             : (t.pkOrMsgFailedEnc = { enc: r, error: a, errorType: n }),
-            T(e, { enc: r, error: a, errorType: n }));
+            I(e, { enc: r, error: a, errorType: n }));
         },
         canDecryptNext: function (n) {
           var e;
-          r("gkx")("26258") || x();
+          r("gkx")("26258") || D();
           var o = (e = t.pkOrMsgFailedEnc) == null ? void 0 : e.errorType;
           return o != null && b.has(o)
             ? !1
@@ -116,132 +115,114 @@ __d(
       }
       return !1;
     }
-    function E(e, t, n, r) {
-      return k.apply(this, arguments);
-    }
-    function k() {
+    async function E(e, t, n, a) {
+      var i,
+        l = (i = t.skMsgFailedEnc) != null ? i : t.pkOrMsgFailedEnc,
+        s =
+          l != null &&
+          t.accessedEncs.has(o("WAWebBackendJobs.flow").CiphertextType.Skmsg) &&
+          t.skMsgFailedEnc == null;
+      if (l == null || s)
+        return {
+          result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+          hasInactiveMsg: n,
+          isOrphanAddon: a,
+        };
+      (k(e, t), T(e, t));
+      var u = l.enc,
+        c = l.error,
+        d = l.errorType,
+        m = !1,
+        p;
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i,
-              l = (i = t.skMsgFailedEnc) != null ? i : t.pkOrMsgFailedEnc,
-              s =
-                l != null &&
-                t.accessedEncs.has(
-                  o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                ) &&
-                t.skMsgFailedEnc == null;
-            if (l == null || s)
-              return {
-                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
-                hasInactiveMsg: n,
-                isOrphanAddon: a,
-              };
-            (I(e, t), D(e, t));
-            var u = l.enc,
-              c = l.error,
-              d = l.errorType,
-              m = !1,
-              p;
-            return (
-              (c instanceof
-                o("WAWebSignalCommonErrors").SignalDecryptionError ||
-                c instanceof
-                  o("WAWebHandleMsgError").UnknownDeviceMessageError ||
-                c instanceof
-                  o("WAWebEphemeralDecodeBroadcastSetting")
-                    .BroadcastEphSettingsError) &&
-                ((p = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(c)),
-                d !== C.SignalDuplicateMessage &&
-                  (u.hideFail ||
-                    (m = yield o("WAWebHandleMsgProcess").processPlaceholderMsg(
-                      {
-                        type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
-                        msgMeta: e.msgMeta,
-                        msgInfo: e.msgInfo,
-                        placeholderType: o("WAWebHandleMsgTypes.flow")
-                          .PlaceholderType.E2E,
-                        placeholderAddReason: o(
-                          "WAWebBackendJobsCommon",
-                        ).getPlaceholderAddReason(c, e),
-                      },
-                    )))),
-              d === C.SignalRetryable || d === C.UnknownDevice
+        (c instanceof o("WAWebSignalCommonErrors").SignalDecryptionError ||
+          c instanceof o("WAWebHandleMsgError").UnknownDeviceMessageError ||
+          c instanceof
+            o("WAWebEphemeralDecodeBroadcastSetting")
+              .BroadcastEphSettingsError) &&
+          ((p = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(c)),
+          d !== C.SignalDuplicateMessage &&
+            (u.hideFail ||
+              (m = await o("WAWebHandleMsgProcess").processPlaceholderMsg({
+                type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
+                msgMeta: e.msgMeta,
+                msgInfo: e.msgInfo,
+                placeholderType: o("WAWebHandleMsgTypes.flow").PlaceholderType
+                  .E2E,
+                placeholderAddReason: o(
+                  "WAWebBackendJobsCommon",
+                ).getPlaceholderAddReason(c, e),
+              })))),
+        d === C.SignalRetryable || d === C.UnknownDevice
+          ? {
+              result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY,
+              retryCount: u.retryCount,
+              retryReason: p,
+              placeholderCreated: m,
+              isOrphanAddon: a,
+            }
+          : d === C.SignalDuplicateMessage
+            ? {
+                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                  .SIGNAL_OLD_COUNTER_ERROR,
+                failedEnc: u,
+              }
+            : d === C.DeviceSentMessage
+              ? {
+                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                    .PARSE_VALIDATION_ERROR,
+                }
+              : d === C.InvalidProtobuf
                 ? {
                     result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                      .RETRY,
-                    retryCount: u.retryCount,
-                    retryReason: p,
-                    placeholderCreated: m,
-                    isOrphanAddon: a,
+                      .PARSE_VALIDATION_ERROR,
+                    e2eFailureReason:
+                      c instanceof
+                      o("WAWebHandleMsgError").MessageValidationError
+                        ? c.e2eFailureReason
+                        : void 0,
                   }
-                : d === C.SignalDuplicateMessage
+                : d === C.HsmMismatch
                   ? {
                       result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                        .SIGNAL_OLD_COUNTER_ERROR,
-                      failedEnc: u,
+                        .HSM_MISMATCH,
                     }
-                  : d === C.DeviceSentMessage
+                  : d === C.BroadcastEphSettings
                     ? {
                         result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                          .PARSE_VALIDATION_ERROR,
+                          .RETRY,
+                        retryCount: u.retryCount,
+                        retryReason: p,
+                        placeholderCreated: m,
+                        e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+                          .E2E_FAILURE_REASON
+                          .INVALID_BROADCAST_STANZA_ATTRIBUTE,
                       }
-                    : d === C.InvalidProtobuf
-                      ? {
-                          result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                            .PARSE_VALIDATION_ERROR,
-                          e2eFailureReason:
-                            c instanceof
-                            o("WAWebHandleMsgError").MessageValidationError
-                              ? c.e2eFailureReason
-                              : void 0,
-                        }
-                      : d === C.HsmMismatch
+                    : d === C.OrphanBotMsg
+                      ? l.error instanceof r("WAWebOrphanBotMsgError")
                         ? {
                             result: o("WAWebHandleMsgTypes.flow")
-                              .E2EProcessResult.HSM_MISMATCH,
+                              .E2EProcessResult.DEFERRED,
+                            targetMsgKey: l.error.targetMsgKey,
                           }
-                        : d === C.BroadcastEphSettings
-                          ? {
-                              result: o("WAWebHandleMsgTypes.flow")
-                                .E2EProcessResult.RETRY,
-                              retryCount: u.retryCount,
-                              retryReason: p,
-                              placeholderCreated: m,
-                              e2eFailureReason: o(
-                                "WAWebWamEnumE2eFailureReason",
-                              ).E2E_FAILURE_REASON
-                                .INVALID_BROADCAST_STANZA_ATTRIBUTE,
-                            }
-                          : d === C.OrphanBotMsg
-                            ? l.error instanceof r("WAWebOrphanBotMsgError")
-                              ? {
-                                  result: o("WAWebHandleMsgTypes.flow")
-                                    .E2EProcessResult.DEFERRED,
-                                  targetMsgKey: l.error.targetMsgKey,
-                                }
-                              : {
-                                  result: o("WAWebHandleMsgTypes.flow")
-                                    .E2EProcessResult.PARSE_ERROR,
-                                }
-                            : d === C.Unknown
-                              ? {
-                                  result: o("WAWebHandleMsgTypes.flow")
-                                    .E2EProcessResult.PARSE_ERROR,
-                                }
-                              : (function () {
-                                  throw Error(
-                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                      d,
-                                  );
-                                })()
-            );
-          },
-        )),
-        k.apply(this, arguments)
+                        : {
+                            result: o("WAWebHandleMsgTypes.flow")
+                              .E2EProcessResult.PARSE_ERROR,
+                          }
+                      : d === C.Unknown
+                        ? {
+                            result: o("WAWebHandleMsgTypes.flow")
+                              .E2EProcessResult.PARSE_ERROR,
+                          }
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                d,
+                            );
+                          })()
       );
     }
-    function I(e, t) {
+    function k(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = e.msgInfo,
@@ -299,7 +280,7 @@ __d(
         }
       }
     }
-    function T(t, n) {
+    function I(t, n) {
       var a = t.msgBotInfo,
         i = t.msgInfo,
         l = t.msgMeta,
@@ -493,7 +474,7 @@ __d(
         }
       }
     }
-    function D(e, t) {
+    function T(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = r != null ? r : n;
@@ -545,7 +526,7 @@ __d(
         }
       }
     }
-    function x() {
+    function D() {
       if (!r("gkx")("26258")) {
         var e,
           t =

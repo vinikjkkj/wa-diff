@@ -1,7 +1,6 @@
 __d(
   "WAWebDBCreateLidPnMappings",
   [
-    "Promise",
     "WAAsyncSleep",
     "WALogger",
     "WATimeUtils",
@@ -18,7 +17,6 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,270 +35,241 @@ __d(
         maxBatchSize: 300,
         defaultBatchSize: 30,
       });
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.flushImmediately,
-            n = e.identityChangeHandlingEnabled,
-            a = e.learningSource,
-            i = e.mappings;
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_web_history_sync_dynamic_throttling",
-          )
-            ? yield y({
-                mappings: i,
+    async function g(e) {
+      var t = e.flushImmediately,
+        n = e.identityChangeHandlingEnabled,
+        a = e.learningSource,
+        i = e.mappings;
+      o("WAWebABProps").getABPropConfigValue(
+        "wa_web_history_sync_dynamic_throttling",
+      )
+        ? await h({
+            mappings: i,
+            flushImmediately: t,
+            identityChangeHandlingEnabled: n,
+            learningSource: a,
+          })
+        : r("WAWebEnvironment").isWindows
+          ? await o("WAWebRunInBatches").runInBatches(i, function (e) {
+              return y({
+                mappings: e,
                 flushImmediately: t,
                 identityChangeHandlingEnabled: n,
                 learningSource: a,
-              })
-            : r("WAWebEnvironment").isWindows
-              ? yield o("WAWebRunInBatches").runInBatches(i, function (e) {
-                  return b({
-                    mappings: e,
-                    flushImmediately: t,
-                    identityChangeHandlingEnabled: n,
-                    learningSource: a,
-                  });
-                })
-              : yield b({
-                  mappings: i,
-                  flushImmediately: t,
-                  identityChangeHandlingEnabled: n,
-                  learningSource: a,
-                });
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.flushImmediately,
-            n = e.identityChangeHandlingEnabled,
-            r = e.learningSource,
-            a = e.mappings;
-          if (a.length !== 0)
-            for (var i = 0; i < a.length; ) {
-              var l = f.getThrottleRate(),
-                s = Math.min(l.batchSize, a.length - i),
-                u = a.slice(i, i + s),
-                c = self.performance.now();
-              yield b({
-                mappings: u,
-                flushImmediately: t,
-                identityChangeHandlingEnabled: n,
-                learningSource: r,
               });
-              var d = self.performance.now() - c;
-              (f.setLastProcessTime(d, u.length),
-                l.delayMs > 0 &&
-                  (yield o("WAAsyncSleep").asyncSleep(l.delayMs)),
-                (i += s));
-            }
-        })),
-        C.apply(this, arguments)
-      );
+            })
+          : await y({
+              mappings: i,
+              flushImmediately: t,
+              identityChangeHandlingEnabled: n,
+              learningSource: a,
+            });
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function h(e) {
+      var t = e.flushImmediately,
+        n = e.identityChangeHandlingEnabled,
+        r = e.learningSource,
+        a = e.mappings;
+      if (a.length !== 0)
+        for (var i = 0; i < a.length; ) {
+          var l = f.getThrottleRate(),
+            s = Math.min(l.batchSize, a.length - i),
+            u = a.slice(i, i + s),
+            c = self.performance.now();
+          await y({
+            mappings: u,
+            flushImmediately: t,
+            identityChangeHandlingEnabled: n,
+            learningSource: r,
+          });
+          var d = self.performance.now() - c;
+          (f.setLastProcessTime(d, u.length),
+            l.delayMs > 0 && (await o("WAAsyncSleep").asyncSleep(l.delayMs)),
+            (i += s));
+        }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.flushImmediately,
-            r = e.identityChangeHandlingEnabled,
-            a = e.learningSource,
-            i = e.mappings,
-            l = r != null ? r : !0,
-            s = [],
-            d = [],
-            m = new Map(
-              i.map(function (e) {
-                return [e.pn, e.lid];
-              }),
-            ),
-            p = o("WATimeUtils").unixTime(),
-            f = o("WATimeUtils").castToUnixTime(0),
-            g = [],
-            h = new Set();
-          (i.forEach(function (e) {
-            var n = e.lid,
-              r = e.pn,
-              i = o("WAWebApiContact").lidPnCache.getCurrentLid(r),
-              u = o("WAWebApiContact").lidPnCache.getPhoneNumber(n),
-              c = u == null,
-              _ = !c,
-              y = (i == null ? void 0 : i.equals(n)) === !0,
-              C = _ && !y,
-              b,
-              v;
-            switch (a) {
-              case "usync":
-                ((b = !1), (v = c || C));
-                break;
-              case "peer-pn-message":
-              case "peer-lid-message":
-                ((b = !1), (v = c));
-                break;
-              case "recipient-latest-lid":
-              case "migration-sync-latest":
-              case "migration-sync-old":
-              case "blocklist-active":
-              case "blocklist-inactive":
-                ((b = !1), (v = !y));
-                break;
-              default:
-                ((b = C), (v = c));
-            }
-            if (v) {
-              i != null &&
-                l &&
-                g.push(
-                  o("WAWebIdentityChangeApiWorkerCompatible").handleNewIdentity(
-                    r,
-                    !t,
-                  ),
-                );
-              var S;
-              a === "migration-sync-old" || a === "blocklist-inactive"
-                ? (S = !0)
-                : (S = m.get(r) !== n);
-              var R = S ? f : p;
-              (o("WAWebApiContact").warmUpLidPnMapping(n, r, R),
-                s.push({ lid: n.toString(), phoneNumber: r.toString() }),
-                t
-                  ? d.push({ lid: n, pn: r, phoneNumberCreatedAt: R })
-                  : o("WAWebApiContact").lidPnCacheDirtySet.add(n.toString()));
-            }
-            b && h.add(r);
+    async function y(t) {
+      var n = t.flushImmediately,
+        r = t.identityChangeHandlingEnabled,
+        a = t.learningSource,
+        i = t.mappings,
+        l = r != null ? r : !0,
+        c = [],
+        d = [],
+        m = new Map(
+          i.map(function (e) {
+            return [e.pn, e.lid];
           }),
-            t && o("WAWebApiContact").lidPnCacheDirtySet.size > 0 && k(d));
-          var y =
-            g.length > 0
-              ? (_ || (_ = n("Promise"))).all(g).then(function (e) {
-                  var t = 0;
-                  for (var n of e) {
-                    var r, i;
-                    t +=
-                      (r =
-                        n == null || (i = n.notifications) == null
-                          ? void 0
-                          : i.length) != null
-                        ? r
-                        : 0;
-                  }
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "createLidPnMappings: ",
-                        " id change notifs gen, src ",
-                        "",
-                      ])),
-                    t,
-                    a,
-                  );
-                })
-              : (_ || (_ = n("Promise"))).resolve();
-          h.size !== 0 &&
-            (o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "createLidPnMappings: ",
-                  " contacts requiring usync, source ",
+        ),
+        p = o("WATimeUtils").unixTime(),
+        _ = o("WATimeUtils").castToUnixTime(0),
+        f = [],
+        g = new Set();
+      (i.forEach(function (t) {
+        var r = t.lid,
+          i = t.pn,
+          s = o("WAWebApiContact").lidPnCache.getCurrentLid(i),
+          u = o("WAWebApiContact").lidPnCache.getPhoneNumber(r),
+          h = u == null,
+          y = !h,
+          C = (s == null ? void 0 : s.equals(r)) === !0,
+          b = y && !C;
+        (u == null ? void 0 : u.equals(i)) === !1 &&
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "createLidPnMappings: LID ",
+                  " already mapped to PN ",
+                  ", learning conflicting PN ",
+                  ", source ",
                   "",
                 ])),
-              h.size,
+              r,
+              u,
+              i,
               a,
-            ),
-            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-              "syncContactListJob",
-              {
-                contactIds: Array.from(h),
-                shouldSyncDevice: !1,
-                mode: "query",
-              },
-            ));
-          var C = [y];
-          (d.length > 0 && C.push(I(d)),
-            yield (_ || (_ = n("Promise"))).all(C),
-            s.length > 0 && (yield D(s)));
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-              .getContactTable()
-              .bulkGet(e);
-            return new Map(
-              t.filter(Boolean).map(function (e) {
-                return [e.id, e];
-              }),
+            )
+            .sendLogs("lid-pn-mapping-conflict");
+        var v, S;
+        switch (a) {
+          case "usync":
+            ((v = !1), (S = h || b));
+            break;
+          case "peer-pn-message":
+          case "peer-lid-message":
+            ((v = !1), (S = h));
+            break;
+          case "recipient-latest-lid":
+          case "migration-sync-latest":
+          case "migration-sync-old":
+          case "blocklist-active":
+          case "blocklist-inactive":
+            ((v = !1), (S = !C));
+            break;
+          default:
+            ((v = b), (S = h));
+        }
+        if (S) {
+          s != null &&
+            l &&
+            f.push(
+              o("WAWebIdentityChangeApiWorkerCompatible").handleNewIdentity(
+                i,
+                !n,
+              ),
             );
-          } catch (e) {
-            o("WALogger").ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "getPnRowData failed! ",
-                  "",
-                ])),
-              r("getErrorSafe")(e).stack,
-            );
-          }
-          return new Map();
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L() {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = [];
-            (k(e), yield I(e));
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "flushLidPnMappingsToDb failed!",
+          var R;
+          a === "migration-sync-old" || a === "blocklist-inactive"
+            ? (R = !0)
+            : (R = m.get(i) !== r);
+          var L = R ? _ : p;
+          (o("WAWebApiContact").warmUpLidPnMapping(r, i, L),
+            c.push({ lid: r.toString(), phoneNumber: i.toString() }),
+            n
+              ? d.push({ lid: r, pn: i, phoneNumberCreatedAt: L })
+              : o("WAWebApiContact").lidPnCacheDirtySet.add(r.toString()));
+        }
+        v && g.add(i);
+      }),
+        n && o("WAWebApiContact").lidPnCacheDirtySet.size > 0 && v(d));
+      var h =
+        f.length > 0
+          ? Promise.all(f).then(function (e) {
+              var t = 0;
+              for (var n of e) {
+                var r, i;
+                t +=
+                  (r =
+                    n == null || (i = n.notifications) == null
+                      ? void 0
+                      : i.length) != null
+                    ? r
+                    : 0;
+              }
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "createLidPnMappings: ",
+                    " id change notifs gen, src ",
+                    "",
                   ])),
-              )
-              .sendLogs("Failed to flushLidPnMappingsToDb");
-          }
-        })),
-        E.apply(this, arguments)
-      );
+                t,
+                a,
+              );
+            })
+          : Promise.resolve();
+      g.size !== 0 &&
+        (o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "createLidPnMappings: ",
+              " contacts requiring usync, source ",
+              "",
+            ])),
+          g.size,
+          a,
+        ),
+        o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+          "syncContactListJob",
+          { contactIds: Array.from(g), shouldSyncDevice: !1, mode: "query" },
+        ));
+      var y = [h];
+      (d.length > 0 && y.push(S(d)),
+        await Promise.all(y),
+        c.length > 0 && (await R(c)));
     }
-    function k(t) {
+    async function C(e) {
+      try {
+        var t = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+          .getContactTable()
+          .bulkGet(e);
+        return new Map(
+          t.filter(Boolean).map(function (e) {
+            return [e.id, e];
+          }),
+        );
+      } catch (e) {
+        o("WALogger").ERROR(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "getPnRowData failed! ",
+              "",
+            ])),
+          r("getErrorSafe")(e).stack,
+        );
+      }
+      return new Map();
+    }
+    async function b() {
+      try {
+        var e = [];
+        (v(e), await S(e));
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "flushLidPnMappingsToDb failed!",
+              ])),
+          )
+          .sendLogs("Failed to flushLidPnMappingsToDb");
+      }
+    }
+    function v(e) {
       (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
+        m ||
+          (m = babelHelpers.taggedTemplateLiteralLoose([
             "flush lidPnCacheDirtySet: get dirty updates for ",
             "",
           ])),
         Array.from(o("WAWebApiContact").lidPnCacheDirtySet).join(","),
       ),
-        o("WAWebApiContact").lidPnCacheDirtySet.forEach(function (e) {
-          var n = o("WAWebWidFactory").createUserLidOrThrow(e),
+        o("WAWebApiContact").lidPnCacheDirtySet.forEach(function (t) {
+          var n = o("WAWebWidFactory").createUserLidOrThrow(t),
             r = o("WAWebApiContact").lidPnCache.getLidEntry(n);
           r != null &&
-            t.push({
+            e.push({
               lid: n,
               pn: r.phoneNumber,
               phoneNumberCreatedAt: o("WATimeUtils").castToUnixTime(
@@ -309,8 +278,8 @@ __d(
             });
         }),
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
               "lidPnCacheDirtySet: ",
               " flushed",
             ])),
@@ -318,83 +287,65 @@ __d(
         ),
         o("WAWebApiContact").lidPnCacheDirtySet.clear());
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = yield S(
-                e.map(function (e) {
-                  var t = e.pn;
-                  return t.toJid();
-                }),
-              ),
-              n = e.map(function (e) {
-                var n = e.lid,
-                  r = e.phoneNumberCreatedAt,
-                  a = e.pn,
-                  i = t.get(a.toJid());
-                return babelHelpers.extends(
-                  {
-                    id: n.toString(),
-                    phoneNumber: a.toString(),
-                    phoneNumberCreatedAt: r,
+    async function S(e) {
+      if (e.length !== 0) {
+        var t = await C(
+            e.map(function (e) {
+              var t = e.pn;
+              return t.toJid();
+            }),
+          ),
+          n = e.map(function (e) {
+            var n = e.lid,
+              r = e.phoneNumberCreatedAt,
+              a = e.pn,
+              i = t.get(a.toJid());
+            return babelHelpers.extends(
+              {
+                id: n.toString(),
+                phoneNumber: a.toString(),
+                phoneNumberCreatedAt: r,
+              },
+              i
+                ? o(
+                    "WAWebContactsDbLidMigrationUtils",
+                  ).createContactLidRowFromPnRow(n, i)
+                : {
+                    contactHash: o("WAWebApiContact").getContactHash(n.toJid()),
                   },
-                  i
-                    ? o(
-                        "WAWebContactsDbLidMigrationUtils",
-                      ).createContactLidRowFromPnRow(n, i)
-                    : {
-                        contactHash: o("WAWebApiContact").getContactHash(
-                          n.toJid(),
-                        ),
-                      },
-                );
-              });
-            (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "flushLidPnMappingsToDbImpl: ",
-                  " records to update",
-                ])),
-              n.length,
-            ),
-              yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                .getContactTable()
-                .bulkCreateOrMerge(n),
-              o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-                (yield o(
-                  "WAWebDBContactRemoveSoftDeletedUsernames",
-                ).removeSoftDeletedUsernames(
-                  e.map(function (e) {
-                    var t = e.lid;
-                    return t;
-                  }),
-                )));
-          }
-        })),
-        T.apply(this, arguments)
-      );
+            );
+          });
+        (o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "flushLidPnMappingsToDbImpl: ",
+              " records to update",
+            ])),
+          n.length,
+        ),
+          await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+            .getContactTable()
+            .bulkCreateOrMerge(n),
+          o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+            (await o(
+              "WAWebDBContactRemoveSoftDeletedUsernames",
+            ).removeSoftDeletedUsernames(
+              e.map(function (e) {
+                var t = e.lid;
+                return t;
+              }),
+            )));
+      }
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebBackendApi").frontendSendAndReceive(
-            "bulkUpdatePhoneNumberJids",
-            { lidPhoneNumberMappings: e },
-          );
-        })),
-        x.apply(this, arguments)
+    async function R(e) {
+      await o("WAWebBackendApi").frontendSendAndReceive(
+        "bulkUpdatePhoneNumberJids",
+        { lidPhoneNumberMappings: e },
       );
     }
     ((l.createLidPnMappingsInBatches = g),
-      (l.createLidPnMappings = b),
-      (l.flushLidPnMappingsToDb = L));
+      (l.createLidPnMappings = y),
+      (l.flushLidPnMappingsToDb = b));
   },
   98,
 );

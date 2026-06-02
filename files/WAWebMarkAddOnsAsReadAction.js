@@ -7,7 +7,6 @@ __d(
     "WAWebPollsPollVoteCollection",
     "WAWebReactionsCollection",
     "WAWebSendReadReceiptJob",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
     "react-compiler-runtime",
@@ -17,34 +16,26 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useCallback;
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t = Array.from(e.values()).flat();
+      if (t.length !== 0) {
+        await o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t);
+        var n = new Map();
+        for (var r of e) {
+          var a = r[0],
+            i = r[1];
+          n.set(
+            a,
+            i.map(function (e) {
+              var t = e.msgKey;
+              return t;
+            }),
+          );
+        }
+        await o("WAWebMarkAddOnsAsReadJob").markAddOnsAsReadJob(n);
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = Array.from(e.values()).flat();
-          if (t.length !== 0) {
-            yield o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t);
-            var n = new Map();
-            for (var r of e) {
-              var a = r[0],
-                i = r[1];
-              n.set(
-                a,
-                i.map(function (e) {
-                  var t = e.msgKey;
-                  return t;
-                }),
-              );
-            }
-            yield o("WAWebMarkAddOnsAsReadJob").markAddOnsAsReadJob(n);
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       for (var t of e) {
         var n = t[0],
           a = t[1];
@@ -76,9 +67,9 @@ __d(
         }
       }
     }
-    function m() {
+    function d() {
       var e = o("react-compiler-runtime").c(5),
-        t = r("useLazyRef")(p),
+        t = r("useLazyRef")(m),
         n;
       e[0] !== t
         ? ((n = function () {
@@ -108,10 +99,10 @@ __d(
       var l = i;
       return (o("useWAWebListener").useListener(window, "focus", a), l);
     }
-    function p() {
+    function m() {
       return new Map();
     }
-    ((l.markAddOnsAsReadUiAction = d), (l.useMarkAddOnsAsRead = m));
+    ((l.markAddOnsAsReadUiAction = c), (l.useMarkAddOnsAsRead = d));
   },
   98,
 );

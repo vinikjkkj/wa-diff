@@ -1,20 +1,16 @@
 __d(
   "WAWebKmpSyncdIncomingMutationHandler",
-  [
-    "WAWebKmpBridgeResultWrappers",
-    "asyncToGeneratorRuntime",
-    "wa-kmp-syncd-engine-api",
-  ],
+  ["WAWebKmpBridgeResultWrappers", "wa-kmp-syncd-engine-api"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-      applyDecryptedMutations: function (t, r, a, i, l) {
+      applyDecryptedMutations: function (t, n, r, a, i) {
         return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return new (o(
               "wa-kmp-syncd-engine-api",
             ).ApplyDecryptedMutationsResult)(!0);
-          }),
+          },
         );
       },
     };

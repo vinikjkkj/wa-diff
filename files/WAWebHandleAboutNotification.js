@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleAboutNotification",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAWap",
@@ -11,15 +10,13 @@ __d(
     "WAWebJidToWid",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d,
-      m = new (r("WADeprecatedWapParser"))(
+      d = new (r("WADeprecatedWapParser"))(
         "incomingAboutNotification",
         function (e) {
           e.assertTag("notification");
@@ -55,93 +52,84 @@ __d(
                 );
         },
       );
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          switch (
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleAboutNotification: ",
-                  " from=",
+    async function m(t) {
+      switch (
+        (o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "handleAboutNotification: ",
+              " from=",
+              "",
+            ])),
+          t.type,
+          t.from.toString(),
+        ),
+        t.type)
+      ) {
+        case "sideListChange": {
+          var n = await o("WAWebApiContact").getContactRecordByHash(t.hash);
+          n == null
+            ? o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "side contact hash not found for status update",
+                  ])),
+              )
+            : o("WAWebBackendApi").frontendFireAndForget("refreshTextStatus", {
+                contactId: n.id,
+              });
+          break;
+        }
+        case "change": {
+          var a = t.from,
+            i = [a.toString()],
+            l = o("WAWebApiContact").getAlternateUserWid(
+              o("WAWebWidFactory").asUserWidOrThrow(a),
+            );
+          (l && i.push(l.toString()),
+            o("WAWebBackendApi").frontendFireAndForget("updateTextStatuses", {
+              ids: i,
+              content: t.content,
+            }));
+          break;
+        }
+        default:
+          (t.type,
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "handleAboutNotification: unhandled type ",
                   "",
                 ])),
-              e.type,
-              e.from.toString(),
-            ),
-            e.type)
-          ) {
-            case "sideListChange": {
-              var t = yield o("WAWebApiContact").getContactRecordByHash(e.hash);
-              t == null
-                ? o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "side contact hash not found for status update",
-                      ])),
-                  )
-                : o("WAWebBackendApi").frontendFireAndForget(
-                    "refreshTextStatus",
-                    { contactId: t.id },
-                  );
-              break;
-            }
-            case "change": {
-              var n = e.from,
-                a = [n.toString()],
-                i = o("WAWebApiContact").getAlternateUserWid(
-                  o("WAWebWidFactory").asUserWidOrThrow(n),
-                );
-              (i && a.push(i.toString()),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "updateTextStatuses",
-                  { ids: a, content: e.content },
-                ));
-              break;
-            }
-            default:
-              (e.type,
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleAboutNotification: unhandled type ",
-                      "",
-                    ])),
-                  e.type,
-                ));
-              break;
-          }
-          return o("WAWap").wap("ack", {
-            id: o("WAWap").CUSTOM_STRING(e.stanzaId),
-            to:
-              e.from instanceof r("WAWebWid")
-                ? o("WAWebCommsWapMd").JID(e.from)
-                : o("WAWap").CUSTOM_STRING(e.from),
-            class: "notification",
-            type: "status",
-          });
-        })),
-        _.apply(this, arguments)
-      );
+              t.type,
+            ));
+          break;
+      }
+      return o("WAWap").wap("ack", {
+        id: o("WAWap").CUSTOM_STRING(t.stanzaId),
+        to:
+          t.from instanceof r("WAWebWid")
+            ? o("WAWebCommsWapMd").JID(t.from)
+            : o("WAWap").CUSTOM_STRING(t.from),
+        class: "notification",
+        type: "status",
+      });
     }
-    function f(t) {
-      var r = m.parse(t);
-      return r.error
+    function p(e) {
+      var t = d.parse(e);
+      return t.error
         ? (o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "Parsing Error: ",
                 "",
               ])),
-            r.error.toString(),
+            t.error.toString(),
           ),
-          (d || (d = n("Promise"))).reject(r.error))
-        : p(r.success);
+          Promise.reject(t.error))
+        : m(t.success);
     }
-    l.handleAboutNotification = f;
+    l.handleAboutNotification = p;
   },
   98,
 );

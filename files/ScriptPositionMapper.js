@@ -1,6 +1,6 @@
 __d(
   "ScriptPositionMapper",
-  ["OneTraceSetup", "asyncToGeneratorRuntime"],
+  ["OneTraceSetup"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -47,61 +47,52 @@ __d(
       })(),
       g = new f(u),
       h = new f(c);
-    function y(e, t) {
-      return C.apply(this, arguments);
+    async function y(e, t) {
+      var n = h.get(e);
+      if (n == null) {
+        var r = await fetch(t);
+        if (!r.ok) return null;
+        ((n = await r.text()), h.set(e, n));
+      }
+      return n;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = h.get(e);
-          if (n == null) {
-            var r = yield fetch(t);
-            if (!r.ok) return null;
-            ((n = yield r.text()), h.set(e, n));
+    async function C(e, t) {
+      var n = { line: -1, column: -1 };
+      if (t === 0) return { line: 1, column: 0 };
+      for (var r of d) if (r.test(e)) return n;
+      try {
+        var o = _(e),
+          a = o + ":" + t,
+          i = g.get(a);
+        if (i) return i;
+        var l = await y(o, e);
+        if (l == null || t < 0 || t > l.length) return n;
+        for (
+          var s = l.split(`
+`),
+            u = 0,
+            c = 0;
+          c < s.length;
+          c++
+        ) {
+          var m = s[c].length + 1;
+          if (u + m > t) {
+            var p = t - u,
+              f = { line: c + 1, column: p };
+            return (g.set(a, f), f);
           }
-          return n;
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = { line: -1, column: -1 };
-          if (t === 0) return { line: 1, column: 0 };
-          for (var r of d) if (r.test(e)) return n;
-          try {
-            var o = _(e),
-              a = o + ":" + t,
-              i = g.get(a);
-            if (i) return i;
-            var l = yield y(o, e);
-            if (l == null || t < 0 || t > l.length) return n;
-            for (var s = l.split("\n"), u = 0, c = 0; c < s.length; c++) {
-              var m = s[c].length + 1;
-              if (u + m > t) {
-                var p = t - u,
-                  f = { line: c + 1, column: p };
-                return (g.set(a, f), f);
-              }
-              u += m;
-            }
-            var h = { line: s.length, column: s[s.length - 1].length };
-            return (g.set(a, h), h);
-          } catch (e) {
-            return n;
-          }
-        })),
-        v.apply(this, arguments)
-      );
+          u += m;
+        }
+        var h = { line: s.length, column: s[s.length - 1].length };
+        return (g.set(a, h), h);
+      } catch (e) {
+        return n;
+      }
     }
     ((l.MAX_POS_LRU_ENTRIES = u),
       (l.MAX_SCRIPT_TEXT_LRU_ENTRIES = c),
       (l.BLOCKLIST_REGEXPS = d),
-      (l.getLineAndColumnFromCharPosition = b));
+      (l.getLineAndColumnFromCharPosition = C));
   },
   98,
 );

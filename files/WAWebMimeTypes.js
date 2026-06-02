@@ -6,7 +6,7 @@ __d(
     "WAWebMimeTypesBuildExtToMime",
     "WAWebMiscErrors",
     "file-type",
-    "lodash",
+    "filterObject",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 262,
@@ -112,7 +112,7 @@ __d(
         "image/png": { msgType: "image" },
       },
       m = d,
-      p = r("lodash").pickBy(m, function (e) {
+      p = r("filterObject")(m, function (e) {
         return (e == null ? void 0 : e.msgType) === "document";
       }),
       _ = "*",
@@ -129,7 +129,7 @@ __d(
     var C = g,
       b = "audio/wav,audio/mp3,audio/ogg,audio/aac,audio/mpeg",
       v = r("WAWebMimeTypesBuildExtToMime")(),
-      S = r("lodash").pickBy(d, function (e) {
+      S = r("filterObject")(d, function (e) {
         return (
           (e == null ? void 0 : e.msgType) === "document" &&
           e.canSend === !0 &&

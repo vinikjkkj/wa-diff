@@ -1,7 +1,6 @@
 __d(
   "WAWebSyncdRequestBuilderBuild",
   [
-    "Promise",
     "WABaseGlobals",
     "WAJids",
     "WALogger",
@@ -25,7 +24,6 @@ __d(
     "WAWebSyncdRequestBuilderTypesConverter",
     "WAWebSyncdRequestEncode",
     "WAWebSyncdWamAppState",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "sortBy",
   ],
@@ -37,36 +35,27 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 5;
-    function f(e, t) {
-      return g.apply(this, arguments);
+      p = 5;
+    async function _(e, t) {
+      var n = await g(e, t),
+        r = n.collectionLtHashes,
+        a = n.collectionNodes,
+        i = n.collectionWithEncryptedMutations,
+        l = n.localCollectionVersions,
+        s = n.pendingCollectionsInBootstrap,
+        u = f(o("WAWap").wap("sync", null, a)),
+        c = u.iqId,
+        d = u.iqNode;
+      return {
+        syncIqNode: d,
+        collectionWithEncryptedMutations: i,
+        localCollectionVersions: l,
+        pendingCollectionsInBootstrap: s,
+        iqId: c,
+        collectionLtHashes: r,
+      };
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield y(e, t),
-            r = n.collectionLtHashes,
-            a = n.collectionNodes,
-            i = n.collectionWithEncryptedMutations,
-            l = n.localCollectionVersions,
-            s = n.pendingCollectionsInBootstrap,
-            u = h(o("WAWap").wap("sync", null, a)),
-            c = u.iqId,
-            d = u.iqNode;
-          return {
-            syncIqNode: d,
-            collectionWithEncryptedMutations: i,
-            localCollectionVersions: l,
-            pendingCollectionsInBootstrap: s,
-            iqId: c,
-            collectionLtHashes: r,
-          };
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function f(e) {
       var t = o("WAWap").generateId(),
         n = o("WAWap").wap(
           "iq",
@@ -80,269 +69,216 @@ __d(
         );
       return { iqNode: n, iqId: t };
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: start _buildCollectionNodes",
-              ])),
-          );
-          var a = [],
-            i = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e, t) {
-                  var n = yield o("WAWebGetCollectionVersion")
-                      .getCollectionVersionInTransaction(e)
-                      .then(function (e) {
-                        return e == null ? void 0 : e.version;
-                      }),
-                    i,
-                    l,
-                    s;
-                  if (t != null && t.length > 0)
-                    if (n == null) a.push(e);
-                    else {
-                      var u = yield b(e, t, r),
-                        c = u.encryptedMutations,
-                        d = u.ltHash,
-                        m = u.patchNode;
-                      ((i = m), (l = c), (s = d));
-                    }
-                  return {
-                    collection: e,
-                    version: n,
-                    patchNode: i,
-                    encryptedMutations: l,
-                    ltHash: s,
-                  };
-                },
-              );
-              return function (n, r) {
-                return e.apply(this, arguments);
-              };
-            })(),
-            l = new Map(),
-            c = new Map(),
-            d = [];
-          t.forEach(function (e, t) {
-            return d.push(i(t, e));
-          });
-          var m = yield (p || (p = n("Promise"))).all(d);
-          a.length > 0 &&
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: skipping ",
-                  " collections in sync iq patch because initial full sync is incomplete => ",
-                  "",
-                ])),
-              a.length,
-              a.slice(0, 3),
-            );
-          var _ = new Map(),
-            f = m.map(function (e) {
-              var t = e.collection,
-                n = e.encryptedMutations,
-                r = e.ltHash,
-                a = e.patchNode,
-                i = e.version;
-              return (
-                n && c.set(t, n),
-                l.set(t, i),
-                _.set(t, r),
-                o("WAWap").wap(
-                  "collection",
-                  {
-                    name: o("WAWap").CUSTOM_STRING(t),
-                    return_snapshot: i === void 0 ? "true" : "false",
-                    version: o("WAWap").INT(
-                      i != null
-                        ? i
-                        : o("WASyncdConst").DEFAULT_COLLECTION_VERSION,
-                    ),
-                  },
-                  a,
-                )
-              );
-            });
-          return (
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: end _buildCollectionNodes",
-                ])),
-            ),
-            {
-              collectionNodes: f,
-              collectionWithEncryptedMutations: c,
-              localCollectionVersions: l,
-              pendingCollectionsInBootstrap: a,
-              collectionLtHashes: _,
-            }
-          );
-        })),
-        C.apply(this, arguments)
+    async function g(t, n) {
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: start _buildCollectionNodes",
+          ])),
       );
-    }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = yield o("WAWebSyncdKeyManagement").getActiveKey(!L(t)),
-            i = yield T(e, t, a),
-            l = i.map(function (e, t) {
-              return o("WAWebSyncdEncryptMutationsWrapper")
-                .encryptMutation(e, a)
-                .catch(function (e) {
-                  throw (
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "syncd: encryption failed for idx ",
-                          "",
-                        ])),
-                      t,
-                    ),
-                    e
-                  );
-                });
-            }),
-            s = yield (p || (p = n("Promise"))).all(l).catch(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    throw (
-                      t instanceof o("WAWebSyncdError").SyncdFatalError &&
-                        (yield S(i, e)),
-                      t
-                    );
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ),
-            u =
-              o("WAWebABProps").getABPropConfigValue(
-                "syncd_use_index_for_lthash_lookup",
-              ) === !0,
-            d = s.map(function (e) {
-              return {
-                indexMac: e.indexMac,
-                valueMac: e.valueMac,
-                operation: e.operation,
-                action: e.action || void 0,
-                index: u ? e.index : void 0,
-              };
-            }),
-            m = yield o("WAWebSyncdAntiTampering").computeLtHash(e, d, r),
-            _ = m.ltHash,
-            f = yield o(
-              "WAWebSyncdAntiTampering",
-            ).computeOutgoingSnapshotAndPatchMacs(e, _, s, a.keyData),
-            g = f.patchMac,
-            h = f.snapshotMac;
-          s.map(function (e) {
-            e.patchMac = g;
-          });
-          var y = s.map(function (e) {
-              return I(
-                e.keyId,
-                e.operation,
-                e.indexMac,
-                e.indexAndValueCipherText,
-              );
-            }),
-            C = k(y),
-            b;
-          o("WAWebSyncdMMSUpload").exceedInlineMutationCount(y)
-            ? (b = yield o("WAWebSyncdMMSUpload").uploadPatch(C, a.keyId, h, g))
-            : ((b = E(y, a.keyId, h, g)),
-              o("WAWebSyncdMMSUpload").exceedPatchProtobufSize(b) &&
-                (b = yield o("WAWebSyncdMMSUpload").uploadPatch(
-                  C,
-                  a.keyId,
-                  h,
-                  g,
-                )));
-          var v = o("WAWap").wap("patch", null, b);
-          return { patchNode: v, encryptedMutations: s, ltHash: _ };
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.map(function (e, t) {
-              return { mutation: e, idx: t };
-            }),
-            r = n.filter(function (e) {
-              return (
-                e.mutation.operation ===
-                o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
-                  .SET
-              );
-            }),
-            a = n.filter(function (e) {
-              return (
-                e.mutation.operation ===
-                o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
-                  .REMOVE
-              );
-            }),
-            i = r.map(function (e) {
-              var t = a.map(function (t) {
-                return t.mutation.index === e.mutation.index
-                  ? "same"
-                  : "different";
-              });
-              return "[" + t.join(",") + "]";
-            }),
-            l = r.map(function (e) {
-              var t = e.idx,
-                n = e.mutation,
-                r = n.action != null ? n.action : "",
-                o = n.id != null;
-              return r + "(" + t + ") - " + (o ? "stored" : "not stored");
-            }),
-            s = a.map(function (e) {
-              var t = e.idx,
-                n = e.mutation,
-                r = n.action != null ? n.action : "",
-                o = n.id != null;
-              return r + "(" + t + ") - " + (o ? "stored" : "not stored");
-            });
-          o("WALogger").WARN(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: fatal error encrypting patch for ",
-                ":\n      SET: ",
-                "\n      REMOVE: ",
-                "\n      Is same index? ",
-                "",
-              ])),
-            t,
+      var r = [],
+        a = async function (t, a) {
+          var e = await o("WAWebGetCollectionVersion")
+              .getCollectionVersionInTransaction(t)
+              .then(function (e) {
+                return e == null ? void 0 : e.version;
+              }),
+            i,
             l,
-            s,
-            i.join(","),
+            s;
+          if (a != null && a.length > 0)
+            if (e == null) r.push(t);
+            else {
+              var u = await h(t, a, n),
+                c = u.encryptedMutations,
+                d = u.ltHash,
+                m = u.patchNode;
+              ((i = m), (l = c), (s = d));
+            }
+          return {
+            collection: t,
+            version: e,
+            patchNode: i,
+            encryptedMutations: l,
+            ltHash: s,
+          };
+        },
+        i = new Map(),
+        l = new Map(),
+        c = [];
+      t.forEach(function (e, t) {
+        return c.push(a(t, e));
+      });
+      var d = await Promise.all(c);
+      r.length > 0 &&
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: skipping ",
+              " collections in sync iq patch because initial full sync is incomplete => ",
+              "",
+            ])),
+          r.length,
+          r.slice(0, 3),
+        );
+      var m = new Map(),
+        p = d.map(function (e) {
+          var t = e.collection,
+            n = e.encryptedMutations,
+            r = e.ltHash,
+            a = e.patchNode,
+            s = e.version;
+          return (
+            n && l.set(t, n),
+            i.set(t, s),
+            m.set(t, r),
+            o("WAWap").wap(
+              "collection",
+              {
+                name: o("WAWap").CUSTOM_STRING(t),
+                return_snapshot: s === void 0 ? "true" : "false",
+                version: o("WAWap").INT(
+                  s != null ? s : o("WASyncdConst").DEFAULT_COLLECTION_VERSION,
+                ),
+              },
+              a,
+            )
           );
-        })),
-        R.apply(this, arguments)
+        });
+      return (
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: end _buildCollectionNodes",
+            ])),
+        ),
+        {
+          collectionNodes: p,
+          collectionWithEncryptedMutations: l,
+          localCollectionVersions: i,
+          pendingCollectionsInBootstrap: r,
+          collectionLtHashes: m,
+        }
       );
     }
-    function L(e) {
+    async function h(e, t, n) {
+      var r = await o("WAWebSyncdKeyManagement").getActiveKey(!C(t)),
+        a = await R(e, t, r),
+        i = a.map(function (e, t) {
+          return o("WAWebSyncdEncryptMutationsWrapper")
+            .encryptMutation(e, r)
+            .catch(function (e) {
+              throw (
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "syncd: encryption failed for idx ",
+                      "",
+                    ])),
+                  t,
+                ),
+                e
+              );
+            });
+        }),
+        l = await Promise.all(i).catch(async function (t) {
+          throw (
+            t instanceof o("WAWebSyncdError").SyncdFatalError &&
+              (await y(a, e)),
+            t
+          );
+        }),
+        s =
+          o("WAWebABProps").getABPropConfigValue(
+            "syncd_use_index_for_lthash_lookup",
+          ) === !0,
+        u = l.map(function (e) {
+          return {
+            indexMac: e.indexMac,
+            valueMac: e.valueMac,
+            operation: e.operation,
+            action: e.action || void 0,
+            index: s ? e.index : void 0,
+          };
+        }),
+        d = await o("WAWebSyncdAntiTampering").computeLtHash(e, u, n),
+        m = d.ltHash,
+        p = await o(
+          "WAWebSyncdAntiTampering",
+        ).computeOutgoingSnapshotAndPatchMacs(e, m, l, r.keyData),
+        _ = p.patchMac,
+        f = p.snapshotMac;
+      l.map(function (e) {
+        e.patchMac = _;
+      });
+      var g = l.map(function (e) {
+          return S(e.keyId, e.operation, e.indexMac, e.indexAndValueCipherText);
+        }),
+        h = v(g),
+        L;
+      o("WAWebSyncdMMSUpload").exceedInlineMutationCount(g)
+        ? (L = await o("WAWebSyncdMMSUpload").uploadPatch(h, r.keyId, f, _))
+        : ((L = b(g, r.keyId, f, _)),
+          o("WAWebSyncdMMSUpload").exceedPatchProtobufSize(L) &&
+            (L = await o("WAWebSyncdMMSUpload").uploadPatch(h, r.keyId, f, _)));
+      var E = o("WAWap").wap("patch", null, L);
+      return { patchNode: E, encryptedMutations: l, ltHash: m };
+    }
+    async function y(e, t) {
+      var n = e.map(function (e, t) {
+          return { mutation: e, idx: t };
+        }),
+        r = n.filter(function (e) {
+          return (
+            e.mutation.operation ===
+            o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation.SET
+          );
+        }),
+        a = n.filter(function (e) {
+          return (
+            e.mutation.operation ===
+            o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation.REMOVE
+          );
+        }),
+        i = r.map(function (e) {
+          var t = a.map(function (t) {
+            return t.mutation.index === e.mutation.index ? "same" : "different";
+          });
+          return "[" + t.join(",") + "]";
+        }),
+        l = r.map(function (e) {
+          var t = e.idx,
+            n = e.mutation,
+            r = n.action != null ? n.action : "",
+            o = n.id != null;
+          return r + "(" + t + ") - " + (o ? "stored" : "not stored");
+        }),
+        s = a.map(function (e) {
+          var t = e.idx,
+            n = e.mutation,
+            r = n.action != null ? n.action : "",
+            o = n.id != null;
+          return r + "(" + t + ") - " + (o ? "stored" : "not stored");
+        });
+      o("WALogger").WARN(
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: fatal error encrypting patch for ",
+            `:
+      SET: `,
+            `
+      REMOVE: `,
+            `
+      Is same index? `,
+            "",
+          ])),
+        t,
+        l,
+        s,
+        i.join(","),
+      );
+    }
+    function C(e) {
       return (
         r("WAWebBrokerGlobalAppState").isLogoutInProgress &&
         e.some(function (e) {
@@ -355,7 +291,7 @@ __d(
         })
       );
     }
-    function E(e, t, n, r) {
+    function b(e, t, n, r) {
       var a = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid()),
         i = o("encodeProtobuf")
           .encodeProtobuf(o("WAWebProtobufSyncAction.pb").PatchDebugDataSpec, {
@@ -373,12 +309,12 @@ __d(
         clientDebugData: i,
       });
     }
-    function k(e) {
+    function v(e) {
       return o("WAWebSyncdRequestEncode").encodeSyncdMutations({
         mutations: e,
       });
     }
-    function I(e, t, n, r) {
+    function S(e, t, n, r) {
       return {
         operation: t,
         record: {
@@ -388,57 +324,49 @@ __d(
         },
       };
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
-    }
-    function D() {
+    async function R(e, t, n) {
+      var r = await o(
+          "WAWebGetSyncAction",
+        ).getSyncActionsByCollectionsInTransaction([e]),
+        a = new Set(
+          r.map(function (e) {
+            return e.index;
+          }),
+        ),
+        i = t.filter(function (t) {
+          if (
+            t.operation ===
+              o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
+                .REMOVE &&
+            !a.has(t.index)
+          ) {
+            var n;
+            return (
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: dropping orphaned REMOVE mutation (no corresponding SET in SyncActionStore) for collection ",
+                    ", action: ",
+                    "",
+                  ])),
+                e,
+                (n = t.action) != null ? n : "unknown",
+              ),
+              !1
+            );
+          }
+          return !0;
+        }),
+        l = L(r, t, n.keyId);
+      i = i.concat(l);
+      var s = E(r, i, n.keyId);
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o(
-              "WAWebGetSyncAction",
-            ).getSyncActionsByCollectionsInTransaction([e]),
-            a = new Set(
-              r.map(function (e) {
-                return e.index;
-              }),
-            ),
-            i = t.filter(function (t) {
-              if (
-                t.operation ===
-                  o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
-                    .REMOVE &&
-                !a.has(t.index)
-              ) {
-                var n;
-                return (
-                  o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: dropping orphaned REMOVE mutation (no corresponding SET in SyncActionStore) for collection ",
-                        ", action: ",
-                        "",
-                      ])),
-                    e,
-                    (n = t.action) != null ? n : "unknown",
-                  ),
-                  !1
-                );
-              }
-              return !0;
-            }),
-            l = x(r, t, n.keyId);
-          i = i.concat(l);
-          var s = $(r, i, n.keyId);
-          return (
-            o("WAWebSyncdWamAppState").addKeyRotationRemoveCount(s.length),
-            (i = i.concat(s)),
-            i
-          );
-        })),
-        D.apply(this, arguments)
+        o("WAWebSyncdWamAppState").addKeyRotationRemoveCount(s.length),
+        (i = i.concat(s)),
+        i
       );
     }
-    function x(e, t, n) {
+    function L(e, t, n) {
       var a = new Set(
           t.map(function (e) {
             return e.index;
@@ -454,7 +382,7 @@ __d(
         return o("WASyncdKeyManagementUtils").getKeyEpoch(e.keyId);
       });
       var l = Math.min(
-        _,
+        p,
         o("WAWebABProps").getABPropConfigValue(
           "syncd_additional_mutations_count",
         ),
@@ -469,7 +397,7 @@ __d(
         )
       );
     }
-    function $(e, t, n) {
+    function E(e, t, n) {
       var r = new Set(
           t
             .filter(function (e) {
@@ -496,7 +424,7 @@ __d(
         o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation.REMOVE,
       );
     }
-    ((l.buildSyncIqNode = f), (l._generateMutationsToUpload = T));
+    ((l.buildSyncIqNode = _), (l._generateMutationsToUpload = R));
   },
   98,
 );

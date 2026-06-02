@@ -8,7 +8,6 @@ __d(
     "WAWebModalManager",
     "WAWebSocketModel",
     "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
   ],
@@ -21,99 +20,85 @@ __d(
       m,
       p,
       _ = p || (p = o("react")),
-      f = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebPasskeyCheckpoint.react",
-          )
-            .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
-            .load();
-          return e;
-        }),
-        "WAWebPasskeyCheckpoint",
-      ),
-      g = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebMexIntegrityChallengeResponse",
-          )
-            .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
-            .load();
-          return e.mexSubmitPasskeyChallengeResponse;
-        }),
-        "WAWebMexIntegrityChallengeResponse",
+      f = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebPasskeyCheckpoint.react",
+        )
+          .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
+          .load();
+        return e;
+      }, "WAWebPasskeyCheckpoint"),
+      g = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebMexIntegrityChallengeResponse",
+        )
+          .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
+          .load();
+        return e.mexSubmitPasskeyChallengeResponse;
+      }, "WAWebMexIntegrityChallengeResponse");
+    async function h(t) {
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[integrity-challenge] passkey assertion completed",
+          ])),
       );
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[integrity-challenge] passkey assertion completed",
-              ])),
-          );
-          var t = yield g(),
-            n = yield t(e);
-          if (n.success)
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[integrity-challenge] challenge response accepted by server",
+      var n = await g(),
+        a = await n(t);
+      if (a.success)
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[integrity-challenge] challenge response accepted by server",
+            ])),
+        ),
+          o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
+            o("WAWebIntegrityChallengeUtils").INTEGRITY_CHALLENGE_IDB_KEY,
+          ),
+          o("WAWebModalManager").ModalManager.close());
+      else
+        throw (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[integrity-challenge] server rejected challenge response",
                 ])),
-            ),
-              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
-                o("WAWebIntegrityChallengeUtils").INTEGRITY_CHALLENGE_IDB_KEY,
-              ),
-              o("WAWebModalManager").ModalManager.close());
-          else
-            throw (
-              o("WALogger")
-                .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[integrity-challenge] server rejected challenge response",
-                    ])),
-                )
-                .sendLogs("integrity-challenge-response-rejected"),
-              r("err")("Server rejected challenge response")
-            );
-        })),
-        y.apply(this, arguments)
-      );
+            )
+            .sendLogs("integrity-challenge-response-rejected"),
+          r("err")("Server rejected challenge response")
+        );
     }
-    function C(t) {
+    function y(e) {
       o("WALogger")
         .ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "[integrity-challenge] passkey assertion failed: ",
               "",
             ])),
-          t,
+          e,
         )
         .sendLogs("integrity-challenge-passkey-error");
     }
-    function b() {
+    function C() {
       (o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
             "[integrity-challenge] user initiated logout from checkpoint",
           ])),
       ),
         o("WAWebModalManager").ModalManager.close(),
         o("WAWebSocketModel").Socket.logout());
     }
-    function v(e) {
+    function b(e) {
       f()
         .then(function (t) {
           o("WAWebModalManager").ModalManager.open(
             _.jsx(t, {
-              onLogout: b,
+              onLogout: C,
               onPasskeyComplete: h,
-              onPasskeyError: C,
+              onPasskeyError: y,
               passkeyChallenge: e,
             }),
             { blockClose: !0 },
@@ -122,15 +107,15 @@ __d(
         .catch(function (e) {
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[integrity-challenge] failed to load checkpoint modal",
                 ])),
             )
             .sendLogs("integrity-challenge-modal-load-failed");
         });
     }
-    l.openPasskeyCheckpoint = v;
+    l.openPasskeyCheckpoint = b;
   },
   98,
 );

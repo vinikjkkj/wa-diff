@@ -6,7 +6,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMessageAssociationGatingUtils",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -33,55 +32,47 @@ __d(
         n
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(t, n) {
+      var a = await o("WAWebApiOrphanRevoke").getOrphansRevokesCache(),
+        i = [],
+        l = [],
+        s = 0,
+        u = [];
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = yield o("WAWebApiOrphanRevoke").getOrphansRevokesCache(),
-            i = [],
-            l = [],
-            s = 0,
-            u = [];
-          return (
-            t.forEach(function (e) {
-              var t,
-                c = e.id.toString(),
-                d = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
-                m = (t = a.get(c)) != null ? t : d && a.get(d.toString());
-              if (m)
-                (s++,
-                  u.length < 3 && u.push(e.id.id),
-                  r("WAWebWid").isStatus(e.id.remote) ||
-                    l.push(
-                      o("WAWebApiOrphanRevoke").createRevokeMsgFromOrphanRevoke(
-                        e,
-                        m,
-                      ),
-                    ),
-                  i.push(m));
-              else if (n) {
-                var p = n(e);
-                p && l.push(p);
-              } else l.push(e);
-            }),
-            s > 0 &&
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[filterAndReplaceMessages] ",
-                    " orphan revokes ids=",
-                    "",
-                  ])),
-                s,
-                u,
-              ),
-            o("WAWebApiOrphanRevoke").bulkRemoveOrphansUsingOrphansCache(i),
-            { newMsgs: l }
-          );
-        })),
-        d.apply(this, arguments)
+        t.forEach(function (e) {
+          var t,
+            c = e.id.toString(),
+            d = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
+            m = (t = a.get(c)) != null ? t : d && a.get(d.toString());
+          if (m)
+            (s++,
+              u.length < 3 && u.push(e.id.id),
+              r("WAWebWid").isStatus(e.id.remote) ||
+                l.push(
+                  o("WAWebApiOrphanRevoke").createRevokeMsgFromOrphanRevoke(
+                    e,
+                    m,
+                  ),
+                ),
+              i.push(m));
+          else if (n) {
+            var p = n(e);
+            p && l.push(p);
+          } else l.push(e);
+        }),
+        s > 0 &&
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[filterAndReplaceMessages] ",
+                " orphan revokes ids=",
+                "",
+              ])),
+            s,
+            u,
+          ),
+        o("WAWebApiOrphanRevoke").bulkRemoveOrphansUsingOrphansCache(i),
+        { newMsgs: l }
       );
     }
     ((l.validateMsgFn = s),

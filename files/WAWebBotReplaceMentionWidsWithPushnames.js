@@ -1,6 +1,6 @@
 __d(
   "WAWebBotReplaceMentionWidsWithPushnames",
-  ["WAWebApiContact", "WAWebBotGroupGatingUtils", "asyncToGeneratorRuntime"],
+  ["WAWebApiContact", "WAWebBotGroupGatingUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = [
@@ -106,83 +106,65 @@ __d(
       }
       return n;
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      if (e == null || e.length === 0) return new Map();
+      for (
+        var t = await o("WAWebApiContact").bulkGetContactRecord([].concat(e)),
+          n = new Map(),
+          r = 0;
+        r < e.length;
+        r++
+      ) {
+        var a = e[r],
+          i = t[r],
+          l =
+            (i == null ? void 0 : i.pushname) ||
+            (i == null ? void 0 : i.verifiedName);
+        a != null && l != null && l !== "" && n.set("@" + a.user, "@" + l);
+      }
+      return n;
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null || e.length === 0) return new Map();
-          for (
-            var t = yield o("WAWebApiContact").bulkGetContactRecord(
-                [].concat(e),
-              ),
-              n = new Map(),
-              r = 0;
-            r < e.length;
-            r++
-          ) {
-            var a = e[r],
-              i = t[r],
-              l =
-                (i == null ? void 0 : i.pushname) ||
-                (i == null ? void 0 : i.verifiedName);
-            a != null && l != null && l !== "" && n.set("@" + a.user, "@" + l);
-          }
-          return n;
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(t) {
+    function c(t) {
       for (var n of e) {
         var r = n(t);
         if (r != null) return r;
       }
       return null;
     }
-    function m(e, t) {
-      var n = d(e);
+    function d(e, t) {
+      var n = c(e);
       if (n != null) {
         var r = s(n.text, t);
         r !== n.text && n.apply(r, null);
       }
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !(
-              t == null ||
-              t.length === 0 ||
-              !o(
-                "WAWebBotGroupGatingUtils",
-              ).isGroupBotSendMentionedPushnameEnabled()
-            )
-          ) {
-            var n = yield u(t);
-            if (n.size !== 0) {
-              var r = d(e);
-              if (r != null) {
-                var a = s(r.text, n),
-                  i = null;
-                (r.quotedMessage != null &&
-                  ((i = babelHelpers.extends({}, r.quotedMessage)), m(i, n)),
-                  (a !== r.text || i != null) && r.apply(a, i));
-              }
-            }
+    async function m(e, t) {
+      if (
+        !(
+          t == null ||
+          t.length === 0 ||
+          !o(
+            "WAWebBotGroupGatingUtils",
+          ).isGroupBotSendMentionedPushnameEnabled()
+        )
+      ) {
+        var n = await u(t);
+        if (n.size !== 0) {
+          var r = c(e);
+          if (r != null) {
+            var a = s(r.text, n),
+              i = null;
+            (r.quotedMessage != null &&
+              ((i = babelHelpers.extends({}, r.quotedMessage)), d(i, n)),
+              (a !== r.text || i != null) && r.apply(a, i));
           }
-        })),
-        _.apply(this, arguments)
-      );
+        }
+      }
     }
     ((l.replaceMentionsInText = s),
       (l.buildMentionMap = u),
-      (l.replaceMentionsInMsgText = m),
-      (l.replaceMentionWidsWithPushnames = p));
+      (l.replaceMentionsInMsgText = d),
+      (l.replaceMentionWidsWithPushnames = m));
   },
   98,
 );

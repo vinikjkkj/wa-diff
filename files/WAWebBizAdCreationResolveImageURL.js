@@ -1,11 +1,6 @@
 __d(
   "WAWebBizAdCreationResolveImageURL",
-  [
-    "CometRelay",
-    "FBLogger",
-    "WAWebBizAdCreationResolveImageURLQuery.graphql",
-    "asyncToGeneratorRuntime",
-  ],
+  ["CometRelay", "FBLogger", "WAWebBizAdCreationResolveImageURLQuery.graphql"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -13,26 +8,17 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebBizAdCreationResolveImageURLQuery.graphql"));
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i = yield o("CometRelay")
-              .fetchQuery(e, s, { imageHash: n, legacyAdAccountID: t })
-              .toPromise(),
-            l =
-              i == null || (a = i.lwi) == null ? void 0 : a.image_url_from_hash;
-          if (l == null)
-            throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
-              "resolveImageURLFromHash: null URL for hash " + n,
-            );
-          return l;
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(e, t, n) {
+      var a,
+        i = await o("CometRelay")
+          .fetchQuery(e, s, { imageHash: n, legacyAdAccountID: t })
+          .toPromise(),
+        l = i == null || (a = i.lwi) == null ? void 0 : a.image_url_from_hash;
+      if (l == null)
+        throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
+          "resolveImageURLFromHash: null URL for hash " + n,
+        );
+      return l;
     }
     l.default = u;
   },

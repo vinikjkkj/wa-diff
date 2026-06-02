@@ -1,7 +1,6 @@
 __d(
   "WAWebMsgBridgeApi",
   [
-    "Promise",
     "WALogger",
     "WAWebAckMsgAction",
     "WAWebBizAgentAction",
@@ -22,12 +21,10 @@ __d(
     "WAWebUpdateMusicBlocklistAction",
     "WAWebUpdateReactionMessageUIAction",
     "WAWebUpdateReplyApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = {
+      s = {
         processMultipleMessages: function (t) {
           var e = t.chatId,
             n = t.chatMsgsCollection,
@@ -218,22 +215,14 @@ __d(
             "WAWebGalaxyDisableCTACollection",
           ).GalaxyDisableCTACollection.addByAgmId(e, n);
         },
-        hydrateReactionsForMessages: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.messageIds;
-            yield (s || (s = n("Promise"))).all(
-              t.map(function (e) {
-                return o("WAWebReactionsCollection").ReactionsCollection.find(
-                  e,
-                );
-              }),
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        hydrateReactionsForMessages: async function (t) {
+          var e = t.messageIds;
+          await Promise.all(
+            e.map(function (e) {
+              return o("WAWebReactionsCollection").ReactionsCollection.find(e);
+            }),
+          );
+        },
         updateCrosspostingInfo: function (t) {
           var e,
             n = t.crosspostingInfo,
@@ -257,30 +246,24 @@ __d(
             n,
           );
         },
-        deleteMessageFromCollectionForSync: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = t.msgKey,
-              r = o("WAWebMsgCollection").MsgCollection.get(n);
-            if (r) {
-              var a = o("WAWebFrontendMsgGetters").getChat(r);
-              (a.msgs.length === 1 &&
-                (yield o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: a })),
-                r.delete());
-            } else
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "delete_message_for_me_sync: ",
-                    " storage+ collection-",
-                  ])),
-                n,
-              );
-          });
-          function r(e) {
-            return t.apply(this, arguments);
-          }
-          return r;
-        })(),
+        deleteMessageFromCollectionForSync: async function (n) {
+          var t = n.msgKey,
+            r = o("WAWebMsgCollection").MsgCollection.get(t);
+          if (r) {
+            var a = o("WAWebFrontendMsgGetters").getChat(r);
+            (a.msgs.length === 1 &&
+              (await o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: a })),
+              r.delete());
+          } else
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "delete_message_for_me_sync: ",
+                  " storage+ collection-",
+                ])),
+              t,
+            );
+        },
         removeScheduledMsgModelForReveal: function (t) {
           var e = t.msgKey,
             n = o("WAWebMsgCollection").MsgCollection.get(e);
@@ -293,7 +276,7 @@ __d(
           r != null && (r.rcat = n);
         },
       };
-    l.MsgBridgeApi = u;
+    l.MsgBridgeApi = s;
   },
   98,
 );

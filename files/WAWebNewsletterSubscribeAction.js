@@ -27,7 +27,6 @@ __d(
     "WAWebWamEnumChannelEventType",
     "WAWebWamEnumChannelMembershipActionResult",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,14 +40,14 @@ __d(
       ],
       c = r("qpl")._(1026960759, "186"),
       d = 5e3;
-    function m(t, a, i) {
-      var l,
-        m = a.entryPoint,
-        _ = a.eventSurface,
-        f = a.eventUnit,
-        g = a.similarChannelSessionId,
-        h = babelHelpers.objectWithoutPropertiesLoose(a, u),
-        y = null;
+    function m(t, n, a) {
+      var i,
+        l = n.entryPoint,
+        m = n.eventSurface,
+        _ = n.eventUnit,
+        f = n.similarChannelSessionId,
+        g = babelHelpers.objectWithoutPropertiesLoose(n, u),
+        h = null;
       return (
         o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
           !o(
@@ -57,14 +56,14 @@ __d(
             o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
               .CHANNEL_FOLLOW,
           ) &&
-          (y = o("WAWebQplFlowWrapper").QPL.markerStart(c)),
-        (l = y) == null || l.annotate({ int: { surface: _, unit: f } }),
+          (h = o("WAWebQplFlowWrapper").QPL.markerStart(c)),
+        (i = h) == null || i.annotate({ int: { surface: m, unit: _ } }),
         o("WAWebNewsletterQueues").newsletterSubscribeQueue.enqueue(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             var n = t.newsletterMetadata;
             if (!o("WAWebChatGetters").getIsNewsletter(t) || n == null) {
-              var a;
-              ((a = y) == null || a.end(105),
+              var i;
+              ((i = h) == null || i.end(105),
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -82,26 +81,26 @@ __d(
               babelHelpers.extends(
                 {
                   cid: t.id,
-                  eventSurface: _,
-                  eventUnit: f,
+                  eventSurface: m,
+                  eventUnit: _,
                   channelCoreEventType: o("WAWebWamEnumChannelEventType")
                     .CHANNEL_EVENT_TYPE.FOLLOW,
-                  similarChannelSessionId: g,
-                  entryPoint: m,
+                  similarChannelSessionId: f,
+                  entryPoint: l,
                 },
-                _ !==
+                m !==
                   o("WAWebWamEnumChannelEventSurface").CHANNEL_EVENT_SURFACE
-                    .CHANNEL_UPDATES_HOME && h,
+                    .CHANNEL_UPDATES_HOME && g,
               ),
             );
-            var l = o("WAJids").toNewsletterJid(t.id.toJid());
+            var u = o("WAJids").toNewsletterJid(t.id.toJid());
             try {
-              var u, c, C;
+              var c, y, C;
               if (
-                (yield p(o("WAWebWidFactory").asNewsletterWidOrThrow(t.id), i),
+                (await p(o("WAWebWidFactory").asNewsletterWidOrThrow(t.id), a),
                 (t.t =
-                  (u = (c = t.msgs.last()) == null ? void 0 : c.t) != null
-                    ? u
+                  (c = (y = t.msgs.last()) == null ? void 0 : y.t) != null
+                    ? c
                     : n.creationTime),
                 o(
                   "WAWebNewsletterGatingUtils",
@@ -109,17 +108,17 @@ __d(
               ) {
                 var b;
                 (b = t.newsletterMetadata) == null ||
-                  b.set("recentlyFollowedFrom", _);
+                  b.set("recentlyFollowedFrom", m);
               }
               ((n.membershipType = o(
                 "WAWebCommonNewsletterEnums",
               ).NewsletterMembershipType.Subscriber),
-                yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
+                await o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
                   o(
                     "WAWebNewsletterStorageUtils",
                   ).createNewsletterMetadataObjectForStorage(n),
                 ),
-                yield o(
+                await o(
                   "WAWebNewsletterUpdateMsgsRecordsJob",
                 ).addNewsletterMsgsRecords(
                   t.msgs.map(o("WAWebMsgDataFromModel").msgDataFromMsgModel),
@@ -127,18 +126,18 @@ __d(
                 o(
                   "WAWebNewsletterExtendedGatingUtils",
                 ).isNewsletterReactionEnabled() &&
-                  (yield o(
+                  (await o(
                     "WAWebNewsletterGetMyAddOnsJob",
-                  ).getMyNewsletterAddOnsJob({ count: d, newsletterJid: l }),
-                  yield o(
+                  ).getMyNewsletterAddOnsJob({ count: d, newsletterJid: u }),
+                  await o(
                     "WAWebStoreNewsletterMessageAddOns",
                   ).storeNewsletterMessageAddOns(t.msgs.toArray())),
-                yield o(
+                await o(
                   "WAWebNewsletterUpdateNewslettersRecordsJob",
                 ).updateNewsletterChatRecords([
                   o("WAWebCreateChat").createNewsletterObjectForStorage(t),
                 ]),
-                yield o(
+                await o(
                   "WAWebNewsletterBridgeApi",
                 ).NewsletterBridgeApi.subscribeToNewsletter({ newsletter: t }),
                 r("JSResourceForInteraction")(
@@ -147,13 +146,13 @@ __d(
                   .__setRef("WAWebNewsletterSubscribeAction")
                   .load()
                   .then(function (e) {
-                    return e.fillNewsletterStatusGap(l, void 0, !0);
+                    return e.fillNewsletterStatusGap(u, void 0, !0);
                   }),
-                (C = y) == null || C.end(2));
+                (C = h) == null || C.end(2));
             } catch (e) {
               var v;
               throw (
-                (v = y) == null || v.end(3),
+                (v = h) == null || v.end(3),
                 o("WALogger")
                   .ERROR(
                     s ||
@@ -166,30 +165,22 @@ __d(
                 e
               );
             }
-          }),
+          },
         )
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAJids").toNewsletterJid(e.toJid());
-          (t == null || t.markFetchStart(),
-            yield o("WAWebNewsletterSubscribeJob").subscribeToNewsletter(n),
-            t == null || t.markFetchEnd(),
-            o(
-              "WAWebNewsletterMembershipActionLogger",
-            ).logNewsletterMembershipActionEvent({
-              cid: e,
-              actionResult: o("WAWebWamEnumChannelMembershipActionResult")
-                .CHANNEL_MEMBERSHIP_ACTION_RESULT.FOLLOW_SUCCESS,
-            }));
-        })),
-        _.apply(this, arguments)
-      );
+    async function p(e, t) {
+      var n = o("WAJids").toNewsletterJid(e.toJid());
+      (t == null || t.markFetchStart(),
+        await o("WAWebNewsletterSubscribeJob").subscribeToNewsletter(n),
+        t == null || t.markFetchEnd(),
+        o(
+          "WAWebNewsletterMembershipActionLogger",
+        ).logNewsletterMembershipActionEvent({
+          cid: e,
+          actionResult: o("WAWebWamEnumChannelMembershipActionResult")
+            .CHANNEL_MEMBERSHIP_ACTION_RESULT.FOLLOW_SUCCESS,
+        }));
     }
     ((l.subscribeToNewsletterAction = m),
       (l.subscribeToNewsletterWidAction = p));

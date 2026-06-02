@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleContactNotification",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WANullthrows",
@@ -31,7 +30,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -42,8 +40,7 @@ __d(
       d,
       m,
       p,
-      _,
-      f = new (r("WADeprecatedWapParser"))(
+      _ = new (r("WADeprecatedWapParser"))(
         "incomingContactsNotification",
         function (t) {
           t.assertTag("notification");
@@ -139,273 +136,230 @@ __d(
           );
         },
       );
-    function g(e, t) {
-      return h.apply(this, arguments);
+    async function f(e, t) {
+      if (t.type !== "modify")
+        throw r("err")("Error: genContactChangeNotificationMsg invalid type");
+      var n = o("WAWebUserPrefsMeUser").getMeUser(),
+        a = r("WANullthrows")(t.oldJid),
+        i = r("WANullthrows")(t.jid),
+        l;
+      if (t.lid != null && t.oldLid != null) {
+        var s = t.oldLid,
+          u = t.lid;
+        l = [a, i, s, u];
+      } else l = [a, i];
+      return {
+        id: new (r("WAWebMsgKey"))({
+          remote: e,
+          fromMe: !1,
+          id: await r("WAWebMsgKey").newId(),
+        }),
+        from: e,
+        subtype: "change_number",
+        viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        t: t.ts,
+        to: n,
+        type: "notification_template",
+        kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+        templateParams: l,
+      };
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t.type !== "modify")
-            throw r("err")(
-              "Error: genContactChangeNotificationMsg invalid type",
-            );
-          var n = o("WAWebUserPrefsMeUser").getMeUser(),
-            a = r("WANullthrows")(t.oldJid),
-            i = r("WANullthrows")(t.jid),
-            l;
-          if (t.lid != null && t.oldLid != null) {
-            var s = t.oldLid,
-              u = t.lid;
-            l = [a, i, s, u];
-          } else l = [a, i];
-          return {
-            id: new (r("WAWebMsgKey"))({
-              remote: e,
-              fromMe: !1,
-              id: yield r("WAWebMsgKey").newId(),
-            }),
-            from: e,
-            subtype: "change_number",
-            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            t: t.ts,
-            to: n,
-            type: "notification_template",
-            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-            templateParams: l,
-          };
-        })),
-        h.apply(this, arguments)
-      );
+    async function g(e, t) {
+      t.oldJid != null &&
+        t.jid != null &&
+        (await r("WAWebProcessPhoneNumberChange")(t.oldJid, t.jid));
+      var n = await f(e, t);
+      await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+        chatId: e,
+        newMsg: n,
+        handleSingleMsgOrigin: "changeNumberNotification",
+      });
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    async function h(e, t) {
+      if (
+        t &&
+        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
+      ) {
+        var n = await o(
+          "WAWebMessageProcessUtils",
+        ).selectChatForOneOnOneMessage({ lid: t });
+        return n.chatId;
+      }
+      return e;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.oldJid != null &&
-            t.jid != null &&
-            (yield r("WAWebProcessPhoneNumberChange")(t.oldJid, t.jid));
-          var n = yield g(e, t);
-          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-            chatId: e,
-            newMsg: n,
-            handleSingleMsgOrigin: "changeNumberNotification",
+    async function y(e) {
+      if (e.oldJid) {
+        var t = e.oldJid,
+          n = e.jid,
+          r = e.oldLid,
+          a = e.lid;
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "handleModifyAction: oldChatPn: ",
+              ", newChatPn: ",
+              "",
+            ])),
+          t.toLogString(),
+          n.toLogString(),
+        );
+        var i = [],
+          l = await h(t, r),
+          c = await o("WAWebApiChatCommon").getChatRecord(l);
+        c &&
+          i.push({
+            id: c.id,
+            changeNumberNewJid: n.toString(),
+            changeNumberOldJid: void 0,
           });
-        })),
-        C.apply(this, arguments)
-      );
+        var d = await h(n, a),
+          m = await o("WAWebApiChatCommon").getChatRecord(d);
+        (m &&
+          i.push({
+            id: m.id,
+            changeNumberNewJid: void 0,
+            changeNumberOldJid: t.toString(),
+          }),
+          await o("WAWebSchemaChat").getChatTable().bulkCreateOrMerge(i),
+          o("WAWebBackendApi").frontendFireAndForget(
+            "updateChatChangeNumberJids",
+            {
+              updates: i.map(function (e) {
+                return {
+                  id: e.id.toString(),
+                  changeNumberNewJid: e.changeNumberNewJid,
+                  changeNumberOldJid: e.changeNumberOldJid,
+                };
+              }),
+            },
+          ),
+          r != null &&
+            a != null &&
+            (await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings: [
+                { lid: r, pn: t },
+                { lid: a, pn: n },
+              ],
+              flushImmediately: !0,
+              learningSource: "other",
+            })),
+          await Promise.all([g(l, e), g(d, e)]));
+      } else
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "notification.oldJid is null",
+            ])),
+        );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            t &&
-            o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-          ) {
-            var n = yield o(
-              "WAWebMessageProcessUtils",
-            ).selectChatForOneOnOneMessage({ lid: t });
-            return n.chatId;
+    async function C(e) {
+      var t = _.parse(e);
+      if (t.error)
+        throw (
+          o("WALogger").ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            t.error.toString(),
+          ),
+          t.error
+        );
+      var n = t.success,
+        r = n.jid;
+      switch (n.type) {
+        case "update": {
+          if (!r)
+            return (
+              o("WALogger").WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleContactsNotification: update cmd missing jid",
+                  ])),
+              ),
+              s(n)
+            );
+          (o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
+            id: r.toString(),
+          }),
+            o("WAWebBackendApi").frontendFireAndForget("refreshTextStatus", {
+              contactId: r.toString(),
+            }));
+          var a;
+          if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
+            var i = await o("WAWebApiContact").getContactRecord(
+              o("WAWebWidFactory").asUserWidOrThrow(r),
+            );
+            i != null &&
+              (a = o("WAWebContactTextStatusBridge")
+                .getTextStatus(r, i.textStatusLastUpdateTime)
+                .then(function (e) {
+                  var t = e.emoji,
+                    n = e.ephemeralDurationSeconds,
+                    r = e.id,
+                    a = e.lastUpdateTime,
+                    i = e.text;
+                  return o(
+                    "WAWebUpdateTextStatusForContact",
+                  ).updateTextStatusForContact({
+                    contactId: r,
+                    textString: i,
+                    emoji: t,
+                    ephemeralDuration: n,
+                    newUpdateTime: a != null ? Number(a) : void 0,
+                    source: "contact-notification",
+                  });
+                }));
           }
-          return e;
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.oldJid) {
-            var t = e.oldJid,
-              r = e.jid,
-              a = e.oldLid,
-              i = e.lid;
+          var l = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
+            n.jid,
+            o("WAWebProfilePicConstants").ProfilePicCommand.Set,
+          );
+          return (await Promise.all([l, a]), s(n));
+        }
+        case "modify":
+          return (await y(n), s(n));
+        case "sync":
+          return (
+            o("WALogger")
+              .LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "received contact sync notification",
+                  ])),
+              )
+              .tags("contact-sync"),
+            await o("WAWebContactSyncBridge").doFullContactSync(),
+            s(n)
+          );
+        default:
+          return (
             o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleModifyAction: oldChatPn: ",
-                  ", newChatPn: ",
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "handleContactsNotification: unhandled notification of type ",
                   "",
                 ])),
-              t.toLogString(),
-              r.toLogString(),
-            );
-            var l = [],
-              c = yield b(t, a),
-              d = yield o("WAWebApiChatCommon").getChatRecord(c);
-            d &&
-              l.push({
-                id: d.id,
-                changeNumberNewJid: r.toString(),
-                changeNumberOldJid: void 0,
-              });
-            var m = yield b(r, i),
-              p = yield o("WAWebApiChatCommon").getChatRecord(m);
-            (p &&
-              l.push({
-                id: p.id,
-                changeNumberNewJid: void 0,
-                changeNumberOldJid: t.toString(),
-              }),
-              yield o("WAWebSchemaChat").getChatTable().bulkCreateOrMerge(l),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "updateChatChangeNumberJids",
-                {
-                  updates: l.map(function (e) {
-                    return {
-                      id: e.id.toString(),
-                      changeNumberNewJid: e.changeNumberNewJid,
-                      changeNumberOldJid: e.changeNumberOldJid,
-                    };
-                  }),
-                },
-              ),
-              a != null &&
-                i != null &&
-                (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                  mappings: [
-                    { lid: a, pn: t },
-                    { lid: i, pn: r },
-                  ],
-                  flushImmediately: !0,
-                  learningSource: "other",
-                })),
-              yield (_ || (_ = n("Promise"))).all([y(c, e), y(m, e)]));
-          } else
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "notification.oldJid is null",
-                ])),
-            );
-        })),
-        R.apply(this, arguments)
-      );
+              n.type,
+            ),
+            s(n)
+          );
+      }
+      function s(e, t) {
+        return o("WAWap").wap(
+          "ack",
+          {
+            id: o("WAWap").CUSTOM_STRING(e.stanzaId),
+            to: e.from,
+            class: "notification",
+            type: "contacts",
+          },
+          t,
+        );
+      }
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = f.parse(e);
-          if (t.error)
-            throw (
-              o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                t.error.toString(),
-              ),
-              t.error
-            );
-          var r = t.success,
-            a = r.jid;
-          switch (r.type) {
-            case "update": {
-              if (!a)
-                return (
-                  o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "handleContactsNotification: update cmd missing jid",
-                      ])),
-                  ),
-                  u(r)
-                );
-              (o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
-                id: a.toString(),
-              }),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "refreshTextStatus",
-                  { contactId: a.toString() },
-                ));
-              var i;
-              if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
-                var l = yield o("WAWebApiContact").getContactRecord(
-                  o("WAWebWidFactory").asUserWidOrThrow(a),
-                );
-                l != null &&
-                  (i = o("WAWebContactTextStatusBridge")
-                    .getTextStatus(a, l.textStatusLastUpdateTime)
-                    .then(function (e) {
-                      var t = e.emoji,
-                        n = e.ephemeralDurationSeconds,
-                        r = e.id,
-                        a = e.lastUpdateTime,
-                        i = e.text;
-                      return o(
-                        "WAWebUpdateTextStatusForContact",
-                      ).updateTextStatusForContact({
-                        contactId: r,
-                        textString: i,
-                        emoji: t,
-                        ephemeralDuration: n,
-                        newUpdateTime: a != null ? Number(a) : void 0,
-                        source: "contact-notification",
-                      });
-                    }));
-              }
-              var s = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
-                r.jid,
-                o("WAWebProfilePicConstants").ProfilePicCommand.Set,
-              );
-              return (yield (_ || (_ = n("Promise"))).all([s, i]), u(r));
-            }
-            case "modify":
-              return (yield S(r), u(r));
-            case "sync":
-              return (
-                o("WALogger")
-                  .LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "received contact sync notification",
-                      ])),
-                  )
-                  .tags("contact-sync"),
-                yield o("WAWebContactSyncBridge").doFullContactSync(),
-                u(r)
-              );
-            default:
-              return (
-                o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleContactsNotification: unhandled notification of type ",
-                      "",
-                    ])),
-                  r.type,
-                ),
-                u(r)
-              );
-          }
-          function u(e, t) {
-            return o("WAWap").wap(
-              "ack",
-              {
-                id: o("WAWap").CUSTOM_STRING(e.stanzaId),
-                to: e.from,
-                class: "notification",
-                type: "contacts",
-              },
-              t,
-            );
-          }
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
+    function b(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -413,13 +367,13 @@ __d(
         .createNonPersistedJob(
           "handleContactNotification",
           function (e) {
-            return L(e.node);
+            return C(e.node);
           },
           { priority: t },
         )
         .waitUntilCompleted({ node: e });
     }
-    l.default = k;
+    l.default = b;
   },
   98,
 );

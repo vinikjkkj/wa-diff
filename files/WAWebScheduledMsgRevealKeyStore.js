@@ -1,107 +1,55 @@
 __d(
   "WAWebScheduledMsgRevealKeyStore",
-  [
-    "WAWebBackendApi",
-    "WAWebSchemaScheduledMsgRevealKey",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebBackendApi", "WAWebSchemaScheduledMsgRevealKey"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = o(
+        "WAWebSchemaScheduledMsgRevealKey",
+      ).getScheduledMsgRevealKeyTable();
+      await t.createOrReplace(e);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          yield t.createOrReplace(e);
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      var t = o(
+        "WAWebSchemaScheduledMsgRevealKey",
+      ).getScheduledMsgRevealKeyTable();
+      return t.get(e);
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t,
+        n = o(
+          "WAWebSchemaScheduledMsgRevealKey",
+        ).getScheduledMsgRevealKeyTable(),
+        r = await n.equals(["revealKeyId"], e);
+      return (t = r[0]) != null ? t : null;
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          return t.get(e);
-        })),
-        c.apply(this, arguments)
-      );
+    async function c(e) {
+      var t = o(
+        "WAWebSchemaScheduledMsgRevealKey",
+      ).getScheduledMsgRevealKeyTable();
+      return t.equals(["chatId"], e);
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      var n = o(
+        "WAWebSchemaScheduledMsgRevealKey",
+      ).getScheduledMsgRevealKeyTable();
+      await n.merge(e, { status: t });
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = o(
-              "WAWebSchemaScheduledMsgRevealKey",
-            ).getScheduledMsgRevealKeyTable(),
-            r = yield n.equals(["revealKeyId"], e);
-          return (t = r[0]) != null ? t : null;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          return t.equals(["chatId"], e);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          yield n.merge(e, { status: t });
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSchemaScheduledMsgRevealKey",
-          ).getScheduledMsgRevealKeyTable();
-          (yield t.remove(e),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "triggerScheduledMsgRevealedFromBridge",
-              { msgId: e },
-            ));
-        })),
-        y.apply(this, arguments)
-      );
+    async function m(e) {
+      var t = o(
+        "WAWebSchemaScheduledMsgRevealKey",
+      ).getScheduledMsgRevealKeyTable();
+      (await t.remove(e),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "triggerScheduledMsgRevealedFromBridge",
+          { msgId: e },
+        ));
     }
     ((l.storeRevealKey = e),
-      (l.getRevealKeyByMsgId = u),
-      (l.getRevealKeyByRevealKeyId = d),
-      (l.getRevealKeysForChat = p),
-      (l.updateRevealKeyStatus = f),
-      (l.deleteRevealKey = h));
+      (l.getRevealKeyByMsgId = s),
+      (l.getRevealKeyByRevealKeyId = u),
+      (l.getRevealKeysForChat = c),
+      (l.updateRevealKeyStatus = d),
+      (l.deleteRevealKey = m));
   },
   98,
 );

@@ -17,7 +17,11 @@ __d(
       );
     }
     function s() {
-      return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+      var e = new Uint32Array(2);
+      return (
+        self.crypto.getRandomValues(e),
+        Math.floor(e[0] / 2048) * 4294967296 + e[1]
+      );
     }
     var u = (function () {
       function t(e, t) {

@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebCertificateUtils",
     "WAWebMexFetchBotCertificateRevocationList",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -87,79 +86,56 @@ __d(
       ((g.revokedSerialNumbers = new Set(e)),
         (g.lastFetchTime = Date.now()),
         (g.nextUpdateTime = t),
-        I(t));
+        E(t));
     }
-    function R() {
-      return L.apply(this, arguments);
+    async function R() {
+      g.abortController != null && g.abortController.abort();
+      var e = new AbortController();
+      g.abortController = e;
+      try {
+        await o("WAExponentialBackoff").exponentialBackoff(
+          { minTimeout: p, maxTimeout: _, retries: f, signal: e.signal },
+          async function (t) {
+            try {
+              await L(e.signal);
+            } catch (e) {
+              return t(e instanceof Error ? e : r("err")(String(e)));
+            }
+          },
+        );
+      } catch (e) {
+        if (e instanceof Error && e.name === "AbortError") return;
+        o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                " CRL refresh failed after retries",
+              ])),
+            c,
+          )
+          .catching(e instanceof Error ? e : r("err")(String(e)))
+          .sendLogs("bot-sig-crl-refresh-exhausted");
+      } finally {
+        g.abortController === e && (g.abortController = null);
+      }
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          g.abortController != null && g.abortController.abort();
-          var e = new AbortController();
-          g.abortController = e;
-          try {
-            yield o("WAExponentialBackoff").exponentialBackoff(
-              { minTimeout: p, maxTimeout: _, retries: f, signal: e.signal },
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    try {
-                      yield E(e.signal);
-                    } catch (e) {
-                      return t(e instanceof Error ? e : r("err")(String(e)));
-                    }
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
-          } catch (e) {
-            if (e instanceof Error && e.name === "AbortError") return;
-            o("WALogger")
-              .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    " CRL refresh failed after retries",
-                  ])),
-                c,
-              )
-              .catching(e instanceof Error ? e : r("err")(String(e)))
-              .sendLogs("bot-sig-crl-refresh-exhausted");
-          } finally {
-            g.abortController === e && (g.abortController = null);
-          }
-        })),
-        L.apply(this, arguments)
-      );
+    async function L(e) {
+      var t = await o(
+          "WAWebMexFetchBotCertificateRevocationList",
+        ).mexFetchBotCertificateRevocationList(),
+        n = t.crl,
+        a = t.nextUpdateMs;
+      if (!e.aborted) {
+        if (n == null) throw r("err")("CRL response has null crl field");
+        var i = await o("WAWebCertificateUtils").parseCrlSerialNumbers(n);
+        if (!e.aborted) {
+          if (i == null) throw r("err")("Failed to parse CRL binary");
+          S(i, a);
+        }
+      }
     }
     function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-              "WAWebMexFetchBotCertificateRevocationList",
-            ).mexFetchBotCertificateRevocationList(),
-            n = t.crl,
-            a = t.nextUpdateMs;
-          if (!e.aborted) {
-            if (n == null) throw r("err")("CRL response has null crl field");
-            var i = yield o("WAWebCertificateUtils").parseCrlSerialNumbers(n);
-            if (!e.aborted) {
-              if (i == null) throw r("err")("Failed to parse CRL binary");
-              S(i, a);
-            }
-          }
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
       g.preFetchTimerId != null &&
         (self.clearTimeout(g.preFetchTimerId), (g.preFetchTimerId = null));
       var t = e - m,
@@ -170,7 +146,7 @@ __d(
           R();
         }, n));
     }
-    function T() {
+    function k() {
       ((g.revokedSerialNumbers = new Set()),
         (g.lastFetchTime = null),
         (g.nextUpdateTime = null),
@@ -187,7 +163,7 @@ __d(
       (l.startPeriodicCrlRefresh = b),
       (l.stopPeriodicCrlRefresh = v),
       (l.updateCrlData = S),
-      (l.resetCrlStateForTesting = T));
+      (l.resetCrlStateForTesting = k));
   },
   98,
 );

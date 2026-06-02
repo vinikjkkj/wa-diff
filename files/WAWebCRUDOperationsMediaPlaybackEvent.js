@@ -1,6 +1,6 @@
 __d(
   "WAWebCRUDOperationsMediaPlaybackEvent",
-  ["WAWebSchemaMediaPlaybackEvent", "asyncToGeneratorRuntime"],
+  ["WAWebSchemaMediaPlaybackEvent"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -17,20 +17,12 @@ __d(
         .getMediaPlaybackEventTable()
         .all({ limit: e, offset: 0 });
     }
-    function u() {
-      return c.apply(this, arguments);
+    async function u() {
+      return o("WAWebSchemaMediaPlaybackEvent")
+        .getMediaPlaybackEventTable()
+        .count();
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebSchemaMediaPlaybackEvent")
-            .getMediaPlaybackEventTable()
-            .count();
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       return o("WAWebSchemaMediaPlaybackEvent")
         .getMediaPlaybackEventTable()
         .bulkRemove(e);
@@ -38,7 +30,7 @@ __d(
     ((l.addEvents = e),
       (l.getOldestEvents = s),
       (l.getRowCount = u),
-      (l.deleteEvents = d));
+      (l.deleteEvents = c));
   },
   98,
 );

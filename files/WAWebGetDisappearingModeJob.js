@@ -1,7 +1,6 @@
 __d(
   "WAWebGetDisappearingModeJob",
   [
-    "Promise",
     "WALogger",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
@@ -9,123 +8,112 @@ __d(
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    var e, s, u;
+    async function c(t, n) {
+      if (!r("WAWebWid").isWid(t) || !t.isUser())
+        return (
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[getDisappearingMode] expected user wid, got: ",
+                "",
+              ])),
+            t,
+          ),
+          Promise.resolve({ id: t })
+        );
+      var a = new (o("WAWebUsync").USyncQuery)()
+          .withContext("interactive")
+          .withMode("query")
+          .withDisappearingModeProtocol()
+          .withUser(new (o("WAWebUsyncUser").USyncUser)().withId(t)),
+        i = o("WAWebContactSyncLogger").contactSyncLogger.createEventContext({
+          syncType: o("WAWebContactSyncLogger").getSyncTypeString(
+            "interactive",
+            "query",
+          ),
+          requestOrigin:
+            n != null
+              ? n
+              : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
+          requestedCount: 1,
+          protocols: a.protocols,
+        }),
+        l = await o(
+          "WAWebContactSyncLogger",
+        ).contactSyncLogger.executeWithLogging(
+          i,
+          function () {
+            return a.execute();
+          },
+          o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
+        );
+      if (l.error.all || l.error.status) {
+        var c = l.error.all || l.error.status;
+        return (
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "getDisappearingMode: failed ",
+                " : ",
+                "",
+              ])),
+            c.errorCode,
+            c.errorText,
+          ),
+          o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
+            i,
+            c.errorCode,
+            l,
+            o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
+          ),
+          { id: t, error: c }
+        );
+      }
+      var d = l.list;
+      if (d.length === 0 || d[0].disappearing_mode == null)
+        return (
+          o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
+          Promise.reject(
+            r("err")("no disappearing_mode data returned for user"),
+          )
+        );
+      var m = d[0].disappearing_mode,
+        p = m.duration,
+        _ = m.ephemeralityDisabled,
+        f = m.t;
+      if (_) {
+        var g = o("WAWebUserPrefsMeUser").isMeAccount(t);
+        o("WALogger")
+          .ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[handleDisappearingMode] ephemeralityDisabled=true isMeWid=",
+                "",
+              ])),
+            g,
+          )
+          .sendLogs("handleDisappearingMode-ephemeralityDisabled-true");
+      }
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          if (!r("WAWebWid").isWid(t) || !t.isUser())
-            return (
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[getDisappearingMode] expected user wid, got: ",
-                    "",
-                  ])),
-                t,
-              ),
-              (c || (c = n("Promise"))).resolve({ id: t })
-            );
-          var i = new (o("WAWebUsync").USyncQuery)()
-              .withContext("interactive")
-              .withMode("query")
-              .withDisappearingModeProtocol()
-              .withUser(new (o("WAWebUsyncUser").USyncUser)().withId(t)),
-            l = o(
-              "WAWebContactSyncLogger",
-            ).contactSyncLogger.createEventContext({
-              syncType: o("WAWebContactSyncLogger").getSyncTypeString(
-                "interactive",
-                "query",
-              ),
-              requestOrigin:
-                a != null
-                  ? a
-                  : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
-              requestedCount: 1,
-              protocols: i.protocols,
-            }),
-            d = yield o(
-              "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(
-              l,
-              function () {
-                return i.execute();
-              },
-              o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
-            );
-          if (d.error.all || d.error.status) {
-            var m = d.error.all || d.error.status;
-            return (
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "getDisappearingMode: failed ",
-                    " : ",
-                    "",
-                  ])),
-                m.errorCode,
-                m.errorText,
-              ),
-              o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                l,
-                m.errorCode,
-                d,
-                o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
-              ),
-              { id: t, error: m }
-            );
-          }
-          var p = d.list;
-          if (p.length === 0 || p[0].disappearing_mode == null)
-            return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, d),
-              (c || (c = n("Promise"))).reject(
-                r("err")("no disappearing_mode data returned for user"),
-              )
-            );
-          var _ = p[0].disappearing_mode,
-            f = _.duration,
-            g = _.ephemeralityDisabled,
-            h = _.t;
-          if (g) {
-            var y = o("WAWebUserPrefsMeUser").isMeAccount(t);
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleDisappearingMode] ephemeralityDisabled=true isMeWid=",
-                    "",
-                  ])),
-                y,
-              )
-              .sendLogs("handleDisappearingMode-ephemeralityDisabled-true");
-          }
-          return (
-            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
-              l,
-              d,
-              o("WAWebContactSyncLogger").createUpdateCounterWith({
-                disappearingModeChange: 1,
-              }),
-            ),
-            {
-              id: t,
-              disappearingModeDuration: f,
-              disappearingModeSettingTimestamp: h,
-            }
-          );
-        })),
-        m.apply(this, arguments)
+        o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
+          i,
+          l,
+          o("WAWebContactSyncLogger").createUpdateCounterWith({
+            disappearingModeChange: 1,
+          }),
+        ),
+        {
+          id: t,
+          disappearingModeDuration: p,
+          disappearingModeSettingTimestamp: f,
+        }
       );
     }
-    l.getDisappearingMode = d;
+    l.getDisappearingMode = c;
   },
   98,
 );

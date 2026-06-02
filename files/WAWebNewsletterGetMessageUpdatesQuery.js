@@ -1,126 +1,114 @@
 __d(
   "WAWebNewsletterGetMessageUpdatesQuery",
   [
-    "Promise",
     "WANullthrows",
     "WASmaxNewslettersGetNewsletterMessageUpdatesRPC",
     "WATimeUtils",
     "WAWebBackendErrors",
     "WAWebNewsletterRpcUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
+    function e(e, t) {
       return o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
-        return u(e, t);
+        return s(e, t);
       });
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = r.count,
-            i = r.cursor,
-            l = r.since,
-            s = yield o(
-              "WASmaxNewslettersGetNewsletterMessageUpdatesRPC",
-            ).sendGetNewsletterMessageUpdatesRPC({
-              iqTo: t,
-              messageUpdatesCount: a,
-              messageUpdatesSince: l,
-              messageUpdatesBeforeOrAfterMixinMixinGroupArgs: d(i),
-            });
-          switch (s.name) {
-            case "GetNewsletterMessageUpdatesResponseSuccess": {
-              var u,
-                c =
-                  s.value
-                    .messageUpdatesMessagesNewsletterMessageResponsePayloadMixin;
-              return {
-                updates: c.message,
-                timestamp: (u = c.t) != null ? u : o("WATimeUtils").unixTime(),
-              };
-            }
-            case "GetNewsletterMessageUpdatesResponseServerError": {
-              var m = s.value.errorIQErrorInternalServerErrorMixin,
-                p = m.code,
-                _ = m.text;
-              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(p),
-                _,
+    async function s(e, t) {
+      var n = t.count,
+        r = t.cursor,
+        a = t.since,
+        i = await o(
+          "WASmaxNewslettersGetNewsletterMessageUpdatesRPC",
+        ).sendGetNewsletterMessageUpdatesRPC({
+          iqTo: e,
+          messageUpdatesCount: n,
+          messageUpdatesSince: a,
+          messageUpdatesBeforeOrAfterMixinMixinGroupArgs: u(r),
+        });
+      switch (i.name) {
+        case "GetNewsletterMessageUpdatesResponseSuccess": {
+          var l,
+            s =
+              i.value
+                .messageUpdatesMessagesNewsletterMessageResponsePayloadMixin;
+          return {
+            updates: s.message,
+            timestamp: (l = s.t) != null ? l : o("WATimeUtils").unixTime(),
+          };
+        }
+        case "GetNewsletterMessageUpdatesResponseServerError": {
+          var c = i.value.errorIQErrorInternalServerErrorMixin,
+            d = c.code,
+            m = c.text;
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+            Number(d),
+            m,
+          );
+        }
+        case "GetNewsletterMessageUpdatesResponseClientError": {
+          var p = i.value.getNewsletterMessageUpdatesClientErrors;
+          switch (p.name) {
+            case "ItemNotFoundIQErrorResponse": {
+              var _ = p.value.errorIQErrorItemNotFoundMixin,
+                f = _.code,
+                g = _.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(f),
+                  g,
+                ),
               );
             }
-            case "GetNewsletterMessageUpdatesResponseClientError": {
-              var f = s.value.getNewsletterMessageUpdatesClientErrors;
-              switch (f.name) {
-                case "ItemNotFoundIQErrorResponse": {
-                  var g = f.value.errorIQErrorItemNotFoundMixin,
-                    h = g.code,
-                    y = g.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(h),
-                      y,
-                    ),
-                  );
-                }
-                case "RateLimitedIQErrorResponse": {
-                  var C = f.value.errorIQErrorRateOverlimitMixin,
-                    b = C.code,
-                    v = C.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(b),
-                      v,
-                    ),
-                  );
-                }
-                case "BadRequestIQErrorResponse": {
-                  var S = f.value.errorIQErrorBadRequestMixin,
-                    R = S.code,
-                    L = S.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(R),
-                      L,
-                    ),
-                  );
-                }
-                case "SuspendedIQErrorResponse": {
-                  var E = f.value.errorIQErrorLockedMixin,
-                    k = E.code,
-                    I = E.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(k),
-                      I,
-                    ),
-                  );
-                }
-                case "UnavailableForLegalReasonsResponse": {
-                  var T =
-                      f.value
-                        .errorIQErrorUnavailableForLegalReasonsGenericMixin,
-                    D = T.code,
-                    x = T.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(D),
-                      x,
-                    ),
-                  );
-                }
-              }
+            case "RateLimitedIQErrorResponse": {
+              var h = p.value.errorIQErrorRateOverlimitMixin,
+                y = h.code,
+                C = h.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(y),
+                  C,
+                ),
+              );
+            }
+            case "BadRequestIQErrorResponse": {
+              var b = p.value.errorIQErrorBadRequestMixin,
+                v = b.code,
+                S = b.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(v),
+                  S,
+                ),
+              );
+            }
+            case "SuspendedIQErrorResponse": {
+              var R = p.value.errorIQErrorLockedMixin,
+                L = R.code,
+                E = R.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(L),
+                  E,
+                ),
+              );
+            }
+            case "UnavailableForLegalReasonsResponse": {
+              var k =
+                  p.value.errorIQErrorUnavailableForLegalReasonsGenericMixin,
+                I = k.code,
+                T = k.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(I),
+                  T,
+                ),
+              );
             }
           }
-        })),
-        c.apply(this, arguments)
-      );
+        }
+      }
     }
-    function d(e) {
+    function u(e) {
       return e.after != null
         ? { messageUpdatesAfterMixin: { messageUpdatesAfter: e.after } }
         : {
@@ -129,7 +117,7 @@ __d(
             },
           };
     }
-    l.getNewsletterMessageUpdatesQuery = s;
+    l.getNewsletterMessageUpdatesQuery = e;
   },
   98,
 );

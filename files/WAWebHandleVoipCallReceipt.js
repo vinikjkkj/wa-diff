@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleVoipCallReceipt",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAParsableWapNode",
@@ -11,12 +10,10 @@ __d(
     "WAWebJidToWid",
     "WAWebUserPrefsMeUser",
     "WAWebVoipStackInterface",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = new (r("WADeprecatedWapParser"))("callReceiptParser", function (e) {
+      s = new (r("WADeprecatedWapParser"))("callReceiptParser", function (e) {
         e.assertTag("receipt");
         var t =
           e.maybeChild("offer") ||
@@ -29,60 +26,50 @@ __d(
           from: o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
         };
       });
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function u(t) {
+      var n = s.parse(t);
+      if (n.error)
+        return (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          Promise.reject(n.error)
+        );
+      var r = n.success,
+        a = r.from,
+        i = r.stanzaId,
+        l = r.type,
+        u = await Promise.all([
+          o("WAWebVoipStackInterface").getVoipStackInterface(),
+          o("WAWebBackendApi").frontendSendAndReceive("getTcToken", { wid: a }),
+        ]),
+        c = u[0],
+        d = u[1].tcToken;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = u.parse(t);
-          if (r.error)
-            return (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                r.error.toString(),
-              ),
-              (s || (s = n("Promise"))).reject(r.error)
-            );
-          var a = r.success,
-            i = a.from,
-            l = a.stanzaId,
-            c = a.type,
-            d = yield (s || (s = n("Promise"))).all([
-              o("WAWebVoipStackInterface").getVoipStackInterface(),
-              o("WAWebBackendApi").frontendSendAndReceive("getTcToken", {
-                wid: i,
-              }),
-            ]),
-            m = d[0],
-            p = d[1].tcToken;
-          return (
-            yield m == null
-              ? void 0
-              : m.handleIncomingSignalingReceipt(
-                  new (o("WAParsableWapNode").ParsableWapNode)("receipt", t),
-                  i.toString({ legacy: !0, formatIncludeDevice: !0 }),
-                  p,
-                ),
-            o("WAWap").wap("ack", {
-              id: o("WAWap").CUSTOM_STRING(l),
-              to: o("WAWebCommsWapMd").JID(i),
-              from: o("WAWebCommsWapMd").JID(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              ),
-              class: "receipt",
-              type: o("WAWap").MAYBE_CUSTOM_STRING(c),
-            })
-          );
-        })),
-        d.apply(this, arguments)
+        await (c == null
+          ? void 0
+          : c.handleIncomingSignalingReceipt(
+              new (o("WAParsableWapNode").ParsableWapNode)("receipt", t),
+              a.toString({ legacy: !0, formatIncludeDevice: !0 }),
+              d,
+            )),
+        o("WAWap").wap("ack", {
+          id: o("WAWap").CUSTOM_STRING(i),
+          to: o("WAWebCommsWapMd").JID(a),
+          from: o("WAWebCommsWapMd").JID(
+            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          ),
+          class: "receipt",
+          type: o("WAWap").MAYBE_CUSTOM_STRING(l),
+        })
       );
     }
-    l.handleCallReceipt = c;
+    l.handleCallReceipt = u;
   },
   98,
 );

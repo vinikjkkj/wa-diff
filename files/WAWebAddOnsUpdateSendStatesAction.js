@@ -1,7 +1,6 @@
 __d(
   "WAWebAddOnsUpdateSendStatesAction",
   [
-    "Promise",
     "WAWebAddOnsUpdateAddOnAcksApi",
     "WAWebCommentCollection",
     "WAWebMessageAddOnType",
@@ -10,61 +9,51 @@ __d(
     "WAWebPinInChatCollection",
     "WAWebPollsPollVoteCollection",
     "WAWebReactionsCollection",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      var n = p(e);
+    function e(e, t) {
+      var n = d(e);
       n != null &&
         o("WAWebAddOnsUpdateAddOnAcksApi").maybeUpdateAddOnAcks(
           new Map([[n, [{ msgKey: e.id.toString(), ack: t }]]]),
         );
     }
-    function u(t, r) {
-      var o = p(t);
-      return o == null
-        ? (e || (e = n("Promise"))).resolve()
-        : c(
+    function s(e, t) {
+      var n = d(e);
+      return n == null
+        ? Promise.resolve()
+        : u(
             new Map([
-              [o, [babelHelpers.extends({ msgKey: t.id.toString() }, r)]],
+              [n, [babelHelpers.extends({ msgKey: e.id.toString() }, t)]],
             ]),
           );
     }
+    async function u(e) {
+      var t = new Map();
+      for (var n of e) {
+        var a = n[0],
+          i = n[1],
+          l = r("compactMap")(i, function (e) {
+            return e.ack == null ? null : { msgKey: e.msgKey, ack: e.ack };
+          });
+        t.set(a, l);
+      }
+      (await o("WAWebAddOnsUpdateAddOnAcksApi").updateAddOnAcks(t), c(e));
+    }
     function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map();
-          for (var n of e) {
-            var a = n[0],
-              i = n[1],
-              l = r("compactMap")(i, function (e) {
-                return e.ack == null ? null : { msgKey: e.msgKey, ack: e.ack };
-              });
-            t.set(a, l);
-          }
-          (yield o("WAWebAddOnsUpdateAddOnAcksApi").updateAddOnAcks(t), m(e));
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
       for (var t of e) {
         var n = t[0],
           o = t[1];
         for (var a of o) {
-          var i = _(n, r("WAWebMsgKey").from(a.msgKey));
+          var i = m(n, r("WAWebMsgKey").from(a.msgKey));
           i != null &&
             (a.ack != null && (i.ack = a.ack),
             a.isSendFailure != null && (i.isSendFailure = a.isSendFailure));
         }
       }
     }
-    function p(e) {
+    function d(e) {
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.REACTION:
         case o("WAWebMsgType").MSG_TYPE.REACTION_ENC:
@@ -80,7 +69,7 @@ __d(
       }
       return null;
     }
-    function _(e, t) {
+    function m(e, t) {
       switch (e) {
         case o("WAWebMessageAddOnType").MessageAddOnType.Reaction:
           return o(
@@ -104,10 +93,10 @@ __d(
           return null;
       }
     }
-    ((l.maybeUpdateAddOnAckForMsgAction = s),
-      (l.updateAddOnSendStatesForMsgAction = u),
-      (l.updateAddOnSendStatesAction = c),
-      (l.updateAddOnCollectionsSendStatesAction = m));
+    ((l.maybeUpdateAddOnAckForMsgAction = e),
+      (l.updateAddOnSendStatesForMsgAction = s),
+      (l.updateAddOnSendStatesAction = u),
+      (l.updateAddOnCollectionsSendStatesAction = c));
   },
   98,
 );

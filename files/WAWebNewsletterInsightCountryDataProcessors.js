@@ -1,52 +1,32 @@
 __d(
   "WAWebNewsletterInsightCountryDataProcessors",
-  [
-    "WAWebCountriesUtils",
-    "WAWebNewsletterMetricUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebCountriesUtils", "WAWebNewsletterMetricUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 10,
       s = 10;
-    function u() {
-      return c.apply(this, arguments);
+    async function u() {
+      var e = await o("WAWebCountriesUtils").getCountries({
+        filter: o("WAWebCountriesUtils").COUNTRY_FILTER_TYPE
+          .WHATSAPP_REGISTRATION,
+      });
+      return new Map(e);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebCountriesUtils").getCountries({
-            filter: o("WAWebCountriesUtils").COUNTRY_FILTER_TYPE
-              .WHATSAPP_REGISTRATION,
-          });
-          return new Map(e);
-        })),
-        c.apply(this, arguments)
-      );
+    async function c(e) {
+      var t = await u(),
+        n = e.reduce(function (e, n) {
+          var r = n.countryCode,
+            o = n.percentage,
+            a = n.value;
+          if (r == null) return e;
+          var i = t.get(r);
+          if (i == null) return e;
+          var l = Math.round((o + Number.EPSILON) * 1e4) / 1e4;
+          return (e.push({ label: i, value: a, percentage: l, key: r }), e);
+        }, []);
+      return n;
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u(),
-            n = e.reduce(function (e, n) {
-              var r = n.countryCode,
-                o = n.percentage,
-                a = n.value;
-              if (r == null) return e;
-              var i = t.get(r);
-              if (i == null) return e;
-              var l = Math.round((o + Number.EPSILON) * 1e4) / 1e4;
-              return (e.push({ label: i, value: a, percentage: l, key: r }), e);
-            }, []);
-          return n;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
+    function d(e, t) {
       var n = e.reduce(function (e, n) {
         var r = n.country,
           o = n.value;
@@ -65,7 +45,7 @@ __d(
         return t.value - e.value;
       });
     }
-    var _ = {
+    var m = {
         getMetrics: function () {
           var t;
           return [
@@ -102,10 +82,10 @@ __d(
             )) != null
               ? n
               : [];
-          return { reachByCountry: p(a, r) };
+          return { reachByCountry: d(a, r) };
         },
       },
-      f = {
+      p = {
         getMetrics: function () {
           var t;
           return [
@@ -141,12 +121,12 @@ __d(
             )) != null
               ? n
               : [];
-          return { followersByCountry: p(a, r) };
+          return { followersByCountry: d(a, r) };
         },
       };
-    ((l.getCountryBarValues = d),
-      (l.REACH_BY_COUNTRY_PROCESSOR = _),
-      (l.FOLLOWER_BY_COUNTRY_PROCESSOR = f));
+    ((l.getCountryBarValues = c),
+      (l.REACH_BY_COUNTRY_PROCESSOR = m),
+      (l.FOLLOWER_BY_COUNTRY_PROCESSOR = p));
   },
   98,
 );

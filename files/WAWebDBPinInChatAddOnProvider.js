@@ -6,7 +6,6 @@ __d(
     "WAWebMsgType",
     "WAWebPinMessageProcessor",
     "WAWebPinMsgGatingUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -23,21 +22,12 @@ __d(
       canRenderInUi: function () {
         return o("WAWebPinMsgGatingUtils").isPinnedMessagesM1ReceiverEnabled();
       },
-      processOrphansForNewMsg: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.map(function (e) {
-            return e.parsedMsgPayload;
-          });
-          yield o("WAWebPinMessageProcessor").processPinMessages(
-            e.id.remote,
-            n,
-          );
+      processOrphansForNewMsg: async function (t, n) {
+        var e = n.map(function (e) {
+          return e.parsedMsgPayload;
         });
-        function t(t, n) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+        await o("WAWebPinMessageProcessor").processPinMessages(t.id.remote, e);
+      },
       updateAcks: function (t, n) {
         return o("WAWebDBUpdateAddOnAcksForTable").updateAddOnAcksForTable(
           "pinned-messages",

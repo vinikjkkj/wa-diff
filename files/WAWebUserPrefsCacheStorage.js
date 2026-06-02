@@ -4,7 +4,6 @@ __d(
     "WAWebKeyValueCacheStore",
     "WAWebUserPrefsPostProcessors",
     "WAWebUserPrefsPreProcessors",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -33,63 +32,26 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.setItemToCacheStorage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = o("WAWebUserPrefsPreProcessors").preProcessUserPref(
-                  e,
-                  t,
-                );
-                ((this.$1[e] = n), yield m.doPut(e, n));
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.getItemFromCacheStorage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this.$1[e];
-                if (t == null)
-                  try {
-                    ((t = yield m.doGet(e)), (this.$1[e] = t));
-                  } catch (e) {}
-                if (t == null)
-                  return (this.removeItemFromCacheStorage(e), null);
-                var n = o("WAWebUserPrefsPostProcessors").postProcessUserPref(
-                  e,
-                  t,
-                );
-                return n;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.removeItemFromCacheStorage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                (delete this.$1[e], yield m.doDel(e));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.clearCacheStorage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              ((this.$1 = {}), yield m.doClear());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (t.setItemToCacheStorage = async function (t, n) {
+            var e = o("WAWebUserPrefsPreProcessors").preProcessUserPref(t, n);
+            ((this.$1[t] = e), await m.doPut(t, e));
+          }),
+          (t.getItemFromCacheStorage = async function (t) {
+            var e = this.$1[t];
+            if (e == null)
+              try {
+                ((e = await m.doGet(t)), (this.$1[t] = e));
+              } catch (e) {}
+            if (e == null) return (this.removeItemFromCacheStorage(t), null);
+            var n = o("WAWebUserPrefsPostProcessors").postProcessUserPref(t, e);
+            return n;
+          }),
+          (t.removeItemFromCacheStorage = async function (t) {
+            (delete this.$1[t], await m.doDel(t));
+          }),
+          (t.clearCacheStorage = async function () {
+            ((this.$1 = {}), await m.doClear());
+          }),
           e
         );
       })(),

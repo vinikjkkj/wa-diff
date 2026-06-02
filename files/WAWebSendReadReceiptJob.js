@@ -1,7 +1,6 @@
 __d(
   "WAWebSendReadReceiptJob",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WANullthrows",
@@ -28,16 +27,14 @@ __d(
     "WAWebWamEnumReadSource",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID);
-    function m(e) {
+      c = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID);
+    function d(e) {
       return e == null ||
         e <= 0 ||
         !o("WAWebABProps").getABPropConfigValue(
@@ -46,7 +43,7 @@ __d(
         ? null
         : e;
     }
-    function p(e, t) {
+    function m(e, t) {
       return e.isNewsletter() ||
         (e.isStatus() && t != null && t.isPSA()) ||
         r("WAWebWid").isPSA(e)
@@ -58,219 +55,185 @@ __d(
             ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF
             : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ;
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose(["markChatRead"])),
-          );
-          var l = Date.now().toString(),
-            s = String(t.id),
-            u = yield o(
-              "WAWebDBPendingReadReceiptQueries",
-            ).queryPendingReadReceiptMsgRows(s, i);
-          u.sort(function (e, t) {
-            var n = e.rowId || 0,
-              r = t.rowId || 0;
-            return n - r;
-          });
-          var d = a ? String(a) : null,
-            _ = u.length - 1;
-          if (d) {
-            for (_; _ >= 0 && u[_].id !== d; _--);
-            _ < 0 && (_ = u.length - 1);
-          }
-          var f = null,
-            g = [];
-          for (_; _ >= 0; _--) {
-            var h = u[_],
-              y = t.msgs.get(h.id);
-            (y &&
-              r("WAWebWid").isPSA(t.id) &&
-              o("WAWebWamChatPSALogger").logChatPSARead(y),
-              y &&
-                o("WAWebQbmMessageReadLogEvent").logQbmMessageRead({
-                  msg: y,
-                  chat: t,
-                  readSource: o("WAWebWamEnumReadSource").READ_SOURCE.CHAT,
-                }),
-              h.rowId != null && (f == null || h.rowId > f) && (f = h.rowId));
-            var C = r("WAWebMsgKey").fromString(h.id);
-            if (h.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
-              o("WAWebHandlePlaceholderWam").postPlaceholderActivityViewEvent([
-                h,
-              ]);
-              continue;
-            }
-            var v = h.broadcastId || h.from,
-              S = h.author || h.from;
-            g.push({
-              id: C.id,
-              sender: o("WAWebWidFactory").createWidFromWidLike(S),
-              chat: o("WAWebWidFactory").createWidFromWidLike(v),
-              serverStoreTimeMicros: m(h.serverStoreTimeMicros),
-            });
-          }
-          var R = b(g),
-            L = R[0],
-            E = R[1],
-            k = R[2],
-            I = R[3];
-          return (
-            yield (c || (c = n("Promise"))).all(
-              [].concat(
-                Array.from(L.keys(), function (e) {
-                  var n = L.get(e);
-                  if (n) {
-                    var r;
-                    return (
-                      t.trusted
-                        ? (r = p(t.id))
-                        : (r = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
-                            .READ_SELF),
-                      o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                        to: e,
-                        type: r,
-                        t: l,
-                        groupedReceipt: n,
-                        threadId: o("WAWebBotUtils").isMetaAiBot(t.id)
-                          ? i
-                          : void 0,
-                        maxStsByAuthor: k.get(e),
-                      })
-                    );
-                  }
-                }),
-                Array.from(E.keys(), function (e) {
-                  var t = E.get(e);
-                  if (t)
-                    return o("WAWebSendReceiptJobCommon").sendAggregateReceipts(
-                      {
-                        to: e,
-                        type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
-                          .READ_SELF,
-                        t: l,
-                        groupedReceipt: t,
-                        maxStsByAuthor: I.get(e),
-                      },
-                    );
-                }),
-              ),
-            ),
-            o("WAWebApiChat").markMessageAndChatAsRead({
-              lastReadRowId: f,
-              chatId: s,
-              keepChatUnread: !1,
-              threadId: i,
-            })
-          );
-        })),
-        f.apply(this, arguments)
+    async function p(t, n, a) {
+      o("WALogger").LOG(
+        e || (e = babelHelpers.taggedTemplateLiteralLoose(["markChatRead"])),
       );
-    }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+      var i = Date.now().toString(),
+        l = String(t.id),
+        s = await o(
+          "WAWebDBPendingReadReceiptQueries",
+        ).queryPendingReadReceiptMsgRows(l, a);
+      s.sort(function (e, t) {
+        var n = e.rowId || 0,
+          r = t.rowId || 0;
+        return n - r;
+      });
+      var u = n ? String(n) : null,
+        c = s.length - 1;
+      if (u) {
+        for (c; c >= 0 && s[c].id !== u; c--);
+        c < 0 && (c = s.length - 1);
+      }
+      var p = null,
+        _ = [];
+      for (c; c >= 0; c--) {
+        var f = s[c],
+          h = t.msgs.get(f.id);
+        (h &&
+          r("WAWebWid").isPSA(t.id) &&
+          o("WAWebWamChatPSALogger").logChatPSARead(h),
+          h &&
+            o("WAWebQbmMessageReadLogEvent").logQbmMessageRead({
+              msg: h,
+              chat: t,
+              readSource: o("WAWebWamEnumReadSource").READ_SOURCE.CHAT,
+            }),
+          f.rowId != null && (p == null || f.rowId > p) && (p = f.rowId));
+        var y = r("WAWebMsgKey").fromString(f.id);
+        if (f.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
+          o("WAWebHandlePlaceholderWam").postPlaceholderActivityViewEvent([f]);
+          continue;
+        }
+        var C = f.broadcastId || f.from,
+          b = f.author || f.from;
+        _.push({
+          id: y.id,
+          sender: o("WAWebWidFactory").createWidFromWidLike(b),
+          chat: o("WAWebWidFactory").createWidFromWidLike(C),
+          serverStoreTimeMicros: d(f.serverStoreTimeMicros),
+        });
+      }
+      var v = g(_),
+        S = v[0],
+        R = v[1],
+        L = v[2],
+        E = v[3];
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = e.id;
-          if (!o("WAWebMsgGetters").getIsStatus(e)) {
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "markStatusRead: message is not a status.",
-                ])),
-            );
-            return;
-          }
-          var i = o("WAWebMsgGetters").getIsNewsletterStatus(e),
-            l = o("WAWebMsgGetters").getIsGroupStatus(e) || i ? e.id.remote : d,
-            c = a.fromMe && !r("justknobx")._("5152"),
-            m = (n == null || n.sendReceipt === !0) && !c;
-          if (m) {
-            var _ = i ? l : r("WANullthrows")(a.participant);
-            if (
-              (yield o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                to: l,
-                type: p(l, i ? void 0 : _),
-                t: String(t),
-                receiptClass: i ? "status" : void 0,
-                isStatusReceipt: !0,
-                groupedReceipt: new Map([[_, [a.id]]]),
-              }),
-              i)
-            ) {
-              var f = e.serverId;
-              f != null &&
-                o("WAWebNewsletterStatusViewReceiptUtils")
-                  .sendNewsletterStatusViewReceipt(l, a, f)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[newsletter][status] view receipt send failed",
-                          ])),
-                      )
-                      .sendLogs("newsletter-status-view-receipt-fail");
-                  });
-            }
-          }
-          var g = { ack: o("WAWebAck").ACK.READ };
-          a.participant &&
-            a.participant.isPSA() &&
-            (g.statusPSAReadTimestamp = t);
-          var h = [babelHelpers.extends({ id: a.toString() }, g)],
-            y = o("WAWebLidMigrationUtils").getAlternateMsgKey(a);
-          (y && h.push(babelHelpers.extends({ id: y.toString() }, g)),
-            yield o("WAWebSchemaMessage").getMessageTable().bulkMergeOnly(h));
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = String(o("WATimeUtils").unixTime()),
-            r = b(
-              e
-                .filter(function (e) {
-                  return !o("WAWebUserPrefsMeUser").isSerializedWidMe(e.sender);
-                })
-                .map(function (e) {
-                  return {
-                    chat: e.msgKey.remote,
-                    sender: o("WAWebWidFactory").createWidFromWidLike(e.sender),
-                    id: e.msgKey.id,
-                  };
-                }),
-            ),
-            a = r[0];
-          yield (c || (c = n("Promise"))).all(
-            Array.from(a.keys(), function (e) {
-              var n = a.get(e);
-              if (n)
+        await Promise.all(
+          [].concat(
+            Array.from(S.keys(), function (e) {
+              var n = S.get(e);
+              if (n) {
+                var r;
+                return (
+                  t.trusted
+                    ? (r = m(t.id))
+                    : (r = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
+                        .READ_SELF),
+                  o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+                    to: e,
+                    type: r,
+                    t: i,
+                    groupedReceipt: n,
+                    threadId: o("WAWebBotUtils").isMetaAiBot(t.id) ? a : void 0,
+                    maxStsByAuthor: L.get(e),
+                  })
+                );
+              }
+            }),
+            Array.from(R.keys(), function (e) {
+              var t = R.get(e);
+              if (t)
                 return o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
                   to: e,
                   type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF,
-                  t: t,
-                  groupedReceipt: n,
+                  t: i,
+                  groupedReceipt: t,
+                  maxStsByAuthor: E.get(e),
                 });
             }),
-          );
-        })),
-        C.apply(this, arguments)
+          ),
+        ),
+        o("WAWebApiChat").markMessageAndChatAsRead({
+          lastReadRowId: p,
+          chatId: l,
+          keepChatUnread: !1,
+          threadId: a,
+        })
       );
     }
-    function b(e) {
+    async function _(e, t, n) {
+      var a = e.id;
+      if (!o("WAWebMsgGetters").getIsStatus(e)) {
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "markStatusRead: message is not a status.",
+            ])),
+        );
+        return;
+      }
+      var i = o("WAWebMsgGetters").getIsNewsletterStatus(e),
+        l = o("WAWebMsgGetters").getIsGroupStatus(e) || i ? e.id.remote : c,
+        d = a.fromMe && !r("justknobx")._("5152"),
+        p = (n == null || n.sendReceipt === !0) && !d;
+      if (p) {
+        var _ = i ? l : r("WANullthrows")(a.participant);
+        if (
+          (await o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+            to: l,
+            type: m(l, i ? void 0 : _),
+            t: String(t),
+            receiptClass: i ? "status" : void 0,
+            isStatusReceipt: !0,
+            groupedReceipt: new Map([[_, [a.id]]]),
+          }),
+          i)
+        ) {
+          var f = e.serverId;
+          f != null &&
+            o("WAWebNewsletterStatusViewReceiptUtils")
+              .sendNewsletterStatusViewReceipt(l, a, f)
+              .catch(function (e) {
+                o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[newsletter][status] view receipt send failed",
+                      ])),
+                  )
+                  .sendLogs("newsletter-status-view-receipt-fail");
+              });
+        }
+      }
+      var g = { ack: o("WAWebAck").ACK.READ };
+      a.participant && a.participant.isPSA() && (g.statusPSAReadTimestamp = t);
+      var h = [babelHelpers.extends({ id: a.toString() }, g)],
+        y = o("WAWebLidMigrationUtils").getAlternateMsgKey(a);
+      (y && h.push(babelHelpers.extends({ id: y.toString() }, g)),
+        await o("WAWebSchemaMessage").getMessageTable().bulkMergeOnly(h));
+    }
+    async function f(e) {
+      var t = String(o("WATimeUtils").unixTime()),
+        n = g(
+          e
+            .filter(function (e) {
+              return !o("WAWebUserPrefsMeUser").isSerializedWidMe(e.sender);
+            })
+            .map(function (e) {
+              return {
+                chat: e.msgKey.remote,
+                sender: o("WAWebWidFactory").createWidFromWidLike(e.sender),
+                id: e.msgKey.id,
+              };
+            }),
+        ),
+        r = n[0];
+      await Promise.all(
+        Array.from(r.keys(), function (e) {
+          var n = r.get(e);
+          if (n)
+            return o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+              to: e,
+              type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF,
+              t,
+              groupedReceipt: n,
+            });
+        }),
+      );
+    }
+    function g(e) {
       var t = new Map(),
         n = new Map(),
         r = new Map(),
@@ -299,84 +262,74 @@ __d(
         [t, n, r, o]
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    async function h(e, t, n) {
+      var a = String(e),
+        i = o("WAWebBotUtils").isMetaAiBot(e),
+        l = await o(
+          "WAWebDBPendingReadReceiptQueries",
+        ).queryUnreadEditedMsgRows(a, i ? n : void 0);
+      if (!l.length) return { fullyReadThreadIds: [] };
+      var s = new Set(),
+        u = l.map(function (t) {
+          var a = r("WAWebMsgKey").fromString(t.latestEditMsgKey),
+            i = t.author || t.from;
+          if (n == null)
+            for (var l of o("WAWebDBMessageUtils").getThreadIdsFromMessage(t))
+              s.add(l.toString());
+          else s.add(n.toString());
+          return {
+            id: a.id,
+            sender: o("WAWebWidFactory").createWidFromWidLike(i),
+            chat: o("WAWebWidFactory").createWidFromWidLike(e),
+            serverStoreTimeMicros: d(t.serverStoreTimeMicros),
+          };
+        }),
+        c = g(u),
+        p = c[0],
+        _ = c[1],
+        f = c[2],
+        h = c[3],
+        y = p.get(e),
+        C = _.get(e),
+        b = Date.now().toString();
+      if (y) {
+        var v;
+        (t.trusted
+          ? (v = m(e))
+          : (v = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF),
+          await o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+            to: e,
+            type: v,
+            t: b,
+            groupedReceipt: y,
+            threadId: o("WAWebBotUtils").isMetaAiBot(e) ? n : void 0,
+            maxStsByAuthor: f.get(e),
+          }));
+      }
+      C &&
+        (await o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+          to: e,
+          type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF,
+          t: b,
+          groupedReceipt: C,
+          maxStsByAuthor: h.get(e),
+        }));
+      var S = l.map(function (e) {
+          return r("WAWebMsgKey").fromString(e.latestEditMsgKey);
+        }),
+        R = await o("WAWebApiChat").markEditedMessageAndChatAsRead({
+          chatId: e,
+          readMsgKeys: S,
+          threadId: n,
+        });
+      return R;
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = String(e),
-            i = o("WAWebBotUtils").isMetaAiBot(e),
-            l = yield o(
-              "WAWebDBPendingReadReceiptQueries",
-            ).queryUnreadEditedMsgRows(a, i ? n : void 0);
-          if (!l.length) return { fullyReadThreadIds: [] };
-          var s = new Set(),
-            u = l.map(function (t) {
-              var a = r("WAWebMsgKey").fromString(t.latestEditMsgKey),
-                i = t.author || t.from;
-              if (n == null)
-                for (var l of o("WAWebDBMessageUtils").getThreadIdsFromMessage(
-                  t,
-                ))
-                  s.add(l.toString());
-              else s.add(n.toString());
-              return {
-                id: a.id,
-                sender: o("WAWebWidFactory").createWidFromWidLike(i),
-                chat: o("WAWebWidFactory").createWidFromWidLike(e),
-                serverStoreTimeMicros: m(t.serverStoreTimeMicros),
-              };
-            }),
-            c = b(u),
-            d = c[0],
-            _ = c[1],
-            f = c[2],
-            g = c[3],
-            h = d.get(e),
-            y = _.get(e),
-            C = Date.now().toString();
-          if (h) {
-            var v;
-            (t.trusted
-              ? (v = p(e))
-              : (v = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF),
-              yield o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                to: e,
-                type: v,
-                t: C,
-                groupedReceipt: h,
-                threadId: o("WAWebBotUtils").isMetaAiBot(e) ? n : void 0,
-                maxStsByAuthor: f.get(e),
-              }));
-          }
-          y &&
-            (yield o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-              to: e,
-              type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF,
-              t: C,
-              groupedReceipt: y,
-              maxStsByAuthor: g.get(e),
-            }));
-          var S = l.map(function (e) {
-              return r("WAWebMsgKey").fromString(e.latestEditMsgKey);
-            }),
-            R = yield o("WAWebApiChat").markEditedMessageAndChatAsRead({
-              chatId: e,
-              readMsgKeys: S,
-              threadId: n,
-            });
-          return R;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    ((l.getReadReceiptType = p),
-      (l.markChatRead = _),
-      (l.markStatusRead = g),
-      (l.sendAddOnReadReceipts = y),
-      (l.groupMsgIdsByChatThenSender = b),
-      (l.markEditedMsgsRead = v));
+    ((l.getReadReceiptType = m),
+      (l.markChatRead = p),
+      (l.markStatusRead = _),
+      (l.sendAddOnReadReceipts = f),
+      (l.groupMsgIdsByChatThenSender = g),
+      (l.markEditedMsgsRead = h));
   },
   98,
 );

@@ -2,9 +2,9 @@ __d(
   "WAWebNotesUtils",
   [
     "WAWebABProps",
-    "WAWebBizNotesGatingUtils",
     "WAWebFrontendMsgGetters",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMobilePlatforms",
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,7 +22,7 @@ __d(
         !e.isSupportAccount() &&
         !e.isCAPISupportAccount() &&
         !e.isBot() &&
-        o("WAWebBizNotesGatingUtils").smbNotesV1Enabled()
+        o("WAWebMobilePlatforms").isSMB()
       );
     }
     function u(e) {

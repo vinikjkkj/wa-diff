@@ -1,7 +1,6 @@
 __d(
   "WAWebBaseCollection",
   [
-    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WATypeUtils",
@@ -12,7 +11,6 @@ __d(
     "WAWebConnModel",
     "WAWebMiscErrors",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "cr:5292",
     "err",
     "gkx",
@@ -26,11 +24,10 @@ __d(
       d,
       m,
       p,
-      _,
-      f = { QUERY: "QUERY", FIND: "FIND", UPDATE: "UPDATE" },
-      g = {}.toString(),
-      h = { id: "none", policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE },
-      y = (function (e) {
+      _ = { QUERY: "QUERY", FIND: "FIND", UPDATE: "UPDATE" },
+      f = {}.toString(),
+      g = { id: "none", policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE },
+      h = (function (e) {
         function t(t) {
           var n;
           return (
@@ -42,7 +39,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      C = (function (t) {
+      y = (function (t) {
         function a() {
           var e;
           return (
@@ -50,7 +47,7 @@ __d(
             (e._inflight = {}),
             (e._cachePolicy = o("WAWebCachePolicies").createCachePolicy(
               e,
-              e.constructor.cachePolicy || h,
+              e.constructor.cachePolicy || g,
             )),
             e._cachePolicy.enableCaching(),
             e._cachePolicy.constructor.policy ===
@@ -121,11 +118,11 @@ __d(
             return t.prototype.add.call(this, a, i);
           }),
           (i.findQuery = function (t, n) {
-            return this._query(f.QUERY, t, n);
+            return this._query(_.QUERY, t, n);
           }),
-          (i.find = function (t, a) {
+          (i.find = function (t, n) {
             return t
-              ? this._query(f.FIND, t, a)
+              ? this._query(_.FIND, t, n)
               : (o("WALogger")
                   .ERROR(
                     u ||
@@ -134,13 +131,11 @@ __d(
                       ])),
                   )
                   .sendLogs("find-without-id"),
-                (_ || (_ = n("Promise"))).reject(
-                  r("err")("called find without an id"),
-                ));
+                Promise.reject(r("err")("called find without an id")));
           }),
-          (i.update = function (t, a) {
+          (i.update = function (t, n) {
             return t
-              ? this._query(f.UPDATE, t, a)
+              ? this._query(_.UPDATE, t, n)
               : (o("WALogger")
                   .ERROR(
                     c ||
@@ -149,9 +144,7 @@ __d(
                       ])),
                   )
                   .sendLogs("update-without-id"),
-                (_ || (_ = n("Promise"))).reject(
-                  r("err")("called update without an id"),
-                ));
+                Promise.reject(r("err")("called update without an id")));
           }),
           (i.gadd = function (t, n) {
             if (this.modelClass.prototype.isIdType(t)) {
@@ -167,23 +160,23 @@ __d(
           (i.delete = function () {
             ((this._inflight = {}), this.reset());
           }),
-          (i._query = function (t, a, i) {
+          (i._query = function (t, n, a) {
             var e = this,
-              l = o("WATypeUtils").isString(a) ? a : a.toString();
-            l === g && (l = r("uniqueID")("collection_query_"));
-            var s = t === f.QUERY ? void 0 : this.get(a),
-              u = "force-" + l;
+              i = o("WATypeUtils").isString(n) ? n : n.toString();
+            i === f && (i = r("uniqueID")("collection_query_"));
+            var l = t === _.QUERY ? void 0 : this.get(n),
+              s = "force-" + i;
             return (
-              ((this._inflight[u] && t === f.FIND) || t === f.UPDATE) &&
-                (l = u),
-              this._inflight[l]
-                ? t === f.FIND && s && !s.stale
-                  ? (_ || (_ = n("Promise"))).resolve(s)
-                  : this._inflight[l]
-                : !s || s.stale || t === f.UPDATE
-                  ? (this._inflight[l] = this._serverQuery(t, a, i)
+              ((this._inflight[s] && t === _.FIND) || t === _.UPDATE) &&
+                (i = s),
+              this._inflight[i]
+                ? t === _.FIND && l && !l.stale
+                  ? Promise.resolve(l)
+                  : this._inflight[i]
+                : !l || l.stale || t === _.UPDATE
+                  ? (this._inflight[i] = this._serverQuery(t, n, a)
                       .finally(function () {
-                        delete e._inflight[l];
+                        delete e._inflight[i];
                       })
                       .catch(
                         o("WAFilteredCatch").filteredCatch(
@@ -201,7 +194,7 @@ __d(
                         ),
                       )
                       .catch(function (e) {
-                        if (e instanceof y)
+                        if (e instanceof h)
                           o("WALogger").LOG(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -212,42 +205,34 @@ __d(
                           );
                         else throw e;
                       }))
-                  : (_ || (_ = n("Promise"))).resolve(s)
+                  : Promise.resolve(l)
             );
           }),
-          (i._serverQuery = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r, a, i;
-                e === f.UPDATE
-                  ? (i = this._update(t, n))
-                  : e === f.FIND
-                    ? (i = this.findImpl(t, n))
-                    : (i = this.findQueryImpl(t));
-                var l = yield i;
-                this._markResultsNotStale(l);
-                var s;
-                if (
-                  ((n == null ? void 0 : n.set) === !0
-                    ? (s = this.set(l))
-                    : (s = this.add(l, { merge: !0 })),
-                  Array.isArray(l))
-                )
-                  return s;
-                if (s[0]) return s[0];
-                throw new (o("WAWebMiscErrors").ModelCreateError)(
-                  (r = (a = this.modelClass) == null ? void 0 : a.name) != null
-                    ? r
-                    : "Unknown",
-                  l,
-                );
-              },
+          (i._serverQuery = async function (t, n, r) {
+            var e, a, i;
+            t === _.UPDATE
+              ? (i = this._update(n, r))
+              : t === _.FIND
+                ? (i = this.findImpl(n, r))
+                : (i = this.findQueryImpl(n));
+            var l = await i;
+            this._markResultsNotStale(l);
+            var s;
+            if (
+              ((r == null ? void 0 : r.set) === !0
+                ? (s = this.set(l))
+                : (s = this.add(l, { merge: !0 })),
+              Array.isArray(l))
+            )
+              return s;
+            if (s[0]) return s[0];
+            throw new (o("WAWebMiscErrors").ModelCreateError)(
+              (e = (a = this.modelClass) == null ? void 0 : a.name) != null
+                ? e
+                : "Unknown",
+              l,
             );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           (i._update = function (t, n) {
             return this.findImpl(t, n);
           }),
@@ -272,7 +257,7 @@ __d(
           a
         );
       })(r("WAWebCollection"));
-    ((l.CollectionSilentQueryError = y), (l.BaseCollection = C));
+    ((l.CollectionSilentQueryError = h), (l.BaseCollection = y));
   },
   98,
 );

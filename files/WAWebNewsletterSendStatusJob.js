@@ -7,7 +7,6 @@ __d(
     "WAWebNewsletterValidationUtils",
     "WAWebOutgoingMessage",
     "WAWebProtobufsE2E.pb",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
   ],
@@ -18,49 +17,41 @@ __d(
         e,
       );
     }
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
-            t.newsletterJid,
-          );
-          var n = t.msg,
-            r = e(n),
-            a = o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, r)
-              .readByteArrayView();
-          switch (t.type) {
-            case "text":
-              return o(
-                "WAWebNewsletterSendStatusQueryJob",
-              ).querySendNewsletterStatus({
-                type: "text",
-                messageId: n.id.id,
-                newsletterJid: t.newsletterJid,
-                payload: a,
-              });
-            case "media": {
-              var i = c(r);
-              return o(
-                "WAWebNewsletterSendStatusQueryJob",
-              ).querySendNewsletterStatus({
-                type: "media",
-                messageId: n.id.id,
-                newsletterJid: t.newsletterJid,
-                payload: a,
-                mediaType: i,
-                mediaHandle: t.mediaHandle,
-              });
-            }
-          }
-        })),
-        u.apply(this, arguments)
+    async function s(t) {
+      o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
+        t.newsletterJid,
       );
+      var n = t.msg,
+        r = e(n),
+        a = o("encodeProtobuf")
+          .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, r)
+          .readByteArrayView();
+      switch (t.type) {
+        case "text":
+          return o(
+            "WAWebNewsletterSendStatusQueryJob",
+          ).querySendNewsletterStatus({
+            type: "text",
+            messageId: n.id.id,
+            newsletterJid: t.newsletterJid,
+            payload: a,
+          });
+        case "media": {
+          var i = u(r);
+          return o(
+            "WAWebNewsletterSendStatusQueryJob",
+          ).querySendNewsletterStatus({
+            type: "media",
+            messageId: n.id.id,
+            newsletterJid: t.newsletterJid,
+            payload: a,
+            mediaType: i,
+            mediaHandle: t.mediaHandle,
+          });
+        }
+      }
     }
-    function c(e) {
+    function u(e) {
       var t = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(e);
       if (t == null)
         throw r("err")(

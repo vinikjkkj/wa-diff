@@ -13,7 +13,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebQueryPrivacyDisallowedListUtil",
     "WAWebSchemaPrivacyDisallowedList",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -35,48 +34,40 @@ __d(
         });
       }),
       c = n("$InternalEnum")({ Add: "add", Remove: "remove" });
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = p(e),
-            n = yield o("WADeprecatedSendIq").deprecatedSendIq(
-              o("WAWap").wap(
-                "iq",
-                {
-                  to: o("WAWap").S_WHATSAPP_NET,
-                  type: "set",
-                  xmlns: "privacy",
-                  id: o("WAWap").generateId(),
-                },
-                t,
-              ),
-              u,
-            );
-          if (n.success === !0) return n.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            n.errorCode,
-            n.errorText,
-          );
-        })),
-        m.apply(this, arguments)
+    async function d(e) {
+      var t = m(e),
+        n = await o("WADeprecatedSendIq").deprecatedSendIq(
+          o("WAWap").wap(
+            "iq",
+            {
+              to: o("WAWap").S_WHATSAPP_NET,
+              type: "set",
+              xmlns: "privacy",
+              id: o("WAWap").generateId(),
+            },
+            t,
+          ),
+          u,
+        );
+      if (n.success === !0) return n.result;
+      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+        n.errorCode,
+        n.errorText,
       );
     }
-    function p(t) {
+    function m(t) {
       var n = t.dhash,
         r = t.name,
         a = t.users,
         i = t.value;
-      if (a == null) return _(r, i);
+      if (a == null) return p(r, i);
       if (
         o(
           "WAWebQueryPrivacyDisallowedListUtil",
-        ).isPrivacyDisallowedListTypeLidMigrated(y(r))
+        ).isPrivacyDisallowedListTypeLidMigrated(h(r))
       )
         try {
-          return f({ dhash: n, name: r, users: a, value: i });
+          return _({ dhash: n, name: r, users: a, value: i });
         } catch (t) {
           return (
             o("WALogger")
@@ -89,12 +80,12 @@ __d(
                 t,
               )
               .sendLogs("create-lid-privacy-node-failed"),
-            g(r, i, a, n)
+            f(r, i, a, n)
           );
         }
-      return g(r, i, a, n);
+      return f(r, i, a, n);
     }
-    function _(e, t) {
+    function p(e, t) {
       var n;
       return (n = o("WAWap")).wap(
         "privacy",
@@ -105,14 +96,14 @@ __d(
         }),
       );
     }
-    function f(e) {
+    function _(e) {
       var t,
         n = e.dhash,
         r = e.name,
         a = e.users,
         i = e.value,
         l = a.map(function (e) {
-          return h(e);
+          return g(e);
         });
       return (t = o("WAWap")).wap(
         "privacy",
@@ -128,7 +119,7 @@ __d(
         ),
       );
     }
-    function g(e, t, n, r) {
+    function f(e, t, n, r) {
       var a,
         i = n.map(function (e) {
           var t = e.action,
@@ -152,7 +143,7 @@ __d(
         ),
       );
     }
-    function h(e) {
+    function g(e) {
       var t = e.action,
         n = e.username,
         a = e.wid,
@@ -183,7 +174,7 @@ __d(
         pn_jid: o("WAWebCommsWapMd").JID(l),
       });
     }
-    function y(e) {
+    function h(e) {
       return e === "groupadd"
         ? o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
             .GroupAdd

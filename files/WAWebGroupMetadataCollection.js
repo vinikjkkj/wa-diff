@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupMetadataCollection",
   [
-    "Promise",
     "WALogger",
     "WAWebChatCollection",
     "WAWebFindGroupMetadataAction",
@@ -11,88 +10,79 @@ __d(
     "WAWebStaleBaseCollection",
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function (t) {
-        function a() {
-          var a;
+      u = (function (t) {
+        function n() {
+          var n;
           return (
-            (a = t.call(this) || this),
-            (a._handleIsParentGroupChange = function (e) {
+            (n = t.call(this) || this),
+            (n._handleIsParentGroupChange = function (e) {
               e.isParentGroup === !0 &&
                 o(
                   "WAWebProfilePicThumbCollection",
                 ).ProfilePicThumbCollection.update(e.id);
             }),
-            (a.findImpl = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  if (r("WAWebWid").isGroup(t)) {
-                    var a,
-                      i = o("WAWebChatCollection").ChatCollection.get(t);
-                    return i != null &&
-                      i.isReadOnly &&
-                      (i == null || (a = i.groupMetadata) == null
-                        ? void 0
-                        : a.stale) === !1
-                      ? (o("WALogger").LOG(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "groupMetadata: skip trying to find groupMetadata wid ",
-                              "",
-                            ])),
-                          t.toString(),
-                        ),
-                        (u || (u = n("Promise"))).resolve({ id: t }))
-                      : o("WAWebFindGroupMetadataAction")
-                          .findGroupMetadata(t)
-                          .then(function (e) {
-                            return e == null ? e : babelHelpers.extends({}, e);
-                          });
-                  }
-                  return (
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "groupMetadata:find trying to fetch non-group wid ",
+            (n.findImpl = async function (t) {
+              if (r("WAWebWid").isGroup(t)) {
+                var n,
+                  a = o("WAWebChatCollection").ChatCollection.get(t);
+                return a != null &&
+                  a.isReadOnly &&
+                  (a == null || (n = a.groupMetadata) == null
+                    ? void 0
+                    : n.stale) === !1
+                  ? (o("WALogger").LOG(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "groupMetadata: skip trying to find groupMetadata wid ",
                           "",
                         ])),
                       t.toString(),
                     ),
-                    (u || (u = n("Promise"))).reject(
-                      r("err")(
-                        "groupMetadata:find trying to fetch non-group wid " +
-                          t.toString(),
-                      ),
-                    )
-                  );
-                },
+                    Promise.resolve({ id: t }))
+                  : o("WAWebFindGroupMetadataAction")
+                      .findGroupMetadata(t)
+                      .then(function (e) {
+                        return e == null ? e : babelHelpers.extends({}, e);
+                      });
+              }
+              return (
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "groupMetadata:find trying to fetch non-group wid ",
+                      "",
+                    ])),
+                  t.toString(),
+                ),
+                Promise.reject(
+                  r("err")(
+                    "groupMetadata:find trying to fetch non-group wid " +
+                      t.toString(),
+                  ),
+                )
               );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })()),
-            a.listenTo(a, "add", a._handleGroupAdd),
-            a.listenTo(a, "remove", a._handleGroupRemove),
-            a.listenTo(a, "change:parentGroup", a._handleParentGroupChange),
-            a.listenTo(a, "change:isParentGroup", a._handleIsParentGroupChange),
-            a.listenTo(
-              a,
+            }),
+            n.listenTo(n, "add", n._handleGroupAdd),
+            n.listenTo(n, "remove", n._handleGroupRemove),
+            n.listenTo(n, "change:parentGroup", n._handleParentGroupChange),
+            n.listenTo(n, "change:isParentGroup", n._handleIsParentGroupChange),
+            n.listenTo(
+              n,
               "change:defaultSubgroup",
-              a._handleDefaultSubgroupChange,
+              n._handleDefaultSubgroupChange,
             ),
-            a
+            n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i._handleGroupAdd = function (t) {
+          (a._handleGroupAdd = function (t) {
             if (
               (t.defaultSubgroup === !0 && r("WAWebIsCagGroupCache").add(t.id),
               !!t.participants.iAmMember())
@@ -106,7 +96,7 @@ __d(
               }
             }
           }),
-          (i._handleGroupRemove = function (t) {
+          (a._handleGroupRemove = function (t) {
             if (
               (t.defaultSubgroup === !0 &&
                 r("WAWebIsCagGroupCache").remove(t.id),
@@ -119,7 +109,7 @@ __d(
                 );
             }
           }),
-          (i._handleParentGroupChange = function (t, n, r) {
+          (a._handleParentGroupChange = function (t, n, r) {
             if (t.participants.iAmMember()) {
               var e = t.id,
                 a = n != null ? this.get(n.toString()) : null,
@@ -139,17 +129,17 @@ __d(
                   );
             }
           }),
-          (i._handleDefaultSubgroupChange = function (t, n) {
+          (a._handleDefaultSubgroupChange = function (t, n) {
             n === !0
               ? r("WAWebIsCagGroupCache").add(t.id)
               : r("WAWebIsCagGroupCache").remove(t.id);
           }),
-          a
+          n
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    c.model = r("WAWebGroupMetadataModel");
-    var d = new c();
-    l.default = d;
+    u.model = r("WAWebGroupMetadataModel");
+    var c = new u();
+    l.default = c;
   },
   98,
 );

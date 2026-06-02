@@ -5,22 +5,18 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")("WAWebSettingsFlow.react")
-            .__setRef("WAWebSettingsFlowLoadable")
-            .load();
-          return e.SettingsFlow;
-        }),
-        "SettingsFlow",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")("WAWebSettingsFlow.react")
+          .__setRef("WAWebSettingsFlowLoadable")
+          .load();
+        return e.SettingsFlow;
+      }, "SettingsFlow"),
       d = r("react-loadable")({
         loader: c,
         loading: function (t) {

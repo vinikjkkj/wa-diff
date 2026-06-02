@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipSctpDiagnostics",
-  ["Promise", "WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -8,211 +8,191 @@ __d(
       u,
       c,
       d,
-      m,
-      p = 1e3;
-    function _(e) {
+      m = 1e3;
+    function p(e) {
       return e != null ? String(e) : "N/A";
     }
-    function f(e) {
+    function _(e) {
       return e != null ? Math.round(e * 1e3) + "ms" : "N/A";
     }
-    function g(e) {
+    function f(e) {
       var t, n, r;
       if (e == null) return "N/A";
       var o = (t = e.address) != null ? t : "N/A",
-        a = _(e.port),
+        a = p(e.port),
         i = (n = e.protocol) != null ? n : "N/A",
         l = (r = e.candidateType) != null ? r : "N/A";
       return o + ":" + a + "/" + i + "/" + l;
     }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = yield new (m || (m = n("Promise")))(function (n) {
-              var i = !1,
-                l = window.setTimeout(function () {
-                  i ||
-                    ((i = !0),
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [SCTP] getStats snapshot timed out after ",
-                          "ms for ",
-                          ", reason=",
-                          "",
-                        ])),
-                      p,
-                      t,
-                      a,
-                    ),
-                    n(null));
-                }, p);
-              r.getStats()
-                .then(function (e) {
-                  i || ((i = !0), window.clearTimeout(l), n(e));
-                })
-                .catch(function (e) {
-                  i ||
-                    ((i = !0),
-                    window.clearTimeout(l),
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [SCTP] getStats snapshot failed for ",
-                          ", reason=",
-                          ": ",
-                          "",
-                        ])),
-                      t,
-                      a,
-                      e,
-                    ),
-                    n(null));
-                });
-            });
-            if (l != null) {
-              var h = null,
-                y = null,
-                C = "N/A",
-                b = "N/A",
-                v = [];
-              if (
-                (l.forEach(function (e) {
-                  if (e.type === "transport") {
-                    var t = e;
-                    (t.selectedCandidatePairId != null &&
-                      (y = t.selectedCandidatePairId),
-                      (C =
-                        "dtls=" +
-                        _(t.dtlsState) +
-                        " " +
-                        ("tx=" + _(t.bytesSent) + " ") +
-                        ("rx=" + _(t.bytesReceived) + " ") +
-                        ("pair=" + _(t.selectedCandidatePairId))));
-                  } else if (e.type === "candidate-pair" && e.nominated === !0)
-                    h = e;
-                  else if (e.type === "sctp-transport") {
-                    var n = e;
-                    b =
-                      "srtt=" +
-                      f(n.smoothedRoundTripTime) +
-                      " " +
-                      ("cwnd=" + _(n.congestionWindow) + " ") +
-                      ("rwnd=" + _(n.receiverWindow) + " ") +
-                      ("mtu=" + _(n.mtu) + " ") +
-                      ("unack=" + _(n.unackData));
-                  } else if (e.type === "data-channel") {
-                    var r,
-                      o = e;
-                    v.push(
-                      "id=" +
-                        _((r = o.dataChannelIdentifier) != null ? r : e.id) +
-                        " " +
-                        ("label=" + _(o.label) + " ") +
-                        ("state=" + _(o.state) + " ") +
-                        ("msgTx=" + _(o.messagesSent) + " ") +
-                        ("msgRx=" + _(o.messagesReceived) + " ") +
-                        ("bytesTx=" + _(o.bytesSent) + " ") +
-                        ("bytesRx=" + _(o.bytesReceived)),
-                    );
-                  }
-                }),
-                h == null && y != null)
-              ) {
-                var S = l.get(y);
-                S != null && S.type === "candidate-pair" && (h = S);
-              }
-              var R = "N/A",
-                L = h;
-              if (L != null) {
-                var E =
-                    L.localCandidateId != null
-                      ? l.get(L.localCandidateId)
-                      : null,
-                  k =
-                    L.remoteCandidateId != null
-                      ? l.get(L.remoteCandidateId)
-                      : null,
-                  I =
-                    E != null &&
-                    (E.type === "local-candidate" ||
-                      E.type === "remote-candidate")
-                      ? E
-                      : null,
-                  T =
-                    k != null &&
-                    (k.type === "local-candidate" ||
-                      k.type === "remote-candidate")
-                      ? k
-                      : null;
-                R =
-                  "state=" +
-                  _(L.state) +
-                  " " +
-                  ("nominated=" + _(L.nominated) + " ") +
-                  ("rtt=" + f(L.currentRoundTripTime) + " ") +
-                  ("tx=" + _(L.bytesSent) + " ") +
-                  ("rx=" + _(L.bytesReceived) + " ") +
-                  ("local=" + g(I) + " ") +
-                  ("remote=" + g(T));
-              }
-              (o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] getStats snapshot ",
-                    " reason=",
-                    " pc=",
-                    " ice=",
-                    " workerTxPkt=",
-                    " workerRxPkt=",
-                    " transport=",
-                    " sctp=",
+    async function g(t, n, r, a) {
+      var i = await new Promise(function (a) {
+        var i = !1,
+          l = window.setTimeout(function () {
+            i ||
+              ((i = !0),
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SCTP] getStats snapshot timed out after ",
+                    "ms for ",
+                    ", reason=",
+                    "",
+                  ])),
+                m,
+                t,
+                r,
+              ),
+              a(null));
+          }, m);
+        n.getStats()
+          .then(function (e) {
+            i || ((i = !0), window.clearTimeout(l), a(e));
+          })
+          .catch(function (e) {
+            i ||
+              ((i = !0),
+              window.clearTimeout(l),
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SCTP] getStats snapshot failed for ",
+                    ", reason=",
+                    ": ",
                     "",
                   ])),
                 t,
-                a,
-                r.connectionState,
-                r.iceConnectionState,
-                i.sentPackets,
-                i.receivedPackets,
-                C,
-                b,
+                r,
+                e,
               ),
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SCTP] getStats datachannel ",
-                      " reason=",
-                      " ",
-                      "",
-                    ])),
-                  t,
-                  a,
-                  v.length > 0 ? v.join(" ; ") : "N/A",
-                ),
-                o("WALogger").WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SCTP] getStats pair ",
-                      " reason=",
-                      " ",
-                      "",
-                    ])),
-                  t,
-                  a,
-                  R,
-                ));
+              a(null));
+          });
+      });
+      if (i != null) {
+        var l = null,
+          g = null,
+          h = "N/A",
+          y = "N/A",
+          C = [];
+        if (
+          (i.forEach(function (e) {
+            if (e.type === "transport") {
+              var t = e;
+              (t.selectedCandidatePairId != null &&
+                (g = t.selectedCandidatePairId),
+                (h =
+                  "dtls=" +
+                  p(t.dtlsState) +
+                  " " +
+                  ("tx=" + p(t.bytesSent) + " ") +
+                  ("rx=" + p(t.bytesReceived) + " ") +
+                  ("pair=" + p(t.selectedCandidatePairId))));
+            } else if (e.type === "candidate-pair" && e.nominated === !0) l = e;
+            else if (e.type === "sctp-transport") {
+              var n = e;
+              y =
+                "srtt=" +
+                _(n.smoothedRoundTripTime) +
+                " " +
+                ("cwnd=" + p(n.congestionWindow) + " ") +
+                ("rwnd=" + p(n.receiverWindow) + " ") +
+                ("mtu=" + p(n.mtu) + " ") +
+                ("unack=" + p(n.unackData));
+            } else if (e.type === "data-channel") {
+              var r,
+                o = e;
+              C.push(
+                "id=" +
+                  p((r = o.dataChannelIdentifier) != null ? r : e.id) +
+                  " " +
+                  ("label=" + p(o.label) + " ") +
+                  ("state=" + p(o.state) + " ") +
+                  ("msgTx=" + p(o.messagesSent) + " ") +
+                  ("msgRx=" + p(o.messagesReceived) + " ") +
+                  ("bytesTx=" + p(o.bytesSent) + " ") +
+                  ("bytesRx=" + p(o.bytesReceived)),
+              );
             }
-          },
-        )),
-        y.apply(this, arguments)
-      );
+          }),
+          l == null && g != null)
+        ) {
+          var b = i.get(g);
+          b != null && b.type === "candidate-pair" && (l = b);
+        }
+        var v = "N/A",
+          S = l;
+        if (S != null) {
+          var R = S.localCandidateId != null ? i.get(S.localCandidateId) : null,
+            L = S.remoteCandidateId != null ? i.get(S.remoteCandidateId) : null,
+            E =
+              R != null &&
+              (R.type === "local-candidate" || R.type === "remote-candidate")
+                ? R
+                : null,
+            k =
+              L != null &&
+              (L.type === "local-candidate" || L.type === "remote-candidate")
+                ? L
+                : null;
+          v =
+            "state=" +
+            p(S.state) +
+            " " +
+            ("nominated=" + p(S.nominated) + " ") +
+            ("rtt=" + _(S.currentRoundTripTime) + " ") +
+            ("tx=" + p(S.bytesSent) + " ") +
+            ("rx=" + p(S.bytesReceived) + " ") +
+            ("local=" + f(E) + " ") +
+            ("remote=" + f(k));
+        }
+        (o("WALogger").WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [SCTP] getStats snapshot ",
+              " reason=",
+              " pc=",
+              " ice=",
+              " workerTxPkt=",
+              " workerRxPkt=",
+              " transport=",
+              " sctp=",
+              "",
+            ])),
+          t,
+          r,
+          n.connectionState,
+          n.iceConnectionState,
+          a.sentPackets,
+          a.receivedPackets,
+          h,
+          y,
+        ),
+          o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] getStats datachannel ",
+                " reason=",
+                " ",
+                "",
+              ])),
+            t,
+            r,
+            C.length > 0 ? C.join(" ; ") : "N/A",
+          ),
+          o("WALogger").WARN(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] getStats pair ",
+                " reason=",
+                " ",
+                "",
+              ])),
+            t,
+            r,
+            v,
+          ));
+      }
     }
-    l.logPeerConnectionStatsForError = h;
+    l.logPeerConnectionStatsForError = g;
   },
   98,
 );

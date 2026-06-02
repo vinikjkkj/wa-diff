@@ -1,7 +1,6 @@
 __d(
   "WAWebInsertUsernameChangeSystemMsg",
   [
-    "Promise",
     "WALogger",
     "WAWebApiChat",
     "WAWebApiContact",
@@ -14,50 +13,41 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    var e, s;
+    async function u(t, n, a) {
+      if (
+        (a === void 0 && (a = "unknown"),
+        !!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
+      )
+        try {
+          var i = r("compactMap")(t, function (e) {
+            return c(e, n);
+          });
+          await Promise.all(
+            i.map(function (e) {
+              return d(e);
+            }),
+          );
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  ": failed to insert username system msg ",
+                  "",
+                ])),
+              a,
+              t instanceof Error ? t.message : String(t),
+            )
+            .sendLogs("username-system-msg-insert-failed");
+        }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          if (
-            (i === void 0 && (i = "unknown"),
-            !!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
-          )
-            try {
-              var l = r("compactMap")(t, function (e) {
-                return m(e, a);
-              });
-              yield (u || (u = n("Promise"))).all(
-                l.map(function (e) {
-                  return p(e);
-                }),
-              );
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      ": failed to insert username system msg ",
-                      "",
-                    ])),
-                  i,
-                  t instanceof Error ? t.message : String(t),
-                )
-                .sendLogs("username-system-msg-insert-failed");
-            }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t) {
+    function c(e, t) {
       var n,
         r = e.userId;
       if (!r.isLid() || o("WAWebUserPrefsMeUser").isMeAccount(r)) return null;
@@ -72,138 +62,106 @@ __d(
             newUsername: i ? "" : (n = e.username) != null ? n : "",
           };
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.newUsername,
-            a = e.oldUsername,
-            i = e.wid;
-          if (r("isStringNullOrEmpty")(a) && r("isStringNullOrEmpty")(t)) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[username] old+new username empty ",
-                    "",
-                  ])),
-                i.toLogString(),
-              )
-              .sendLogs(
-                "generateUsernameChangeNotificationSystemMsg-usernames-empty",
-              );
-            return;
-          }
-          var l = yield f(i);
-          yield (u || (u = n("Promise"))).all([
-            h({ wid: i, oldUsername: a, newUsername: t, displayName: l }),
-            C({ wid: i, oldUsername: a, newUsername: t, displayName: l }),
-          ]);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebLidAwareContactsDB").get(e.toString());
-          return t == null ? void 0 : t.displayNameLID;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.displayName,
-            n = e.newUsername,
-            r = e.oldUsername,
-            a = e.wid,
-            i = (yield o("WAWebApiChat").getChatRecordByAccountLid(a))[0];
-          if (i != null) {
-            var l = o("WAWebWidFactory").createWid(i.id),
-              s = o("WAWebContactSystemMsg").genUsernameChangeSystemMsg({
-                chatId: l,
-                oldUsername: r,
-                newUsername: n,
-                wid: a,
-                displayName: t,
-              });
-            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-              chatId: l,
-              newMsg: s,
-              handleSingleMsgOrigin: "username_change_notification",
-            });
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.displayName,
-            r = e.newUsername,
-            a = e.oldUsername,
-            i = e.wid,
-            l = o("WAWebSchemaParticipant").getParticipantTable(),
-            s = i.toString(),
-            c = o("WAWebApiContact").getPhoneNumber(i),
-            d = c == null ? void 0 : c.toString(),
-            m = yield l.anyOf(["participants"], [s, d]),
-            p = Array.from(
-              new Set(
-                m.map(function (e) {
-                  return e.groupId;
-                }),
-              ),
-            ),
-            _ = yield o("WAWebSchemaGroupMetadata")
-              .getGroupMetadataTable()
-              .bulkGet(p);
-          yield (u || (u = n("Promise"))).all(
-            p.reduce(function (e, n, l) {
-              var s = _[l];
-              if ((s == null ? void 0 : s.defaultSubgroup) === !0) return e;
-              var u = o("WAWebWidFactory").createWid(n),
-                c = o("WAWebContactSystemMsg").genUsernameChangeSystemMsg({
-                  chatId: u,
-                  oldUsername: a,
-                  newUsername: r,
-                  wid: i,
-                  displayName: t,
-                  viewMode:
-                    o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES,
-                });
-              return (
-                e.push(
-                  o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-                    chatId: u,
-                    newMsg: c,
-                    handleSingleMsgOrigin: "username_change_notification",
-                  }),
-                ),
-                e
-              );
-            }, []),
+    async function d(e) {
+      var t = e.newUsername,
+        n = e.oldUsername,
+        a = e.wid;
+      if (r("isStringNullOrEmpty")(n) && r("isStringNullOrEmpty")(t)) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[username] old+new username empty ",
+                "",
+              ])),
+            a.toLogString(),
+          )
+          .sendLogs(
+            "generateUsernameChangeNotificationSystemMsg-usernames-empty",
           );
-        })),
-        b.apply(this, arguments)
+        return;
+      }
+      var i = await m(a);
+      await Promise.all([
+        p({ wid: a, oldUsername: n, newUsername: t, displayName: i }),
+        _({ wid: a, oldUsername: n, newUsername: t, displayName: i }),
+      ]);
+    }
+    async function m(e) {
+      var t = await r("WAWebLidAwareContactsDB").get(e.toString());
+      return t == null ? void 0 : t.displayNameLID;
+    }
+    async function p(e) {
+      var t = e.displayName,
+        n = e.newUsername,
+        r = e.oldUsername,
+        a = e.wid,
+        i = (await o("WAWebApiChat").getChatRecordByAccountLid(a))[0];
+      if (i != null) {
+        var l = o("WAWebWidFactory").createWid(i.id),
+          s = o("WAWebContactSystemMsg").genUsernameChangeSystemMsg({
+            chatId: l,
+            oldUsername: r,
+            newUsername: n,
+            wid: a,
+            displayName: t,
+          });
+        await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+          chatId: l,
+          newMsg: s,
+          handleSingleMsgOrigin: "username_change_notification",
+        });
+      }
+    }
+    async function _(e) {
+      var t = e.displayName,
+        n = e.newUsername,
+        r = e.oldUsername,
+        a = e.wid,
+        i = o("WAWebSchemaParticipant").getParticipantTable(),
+        l = a.toString(),
+        s = o("WAWebApiContact").getPhoneNumber(a),
+        u = s == null ? void 0 : s.toString(),
+        c = await i.anyOf(["participants"], [l, u]),
+        d = Array.from(
+          new Set(
+            c.map(function (e) {
+              return e.groupId;
+            }),
+          ),
+        ),
+        m = await o("WAWebSchemaGroupMetadata")
+          .getGroupMetadataTable()
+          .bulkGet(d);
+      await Promise.all(
+        d.reduce(function (e, i, l) {
+          var s = m[l];
+          if ((s == null ? void 0 : s.defaultSubgroup) === !0) return e;
+          var u = o("WAWebWidFactory").createWid(i),
+            c = o("WAWebContactSystemMsg").genUsernameChangeSystemMsg({
+              chatId: u,
+              oldUsername: r,
+              newUsername: n,
+              wid: a,
+              displayName: t,
+              viewMode:
+                o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES,
+            });
+          return (
+            e.push(
+              o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                chatId: u,
+                newMsg: c,
+                handleSingleMsgOrigin: "username_change_notification",
+              }),
+            ),
+            e
+          );
+        }, []),
       );
     }
-    ((l.maybeInsertUsernameChangeSystemMsgs = c),
-      (l.generateUsernameChangeNotificationSystemMsg = p));
+    ((l.maybeInsertUsernameChangeSystemMsgs = u),
+      (l.generateUsernameChangeNotificationSystemMsg = d));
   },
   98,
 );

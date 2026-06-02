@@ -9,13 +9,11 @@ __d(
     "JSScheduler",
     "MemoryUtils",
     "NetworkStatusTracker",
-    "Promise",
     "QPLEvent",
     "VisibilityState",
     "VisualCompletionAdapter",
     "WebAPIs",
     "addAnnotations",
-    "asyncToGeneratorRuntime",
     "clearTimeout",
     "hero-tracing",
     "hero-tracing-placeholder",
@@ -30,14 +28,13 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = "InteractionTracingLogging",
-      m = new Map(),
-      p,
-      _ = null,
-      f = 0,
-      g = new Set(),
-      h = 1;
+      c = "InteractionTracingLogging",
+      d = new Map(),
+      m,
+      p = null,
+      _ = 0,
+      f = new Set(),
+      g = 1;
     r("one-trace").subscribe("trace-end-before-logging", function (e) {
       if (
         e.traceType === "LONGTASK" ||
@@ -45,7 +42,7 @@ __d(
         e.traceType === "LONG_ANIMATION_FRAME"
       ) {
         var t = e.traceType;
-        m.forEach(function (n) {
+        d.forEach(function (n) {
           var a = n.getTrace();
           if (a) {
             var i;
@@ -59,23 +56,23 @@ __d(
                 Math.max(e.startTime, a.start),
                 (i = e.endTime) != null
                   ? i
-                  : (c || (c = r("performanceNow")))(),
+                  : (u || (u = r("performanceNow")))(),
                 {},
               ),
               a.type != null)
             ) {
               var l,
                 s,
-                u,
+                c,
                 d = a.type,
                 m = (l = a.tracePolicy) != null ? l : "",
                 p = n.getQPLEventMarkerId(),
                 _ = d + "(" + p + ":" + m + ")",
                 f =
                   (s =
-                    (u = e.annotations.string_array) == null
+                    (c = e.annotations.string_array) == null
                       ? void 0
-                      : u.affectedInteractions) != null
+                      : c.affectedInteractions) != null
                     ? s
                     : [];
               (r("addAnnotations")(e.annotations, {
@@ -94,7 +91,7 @@ __d(
         });
       }
     });
-    function y(e, t, n, r, a) {
+    function h(e, t, n, r, a) {
       var i,
         l = o("VisibilityState").getHiddenSpans(t, n);
       (o(
@@ -115,9 +112,9 @@ __d(
             Number(o("VisibilityState").wasHidden(t, n)),
           ));
     }
-    function C(e, t) {
+    function y(e, t) {
       var n,
-        a = (n = t.completed) != null ? n : (c || (c = r("performanceNow")))(),
+        a = (n = t.completed) != null ? n : (u || (u = r("performanceNow")))(),
         i = t.markerPoints.visuallyComplete
           ? t.markerPoints.visuallyComplete.timestamp
           : a,
@@ -135,14 +132,14 @@ __d(
           "interaction-tracing-metrics",
         ).InteractionTracingMetricsCore.addOfflineTiming(t.traceId, l));
     }
-    function b(e, t, n) {
+    function C(e, t, n) {
       var o;
       n.interactionClass &&
         t.addAnnotation("interactionClass", n.interactionClass);
       var a = n.start,
-        i = (o = n.completed) != null ? o : (c || (c = r("performanceNow")))();
+        i = (o = n.completed) != null ? o : (u || (u = r("performanceNow")))();
       if (
-        (y(n.traceId, a, i, n, t),
+        (h(n.traceId, a, i, n, t),
         t.addAnnotationInt("navStartOffset", n.start),
         e.getMetadata)
       ) {
@@ -161,7 +158,7 @@ __d(
           t.addAnnotation("serverRevision", String(e.serverRevision)),
         e.pushPhase != null && t.addAnnotation("pushPhase", e.pushPhase));
     }
-    function v(e) {
+    function b(e) {
       var t = o("hero-tracing-placeholder").HeroPendingPlaceholderTracker.dump(
         e.traceId,
       );
@@ -188,7 +185,7 @@ __d(
               t.startTime,
               (n = e.completed) != null
                 ? n
-                : (c || (c = r("performanceNow")))(),
+                : (u || (u = r("performanceNow")))(),
               {
                 spanType: "IncompletePlaceholder",
                 pageletStack: (a = t.pageletStack) != null ? a : [],
@@ -196,53 +193,53 @@ __d(
             ));
         }));
     }
-    function S(e, t) {
-      e.onBeforeComplete(function (e) {
-        if (e) {
-          var n;
-          if (((n = t.annotations.int) == null ? void 0 : n.revisit) != null) {
-            var a;
-            r("addAnnotations")(e.annotations, {
+    function v(t, n) {
+      t.onBeforeComplete(function (t) {
+        if (t) {
+          var a;
+          if (((a = n.annotations.int) == null ? void 0 : a.revisit) != null) {
+            var i;
+            r("addAnnotations")(t.annotations, {
               int: {
                 revisit: Number(
-                  (a = t.annotations.int) == null ? void 0 : a.revisit,
+                  (i = n.annotations.int) == null ? void 0 : i.revisit,
                 ),
               },
             });
           }
-          t.qplEvent &&
-            (e.qplMarkerId = (u || (u = o("QPLEvent"))).getMarkerId(
-              t.qplEvent,
+          n.qplEvent &&
+            (t.qplMarkerId = (e || (e = o("QPLEvent"))).getMarkerId(
+              n.qplEvent,
             ));
         }
       });
     }
-    function R(e) {
+    function S(e) {
       var t = e.replace(/\d{4,}/, "");
       return t;
     }
-    var L = 0,
-      E = new Map(),
-      k = {
+    var R = 0,
+      L = new Map(),
+      E = {
         checkRevisit: function (t) {
-          return t == null ? !1 : g.has(t);
+          return t == null ? !1 : f.has(t);
         },
         checkAndMarkRevisit: function (t) {
-          var e = k.checkRevisit(t);
-          return (t != null && g.add(t), e);
+          var e = E.checkRevisit(t);
+          return (t != null && f.add(t), e);
         },
         clone: function (t, n, o) {
-          return r("InteractionCloning").clone(t, n, o, h++);
+          return r("InteractionCloning").clone(t, n, o, g++);
         },
         getNextInstanceKey: function () {
-          return h++;
+          return g++;
         },
         onStartInteraction: function (t) {
-          var e = L++;
+          var e = R++;
           return (
-            E.set(e, t),
+            L.set(e, t),
             function () {
-              E.delete(e);
+              L.delete(e);
             }
           );
         },
@@ -251,7 +248,7 @@ __d(
           var e = o(
             "hero-tracing",
           ).HeroLogger.genHeroInteractionUUIDAndMarkStart(t.interactionID);
-          return k.trace(
+          return E.trace(
             t.cfg,
             t.deps,
             t.qplEvent,
@@ -280,26 +277,26 @@ __d(
             }),
             t
           );
-        })(function (t, a, i, l, g, y, L, I, T, D, x, $, P, N, M, w) {
-          (I === void 0 && (I = r("uuidv4")()), D === void 0 && (D = null));
-          var A = [],
-            F = _,
-            O = P != null ? P : h++,
-            B = L != null ? R(L) : null;
-          (B != null &&
-            a.QuickPerformanceLogger.markerAnnotate(
-              i,
-              { string: { tracePolicy: B } },
-              { instanceKey: O },
+        })(function (t, n, a, i, l, f, h, R, k, I, T, D, x, $, P, N) {
+          (R === void 0 && (R = r("uuidv4")()), I === void 0 && (I = null));
+          var M = [],
+            w = p,
+            A = x != null ? x : g++,
+            F = h != null ? S(h) : null;
+          (F != null &&
+            n.QuickPerformanceLogger.markerAnnotate(
+              a,
+              { string: { tracePolicy: F } },
+              { instanceKey: A },
             ),
-            (y === "INITIAL_LOAD" || y === "NAVIGATION") && (_ = B));
-          var W = M,
-            q = t.enableMemoryLogging
+            (f === "INITIAL_LOAD" || f === "NAVIGATION") && (p = F));
+          var O = P,
+            B = t.enableMemoryLogging
               ? o("MemoryUtils").getCurrentMemory().usedJSHeapSize
               : null;
-          p ||
-            (p = o("WebAPIs").onBeforeUnload(function () {
-              (m.forEach(function (e) {
+          m ||
+            (m = o("WebAPIs").onBeforeUnload(function () {
+              (d.forEach(function (e) {
                 var t;
                 ((t = e.getTrace()) == null || (t = t.annotations.int) == null
                   ? void 0
@@ -307,71 +304,60 @@ __d(
                   ? e.forceCompleteTrace()
                   : e.cancelTrace("unload", !0);
               }),
-                p && p.remove(),
-                (p = null));
+                m && m.remove(),
+                (m = null));
             }));
-          function U(e, t) {
-            return V.apply(this, arguments);
+          async function W(e, t) {
+            if (Q != null) {
+              var r;
+              (ae.length > 0 && (await Promise.all(ae)),
+                (r = n.WebLoom) == null || r.endTraceForInteraction(e, t));
+            }
           }
-          function V() {
-            return (
-              (V = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t, r) {
-                  if (J != null) {
-                    var o;
-                    (se.length > 0 && (yield (e || (e = n("Promise"))).all(se)),
-                      (o = a.WebLoom) == null ||
-                        o.endTraceForInteraction(t, r));
-                  }
-                },
-              )),
-              V.apply(this, arguments)
-            );
-          }
-          var H = new Set([d]);
-          function G(e) {
+          var q = new Set([c]);
+          function U(e) {
             e === void 0 && (e = !1);
             var t = o(
               "interaction-tracing-metrics",
-            ).InteractionTracingMetricsCore.get(I);
-            if (!(!t || !m.has(I))) {
+            ).InteractionTracingMetricsCore.get(R);
+            if (!(!t || !d.has(R))) {
               (t.completed == null &&
-                (t.completed = (c || (c = r("performanceNow")))()),
-                v(t));
-              var n = [].concat(re);
-              ((re.length = 0),
+                (t.completed = (u || (u = r("performanceNow")))()),
+                b(t));
+              var n = [].concat(ee);
+              ((ee.length = 0),
                 n.forEach(function (e) {
                   e(t, !0);
                 }),
                 e
-                  ? Q(t, !0)
+                  ? z(t, !0)
                   : (s || (s = r("JSScheduler"))).scheduleLoggingPriCallback(
                       function () {
-                        Q(t, !0);
+                        z(t, !0);
                       },
                     ));
             }
           }
-          var z = {
+          var V = {
               addJoinId: function (t) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addJoinId(I, t);
+                ).InteractionTracingMetricsCore.addJoinId(R, t);
               },
               addGlobalMetadata: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addGlobalMetadata(I, t, n);
+                ).InteractionTracingMetricsCore.addGlobalMetadata(R, t, n);
               },
               addLoomTraceEndDependency: function (t) {
-                se.push(t);
+                ae.push(t);
               },
               addMarkerPoint: function (t, n, a, i) {
-                (a === void 0 && (a = (c || (c = r("performanceNow")))()),
+                (a === void 0 && (a = (u || (u = r("performanceNow")))()),
                   o(
                     "interaction-tracing-metrics",
                   ).InteractionTracingMetricsCore.addMarkerPoint(
-                    I,
+                    R,
                     t,
                     n,
                     a,
@@ -382,7 +368,7 @@ __d(
                 o(
                   "interaction-tracing-metrics",
                 ).InteractionTracingMetricsCore.addSubspan(
-                  I,
+                  R,
                   t,
                   n,
                   r,
@@ -393,33 +379,33 @@ __d(
               addMetadata: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addMetadata(I, t, n);
+                ).InteractionTracingMetricsCore.addMetadata(R, t, n);
               },
               addAnnotation: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addAnnotation(I, t, n);
+                ).InteractionTracingMetricsCore.addAnnotation(R, t, n);
               },
               addAnnotationInt: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addAnnotationInt(I, t, n);
+                ).InteractionTracingMetricsCore.addAnnotationInt(R, t, n);
               },
               addAnnotationDouble: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addAnnotationDouble(I, t, n);
+                ).InteractionTracingMetricsCore.addAnnotationDouble(R, t, n);
               },
               addAnnotationBoolean: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addAnnotationBoolean(I, t, n);
+                ).InteractionTracingMetricsCore.addAnnotationBoolean(R, t, n);
               },
               addAnnotationStringArray: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
                 ).InteractionTracingMetricsCore.addAnnotationStringArray(
-                  I,
+                  R,
                   t,
                   n,
                 );
@@ -427,13 +413,13 @@ __d(
               addAnnotationIntArray: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addAnnotationIntArray(I, t, n);
+                ).InteractionTracingMetricsCore.addAnnotationIntArray(R, t, n);
               },
               addAnnotationDoubleArray: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
                 ).InteractionTracingMetricsCore.addAnnotationDoubleArray(
-                  I,
+                  R,
                   t,
                   n,
                 );
@@ -442,7 +428,7 @@ __d(
                 o(
                   "interaction-tracing-metrics",
                 ).InteractionTracingMetricsCore.addAnnotationBooleanArray(
-                  I,
+                  R,
                   t,
                   n,
                 );
@@ -450,142 +436,142 @@ __d(
               addTag: function (t, n) {
                 o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.addTag(I, t, n);
+                ).InteractionTracingMetricsCore.addTag(R, t, n);
               },
               lockInteractionLogging: function (t) {
-                H.add(t);
+                q.add(t);
               },
               unlockInteractionLogging: function (t) {
-                H.has(t) && (H.delete(t), H.size === 0 && j());
+                q.has(t) && (q.delete(t), q.size === 0 && H());
               },
               cancelTrace: function (t, n) {
-                z.addAnnotation("cancelType", t);
+                V.addAnnotation("cancelType", t);
                 var e = o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.get(I);
-                !e || !m.has(I) || ((e.wasCanceled = !0), G(n));
+                ).InteractionTracingMetricsCore.get(R);
+                !e || !d.has(R) || ((e.wasCanceled = !0), U(n));
               },
               forceCompleteTrace: function () {
-                G(!0);
+                U(!0);
               },
               getConfigAndDependencies: function () {
-                return { cfg: t, deps: a };
+                return { cfg: t, deps: n };
               },
               getTrace: function () {
                 return o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.get(I);
+                ).InteractionTracingMetricsCore.get(R);
               },
               getTraceId: function () {
-                return I;
+                return R;
               },
               getQPLEventMarkerId: function () {
-                return (u || (u = o("QPLEvent"))).getMarkerId(i);
+                return (e || (e = o("QPLEvent"))).getMarkerId(a);
               },
               markTraceAsSuccessOnUnload: function () {
-                z.addAnnotationInt("success_on_unload", 1);
+                V.addAnnotationInt("success_on_unload", 1);
               },
-              observeMutation: function (n) {
-                a.VCTracker &&
+              observeMutation: function (r) {
+                n.VCTracker &&
                   t.enableVCTracker &&
-                  o("VisualCompletionAdapter").observeMutation(I, n);
+                  o("VisualCompletionAdapter").observeMutation(R, r);
               },
               onComplete: function (t) {
-                ne.push(t);
+                Z.push(t);
               },
               onCompleteSync: function (t) {
-                re.push(t);
+                ee.push(t);
               },
               onLog: function (t) {
-                oe.push(t);
+                te.push(t);
               },
               onMeasurementAnalysis: function (t) {
-                ae.push(t);
+                ne.push(t);
               },
               onBeforeLog: function (t) {
-                ie.push(t);
+                re.push(t);
               },
               onVcMetricsComplete: function (t) {
-                le.push(t);
+                oe.push(t);
               },
-              setTracePolicy: function (n) {
-                if (n != null) {
-                  var e = R(n);
+              setTracePolicy: function (s) {
+                if (s != null) {
+                  var i = S(s);
                   if (
-                    ((B = e),
-                    (y === "INITIAL_LOAD" || y === "NAVIGATION") && (_ = B),
-                    z.addAnnotation("tracePolicy", B),
-                    a.QuickPerformanceLogger.markerAnnotate(
-                      i,
-                      { string: { tracePolicy: B } },
-                      { instanceKey: O },
+                    ((F = i),
+                    (f === "INITIAL_LOAD" || f === "NAVIGATION") && (p = F),
+                    V.addAnnotation("tracePolicy", F),
+                    n.QuickPerformanceLogger.markerAnnotate(
+                      a,
+                      { string: { tracePolicy: F } },
+                      { instanceKey: A },
                     ),
-                    J == null && t.disableLoomTrace !== !0)
+                    Q == null && t.disableLoomTrace !== !0)
                   ) {
-                    var l,
-                      s =
-                        (l = a.WebLoom) == null
+                    var u,
+                      c =
+                        (u = n.WebLoom) == null
                           ? void 0
-                          : l.maybeStartTraceForInteraction(I, g, i, B, T);
-                    ((J = s == null ? void 0 : s.traceReferenceId),
-                      (Z = s == null ? void 0 : s.loomProviders));
+                          : u.maybeStartTraceForInteraction(R, l, a, F, k);
+                    ((Q = c == null ? void 0 : c.traceReferenceId),
+                      (X = c == null ? void 0 : c.loomProviders));
                   }
-                  var c = o(
+                  var d = o(
                     "interaction-tracing-metrics",
-                  ).InteractionTracingMetricsCore.get(I);
-                  (c &&
-                    ((c.tracePolicy = B),
-                    c.vcTracker && c.vcTracker.setTracePolicy(B)),
-                    r("one-trace").setTracePolicy(I, y, e),
+                  ).InteractionTracingMetricsCore.get(R);
+                  (d &&
+                    ((d.tracePolicy = F),
+                    d.vcTracker && d.vcTracker.setTracePolicy(F)),
+                    r("one-trace").setTracePolicy(R, f, i),
                     r("one-trace").annotateInteractionIndentifier(
-                      y +
+                      f +
                         "(" +
-                        (u || (u = o("QPLEvent"))).getMarkerId(i) +
+                        (e || (e = o("QPLEvent"))).getMarkerId(a) +
                         ":" +
-                        e +
+                        i +
                         ")",
                     ));
                 }
               },
               setInstanceIdentifier: function (t) {
-                W = t;
+                O = t;
               },
               getInstanceKey: function () {
-                return O;
+                return A;
               },
               failTrace: function (t, n) {
-                (z.addMetadata("isError", 1),
-                  z.addMetadata("errorComponent", t),
-                  n && z.forceCompleteTrace());
+                (V.addMetadata("isError", 1),
+                  V.addMetadata("errorComponent", t),
+                  n && V.forceCompleteTrace());
               },
             },
-            j = function () {
-              if (m.has(I)) {
-                var e = pe;
-                (r("clearTimeout")(ce), Y.remove(), m.delete(I), C(A, e));
-                var n = [].concat(ie);
-                ((ie.length = 0),
-                  n.forEach(function (t) {
+            H = function () {
+              if (d.has(R)) {
+                var e = ce;
+                (r("clearTimeout")(le), K.remove(), d.delete(R), y(M, e));
+                var i = [].concat(re);
+                ((re.length = 0),
+                  i.forEach(function (t) {
                     t(e);
                   }));
                 var l = o("InteractionTracingLogger").getTraceStatus(
                     e,
                     t.qplActionCancelOnNavigation,
                   ),
-                  s = o("InteractionTracingLogger").logQPL(t, a, i, l, e, O);
+                  s = o("InteractionTracingLogger").logQPL(t, n, a, l, e, A);
                 if (
                   ((e.qplAction = s),
                   (e.traceStatus = l),
-                  (e.debugName = x),
+                  (e.debugName = T),
                   t.heroBootloadStatsAfterQPL === !1)
                 ) {
                   var u;
-                  (u = a.HeroBootloadPerfStore) == null ||
+                  (u = n.HeroBootloadPerfStore) == null ||
                     u.addStaticResourcesStats(e);
                 }
-                var c = [].concat(oe);
+                var c = [].concat(te);
                 if (
-                  ((oe.length = 0),
+                  ((te.length = 0),
                   c.forEach(function (n) {
                     n(
                       e,
@@ -597,54 +583,54 @@ __d(
                   }),
                   t.heroBootloadStatsAfterQPL === !0)
                 ) {
-                  var d;
-                  (d = a.HeroBootloadPerfStore) == null ||
-                    d.addStaticResourcesStats(e);
+                  var m;
+                  (m = n.HeroBootloadPerfStore) == null ||
+                    m.addStaticResourcesStats(e);
                 }
                 (delete e.vcTracker,
-                  U(e, s),
+                  W(e, s),
                   o("InteractionTracingUserTimingUtils").markInteraction(
-                    a,
+                    n,
                     e,
-                    y,
+                    f,
                     t,
-                    O,
+                    A,
                   ),
                   setTimeout(function () {
                     o(
                       "interaction-tracing-metrics",
-                    ).InteractionTracingMetricsCore.delete(I);
+                    ).InteractionTracingMetricsCore.delete(R);
                   }, t.cleanUpTraceTimeout));
               }
             };
-          function K(e) {
+          function G(e) {
             e
-              ? H.forEach(function (e) {
-                  z.unlockInteractionLogging(e);
+              ? q.forEach(function (e) {
+                  V.unlockInteractionLogging(e);
                 })
-              : z.unlockInteractionLogging(d);
+              : V.unlockInteractionLogging(c);
           }
-          var Q = function (n, r) {
-            if (m.has(I)) {
+          var z = function (r, a) {
+            if (d.has(R)) {
               if (
-                (z.addAnnotationInt("startTimestamp", T + t.qplBaseTimestamp),
-                z.addAnnotation(
+                (V.addAnnotationInt("startTimestamp", k + t.qplBaseTimestamp),
+                V.addAnnotation(
                   "tracePolicy",
-                  B != null ? B : t.defaultTracePolicy,
+                  F != null ? F : t.defaultTracePolicy,
                 ),
-                (y === "INITIAL_LOAD" || y === "NAVIGATION") &&
-                  (z.addAnnotationInt(
+                (f === "INITIAL_LOAD" || f === "NAVIGATION") &&
+                  (V.addAnnotationInt(
                     "revisit",
-                    Number(k.checkAndMarkRevisit(B)),
+                    Number(E.checkAndMarkRevisit(F)),
                   ),
-                  W != null &&
-                    z.addAnnotationInt(
+                  O != null &&
+                    V.addAnnotationInt(
                       "instance_revisit",
-                      Number(k.checkAndMarkRevisit(W)),
+                      Number(E.checkAndMarkRevisit(O)),
                     )),
-                F != null && z.addAnnotation("referrer", F),
-                z.addAnnotation("interactionId", I),
-                q != null)
+                w != null && V.addAnnotation("referrer", w),
+                V.addAnnotation("interactionId", R),
+                B != null)
               ) {
                 var e = o("MemoryUtils").getCurrentMemory(),
                   i = e.deviceMemory,
@@ -652,189 +638,189 @@ __d(
                   s = e.totalJSHeapSize,
                   u = e.usedJSHeapSize;
                 (u != null &&
-                  (z.addAnnotationInt("usedJSHeapSizeStart", q),
-                  z.addAnnotationInt("usedJSHeapSizeEnd", u)),
-                  s != null && z.addAnnotationInt("JSTotalHeapSize", s),
-                  l != null && z.addAnnotationInt("JSHeapSizeLimit", l),
-                  i != null && z.addAnnotationInt("JSDeviceMemory", i));
+                  (V.addAnnotationInt("usedJSHeapSizeStart", B),
+                  V.addAnnotationInt("usedJSHeapSizeEnd", u)),
+                  s != null && V.addAnnotationInt("JSTotalHeapSize", s),
+                  l != null && V.addAnnotationInt("JSHeapSizeLimit", l),
+                  i != null && V.addAnnotationInt("JSDeviceMemory", i));
               }
-              (b(t, z, n),
-                a.VCTracker && t.enableVCTracker && ue != null && ue());
-              var c = [].concat(ne);
-              ((ne.length = 0),
+              (C(t, V, r),
+                n.VCTracker && t.enableVCTracker && ie != null && ie());
+              var c = [].concat(Z);
+              ((Z.length = 0),
                 c.forEach(function (e) {
-                  e(n, r);
+                  e(r, a);
                 }),
-                J != null && z.addAnnotation("loomRefId", J),
-                Z != null &&
-                  Z.forEach(function (e) {
-                    return z.addTag("loomProviders", e);
+                Q != null && V.addAnnotation("loomRefId", Q),
+                X != null &&
+                  X.forEach(function (e) {
+                    return V.addTag("loomProviders", e);
                   }));
-              var d = n.vcTracker;
-              d && !n.hasVcReport
-                ? (d.onComplete(function () {
-                    K(r);
+              var m = r.vcTracker;
+              m && !r.hasVcReport
+                ? (m.onComplete(function () {
+                    G(a);
                   }),
-                  r && d.forceMeasurement())
-                : K(r);
+                  a && m.forceMeasurement())
+                : G(a);
             }
           };
-          function X(e, t) {
-            (t === void 0 && (t = (c || (c = r("performanceNow")))()),
-              A.push({ isOnline: e, timestamp: t }));
+          function j(e, t) {
+            (t === void 0 && (t = (u || (u = r("performanceNow")))()),
+              M.push({ isOnline: e, timestamp: t }));
           }
-          var Y = r("NetworkStatusTracker").onChange(function (e) {
+          var K = r("NetworkStatusTracker").onChange(function (e) {
             var t = e.online;
-            X(t);
+            j(t);
           });
-          r("NetworkStatusTracker").isOnline() || X(!1);
-          var J, Z;
-          if (B != null && t.disableLoomTrace !== !0) {
-            var ee,
-              te =
-                (ee = a.WebLoom) == null
+          r("NetworkStatusTracker").isOnline() || j(!1);
+          var Q, X;
+          if (F != null && t.disableLoomTrace !== !0) {
+            var Y,
+              J =
+                (Y = n.WebLoom) == null
                   ? void 0
-                  : ee.maybeStartTraceForInteraction(I, g, i, B, T);
-            ((J = te == null ? void 0 : te.traceReferenceId),
-              (Z = te == null ? void 0 : te.loomProviders));
+                  : Y.maybeStartTraceForInteraction(R, l, a, F, k);
+            ((Q = J == null ? void 0 : J.traceReferenceId),
+              (X = J == null ? void 0 : J.loomProviders));
           }
-          $ !== !0 && o("InteractionTracingLogger").initQPL(t, a, i, T, O);
-          var ne = [],
+          D !== !0 && o("InteractionTracingLogger").initQPL(t, n, a, k, A);
+          var Z = [],
+            ee = [],
+            te = [],
+            ne = [],
             re = [],
             oe = [],
             ae = [],
-            ie = [],
-            le = [],
-            se = [],
-            ue = null;
-          (a.VCTracker &&
+            ie = null;
+          (n.VCTracker &&
             t.enableVCTracker &&
-            (ue = o(
+            (ie = o(
               "VisualCompletionAdapter",
-            ).markOtherInteractionSubspanToNavigationVC(a.VCTracker, y, I, i)),
-            r("one-trace").startTrace(I, B, y, T, i),
-            B != null &&
+            ).markOtherInteractionSubspanToNavigationVC(n.VCTracker, f, R, a)),
+            r("one-trace").startTrace(R, F, f, k, a),
+            F != null &&
               r("one-trace").annotateInteractionIndentifier(
-                y +
+                f +
                   "(" +
-                  (u || (u = o("QPLEvent"))).getMarkerId(i) +
+                  (e || (e = o("QPLEvent"))).getMarkerId(a) +
                   ":" +
-                  (B != null ? B : "") +
+                  (F != null ? F : "") +
                   ")",
               ),
-            z.onLog(function (e, n) {
-              var a;
+            V.onLog(function (n, i) {
+              var l;
               (r("one-trace").annotateInteractionIndentifier(
-                y +
+                f +
                   "(" +
-                  (u || (u = o("QPLEvent"))).getMarkerId(i) +
+                  (e || (e = o("QPLEvent"))).getMarkerId(a) +
                   ":" +
-                  (B != null ? B : "") +
+                  (F != null ? F : "") +
                   ")",
               ),
                 r("one-trace").endTrace(
-                  I,
-                  (a = e.completed) != null
-                    ? a
-                    : (c || (c = r("performanceNow")))(),
+                  R,
+                  (l = n.completed) != null
+                    ? l
+                    : (u || (u = r("performanceNow")))(),
                   o("InteractionTracingLogger").getTraceStatus(
-                    e,
+                    n,
                     t.qplActionCancelOnNavigation,
                   ),
                 ));
             }));
-          var ce = r("setTimeoutAcrossTransitions")(function () {
-            z.cancelTrace("timeout", !1);
+          var le = r("setTimeoutAcrossTransitions")(function () {
+            V.cancelTrace("timeout", !1);
           }, t.timeout);
           if (t.cancelOnBackground === !0) {
-            var de = o("VisibilityState").subscribe(function (e, t) {
-              t && z.cancelTrace("background", !0);
+            var se = o("VisibilityState").subscribe(function (e, t) {
+              t && V.cancelTrace("background", !0);
             });
-            z.onCompleteSync(function () {
-              de();
+            V.onCompleteSync(function () {
+              se();
             });
           }
-          var me = function (n, o) {
+          var ue = function (o, a) {
               var e, i;
-              if ((o === void 0 && (o = !1), !!m.has(I))) {
-                (a.VCTracker &&
+              if ((a === void 0 && (a = !1), !!d.has(R))) {
+                (n.VCTracker &&
                   t.enableVCTracker &&
-                  ((e = n.vcTracker) == null ||
+                  ((e = o.vcTracker) == null ||
                     e.unlock(
-                      a.VCTracker.VisualCompletionConstants
+                      n.VCTracker.VisualCompletionConstants
                         .INTERACTION_TRACING_HOLD,
                     )),
-                  n.completed == null &&
-                    (n.completed = (c || (c = r("performanceNow")))()));
-                var l = [].concat(re);
+                  o.completed == null &&
+                    (o.completed = (u || (u = r("performanceNow")))()));
+                var l = [].concat(ee);
                 if (
-                  ((re.length = 0),
+                  ((ee.length = 0),
                   l.forEach(function (e) {
-                    e(n);
+                    e(o);
                   }),
-                  n.type === "INITIAL_LOAD" &&
+                  o.type === "INITIAL_LOAD" &&
                     ((i = window) == null || (i = i.document) == null
                       ? void 0
                       : i.readyState) === "loading")
                 ) {
-                  var u,
-                    d = function () {
+                  var c,
+                    m = function () {
                       var e;
                       ((s || (s = r("JSScheduler"))).scheduleLoggingPriCallback(
                         function () {
-                          Q(n, o);
+                          z(o, a);
                         },
                       ),
                         (e = window) == null ||
                           (e = e.document) == null ||
-                          e.removeEventListener("DOMContentLoaded", d));
+                          e.removeEventListener("DOMContentLoaded", m));
                     };
-                  (u = window) == null ||
-                    (u = u.document) == null ||
-                    u.addEventListener("DOMContentLoaded", d);
+                  (c = window) == null ||
+                    (c = c.document) == null ||
+                    c.addEventListener("DOMContentLoaded", m);
                 } else
                   (s || (s = r("JSScheduler"))).scheduleLoggingPriCallback(
                     function () {
-                      Q(n, o);
+                      z(o, a);
                     },
                   );
               }
             },
-            pe = o(
+            ce = o(
               "interaction-tracing-metrics",
-            ).InteractionTracingMetricsCore.addTracedInteraction(I, T, me);
+            ).InteractionTracingMetricsCore.addTracedInteraction(R, k, ue);
           switch (
             (o(
               "interaction-tracing-metrics",
-            ).InteractionTracingMetricsCore.setInteractionType(I, g, y, i),
-            pe && (pe.namespace = w != null ? w : "default"),
-            y)
+            ).InteractionTracingMetricsCore.setInteractionType(R, l, f, a),
+            ce && (ce.namespace = N != null ? N : "default"),
+            f)
           ) {
             case "INITIAL_LOAD":
               if (
-                (z.addAnnotationInt("navSequence", ++f),
-                a.VCTracker && t.enableVCTracker)
+                (V.addAnnotationInt("navSequence", ++_),
+                n.VCTracker && t.enableVCTracker)
               ) {
-                var _e = o("VisualCompletionAdapter").traceNavigationVC(
-                  a.VCTracker,
-                  I,
+                var de = o("VisualCompletionAdapter").traceNavigationVC(
+                  n.VCTracker,
+                  R,
                   0,
                   "INITIAL_LOAD",
-                  f,
+                  _,
+                  $,
                   N,
-                  w,
                 );
-                (pe && (pe.vcTracker = _e),
+                (ce && (ce.vcTracker = de),
                   t.useDocumentBodyForVCRoot === !0 &&
                     window.document != null &&
-                    (_e.observeMutation(window.document.body),
-                    _e.registerNavigationMutationRoot(window.document.body)));
+                    (de.observeMutation(window.document.body),
+                    de.registerNavigationMutationRoot(window.document.body)));
               }
               break;
             case "NAVIGATION":
               if (
-                (z.addAnnotationInt("navSequence", ++f),
-                m.forEach(function (e) {
+                (V.addAnnotationInt("navSequence", ++_),
+                d.forEach(function (e) {
                   var n = o(
                     "interaction-tracing-metrics",
                   ).InteractionTracingMetricsCore.get(e.getTraceId());
@@ -843,46 +829,46 @@ __d(
                     n.type === "INTERACTION") ||
                     (n != null &&
                       n.namespace != null &&
-                      n.namespace !== (w != null ? w : "default")) ||
+                      n.namespace !== (N != null ? N : "default")) ||
                     e.cancelTrace("navigation", !1);
                 }),
-                a.VCTracker && t.enableVCTracker)
+                n.VCTracker && t.enableVCTracker)
               ) {
-                var fe = o("VisualCompletionAdapter").traceNavigationVC(
-                  a.VCTracker,
-                  I,
-                  T,
-                  y,
+                var me = o("VisualCompletionAdapter").traceNavigationVC(
+                  n.VCTracker,
+                  R,
+                  k,
                   f,
+                  _,
+                  $,
                   N,
-                  w,
                 );
-                (pe && (pe.vcTracker = fe),
+                (ce && (ce.vcTracker = me),
                   t.useDocumentBodyForVCRoot === !0 &&
                     window.document != null &&
-                    (fe.observeMutation(window.document.body),
-                    fe.registerNavigationMutationRoot(window.document.body)));
+                    (me.observeMutation(window.document.body),
+                    me.registerNavigationMutationRoot(window.document.body)));
               }
               break;
             case "INTERACTION":
-              if (a.VCTracker && t.enableVCTracker) {
-                var ge = o("VisualCompletionAdapter").traceInteractionVC(
-                  a.VCTracker,
-                  I,
-                  T,
-                  y,
-                  N,
+              if (n.VCTracker && t.enableVCTracker) {
+                var pe = o("VisualCompletionAdapter").traceInteractionVC(
+                  n.VCTracker,
+                  R,
+                  k,
+                  f,
+                  $,
                 );
-                pe && (pe.vcTracker = ge);
+                ce && (ce.vcTracker = pe);
               }
               break;
           }
           if (
-            (m.set(z.getTraceId(), z),
-            o("HeroTracingDebugTracing").addHeroDebugging(z, t, function () {
-              return J != null;
+            (d.set(V.getTraceId(), V),
+            o("HeroTracingDebugTracing").addHeroDebugging(V, t, function () {
+              return Q != null;
             }),
-            z.onCompleteSync(function (e) {
+            V.onCompleteSync(function (e) {
               var t;
               (o(
                 "interaction-tracing-metrics",
@@ -892,51 +878,51 @@ __d(
                 "AppTiming",
                 (t = e.completed) != null
                   ? t
-                  : (c || (c = r("performanceNow")))(),
+                  : (u || (u = r("performanceNow")))(),
               ),
                 o("hero-tracing").HeroLogger.cleanupHeroInteraction(e.traceId));
             }),
-            B != null && z.setTracePolicy(B),
-            pe && pe.vcTracker)
+            F != null && V.setTracePolicy(F),
+            ce && ce.vcTracker)
           ) {
-            var he = pe.vcTracker;
-            (a.VCTracker &&
+            var _e = ce.vcTracker;
+            (n.VCTracker &&
               t.enableVCTracker &&
-              he.lock(
-                a.VCTracker.VisualCompletionConstants.INTERACTION_TRACING_HOLD,
+              _e.lock(
+                n.VCTracker.VisualCompletionConstants.INTERACTION_TRACING_HOLD,
               ),
               o("VisualCompletionAdapter").logFinalReactStackOnBeforeComplete(
-                he,
-                pe,
+                _e,
+                ce,
               ),
-              S(he, pe),
-              he.onComplete(function (e) {
-                var t = [].concat(le);
-                ((le.length = 0),
+              v(_e, ce),
+              _e.onComplete(function (e) {
+                var t = [].concat(oe);
+                ((oe.length = 0),
                   e &&
                     t.forEach(function (t) {
-                      t(pe, e);
+                      t(ce, e);
                     }));
               }),
-              o("VisualCompletionAdapter").copyVcMetricsOnComplete(t, pe, z),
-              t.setupVcTracker && t.setupVcTracker(he));
+              o("VisualCompletionAdapter").copyVcMetricsOnComplete(t, ce, V),
+              t.setupVcTracker && t.setupVcTracker(_e));
           }
           if (
-            (l(z),
-            E.forEach(function (e) {
-              return e(z);
+            (i(V),
+            L.forEach(function (e) {
+              return e(V);
             }),
-            D != null)
+            I != null)
           ) {
-            var ye = T;
+            var fe = k;
             o(
               "interaction-tracing-metrics",
             ).InteractionTracingMetricsCore.addSubspan(
-              I,
+              R,
               "EventQueued",
               "DOMEventTiming",
-              ye,
-              ye + D,
+              fe,
+              fe + I,
               {},
             );
           }
@@ -944,52 +930,52 @@ __d(
             t.enableInstrumentationCorrectnessLogging &&
             t.instrumentationCorrectnessQPLEvent != null
           ) {
-            var Ce,
-              be,
-              ve,
-              Se,
-              Re = t.instrumentationCorrectnessQPLEvent,
-              Le =
-                (Ce = (be = pe.vcTracker) == null ? void 0 : be.config) != null
-                  ? Ce
+            var ge,
+              he,
+              ye,
+              Ce,
+              be = t.instrumentationCorrectnessQPLEvent,
+              ve =
+                (ge = (he = ce.vcTracker) == null ? void 0 : he.config) != null
+                  ? ge
                   : {},
-              Ee = o(
+              Se = o(
                 "InstrumentationAnalyzer",
               ).createInstrumentationAnalyzerInstance(
-                I,
-                y,
-                (u || (u = o("QPLEvent"))).getMarkerId(i),
-                Re,
-                a.QuickPerformanceLogger,
+                R,
+                f,
+                (e || (e = o("QPLEvent"))).getMarkerId(a),
+                be,
+                n.QuickPerformanceLogger,
                 t.qplBaseTimestamp,
-                B,
-                (ve = Le.getReactComponentStackFromDOMElement) != null
-                  ? ve
+                F,
+                (ye = ve.getReactComponentStackFromDOMElement) != null
+                  ? ye
                   : null,
-                (Se = Le.getWrapperComponentPropArrayFromDOMElement) != null
-                  ? Se
+                (Ce = ve.getWrapperComponentPropArrayFromDOMElement) != null
+                  ? Ce
                   : null,
               );
-            ((pe.measurementCorrectness = Ee.getTraceMetadata()),
-              z.onLog(function (e, t) {
-                (Ee.endInteraction(e, t),
-                  ae.forEach(function (e) {
-                    Ee.onReport(e);
+            ((ce.measurementCorrectness = Se.getTraceMetadata()),
+              V.onLog(function (e, t) {
+                (Se.endInteraction(e, t),
+                  ne.forEach(function (e) {
+                    Se.onReport(e);
                   }),
-                  (ae.length = 0));
+                  (ne.length = 0));
               }));
           }
-          return I;
+          return R;
         }),
         getPendingInteractions: function () {
-          return new Set(m.values());
+          return new Set(d.values());
         },
         getPendingInteractionById: function (t) {
-          return m.get(t);
+          return d.get(t);
         },
       },
-      I = k;
-    l.default = I;
+      k = E;
+    l.default = k;
   },
   98,
 );

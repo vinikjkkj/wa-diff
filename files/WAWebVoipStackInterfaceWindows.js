@@ -16,7 +16,6 @@ __d(
     "WAWebWidFactory",
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsNativeVoipParsers",
-    "asyncToGeneratorRuntime",
     "cr:16754",
     "err",
     "gkx",
@@ -394,47 +393,37 @@ __d(
                 chatJid: t,
               }));
           },
-          onRequestDeviceJidList: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: onRequestDeviceJidList",
-                    ])),
-                );
-                var t = o("WAWebWidFactory").createWid(String(e));
-                yield o("WAWebAdvSyncDeviceListApi").syncDeviceList({
-                  wids: [t],
-                  context: "voip",
-                  phash: null,
-                });
-                var n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([
-                  t,
-                ]);
-                t.isLid() &&
-                  n.some(function (e) {
-                    return !e.isLid();
-                  }) &&
-                  (n = n.map(function (e) {
-                    var t;
-                    return e.isLid()
-                      ? e
-                      : (t = o("WAWebLidMigrationUtils").toLid(e)) != null
-                        ? t
-                        : e;
-                  }));
-                var r = n.map(function (e) {
-                  return e.toString({ legacy: !0, formatIncludeDevice: !0 });
-                });
-                return r;
-              },
+          onRequestDeviceJidList: async function (t) {
+            o("WALogger").LOG(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: onRequestDeviceJidList",
+                ])),
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
+            var e = o("WAWebWidFactory").createWid(String(t));
+            await o("WAWebAdvSyncDeviceListApi").syncDeviceList({
+              wids: [e],
+              context: "voip",
+              phash: null,
+            });
+            var n = await o("WAWebSendMsgDatabaseJob").getFanOutListJob([e]);
+            e.isLid() &&
+              n.some(function (e) {
+                return !e.isLid();
+              }) &&
+              (n = n.map(function (e) {
+                var t;
+                return e.isLid()
+                  ? e
+                  : (t = o("WAWebLidMigrationUtils").toLid(e)) != null
+                    ? t
+                    : e;
+              }));
+            var r = n.map(function (e) {
+              return e.toString({ legacy: !0, formatIncludeDevice: !0 });
+            });
+            return r;
+          },
           onCallAgain: function (t, n) {
             o("WALogger").LOG(
               C ||
@@ -468,66 +457,50 @@ __d(
                   );
                 }));
           },
-          onRequestPhoneNumberJid: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n,
-                  r = o("WAWebWidFactory").createWid(String(e));
-                return (
-                  o("WALogger").LOG(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: onRequestPhoneNumberJid",
-                      ])),
-                  ),
-                  r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
-                  r.isLid()
-                    ? (t =
-                        (n = o("WAWebLidMigrationUtils").toPn(r)) == null
-                          ? void 0
-                          : n.toString()) != null
-                      ? t
-                      : ""
-                    : r.toString()
-                );
-              },
+          onRequestPhoneNumberJid: async function (t) {
+            var e,
+              n,
+              r = o("WAWebWidFactory").createWid(String(t));
+            return (
+              o("WALogger").LOG(
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: onRequestPhoneNumberJid",
+                  ])),
+              ),
+              r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
+              r.isLid()
+                ? (e =
+                    (n = o("WAWebLidMigrationUtils").toPn(r)) == null
+                      ? void 0
+                      : n.toString()) != null
+                  ? e
+                  : ""
+                : r.toString()
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          onRequestLidJid: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n,
-                  r = o("WAWebWidFactory").createWid(String(e));
-                return (
-                  o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: onRequestLidJid",
-                      ])),
-                  ),
-                  r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
-                  r.isLid()
-                    ? r.toString()
-                    : (t =
-                          (n = o("WAWebLidMigrationUtils").toLid(r)) == null
-                            ? void 0
-                            : n.toString()) != null
-                      ? t
-                      : ""
-                );
-              },
+          },
+          onRequestLidJid: async function (t) {
+            var e,
+              n,
+              r = o("WAWebWidFactory").createWid(String(t));
+            return (
+              o("WALogger").LOG(
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: onRequestLidJid",
+                  ])),
+              ),
+              r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
+              r.isLid()
+                ? r.toString()
+                : (e =
+                      (n = o("WAWebLidMigrationUtils").toLid(r)) == null
+                        ? void 0
+                        : n.toString()) != null
+                  ? e
+                  : ""
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
+          },
           onRequestJoinCall: function (t) {
             (o("WALogger").LOG(
               L ||

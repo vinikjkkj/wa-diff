@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipCameraPrewarm",
   [
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebLocalStorage",
@@ -12,7 +11,6 @@ __d(
     "WAWebVoipConverterPrewarm",
     "WAWebVoipPerfOptimizations",
     "WAWebVoipResolutionCap",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,20 +19,19 @@ __d(
       s,
       u,
       c,
-      d,
-      m = null,
+      d = null,
+      m = !1,
       p = !1,
-      _ = !1,
-      f = null,
-      g = 640,
-      h = 480,
-      y = 30,
-      C = "voip_prewarm_resolution",
-      b = null;
-    function v() {
+      _ = null,
+      f = 640,
+      g = 480,
+      h = 30,
+      y = "voip_prewarm_resolution",
+      C = null;
+    function b() {
       try {
         if (r("WAWebLocalStorage") == null) return null;
-        var e = r("WAWebLocalStorage").getItem(C);
+        var e = r("WAWebLocalStorage").getItem(y);
         if (e == null) return null;
         var t = JSON.parse(e);
         return typeof t.width == "number" &&
@@ -52,11 +49,11 @@ __d(
         return null;
       }
     }
-    function S(t) {
+    function v(t) {
       try {
         if (r("WAWebLocalStorage") == null) return;
         r("WAWebLocalStorage").setItem(
-          C,
+          y,
           JSON.stringify({
             width: t.width,
             height: t.height,
@@ -74,134 +71,117 @@ __d(
         );
       }
     }
-    function R() {
+    function S() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_virtual_video_capture_driver",
         ) === !0
       );
     }
-    function L() {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    async function R() {
+      if (
+        o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+          o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.CAMERA_PREWARM,
+        ) &&
+        !S() &&
+        !(d != null || m)
+      ) {
+        ((m = !0), (p = !1));
+        var e = r("WAWebNoop");
+        _ = new Promise(function (t) {
+          e = t;
+        });
+        try {
+          var t, n, a;
           if (
             o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
               o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                .CAMERA_PREWARM,
-            ) &&
-            !R() &&
-            !(m != null || p)
+                .PERMISSIONS_API_OPTIMIZATION,
+            )
           ) {
-            ((p = !0), (_ = !1));
-            var e = r("WAWebNoop");
-            f = new (d || (d = n("Promise")))(function (t) {
-              e = t;
-            });
-            try {
-              var t, a, i;
-              if (
-                o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-                  o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                    .PERMISSIONS_API_OPTIMIZATION,
-                )
-              ) {
-                var l = yield o(
-                    "WAWebMediaPermissionsUtils",
-                  ).checkMediaPermissionState("camera"),
-                  s = l.denied;
-                if (s) return;
-              }
-              if (_) return;
-              var u = navigator.mediaDevices;
-              if (u == null || u.getUserMedia == null) return;
-              var C = v(),
-                S = o("WAWebVoipResolutionCap").applyLowEndResolutionCap({
-                  width: (t = C == null ? void 0 : C.width) != null ? t : g,
-                  height: (a = C == null ? void 0 : C.height) != null ? a : h,
-                  maxFps: (i = C == null ? void 0 : C.maxFps) != null ? i : y,
-                }),
-                L = S.height,
-                E = S.maxFps,
-                k = S.width;
-              ((b = { width: k, height: L, maxFps: E }),
-                o("WAWebVoipConverterPrewarm").prewarmConverter(k, L));
-              var I = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice(),
-                T = r("WAWebVoipCameraTrackConstraints")({
-                  width: k,
-                  height: L,
-                  maxFps: E,
-                });
-              r("isStringNullOrEmpty")(I) || (T.deviceId = { exact: I });
-              var D = u
-                .getUserMedia({ video: T, audio: !1 })
-                .then(function (e) {
-                  return _
-                    ? (e.getTracks().forEach(function (e) {
-                        return e.stop();
-                      }),
-                      (m = null),
-                      (b = null),
-                      null)
-                    : e;
-                })
-                .catch(function (e) {
-                  return (
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [CameraPrewarm] Camera pre-warm failed: ",
-                          "",
-                        ])),
-                      e,
-                    ),
-                    (m = null),
-                    (b = null),
-                    null
-                  );
-                });
-              m = { streamPromise: D };
-            } finally {
-              ((p = !1), e());
-            }
+            var i = await o(
+                "WAWebMediaPermissionsUtils",
+              ).checkMediaPermissionState("camera"),
+              l = i.denied;
+            if (l) return;
           }
-        })),
-        E.apply(this, arguments)
-      );
+          if (p) return;
+          var u = navigator.mediaDevices;
+          if (u == null || u.getUserMedia == null) return;
+          var c = b(),
+            y = o("WAWebVoipResolutionCap").applyLowEndResolutionCap({
+              width: (t = c == null ? void 0 : c.width) != null ? t : f,
+              height: (n = c == null ? void 0 : c.height) != null ? n : g,
+              maxFps: (a = c == null ? void 0 : c.maxFps) != null ? a : h,
+            }),
+            v = y.height,
+            R = y.maxFps,
+            L = y.width;
+          ((C = { width: L, height: v, maxFps: R }),
+            o("WAWebVoipConverterPrewarm").prewarmConverter(L, v));
+          var E = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice(),
+            k = r("WAWebVoipCameraTrackConstraints")({
+              width: L,
+              height: v,
+              maxFps: R,
+            });
+          r("isStringNullOrEmpty")(E) || (k.deviceId = { exact: E });
+          var I = u
+            .getUserMedia({ video: k, audio: !1 })
+            .then(function (e) {
+              return p
+                ? (e.getTracks().forEach(function (e) {
+                    return e.stop();
+                  }),
+                  (d = null),
+                  (C = null),
+                  null)
+                : e;
+            })
+            .catch(function (e) {
+              return (
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [CameraPrewarm] Camera pre-warm failed: ",
+                      "",
+                    ])),
+                  e,
+                ),
+                (d = null),
+                (C = null),
+                null
+              );
+            });
+          d = { streamPromise: I };
+        } finally {
+          ((m = !1), e());
+        }
+      }
     }
-    function k() {
-      return I.apply(this, arguments);
+    async function L() {
+      if ((_ != null && (await _, (_ = null)), d == null)) return null;
+      var e = d,
+        t = e.streamPromise;
+      return ((d = null), t);
     }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if ((f != null && (yield f, (f = null)), m == null)) return null;
-          var e = m,
-            t = e.streamPromise;
-          return ((m = null), t);
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t) {
+    function E(e, t) {
       var n,
         a,
         i = e.getVideoTracks()[0];
       if (i == null) {
         (o("WALogger").WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [CameraPrewarm] No video track found, aborting resolution switch",
             ])),
         ),
-          (b = null));
+          (C = null));
         return;
       }
-      var l = b;
+      var l = C;
       if (
-        ((b = null),
+        ((C = null),
         !(
           l != null &&
           t.width === l.width &&
@@ -209,16 +189,16 @@ __d(
           t.maxFps === l.maxFps
         ))
       ) {
-        var c = (n = l == null ? void 0 : l.width) != null ? n : g,
-          d = (a = l == null ? void 0 : l.height) != null ? a : h;
+        var s = (n = l == null ? void 0 : l.width) != null ? n : f,
+          d = (a = l == null ? void 0 : l.height) != null ? a : g;
         i.applyConstraints(r("WAWebVoipCameraTrackConstraints")(t))
           .then(function () {
-            S(t);
+            v(t);
           })
           .catch(function (e) {
             o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [CameraPrewarm] resolution switch failed: ",
                   "",
                 ])),
@@ -227,39 +207,31 @@ __d(
           });
       }
     }
-    function D() {
-      return m != null;
+    function k() {
+      return d != null;
     }
-    function x() {
-      return $.apply(this, arguments);
+    async function I() {
+      if ((m && (p = !0), d == null)) {
+        ((C = null), (_ = null));
+        return;
+      }
+      var e = d,
+        t = e.streamPromise;
+      ((d = null), (C = null));
+      try {
+        var n = await t;
+        n != null &&
+          n.getTracks().forEach(function (e) {
+            return e.stop();
+          });
+      } catch (e) {}
+      await o("WAWebVoipConverterPrewarm").cleanupPrewarmedConverter();
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if ((p && (_ = !0), m == null)) {
-            ((b = null), (f = null));
-            return;
-          }
-          var e = m,
-            t = e.streamPromise;
-          ((m = null), (b = null));
-          try {
-            var n = yield t;
-            n != null &&
-              n.getTracks().forEach(function (e) {
-                return e.stop();
-              });
-          } catch (e) {}
-          yield o("WAWebVoipConverterPrewarm").cleanupPrewarmedConverter();
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    ((l.prewarmCamera = L),
-      (l.consumePrewarmedStream = k),
-      (l.scheduleResolutionSwitch = T),
-      (l.hasPrewarmedStream = D),
-      (l.cleanupPrewarmedCamera = x));
+    ((l.prewarmCamera = R),
+      (l.consumePrewarmedStream = L),
+      (l.scheduleResolutionSwitch = E),
+      (l.hasPrewarmedStream = k),
+      (l.cleanupPrewarmedCamera = I));
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "invariant",
     "WABitArray",
+    "WAMemoizeCache",
     "WANullthrows",
     "WAOnceWithReset",
     "WAWebABProps",
@@ -100,27 +101,25 @@ __d(
       ]),
       x = [127950, 65039],
       $ = [127950, 8205, 128960],
-      P = [127950, 8205, 128961],
-      N = x
+      P = x
         .map(function (e) {
           return String.fromCodePoint(e);
         })
         .join(""),
-      M = $.map(function (e) {
+      N = $.map(function (e) {
         return String.fromCodePoint(e);
       }).join(""),
-      w = P.map(function (e) {
-        return String.fromCodePoint(e);
-      }).join(""),
-      A = String.fromCodePoint(9917),
-      F = [9917, 57344],
-      O = F.map(function (e) {
-        return String.fromCodePoint(e);
-      }).join(""),
-      B = function (t) {
+      M = String.fromCodePoint(9917),
+      w = [9917, 57344],
+      A = w
+        .map(function (e) {
+          return String.fromCodePoint(e);
+        })
+        .join(""),
+      F = function (t) {
         return t.replace(/\uFE0F/g, "");
       },
-      W = r("lodash").memoize(
+      O = o("WAMemoizeCache").memoizeWithArgs(
         function (e, t) {
           function n(r) {
             if ((r === void 0 && (r = []), r.length === t)) return [r];
@@ -136,7 +135,7 @@ __d(
           return e.toString() + t;
         },
       ),
-      q = (function () {
+      B = (function () {
         function t() {
           var t = this,
             n;
@@ -222,7 +221,7 @@ __d(
               return t.normalizeEmoji(e);
             }),
             (this.normalizeEmoji = function (e) {
-              var n = B(e),
+              var n = F(e),
                 r = t.$12(),
                 o = r.unqualifiedToNormalizedEmoji;
               return o.get(n);
@@ -243,7 +242,7 @@ __d(
               var r = t.$8(),
                 o = r.get(e);
               if (o == null) return null;
-              var a = U(n);
+              var a = W(n);
               return o.get(a);
             }),
             (this.$12 = n(function () {
@@ -260,7 +259,7 @@ __d(
                     var n = Array.isArray(e) ? e : [e];
                     (n.forEach(function (e) {
                       i.set(e, t);
-                      var n = B(e);
+                      var n = F(e);
                       l.set(n, e);
                     }),
                       a.set(t, s),
@@ -271,7 +270,7 @@ __d(
                   var t = e[0],
                     n = e[1];
                   i.set(t, n);
-                  var r = B(t);
+                  var r = F(t);
                   l.set(r, t);
                 }),
                 {
@@ -316,7 +315,7 @@ __d(
                   if (l == null) return 0;
                   var s = r.get(l);
                   s == null && ((s = new Map()), s.set("", l), r.set(l, s));
-                  var c = U(o);
+                  var c = W(o);
                   s.set(c, i);
                 },
                 a;
@@ -363,27 +362,18 @@ __d(
               );
             })),
             (this.$17 = function (e) {
-              if (e === N) {
-                if (
-                  o("WAWebABProps").getABPropConfigValue(
-                    "custom_racing_emoji_feb2025",
-                  )
-                )
-                  return w;
-                if (
-                  o("WAWebABProps").getABPropConfigValue("custom_racing_emoji")
-                )
-                  return M;
-              }
-              return e === A &&
-                (o("WAWebABProps").getABPropConfigValue(
-                  "use_custom_soccer_ball_for_reaction_enabled",
-                ) ||
-                  o("WAWebABProps").getABPropConfigValue(
-                    "animated_soccer_ball_prod_enabled",
-                  ))
-                ? O
-                : e;
+              return e === P &&
+                o("WAWebABProps").getABPropConfigValue("custom_racing_emoji")
+                ? N
+                : e === M &&
+                    (o("WAWebABProps").getABPropConfigValue(
+                      "use_custom_soccer_ball_for_reaction_enabled",
+                    ) ||
+                      o("WAWebABProps").getABPropConfigValue(
+                        "animated_soccer_ball_prod_enabled",
+                      ))
+                  ? A
+                  : e;
             }),
             (this.applyGlyphTransformations = function (e) {
               return t.$17(e);
@@ -525,7 +515,7 @@ __d(
           (n.getEmojiAggregate = function (t) {
             var e = this.getNormalizedOrTofu(t),
               n = this.getSkinToneBase(e);
-            return n != null ? n : B(e);
+            return n != null ? n : F(e);
           }),
           (n.getNormalizedOrTofu = function (n) {
             var t = this.normalizeEmojiFromString(n);
@@ -534,17 +524,17 @@ __d(
           t
         );
       })();
-    function U(e) {
+    function W(e) {
       return e.every(function (t) {
         return t === e[0];
       })
         ? e[0]
         : e.join("");
     }
-    function V(e) {
+    function q(e) {
       return I.has(e);
     }
-    var H = new q();
+    var U = new B();
     ((l.OPEN_BOX_CHAR = e),
       (l.PEOPLE_HOLDING_HANDS = m),
       (l.WOMEN_HOLDING_HANDS = p),
@@ -559,9 +549,9 @@ __d(
       (l.COUPLE_WITH_HEART_MAN_MAN = R),
       (l.COUPLE_WITH_HEART = E),
       (l.HANDSHAKE = k),
-      (l.getPermutations = W),
-      (l.isBaseMultiSkinToneEmoji = V),
-      (l.EmojiUtil = H));
+      (l.getPermutations = O),
+      (l.isBaseMultiSkinToneEmoji = q),
+      (l.EmojiUtil = U));
   },
   98,
 );

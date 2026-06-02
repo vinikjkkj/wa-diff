@@ -1,6 +1,6 @@
 __d(
   "WAWebTeeRealClient",
-  ["asyncToGeneratorRuntime", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
         function e() {}
@@ -17,15 +17,9 @@ __d(
             }
             return t;
           })()),
-          (t.preconnect = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              throw r("err")("TeeRealClient is not implemented.");
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (t.preconnect = async function () {
+            throw r("err")("TeeRealClient is not implemented.");
+          }),
           (t.disconnect = function () {}),
           e
         );

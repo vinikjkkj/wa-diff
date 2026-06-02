@@ -7,7 +7,6 @@ __d(
     "WAParsableWapNode",
     "WAWebNewsletterHandleLiveUpdatesNotification",
     "WAWebNewsletterNotificationQueue",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -56,49 +55,41 @@ __d(
           return { firstChildTag: a, from: i.newsletterJid };
         },
       );
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = d.parseOrThrow(e),
-              n = t.firstChildTag,
-              a = t.from;
-            return yield r("WAWebNewsletterNotificationQueue").enqueue(
-              a,
-              function () {
-                switch (n) {
-                  case c.LiveUpdates:
-                    return o(
-                      "WAWebNewsletterHandleLiveUpdatesNotification",
-                    ).handleNewsletterLiveUpdatesNotification(e);
-                }
-              },
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter][notification] Failed to parse notification",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("failed-to-parse-newsletter-notification"),
-              new (o("WAParsableWapNode").XmppParsingFailure)(
-                "incomingNewsletterNotificationParser",
-                e instanceof Error
-                  ? e.name
-                  : typeof e + " was thrown rather than an Error",
-              )
-            );
-          }
-        })),
-        p.apply(this, arguments)
-      );
+    async function m(e) {
+      try {
+        var t = d.parseOrThrow(e),
+          n = t.firstChildTag,
+          a = t.from;
+        return await r("WAWebNewsletterNotificationQueue").enqueue(
+          a,
+          function () {
+            switch (n) {
+              case c.LiveUpdates:
+                return o(
+                  "WAWebNewsletterHandleLiveUpdatesNotification",
+                ).handleNewsletterLiveUpdatesNotification(e);
+            }
+          },
+        );
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter][notification] Failed to parse notification",
+                ])),
+            )
+            .tags("newsletter")
+            .sendLogs("failed-to-parse-newsletter-notification"),
+          new (o("WAParsableWapNode").XmppParsingFailure)(
+            "incomingNewsletterNotificationParser",
+            e instanceof Error
+              ? e.name
+              : typeof e + " was thrown rather than an Error",
+          )
+        );
+      }
     }
     l.default = m;
   },

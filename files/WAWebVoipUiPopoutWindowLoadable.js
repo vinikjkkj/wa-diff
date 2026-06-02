@@ -4,24 +4,20 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebVoipUiPopoutWindow.react",
-          )
-            .__setRef("WAWebVoipUiPopoutWindowLoadable")
-            .load();
-          return e.WAWebVoipUiPopoutWindow;
-        }),
-        "WAWebVoipUiPopoutWindow",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebVoipUiPopoutWindow.react",
+        )
+          .__setRef("WAWebVoipUiPopoutWindowLoadable")
+          .load();
+        return e.WAWebVoipUiPopoutWindow;
+      }, "WAWebVoipUiPopoutWindow"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

@@ -1,7 +1,6 @@
 __d(
   "WAWebEligibilityCheckHelper",
   [
-    "Promise",
     "WABase64",
     "WATimeUtils",
     "WAWebAccountLinkingDBOperationsAPI",
@@ -14,46 +13,36 @@ __d(
     "WAWebCrosspostingUploader",
     "WAWebCryptoCrosspostingUtil",
     "WAWebPonyfillsCryptoRandomUUID",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
-        "crossposting",
-      );
-    function u(e) {
-      return c.apply(this, arguments);
+    var e = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      "crossposting",
+    );
+    async function s(e) {
+      var t = await o("WAWebCrosspostingDBOperations").getCrosspostingUniqueIds(
+          e.id,
+        ),
+        n = new Map();
+      return t.length === 0
+        ? (n.set(
+            e.toString(),
+            o("WAWebCrossposting.flow").NoPreviousCrosspostingRecord,
+          ),
+          n)
+        : (n.set(e.toString(), t[0]), n);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-              "WAWebCrosspostingDBOperations",
-            ).getCrosspostingUniqueIds(e.id),
-            n = new Map();
-          return t.length === 0
-            ? (n.set(
-                e.toString(),
-                o("WAWebCrossposting.flow").NoPreviousCrosspostingRecord,
-              ),
-              n)
-            : (n.set(e.toString(), t[0]), n);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
+    function u() {
       var e = r("WAWebPonyfillsCryptoRandomUUID")(),
         t = e.split("-");
       return (t.splice(2, 0, "waffle"), t.join("-"));
     }
-    function m(e) {
+    function c(e) {
       return e.map(function (e) {
         return { waffle_xan: e, waffle_xs: "S" };
       });
     }
-    function p(e) {
+    function d(e) {
       return e ===
         o("WAWebCrossposting.flow").CrosspostingDestinationGQLValue.FACEBOOK
         ? "F"
@@ -68,175 +57,137 @@ __d(
               );
             })();
     }
-    function _(e) {
+    function m(e) {
       if (e === "F")
         return o("WAWebCrossposting.flow").CrosspostingDestination.FACEBOOK;
       if (e === "I")
         return o("WAWebCrossposting.flow").CrosspostingDestination.INSTAGRAM;
       throw r("err")("...");
     }
-    function f(e, t, n, r) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function p(e, t, n, r) {
+      var a = e.hcbcPerStatus,
+        i = e.purposeEncryptionParams,
+        l = e.uniqueIds;
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = e.hcbcPerStatus,
-              i = e.purposeEncryptionParams,
-              l = e.uniqueIds;
-            return (
-              yield o(
-                "WAWebCrosspostingCryptoHelper",
-              ).validatePurposeEncryptionParams(i, t),
-              h(a, r, _(n), l)
-            );
-          },
-        )),
-        g.apply(this, arguments)
+        await o(
+          "WAWebCrosspostingCryptoHelper",
+        ).validatePurposeEncryptionParams(i, t),
+        _(a, r, m(n), l)
       );
     }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = [],
-              s = [];
-            for (var u of t.entries()) {
-              var c = u[0],
-                d = u[1],
-                m = d.every(function (e) {
-                  return e === !0;
-                });
-              m
-                ? s.push(
-                    o(
-                      "WAWebCrosspostingDBOperations",
-                    ).updateCrosspostingUniqueIdWithState({
-                      uniqueId: i[c],
-                      statusMessageId: r.toString(),
-                      crosspostingDestination: a,
-                      crosspostingState: o("WAWebCrossposting.flow")
-                        .CrosspostingState.SUCCESS,
-                      directUrlPath: "",
-                    }),
-                  )
-                : (s.push(
-                    o(
-                      "WAWebCrosspostingDBOperations",
-                    ).updateCrosspostingUniqueId(i[c], r.toString(), a),
-                  ),
-                  l.push(r));
-            }
-            return (yield (e || (e = n("Promise"))).all(s), l);
-          },
-        )),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.caption,
-            i = t.destinations,
-            l = t.statusBlob,
-            c = t.statusKey,
-            p = t.statusTimestamp,
-            g = p + o("WATimeUtils").DAY_SECONDS,
-            h = yield o("WAWebCryptoCrosspostingUtil").generateKeys(),
-            y = o("WABase64").encodeB64UrlSafe(h.publicKey),
-            C = yield u(c),
-            b = C.get(c.toString());
-          if (b == null) throw r("err")("Unique ID not found for status key");
-          var v = d(),
-            S = m(i);
-          (yield (e || (e = n("Promise"))).all(
-            i.map(function (e) {
-              var t = _(e);
-              return o(
+    async function _(e, t, n, r) {
+      var a = [],
+        i = [];
+      for (var l of e.entries()) {
+        var s = l[0],
+          u = l[1],
+          c = u.every(function (e) {
+            return e === !0;
+          });
+        c
+          ? i.push(
+              o(
                 "WAWebCrosspostingDBOperations",
-              ).createOrReplaceCrossposting({
-                statusMessageId: c.toString(),
-                crosspostingSessionId: v,
-                crosspostingDestination: t,
+              ).updateCrosspostingUniqueIdWithState({
+                uniqueId: r[s],
+                statusMessageId: t.toString(),
+                crosspostingDestination: n,
                 crosspostingState: o("WAWebCrossposting.flow").CrosspostingState
-                  .PENDING,
-                crosspostingStatusUniqueId: b,
-                mediaFilePath: null,
-                directUrlPath: null,
-              });
+                  .SUCCESS,
+                directUrlPath: "",
+              }),
+            )
+          : (i.push(
+              o("WAWebCrosspostingDBOperations").updateCrosspostingUniqueId(
+                r[s],
+                t.toString(),
+                n,
+              ),
+            ),
+            a.push(t));
+      }
+      return (await Promise.all(i), a);
+    }
+    async function f(t) {
+      var n = t.caption,
+        a = t.destinations,
+        i = t.statusBlob,
+        l = t.statusKey,
+        d = t.statusTimestamp,
+        _ = d + o("WATimeUtils").DAY_SECONDS,
+        f = await o("WAWebCryptoCrosspostingUtil").generateKeys(),
+        g = o("WABase64").encodeB64UrlSafe(f.publicKey),
+        h = await s(l),
+        y = h.get(l.toString());
+      if (y == null) throw r("err")("Unique ID not found for status key");
+      var C = u(),
+        b = c(a);
+      (await Promise.all(
+        a.map(function (e) {
+          var t = m(e);
+          return o("WAWebCrosspostingDBOperations").createOrReplaceCrossposting(
+            {
+              statusMessageId: l.toString(),
+              crosspostingSessionId: C,
+              crosspostingDestination: t,
+              crosspostingState: o("WAWebCrossposting.flow").CrosspostingState
+                .PENDING,
+              crosspostingStatusUniqueId: y,
+              mediaFilePath: null,
+              directUrlPath: null,
+            },
+          );
+        }),
+      ),
+        o("WAWebBackendApi").frontendFireAndForget("updateCrosspostingInfo", {
+          statusMessageId: l.toString(),
+          crosspostingInfo: new Map(
+            a.map(function (e) {
+              return [
+                m(e),
+                {
+                  crosspostingState: o("WAWebCrossposting.flow")
+                    .CrosspostingState.PENDING,
+                },
+              ];
             }),
           ),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateCrosspostingInfo",
-              {
-                statusMessageId: c.toString(),
-                crosspostingInfo: new Map(
-                  i.map(function (e) {
-                    return [
-                      _(e),
-                      {
-                        crosspostingState: o("WAWebCrossposting.flow")
-                          .CrosspostingState.PENDING,
-                      },
-                    ];
-                  }),
-                ),
-              },
-            ));
-          try {
-            var R = yield o("WAWebCrosspostingAPI").makeEligibilityRequest({
-                expirationTime: g,
-                publicKeyBase64: y,
-                uniqueIds: Array.from(C.values()),
-                sessionId: v,
-                destination: S,
-              }),
-              L = o("WAWebCrosspostingParser").parseEligibilityCheckResponse(R);
-            (yield s.updateDestinationIdentities(L.crosspostingDestinations),
-              yield (e || (e = n("Promise"))).all(
-                i.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = yield f(L, h, e, c);
-                        yield o("WAWebCrosspostingUploader").prepareUploads({
-                          caption: a,
-                          destination: e,
-                          destinationIdentities: L.crosspostingDestinations,
-                          keyPair: h,
-                          purposeEncryptionParams: L.purposeEncryptionParams,
-                          sessionId: v,
-                          statusBlob: l,
-                          statusKeys: t,
-                          uniqueId: L.uniqueIds[0],
-                        });
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              ));
-          } catch (e) {
-            throw e;
-          }
-        })),
-        b.apply(this, arguments)
-      );
+        }));
+      try {
+        var v = await o("WAWebCrosspostingAPI").makeEligibilityRequest({
+            expirationTime: _,
+            publicKeyBase64: g,
+            uniqueIds: Array.from(h.values()),
+            sessionId: C,
+            destination: b,
+          }),
+          S = o("WAWebCrosspostingParser").parseEligibilityCheckResponse(v);
+        (await e.updateDestinationIdentities(S.crosspostingDestinations),
+          await Promise.all(
+            a.map(async function (e) {
+              var t = await p(S, f, e, l);
+              await o("WAWebCrosspostingUploader").prepareUploads({
+                caption: n,
+                destination: e,
+                destinationIdentities: S.crosspostingDestinations,
+                keyPair: f,
+                purposeEncryptionParams: S.purposeEncryptionParams,
+                sessionId: C,
+                statusBlob: i,
+                statusKeys: t,
+                uniqueId: S.uniqueIds[0],
+              });
+            }),
+          ));
+      } catch (e) {
+        throw e;
+      }
     }
-    ((l.generateCrosspostSessionId = d),
-      (l.translateCrosspostingDestination = p),
-      (l.translateWaffleXANToCrosspostingDestination = _),
-      (l.handleHCBCPerStatus = h),
-      (l.initiateCrossposting = C));
+    ((l.generateCrosspostSessionId = u),
+      (l.translateCrosspostingDestination = d),
+      (l.translateWaffleXANToCrosspostingDestination = m),
+      (l.handleHCBCPerStatus = _),
+      (l.initiateCrossposting = f));
   },
   98,
 );

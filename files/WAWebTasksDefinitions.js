@@ -1,7 +1,6 @@
 __d(
   "WAWebTasksDefinitions",
   [
-    "Promise",
     "WALogger",
     "WATaskScheduler",
     "WATimeUtils",
@@ -58,7 +57,6 @@ __d(
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsMultiDevice",
     "WAWebWebTPSharedSessionUtils",
-    "asyncToGeneratorRuntime",
     "cr:4857",
     "cr:4940",
     "gkx",
@@ -93,138 +91,116 @@ __d(
       $,
       P,
       N,
-      M,
-      w = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
+      M = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
         "WAWebTasksDefinitions",
       ),
+      w = [
+        (N = o("WAWebTasksTaskType")).TaskType.CANONICAL_ENT_TOKEN_REFRESH,
+        N.TaskType.CLEAN_TC_TOKENS,
+        N.TaskType.LOG_DAILY_STATS,
+        N.TaskType.ROTATE_KEY,
+        N.TaskType.SYNC_AB_PROPS,
+        N.TaskType.SYNC_CONTACTS,
+        N.TaskType.REPORT_SYNCD_ACTION_STAT,
+        N.TaskType.LT_HASH_CHECK,
+        N.TaskType.REQUEST_ALL_SYNCD_MISSING_KEYS,
+        N.TaskType.REPORT_SYNCD_KEY_STATS,
+        N.TaskType.SYNCD_SYNC_ALL_COLLECTIONS,
+        N.TaskType.CLEAN_ORPHAN_ADD_ONS,
+        N.TaskType.CLEAN_EXPIRED_UTM,
+        N.TaskType.SEND_NON_MESSAGE_DATA_REQUEST,
+        N.TaskType.LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING,
+        N.TaskType.DELETE_NEWSLETTER_PREVIEW_CHATS,
+        N.TaskType.REPORT_DB_VERSIONS,
+        N.TaskType.UPDATE_EXPIRED_TEXT_STATUS,
+        N.TaskType.RESTART_RECENT_SYNC,
+        N.TaskType.CLEANUP_REPORTING_TABLE,
+        N.TaskType.CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE,
+        N.TaskType.WAFFLE_SCHEDULED_TASKS,
+        N.TaskType.CLEAR_GALAXY_FLOWS_CACHE,
+        N.TaskType.CLEAR_FALCO_BUFFER,
+        N.TaskType.SEND_WAM_FINGERPRINT,
+        N.TaskType.INACTIVE_GROUP_LID_MIGRATION,
+        N.TaskType.MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD,
+        N.TaskType.PURGE_QPL_STORAGE,
+        N.TaskType.CLEAN_WEBTP_SHARED_SESSIONS,
+        N.TaskType.CLEAN_EXPIRED_QUARANTINE_DATA,
+        N.TaskType.OPUS_MIGRATION,
+        N.TaskType.FETCH_QUICK_PROMOTIONS,
+      ],
       A = [
-        (M = o("WAWebTasksTaskType")).TaskType.CANONICAL_ENT_TOKEN_REFRESH,
-        M.TaskType.CLEAN_TC_TOKENS,
-        M.TaskType.LOG_DAILY_STATS,
-        M.TaskType.ROTATE_KEY,
-        M.TaskType.SYNC_AB_PROPS,
-        M.TaskType.SYNC_CONTACTS,
-        M.TaskType.REPORT_SYNCD_ACTION_STAT,
-        M.TaskType.LT_HASH_CHECK,
-        M.TaskType.REQUEST_ALL_SYNCD_MISSING_KEYS,
-        M.TaskType.REPORT_SYNCD_KEY_STATS,
-        M.TaskType.SYNCD_SYNC_ALL_COLLECTIONS,
-        M.TaskType.CLEAN_ORPHAN_ADD_ONS,
-        M.TaskType.CLEAN_EXPIRED_UTM,
-        M.TaskType.SEND_NON_MESSAGE_DATA_REQUEST,
-        M.TaskType.LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING,
-        M.TaskType.DELETE_NEWSLETTER_PREVIEW_CHATS,
-        M.TaskType.REPORT_DB_VERSIONS,
-        M.TaskType.UPDATE_EXPIRED_TEXT_STATUS,
-        M.TaskType.RESTART_RECENT_SYNC,
-        M.TaskType.CLEANUP_REPORTING_TABLE,
-        M.TaskType.CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE,
-        M.TaskType.WAFFLE_SCHEDULED_TASKS,
-        M.TaskType.CLEAR_GALAXY_FLOWS_CACHE,
-        M.TaskType.CLEAR_FALCO_BUFFER,
-        M.TaskType.SEND_WAM_FINGERPRINT,
-        M.TaskType.INACTIVE_GROUP_LID_MIGRATION,
-        M.TaskType.MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD,
-        M.TaskType.PURGE_QPL_STORAGE,
-        M.TaskType.CLEAN_WEBTP_SHARED_SESSIONS,
-        M.TaskType.CLEAN_EXPIRED_QUARANTINE_DATA,
-        M.TaskType.OPUS_MIGRATION,
-        M.TaskType.FETCH_QUICK_PROMOTIONS,
+        N.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
+        N.TaskType.CLEANUP_STALE_CAMPAIGNS,
+        N.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
       ],
-      F = [
-        M.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
-        M.TaskType.CLEANUP_STALE_CAMPAIGNS,
-        M.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
-      ],
-      O = [M.TaskType.LOG_DB_ROW_COUNTS, M.TaskType.MONITOR_DB_STORAGE];
-    function B(t) {
+      F = [N.TaskType.LOG_DB_ROW_COUNTS, N.TaskType.MONITOR_DB_STORAGE];
+    function O(t) {
       return t === o("WAWebTasksTaskType").TaskType.MONITOR_DB_STORAGE
-        ? (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (r("gkx")("26258"))
-                  return o("WATaskScheduler").DO_NOT_RESCHEDULE;
-                var t = yield n("cr:4857") == null
-                  ? void 0
-                  : n("cr:4857").shouldMonitorDbStorageUsageJob();
-                return t
-                  ? o("WATimeUtils").HOUR_SECONDS
-                  : o("WATaskScheduler").DO_NOT_RESCHEDULE;
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()
+        ? async function (e) {
+            if (r("gkx")("26258"))
+              return o("WATaskScheduler").DO_NOT_RESCHEDULE;
+            var t = await (n("cr:4857") == null
+              ? void 0
+              : n("cr:4857").shouldMonitorDbStorageUsageJob());
+            return t
+              ? o("WATimeUtils").HOUR_SECONDS
+              : o("WATaskScheduler").DO_NOT_RESCHEDULE;
+          }
         : t === o("WAWebTasksTaskType").TaskType.CLEAN_TC_TOKENS
-          ? (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  if (t)
-                    o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "CleanTcToken skip first run",
-                        ])),
-                    );
-                  else
-                    try {
-                      (yield o("WAWebApiChat").pruneExpiredTcTokens(),
-                        yield o("WAWebApiChat").pruneExpiredOrphanTcTokens());
-                    } catch (e) {
-                      o("WALogger")
-                        .ERROR(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "Failed to delete the expired TcTokens with error: ",
-                              "",
-                            ])),
-                          e,
-                        )
-                        .verbose();
-                    }
-                  return o("WATimeUtils").DAY_SECONDS;
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })()
-          : t === o("WAWebTasksTaskType").TaskType.UPDATE_EXPIRED_TEXT_STATUS
-            ? (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    if (e)
-                      o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "Update expired text status skip first run",
-                          ])),
-                      );
-                    else
-                      try {
-                        yield o(
-                          "WAWebApiTextStatus",
-                        ).updateExpiredTextStatusOfContact();
-                      } catch (e) {
-                        o("WALogger")
-                          .ERROR(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "Failed to update expired text status: ",
-                                "",
-                              ])),
-                            e,
-                          )
-                          .verbose();
-                      }
-                    return o("WATimeUtils").DAY_SECONDS;
-                  },
+          ? async function (t) {
+              if (t)
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "CleanTcToken skip first run",
+                    ])),
                 );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })()
+              else
+                try {
+                  (await o("WAWebApiChat").pruneExpiredTcTokens(),
+                    await o("WAWebApiChat").pruneExpiredOrphanTcTokens());
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to delete the expired TcTokens with error: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .verbose();
+                }
+              return o("WATimeUtils").DAY_SECONDS;
+            }
+          : t === o("WAWebTasksTaskType").TaskType.UPDATE_EXPIRED_TEXT_STATUS
+            ? async function (e) {
+                if (e)
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Update expired text status skip first run",
+                      ])),
+                  );
+                else
+                  try {
+                    await o(
+                      "WAWebApiTextStatus",
+                    ).updateExpiredTextStatusOfContact();
+                  } catch (e) {
+                    o("WALogger")
+                      .ERROR(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "Failed to update expired text status: ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .verbose();
+                  }
+                return o("WATimeUtils").DAY_SECONDS;
+              }
             : t === o("WAWebTasksTaskType").TaskType.LOG_DAILY_STATS
               ? function () {
                   return o("WAWebLogDailyStatsJob")
@@ -272,244 +248,175 @@ __d(
                                     .verbose();
                                 });
                           }, e * 1e3),
-                          (N || (N = n("Promise"))).resolve(t)
+                          Promise.resolve(t)
                         );
                       };
                     }
                     return function () {
-                      return (N || (N = n("Promise"))).resolve(
+                      return Promise.resolve(
                         o("WATaskScheduler").DO_NOT_RESCHEDULE,
                       );
                     };
                   })()
                 : t === o("WAWebTasksTaskType").TaskType.ROTATE_KEY
-                  ? (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          return (
-                            e
-                              ? o("WALogger").LOG(
-                                  p ||
-                                    (p =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "RotateKeyTask skip first run",
-                                      ])),
-                                )
-                              : yield o(
-                                  "WAWebPersistedJobManagerWorkerCompatible",
-                                )
-                                  .getJobManager()
-                                  .waitUntilCompleted(
-                                    o(
-                                      "WAWebPersistedJobDefinitions",
-                                    ).jobSerializers.rotateKey(),
-                                  ),
-                            27 * o("WATimeUtils").DAY_SECONDS
-                          );
-                        },
+                  ? async function (e) {
+                      return (
+                        e
+                          ? o("WALogger").LOG(
+                              p ||
+                                (p = babelHelpers.taggedTemplateLiteralLoose([
+                                  "RotateKeyTask skip first run",
+                                ])),
+                            )
+                          : await o("WAWebPersistedJobManagerWorkerCompatible")
+                              .getJobManager()
+                              .waitUntilCompleted(
+                                o(
+                                  "WAWebPersistedJobDefinitions",
+                                ).jobSerializers.rotateKey(),
+                              ),
+                        27 * o("WATimeUtils").DAY_SECONDS
                       );
-                      return function (t) {
-                        return e.apply(this, arguments);
-                      };
-                    })()
+                    }
                   : t === o("WAWebTasksTaskType").TaskType.SYNC_AB_PROPS
-                    ? (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            return (
-                              e ||
-                                (yield o(
-                                  "WAWebAbPropsSyncJob",
-                                ).syncABPropsTask()),
-                              o("WAWebABPropsLocalStorage").getRefresh()
-                            );
-                          },
+                    ? async function (e) {
+                        return (
+                          e ||
+                            (await o("WAWebAbPropsSyncJob").syncABPropsTask()),
+                          o("WAWebABPropsLocalStorage").getRefresh()
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })()
+                      }
                     : t === o("WAWebTasksTaskType").TaskType.SYNC_CONTACTS
-                      ? (function () {
-                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* (e) {
-                              if (!e) {
-                                try {
-                                  yield o(
-                                    "WAWebNonAddressBookContactsJob",
-                                  ).getNonAddressBookContactsAndMarkAllContactsDirty();
-                                } catch (e) {
-                                  o("WALogger")
-                                    .ERROR(
-                                      _ ||
-                                        (_ =
-                                          babelHelpers.taggedTemplateLiteralLoose(
-                                            [
-                                              "Failed to sync non-address book contacts with error: ",
-                                              "",
-                                            ],
-                                          )),
-                                      e,
-                                    )
-                                    .verbose();
-                                }
-                                try {
-                                  yield o(
-                                    "WAWebContactSyncBridge",
-                                  ).doFullContactSync();
-                                } catch (e) {
-                                  o("WALogger")
-                                    .ERROR(
-                                      f ||
-                                        (f =
-                                          babelHelpers.taggedTemplateLiteralLoose(
-                                            [
-                                              "syncContacts: contact sync failed, error: ",
-                                              "",
-                                            ],
-                                          )),
-                                      e,
-                                    )
-                                    .verbose()
-                                    .tags("non-sad", "contact-sync")
-                                    .sendLogs(
-                                      "syncContacts: contact sync failed",
-                                    );
-                                }
-                              }
-                              return o(
-                                "WAWebSyncContactsJob",
-                              ).getContactSyncRefreshSeconds();
-                            },
-                          );
-                          return function (t) {
-                            return e.apply(this, arguments);
-                          };
-                        })()
+                      ? async function (e) {
+                          if (!e) {
+                            try {
+                              await o(
+                                "WAWebNonAddressBookContactsJob",
+                              ).getNonAddressBookContactsAndMarkAllContactsDirty();
+                            } catch (e) {
+                              o("WALogger")
+                                .ERROR(
+                                  _ ||
+                                    (_ =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "Failed to sync non-address book contacts with error: ",
+                                        "",
+                                      ])),
+                                  e,
+                                )
+                                .verbose();
+                            }
+                            try {
+                              await o(
+                                "WAWebContactSyncBridge",
+                              ).doFullContactSync();
+                            } catch (e) {
+                              o("WALogger")
+                                .ERROR(
+                                  f ||
+                                    (f =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "syncContacts: contact sync failed, error: ",
+                                        "",
+                                      ])),
+                                  e,
+                                )
+                                .verbose()
+                                .tags("non-sad", "contact-sync")
+                                .sendLogs("syncContacts: contact sync failed");
+                            }
+                          }
+                          return o(
+                            "WAWebSyncContactsJob",
+                          ).getContactSyncRefreshSeconds();
+                        }
                       : t ===
                           o("WAWebTasksTaskType").TaskType
                             .REPORT_SYNCD_ACTION_STAT
-                        ? (function () {
-                            var e = n(
-                              "asyncToGeneratorRuntime",
-                            ).asyncToGenerator(function* (e) {
-                              return (
-                                e ||
-                                  (yield o(
-                                    "WAWebSyncdReportSyncdStatJob",
-                                  ).reportSyncdStatsJob()),
-                                o("WATimeUtils").DAY_SECONDS
-                              );
-                            });
-                            return function (t) {
-                              return e.apply(this, arguments);
-                            };
-                          })()
+                        ? async function (e) {
+                            return (
+                              e ||
+                                (await o(
+                                  "WAWebSyncdReportSyncdStatJob",
+                                ).reportSyncdStatsJob()),
+                              o("WATimeUtils").DAY_SECONDS
+                            );
+                          }
                         : t === o("WAWebTasksTaskType").TaskType.LT_HASH_CHECK
-                          ? (function () {
-                              var e = n(
-                                "asyncToGeneratorRuntime",
-                              ).asyncToGenerator(function* (e) {
-                                var t =
-                                  o("WAWebABProps").getABPropConfigValue(
-                                    "lthash_check_hours",
-                                  );
-                                return t === 0
-                                  ? 24 * o("WATimeUtils").HOUR_SECONDS
-                                  : (e ||
-                                      (yield o(
-                                        "WAWebSyncdAntiTampering",
-                                      ).checkLtHash("abc")),
-                                    t * o("WATimeUtils").HOUR_SECONDS);
-                              });
-                              return function (t) {
-                                return e.apply(this, arguments);
-                              };
-                            })()
+                          ? async function (e) {
+                              var t =
+                                o("WAWebABProps").getABPropConfigValue(
+                                  "lthash_check_hours",
+                                );
+                              return t === 0
+                                ? 24 * o("WATimeUtils").HOUR_SECONDS
+                                : (e ||
+                                    (await o(
+                                      "WAWebSyncdAntiTampering",
+                                    ).checkLtHash("abc")),
+                                  t * o("WATimeUtils").HOUR_SECONDS);
+                            }
                           : t ===
                               o("WAWebTasksTaskType").TaskType
                                 .REQUEST_ALL_SYNCD_MISSING_KEYS
-                            ? (function () {
-                                var e = n(
-                                  "asyncToGeneratorRuntime",
-                                ).asyncToGenerator(function* (e) {
-                                  return (
-                                    e ||
-                                      (yield o(
-                                        "WAWebSyncdRequestAllSyncdMissingKeysJob",
-                                      ).requestAllSyncdMissingKeysJob()),
-                                    o("WATimeUtils").HOUR_SECONDS * 6
-                                  );
-                                });
-                                return function (t) {
-                                  return e.apply(this, arguments);
-                                };
-                              })()
+                            ? async function (e) {
+                                return (
+                                  e ||
+                                    (await o(
+                                      "WAWebSyncdRequestAllSyncdMissingKeysJob",
+                                    ).requestAllSyncdMissingKeysJob()),
+                                  o("WATimeUtils").HOUR_SECONDS * 6
+                                );
+                              }
                             : t ===
                                 o("WAWebTasksTaskType").TaskType
                                   .REPORT_SYNCD_KEY_STATS
-                              ? (function () {
-                                  var e = n(
-                                    "asyncToGeneratorRuntime",
-                                  ).asyncToGenerator(function* (e) {
-                                    return (
-                                      e ||
-                                        (yield o(
-                                          "WAWebSyncdReportKeyStatsJob",
-                                        ).reportSyncdKeyStatsJob()),
-                                      r("gkx")("26258")
-                                        ? o("WATimeUtils").DAY_SECONDS * 3
-                                        : o("WATimeUtils").DAY_SECONDS
-                                    );
-                                  });
-                                  return function (t) {
-                                    return e.apply(this, arguments);
-                                  };
-                                })()
+                              ? async function (e) {
+                                  return (
+                                    e ||
+                                      (await o(
+                                        "WAWebSyncdReportKeyStatsJob",
+                                      ).reportSyncdKeyStatsJob()),
+                                    r("gkx")("26258")
+                                      ? o("WATimeUtils").DAY_SECONDS * 3
+                                      : o("WATimeUtils").DAY_SECONDS
+                                  );
+                                }
                               : t ===
                                   o("WAWebTasksTaskType").TaskType
                                     .SYNCD_SYNC_ALL_COLLECTIONS
-                                ? (function () {
-                                    var e = n(
-                                      "asyncToGeneratorRuntime",
-                                    ).asyncToGenerator(function* (e) {
-                                      var t = o(
-                                        "WAWebABProps",
-                                      ).getABPropConfigValue(
-                                        "syncd_periodic_sync_days",
-                                      );
-                                      return t === 0
-                                        ? (o("WALogger").LOG(
-                                            g ||
-                                              (g =
-                                                babelHelpers.taggedTemplateLiteralLoose(
-                                                  [
-                                                    "syncd: syncdPeriodicSyncDays is 0, skipping sync",
-                                                  ],
-                                                )),
-                                          ),
-                                          o("WATimeUtils").DAY_SECONDS)
-                                        : (e ||
-                                            (yield o(
-                                              "WAWebSyncdSyncAllCollectionsJob",
-                                            ).syncdSyncAllCollectionsJob()),
-                                          o("WATimeUtils").DAY_SECONDS * t);
-                                    });
-                                    return function (t) {
-                                      return e.apply(this, arguments);
-                                    };
-                                  })()
+                                ? async function (e) {
+                                    var t = o(
+                                      "WAWebABProps",
+                                    ).getABPropConfigValue(
+                                      "syncd_periodic_sync_days",
+                                    );
+                                    return t === 0
+                                      ? (o("WALogger").LOG(
+                                          g ||
+                                            (g =
+                                              babelHelpers.taggedTemplateLiteralLoose(
+                                                [
+                                                  "syncd: syncdPeriodicSyncDays is 0, skipping sync",
+                                                ],
+                                              )),
+                                        ),
+                                        o("WATimeUtils").DAY_SECONDS)
+                                      : (e ||
+                                          (await o(
+                                            "WAWebSyncdSyncAllCollectionsJob",
+                                          ).syncdSyncAllCollectionsJob()),
+                                        o("WATimeUtils").DAY_SECONDS * t);
+                                  }
                                 : t ===
                                     o("WAWebTasksTaskType").TaskType
                                       .CLEAN_ORPHAN_ADD_ONS
                                   ? (function () {
                                       var e = 30,
                                         t = 90;
-                                      return n(
-                                        "asyncToGeneratorRuntime",
-                                      ).asyncToGenerator(function* () {
+                                      return async function () {
                                         try {
-                                          yield o(
+                                          await o(
                                             "WAWebDBPurgeExpiredRecords",
                                           ).purgeExpiredOrphanRecords(e, t);
                                         } catch (e) {
@@ -528,16 +435,14 @@ __d(
                                             .verbose();
                                         }
                                         return o("WATimeUtils").DAY_SECONDS;
-                                      });
+                                      };
                                     })()
                                   : t ===
                                       o("WAWebTasksTaskType").TaskType
                                         .CLEAN_PAST_PARTICIPANTS
-                                    ? n(
-                                        "asyncToGeneratorRuntime",
-                                      ).asyncToGenerator(function* () {
+                                    ? async function () {
                                         try {
-                                          yield o(
+                                          await o(
                                             "WAWebApiParticipantStore",
                                           ).pruneExpiredPastParticipants();
                                         } catch (e) {
@@ -556,7 +461,7 @@ __d(
                                             .verbose();
                                         }
                                         return o("WATimeUtils").DAY_SECONDS;
-                                      })
+                                      }
                                     : t ===
                                         o("WAWebTasksTaskType").TaskType
                                           .CLEAN_EXPIRED_UTM
@@ -585,7 +490,7 @@ __d(
                                                   return o("WATimeUtils")
                                                     .DAY_SECONDS;
                                                 })
-                                            : (N || (N = n("Promise"))).resolve(
+                                            : Promise.resolve(
                                                 o("WATaskScheduler")
                                                   .DO_NOT_RESCHEDULE,
                                               );
@@ -593,153 +498,170 @@ __d(
                                       : t ===
                                           o("WAWebTasksTaskType").TaskType
                                             .SEND_NON_MESSAGE_DATA_REQUEST
-                                        ? n(
-                                            "asyncToGeneratorRuntime",
-                                          ).asyncToGenerator(function* () {
+                                        ? async function () {
                                             return (
-                                              yield o(
+                                              await o(
                                                 "WAWebNonMessageDataRequestMediaHandlingUtils",
                                               ).retryNonMessageDataRequestJob(),
                                               o("WATimeUtils").HOUR_SECONDS * 23
                                             );
-                                          })
+                                          }
                                         : t ===
                                             o("WAWebTasksTaskType").TaskType
                                               .DELETE_NEWSLETTER_PREVIEW_CHATS
-                                          ? n(
-                                              "asyncToGeneratorRuntime",
-                                            ).asyncToGenerator(function* () {
+                                          ? async function () {
                                               return (
-                                                yield o(
+                                                await o(
                                                   "WAWebNewsletterCleanupTasks",
                                                 ).deletePreviewNewsletters(),
                                                 o("WATimeUtils").HOUR_SECONDS *
                                                   4
                                               );
-                                            })
+                                            }
                                           : t ===
                                               o("WAWebTasksTaskType").TaskType
                                                 .REPORT_DB_VERSIONS
-                                            ? n(
-                                                "asyncToGeneratorRuntime",
-                                              ).asyncToGenerator(function* () {
+                                            ? async function () {
                                                 return (
-                                                  yield o(
+                                                  await o(
                                                     "WAWebReportDbVerionsJob",
                                                   ).reportDbVersionsJob(),
                                                   o("WATimeUtils").DAY_SECONDS *
                                                     3
                                                 );
-                                              })
+                                              }
                                             : t ===
                                                 o("WAWebTasksTaskType").TaskType
                                                   .LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING
-                                              ? n(
-                                                  "asyncToGeneratorRuntime",
-                                                ).asyncToGenerator(
-                                                  function* () {
-                                                    var e = o(
-                                                      "WAWebUserPrefsMultiDevice",
-                                                    ).getPairingTimestamp();
-                                                    if (e != null) {
-                                                      var t,
-                                                        n =
-                                                          (t = yield o(
-                                                            "WAWebUserPrefsHistorySync",
-                                                          ).getHistorySyncStatusAfterPairingLoggingCount()) !=
-                                                          null
-                                                            ? t
-                                                            : 0;
-                                                      return n >= 5
-                                                        ? (o("WALogger").LOG(
-                                                            b ||
-                                                              (b =
-                                                                babelHelpers.taggedTemplateLiteralLoose(
-                                                                  [
-                                                                    "[history sync] skip job: logged 4+ times",
-                                                                  ],
-                                                                )),
-                                                          ),
-                                                          o("WATaskScheduler")
-                                                            .DO_NOT_RESCHEDULE)
-                                                        : (yield o(
-                                                            "WAWebLogHistorySyncStatusAfterPairingJob",
-                                                          ).logHistorySyncStatusAfterPairingJob(
-                                                            e,
-                                                            n,
-                                                          ),
-                                                          n === 0
-                                                            ? o("WATimeUtils")
-                                                                .MINUTE_SECONDS *
-                                                              5
-                                                            : o("WATimeUtils")
-                                                                .MINUTE_SECONDS *
-                                                              10);
-                                                    }
-                                                    return 10;
-                                                  },
-                                                )
+                                              ? async function () {
+                                                  var e = o(
+                                                    "WAWebUserPrefsMultiDevice",
+                                                  ).getPairingTimestamp();
+                                                  if (e != null) {
+                                                    var t,
+                                                      n =
+                                                        (t = await o(
+                                                          "WAWebUserPrefsHistorySync",
+                                                        ).getHistorySyncStatusAfterPairingLoggingCount()) !=
+                                                        null
+                                                          ? t
+                                                          : 0;
+                                                    return n >= 5
+                                                      ? (o("WALogger").LOG(
+                                                          b ||
+                                                            (b =
+                                                              babelHelpers.taggedTemplateLiteralLoose(
+                                                                [
+                                                                  "[history sync] skip job: logged 4+ times",
+                                                                ],
+                                                              )),
+                                                        ),
+                                                        o("WATaskScheduler")
+                                                          .DO_NOT_RESCHEDULE)
+                                                      : (await o(
+                                                          "WAWebLogHistorySyncStatusAfterPairingJob",
+                                                        ).logHistorySyncStatusAfterPairingJob(
+                                                          e,
+                                                          n,
+                                                        ),
+                                                        n === 0
+                                                          ? o("WATimeUtils")
+                                                              .MINUTE_SECONDS *
+                                                            5
+                                                          : o("WATimeUtils")
+                                                              .MINUTE_SECONDS *
+                                                            10);
+                                                  }
+                                                  return 10;
+                                                }
                                               : t ===
                                                   o("WAWebTasksTaskType")
                                                     .TaskType
                                                     .RESTART_RECENT_SYNC
-                                                ? n(
-                                                    "asyncToGeneratorRuntime",
-                                                  ).asyncToGenerator(
-                                                    function* () {
-                                                      var e = o(
-                                                        "WAWebUserPrefsMultiDevice",
-                                                      ).getPairingTimestamp();
-                                                      if (e != null) {
-                                                        var t =
-                                                          (o(
-                                                            "WATimeUtils",
-                                                          ).unixTime() -
-                                                            e) /
-                                                          60;
-                                                        return (
-                                                          t >= 5 &&
-                                                            (yield o(
-                                                              "WAWebRestartRecentSyncJob",
-                                                            ).restartRecentSyncJob()),
-                                                          o("WATimeUtils")
-                                                            .MINUTE_SECONDS * 5
-                                                        );
-                                                      }
-                                                      return 10;
-                                                    },
-                                                  )
+                                                ? async function () {
+                                                    var e = o(
+                                                      "WAWebUserPrefsMultiDevice",
+                                                    ).getPairingTimestamp();
+                                                    if (e != null) {
+                                                      var t =
+                                                        (o(
+                                                          "WATimeUtils",
+                                                        ).unixTime() -
+                                                          e) /
+                                                        60;
+                                                      return (
+                                                        t >= 5 &&
+                                                          (await o(
+                                                            "WAWebRestartRecentSyncJob",
+                                                          ).restartRecentSyncJob()),
+                                                        o("WATimeUtils")
+                                                          .MINUTE_SECONDS * 5
+                                                      );
+                                                    }
+                                                    return 10;
+                                                  }
                                                 : t ===
                                                     o("WAWebTasksTaskType")
                                                       .TaskType
                                                       .CLEANUP_REPORTING_TABLE
-                                                  ? n(
-                                                      "asyncToGeneratorRuntime",
-                                                    ).asyncToGenerator(
-                                                      function* () {
-                                                        try {
-                                                          (yield o(
+                                                  ? async function () {
+                                                      try {
+                                                        (await o(
+                                                          "WAWebDBReportingTokenUtils",
+                                                        ).cleanupReportingTable(
+                                                          o(
+                                                            "WAWebMessagingGatingUtils",
+                                                          ).getReportingTagCleanupDays(),
+                                                        ),
+                                                          await o(
                                                             "WAWebDBReportingTokenUtils",
-                                                          ).cleanupReportingTable(
+                                                          ).cleanupReportingTokenAndContent(
                                                             o(
                                                               "WAWebMessagingGatingUtils",
-                                                            ).getReportingTagCleanupDays(),
-                                                          ),
-                                                            yield o(
-                                                              "WAWebDBReportingTokenUtils",
-                                                            ).cleanupReportingTokenAndContent(
-                                                              o(
-                                                                "WAWebMessagingGatingUtils",
-                                                              ).getReportingTokenCleanupDays(),
-                                                            ));
+                                                            ).getReportingTokenCleanupDays(),
+                                                          ));
+                                                      } catch (e) {
+                                                        o("WALogger")
+                                                          .ERROR(
+                                                            v ||
+                                                              (v =
+                                                                babelHelpers.taggedTemplateLiteralLoose(
+                                                                  [
+                                                                    "Failed to cleanup reporting token table: ",
+                                                                    "",
+                                                                  ],
+                                                                )),
+                                                            e,
+                                                          )
+                                                          .tags(
+                                                            "messaging",
+                                                            "wa-ice",
+                                                            "report-token",
+                                                          );
+                                                      }
+                                                      return o("WATimeUtils")
+                                                        .DAY_SECONDS;
+                                                    }
+                                                  : t ===
+                                                      o("WAWebTasksTaskType")
+                                                        .TaskType
+                                                        .CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE
+                                                    ? async function () {
+                                                        try {
+                                                          await o(
+                                                            "WAWebGroupHistoryReportingTokenDBUtils",
+                                                          ).cleanupGroupHistoryReportingTokenTable(
+                                                            30,
+                                                            !0,
+                                                          );
                                                         } catch (e) {
                                                           o("WALogger")
                                                             .ERROR(
-                                                              v ||
-                                                                (v =
+                                                              S ||
+                                                                (S =
                                                                   babelHelpers.taggedTemplateLiteralLoose(
                                                                     [
-                                                                      "Failed to cleanup reporting token table: ",
+                                                                      "Failed to cleanup GHS reporting token table: ",
                                                                       "",
                                                                     ],
                                                                   )),
@@ -748,395 +670,336 @@ __d(
                                                             .tags(
                                                               "messaging",
                                                               "wa-ice",
-                                                              "report-token",
+                                                              "group-history",
                                                             );
                                                         }
                                                         return o("WATimeUtils")
                                                           .DAY_SECONDS;
-                                                      },
-                                                    )
-                                                  : t ===
-                                                      o("WAWebTasksTaskType")
-                                                        .TaskType
-                                                        .CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE
-                                                    ? n(
-                                                        "asyncToGeneratorRuntime",
-                                                      ).asyncToGenerator(
-                                                        function* () {
+                                                      }
+                                                    : t ===
+                                                        o("WAWebTasksTaskType")
+                                                          .TaskType
+                                                          .CLEANUP_3PD_SIGNALS_TABLE
+                                                      ? async function () {
                                                           try {
-                                                            yield o(
-                                                              "WAWebGroupHistoryReportingTokenDBUtils",
-                                                            ).cleanupGroupHistoryReportingTokenTable(
-                                                              30,
-                                                              !0,
-                                                            );
+                                                            o(
+                                                              "WAWebABProps",
+                                                            ).getABPropConfigValue(
+                                                              "ctwa_download_3pd_signals",
+                                                            ) &&
+                                                              (await o(
+                                                                "WAWebDownloads3PDSignalsDatabaseApi",
+                                                              ).cleanup3PDSignalsTable());
                                                           } catch (e) {
                                                             o("WALogger")
                                                               .ERROR(
-                                                                S ||
-                                                                  (S =
+                                                                R ||
+                                                                  (R =
                                                                     babelHelpers.taggedTemplateLiteralLoose(
                                                                       [
-                                                                        "Failed to cleanup GHS reporting token table: ",
+                                                                        "Failed to cleanup 3PD Signals table: ",
                                                                         "",
                                                                       ],
                                                                     )),
                                                                 e,
                                                               )
                                                               .tags(
-                                                                "messaging",
-                                                                "wa-ice",
-                                                                "group-history",
+                                                                "3pd-signals",
                                                               );
                                                           }
                                                           return o(
                                                             "WATimeUtils",
                                                           ).DAY_SECONDS;
-                                                        },
-                                                      )
-                                                    : t ===
-                                                        o("WAWebTasksTaskType")
-                                                          .TaskType
-                                                          .CLEANUP_3PD_SIGNALS_TABLE
-                                                      ? n(
-                                                          "asyncToGeneratorRuntime",
-                                                        ).asyncToGenerator(
-                                                          function* () {
-                                                            try {
-                                                              o(
-                                                                "WAWebABProps",
-                                                              ).getABPropConfigValue(
-                                                                "ctwa_download_3pd_signals",
-                                                              ) &&
-                                                                (yield o(
-                                                                  "WAWebDownloads3PDSignalsDatabaseApi",
-                                                                ).cleanup3PDSignalsTable());
-                                                            } catch (e) {
-                                                              o("WALogger")
-                                                                .ERROR(
-                                                                  R ||
-                                                                    (R =
-                                                                      babelHelpers.taggedTemplateLiteralLoose(
-                                                                        [
-                                                                          "Failed to cleanup 3PD Signals table: ",
-                                                                          "",
-                                                                        ],
-                                                                      )),
-                                                                  e,
-                                                                )
-                                                                .tags(
-                                                                  "3pd-signals",
-                                                                );
-                                                            }
-                                                            return o(
-                                                              "WATimeUtils",
-                                                            ).DAY_SECONDS;
-                                                          },
-                                                        )
+                                                        }
                                                       : t ===
                                                           o(
                                                             "WAWebTasksTaskType",
                                                           ).TaskType
                                                             .FETCH_QUICK_PROMOTIONS
-                                                        ? n(
-                                                            "asyncToGeneratorRuntime",
-                                                          ).asyncToGenerator(
-                                                            function* () {
-                                                              if (
-                                                                o(
-                                                                  "WAWebMobilePlatforms",
-                                                                ).isSMB()
-                                                              )
-                                                                (o(
-                                                                  "WALogger",
-                                                                ).LOG(
-                                                                  L ||
-                                                                    (L =
-                                                                      babelHelpers.taggedTemplateLiteralLoose(
-                                                                        [
-                                                                          "fetchQuickPromotions: fetching quick promotions",
-                                                                        ],
-                                                                      )),
-                                                                ),
-                                                                  yield o(
-                                                                    "WAWebFetchQuickPromotions",
-                                                                  ).fetchQuickPromotions());
-                                                              else {
-                                                                var e =
-                                                                    yield w.load(),
-                                                                  t =
-                                                                    e.fetchConsumerQuickPromotions;
-                                                                (o(
-                                                                  "WALogger",
-                                                                ).LOG(
-                                                                  E ||
-                                                                    (E =
-                                                                      babelHelpers.taggedTemplateLiteralLoose(
-                                                                        [
-                                                                          "fetchConsumerQuickPromotions: fetching",
-                                                                        ],
-                                                                      )),
-                                                                ),
-                                                                  yield t());
-                                                              }
-                                                              return (
-                                                                o(
-                                                                  "WAWebQuickPromotionGating",
-                                                                ).qpGraphQLFetchIntervalMinutes() *
-                                                                o("WATimeUtils")
-                                                                  .MINUTE_SECONDS
-                                                              );
-                                                            },
-                                                          )
+                                                        ? async function () {
+                                                            if (
+                                                              o(
+                                                                "WAWebMobilePlatforms",
+                                                              ).isSMB()
+                                                            )
+                                                              (o(
+                                                                "WALogger",
+                                                              ).LOG(
+                                                                L ||
+                                                                  (L =
+                                                                    babelHelpers.taggedTemplateLiteralLoose(
+                                                                      [
+                                                                        "fetchQuickPromotions: fetching quick promotions",
+                                                                      ],
+                                                                    )),
+                                                              ),
+                                                                await o(
+                                                                  "WAWebFetchQuickPromotions",
+                                                                ).fetchQuickPromotions());
+                                                            else {
+                                                              var e =
+                                                                  await M.load(),
+                                                                t =
+                                                                  e.fetchConsumerQuickPromotions;
+                                                              (o(
+                                                                "WALogger",
+                                                              ).LOG(
+                                                                E ||
+                                                                  (E =
+                                                                    babelHelpers.taggedTemplateLiteralLoose(
+                                                                      [
+                                                                        "fetchConsumerQuickPromotions: fetching",
+                                                                      ],
+                                                                    )),
+                                                              ),
+                                                                await t());
+                                                            }
+                                                            return (
+                                                              o(
+                                                                "WAWebQuickPromotionGating",
+                                                              ).qpGraphQLFetchIntervalMinutes() *
+                                                              o("WATimeUtils")
+                                                                .MINUTE_SECONDS
+                                                            );
+                                                          }
                                                         : t ===
                                                             o(
                                                               "WAWebTasksTaskType",
                                                             ).TaskType
                                                               .WAFFLE_SCHEDULED_TASKS
-                                                          ? n(
-                                                              "asyncToGeneratorRuntime",
-                                                            ).asyncToGenerator(
-                                                              function* () {
-                                                                return (
-                                                                  yield o(
-                                                                    "WAWebAccountLinkingScheduledJobs",
-                                                                  ).scheduledWaffleJobs(),
-                                                                  o(
-                                                                    "WATimeUtils",
-                                                                  ).DAY_SECONDS
-                                                                );
-                                                              },
-                                                            )
+                                                          ? async function () {
+                                                              return (
+                                                                await o(
+                                                                  "WAWebAccountLinkingScheduledJobs",
+                                                                ).scheduledWaffleJobs(),
+                                                                o("WATimeUtils")
+                                                                  .DAY_SECONDS
+                                                              );
+                                                            }
                                                           : t ===
                                                               o(
                                                                 "WAWebTasksTaskType",
                                                               ).TaskType
                                                                 .CLEAR_GALAXY_FLOWS_CACHE
-                                                            ? n(
-                                                                "asyncToGeneratorRuntime",
-                                                              ).asyncToGenerator(
-                                                                function* () {
-                                                                  return (
-                                                                    yield o(
-                                                                      "WAWebGalaxyFlowsUtils",
-                                                                    ).clearGalaxyFlowsCache(),
-                                                                    7 *
-                                                                      o(
-                                                                        "WATimeUtils",
-                                                                      )
-                                                                        .DAY_SECONDS
-                                                                  );
-                                                                },
-                                                              )
+                                                            ? async function () {
+                                                                return (
+                                                                  await o(
+                                                                    "WAWebGalaxyFlowsUtils",
+                                                                  ).clearGalaxyFlowsCache(),
+                                                                  7 *
+                                                                    o(
+                                                                      "WATimeUtils",
+                                                                    )
+                                                                      .DAY_SECONDS
+                                                                );
+                                                              }
                                                             : t ===
                                                                 o(
                                                                   "WAWebTasksTaskType",
                                                                 ).TaskType
                                                                   .CLEAR_FALCO_BUFFER
-                                                              ? (function () {
-                                                                  var e = n(
-                                                                    "asyncToGeneratorRuntime",
-                                                                  ).asyncToGenerator(
-                                                                    function* (
-                                                                      e,
-                                                                    ) {
-                                                                      return (
-                                                                        e ||
-                                                                          (yield o(
-                                                                            "WAWebClearFalcoBufferJob",
-                                                                          ).clearFalcoBufferJob()),
-                                                                        o(
-                                                                          "WATimeUtils",
-                                                                        )
-                                                                          .DAY_SECONDS
-                                                                      );
-                                                                    },
+                                                              ? async function (
+                                                                  e,
+                                                                ) {
+                                                                  return (
+                                                                    e ||
+                                                                      (await o(
+                                                                        "WAWebClearFalcoBufferJob",
+                                                                      ).clearFalcoBufferJob()),
+                                                                    o(
+                                                                      "WATimeUtils",
+                                                                    )
+                                                                      .DAY_SECONDS
                                                                   );
-                                                                  return function (
-                                                                    t,
-                                                                  ) {
-                                                                    return e.apply(
-                                                                      this,
-                                                                      arguments,
-                                                                    );
-                                                                  };
-                                                                })()
+                                                                }
                                                               : t ===
                                                                   o(
                                                                     "WAWebTasksTaskType",
                                                                   ).TaskType
                                                                     .SEND_WAM_FINGERPRINT
-                                                                ? n(
-                                                                    "asyncToGeneratorRuntime",
-                                                                  ).asyncToGenerator(
-                                                                    function* () {
-                                                                      return (
-                                                                        yield o(
-                                                                          "WAWebFingerprintJob",
-                                                                        ).sendWamFingerprintJob(),
-                                                                        o(
-                                                                          "WATimeUtils",
-                                                                        )
-                                                                          .DAY_SECONDS *
-                                                                          2
-                                                                      );
-                                                                    },
-                                                                  )
+                                                                ? async function () {
+                                                                    return (
+                                                                      await o(
+                                                                        "WAWebFingerprintJob",
+                                                                      ).sendWamFingerprintJob(),
+                                                                      o(
+                                                                        "WATimeUtils",
+                                                                      )
+                                                                        .DAY_SECONDS *
+                                                                        2
+                                                                    );
+                                                                  }
                                                                 : t ===
                                                                     o(
                                                                       "WAWebTasksTaskType",
                                                                     ).TaskType
                                                                       .INACTIVE_GROUP_LID_MIGRATION
-                                                                  ? n(
-                                                                      "asyncToGeneratorRuntime",
-                                                                    ).asyncToGenerator(
-                                                                      function* () {
-                                                                        var e =
-                                                                          o(
-                                                                            "WAWebUserPrefsMultiDevice",
-                                                                          ).getPairingTimestamp();
-                                                                        if (
-                                                                          e !=
-                                                                          null
-                                                                        ) {
-                                                                          var t =
-                                                                              o(
-                                                                                "WATimeUtils",
-                                                                              ).unixTime() -
-                                                                              e,
-                                                                            n =
-                                                                              o(
-                                                                                "WATimeUtils",
-                                                                              ).MINUTE_SECONDS;
-                                                                          if (
-                                                                            t <
-                                                                            n
-                                                                          )
-                                                                            return (
-                                                                              n -
-                                                                              t
-                                                                            );
-                                                                          try {
-                                                                            yield o(
-                                                                              "WAWebInactiveGroupLidMigrationJob",
-                                                                            ).migrateInactiveGroupsToLid();
-                                                                          } catch (e) {
+                                                                  ? async function () {
+                                                                      var e = o(
+                                                                        "WAWebUserPrefsMultiDevice",
+                                                                      ).getPairingTimestamp();
+                                                                      if (
+                                                                        e !=
+                                                                        null
+                                                                      ) {
+                                                                        var t =
                                                                             o(
-                                                                              "WALogger",
-                                                                            )
-                                                                              .ERROR(
-                                                                                k ||
-                                                                                  (k =
-                                                                                    babelHelpers.taggedTemplateLiteralLoose(
-                                                                                      [
-                                                                                        "Failed to run LID inactive group migration: ",
-                                                                                        "",
-                                                                                      ],
-                                                                                    )),
-                                                                                e,
-                                                                              )
-                                                                              .verbose();
-                                                                          }
-                                                                          return o(
-                                                                            "WATimeUtils",
+                                                                              "WATimeUtils",
+                                                                            ).unixTime() -
+                                                                            e,
+                                                                          n =
+                                                                            o(
+                                                                              "WATimeUtils",
+                                                                            ).MINUTE_SECONDS;
+                                                                        if (
+                                                                          t < n
+                                                                        )
+                                                                          return (
+                                                                            n -
+                                                                            t
+                                                                          );
+                                                                        try {
+                                                                          await o(
+                                                                            "WAWebInactiveGroupLidMigrationJob",
+                                                                          ).migrateInactiveGroupsToLid();
+                                                                        } catch (e) {
+                                                                          o(
+                                                                            "WALogger",
                                                                           )
-                                                                            .DAY_SECONDS;
+                                                                            .ERROR(
+                                                                              k ||
+                                                                                (k =
+                                                                                  babelHelpers.taggedTemplateLiteralLoose(
+                                                                                    [
+                                                                                      "Failed to run LID inactive group migration: ",
+                                                                                      "",
+                                                                                    ],
+                                                                                  )),
+                                                                              e,
+                                                                            )
+                                                                            .verbose();
                                                                         }
-                                                                        return 30;
-                                                                      },
-                                                                    )
+                                                                        return o(
+                                                                          "WATimeUtils",
+                                                                        )
+                                                                          .DAY_SECONDS;
+                                                                      }
+                                                                      return 30;
+                                                                    }
                                                                   : t ===
                                                                       o(
                                                                         "WAWebTasksTaskType",
                                                                       ).TaskType
                                                                         .CANONICAL_ENT_TOKEN_REFRESH
-                                                                    ? n(
-                                                                        "asyncToGeneratorRuntime",
-                                                                      ).asyncToGenerator(
-                                                                        function* () {
-                                                                          if (
-                                                                            !o(
-                                                                              "WAWebCanonicalGating",
-                                                                            ).isCanonicalRecoveryEnabled()
+                                                                    ? async function () {
+                                                                        if (
+                                                                          !o(
+                                                                            "WAWebCanonicalGating",
+                                                                          ).isCanonicalRecoveryEnabled()
+                                                                        )
+                                                                          return o(
+                                                                            "WATimeUtils",
                                                                           )
-                                                                            return o(
-                                                                              "WATimeUtils",
-                                                                            )
-                                                                              .DAY_SECONDS;
-                                                                          var e =
-                                                                            yield o(
-                                                                              "WAWebCanonicalCredentialRecoveryJob",
-                                                                            ).maybeRecoverCanonicalCredentials();
-                                                                          return e;
-                                                                        },
-                                                                      )
+                                                                            .DAY_SECONDS;
+                                                                        var e =
+                                                                          await o(
+                                                                            "WAWebCanonicalCredentialRecoveryJob",
+                                                                          ).maybeRecoverCanonicalCredentials();
+                                                                        return e;
+                                                                      }
                                                                     : t ===
                                                                         o(
                                                                           "WAWebTasksTaskType",
                                                                         )
                                                                           .TaskType
                                                                           .MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD
-                                                                      ? n(
-                                                                          "asyncToGeneratorRuntime",
-                                                                        ).asyncToGenerator(
-                                                                          function* () {
-                                                                            return o(
-                                                                              "WAWebUserPrefsBot",
-                                                                            ).isMetaAIThreadMigrationComplete()
-                                                                              ? o(
-                                                                                  "WATaskScheduler",
-                                                                                )
-                                                                                  .DO_NOT_RESCHEDULE
-                                                                              : (o(
-                                                                                  "WAWebBotGating",
-                                                                                ).isAiChatThreadsHistoricalMessageMigrationEnabled() &&
-                                                                                  (yield o(
-                                                                                    "WAWebMetaAiHistoricalThreadMigrationJob",
-                                                                                  ).migrateMetaAiMessagesToHistoricalThread()),
-                                                                                o(
-                                                                                  "WATimeUtils",
-                                                                                )
-                                                                                  .HOUR_SECONDS);
-                                                                          },
-                                                                        )
+                                                                      ? async function () {
+                                                                          return o(
+                                                                            "WAWebUserPrefsBot",
+                                                                          ).isMetaAIThreadMigrationComplete()
+                                                                            ? o(
+                                                                                "WATaskScheduler",
+                                                                              )
+                                                                                .DO_NOT_RESCHEDULE
+                                                                            : (o(
+                                                                                "WAWebBotGating",
+                                                                              ).isAiChatThreadsHistoricalMessageMigrationEnabled() &&
+                                                                                (await o(
+                                                                                  "WAWebMetaAiHistoricalThreadMigrationJob",
+                                                                                ).migrateMetaAiMessagesToHistoricalThread()),
+                                                                              o(
+                                                                                "WATimeUtils",
+                                                                              )
+                                                                                .HOUR_SECONDS);
+                                                                        }
                                                                       : t ===
                                                                           o(
                                                                             "WAWebTasksTaskType",
                                                                           )
                                                                             .TaskType
                                                                             .CLEAN_WEBTP_SHARED_SESSIONS
-                                                                        ? n(
-                                                                            "asyncToGeneratorRuntime",
-                                                                          ).asyncToGenerator(
-                                                                            function* () {
-                                                                              if (
-                                                                                (yield o(
-                                                                                  "WAWebABPropsCache",
-                                                                                ).waitForABPropConfigsReady(),
-                                                                                !r(
-                                                                                  "justknobx",
-                                                                                )._(
-                                                                                  "2214",
-                                                                                ))
+                                                                        ? async function () {
+                                                                            if (
+                                                                              (await o(
+                                                                                "WAWebABPropsCache",
+                                                                              ).waitForABPropConfigsReady(),
+                                                                              !r(
+                                                                                "justknobx",
+                                                                              )._(
+                                                                                "2214",
+                                                                              ))
+                                                                            )
+                                                                              return o(
+                                                                                "WATimeUtils",
                                                                               )
-                                                                                return o(
-                                                                                  "WATimeUtils",
+                                                                                .DAY_SECONDS;
+                                                                            try {
+                                                                              await o(
+                                                                                "WAWebWebTPSharedSessionUtils",
+                                                                              ).removeExpiredWebTPSharedSessions();
+                                                                            } catch (e) {
+                                                                              o(
+                                                                                "WALogger",
+                                                                              )
+                                                                                .ERROR(
+                                                                                  I ||
+                                                                                    (I =
+                                                                                      babelHelpers.taggedTemplateLiteralLoose(
+                                                                                        [
+                                                                                          "Failed to clean expired WebTP shared sessions: ",
+                                                                                          "",
+                                                                                        ],
+                                                                                      )),
+                                                                                  e,
                                                                                 )
-                                                                                  .DAY_SECONDS;
+                                                                                .verbose();
+                                                                            }
+                                                                            return o(
+                                                                              "WATimeUtils",
+                                                                            )
+                                                                              .DAY_SECONDS;
+                                                                          }
+                                                                        : t ===
+                                                                            o(
+                                                                              "WAWebTasksTaskType",
+                                                                            )
+                                                                              .TaskType
+                                                                              .PURGE_QPL_STORAGE
+                                                                          ? async function () {
                                                                               try {
-                                                                                yield o(
-                                                                                  "WAWebWebTPSharedSessionUtils",
-                                                                                ).removeExpiredWebTPSharedSessions();
+                                                                                await o(
+                                                                                  "WAWebQplStorage",
+                                                                                ).destroy();
                                                                               } catch (e) {
                                                                                 o(
                                                                                   "WALogger",
                                                                                 )
                                                                                   .ERROR(
-                                                                                    I ||
-                                                                                      (I =
+                                                                                    T ||
+                                                                                      (T =
                                                                                         babelHelpers.taggedTemplateLiteralLoose(
                                                                                           [
-                                                                                            "Failed to clean expired WebTP shared sessions: ",
+                                                                                            "Failed to purge deprecated qpl-storage: ",
                                                                                             "",
                                                                                           ],
                                                                                         )),
@@ -1145,256 +1008,191 @@ __d(
                                                                                   .verbose();
                                                                               }
                                                                               return o(
-                                                                                "WATimeUtils",
+                                                                                "WATaskScheduler",
                                                                               )
-                                                                                .DAY_SECONDS;
-                                                                            },
-                                                                          )
-                                                                        : t ===
-                                                                            o(
-                                                                              "WAWebTasksTaskType",
-                                                                            )
-                                                                              .TaskType
-                                                                              .PURGE_QPL_STORAGE
-                                                                          ? n(
-                                                                              "asyncToGeneratorRuntime",
-                                                                            ).asyncToGenerator(
-                                                                              function* () {
-                                                                                try {
-                                                                                  yield o(
-                                                                                    "WAWebQplStorage",
-                                                                                  ).destroy();
-                                                                                } catch (e) {
-                                                                                  o(
-                                                                                    "WALogger",
-                                                                                  )
-                                                                                    .ERROR(
-                                                                                      T ||
-                                                                                        (T =
-                                                                                          babelHelpers.taggedTemplateLiteralLoose(
-                                                                                            [
-                                                                                              "Failed to purge deprecated qpl-storage: ",
-                                                                                              "",
-                                                                                            ],
-                                                                                          )),
-                                                                                      e,
-                                                                                    )
-                                                                                    .verbose();
-                                                                                }
-                                                                                return o(
-                                                                                  "WATaskScheduler",
-                                                                                )
-                                                                                  .DO_NOT_RESCHEDULE;
-                                                                              },
-                                                                            )
+                                                                                .DO_NOT_RESCHEDULE;
+                                                                            }
                                                                           : t ===
                                                                               o(
                                                                                 "WAWebTasksTaskType",
                                                                               )
                                                                                 .TaskType
                                                                                 .CLEANUP_STALE_CAMPAIGNS
-                                                                            ? n(
-                                                                                "asyncToGeneratorRuntime",
-                                                                              ).asyncToGenerator(
-                                                                                function* () {
-                                                                                  try {
-                                                                                    yield o(
-                                                                                      "WAWebBizBroadcastCampaignCleanup",
-                                                                                    ).cleanupStaleCampaigns();
-                                                                                  } catch (e) {
-                                                                                    o(
-                                                                                      "WALogger",
+                                                                            ? async function () {
+                                                                                try {
+                                                                                  await o(
+                                                                                    "WAWebBizBroadcastCampaignCleanup",
+                                                                                  ).cleanupStaleCampaigns();
+                                                                                } catch (e) {
+                                                                                  o(
+                                                                                    "WALogger",
+                                                                                  )
+                                                                                    .ERROR(
+                                                                                      D ||
+                                                                                        (D =
+                                                                                          babelHelpers.taggedTemplateLiteralLoose(
+                                                                                            [
+                                                                                              "Failed to cleanup stale campaigns: ",
+                                                                                              "",
+                                                                                            ],
+                                                                                          )),
+                                                                                      e,
                                                                                     )
-                                                                                      .ERROR(
-                                                                                        D ||
-                                                                                          (D =
-                                                                                            babelHelpers.taggedTemplateLiteralLoose(
-                                                                                              [
-                                                                                                "Failed to cleanup stale campaigns: ",
-                                                                                                "",
-                                                                                              ],
-                                                                                            )),
-                                                                                        e,
-                                                                                      )
-                                                                                      .tags(
-                                                                                        "wa-smb",
-                                                                                        "business-broadcast",
-                                                                                      );
-                                                                                  }
-                                                                                  return (
-                                                                                    o(
-                                                                                      "WATimeUtils",
-                                                                                    )
-                                                                                      .DAY_SECONDS *
-                                                                                    5
-                                                                                  );
-                                                                                },
-                                                                              )
+                                                                                    .tags(
+                                                                                      "wa-smb",
+                                                                                      "business-broadcast",
+                                                                                    );
+                                                                                }
+                                                                                return (
+                                                                                  o(
+                                                                                    "WATimeUtils",
+                                                                                  )
+                                                                                    .DAY_SECONDS *
+                                                                                  5
+                                                                                );
+                                                                              }
                                                                             : t ===
                                                                                 o(
                                                                                   "WAWebTasksTaskType",
                                                                                 )
                                                                                   .TaskType
                                                                                   .CLEAN_EXPIRED_QUARANTINE_DATA
-                                                                              ? n(
-                                                                                  "asyncToGeneratorRuntime",
-                                                                                ).asyncToGenerator(
-                                                                                  function* () {
-                                                                                    if (
+                                                                              ? async function () {
+                                                                                  if (
+                                                                                    o(
+                                                                                      "WAWebABProps",
+                                                                                    ).getABPropConfigValue(
+                                                                                      "defense_mode_quarantine",
+                                                                                    )
+                                                                                  )
+                                                                                    try {
+                                                                                      await o(
+                                                                                        "WAWebQuarantineDataCleanupJob",
+                                                                                      ).cleanExpiredQuarantineDataJob();
+                                                                                    } catch (e) {
                                                                                       o(
-                                                                                        "WAWebABProps",
-                                                                                      ).getABPropConfigValue(
-                                                                                        "defense_mode_quarantine",
+                                                                                        "WALogger",
                                                                                       )
-                                                                                    )
-                                                                                      try {
-                                                                                        yield o(
-                                                                                          "WAWebQuarantineDataCleanupJob",
-                                                                                        ).cleanExpiredQuarantineDataJob();
-                                                                                      } catch (e) {
-                                                                                        o(
-                                                                                          "WALogger",
+                                                                                        .ERROR(
+                                                                                          x ||
+                                                                                            (x =
+                                                                                              babelHelpers.taggedTemplateLiteralLoose(
+                                                                                                [
+                                                                                                  "Failed to cleanup expired quarantine data: ",
+                                                                                                  "",
+                                                                                                ],
+                                                                                              )),
+                                                                                          e,
                                                                                         )
-                                                                                          .ERROR(
-                                                                                            x ||
-                                                                                              (x =
-                                                                                                babelHelpers.taggedTemplateLiteralLoose(
-                                                                                                  [
-                                                                                                    "Failed to cleanup expired quarantine data: ",
-                                                                                                    "",
-                                                                                                  ],
-                                                                                                )),
-                                                                                            e,
-                                                                                          )
-                                                                                          .verbose();
-                                                                                      }
-                                                                                    return o(
-                                                                                      "WATimeUtils",
-                                                                                    )
-                                                                                      .DAY_SECONDS;
-                                                                                  },
-                                                                                )
+                                                                                        .verbose();
+                                                                                    }
+                                                                                  return o(
+                                                                                    "WATimeUtils",
+                                                                                  )
+                                                                                    .DAY_SECONDS;
+                                                                                }
                                                                               : t ===
                                                                                   o(
                                                                                     "WAWebTasksTaskType",
                                                                                   )
                                                                                     .TaskType
                                                                                     .OPUS_MIGRATION
-                                                                                ? n(
-                                                                                    "asyncToGeneratorRuntime",
-                                                                                  ).asyncToGenerator(
-                                                                                    function* () {
-                                                                                      yield o(
-                                                                                        "WAWebABPropsCache",
-                                                                                      ).waitForABPropConfigsReady();
-                                                                                      var e =
-                                                                                        o(
-                                                                                          "WAWebABProps",
-                                                                                        ).getABPropConfigValue(
-                                                                                          "opus_enabled",
-                                                                                        );
-                                                                                      if (
-                                                                                        !e
+                                                                                ? async function () {
+                                                                                    await o(
+                                                                                      "WAWebABPropsCache",
+                                                                                    ).waitForABPropConfigsReady();
+                                                                                    var e =
+                                                                                      o(
+                                                                                        "WAWebABProps",
+                                                                                      ).getABPropConfigValue(
+                                                                                        "opus_enabled",
+                                                                                      );
+                                                                                    if (
+                                                                                      !e
+                                                                                    )
+                                                                                      return o(
+                                                                                        "WATimeUtils",
                                                                                       )
-                                                                                        return o(
-                                                                                          "WATimeUtils",
-                                                                                        )
-                                                                                          .DAY_SECONDS;
-                                                                                      var t =
-                                                                                        o(
-                                                                                          "WAWebABProps",
-                                                                                        ).getABPropConfigValue(
-                                                                                          "opus_t",
-                                                                                        );
-                                                                                      if (
-                                                                                        t ==
-                                                                                        null
+                                                                                        .DAY_SECONDS;
+                                                                                    var t =
+                                                                                      o(
+                                                                                        "WAWebABProps",
+                                                                                      ).getABPropConfigValue(
+                                                                                        "opus_t",
+                                                                                      );
+                                                                                    if (
+                                                                                      t ==
+                                                                                      null
+                                                                                    )
+                                                                                      return o(
+                                                                                        "WATimeUtils",
                                                                                       )
-                                                                                        return o(
-                                                                                          "WATimeUtils",
-                                                                                        )
-                                                                                          .DAY_SECONDS;
-                                                                                      var n =
+                                                                                        .DAY_SECONDS;
+                                                                                    var n =
+                                                                                      o(
+                                                                                        "WATimeUtils",
+                                                                                      ).unixTime();
+                                                                                    return n <
+                                                                                      t
+                                                                                      ? t -
+                                                                                          n
+                                                                                      : (await o(
+                                                                                          "WAWebOpusMigration",
+                                                                                        ).runOpusMigration(),
                                                                                         o(
-                                                                                          "WATimeUtils",
-                                                                                        ).unixTime();
-                                                                                      return n <
-                                                                                        t
-                                                                                        ? t -
-                                                                                            n
-                                                                                        : (yield o(
-                                                                                            "WAWebOpusMigration",
-                                                                                          ).runOpusMigration(),
-                                                                                          o(
-                                                                                            "WATaskScheduler",
-                                                                                          )
-                                                                                            .DO_NOT_RESCHEDULE);
-                                                                                    },
-                                                                                  )
+                                                                                          "WATaskScheduler",
+                                                                                        )
+                                                                                          .DO_NOT_RESCHEDULE);
+                                                                                  }
                                                                                 : t ===
                                                                                     o(
                                                                                       "WAWebTasksTaskType",
                                                                                     )
                                                                                       .TaskType
                                                                                       .REFRESH_AUDIENCE_EXPRESSIONS
-                                                                                  ? (function () {
-                                                                                      var e =
-                                                                                        n(
-                                                                                          "asyncToGeneratorRuntime",
-                                                                                        ).asyncToGenerator(
-                                                                                          function* (
+                                                                                  ? async function (
+                                                                                      e,
+                                                                                    ) {
+                                                                                      if (
+                                                                                        e
+                                                                                      )
+                                                                                        return o(
+                                                                                          "WATimeUtils",
+                                                                                        )
+                                                                                          .HOUR_SECONDS;
+                                                                                      try {
+                                                                                        await o(
+                                                                                          "WAWebBizBroadcastAudienceRefreshJob",
+                                                                                        ).refreshTimeBasedAudiences();
+                                                                                      } catch (e) {
+                                                                                        o(
+                                                                                          "WALogger",
+                                                                                        )
+                                                                                          .ERROR(
+                                                                                            $ ||
+                                                                                              ($ =
+                                                                                                babelHelpers.taggedTemplateLiteralLoose(
+                                                                                                  [
+                                                                                                    "Failed to refresh audience expressions: ",
+                                                                                                    "",
+                                                                                                  ],
+                                                                                                )),
                                                                                             e,
-                                                                                          ) {
-                                                                                            if (
-                                                                                              e
-                                                                                            )
-                                                                                              return o(
-                                                                                                "WATimeUtils",
-                                                                                              )
-                                                                                                .HOUR_SECONDS;
-                                                                                            try {
-                                                                                              yield o(
-                                                                                                "WAWebBizBroadcastAudienceRefreshJob",
-                                                                                              ).refreshTimeBasedAudiences();
-                                                                                            } catch (e) {
-                                                                                              o(
-                                                                                                "WALogger",
-                                                                                              )
-                                                                                                .ERROR(
-                                                                                                  $ ||
-                                                                                                    ($ =
-                                                                                                      babelHelpers.taggedTemplateLiteralLoose(
-                                                                                                        [
-                                                                                                          "Failed to refresh audience expressions: ",
-                                                                                                          "",
-                                                                                                        ],
-                                                                                                      )),
-                                                                                                  e,
-                                                                                                )
-                                                                                                .tags(
-                                                                                                  "wa-smb",
-                                                                                                  "business-broadcast",
-                                                                                                  "audience-refresh",
-                                                                                                );
-                                                                                            }
-                                                                                            return (
-                                                                                              o(
-                                                                                                "WATimeUtils",
-                                                                                              )
-                                                                                                .HOUR_SECONDS *
-                                                                                              6
-                                                                                            );
-                                                                                          },
-                                                                                        );
-                                                                                      return function (
-                                                                                        t,
-                                                                                      ) {
-                                                                                        return e.apply(
-                                                                                          this,
-                                                                                          arguments,
-                                                                                        );
-                                                                                      };
-                                                                                    })()
+                                                                                          )
+                                                                                          .tags(
+                                                                                            "wa-smb",
+                                                                                            "business-broadcast",
+                                                                                            "audience-refresh",
+                                                                                          );
+                                                                                      }
+                                                                                      return (
+                                                                                        o(
+                                                                                          "WATimeUtils",
+                                                                                        )
+                                                                                          .HOUR_SECONDS *
+                                                                                        6
+                                                                                      );
+                                                                                    }
                                                                                   : (function () {
                                                                                       throw Error(
                                                                                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -1402,7 +1200,7 @@ __d(
                                                                                       );
                                                                                     })();
     }
-    function W() {
+    function B() {
       return {
         scheduledTimeResolver: {
           get: function (t) {
@@ -1419,8 +1217,8 @@ __d(
         },
       };
     }
-    function q(e) {
-      var t = B(e);
+    function W(e) {
+      var t = O(e);
       t != null &&
         (o("WALogger").LOG(
           P ||
@@ -1432,13 +1230,13 @@ __d(
         ),
         o("WATaskScheduler").registerTask(e, t));
     }
-    function U() {
-      (o("WATaskScheduler").startScheduler(W()),
-        A.forEach(q),
-        o("WAWebMobilePlatforms").isSMB() && F.forEach(q),
-        r("gkx")("26258") || O.forEach(q));
+    function q() {
+      (o("WATaskScheduler").startScheduler(B()),
+        w.forEach(W),
+        o("WAWebMobilePlatforms").isSMB() && A.forEach(W),
+        r("gkx")("26258") || F.forEach(W));
     }
-    l.registerTasks = U;
+    l.registerTasks = q;
   },
   98,
 );

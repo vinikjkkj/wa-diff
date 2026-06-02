@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleWaChat",
   [
-    "Promise",
     "WAByteArray",
     "WADeprecatedWapParser",
     "WAJids",
@@ -15,13 +14,11 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = new (r("WADeprecatedWapParser"))(
+      u = new (r("WADeprecatedWapParser"))(
         "incomingWAChatNotificationParser",
         function (e) {
           (e.assertTag("notification"),
@@ -83,110 +80,94 @@ __d(
           return { type: "revoke", stanzaId: t, ts: n, revokeMessageIds: u };
         },
       );
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function c(e, t) {
+      var n = e.campaignId,
+        r = e.ts,
+        a = t.body,
+        i = t.id,
+        l = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
+        s = {
+          type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS,
+          externalId: i,
+          ts: r,
+          edit: -1,
+          isHsm: !1,
+          count: null,
+          chat: l,
+          author: l,
+          pushname: null,
+          isDirect: !1,
+          campaignId: n,
+        },
+        u = {
+          retryCount: 0,
+          e2eType: o("WAWebBackendJobs.flow").CiphertextType.Msg,
+          encMediaType: o("WAWebBackendJobs.flow").EncMediaType.Image,
+          hideFail: !1,
+        };
+      await o("WAWebHandleMsgProcess").processDecryptedMessageProto({
+        decrypted: a,
+        info: s,
+        e2eInfo: u,
+        bizInfo: t.bizInfo,
+        hsmInfo: null,
+        isPadded: !1,
+      });
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.campaignId,
-            r = e.ts,
-            a = t.body,
-            i = t.id,
-            l = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
-            s = {
-              type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS,
-              externalId: i,
-              ts: r,
-              edit: -1,
-              isHsm: !1,
-              count: null,
-              chat: l,
-              author: l,
-              pushname: null,
-              isDirect: !1,
-              campaignId: n,
-            },
-            u = {
-              retryCount: 0,
-              e2eType: o("WAWebBackendJobs.flow").CiphertextType.Msg,
-              encMediaType: o("WAWebBackendJobs.flow").EncMediaType.Image,
-              hideFail: !1,
-            };
-          yield o("WAWebHandleMsgProcess").processDecryptedMessageProto({
-            decrypted: a,
-            info: s,
-            e2eInfo: u,
-            bizInfo: t.bizInfo,
-            hsmInfo: null,
-            isPadded: !1,
-          });
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(t) {
+      var n = u.parse(t);
+      if (n.error)
+        throw (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "error while parsing: ",
+                "",
+              ])),
+            t.toString(),
+          ),
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          n.error
+        );
+      var r = n.success,
+        a = o("WAWap").wap("ack", {
+          id: o("WAWap").CUSTOM_STRING(r.stanzaId),
+          class: "notification",
+          type: "psa",
+          to: o("WAWebCommsWapMd").JID(
+            o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
+          ),
+        });
+      switch (r.type) {
+        case "revoke": {
+          var i = r.revokeMessageIds;
+          i.length > 0 &&
+            (await o("WAWebDBMessageDelete").removeMessagesFromHistory(i),
+            i.forEach(function (e) {
+              var t = o("WAWebMsgCollection").MsgCollection.get(e);
+              t && t.delete();
+            }));
+          break;
+        }
+        default:
+          (r.type,
+            await Promise.all(
+              r.messages.map(function (e) {
+                return c(r, e);
+              }),
+            ));
+          break;
+      }
+      return a;
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = c.parse(t);
-          if (r.error)
-            throw (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "error while parsing: ",
-                    "",
-                  ])),
-                t.toString(),
-              ),
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                r.error.toString(),
-              ),
-              r.error
-            );
-          var a = r.success,
-            i = o("WAWap").wap("ack", {
-              id: o("WAWap").CUSTOM_STRING(a.stanzaId),
-              class: "notification",
-              type: "psa",
-              to: o("WAWebCommsWapMd").JID(
-                o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
-              ),
-            });
-          switch (a.type) {
-            case "revoke": {
-              var l = a.revokeMessageIds;
-              l.length > 0 &&
-                (yield o("WAWebDBMessageDelete").removeMessagesFromHistory(l),
-                l.forEach(function (e) {
-                  var t = o("WAWebMsgCollection").MsgCollection.get(e);
-                  t && t.delete();
-                }));
-              break;
-            }
-            default:
-              (a.type,
-                yield (u || (u = n("Promise"))).all(
-                  a.messages.map(function (e) {
-                    return d(a, e);
-                  }),
-                ));
-              break;
-          }
-          return i;
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    l.default = p;
+    l.default = d;
   },
   98,
 );

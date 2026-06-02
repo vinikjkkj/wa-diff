@@ -44,6 +44,9 @@ __d(
         showSavePreferenceCheckbox: o(
           "WAWebTPPdfViewerGatingUtils",
         ).isWebTPSharerSavePreferenceEnabled(),
+        useUpdatedPdfSharerConsentCopy: o(
+          "WAWebTPPdfViewerGatingUtils",
+        ).isWebTPPdfSharerConsentCopyV2Enabled(),
       };
     }
     l.getWebTPAppConfig = s;

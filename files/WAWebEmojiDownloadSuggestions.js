@@ -2,106 +2,95 @@ __d(
   "WAWebEmojiDownloadSuggestions",
   [
     "JSResource",
-    "Promise",
     "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebL10nGetRenderedLocale",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function e() {
+      try {
+        await o("WAWebABPropsCache").waitForABPropConfigsReady();
+        var e = new Set([
+            "en_GB",
+            o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale(),
+          ]),
+          t = await Promise.all(Array.from(e, s));
+        return t.filter(Boolean);
+      } catch (e) {
+        return [];
+      }
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            yield o("WAWebABPropsCache").waitForABPropConfigsReady();
-            var t = new Set([
-                "en_GB",
-                o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale(),
-              ]),
-              r = yield (e || (e = n("Promise"))).all(Array.from(t, c));
-            return r.filter(Boolean);
-          } catch (e) {
-            return [];
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(t) {
+    function s(e) {
       return o("WAWebABProps").getABPropConfigValue("emoji_search_cldr")
-        ? d(t)
-        : t === "en_GB" ||
-            t === "en_IN" ||
-            t === "en_OP" ||
-            t === "en_PI" ||
-            t === "en_UD" ||
-            t === "en_US" ||
-            t === "en_XA"
+        ? u(e)
+        : e === "en_GB" ||
+            e === "en_IN" ||
+            e === "en_OP" ||
+            e === "en_PI" ||
+            e === "en_UD" ||
+            e === "en_US" ||
+            e === "en_XA"
           ? r("JSResource")("WAWebLocalesEmojiSuggestionEn")
               .__setRef("WAWebEmojiDownloadSuggestions")
               .load()
-          : t === "pt_BR" || t === "pt_PT"
+          : e === "pt_BR" || e === "pt_PT"
             ? r("JSResource")("WAWebLocalesEmojiSuggestionPt")
                 .__setRef("WAWebEmojiDownloadSuggestions")
                 .load()
-            : t === "de_DE"
+            : e === "de_DE"
               ? r("JSResource")("WAWebLocalesEmojiSuggestionDe")
                   .__setRef("WAWebEmojiDownloadSuggestions")
                   .load()
-              : t === "es_CL" ||
-                  t === "es_CO" ||
-                  t === "es_ES" ||
-                  t === "es_LA" ||
-                  t === "es_MX" ||
-                  t === "es_VE"
+              : e === "es_CL" ||
+                  e === "es_CO" ||
+                  e === "es_ES" ||
+                  e === "es_LA" ||
+                  e === "es_MX" ||
+                  e === "es_VE"
                 ? r("JSResource")("WAWebLocalesEmojiSuggestionEs")
                     .__setRef("WAWebEmojiDownloadSuggestions")
                     .load()
-                : t === "it_IT"
+                : e === "it_IT"
                   ? r("JSResource")("WAWebLocalesEmojiSuggestionIt")
                       .__setRef("WAWebEmojiDownloadSuggestions")
                       .load()
-                  : t === "ru_RU"
+                  : e === "ru_RU"
                     ? r("JSResource")("WAWebLocalesEmojiSuggestionRu")
                         .__setRef("WAWebEmojiDownloadSuggestions")
                         .load()
-                    : t === "ar_AR"
+                    : e === "ar_AR"
                       ? r("JSResource")("WAWebLocalesEmojiSuggestionAr")
                           .__setRef("WAWebEmojiDownloadSuggestions")
                           .load()
-                      : t === "tr_TR"
+                      : e === "tr_TR"
                         ? r("JSResource")("WAWebLocalesEmojiSuggestionTr")
                             .__setRef("WAWebEmojiDownloadSuggestions")
                             .load()
-                        : t === "uk_UA"
+                        : e === "uk_UA"
                           ? r("JSResource")("WAWebLocalesEmojiSuggestionUk")
                               .__setRef("WAWebEmojiDownloadSuggestions")
                               .load()
-                          : t === "bn_IN"
+                          : e === "bn_IN"
                             ? r("JSResource")("WAWebLocalesEmojiSuggestionBn")
                                 .__setRef("WAWebEmojiDownloadSuggestions")
                                 .load()
-                            : t === "hi_IN" || t === "hi_FB"
+                            : e === "hi_IN" || e === "hi_FB"
                               ? r("JSResource")("WAWebLocalesEmojiSuggestionHi")
                                   .__setRef("WAWebEmojiDownloadSuggestions")
                                   .load()
-                              : t === "hu_HU"
+                              : e === "hu_HU"
                                 ? r("JSResource")(
                                     "WAWebLocalesEmojiSuggestionHu",
                                   )
                                     .__setRef("WAWebEmojiDownloadSuggestions")
                                     .load()
-                                : t === "ms_MY"
+                                : e === "ms_MY"
                                   ? r("JSResource")(
                                       "WAWebLocalesEmojiSuggestionMs",
                                     )
                                       .__setRef("WAWebEmojiDownloadSuggestions")
                                       .load()
-                                  : t === "pl_PL"
+                                  : e === "pl_PL"
                                     ? r("JSResource")(
                                         "WAWebLocalesEmojiSuggestionPl",
                                       )
@@ -109,7 +98,7 @@ __d(
                                           "WAWebEmojiDownloadSuggestions",
                                         )
                                         .load()
-                                    : t === "ro_RO"
+                                    : e === "ro_RO"
                                       ? r("JSResource")(
                                           "WAWebLocalesEmojiSuggestionRo",
                                         )
@@ -117,7 +106,7 @@ __d(
                                             "WAWebEmojiDownloadSuggestions",
                                           )
                                           .load()
-                                      : t === "th_TH"
+                                      : e === "th_TH"
                                         ? r("JSResource")(
                                             "WAWebLocalesEmojiSuggestionTh",
                                           )
@@ -125,7 +114,7 @@ __d(
                                               "WAWebEmojiDownloadSuggestions",
                                             )
                                             .load()
-                                        : t === "ur_PK"
+                                        : e === "ur_PK"
                                           ? r("JSResource")(
                                               "WAWebLocalesEmojiSuggestionUr",
                                             )
@@ -133,7 +122,7 @@ __d(
                                                 "WAWebEmojiDownloadSuggestions",
                                               )
                                               .load()
-                                          : t === "id_ID"
+                                          : e === "id_ID"
                                             ? r("JSResource")(
                                                 "WAWebLocalesEmojiSuggestionId",
                                               )
@@ -141,7 +130,7 @@ __d(
                                                   "WAWebEmojiDownloadSuggestions",
                                                 )
                                                 .load()
-                                            : t === "fa_IR"
+                                            : e === "fa_IR"
                                               ? r("JSResource")(
                                                   "WAWebLocalesEmojiSuggestionFa",
                                                 )
@@ -149,7 +138,7 @@ __d(
                                                     "WAWebEmojiDownloadSuggestions",
                                                   )
                                                   .load()
-                                              : t === "mr_IN"
+                                              : e === "mr_IN"
                                                 ? r("JSResource")(
                                                     "WAWebLocalesEmojiSuggestionMr",
                                                   )
@@ -157,7 +146,7 @@ __d(
                                                       "WAWebEmojiDownloadSuggestions",
                                                     )
                                                     .load()
-                                                : t === "gu_IN"
+                                                : e === "gu_IN"
                                                   ? r("JSResource")(
                                                       "WAWebLocalesEmojiSuggestionGu",
                                                     )
@@ -165,8 +154,8 @@ __d(
                                                         "WAWebEmojiDownloadSuggestions",
                                                       )
                                                       .load()
-                                                  : t === "fr_FR" ||
-                                                      t === "fr_CA"
+                                                  : e === "fr_FR" ||
+                                                      e === "fr_CA"
                                                     ? r("JSResource")(
                                                         "WAWebLocalesEmojiSuggestionFr",
                                                       )
@@ -174,7 +163,7 @@ __d(
                                                           "WAWebEmojiDownloadSuggestions",
                                                         )
                                                         .load()
-                                                    : t === "zh_TW"
+                                                    : e === "zh_TW"
                                                       ? r("JSResource")(
                                                           "WAWebLocalesEmojiSuggestionZhTw",
                                                         )
@@ -182,7 +171,7 @@ __d(
                                                             "WAWebEmojiDownloadSuggestions",
                                                           )
                                                           .load()
-                                                      : t === "zh_CN"
+                                                      : e === "zh_CN"
                                                         ? r("JSResource")(
                                                             "WAWebLocalesEmojiSuggestionZhCn",
                                                           )
@@ -190,7 +179,7 @@ __d(
                                                               "WAWebEmojiDownloadSuggestions",
                                                             )
                                                             .load()
-                                                        : t === "zh_HK"
+                                                        : e === "zh_HK"
                                                           ? r("JSResource")(
                                                               "WAWebLocalesEmojiSuggestionZhHk",
                                                             )
@@ -198,8 +187,8 @@ __d(
                                                                 "WAWebEmojiDownloadSuggestions",
                                                               )
                                                               .load()
-                                                          : t === "nl_NL" ||
-                                                              t === "nl_BE"
+                                                          : e === "nl_NL" ||
+                                                              e === "nl_BE"
                                                             ? r("JSResource")(
                                                                 "WAWebLocalesEmojiSuggestionNl",
                                                               )
@@ -207,7 +196,7 @@ __d(
                                                                   "WAWebEmojiDownloadSuggestions",
                                                                 )
                                                                 .load()
-                                                            : t === "cs_CZ"
+                                                            : e === "cs_CZ"
                                                               ? r("JSResource")(
                                                                   "WAWebLocalesEmojiSuggestionCs",
                                                                 )
@@ -215,7 +204,7 @@ __d(
                                                                     "WAWebEmojiDownloadSuggestions",
                                                                   )
                                                                   .load()
-                                                              : t === "sk_SK"
+                                                              : e === "sk_SK"
                                                                 ? r(
                                                                     "JSResource",
                                                                   )(
@@ -225,93 +214,87 @@ __d(
                                                                       "WAWebEmojiDownloadSuggestions",
                                                                     )
                                                                     .load()
-                                                                : (
-                                                                    e ||
-                                                                    (e =
-                                                                      n(
-                                                                        "Promise",
-                                                                      ))
-                                                                  ).resolve(
+                                                                : Promise.resolve(
                                                                     null,
                                                                   );
     }
-    function d(t) {
-      return t === "en_GB" ||
-        t === "en_IN" ||
-        t === "en_OP" ||
-        t === "en_PI" ||
-        t === "en_UD" ||
-        t === "en_US" ||
-        t === "en_XA"
+    function u(e) {
+      return e === "en_GB" ||
+        e === "en_IN" ||
+        e === "en_OP" ||
+        e === "en_PI" ||
+        e === "en_UD" ||
+        e === "en_US" ||
+        e === "en_XA"
         ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionEn")
             .__setRef("WAWebEmojiDownloadSuggestions")
             .load()
-        : t === "pt_BR" || t === "pt_PT"
+        : e === "pt_BR" || e === "pt_PT"
           ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionPt")
               .__setRef("WAWebEmojiDownloadSuggestions")
               .load()
-          : t === "de_DE"
+          : e === "de_DE"
             ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionDe")
                 .__setRef("WAWebEmojiDownloadSuggestions")
                 .load()
-            : t === "es_CL" ||
-                t === "es_CO" ||
-                t === "es_ES" ||
-                t === "es_LA" ||
-                t === "es_MX" ||
-                t === "es_VE"
+            : e === "es_CL" ||
+                e === "es_CO" ||
+                e === "es_ES" ||
+                e === "es_LA" ||
+                e === "es_MX" ||
+                e === "es_VE"
               ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionEs")
                   .__setRef("WAWebEmojiDownloadSuggestions")
                   .load()
-              : t === "it_IT"
+              : e === "it_IT"
                 ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionIt")
                     .__setRef("WAWebEmojiDownloadSuggestions")
                     .load()
-                : t === "ru_RU"
+                : e === "ru_RU"
                   ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionRu")
                       .__setRef("WAWebEmojiDownloadSuggestions")
                       .load()
-                  : t === "ar_AR"
+                  : e === "ar_AR"
                     ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionAr")
                         .__setRef("WAWebEmojiDownloadSuggestions")
                         .load()
-                    : t === "tr_TR"
+                    : e === "tr_TR"
                       ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionTr")
                           .__setRef("WAWebEmojiDownloadSuggestions")
                           .load()
-                      : t === "uk_UA"
+                      : e === "uk_UA"
                         ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionUk")
                             .__setRef("WAWebEmojiDownloadSuggestions")
                             .load()
-                        : t === "bn_IN"
+                        : e === "bn_IN"
                           ? r("JSResource")("WAWebLocalesCldrEmojiSuggestionBn")
                               .__setRef("WAWebEmojiDownloadSuggestions")
                               .load()
-                          : t === "hi_IN" || t === "hi_FB"
+                          : e === "hi_IN" || e === "hi_FB"
                             ? r("JSResource")(
                                 "WAWebLocalesCldrEmojiSuggestionHi",
                               )
                                 .__setRef("WAWebEmojiDownloadSuggestions")
                                 .load()
-                            : t === "hu_HU"
+                            : e === "hu_HU"
                               ? r("JSResource")(
                                   "WAWebLocalesCldrEmojiSuggestionHu",
                                 )
                                   .__setRef("WAWebEmojiDownloadSuggestions")
                                   .load()
-                              : t === "ms_MY"
+                              : e === "ms_MY"
                                 ? r("JSResource")(
                                     "WAWebLocalesCldrEmojiSuggestionMs",
                                   )
                                     .__setRef("WAWebEmojiDownloadSuggestions")
                                     .load()
-                                : t === "pl_PL"
+                                : e === "pl_PL"
                                   ? r("JSResource")(
                                       "WAWebLocalesCldrEmojiSuggestionPl",
                                     )
                                       .__setRef("WAWebEmojiDownloadSuggestions")
                                       .load()
-                                  : t === "ro_RO"
+                                  : e === "ro_RO"
                                     ? r("JSResource")(
                                         "WAWebLocalesCldrEmojiSuggestionRo",
                                       )
@@ -319,7 +302,7 @@ __d(
                                           "WAWebEmojiDownloadSuggestions",
                                         )
                                         .load()
-                                    : t === "th_TH"
+                                    : e === "th_TH"
                                       ? r("JSResource")(
                                           "WAWebLocalesCldrEmojiSuggestionTh",
                                         )
@@ -327,7 +310,7 @@ __d(
                                             "WAWebEmojiDownloadSuggestions",
                                           )
                                           .load()
-                                      : t === "ur_PK"
+                                      : e === "ur_PK"
                                         ? r("JSResource")(
                                             "WAWebLocalesCldrEmojiSuggestionUr",
                                           )
@@ -335,7 +318,7 @@ __d(
                                               "WAWebEmojiDownloadSuggestions",
                                             )
                                             .load()
-                                        : t === "id_ID"
+                                        : e === "id_ID"
                                           ? r("JSResource")(
                                               "WAWebLocalesCldrEmojiSuggestionId",
                                             )
@@ -343,7 +326,7 @@ __d(
                                                 "WAWebEmojiDownloadSuggestions",
                                               )
                                               .load()
-                                          : t === "fa_IR"
+                                          : e === "fa_IR"
                                             ? r("JSResource")(
                                                 "WAWebLocalesCldrEmojiSuggestionFa",
                                               )
@@ -351,7 +334,7 @@ __d(
                                                   "WAWebEmojiDownloadSuggestions",
                                                 )
                                                 .load()
-                                            : t === "mr_IN"
+                                            : e === "mr_IN"
                                               ? r("JSResource")(
                                                   "WAWebLocalesCldrEmojiSuggestionMr",
                                                 )
@@ -359,7 +342,7 @@ __d(
                                                     "WAWebEmojiDownloadSuggestions",
                                                   )
                                                   .load()
-                                              : t === "gu_IN"
+                                              : e === "gu_IN"
                                                 ? r("JSResource")(
                                                     "WAWebLocalesCldrEmojiSuggestionGu",
                                                   )
@@ -367,7 +350,7 @@ __d(
                                                       "WAWebEmojiDownloadSuggestions",
                                                     )
                                                     .load()
-                                                : t === "fr_FR" || t === "fr_CA"
+                                                : e === "fr_FR" || e === "fr_CA"
                                                   ? r("JSResource")(
                                                       "WAWebLocalesCldrEmojiSuggestionFr",
                                                     )
@@ -375,7 +358,7 @@ __d(
                                                         "WAWebEmojiDownloadSuggestions",
                                                       )
                                                       .load()
-                                                  : t === "zh_TW"
+                                                  : e === "zh_TW"
                                                     ? r("JSResource")(
                                                         "WAWebLocalesCldrEmojiSuggestionZhTw",
                                                       )
@@ -383,7 +366,7 @@ __d(
                                                           "WAWebEmojiDownloadSuggestions",
                                                         )
                                                         .load()
-                                                    : t === "zh_CN"
+                                                    : e === "zh_CN"
                                                       ? r("JSResource")(
                                                           "WAWebLocalesCldrEmojiSuggestionZhCn",
                                                         )
@@ -391,7 +374,7 @@ __d(
                                                             "WAWebEmojiDownloadSuggestions",
                                                           )
                                                           .load()
-                                                      : t === "zh_HK"
+                                                      : e === "zh_HK"
                                                         ? r("JSResource")(
                                                             "WAWebLocalesCldrEmojiSuggestionZhHk",
                                                           )
@@ -399,8 +382,8 @@ __d(
                                                               "WAWebEmojiDownloadSuggestions",
                                                             )
                                                             .load()
-                                                        : t === "nl_NL" ||
-                                                            t === "nl_BE"
+                                                        : e === "nl_NL" ||
+                                                            e === "nl_BE"
                                                           ? r("JSResource")(
                                                               "WAWebLocalesCldrEmojiSuggestionNl",
                                                             )
@@ -408,7 +391,7 @@ __d(
                                                                 "WAWebEmojiDownloadSuggestions",
                                                               )
                                                               .load()
-                                                          : t === "cs_CZ"
+                                                          : e === "cs_CZ"
                                                             ? r("JSResource")(
                                                                 "WAWebLocalesCldrEmojiSuggestionCs",
                                                               )
@@ -416,7 +399,7 @@ __d(
                                                                   "WAWebEmojiDownloadSuggestions",
                                                                 )
                                                                 .load()
-                                                            : t === "sk_SK"
+                                                            : e === "sk_SK"
                                                               ? r("JSResource")(
                                                                   "WAWebLocalesCldrEmojiSuggestionSk",
                                                                 )
@@ -424,15 +407,11 @@ __d(
                                                                     "WAWebEmojiDownloadSuggestions",
                                                                   )
                                                                   .load()
-                                                              : (
-                                                                  e ||
-                                                                  (e =
-                                                                    n(
-                                                                      "Promise",
-                                                                    ))
-                                                                ).resolve(null);
+                                                              : Promise.resolve(
+                                                                  null,
+                                                                );
     }
-    l.downloadEmojiSuggestions = s;
+    l.downloadEmojiSuggestions = e;
   },
   98,
 );

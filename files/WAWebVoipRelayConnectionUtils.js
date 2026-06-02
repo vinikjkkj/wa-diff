@@ -1,13 +1,6 @@
 __d(
   "WAWebVoipRelayConnectionUtils",
-  [
-    "$InternalEnum",
-    "WALogger",
-    "WAWebABProps",
-    "WAWebUA",
-    "asyncToGeneratorRuntime",
-    "justknobx",
-  ],
+  ["$InternalEnum", "WALogger", "WAWebABProps", "WAWebUA", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -185,33 +178,32 @@ __d(
       var t = e.replace(/a=candidate:[^\r\n]+\r?\n/g, "");
       return ((t = t.replace(/a=end-of-candidates\r?\n?/g, "")), t);
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    async function x(e) {
+      return e instanceof ArrayBuffer
+        ? e
+        : e instanceof Blob
+          ? await e.arrayBuffer()
+          : null;
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return e instanceof ArrayBuffer
-            ? e
-            : e instanceof Blob
-              ? yield e.arrayBuffer()
-              : null;
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t, n) {
+    function $(e, t, n) {
       var r =
           "a=candidate:2 1 udp 2122262783 " +
           e +
           " " +
           t +
           " typ host generation 0 network-cost 5",
-        o = [r, "a=end-of-candidates"].join("\r\n"),
+        o = [r, "a=end-of-candidates"].join(`\r
+`),
         a = D(n);
-      return ((a += o + "\r\n"), a);
+      return (
+        (a +=
+          o +
+          `\r
+`),
+        a
+      );
     }
-    function N(e, t) {
+    function P(e, t) {
       var n,
         r = t.enableEdgerayDtlsActiveMode
           ? "a=setup:active"
@@ -230,26 +222,26 @@ __d(
           /a=max-message-size:[^\r\n]+/g,
           "a=max-message-size:1500",
         )),
-        (o = P(t.ip, t.port.toString(), o)),
+        (o = $(t.ip, t.port.toString(), o)),
         o
       );
     }
-    var M = n("$InternalEnum").Mirrored([
+    var N = n("$InternalEnum").Mirrored([
       "STUN_ALLOC",
       "STUN_BIND",
       "STUN_UNKNOWN",
       "NonSTUN",
     ]);
-    function w(e) {
-      if (e.byteLength < 2) return M.NonSTUN;
+    function M(e) {
+      if (e.byteLength < 2) return N.NonSTUN;
       var t = new Uint8Array(e),
         n = t[0],
         r = t[1];
       if ((n & 192) === 0) {
         var o = ((n & 63) << 8) | r;
-        return o === 1 ? M.STUN_BIND : o === 3 ? M.STUN_ALLOC : M.STUN_UNKNOWN;
+        return o === 1 ? N.STUN_BIND : o === 3 ? N.STUN_ALLOC : N.STUN_UNKNOWN;
       }
-      return M.NonSTUN;
+      return N.NonSTUN;
     }
     ((l.CONNECTION_TIMEOUT_MS = c),
       (l.ConnectionState = m),
@@ -269,9 +261,9 @@ __d(
       (l.replaceDtlsFingerprint = T),
       (l.removeIceCandidates = D),
       (l.dataToArrayBuffer = x),
-      (l.createAnswerSdp = N),
-      (l.PacketType = M),
-      (l.inspectPacketType = w));
+      (l.createAnswerSdp = P),
+      (l.PacketType = N),
+      (l.inspectPacketType = M));
   },
   98,
 );

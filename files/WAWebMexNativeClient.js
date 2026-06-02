@@ -6,99 +6,87 @@ __d(
     "WAWebBackendErrors",
     "WAWebMexLogging",
     "WAWebMexRelayEnvironment",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = new (o("WAWebMexLogging").MexPerfTracker)(!0);
-          a.start();
-          try {
-            var i = p(t),
-              l = i.params;
-            (a.setQueryId(l.id), a.setOperationName(l.name));
-            var c = { metadata: { mexPerfTracker: a } },
-              d = yield o("WAWebMexRelayEnvironment").fetchFunc(i.params, n, c),
-              _ = m(d, a);
-            return (a.setHasData(!0), a.stop(), a.logEvent(), _.data);
-          } catch (n) {
-            if (
-              n instanceof o("WAWebMexRelayEnvironment").MexIqError ||
-              n instanceof
-                o("WAWebMexRelayEnvironment").MexPayloadParsingError ||
-              n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError
+    async function c(t, n) {
+      var a = new (o("WAWebMexLogging").MexPerfTracker)(!0);
+      a.start();
+      try {
+        var i = m(t),
+          l = i.params;
+        (a.setQueryId(l.id), a.setOperationName(l.name));
+        var c = { metadata: { mexPerfTracker: a } },
+          p = await o("WAWebMexRelayEnvironment").fetchFunc(i.params, n, c),
+          f = d(p, a);
+        return (a.setHasData(!0), a.stop(), a.logEvent(), f.data);
+      } catch (n) {
+        if (
+          n instanceof o("WAWebMexRelayEnvironment").MexIqError ||
+          n instanceof o("WAWebMexRelayEnvironment").MexPayloadParsingError ||
+          n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError
+        )
+          n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError ||
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex][native-client] infra error",
+                  ])),
+              )
+              .catching(n)
+              .tags("mex", "native-client")
+              .sendLogs("mex-native-client-infra-error");
+        else {
+          var g = r("getErrorSafe")(n);
+          (o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[mex][native-client] unexpected error",
+                ])),
             )
-              n instanceof
-                o("WAWebMexRelayEnvironment").MexFatalExtensionError ||
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[mex][native-client] infra error",
-                      ])),
-                  )
-                  .catching(n)
-                  .tags("mex", "native-client")
-                  .sendLogs("mex-native-client-infra-error");
-            else {
-              var g = r("getErrorSafe")(n);
-              (o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[mex][native-client] unexpected error",
-                    ])),
-                )
-                .catching(g)
-                .tags("mex", "native-client")
-                .sendLogs("mex-native-client-unexpected-error"),
-                a.setHasData(!1),
-                a.setErrors([
-                  o("WAWebMexLogging").createLoggingClientError(417, g.message),
-                ]));
-            }
-            if (
-              (a.stop(),
-              a.logEvent(),
-              n instanceof
-                o("WAWebMexRelayEnvironment").MexFatalExtensionError ||
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MEX][",
-                        "] fetch query error",
-                      ])),
-                    f(t),
-                  )
-                  .tags("GQL", "MEX"),
-              n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError)
-            ) {
-              var h = n.error.extensions.error_code;
-              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(h),
-                "MexFatalExtensionError: " + f(t) + ": " + n.error.message,
-              );
-            }
-            throw n instanceof o("WAWebMexRelayEnvironment").MexIqError
-              ? new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  n.code,
-                  "MexIqError: " + n.message,
-                )
-              : n;
-          }
-        })),
-        d.apply(this, arguments)
-      );
+            .catching(g)
+            .tags("mex", "native-client")
+            .sendLogs("mex-native-client-unexpected-error"),
+            a.setHasData(!1),
+            a.setErrors([
+              o("WAWebMexLogging").createLoggingClientError(417, g.message),
+            ]));
+        }
+        if (
+          (a.stop(),
+          a.logEvent(),
+          n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError ||
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[MEX][",
+                    "] fetch query error",
+                  ])),
+                _(t),
+              )
+              .tags("GQL", "MEX"),
+          n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError)
+        ) {
+          var h = n.error.extensions.error_code;
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+            Number(h),
+            "MexFatalExtensionError: " + _(t) + ": " + n.error.message,
+          );
+        }
+        throw n instanceof o("WAWebMexRelayEnvironment").MexIqError
+          ? new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              n.code,
+              "MexIqError: " + n.message,
+            )
+          : n;
+      }
     }
-    function m(e, t) {
+    function d(e, t) {
       if (e.data != null) return { data: e.data };
       if (Array.isArray(e)) {
         var n = "mex response is an array";
@@ -115,9 +103,9 @@ __d(
         new (o("WAWebMexRelayEnvironment").MexPayloadParsingError)(r("err")(a))
       );
     }
-    function p(e) {
+    function m(e) {
       var t,
-        n = _(e);
+        n = p(e);
       if (n != null) return n;
       var r = e.default != null ? e.default.kind : e.kind;
       throw new (o("WACustomError").CustomError)(
@@ -126,15 +114,15 @@ __d(
           " is not 'Request'",
       );
     }
-    function _(e) {
+    function p(e) {
       return e.kind === "Request" && e.default == null
         ? e
         : e.default != null && e.default.kind === "Request"
           ? e.default
           : null;
     }
-    function f(e) {
-      var t = _(e);
+    function _(e) {
+      var t = p(e);
       return t != null ? t.params.name : "unknown-operation";
     }
     l.fetchQuery = c;

@@ -1,11 +1,6 @@
 __d(
   "WAWebSearchByDateUtils",
-  [
-    "WAWebDBSearchByDate",
-    "WAWebMsgKey",
-    "WAWebUserPrefsHistorySync",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebDBSearchByDate", "WAWebMsgKey", "WAWebUserPrefsHistorySync"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return Math.floor(e / 1e3);
@@ -23,48 +18,33 @@ __d(
         o != null ? r("WAWebMsgKey").fromString(o) : null
       );
     }
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
+    async function u(e, t, n, r) {
+      var a = await o("WAWebDBSearchByDate").getClosestMessageBetweenDates(
+          e,
+          t,
+          n,
+          !0,
+          r,
+        ),
+        i = await o("WAWebDBSearchByDate").getClosestMessageBetweenDates(
+          e,
+          t,
+          n,
+          !1,
+          r,
+        );
+      return s(a, i, r);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-                "WAWebDBSearchByDate",
-              ).getClosestMessageBetweenDates(e, t, n, !0, r),
-              i = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates(
-                e,
-                t,
-                n,
-                !1,
-                r,
-              );
-            return s(a, i, r);
-          },
-        )),
-        c.apply(this, arguments)
-      );
+    async function c(t, n) {
+      var r = e(n.getTime()),
+        a = o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate() * 1e3,
+        i = new Date().getTime(),
+        l = await u(t, r, i, !1);
+      if (l != null) return l;
+      var s = await u(t, a, r, !0);
+      return (s != null, s);
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = e(n.getTime()),
-            a =
-              o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate() * 1e3,
-            i = new Date().getTime(),
-            l = yield u(t, r, i, !1);
-          if (l != null) return l;
-          var s = yield u(t, a, r, !0);
-          return (s != null, s);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    ((l.fromMillisecondsToSeconds = e), (l.getClosestMessageFromDate = d));
+    ((l.fromMillisecondsToSeconds = e), (l.getClosestMessageFromDate = c));
   },
   98,
 );

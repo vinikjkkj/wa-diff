@@ -6,7 +6,6 @@ __d(
     "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsTypes",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "WANewChatMessageCappingData";
@@ -22,7 +21,7 @@ __d(
       var n = o("WATimeUtils").unixTime(),
         r = n > t.cycle_end_timestamp;
       return r
-        ? (S(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
+        ? (v(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
         : t.capping_status ===
             o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.CAPPED;
     }
@@ -91,7 +90,7 @@ __d(
       var n = o("WATimeUtils").unixTime(),
         r = n > t.cycle_end_timestamp;
       return r
-        ? (S(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
+        ? (v(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
         : t.capping_status ===
             o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType
               .FIRST_WARNING ||
@@ -126,46 +125,30 @@ __d(
             o("WAWebUserPrefsTypes").NewChatMessageCappingOTEStatusType
               .ELIGIBLE;
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function b(t) {
+      var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
+      n != null &&
+        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          e,
+          babelHelpers.extends({}, n, {
+            total_quota: t.total_quota,
+            used_quota: t.used_quota,
+            cycle_start_timestamp: Number(t.cycle_start_timestamp),
+            cycle_end_timestamp: Number(t.cycle_end_timestamp),
+            server_sent_timestamp: Number(t.server_sent_timestamp),
+            ote_status: p(t.ote_status),
+            mv_status: _(t.mv_status),
+            capping_status: m(t.capping_status),
+          }),
+        ));
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
-          n != null &&
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              e,
-              babelHelpers.extends({}, n, {
-                total_quota: t.total_quota,
-                used_quota: t.used_quota,
-                cycle_start_timestamp: Number(t.cycle_start_timestamp),
-                cycle_end_timestamp: Number(t.cycle_end_timestamp),
-                server_sent_timestamp: Number(t.server_sent_timestamp),
-                ote_status: p(t.ote_status),
-                mv_status: _(t.mv_status),
-                capping_status: m(t.capping_status),
-              }),
-            ));
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
-          n != null &&
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              e,
-              babelHelpers.extends({}, n, { capping_status: t }),
-            ));
-        })),
-        R.apply(this, arguments)
-      );
+    async function v(t) {
+      var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
+      n != null &&
+        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          e,
+          babelHelpers.extends({}, n, { capping_status: t }),
+        ));
     }
     ((l.NEW_CHAT_MESSAGE_CAPPING_IDB_KEY = e),
       (l.isUserCapped = s),
@@ -181,7 +164,7 @@ __d(
       (l.getCycleEndDateFormatted = y),
       (l.isOTEEligible = C),
       (l.updateCappingDataFromOTEResponse = b),
-      (l.resetCappingStatus = S));
+      (l.resetCappingStatus = v));
   },
   98,
 );

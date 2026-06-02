@@ -16,78 +16,77 @@ __d(
     "WAWebPollsGetVoteKey",
     "WAWebPollsPollVoteCollection",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "uniqueBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t, a, i) {
-      i === void 0 && (i = !0);
-      var l = o("WAWebMaxPerGroup").maxPerGroup(
+    function c(t, n, a) {
+      a === void 0 && (a = !0);
+      var i = o("WAWebMaxPerGroup").maxPerGroup(
           t,
           function (e) {
             return e.senderTimestampMs;
           },
           o("WAWebPollsGetVoteKey").getVoteKey,
         ),
-        c = r("compactMap")(a || [], function (e) {
+        l = r("compactMap")(n || [], function (e) {
           return o(
             "WAWebPollsPollVoteCollection",
           ).PollVoteCollection.getByMsgKey(e);
         }),
-        d = [];
-      for (var m of l) {
-        var p = o(
+        c = [];
+      for (var d of i) {
+        var m = o(
             "WAWebPollsPollVoteCollection",
           ).PollVoteCollection.getForParentAddressingModeInsensitive([
-            m.parentMsgKey,
+            d.parentMsgKey,
           ]),
-          _ = p[0],
-          f = _.getVoteFromSenderAddressingModeInsensitive(m.sender);
+          p = m[0],
+          _ = p.getVoteFromSenderAddressingModeInsensitive(d.sender);
         if (
-          f != null &&
-          (f.senderTimestampMs > m.senderTimestampMs ||
-            f.msgKey.equals(m.msgKey))
+          _ != null &&
+          (_.senderTimestampMs > d.senderTimestampMs ||
+            _.msgKey.equals(d.msgKey))
         ) {
           (o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
             o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
           ) &&
-            f.ack !== m.ack &&
-            ((f.ack = m.ack),
-            (f.isSendFailure = m.ack === o("WAAckLevel").ACK.FAILED)),
-            m.ack != null &&
-              m.ack >= o("WAAckLevel").ACK.SENT &&
-              (f.lastSuccessfulSelectedOptionLocalIds =
-                m.selectedOptionLocalIds));
+            _.ack !== d.ack &&
+            ((_.ack = d.ack),
+            (_.isSendFailure = d.ack === o("WAAckLevel").ACK.FAILED)),
+            d.ack != null &&
+              d.ack >= o("WAAckLevel").ACK.SENT &&
+              (_.lastSuccessfulSelectedOptionLocalIds =
+                d.selectedOptionLocalIds));
           continue;
         }
-        f != null && c.push(f);
-        var g = m.lastSuccessfulSelectedOptionLocalIds;
-        (f != null &&
-          (f.ack != null && f.ack >= o("WAAckLevel").ACK.SENT
-            ? (g = f.selectedOptionLocalIds)
-            : f.lastSuccessfulSelectedOptionLocalIds != null &&
-              (g = f.lastSuccessfulSelectedOptionLocalIds)),
-          d.push(
+        _ != null && l.push(_);
+        var f = d.lastSuccessfulSelectedOptionLocalIds;
+        (_ != null &&
+          (_.ack != null && _.ack >= o("WAAckLevel").ACK.SENT
+            ? (f = _.selectedOptionLocalIds)
+            : _.lastSuccessfulSelectedOptionLocalIds != null &&
+              (f = _.lastSuccessfulSelectedOptionLocalIds)),
+          c.push(
             o("WAWebPollsPollVoteCollection").createPollVoteModel(
-              babelHelpers.extends({}, m, {
-                lastSuccessfulSelectedOptionLocalIds: g,
+              babelHelpers.extends({}, d, {
+                lastSuccessfulSelectedOptionLocalIds: f,
                 isSendFailure:
-                  i &&
-                  m.ack === o("WAAckLevel").ACK.CLOCK &&
-                  o("WAWebUserPrefsMeUser").isMeAccount(m.sender),
+                  a &&
+                  d.ack === o("WAAckLevel").ACK.CLOCK &&
+                  o("WAWebUserPrefsMeUser").isMeAccount(d.sender),
               }),
             ),
           ));
       }
-      (d.length > 0 &&
-        o("WAWebPollsPollVoteCollection").PollVoteCollection.add(d),
-        c.length > 0 &&
-          o("WAWebPollsPollVoteCollection").PollVoteCollection.remove(c),
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      (c.length > 0 &&
+        o("WAWebPollsPollVoteCollection").PollVoteCollection.add(c),
+        l.length > 0 &&
+          o("WAWebPollsPollVoteCollection").PollVoteCollection.remove(l),
+        (async function () {
           if (
-            !(i || o("WAWebNotificationHelpers").isOfflineResumeInProgress())
+            !(a || o("WAWebNotificationHelpers").isOfflineResumeInProgress())
           ) {
             var n = r("uniqueBy")(
                 t
@@ -99,14 +98,14 @@ __d(
                   }),
                 String,
               ),
-              a = [],
-              l = yield o(
+              i = [],
+              l = await o(
                 "WAWebMsgCollection",
               ).MsgCollection.hydrateOrGetMessages(Array.from(n, String)),
               c = 0,
               d = 0,
               m = [],
-              p = function* (n) {
+              p = async function (n) {
                 if (!o("WAWebMsgGetters").getIsSentByMe(n)) return 1;
                 var e = o("WAWebFrontendMsgGetters").getAsPollCreation(n);
                 if (
@@ -114,11 +113,11 @@ __d(
                   n.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT
                 ) {
                   c++;
-                  var r = yield o(
+                  var r = await o(
                       "WAWebMsgCollection",
                     ).MsgCollection.getMessagesById([n.id.toString()]),
-                    i = r.messages;
-                  e = o("WAWebFrontendMsgGetters").getAsPollCreation(i[0]);
+                    a = r.messages;
+                  e = o("WAWebFrontendMsgGetters").getAsPollCreation(a[0]);
                 }
                 if (e == null) {
                   var l = t
@@ -135,9 +134,9 @@ __d(
                       msgType: n.type,
                       msgVoteKeys: l,
                     }));
-                } else a.push(e);
+                } else i.push(e);
               };
-            for (var _ of l) yield* p(_);
+            for (var _ of l) await p(_);
             if (
               (c > 0 &&
                 o("WALogger").LOG(
@@ -176,11 +175,11 @@ __d(
                 )
                 .sendLogs("msgs-not-poll-creation-msg");
             }
-            yield o("WAWebAddonHydrationUtils").hydrateAddons({
+            await o("WAWebAddonHydrationUtils").hydrateAddons({
               ids: n,
               hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             });
-            for (var h of a) {
+            for (var h of i) {
               var y = o(
                   "WAWebPollsPollVoteCollection",
                 ).PollVoteCollection.getForParentAddressingModeInsensitive([

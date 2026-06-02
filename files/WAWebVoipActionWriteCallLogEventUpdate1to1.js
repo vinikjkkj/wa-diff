@@ -10,7 +10,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -27,63 +26,57 @@ __d(
             ? o("WAWebCallLogMsgData.flow").CallOutcome.Failed
             : o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var n = t.CallId,
-              a = t.PeerJid,
-              i = t.Result,
-              l = o("WAWebUserPrefsMeUser").isMeAccount(a),
-              u = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
-                callId: n,
-                peerWid: a,
-                groupJid: null,
-                callCreatorWid: a,
-              }),
-              c = u.chatId,
-              d = u.msgKeyId,
-              m = u.participant,
-              p = u.viewMode,
-              _ = s(i),
-              f = {
-                id: new (r("WAWebMsgKey"))({
-                  remote: c,
-                  participant: m,
-                  fromMe: l,
-                  id: d,
-                }),
-                type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
-                kind: "callLog",
-                callOutcome: _,
-                isVideoCall: !1,
-                to: c,
-                from: a,
-                t: o("WATimeUtils").castToUnixTime(Date.now() / 1e3),
-                viewMode: p,
-              };
-            yield o(
-              "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(c, f, !1);
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[generateCallLogFromEventUpdate1to1] call log gen failed ",
-                    "",
-                  ])),
-                t,
-              )
-              .tags("nexus-voip")
-              .sendLogs("generate-call-log-event=update-1to1");
-          }
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(t) {
+      try {
+        var n = t.CallId,
+          a = t.PeerJid,
+          i = t.Result,
+          l = o("WAWebUserPrefsMeUser").isMeAccount(a),
+          u = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+            callId: n,
+            peerWid: a,
+            groupJid: null,
+            callCreatorWid: a,
+          }),
+          c = u.chatId,
+          d = u.msgKeyId,
+          m = u.participant,
+          p = u.viewMode,
+          _ = s(i),
+          f = {
+            id: new (r("WAWebMsgKey"))({
+              remote: c,
+              participant: m,
+              fromMe: l,
+              id: d,
+            }),
+            type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
+            kind: "callLog",
+            callOutcome: _,
+            isVideoCall: !1,
+            to: c,
+            from: a,
+            t: o("WATimeUtils").castToUnixTime(Date.now() / 1e3),
+            viewMode: p,
+          };
+        await o("WAWebVoipActionWriteCallLogImpl").writeVoipCallLogMessageImpl(
+          c,
+          f,
+          !1,
+        );
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[generateCallLogFromEventUpdate1to1] call log gen failed ",
+                "",
+              ])),
+            t,
+          )
+          .tags("nexus-voip")
+          .sendLogs("generate-call-log-event=update-1to1");
+      }
     }
     l.generateCallLogFromEventUpdate1to1 = u;
   },

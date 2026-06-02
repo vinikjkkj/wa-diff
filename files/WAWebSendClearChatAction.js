@@ -2,7 +2,6 @@ __d(
   "WAWebSendClearChatAction",
   [
     "fbt",
-    "Promise",
     "WAAbortError",
     "WAFilteredCatch",
     "WALogger",
@@ -16,61 +15,49 @@ __d(
     "WAWebNullFunc",
     "WAWebStateUtils",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c,
-      d = c || (c = o("react"));
-    function m(e, t) {
-      return p(o("WAWebStateUtils").unproxy(e), t);
+      c = u || (u = o("react"));
+    function d(e, t) {
+      return m(o("WAWebStateUtils").unproxy(e), t);
     }
-    function p(t, a) {
-      var i = new AbortController(),
-        l = i.signal,
-        c = new (o("WAWebActionToast.react").ActionType)(
+    function m(t, n) {
+      var a = new AbortController(),
+        i = a.signal,
+        l = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Clearing chat"),
           {
             actionText: s._(/*BTDS*/ "Undo"),
-            actionHandler: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  (i.abort(),
-                    o("WAWebToastManager").ToastManager.open(
-                      d.jsx(o("WAWebActionToast.react").ActionToast, {
-                        initialAction: new (o(
-                          "WAWebActionToast.react",
-                        ).ActionType)(s._(/*BTDS*/ "Chat clear cancelled")),
-                        pendingAction: (u || (u = n("Promise"))).resolve(null),
-                      }),
-                    ));
-                },
-              );
-              function t() {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
+            actionHandler: async function () {
+              (a.abort(),
+                o("WAWebToastManager").ToastManager.open(
+                  c.jsx(o("WAWebActionToast.react").ActionToast, {
+                    initialAction: new (o("WAWebActionToast.react").ActionType)(
+                      s._(/*BTDS*/ "Chat clear cancelled"),
+                    ),
+                    pendingAction: Promise.resolve(null),
+                  }),
+                ));
+            },
           },
         ),
-        m = o("WAPromiseDelays")
+        u = o("WAPromiseDelays")
           .delayMs(
             o("WAWebActionListenerHelpers").MESSAGE_DELETE_DELAY_DURATION,
           )
           .then(function () {
-            if (l.aborted) throw new (o("WAAbortError").AbortError)();
-            var e = o("WAWebClearChatUtils").initClearChat(t, a);
-            return e.then(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                ((t.endOfHistoryTransferType =
-                  o(
-                    "WAWebChatConstants",
-                  ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
-                  yield o("WAWebClearChatUtils").finalizeClearChat(t, e));
-              }),
-            );
+            if (i.aborted) throw new (o("WAAbortError").AbortError)();
+            var e = o("WAWebClearChatUtils").initClearChat(t, n);
+            return e.then(async function () {
+              ((t.endOfHistoryTransferType =
+                o(
+                  "WAWebChatConstants",
+                ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
+                await o("WAWebClearChatUtils").finalizeClearChat(t, e));
+            });
           })
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
@@ -101,32 +88,24 @@ __d(
                 s._(/*BTDS*/ "Couldn't clear chat."),
                 {
                   actionText: s._(/*BTDS*/ "Try again."),
-                  actionHandler: (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* () {
-                        yield p(t, a);
-                      },
-                    );
-                    function r() {
-                      return e.apply(this, arguments);
-                    }
-                    return r;
-                  })(),
+                  actionHandler: async function () {
+                    await m(t, n);
+                  },
                 },
               )
             );
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          d.jsx(o("WAWebActionToast.react").ActionToast, {
-            initialAction: c,
-            pendingAction: m,
+          c.jsx(o("WAWebActionToast.react").ActionToast, {
+            initialAction: l,
+            pendingAction: u,
           }),
         ),
-        m.then(r("WAWebNoop"))
+        u.then(r("WAWebNoop"))
       );
     }
-    l.sendClear = m;
+    l.sendClear = d;
   },
   226,
 );

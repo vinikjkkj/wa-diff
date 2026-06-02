@@ -6,7 +6,6 @@ __d(
     "WAWebTeeClientProvider",
     "WAWebTeeEnums",
     "WAWebTeeRequestBuilder",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,9 +27,9 @@ __d(
       ]),
       m = (function () {
         function t() {}
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.sendRequest = function (t) {
+          (n.sendRequest = function (t) {
             var e = o("WAWebTeeRequestBuilder").buildWriteWithAIRequest(
               t.text,
               t.tone,
@@ -38,7 +37,7 @@ __d(
             );
             return this.$1(e, t);
           }),
-          (a.isAvailable = function () {
+          (n.isAvailable = function () {
             try {
               return o("WAWebTeeClientProvider").getClient() != null;
             } catch (t) {
@@ -55,75 +54,67 @@ __d(
               );
             }
           }),
-          (a.getName = function () {
+          (n.getName = function () {
             return "TeeWWAITransport";
           }),
-          (a.$1 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = o("WAWebTeeClientProvider").getClient(),
-                  a = n.sendRequest(e),
-                  i = [],
-                  l = new Set(),
-                  u = !1,
-                  m = !1,
-                  p;
-                try {
-                  for (
-                    var _ = babelHelpers.asyncIterator(a), f;
-                    (u = !(f = yield _.next()).done);
-                    u = !1
-                  ) {
-                    var g = f.value;
-                    {
-                      var h = g.common_metadata.status,
-                        y = g.wwai_response;
-                      if (y != null && y.suggestions.length > 0)
-                        for (var C of y.suggestions)
-                          l.has(C) || (l.add(C), i.push(C));
-                      if (c.has(h)) break;
-                      if (d.has(h))
-                        throw r("err")(
-                          "TEE request failed with status " + String(h),
-                        );
-                    }
-                  }
-                } catch (e) {
-                  ((m = !0), (p = e));
-                } finally {
-                  try {
-                    u && _.return != null && (yield _.return());
-                  } finally {
-                    if (m) throw p;
-                  }
+          (n.$1 = async function (t, n) {
+            var e = o("WAWebTeeClientProvider").getClient(),
+              a = e.sendRequest(t),
+              i = [],
+              l = new Set(),
+              u = !1,
+              m = !1,
+              p;
+            try {
+              for (
+                var _ = babelHelpers.asyncIterator(a), f;
+                (u = !(f = await _.next()).done);
+                u = !1
+              ) {
+                var g = f.value;
+                {
+                  var h = g.common_metadata.status,
+                    y = g.wwai_response;
+                  if (y != null && y.suggestions.length > 0)
+                    for (var C of y.suggestions)
+                      l.has(C) || (l.add(C), i.push(C));
+                  if (c.has(h)) break;
+                  if (d.has(h))
+                    throw r("err")(
+                      "TEE request failed with status " + String(h),
+                    );
                 }
-                var b = o("WATimeUtils").unixTime(),
-                  v = i.map(function (e, n) {
-                    return {
-                      text: e,
-                      tone: t.tone,
-                      requestId: t.requestId,
-                      timestamp: b + n,
-                    };
-                  });
-                return (
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WWAI][TEE] Received ",
-                        " suggestions",
-                      ])),
-                    String(v.length),
-                  ),
-                  { suggestions: v, requestId: t.requestId, inProgress: !1 }
-                );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+              }
+            } catch (e) {
+              ((m = !0), (p = e));
+            } finally {
+              try {
+                u && _.return != null && (await _.return());
+              } finally {
+                if (m) throw p;
+              }
             }
-            return t;
-          })()),
+            var b = o("WATimeUtils").unixTime(),
+              v = i.map(function (e, t) {
+                return {
+                  text: e,
+                  tone: n.tone,
+                  requestId: n.requestId,
+                  timestamp: b + t,
+                };
+              });
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WWAI][TEE] Received ",
+                    " suggestions",
+                  ])),
+                String(v.length),
+              ),
+              { suggestions: v, requestId: n.requestId, inProgress: !1 }
+            );
+          }),
           t
         );
       })();

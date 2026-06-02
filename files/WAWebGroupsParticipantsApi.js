@@ -12,116 +12,94 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.group,
-            n = e.groupInfo,
-            r = e.isOffline,
-            a = e.participants,
-            i = e.skipDeviceSync,
-            l = i === void 0 ? !1 : i,
-            s = [],
-            u = [];
-          a.forEach(function (e) {
-            (e.isAdmin && s.push(e.id), e.isSuperAdmin && u.push(e.id));
-          });
-          var c = o("WAWebGroupUtils").amIGroupAdmin(s),
-            d = !1;
-          n != null && (d = !!n.defaultSubgroup);
-          var m = d
-              ? o("WAWebPnhCagUtils").augmentedCagGroupParticipantList(c, a)
-              : a.map(function (e) {
-                  var t = e.id;
-                  return t;
-                }),
-            p;
-          return (
-            l ? (p = m) : (p = yield C(m, r)),
-            o("WAWebDBGroupParticipant").replaceParticipants({
-              group: t,
-              participants: a,
-              admins: s,
-              superAdmins: u,
-              deviceIds: p,
-              groupInfo: n,
-            })
-          );
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.group,
-            n = e.isOffline,
-            a = e.participants,
-            i = e.reason,
-            l = t.toString(),
-            s = !1,
-            u = [],
-            c = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            d = yield o("WAWebSchemaGroupMetadata")
-              .getGroupMetadataTable()
-              .get(l);
-          if (d == null)
-            throw r("err")("addParticipants: groupMetadataRecord is null");
-          var m = !!d.defaultSubgroup,
-            p = d.isLidAddressingMode === !0,
-            _ = a.some(function (e) {
-              return e.id.isLid();
-            }),
-            f = yield o("WAWebSchemaParticipant").getParticipantTable().get(l);
-          if (
-            (f != null &&
-              ((u = f.admins.map(function (e) {
-                return o("WAWebWidFactory").createWid(e);
-              })),
-              (s =
-                o("WAWebGroupUtils").amIGroupAdmin(u) ||
-                i === o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_PROMOTE)),
-            !(_ && !m && !p))
-          ) {
-            var g = a.map(function (e) {
+    async function e(e) {
+      var t = e.group,
+        n = e.groupInfo,
+        r = e.isOffline,
+        a = e.participants,
+        i = e.skipDeviceSync,
+        l = i === void 0 ? !1 : i,
+        s = [],
+        u = [];
+      a.forEach(function (e) {
+        (e.isAdmin && s.push(e.id), e.isSuperAdmin && u.push(e.id));
+      });
+      var c = o("WAWebGroupUtils").amIGroupAdmin(s),
+        d = !1;
+      n != null && (d = !!n.defaultSubgroup);
+      var m = d
+          ? o("WAWebPnhCagUtils").augmentedCagGroupParticipantList(c, a)
+          : a.map(function (e) {
               var t = e.id;
               return t;
-            });
-            m &&
-              (g =
-                i === o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_PROMOTE
-                  ? [].concat(u, g, [c])
-                  : o("WAWebPnhCagUtils").augmentedCagGroupParticipantList(
-                      s,
-                      a,
-                    ));
-            var h = yield C(g, n);
-            return o("WAWebDBGroupParticipant").updateDBParticipants(
-              t,
-              {
-                action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.ADD,
-                participants: a,
-                deviceIds: h,
-              },
-              d,
-              n,
-            );
-          }
-        })),
-        c.apply(this, arguments)
+            }),
+        p;
+      return (
+        l ? (p = m) : (p = await f(m, r)),
+        o("WAWebDBGroupParticipant").replaceParticipants({
+          group: t,
+          participants: a,
+          admins: s,
+          superAdmins: u,
+          deviceIds: p,
+          groupInfo: n,
+        })
       );
     }
-    function d(e) {
+    async function s(e) {
+      var t = e.group,
+        n = e.isOffline,
+        a = e.participants,
+        i = e.reason,
+        l = t.toString(),
+        s = !1,
+        u = [],
+        c = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        d = await o("WAWebSchemaGroupMetadata").getGroupMetadataTable().get(l);
+      if (d == null)
+        throw r("err")("addParticipants: groupMetadataRecord is null");
+      var m = !!d.defaultSubgroup,
+        p = d.isLidAddressingMode === !0,
+        _ = a.some(function (e) {
+          return e.id.isLid();
+        }),
+        g = await o("WAWebSchemaParticipant").getParticipantTable().get(l);
+      if (
+        (g != null &&
+          ((u = g.admins.map(function (e) {
+            return o("WAWebWidFactory").createWid(e);
+          })),
+          (s =
+            o("WAWebGroupUtils").amIGroupAdmin(u) ||
+            i === o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_PROMOTE)),
+        !(_ && !m && !p))
+      ) {
+        var h = a.map(function (e) {
+          var t = e.id;
+          return t;
+        });
+        m &&
+          (h =
+            i === o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_PROMOTE
+              ? [].concat(u, h, [c])
+              : o("WAWebPnhCagUtils").augmentedCagGroupParticipantList(s, a));
+        var y = await f(h, n);
+        return o("WAWebDBGroupParticipant").updateDBParticipants(
+          t,
+          {
+            action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.ADD,
+            participants: a,
+            deviceIds: y,
+          },
+          d,
+          n,
+        );
+      }
+    }
+    function u(e) {
       var t = e.author,
         n = e.group,
         r = e.groupMetadata,
@@ -142,7 +120,7 @@ __d(
         a,
       );
     }
-    function m(e) {
+    function c(e) {
       var t = e.group,
         n = e.groupMetadata,
         r = e.isOffline,
@@ -157,52 +135,41 @@ __d(
         r,
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.group,
-            n = e.groupMetadata,
-            r = e.isOffline,
-            a = e.participants,
-            i = t.toString(),
-            l = [],
-            s = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            u = a.some(function (e) {
-              return s.equals(e.id);
-            }),
-            c;
-          if (u) {
-            var d = yield o("WAWebSchemaParticipant")
-              .getParticipantTable()
-              .get(i);
-            if (d != null) {
-              var m = !!n.defaultSubgroup;
-              m &&
-                ((l = d.admins.map(function (e) {
-                  return o("WAWebWidFactory").createWid(e);
-                })),
-                (c = yield C([].concat(l, [s]), r)));
-            }
-          }
-          return o("WAWebDBGroupParticipant").updateDBParticipants(
-            t,
-            {
-              action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
-                .PROMOTE,
-              participants: a,
-              deviceIds: c,
-            },
-            n,
-            r,
-          );
-        })),
-        _.apply(this, arguments)
+    async function d(e) {
+      var t = e.group,
+        n = e.groupMetadata,
+        r = e.isOffline,
+        a = e.participants,
+        i = t.toString(),
+        l = [],
+        s = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        u = a.some(function (e) {
+          return s.equals(e.id);
+        }),
+        c;
+      if (u) {
+        var d = await o("WAWebSchemaParticipant").getParticipantTable().get(i);
+        if (d != null) {
+          var m = !!n.defaultSubgroup;
+          m &&
+            ((l = d.admins.map(function (e) {
+              return o("WAWebWidFactory").createWid(e);
+            })),
+            (c = await f([].concat(l, [s]), r)));
+        }
+      }
+      return o("WAWebDBGroupParticipant").updateDBParticipants(
+        t,
+        {
+          action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.PROMOTE,
+          participants: a,
+          deviceIds: c,
+        },
+        n,
+        r,
       );
     }
-    function f(e) {
+    function m(e) {
       var t = e.group,
         n = e.isOffline,
         r = e.participants;
@@ -216,20 +183,12 @@ __d(
         isOffline: n,
       });
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    async function p(e) {
+      var t = e.group,
+        n = e.newSuperAdmin;
+      return o("WAWebDBGroupParticipant").setDBGroupSuperAdmin(t, n);
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.group,
-            n = e.newSuperAdmin;
-          return o("WAWebDBGroupParticipant").setDBGroupSuperAdmin(t, n);
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
+    function _(e) {
       var t = e.group,
         n = e.isOffline,
         r = e.participants;
@@ -243,49 +202,41 @@ __d(
         isOffline: n,
       });
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    async function f(e, t) {
+      t === void 0 && (t = !1);
+      var n = [];
+      if (t === !0)
+        return (
+          e.forEach(function (e) {
+            o(
+              "WAWebOfflineDeviceCache",
+            ).OfflinePendingDeviceCache.addOfflinePendingDevice(String(e));
+          }),
+          e
+        );
+      n = await o("WAWebAdvSyncDeviceListApi").syncAndGetDeviceList(e);
+      var r = [];
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = !1);
-          var n = [];
-          if (t === !0)
-            return (
-              e.forEach(function (e) {
-                o(
-                  "WAWebOfflineDeviceCache",
-                ).OfflinePendingDeviceCache.addOfflinePendingDevice(String(e));
-              }),
-              e
-            );
-          n = yield o("WAWebAdvSyncDeviceListApi").syncAndGetDeviceList(e);
-          var r = [];
-          return (
-            n.forEach(function (t, n) {
-              if (!t) r.push(e[n]);
-              else {
-                var a = t.devices,
-                  i = t.id;
-                r = r.concat(
-                  a.map(function (e) {
-                    return o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
-                      i,
-                      e.id,
-                      e.isHosted,
-                    );
-                  }),
+        n.forEach(function (t, n) {
+          if (!t) r.push(e[n]);
+          else {
+            var a = t.devices,
+              i = t.id;
+            r = r.concat(
+              a.map(function (e) {
+                return o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
+                  i,
+                  e.id,
+                  e.isHosted,
                 );
-              }
-            }),
-            r
-          );
-        })),
-        b.apply(this, arguments)
+              }),
+            );
+          }
+        }),
+        r
       );
     }
-    function v(e) {
+    function g(e) {
       return o("WAWebSchemaParticipant")
         .getParticipantTable()
         .bulkGet(
@@ -294,12 +245,12 @@ __d(
           }),
         );
     }
-    function S(e) {
+    function h(e) {
       return o("WAWebSchemaParticipant")
         .getParticipantTable()
         .get(e.toString());
     }
-    function R(e) {
+    function y(e) {
       var t = e == null ? void 0 : e.participants;
       return (
         t != null &&
@@ -310,41 +261,25 @@ __d(
         })
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    async function C(e) {
+      return y(await h(e));
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return R(yield S(e));
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (yield v(e)).map(R);
-        })),
-        I.apply(this, arguments)
-      );
+    async function b(e) {
+      return (await g(e)).map(y);
     }
     ((l.updateParticipants = e),
-      (l.addParticipants = u),
-      (l.removeParticipants = d),
-      (l.demoteParticipants = m),
-      (l.promoteParticipants = p),
-      (l.promoteCommmunityParticipants = f),
-      (l.setGroupSuperAdmin = g),
-      (l.demoteCommmunityParticipants = y),
-      (l.bulkGetParticipants = v),
-      (l.getParticipants = S),
-      (l.checkMyMembershipForParticipantRecord = R),
-      (l.checkMyMembership = L),
-      (l.bulkCheckMyMembership = k));
+      (l.addParticipants = s),
+      (l.removeParticipants = u),
+      (l.demoteParticipants = c),
+      (l.promoteParticipants = d),
+      (l.promoteCommmunityParticipants = m),
+      (l.setGroupSuperAdmin = p),
+      (l.demoteCommmunityParticipants = _),
+      (l.bulkGetParticipants = g),
+      (l.getParticipants = h),
+      (l.checkMyMembershipForParticipantRecord = y),
+      (l.checkMyMembership = C),
+      (l.bulkCheckMyMembership = b));
   },
   98,
 );

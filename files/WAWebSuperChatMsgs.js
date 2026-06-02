@@ -1,6 +1,6 @@
 __d(
   "WAWebSuperChatMsgs",
-  ["WALogger", "WAWebBaseModel", "WAWebChatMsgsCollection", "err", "lodash"],
+  ["WALogger", "WAWebBaseModel", "WAWebChatMsgsCollection", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -81,11 +81,11 @@ __d(
             return this.msgChunks.concat([this.msgs]);
           }),
           (a.getAllMsgs = function () {
-            return r("lodash").flatten(
-              this.getAllCMCs().map(function (e) {
+            return this.getAllCMCs()
+              .map(function (e) {
                 return e.getModelsArray();
-              }),
-            );
+              })
+              .flat();
           }),
           (a.replaceMsgsCollection = function (t) {
             o("WALogger").LOG(

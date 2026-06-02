@@ -1,7 +1,6 @@
 __d(
   "WAWebInteractiveMessageSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WATimeUtils",
@@ -21,7 +20,6 @@ __d(
     "WAWebSyncdResolveMessages",
     "WAWebSyncdUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,9 +28,8 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function (t) {
-        function a() {
+      m = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -43,10 +40,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getMessageKey = function (t) {
+          (a.getMessageKey = function (t) {
             var e = t[1],
               n = t[2],
               r = t[3],
@@ -54,293 +51,243 @@ __d(
             if (!(!e || !n || !r || !a))
               return o("WAWebSyncdIndexUtils").syncKeyToMsgKey(e, n, r, a);
           }),
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 1;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.InteractiveMessageAction;
           }),
-          (i.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = this;
-                o("WAWebCurrentUser").isEmployee() &&
-                  o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: start apply interactive message",
-                      ])),
-                  );
-                var i = yield o(
-                    "WAWebSyncdResolveMessages",
-                  ).resolveMessagesForMutations(t),
-                  l = i.incomingRemoteToLocalChatId,
-                  p = i.messagesInDB,
-                  _ = 0,
-                  f = 0,
-                  g = 0,
-                  h = [],
-                  y = 0,
-                  C = [],
-                  b = 0,
-                  v = yield (m || (m = n("Promise"))).all(
-                    t.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              if (e.operation === "set") {
-                                var t = e.indexParts,
-                                  n = e.value,
-                                  i = t[1],
-                                  s = t[2],
-                                  u = t[3],
-                                  c = t[4],
-                                  d = t[5];
-                                if (!i || !s || !u || !c || !d)
-                                  return a.malformedActionIndex();
-                                var m = n.interactiveMessageAction;
-                                if (m == null)
-                                  return (
-                                    _++,
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(a.collectionName)
-                                  );
-                                var v = l.get(i),
-                                  S = o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
-                                    i,
-                                    s,
-                                    u,
-                                    c,
-                                  );
-                                if (S == null) return a.malformedActionIndex();
-                                if (v == null) {
-                                  if (
-                                    !o(
-                                      "WAWebLid1X1MigrationGating",
-                                    ).Lid1X1MigrationUtils.isLidMigrated()
-                                  ) {
-                                    var R = yield o("WAWebSchemaChat")
-                                      .getChatTable()
-                                      .get(S.remote.toString());
-                                    R != null && f++;
-                                  }
-                                  return {
-                                    actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
-                                    orphanModel: {
-                                      modelId: S.toString(),
-                                      modelType:
-                                        o("WASyncdConst").SyncModelType.Msg,
-                                    },
-                                  };
-                                }
-                                var L = r("nullthrows")(
-                                    o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
-                                      v,
-                                      s,
-                                      u,
-                                      c,
-                                    ),
-                                  ),
-                                  E = p.find(function (e) {
-                                    return e.startsWith(
-                                      o(
-                                        "WAWebSyncdIndexUtils",
-                                      ).msgKeyToDbIdWithoutFromMeParticipant(L),
-                                    );
-                                  }),
-                                  k = m.agmId;
-                                if (
-                                  (k != null &&
-                                    v != null &&
-                                    o("WAWebBackendApi").frontendFireAndForget(
-                                      "addGalaxyDisableCTAByAgmId",
-                                      { agmId: k, chatId: v },
-                                    ),
-                                  E == null)
-                                )
-                                  return k != null && v != null
-                                    ? {
-                                        actionState:
-                                          o("WASyncdConst").SyncActionState
-                                            .Success,
-                                      }
-                                    : {
-                                        actionState:
-                                          o("WASyncdConst").SyncActionState
-                                            .Orphan,
-                                        orphanModel: {
-                                          modelId: S.toString(),
-                                          modelType:
-                                            o("WASyncdConst").SyncModelType.Msg,
-                                        },
-                                      };
-                                var I =
-                                  o("WAWebMsgCollection").MsgCollection.get(E);
-                                return I &&
-                                  m.type ===
-                                    o("WAWebProtobufSyncAction.pb")
-                                      .SyncActionValue$InteractiveMessageAction$InteractiveMessageActionMode
-                                      .DISABLE_CTA
-                                  ? (o("WAWebBackendApi").frontendFireAndForget(
-                                      "addGalaxyDisableCTAMessageId",
-                                      { messageId: I.id.toString() },
-                                    ),
-                                    g++,
-                                    h.length < 3 && h.push(L.toString()),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Success,
-                                    })
-                                  : (y++,
-                                    C.length < 3 && C.push(L.toString()),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Skipped,
-                                    });
-                              }
-                              return (
-                                b++,
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState
-                                      .Unsupported,
-                                }
-                              );
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
-                              };
-                            }
-                          },
+          (a.applyMutations = async function (n) {
+            var t = this;
+            o("WAWebCurrentUser").isEmployee() &&
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: start apply interactive message",
+                  ])),
+              );
+            var a = await o(
+                "WAWebSyncdResolveMessages",
+              ).resolveMessagesForMutations(n),
+              i = a.incomingRemoteToLocalChatId,
+              l = a.messagesInDB,
+              m = 0,
+              p = 0,
+              _ = 0,
+              f = [],
+              g = 0,
+              h = [],
+              y = 0,
+              C = await Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n = e.indexParts,
+                        a = e.value,
+                        s = n[1],
+                        u = n[2],
+                        c = n[3],
+                        d = n[4],
+                        C = n[5];
+                      if (!s || !u || !c || !d || !C)
+                        return t.malformedActionIndex();
+                      var b = a.interactiveMessageAction;
+                      if (b == null)
+                        return (
+                          m++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
+                      var v = i.get(s),
+                        S = o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
+                          s,
+                          u,
+                          c,
+                          d,
+                        );
+                      if (S == null) return t.malformedActionIndex();
+                      if (v == null) {
+                        if (
+                          !o(
+                            "WAWebLid1X1MigrationGating",
+                          ).Lid1X1MigrationUtils.isLidMigrated()
+                        ) {
+                          var R = await o("WAWebSchemaChat")
+                            .getChatTable()
+                            .get(S.remote.toString());
+                          R != null && p++;
+                        }
+                        return {
+                          actionState: o("WASyncdConst").SyncActionState.Orphan,
+                          orphanModel: {
+                            modelId: S.toString(),
+                            modelType: o("WASyncdConst").SyncModelType.Msg,
+                          },
                         };
-                      })(),
-                    ),
-                  );
-                return (
-                  _ > 0 &&
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "interactive message sync: ",
-                          " malformed mutations",
-                        ])),
-                      _,
-                    ),
-                  f > 0 &&
-                    o("WALogger").ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd] interactive msg sync: ",
-                          " chats via fallback",
-                        ])),
-                      f,
-                    ),
-                  y > 0 &&
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[star_msg_sync] ",
-                          " msgs in storage not collection => ",
-                          "",
-                        ])),
-                      y,
-                      C,
-                    ),
-                  b > 0 &&
-                    o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "interactive message sync: ",
-                          " operations not supported",
-                        ])),
-                      b,
-                    ),
-                  v
-                );
-              },
+                      }
+                      var L = r("nullthrows")(
+                          o("WAWebSyncdIndexUtils").syncKeyToMsgKey(v, u, c, d),
+                        ),
+                        E = l.find(function (e) {
+                          return e.startsWith(
+                            o(
+                              "WAWebSyncdIndexUtils",
+                            ).msgKeyToDbIdWithoutFromMeParticipant(L),
+                          );
+                        }),
+                        k = b.agmId;
+                      if (
+                        (k != null &&
+                          v != null &&
+                          o("WAWebBackendApi").frontendFireAndForget(
+                            "addGalaxyDisableCTAByAgmId",
+                            { agmId: k, chatId: v },
+                          ),
+                        E == null)
+                      )
+                        return k != null && v != null
+                          ? {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Success,
+                            }
+                          : {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Orphan,
+                              orphanModel: {
+                                modelId: S.toString(),
+                                modelType: o("WASyncdConst").SyncModelType.Msg,
+                              },
+                            };
+                      var I = o("WAWebMsgCollection").MsgCollection.get(E);
+                      return I &&
+                        b.type ===
+                          o("WAWebProtobufSyncAction.pb")
+                            .SyncActionValue$InteractiveMessageAction$InteractiveMessageActionMode
+                            .DISABLE_CTA
+                        ? (o("WAWebBackendApi").frontendFireAndForget(
+                            "addGalaxyDisableCTAMessageId",
+                            { messageId: I.id.toString() },
+                          ),
+                          _++,
+                          f.length < 3 && f.push(L.toString()),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          })
+                        : (g++,
+                          h.length < 3 && h.push(L.toString()),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Skipped,
+                          });
+                    }
+                    return (
+                      y++,
+                      {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      }
+                    );
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              m > 0 &&
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "interactive message sync: ",
+                      " malformed mutations",
+                    ])),
+                  m,
+                ),
+              p > 0 &&
+                o("WALogger").ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] interactive msg sync: ",
+                      " chats via fallback",
+                    ])),
+                  p,
+                ),
+              g > 0 &&
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[star_msg_sync] ",
+                      " msgs in storage not collection => ",
+                      "",
+                    ])),
+                  g,
+                  h,
+                ),
+              y > 0 &&
+                o("WALogger").WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "interactive message sync: ",
+                      " operations not supported",
+                    ])),
+                  y,
+                ),
+              C
             );
-            function a(e) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (i.$InteractiveMessageSync$p_1 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a) {
-                var i = o("WATimeUtils").unixTimeMs(),
-                  l = babelHelpers.extends(
-                    { type: n },
-                    a != null ? { agmId: a } : {},
+          }),
+          (a.$InteractiveMessageSync$p_1 = async function (t, n, a, i) {
+            var e = o("WATimeUtils").unixTimeMs(),
+              l = babelHelpers.extends(
+                { type: a },
+                i != null ? { agmId: i } : {},
+              ),
+              s = { interactiveMessageAction: l },
+              u = new (r("WAWebMsgKey"))({
+                fromMe: t.fromMe,
+                participant: t.participant,
+                remote: o("WAWebWidFactory").createWid(
+                  await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
+                    t.remote,
+                    o("WASyncdConst").Actions.InteractiveMessageAction,
                   ),
-                  s = { interactiveMessageAction: l },
-                  u = new (r("WAWebMsgKey"))({
-                    fromMe: e.fromMe,
-                    participant: e.participant,
-                    remote: o("WAWebWidFactory").createWid(
-                      yield o(
-                        "WAWebSyncdGetChat",
-                      ).getChatJidMutationIndexForChat(
-                        e.remote,
-                        o("WASyncdConst").Actions.InteractiveMessageAction,
-                      ),
-                    ),
-                    id: e.id,
-                  });
-                return o("WAWebSyncdActionUtils").buildPendingMutation({
-                  collection: this.collectionName,
-                  indexArgs: [].concat(
-                    o("WAWebSyncdUtils").constructMsgKeySegmentsFromMsgKey(e),
-                    [t],
-                  ),
-                  operation: o("WAWebProtobufsServerSync.pb")
-                    .SyncdMutation$SyncdOperation.SET,
-                  version: this.getVersion(),
-                  value: s,
-                  timestamp: i,
-                  action: this.getAction(),
-                });
-              },
+                ),
+                id: t.id,
+              });
+            return o("WAWebSyncdActionUtils").buildPendingMutation({
+              collection: this.collectionName,
+              indexArgs: [].concat(
+                o("WAWebSyncdUtils").constructMsgKeySegmentsFromMsgKey(t),
+                [n],
+              ),
+              operation: o("WAWebProtobufsServerSync.pb")
+                .SyncdMutation$SyncdOperation.SET,
+              version: this.getVersion(),
+              value: s,
+              timestamp: e,
+              action: this.getAction(),
+            });
+          }),
+          (a.sendDisableCTAMutation = async function (t, n, r) {
+            var e = await this.$InteractiveMessageSync$p_1(
+              t,
+              n,
+              o("WAWebProtobufSyncAction.pb")
+                .SyncActionValue$InteractiveMessageAction$InteractiveMessageActionMode
+                .DISABLE_CTA,
+              r,
             );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.sendDisableCTAMutation = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r) {
-                var a = yield this.$InteractiveMessageSync$p_1(
-                  e,
-                  t,
-                  o("WAWebProtobufSyncAction.pb")
-                    .SyncActionValue$InteractiveMessageAction$InteractiveMessageActionMode
-                    .DISABLE_CTA,
-                  r,
-                );
-                yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
-                  return (m || (m = n("Promise"))).resolve();
-                });
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+            await o("WAWebSyncdCoreApi").lockForSync([], [e], function () {
+              return Promise.resolve();
+            });
+          }),
+          n
         );
       })(o("WAWebSyncdAction").MessageSyncdActionBase),
-      _ = new p();
-    l.default = _;
+      p = new m();
+    l.default = p;
   },
   98,
 );

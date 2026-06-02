@@ -9,7 +9,6 @@ __d(
     "WAWebSchemaOrphanRevoke",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Map(),
@@ -42,45 +41,31 @@ __d(
               .bulkCreateOrReplace(n)
           );
         },
-        getAllOrphanRevokes: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (!s) {
-              var t = yield o("WAWebSchemaOrphanRevoke")
-                .getOrphanRevokeTable()
-                .all();
-              ((e = new Map(
-                t.map(function (e) {
-                  return [e.msgKey, e];
-                }),
-              )),
-                (s = !0));
-            }
-            return e;
-          });
-          function r() {
-            return t.apply(this, arguments);
+        getAllOrphanRevokes: async function () {
+          if (!s) {
+            var t = await o("WAWebSchemaOrphanRevoke")
+              .getOrphanRevokeTable()
+              .all();
+            ((e = new Map(
+              t.map(function (e) {
+                return [e.msgKey, e];
+              }),
+            )),
+              (s = !0));
           }
-          return r;
-        })(),
+          return e;
+        },
       };
     function c(e) {
       return u.bulkCreateOrReplaceOrphanRevokes(e);
     }
-    function d() {
-      return m.apply(this, arguments);
+    async function d() {
+      return u.getAllOrphanRevokes();
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return u.getAllOrphanRevokes();
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       return u.bulkRemoveOrphans(e);
     }
-    function _(e, t) {
+    function p(e, t) {
       var n;
       return {
         id: e.id,
@@ -99,52 +84,44 @@ __d(
         broadcast: e.broadcast,
       };
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function _(e) {
+      var t = await u.getAllOrphanRevokes(),
+        n = [],
+        a = [];
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u.getAllOrphanRevokes(),
-            n = [],
-            a = [];
-          return (
-            e.forEach(function (e) {
-              var i = e.id.toString();
-              if (t.has(i)) {
-                var l = r("WANullthrows")(t.get(i));
-                (a.push(
-                  babelHelpers.extends(
-                    {},
-                    o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(e),
-                    {
-                      id: r("WAWebMsgKey").fromString(l.msgKey),
-                      type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-                      kind: o("WAWebMsgType").MsgKind.ProtocolRevoke,
-                      subtype:
-                        l.subtype === "admin_revoke"
-                          ? "admin_revoke"
-                          : "sender_revoke",
-                      protocolMessageKey: e.id,
-                      t: l.timestamp,
-                    },
-                  ),
-                ),
-                  n.push(l));
-              }
-            }),
-            yield u.bulkRemoveOrphans(n),
-            a
-          );
-        })),
-        g.apply(this, arguments)
+        e.forEach(function (e) {
+          var i = e.id.toString();
+          if (t.has(i)) {
+            var l = r("WANullthrows")(t.get(i));
+            (a.push(
+              babelHelpers.extends(
+                {},
+                o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(e),
+                {
+                  id: r("WAWebMsgKey").fromString(l.msgKey),
+                  type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+                  kind: o("WAWebMsgType").MsgKind.ProtocolRevoke,
+                  subtype:
+                    l.subtype === "admin_revoke"
+                      ? "admin_revoke"
+                      : "sender_revoke",
+                  protocolMessageKey: e.id,
+                  t: l.timestamp,
+                },
+              ),
+            ),
+              n.push(l));
+          }
+        }),
+        await u.bulkRemoveOrphans(n),
+        a
       );
     }
     ((l.addOrphanRevokes = c),
       (l.getOrphansRevokesCache = d),
-      (l.bulkRemoveOrphansUsingOrphansCache = p),
-      (l.createRevokeMsgFromOrphanRevoke = _),
-      (l.applyAddonRevokes = f));
+      (l.bulkRemoveOrphansUsingOrphansCache = m),
+      (l.createRevokeMsgFromOrphanRevoke = p),
+      (l.applyAddonRevokes = _));
   },
   98,
 );

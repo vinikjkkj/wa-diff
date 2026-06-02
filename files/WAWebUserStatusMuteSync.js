@@ -1,7 +1,6 @@
 __d(
   "WAWebUserStatusMuteSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebBackendApi",
@@ -15,80 +14,60 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    var e, s;
+    async function u(e) {
+      var t = new Set(),
+        n = [],
+        a = [],
+        i = [];
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Set(),
-            a = [],
-            i = [],
-            l = [];
-          return (
-            e.forEach(function (e) {
-              var t = e.indexParts,
-                n = t[1];
-              !n ||
-                !r("WAWebWid").isWid(n) ||
-                (r("WAWebWid").isGroup(n)
-                  ? i.push(n)
-                  : r("WAWebWid").isNewsletter(n) &&
-                      o(
-                        "WAWebNewsletterGatingUtils",
-                      ).isNewsletterStatusReceiverEnabled()
-                    ? l.push(n)
-                    : a.push(n));
+        e.forEach(function (e) {
+          var t = e.indexParts,
+            l = t[1];
+          !l ||
+            !r("WAWebWid").isWid(l) ||
+            (r("WAWebWid").isGroup(l)
+              ? a.push(l)
+              : r("WAWebWid").isNewsletter(l) &&
+                  o(
+                    "WAWebNewsletterGatingUtils",
+                  ).isNewsletterStatusReceiverEnabled()
+                ? i.push(l)
+                : n.push(l));
+        }),
+        await r("WAWebLidAwareContactsDB")
+          .bulkGet(n)
+          .then(function (e) {
+            return e.forEach(function (e) {
+              e && t.add(e.id);
+            });
+          }),
+        a.length > 0 &&
+          (await o("WAWebSchemaGroupMetadata")
+            .getGroupMetadataTable()
+            .bulkGet(a)
+            .then(function (e) {
+              return e.forEach(function (e) {
+                e && t.add(e.id);
+              });
+            })),
+        i.length > 0 &&
+          o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled() &&
+          (await Promise.all(
+            i.map(async function (e) {
+              var n = await o("WAWebSchemaNewsletterMetadata")
+                .getNewsletterMetadataTable()
+                .equalsPrimaryKeys(["id"], e);
+              n.length > 0 && t.add(e);
             }),
-            yield r("WAWebLidAwareContactsDB")
-              .bulkGet(a)
-              .then(function (e) {
-                return e.forEach(function (e) {
-                  e && t.add(e.id);
-                });
-              }),
-            i.length > 0 &&
-              (yield o("WAWebSchemaGroupMetadata")
-                .getGroupMetadataTable()
-                .bulkGet(i)
-                .then(function (e) {
-                  return e.forEach(function (e) {
-                    e && t.add(e.id);
-                  });
-                })),
-            l.length > 0 &&
-              o(
-                "WAWebNewsletterGatingUtils",
-              ).isNewsletterStatusReceiverEnabled() &&
-              (yield (u || (u = n("Promise"))).all(
-                l.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var n = yield o("WAWebSchemaNewsletterMetadata")
-                          .getNewsletterMetadataTable()
-                          .equalsPrimaryKeys(["id"], e);
-                        n.length > 0 && t.add(e);
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              )),
-            t
-          );
-        })),
-        d.apply(this, arguments)
+          )),
+        t
       );
     }
-    var m = (function (t) {
-        function a() {
+    var c = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -98,163 +77,143 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.UserStatusMute;
           }),
-          (i.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = this,
-                  i = yield c(t),
-                  l = [],
-                  d = [],
-                  m = [],
-                  p = 0,
-                  _ = [],
-                  f = 0,
-                  g = yield (u || (u = n("Promise"))).all(
-                    t.map(function (e) {
-                      try {
-                        if (e.operation === "set") {
-                          var t,
-                            n = e.indexParts,
-                            s = e.value,
-                            u = n[1];
-                          if (!u || !r("WAWebWid").isWid(u))
-                            return a.malformedActionIndex();
-                          var c =
-                            (t = s.userStatusMuteAction) == null
-                              ? void 0
-                              : t.muted;
-                          if (c === void 0)
-                            return (
-                              p++,
-                              _.length < 3 && _.push(e),
-                              o("WAWebSyncdIndexUtils").malformedActionValue(
-                                a.collectionName,
-                              )
-                            );
-                          if (!i.has(u))
-                            return {
-                              actionState:
-                                o("WASyncdConst").SyncActionState.Orphan,
-                              orphanModel: {
-                                modelId: u,
-                                modelType:
-                                  o("WASyncdConst").SyncModelType
-                                    .UserStatusMute,
-                              },
-                            };
-                          var g = { id: u, statusMute: c };
-                          return (
-                            r("WAWebWid").isGroup(u)
-                              ? d.push(g)
-                              : r("WAWebWid").isNewsletter(u) &&
-                                  o(
-                                    "WAWebNewsletterGatingUtils",
-                                  ).isNewsletterStatusReceiverEnabled()
-                                ? m.push(g)
-                                : l.push(g),
-                            {
-                              actionState:
-                                o("WASyncdConst").SyncActionState.Success,
-                            }
-                          );
-                        }
+          (a.applyMutations = async function (n) {
+            var t = this,
+              a = await u(n),
+              i = [],
+              l = [],
+              c = [],
+              d = 0,
+              m = [],
+              p = 0,
+              _ = await Promise.all(
+                n.map(function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n,
+                        s = e.indexParts,
+                        u = e.value,
+                        _ = s[1];
+                      if (!_ || !r("WAWebWid").isWid(_))
+                        return t.malformedActionIndex();
+                      var f =
+                        (n = u.userStatusMuteAction) == null ? void 0 : n.muted;
+                      if (f === void 0)
                         return (
-                          f++,
-                          {
-                            actionState:
-                              o("WASyncdConst").SyncActionState.Unsupported,
-                          }
+                          d++,
+                          m.length < 3 && m.push(e),
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
                         );
-                      } catch (e) {
+                      if (!a.has(_))
                         return {
-                          actionState: o("WASyncdConst").SyncActionState.Failed,
+                          actionState: o("WASyncdConst").SyncActionState.Orphan,
+                          orphanModel: {
+                            modelId: _,
+                            modelType:
+                              o("WASyncdConst").SyncModelType.UserStatusMute,
+                          },
                         };
+                      var g = { id: _, statusMute: f };
+                      return (
+                        r("WAWebWid").isGroup(_)
+                          ? l.push(g)
+                          : r("WAWebWid").isNewsletter(_) &&
+                              o(
+                                "WAWebNewsletterGatingUtils",
+                              ).isNewsletterStatusReceiverEnabled()
+                            ? c.push(g)
+                            : i.push(g),
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Success,
+                        }
+                      );
+                    }
+                    return (
+                      p++,
+                      {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
                       }
-                    }),
-                  );
-                return (
-                  p > 0 &&
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "UserStatusMuteSyncd: ",
-                          " malformed mutations => ",
-                          "",
-                        ])),
-                      p,
-                      _,
-                    ),
-                  f > 0 &&
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "status mute chat sync: ",
-                          " operations not supported",
-                        ])),
-                      f,
-                    ),
-                  yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                    .getContactTable()
-                    .bulkCreateOrMerge(l),
-                  yield o("WAWebSchemaGroupMetadata")
-                    .getGroupMetadataTable()
-                    .bulkMergeOnly(d),
-                  yield o("WAWebSchemaNewsletterMetadata")
-                    .getNewsletterMetadataTable()
-                    .bulkMergeOnly(m),
-                  o("WAWebBackendApi").frontendFireAndForget(
-                    "updateContactsStatusMute",
-                    {
-                      groupStatusMuteUpdates: d,
-                      newsletterStatusMuteUpdates: m,
-                      userStatusMuteUpdates: l,
-                    },
-                  ),
-                  g
-                );
-              },
+                    );
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              d > 0 &&
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "UserStatusMuteSyncd: ",
+                      " malformed mutations => ",
+                      "",
+                    ])),
+                  d,
+                  m,
+                ),
+              p > 0 &&
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "status mute chat sync: ",
+                      " operations not supported",
+                    ])),
+                  p,
+                ),
+              await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+                .getContactTable()
+                .bulkCreateOrMerge(i),
+              await o("WAWebSchemaGroupMetadata")
+                .getGroupMetadataTable()
+                .bulkMergeOnly(l),
+              await o("WAWebSchemaNewsletterMetadata")
+                .getNewsletterMetadataTable()
+                .bulkMergeOnly(c),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateContactsStatusMute",
+                {
+                  groupStatusMuteUpdates: l,
+                  newsletterStatusMuteUpdates: c,
+                  userStatusMuteUpdates: i,
+                },
+              ),
+              _
             );
-            function a(e) {
-              return t.apply(this, arguments);
-            }
+          }),
+          (a.getMutationForStatusMute = async function (t, n, r) {
+            var e = { userStatusMuteAction: { muted: n } },
+              a = o("WAWebSyncdActionUtils").buildPendingMutation({
+                action: this.getAction(),
+                collection: this.collectionName,
+                indexArgs: [t.toString({ legacy: !0 })],
+                operation: o("WAWebProtobufsServerSync.pb")
+                  .SyncdMutation$SyncdOperation.SET,
+                timestamp: r,
+                value: e,
+                version: this.getVersion(),
+              });
             return a;
-          })()),
-          (i.getMutationForStatusMute = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = { userStatusMuteAction: { muted: t } },
-                  a = o("WAWebSyncdActionUtils").buildPendingMutation({
-                    action: this.getAction(),
-                    collection: this.collectionName,
-                    indexArgs: [e.toString({ legacy: !0 })],
-                    operation: o("WAWebProtobufsServerSync.pb")
-                      .SyncdMutation$SyncdOperation.SET,
-                    timestamp: n,
-                    value: r,
-                    version: this.getVersion(),
-                  });
-                return a;
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      p = new m();
-    l.default = p;
+      d = new c();
+    l.default = d;
   },
   98,
 );

@@ -1,14 +1,12 @@
 __d(
   "WAWebOnlineDanglingReceipts",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebCommsSendPing",
     "WAWebNetworkStatus",
     "WAWebSendReceiptJobCommon",
     "WAWebWamOfflineResumeReporter",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -19,152 +17,127 @@ __d(
       m,
       p,
       _,
-      f,
-      g = new Map(),
-      h = null,
-      y = 120 * 1e3;
-    function C(t, n, r) {
+      f = new Map(),
+      g = null,
+      h = 120 * 1e3;
+    function y(t, n, r) {
       var a;
-      g.has(t) || g.set(t, new Map());
-      var i = g.get(t);
+      f.has(t) || f.set(t, new Map());
+      var i = f.get(t);
       ((i != null && i.has(n)) || i == null || i.set(n, []),
         i == null || (a = i.get(n)) == null || a.push(r),
-        h ||
-          (h = self.setTimeout(function () {
+        g ||
+          (g = self.setTimeout(function () {
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[online-preacks] clear online dangling receipts due to timeout",
                 ])),
             ),
-              E(),
-              (h = null));
-          }, y)));
+              S(),
+              (g = null));
+          }, h)));
     }
-    function b() {
-      return g.size > 0;
+    function C() {
+      return f.size > 0;
     }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = String(o("WATimeUtils").unixTime()),
-            t = 0,
-            r = [],
-            a = Array.from(g.keys()).map(function (n) {
-              var a = g.get(n);
-              if (a)
-                return (
-                  a.forEach(function (e) {
-                    t += e.length;
-                  }),
-                  r.length < 3 && r.push(a.size),
-                  o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                    to: n,
-                    type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
-                    t: e,
-                    groupedReceipt: a,
-                  })
-                );
-            });
-          (r.length > 0 &&
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[online-preacks]: sending online dangling grouped receipts for ",
-                  " chats => ",
-                  "",
-                ])),
-              g.size,
-              r,
-            ),
-            yield (f || (f = n("Promise"))).all(a),
-            o(
-              "WAWebWamOfflineResumeReporter",
-            ).OfflineResumeReporter.logOfflinePreackCount(t, !0),
-            R());
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (g.size !== 0) {
-            if (!r("WAWebNetworkStatus").online) {
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOnlineDanglingReceiptsAfterSending: skip due to offline",
-                  ])),
-              );
-              return;
-            }
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[online-preacks] clearOnlineDanglingReceiptsAfterSending: sending ping",
-                ])),
+    async function b() {
+      var e = String(o("WATimeUtils").unixTime()),
+        t = 0,
+        n = [],
+        r = Array.from(f.keys()).map(function (r) {
+          var a = f.get(r);
+          if (a)
+            return (
+              a.forEach(function (e) {
+                t += e.length;
+              }),
+              n.length < 3 && n.push(a.size),
+              o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+                to: r,
+                type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
+                t: e,
+                groupedReceipt: a,
+              })
             );
-            var e = yield o("WAWebCommsSendPing").blockSendPing();
-            e &&
-              (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOnlineDanglingReceiptsAfterSending: clearing receipts",
-                  ])),
-              ),
-              g.clear());
-          }
-        })),
-        L.apply(this, arguments)
-      );
+        });
+      (n.length > 0 &&
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[online-preacks]: sending online dangling grouped receipts for ",
+              " chats => ",
+              "",
+            ])),
+          f.size,
+          n,
+        ),
+        await Promise.all(r),
+        o(
+          "WAWebWamOfflineResumeReporter",
+        ).OfflineResumeReporter.logOfflinePreackCount(t, !0),
+        v());
     }
-    function E() {
-      return k.apply(this, arguments);
+    async function v() {
+      if (f.size !== 0) {
+        if (!r("WAWebNetworkStatus").online) {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[online-preacks] clearOnlineDanglingReceiptsAfterSending: skip due to offline",
+              ])),
+          );
+          return;
+        }
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[online-preacks] clearOnlineDanglingReceiptsAfterSending: sending ping",
+            ])),
+        );
+        var e = await o("WAWebCommsSendPing").blockSendPing();
+        e &&
+          (o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[online-preacks] clearOnlineDanglingReceiptsAfterSending: clearing receipts",
+              ])),
+          ),
+          f.clear());
+      }
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (g.size !== 0 && r("WAWebNetworkStatus").online)
-            try {
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOrFlushOnlineDanglingReceipts: sending ping",
-                  ])),
-              );
-              var e = yield o("WAWebCommsSendPing").blockSendPing();
-              e &&
-                (o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[online-preacks] clearOrFlushOnlineDanglingReceipts: clearing receipts",
-                    ])),
-                ),
-                g.clear());
-            } catch (e) {
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOrFlushOnlineDanglingReceipts: failed to clear receipts: ",
-                    "",
-                  ])),
-                e,
-              );
-            }
-        })),
-        k.apply(this, arguments)
-      );
+    async function S() {
+      if (f.size !== 0 && r("WAWebNetworkStatus").online)
+        try {
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[online-preacks] clearOrFlushOnlineDanglingReceipts: sending ping",
+              ])),
+          );
+          var e = await o("WAWebCommsSendPing").blockSendPing();
+          e &&
+            (o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[online-preacks] clearOrFlushOnlineDanglingReceipts: clearing receipts",
+                ])),
+            ),
+            f.clear());
+        } catch (e) {
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[online-preacks] clearOrFlushOnlineDanglingReceipts: failed to clear receipts: ",
+                "",
+              ])),
+            e,
+          );
+        }
     }
-    ((l.addOnlineDanglingReceipts = C),
-      (l.hasOnlineDanglingReceipts = b),
-      (l.sendAndClearOnlineDanglingReceipts = v));
+    ((l.addOnlineDanglingReceipts = y),
+      (l.hasOnlineDanglingReceipts = C),
+      (l.sendAndClearOnlineDanglingReceipts = b));
   },
   98,
 );

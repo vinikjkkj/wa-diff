@@ -1,7 +1,6 @@
 __d(
   "WAWebSyncdStoreMissingKeys",
   [
-    "Promise",
     "WAAsyncSleep",
     "WALogger",
     "WATimeUtils",
@@ -12,57 +11,42 @@ __d(
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdGatingUtils",
     "WAWebSyncdMetricFatalError",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S;
-    function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = (yield o("WAWebBackendApi").frontendSendAndReceive(
-            "getDeviceFingerprint",
-            {},
-          )).deviceIndexes;
-          return o("WAWebRunInTransaction").runInTransaction(
-            { MissingKeyStore: !0 },
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var r = t.MissingKeyStore,
-                    o = yield r.getAll();
-                  if (o.length === 0)
-                    return (v || (v = n("Promise"))).resolve();
-                  (o.forEach(function (t) {
-                    var n = t.deviceResponses;
-                    n.forEach(function (n, r) {
-                      e.includes(r) || t.deviceResponses.delete(r);
-                    });
-                  }),
-                    yield r.bulkUpdate(o),
-                    yield N({ MissingKeyStore: r }));
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        L.apply(this, arguments)
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v;
+    async function S() {
+      var e = (
+        await o("WAWebBackendApi").frontendSendAndReceive(
+          "getDeviceFingerprint",
+          {},
+        )
+      ).deviceIndexes;
+      return o("WAWebRunInTransaction").runInTransaction(
+        { MissingKeyStore: !0 },
+        async function (t) {
+          var n = t.MissingKeyStore,
+            r = await n.getAll();
+          if (r.length === 0) return Promise.resolve();
+          (r.forEach(function (t) {
+            var n = t.deviceResponses;
+            n.forEach(function (n, r) {
+              e.includes(r) || t.deviceResponses.delete(r);
+            });
+          }),
+            await n.bulkUpdate(r),
+            await T({ MissingKeyStore: n }));
+        },
       );
     }
-    function E(t, r) {
-      var a = [],
-        i = [];
+    function R(t, n) {
+      var r = [],
+        a = [];
       return (
         t.forEach(function (e) {
           var t = e.keyData,
             n = o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
-          t ? a.push(n) : i.push(n);
+          t ? r.push(n) : a.push(n);
         }),
         o("WALogger").LOG(
           e ||
@@ -72,299 +56,246 @@ __d(
               " -keys=",
               "",
             ])),
+          n,
           r,
           a,
-          i,
         ),
         o("WAWebRunInTransaction").runInTransaction(
           { MissingKeyStore: !0 },
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.MissingKeyStore;
-                if (
-                  (a.length > 0 &&
-                    (yield t.bulkRemove(a), yield I({ MissingKeyStore: t })),
-                  i.length > 0)
-                ) {
-                  var n = (yield t.bulkGet(i)).filter(Boolean);
-                  (n.forEach(function (e) {
-                    return e.deviceResponses.set(r, !1);
-                  }),
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd] updateMissingKeys begin dev=",
-                          " keys=",
-                          "",
-                        ])),
-                      r,
-                      i,
-                    ),
-                    yield t.bulkUpdate(n),
-                    o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd] updateMissingKeys done dev=",
-                          "",
-                        ])),
-                      r,
-                    ),
-                    yield N({ MissingKeyStore: t }));
-                }
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
+          async function (e) {
+            var t = e.MissingKeyStore;
+            if (
+              (r.length > 0 &&
+                (await t.bulkRemove(r), await E({ MissingKeyStore: t })),
+              a.length > 0)
+            ) {
+              var i = (await t.bulkGet(a)).filter(Boolean);
+              (i.forEach(function (e) {
+                return e.deviceResponses.set(n, !1);
+              }),
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] updateMissingKeys begin dev=",
+                      " keys=",
+                      "",
+                    ])),
+                  n,
+                  a,
+                ),
+                await t.bulkUpdate(i),
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] updateMissingKeys done dev=",
+                      "",
+                    ])),
+                  n,
+                ),
+                await T({ MissingKeyStore: t }));
+            }
+          },
         )
       );
     }
-    function k() {
+    function L() {
       return o("WAWebRunInTransaction").runInTransaction(
         { MissingKeyStore: !0 },
         function (e) {
           var t = e.MissingKeyStore;
-          return I({ MissingKeyStore: t });
+          return E({ MissingKeyStore: t });
         },
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.MissingKeyStore;
-          (clearTimeout(S), (S = null));
-          var n = yield t.getAll();
-          if (n.length !== 0) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: _setMissingKeyTimeout: missing keys: ",
-                  "",
-                ])),
-              n.map(function (e) {
-                return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
-              }),
-            );
-            var r = n.reduce(function (e, t) {
-                return e.timestamp < t.timestamp ? e : t;
-              }),
-              a =
-                o("WAWebSyncdGatingUtils").getSyncdWaitForKeyTimeoutDays() *
-                  o("WATimeUtils").DAY_MILLISECONDS -
-                (-r.timestamp + o("WATimeUtils").unixTimeMs());
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: earliest missing key: ",
-                  ", timestamp=",
-                  ", timeoutMs=",
-                  "",
-                ])),
-              o("WAWebSyncdCryptoUtils").syncKeyIdToHex(r.keyId),
-              r.timestamp,
-              a,
-            ),
-              (S = setTimeout(D, a)));
-          }
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D() {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            (o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: _timeoutWhileWaitingForMissingKey",
-                ])),
-            ),
-            !(yield $()))
-          ) {
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: _timeoutWhileWaitingForMissingKey: no expired keys",
-                ])),
-            );
-            return;
-          }
-          (o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
-            o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
-              .TIMEOUT_WHILE_WAITING_FOR_MISSING_KEY,
-          ),
-            o("WALogger")
-              .ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "syncd: fatal error: timeout while waiting for missing key",
-                  ])),
-              )
-              .sendLogs(
-                "syncd fatal error: timeout while waiting for missing key",
-              ),
-            o("WAWebBackendApi").frontendFireAndForget("handleSyncdFatal", {}));
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $() {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WALogger").LOG(
-            f ||
-              (f = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: check if has expired keys",
-              ])),
-          );
-          var e = (yield o(
-            "WAWebGetSyncKey",
-          ).getAllSyncKeysInTransaction()).map(function (e) {
+    async function E(e) {
+      var t = e.MissingKeyStore;
+      (clearTimeout(v), (v = null));
+      var n = await t.getAll();
+      if (n.length !== 0) {
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: _setMissingKeyTimeout: missing keys: ",
+              "",
+            ])),
+          n.map(function (e) {
             return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
-          });
-          o("WALogger").LOG(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: all keys: ",
-                "",
+          }),
+        );
+        var r = n.reduce(function (e, t) {
+            return e.timestamp < t.timestamp ? e : t;
+          }),
+          a =
+            o("WAWebSyncdGatingUtils").getSyncdWaitForKeyTimeoutDays() *
+              o("WATimeUtils").DAY_MILLISECONDS -
+            (-r.timestamp + o("WATimeUtils").unixTimeMs());
+        (o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: earliest missing key: ",
+              ", timestamp=",
+              ", timeoutMs=",
+              "",
+            ])),
+          o("WAWebSyncdCryptoUtils").syncKeyIdToHex(r.keyId),
+          r.timestamp,
+          a,
+        ),
+          (v = setTimeout(k, a)));
+      }
+    }
+    async function k() {
+      if (
+        (o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: _timeoutWhileWaitingForMissingKey",
+            ])),
+        ),
+        !(await I()))
+      ) {
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: _timeoutWhileWaitingForMissingKey: no expired keys",
+            ])),
+        );
+        return;
+      }
+      (o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
+        o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
+          .TIMEOUT_WHILE_WAITING_FOR_MISSING_KEY,
+      ),
+        o("WALogger")
+          .ERROR(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "syncd: fatal error: timeout while waiting for missing key",
               ])),
-            e,
-          );
-          var t =
-            yield o("WAWebGetMissingKey").getAllMissingKeysInTransaction();
-          o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: missing keys: ",
-                "",
-              ])),
-            t.map(function (e) {
-              return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
-            }),
-          );
-          var n = t.filter(function (t) {
-            return !e.includes(t.keyHex);
-          });
-          o("WALogger").LOG(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: actually missing keys: ",
-                "",
-              ])),
-            t.map(function (e) {
-              return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
-            }),
-          );
-          var r = n.filter(function (e) {
-            return (
-              o("WAWebSyncdGatingUtils").getSyncdWaitForKeyTimeoutDays() *
-                o("WATimeUtils").DAY_MILLISECONDS <
-              o("WATimeUtils").unixTimeMs() - e.timestamp
-            );
-          });
-          return (
-            o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: expired keys: ",
-                  "",
-                ])),
-              r.map(function (e) {
-                return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
-              }),
-            ),
-            r.length > 0
-          );
-        })),
-        P.apply(this, arguments)
+          )
+          .sendLogs("syncd fatal error: timeout while waiting for missing key"),
+        o("WAWebBackendApi").frontendFireAndForget("handleSyncdFatal", {}));
+    }
+    async function I() {
+      o("WALogger").LOG(
+        f ||
+          (f = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: check if has expired keys",
+          ])),
+      );
+      var e = (await o("WAWebGetSyncKey").getAllSyncKeysInTransaction()).map(
+        function (e) {
+          return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
+        },
+      );
+      o("WALogger").LOG(
+        g ||
+          (g = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: all keys: ",
+            "",
+          ])),
+        e,
+      );
+      var t = await o("WAWebGetMissingKey").getAllMissingKeysInTransaction();
+      o("WALogger").LOG(
+        h ||
+          (h = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: missing keys: ",
+            "",
+          ])),
+        t.map(function (e) {
+          return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
+        }),
+      );
+      var n = t.filter(function (t) {
+        return !e.includes(t.keyHex);
+      });
+      o("WALogger").LOG(
+        y ||
+          (y = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: actually missing keys: ",
+            "",
+          ])),
+        t.map(function (e) {
+          return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
+        }),
+      );
+      var r = n.filter(function (e) {
+        return (
+          o("WAWebSyncdGatingUtils").getSyncdWaitForKeyTimeoutDays() *
+            o("WATimeUtils").DAY_MILLISECONDS <
+          o("WATimeUtils").unixTimeMs() - e.timestamp
+        );
+      });
+      return (
+        o("WALogger").LOG(
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: expired keys: ",
+              "",
+            ])),
+          r.map(function (e) {
+            return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
+          }),
+        ),
+        r.length > 0
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.MissingKeyStore,
-            n = yield t.getAll();
-          for (var r of n) {
-            var a = !0;
-            for (var i of r.deviceResponses.values())
-              if (i == null) {
-                a = !1;
-                break;
-              }
-            if (a) {
-              (o("WALogger")
-                .ERROR(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: fatal error: missing key on all clients",
-                    ])),
-                )
-                .sendLogs("syncd: fatal error: missing key on all clients"),
-                o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
-                  o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
-                    .MISSING_KEY_ON_ALL_CLIENTS,
-                ),
-                yield o("WAAsyncSleep").asyncSleep(5e3),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "handleSyncdFatal",
-                  {},
-                ));
-              return;
-            }
+    async function T(e) {
+      var t = e.MissingKeyStore,
+        n = await t.getAll();
+      for (var r of n) {
+        var a = !0;
+        for (var i of r.deviceResponses.values())
+          if (i == null) {
+            a = !1;
+            break;
           }
-        })),
-        M.apply(this, arguments)
-      );
+        if (a) {
+          (o("WALogger")
+            .ERROR(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: fatal error: missing key on all clients",
+                ])),
+            )
+            .sendLogs("syncd: fatal error: missing key on all clients"),
+            o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
+              o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
+                .MISSING_KEY_ON_ALL_CLIENTS,
+            ),
+            await o("WAAsyncSleep").asyncSleep(5e3),
+            o("WAWebBackendApi").frontendFireAndForget("handleSyncdFatal", {}));
+          return;
+        }
+      }
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
+    async function D(e, t) {
+      var n = function () {
+          var e = new Map();
+          return (
+            t.forEach(function (t) {
+              return e.set(t, null);
+            }),
+            e
+          );
+        },
+        r = e.map(function (e) {
+          return {
+            keyHex: o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e),
+            keyId: e,
+            timestamp: o("WATimeUtils").unixTimeMs(),
+            deviceResponses: n(),
+          };
+        });
+      (await o("WAWebGetMissingKey").bulkUpdateMissingKeysInTransaction(r),
+        await L());
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = function () {
-              var e = new Map();
-              return (
-                t.forEach(function (t) {
-                  return e.set(t, null);
-                }),
-                e
-              );
-            },
-            r = e.map(function (e) {
-              return {
-                keyHex: o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e),
-                keyId: e,
-                timestamp: o("WATimeUtils").unixTimeMs(),
-                deviceResponses: n(),
-              };
-            });
-          (yield o("WAWebGetMissingKey").bulkUpdateMissingKeysInTransaction(r),
-            yield k());
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    ((l.updateMissingKeyDevices = R),
-      (l.updateMissingKeys = E),
-      (l.setMissingKeyTimeoutInTransaction = k),
-      (l.hasExpiredKeys = $),
-      (l.addMissingKeys = w));
+    ((l.updateMissingKeyDevices = S),
+      (l.updateMissingKeys = R),
+      (l.setMissingKeyTimeoutInTransaction = L),
+      (l.hasExpiredKeys = I),
+      (l.addMissingKeys = D));
   },
   98,
 );

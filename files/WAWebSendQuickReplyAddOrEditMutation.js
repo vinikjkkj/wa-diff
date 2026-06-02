@@ -6,52 +6,34 @@ __d(
     "WAWebQuickRepliesSync",
     "WAWebQuickReplyGatingUtils",
     "WAWebSyncdCoreApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    function e(e, t, n, r, o) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
-              s(0, 73617);
-            var u = o("WATimeUtils").unixTime(),
-              c = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation(
-                e,
-                t,
-                a,
-                i,
-                l,
-                u,
-              );
-            yield o("WAWebSyncdCoreApi").lockForSync(
-              ["quick-reply"],
-              [c],
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var r = n[0];
-                    return r.createOrMerge(e, {
-                      id: e,
-                      shortcut: t,
-                      message: a,
-                      count: i,
-                      keywords: l,
-                      ts: u,
-                    });
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            );
-          },
-        )),
-        u.apply(this, arguments)
+    async function e(e, t, n, a, i) {
+      o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
+        s(0, 73617);
+      var l = o("WATimeUtils").unixTime(),
+        u = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation(
+          e,
+          t,
+          n,
+          a,
+          i,
+          l,
+        );
+      await o("WAWebSyncdCoreApi").lockForSync(
+        ["quick-reply"],
+        [u],
+        async function (r) {
+          var o = r[0];
+          return o.createOrMerge(e, {
+            id: e,
+            shortcut: t,
+            message: n,
+            count: a,
+            keywords: i,
+            ts: l,
+          });
+        },
       );
     }
     l.sendQuickReplyAddOrEditMutation = e;

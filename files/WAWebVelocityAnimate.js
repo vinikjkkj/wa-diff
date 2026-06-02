@@ -1,64 +1,53 @@
 __d(
   "WAWebVelocityAnimate",
-  ["asyncToGeneratorRuntime", "velocity-animate"],
+  ["velocity-animate"],
   function (t, n, r, o, a, i, l) {
     var e = { FINISH: "finish", STOP: "stop" },
       s = new Map();
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    async function u(t, n, a) {
+      if (t) {
+        for (
+          var i = arguments.length, l = new Array(i > 3 ? i - 3 : 0), u = 3;
+          u < i;
+          u++
+        )
+          l[u - 3] = arguments[u];
+        if (typeof n == "string" && (n === e.FINISH || n === e.STOP))
+          return r("velocity-animate").apply(void 0, [t, n, a].concat(l));
+        c(t, function (e) {
+          var t = s.get(e) || 0;
+          s.set(e, t + 1);
+        });
+        var m = n;
+        if (typeof a == "object" && typeof m == "object") {
+          var p;
+          (typeof a.begin == "function" && (p = a.begin),
+            (a.begin = function (e) {
+              for (var t in m) {
+                var n = m[t];
+                Array.isArray(n) && o("velocity-animate").hook(e, t, n[1]);
+              }
+              p != null && p(e);
+            }));
+        }
+        var _ = await r("velocity-animate").apply(void 0, [t, n, a].concat(l));
+        return (
+          c(_, function (e) {
+            var t = (s.get(e) || 1) - 1;
+            t === 0 ? (s.delete(e), d(e)) : s.set(e, t);
+          }),
+          _
+        );
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          if (t) {
-            for (
-              var i = arguments.length, l = new Array(i > 3 ? i - 3 : 0), u = 3;
-              u < i;
-              u++
-            )
-              l[u - 3] = arguments[u];
-            if (typeof n == "string" && (n === e.FINISH || n === e.STOP))
-              return r("velocity-animate").apply(void 0, [t, n, a].concat(l));
-            d(t, function (e) {
-              var t = s.get(e) || 0;
-              s.set(e, t + 1);
-            });
-            var c = n;
-            if (typeof a == "object" && typeof c == "object") {
-              var p;
-              (typeof a.begin == "function" && (p = a.begin),
-                (a.begin = function (e) {
-                  for (var t in c) {
-                    var n = c[t];
-                    Array.isArray(n) && o("velocity-animate").hook(e, t, n[1]);
-                  }
-                  p != null && p(e);
-                }));
-            }
-            var _ = yield r("velocity-animate").apply(
-              void 0,
-              [t, n, a].concat(l),
-            );
-            return (
-              d(_, function (e) {
-                var t = (s.get(e) || 1) - 1;
-                t === 0 ? (s.delete(e), m(e)) : s.set(e, t);
-              }),
-              _
-            );
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
+    function c(e, t) {
       Array.isArray(e)
         ? e.forEach(function (e) {
             t(e);
           })
         : t(e);
     }
-    function m(e) {
+    function d(e) {
       var t,
         n,
         o = r("velocity-animate").Utilities.data(e),

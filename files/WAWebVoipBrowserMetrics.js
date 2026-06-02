@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipBrowserMetrics",
-  ["WALogger", "WAShiftTimer", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAShiftTimer"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -66,52 +66,44 @@ __d(
         n = t - b;
       ((S[v] += n), (v = e), (b = t));
     }
-    function A() {
-      return F.apply(this, arguments);
+    async function A() {
+      if ($())
+        try {
+          var t = new self.PressureObserver(function (e) {
+            for (var t of e) w(t.state);
+          });
+          if ((await t.observe("cpu", { sampleInterval: f }), !D)) {
+            (t.disconnect(),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip:browserMetrics] PressureObserver started, already stopped",
+                  ])),
+              ));
+            return;
+          }
+          ((h = t),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip:browserMetrics] PressureObserver started",
+                ])),
+            ));
+        } catch (e) {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip:browserMetrics] PressureObserver failed to start: ",
+                "",
+              ])),
+            e,
+          );
+        }
     }
     function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if ($())
-            try {
-              var e = new self.PressureObserver(function (e) {
-                for (var t of e) w(t.state);
-              });
-              if ((yield e.observe("cpu", { sampleInterval: f }), !D)) {
-                (e.disconnect(),
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[voip:browserMetrics] PressureObserver started, already stopped",
-                      ])),
-                  ));
-                return;
-              }
-              ((h = e),
-                o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip:browserMetrics] PressureObserver started",
-                    ])),
-                ));
-            } catch (e) {
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip:browserMetrics] PressureObserver failed to start: ",
-                    "",
-                  ])),
-                e,
-              );
-            }
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O() {
       h != null && (h.disconnect(), (h = null));
     }
-    function B() {
+    function O() {
       var e = self.performance.now();
       S[v] += e - b;
       var t = e - C;
@@ -129,7 +121,7 @@ __d(
             criticalPct: Math.round((S.critical / t) * 100),
           };
     }
-    function W() {
+    function B() {
       if (k === 0)
         return {
           avgUsedMb: null,
@@ -147,31 +139,31 @@ __d(
         totalMb: e(T),
       };
     }
-    function q() {
+    function W() {
       ((h = null), (y = null), (C = 0), (b = 0), (v = "nominal"));
       for (var e of g) S[e] = 0;
       ((R = null), (L = 0), (E = 0), (k = 0), (I = 0), (T = 0));
     }
-    function U() {
+    function q() {
       if (D) {
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:browserMetrics] already active, skipping start",
             ])),
         );
         return;
       }
-      ((D = !0), (x = null), q());
-      var t = self.performance.now();
-      ((C = t),
-        (b = t),
+      ((D = !0), (x = null), W());
+      var e = self.performance.now();
+      ((C = e),
+        (b = e),
         (y = A()),
         N(),
         M(),
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:browserMetrics] started (cpu=",
               ", mem=",
               ")",
@@ -180,37 +172,29 @@ __d(
           P().toString(),
         ));
     }
+    async function U() {
+      D &&
+        ((x = V()),
+        (D = !1),
+        y != null && (await y, (y = null)),
+        F(),
+        R != null && (R.cancel(), (R = null)),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip:browserMetrics] stopped",
+            ])),
+        ));
+    }
     function V() {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          D &&
-            ((x = G()),
-            (D = !1),
-            y != null && (yield y, (y = null)),
-            O(),
-            R != null && (R.cancel(), (R = null)),
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip:browserMetrics] stopped",
-                ])),
-            ));
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    function G() {
       if (!D) return x;
       N();
-      var e = B(),
-        t = W();
+      var e = O(),
+        t = B();
       return (
         o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:browserMetrics] snapshot: cpu nominal=",
               "% fair=",
               "% serious=",
@@ -240,19 +224,19 @@ __d(
         }
       );
     }
-    function z() {
+    function H() {
       var e = self.performance.now();
       for (var t of g) S[t] = 0;
       ((C = e), (b = e), (L = 0), (E = 0), (k = 0));
     }
-    function j() {
+    function G() {
       return { browserCpuPressureSupported: $(), browserMemorySupported: P() };
     }
-    ((l.startBrowserMetrics = U),
-      (l.stopBrowserMetrics = V),
-      (l.snapshotBrowserMetrics = G),
-      (l.resetBrowserMetrics = z),
-      (l.getBrowserMetricsCapabilities = j));
+    ((l.startBrowserMetrics = q),
+      (l.stopBrowserMetrics = U),
+      (l.snapshotBrowserMetrics = V),
+      (l.resetBrowserMetrics = H),
+      (l.getBrowserMetricsCapabilities = G));
   },
   98,
 );

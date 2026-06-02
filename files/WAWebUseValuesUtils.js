@@ -1,6 +1,6 @@
 __d(
   "WAWebUseValuesUtils",
-  ["WAWebDummyCacheMap", "WAWebGetters", "lodash"],
+  ["WAMemoizeCache", "WAWebDummyCacheMap", "WAWebGetters", "lodash"],
   function (t, n, r, o, a, i, l) {
     var e = new (o("WAWebDummyCacheMap").FakeCacheMap)(),
       s = r("lodash").memoize(function (t) {
@@ -11,7 +11,7 @@ __d(
           },
         });
       }),
-      u = r("lodash").memoize(
+      u = o("WAMemoizeCache").memoizeWithArgs(
         function (e) {
           var t = e[0].$$root,
             n = s(t),

@@ -19,7 +19,6 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumCustomerAdsSharingSettingEnabled",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -77,36 +76,29 @@ __d(
           : o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
               .CUSTOMER_ADS_SHARING_SETTING_ENABLED.FALSE;
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(e) {
+      var t = (
+        await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(
+            ["internalId"],
+            o("WAWebDBMessageUtils").beginningOfChat(e),
+            o("WAWebDBMessageUtils").endOfChat(e),
+            { reverse: !0 },
+          )
+      ).filter(function (e) {
+        return (
+          e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
+          (e.subtype === "biz_per_customer_3pd_data_share_opt_in" ||
+            e.subtype === "biz_per_customer_3pd_data_share_opt_out")
+        );
+      });
+      if (t.length === 0) return null;
+      var n = t[0];
+      if (n.subtype === "biz_per_customer_3pd_data_share_opt_in") return !0;
+      if (n.subtype === "biz_per_customer_3pd_data_share_opt_out") return !1;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .between(
-              ["internalId"],
-              o("WAWebDBMessageUtils").beginningOfChat(e),
-              o("WAWebDBMessageUtils").endOfChat(e),
-              { reverse: !0 },
-            )).filter(function (e) {
-            return (
-              e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-              (e.subtype === "biz_per_customer_3pd_data_share_opt_in" ||
-                e.subtype === "biz_per_customer_3pd_data_share_opt_out")
-            );
-          });
-          if (t.length === 0) return null;
-          var n = t[0];
-          if (n.subtype === "biz_per_customer_3pd_data_share_opt_in") return !0;
-          if (n.subtype === "biz_per_customer_3pd_data_share_opt_out")
-            return !1;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n, a) {
+    function p(e, t, n, a) {
       if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
         var i = o(
             "WAWebDataSharing3pdLidCollection",
@@ -152,7 +144,7 @@ __d(
       (l.getCurrentDataSharingState = c),
       (l.getCustomerAdsDataSharingState = d),
       (l.getLastDataSharingState = m),
-      (l.getModalForPerCustomerDataSharing = _));
+      (l.getModalForPerCustomerDataSharing = p));
   },
   98,
 );

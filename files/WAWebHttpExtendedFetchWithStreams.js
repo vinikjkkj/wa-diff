@@ -1,6 +1,6 @@
 __d(
   "WAWebHttpExtendedFetchWithStreams",
-  ["WAWebABProps", "asyncToGeneratorRuntime"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     var e = ["onData", "onHeadersReceived", "onProgress", "timeout"];
     function s() {
@@ -16,35 +16,26 @@ __d(
         s()
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function c(t, n) {
+      var r,
+        o = n.onData,
+        a = n.onHeadersReceived,
+        i = n.onProgress,
+        l = n.timeout,
+        s = babelHelpers.objectWithoutPropertiesLoose(n, e),
+        u = await self.fetch(t, s),
+        c = u.headers;
+      if (
+        (a == null || a(c),
+        (i == null && o == null) || (s.method !== "get" && s.method != null))
+      )
+        return u;
+      var m = c.get("Content-Length"),
+        p = m != null ? Number.parseInt(m, 10) : null,
+        _ = (r = u.clone().body) == null ? void 0 : r.getReader();
+      return (d(_, { onProgress: i, onData: o }, { contentLength: p }), u);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r,
-            o = n.onData,
-            a = n.onHeadersReceived,
-            i = n.onProgress,
-            l = n.timeout,
-            s = babelHelpers.objectWithoutPropertiesLoose(n, e),
-            u = yield self.fetch(t, s),
-            c = u.headers;
-          if (
-            (a == null || a(c),
-            (i == null && o == null) ||
-              (s.method !== "get" && s.method != null))
-          )
-            return u;
-          var d = c.get("Content-Length"),
-            p = d != null ? Number.parseInt(d, 10) : null,
-            _ = (r = u.clone().body) == null ? void 0 : r.getReader();
-          return (m(_, { onProgress: i, onData: o }, { contentLength: p }), u);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t, n) {
+    function d(e, t, n) {
       if (e != null) {
         var r = 0;
         return new ReadableStream({

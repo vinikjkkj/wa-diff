@@ -8,7 +8,6 @@ __d(
     "WAWebSignCredentialWamEvent",
     "WAWebWamEnumApplicationState",
     "WAWebWamEnumSignCredentialResult",
-    "asyncToGeneratorRuntime",
     "privateStatsToken",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,36 +57,28 @@ __d(
       }).commit();
     }
     var d = new (o("WASemaphore").Semaphore)(1);
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield d.acquire();
-          try {
-            var n = yield o("privateStatsToken").getToken(
-                o("WADeprecatedSendIq").deprecatedSendIqWithoutRetry,
-              ),
-              r = n.metric,
-              a = n.result;
-            return (
-              r != null && c(r),
-              a ||
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Couldn't get a private stats token",
-                    ])),
-                ),
-              a
-            );
-          } finally {
-            t.release();
-          }
-        })),
-        p.apply(this, arguments)
-      );
+    async function m() {
+      var t = await d.acquire();
+      try {
+        var n = await o("privateStatsToken").getToken(
+            o("WADeprecatedSendIq").deprecatedSendIqWithoutRetry,
+          ),
+          r = n.metric,
+          a = n.result;
+        return (
+          r != null && c(r),
+          a ||
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Couldn't get a private stats token",
+                ])),
+            ),
+          a
+        );
+      } finally {
+        t.release();
+      }
     }
     l.getToken = m;
   },

@@ -22,7 +22,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWid",
-    "lodash",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -375,12 +374,14 @@ __d(
       t.toArray().forEach(function (e) {
         var t = e.labelId,
           n = e.parentId,
-          a = e.parentType,
-          i = o("WAWebBizLabelUtils").getParentCollection(a).get(n);
-        i &&
-          (i.labels = r("lodash").remove(i.labels, function (e) {
+          r = e.parentType,
+          a = o("WAWebBizLabelUtils").getParentCollection(r).get(n);
+        if (a) {
+          var i;
+          a.labels = ((i = a.labels) != null ? i : []).filter(function (e) {
             return e !== t;
-          }));
+          });
+        }
       });
     }
     var b = new y();

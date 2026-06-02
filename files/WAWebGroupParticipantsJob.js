@@ -7,7 +7,6 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaParticipant",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -133,57 +132,47 @@ __d(
         )
         .waitUntilCompleted(r);
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r,
-            a = e.isParentGroupLidAddressingMode,
-            i = e.parentGroupId,
-            l = yield o("WAWebSchemaParticipant").getParticipantTable().get(i);
-          if (l != null) {
-            var s = a
-                ? o("WAWebLidMigrationUtils").toUserLidOrThrow
-                : o("WAWebLidMigrationUtils").toPnOrThrow,
-              u = function (t) {
-                return t.map(function (e) {
-                  return s(
-                    o("WAWebWidFactory").createUserWidOrThrow(e),
-                  ).toString();
-                });
-              },
-              c = u(l.participants),
-              d = u(l.admins),
-              m = u((t = l == null ? void 0 : l.superAdmins) != null ? t : []),
-              p =
-                (n =
-                  (r = l.pastParticipants) == null
-                    ? void 0
-                    : r.map(function (e) {
-                        var t = s(
-                          o("WAWebWidFactory").createUserWidOrThrow(e.jid),
-                        ).toString();
-                        return babelHelpers.extends({}, e, { jid: t });
-                      })) != null
-                  ? n
-                  : [];
-            yield o("WAWebSchemaParticipant")
-              .getParticipantTable()
-              .merge(i, {
-                groupId: i,
-                participants: c,
-                pastParticipants: p,
-                admins: d,
-                superAdmins: m,
-              });
-          }
-        })),
-        h.apply(this, arguments)
-      );
+    async function g(e) {
+      var t,
+        n,
+        r,
+        a = e.isParentGroupLidAddressingMode,
+        i = e.parentGroupId,
+        l = await o("WAWebSchemaParticipant").getParticipantTable().get(i);
+      if (l != null) {
+        var s = a
+            ? o("WAWebLidMigrationUtils").toUserLidOrThrow
+            : o("WAWebLidMigrationUtils").toPnOrThrow,
+          u = function (t) {
+            return t.map(function (e) {
+              return s(o("WAWebWidFactory").createUserWidOrThrow(e)).toString();
+            });
+          },
+          c = u(l.participants),
+          d = u(l.admins),
+          m = u((t = l == null ? void 0 : l.superAdmins) != null ? t : []),
+          p =
+            (n =
+              (r = l.pastParticipants) == null
+                ? void 0
+                : r.map(function (e) {
+                    var t = s(
+                      o("WAWebWidFactory").createUserWidOrThrow(e.jid),
+                    ).toString();
+                    return babelHelpers.extends({}, e, { jid: t });
+                  })) != null
+              ? n
+              : [];
+        await o("WAWebSchemaParticipant")
+          .getParticipantTable()
+          .merge(i, {
+            groupId: i,
+            participants: c,
+            pastParticipants: p,
+            admins: d,
+            superAdmins: m,
+          });
+      }
     }
     ((l.updateParticipantsJob = e),
       (l.migrateParentGroupToLIDOrFallbackToPNJob = s),

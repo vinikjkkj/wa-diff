@@ -1,6 +1,6 @@
 __d(
   "KdfHkdfSha256",
-  ["Hpke", "asyncToGeneratorRuntime"],
+  ["Hpke"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = window.crypto || window.msCrypto,
@@ -14,100 +14,56 @@ __d(
             (this.internalCryptoProvider = null),
             (this.internalCryptoProvider = t));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.hmac = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.internalCryptoProvider.importKey(
-                    "raw",
-                    e.byteLength === 0 ? new Uint8Array(32) : e,
-                    { name: "HMAC", hash: { name: "SHA-256" } },
-                    !1,
-                    ["sign"],
-                  ),
-                  r = yield this.internalCryptoProvider.sign("HMAC", n, t);
-                return new Uint8Array(r);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+          (n.hmac = async function (t, n) {
+            var e = await this.internalCryptoProvider.importKey(
+                "raw",
+                t.byteLength === 0 ? new Uint8Array(32) : t,
+                { name: "HMAC", hash: { name: "SHA-256" } },
+                !1,
+                ["sign"],
+              ),
+              r = await this.internalCryptoProvider.sign("HMAC", e, n);
+            return new Uint8Array(r);
+          }),
+          (n.extract = async function (t, n) {
+            var e = await this.hmac(t, n);
+            return e;
+          }),
+          (n.expand = async function (t, n, r) {
+            var e = new Uint8Array(r),
+              o = new Uint8Array(0),
+              a = new Uint8Array(n),
+              i = new Uint8Array(1);
+            if (r > 8160) {
+              var l = new Error("KDF expand: entropy limit reached");
+              throw (l.stack, l);
             }
-            return t;
-          })()),
-          (r.extract = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.hmac(e, t);
-                return n;
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.expand = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = new Uint8Array(n),
-                  o = new Uint8Array(0),
-                  a = new Uint8Array(t),
-                  i = new Uint8Array(1);
-                if (n > 8160) {
-                  var l = new Error("KDF expand: entropy limit reached");
-                  throw (l.stack, l);
-                }
-                for (
-                  var s = new Uint8Array(32 + a.length + 1), u = 1, c = 0;
-                  c < r.length;
-                  u++
-                )
-                  ((i[0] = u),
-                    s.set(o, 0),
-                    s.set(a, o.length),
-                    s.set(i, o.length + a.length),
-                    (o = yield this.hmac(
-                      e,
-                      s.slice(0, o.length + a.length + 1),
-                    )),
-                    r.length - c >= o.length
-                      ? (r.set(o, c), (c += o.length))
-                      : (r.set(o.slice(0, r.length - c), c),
-                        (c += r.length - c)));
-                return r;
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.labeledExtract = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var a = o("Hpke").concat(u, r, t, n),
-                  i = yield this.extract(e, a);
-                return i;
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.labeledExpand = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, a) {
-                var i = o("Hpke").concat(new Uint8Array([0, r]), u, a, t, n);
-                return yield this.expand(e, i, r);
-              },
-            );
-            function t(t, n, r, o, a) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+            for (
+              var s = new Uint8Array(32 + a.length + 1), u = 1, c = 0;
+              c < e.length;
+              u++
+            )
+              ((i[0] = u),
+                s.set(o, 0),
+                s.set(a, o.length),
+                s.set(i, o.length + a.length),
+                (o = await this.hmac(t, s.slice(0, o.length + a.length + 1))),
+                e.length - c >= o.length
+                  ? (e.set(o, c), (c += o.length))
+                  : (e.set(o.slice(0, e.length - c), c), (c += e.length - c)));
+            return e;
+          }),
+          (n.labeledExtract = async function (t, n, r, a) {
+            var e = o("Hpke").concat(u, a, n, r),
+              i = await this.extract(t, e);
+            return i;
+          }),
+          (n.labeledExpand = async function (t, n, r, a, i) {
+            var e = o("Hpke").concat(new Uint8Array([0, a]), u, i, n, r);
+            return await this.expand(t, e, a);
+          }),
           t
         );
       })();

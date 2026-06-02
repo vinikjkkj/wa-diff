@@ -6,23 +6,22 @@ __d(
     "WAWebNewsletterGetMessageUpdatesQuery",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ids"];
-    function s(t, r) {
+    function s(t, n) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterMessageUpdates",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = r.ids,
-              a = babelHelpers.objectWithoutPropertiesLoose(r, e),
-              i = yield o(
+          async function () {
+            var r = n.ids,
+              a = babelHelpers.objectWithoutPropertiesLoose(n, e),
+              i = await o(
                 "WAWebNewsletterGetMessageUpdatesQuery",
               ).getNewsletterMessageUpdatesQuery(t, a),
               l = i.timestamp,
               s = i.updates,
-              u = yield o(
+              u = await o(
                 "WAWebNewsletterBackendAddOnsUtils",
               ).getMsgsAndAddOnsFromUpdates(
                 s,
@@ -30,12 +29,12 @@ __d(
                 l,
               );
             return (
-              yield o("WAWebNewsletterBackendAddOnsUtils").updateAddOnDbRecords(
-                babelHelpers.extends({}, u, { ids: n, timestamp: l }),
+              await o("WAWebNewsletterBackendAddOnsUtils").updateAddOnDbRecords(
+                babelHelpers.extends({}, u, { ids: r, timestamp: l }),
               ),
-              babelHelpers.extends({}, u, { timestamp: l, ids: n })
+              babelHelpers.extends({}, u, { timestamp: l, ids: r })
             );
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

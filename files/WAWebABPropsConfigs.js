@@ -1235,6 +1235,7 @@ __d(
       lists_chat_list_row_pill_enabled: [24133, "bool", !1, !1],
       lists_smb_enabled: [18229, "bool", !1, !0],
       lists_smb_web_enabled: [24732, "bool", !1, !1],
+      lists_smb_web_m2_enabled: [31380, "bool", !1, !0],
       lobby_timeout_min: [1565, "int", 0, 1],
       log_clock_skew: [1190, "bool", !1, !1],
       low_cache_hit_rate_media_types: [
@@ -1296,7 +1297,7 @@ __d(
       meta_catalog_linking_m2_enabled: [11029, "bool", !0, !0],
       meta_verified_badge_education_vai_content: [7976, "bool", !1, !0],
       mex_get_privacy_contact_list_enabled: [23874, "bool", !1, !1],
-      mex_get_privacy_settings_mode: [23463, "int", 0, 0],
+      mex_get_privacy_settings_mode: [23463, "int", 0, 1],
       mex_phase3_enabled: [2249, "bool", !1, !1],
       mex_phase3_status_flags: [2250, "int", 0, 0],
       mex_usync_about_status: [9524, "bool", !1, !0],

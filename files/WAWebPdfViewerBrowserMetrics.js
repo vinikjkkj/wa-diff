@@ -1,6 +1,6 @@
 __d(
   "WAWebPdfViewerBrowserMetrics",
-  ["WALogger", "WAShiftTimer", "WAWebWamMemoryStat", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAShiftTimer", "WAWebWamMemoryStat"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -57,52 +57,44 @@ __d(
         n = t - C;
       ((v[b] += n), (b = e), (C = t));
     }
-    function w() {
-      return A.apply(this, arguments);
+    async function w() {
+      if ($())
+        try {
+          var t = new self.PressureObserver(function (e) {
+            for (var t of e) M(t.state);
+          });
+          if ((await t.observe("cpu", { sampleInterval: _ }), !D)) {
+            (t.disconnect(),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[pdfViewer] PressureObserver started but stopped, disconnecting",
+                  ])),
+              ));
+            return;
+          }
+          ((g = t),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[pdfViewer] PressureObserver started",
+                ])),
+            ));
+        } catch (e) {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[pdfViewer] PressureObserver start failed: ",
+                "",
+              ])),
+            e,
+          );
+        }
     }
     function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if ($())
-            try {
-              var e = new self.PressureObserver(function (e) {
-                for (var t of e) M(t.state);
-              });
-              if ((yield e.observe("cpu", { sampleInterval: _ }), !D)) {
-                (e.disconnect(),
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[pdfViewer] PressureObserver started but stopped, disconnecting",
-                      ])),
-                  ));
-                return;
-              }
-              ((g = e),
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[pdfViewer] PressureObserver started",
-                    ])),
-                ));
-            } catch (e) {
-              o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[pdfViewer] PressureObserver start failed: ",
-                    "",
-                  ])),
-                e,
-              );
-            }
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F() {
       g != null && (g.disconnect(), (g = null));
     }
-    function O() {
+    function F() {
       var e = self.performance.now(),
         t = e - C;
       v[b] += t;
@@ -121,7 +113,7 @@ __d(
             criticalPct: Math.round((v.critical / n) * 100),
           };
     }
-    function B() {
+    function O() {
       return k === 0
         ? {
             avgUsedMb: null,
@@ -138,85 +130,77 @@ __d(
             totalMb: T,
           };
     }
-    function W() {
+    function B() {
       ((g = null), (h = null), (y = 0), (C = 0), (b = "nominal"));
       for (var e of f) v[e] = 0;
       ((S = null), (R = 0), (L = 1 / 0), (E = 0), (k = 0), (I = 0), (T = 0));
     }
-    function q() {
+    function W() {
       if (D) {
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "[pdfViewer] already active, skipping start",
             ])),
         );
         return;
       }
-      ((D = !0), (x = null), W());
-      var t = self.performance.now();
-      ((y = t), (C = t), (h = w()), P(), N());
-      var n = $().toString(),
-        r = (!!o(
+      ((D = !0), (x = null), B());
+      var e = self.performance.now();
+      ((y = e), (C = e), (h = w()), P(), N());
+      var t = $().toString(),
+        n = (!!o(
           "WAWebWamMemoryStat",
         ).isPerformanceMemoryApiSupported()).toString();
       o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
             "[pdfViewer] started (cpu=",
             ", mem=",
             ")",
           ])),
+        t,
         n,
-        r,
       );
+    }
+    async function q() {
+      if (D) {
+        ((D = !1),
+          h != null && (await h, (h = null)),
+          A(),
+          S != null && (S.cancel(), (S = null)),
+          P());
+        var e = F(),
+          t = O();
+        ((x = {
+          browserCpuPressureSupported: $(),
+          browserCpuPressureNominalPct: e.nominalPct,
+          browserCpuPressureFairPct: e.fairPct,
+          browserCpuPressureSeriousPct: e.seriousPct,
+          browserCpuPressureCriticalPct: e.criticalPct,
+          browserMemorySupported:
+            !!o("WAWebWamMemoryStat").isPerformanceMemoryApiSupported(),
+          browserAvgUsedJsHeapSizeMb: t.avgUsedMb,
+          browserPeakUsedJsHeapSizeMb: t.peakUsedMb,
+          browserMinUsedJsHeapSizeMb: t.minUsedMb,
+          browserJsHeapSizeLimitMb: t.limitMb,
+          browserTotalJsHeapSizeMb: t.totalMb,
+        }),
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[pdfViewer] stopped",
+              ])),
+          ));
+      }
     }
     function U() {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (D) {
-            ((D = !1),
-              h != null && (yield h, (h = null)),
-              F(),
-              S != null && (S.cancel(), (S = null)),
-              P());
-            var e = O(),
-              t = B();
-            ((x = {
-              browserCpuPressureSupported: $(),
-              browserCpuPressureNominalPct: e.nominalPct,
-              browserCpuPressureFairPct: e.fairPct,
-              browserCpuPressureSeriousPct: e.seriousPct,
-              browserCpuPressureCriticalPct: e.criticalPct,
-              browserMemorySupported:
-                !!o("WAWebWamMemoryStat").isPerformanceMemoryApiSupported(),
-              browserAvgUsedJsHeapSizeMb: t.avgUsedMb,
-              browserPeakUsedJsHeapSizeMb: t.peakUsedMb,
-              browserMinUsedJsHeapSizeMb: t.minUsedMb,
-              browserJsHeapSizeLimitMb: t.limitMb,
-              browserTotalJsHeapSizeMb: t.totalMb,
-            }),
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[pdfViewer] stopped",
-                  ])),
-              ));
-          }
-        })),
-        V.apply(this, arguments)
-      );
-    }
-    function H() {
       var e = x;
       return ((x = null), e);
     }
-    ((l.startPdfViewerBrowserMetrics = q),
-      (l.stopPdfViewerBrowserMetrics = U),
-      (l.consumePdfViewerBrowserMetrics = H));
+    ((l.startPdfViewerBrowserMetrics = W),
+      (l.stopPdfViewerBrowserMetrics = q),
+      (l.consumePdfViewerBrowserMetrics = U));
   },
   98,
 );

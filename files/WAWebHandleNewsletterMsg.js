@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleNewsletterMsg",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
@@ -17,166 +16,139 @@ __d(
     "WAWebNewsletterMsgProcessor",
     "WAWebOfflineHandler",
     "WAWebWamWorkerOfflineProcessReporter",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var a = r("WAWebNewsletterMsgParser")(t),
-              i = a.ack,
-              l = a.msg;
-            if (!o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
-              return i;
-            var d = o("WATimeUtils").unixTimeMs(),
-              m = l.offline != null;
-            (m &&
-              (o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.addOfflinePendingMessage(),
-              o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete()),
-              o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.isResumeFromRestartComplete() &&
-                ((l.offline = null), (m = !1)));
-            var p = !o("WAWebNewsletterMsgProcessor").isAddOnType(l.type);
-            return yield o("WAWebMessageQueue").onMessageQueue({
-              chatWid: l.from,
-              isOffline: m,
-              msgCategory: null,
-              action: (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var t = o("WATimeUtils").unixTimeMs(),
-                      a = yield o(
-                        "WAWebNewsletterMsgProcessor",
-                      ).preprocessNewsletterMsg(l),
-                      u = a.isOrphan,
-                      _ = a.msgData,
-                      f = p
-                        ? o("WAWebMessageProcessorCache")
-                            .messageProcessorCache.addMessages([{ msg: _ }], !m)
-                            .then(function () {
-                              (o(
-                                "WAWebWamWorkerOfflineProcessReporter",
-                              ).WorkerOfflineResumeReporter.updateProcessedMessageCount(),
-                                o(
-                                  "WAWebLogReceivedMessages",
-                                ).logReceivedMessagesInWAM({
-                                  msgs: [_],
-                                  offline: l.offline,
-                                  tsMillis: l.t * 1e3,
-                                  clientReceivedTsMillis: d,
-                                  msgProcessStartTsMillis: t,
-                                  serverAddressingMode: null,
-                                  localAddressingMode: null,
-                                }));
-                            })
-                            .catch(function (t) {
-                              o("WALogger")
-                                .ERROR(
-                                  e ||
-                                    (e =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[newsletter] Failed to handle newsletter message",
-                                      ])),
-                                )
-                                .tags("newsletter")
-                                .sendLogs(
-                                  "newsletter-failed-to-store-incoming-message",
-                                );
-                            })
-                        : (c || (c = n("Promise"))).resolve();
-                    return (
-                      yield o(
-                        "WAWebHandleNewsletterMsgAddOns",
-                      ).maybeHandleNewsletterMsgAddOns(_, {
-                        pollVotes: l.pollVote,
-                      }),
-                      o("WAWebBackendEventBus").BackendEventBus
-                        .isMainStreamReadyMd &&
-                        (o("WAWebBackendEventBus").BackendEventBus
-                          .isOfflineDeliveryEnd && (yield f),
-                        o("WAWebBackendApi").frontendFireAndForget(
-                          "updateNewsletterMessageUI",
-                          { chatID: l.from, msg: _, isOrphan: u },
-                        )),
-                      m
-                        ? (o(
-                            "WAWebOfflineHandler",
-                          ).OfflineMessageHandler.processMessageDecryptResult(
-                            o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                              .SUCCESS,
-                          ),
-                          o("WAWebMessageProcessorCache")
-                            .messageProcessorCache.addMessages([
-                              {
-                                receiptInfo: {
-                                  externalId: l.id,
-                                  from: l.from,
-                                  author: l.from,
-                                },
-                              },
-                            ])
-                            .catch(function (e) {
-                              var t = r("getErrorSafe")(e);
-                              o("WALogger")
-                                .ERROR(
-                                  s ||
-                                    (s =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[newsletter] Failed to handle newsletter offline ack",
-                                      ])),
-                                )
-                                .catching(t)
-                                .tags("newsletter")
-                                .sendLogs(
-                                  "newsletter-failed-to-store-offline-ack",
-                                );
-                            }),
-                          null)
-                        : i
-                    );
-                  },
-                );
-                function a() {
-                  return t.apply(this, arguments);
-                }
-                return a;
-              })(),
-            });
-          } catch (e) {
-            var _ = r("getErrorSafe")(e);
-            throw (
-              o("WAWebHandleNewsletterMsgLogger").handleNewsletterMsgError(_, {
-                stanza: t,
-              }),
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter] Failed to handle newsletter message",
-                    ])),
-                )
-                .catching(_)
-                .tags("newsletter")
-                .sendLogs("failed-handle-newsletter-message"),
-              _
+    var e, s, u;
+    async function c(t) {
+      try {
+        var n = r("WAWebNewsletterMsgParser")(t),
+          a = n.ack,
+          i = n.msg;
+        if (!o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
+          return a;
+        var l = o("WATimeUtils").unixTimeMs(),
+          c = i.offline != null;
+        (c &&
+          (o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.addOfflinePendingMessage(),
+          o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete()),
+          o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.isResumeFromRestartComplete() &&
+            ((i.offline = null), (c = !1)));
+        var d = !o("WAWebNewsletterMsgProcessor").isAddOnType(i.type);
+        return await o("WAWebMessageQueue").onMessageQueue({
+          chatWid: i.from,
+          isOffline: c,
+          msgCategory: null,
+          action: async function () {
+            var t = o("WATimeUtils").unixTimeMs(),
+              n = await o(
+                "WAWebNewsletterMsgProcessor",
+              ).preprocessNewsletterMsg(i),
+              u = n.isOrphan,
+              m = n.msgData,
+              p = d
+                ? o("WAWebMessageProcessorCache")
+                    .messageProcessorCache.addMessages([{ msg: m }], !c)
+                    .then(function () {
+                      (o(
+                        "WAWebWamWorkerOfflineProcessReporter",
+                      ).WorkerOfflineResumeReporter.updateProcessedMessageCount(),
+                        o("WAWebLogReceivedMessages").logReceivedMessagesInWAM({
+                          msgs: [m],
+                          offline: i.offline,
+                          tsMillis: i.t * 1e3,
+                          clientReceivedTsMillis: l,
+                          msgProcessStartTsMillis: t,
+                          serverAddressingMode: null,
+                          localAddressingMode: null,
+                        }));
+                    })
+                    .catch(function (t) {
+                      o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[newsletter] Failed to handle newsletter message",
+                            ])),
+                        )
+                        .tags("newsletter")
+                        .sendLogs(
+                          "newsletter-failed-to-store-incoming-message",
+                        );
+                    })
+                : Promise.resolve();
+            return (
+              await o(
+                "WAWebHandleNewsletterMsgAddOns",
+              ).maybeHandleNewsletterMsgAddOns(m, { pollVotes: i.pollVote }),
+              o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
+                (o("WAWebBackendEventBus").BackendEventBus
+                  .isOfflineDeliveryEnd && (await p),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateNewsletterMessageUI",
+                  { chatID: i.from, msg: m, isOrphan: u },
+                )),
+              c
+                ? (o(
+                    "WAWebOfflineHandler",
+                  ).OfflineMessageHandler.processMessageDecryptResult(
+                    o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+                  ),
+                  o("WAWebMessageProcessorCache")
+                    .messageProcessorCache.addMessages([
+                      {
+                        receiptInfo: {
+                          externalId: i.id,
+                          from: i.from,
+                          author: i.from,
+                        },
+                      },
+                    ])
+                    .catch(function (e) {
+                      var t = r("getErrorSafe")(e);
+                      o("WALogger")
+                        .ERROR(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[newsletter] Failed to handle newsletter offline ack",
+                            ])),
+                        )
+                        .catching(t)
+                        .tags("newsletter")
+                        .sendLogs("newsletter-failed-to-store-offline-ack");
+                    }),
+                  null)
+                : a
             );
-          }
-        })),
-        m.apply(this, arguments)
-      );
+          },
+        });
+      } catch (e) {
+        var m = r("getErrorSafe")(e);
+        throw (
+          o("WAWebHandleNewsletterMsgLogger").handleNewsletterMsgError(m, {
+            stanza: t,
+          }),
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter] Failed to handle newsletter message",
+                ])),
+            )
+            .catching(m)
+            .tags("newsletter")
+            .sendLogs("failed-handle-newsletter-message"),
+          m
+        );
+      }
     }
-    l.default = d;
+    l.default = c;
   },
   98,
 );

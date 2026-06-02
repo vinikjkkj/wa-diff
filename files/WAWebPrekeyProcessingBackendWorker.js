@@ -5,7 +5,6 @@ __d(
     "TaskScheduler",
     "WACryptoLibrary",
     "WAWebReleaseToEventLoop",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,45 +14,24 @@ __d(
         { concurrency: 1 },
         o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
       );
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = [],
-              u = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = yield o("WACryptoLibrary").createOutgoingSession(
-                      t,
-                      e,
-                      a,
-                    );
-                    n.success
-                      ? l.push({ success: !0, session: n.value })
-                      : l.push({ success: !1, error: n.error });
-                  },
-                );
-                return function (n) {
-                  return e.apply(this, arguments);
-                };
-              })();
-            if (i === !0) for (var c of r) (yield u(c), yield s.yield());
-            else {
-              var d = self.performance.now();
-              for (var m of r)
-                (yield u(m),
-                  self.performance.now() - d > e &&
-                    (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                    (d = self.performance.now())));
-            }
-            return l;
-          },
-        )),
-        c.apply(this, arguments)
-      );
+    async function u(t, n, r, a) {
+      var i = [],
+        l = async function (n) {
+          var e = await o("WACryptoLibrary").createOutgoingSession(t, n, r);
+          e.success
+            ? i.push({ success: !0, session: e.value })
+            : i.push({ success: !1, error: e.error });
+        };
+      if (a === !0) for (var u of n) (await l(u), await s.yield());
+      else {
+        var c = self.performance.now();
+        for (var d of n)
+          (await l(d),
+            self.performance.now() - c > e &&
+              (await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+              (c = self.performance.now())));
+      }
+      return i;
     }
     l.createOutgoingSessionBatch = u;
   },

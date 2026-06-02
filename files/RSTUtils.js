@@ -1,57 +1,48 @@
 __d(
   "RSTUtils",
-  ["Promise", "RSTConfig", "RSTConstants", "asyncToGeneratorRuntime", "uuidv4"],
+  ["RSTConfig", "RSTConstants", "uuidv4"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = S().toUpperCase(),
-      u = p(),
-      c = r("uuidv4")(),
-      d = m();
-    function m() {
-      return u &&
+    var e = b().toUpperCase(),
+      s = m(),
+      u = r("uuidv4")(),
+      c = d();
+    function d() {
+      return s &&
         typeof self != "undefined" &&
         typeof self.setTimeout == "function"
         ? self
         : window;
     }
-    function p() {
+    function m() {
       return typeof WorkerGlobalScope != "undefined"
         ? !0
         : typeof document == "undefined";
     }
+    function p() {}
     function _() {}
-    function f() {}
-    function g(e) {
+    function f(e) {
       if (e == null) return "";
       var t = new URL(e);
       return t.origin + t.pathname;
     }
+    async function g() {
+      return typeof scheduler != "undefined" &&
+        typeof scheduler.yield == "function"
+        ? scheduler.yield()
+        : new Promise(function (e) {
+            return c.setTimeout(e, 0);
+          });
+    }
     function h() {
-      return y.apply(this, arguments);
+      return "indexedDB" in c;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return typeof scheduler != "undefined" &&
-            typeof scheduler.yield == "function"
-            ? scheduler.yield()
-            : new (e || (e = n("Promise")))(function (e) {
-                return d.setTimeout(e, 0);
-              });
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C() {
-      return "indexedDB" in d;
-    }
-    function b(e) {
+    function y(e) {
       return e != null ? String(e) : null;
     }
-    function v(e) {
+    function C(e) {
       var t = e.componentName,
-        n = k(e.componentText);
+        n = L(e.componentText);
       return t == null && n == null
         ? null
         : n == null
@@ -60,7 +51,7 @@ __d(
             ? ' ["' + n + '"]'
             : t + ' ["' + n + '"]';
     }
-    function S() {
+    function b() {
       if (typeof window != "undefined" && typeof window.document != "undefined")
         return r("RSTConstants").executionContext.mainThread;
       if (typeof self != "undefined") {
@@ -82,31 +73,31 @@ __d(
       }
       return r("RSTConstants").executionContext.unknown;
     }
-    function R(e) {
+    function v(e) {
       return e.startsWith("@");
     }
-    function L(e) {
+    function S(e) {
       return "@" + e;
     }
-    function E() {
-      return S() === r("RSTConstants").executionContext.webWorker;
+    function R() {
+      return b() === r("RSTConstants").executionContext.webWorker;
     }
-    function k(e) {
+    function L(e) {
       return e == null ? null : e.replace(/[\[\]\",\']/g, "");
     }
-    ((l.getGlobalObject = m),
-      (l.isInWorker = p),
-      (l.debugLogImportant = _),
-      (l.debugLog = f),
-      (l.sanitizeURL = g),
-      (l.scheduleYield = h),
-      (l.isIndexedDBSupported = C),
-      (l.intToString = b),
-      (l.getInteractionDetail = v),
-      (l.getExecutionContext = S),
-      (l.isExternalAnnotationKey = R),
-      (l.getExternalAnnotationKey = L),
-      (l.isInWebWorker = E));
+    ((l.getGlobalObject = d),
+      (l.isInWorker = m),
+      (l.debugLogImportant = p),
+      (l.debugLog = _),
+      (l.sanitizeURL = f),
+      (l.scheduleYield = g),
+      (l.isIndexedDBSupported = h),
+      (l.intToString = y),
+      (l.getInteractionDetail = C),
+      (l.getExecutionContext = b),
+      (l.isExternalAnnotationKey = v),
+      (l.getExternalAnnotationKey = S),
+      (l.isInWebWorker = R));
   },
   98,
 );

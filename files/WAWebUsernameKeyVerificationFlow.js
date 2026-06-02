@@ -1,53 +1,42 @@
 __d(
   "WAWebUsernameKeyVerificationFlow",
   [
-    "Promise",
     "WAWebModalManager",
     "WAWebUsernameKeyVerificationModalLoadable",
     "WAWebUsernameUtils",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = s || (s = o("react"));
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+      s = e || (e = o("react"));
+    async function u(e) {
+      var t = e.initWithError,
+        n = e.onInvalidKeyError,
+        r = e.username,
+        a = o("WAWebUsernameUtils").getLIDByUsername(r);
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.initWithError,
-            a = t.onInvalidKeyError,
-            i = t.username,
-            l = o("WAWebUsernameUtils").getLIDByUsername(i);
-          return (
-            l ||
-            new (e || (e = n("Promise")))(function (e) {
-              var t = u.jsx(
-                o("WAWebUsernameKeyVerificationModalLoadable")
-                  .UsernameKeyVerificationModalLoadable,
-                {
-                  username: i,
-                  onKeyVerificationSuccess: function (n) {
-                    return e(n);
-                  },
-                  onKeyVerificationCancel: function () {
-                    return e(null);
-                  },
-                  initWithError: r === !0,
-                  onInvalidKeyError: a,
-                },
-              );
-              o("WAWebModalManager").ModalManager.open(t);
-            })
+        a ||
+        new Promise(function (e) {
+          var a = s.jsx(
+            o("WAWebUsernameKeyVerificationModalLoadable")
+              .UsernameKeyVerificationModalLoadable,
+            {
+              username: r,
+              onKeyVerificationSuccess: function (n) {
+                return e(n);
+              },
+              onKeyVerificationCancel: function () {
+                return e(null);
+              },
+              initWithError: t === !0,
+              onInvalidKeyError: n,
+            },
           );
-        })),
-        d.apply(this, arguments)
+          o("WAWebModalManager").ModalManager.open(a);
+        })
       );
     }
-    l.usernameKeyVerificationFlow = c;
+    l.usernameKeyVerificationFlow = u;
   },
   98,
 );

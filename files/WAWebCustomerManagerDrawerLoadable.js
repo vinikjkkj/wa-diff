@@ -5,23 +5,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebCustomerManagerDrawer.react",
-          )
-            .__setRef("WAWebCustomerManagerDrawerLoadable")
-            .load();
-          return e;
-        }),
-        "CustomerManagerDrawer",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebCustomerManagerDrawer.react",
+        )
+          .__setRef("WAWebCustomerManagerDrawerLoadable")
+          .load();
+        return e;
+      }, "CustomerManagerDrawer"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

@@ -7,386 +7,231 @@ __d(
     "WAWebBackendApi",
     "WAWebModelStorageUtils",
     "WAWebOpaqueDataEncryption",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o("WAWebAccountLinkingSchema").getTable().createOrReplace(e),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateAccountLinkingStatus",
-              {
-                isFBLinked: e.fbCrosspostingDestinationId != null,
-                isIGLinked: e.igCrosspostingDestinationId != null,
-                linkState: e.linkState,
-              },
-            ));
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebAccountLinkingSchema")
-              .getTable()
-              .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
-            n = babelHelpers.extends({}, t, { linkState: e });
-          (yield o("WAWebAccountLinkingSchema").getTable().createOrReplace(n),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateAccountLinkingStatus",
-              {
-                isFBLinked: n.fbCrosspostingDestinationId != null,
-                isIGLinked: n.igCrosspostingDestinationId != null,
-                linkState: n.linkState,
-              },
-            ));
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebAccountLinkingSchema")
-            .getTable()
-            .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
-          if (n != null) {
-            var r = babelHelpers.extends({}, n, { nonce: e, fbid: t });
-            return (
-              (r.accountLinkingOpaqueData = o(
-                "WAWebOpaqueDataEncryption",
-              ).moveEncFieldToOpaqueData(r)),
-              o("WAWebAccountLinkingSchema").getTable().createOrReplace(r)
-            );
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield C(),
-            r = babelHelpers.extends(
-              {
-                accountLinkKey: o("WAWebAccountLinkingConstants")
-                  .AccountLinkKey,
-                linkState: o("WAWebAccountLinkingConstants").AccountLinkState
-                  .Unknown,
-                linkTimestamp: o("WATimeUtils").unixTime(),
-              },
-              n,
-              { fbid: e, encryptedPassword: t },
-            );
-          return (
-            (r.accountLinkingOpaqueData = o(
-              "WAWebOpaqueDataEncryption",
-            ).moveEncFieldToOpaqueData(r)),
-            o("WAWebAccountLinkingSchema").getTable().createOrReplace(r)
-          );
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield C();
-          if (t != null) {
-            var n = babelHelpers.extends({}, t, { accesstoken: e });
-            return (
-              (n.accountLinkingOpaqueData = o(
-                "WAWebOpaqueDataEncryption",
-              ).moveEncFieldToOpaqueData(n)),
-              o("WAWebAccountLinkingSchema").getTable().createOrReplace(n)
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebAccountLinkingSchema")
-              .getTable()
-              .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
-            n = e + Date.now() / 1e3,
-            r = babelHelpers.extends({}, t, { pingInterval: n });
-          return o("WAWebAccountLinkingSchema").getTable().createOrReplace(r);
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = yield o("WAWebAccountLinkingSchema")
-              .getTable()
-              .get("AccountLinkKey");
-          if (((e = t) == null ? void 0 : e.accountLinkingOpaqueData) != null) {
-            var n,
-              r = o("WAWebOpaqueDataEncryption").moveOpaqueDataToEncField(
-                (n = t) == null ? void 0 : n.accountLinkingOpaqueData,
-              );
-            t = babelHelpers.extends({}, t, {
-              accesstoken: r.accesstoken,
-              fbid: r.fbid,
-              nonce: r.nonce,
-              encryptedPassword: r.encryptedPassword,
-            });
-          }
-          return t;
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield C();
-          return e == null || e.pingInterval == null ? 0 : e.pingInterval;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["account-linking"],
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = t[0],
-                      r = yield n.get(
-                        o("WAWebAccountLinkingConstants").AccountLinkKey,
-                      );
-                    if (r != null) {
-                      var a = babelHelpers.extends({}, r, {
-                        foAToWALinkEligibility: e.foAToWALinkEligibility,
-                      });
-                      (e.fbCrosspostingDestinationId != null &&
-                        (a.fbCrosspostingDestinationId =
-                          e.fbCrosspostingDestinationId),
-                        e.igCrosspostingDestinationId != null &&
-                          (a.igCrosspostingDestinationId =
-                            e.igCrosspostingDestinationId),
-                        yield n.createOrReplace(a),
-                        o("WAWebBackendApi").frontendFireAndForget(
-                          "updateAccountLinkingStatus",
-                          {
-                            isFBLinked: a.fbCrosspostingDestinationId != null,
-                            isIGLinked: a.igCrosspostingDestinationId != null,
-                            linkState: a.linkState,
-                          },
-                        ));
-                    }
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["account-linking"],
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = t[0],
-                      r = yield n.get(
-                        o("WAWebAccountLinkingConstants").AccountLinkKey,
-                      );
-                    if (r != null) {
-                      var a = babelHelpers.extends({}, r);
-                      (e.fbCrosspostingDestinationId != null &&
-                        (a.fbCrosspostingDestinationId =
-                          e.fbCrosspostingDestinationId),
-                        e.igCrosspostingDestinationId != null &&
-                          (a.igCrosspostingDestinationId =
-                            e.igCrosspostingDestinationId),
-                        yield n.createOrReplace(a),
-                        o("WAWebBackendApi").frontendFireAndForget(
-                          "updateAccountLinkingStatus",
-                          {
-                            isFBLinked: a.fbCrosspostingDestinationId != null,
-                            isIGLinked: a.igCrosspostingDestinationId != null,
-                            linkState: a.linkState,
-                          },
-                        ));
-                    }
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e, t, n, r) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield C();
-            if (a != null) {
-              var i = r + o("WATimeUtils").unixTime(),
-                l = babelHelpers.extends({}, a, {
-                  accesstoken: e,
-                  pingInterval: i,
-                });
-              return (
-                t != null && (l.nonce = t),
-                n != null && (l.fbid = n),
-                (l.accountLinkingOpaqueData = o(
-                  "WAWebOpaqueDataEncryption",
-                ).moveEncFieldToOpaqueData(l)),
-                o("WAWebAccountLinkingSchema").getTable().createOrReplace(l)
-              );
-            }
+    async function e(e) {
+      (await o("WAWebAccountLinkingSchema").getTable().createOrReplace(e),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "updateAccountLinkingStatus",
+          {
+            isFBLinked: e.fbCrosspostingDestinationId != null,
+            isIGLinked: e.igCrosspostingDestinationId != null,
+            linkState: e.linkState,
           },
-        )),
-        T.apply(this, arguments)
+        ));
+    }
+    async function s(e) {
+      var t = await o("WAWebAccountLinkingSchema")
+          .getTable()
+          .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
+        n = babelHelpers.extends({}, t, { linkState: e });
+      (await o("WAWebAccountLinkingSchema").getTable().createOrReplace(n),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "updateAccountLinkingStatus",
+          {
+            isFBLinked: n.fbCrosspostingDestinationId != null,
+            isIGLinked: n.igCrosspostingDestinationId != null,
+            linkState: n.linkState,
+          },
+        ));
+    }
+    async function u(e, t) {
+      var n = await o("WAWebAccountLinkingSchema")
+        .getTable()
+        .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+      if (n != null) {
+        var r = babelHelpers.extends({}, n, { nonce: e, fbid: t });
+        return (
+          (r.accountLinkingOpaqueData = o(
+            "WAWebOpaqueDataEncryption",
+          ).moveEncFieldToOpaqueData(r)),
+          o("WAWebAccountLinkingSchema").getTable().createOrReplace(r)
+        );
+      }
+    }
+    async function c(e, t) {
+      var n = await p(),
+        r = babelHelpers.extends(
+          {
+            accountLinkKey: o("WAWebAccountLinkingConstants").AccountLinkKey,
+            linkState: o("WAWebAccountLinkingConstants").AccountLinkState
+              .Unknown,
+            linkTimestamp: o("WATimeUtils").unixTime(),
+          },
+          n,
+          { fbid: e, encryptedPassword: t },
+        );
+      return (
+        (r.accountLinkingOpaqueData = o(
+          "WAWebOpaqueDataEncryption",
+        ).moveEncFieldToOpaqueData(r)),
+        o("WAWebAccountLinkingSchema").getTable().createOrReplace(r)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    async function d(e) {
+      var t = await p();
+      if (t != null) {
+        var n = babelHelpers.extends({}, t, { accesstoken: e });
+        return (
+          (n.accountLinkingOpaqueData = o(
+            "WAWebOpaqueDataEncryption",
+          ).moveEncFieldToOpaqueData(n)),
+          o("WAWebAccountLinkingSchema").getTable().createOrReplace(n)
+        );
+      }
     }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebAccountLinkingSchema")
-            .getTable()
-            .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
-          if (t != null) {
-            var n = babelHelpers.extends({}, t, { lastResyncTimestamp: e });
-            return o("WAWebAccountLinkingSchema").getTable().createOrReplace(n);
+    async function m(e) {
+      var t = await o("WAWebAccountLinkingSchema")
+          .getTable()
+          .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
+        n = e + Date.now() / 1e3,
+        r = babelHelpers.extends({}, t, { pingInterval: n });
+      return o("WAWebAccountLinkingSchema").getTable().createOrReplace(r);
+    }
+    async function p() {
+      var e,
+        t = await o("WAWebAccountLinkingSchema")
+          .getTable()
+          .get("AccountLinkKey");
+      if (((e = t) == null ? void 0 : e.accountLinkingOpaqueData) != null) {
+        var n,
+          r = o("WAWebOpaqueDataEncryption").moveOpaqueDataToEncField(
+            (n = t) == null ? void 0 : n.accountLinkingOpaqueData,
+          );
+        t = babelHelpers.extends({}, t, {
+          accesstoken: r.accesstoken,
+          fbid: r.fbid,
+          nonce: r.nonce,
+          encryptedPassword: r.encryptedPassword,
+        });
+      }
+      return t;
+    }
+    async function _() {
+      var e = await p();
+      return e == null || e.pingInterval == null ? 0 : e.pingInterval;
+    }
+    async function f(e) {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["account-linking"], async function (t) {
+          var n = t[0],
+            r = await n.get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+          if (r != null) {
+            var a = babelHelpers.extends({}, r, {
+              foAToWALinkEligibility: e.foAToWALinkEligibility,
+            });
+            (e.fbCrosspostingDestinationId != null &&
+              (a.fbCrosspostingDestinationId = e.fbCrosspostingDestinationId),
+              e.igCrosspostingDestinationId != null &&
+                (a.igCrosspostingDestinationId = e.igCrosspostingDestinationId),
+              await n.createOrReplace(a),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateAccountLinkingStatus",
+                {
+                  isFBLinked: a.fbCrosspostingDestinationId != null,
+                  isIGLinked: a.igCrosspostingDestinationId != null,
+                  linkState: a.linkState,
+                },
+              ));
           }
-        })),
-        x.apply(this, arguments)
-      );
+        });
     }
-    function $() {
-      return P.apply(this, arguments);
+    async function g(e) {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["account-linking"], async function (t) {
+          var n = t[0],
+            r = await n.get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+          if (r != null) {
+            var a = babelHelpers.extends({}, r);
+            (e.fbCrosspostingDestinationId != null &&
+              (a.fbCrosspostingDestinationId = e.fbCrosspostingDestinationId),
+              e.igCrosspostingDestinationId != null &&
+                (a.igCrosspostingDestinationId = e.igCrosspostingDestinationId),
+              await n.createOrReplace(a),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateAccountLinkingStatus",
+                {
+                  isFBLinked: a.fbCrosspostingDestinationId != null,
+                  isIGLinked: a.igCrosspostingDestinationId != null,
+                  linkState: a.linkState,
+                },
+              ));
+          }
+        });
     }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebAccountLinkingSchema")
-            .getTable()
-            .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
-          return e == null ? void 0 : e.lastResyncTimestamp;
-        })),
-        P.apply(this, arguments)
-      );
+    async function h(e, t, n, r) {
+      var a = await p();
+      if (a != null) {
+        var i = r + o("WATimeUtils").unixTime(),
+          l = babelHelpers.extends({}, a, { accesstoken: e, pingInterval: i });
+        return (
+          t != null && (l.nonce = t),
+          n != null && (l.fbid = n),
+          (l.accountLinkingOpaqueData = o(
+            "WAWebOpaqueDataEncryption",
+          ).moveEncFieldToOpaqueData(l)),
+          o("WAWebAccountLinkingSchema").getTable().createOrReplace(l)
+        );
+      }
     }
-    function N() {
-      return M.apply(this, arguments);
+    async function y(e) {
+      var t = await o("WAWebAccountLinkingSchema")
+        .getTable()
+        .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+      if (t != null) {
+        var n = babelHelpers.extends({}, t, { lastResyncTimestamp: e });
+        return o("WAWebAccountLinkingSchema").getTable().createOrReplace(n);
+      }
     }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebAccountLinkingSchema").getTable().clear(),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateAccountLinkingStatus",
-              {
-                isFBLinked: !1,
-                isIGLinked: !1,
-                linkState: o("WAWebAccountLinkingConstants").AccountLinkState
-                  .Unlinked,
-              },
-            ));
-        })),
-        M.apply(this, arguments)
-      );
+    async function C() {
+      var e = await o("WAWebAccountLinkingSchema")
+        .getTable()
+        .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+      return e == null ? void 0 : e.lastResyncTimestamp;
     }
-    function w() {
-      return A.apply(this, arguments);
+    async function b() {
+      (await o("WAWebAccountLinkingSchema").getTable().clear(),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "updateAccountLinkingStatus",
+          {
+            isFBLinked: !1,
+            isIGLinked: !1,
+            linkState: o("WAWebAccountLinkingConstants").AccountLinkState
+              .Unlinked,
+          },
+        ));
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = yield C();
-          return {
-            isFBLinked:
-              (t == null ? void 0 : t.fbCrosspostingDestinationId) != null,
-            isIGLinked:
-              (t == null ? void 0 : t.igCrosspostingDestinationId) != null,
-            linkState:
-              (e = t == null ? void 0 : t.linkState) != null
-                ? e
-                : o("WAWebAccountLinkingConstants").AccountLinkState.Unlinked,
-          };
-        })),
-        A.apply(this, arguments)
-      );
+    async function v() {
+      var e,
+        t = await p();
+      return {
+        isFBLinked:
+          (t == null ? void 0 : t.fbCrosspostingDestinationId) != null,
+        isIGLinked:
+          (t == null ? void 0 : t.igCrosspostingDestinationId) != null,
+        linkState:
+          (e = t == null ? void 0 : t.linkState) != null
+            ? e
+            : o("WAWebAccountLinkingConstants").AccountLinkState.Unlinked,
+      };
     }
     ((l.createOrUpdateAccountLinkingState = e),
-      (l.updateAccountLinkingState = u),
-      (l.updateAccountLinkingData = d),
-      (l.updateEntCreationData = p),
-      (l.updateAccesstoken = f),
-      (l.updatePingInterval = h),
-      (l.getAccountLinkingData = C),
-      (l.getPingExpirationTime = v),
-      (l.updateServiceData = R),
-      (l.updateDestinationIdentities = E),
-      (l.updateGenerateAccessTokensData = I),
-      (l.updateLastResyncTimestamp = D),
-      (l.getLastResyncTimestamp = $),
-      (l.purgeWaffleData = N),
-      (l.getAccountLinkingStatus = w));
+      (l.updateAccountLinkingState = s),
+      (l.updateAccountLinkingData = u),
+      (l.updateEntCreationData = c),
+      (l.updateAccesstoken = d),
+      (l.updatePingInterval = m),
+      (l.getAccountLinkingData = p),
+      (l.getPingExpirationTime = _),
+      (l.updateServiceData = f),
+      (l.updateDestinationIdentities = g),
+      (l.updateGenerateAccessTokensData = h),
+      (l.updateLastResyncTimestamp = y),
+      (l.getLastResyncTimestamp = C),
+      (l.purgeWaffleData = b),
+      (l.getAccountLinkingStatus = v));
   },
   98,
 );

@@ -1,59 +1,36 @@
 __d(
   "TransportSelectingClientCCResolver",
-  [
-    "Promise",
-    "TransportSelectingClientContextualConfig",
-    "asyncToGeneratorRuntime",
-    "nullthrows",
-    "requireDeferred",
-  ],
+  ["TransportSelectingClientContextualConfig", "nullthrows", "requireDeferred"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function () {
-        function t() {
+    var e = (function () {
+        function e() {
           this.$1 = null;
         }
-        var o = t.prototype;
+        var t = e.prototype;
         return (
-          (o.getCCGroupName = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                this.$2();
-                var t = yield r("nullthrows")(this.$1),
-                  n = new t(
-                    JSON.parse(
-                      r("TransportSelectingClientContextualConfig").rawConfig,
-                    ),
-                  ).resolve({ method: e });
-                return n.get("group", "default_group");
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (o.getCCDGWUpsampleMultiplier = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                this.$2();
-                var t = yield r("nullthrows")(this.$1),
-                  n = new t(
-                    JSON.parse(
-                      r("TransportSelectingClientContextualConfig").rawConfig,
-                    ),
-                  ).resolve({ method: e });
-                return n.get("dgwUpsampleMultiplier", 1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (o.$2 = function () {
+          (t.getCCGroupName = async function (t) {
+            this.$2();
+            var e = await r("nullthrows")(this.$1),
+              n = new e(
+                JSON.parse(
+                  r("TransportSelectingClientContextualConfig").rawConfig,
+                ),
+              ).resolve({ method: t });
+            return n.get("group", "default_group");
+          }),
+          (t.getCCDGWUpsampleMultiplier = async function (t) {
+            this.$2();
+            var e = await r("nullthrows")(this.$1),
+              n = new e(
+                JSON.parse(
+                  r("TransportSelectingClientContextualConfig").rawConfig,
+                ),
+              ).resolve({ method: t });
+            return n.get("dgwUpsampleMultiplier", 1);
+          }),
+          (t.$2 = function () {
             this.$1 == null &&
-              (this.$1 = new (e || (e = n("Promise")))(function (e) {
+              (this.$1 = new Promise(function (e) {
                 r("requireDeferred")("ContextualConfig")
                   .__setRef("TransportSelectingClientCCResolver")
                   .onReady(function (t) {
@@ -61,11 +38,11 @@ __d(
                   });
               }));
           }),
-          t
+          e
         );
       })(),
-      u = new s();
-    l.default = u;
+      s = new e();
+    l.default = s;
   },
   98,
 );

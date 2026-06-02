@@ -1,7 +1,6 @@
 __d(
   "WAWebUpdateEditedMessagesAction",
   [
-    "Promise",
     "WATimeUtils",
     "WAWebBotFrontendGating",
     "WAWebBotFrontendUtils",
@@ -22,11 +21,9 @@ __d(
     "WAWebNotificationsMsgNotification",
     "WAWebThreadMsgUtils",
     "WAWebUnreadMentionModel",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
+    function e(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
       e.unreadEditTimestampMs = n;
       var r = o("WAWebThreadMsgUtils").getMsgAiThread(t);
@@ -36,94 +33,67 @@ __d(
         i != null && i.set({ unreadEditTimestampMs: n });
       }
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          (yield (e || (e = n("Promise"))).all(
-            t.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.editedMsgData,
-                      n = e.mentionOfMe,
-                      a = e.parentMsg,
-                      i = e.protocolMsg,
-                      l = o("WAWebMsgCollection").MsgCollection.get(a.id);
-                    if (l) {
-                      var u = t.mediaKey !== l.mediaKey;
-                      (u && (l.thumbnailHQ = ""),
-                        (o("WAWebBotGating").shouldAnimateAsBotStream(l) ||
-                          l.botEditType != null) &&
-                          (t.lastBotEditBodyLength = o(
-                            "WAWebBotFrontendUtils",
-                          ).getBotMsgBodyLength(l)));
-                      var c = new (o(
-                        "WAWebNotificationsMsgNotification",
-                      ).WAMsgNotification)({ msg: l }).buildKey();
-                      (a.type === o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
-                        t.type !== o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
-                        (yield l.registerAndPrepMedia(t)),
-                        l.set(t));
-                      var p = t.unifiedResponse;
-                      if (
-                        o(
-                          "WAWebBotFrontendGating",
-                        ).isHatchIntegrationEnabled() &&
-                        o("WAWebBotUtils").isHatchBot(a.id.remote) &&
-                        p != null
-                      ) {
-                        var _ = a.id.remote.toString();
-                        t.botEditType ===
-                          o("WAWebBotTypes").BotMsgEditType.FIRST ||
-                        t.botEditType ===
-                          o("WAWebBotTypes").BotMsgEditType.INNER
-                          ? r("WAWebHatchAboutManager").feedUnifiedResponse(
-                              _,
-                              p,
-                            )
-                          : t.botEditType ===
-                              o("WAWebBotTypes").BotMsgEditType.LAST &&
-                            r("WAWebHatchAboutManager").clearAboutText(_);
-                      }
-                      (o("WAWebChatMessageSearch").clearFtsCache(
-                        o("WAWebFrontendMsgGetters").getChat(l),
-                      ),
-                        d(l, c, n),
-                        o("WAWebMsgGetters").getIsSentByMe(i) ||
-                          s(o("WAWebFrontendMsgGetters").getChat(l), l),
-                        n && m(l, n),
-                        l.clearRawLinks(),
-                        l.clearRawPhoneNumbers());
-                      var f = o("WAWebMsgCollection").MsgCollection.get(i.id);
-                      (f &&
-                        f.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
-                        f.delete(),
-                        o("WAWebMsgInfoCollection").MsgInfoCollection.remove(
-                          l.id,
-                        ));
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+    async function s(t) {
+      (await Promise.all(
+        t.map(async function (t) {
+          var n = t.editedMsgData,
+            a = t.mentionOfMe,
+            i = t.parentMsg,
+            l = t.protocolMsg,
+            s = o("WAWebMsgCollection").MsgCollection.get(i.id);
+          if (s) {
+            var d = n.mediaKey !== s.mediaKey;
+            (d && (s.thumbnailHQ = ""),
+              (o("WAWebBotGating").shouldAnimateAsBotStream(s) ||
+                s.botEditType != null) &&
+                (n.lastBotEditBodyLength = o(
+                  "WAWebBotFrontendUtils",
+                ).getBotMsgBodyLength(s)));
+            var m = new (o(
+              "WAWebNotificationsMsgNotification",
+            ).WAMsgNotification)({ msg: s }).buildKey();
+            (i.type === o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
+              n.type !== o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
+              (await s.registerAndPrepMedia(n)),
+              s.set(n));
+            var p = n.unifiedResponse;
+            if (
+              o("WAWebBotFrontendGating").isHatchIntegrationEnabled() &&
+              o("WAWebBotUtils").isHatchBot(i.id.remote) &&
+              p != null
+            ) {
+              var _ = i.id.remote.toString();
+              n.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST ||
+              n.botEditType === o("WAWebBotTypes").BotMsgEditType.INNER
+                ? r("WAWebHatchAboutManager").feedUnifiedResponse(_, p)
+                : n.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
+                  r("WAWebHatchAboutManager").clearAboutText(_);
+            }
+            (o("WAWebChatMessageSearch").clearFtsCache(
+              o("WAWebFrontendMsgGetters").getChat(s),
             ),
-          ),
-            o("WAWebMsgCollection").MsgCollection.processEditedMessages(
-              t.map(function (e) {
-                var t = e.parentMsg;
-                return o("WAWebMsgCollection").MsgCollection.get(t.id);
-              }),
-            ));
-        })),
-        c.apply(this, arguments)
-      );
+              u(s, m, a),
+              o("WAWebMsgGetters").getIsSentByMe(l) ||
+                e(o("WAWebFrontendMsgGetters").getChat(s), s),
+              a && c(s, a),
+              s.clearRawLinks(),
+              s.clearRawPhoneNumbers());
+            var f = o("WAWebMsgCollection").MsgCollection.get(l.id);
+            (f &&
+              f.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
+              f.delete(),
+              o("WAWebMsgInfoCollection").MsgInfoCollection.remove(s.id));
+          }
+        }),
+      ),
+        o("WAWebMsgCollection").MsgCollection.processEditedMessages(
+          t.map(function (e) {
+            var t = e.parentMsg;
+            return o("WAWebMsgCollection").MsgCollection.get(t.id);
+          }),
+        ));
     }
-    function d(e, t, n) {
+    function u(e, t, n) {
       var r = o(
           "WAWebNotificationController",
         ).WANotificationController.getNotification(t),
@@ -155,7 +125,7 @@ __d(
             break;
         }
     }
-    function m(e, t) {
+    function c(e, t) {
       var n,
         a = o("WAWebFrontendMsgGetters").getChat(e);
       switch (t) {
@@ -179,7 +149,7 @@ __d(
           break;
       }
     }
-    l.updateEditedMessagesAction = u;
+    l.updateEditedMessagesAction = s;
   },
   98,
 );

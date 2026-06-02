@@ -1,20 +1,13 @@
 __d(
   "WANoiseSocket",
-  [
-    "Promise",
-    "WACryptoDependencies",
-    "WALogger",
-    "WAPromiseQueue",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WACryptoDependencies", "WALogger", "WAPromiseQueue"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = (s || (s = n("Promise"))).reject("UNINITIALIZED HANDSHAKE"),
-      c = new Uint8Array(0);
-    u.catch(function () {});
-    var d = (function () {
+      s = Promise.reject("UNINITIALIZED HANDSHAKE"),
+      u = new Uint8Array(0);
+    s.catch(function () {});
+    var c = (function () {
       function t(t, n, r) {
         var a = this;
         ((this.$4 = []),
@@ -35,7 +28,7 @@ __d(
           }),
           (this.$12 = function (e) {
             var t = a.$7++;
-            a.$5.enqueueHandlers(_(a.$2, t, void 0, e), a.$15);
+            a.$5.enqueueHandlers(p(a.$2, t, void 0, e), a.$15);
           }),
           (this.$13 = function () {
             ((a.$9 = !0),
@@ -55,68 +48,62 @@ __d(
           (this.$1.onClose = this.$13),
           t.convertBufferedToFrames());
       }
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.sendFrameAsync = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield this.sendFrame(e);
-            return t;
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (r.sendFrame = function (t) {
-          if (this.$9) return (s || (s = n("Promise"))).resolve();
+        (n.sendFrameAsync = async function (t) {
+          var e = await this.sendFrame(t);
+          return e;
+        }),
+        (n.sendFrame = function (t) {
+          if (this.$9) return Promise.resolve();
           this.$1.throwIfClosed();
           var e = this.$8++;
-          return this.$6.enqueueHandlers(p(this.$3, e, void 0, t), this.$14);
+          return this.$6.enqueueHandlers(m(this.$3, e, void 0, t), this.$14);
         }),
-        (r.setOnFrame = function (t) {
+        (n.setOnFrame = function (t) {
           this.$10 = t;
         }),
-        (r.setOnClose = function (t) {
+        (n.setOnClose = function (t) {
           this.$11 = t;
         }),
-        (r.close = function () {
+        (n.close = function () {
           this.$1.close();
         }),
         t
       );
     })();
-    function m(e) {
+    function d(e) {
       var t = new ArrayBuffer(12),
         n = new DataView(t);
       return (n.setUint32(8, e), new Uint8Array(t));
     }
-    function p(e, t, n, r) {
+    function m(e, t, n, r) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.encrypt(
           {
             name: "AES-GCM",
-            iv: m(t),
-            additionalData: n ? new Uint8Array(n) : c,
+            iv: d(t),
+            additionalData: n ? new Uint8Array(n) : u,
           },
           e,
           r,
         );
     }
-    function _(e, t, n, r) {
+    function p(e, t, n, r) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.decrypt(
           {
             name: "AES-GCM",
-            iv: m(t),
-            additionalData: n ? new Uint8Array(n) : c,
+            iv: d(t),
+            additionalData: n ? new Uint8Array(n) : u,
           },
           e,
           r,
         );
     }
-    l.NoiseSocket = d;
+    l.NoiseSocket = c;
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebOrdersExpansionCountries",
   [
+    "WAMemoizeCache",
     "WAWebABProps",
     "WAWebCompactMapString",
     "WAWebCurrencyUtils",
@@ -10,11 +11,16 @@ __d(
     "lodash",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = r("lodash").memoize(function (e) {
-      return r("WAWebCompactMapString")(e.split(","), function (e) {
-        return e.trim();
-      });
-    });
+    var e = o("WAMemoizeCache").memoizeWithArgs(
+      function (e) {
+        return r("WAWebCompactMapString")(e.split(","), function (e) {
+          return e.trim();
+        });
+      },
+      function (e) {
+        return e;
+      },
+    );
     function s() {
       var t = o("WAWebABProps").getABPropConfigValue(
         "orders_expansion_receiver_countries_allowed",

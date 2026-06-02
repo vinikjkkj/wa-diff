@@ -10,8 +10,6 @@ __d(
     "WAWebChatMsgsCollection",
     "WAWebChatPreferenceCollection",
     "WAWebCommonMsgUtils",
-    "WAWebCongratulationsAnimationsGatingUtils",
-    "WAWebCongratulationsAnimationsUtils",
     "WAWebConstantsDeprecated",
     "WAWebEmoji",
     "WAWebEmojiConst",
@@ -369,23 +367,7 @@ __d(
           return e.id.toString();
         });
     }
-    var P = new RegExp(["congratulations", "congrats"].join("|"));
-    function N(e) {
-      if (
-        !o(
-          "WAWebCongratulationsAnimationsGatingUtils",
-        ).isCongratulationsAnimationsEnabled()
-      )
-        return null;
-      if (e != null) {
-        var t = P.test(e.toLocaleLowerCase());
-        if (t)
-          return o("WAWebCongratulationsAnimationsUtils")
-            .CelebrationAnimationType.DEFAULT;
-      }
-      return null;
-    }
-    function M(e, t) {
+    function P(e, t) {
       if (t === o("WAWebMsgType").MSG_TYPE.CHAT && !(e == null || e === "")) {
         var n = o("WAWebEmoji").EmojiUtil.matchLargeEmojiPattern(e);
         if (!(n == null || n.length !== 1)) {
@@ -394,19 +376,19 @@ __d(
         }
       }
     }
-    function w(e, t) {
+    function N(e, t) {
       if (
         !o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiEnabled() ||
         !r("WAWebChatPreferenceCollection").get("autoplayAnimatedImages")
       )
         return !1;
-      var n = M(e, t);
+      var n = P(e, t);
       return (
         n != null &&
         o("WAWebEmojiConst").getSupportedAnimatedEmojis().includes(n)
       );
     }
-    var A = new Set([
+    var M = new Set([
       (_ = o("WAWebMsgType")).MSG_TYPE.NOTIFICATION,
       _.MSG_TYPE.NOTIFICATION_TEMPLATE,
       _.MSG_TYPE.GP2,
@@ -417,9 +399,9 @@ __d(
       _.MSG_TYPE.DEBUG,
       _.MSG_TYPE.CIPHERTEXT,
     ]);
-    function F(e) {
+    function w(e) {
       var t = o("WAWebMsgGetters").getSender(e);
-      if (t == null && !A.has(e.type)) {
+      if (t == null && !M.has(e.type)) {
         var n, r, a;
         (o("WALogger").LOG(
           m ||
@@ -446,7 +428,7 @@ __d(
       }
       return t;
     }
-    function O(e) {
+    function A(e) {
       var t = o("WAWebMsgGetters").getSender(e);
       return (
         o("WAWebMsgGetters").getIsNewsletterMsg(e)
@@ -455,16 +437,16 @@ __d(
         t
       );
     }
-    function B(e) {
+    function F(e) {
       return (
         o("WAWebMsgGetters").getIsSentByMe(e) && e.ack < o("WAWebAck").ACK.SENT
       );
     }
-    function W(e) {
+    function O(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e).msgs.last();
       return e.id.equals(t == null ? void 0 : t.id);
     }
-    function q(e) {
+    function B(e) {
       var t = 5,
         n =
           o("WAWebMsgGetters").getNumTimesForwarded(e) +
@@ -473,7 +455,7 @@ __d(
         ? r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
         : n;
     }
-    function U(e) {
+    function W(e) {
       var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
       return t == null
         ? null
@@ -481,7 +463,7 @@ __d(
           ? 0
           : t - o("WATimeUtils").unixTime();
     }
-    function V(e) {
+    function q(e) {
       var t;
       return (
         !(
@@ -501,16 +483,15 @@ __d(
       (l.broadcastFanout = E),
       (l.addRecordsToChat = k),
       (l.getReadMsgKeys = $),
-      (l.getCelebrationAnimationType = N),
-      (l.isSingleEmojiMessageText = M),
-      (l.isAnimatedEmoji = w),
-      (l.getValidatedSender = F),
-      (l.getQuotedParticipantForContextInfo = O),
-      (l.msgMayFail = B),
-      (l.isLastMsg = W),
-      (l.getMsgForwardingScoreWhenForwarded = q),
-      (l.getMsgTimeUntilExpiration = U),
-      (l.shouldShowMsgNotificationPreview = V));
+      (l.isSingleEmojiMessageText = P),
+      (l.isAnimatedEmoji = N),
+      (l.getValidatedSender = w),
+      (l.getQuotedParticipantForContextInfo = A),
+      (l.msgMayFail = F),
+      (l.isLastMsg = O),
+      (l.getMsgForwardingScoreWhenForwarded = B),
+      (l.getMsgTimeUntilExpiration = W),
+      (l.shouldShowMsgNotificationPreview = q));
   },
   98,
 );

@@ -3,12 +3,7 @@ __d(
   ["WAWebABProps", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "web_business_tools_drawer_enabled",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function s() {
       return o("WAWebMobilePlatforms").isSMB();

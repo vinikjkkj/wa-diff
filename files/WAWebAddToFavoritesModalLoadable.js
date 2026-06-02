@@ -7,23 +7,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingModal.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebAddToFavoritesModal.react",
-          )
-            .__setRef("WAWebAddToFavoritesModalLoadable")
-            .load();
-          return e;
-        }),
-        "AddToFavoritesModal",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebAddToFavoritesModal.react",
+        )
+          .__setRef("WAWebAddToFavoritesModalLoadable")
+          .load();
+        return e;
+      }, "AddToFavoritesModal"),
       d = r("WAWebLoadable")({
         loader: c,
         loading: function (t) {

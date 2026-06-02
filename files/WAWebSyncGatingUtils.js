@@ -39,59 +39,53 @@ __d(
         ? !0
         : r("WAWebEnvironment").isWindows
           ? o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-              .extendedHistorySyncOnDemand && f()
+              .extendedHistorySyncOnDemand && _()
           : o("WAWebABProps").getABPropConfigValue("history_sync_on_demand");
     }
     function u() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.historySyncOnDemand;
     }
     function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "placeholder_message_resend",
-      );
-    }
-    function d() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
         .webLinkPreviewNseSupport;
     }
-    function m() {
+    function d() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
         .messagePlaceholderResendNseSupport;
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_noncritical_history_sync_message_processing_break_iteration",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_recent_sync_chunk_download_optimization",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "history_sync_on_demand_companion",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
         .completeHistorySyncOnDemand;
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "history_sync_on_demand_time_boundary_days_desktops",
       );
     }
     ((l.isHistorySyncOnDemandEnabled = s),
       (l.shouldPopulateStarMessageWithTimestamp = u),
-      (l.isPlaceholderMessageResendEnabled = c),
-      (l.isWebLinkPreviewNseSupportEnabled = d),
-      (l.isMessagePlaceholderResendNseSupportEnabled = m),
-      (l.getRecentSyncMessageProcessingBreakIteration = p),
-      (l.isRecentSyncDownloadOptimizationEnabled = _),
-      (l.isOnDemandExtendedHistorySyncForHybridEnabled = f),
-      (l.isHistorySyncOnDemandCompleteCompanionEnabled = g),
-      (l.getHistorySyncOnDemandTimeBoundaryDaysForDesktops = h));
+      (l.isWebLinkPreviewNseSupportEnabled = c),
+      (l.isMessagePlaceholderResendNseSupportEnabled = d),
+      (l.getRecentSyncMessageProcessingBreakIteration = m),
+      (l.isRecentSyncDownloadOptimizationEnabled = p),
+      (l.isOnDemandExtendedHistorySyncForHybridEnabled = _),
+      (l.isHistorySyncOnDemandCompleteCompanionEnabled = f),
+      (l.getHistorySyncOnDemandTimeBoundaryDaysForDesktops = g));
   },
   98,
 );

@@ -10,7 +10,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsTypes",
     "cr:34987",
-    "lodash",
+    "unionArrays",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -56,7 +56,7 @@ __d(
               e.prototype.set.call(
                 this,
                 o("WAWebUserPrefsKeys").KEYS.PRESERVED_USER_KEYS,
-                r("lodash").union(l, s),
+                r("unionArrays")(l, s),
                 { storage: r("WAWebPermanentStorage") },
               );
             }

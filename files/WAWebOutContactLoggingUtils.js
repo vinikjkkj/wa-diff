@@ -6,7 +6,6 @@ __d(
     "WAWebOutContactCollection",
     "WAWebOutContactInviteUtils",
     "WAWebWamEnumCompanionInviteMethodType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -18,42 +17,34 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          d(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
               .COMPANION_INVITE_METHOD_TYPE.UNKNOWN,
             companionInviteOrigin: t,
-            companionInviteSessionId: d(),
+            companionInviteSessionId: c(),
             companionValidInviteCode: r,
           },
           n != null ? { companionInviteCodeError: n } : {},
         ),
       ).commit();
     }
-    function s(e, t, n, r) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-              "WAWebOutContactInviteUtils",
-            ).storeMultiGroupInviteSms(e, t, n);
-            t.forEach(function (e, t) {
-              var o = a[t];
-              c({
-                entryPoint: n,
-                inviteCodeError: o != null ? o.toString() : void 0,
-                sessionId: r,
-              });
-            });
-          },
-        )),
-        u.apply(this, arguments)
+    async function s(e, t, n, r) {
+      var a = await o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
+        e,
+        t,
+        n,
       );
+      t.forEach(function (e, t) {
+        var o = a[t];
+        u({
+          entryPoint: n,
+          inviteCodeError: o != null ? o.toString() : void 0,
+          sessionId: r,
+        });
+      });
     }
-    function c(e) {
+    function u(e) {
       var t = e.entryPoint,
         n = e.inviteCodeError,
         r = e.sessionId;
@@ -62,21 +53,21 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          d(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
               .COMPANION_INVITE_METHOD_TYPE.UNKNOWN,
             companionInviteOrigin: t,
-            companionInviteSessionId: r != null ? r : d(),
+            companionInviteSessionId: r != null ? r : c(),
           },
           n != null ? { companionInviteCodeError: n } : {},
         ),
       ).commit();
     }
-    function d() {
+    function c() {
       return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
     }
-    function m() {
+    function d() {
       var e = o("WAWebContactCollection").ContactCollection.length,
         t = e + o("WAWebOutContactCollection").OutContactCollection.length;
       return {
@@ -86,8 +77,8 @@ __d(
     }
     ((l.logOneToOneInviteContact = e),
       (l.logMultiGroupInviteContacts = s),
-      (l.logGroupInviteContact = c),
-      (l.createCompanionInviteSessionId = d));
+      (l.logGroupInviteContact = u),
+      (l.createCompanionInviteSessionId = c));
   },
   98,
 );

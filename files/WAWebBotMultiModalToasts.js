@@ -82,14 +82,18 @@ __d(
                   )
                 : null;
     }
-    function h(e, t, n, r) {
-      return e
+    function h(e) {
+      var t = e.hasAudio,
+        n = e.hasDocument,
+        r = e.hasImage,
+        o = e.hasVideo;
+      return o
         ? s._(/*BTDS*/ "Can't send a video file to Meta AI at this time")
         : t
           ? s._(/*BTDS*/ "Can't send an audio file to Meta AI at this time")
-          : n
+          : r
             ? s._(/*BTDS*/ "Can't send image files to Meta AI at this time")
-            : r
+            : n
               ? s._(/*BTDS*/ "Can't send documents to Meta AI at this time")
               : null;
     }
@@ -108,7 +112,14 @@ __d(
         var s;
         return (s = g(r, o, a, i)) != null ? s : C();
       }
-      return (t = h(r, o, a, i)) != null ? t : C();
+      return (t = h({
+        hasAudio: o,
+        hasDocument: i,
+        hasImage: a,
+        hasVideo: r,
+      })) != null
+        ? t
+        : C();
     }
     function C() {
       return s._(

@@ -1,59 +1,36 @@
 __d(
   "WAWebDebugScreenLock",
-  [
-    "WAWebUserPrefsInfoStore",
-    "WAWebUserPrefsScreenLock",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebUserPrefsInfoStore", "WAWebUserPrefsScreenLock"],
   function (t, n, r, o, a, i, l) {
     function e() {}
     e.doc = "Outputs the noise info from local storage.";
-    function s() {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = String(window.prompt("Create a password to lock WhatsApp.")),
-            n = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.lockNoiseInfo(t);
-          n &&
-            o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(900);
-        })),
-        u.apply(this, arguments)
-      );
+    async function s() {
+      var t = String(window.prompt("Create a password to lock WhatsApp.")),
+        n = await o("WAWebUserPrefsInfoStore").waNoiseInfo.lockNoiseInfo(t);
+      n && o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(900);
     }
     s.doc = "Test locking the noise info with a user set password.";
-    function c() {
-      return d.apply(this, arguments);
+    async function u() {
+      var t = String(
+          window.prompt("Enter your current password to remove the app lock."),
+        ),
+        n = await o(
+          "WAWebUserPrefsInfoStore",
+        ).waNoiseInfo.removeLockOnNoiseInfo(t);
+      n
+        ? o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(0)
+        : alert(
+            "Incorrect password! Failed to remove the lock from the noise info.",
+          );
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = String(
-              window.prompt(
-                "Enter your current password to remove the app lock.",
-              ),
-            ),
-            n = yield o(
-              "WAWebUserPrefsInfoStore",
-            ).waNoiseInfo.removeLockOnNoiseInfo(t);
-          n
-            ? o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(0)
-            : alert(
-                "Incorrect password! Failed to remove the lock from the noise info.",
-              );
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    c.doc =
+    u.doc =
       "Test removing the lock on the noise info with a user set password.";
-    var m = {
+    var c = {
       displayLocalStorageNoiseInfo: e,
       lockNoiseInfo: s,
-      removeLockOnNoiseInfo: c,
+      removeLockOnNoiseInfo: u,
     };
-    l.default = m;
+    l.default = c;
   },
   98,
 );

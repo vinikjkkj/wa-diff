@@ -1,7 +1,6 @@
 __d(
   "WAWebCallLogSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WATimeUtils",
@@ -14,7 +13,6 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebVoipActionWriteCallLogSync",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,9 +22,8 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = (function (t) {
-        function a() {
+      p = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -36,151 +33,130 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 1;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.CallLog;
           }),
-          (i.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = this,
-                  a = 0,
-                  i = 0,
-                  l = 0,
-                  _ = yield (p || (p = n("Promise"))).all(
-                    t.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              if (e.operation === "set") {
-                                var t,
-                                  n = e.value,
-                                  s = (t = n.callLogAction) != null ? t : {},
-                                  u = s.callLogRecord;
-                                if (!u)
-                                  return (
-                                    a++,
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(r.collectionName)
-                                  );
-                                var c = o(
-                                  "WAWebUserPrefsMultiDevice",
-                                ).getPairingTimestamp();
-                                if (c != null) {
-                                  var d = o(
-                                    "WATimeUtils",
-                                  ).castMilliSecondsToUnixTime(e.timestamp);
-                                  if (d > o("WATimeUtils").castToUnixTime(c)) {
-                                    var m = !o("WATimeUtils").happenedWithin(
-                                      d,
-                                      o("WATimeUtils").MINUTE_SECONDS,
-                                    );
-                                    (yield o(
-                                      "WAWebVoipActionWriteCallLogSync",
-                                    ).generateCallLogFromCallSyncRecord({
-                                      callLogRecord: u,
-                                      shouldHideInConversation: m,
-                                    }),
-                                      i++);
-                                  }
-                                }
-                                return {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
-                                };
-                              } else if (e.operation === "remove")
-                                return {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
-                                };
-                              return (
-                                l++,
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState
-                                      .Unsupported,
-                                }
-                              );
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
-                              };
-                            }
-                          },
+          (a.applyMutations = async function (n) {
+            var t = this,
+              r = 0,
+              a = 0,
+              i = 0,
+              l = await Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n,
+                        l = e.value,
+                        s = (n = l.callLogAction) != null ? n : {},
+                        u = s.callLogRecord;
+                      if (!u)
+                        return (
+                          r++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                  );
-                return (
-                  a === 1
-                    ? o("WALogger").WARN(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: malformed mutation",
-                          ])),
-                      )
-                    : a > 1 &&
-                      o("WALogger").WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: ",
-                            " malformed mutations",
-                          ])),
-                        a,
-                      ),
-                  i === 1
-                    ? o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: successfully applied",
-                          ])),
-                      )
-                    : i > 1 &&
-                      o("WALogger").LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: ",
-                            " successfully applied",
-                          ])),
-                        i,
-                      ),
-                  l === 1
-                    ? o("WALogger").WARN(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: operation not supported",
-                          ])),
-                      )
-                    : l > 1 &&
-                      o("WALogger").WARN(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: ",
-                            " operations not supported",
-                          ])),
-                        l,
-                      ),
-                  _
-                );
-              },
+                      var c = o(
+                        "WAWebUserPrefsMultiDevice",
+                      ).getPairingTimestamp();
+                      if (c != null) {
+                        var d = o("WATimeUtils").castMilliSecondsToUnixTime(
+                          e.timestamp,
+                        );
+                        if (d > o("WATimeUtils").castToUnixTime(c)) {
+                          var m = !o("WATimeUtils").happenedWithin(
+                            d,
+                            o("WATimeUtils").MINUTE_SECONDS,
+                          );
+                          (await o(
+                            "WAWebVoipActionWriteCallLogSync",
+                          ).generateCallLogFromCallSyncRecord({
+                            callLogRecord: u,
+                            shouldHideInConversation: m,
+                          }),
+                            a++);
+                        }
+                      }
+                      return {
+                        actionState: o("WASyncdConst").SyncActionState.Success,
+                      };
+                    } else if (e.operation === "remove")
+                      return {
+                        actionState: o("WASyncdConst").SyncActionState.Success,
+                      };
+                    return (
+                      i++,
+                      {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      }
+                    );
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              r === 1
+                ? o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: malformed mutation",
+                      ])),
+                  )
+                : r > 1 &&
+                  o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: ",
+                        " malformed mutations",
+                      ])),
+                    r,
+                  ),
+              a === 1
+                ? o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: successfully applied",
+                      ])),
+                  )
+                : a > 1 &&
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: ",
+                        " successfully applied",
+                      ])),
+                    a,
+                  ),
+              i === 1
+                ? o("WALogger").WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: operation not supported",
+                      ])),
+                  )
+                : i > 1 &&
+                  o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: ",
+                        " operations not supported",
+                      ])),
+                    i,
+                  ),
+              l
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.getCallLogMutation = function (t, n) {
+          }),
+          (a.getCallLogMutation = function (t, n) {
             var e,
               a,
               i,
@@ -242,11 +218,11 @@ __d(
               action: this.getAction(),
             });
           }),
-          a
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      f = new _();
-    l.default = f;
+      _ = new p();
+    l.default = _;
   },
   98,
 );

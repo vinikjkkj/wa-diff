@@ -6,7 +6,6 @@ __d(
     "WAWebFeatureDetectionDetectWebpSupport",
     "WAWebHttpExtendedFetch",
     "WAWebNetworkStatus",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = { DEFAULT: "default", WEBP: "webp" },
@@ -31,47 +30,30 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError);
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(t) {
+      var n = await o(
+          "WAWebFeatureDetectionDetectWebpSupport",
+        ).detectWebpSupport(),
+        a = t.asset,
+        i = t.resolution,
+        l = n && a[i][e.WEBP] ? e.WEBP : e.DEFAULT;
+      return r("WANullthrows")(a[i][l]);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o(
-              "WAWebFeatureDetectionDetectWebpSupport",
-            ).detectWebpSupport(),
-            a = t.asset,
-            i = t.resolution,
-            l = n && a[i][e.WEBP] ? e.WEBP : e.DEFAULT;
-          return r("WANullthrows")(a[i][l]);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       var t = new AbortController(),
-        a = u(e).then(
-          (function () {
-            var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                yield r("WAWebNetworkStatus").waitIfOffline();
-                var a = Date.now(),
-                  i = yield o("WAWebHttpExtendedFetch").extendedFetch(n, {
-                    signal: t.signal,
-                  }),
-                  l = e.getConsumerPromiseResolve();
-                if (i.ok && l) l(n);
-                else throw new s(n, i.status, Date.now() - a);
-              },
-            );
-            return function (e) {
-              return a.apply(this, arguments);
-            };
-          })(),
-        );
-      return (e.setLoadUrlPromise(a, t), a);
+        n = u(e).then(async function (n) {
+          await r("WAWebNetworkStatus").waitIfOffline();
+          var a = Date.now(),
+            i = await o("WAWebHttpExtendedFetch").extendedFetch(n, {
+              signal: t.signal,
+            }),
+            l = e.getConsumerPromiseResolve();
+          if (i.ok && l) l(n);
+          else throw new s(n, i.status, Date.now() - a);
+        });
+      return (e.setLoadUrlPromise(n, t), n);
     }
-    ((l.LoadUrlError = s), (l.getSupportedImageFormatUrl = u), (l.loadUrl = d));
+    ((l.LoadUrlError = s), (l.getSupportedImageFormatUrl = u), (l.loadUrl = c));
   },
   98,
 );

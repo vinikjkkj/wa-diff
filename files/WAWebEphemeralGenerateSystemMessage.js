@@ -1,53 +1,33 @@
 __d(
   "WAWebEphemeralGenerateSystemMessage",
-  [
-    "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgWorkerCompatible",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebContactSystemMsg", "WAWebHandleSingleMsgWorkerCompatible"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = o("WAWebContactSystemMsg").genDisappearingModeUpdateSystemMsg(
-            e.id,
-            t,
-            n,
-          );
-          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-            chatId: r.from,
-            newMsg: r,
-            handleSingleMsgOrigin: "ephemeralSystemMsg",
-            preserveOrder: !1,
-          });
-        })),
-        s.apply(this, arguments)
+    async function e(e, t, n) {
+      var r = o("WAWebContactSystemMsg").genDisappearingModeUpdateSystemMsg(
+        e.id,
+        t,
+        n,
       );
+      await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+        chatId: r.from,
+        newMsg: r,
+        handleSingleMsgOrigin: "ephemeralSystemMsg",
+        preserveOrder: !1,
+      });
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebContactSystemMsg",
-          ).genDisappearingModeUnsupportedSystemMsg(e.id);
-          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-            chatId: t.from,
-            newMsg: t,
-            handleSingleMsgOrigin: "ephemeralUnsupportedSystemMsg",
-            preserveOrder: !1,
-          });
-        })),
-        c.apply(this, arguments)
-      );
+    async function s(e) {
+      var t = o(
+        "WAWebContactSystemMsg",
+      ).genDisappearingModeUnsupportedSystemMsg(e.id);
+      await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+        chatId: t.from,
+        newMsg: t,
+        handleSingleMsgOrigin: "ephemeralUnsupportedSystemMsg",
+        preserveOrder: !1,
+      });
     }
     ((l.generateEphemeralNotificationTemplateSystemMessage = e),
-      (l.generateEphemeralUnsupportedNotificationTemplateSystemMessage = u));
+      (l.generateEphemeralUnsupportedNotificationTemplateSystemMessage = s));
   },
   98,
 );

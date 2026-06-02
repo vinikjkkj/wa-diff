@@ -16,7 +16,6 @@ __d(
     "WAWebPDFNGatingUtils",
     "WAWebPDFNModal.react",
     "WAWebSideNavButtonsActivityModel",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -131,43 +130,35 @@ __d(
         }),
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chat,
-            n = e.chatEntryPoint,
-            r = e.onNewsletterOpen,
-            a = e.serverMessageId,
-            i =
-              a != null &&
-              o(
-                "WAWebNewsletterGatingUtils",
-              ).isNavigationToForwardedNewsletterMessageEnabled()
-                ? yield o("WAWebNewsletterOpenAtAction").openNewsletterAt({
-                    newsletterJid: o("WAJids").toNewsletterJid(t.id.toJid()),
-                    serverId: a,
-                    chatEntryPoint: n,
-                    onMessageDeleted: function () {
-                      o("WAWebModalManager").ModalManager.open(
-                        s.jsx(
-                          o("WAWebNewsletterErrorPopups.react")
-                            .NewsletterMessageDeletedPopup,
-                          {},
-                        ),
-                      );
-                    },
-                  })
-                : yield o("WAWebCmd").Cmd.openChatBottom({
-                    chat: t,
-                    chatEntryPoint: n,
-                  });
-          return (r == null || r(), i);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e) {
+      var t = e.chat,
+        n = e.chatEntryPoint,
+        r = e.onNewsletterOpen,
+        a = e.serverMessageId,
+        i =
+          a != null &&
+          o(
+            "WAWebNewsletterGatingUtils",
+          ).isNavigationToForwardedNewsletterMessageEnabled()
+            ? await o("WAWebNewsletterOpenAtAction").openNewsletterAt({
+                newsletterJid: o("WAJids").toNewsletterJid(t.id.toJid()),
+                serverId: a,
+                chatEntryPoint: n,
+                onMessageDeleted: function () {
+                  o("WAWebModalManager").ModalManager.open(
+                    s.jsx(
+                      o("WAWebNewsletterErrorPopups.react")
+                        .NewsletterMessageDeletedPopup,
+                      {},
+                    ),
+                  );
+                },
+              })
+            : await o("WAWebCmd").Cmd.openChatBottom({
+                chat: t,
+                chatEntryPoint: n,
+              });
+      return (r == null || r(), i);
     }
     l.openNewsletterPreviewChat = u;
   },

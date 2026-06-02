@@ -5,7 +5,6 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMemberLabel",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,92 +13,66 @@ __d(
     }
     function s(e) {
       var t = e.chatId,
-        r = e.member;
+        n = e.member;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getMemberLabel",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o("WAWebSchemaMemberLabel")
+          async function () {
+            var e = await o("WAWebSchemaMemberLabel")
               .getMemberLabelTable()
               .get(t);
-            if (e != null) return e.memberLabelMap.get(r);
-          }),
+            if (e != null) return e.memberLabelMap.get(n);
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
     function u(e) {
       var t = e.chatId,
-        r = e.member;
+        n = e.member;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteMemberLabel",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return o("WAWebModelStorageUtils")
               .getStorage()
-              .lock(
-                ["member-label"],
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = e[0],
-                        o = yield n.get(t);
-                      if (o == null) return !1;
-                      if (
-                        (o.memberLabelMap.delete(r),
-                        o.memberLabelMap.size === 0)
-                      )
-                        return (yield n.remove(t), !0);
-                      var a = { memberLabelMap: o.memberLabelMap };
-                      return (yield n.merge(t, a), !0);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              );
-          }),
+              .lock(["member-label"], async function (e) {
+                var r = e[0],
+                  o = await r.get(t);
+                if (o == null) return !1;
+                if ((o.memberLabelMap.delete(n), o.memberLabelMap.size === 0))
+                  return (await r.remove(t), !0);
+                var a = { memberLabelMap: o.memberLabelMap };
+                return (await r.merge(t, a), !0);
+              });
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
     function c(t) {
-      var r = t.chatId,
-        a = t.member,
-        i = t.memberLabel;
+      var n = t.chatId,
+        r = t.member,
+        a = t.memberLabel;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "createOrUpdateMemberLabel",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return o("WAWebModelStorageUtils")
               .getStorage()
-              .lock(
-                ["member-label"],
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var n = t[0],
-                        o = yield n.get(r);
-                      if (o == null) {
-                        var l = {
-                          chatId: r,
-                          memberLabelMap: new Map([[a, i]]),
-                        };
-                        return (yield n.create(l), !0);
-                      }
-                      var s = o.memberLabelMap.get(a);
-                      if (e(s, i)) return !1;
-                      var u = { memberLabelMap: o.memberLabelMap.set(a, i) };
-                      return (yield n.merge(r, u), !0);
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              );
-          }),
+              .lock(["member-label"], async function (t) {
+                var o = t[0],
+                  i = await o.get(n);
+                if (i == null) {
+                  var l = { chatId: n, memberLabelMap: new Map([[r, a]]) };
+                  return (await o.create(l), !0);
+                }
+                var s = i.memberLabelMap.get(r);
+                if (e(s, a)) return !1;
+                var u = { memberLabelMap: i.memberLabelMap.set(r, a) };
+                return (await o.merge(n, u), !0);
+              });
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
@@ -109,12 +82,12 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getMemberLabelsForGroups",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o("WAWebSchemaMemberLabel")
+          async function () {
+            var e = await o("WAWebSchemaMemberLabel")
               .getMemberLabelTable()
               .get(t);
             if (e != null) return e.memberLabelMap;
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
@@ -124,67 +97,45 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteAllLabelsForGroup",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return o("WAWebModelStorageUtils")
               .getStorage()
-              .lock(
-                ["member-label"],
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = e[0],
-                        r = yield n.get(t);
-                      if (!r) return [];
-                      var o = Array.from(r.memberLabelMap.keys());
-                      return (yield n.remove(t), o);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              );
-          }),
+              .lock(["member-label"], async function (e) {
+                var n = e[0],
+                  r = await n.get(t);
+                if (!r) return [];
+                var o = Array.from(r.memberLabelMap.keys());
+                return (await n.remove(t), o);
+              });
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
     function p(e) {
       var t = e.chatId,
-        r = e.members;
+        n = e.members;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteMemberLabels",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return o("WAWebModelStorageUtils")
               .getStorage()
-              .lock(
-                ["member-label"],
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = e[0],
-                        o = yield n.get(t);
-                      if (o == null) return [];
-                      var a = r.filter(function (e) {
-                        return o.memberLabelMap.delete(e);
-                      });
-                      return (
-                        o.memberLabelMap.size === 0
-                          ? yield n.remove(t)
-                          : yield n.merge(t, {
-                              memberLabelMap: o.memberLabelMap,
-                            }),
-                        a
-                      );
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              );
-          }),
+              .lock(["member-label"], async function (e) {
+                var r = e[0],
+                  o = await r.get(t);
+                if (o == null) return [];
+                var a = n.filter(function (e) {
+                  return o.memberLabelMap.delete(e);
+                });
+                return (
+                  o.memberLabelMap.size === 0
+                    ? await r.remove(t)
+                    : await r.merge(t, { memberLabelMap: o.memberLabelMap }),
+                  a
+                );
+              });
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

@@ -10,59 +10,50 @@ __d(
     "WAWebSchemaLocalStorage",
     "WAWebStorage",
     "WAWebWorkerStorageUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            o("WAWebDexieBootstrap").patchDexie(),
-            s == null &&
-              (yield o("WAWebDbRolloutUtil").loadSchemaVersions(),
-              o("WAWebWorkerStorageUtils").createStorage(),
-              o("WAWebSchemaLocalStorage").addTable(),
-              o("WAWebSchemaDeferredMessagesStorage").addTable(),
-              (s = o("WAWebWorkerStorageUtils")
-                .getStorage()
-                .initialize()
-                .catch(function (t) {
-                  var n = "Unknown error";
-                  throw (
-                    t instanceof o("WAWebStorage").AlreadyInitializedError ||
-                    t instanceof o("WAWebStorage").NoSuchDatabaseError
-                      ? (n = t.toString())
-                      : t instanceof r("WAWeb-dexie").DexieError &&
-                        (n = "Unknown DexieError"),
-                    o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "[worker] Failed to initialize model storage: ",
-                            "",
-                          ])),
-                        n,
-                      )
-                      .verbose()
-                      .sendLogs("failed-to-initialize-model-storage", {
-                        sendLogsType:
-                          o("WALogger").SendLogsType
-                            .CRASH_OR_UNRECOVERABLE_ERROR_SAD,
-                      }),
-                    t
-                  );
-                }))),
-            s
-          );
-        })),
-        c.apply(this, arguments)
+        o("WAWebDexieBootstrap").patchDexie(),
+        s == null &&
+          (await o("WAWebDbRolloutUtil").loadSchemaVersions(),
+          o("WAWebWorkerStorageUtils").createStorage(),
+          o("WAWebSchemaLocalStorage").addTable(),
+          o("WAWebSchemaDeferredMessagesStorage").addTable(),
+          (s = o("WAWebWorkerStorageUtils")
+            .getStorage()
+            .initialize()
+            .catch(function (t) {
+              var n = "Unknown error";
+              throw (
+                t instanceof o("WAWebStorage").AlreadyInitializedError ||
+                t instanceof o("WAWebStorage").NoSuchDatabaseError
+                  ? (n = t.toString())
+                  : t instanceof r("WAWeb-dexie").DexieError &&
+                    (n = "Unknown DexieError"),
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[worker] Failed to initialize model storage: ",
+                        "",
+                      ])),
+                    n,
+                  )
+                  .verbose()
+                  .sendLogs("failed-to-initialize-model-storage", {
+                    sendLogsType:
+                      o("WALogger").SendLogsType
+                        .CRASH_OR_UNRECOVERABLE_ERROR_SAD,
+                  }),
+                t
+              );
+            }))),
+        s
       );
     }
-    function d() {
+    function c() {
       return o("WAWebWorkerStorageUtils")
         .destroyStorage()
         .catch(function () {
@@ -81,7 +72,7 @@ __d(
         "WAWebSchemaDeferredMessagesStorage",
       ).getTable),
       (l.initialize = u),
-      (l.destroy = d));
+      (l.destroy = c));
   },
   98,
 );

@@ -5,7 +5,6 @@ __d(
     "WAWebMarkAddOnsAsReadJob",
     "WAWebMsgGetters",
     "WAWebSendReadReceiptJob",
-    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
     "useLazyRef",
@@ -14,33 +13,25 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useCallback;
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      if (e.length !== 0) {
+        var t = e.map(function (e) {
+          return {
+            msgKey: e.id,
+            sender: r("WANullthrows")(
+              o("WAWebMsgGetters").getSender(e),
+            ).toString(),
+          };
+        });
+        (await o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t),
+          await o(
+            "WAWebMarkAddOnsAsReadJob",
+          ).markAddOnsAsReadUsingAddonInfraJob(e));
+      }
     }
     function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = e.map(function (e) {
-              return {
-                msgKey: e.id,
-                sender: r("WANullthrows")(
-                  o("WAWebMsgGetters").getSender(e),
-                ).toString(),
-              };
-            });
-            (yield o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t),
-              yield o(
-                "WAWebMarkAddOnsAsReadJob",
-              ).markAddOnsAsReadUsingAddonInfraJob(e));
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
       var e = o("react-compiler-runtime").c(5),
-        t = r("useLazyRef")(m),
+        t = r("useLazyRef")(d),
         n;
       e[0] !== t
         ? ((n = function () {
@@ -65,10 +56,10 @@ __d(
       var l = i;
       return (o("useWAWebListener").useListener(window, "focus", a), l);
     }
-    function m() {
+    function d() {
       return [];
     }
-    l.useMarkAddonsAsRead = d;
+    l.useMarkAddonsAsRead = c;
   },
   98,
 );

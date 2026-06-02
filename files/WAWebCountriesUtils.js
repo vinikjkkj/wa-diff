@@ -1,11 +1,6 @@
 __d(
   "WAWebCountriesUtils",
-  [
-    "WAWebL10NCountryCodes",
-    "WAWebLidMigrationUtils",
-    "WAWebLocaleModules",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebL10NCountryCodes", "WAWebLidMigrationUtils", "WAWebLocaleModules"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = Object.freeze({
@@ -59,19 +54,11 @@ __d(
       )
         return n[e.toUpperCase()];
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      var n = await o("WAWebLocaleModules").getCountryData();
+      return c(e, t, n);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebLocaleModules").getCountryData();
-          return c(e, t, n);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       if (e.countriesMap == null) return [];
       var t = Object.entries(e.countriesMap)
         .filter(function (t) {
@@ -93,41 +80,22 @@ __d(
         })
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function p(e) {
+      var t = await o("WAWebLocaleModules").getCountryData();
+      return m(babelHelpers.extends({}, e, { countriesMap: t }));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebLocaleModules").getCountryData();
-          return p(babelHelpers.extends({}, e, { countriesMap: t }));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n =
-              (t = o("WAWebLidMigrationUtils").toPn(e)) == null
-                ? void 0
-                : t.user,
-            r = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n);
-          if (r !== "") return d(r);
-        })),
-        h.apply(this, arguments)
-      );
+    async function _(e) {
+      var t,
+        n = (t = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : t.user,
+        r = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n);
+      if (r !== "") return d(r);
     }
     ((l.COUNTRY_FILTER_TYPE = s),
       (l.getCountryNameWithMap = c),
       (l.getCountryNameFromCountryCode = d),
-      (l.getCountriesWithMap = p),
-      (l.getCountries = _),
-      (l.getCountryNameFromWid = g));
+      (l.getCountriesWithMap = m),
+      (l.getCountries = p),
+      (l.getCountryNameFromWid = _));
   },
   98,
 );

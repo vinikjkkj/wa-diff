@@ -1,19 +1,16 @@
 __d(
   "TaskScheduler",
   [
-    "Promise",
     "TaskSchedulerError",
     "TaskSchedulerPriority",
     "TaskSchedulerTypes",
     "WAResolvable",
     "WATimeUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 0,
-      u = (function () {
+    var e = 0,
+      s = (function () {
         function t(e, t, n) {
           ((this.$1 = new Map()),
             (this.$2 = new Map()),
@@ -23,175 +20,166 @@ __d(
             (this.config = t),
             (this.$5 = n));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.yield = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n =
-                    e != null ? e : o("TaskSchedulerPriority").NORMAL_PRIORITY,
-                  r = this.name + ":yield:" + s++,
-                  a = o("WATimeUtils").performanceAbsoluteNow(),
-                  i = new (o("WAResolvable").Resolvable)(),
-                  l = function () {
-                    i.resolve();
-                    var e = o("WATimeUtils").performanceAbsoluteNow();
-                    (t.$6({
-                      name: "yield",
-                      taskId: r,
-                      time: e,
-                      totalTimeMs: e - a,
-                      type: "completed",
-                    }),
-                      t.$7(r, o("TaskSchedulerTypes").RunState.COMPLETED),
-                      t.maybeStartTask());
-                  },
-                  u = {
-                    entryTime: a,
-                    id: r,
-                    name: "yield",
-                    originalPriority: n,
-                    priority: n,
-                    promotionTimerId: null,
-                    rejectFn: function (t) {
-                      i.reject(t);
-                    },
-                    startFn: l,
-                    state: o("TaskSchedulerTypes").RunState.PENDING,
-                    stuckTimerId: null,
-                  };
-                (this.$1.set(r, u),
-                  this.$3[n].add(r),
-                  this.$6({
-                    name: "yield",
-                    priority: n,
-                    taskId: r,
-                    time: a,
-                    type: "queued",
-                  }),
-                  this.maybeStartTask(),
-                  yield i.promise);
+          (n.yield = async function (n) {
+            var t = this,
+              r = n != null ? n : o("TaskSchedulerPriority").NORMAL_PRIORITY,
+              a = this.name + ":yield:" + e++,
+              i = o("WATimeUtils").performanceAbsoluteNow(),
+              l = new (o("WAResolvable").Resolvable)(),
+              s = function () {
+                l.resolve();
+                var e = o("WATimeUtils").performanceAbsoluteNow();
+                (t.$6({
+                  name: "yield",
+                  taskId: a,
+                  time: e,
+                  totalTimeMs: e - i,
+                  type: "completed",
+                }),
+                  t.$7(a, o("TaskSchedulerTypes").RunState.COMPLETED),
+                  t.maybeStartTask());
               },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.run = function (r, a) {
+              u = {
+                entryTime: i,
+                id: a,
+                name: "yield",
+                originalPriority: r,
+                priority: r,
+                promotionTimerId: null,
+                rejectFn: function (t) {
+                  l.reject(t);
+                },
+                startFn: s,
+                state: o("TaskSchedulerTypes").RunState.PENDING,
+                stuckTimerId: null,
+              };
+            (this.$1.set(a, u),
+              this.$3[r].add(a),
+              this.$6({
+                name: "yield",
+                priority: r,
+                taskId: a,
+                time: i,
+                type: "queued",
+              }),
+              this.maybeStartTask(),
+              await l.promise);
+          }),
+          (n.run = function (n, r) {
             var t,
-              i,
-              l = this,
-              u = (t = a == null ? void 0 : a.name) != null ? t : "anonymous",
-              c =
-                (i = a == null ? void 0 : a.priority) != null
-                  ? i
+              a,
+              i = this,
+              l = (t = r == null ? void 0 : r.name) != null ? t : "anonymous",
+              s =
+                (a = r == null ? void 0 : r.priority) != null
+                  ? a
                   : o("TaskSchedulerPriority").NORMAL_PRIORITY,
-              d = this.name + ":" + u + ":" + s++,
-              m = new (o("WAResolvable").Resolvable)(),
-              p = o("WATimeUtils").performanceAbsoluteNow(),
-              _ = function () {
-                var t;
+              u = this.name + ":" + l + ":" + e++,
+              c = new (o("WAResolvable").Resolvable)(),
+              d = o("WATimeUtils").performanceAbsoluteNow(),
+              m = function () {
+                var e;
                 try {
-                  t = r();
-                } catch (r) {
-                  t = (e || (e = n("Promise"))).reject(r);
+                  e = n();
+                } catch (t) {
+                  e = Promise.reject(t);
                 }
-                (l.config.timeoutMs != null &&
-                  (g.stuckTimerId = globalThis.setTimeout(function () {
-                    l.$8(g.id);
-                  }, l.config.timeoutMs)),
-                  t.then(
+                (i.config.timeoutMs != null &&
+                  (_.stuckTimerId = globalThis.setTimeout(function () {
+                    i.$8(_.id);
+                  }, i.config.timeoutMs)),
+                  e.then(
                     function (e) {
-                      var t = l.$1.get(d);
+                      var t = i.$1.get(u);
                       if (
                         !(
                           t == null ||
                           t.state !== o("TaskSchedulerTypes").RunState.RUNNING
                         )
                       ) {
-                        m.resolve(e);
+                        c.resolve(e);
                         var n = o("WATimeUtils").performanceAbsoluteNow();
-                        (l.$6({
-                          name: u,
-                          taskId: d,
+                        (i.$6({
+                          name: l,
+                          taskId: u,
                           time: n,
-                          totalTimeMs: n - p,
+                          totalTimeMs: n - d,
                           type: "completed",
                         }),
-                          l.$7(d, o("TaskSchedulerTypes").RunState.COMPLETED),
-                          l.maybeStartTask());
+                          i.$7(u, o("TaskSchedulerTypes").RunState.COMPLETED),
+                          i.maybeStartTask());
                       }
                     },
                     function (e) {
-                      var t = l.$1.get(d);
+                      var t = i.$1.get(u);
                       if (
                         !(
                           t == null ||
                           t.state !== o("TaskSchedulerTypes").RunState.RUNNING
                         )
                       ) {
-                        m.reject(e);
+                        c.reject(e);
                         var n = o("WATimeUtils").performanceAbsoluteNow();
-                        (l.$6({
+                        (i.$6({
                           error: e,
-                          name: u,
-                          taskId: d,
+                          name: l,
+                          taskId: u,
                           time: n,
-                          totalTimeMs: n - p,
+                          totalTimeMs: n - d,
                           type: "failed",
                         }),
-                          l.$7(d, o("TaskSchedulerTypes").RunState.FAILED),
-                          l.maybeStartTask());
+                          i.$7(u, o("TaskSchedulerTypes").RunState.FAILED),
+                          i.maybeStartTask());
                       }
                     },
                   ));
               },
-              f = function (t) {
-                m.reject(t);
+              p = function (t) {
+                c.reject(t);
               },
-              g = {
-                entryTime: p,
-                id: d,
-                name: u,
-                originalPriority: c,
-                priority: c,
+              _ = {
+                entryTime: d,
+                id: u,
+                name: l,
+                originalPriority: s,
+                priority: s,
                 promotionTimerId: null,
-                rejectFn: f,
-                startFn: _,
+                rejectFn: p,
+                startFn: m,
                 state: o("TaskSchedulerTypes").RunState.PENDING,
                 stuckTimerId: null,
               };
             return (
-              this.$1.set(d, g),
-              this.$3[c].add(d),
+              this.$1.set(u, _),
+              this.$3[s].add(u),
               this.config.promotionTimeoutMs != null &&
-                c > o("TaskSchedulerPriority").BLOCKING_PRIORITY &&
-                this.$9(g),
+                s > o("TaskSchedulerPriority").BLOCKING_PRIORITY &&
+                this.$9(_),
               this.$6({
-                name: u,
-                priority: c,
-                taskId: d,
+                name: l,
+                priority: s,
+                taskId: u,
                 time: o("WATimeUtils").performanceAbsoluteNow(),
                 type: "queued",
               }),
               this.maybeStartTask(),
               {
                 cancel: function () {
-                  return l.$10(d);
+                  return i.$10(u);
                 },
-                id: d,
-                name: u,
-                promise: m.promise,
+                id: u,
+                name: l,
+                promise: c.promise,
               }
             );
           }),
-          (r.maybeStartTask = function () {
+          (n.maybeStartTask = function () {
             for (
               var e,
                 t =
-                  (e = d.getGlobalHighestActivePriority()) != null
+                  (e = c.getGlobalHighestActivePriority()) != null
                     ? e
                     : o("TaskSchedulerPriority").BACKGROUND_PRIORITY,
                 n = o("TaskSchedulerPriority").BLOCKING_PRIORITY;
@@ -215,7 +203,7 @@ __d(
                 }
             }
           }),
-          (r.$11 = function (t) {
+          (n.$11 = function (t) {
             (this.$2.set(t.id, t.priority),
               (t.state = o("TaskSchedulerTypes").RunState.RUNNING));
             var e = o("WATimeUtils").performanceAbsoluteNow();
@@ -229,13 +217,13 @@ __d(
             }),
               this.$5.tick(t.priority).then(t.startFn));
           }),
-          (r.$8 = function (t) {
+          (n.$8 = function (t) {
             var e = this.$1.get(t);
             e != null &&
               e.state === o("TaskSchedulerTypes").RunState.RUNNING &&
               (this.$12(e), this.maybeStartTask());
           }),
-          (r.$12 = function (t) {
+          (n.$12 = function (t) {
             var e = o("WATimeUtils").performanceAbsoluteNow();
             (this.$6({
               name: t.name,
@@ -257,16 +245,16 @@ __d(
                     t.id,
                   ),
                 )),
-              d.notifyActivePriorityChanged(this.name));
+              c.notifyActivePriorityChanged(this.name));
           }),
-          (r.$10 = function (t) {
+          (n.$10 = function (t) {
             var e = this.$1.get(t);
             return e == null ||
               e.state !== o("TaskSchedulerTypes").RunState.PENDING
               ? !1
               : (this.$7(t, o("TaskSchedulerTypes").RunState.CANCELLED), !0);
           }),
-          (r.$7 = function (t, n) {
+          (n.$7 = function (t, n) {
             var e = this.$1.get(t);
             if (
               e != null &&
@@ -287,10 +275,10 @@ __d(
               (this.$2.delete(t),
                 this.$3[e.priority].delete(t),
                 (e.state = n),
-                r && d.notifyActivePriorityChanged(this.name));
+                r && c.notifyActivePriorityChanged(this.name));
             }
           }),
-          (r.getHighestActivePriority = function () {
+          (n.getHighestActivePriority = function () {
             var e = null;
             return (
               this.$2.forEach(function (t) {
@@ -299,7 +287,7 @@ __d(
               e
             );
           }),
-          (r.$13 = function (t, n) {
+          (n.$13 = function (t, n) {
             var e = t.priority;
             n >= e ||
               (this.$3[e].delete(t.id),
@@ -314,7 +302,7 @@ __d(
                 type: "promoted",
               }));
           }),
-          (r.$9 = function (t) {
+          (n.$9 = function (t) {
             var e = this;
             this.config.promotionTimeoutMs != null &&
               t.promotionTimerId == null &&
@@ -325,14 +313,14 @@ __d(
                   e.maybeStartTask());
               }, this.config.promotionTimeoutMs));
           }),
-          (r.setLifecycleListener = function (t) {
+          (n.setLifecycleListener = function (t) {
             this.$4 = t;
           }),
-          (r.$6 = function (t) {
+          (n.$6 = function (t) {
             var e;
             (e = this.$4) == null || e.call(this, t);
           }),
-          (r.destroy = function () {
+          (n.destroy = function () {
             (this.$1.forEach(function (e) {
               (e.stuckTimerId != null &&
                 globalThis.clearTimeout(e.stuckTimerId),
@@ -342,12 +330,12 @@ __d(
               this.$1.clear(),
               this.$2.clear());
             for (var e of this.$3) e.clear();
-            d.unregister(this.name);
+            c.unregister(this.name);
           }),
           t
         );
       })(),
-      c = (function () {
+      u = (function () {
         function e() {
           this.$1 = new Map();
         }
@@ -380,14 +368,14 @@ __d(
           e
         );
       })(),
-      d = new c();
-    function m(e, t, n) {
-      var r = d.get(e);
+      c = new u();
+    function d(e, t, n) {
+      var r = c.get(e);
       if (r) return r;
-      var o = new u(e, t, n);
-      return (d.register(e, o), o);
+      var o = new s(e, t, n);
+      return (c.register(e, o), o);
     }
-    l.taskScheduler = m;
+    l.taskScheduler = d;
   },
   98,
 );

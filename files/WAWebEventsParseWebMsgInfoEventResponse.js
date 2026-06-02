@@ -8,7 +8,6 @@ __d(
     "WAWebEventResponseMsgDataConversion",
     "WAWebMsgType",
     "WAWebProtobufsWeb.pb",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
   ],
@@ -40,90 +39,82 @@ __d(
               };
             });
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.isFromCag,
-            a = t.parsedWebMsgInfo,
-            i = t.webMsgInfo;
+    async function c(t) {
+      var n = t.isFromCag,
+        a = t.parsedWebMsgInfo,
+        i = t.webMsgInfo;
+      try {
+        var l;
+        if (
+          !(i != null && i.eventResponses) ||
+          !a ||
+          a.type !== o("WAWebMsgType").MSG_TYPE.EVENT_CREATION
+        )
+          return [];
+        var c = a,
+          d = (l = u(i.messageAddOns)) != null ? l : i.eventResponses;
+        return r("compactMap")(d, function (t) {
           try {
-            var l;
-            if (
-              !(i != null && i.eventResponses) ||
-              !a ||
-              a.type !== o("WAWebMsgType").MSG_TYPE.EVENT_CREATION
-            )
-              return [];
-            var c = a,
-              d = (l = u(i.messageAddOns)) != null ? l : i.eventResponses;
-            return r("compactMap")(d, function (t) {
-              try {
-                var a,
-                  i = (a = r("WANullthrows"))(
-                    t.eventResponseMessageKey,
-                    "eventResponseMessageKey",
-                  ),
-                  l = a(t.eventResponseMessage, "eventResponseMessage"),
-                  s = a(
-                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
-                      isFromCag: n,
-                      key: i,
-                    }),
-                  ),
-                  u = s.msgKey;
-                return o(
-                  "WAWebEventResponseMsgDataConversion",
-                ).protobufToEventResponseMsgData({
-                  responseProtobuf: l,
-                  id: u,
-                  parentMsgKey: c.id,
-                  senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                    a(l.timestampMs, "senderTimestampMs"),
-                  ),
-                  t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
-                    t.timestampMs,
-                  ),
-                  ack: null,
-                  read: t.unread !== !0,
-                });
-              } catch (t) {
-                var d = r("getErrorSafe")(t);
-                return (
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] Failed to parse eventResponse",
-                        ])),
-                    )
-                    .catching(d)
-                    .sendLogs(
-                      "parseWebMsgInfoEventResponses-responses-parse-error",
-                    ),
-                  null
-                );
-              }
+            var a,
+              i = (a = r("WANullthrows"))(
+                t.eventResponseMessageKey,
+                "eventResponseMessageKey",
+              ),
+              l = a(t.eventResponseMessage, "eventResponseMessage"),
+              s = a(
+                o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
+                  isFromCag: n,
+                  key: i,
+                }),
+              ),
+              u = s.msgKey;
+            return o(
+              "WAWebEventResponseMsgDataConversion",
+            ).protobufToEventResponseMsgData({
+              responseProtobuf: l,
+              id: u,
+              parentMsgKey: c.id,
+              senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
+                a(l.timestampMs, "senderTimestampMs"),
+              ),
+              t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
+                t.timestampMs,
+              ),
+              ack: null,
+              read: t.unread !== !0,
             });
-          } catch (e) {
+          } catch (t) {
+            var d = r("getErrorSafe")(t);
             return (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] parseWebMsgInfoEventResponses",
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync] Failed to parse eventResponse",
                     ])),
                 )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("parseWebMsgInfoEventResponses-error"),
-              []
+                .catching(d)
+                .sendLogs(
+                  "parseWebMsgInfoEventResponses-responses-parse-error",
+                ),
+              null
             );
           }
-        })),
-        d.apply(this, arguments)
-      );
+        });
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] parseWebMsgInfoEventResponses",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("parseWebMsgInfoEventResponses-error"),
+          []
+        );
+      }
     }
     l.parseWebMsgInfoEventResponses = c;
   },

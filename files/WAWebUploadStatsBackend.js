@@ -11,61 +11,43 @@ __d(
     "WAWebBackendErrors",
     "WAWebNetworkStatus",
     "WAWebStatsUploadJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
-      var a = new Uint8Array(o("WABase64").decodeB64(e)),
-        i = o("WATimeUtils").unixTime();
-      return u(
-        t,
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = yield r("WAWebStatsUploadJob")(a, i);
-            if (n != null && n.errorCode) {
-              if (n.errorCode >= 500)
-                throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  n.errorCode,
-                  n.errorText,
-                );
-              e(t);
-            }
-            e(void 0);
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
-      );
+      var n = new Uint8Array(o("WABase64").decodeB64(e)),
+        a = o("WATimeUtils").unixTime();
+      return u(t, async function (e) {
+        var i = await r("WAWebStatsUploadJob")(n, a);
+        if (i != null && i.errorCode) {
+          if (i.errorCode >= 500)
+            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              i.errorCode,
+              i.errorText,
+            );
+          e(t);
+        }
+        e(void 0);
+      });
     }
-    function u(t, r) {
-      return o("WAPromiseLoop").promiseLoop(
-        (function () {
-          var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (n, a, i) {
-              try {
-                return (yield m(), yield r(n));
-              } catch (r) {
-                return i > 1
-                  ? (o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[wam] sendLogs failure error: ",
-                          "",
-                        ])),
-                      String(r),
-                    ),
-                    n(t))
-                  : c(i);
-              }
-            },
-          );
-          return function (e, t, n) {
-            return a.apply(this, arguments);
-          };
-        })(),
-      );
+    function u(t, n) {
+      return o("WAPromiseLoop").promiseLoop(async function (r, a, i) {
+        try {
+          return (await m(), await n(r));
+        } catch (n) {
+          return i > 1
+            ? (o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[wam] sendLogs failure error: ",
+                    "",
+                  ])),
+                String(n),
+              ),
+              r(t))
+            : c(i);
+        }
+      });
     }
     function c(e) {
       return o("WAPromiseDelays").delayMs(

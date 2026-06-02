@@ -2,7 +2,6 @@ __d(
   "WAWebAdvHandlerApi",
   [
     "NativeSchedulerTickStrategy",
-    "Promise",
     "TaskScheduler",
     "WALogger",
     "WAWebABProps",
@@ -25,56 +24,51 @@ __d(
     "WAWebRunInBatches",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = 10,
-      d = o("TaskScheduler").taskScheduler(
+      u = 10,
+      c = o("TaskScheduler").taskScheduler(
         "device-sync",
         { concurrency: 1 },
         o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
       );
-    function m(e, t, n, r, o, a, i) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l) {
-            i === void 0 && (i = !1);
-            var s = yield o(
-              "WAWebLastADVCheckTimeApi",
-            ).getLastADVDeviceInfoCheckTime();
-            return o(
-              "WAWebHandleAdvForMessageApi",
-            ).handleADVDeviceUpdateForMessage(e, t, n, r, a, i, s, l);
-          },
-        )),
-        p.apply(this, arguments)
+    async function d(e, t, n, r, a, i, l) {
+      i === void 0 && (i = !1);
+      var s = await o(
+        "WAWebLastADVCheckTimeApi",
+      ).getLastADVDeviceInfoCheckTime();
+      return o("WAWebHandleAdvForMessageApi").handleADVDeviceUpdateForMessage(
+        e,
+        t,
+        n,
+        r,
+        a,
+        i,
+        s,
+        l,
       );
     }
-    function _(e) {
+    function m(e) {
       var t = e.devices,
-        o = e.type,
-        a = e.wid;
-      return o == null
-        ? (u || (u = n("Promise"))).reject(
+        n = e.type,
+        o = e.wid;
+      return n == null
+        ? Promise.reject(
             r("err")("handleADVDeviceNotification: notification without type"),
           )
-        : g(a, t, o);
+        : _(o, t, n);
     }
-    function f(t) {
-      if (t.length === 0) return (u || (u = n("Promise"))).resolve();
-      var r = self.performance.now();
+    function p(t) {
+      if (t.length === 0) return Promise.resolve();
+      var n = self.performance.now();
       o("WAWebAppTracker").AppTracker.start(
         o("WAWebAppTracker").AppTrackerType.ADVProcessing,
       );
-      var a =
-        t.length >= c &&
+      var r =
+        t.length >= u &&
         !o("WAWebLowEndDeviceApi").isLowEndDevice() &&
         o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady() &&
         o("WAWebABPropsCache").isABPropConfigsReady() &&
@@ -89,10 +83,10 @@ __d(
             "",
           ])),
         t.length,
-        a,
+        r,
       );
-      var i = a ? b(t) : y(t);
-      return i.finally(function () {
+      var a = r ? g(t) : f(t);
+      return a.finally(function () {
         (o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -102,215 +96,362 @@ __d(
               "ms",
             ])),
           t.length,
-          a,
-          Math.round(self.performance.now() - r),
+          r,
+          Math.round(self.performance.now() - n),
         ),
           o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.ADVProcessing,
           ));
       });
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    async function _(e, t, n) {
+      var r = null;
+      if (n === "add") {
+        var a = await o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .loadIdentityKey(
+            o("WAWebSignalCommonUtils").createSignalAddress(e).toString(),
+          );
+        if (
+          ((r =
+            a != null
+              ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                  o("WAWebSignalCommonUtils").strToBuffer(a),
+                )
+              : null),
+          !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
+            t.deviceList != null)
+        ) {
+          var i;
+          t.deviceList =
+            (i = t.deviceList) == null
+              ? void 0
+              : i.filter(function (e) {
+                  return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
+                });
+        }
+      }
+      var l = await o("WAWebApiDeviceList").getDeviceRecord(e),
+        s = await o("WAWebLastADVCheckTimeApi").getLastADVDeviceInfoCheckTime(),
+        u = o("WAWebHandleAdvForUsyncApi").handleDeviceNotification(
+          e,
+          n,
+          t,
+          r,
+          l,
+          s,
+        );
+      if (u) {
+        if (u.clearRecord) {
+          var c;
+          await o("WAWebIdentityUpdateDeviceTableApi").clearDeviceRecord(
+            e,
+            (l == null ? void 0 : l.devices) || [],
+            !1,
+            l == null ? void 0 : l.advAccountType,
+            u == null || (c = u.update) == null ? void 0 : c.advAccountType,
+          );
+        }
+        return o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate([
+          { wid: e, update: u.update, currentRecord: l },
+        ]);
+      }
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = null;
-          if (n === "add") {
-            var a = yield o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .loadIdentityKey(
-                o("WAWebSignalCommonUtils").createSignalAddress(e).toString(),
-              );
+    async function f(e) {
+      o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
+        e.forEach(function (e) {
+          var t, n;
+          (e == null || (t = e.devices) == null ? void 0 : t.deviceList) !=
+            null &&
+            (e.devices.deviceList =
+              (n = e.devices.deviceList) == null
+                ? void 0
+                : n.filter(function (e) {
+                    return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
+                  }));
+        });
+      var t = e.map(function (e) {
+          return e.wid;
+        }),
+        n = e.filter(function (e) {
+          var t;
+          return (t = e.devices.keyIndex) == null
+            ? void 0
+            : t.signedKeyIndexBytes;
+        }),
+        r = await o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .bulkLoadIdentityKey(
+            n.map(function (e) {
+              return o("WAWebSignalCommonUtils")
+                .createSignalAddress(e.wid)
+                .toString();
+            }),
+          ),
+        a = new Map();
+      n.forEach(function (e, t) {
+        var n = r[t];
+        n != null && a.set(o("WAWebDeviceListPk").createDeviceListPK(e.wid), n);
+      });
+      var i = await o("WAWebApiDeviceList").bulkGetDeviceRecord(t),
+        l = [],
+        s = [],
+        u = !1,
+        d = [],
+        m = function (n, r) {
+          if (r != null) {
+            var t = e[n],
+              a = i[n];
             if (
-              ((r =
-                a != null
-                  ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                      o("WAWebSignalCommonUtils").strToBuffer(a),
-                    )
-                  : null),
-              !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                t.deviceList != null)
+              (r.identityUpdatePromise && d.push(r.identityUpdatePromise),
+              r.clearRecord)
             ) {
-              var i;
-              t.deviceList =
-                (i = t.deviceList) == null
-                  ? void 0
-                  : i.filter(function (e) {
-                      return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-                    });
+              var c;
+              (l.push({
+                wid: t.wid,
+                currentList: (a == null ? void 0 : a.devices) || [],
+                currentAdvAccountType: a == null ? void 0 : a.advAccountType,
+                incomingAdvAccountType:
+                  (c = r.update) == null ? void 0 : c.advAccountType,
+              }),
+                s.push({
+                  wid: t.wid,
+                  currentRecord: {
+                    id: o("WAWebDeviceListPk").createDeviceListPK(t.wid),
+                    deleted: !0,
+                  },
+                  update: r.update,
+                }));
+            } else {
+              if ((r == null ? void 0 : r.fromHandleOmittedResult) === !0) {
+                var m;
+                (a == null ? void 0 : a.advAccountType) ===
+                  o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                  (r == null || (m = r.update) == null
+                    ? void 0
+                    : m.advAccountType) ===
+                    o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE &&
+                  (u = !0);
+              }
+              s.push({ wid: t.wid, currentRecord: a, update: r.update });
             }
           }
-          var l = yield o("WAWebApiDeviceList").getDeviceRecord(e),
-            s = yield o(
-              "WAWebLastADVCheckTimeApi",
-            ).getLastADVDeviceInfoCheckTime(),
-            u = o("WAWebHandleAdvForUsyncApi").handleDeviceNotification(
-              e,
+        },
+        p = o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web");
+      if (p)
+        for (var _ of e.entries()) {
+          var f = _[0],
+            g = _[1],
+            h = a.get(o("WAWebDeviceListPk").createDeviceListPK(g.wid)),
+            y =
+              h != null
+                ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                    o("WAWebSignalCommonUtils").strToBuffer(h),
+                  )
+                : null;
+          (m(
+            f,
+            o("WAWebHandleAdvForUsyncApi").handleADVSyncResultSync(
+              g.wid,
+              g.devices,
+              y,
+              i[f],
+            ),
+          ),
+            await c.yield());
+        }
+      else {
+        var C = v();
+        for (var b of e.entries()) {
+          var S = b[0],
+            R = b[1];
+          {
+            var L = a.get(o("WAWebDeviceListPk").createDeviceListPK(R.wid)),
+              E =
+                L != null
+                  ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                      o("WAWebSignalCommonUtils").strToBuffer(L),
+                    )
+                  : null,
+              k = await o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
+                R.wid,
+                R.devices,
+                E,
+                i[S],
+              );
+            (m(S, k), await C());
+          }
+        }
+      }
+      (d.length > 0 && (await Promise.all(d)),
+        await Promise.all(
+          l.map(function (e) {
+            var t = e.currentAdvAccountType,
+              n = e.currentList,
+              r = e.incomingAdvAccountType,
+              a = e.wid;
+            return o("WAWebIdentityUpdateDeviceTableApi").clearDeviceRecord(
+              a,
               n,
+              !1,
               t,
               r,
-              l,
-              s,
             );
-          if (u) {
-            if (u.clearRecord) {
-              var c;
-              yield o("WAWebIdentityUpdateDeviceTableApi").clearDeviceRecord(
-                e,
-                (l == null ? void 0 : l.devices) || [],
-                !1,
-                l == null ? void 0 : l.advAccountType,
-                u == null || (c = u.update) == null ? void 0 : c.advAccountType,
-              );
-            }
-            return o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
-              [{ wid: e, update: u.update, currentRecord: l }],
-            );
-          }
-        })),
-        h.apply(this, arguments)
-      );
+          }),
+        ),
+        await o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
+          s,
+          !1,
+          u,
+        ));
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-            e.forEach(function (e) {
-              var t, n;
-              (e == null || (t = e.devices) == null ? void 0 : t.deviceList) !=
-                null &&
-                (e.devices.deviceList =
-                  (n = e.devices.deviceList) == null
-                    ? void 0
-                    : n.filter(function (e) {
-                        return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-                      }));
-            });
-          var t = e.map(function (e) {
-              return e.wid;
-            }),
-            r = e.filter(function (e) {
-              var t;
-              return (t = e.devices.keyIndex) == null
+    async function g(e) {
+      o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
+        e.forEach(function (e) {
+          var t, n;
+          (e == null || (t = e.devices) == null ? void 0 : t.deviceList) !=
+            null &&
+            (e.devices.deviceList =
+              (n = e.devices.deviceList) == null
                 ? void 0
-                : t.signedKeyIndexBytes;
+                : n.filter(function (e) {
+                    return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
+                  }));
+        });
+      var t = e.map(function (e) {
+          return e.wid;
+        }),
+        n = e.filter(function (e) {
+          var t;
+          return (t = e.devices.keyIndex) == null
+            ? void 0
+            : t.signedKeyIndexBytes;
+        }),
+        r = await o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .bulkLoadIdentityKey(
+            n.map(function (e) {
+              return o("WAWebSignalCommonUtils")
+                .createSignalAddress(e.wid)
+                .toString();
             }),
-            a = yield o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .bulkLoadIdentityKey(
-                r.map(function (e) {
-                  return o("WAWebSignalCommonUtils")
-                    .createSignalAddress(e.wid)
-                    .toString();
-                }),
-              ),
-            i = new Map();
-          r.forEach(function (e, t) {
-            var n = a[t];
-            n != null &&
-              i.set(o("WAWebDeviceListPk").createDeviceListPK(e.wid), n);
-          });
-          var l = yield o("WAWebApiDeviceList").bulkGetDeviceRecord(t),
-            s = [],
-            c = [],
-            m = !1,
-            p = [],
-            _ = function (n, r) {
-              if (r != null) {
-                var t = e[n],
-                  a = l[n];
-                if (
-                  (r.identityUpdatePromise && p.push(r.identityUpdatePromise),
-                  r.clearRecord)
-                ) {
-                  var i;
-                  (s.push({
-                    wid: t.wid,
-                    currentList: (a == null ? void 0 : a.devices) || [],
-                    currentAdvAccountType:
-                      a == null ? void 0 : a.advAccountType,
-                    incomingAdvAccountType:
-                      (i = r.update) == null ? void 0 : i.advAccountType,
-                  }),
-                    c.push({
-                      wid: t.wid,
-                      currentRecord: {
-                        id: o("WAWebDeviceListPk").createDeviceListPK(t.wid),
-                        deleted: !0,
-                      },
-                      update: r.update,
-                    }));
-                } else {
-                  if ((r == null ? void 0 : r.fromHandleOmittedResult) === !0) {
-                    var u;
-                    (a == null ? void 0 : a.advAccountType) ===
-                      o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                      (r == null || (u = r.update) == null
-                        ? void 0
-                        : u.advAccountType) ===
-                        o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE &&
-                      (m = !0);
-                  }
-                  c.push({ wid: t.wid, currentRecord: a, update: r.update });
-                }
-              }
-            },
-            f = o("WAWebABProps").getABPropConfigValue(
-              "wmi_worker_scheduler_web",
-            );
-          if (f)
-            for (var g of e.entries()) {
-              var h = g[0],
-                y = g[1],
-                C = i.get(o("WAWebDeviceListPk").createDeviceListPK(y.wid)),
-                b =
-                  C != null
-                    ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                        o("WAWebSignalCommonUtils").strToBuffer(C),
-                      )
-                    : null;
-              (_(
-                h,
-                o("WAWebHandleAdvForUsyncApi").handleADVSyncResultSync(
-                  y.wid,
-                  y.devices,
-                  b,
-                  l[h],
-                ),
-              ),
-                yield d.yield());
-            }
-          else {
-            var v = k();
-            for (var S of e.entries()) {
-              var R = S[0],
-                L = S[1];
-              {
-                var E = i.get(o("WAWebDeviceListPk").createDeviceListPK(L.wid)),
-                  I =
-                    E != null
-                      ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                          o("WAWebSignalCommonUtils").strToBuffer(E),
-                        )
-                      : null,
-                  T = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
-                    L.wid,
-                    L.devices,
-                    I,
-                    l[R],
-                  );
-                (_(R, T), yield v());
-              }
-            }
+          ),
+        a = new Map();
+      n.forEach(function (e, t) {
+        var n = r[t];
+        n != null && a.set(o("WAWebDeviceListPk").createDeviceListPK(e.wid), n);
+      });
+      var i = new Map(),
+        l = [],
+        s = [],
+        u = function (n) {
+          var t,
+            r = e[n],
+            i =
+              (t = r.devices.keyIndex) == null ? void 0 : t.signedKeyIndexBytes;
+          if (
+            i != null &&
+            !(
+              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
+              r.devices.deviceList != null &&
+              r.devices.deviceList.some(function (e) {
+                return !!e.isHosted;
+              })
+            )
+          ) {
+            var u = a.get(o("WAWebDeviceListPk").createDeviceListPK(r.wid));
+            u != null &&
+              (l.push(n),
+              s.push({
+                localPrimaryIdentity: o(
+                  "WAWebCryptoCurve25519",
+                ).toCurveKeyPubKey(o("WAWebSignalCommonUtils").strToBuffer(u)),
+                signedKeyIndexBytes: i,
+              }));
           }
-          (p.length > 0 && (yield (u || (u = n("Promise"))).all(p)),
-            yield (u || (u = n("Promise"))).all(
-              s.map(function (e) {
+        },
+        d = o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web");
+      if (d) for (var m = 0; m < e.length; m++) (u(m), await c.yield());
+      else for (var p = v(), _ = 0; _ < e.length; _++) (u(_), await p());
+      if (s.length > 0) {
+        var f = await o(
+          "WAWebHandleAdvDeviceNotificationUtils",
+        ).decodeSignedKeyIndexBytesBatchInWorker(s);
+        l.forEach(function (e, t) {
+          i.set(e, f[t]);
+        });
+      }
+      var g = await o("WAWebApiDeviceList").bulkGetDeviceRecord(t),
+        y = [],
+        S = [],
+        R = !1,
+        L = [];
+      if (d)
+        for (var E of e.entries()) {
+          var k = E[0],
+            I = E[1],
+            T = a.get(o("WAWebDeviceListPk").createDeviceListPK(I.wid)),
+            D =
+              T != null
+                ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                    o("WAWebSignalCommonUtils").strToBuffer(T),
+                  )
+                : null,
+            x = i.has(k) ? i.get(k) : void 0;
+          ((R = h({
+            clearRecords: y,
+            deviceADVResult: o(
+              "WAWebHandleAdvForUsyncApi",
+            ).handleADVSyncResultSync(I.wid, I.devices, D, g[k], void 0, x),
+            identityUpdates: L,
+            localDeviceRecord: g[k],
+            shouldAddHosted: R,
+            updates: S,
+            wid: I.wid,
+          })),
+            await c.yield());
+        }
+      else {
+        var $ = v();
+        for (var P of e.entries()) {
+          var N = P[0],
+            M = P[1];
+          {
+            var w = a.get(o("WAWebDeviceListPk").createDeviceListPK(M.wid)),
+              A =
+                w != null
+                  ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                      o("WAWebSignalCommonUtils").strToBuffer(w),
+                    )
+                  : null,
+              F = i.has(N) ? i.get(N) : void 0,
+              O = await o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
+                M.wid,
+                M.devices,
+                A,
+                g[N],
+                void 0,
+                F,
+              );
+            ((R = h({
+              clearRecords: y,
+              deviceADVResult: O,
+              identityUpdates: L,
+              localDeviceRecord: g[N],
+              shouldAddHosted: R,
+              updates: S,
+              wid: M.wid,
+            })),
+              await $());
+          }
+        }
+      }
+      (L.length > 0 && (await Promise.all(L)),
+        await o("WAWebRunInBatches").runInBatches(
+          y,
+          async function (e) {
+            await Promise.all(
+              e.map(function (e) {
                 var t = e.currentAdvAccountType,
                   n = e.currentList,
                   r = e.incomingAdvAccountType,
@@ -323,208 +464,23 @@ __d(
                   r,
                 );
               }),
-            ),
-            yield o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
-              c,
-              !1,
-              m,
-            ));
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-            e.forEach(function (e) {
-              var t, n;
-              (e == null || (t = e.devices) == null ? void 0 : t.deviceList) !=
-                null &&
-                (e.devices.deviceList =
-                  (n = e.devices.deviceList) == null
-                    ? void 0
-                    : n.filter(function (e) {
-                        return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-                      }));
-            });
-          var t = e.map(function (e) {
-              return e.wid;
-            }),
-            r = e.filter(function (e) {
-              var t;
-              return (t = e.devices.keyIndex) == null
-                ? void 0
-                : t.signedKeyIndexBytes;
-            }),
-            a = yield o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .bulkLoadIdentityKey(
-                r.map(function (e) {
-                  return o("WAWebSignalCommonUtils")
-                    .createSignalAddress(e.wid)
-                    .toString();
-                }),
-              ),
-            i = new Map();
-          r.forEach(function (e, t) {
-            var n = a[t];
-            n != null &&
-              i.set(o("WAWebDeviceListPk").createDeviceListPK(e.wid), n);
-          });
-          var l = new Map(),
-            s = [],
-            c = [],
-            m = function (n) {
-              var t,
-                r = e[n],
-                a =
-                  (t = r.devices.keyIndex) == null
-                    ? void 0
-                    : t.signedKeyIndexBytes;
-              if (
-                a != null &&
-                !(
-                  o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                  r.devices.deviceList != null &&
-                  r.devices.deviceList.some(function (e) {
-                    return !!e.isHosted;
-                  })
-                )
-              ) {
-                var l = i.get(o("WAWebDeviceListPk").createDeviceListPK(r.wid));
-                l != null &&
-                  (s.push(n),
-                  c.push({
-                    localPrimaryIdentity: o(
-                      "WAWebCryptoCurve25519",
-                    ).toCurveKeyPubKey(
-                      o("WAWebSignalCommonUtils").strToBuffer(l),
-                    ),
-                    signedKeyIndexBytes: a,
-                  }));
-              }
-            },
-            p = o("WAWebABProps").getABPropConfigValue(
-              "wmi_worker_scheduler_web",
             );
-          if (p) for (var _ = 0; _ < e.length; _++) (m(_), yield d.yield());
-          else for (var f = k(), g = 0; g < e.length; g++) (m(g), yield f());
-          if (c.length > 0) {
-            var h = yield o(
-              "WAWebHandleAdvDeviceNotificationUtils",
-            ).decodeSignedKeyIndexBytesBatchInWorker(c);
-            s.forEach(function (e, t) {
-              l.set(e, h[t]);
-            });
-          }
-          var y = yield o("WAWebApiDeviceList").bulkGetDeviceRecord(t),
-            C = [],
-            b = [],
-            v = !1,
-            R = [];
-          if (p)
-            for (var I of e.entries()) {
-              var T = I[0],
-                D = I[1],
-                x = i.get(o("WAWebDeviceListPk").createDeviceListPK(D.wid)),
-                $ =
-                  x != null
-                    ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                        o("WAWebSignalCommonUtils").strToBuffer(x),
-                      )
-                    : null,
-                P = l.has(T) ? l.get(T) : void 0;
-              ((v = S({
-                clearRecords: C,
-                deviceADVResult: o(
-                  "WAWebHandleAdvForUsyncApi",
-                ).handleADVSyncResultSync(D.wid, D.devices, $, y[T], void 0, P),
-                identityUpdates: R,
-                localDeviceRecord: y[T],
-                shouldAddHosted: v,
-                updates: b,
-                wid: D.wid,
-              })),
-                yield d.yield());
-            }
-          else {
-            var N = k();
-            for (var M of e.entries()) {
-              var w = M[0],
-                A = M[1];
-              {
-                var F = i.get(o("WAWebDeviceListPk").createDeviceListPK(A.wid)),
-                  O =
-                    F != null
-                      ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                          o("WAWebSignalCommonUtils").strToBuffer(F),
-                        )
-                      : null,
-                  B = l.has(w) ? l.get(w) : void 0,
-                  W = yield o("WAWebHandleAdvForUsyncApi").handleADVSyncResult(
-                    A.wid,
-                    A.devices,
-                    O,
-                    y[w],
-                    void 0,
-                    B,
-                  );
-                ((v = S({
-                  clearRecords: C,
-                  deviceADVResult: W,
-                  identityUpdates: R,
-                  localDeviceRecord: y[w],
-                  shouldAddHosted: v,
-                  updates: b,
-                  wid: A.wid,
-                })),
-                  yield N());
-              }
-            }
-          }
-          (R.length > 0 && (yield (u || (u = n("Promise"))).all(R)),
-            yield o("WAWebRunInBatches").runInBatches(
-              C,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    yield (u || (u = n("Promise"))).all(
-                      e.map(function (e) {
-                        var t = e.currentAdvAccountType,
-                          n = e.currentList,
-                          r = e.incomingAdvAccountType,
-                          a = e.wid;
-                        return o(
-                          "WAWebIdentityUpdateDeviceTableApi",
-                        ).clearDeviceRecord(a, n, !1, t, r);
-                      }),
-                    );
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              { batchSize: E },
-            ),
-            yield o("WAWebRunInBatches").runInBatches(
-              b,
-              function (e) {
-                return o(
-                  "WAWebIdentityUpdateDeviceTableApi",
-                ).bulkApplyDeviceUpdate(e, !1, v);
-              },
-              { batchSize: L },
-            ));
-        })),
-        v.apply(this, arguments)
-      );
+          },
+          { batchSize: b },
+        ),
+        await o("WAWebRunInBatches").runInBatches(
+          S,
+          function (e) {
+            return o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
+              e,
+              !1,
+              R,
+            );
+          },
+          { batchSize: C },
+        ));
     }
-    function S(e) {
+    function h(e) {
       var t = e.clearRecords,
         n = e.deviceADVResult,
         r = e.identityUpdates,
@@ -568,20 +524,20 @@ __d(
       }
       return (l.push({ wid: s, currentRecord: a, update: n.update }), c);
     }
-    var R = 100,
-      L = 25,
-      E = 25;
-    function k() {
+    var y = 100,
+      C = 25,
+      b = 25;
+    function v() {
       var e = self.performance.now();
-      return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        self.performance.now() - e > R &&
-          (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+      return async function () {
+        self.performance.now() - e > y &&
+          (await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
           (e = self.performance.now()));
-      });
+      };
     }
-    ((l.handleADVDeviceUpdateForMessage = m),
-      (l.handleADVDeviceNotification = _),
-      (l.handleADVDeviceSyncResult = f));
+    ((l.handleADVDeviceUpdateForMessage = d),
+      (l.handleADVDeviceNotification = m),
+      (l.handleADVDeviceSyncResult = p));
   },
   98,
 );

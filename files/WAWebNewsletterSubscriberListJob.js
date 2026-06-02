@@ -5,30 +5,29 @@ __d(
     "WAWebNewsletterSubscriberListQueryJob",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebUserPrefsNewsletter",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, r) {
+    function e(e, t, n) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterSubscribers",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = { view: r, newsletterJid: e },
-              a = yield o(
+          async function () {
+            var r = { view: n, newsletterJid: e },
+              a = await o(
                 "WAWebUserPrefsNewsletter",
-              ).NewsletterSubscribersCache.get(n);
+              ).NewsletterSubscribersCache.get(r);
             if (a != null) return { followers: a };
-            var i = yield o(
+            var i = await o(
               "WAWebNewsletterSubscriberListQueryJob",
             ).getNewsletterSubscribers(e, t);
             return (
               (i == null ? void 0 : i.followers) != null &&
-                (yield o(
+                (await o(
                   "WAWebUserPrefsNewsletter",
-                ).NewsletterSubscribersCache.set(n, i.followers)),
+                ).NewsletterSubscribersCache.set(r, i.followers)),
               i
             );
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

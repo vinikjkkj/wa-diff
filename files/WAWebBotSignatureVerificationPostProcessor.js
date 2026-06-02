@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebBotSignatureVerificationGating",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -14,73 +13,65 @@ __d(
       d = r("JSResourceForInteraction")(
         "WAWebBotSignatureVerificationUtils",
       ).__setRef("WAWebBotSignatureVerificationPostProcessor");
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!_(t)) return t;
-          var n = t.botSignatureVerificationMetadata,
-            r = t.forwardedAiBotMessageInfo;
-          if (r == null || n == null) return t;
-          var a = f(t);
-          if (a == null)
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " No unified response bytes available for verification",
-                    ])),
-                  c,
-                )
-                .sendLogs("bot-sig-no-unified-response"),
-              t
-            );
-          try {
-            var i = yield d.load(),
-              l = i.verifyBotMessageSignature,
-              m = yield l(r, n, a);
-            return (
-              m === "failed" &&
-                o("WALogger")
-                  .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        " Verification failed",
-                      ])),
-                    c,
-                  )
-                  .sendLogs("bot-sig-verification-failed"),
-              babelHelpers.extends({}, t, {
-                forwardedAiBotMessageInfo: babelHelpers.extends({}, r, {
-                  validationStatus: m,
-                }),
-              })
-            );
-          } catch (e) {
+    async function m(t) {
+      if (!p(t)) return t;
+      var n = t.botSignatureVerificationMetadata,
+        r = t.forwardedAiBotMessageInfo;
+      if (r == null || n == null) return t;
+      var a = _(t);
+      if (a == null)
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " No unified response bytes available for verification",
+                ])),
+              c,
+            )
+            .sendLogs("bot-sig-no-unified-response"),
+          t
+        );
+      try {
+        var i = await d.load(),
+          l = i.verifyBotMessageSignature,
+          m = await l(r, n, a);
+        return (
+          m === "failed" &&
             o("WALogger")
               .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "",
-                    " Verification error, failing open: ",
-                    "",
+                    " Verification failed",
                   ])),
                 c,
-                String(e),
               )
-              .sendLogs("bot-sig-verification-error", { sampling: 0.01 });
-          }
-          return t;
-        })),
-        p.apply(this, arguments)
-      );
+              .sendLogs("bot-sig-verification-failed"),
+          babelHelpers.extends({}, t, {
+            forwardedAiBotMessageInfo: babelHelpers.extends({}, r, {
+              validationStatus: m,
+            }),
+          })
+        );
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                " Verification error, failing open: ",
+                "",
+              ])),
+            c,
+            String(e),
+          )
+          .sendLogs("bot-sig-verification-error", { sampling: 0.01 });
+      }
+      return t;
     }
-    function _(e) {
+    function p(e) {
       return !(
         e.isForwarded !== !0 ||
         e.forwardedAiBotMessageInfo == null ||
@@ -88,7 +79,7 @@ __d(
         !o("WAWebBotSignatureVerificationGating").isForwardVerificationEnabled()
       );
     }
-    function f(e) {
+    function _(e) {
       var t = e.unifiedResponseRawData;
       return t instanceof Uint8Array
         ? t
@@ -97,7 +88,7 @@ __d(
           : null;
     }
     ((l.verifyForwardedBotMessage = m),
-      (l.shouldVerifyForwardedBotMessage = _));
+      (l.shouldVerifyForwardedBotMessage = p));
   },
   98,
 );

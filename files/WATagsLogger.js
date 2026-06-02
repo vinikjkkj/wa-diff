@@ -1,30 +1,21 @@
 __d(
   "WATagsLogger",
-  ["Promise", "WALoggerUtils", "asyncToGeneratorRuntime"],
+  ["WALoggerUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = new (s || (s = n("Promise")))(function (e) {
-        u = e;
+      u = new Promise(function (e) {
+        s = e;
       });
-    function d() {
-      return m.apply(this, arguments);
+    async function c() {
+      await u;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield c;
-        })),
-        m.apply(this, arguments)
-      );
+    var d = null;
+    function m(e) {
+      ((d = e), s == null || s(), (s = null));
     }
-    var p = null;
-    function _(e) {
-      ((p = e), u == null || u(), (u = null));
-    }
-    var f = {
+    var p = {
       count: function () {},
       debug: function () {},
       info: function () {},
@@ -33,13 +24,13 @@ __d(
       error: function () {},
       devConsole: function () {},
     };
-    function g() {
-      return p == null ? f : p;
+    function _() {
+      return d == null ? p : d;
     }
-    function h(e) {
+    function f(e) {
       return {
         TAGS: function (n) {
-          return h([].concat(e, n));
+          return f([].concat(e, n));
         },
         COUNT: function (n) {
           for (
@@ -50,7 +41,7 @@ __d(
             r[a - 1] = arguments[a];
           var i = o("WALoggerUtils").rebuildTemplate(n, r),
             l = { level: "COUNT", template: n, expressions: r, logString: i };
-          return (g().count(i, e, l), y(l));
+          return (_().count(i, e, l), g(l));
         },
         DEV: function (n) {
           for (
@@ -61,7 +52,7 @@ __d(
             r[a - 1] = arguments[a];
           var i = o("WALoggerUtils").rebuildTemplate(n, r),
             l = { level: "DEV", template: n, expressions: r, logString: i };
-          return (g().debug(i, e, l), y(l));
+          return (_().debug(i, e, l), g(l));
         },
         DEV_XMPP: function (n) {
           for (
@@ -77,7 +68,7 @@ __d(
               expressions: r,
               logString: i,
             };
-          return (g().logRestricted(i, e, l), y(l));
+          return (_().logRestricted(i, e, l), g(l));
         },
         LOG: function (n) {
           for (
@@ -88,7 +79,7 @@ __d(
             r[a - 1] = arguments[a];
           var i = o("WALoggerUtils").rebuildTemplate(n, r),
             l = { level: "LOG", template: n, expressions: r, logString: i };
-          return (g().info(i, e, l), y(l));
+          return (_().info(i, e, l), g(l));
         },
         WARN: function (n) {
           for (
@@ -99,7 +90,7 @@ __d(
             r[a - 1] = arguments[a];
           var i = o("WALoggerUtils").rebuildTemplate(n, r),
             l = { level: "WARN", template: n, expressions: r, logString: i };
-          return (g().warn(i, e, l), y(l));
+          return (_().warn(i, e, l), g(l));
         },
         ERROR: function (n) {
           for (
@@ -117,8 +108,8 @@ __d(
               break;
             }
           return (
-            s != null ? g().error(i, e, s, l) : g().error(i, e, void 0, l),
-            y(l)
+            s != null ? _().error(i, e, s, l) : _().error(i, e, void 0, l),
+            g(l)
           );
         },
         CATCHING: function (n) {
@@ -135,7 +126,7 @@ __d(
               expressions: r,
               logString: i,
             };
-          return (g().error(i, e, void 0, l), y(l));
+          return (_().error(i, e, void 0, l), g(l));
         },
         EXPECTED_ERROR: function (n) {
           for (
@@ -152,28 +143,28 @@ __d(
               logString: i,
               tags: [].concat(e),
             };
-          return y(l);
+          return g(l);
         },
       };
     }
-    function y(t) {
+    function g(t) {
       return {
         verbose: function () {
-          return ((t.verbose = !0), y(t));
+          return ((t.verbose = !0), g(t));
         },
         color: function (n) {
-          return ((t.color = n), y(t));
+          return ((t.color = n), g(t));
         },
         devConsole: function () {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
-            (e = g()).devConsole.apply(e, [t.level, t.logString, []].concat(r)),
-            y(t)
+            (e = _()).devConsole.apply(e, [t.level, t.logString, []].concat(r)),
+            g(t)
           );
         },
         sendLogs: function (r, o) {
-          if (g().sendLogs != null) {
+          if (_().sendLogs != null) {
             var n, a;
             ((t.sendLogs = {
               reason: r,
@@ -182,28 +173,28 @@ __d(
               separateEmployeeLog: o == null ? void 0 : o.separateEmployeeLog,
               employeeSampling: o == null ? void 0 : o.employeeSampling,
             }),
-              (n = (a = g()).sendLogs) == null || n.call(a, t));
+              (n = (a = _()).sendLogs) == null || n.call(a, t));
           } else if (t.level !== "ERROR" && t.level !== "CATCHING")
-            return h([]).ERROR(
+            return f([]).ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose(["[", "] ", ""])),
               r,
               t.logString,
             );
-          return y(t);
+          return g(t);
         },
         tags: function () {
           for (var e = arguments.length, n = new Array(e), r = 0; r < e; r++)
             n[r] = arguments[r];
-          if (((t.tags = n), g().tags != null)) {
+          if (((t.tags = n), _().tags != null)) {
             var o, a;
-            (o = (a = g()).tags) == null || o.call(a, n);
+            (o = (a = _()).tags) == null || o.call(a, n);
           }
-          return y(t);
+          return g(t);
         },
         expect: function (n) {
           var e, r, o, a, i, l;
-          if (t.level !== "ERROR") return y(t);
+          if (t.level !== "ERROR") return g(t);
           var s = void 0;
           for (var u of t.expressions)
             if (u instanceof Error) {
@@ -225,7 +216,7 @@ __d(
             if (c != null && c.includes(d)) {
               var m;
               return (
-                g().error(
+                _().error(
                   t.logString,
                   [].concat((m = t.tags) != null ? m : [], [
                     "expected-error-log",
@@ -233,28 +224,28 @@ __d(
                   s != null ? s : void 0,
                   t,
                 ),
-                y(t)
+                g(t)
               );
             }
           return (
-            g().error(
+            _().error(
               t.logString,
               (l = t == null ? void 0 : t.tags) != null ? l : [],
               s != null ? s : void 0,
               t,
             ),
-            y(t)
+            g(t)
           );
         },
         catching: function (n) {
-          return (t.expressions.push(n), y(t));
+          return (t.expressions.push(n), g(t));
         },
       };
     }
-    ((l.whenReady = d),
-      (l.initializeWaLogger = _),
-      (l.TAGS = h),
-      (l.getWaLoggerAdditionalOptions = y));
+    ((l.whenReady = c),
+      (l.initializeWaLogger = m),
+      (l.TAGS = f),
+      (l.getWaLoggerAdditionalOptions = g));
   },
   98,
 );

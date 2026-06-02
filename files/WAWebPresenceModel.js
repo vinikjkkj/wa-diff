@@ -31,7 +31,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidFormat",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -119,7 +118,7 @@ __d(
               ? (this.listenTo(
                   this.chatstates,
                   "add change",
-                  r("lodash").debounce(function () {
+                  r("WAWebDebounce")(function () {
                     var t,
                       n = !1,
                       a = [],
@@ -174,7 +173,7 @@ __d(
                         id: t ? t.id : "",
                         type: t ? t.type : "unavailable",
                       }));
-                  }),
+                  }, 0),
                 ),
                 this.listenTo(
                   o("WAWebPresenceCollection").PresenceCollection,

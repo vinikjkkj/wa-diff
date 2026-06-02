@@ -10,7 +10,6 @@ __d(
     "WAWebText.react",
     "WAWebUISpacing",
     "WAWebWamEnumSupportAiEventType",
-    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -32,90 +31,85 @@ __d(
         checkbox: { display: "x1rg5ohu", verticalAlign: "xxymvpz", $$css: !0 },
       };
     function f(t) {
-      var a = o("react-compiler-runtime").c(20),
-        i = t.msgKey,
-        l = t.onSubmit,
-        u;
-      a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = []), (a[0] = u))
-        : (u = a[0]);
-      var d = p(u),
-        f = d[0],
-        C = d[1],
-        b;
-      (a[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = []), (a[1] = b))
-        : (b = a[1]),
-        m(y, b));
-      var v = h,
-        S;
-      a[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = function () {
+      var n = o("react-compiler-runtime").c(20),
+        a = t.msgKey,
+        i = t.onSubmit,
+        l;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = []), (n[0] = l))
+        : (l = n[0]);
+      var u = p(l),
+        d = u[0],
+        f = u[1],
+        C;
+      (n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = []), (n[1] = C))
+        : (C = n[1]),
+        m(y, C));
+      var b = h,
+        v;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = function () {
             return o("WAWebSupportBotFeedbackKind")
               .getNegativeSupportFeedbackKinds()
               .map(function (e) {
-                return { value: e, label: v(e) };
+                return { value: e, label: b(e) };
               });
           }),
-          (a[2] = S))
-        : (S = a[2]);
-      var R = S,
-        L;
-      a[3] !== f
-        ? ((L = function (t) {
-            f.includes(t)
-              ? C(
-                  f.filter(function (e) {
+          (n[2] = v))
+        : (v = n[2]);
+      var S = v,
+        R;
+      n[3] !== d
+        ? ((R = function (t) {
+            d.includes(t)
+              ? f(
+                  d.filter(function (e) {
                     return e !== t;
                   }),
                 )
-              : C([].concat(f, [t]));
+              : f([].concat(d, [t]));
           }),
-          (a[3] = f),
-          (a[4] = L))
-        : (L = a[4]);
-      var E = L,
-        k;
-      a[5] !== i || a[6] !== l || a[7] !== f
-        ? ((k = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              f.length > 0 && (yield l(i, f));
-            });
-            return function () {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (a[5] = i),
-          (a[6] = l),
-          (a[7] = f),
-          (a[8] = k))
-        : (k = a[8]);
-      var I = k,
+          (n[3] = d),
+          (n[4] = R))
+        : (R = n[4]);
+      var L = R,
+        E;
+      n[5] !== a || n[6] !== i || n[7] !== d
+        ? ((E = async function () {
+            d.length > 0 && (await i(a, d));
+          }),
+          (n[5] = a),
+          (n[6] = i),
+          (n[7] = d),
+          (n[8] = E))
+        : (E = n[8]);
+      var k = E,
+        I,
         T,
-        D,
-        x;
-      a[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = { surface: "unknown", viewName: "support-negative-feedback" }),
-          (D = s._(/*BTDS*/ "Add a reason")),
-          (x = s._(/*BTDS*/ "Submit")),
-          (a[9] = T),
-          (a[10] = D),
-          (a[11] = x))
-        : ((T = a[9]), (D = a[10]), (x = a[11]));
-      var $ = f.length < 1,
-        P;
-      a[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((P = c.jsx(o("WAWebText.react").WAWebTextSmall, {
+        D;
+      n[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = { surface: "unknown", viewName: "support-negative-feedback" }),
+          (T = s._(/*BTDS*/ "Add a reason")),
+          (D = s._(/*BTDS*/ "Submit")),
+          (n[9] = I),
+          (n[10] = T),
+          (n[11] = D))
+        : ((I = n[9]), (T = n[10]), (D = n[11]));
+      var x = d.length < 1,
+        $;
+      n[12] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = c.jsx(o("WAWebText.react").WAWebTextSmall, {
             paddingBottom: 12,
             children: s._(
               /*BTDS*/ "Your feedback can help improve the quality of WhatsApp Support chat.",
             ),
           })),
-          (a[12] = P))
-        : (P = a[12]);
-      var N;
-      a[13] !== E || a[14] !== f
-        ? ((N = R().map(function (t, n) {
+          (n[12] = $))
+        : ($ = n[12]);
+      var P;
+      n[13] !== L || n[14] !== d
+        ? ((P = S().map(function (t, n) {
             return c.jsxs(
               "div",
               babelHelpers.extends(
@@ -136,9 +130,9 @@ __d(
                           children: c.jsx(
                             o("WAWebCheckBox.react").CheckBox,
                             {
-                              checked: f.includes(t.value),
+                              checked: d.includes(t.value),
                               onChange: function () {
-                                return E(t.value);
+                                return L(t.value);
                               },
                               testid: "feedback-option-" + n,
                             },
@@ -154,28 +148,28 @@ __d(
               t.value,
             );
           })),
-          (a[13] = E),
-          (a[14] = f),
-          (a[15] = N))
-        : (N = a[15]);
-      var M;
+          (n[13] = L),
+          (n[14] = d),
+          (n[15] = P))
+        : (P = n[15]);
+      var N;
       return (
-        a[16] !== I || a[17] !== N || a[18] !== $
-          ? ((M = c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: T,
-              title: D,
-              okText: x,
-              onOK: I,
-              okDisabled: $,
+        n[16] !== k || n[17] !== P || n[18] !== x
+          ? ((N = c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: I,
+              title: T,
+              okText: D,
+              onOK: k,
+              okDisabled: x,
               onCancel: g,
-              children: [P, N],
+              children: [$, P],
             })),
-            (a[16] = I),
-            (a[17] = N),
-            (a[18] = $),
-            (a[19] = M))
-          : (M = a[19]),
-        M
+            (n[16] = k),
+            (n[17] = P),
+            (n[18] = x),
+            (n[19] = N))
+          : (N = n[19]),
+        N
       );
     }
     function g() {

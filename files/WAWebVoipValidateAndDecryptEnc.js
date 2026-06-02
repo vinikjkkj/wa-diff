@@ -14,107 +14,93 @@ __d(
     "WAWebSignal",
     "WAWebSignalCommonErrors",
     "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d, m;
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.maybeChild("enc"),
-            a = t.peer_jid;
-          if (!n || !a)
-            return {
-              result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
-            };
-          var i = n.maybeAttrInt("count");
-          (i == null || Number.isNaN(i)) && (i = 0);
-          var l = {
-            e2eType: n.attrEnumValues(
-              "type",
-              o("WAWebBackendJobs.flow").CiphertextType.members(),
+    async function p(t, n) {
+      var a = t.maybeChild("enc"),
+        i = n.peer_jid;
+      if (!a || !i)
+        return {
+          result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+        };
+      var l = a.maybeAttrInt("count");
+      (l == null || Number.isNaN(l)) && (l = 0);
+      var s = {
+        e2eType: a.attrEnumValues(
+          "type",
+          o("WAWebBackendJobs.flow").CiphertextType.members(),
+        ),
+        ciphertext: a.contentBytes(),
+        retryCount: l,
+        encMediaType: null,
+        hideFail: !1,
+      };
+      try {
+        var d = t.maybeChild("device-identity");
+        if (
+          i.device != null &&
+          i.device !== o("WAJids").DEFAULT_DEVICE_ID &&
+          s.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
+          !d
+        )
+          return (
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip:validateAndDecryptEnc: need device-identity for pkmsg",
+                ])),
             ),
-            ciphertext: n.contentBytes(),
-            retryCount: i,
-            encMediaType: null,
-            hideFail: !1,
-          };
-          try {
-            var s = e.maybeChild("device-identity");
-            if (
-              a.device != null &&
-              a.device !== o("WAJids").DEFAULT_DEVICE_ID &&
-              l.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
-              !s
-            )
-              return (
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip:validateAndDecryptEnc: need device-identity for pkmsg",
-                    ])),
-                ),
-                {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                    .PARSE_ERROR,
-                }
-              );
-            if (s) {
-              var u = new Uint8Array(s.contentBytes()),
-                p = yield o("WAWebAdvSignatureApi").validateADVwithEncs(a, u, [
-                  l,
-                ]);
-              if (!p)
-                return {
-                  result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                    .PARSE_ERROR,
-                };
-              o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip:validateAndDecryptEnc: ADV device-identity validated +",
-                  ])),
-              );
+            {
+              result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                .PARSE_ERROR,
             }
-            var _ = yield f(l, a),
-              g = _.decrypted,
-              h = _.result;
-            return (
-              h === o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
-                (n.unsafeSetNodeContent(new Uint8Array(r("WANullthrows")(g))),
-                yield o("WAWebSignalProtocolStore")
-                  .getSignalProtocolStore()
-                  .flushBufferToDiskIfNotMemOnlyMode()),
-              { result: h, retryCount: i }
-            );
-          } catch (e) {
-            return (
-              o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip:validateAndDecryptEnc error",
-                  ])),
-              ),
-              {
-                result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                  .PARSE_ERROR,
-              }
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
+          );
+        if (d) {
+          var m = new Uint8Array(d.contentBytes()),
+            p = await o("WAWebAdvSignatureApi").validateADVwithEncs(i, m, [s]);
+          if (!p)
+            return {
+              result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
+                .PARSE_ERROR,
+            };
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "voip:validateAndDecryptEnc: ADV device-identity validated +",
+              ])),
+          );
+        }
+        var f = await _(s, i),
+          g = f.decrypted,
+          h = f.result;
+        return (
+          h === o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
+            (a.unsafeSetNodeContent(new Uint8Array(r("WANullthrows")(g))),
+            await o("WAWebSignalProtocolStore")
+              .getSignalProtocolStore()
+              .flushBufferToDiskIfNotMemOnlyMode()),
+          { result: h, retryCount: l }
+        );
+      } catch (e) {
+        return (
+          o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "voip:validateAndDecryptEnc error",
+              ])),
+          ),
+          { result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR }
+        );
+      }
     }
-    function f(t, n) {
+    function _(e, t) {
       return (
-        t.e2eType !== o("WAWebBackendJobs.flow").CiphertextType.Skmsg ||
+        e.e2eType !== o("WAWebBackendJobs.flow").CiphertextType.Skmsg ||
           s(0, 56543),
         o("WAWebSignal")
-          .Cipher.decryptSignalProto(n, t.e2eType, t.ciphertext)
+          .Cipher.decryptSignalProto(t, e.e2eType, e.ciphertext)
           .then(function (e) {
             var t,
               n = o("WACryptoPkcs7").unpadPkcs7(new Uint8Array(e)),
@@ -136,15 +122,15 @@ __d(
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebSignalCommonErrors").SignalDecryptionError,
-              function (t) {
+              function (e) {
                 return (
                   o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "voip:decryptSignalProto failed with decryption error; ",
                         "",
                       ])),
-                    t,
+                    e,
                   ),
                   {
                     result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
@@ -157,8 +143,8 @@ __d(
           .catch(function (e) {
             return (
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip:decryptSignalProto failed with unexpected error; ",
                     "",
                   ])),

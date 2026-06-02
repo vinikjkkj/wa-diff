@@ -14,7 +14,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -44,23 +43,23 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
             ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(
                 this.primaryChat,
               )
             : !1;
         }),
-        (a.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return e.prototype.shouldShowBanner.call(this)
             ? o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
                 this.primaryChat,
               )
             : !1;
         }),
-        (a.shouldMute = function (t) {
+        (n.shouldMute = function (t) {
           return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
             ? r("WAWebNotificationMuteReason").AppState
             : this.chats.every(function (e) {
@@ -75,7 +74,7 @@ __d(
                   ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                   : null;
         }),
-        (a.buildKey = function () {
+        (n.buildKey = function () {
           return (
             "chat_assignment:" +
             this.chats
@@ -86,35 +85,21 @@ __d(
             this.assignmentTimestamps
           );
         }),
-        (a.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return this.chats.length > 1 ? !1 : this.primaryChat.equals(t);
         }),
-        (a.getChatKind = function () {
+        (n.getChatKind = function () {
           return o("WAWebFrontendChatGetters").getKind(this.primaryChat);
         }),
-        (a.performLogging = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {},
+        (n.performLogging = async function () {}),
+        (n.getIcon = async function () {
+          return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            this.abortController.signal,
+            o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
           );
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              this.abortController.signal,
-              o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getBannerOptions = function () {
+        }),
+        (n.getBannerOptions = function () {
           var e = o("WAWebGetNotificationStrings").getNotificationBody(
             babelHelpers.extends(
               {},

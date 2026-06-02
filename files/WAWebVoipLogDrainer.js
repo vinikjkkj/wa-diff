@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebReleaseToEventLoop",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -223,89 +222,77 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function G() {
-      return z.apply(this, arguments);
-    }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = w;
-          if (e != null) {
-            var t = e.dataU8,
-              n = e.headerU32,
-              a = self.performance.now(),
-              i = o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              ),
-              l = -1,
-              s = !1;
-            try {
-              var u = Atomics.load(n, L);
-              l = Atomics.load(n, S);
-              for (var c = 0; l !== u; ) {
-                if (i) {
-                  if (
-                    c > 0 &&
-                    (Atomics.store(n, S, l),
-                    yield r("WACommonTaskScheduler").yield(),
-                    w !== e)
-                  )
-                    return;
-                } else if (
-                  c > 0 &&
-                  c % P === 0 &&
-                  self.performance.now() - a > $
-                ) {
-                  if (
-                    (Atomics.store(n, S, l),
-                    yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                    w !== e)
-                  )
-                    return;
-                  a = self.performance.now();
-                }
-                var d = V(t, l);
-                if (d === -1) {
-                  ((l = u), (s = !0));
-                  break;
-                }
-                ((l = d), (s = !0), c++);
-              }
-              var m = Atomics.load(n, R);
-              if (m > e.lastOverflowCount) {
-                var p = m - e.lastOverflowCount;
-                (o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [LogDrainer] ",
-                      " messages overflowed to legacy dispatch (total: ",
-                      ")",
-                    ])),
-                  p,
-                  m,
-                ),
-                  (e.lastOverflowCount = m));
-              }
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [LogDrainer] Error during drain",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e));
-            } finally {
-              if (s && w === e)
-                try {
-                  Atomics.store(n, S, l);
-                } catch (e) {}
+    async function G() {
+      var e = w;
+      if (e != null) {
+        var t = e.dataU8,
+          n = e.headerU32,
+          a = self.performance.now(),
+          i = o("WAWebABProps").getABPropConfigValue(
+            "wmi_worker_scheduler_web",
+          ),
+          l = -1,
+          s = !1;
+        try {
+          var u = Atomics.load(n, L);
+          l = Atomics.load(n, S);
+          for (var c = 0; l !== u; ) {
+            if (i) {
+              if (
+                c > 0 &&
+                (Atomics.store(n, S, l),
+                await r("WACommonTaskScheduler").yield(),
+                w !== e)
+              )
+                return;
+            } else if (c > 0 && c % P === 0 && self.performance.now() - a > $) {
+              if (
+                (Atomics.store(n, S, l),
+                await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+                w !== e)
+              )
+                return;
+              a = self.performance.now();
             }
-            O(s);
+            var d = V(t, l);
+            if (d === -1) {
+              ((l = u), (s = !0));
+              break;
+            }
+            ((l = d), (s = !0), c++);
           }
-        })),
-        z.apply(this, arguments)
-      );
+          var m = Atomics.load(n, R);
+          if (m > e.lastOverflowCount) {
+            var p = m - e.lastOverflowCount;
+            (o("WALogger").WARN(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [LogDrainer] ",
+                  " messages overflowed to legacy dispatch (total: ",
+                  ")",
+                ])),
+              p,
+              m,
+            ),
+              (e.lastOverflowCount = m));
+          }
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [LogDrainer] Error during drain",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e));
+        } finally {
+          if (s && w === e)
+            try {
+              Atomics.store(n, S, l);
+            } catch (e) {}
+        }
+        O(s);
+      }
     }
     ((l.startLogDrainer = A), (l.stopLogDrainer = F));
   },

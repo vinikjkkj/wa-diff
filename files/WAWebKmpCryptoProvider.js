@@ -4,35 +4,34 @@ __d(
     "WAWebKmpBridgeResultWrappers",
     "WAWebKmpCryptoProviderCommons",
     "WAWebKmpKotlinUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-      createCipherText: function (t, r, a, i) {
+      createCipherText: function (t, n, r, a) {
         return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             var e,
-              n = yield o("WAWebKmpCryptoProviderCommons").createCipherText(
+              i = await o("WAWebKmpCryptoProviderCommons").createCipherText(
                 t.name,
-                (e = o("WAWebKmpKotlinUtils")).asInt8Array(r),
+                (e = o("WAWebKmpKotlinUtils")).asInt8Array(n),
+                e.asInt8Array(r),
                 e.asInt8Array(a),
-                e.asInt8Array(i),
               );
-            return e.asKmpByteArray(n);
-          }),
+            return e.asKmpByteArray(i);
+          },
         );
       },
-      mac: function (t, r, a) {
+      mac: function (t, n, r) {
         return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o("WAWebKmpCryptoProviderCommons").mac(
+          async function () {
+            var e = await o("WAWebKmpCryptoProviderCommons").mac(
               t.name,
+              o("WAWebKmpKotlinUtils").asInt8Array(n),
               o("WAWebKmpKotlinUtils").asInt8Array(r),
-              o("WAWebKmpKotlinUtils").asInt8Array(a),
             );
             return o("WAWebKmpKotlinUtils").asKmpByteArray(e);
-          }),
+          },
         );
       },
       generateRandomBytes: function (t) {

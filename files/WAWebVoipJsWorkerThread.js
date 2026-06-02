@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipJsWorkerThread",
-  ["WAWebBackendApi", "WorkerMessagePort", "asyncToGeneratorRuntime"],
+  ["WAWebBackendApi", "WorkerMessagePort"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -12,49 +12,31 @@ __d(
             e.PThread.pthreads[this.$3],
           )));
       }
-      e.create = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t =
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "initializeVoipWasm",
-            );
-          return new e(t);
-        });
-        function r() {
-          return t.apply(this, arguments);
-        }
-        return r;
-      })();
-      var r = e.prototype;
+      e.create = async function () {
+        var t =
+          await o("WAWebBackendApi").frontendSendAndReceive(
+            "initializeVoipWasm",
+          );
+        return new e(t);
+      };
+      var n = e.prototype;
       return (
-        (r.joinJsWorkerThread = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this,
-              n = this.$1.tryJoinJsWorkerThread(this.$2);
-            if (n !== 0)
-              return t.setTimeout(function () {
-                return e.joinJsWorkerThread();
-              }, 100);
-          });
-          function r() {
-            return e.apply(this, arguments);
-          }
-          return r;
-        })()),
-        (r.shutdown = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (this.worker.postMessage({
-              type: "cmd",
-              cmd: "jsWorkerCmd",
-              jsWorkerCmd: "shutdown",
-            }),
-              yield this.joinJsWorkerThread());
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (n.joinJsWorkerThread = async function () {
+          var e = this,
+            n = this.$1.tryJoinJsWorkerThread(this.$2);
+          if (n !== 0)
+            return t.setTimeout(function () {
+              return e.joinJsWorkerThread();
+            }, 100);
+        }),
+        (n.shutdown = async function () {
+          (this.worker.postMessage({
+            type: "cmd",
+            cmd: "jsWorkerCmd",
+            jsWorkerCmd: "shutdown",
+          }),
+            await this.joinJsWorkerThread());
+        }),
         e
       );
     })();

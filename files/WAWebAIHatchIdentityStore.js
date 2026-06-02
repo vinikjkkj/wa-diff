@@ -1,13 +1,6 @@
 __d(
   "WAWebAIHatchIdentityStore",
-  [
-    "WALogger",
-    "WATimeUtils",
-    "WAWebBotGating",
-    "WAWebLocalStorage",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WALogger", "WATimeUtils", "WAWebBotGating", "WAWebLocalStorage", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -39,18 +32,23 @@ __d(
         t(e);
       });
     }
-    function R(t) {
-      return t == null || t === ""
-        ? null
-        : f.test(t)
-          ? t
-          : (o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[AIHatchIdentityStore] invalid avatar URL, not whatsapp.net",
-                ])),
-            ),
-            null);
+    function R(t, n) {
+      if (t == null || t === "") return null;
+      if (!f.test(t)) {
+        var r = n != null ? n : "avatar";
+        return (
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[AIHatchIdentityStore] invalid ",
+                " URL, not whatsapp.net",
+              ])),
+            r,
+          ),
+          null
+        );
+      }
+      return t;
     }
     function L(e) {
       try {
@@ -85,113 +83,118 @@ __d(
           return {
             name: t.name,
             avatarUrl: typeof t.avatarUrl == "string" ? R(t.avatarUrl) : null,
+            videoVariants: I(t.videoVariants),
             fetchedAt: t.fetchedAt,
           };
       } catch (e) {}
       return null;
     }
-    function k() {
+    function k(e) {
+      if (e == null) return null;
+      var t = {},
+        n = !1;
+      for (var r of Object.keys(e)) {
+        var o = R(e[r], "video variant");
+        o != null && ((t[r] = o), (n = !0));
+      }
+      return n ? t : null;
+    }
+    function I(e) {
+      if (e == null || typeof e != "object") return null;
+      var t = e,
+        n = {};
+      for (var r of Object.keys(t)) {
+        var o = t[r];
+        typeof o == "string" && (n[r] = o);
+      }
+      return k(n);
+    }
+    function T() {
       var e = g;
       return e == null
         ? !0
         : o("WATimeUtils").unixTime() - e.fetchedAt >=
             o("WATimeUtils").DAY_MILLISECONDS;
     }
-    function I() {
+    function D() {
       return {
         name: o("WAWebBotGating").getHatchBotName(),
         avatarUrl: o("WAWebBotGating").getHatchBotProfileThumb() || null,
+        videoVariants: null,
         fetchedAt: o("WATimeUtils").unixTime(),
       };
     }
-    function T() {
-      return D.apply(this, arguments);
+    async function x() {
+      var e, t;
+      if (C == null)
+        throw (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "AIHatchIdentityStore: no fetcher registered",
+                ])),
+            )
+            .sendLogs("hatch-identity-no-fetcher", { sampling: 0.01 }),
+          r("err")("No fetcher registered")
+        );
+      var n = await C(),
+        a = R(n.avatarUrl);
+      return {
+        name: (e = n.name) != null ? e : "",
+        avatarUrl: a,
+        videoVariants: k((t = n.videoVariants) != null ? t : null),
+        fetchedAt: o("WATimeUtils").unixTime(),
+      };
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          if (C == null)
-            throw (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "AIHatchIdentityStore: no fetcher registered",
-                    ])),
-                )
-                .sendLogs("hatch-identity-no-fetcher", { sampling: 0.01 }),
-              r("err")("No fetcher registered")
-            );
-          var t = yield C(),
-            n = R(t.avatarUrl);
-          return {
-            name: (e = t.name) != null ? e : "",
-            avatarUrl: n,
-            fetchedAt: o("WATimeUtils").unixTime(),
-          };
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return e !== !0 && !k() && g != null
-            ? (o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "AIHatchIdentityStore: cache hit",
-                  ])),
-              ),
-              g)
-            : (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "AIHatchIdentityStore: cache miss, fetching",
-                  ])),
-              ),
-              h != null ||
-                (h = T()
-                  .then(function (e) {
-                    return (
-                      (g = e),
-                      L(e),
-                      o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "AIHatchIdentityStore: fetch success",
-                          ])),
-                      ),
-                      S(e),
-                      e
-                    );
-                  })
-                  .catch(function (e) {
-                    var t;
-                    o("WALogger")
-                      .WARN(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "AIHatchIdentityStore: fetch failed, using ABProp fallback",
-                          ])),
-                      )
-                      .sendLogs("hatch-identity-fetch-failed", {
-                        sampling: 0.01,
-                      });
-                    var n = (t = g != null ? g : E()) != null ? t : I();
-                    return ((g = n), n);
-                  })
-                  .finally(function () {
-                    h = null;
-                  })),
-              h);
-        })),
-        $.apply(this, arguments)
-      );
+    async function $(e) {
+      return e !== !0 && !T() && g != null
+        ? (o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "AIHatchIdentityStore: cache hit",
+              ])),
+          ),
+          g)
+        : (o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "AIHatchIdentityStore: cache miss, fetching",
+              ])),
+          ),
+          h != null ||
+            (h = x()
+              .then(function (e) {
+                return (
+                  (g = e),
+                  L(e),
+                  o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "AIHatchIdentityStore: fetch success",
+                      ])),
+                  ),
+                  S(e),
+                  e
+                );
+              })
+              .catch(function (e) {
+                var t;
+                o("WALogger")
+                  .WARN(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "AIHatchIdentityStore: fetch failed, using ABProp fallback",
+                      ])),
+                  )
+                  .sendLogs("hatch-identity-fetch-failed", { sampling: 0.01 });
+                var n = (t = g != null ? g : E()) != null ? t : D();
+                return ((g = n), n);
+              })
+              .finally(function () {
+                h = null;
+              })),
+          h);
     }
     function P() {
       return (g == null && (g = E()), g);
@@ -217,8 +220,8 @@ __d(
     }
     ((l.registerIdentityFetcher = b),
       (l.subscribeToIdentityChanges = v),
-      (l.validateAvatarUrl = R),
-      (l.getHatchIdentity = x),
+      (l.validateWhatsAppNetUrl = R),
+      (l.getHatchIdentity = $),
       (l.getCachedHatchIdentity = P),
       (l.getHatchInitialIdentity = N),
       (l.__resetCacheForTesting = M));

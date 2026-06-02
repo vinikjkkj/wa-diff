@@ -3,6 +3,7 @@ __d(
   [
     "WAWebCollection",
     "WAWebDevStore",
+    "WAWebEventEmitter",
     "WAWebIdentityFunction",
     "sortBy",
     "sumBy",
@@ -17,10 +18,11 @@ __d(
       var t = {},
         n = {};
       return (
-        Object.entries(r("WAWebDevStore")).forEach(function (r) {
-          var o = r[0],
-            a = r[1];
-          e.includes(o) || (s(a) ? (t[o] = a) : (n[o] = a));
+        Object.entries(r("WAWebDevStore")).forEach(function (o) {
+          var a = o[0],
+            i = o[1],
+            l = i instanceof r("WAWebEventEmitter");
+          !e.includes(a) && l && (s(i) ? (t[a] = i) : (n[a] = i));
         }),
         { collections: d(t, p), models: d(n, m) }
       );

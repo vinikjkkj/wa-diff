@@ -1,46 +1,29 @@
 __d(
   "WAGenerateImageThumbnailWithoutDOM",
-  ["Promise", "WAOffscreenCanvasUtils", "asyncToGeneratorRuntime"],
+  ["WAOffscreenCanvasUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = "image/jpeg";
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = yield self.createImageBitmap(t),
-              u = l.width,
-              c = l.height,
-              m = d(c, u, r),
-              p = new OffscreenCanvas(m.width, m.height),
-              _ = p.getContext("2d");
-            (o("WAOffscreenCanvasUtils").fillOffscreenCanvasBackgroundWithGray(
-              p,
-            ),
-              _.drawImage(l, 0, 0, m.width, m.height));
-            var f = yield o("WAOffscreenCanvasUtils").offscreenCanvasToBlob(
-              p,
-              s,
-              !0,
-              void 0,
-              a,
-              i,
-            );
-            return (e || (e = n("Promise"))).resolve({
-              blob: f,
-              height: m.height,
-              width: m.width,
-            });
-          },
-        )),
-        c.apply(this, arguments)
+    var e = "image/jpeg";
+    async function s(t, n, r, a) {
+      var i = await self.createImageBitmap(t),
+        l = i.width,
+        s = i.height,
+        c = u(s, l, n),
+        d = new OffscreenCanvas(c.width, c.height),
+        m = d.getContext("2d");
+      (o("WAOffscreenCanvasUtils").fillOffscreenCanvasBackgroundWithGray(d),
+        m.drawImage(i, 0, 0, c.width, c.height));
+      var p = await o("WAOffscreenCanvasUtils").offscreenCanvasToBlob(
+        d,
+        e,
+        !0,
+        void 0,
+        r,
+        a,
       );
+      return Promise.resolve({ blob: p, height: c.height, width: c.width });
     }
-    function d(e, t, n) {
+    function u(e, t, n) {
       var r = t != null ? t : n,
         o = e != null ? e : n;
       return (
@@ -53,7 +36,7 @@ __d(
         }
       );
     }
-    l.generateImageThumbnailWithoutDOM = u;
+    l.generateImageThumbnailWithoutDOM = s;
   },
   98,
 );

@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingConfirmPopup.react",
-    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
@@ -12,17 +11,14 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBlockedParticipantWarningDialog.react",
-          )
-            .__setRef("WAWebBlockedParticipantWarningDialogLoadable")
-            .load();
-          return e;
-        }),
-        "BlockedParticipantWarningDialog",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBlockedParticipantWarningDialog.react",
+        )
+          .__setRef("WAWebBlockedParticipantWarningDialogLoadable")
+          .load();
+        return e;
+      }, "BlockedParticipantWarningDialog"),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

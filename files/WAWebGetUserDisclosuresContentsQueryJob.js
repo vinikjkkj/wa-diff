@@ -1,7 +1,6 @@
 __d(
   "WAWebGetUserDisclosuresContentsQueryJob",
   [
-    "Promise",
     "WAAbortError",
     "WALogger",
     "WAWebBackendApi",
@@ -13,7 +12,6 @@ __d(
     "WAWebUserNoticeErrorWamEvent",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumUserNoticeErrorEvent",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "isNonZeroNumber",
@@ -23,177 +21,134 @@ __d(
       s,
       u,
       c,
-      d,
-      m = "https://www.whatsapp.com/user-notice/v1/",
-      p = new Set(["ACCEPT", "OK"]),
-      _ = "zz",
-      f = "ZZ";
-    function g(e) {
-      return h.apply(this, arguments);
+      d = "https://www.whatsapp.com/user-notice/v1/",
+      m = new Set(["ACCEPT", "OK"]),
+      p = "zz",
+      _ = "ZZ";
+    async function f(e) {
+      if (o("isNonZeroNumber").isNonZeroNumber(e)) {
+        var t,
+          n,
+          a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          i = o("WAWebCountryCodeUtils").pnToCountryCodeString(a.user),
+          l = await o("WAWebBackendApi").frontendSendAndReceive(
+            "getDeviceInfo",
+            void 0,
+          ),
+          s = r("WAWebURLUtils").build(d, {
+            id: e,
+            lg: (t = l.lg) != null ? t : p,
+            lc: (n = l.lc) != null ? n : _,
+            cc: i,
+            platform: o("WAWebConnModel").Conn.isSMB ? "smbweb" : "web",
+          });
+        return g(s, e);
+      }
+      return Promise.resolve({ disclosureId: e });
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("isNonZeroNumber").isNonZeroNumber(e)) {
-            var t,
-              a,
-              i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              l = o("WAWebCountryCodeUtils").pnToCountryCodeString(i.user),
-              s = yield o("WAWebBackendApi").frontendSendAndReceive(
-                "getDeviceInfo",
-                void 0,
-              ),
-              u = r("WAWebURLUtils").build(m, {
-                id: e,
-                lg: (t = s.lg) != null ? t : _,
-                lc: (a = s.lc) != null ? a : f,
-                cc: l,
-                platform: o("WAWebConnModel").Conn.isSMB ? "smbweb" : "web",
-              });
-            return y(u, e);
+    async function g(t, n) {
+      try {
+        var a = await y(t);
+        try {
+          if (a != null) {
+            var i = JSON.parse(a);
+            if (i != null) return C(i, n);
           }
-          return (d || (d = n("Promise"))).resolve({ disclosureId: e });
-        })),
-        h.apply(this, arguments)
-      );
+        } catch (e) {
+          var l = new (o(
+            "WAWebUserNoticeErrorWamEvent",
+          ).UserNoticeErrorWamEvent)({
+            userNoticeId: n,
+            userNoticeContentVersion: 1,
+            userNoticeErrorEvent: o("WAWebWamEnumUserNoticeErrorEvent")
+              .USER_NOTICE_ERROR_EVENT.JSON_PARSE,
+          });
+          l.commit();
+        }
+      } catch (t) {
+        var s = r("getErrorSafe")(t);
+        if (s.name === o("WAAbortError").ABORT_ERROR) return;
+        throw (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Notice: Error Message",
+                ])),
+            )
+            .catching(s)
+            .sendLogs("pdfn-notice-content-error"),
+          new (o("WAWebHttpErrors").HttpNetworkError)()
+        );
+      }
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    async function h(e) {
+      return new Promise(function (t, n) {
+        var r = new FileReader();
+        ((r.onload = function () {
+          var e = String(r.result);
+          t(e);
+        }),
+          (r.onerror = n),
+          r.readAsDataURL(e));
+      });
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield S(e);
-            try {
-              if (n != null) {
-                var a = JSON.parse(n);
-                if (a != null) return L(a, t);
-              }
-            } catch (e) {
-              var i = new (o(
-                "WAWebUserNoticeErrorWamEvent",
-              ).UserNoticeErrorWamEvent)({
-                userNoticeId: t,
-                userNoticeContentVersion: 1,
-                userNoticeErrorEvent: o("WAWebWamEnumUserNoticeErrorEvent")
-                  .USER_NOTICE_ERROR_EVENT.JSON_PARSE,
-              });
-              i.commit();
-            }
-          } catch (e) {
-            var l = r("getErrorSafe")(e);
-            if (l.name === o("WAAbortError").ABORT_ERROR) return;
-            throw (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Notice: Error Message",
-                    ])),
-                )
-                .catching(l)
-                .sendLogs("pdfn-notice-content-error"),
-              new (o("WAWebHttpErrors").HttpNetworkError)()
-            );
-          }
-        })),
-        C.apply(this, arguments)
+    async function y(e) {
+      var t = new AbortController(),
+        n = t.signal,
+        o = await r("WAWebPonyfillsFetch")(e, { signal: n }),
+        a = o.headers.get("Content-Type");
+      return a == null || a.includes("image/svg+xml")
+        ? o.text()
+        : a.includes("image/png")
+          ? h(await o.blob())
+          : o.text();
+    }
+    async function C(e, t) {
+      var n = e.policyVersion;
+      if (n == null)
+        throw r("err")("Missing field policyVersion in notice content.");
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "Notice:fetchNoticeData successful for policyVersion ",
+            "",
+          ])),
+        n,
       );
+      var a = v(e),
+        i = b(e),
+        l = parseInt(n, 10),
+        c;
+      try {
+        c = await k(a);
+      } catch (e) {
+        var d = r("getErrorSafe")(e),
+          m = new (o("WAWebUserNoticeErrorWamEvent").UserNoticeErrorWamEvent)({
+            userNoticeId: t,
+            userNoticeContentVersion: l,
+            userNoticeErrorEvent: o("WAWebWamEnumUserNoticeErrorEvent")
+              .USER_NOTICE_ERROR_EVENT.IMAGE_FETCH,
+          });
+        (m.commit(),
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "Notice: Icon fetch error",
+                ])),
+            )
+            .catching(d)
+            .sendLogs("notice-icon-fetch-error"));
+      }
+      return Promise.resolve({
+        disclosureId: t,
+        policyVersion: l,
+        privacyDisclosureModal: c != null ? c : a,
+        endDate: i,
+      });
     }
     function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return new (d || (d = n("Promise")))(function (t, n) {
-            var r = new FileReader();
-            ((r.onload = function () {
-              var e = String(r.result);
-              t(e);
-            }),
-              (r.onerror = n),
-              r.readAsDataURL(e));
-          });
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new AbortController(),
-            n = t.signal,
-            o = yield r("WAWebPonyfillsFetch")(e, { signal: n }),
-            a = o.headers.get("Content-Type");
-          return a == null || a.includes("image/svg+xml")
-            ? o.text()
-            : a.includes("image/png")
-              ? b(yield o.blob())
-              : o.text();
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = e.policyVersion;
-          if (a == null)
-            throw r("err")("Missing field policyVersion in notice content.");
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "Notice:fetchNoticeData successful for policyVersion ",
-                "",
-              ])),
-            a,
-          );
-          var i = I(e),
-            l = k(e),
-            s = parseInt(a, 10),
-            m;
-          try {
-            m = yield P(i);
-          } catch (e) {
-            var p = r("getErrorSafe")(e),
-              _ = new (o(
-                "WAWebUserNoticeErrorWamEvent",
-              ).UserNoticeErrorWamEvent)({
-                userNoticeId: t,
-                userNoticeContentVersion: s,
-                userNoticeErrorEvent: o("WAWebWamEnumUserNoticeErrorEvent")
-                  .USER_NOTICE_ERROR_EVENT.IMAGE_FETCH,
-              });
-            (_.commit(),
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "Notice: Icon fetch error",
-                    ])),
-                )
-                .catching(p)
-                .sendLogs("notice-icon-fetch-error"));
-          }
-          return (d || (d = n("Promise"))).resolve({
-            disclosureId: t,
-            policyVersion: s,
-            privacyDisclosureModal: m != null ? m : i,
-            endDate: l,
-          });
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
       var t,
         n =
           e["privacy-disclosure"] &&
@@ -204,13 +159,13 @@ __d(
             : t.time);
       return n == null ? null : new Date(n);
     }
-    function I(e) {
-      var t = e["privacy-disclosure"] && T(e["privacy-disclosure"].prompts[0]);
-      return t == null ? null : $(t);
+    function v(e) {
+      var t = e["privacy-disclosure"] && S(e["privacy-disclosure"].prompts[0]);
+      return t == null ? null : E(t);
     }
-    function T(e) {
+    function S(e) {
       if (e) {
-        (D(
+        (R(
           [
             "icon",
             "iconDescription",
@@ -221,10 +176,10 @@ __d(
           ],
           e,
         ),
-          D(["light", "dark", "type"], e.icon),
-          D(["dismissButton", "backButton"], e.nav));
+          R(["light", "dark", "type"], e.icon),
+          R(["dismissButton", "backButton"], e.nav));
         for (var t = 0; t < e.bullets.length; t++)
-          D(["icon", "text"], e.bullets[t]);
+          R(["icon", "text"], e.bullets[t]);
         var n = e.footer != null ? { footer: e.footer } : {};
         return babelHelpers.extends(
           {
@@ -243,95 +198,83 @@ __d(
         );
       }
     }
-    function D(e, t) {
+    function R(e, t) {
       e.forEach(function (e) {
         if (!(e in t))
           throw r("err")("Missing field " + e + " in notice content.");
       });
     }
-    var x = function (n) {
-      if (!n) return null;
-      var t = n.action;
-      if (t) {
-        if (p.has(t)) return n;
+    var L = function (t) {
+      if (!t) return null;
+      var e = t.action;
+      if (e) {
+        if (m.has(e)) return t;
         o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "Notice: Unknown action type ",
               "",
             ])),
-          t,
+          e,
         );
       }
       return null;
     };
-    function $(e) {
-      return e ? ((e.primaryButton = x(e.primaryButton)), e) : null;
+    function E(e) {
+      return e ? ((e.primaryButton = L(e.primaryButton)), e) : null;
     }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
+    async function k(e) {
+      for (
+        var t = [
+            e == null ? void 0 : e.icon.light,
+            e == null ? void 0 : e.icon.dark,
+          ],
+          n = 0;
+        n < ((r = e == null ? void 0 : e.bullets.length) != null ? r : 0);
+        n++
+      ) {
+        var r,
+          o = e == null ? void 0 : e.bullets[n];
+        o != null && (t.push(o.icon.light), t.push(o.icon.dark));
+      }
+      for (
+        var a = t.map(function (e) {
+            return e != null ? y(e) : Promise.resolve(null);
+          }),
+          i = e,
+          l = await Promise.all(a),
+          s = l[0],
+          u = l[1],
+          c = babelHelpers.arrayLikeToArray(l).slice(2),
+          d = [],
+          m = 0;
+        m < ((p = e == null ? void 0 : e.bullets.length) != null ? p : 0);
+        m++
+      ) {
+        var p,
+          _ = e == null ? void 0 : e.bullets[m];
+        if (_ != null) {
+          var f = c[m * 2],
+            g = c[m * 2 + 1];
+          f != null && g != null
+            ? d.push(
+                babelHelpers.extends({}, _, { iconSvg: { light: f, dark: g } }),
+              )
+            : d.push(_);
+        }
+      }
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          for (
-            var t = [
-                e == null ? void 0 : e.icon.light,
-                e == null ? void 0 : e.icon.dark,
-              ],
-              r = 0;
-            r < ((o = e == null ? void 0 : e.bullets.length) != null ? o : 0);
-            r++
-          ) {
-            var o,
-              a = e == null ? void 0 : e.bullets[r];
-            a != null && (t.push(a.icon.light), t.push(a.icon.dark));
-          }
-          for (
-            var i = t.map(function (e) {
-                return e != null
-                  ? S(e)
-                  : (d || (d = n("Promise"))).resolve(null);
-              }),
-              l = e,
-              s = yield (d || (d = n("Promise"))).all(i),
-              u = s[0],
-              c = s[1],
-              m = babelHelpers.arrayLikeToArray(s).slice(2),
-              p = [],
-              _ = 0;
-            _ < ((f = e == null ? void 0 : e.bullets.length) != null ? f : 0);
-            _++
-          ) {
-            var f,
-              g = e == null ? void 0 : e.bullets[_];
-            if (g != null) {
-              var h = m[_ * 2],
-                y = m[_ * 2 + 1];
-              h != null && y != null
-                ? p.push(
-                    babelHelpers.extends({}, g, {
-                      iconSvg: { light: h, dark: y },
-                    }),
-                  )
-                : p.push(g);
-            }
-          }
-          return (
-            e &&
-              u != null &&
-              c != null &&
-              (l = babelHelpers.extends({}, e, {
-                bullets: p,
-                iconSvg: { light: u, dark: c },
-              })),
-            l
-          );
-        })),
-        N.apply(this, arguments)
+        e &&
+          s != null &&
+          u != null &&
+          (i = babelHelpers.extends({}, e, {
+            bullets: d,
+            iconSvg: { light: s, dark: u },
+          })),
+        i
       );
     }
-    ((l.getUserDisclosureContentsQueryJob = g), (l.attemptFetch = S));
+    ((l.getUserDisclosureContentsQueryJob = f), (l.attemptFetch = y));
   },
   98,
 );

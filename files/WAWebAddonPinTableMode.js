@@ -7,148 +7,85 @@ __d(
     "WAWebDBCRUDOperationsPinInChat",
     "WAWebPinInChatSchema",
     "WAWebPinsDbSerialization",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
       mode: o("WAWebAddonConstants").AddonTableMode.Pin,
-      bulkUpsert: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-            return o("WAWebPinsDbSerialization").serializePinInChatMsgData(
-              o("WAWebCastToPinInChatMsg").assertPinInChatMsgData(e),
-            );
-          });
-          yield o("WAWebDBCRUDOperationsPinInChat").createOrUpdatePinInChat(
-            e[0].id.remote,
-            t,
-          );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      bulkGetByParentAndSender: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          throw new (o("WAWebAddonInfraError").AddonInfraError)(
-            o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
-          );
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      bulkGetByMsgKey: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          throw new (o("WAWebAddonInfraError").AddonInfraError)(
-            o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
-          );
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      bulkGetByParentMsgKey: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 1) return [];
-          var t = yield o("WAWebPinInChatSchema")
-            .getTable()
-            .get(e[0].toString());
-          return t == null
-            ? []
-            : [o("WAWebPinsDbSerialization").deserializePinInChatMsgData(t)];
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      bulkGetByChatWid: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebPinInChatSchema")
-            .getTable()
-            .anyOf(
-              ["chatId"],
-              e.map(function (e) {
-                return e.toString();
-              }),
-            );
-          return t.map(
-            o("WAWebPinsDbSerialization").deserializePinInChatMsgData,
-          );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      bulkRemoveByMsgKey: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebPinInChatSchema")
-            .getTable()
-            .bulkRemoveByIndex(
-              ["msgKey"],
-              e.map(function (e) {
-                return e.toString();
-              }),
-            );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      getByMsgKey: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (yield o("WAWebPinInChatSchema")
-            .getTable()
-            .equals(["msgKey"], e.toString()))[0];
-          return t == null
-            ? t
-            : o("WAWebPinsDbSerialization").deserializePinInChatMsgData(t);
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      updateAck: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebPinsDbSerialization").serializePinInChatMsgData(
+      bulkUpsert: async function (t) {
+        var e = t.map(function (e) {
+          return o("WAWebPinsDbSerialization").serializePinInChatMsgData(
             o("WAWebCastToPinInChatMsg").assertPinInChatMsgData(e),
           );
-          yield o("WAWebPinInChatSchema")
+        });
+        await o("WAWebDBCRUDOperationsPinInChat").createOrUpdatePinInChat(
+          t[0].id.remote,
+          e,
+        );
+      },
+      bulkGetByParentAndSender: async function () {
+        throw new (o("WAWebAddonInfraError").AddonInfraError)(
+          o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
+        );
+      },
+      bulkGetByMsgKey: async function () {
+        throw new (o("WAWebAddonInfraError").AddonInfraError)(
+          o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
+        );
+      },
+      bulkGetByParentMsgKey: async function (t) {
+        if (t.length !== 1) return [];
+        var e = await o("WAWebPinInChatSchema").getTable().get(t[0].toString());
+        return e == null
+          ? []
+          : [o("WAWebPinsDbSerialization").deserializePinInChatMsgData(e)];
+      },
+      bulkGetByChatWid: async function (t) {
+        var e = await o("WAWebPinInChatSchema")
+          .getTable()
+          .anyOf(
+            ["chatId"],
+            t.map(function (e) {
+              return e.toString();
+            }),
+          );
+        return e.map(o("WAWebPinsDbSerialization").deserializePinInChatMsgData);
+      },
+      bulkRemoveByMsgKey: async function (t) {
+        await o("WAWebPinInChatSchema")
+          .getTable()
+          .bulkRemoveByIndex(
+            ["msgKey"],
+            t.map(function (e) {
+              return e.toString();
+            }),
+          );
+      },
+      getByMsgKey: async function (t) {
+        var e = (
+          await o("WAWebPinInChatSchema")
             .getTable()
-            .merge(n.parentMsgKey, { ack: t });
-        });
-        function t(t, n) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      markAsRead: (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield e.getByMsgKey(t);
-          if (n != null)
-            return e.bulkUpsert([babelHelpers.extends({}, n, { read: !0 })]);
-        });
-        function r(e) {
-          return t.apply(this, arguments);
-        }
-        return r;
-      })(),
-      getTableSize: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebPinInChatSchema").getTable().count();
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+            .equals(["msgKey"], t.toString())
+        )[0];
+        return e == null
+          ? e
+          : o("WAWebPinsDbSerialization").deserializePinInChatMsgData(e);
+      },
+      updateAck: async function (t, n) {
+        var e = o("WAWebPinsDbSerialization").serializePinInChatMsgData(
+          o("WAWebCastToPinInChatMsg").assertPinInChatMsgData(t),
+        );
+        await o("WAWebPinInChatSchema")
+          .getTable()
+          .merge(e.parentMsgKey, { ack: n });
+      },
+      markAsRead: async function (n) {
+        var t = await e.getByMsgKey(n);
+        if (t != null)
+          return e.bulkUpsert([babelHelpers.extends({}, t, { read: !0 })]);
+      },
+      getTableSize: async function () {
+        return o("WAWebPinInChatSchema").getTable().count();
+      },
     };
     l.pinTableMode = e;
   },

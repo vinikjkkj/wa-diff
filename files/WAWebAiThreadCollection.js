@@ -9,7 +9,6 @@ __d(
     "WAWebThreadMetadataJob",
     "WAWebThreadsGating",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -25,62 +24,56 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.initializeAiThreads = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (!this.isInitialized) {
-              var t = yield o(
-                "WAWebThreadMetadataJob",
-              ).getAllAiThreadsFromChatId(o("WAWebWidToJid").widToChatJid(e));
-              if (t != null)
-                for (var n of t) {
-                  var a,
-                    i = new (r("WAWebAiThreadModel"))({
-                      id: n.threadId,
-                      title: n.aiThreadInfo.title,
-                      aiThreadType: n.aiThreadInfo.aiThreadType,
-                      creationTimestamp: n.creationTimestamp,
-                      lastMessageTimestamp: n.lastMessageTimestamp,
-                      unreadCount: (a = n.unreadCount) != null ? a : 0,
-                      botModeSelection: n.botModeSelection,
-                      botModeOverride: n.botModeOverride,
-                      lastReceivedKey:
-                        n.lastReceivedKey != null
-                          ? r("WAWebMsgKey").fromString(n.lastReceivedKey)
-                          : null,
-                      unreadEditTimestampMs: n.unreadEditTimestampMs,
-                      pinThreadTimestamp: n.pinThreadTimestamp,
-                    });
-                  this.add(i);
-                }
-              if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
-                var l = o("WAWebChatCollection").ChatCollection.get(e);
-                l &&
-                  this.forEach(function (e) {
-                    e.seedFromChat(l);
+        (n.initializeAiThreads = async function (t) {
+          if (!this.isInitialized) {
+            var e = await o("WAWebThreadMetadataJob").getAllAiThreadsFromChatId(
+              o("WAWebWidToJid").widToChatJid(t),
+            );
+            if (e != null)
+              for (var n of e) {
+                var a,
+                  i = new (r("WAWebAiThreadModel"))({
+                    id: n.threadId,
+                    title: n.aiThreadInfo.title,
+                    aiThreadType: n.aiThreadInfo.aiThreadType,
+                    creationTimestamp: n.creationTimestamp,
+                    lastMessageTimestamp: n.lastMessageTimestamp,
+                    unreadCount: (a = n.unreadCount) != null ? a : 0,
+                    botModeSelection: n.botModeSelection,
+                    botModeOverride: n.botModeOverride,
+                    lastReceivedKey:
+                      n.lastReceivedKey != null
+                        ? r("WAWebMsgKey").fromString(n.lastReceivedKey)
+                        : null,
+                    unreadEditTimestampMs: n.unreadEditTimestampMs,
+                    pinThreadTimestamp: n.pinThreadTimestamp,
                   });
+                this.add(i);
               }
-              this.isInitialized = !0;
+            if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
+              var l = o("WAWebChatCollection").ChatCollection.get(t);
+              l &&
+                this.forEach(function (e) {
+                  e.seedFromChat(l);
+                });
             }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+            this.isInitialized = !0;
           }
-          return t;
-        })()),
-        (a.getFirstActivated = function () {
+        }),
+        (n.getFirstActivated = function () {
           return this.findFirst(function (e) {
             return e.isPending !== !0;
           });
         }),
-        (a.removeThreads = function (t) {
+        (n.removeThreads = function (t) {
           for (var e of t) {
             var n = this.get(e);
             n && (this.remove(n), n.delete());
           }
         }),
-        (a.clear = function () {
+        (n.clear = function () {
           var e = this.map(function (e) {
             return e.id;
           });

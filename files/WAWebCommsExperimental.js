@@ -1,24 +1,16 @@
 __d(
   "WAWebCommsExperimental",
-  ["WADeprecatedSendIq", "asyncToGeneratorRuntime"],
+  ["WADeprecatedSendIq"],
   function (t, n, r, o, a, i, l) {
     var e = new Map();
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = t.attrs.id,
-            a = e.get(r);
-          if (a != null) return a;
-          var i = o("WADeprecatedSendIq").deprecatedSendIq(t, n);
-          e.set(r, i);
-          var l = yield i;
-          return (e.set(r, l), l);
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t, n) {
+      var r = t.attrs.id,
+        a = e.get(r);
+      if (a != null) return a;
+      var i = o("WADeprecatedSendIq").deprecatedSendIq(t, n);
+      e.set(r, i);
+      var l = await i;
+      return (e.set(r, l), l);
     }
     l.sendSuspensefulIq = s;
   },

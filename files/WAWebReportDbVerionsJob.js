@@ -6,15 +6,14 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaVersions",
     "WAWebWebDbVersionNonAnonymousWamEvent",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "reportDbVersions",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o(
+          async function () {
+            var e = await o(
               "WAWebLocalSchemaVersions",
             ).getLocalSchemaVersions();
             e.forEach(function (e, t) {
@@ -25,7 +24,7 @@ __d(
                 webDbVersionNumber: e,
               }).commit();
             });
-          }),
+          },
           {
             priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
             maxTimeoutMs: 1e3 * 30,

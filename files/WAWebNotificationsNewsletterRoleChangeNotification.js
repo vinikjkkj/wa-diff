@@ -10,7 +10,6 @@ __d(
     "WAWebParticipantListUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -26,21 +25,21 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.shouldPlaySound = function () {
+          (n.shouldPlaySound = function () {
             return e.prototype.shouldPlaySound.call(this)
               ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(this.chat)
               : !1;
           }),
-          (r.shouldShowBanner = function () {
+          (n.shouldShowBanner = function () {
             return e.prototype.shouldShowBanner.call(this)
               ? o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
                   this.chat,
                 )
               : !1;
           }),
-          (r.buildKey = function () {
+          (n.buildKey = function () {
             return (
               "newsladmin:" +
               this.chat.id.toString() +
@@ -50,7 +49,7 @@ __d(
               this.user.toString()
             );
           }),
-          (r.getBannerOptions = function () {
+          (n.getBannerOptions = function () {
             var e = this.getNotificationUser(),
               t = o("WAWebUserPrefsMeUser").isMeAccount(this.user);
             return {
@@ -59,7 +58,7 @@ __d(
               body: u[this.mode](e, t).toString(),
             };
           }),
-          (r.getNotificationUser = function () {
+          (n.getNotificationUser = function () {
             var e = this.mode === "ownership" ? this.admin : this.user;
             if (e == null) return null;
             var t = o("WAWebContactCollection").ContactCollection.get(e);
@@ -67,22 +66,16 @@ __d(
               ? o("WAWebParticipantListUtils").getFirstNameForContact(t)
               : o("WAWebWidFormat").widToFormattedUser(this.user);
           }),
-          (r.getIcon = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                this.chat,
-                this.abortController.signal,
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.matchesChat = function (t) {
+          (n.getIcon = async function () {
+            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+              this.chat,
+              this.abortController.signal,
+            );
+          }),
+          (n.matchesChat = function (t) {
             return this.chat.equals(t);
           }),
-          (r.getChatKind = function () {
+          (n.getChatKind = function () {
             return o("WAWebChatFlowTypes").ChatKindType.Newsletter;
           }),
           t

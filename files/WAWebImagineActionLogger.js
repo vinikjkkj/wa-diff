@@ -7,30 +7,21 @@ __d(
     "WAWebWamEnumImagineActionSource",
     "WAWebWamEnumImagineActionTarget",
     "WAWebWamEnumImagineMediaType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+          .MEDIA_INPUT_DOCUMENT_CLICK,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
+          .DOCUMENT,
+        eventContext: await o(
+          "WAWebGetMetaAiImagineEventContext",
+        ).getMetaAiImagineEventContext(e),
+      });
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_DOCUMENT_CLICK,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .DOCUMENT,
-            eventContext: yield o(
-              "WAWebGetMetaAiImagineEventContext",
-            ).getMetaAiImagineEventContext(e),
-          });
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.action,
         n = e.source,
         r =
@@ -63,7 +54,7 @@ __d(
         });
       m.commit();
     }
-    ((l.logMetaAiDocumentClick = e), (l.logImagineAction = u));
+    ((l.logMetaAiDocumentClick = e), (l.logImagineAction = s));
   },
   98,
 );

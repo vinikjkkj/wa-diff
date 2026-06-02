@@ -12,7 +12,7 @@ __d(
           ? e
           : (e = n("WAWebBizAiKnowledgeReviewCommitMutation.graphql"));
     function u(e) {
-      o("WAWebRelayClient")
+      return o("WAWebRelayClient")
         .commitMutation(s, { ids: e }, { environmentType: "facebook" })
         .then(function (e) {
           var t,

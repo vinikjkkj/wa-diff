@@ -7,9 +7,12 @@ __d(
     "WAWebCallCollection",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebFrontendMsgGetters",
     "WAWebFullscreenDetection",
     "WAWebGuidePopup.react",
     "WAWebModalManager",
+    "WAWebMuteCollection",
+    "WAWebMuteGetters",
     "WAWebNoop",
     "WAWebPipController",
     "WAWebPwaDocumentMetadataUtils",
@@ -145,13 +148,28 @@ __d(
             ])),
         );
         var g =
-          (n =
-            (a = r("WAWebCallCollection").lastActiveCall) == null
-              ? void 0
-              : a.postCallSurveyInteracted) != null
-            ? n
-            : !1;
-        J({ callEnded: !0, surveyInteracted: g, delayPiP: !0 });
+            (n =
+              (a = r("WAWebCallCollection").lastActiveCall) == null
+                ? void 0
+                : a.postCallSurveyInteracted) != null
+              ? n
+              : !1,
+          h =
+            (i == null ? void 0 : i.msg) != null
+              ? o("WAWebFrontendMsgGetters").getChat(i.msg)
+              : null,
+          y =
+            h != null
+              ? o("WAWebMuteCollection").MuteCollection.get(h.id)
+              : null,
+          C =
+            i != null &&
+            i.isGroup === !0 &&
+            i.wasEverConnected !== !0 &&
+            i.outgoing !== !0 &&
+            y != null &&
+            o("WAWebMuteGetters").getIsCallMuted(y);
+        J({ callEnded: !0, surveyInteracted: g, delayPiP: !C });
       } else {
         (A != null &&
           (window.clearTimeout(A),
@@ -165,8 +183,8 @@ __d(
           r("WAWebPipController").closePiP(),
           B()),
           (r("WAWebCallCollection").lastActiveCall = t));
-        var h = t.isInCallLinkPreview();
-        if (h) {
+        var b = t.isInCallLinkPreview();
+        if (b) {
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -180,8 +198,8 @@ __d(
             O());
           return;
         }
-        var y = t.isInCallLinkLobby();
-        if (y) {
+        var v = t.isInCallLinkLobby();
+        if (v) {
           (o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -219,39 +237,39 @@ __d(
                 "voip: Active call changed, opening PiP window",
               ])),
           );
-          var C = t.msg,
-            b = !t.outgoing,
-            v = t.getState();
-          if (b)
-            if (o("WAWebVoipCallStateUtils").isCallActive(v))
+          var S = t.msg,
+            R = !t.outgoing,
+            L = t.getState();
+          if (R)
+            if (o("WAWebVoipCallStateUtils").isCallActive(L))
               (F == null || F(), (F = null), W());
             else {
-              var S,
-                R = t.peerJid,
-                L =
-                  R != null
-                    ? o("WAWebContactCollection").ContactCollection.get(R)
+              var E,
+                k = t.peerJid,
+                I =
+                  k != null
+                    ? o("WAWebContactCollection").ContactCollection.get(k)
                     : null,
-                E =
-                  L != null
-                    ? o("WAWebFrontendContactGetters").getDisplayName(L)
+                T =
+                  I != null
+                    ? o("WAWebFrontendContactGetters").getDisplayName(I)
                     : "",
-                k = (S = t.isVideo) != null ? S : !1,
-                I = k
+                D = (E = t.isVideo) != null ? E : !1,
+                x = D
                   ? r("fbs")._(
                       /*BTDS*/ "Incoming video call from {caller_name}",
-                      [r("fbs")._param("caller_name", E)],
+                      [r("fbs")._param("caller_name", T)],
                     )
                   : r("fbs")._(
                       /*BTDS*/ "Incoming voice call from {caller_name}",
-                      [r("fbs")._param("caller_name", E)],
+                      [r("fbs")._param("caller_name", T)],
                     );
               (F == null || F(),
                 (F = o("WAWebPwaDocumentMetadataUtils").startDocumentTitleFlash(
-                  I.toString(),
+                  x.toString(),
                 )),
                 M == null || M());
-              var T = function () {
+              var $ = function () {
                 o("WAWebVoipCallStateUtils").isCallActive(t.getState()) &&
                   (F == null || F(),
                   (F = null),
@@ -263,14 +281,14 @@ __d(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
                 ),
-                T,
+                $,
               ),
                 (M = function () {
                   t.off(
                     o("WAWebVoipEventConstants").getChangeEvent(
                       o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
                     ),
-                    T,
+                    $,
                   );
                 }));
             }
@@ -283,12 +301,12 @@ __d(
             ((e = o("WAWebVoipActivityTracker")).trackUiActivity(
               e.VoipUiActivity.VOIP_WINDOW_MOUNTING,
             ),
-              r("WAWebPipController").openVoipUiPiP(C),
+              r("WAWebPipController").openVoipUiPiP(S),
               e.trackUiActivity(e.VoipUiActivity.VOIP_WINDOW_LAUNCHED),
               o(
                 "WAWebVoipUiDocPipPortalContainer.react",
               ).WAWebVoipUiDocPipEventEmitter.trigger("setDocPipProps", {
-                callLogMsg: C,
+                callLogMsg: S,
               }),
               t.outgoing === !0 &&
                 t.isVideo === !0 &&
@@ -305,15 +323,15 @@ __d(
                   }));
           });
         } else {
-          var D = Date.now();
+          var P = Date.now();
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip] call changed, msg not ready, waiting for PiP",
               ])),
           );
-          var x = function () {
-            var e = Date.now() - D;
+          var V = function () {
+            var e = Date.now() - P;
             (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -326,7 +344,7 @@ __d(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
                 ),
-                x,
+                V,
               ),
               U());
           };
@@ -334,7 +352,7 @@ __d(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
             ),
-            x,
+            V,
           );
         }
         O();

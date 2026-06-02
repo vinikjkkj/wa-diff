@@ -15,29 +15,20 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebWamWorkerOfflineProcessReporter",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e(e) {
+      if (!o("WAWebRuntimeEnvironmentUtils").isWorker()) return e;
+      var t = await e;
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebRuntimeEnvironmentUtils").isWorker()) return e;
-          var t = yield e;
-          return (
-            o(
-              "WAWebWamWorkerOfflineProcessReporter",
-            ).WorkerOfflineResumeReporter.updateProcessedNotificationCount(),
-            t
-          );
-        })),
-        s.apply(this, arguments)
+        o(
+          "WAWebWamWorkerOfflineProcessReporter",
+        ).WorkerOfflineResumeReporter.updateProcessedNotificationCount(),
+        t
       );
     }
-    function u(t) {
+    function s(t) {
       var n = o("WAWebCommsHandleMessagingStanza").handleMessagingStanza(t);
       if (n != null) return n;
       var a = t.attrs;
@@ -48,7 +39,7 @@ __d(
               return e(
                 o("WAWebHandleGroupNotification").handleGroupNotification(t),
               ).catch(function (e) {
-                return c(t, r("getErrorSafe")(e));
+                return u(t, r("getErrorSafe")(e));
               });
             case "encrypt": {
               var i = t.content;
@@ -59,7 +50,7 @@ __d(
                   return e(
                     o("WAWebHandleIdentityChange").handleE2eIdentityChange(t),
                   ).catch(function (e) {
-                    return c(t, r("getErrorSafe")(e));
+                    return u(t, r("getErrorSafe")(e));
                   });
               }
               break;
@@ -78,9 +69,9 @@ __d(
           break;
         }
         case "status": {
-          var u = t.attrs.from;
+          var c = t.attrs.from;
           if (
-            r("WAWebWid").isNewsletter(u == null ? void 0 : u.toString()) &&
+            r("WAWebWid").isNewsletter(c == null ? void 0 : c.toString()) &&
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
           )
             return r("WAWebHandleNewsletterStatus")(t).catch(function (e) {
@@ -108,7 +99,7 @@ __d(
           }
       }
     }
-    function c(e, t) {
+    function u(e, t) {
       return t instanceof o("WAParsableWapNode").XmppParsingFailure
         ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e),
           o("WAWebCreateNackFromStanza").createNackFromStanza(
@@ -120,7 +111,7 @@ __d(
             o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
           );
     }
-    l.handleWorkerCompatibleStanza = u;
+    l.handleWorkerCompatibleStanza = s;
   },
   98,
 );

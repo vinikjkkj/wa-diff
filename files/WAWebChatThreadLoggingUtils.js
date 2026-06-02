@@ -18,7 +18,6 @@ __d(
     "WAWebWamEnumEphemeralityInitiatorType",
     "WAWebWamEnumEphemeralityTriggerActionType",
     "WAWebWamEnumOppositeVisibleIdentificationType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -27,80 +26,32 @@ __d(
       c = function (t) {
         return u.encode(t).buffer;
       };
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      var n = await o("WACryptoHmac").hmacSha256(e, t);
+      return o("WABase64").encodeB64(n);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WACryptoHmac").hmacSha256(e, t);
-          return o("WABase64").encodeB64(n);
-        })),
-        m.apply(this, arguments)
-      );
+    async function m(e, t, n) {
+      var r = c(t + n);
+      return d(e, r);
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    async function p(e, t) {
+      var n = c(t);
+      return d(e, n);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = c(t + n);
-          return d(e, r);
-        })),
-        _.apply(this, arguments)
-      );
+    async function _(e, t) {
+      var n = c(t);
+      return d(e, n);
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    async function f(e, t) {
+      var n = await g(e),
+        r = c(t);
+      return d(n, r);
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = c(t);
-          return d(e, n);
-        })),
-        g.apply(this, arguments)
-      );
+    async function g(e) {
+      var t = c(e);
+      return self.crypto.subtle.digest("SHA-256", t);
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = c(t);
-          return d(e, n);
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield v(e),
-            r = c(t);
-          return d(n, r);
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = c(e);
-          return self.crypto.subtle.digest("SHA-256", t);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function h(e) {
       return o("WATimeUtils")
         .toDate(
           o("WATimeUtils").castToUnixTime(
@@ -111,10 +62,10 @@ __d(
         .split("T")[0]
         .replace(/-/g, "/");
     }
-    function L(e) {
-      return R(e).replace(/\//g, "-");
+    function y(e) {
+      return h(e).replace(/\//g, "-");
     }
-    function E(e) {
+    function C(e) {
       var t = o("WATimeUtils").toDate(
           o("WATimeUtils").castToUnixTime(
             e - 8 * o("WATimeUtils").HOUR_SECONDS,
@@ -124,18 +75,18 @@ __d(
         r = String(t.getUTCMonth() + 1).padStart(2, "0");
       return n + "/" + r;
     }
-    function k(e, t) {
+    function b(e, t) {
       var n = t % o("WATimeUtils").DAY_SECONDS,
         r = t - n;
       return n >= e ? r + e : r - o("WATimeUtils").DAY_SECONDS + e;
     }
-    function I(e, t, n) {
-      return k(e, t) > n;
+    function v(e, t, n) {
+      return b(e, t) > n;
     }
-    function T(e) {
+    function S(e) {
       return e.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT;
     }
-    function D(e) {
+    function R(e) {
       var t,
         n = new Set([
           o("WAWebMsgType").MSG_TYPE.PRODUCT,
@@ -145,7 +96,7 @@ __d(
       return (
         n.has(e.type) ||
         n.has((t = e.quotedMsg) == null ? void 0 : t.type) ||
-        !!(e.matchedText != null && e.matchedText !== "" && x(e.matchedText)) ||
+        !!(e.matchedText != null && e.matchedText !== "" && L(e.matchedText)) ||
         (e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW &&
           (e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
@@ -153,13 +104,13 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS))
       );
     }
-    function x(e) {
+    function L(e) {
       return (
         o("WAWebApiParse").matchCatalogUrl(e) ||
         o("WAWebApiParse").matchProductUrl(e)
       );
     }
-    function $(e) {
+    function E(e) {
       if (e == null) return null;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeTrigger
@@ -176,7 +127,7 @@ __d(
           return null;
       }
     }
-    function P(e) {
+    function k(e) {
       if (e == null) return null;
       switch (e) {
         case o("WAWebEphemeralityTypes").DisappearingModeTrigger
@@ -193,7 +144,7 @@ __d(
           return null;
       }
     }
-    function N(e) {
+    function I(e) {
       return e == null
         ? null
         : e
@@ -202,73 +153,44 @@ __d(
           : o("WAWebWamEnumEphemeralityInitiatorType")
               .EPHEMERALITY_INITIATOR_TYPE.INITIATED_BY_OTHER;
     }
-    function M() {
-      return w.apply(this, arguments);
+    async function T() {
+      var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        t = await r("WAWebLidAwareContactsDB").get(e.toJid());
+      return (t == null ? void 0 : t.username) != null && t.username !== "";
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
-          return (t == null ? void 0 : t.username) != null && t.username !== "";
-        })),
-        w.apply(this, arguments)
-      );
+    async function D() {
+      var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        t = await r("WAWebLidAwareContactsDB").get(e.toJid());
+      return (t == null ? void 0 : t.usernameKey) != null;
     }
-    function A() {
-      return F.apply(this, arguments);
+    async function x(t) {
+      return N(t)
+        ? null
+        : o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["contact"], async function () {
+              var n, a;
+              if (t.isLid()) {
+                var i = o("WAWebApiContact").getPhoneNumber(t);
+                i == null
+                  ? ((n = t.toString()), (a = "lid"))
+                  : ((n = o("WAJids").toPhoneUserJid(i.user)), (a = "pn"));
+              } else ((n = o("WAJids").toPhoneUserJid(t.user)), (a = "pn"));
+              var l = await r("WAWebLidAwareContactsDB").get(n);
+              return l == null
+                ? (o("WALogger").ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[getOppositeVisibleIdentificationType] contact not found ",
+                        "",
+                      ])),
+                    t,
+                  ),
+                  null)
+                : $(l, a);
+            });
     }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
-          return (t == null ? void 0 : t.usernameKey) != null;
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return V(t)
-            ? null
-            : o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  ["contact"],
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var n, a;
-                    if (t.isLid()) {
-                      var i = o("WAWebApiContact").getPhoneNumber(t);
-                      i == null
-                        ? ((n = t.toString()), (a = "lid"))
-                        : ((n = o("WAJids").toPhoneUserJid(i.user)),
-                          (a = "pn"));
-                    } else
-                      ((n = o("WAJids").toPhoneUserJid(t.user)), (a = "pn"));
-                    var l = yield r("WAWebLidAwareContactsDB").get(n);
-                    return l == null
-                      ? (o("WALogger").ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[getOppositeVisibleIdentificationType] contact not found ",
-                              "",
-                            ])),
-                          t,
-                        ),
-                        null)
-                      : W(l, a);
-                  }),
-                );
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e, t) {
+    function $(e, t) {
       if (e == null)
         return o("WAWebWamEnumOppositeVisibleIdentificationType")
           .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER;
@@ -294,76 +216,58 @@ __d(
         n
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return V(e)
-            ? null
-            : o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  ["chat"],
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var n = t[0],
-                          r = e.toString(),
-                          a = yield n.get(r);
-                        if (a == null) {
-                          o("WALogger").ERROR(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "getChatOriginType: could not find chat with id ",
-                                "",
-                              ])),
-                            r,
-                          );
-                          return;
-                        }
-                        switch (a.lidOriginType) {
-                          case "ctwa":
-                            return o("WAWebWamEnumChatOriginsType")
-                              .CHAT_ORIGINS_TYPE.LID_CTWA;
-                          default:
-                            return o("WAWebWamEnumChatOriginsType")
-                              .CHAT_ORIGINS_TYPE.OTHERS;
-                        }
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
+    async function P(e) {
+      return N(e)
+        ? null
+        : o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["chat"], async function (t) {
+              var n = t[0],
+                r = e.toString(),
+                a = await n.get(r);
+              if (a == null) {
+                o("WALogger").ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "getChatOriginType: could not find chat with id ",
+                      "",
+                    ])),
+                  r,
                 );
-        })),
-        U.apply(this, arguments)
-      );
+                return;
+              }
+              switch (a.lidOriginType) {
+                case "ctwa":
+                  return o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
+                    .LID_CTWA;
+                default:
+                  return o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
+                    .OTHERS;
+              }
+            });
     }
-    function V(e) {
+    function N(e) {
       return !e.isUser() || e.isPSA() || e.isBot();
     }
-    ((l.generateThreadID = p),
-      (l.generateThreadIDHMAC = f),
-      (l.generateMessageIDHMAC = h),
-      (l.generateUserThreadIDHMAC = C),
-      (l.getThreadDs = R),
-      (l.getThreadDsForDb = L),
-      (l.getThreadMonthDs = E),
-      (l.computeStartTs = k),
-      (l.shouldUpdateChatEvent = I),
-      (l.shouldIncrementMsgSendAndReceive = T),
-      (l.isCommerceMessage = D),
-      (l.getWamDisappearingModeTrigger = $),
-      (l.getWamDisappearingModeTriggerGroups = P),
-      (l.getWamDisappearingModeInitiatedByMe = N),
-      (l.getMeHasUsername = M),
-      (l.getMeHasUsernamePin = A),
-      (l.getOppositeVisibleIdentification = O),
-      (l.getOppositeVisibleIdentificationType = W),
-      (l.getChatOriginType = q));
+    ((l.generateThreadID = m),
+      (l.generateThreadIDHMAC = p),
+      (l.generateMessageIDHMAC = _),
+      (l.generateUserThreadIDHMAC = f),
+      (l.getThreadDs = h),
+      (l.getThreadDsForDb = y),
+      (l.getThreadMonthDs = C),
+      (l.computeStartTs = b),
+      (l.shouldUpdateChatEvent = v),
+      (l.shouldIncrementMsgSendAndReceive = S),
+      (l.isCommerceMessage = R),
+      (l.getWamDisappearingModeTrigger = E),
+      (l.getWamDisappearingModeTriggerGroups = k),
+      (l.getWamDisappearingModeInitiatedByMe = I),
+      (l.getMeHasUsername = T),
+      (l.getMeHasUsernamePin = D),
+      (l.getOppositeVisibleIdentification = x),
+      (l.getOppositeVisibleIdentificationType = $),
+      (l.getChatOriginType = P));
   },
   98,
 );

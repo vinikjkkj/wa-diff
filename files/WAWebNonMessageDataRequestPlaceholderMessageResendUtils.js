@@ -6,16 +6,13 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
-    "WAWebSyncGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Set(),
       s = new Set(),
       u = 32;
     function c(t, n) {
-      if (
-        !(!o("WAWebSyncGatingUtils").isPlaceholderMessageResendEnabled() || !n)
-      ) {
+      if (n) {
         var r = [],
           a = o("WATimeUtils").unixTime(),
           i =

@@ -310,15 +310,9 @@ __d(
     )
       (c.set(e[m].light.toUpperCase(), m), d.set(e[m].dark.toUpperCase(), m));
     function p(t) {
-      for (
-        var n = e[u], r = [t === "light" ? n.light : n.dark], o = 0;
-        o < u;
-        o++
-      ) {
-        var a = e[o];
-        r.push(t === "light" ? a.light : a.dark);
-      }
-      return r;
+      return e.map(function (e) {
+        return t === "light" ? e.light : e.dark;
+      });
     }
     function _(e) {
       var t, n;

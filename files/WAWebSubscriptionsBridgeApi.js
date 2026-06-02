@@ -1,65 +1,36 @@
 __d(
   "WAWebSubscriptionsBridgeApi",
   [
-    "Promise",
     "WAWebAuraBenefitProviderInit",
     "WAWebAuraRingtoneSubscriptionCheck",
     "WAWebFeatureFlagCollection",
     "WAWebSchemaFeatureFlag",
     "WAWebSchemaSubscription",
     "WAWebSubscriptionCollection",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function e() {
+      var e = await o("WAWebSchemaSubscription").getSubscriptionTable().all();
+      o(
+        "WAWebSubscriptionCollection",
+      ).SubscriptionCollection.initializeFromCache(e);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaSubscription")
-            .getSubscriptionTable()
-            .all();
+    async function s() {
+      if (o("WAWebSchemaFeatureFlag").isFeatureFlagTableAvailable()) {
+        var e = await o("WAWebSchemaFeatureFlag").getFeatureFlagTable().all();
+        o(
+          "WAWebFeatureFlagCollection",
+        ).FeatureFlagCollection.initializeFromCache(e);
+      }
+    }
+    var u = {
+      initializePME: async function () {
+        (await Promise.all([e(), s()]),
           o(
-            "WAWebSubscriptionCollection",
-          ).SubscriptionCollection.initializeFromCache(e);
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebSchemaFeatureFlag").isFeatureFlagTableAvailable()) {
-            var e = yield o("WAWebSchemaFeatureFlag")
-              .getFeatureFlagTable()
-              .all();
-            o(
-              "WAWebFeatureFlagCollection",
-            ).FeatureFlagCollection.initializeFromCache(e);
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    var m = {
-      initializePME: (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield (e || (e = n("Promise"))).all([s(), c()]),
-            o(
-              "WAWebAuraBenefitProviderInit",
-            ).initAuraBenefitFeatureFlagProvider(),
-            o("WAWebAuraRingtoneSubscriptionCheck").initSubscriptionCheck());
-        });
-        function r() {
-          return t.apply(this, arguments);
-        }
-        return r;
-      })(),
+            "WAWebAuraBenefitProviderInit",
+          ).initAuraBenefitFeatureFlagProvider(),
+          o("WAWebAuraRingtoneSubscriptionCheck").initSubscriptionCheck());
+      },
       updateFeatureFlags: function (t) {
         e: {
           var e = t;
@@ -131,7 +102,7 @@ __d(
         }
       },
     };
-    l.SubscriptionsBridgeApi = m;
+    l.SubscriptionsBridgeApi = u;
   },
   98,
 );

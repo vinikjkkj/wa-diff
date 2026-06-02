@@ -2,11 +2,11 @@ __d(
   "WAWebHelpersFindPhoneNumbers",
   [
     "WALogger",
+    "WAMemoizeCache",
     "WAPhoneFindCC",
     "WAWebPhoneUtils",
     "WAWebUserPrefsMeUser",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -84,9 +84,14 @@ __d(
       (e.phoneNumberParenthesesDepth++,
         (e.phoneNumberLastSignificantCodePoint = -1));
     }
-    var C = r("lodash").memoize(function (e) {
-      return o("WAPhoneFindCC").findCC(e);
-    });
+    var C = o("WAMemoizeCache").memoizeWithArgs(
+      function (e) {
+        return o("WAPhoneFindCC").findCC(e);
+      },
+      function (e) {
+        return e;
+      },
+    );
     function b(e) {
       return e != null && e.openings != null;
     }

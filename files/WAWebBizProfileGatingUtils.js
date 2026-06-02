@@ -67,11 +67,6 @@ __d(
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "lid_migration_for_biz_profile_enabled",
-      );
-    }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
         "smb_web_category_search_via_graph_enabled",
       );
     }
@@ -86,8 +81,7 @@ __d(
       (l.coverPhotoPrivacyMessagingEnabled = f),
       (l.bizLinkedAccountsEnabled = g),
       (l.canViewBizLinkedAccounts = h),
-      (l.isLidMigrationForBusinessProfileEnabled = y),
-      (l.isCategorySearchViaGraphEnabled = C));
+      (l.isCategorySearchViaGraphEnabled = y));
   },
   98,
 );

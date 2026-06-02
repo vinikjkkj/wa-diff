@@ -19,7 +19,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebURLUtils",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -39,11 +38,11 @@ __d(
       });
     }
     function m(t) {
-      var a = t.accessibilityLabel,
-        i = t.attribution,
-        l = t.filename,
-        s = t.gifUrl;
-      return r("WAWebPonyfillsFetch")(s, { headers: { Accept: "video/mp4" } })
+      var n = t.accessibilityLabel,
+        a = t.attribution,
+        i = t.filename,
+        l = t.gifUrl;
+      return r("WAWebPonyfillsFetch")(l, { headers: { Accept: "video/mp4" } })
         .then(function (t) {
           if (!t.ok)
             throw (
@@ -59,41 +58,28 @@ __d(
             );
           return t.blob();
         })
-        .then(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield o(
-                    "WAWebImageUtils",
-                  ).generateVideoThumbsAndDuration({
-                    file: e,
-                    maxDimensions: [
-                      o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
-                    ],
-                    debugHint: "handleGif",
-                  }),
-                  n = t.thumbs,
-                  s = n[0],
-                  u = t.duration;
-                return {
-                  file: e,
-                  filename: l,
-                  mimetype: e.type,
-                  isGif: !0,
-                  gifAttribution: i,
-                  fullPreview: window.URL.createObjectURL(e),
-                  fullPreviewSize: { width: s.fullWidth, height: s.fullHeight },
-                  preview: r("WAWebURLUtils").parseDataURL(s.url).data,
-                  duration: u,
-                  accessibilityLabel: a,
-                };
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        );
+        .then(async function (e) {
+          var t = await o("WAWebImageUtils").generateVideoThumbsAndDuration({
+              file: e,
+              maxDimensions: [o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE],
+              debugHint: "handleGif",
+            }),
+            l = t.thumbs,
+            s = l[0],
+            u = t.duration;
+          return {
+            file: e,
+            filename: i,
+            mimetype: e.type,
+            isGif: !0,
+            gifAttribution: a,
+            fullPreview: window.URL.createObjectURL(e),
+            fullPreviewSize: { width: s.fullWidth, height: s.fullHeight },
+            preview: r("WAWebURLUtils").parseDataURL(s.url).data,
+            duration: u,
+            accessibilityLabel: n,
+          };
+        });
     }
     function p() {
       o("WAWebModalManager").ModalManager.open(

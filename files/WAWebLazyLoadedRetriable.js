@@ -1,17 +1,9 @@
 __d(
   "WAWebLazyLoadedRetriable",
-  [
-    "Promise",
-    "WALogger",
-    "WANullthrows",
-    "WAPromiseDelays",
-    "asyncToGeneratorRuntime",
-    "err",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WANullthrows", "WAPromiseDelays", "err", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(t) {
+    var e, s, u, c;
+    function d(t) {
       return function (n, r) {
         o("WALogger").WARN(
           e ||
@@ -33,7 +25,7 @@ __d(
           .sendLogs(i);
       };
     }
-    function p(e, t) {
+    function m(e, t) {
       try {
         t();
       } catch (t) {
@@ -47,94 +39,81 @@ __d(
         );
       }
     }
-    var _ = 10;
-    function f(e, t, a) {
-      var i = m(t),
-        l = "INIT",
-        s,
-        u = 0;
-      return function m() {
-        switch (l) {
+    var p = 10;
+    function _(e, t, n) {
+      var a = d(t),
+        i = "INIT",
+        l,
+        s = 0;
+      return function u() {
+        switch (i) {
           case "INIT":
           case "FAILURE":
             return (
-              (l = "INFLIGHT"),
-              (s = e()
+              (i = "INFLIGHT"),
+              (l = e()
                 .then(function (e) {
                   var t = !!e;
                   return (
-                    t || i(r("err")("Lazyload response is empty"), u),
-                    u > 0 &&
+                    t || a(r("err")("Lazyload response is empty"), s),
+                    s > 0 &&
                       t &&
-                      p("onRetrySuccess", function () {
-                        a == null ||
-                          a.onRetrySuccess == null ||
-                          a.onRetrySuccess(u);
+                      m("onRetrySuccess", function () {
+                        n == null ||
+                          n.onRetrySuccess == null ||
+                          n.onRetrySuccess(s);
                       }),
-                    (l = "SUCCESS"),
+                    (i = "SUCCESS"),
                     e
                   );
                 })
-                .catch(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var n = r("getErrorSafe")(e);
-                        if (
-                          ((l = "FAILURE"),
-                          u++,
-                          o("WALogger").WARN(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "Lazyload failure for component ",
-                                " - attempt ",
-                                " of ",
-                                "",
-                              ])),
-                            t,
-                            u,
-                            _ + 1,
-                          ),
-                          p("onAttemptFailure", function () {
-                            a == null ||
-                              a.onAttemptFailure == null ||
-                              a.onAttemptFailure(n, u);
-                          }),
-                          u <= _)
-                        )
-                          return (
-                            yield o("WAPromiseDelays").delayMs(u * 1e3),
-                            m()
-                          );
-                        throw (
-                          (a == null ? void 0 : a.onFinalFailure) != null
-                            ? p("onFinalFailure", function () {
-                                a.onFinalFailure == null ||
-                                  a.onFinalFailure(n, u);
-                              })
-                            : i(n, u),
-                          e
-                        );
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                )),
-              s
+                .catch(async function (e) {
+                  var l = r("getErrorSafe")(e);
+                  if (
+                    ((i = "FAILURE"),
+                    s++,
+                    o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "Lazyload failure for component ",
+                          " - attempt ",
+                          " of ",
+                          "",
+                        ])),
+                      t,
+                      s,
+                      p + 1,
+                    ),
+                    m("onAttemptFailure", function () {
+                      n == null ||
+                        n.onAttemptFailure == null ||
+                        n.onAttemptFailure(l, s);
+                    }),
+                    s <= p)
+                  )
+                    return (await o("WAPromiseDelays").delayMs(s * 1e3), u());
+                  throw (
+                    (n == null ? void 0 : n.onFinalFailure) != null
+                      ? m("onFinalFailure", function () {
+                          n.onFinalFailure == null || n.onFinalFailure(l, s);
+                        })
+                      : a(l, s),
+                    e
+                  );
+                })),
+              l
             );
           case "INFLIGHT":
           case "SUCCESS":
-            return r("WANullthrows")(s);
+            return r("WANullthrows")(l);
           default:
-            return (d || (d = n("Promise"))).reject(
+            return Promise.reject(
               r("err")("retriable_promise_hoc:promiseStatus is invalid"),
             );
         }
       };
     }
-    l.default = f;
+    l.default = _;
   },
   98,
 );

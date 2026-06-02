@@ -20,7 +20,6 @@ __d(
     "WAWebWaPlusBenefitJourneyLogger",
     "WAWebWamEnumWpbujBenefitType",
     "WAWebWamEnumWpbujSurface",
-    "asyncToGeneratorRuntime",
     "react",
     "requireDeferred",
   ],
@@ -74,22 +73,22 @@ __d(
     function _(e, t) {
       return f(o("WAWebStateUtils").unproxy(e), t);
     }
-    function f(t, a, i) {
-      i === void 0 && (i = o("WAWebActionToast.react").genId());
-      var l = t.promises;
-      l.setPin && l.setPin.abortController.abort();
-      var u = 0,
-        _,
-        h = o("WATimeUtils").unixTimeMs();
-      a ? (u = h) : (_ = t.pin);
-      var y = new AbortController(),
-        C = y.signal,
-        b = !!(
-          a &&
+    function f(t, n, a) {
+      a === void 0 && (a = o("WAWebActionToast.react").genId());
+      var i = t.promises;
+      i.setPin && i.setPin.abortController.abort();
+      var l = 0,
+        u,
+        _ = o("WATimeUtils").unixTimeMs();
+      n ? (l = _) : (u = t.pin);
+      var h = new AbortController(),
+        y = h.signal,
+        C = !!(
+          n &&
           r("WAWebAuraGating").isPinnedChatsEnabled() &&
           !r("WAWebAuraGating").isPinnedChatsBenefitActive()
         ),
-        v = b
+        b = C
           ? o("WAWebChatPinBridge")
               .getNumConversationsPinned(t.id)
               .then(function (e) {
@@ -99,16 +98,16 @@ __d(
                     405,
                     "Pin limit exceeded",
                   );
-                return o("WAWebChatPinBridge").setPin(t.id, u, _, h);
+                return o("WAWebChatPinBridge").setPin(t.id, l, u, _);
               })
-          : o("WAWebChatPinBridge").setPin(t.id, u, _, h),
-        S = a
+          : o("WAWebChatPinBridge").setPin(t.id, l, u, _),
+        v = n
           ? new (o("WAWebActionToast.react").ActionType)(g.getPinningText(t))
           : new (o("WAWebActionToast.react").ActionType)(g.getUnpinningText(t)),
-        R = v
+        S = b
           .then(function () {
-            if (C.aborted) throw new (o("WAAbortError").AbortError)();
-            a &&
+            if (y.aborted) throw new (o("WAAbortError").AbortError)();
+            n &&
               o("WAWebChatPinBridge")
                 .getNumConversationsPinned(t.id)
                 .then(function (e) {
@@ -121,84 +120,71 @@ __d(
                   }).commit(),
                     m(t.id, e));
                 });
-            var e = a ? g.getPinnedText(t) : g.getUnpinnedText(t);
+            var e = n ? g.getPinnedText(t) : g.getUnpinnedText(t);
             return new (o("WAWebActionToast.react").ActionType)(e, {
               actionText: s._(/*BTDS*/ "Undo"),
               actionHandler: function () {
-                return f(t, !a, i);
+                return f(t, !n, a);
               },
             });
           })
           .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))
-          .catch(
-            (function () {
-              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (n) {
-                  if (n.status === 405) {
-                    if (
-                      (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
-                      p(t.id),
-                      b)
-                    ) {
-                      o("WAWebToastManager").ToastManager.close(i);
-                      var r = yield d.load();
-                      return (
-                        o("WAWebModalManager").ModalManager.openAlert(
-                          c.jsx(r, {}),
-                        ),
-                        new (o("WAWebActionToast.react").ActionType)(
-                          g.getFailedToPinText(t),
-                        )
-                      );
-                    }
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      g.getPinLimitExceededText(t),
-                    );
-                  } else if (n.status >= 400)
-                    return a
-                      ? new (o("WAWebActionToast.react").ActionType)(
-                          g.getFailedToPinText(t),
-                        )
-                      : new (o("WAWebActionToast.react").ActionType)(
-                          g.getFailedToUnpinText(t),
-                        );
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat:setPin dropped",
-                      ])),
-                  );
-                  var l = a
-                    ? g.getFailedToPinText(t)
-                    : g.getFailedToUnpinText(t);
-                  return new (o("WAWebActionToast.react").ActionType)(l, {
-                    actionText: s._(/*BTDS*/ "Try again."),
-                    actionHandler: function () {
-                      return f(t, a, i);
-                    },
-                  });
-                },
+          .catch(async function (r) {
+            if (r.status === 405) {
+              if (
+                (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
+                p(t.id),
+                C)
+              ) {
+                o("WAWebToastManager").ToastManager.close(a);
+                var i = await d.load();
+                return (
+                  o("WAWebModalManager").ModalManager.openAlert(c.jsx(i, {})),
+                  new (o("WAWebActionToast.react").ActionType)(
+                    g.getFailedToPinText(t),
+                  )
+                );
+              }
+              return new (o("WAWebActionToast.react").ActionType)(
+                g.getPinLimitExceededText(t),
               );
-              return function (e) {
-                return r.apply(this, arguments);
-              };
-            })(),
-          );
+            } else if (r.status >= 400)
+              return n
+                ? new (o("WAWebActionToast.react").ActionType)(
+                    g.getFailedToPinText(t),
+                  )
+                : new (o("WAWebActionToast.react").ActionType)(
+                    g.getFailedToUnpinText(t),
+                  );
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "models:chat:setPin dropped",
+                ])),
+            );
+            var l = n ? g.getFailedToPinText(t) : g.getFailedToUnpinText(t);
+            return new (o("WAWebActionToast.react").ActionType)(l, {
+              actionText: s._(/*BTDS*/ "Try again."),
+              actionHandler: function () {
+                return f(t, n, a);
+              },
+            });
+          });
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebActionToast.react").ActionToast, {
-          id: i,
-          initialAction: S,
-          pendingAction: R,
+          id: a,
+          initialAction: v,
+          pendingAction: S,
         }),
       );
-      var L = v
+      var R = b
         .then(function () {
-          t.pin = u;
+          t.pin = l;
         })
         .finally(function () {
-          l.setPin = null;
+          i.setPin = null;
         });
-      return ((l.setPin = { promise: L, abortController: y }), L);
+      return ((i.setPin = { promise: R, abortController: h }), R);
     }
     var g = {
       getPinnedText: function (t) {

@@ -8,7 +8,6 @@ __d(
     "WAWebCommonParsersParseBusinessProfile",
     "WAWebCommsWapMd",
     "WAWebJidToWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))(
@@ -32,43 +31,31 @@ __d(
         );
       },
     );
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r,
-            a = (r = o("WAWap")).wap(
-              "iq",
-              {
-                to: r.S_WHATSAPP_NET,
-                xmlns: "w:biz",
-                id: r.generateId(),
-                type: "get",
-              },
-              r.wap(
-                "business_profile",
-                { v: r.INT(n) },
-                t.map(function (e) {
-                  return o("WAWap").wap("profile", {
-                    jid: o("WAWebCommsWapMd").USER_JID(e.wid),
-                    tag:
-                      e.tag != null
-                        ? o("WAWap").INT(e.tag)
-                        : o("WAWap").DROP_ATTR,
-                  });
-                }),
-              ),
-            ),
-            i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, e);
-          if (i.success) return i.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            i.errorCode,
-          );
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t, n) {
+      var r,
+        a = (r = o("WAWap")).wap(
+          "iq",
+          {
+            to: r.S_WHATSAPP_NET,
+            xmlns: "w:biz",
+            id: r.generateId(),
+            type: "get",
+          },
+          r.wap(
+            "business_profile",
+            { v: r.INT(n) },
+            t.map(function (e) {
+              return o("WAWap").wap("profile", {
+                jid: o("WAWebCommsWapMd").USER_JID(e.wid),
+                tag:
+                  e.tag != null ? o("WAWap").INT(e.tag) : o("WAWap").DROP_ATTR,
+              });
+            }),
+          ),
+        ),
+        i = await o("WADeprecatedSendIq").deprecatedSendIq(a, e);
+      if (i.success) return i.result;
+      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(i.errorCode);
     }
     l.default = s;
   },

@@ -14,7 +14,6 @@ __d(
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -53,9 +52,7 @@ __d(
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           t = o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp(),
           n = t != null,
-          r =
-            n &&
-            o("WAWebBizGatingUtils").showDataSharingInSettingsAfterNuxDismiss(),
+          r = n,
           a = o("WAWebUserPrefsGeneral").getCTWAMessageReceived(),
           i = a;
         return (
@@ -188,40 +185,33 @@ __d(
             o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return l || s || u;
       },
-      v = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebBizGatingUtils").smbDataSharingConsentEnabled())
-            return null;
-          try {
-            var e = yield o(
-              "WAWebCTWABizDataSharingJob",
-            ).getCtwaBizDataSharingSettingJob();
-            return (
-              e &&
-                (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
-                  e,
-                ),
-                e ===
-                  o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
-                  r("WAWebDataSharingUpsellModel").enableUpsell()),
-              e
-            );
-          } catch (e) {
-            return (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ctwa] fetchDataSharingSettingAndUpdateModel: fetch failed",
-                  ])),
-              ),
-              null
-            );
-          }
-        });
-        return function () {
-          return e.apply(this, arguments);
-        };
-      })(),
+      v = async function () {
+        if (!o("WAWebBizGatingUtils").smbDataSharingConsentEnabled())
+          return null;
+        try {
+          var e = await o(
+            "WAWebCTWABizDataSharingJob",
+          ).getCtwaBizDataSharingSettingJob();
+          return (
+            e &&
+              (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(e),
+              e ===
+                o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
+                r("WAWebDataSharingUpsellModel").enableUpsell()),
+            e
+          );
+        } catch (e) {
+          return (
+            o("WALogger").ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ctwa] fetchDataSharingSettingAndUpdateModel: fetch failed",
+                ])),
+            ),
+            null
+          );
+        }
+      },
       S = {
         SMB_DATA_SHARING_ALLOWED_SOURCE: o(
           "WAWebGetCTWAEligibilityFromConversion",

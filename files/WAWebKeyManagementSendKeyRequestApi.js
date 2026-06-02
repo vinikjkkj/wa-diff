@@ -1,7 +1,6 @@
 __d(
   "WAWebKeyManagementSendKeyRequestApi",
   [
-    "Promise",
     "WALogger",
     "WASyncdKeyTypes",
     "WAWebApiPeerMessageStore",
@@ -13,124 +12,113 @@ __d(
     "WAWebSyncdCryptoUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield o("WAWebKeyManagementUtils").getPeerDevices();
-          if (a.length === 0)
-            throw r("err")(
-              "syncd: sendAppStateSyncKeyRequest: no peer devices available to request key from",
-            );
-          var i = t.map(function (e) {
-              return { keyId: o("WASyncdKeyTypes").fromSyncKeyId(e) };
-            }),
-            l = { keyIds: i },
-            d = a.map(function (e) {
-              var t = new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: o(
-                  "WAWebUserPrefsMeUser",
-                ).getMePnUserOrThrow_DO_NOT_USE(),
-                id: r("WAWebMsgKey").newId_DEPRECATED(),
-              });
-              return {
-                id: t,
-                to: e,
-                type: "protocol",
-                subtype: "app_state_sync_key_request",
-                kind: o("WAWebMsgType").MsgKind.PeerMessage,
-                appStateSyncKeyRequest: l,
-              };
-            }),
-            m = a.map(function (e) {
-              return e.getDeviceId();
-            }),
-            p = t.map(function (e) {
-              return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e);
+    var e, s, u;
+    async function c(t) {
+      var n = await o("WAWebKeyManagementUtils").getPeerDevices();
+      if (n.length === 0)
+        throw r("err")(
+          "syncd: sendAppStateSyncKeyRequest: no peer devices available to request key from",
+        );
+      var a = t.map(function (e) {
+          return { keyId: o("WASyncdKeyTypes").fromSyncKeyId(e) };
+        }),
+        i = { keyIds: a },
+        l = n.map(function (e) {
+          var t = new (r("WAWebMsgKey"))({
+            fromMe: !0,
+            remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            id: r("WAWebMsgKey").newId_DEPRECATED(),
+          });
+          return {
+            id: t,
+            to: e,
+            type: "protocol",
+            subtype: "app_state_sync_key_request",
+            kind: o("WAWebMsgType").MsgKind.PeerMessage,
+            appStateSyncKeyRequest: i,
+          };
+        }),
+        c = n.map(function (e) {
+          return e.getDeviceId();
+        }),
+        d = t.map(function (e) {
+          return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e);
+        });
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "syncd: send key request key id ",
+            " to peer deviceIds ",
+            "",
+          ])),
+        d,
+        c,
+      ),
+        await o("WAWebApiPeerMessageStore").storePeerMessages(l));
+      var m = await Promise.allSettled(
+          l.map(function (e) {
+            return o("WAWebSendAppStateSyncMsgJob").encryptAndSendKeyMsg({
+              msg: e,
             });
-          (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: send key request key id ",
-                " to peer deviceIds ",
+          }),
+        ),
+        p = m.filter(function (e) {
+          return e.status === "rejected";
+        });
+      if (p.length > 0 && p.length < m.length)
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "syncd: sendAppStateSyncKeyRequest: ",
+              "/",
+              " peer device(s) failed",
+            ])),
+          p.length,
+          m.length,
+        );
+      else if (p.length === m.length) {
+        var _ = p
+          .map(function (e) {
+            return r("getErrorSafe")(e.reason).message;
+          })
+          .join(", ");
+        throw (
+          o("WALogger").ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[syncd] sendAppStateSyncKeyRequest: all ",
+                " peers failed: ",
                 "",
               ])),
-            p,
-            m,
+            m.length,
+            _,
           ),
-            yield o("WAWebApiPeerMessageStore").storePeerMessages(d));
-          var _ = yield (c || (c = n("Promise"))).allSettled(
-              d.map(function (e) {
-                return o("WAWebSendAppStateSyncMsgJob").encryptAndSendKeyMsg({
-                  msg: e,
-                });
-              }),
-            ),
-            f = _.filter(function (e) {
-              return e.status === "rejected";
-            });
-          if (f.length > 0 && f.length < _.length)
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: sendAppStateSyncKeyRequest: ",
-                  "/",
-                  " peer device(s) failed",
-                ])),
-              f.length,
-              _.length,
-            );
-          else if (f.length === _.length) {
-            var g = f
-              .map(function (e) {
-                return r("getErrorSafe")(e.reason).message;
-              })
-              .join(", ");
-            throw (
-              o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[syncd] sendAppStateSyncKeyRequest: all ",
-                    " peers failed: ",
-                    "",
-                  ])),
-                _.length,
-                g,
-              ),
-              r("err")(
-                "syncd: sendAppStateSyncKeyRequest failed for all " +
-                  _.length +
-                  " peer device(s): " +
-                  g,
-              )
-            );
-          }
-          var h = m.filter(function (e, t) {
-            return _[t].status === "fulfilled";
-          });
-          return (
-            o(
-              "WAWebSyncdCriticalBootstrapProcessingApi",
-            ).logCriticalBootstrapStageIfNecessary(
-              o("WAWebWamEnumBootstrapAppStateDataStageCode")
-                .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.MISSING_KEYS_REQUESTED,
-            ),
-            h
-          );
-        })),
-        m.apply(this, arguments)
+          r("err")(
+            "syncd: sendAppStateSyncKeyRequest failed for all " +
+              m.length +
+              " peer device(s): " +
+              _,
+          )
+        );
+      }
+      var f = c.filter(function (e, t) {
+        return m[t].status === "fulfilled";
+      });
+      return (
+        o(
+          "WAWebSyncdCriticalBootstrapProcessingApi",
+        ).logCriticalBootstrapStageIfNecessary(
+          o("WAWebWamEnumBootstrapAppStateDataStageCode")
+            .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.MISSING_KEYS_REQUESTED,
+        ),
+        f
       );
     }
-    l.sendAppStateSyncKeyRequest = d;
+    l.sendAppStateSyncKeyRequest = c;
   },
   98,
 );

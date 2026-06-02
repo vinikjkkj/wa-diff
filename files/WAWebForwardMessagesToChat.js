@@ -1,7 +1,6 @@
 __d(
   "WAWebForwardMessagesToChat",
   [
-    "Promise",
     "WAPromiseProps",
     "WAWebBlockContactAction",
     "WAWebChatForwardMessage",
@@ -14,123 +13,99 @@ __d(
     "WAWebMsgGetters",
     "WAWebNewsletterGatingUtils",
     "WAWebWamChatPSALogger",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.appendedText,
-            i = t.chats,
-            l = t.includeCaption,
-            s = l === void 0 ? !1 : l,
-            u = t.msgs,
-            c = (e || (e = n("Promise"))).all(
-              u.map(function (e) {
-                return (
-                  o("WAWebMsgGetters").getIsPSA(e) &&
-                    o("WAWebWamChatPSALogger").logChatPSAForward(e),
-                  o(
-                    "WAWebNewsletterGatingUtils",
-                  ).isNewsletterMessageForwardLoggingEnabled() &&
-                    o("WAWebMsgGetters").getHasOriginatedFromNewsletter(e) &&
-                    o(
-                      "WAWebLogNewsletterMessageForward",
-                    ).logNewsletterMessageForward(e, i),
-                  o("WAPromiseProps").promiseProps({
-                    message: e,
-                    canForward:
-                      o("WAWebMsgActionCapability").canForwardMsg(e) &&
-                      (o("WAWebMsgCollection").MsgCollection.get(e.id) !=
-                        null ||
-                        o("WAWebMsgGetters").getIsEphemeral(e)),
+    async function e(e) {
+      var t = e.appendedText,
+        n = e.chats,
+        a = e.includeCaption,
+        i = a === void 0 ? !1 : a,
+        l = e.msgs,
+        s = Promise.all(
+          l.map(function (e) {
+            return (
+              o("WAWebMsgGetters").getIsPSA(e) &&
+                o("WAWebWamChatPSALogger").logChatPSAForward(e),
+              o(
+                "WAWebNewsletterGatingUtils",
+              ).isNewsletterMessageForwardLoggingEnabled() &&
+                o("WAWebMsgGetters").getHasOriginatedFromNewsletter(e) &&
+                o(
+                  "WAWebLogNewsletterMessageForward",
+                ).logNewsletterMessageForward(e, n),
+              o("WAPromiseProps").promiseProps({
+                message: e,
+                canForward:
+                  o("WAWebMsgActionCapability").canForwardMsg(e) &&
+                  (o("WAWebMsgCollection").MsgCollection.get(e.id) != null ||
+                    o("WAWebMsgGetters").getIsEphemeral(e)),
+              })
+            );
+          }),
+        ),
+        u = await Promise.all(
+          n
+            .filter(function (e) {
+              return e.canSend;
+            })
+            .map(async function (e) {
+              var n =
+                  o("WAWebChatGetters").getIsUser(e) &&
+                  e.contact.isContactBlocked
+                    ? o("WAWebBlockContactAction").unblockContact(e.contact)
+                    : Promise.resolve(!0),
+                r = await Promise.all([s, n]),
+                a = r[0],
+                l = a
+                  .filter(function (e) {
+                    return e.canForward === !0;
                   })
-                );
-              }),
-            ),
-            d = yield e.all(
-              i
-                .filter(function (e) {
-                  return e.canSend;
-                })
-                .map(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var r =
-                            o("WAWebChatGetters").getIsUser(t) &&
-                            t.contact.isContactBlocked
-                              ? o("WAWebBlockContactAction").unblockContact(
-                                  t.contact,
-                                )
-                              : (e || (e = n("Promise"))).resolve(!0),
-                          i = yield (e || (e = n("Promise"))).all([c, r]),
-                          l = i[0],
-                          u = l
-                            .filter(function (e) {
-                              return e.canForward === !0;
-                            })
-                            .map(function (e) {
-                              return e.message;
-                            }),
-                          d = l
-                            .filter(function (e) {
-                              return e.canForward === !1;
-                            })
-                            .map(function (e) {
-                              return e.message;
-                            });
-                        return o("WAPromiseProps").promiseProps({
-                          chat: t,
-                          undelivered: o(
-                            "WAWebChatForwardMessage",
-                          ).forwardMessages({
-                            chat: t,
-                            msgs: u,
-                            multicast: !0,
-                            includeCaption: s,
-                            appendedText: a,
-                          }),
-                          msgsThatCanBeforwarded: u,
-                          msgsThatCannotBeForwarded: d,
-                        });
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                ),
-            ),
-            m = r("compactMap")(d, function (e) {
-              var t = e.chat,
-                n = e.msgsThatCanBeforwarded,
-                o = e.msgsThatCannotBeForwarded,
-                a = e.undelivered,
-                i = null;
-              return (
-                (a.length || o.length) &&
-                  (i = r("WAWebFormatForwardErrorChatAction")({
-                    chat: t,
-                    undelivered: a,
-                    canForward: n,
-                    cannotForward: o,
-                  })),
-                i != null && i !== "" ? { chat: t, reason: i } : null
-              );
-            });
-          if (m.length) throw new (r("WAWebForwardErrorChatAction"))(m);
-          return !0;
-        })),
-        u.apply(this, arguments)
-      );
+                  .map(function (e) {
+                    return e.message;
+                  }),
+                u = a
+                  .filter(function (e) {
+                    return e.canForward === !1;
+                  })
+                  .map(function (e) {
+                    return e.message;
+                  });
+              return o("WAPromiseProps").promiseProps({
+                chat: e,
+                undelivered: o("WAWebChatForwardMessage").forwardMessages({
+                  chat: e,
+                  msgs: l,
+                  multicast: !0,
+                  includeCaption: i,
+                  appendedText: t,
+                }),
+                msgsThatCanBeforwarded: l,
+                msgsThatCannotBeForwarded: u,
+              });
+            }),
+        ),
+        c = r("compactMap")(u, function (e) {
+          var t = e.chat,
+            n = e.msgsThatCanBeforwarded,
+            o = e.msgsThatCannotBeForwarded,
+            a = e.undelivered,
+            i = null;
+          return (
+            (a.length || o.length) &&
+              (i = r("WAWebFormatForwardErrorChatAction")({
+                chat: t,
+                undelivered: a,
+                canForward: n,
+                cannotForward: o,
+              })),
+            i != null && i !== "" ? { chat: t, reason: i } : null
+          );
+        });
+      if (c.length) throw new (r("WAWebForwardErrorChatAction"))(c);
+      return !0;
     }
-    l.forwardMessagesToChats = s;
+    l.forwardMessagesToChats = e;
   },
   98,
 );
