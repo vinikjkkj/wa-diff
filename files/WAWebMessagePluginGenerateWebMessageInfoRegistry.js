@@ -293,6 +293,11 @@ __d(
           generateWebMessageInfo: null,
         },
         {
+          type: "sharable_event_invite",
+          subtype: void 0,
+          generateWebMessageInfo: null,
+        },
+        {
           type: "status_notification",
           subtype: "status_notification_message",
           generateWebMessageInfo: null,

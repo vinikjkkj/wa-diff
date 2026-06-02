@@ -23,7 +23,7 @@ __d(
     var e, u;
     function c(e) {
       var t,
-        n = h(e),
+        n = b(e),
         a = n.initiatingUser,
         i = n.newDuration,
         l = o("WAWebUserPrefsMeUser").isMeAccount(r("WANullthrows")(a));
@@ -56,16 +56,32 @@ __d(
       var t = e.initiatorIsMe,
         n = e.initiatorUsername,
         r = e.newDuration,
-        o = m({ initiatorIsMe: t, initiatorUsername: n }),
-        a = v(r),
-        i = p({ initiatorIsMe: t });
-      return s._(/*BTDS*/ "{ddm-event} {ddm-explanation} {ddm-action}", [
-        s._param("ddm-event", o),
-        s._param("ddm-explanation", a),
-        s._param("ddm-action", i),
-      ]);
+        o = m({ initiatorIsMe: t, initiatorUsername: n, newDuration: r }),
+        a = o.ctaText,
+        i = o.text;
+      return a == null
+        ? i
+        : s._(/*BTDS*/ "{ddm-body} {ddm-action}", [
+            s._param("ddm-body", i),
+            s._param("ddm-action", a),
+          ]);
     }
     function m(e) {
+      var t = e.initiatorIsMe,
+        n = e.initiatorUsername,
+        r = e.newDuration,
+        o = p({ initiatorIsMe: t, initiatorUsername: n }),
+        a = L(r),
+        i = _({ initiatorIsMe: t });
+      return {
+        text: s._(/*BTDS*/ "{ddm-event} {ddm-explanation}", [
+          s._param("ddm-event", o),
+          s._param("ddm-explanation", a),
+        ]),
+        ctaText: i,
+      };
+    }
+    function p(e) {
       var t = e.initiatorIsMe,
         n = e.initiatorUsername;
       return t
@@ -81,7 +97,7 @@ __d(
               /*BTDS*/ "A default timer for disappearing messages is used in new chats.",
             );
     }
-    function p(e) {
+    function _(e) {
       var t = e.initiatorIsMe;
       return o("WAWebAfterReadUtils").isAfterReadEnabled()
         ? t
@@ -91,10 +107,43 @@ __d(
           ? s._(/*BTDS*/ "Click to change your default timer.")
           : s._(/*BTDS*/ "Click to set your own default timer.");
     }
-    function _(e) {
-      return S(o("WAWebStateUtils").unproxy(e.unsafe()));
-    }
     function f(e) {
+      return E(o("WAWebStateUtils").unproxy(e.unsafe()));
+    }
+    function g(e) {
+      var t = b(e),
+        n = t.initiatingUser,
+        a = t.newDuration,
+        i = o("WAWebUserPrefsMeUser").isMeAccount(r("WANullthrows")(n)),
+        l = null;
+      if (!i) {
+        var u = o("WAWebContactCollection").ContactCollection.gadd(
+          r("WANullthrows")(n),
+        );
+        l = o("WAWebFrontendContactGetters").getFormattedName(u);
+      }
+      if (
+        o("WAWebAfterReadUtils").isAfterReadDuration(a) &&
+        o("WAWebAfterReadUtils").isAfterReadEnabled()
+      )
+        return m({ initiatorIsMe: i, initiatorUsername: l, newDuration: a });
+      var c = p({ initiatorIsMe: i, initiatorUsername: l }),
+        d = o(
+          "WAWebEphemeralFbtKic",
+        ).getDisappearingMessageExplanationStringKic(a),
+        f = _({ initiatorIsMe: i });
+      return {
+        text: s._(/*BTDS*/ "{ddm-event} {ddm-explanation}", [
+          s._param("ddm-event", c),
+          s._param("ddm-explanation", d),
+        ]),
+        ctaText: f,
+      };
+    }
+    function h(e) {
+      return k(o("WAWebStateUtils").unproxy(e.unsafe()));
+    }
+    function y(e) {
       if (o("WAWebFrontendMsgGetters").getChat(e) != null)
         for (
           var t = o("WAWebFrontendMsgGetters").getChat(e).msgs,
@@ -112,8 +161,8 @@ __d(
             return a;
         }
     }
-    function g(e) {
-      var t = f(e);
+    function C(e) {
+      var t = y(e);
       return (
         t != null &&
         ((t.ephemeralDuration != null && t.ephemeralDuration > 0) ||
@@ -122,7 +171,7 @@ __d(
             t.templateParams[0] !== "0"))
       );
     }
-    function h(e) {
+    function b(e) {
       var t, n;
       if (
         (e.templateParams.length
@@ -142,7 +191,7 @@ __d(
         initiatingUser: t,
       };
     }
-    function y(e) {
+    function v(e) {
       var t;
       e.ephemeralSettingUser !== void 0
         ? (t = e.ephemeralSettingUser)
@@ -159,7 +208,7 @@ __d(
         }
       );
     }
-    function C(e) {
+    function S(e) {
       var t = e.initiatorIsMe,
         n = e.initiatorUsername,
         r = e.state;
@@ -187,7 +236,7 @@ __d(
               ? s._(/*BTDS*/ "Disappearing messages was turned on.")
               : s._(/*BTDS*/ "Disappearing messages was turned off.");
     }
-    function b(t) {
+    function R(t) {
       var n = o("WAWebEphemeralConstants").getDurationForString(t),
         r = n.duration,
         a = n.unit;
@@ -222,8 +271,8 @@ __d(
           );
       }
     }
-    function v(e) {
-      var t = b(e);
+    function L(e) {
+      var t = R(e);
       return o("WAWebAfterReadUtils").isAfterReadDuration(e) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
         ? s._(
@@ -235,16 +284,27 @@ __d(
             [s._param("dm-duration", t)],
           );
     }
-    function S(e) {
+    function E(e) {
+      var t = k(e),
+        n = t.ctaText,
+        r = t.text;
+      return n == null
+        ? r
+        : s._(/*BTDS*/ "{dm-sm-body} {dm-sm-action}", [
+            s._param("dm-sm-body", r),
+            s._param("dm-sm-action", n),
+          ]);
+    }
+    function k(e) {
       var t,
         n = null;
       switch (e.type) {
         case "gp2":
         case "notification_template":
-          n = h(e);
+          n = b(e);
           break;
         case "protocol":
-          n = y(e);
+          n = v(e);
           break;
         default:
           break;
@@ -269,10 +329,10 @@ __d(
           o("WAWebEphemeralityTypes").DisappearingModeTrigger
             .BizSupportFbHosting
       )
-        return R(i);
+        return { text: I(i), ctaText: null };
       var l = null;
       if (
-        (n.newDuration ? (g(e) ? (l = "update") : (l = "on")) : (l = "off"),
+        (n.newDuration ? (C(e) ? (l = "update") : (l = "on")) : (l = "off"),
         l === "update" &&
           !o("WAWebABProps").getABPropConfigValue(
             "dm_updated_system_message",
@@ -295,7 +355,7 @@ __d(
             ((t = c.groupMetadata) == null
               ? void 0
               : t.canSetEphemeralSetting()));
-      return L({
+      return T({
         newDuration: n.newDuration,
         state: l,
         initiatorUsername: a,
@@ -303,7 +363,7 @@ __d(
         userCanChange: d === !0,
       });
     }
-    function R(e) {
+    function I(e) {
       var t = s._(
           /*BTDS*/ "Disappearing messages are no longer supported with this business.",
         ),
@@ -312,47 +372,62 @@ __d(
         );
       return e ? n : t;
     }
-    function L(e) {
+    function T(e) {
       var t = e.initiatorIsMe,
         n = e.initiatorUsername,
         r = e.newDuration,
         a = e.state,
         i = e.userCanChange,
-        l = C({ initiatorUsername: n, initiatorIsMe: t, state: a }),
+        l = S({ initiatorUsername: n, initiatorIsMe: t, state: a }),
         u = o("WAWebAfterReadUtils").isAfterReadEnabled()
           ? s._(/*BTDS*/ "Change timer.")
           : s._(/*BTDS*/ "Click to change.");
       if (!r)
-        return i !== !0
-          ? l
-          : s._(/*BTDS*/ "{dm-sm-event} {dm-sm-action}", [
-              s._param("dm-sm-event", l),
-              s._param("dm-sm-action", u),
-            ]);
-      var c = v(r);
+        return i !== !0 ? { text: l, ctaText: null } : { text: l, ctaText: u };
+      var c = L(r);
       return i !== !0
-        ? s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
-            s._param("dm-sm-event", l),
-            s._param("dm-sm-explanation", c),
-          ])
-        : s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation} {dm-sm-action}", [
-            s._param("dm-sm-event", l),
-            s._param("dm-sm-explanation", c),
-            s._param("dm-sm-action", u),
+        ? {
+            text: s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
+              s._param("dm-sm-event", l),
+              s._param("dm-sm-explanation", c),
+            ]),
+            ctaText: null,
+          }
+        : {
+            text: s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
+              s._param("dm-sm-event", l),
+              s._param("dm-sm-explanation", c),
+            ]),
+            ctaText: u,
+          };
+    }
+    function D(e) {
+      var t = T(e),
+        n = t.ctaText,
+        r = t.text;
+      return n == null
+        ? r
+        : s._(/*BTDS*/ "{dm-sm-body} {dm-sm-action}", [
+            s._param("dm-sm-body", r),
+            s._param("dm-sm-action", n),
           ]);
     }
-    function E() {
+    function x() {
       return s._(
         /*BTDS*/ "Disappearing messages are not supported in this chat. Your messages will not disappear.",
       );
     }
     ((l.getDefaultDisappearingModeSystemMessageText = c),
       (l.buildDefaultDisappearingModeARSystemMessage = d),
-      (l.getDisappearingModeUpdateSystemMessageText = _),
-      (l.getDisappearingMessageDurationString = b),
-      (l.formatEphemeralSetting = S),
-      (l.buildEphemeralSystemMessage = L),
-      (l.getDMUnsupportedSystemMessageText = E));
+      (l.buildDefaultDisappearingModeARSystemMessageParts = m),
+      (l.getDisappearingModeUpdateSystemMessageText = f),
+      (l.getDefaultDisappearingModeParts = g),
+      (l.getDisappearingModeUpdateParts = h),
+      (l.getDisappearingMessageDurationString = R),
+      (l.formatEphemeralSetting = E),
+      (l.buildEphemeralSystemMessageParts = T),
+      (l.buildEphemeralSystemMessage = D),
+      (l.getDMUnsupportedSystemMessageText = x));
   },
   226,
 );

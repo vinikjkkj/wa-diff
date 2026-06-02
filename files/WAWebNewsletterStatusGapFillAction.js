@@ -242,8 +242,8 @@ __d(
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletter][status][gapfill] bulk backfill throttled (last run ",
-                    "ms ago)",
+                    "[newsletter][status][gapfill] bulk throttled ",
+                    "ms ago",
                   ])),
                 String(Date.now() - t),
               );
@@ -290,8 +290,8 @@ __d(
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[newsletter][status][gapfill] bulk backward fill: ",
-                  " candidates / ",
+                  "[newsletter][status][gapfill] bulk fill: ",
+                  "/",
                   " subscribed",
                 ])),
               String(i.length),

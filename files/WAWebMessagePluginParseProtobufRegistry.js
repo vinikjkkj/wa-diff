@@ -68,6 +68,7 @@ __d(
     "WAWebPtvParsePtvMessageProto",
     "WAWebReactionsParseReactionEncMessageProto",
     "WAWebReactionsParseReactionMessageProto",
+    "WAWebSharableEventInviteParseEventInviteMessageProto",
     "WAWebStickersParseStickerMessageProto",
   ],
   function (t, n, r, o, a, i, l) {
@@ -139,6 +140,7 @@ __d(
       r("WAWebPtvParsePtvMessageProto"),
       r("WAWebReactionsParseReactionEncMessageProto"),
       r("WAWebReactionsParseReactionMessageProto"),
+      r("WAWebSharableEventInviteParseEventInviteMessageProto"),
       r("WAWebStickersParseStickerMessageProto"),
     ];
     l.default = e;

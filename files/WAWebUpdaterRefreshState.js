@@ -56,9 +56,9 @@ __d(
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
-              "Updater: Saved refresh state for chat ",
-              " at center message ",
-              " with entry point ",
+              "[Updater] saved state chat=",
+              " msg=",
+              " ep=",
               "",
             ])),
           n,
@@ -136,8 +136,8 @@ __d(
             .LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "Updater: Could not restore entry point from ",
-                  ", falling back to RefreshRestore",
+                  "[Updater] entry point ",
+                  " -> RefreshRestore",
                 ])),
               (l = e.chatEntryPoint) != null ? l : "null",
             )

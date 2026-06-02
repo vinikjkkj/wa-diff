@@ -3,6 +3,8 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebBizBroadcastCampaignCollection",
+    "WAWebBizBroadcastCampaignInsightsCollection",
     "WAWebBizBroadcastInsightsContactListHandler",
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBroadcastConsts",
@@ -12,24 +14,72 @@ __d(
     "WAWebContactCollection",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = {
-        refreshBroadcastCampaignState: function (n) {
-          var t = n.broadcastJids;
+    var e = ["campaignId"],
+      s,
+      u,
+      c,
+      d = {
+        loadedBizBroadcastCampaignInsights: function (t) {
+          var e = t.rows;
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[BroadcastBridgeApi] refresh campaign ",
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[BroadcastBridgeApi] loadedBizBroadcastCampaignInsights ",
+                "",
+              ])),
+            e.length,
+          );
+          var n = e.map(function (e) {
+            return {
+              deliveredCount: e.deliveredCount,
+              id: e.campaignId,
+              lastUpdatedTimestampMs: e.lastUpdatedTimestampMs,
+              quickReplyCount: e.quickReplyCount,
+              readCount: e.readCount,
+              recipientCount: e.recipientCount,
+              repliedCount: e.repliedCount,
+            };
+          });
+          (r("WAWebBizBroadcastCampaignInsightsCollection").add(n, {
+            merge: !0,
+          }),
+            (r("WAWebBizBroadcastCampaignInsightsCollection").bootstrapped =
+              !0));
+        },
+        loadedBizBroadcastCampaigns: function (n) {
+          var t = n.rows;
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[BroadcastBridgeApi] loadedBizBroadcastCampaigns ",
                 "",
               ])),
             t.length,
           );
-          for (var r of t) {
-            var a = o("WAJids").validateBroadcastJid(r);
-            a != null &&
+          var a = t.map(function (t) {
+            var n = t.campaignId,
+              r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+            return babelHelpers.extends({ id: n }, r);
+          });
+          (r("WAWebBizBroadcastCampaignCollection").add(a, { merge: !0 }),
+            (r("WAWebBizBroadcastCampaignCollection").bootstrapped = !0));
+        },
+        refreshBroadcastCampaignState: function (t) {
+          var e = t.broadcastJids;
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[BroadcastBridgeApi] refresh campaign ",
+                "",
+              ])),
+            e.length,
+          );
+          for (var n of e) {
+            var r = o("WAJids").validateBroadcastJid(n);
+            r != null &&
               o(
                 "WAWebBizBroadcastSystemMessageManager",
-              ).updateBizBroadcastSystemMessage(a);
+              ).updateBizBroadcastSystemMessage(r);
           }
           o("WAWebCmd").Cmd.trigger(
             o("WAWebBroadcastConsts").BIZ_BROADCAST_CAMPAIGN_UPDATED_EVENT,
@@ -69,7 +119,7 @@ __d(
               ));
         },
       };
-    l.BroadcastBridgeApi = s;
+    l.BroadcastBridgeApi = d;
   },
   98,
 );

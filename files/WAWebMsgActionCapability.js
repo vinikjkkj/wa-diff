@@ -178,6 +178,7 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.PAYMENT:
         case o("WAWebMsgType").MSG_TYPE.QUARANTINED:
         case o("WAWebMsgType").MSG_TYPE.REQUEST_PHONE_NUMBER:
+        case o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE:
         case o("WAWebMsgType").MSG_TYPE.REVOKED:
         case o("WAWebMsgType").MSG_TYPE.UNKNOWN:
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
@@ -221,8 +222,6 @@ __d(
       }
       if (
         !s.interactiveButtonsReleased() ||
-        (s.ack < o("WAWebAck").ACK.SENT &&
-          o("WAWebMsgGetters").getIsSentByMe(s)) ||
         (s.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
           s.subtype ===
             o("WAWebBotGenTypingIndicatorMsg")

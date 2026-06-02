@@ -512,6 +512,7 @@ __d(
             isEventLink: e.is_event_link,
             linkToken: e.link_token,
             videoEnabled: e.video_enabled,
+            videoMuted: e.video_muted,
             self: _(e.self),
           };
         },

@@ -8,6 +8,7 @@ __d(
     "WAWebCallLogMsgData.flow",
     "WAWebDBMessageFindLocal",
     "WAWebDBUpdateMessageTable",
+    "WAWebDbEncryptionKey",
     "WAWebMsgGetters",
     "WAWebMsgModel",
     "WAWebProcessMultipleMsgsAction",
@@ -82,6 +83,9 @@ __d(
           (i.$WAWebVoipOngoingCallCollectionImpl$p_2 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               try {
+                yield o(
+                  "WAWebDbEncryptionKey",
+                ).DbEncKeyStore.waitForFinalDbMsgEncKey();
                 var t = yield this.$WAWebVoipOngoingCallCollectionImpl$p_3();
                 (yield this.$WAWebVoipOngoingCallCollectionImpl$p_4(t),
                   this.add(

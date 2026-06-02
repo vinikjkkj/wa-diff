@@ -173,7 +173,7 @@ __d(
               .ERROR(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg] Failed to persist ScheduledMessageCreated bubble",
+                    "[scheduled_msg] persist ScheduledMessageCreated bubble -",
                   ])),
               )
               .catching(r("getErrorSafe")(e))

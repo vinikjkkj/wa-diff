@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebActiveAccountInfoContext.react",
     "WAWebAdEntryPointsConfigurationModel",
+    "WAWebBizNativeAdsStoredFBIdentityStore",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCTWADebugDrawer.react",
     "WAWebChatCollection",
@@ -94,7 +95,7 @@ __d(
     ((h.doc = "Clear WA token from cache and storage"),
       (h.paramsToExecute = []));
     function y() {
-      o("WAWebUserPrefsCTWA").clearFBIdentity();
+      o("WAWebBizNativeAdsStoredFBIdentityStore").clearStoredFBIdentity();
     }
     ((y.doc = "Clear FB identity token from storage"),
       (y.paramsToExecute = []));
@@ -104,7 +105,7 @@ __d(
     C.doc =
       "Set last used ad account type preference ('FB', 'WAA', or null to clear)";
     function b() {
-      (o("WAWebUserPrefsCTWA").clearFBIdentity(),
+      (o("WAWebBizNativeAdsStoredFBIdentityStore").clearStoredFBIdentity(),
         o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
         o("WAWebUserPrefsGeneral").setLastUsedAdAccountType(null));
     }

@@ -3,6 +3,7 @@ __d(
   [
     "WACryptoPrimitives",
     "WALogger",
+    "WAWebBotCertificateRevocationService",
     "WAWebCertificateUtils",
     "asyncToGeneratorRuntime",
     "err",
@@ -72,10 +73,20 @@ __d(
               throw new g("Issuer cert at pos " + (s + 1) + " expired");
             var d = yield v(u, c);
             if (!d) throw new y("Signature verification failed at pos " + s);
+            var m = o("WAWebCertificateUtils").getCertificateSerialNumber(u);
+            if (m == null)
+              throw new h("Failed to extract serial number at pos " + s);
+            if (
+              o("WAWebBotCertificateRevocationService").isCertificateRevoked(
+                m,
+                i.getTime(),
+              )
+            )
+              throw new y("Certificate at pos " + s + " is revoked");
           }
-          var m = T(a);
-          if (m == null) throw new h("Failed to extract leaf public key");
-          return m;
+          var p = T(a);
+          if (p == null) throw new h("Failed to extract leaf public key");
+          return p;
         })),
         b.apply(this, arguments)
       );

@@ -44,6 +44,7 @@ __d(
         "product",
         "order",
         "event_creation",
+        "sharable_event_invite",
         "biz_content_placeholder",
         "album",
         "sticker-pack",

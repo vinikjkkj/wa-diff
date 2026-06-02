@@ -21,13 +21,21 @@ __d(
           return e();
         }));
     }
-    function p() {
-      return u;
+    function p(e) {
+      (o("WAWebUserPrefsCTWA").setFbIdentity(e), m());
     }
     function _() {
-      return s(d, p);
+      (o("WAWebUserPrefsCTWA").clearFBIdentity(), m());
     }
-    ((l.notifyFBIdentityChanged = m), (l.useStoredFBIdentity = _));
+    function f() {
+      return u;
+    }
+    function g() {
+      return s(d, f);
+    }
+    ((l.storeFBIdentity = p),
+      (l.clearStoredFBIdentity = _),
+      (l.useStoredFBIdentity = g));
   },
   98,
 );

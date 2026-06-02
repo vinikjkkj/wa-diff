@@ -430,6 +430,11 @@ __d(
         { type: "revoked", subtype: "sender", generateProtobuf: e },
         { type: "rich_response", subtype: void 0, generateProtobuf: null },
         {
+          type: "sharable_event_invite",
+          subtype: void 0,
+          generateProtobuf: null,
+        },
+        {
           type: "status_notification",
           subtype: "status_notification_message",
           generateProtobuf: null,

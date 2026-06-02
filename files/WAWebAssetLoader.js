@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WAAbortError",
     "WABackoffUtils",
+    "WADeepEquals",
     "WALogger",
     "WANullthrows",
     "WAPriorityQueue",
@@ -24,7 +25,6 @@ __d(
     "err",
     "getErrorSafe",
     "gkx",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -183,7 +183,7 @@ __d(
             var l = t.id,
               s = r("WAWebAssetLoaderDpiChangeDispatch").currentRes,
               u = this.$2[l];
-            if (u && !r("lodash").isEqual(t, u)) {
+            if (u && !o("WADeepEquals").deepEqual(t, u)) {
               var c = ["Attempted to load an asset using an already used ID"];
               return (h || (h = n("Promise"))).reject(r("err")(c.join("\n")));
             }

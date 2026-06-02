@@ -355,6 +355,11 @@ __d(
         getThumbnailTypeForMediaMsg: null,
       },
       {
+        type: "sharable_event_invite",
+        subtype: void 0,
+        getThumbnailTypeForMediaMsg: null,
+      },
+      {
         type: "status_notification",
         subtype: "status_notification_message",
         getThumbnailTypeForMediaMsg: null,

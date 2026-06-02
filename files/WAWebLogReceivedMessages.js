@@ -31,6 +31,7 @@ __d(
     "WAWebSignupFlowLoggerLazy",
     "WAWebSignupQPLLogger",
     "WAWebStickerPremiumStatus",
+    "WAWebUprReceivedWamLogger",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
     "WAWebWamAddressingModeUtils",
@@ -580,6 +581,7 @@ __d(
               e.chatData,
             ),
             T(r),
+            o("WAWebUprReceivedWamLogger").logUprReceivedWAMEvent(r),
           ]);
         })
         .catch(function (t) {

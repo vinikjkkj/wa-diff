@@ -94,6 +94,12 @@ __d(
                       .LidBlocklistChatDbUnmigrated ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
+                      .LidMigrationUnmigratedPrimary ||
+                  e ===
+                    o("WAWebLogoutReasonConstants").LogoutReason
+                      .LidMigrationUnmigratedCompanion ||
+                  e ===
+                    o("WAWebLogoutReasonConstants").LogoutReason
                       .CacheStorageOpenFailed
                 ? null
                 : (function () {

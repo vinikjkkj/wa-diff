@@ -32,6 +32,7 @@ __d(
     "WAWebConfirmPopup.react",
     "WAWebCountrySelectorPopup.react",
     "WAWebCurrentUser",
+    "WAWebDeleteChatDialogV2.react",
     "WAWebDeleteChatPopup.react",
     "WAWebDrawerManager",
     "WAWebEventInfoFlowLoadable",
@@ -65,6 +66,7 @@ __d(
     "WAWebWamChatPSALogger",
     "WAWebWamEnumMuteEntryPoint",
     "WAWebWamEnumProfileEntryPoint",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "countWhere",
     "err",
@@ -353,13 +355,20 @@ __d(
                 t.pendingAction = t.pendingAction - 1;
               });
             };
-            o("WAWebModalManager").ModalManager.open(
-              m.jsx(r("WAWebDeleteChatPopup.react"), {
-                chat: t,
-                onDeleteOrExit: e,
-              }),
-              { transition: "modal", uim: d },
-            );
+            o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
+              ? o("WDSDialogBridge").openWDSDialog(
+                  m.jsx(r("WAWebDeleteChatDialogV2.react"), {
+                    chat: t,
+                    onDeleteOrExit: e,
+                  }),
+                )
+              : o("WAWebModalManager").ModalManager.open(
+                  m.jsx(r("WAWebDeleteChatPopup.react"), {
+                    chat: t,
+                    onDeleteOrExit: e,
+                  }),
+                  { transition: "modal", uim: d },
+                );
           }),
           (a[14] = d),
           (a[15] = X))

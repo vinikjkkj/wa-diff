@@ -599,53 +599,59 @@ __d(
         handleDeviceJidList: r("WAWebNoop"),
         previewCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r) {
-              if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
-                o("WALogger").ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewCallLink: Call link feature is not enabled",
-                    ])),
+            function* (e, t, n, r, a) {
+              if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                return (
+                  o("WALogger").ERROR(
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: Call link feature is not enabled",
+                      ])),
+                  ),
+                  -1
                 );
-                return;
-              }
-              var a = 22;
-              if (e.length !== a) {
-                o("WALogger").ERROR(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewCallLink: invalid token length ",
-                      ", expected ",
-                      "",
-                    ])),
-                  e.length,
-                  a,
+              var i = 22;
+              if (e.length !== i)
+                return (
+                  o("WALogger").ERROR(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: invalid token length ",
+                        ", expected ",
+                        "",
+                      ])),
+                    e.length,
+                    i,
+                  ),
+                  -1
                 );
-                return;
-              }
-              var i = yield A;
+              var l = yield A;
               try {
-                var l = i.previewCallLink(
+                var s = l.previewCallLink(
                   e,
                   t,
                   n != null ? n : 0,
                   r != null ? r : "",
+                  a != null ? a : !1,
                 );
-                l !== 0 &&
-                  o("WALogger")
-                    .ERROR(
-                      L ||
-                        (L = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: previewCallLink: failed with status ",
-                          "",
-                        ])),
-                      l,
-                    )
-                    .sendLogs("voip-preview-call-link-failed");
+                return (
+                  s !== 0 &&
+                    o("WALogger")
+                      .ERROR(
+                        L ||
+                          (L = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: previewCallLink: failed with status ",
+                            "",
+                          ])),
+                        s,
+                      )
+                      .sendLogs("voip-preview-call-link-failed"),
+                  s
+                );
               } catch (e) {
                 throw (
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    i,
+                    l,
                     e,
                   ),
                   e
@@ -653,7 +659,7 @@ __d(
               }
             },
           );
-          function t(t, n, r, o) {
+          function t(t, n, r, o, a) {
             return e.apply(this, arguments);
           }
           return t;
@@ -697,7 +703,7 @@ __d(
         })(),
         previewAndJoinCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r) {
+            function* (e, t, n, r, a) {
               if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
                 o("WALogger").ERROR(
                   I ||
@@ -707,10 +713,10 @@ __d(
                 );
                 return;
               }
-              var a = yield A;
+              var i = yield A;
               try {
                 o("WAWebBweMLModelManager")
-                  .initBweMLModelsForCall(a)
+                  .initBweMLModelsForCall(i)
                   .catch(function (e) {
                     o("WALogger").WARN(
                       T ||
@@ -721,13 +727,14 @@ __d(
                       e,
                     );
                   });
-                var i = a.previewAndJoinCallLink(
+                var l = i.previewAndJoinCallLink(
                   e,
                   t,
                   n != null ? n : 0,
                   r != null ? r : "",
+                  a != null ? a : !1,
                 );
-                i !== 0 &&
+                l !== 0 &&
                   o("WALogger")
                     .ERROR(
                       D ||
@@ -735,13 +742,13 @@ __d(
                           "voip: previewAndJoinCallLink: failed with status ",
                           "",
                         ])),
-                      i,
+                      l,
                     )
                     .sendLogs("voip-preview-and-join-call-link-failed");
               } catch (e) {
                 throw (
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    a,
+                    i,
                     e,
                   ),
                   e
@@ -749,7 +756,7 @@ __d(
               }
             },
           );
-          function t(t, n, r, o) {
+          function t(t, n, r, o, a) {
             return e.apply(this, arguments);
           }
           return t;

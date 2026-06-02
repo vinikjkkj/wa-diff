@@ -32,6 +32,8 @@ __d(
         PASSWORD_SUBMIT: "pdf-password-submit",
         POWERED_BY: "webtp-powered-by",
         PREV_PAGE_BUTTON: "pdf-viewer-prev-page",
+        SHARER_POOL: "webtp-desktop-sharer-pool",
+        SHARER_SESSION_CONTAINER: "webtp-desktop-sharer-session",
         THUMBNAIL_IFRAME: "webtp-iframe-thumbnail",
         ZOOM_IN_BUTTON: "pdf-viewer-zoom-in",
         ZOOM_OUT_BUTTON: "pdf-viewer-zoom-out",

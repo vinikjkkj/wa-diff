@@ -8,7 +8,6 @@ __d(
     "WAWebMuteGetters",
     "isEmptyIterable",
     "isEmptyObject",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["Boolean", "Number"]),
@@ -48,15 +47,18 @@ __d(
           }),
           (a.unsetAll = function () {
             var t = this;
-            r("lodash").forOwn(this.selected, function (n, r) {
-              n && t.set(r, t.selectedDataType === e.Number ? 0 : !1);
+            Object.keys(this.selected).forEach(function (n) {
+              var r = Number(n);
+              t.selected[r] &&
+                t.set(r, t.selectedDataType === e.Number ? 0 : !1);
             });
           }),
           (a.reset = function (t) {
             var e = this;
             (t === void 0 && (t = !0),
-              r("lodash").forOwn(this.selected, function (n, r) {
-                n &&
+              Object.keys(this.selected).forEach(function (n) {
+                var r = Number(n);
+                e.selected[r] &&
                   (e.trigger(e.getter(e.list[r]), !0, !0, t),
                   e.trigger("all", !0, !0, t));
               }));

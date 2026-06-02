@@ -377,25 +377,33 @@ __d(
           );
           break;
         }
+        case "sharable_event_invite": {
+          var ee = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC6 " : "";
+          f = s._(/*BTDS*/ "{eventIcon} Invited you to an event: {eventName}", [
+            s._param("eventIcon", ee),
+            s._param("eventName", _.sharableEventInviteTitle),
+          ]);
+          break;
+        }
         case "album": {
-          var ee = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
-            te = r("WAWebAlbumsFormatAlbumMessageText")({
+          var te = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
+            ne = r("WAWebAlbumsFormatAlbumMessageText")({
               msg: e,
               options: {},
             });
           f = s._(/*BTDS*/ "{albumIcon}{photoAndVideoCountText}", [
-            s._param("albumIcon", ee),
-            s._param("photoAndVideoCountText", te),
+            s._param("albumIcon", te),
+            s._param("photoAndVideoCountText", ne),
           ]);
           break;
         }
         case "order": {
-          var ne = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
+          var re = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
           f = s._(
             /*BTDS*/ '_j{"*":"{shoppingCartIcon}{count} items{message}","_1":"{shoppingCartIcon}1 item{message}"}',
             [
               s._plural(e.itemCount, "count"),
-              s._param("shoppingCartIcon", ne),
+              s._param("shoppingCartIcon", re),
               s._param(
                 "message",
                 e.message != null && e.message !== "" ? "\n" + e.message : "",
@@ -405,22 +413,22 @@ __d(
           break;
         }
         case "sticker-pack": {
-          var re = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F " : "";
+          var oe = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F " : "";
           f = s._(/*BTDS*/ "{stickerPackIcon} Sticker Pack", [
-            s._param("stickerPackIcon", re),
+            s._param("stickerPackIcon", oe),
           ]);
           break;
         }
         case "quarantined": {
-          var oe = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
-            ae =
+          var ae = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
+            ie =
               e.quarantineExtractedText != null &&
               e.quarantineExtractedText !== ""
                 ? e.quarantineExtractedText
                 : r("WAWebFbtCommon")(
                     "Attachment blocked by Strict account settings",
                   ).toString();
-          f = "" + oe + ae;
+          f = "" + ae + ie;
           break;
         }
         case "notification_template":
@@ -453,8 +461,8 @@ __d(
             ""
           );
       }
-      var ie = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "";
-      return "" + ie + f.toString();
+      var le = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "";
+      return "" + le + f.toString();
     }
     function f(e) {
       var t = e.msgDir,

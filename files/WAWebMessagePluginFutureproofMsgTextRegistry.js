@@ -12,6 +12,7 @@ __d(
     "WAWebPinMessageFutureproofText",
     "WAWebPollEditFutureproofMsgText",
     "WAWebReactionsFutureproofMessageText",
+    "WAWebSharableEventInviteFutureproofMsgText",
     "WAWebStatusMentionFutureproofMsgText",
   ],
   function (t, n, r, o, a, i, l) {
@@ -260,6 +261,11 @@ __d(
       { type: "revoked", subtype: "admin", futureproofMsgText: null },
       { type: "revoked", subtype: "sender", futureproofMsgText: null },
       { type: "rich_response", subtype: void 0, futureproofMsgText: null },
+      {
+        type: "sharable_event_invite",
+        subtype: void 0,
+        futureproofMsgText: r("WAWebSharableEventInviteFutureproofMsgText"),
+      },
       {
         type: "status_notification",
         subtype: "status_notification_message",

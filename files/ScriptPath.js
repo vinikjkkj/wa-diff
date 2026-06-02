@@ -63,7 +63,7 @@ __d(
           (d = { scriptPath: t, categoryToken: n, extraData: r || {} }),
           (_ = []),
           (window._script_path = t),
-          f());
+          f(null, null));
       },
       openOverlayView: function (t, n, r) {
         if (t) {

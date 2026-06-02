@@ -1061,13 +1061,9 @@ __d(
             (i.isEventLink = t.isEventLink),
             (i.isVideo = t.videoEnabled),
             (i.outgoing = !0),
-            t.videoEnabled
-              ? (i.selfVideoState = o(
-                  "WAWebVoipWaCallEnums",
-                ).VideoState.Enabled)
-              : (i.selfVideoState = o(
-                  "WAWebVoipWaCallEnums",
-                ).VideoState.Disabled),
+            (i.selfVideoState = o(
+              "WAWebVoipVideoStateUtils",
+            ).getInitialCallLinkSelfVideoState(t.videoEnabled, t.videoMuted)),
             r("WAWebCallCollection").setActiveCall(i),
             (n = i));
         } else {

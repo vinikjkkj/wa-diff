@@ -68,8 +68,9 @@ __d(
             a = [];
           for (var i of e) {
             var l = r(i.buffer),
-              s = l.result;
-            if (s.error != null && s.error !== "")
+              s = l.offset,
+              c = l.result;
+            if (s === -1 || (c.error != null && c.error !== ""))
               return (
                 o("WALogger")
                   .ERROR(
@@ -81,7 +82,7 @@ __d(
                   .sendLogs("certificate-utils-cert-parse-error"),
                 []
               );
-            a.push(new n({ schema: s }));
+            a.push(new n({ schema: c }));
           }
           return a;
         })),

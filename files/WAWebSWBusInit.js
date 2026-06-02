@@ -60,7 +60,7 @@ __d(
           o("WALogger").WARN(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                'Unable to add "error" event listener to service worker, error: ',
+                '[sw] add "error" listener failed: ',
                 "",
               ])),
             e,
@@ -77,7 +77,7 @@ __d(
         o("WALogger").WARN(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
-              'Unable to add "controllerchange" event listener to service worker container, error: ',
+              '[sw] add "controllerchange" listener failed: ',
               "",
             ])),
           e,
@@ -102,7 +102,7 @@ __d(
         o("WALogger").WARN(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
-              'Unable to add "error" event listener to service worker container, error: ',
+              '[sw container] add "error" listener failed: ',
               "",
             ])),
           e,

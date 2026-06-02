@@ -8,7 +8,6 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "compactMap",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -74,9 +73,14 @@ __d(
     function g(e) {
       var t = {};
       return (
-        r("lodash").forOwn(e, function (e, n) {
-          t[n] = [].concat(e).sort(function (e, t) {
-            return e.index - t.index;
+        Object.keys(e).forEach(function (n) {
+          var r,
+            o = (r = e[n]) != null ? r : [];
+          t[n] = [].concat(o).sort(function (e, t) {
+            var n, r;
+            return (
+              ((n = e.index) != null ? n : 0) - ((r = t.index) != null ? r : 0)
+            );
           });
         }),
         t

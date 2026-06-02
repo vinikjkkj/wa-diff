@@ -837,48 +837,54 @@ __d(
         handleDeviceJidList: e,
         previewCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r) {
-              if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
-                o("WALogger").ERROR(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewCallLink: Call link feature is not enabled",
-                    ])),
+            function* (e, t, n, r, a) {
+              if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                return (
+                  o("WALogger").ERROR(
+                    N ||
+                      (N = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: Call link feature is not enabled",
+                      ])),
+                  ),
+                  -1
                 );
-                return;
-              }
-              var a = 22;
-              if (e.length !== a) {
-                o("WALogger").ERROR(
-                  M ||
-                    (M = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewCallLink: invalid token length ",
-                      ", expected ",
-                      "",
-                    ])),
-                  e.length,
-                  a,
+              var i = 22;
+              if (e.length !== i)
+                return (
+                  o("WALogger").ERROR(
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: invalid token length ",
+                        ", expected ",
+                        "",
+                      ])),
+                    e.length,
+                    i,
+                  ),
+                  -1
                 );
-                return;
-              }
-              var i = yield te("previewCallLink", {
+              var l = yield te("previewCallLink", {
                 token: e,
                 videoEnabled: t,
                 lobbyEntryType: n != null ? n : 0,
                 username: r != null ? r : "",
+                videoMuted: a != null ? a : !1,
               });
-              i !== 0 &&
-                o("WALogger").ERROR(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewCallLink: failed with status ",
-                      "",
-                    ])),
-                  String(i),
-                );
+              return (
+                l !== 0 &&
+                  o("WALogger").ERROR(
+                    w ||
+                      (w = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: failed with status ",
+                        "",
+                      ])),
+                    String(l),
+                  ),
+                Number(l)
+              );
             },
           );
-          function t(t, n, r, o) {
+          function t(t, n, r, o, a) {
             return e.apply(this, arguments);
           }
           return t;
@@ -903,7 +909,7 @@ __d(
         })(),
         previewAndJoinCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, n, r, a) {
+            function* (e, n, r, a, i) {
               if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
                 o("WALogger").ERROR(
                   F ||
@@ -913,9 +919,9 @@ __d(
                 );
                 return;
               }
-              var i = yield t;
+              var l = yield t;
               (o("WAWebBweMLModelManager")
-                .initBweMLModelsForCall(i)
+                .initBweMLModelsForCall(l)
                 .catch(function (e) {
                   o("WALogger").WARN(
                     O ||
@@ -931,10 +937,11 @@ __d(
                   videoEnabled: n,
                   lobbyEntryType: r != null ? r : 0,
                   username: a != null ? a : "",
+                  videoMuted: i != null ? i : !1,
                 }));
             },
           );
-          function r(t, n, r, o) {
+          function r(t, n, r, o, a) {
             return e.apply(this, arguments);
           }
           return r;

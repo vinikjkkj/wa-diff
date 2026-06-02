@@ -61,6 +61,26 @@ __d(
             });
             e.commit();
           }),
+          (t.logView = function (t, n) {
+            var e = new (o(
+              "WAWebUsernameCreationActionWamEvent",
+            ).UsernameCreationActionWamEvent)({
+              userJourneyEventMs: o("WATimeUtils").unixTimeMs(),
+              usernameCreationUsernameSessionId: this.$1,
+              usernameCreationCurrentScreen: t,
+              usernameCreationActionName: o(
+                "WAWebWamEnumUsernameCreationActionName",
+              ).USERNAME_CREATION_ACTION_NAME.VIEW,
+              usernameCreationErrorCd: 0,
+              usernameCreationEntrypoint: o(
+                "WAWebWamEnumUsernameCreationEntrypoint",
+              ).USERNAME_CREATION_ENTRYPOINT.PROFILE_SETTING,
+              usernameCreationFlowType: n,
+              usernameSource: o("WAWebWamEnumUsernameSource").USERNAME_SOURCE
+                .USER_INPUT,
+            });
+            e.commit();
+          }),
           (t.resetSessionId = function () {
             this.$1 = r("WAWebPonyfillsCryptoRandomUUID")();
           }),

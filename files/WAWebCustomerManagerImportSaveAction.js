@@ -76,7 +76,12 @@ __d(
                 : o("WAWebLeadStage").LeadStage.INTAKE,
             C = o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
               e.rawRow,
-              ["Acquisition source"],
+              [
+                "Source",
+                o("WAWebCustomerManagerImportTemplateUtils")
+                  .FBT_ACQUISITION_SOURCE,
+                "Acquisition source",
+              ],
             ),
             b =
               C != null &&

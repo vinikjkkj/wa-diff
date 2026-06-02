@@ -44,7 +44,7 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAFFLE] updateUOOMData failed to read account linking data: ",
+                    "[WAFFLE] updateUOOMData db read failed: ",
                     "",
                   ])),
                 t,

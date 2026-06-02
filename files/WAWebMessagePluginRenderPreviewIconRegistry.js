@@ -22,6 +22,7 @@ __d(
     "WAWebRenderPtvPreviewIcon",
     "WAWebRenderQuarantinedPreviewIcon.react",
     "WAWebRenderRevokedPreviewIcon",
+    "WAWebRenderSharableEventInvitePreviewIcon.react",
     "WAWebRenderStickerPreviewIcon",
     "WAWebRenderUnknownPreviewIcon",
     "WAWebRenderVcardPreviewIcon",
@@ -330,6 +331,13 @@ __d(
           renderPreviewIcon: r("WAWebRenderRevokedPreviewIcon"),
         },
         { type: "rich_response", subtype: void 0, renderPreviewIcon: null },
+        {
+          type: "sharable_event_invite",
+          subtype: void 0,
+          renderPreviewIcon: r(
+            "WAWebRenderSharableEventInvitePreviewIcon.react",
+          ),
+        },
         {
           type: "status_notification",
           subtype: "status_notification_message",

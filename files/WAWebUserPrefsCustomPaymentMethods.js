@@ -85,7 +85,7 @@ __d(
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "customPaymentMethodTypeWithNoRecognizedKeys: type ",
                   " received ",
-                  " input(s), 0 written. Likely metadata-key contract divergence with sender.",
+                  " input(s), 0 written",
                 ])),
               p,
               f,

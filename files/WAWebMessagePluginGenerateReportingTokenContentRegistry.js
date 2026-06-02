@@ -401,6 +401,11 @@ __d(
         generateReportingTokenContent: null,
       },
       {
+        type: "sharable_event_invite",
+        subtype: void 0,
+        generateReportingTokenContent: null,
+      },
+      {
         type: "status_notification",
         subtype: "status_notification_message",
         generateReportingTokenContent: null,

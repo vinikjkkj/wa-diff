@@ -6,7 +6,6 @@ __d(
     "WAWebStorageErrorHandlingUtils",
     "WAWebWAWCStorage",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -87,8 +86,8 @@ __d(
                   r("WAWebLocalStorage") != null &&
                     (r("WAWebLocalStorage").clear(),
                     e &&
-                      r("lodash").forOwn(e, function (e, t) {
-                        r("WAWebLocalStorage").setItem(t, e);
+                      Object.keys(e).forEach(function (t) {
+                        r("WAWebLocalStorage").setItem(t, String(e[t]));
                       })),
                   yield r("WAWebWAWCStorage")
                     .idb()

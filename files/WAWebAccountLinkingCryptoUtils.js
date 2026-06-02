@@ -11,7 +11,6 @@ __d(
     "WAWebSignalProtocolStore",
     "asyncToGeneratorRuntime",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -60,11 +59,11 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t[0],
-            a = t[1],
-            i,
-            l;
-          if (r("lodash").isEqual(n.subject, a.issuer)) ((i = n), (l = a));
-          else if (r("lodash").isEqual(a.subject, n.issuer)) ((i = a), (l = n));
+            r = t[1],
+            a,
+            i;
+          if (n.subject.isEqual(r.issuer)) ((a = n), (i = r));
+          else if (r.subject.isEqual(n.issuer)) ((a = r), (i = n));
           else
             return (
               o("WALogger").ERROR(
@@ -75,12 +74,12 @@ __d(
               ),
               null
             );
-          var s = yield h(),
-            u = yield o("WAWebDirectConnectionX509").validateCertificates(
-              [i, l],
-              [s],
+          var l = yield h(),
+            s = yield o("WAWebDirectConnectionX509").validateCertificates(
+              [a, i],
+              [l],
             );
-          return u.result ? l : null;
+          return s.result ? i : null;
         })),
         g.apply(this, arguments)
       );

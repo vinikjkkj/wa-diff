@@ -35,6 +35,8 @@ __d(
           "lid_migration_companion_incompatible_killswitch",
         LidMigrationOneOnOneThreadMigrationInternalError:
           "lid_migration_one_on_one_thread_migration_internal_error",
+        LidMigrationUnmigratedPrimary: "lid_migration_unmigrated_primary",
+        LidMigrationUnmigratedCompanion: "lid_migration_unmigrated_companion",
         LidBlocklistPnWhenMigrated: "lid_blocklist_pn_when_migrated",
         LidBlocklistChatDbUnmigrated: "lid_blocklist_chat_db_unmigrated",
         WebFailAddChat: "web_fail_add_chat",

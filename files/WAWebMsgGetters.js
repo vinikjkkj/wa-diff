@@ -302,6 +302,7 @@ __d(
             case "newsletter_admin_invite":
             case "newsletter_follower_invite":
             case "event_creation":
+            case "sharable_event_invite":
             case "sticker-pack":
             case "album":
             case "rich_response":
@@ -691,6 +692,7 @@ __d(
             case "newsletter_follower_invite":
             case "comment":
             case "event_creation":
+            case "sharable_event_invite":
             case "sticker-pack":
             case "album":
             case "rich_response":

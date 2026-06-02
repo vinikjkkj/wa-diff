@@ -205,12 +205,15 @@ __d(
                                                                                                                                                   : e ===
                                                                                                                                                       "poll_add_option_decrypted"
                                                                                                                                                     ? 70
-                                                                                                                                                    : (function () {
-                                                                                                                                                        throw Error(
-                                                                                                                                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                                                            e,
-                                                                                                                                                        );
-                                                                                                                                                      })();
+                                                                                                                                                    : e ===
+                                                                                                                                                        "sharable_event_invite"
+                                                                                                                                                      ? 71
+                                                                                                                                                      : (function () {
+                                                                                                                                                          throw Error(
+                                                                                                                                                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                                                              e,
+                                                                                                                                                          );
+                                                                                                                                                        })();
     }
     ((l.isMsgTypeSupportedForMsgLevelReporting = e),
       (l.isMsgTypeSupportedForPaidPartnershipLabel = s),

@@ -126,7 +126,10 @@ __d(
               _.adCreationEntrypointReference == null &&
               (_ = yield o(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
-              ).prepareDeferredAdCreationEntrypoint(_, t)),
+              ).prepareDeferredAdCreationEntrypoint({
+                existingBundle: _,
+                flowID: t,
+              })),
             h(d),
             n == null || n(),
             function (e) {
@@ -247,7 +250,10 @@ __d(
               S.adCreationEntrypointReference == null &&
               (S = yield o(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
-              ).prepareDeferredAdCreationEntrypoint(S, a)),
+              ).prepareDeferredAdCreationEntrypoint({
+                existingBundle: S,
+                flowID: a,
+              })),
               l == null || l());
             var k = function (t) {
               return u.jsx(

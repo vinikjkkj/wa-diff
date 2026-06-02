@@ -36,7 +36,6 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "lodash",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,9 +57,8 @@ __d(
             "WAWebDbEncryptionKey",
           ).DbEncKeyStore.waitForFinalDbMsgEncKey();
           var a = 0;
-          r("lodash").forOwn(t, function (e) {
-            var t = e.msgs;
-            return (a += t.length);
+          Object.keys(t).forEach(function (e) {
+            a += t[e].msgs.length;
           });
           var i = new Map(),
             l = new Map();

@@ -1,6 +1,6 @@
 __d(
   "WAWebAssetLoaderDynamicStyle",
-  ["WACamelCase", "lodash", "uniqueID"],
+  ["WACamelCase", "uniqueID"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -37,8 +37,10 @@ __d(
         (t.updateRule = function (t, n) {
           var e = this.rules[t];
           return (
-            r("lodash").forOwn(n, function (t, n) {
-              e.style[r("WACamelCase")(n)] = t;
+            Object.entries(n).forEach(function (t) {
+              var n = t[0],
+                o = t[1];
+              e.style[r("WACamelCase")(n)] = o;
             }),
             e
           );

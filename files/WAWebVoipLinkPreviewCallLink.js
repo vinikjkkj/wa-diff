@@ -22,12 +22,16 @@ __d(
       d,
       m,
       p,
-      _ = 22,
-      f = { videoMuted: !1, audioMuted: !1 };
-    function g() {
-      return f;
-    }
+      _,
+      f = 22,
+      g = { videoMuted: !1, audioMuted: !1 };
     function h() {
+      return g;
+    }
+    function y(e) {
+      ((g.videoMuted = e.videoMuted), (g.audioMuted = e.audioMuted));
+    }
+    function C() {
       if (r("WAWebPipController").manager != null) {
         r("WAWebPipController").openVoipUiPiPForCallLink();
         return;
@@ -45,7 +49,7 @@ __d(
         };
       window.setTimeout(o, t);
     }
-    function y(e) {
+    function b(e) {
       if (
         (e.audioDeviceId != null &&
           o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e.audioDeviceId),
@@ -62,22 +66,22 @@ __d(
       e.colorIndex != null &&
         o("WAWebUserPrefsVoip").saveLandingPageColorIndex(e.colorIndex);
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = t.data,
             i = a.audioDeviceId,
             l = a.audioMuted,
-            g = a.autoJoin,
-            C = a.callType,
-            b = a.colorIndex,
-            v = a.speakerDeviceId,
-            S = a.token,
-            R = a.videoDeviceId,
-            L = a.videoMuted;
+            h = a.autoJoin,
+            y = a.callType,
+            v = a.colorIndex,
+            S = a.speakerDeviceId,
+            R = a.token,
+            L = a.videoDeviceId,
+            E = a.videoMuted;
           if (
             (n === void 0 && (n = 0),
             o("WALogger").LOG(
@@ -88,8 +92,8 @@ __d(
                   " lobby=",
                   "",
                 ])),
-              S,
-              C,
+              R,
+              y,
               n,
             ),
             !o("WAWebVoipGatingUtils").callLinksEnabled())
@@ -102,20 +106,20 @@ __d(
             );
             return;
           }
-          ((f.videoMuted = L != null ? L : !1),
-            (f.audioMuted = l != null ? l : !1));
-          var E = C === "video";
-          y({
+          ((g.videoMuted = E != null ? E : !1),
+            (g.audioMuted = l != null ? l : !1));
+          var k = y === "video";
+          b({
             audioDeviceId: i,
-            colorIndex: b,
-            speakerDeviceId: v,
-            videoDeviceId: R,
+            colorIndex: v,
+            speakerDeviceId: S,
+            videoDeviceId: L,
           });
-          var k = o(
+          var I = o(
             "WAWebVoipInitEventEmitter",
           ).VoipInitEventEmitter.getIsVoipInited();
-          k ||
-            (r("WAWebCallCollection").setPendingCallLink({ isVideo: E }), h());
+          I ||
+            (r("WAWebCallCollection").setPendingCallLink({ isVideo: k }), C());
           try {
             yield o("WAWebEnsureVoipInited").ensureVoipInitialized();
           } catch (e) {
@@ -131,9 +135,9 @@ __d(
               r("WAWebPipController").closePiP());
             return;
           }
-          var I = o("WAWebFrontendContactGetters").getMyUsername(),
-            T = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (T == null) {
+          var T = o("WAWebFrontendContactGetters").getMyUsername(),
+            D = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          if (D == null) {
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -151,9 +155,9 @@ __d(
                   "voip: handleClickCallLink hasVoipStack=true isVideo=",
                   "",
                 ])),
-              E,
+              k,
             ),
-            S.length !== _)
+            R.length !== f)
           ) {
             (o("WALogger").LOG(
               p ||
@@ -162,8 +166,8 @@ __d(
                   ", expected ",
                   "",
                 ])),
-              S.length,
-              _,
+              R.length,
+              f,
             ),
               r("WAWebCallCollection").setPendingCallLink(null),
               r("WAWebPipController").closePiP(),
@@ -172,18 +176,28 @@ __d(
               ));
             return;
           }
-          (g === !0 && T.type === "web"
-            ? yield T.previewAndJoinCallLink(S, E, n, I)
-            : yield T.previewCallLink(S, E, n, I),
-            L === !0 && T.type === "web" && (yield T.setCallVideoMute(!0)),
-            l === !0 && T.type === "web" && (yield T.setCallMute(!0)));
+          var x = yield D.previewCallLink(R, k, n, T, E === !0);
+          (l === !0 && D.type === "web" && (yield D.setCallMute(!0)),
+            h === !0 &&
+              D.type === "web" &&
+              (x === 0
+                ? yield D.joinCallLink()
+                : o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: handleClickCallLink: skipping auto-join, previewCallLink failed with status ",
+                        "",
+                      ])),
+                    String(x),
+                  )));
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.getLandingPageMutePrefs = g),
-      (l.applyCallLinkDevicePrefs = y),
-      (l.handleClickCallLink = C));
+    ((l.getLandingPageMutePrefs = h),
+      (l.updateLandingPageMutePrefs = y),
+      (l.applyCallLinkDevicePrefs = b),
+      (l.handleClickCallLink = v));
   },
   226,
 );

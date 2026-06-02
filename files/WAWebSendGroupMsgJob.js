@@ -174,6 +174,7 @@ __d(
         case "history_bundle":
         case "newsletter_admin_invite":
         case "event_creation":
+        case "sharable_event_invite":
         case "event_edit_encrypted":
         case "poll_edit_encrypted":
         case "poll_add_option_encrypted":

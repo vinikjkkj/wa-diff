@@ -35,8 +35,8 @@ __d(
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][unschedule][action] no reveal-key row for ",
-                  ", nothing to unschedule",
+                  "[scheduled_msg][unschedule][action] no reveal-key for ",
+                  "",
                 ])),
               n,
             );
@@ -118,16 +118,17 @@ __d(
           try {
             yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(i.msgId);
           } catch (e) {
+            var y = r("getErrorSafe")(e);
             o("WALogger")
               .ERROR(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][unschedule][action] failed to delete reveal-key row after successful unschedule for ",
+                    "[scheduled_msg][unschedule][action] reveal-key del failed ",
                     ": ",
                     "",
                   ])),
                 n,
-                r("getErrorSafe")(e),
+                y,
               )
               .sendLogs("scheduled-msg-unschedule-delete-reveal-key-failed");
           }

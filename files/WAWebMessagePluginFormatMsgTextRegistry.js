@@ -36,6 +36,7 @@ __d(
     "WAWebFormatVideoMsgText",
     "WAWebPollsFormatPollAddOptionDecryptedMsgText",
     "WAWebPollsFormatPollMessageText",
+    "WAWebSharableEventInviteFormatMessageText",
     "WAWebStatusMentionFormatMsgText",
   ],
   function (t, n, r, o, a, i, l) {
@@ -338,6 +339,11 @@ __d(
           type: "rich_response",
           subtype: void 0,
           formatMsgText: r("WAWebFormatRichResponseMessageText"),
+        },
+        {
+          type: "sharable_event_invite",
+          subtype: void 0,
+          formatMsgText: r("WAWebSharableEventInviteFormatMessageText"),
         },
         {
           type: "status_notification",

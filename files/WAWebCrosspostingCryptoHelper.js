@@ -4,12 +4,12 @@ __d(
     "WABase64",
     "WACryptoHkdf",
     "WACryptoPrimitives",
+    "WATypedArraysEqual",
     "WAWebAccountLinkingCryptoUtils",
     "WAWebCrossposting.flow",
     "WAWebDirectConnectionX509",
     "asyncToGeneratorRuntime",
     "err",
-    "lodash",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -106,9 +106,8 @@ __d(
                 o("WAWebCrossposting.flow").SharedKey.ServerKey,
               ),
               d = o("WACryptoPrimitives").secretbox.open(l, u, c),
-              p = s(o("WABase64").encodeB64UrlSafe(n)),
-              _ = r("lodash").isEqual(p, d);
-            return _;
+              p = s(o("WABase64").encodeB64UrlSafe(n));
+            return d != null && r("WATypedArraysEqual")(p, d);
           },
         )),
         f.apply(this, arguments)

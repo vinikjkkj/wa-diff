@@ -1,6 +1,7 @@
 __d(
   "WAWebDBProcessReplyMsgs",
   [
+    "WADeepEquals",
     "WANullthrows",
     "WAWebDBMessageSerialization",
     "WAWebDBMsgUtils",
@@ -138,13 +139,17 @@ __d(
     };
     function d(e, t) {
       var n,
-        o = (n = r("lodash")).pickBy(e, function (e, t) {
+        a = (n = r("lodash")).pickBy(e, function (e, t) {
           return e != null && t !== "kind";
         }),
-        a = n.pickBy(t, function (e, t) {
-          return Object.prototype.hasOwnProperty.call(o, t) && t !== "kind";
+        i = n.pickBy(t, function (e, t) {
+          return Object.prototype.hasOwnProperty.call(a, t) && t !== "kind";
         });
-      return (n.defaults(o, c), n.defaults(a, c), !r("lodash").isEqual(o, a));
+      return (
+        n.defaults(a, c),
+        n.defaults(i, c),
+        !o("WADeepEquals").deepEqual(a, i)
+      );
     }
     ((l.processReplyMsgs = e), (l.createQuotedMsgKey = u));
   },

@@ -22,7 +22,7 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: shouldShowSurveyBasedOnInterval: Survey disabled by VoIP stack (userRatingInterval=",
+                "[shouldShowSurveyBasedOnInterval] disabled by stack (user=",
                 ")",
               ])),
             t,
@@ -36,9 +36,9 @@ __d(
       o("WALogger").LOG(
         s ||
           (s = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: shouldShowSurveyBasedOnInterval: abPropInterval=",
-            ", userRatingInterval=",
-            ", effectiveInterval=",
+            "[shouldShowSurveyBasedOnInterval] abProp=",
+            " user=",
+            " eff=",
             "",
           ])),
         n,
@@ -52,8 +52,8 @@ __d(
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: shouldShowSurveyBasedOnInterval: No previous survey, allowing (interval=",
-                ")",
+                "[shouldShowSurveyBasedOnInterval] no prev, allow int=",
+                "",
               ])),
             r,
           ),
@@ -65,10 +65,10 @@ __d(
         o("WALogger").LOG(
           c ||
             (c = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: shouldShowSurveyBasedOnInterval: lastRatingTime=",
-              ", secondsSince=",
-              ", interval=",
-              ", shouldShow=",
+              "[shouldShowSurveyBasedOnInterval] last=",
+              " since=",
+              " int=",
+              " show=",
               "",
             ])),
           i,
@@ -86,7 +86,7 @@ __d(
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: recordSurveyShown: ",
+              "[recordSurveyShown] ",
               "",
             ])),
           e,

@@ -14,7 +14,6 @@ __d(
     "WAWebGetAccountNonce",
     "WAWebGetAdsRelayEnvironment",
     "WAWebLinkedAccountsJob",
-    "WAWebUserPrefsCTWA",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -86,48 +85,51 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, o, a) {
-          var i = yield (e || (e = n("Promise"))).all([d(), s.load(), u()]),
-            l = i[0],
-            c = l.resolveAdsPage,
-            m = l.resolveIdentityForAccountType,
-            p = i[1],
-            _ = i[2],
-            f = yield m(t.accountType);
-          if (f == null)
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var o = t.existingBundle,
+            a = t.flowID,
+            i = t.options,
+            l = yield (e || (e = n("Promise"))).all([d(), s.load(), u()]),
+            c = l[0],
+            m = c.resolveAdsPage,
+            p = c.resolveIdentityForAccountType,
+            _ = l[1],
+            f = l[2],
+            g = yield p(o.accountType);
+          if (g == null)
             throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
               "Failed to resolve identity for ad creation prep (account type: " +
-                t.accountType +
+                o.accountType +
                 ")",
             );
-          var g = yield c(f, t.linkedPagesInfo),
-            h = g.pageId,
-            y = g.pageType,
-            C = _(
+          var h = yield m(g, o.linkedPagesInfo),
+            y = h.pageId,
+            C = h.pageType,
+            b = f(
               {
                 getEnvironment: function () {
-                  return t.relayEnvironment;
+                  return o.relayEnvironment;
                 },
               },
-              p,
+              _,
               {
-                ad_account_id: t.adAccountId,
-                ad_account_type: t.accountType,
-                boost_id: a == null ? void 0 : a.boostId,
-                draft_id: a == null ? void 0 : a.draftId,
-                flow_id: o,
-                page_id: h,
+                ad_account_id: o.adAccountId,
+                ad_account_type: o.accountType,
+                boost_id: i == null ? void 0 : i.boostId,
+                draft_id: i == null ? void 0 : i.draftId,
+                flow_id: a,
+                page_id: y,
               },
             );
-          return babelHelpers.extends({}, t, {
-            adCreationEntrypointReference: C,
-            pageId: h,
-            pageType: y,
+          return babelHelpers.extends({}, o, {
+            adCreationEntrypointReference: b,
+            pageId: y,
+            pageType: C,
           });
         })),
         y.apply(this, arguments)
@@ -334,10 +336,9 @@ __d(
                 t === "FB")
               )
                 return (
-                  o("WAWebUserPrefsCTWA").clearFBIdentity(),
                   o(
                     "WAWebBizNativeAdsStoredFBIdentityStore",
-                  ).notifyFBIdentityChanged(),
+                  ).clearStoredFBIdentity(),
                   null
                 );
               throw e;

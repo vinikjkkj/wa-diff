@@ -87,6 +87,7 @@ __d(
       AYMT_PREAUTH_FIRST_SUCCESSFUL_AUTH_TIP:
         "aymt_preauth_first_successful_auth_tip",
       AYMT_BILLING_ADD_FUNDS_DROPOFF_TIP: "aymt_billing_add_funds_dropoff_tip",
+      AYMT_BRAZIL_CEP_ADDRESS_UPDATE: "aymt_brazil_cep_address_update",
       AYMT_BIZAPP_PREPAY_EMPTY_BALANCE_REMINDER_TIP:
         "aymt_bizapp_prepay_empty_balance_reminder_tip",
       AYMT_BIZAPP_PREPAY_EMPTY_BALANCE_REMINDER_TIP_INBOX:

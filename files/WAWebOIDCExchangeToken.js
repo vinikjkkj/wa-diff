@@ -9,7 +9,6 @@ __d(
     "WAWebResolveAccountTypeAndAdPage",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsCTWA",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
@@ -31,10 +30,7 @@ __d(
                 a.bp_id,
                 "FB",
               );
-            (o("WAWebUserPrefsCTWA").setFbIdentity(i),
-              o(
-                "WAWebBizNativeAdsStoredFBIdentityStore",
-              ).notifyFBIdentityChanged(),
+            (o("WAWebBizNativeAdsStoredFBIdentityStore").storeFBIdentity(i),
               o(
                 "WAWebResolveAccountTypeAndAdPage",
               ).clearSavedOIDCLoginPreference(i),

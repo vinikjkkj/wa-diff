@@ -134,7 +134,8 @@ __d(
                     },
                   ),
                 }));
-          }
+          } else
+            s.push({ type: "add_username", lid: e.lid, username: e.username });
           var f = o("WAWebContactSyncUtils").constructUsyncDeltaQuery(s),
             g = o(
               "WAWebContactSyncLogger",
@@ -313,26 +314,41 @@ __d(
                 );
               },
             );
+            var $ = e.prevLid,
+              P = e.prevUsername;
+            if ($ != null && !$.equals(e.lid) && !r("isStringNullOrEmpty")(P)) {
+              yield y(
+                "companion-contact-client-error-save-syncd-send-username-contact-delete-prev-lid",
+                function () {
+                  return o("WAWebContactEditSync").sendUsernameContactDelete(
+                    $,
+                    P,
+                  );
+                },
+              );
+              var N = o("WAWebContactCollection").ContactCollection.get($);
+              N != null && N.setNotMyContact();
+            }
           }
           if (
             e.prevPhoneNumber != null &&
             e.prevPhoneNumber !== e.phoneNumber
           ) {
-            var $ = e.prevPhoneNumber,
-              P = yield y(
+            var M = e.prevPhoneNumber,
+              w = yield y(
                 "companion-contact-client-error-save-create-user-wid-prev-pn-syncd",
                 function () {
-                  return o("WAWebWidFactory").createUserWidOrThrow($);
+                  return o("WAWebWidFactory").createUserWidOrThrow(M);
                 },
               );
             yield y(
               "companion-contact-client-error-save-syncd-send-contact-delete-prev-pn",
               function () {
-                return o("WAWebContactEditSync").sendContactDelete(P);
+                return o("WAWebContactEditSync").sendContactDelete(w);
               },
             );
-            var N = o("WAWebContactCollection").ContactCollection.get(P);
-            N != null && N.setNotMyContact();
+            var A = o("WAWebContactCollection").ContactCollection.get(w);
+            A != null && A.setNotMyContact();
           }
         })),
         R.apply(this, arguments)

@@ -180,22 +180,21 @@ __d(
           })(e);
     }
     function C(e) {
-      if (e == null) return null;
-      var t = e;
-      switch (t) {
-        case "AURA":
-          return o("WAWebSubscriptionSource").SubscriptionSource.AURA;
-        case "META_NOVA":
-          return o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA;
-        case "SOURCE_BLUE":
-          return o("WAWebSubscriptionSource").SubscriptionSource.BLUE;
-        case "SOURCE_PREMIUM":
-          return o("WAWebSubscriptionSource").SubscriptionSource.PREMIUM;
-        case "MP4B":
-          return o("WAWebSubscriptionSource").SubscriptionSource.MP4B;
-        default:
-          return null;
-      }
+      return e == null
+        ? null
+        : (function (e) {
+            return e === "AURA"
+              ? o("WAWebSubscriptionSource").SubscriptionSource.AURA
+              : e === "META_NOVA"
+                ? o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA
+                : e === "SOURCE_BLUE"
+                  ? o("WAWebSubscriptionSource").SubscriptionSource.BLUE
+                  : e === "SOURCE_PREMIUM"
+                    ? o("WAWebSubscriptionSource").SubscriptionSource.PREMIUM
+                    : e === "MP4B"
+                      ? o("WAWebSubscriptionSource").SubscriptionSource.MP4B
+                      : null;
+          })(e);
     }
     l.fetchSubscriptions = m;
   },

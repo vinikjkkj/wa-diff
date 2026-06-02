@@ -636,24 +636,12 @@ __d(
         M.apply(this, arguments)
       );
     }
-    function w(e, t) {
-      return e.filter(function (e) {
-        return e.status ===
-          o("WAWebSchemaBusinessBroadcastCampaign")
-            .BusinessBroadcastCampaignStatus.SENT ||
-          e.status ===
-            o("WAWebSchemaBusinessBroadcastCampaign")
-              .BusinessBroadcastCampaignStatus.FAILED
-          ? !0
-          : e.deviceId === t;
-      });
+    function w() {
+      return A.apply(this, arguments);
     }
     function A() {
-      return F.apply(this, arguments);
-    }
-    function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -684,7 +672,7 @@ __d(
             i = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId(),
-            l = w(t, i);
+            l = o("WAWebBizBroadcastCampaignAPI").filterCampaignsByDevice(t, i);
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -728,14 +716,19 @@ __d(
             }
           return u;
         })),
-        F.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
     ((l.getThumbnailUrl = C),
       (l.deriveCampaignStatus = R),
       (l.getDisplayMessageBody = k),
-      (l.filterCampaignsByDevice = w),
-      (l.loadBroadcastCampaigns = A));
+      (l.filterCampaignsByDevice = o(
+        "WAWebBizBroadcastCampaignAPI",
+      ).filterCampaignsByDevice),
+      (l.getAllRawCampaignsForCurrentDevice = o(
+        "WAWebBizBroadcastCampaignAPI",
+      ).getAllRawCampaignsForCurrentDevice),
+      (l.loadBroadcastCampaigns = w));
   },
   98,
 );

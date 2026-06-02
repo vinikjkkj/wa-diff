@@ -1,6 +1,6 @@
 __d(
   "WAWebVelocityAnimate",
-  ["asyncToGeneratorRuntime", "lodash", "velocity-animate"],
+  ["asyncToGeneratorRuntime", "velocity-animate"],
   function (t, n, r, o, a, i, l) {
     var e = { FINISH: "finish", STOP: "stop" },
       s = new Map();
@@ -63,8 +63,9 @@ __d(
         n,
         o = r("velocity-animate").Utilities.data(e),
         a = r("velocity-animate").State.delayedElements;
-      r("lodash").forOwn(a, function (t, n) {
-        n !== "count" && (t === e || !t) && delete a[n];
+      Object.keys(a).forEach(function (t) {
+        var n = a[t];
+        t !== "count" && (n === e || !n) && delete a[t];
       });
       var i = (t = r("velocity-animate").State) == null ? void 0 : t.calls;
       if (i && Array.isArray(i))

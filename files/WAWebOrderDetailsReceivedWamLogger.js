@@ -12,6 +12,7 @@ __d(
     "WAWebMsgType",
     "WAWebStructuredMessageBuyerReceiveWamEvent",
     "WAWebStructuredMessageReceiveWamEvent",
+    "WAWebUprPaymentRequest",
     "WAWebWamEnumBizPlatform",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumStructuredMessageClass",
@@ -40,6 +41,8 @@ __d(
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
                     g(t) &&
+                      o("WAWebUprPaymentRequest").parseUprPaymentInfo(t) ==
+                        null &&
                       (yield _(t).catch(function (t) {
                         o("WALogger")
                           .WARN(

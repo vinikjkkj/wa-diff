@@ -303,6 +303,7 @@ __d(
         subtype: void 0,
         msgDisplayClass: r("WAWebRichResponseMsgDisplayClass"),
       },
+      { type: "sharable_event_invite", subtype: void 0, msgDisplayClass: null },
       {
         type: "status_notification",
         subtype: "status_notification_message",

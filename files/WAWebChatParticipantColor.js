@@ -7,7 +7,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebStateUtils",
     "WAWebUserPrefsGeneral",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -59,9 +58,9 @@ __d(
         n = t.colors;
       n && o("WAWebUserPrefsGeneral").setGroupParticipantAssignedColor(t.id, n);
     }
-    function m(t, n, a) {
-      var i = o("WAWebStateUtils").unproxy(t);
-      if (o("WAWebContactGetters").getIsNewsletter(i)) return 1;
+    function m(t, n, r) {
+      var a = o("WAWebStateUtils").unproxy(t);
+      if (o("WAWebContactGetters").getIsNewsletter(a)) return 1;
       if (n == null)
         return (
           o("WALogger")
@@ -71,27 +70,28 @@ __d(
                   "received a null sender wid when getting assigned color-",
                   "",
                 ])),
-              a,
+              r,
             )
             .tags("messaging")
             .sendLogs("unexpected null sender wid for getting assigned color"),
           1
         );
-      var l = i.colors || (i.colors = u(i)),
-        s,
-        d = o("WAMd5").md5(c(n).toString());
-      if ((s = l[d])) return s;
-      var m = {};
-      r("lodash").forOwn(l, function (e, t) {
-        m[e] ? m[e].push(t) : (m[e] = [t]);
+      var i = a.colors || (a.colors = u(a)),
+        l,
+        s = o("WAMd5").md5(c(n).toString());
+      if ((l = i[s])) return l;
+      var d = {};
+      Object.keys(i).forEach(function (e) {
+        var t = i[e];
+        d[t] ? d[t].push(e) : (d[t] = [e]);
       });
-      for (var p = Number.POSITIVE_INFINITY, _ = 17, f = 1; f <= _; f++)
-        if (m[f]) m[f].length < p && ((p = m[f].length), (s = f));
+      for (var m = Number.POSITIVE_INFINITY, p = 17, _ = 1; _ <= p; _++)
+        if (d[_]) d[_].length < m && ((m = d[_].length), (l = _));
         else {
-          s = f;
+          l = _;
           break;
         }
-      return ((l[d] = s), i.saveAssignedColorsDebounced(), s);
+      return ((i[s] = l), a.saveAssignedColorsDebounced(), l);
     }
     ((l.saveAssignedColors = d), (l.getAssignedColor = m));
   },

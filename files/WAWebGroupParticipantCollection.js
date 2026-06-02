@@ -7,6 +7,7 @@ __d(
     "WAWebChatCollection",
     "WAWebCollection",
     "WAWebContactCollection",
+    "WAWebDebounce",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
     "WAWebGroupParticipantComparator",
@@ -18,7 +19,6 @@ __d(
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -72,7 +72,7 @@ __d(
                     ).subgroupJoinedToUnjoined(l, r));
             }
           }),
-          (a.$ParticipantCollection$p_1 = r("lodash").debounce(function () {
+          (a.$ParticipantCollection$p_1 = r("WAWebDebounce")(function () {
             return a.sort();
           }, 1e3)),
           (a.sendForNeededAddRequest = function (e, t) {

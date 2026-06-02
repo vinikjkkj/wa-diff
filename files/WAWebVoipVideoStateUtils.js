@@ -37,12 +37,20 @@ __d(
     function m(e) {
       return e === o("WAWebVoipWaCallEnums").VideoState.Enabled;
     }
+    function p(e, t) {
+      return e
+        ? t
+          ? o("WAWebVoipWaCallEnums").VideoState.Stopped
+          : o("WAWebVoipWaCallEnums").VideoState.Enabled
+        : o("WAWebVoipWaCallEnums").VideoState.Disabled;
+    }
     ((l.isVideoStateInactiveForCallMode = e),
       (l.isVideoInactive = s),
       (l.isVideoPaused = u),
       (l.isVideoMuted = c),
       (l.shouldShowVideo = d),
-      (l.isVideoEnabled = m));
+      (l.isVideoEnabled = m),
+      (l.getInitialCallLinkSelfVideoState = p));
   },
   98,
 );

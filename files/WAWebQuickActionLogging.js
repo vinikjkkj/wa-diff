@@ -9,81 +9,84 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = {
-        status: o("WAWebWamEnumWebcQuickActionSurface")
-          .WEBC_QUICK_ACTION_SURFACE.STATUS,
-        channels: o("WAWebWamEnumWebcQuickActionSurface")
-          .WEBC_QUICK_ACTION_SURFACE.CHANNELS,
-        community_navigation: o("WAWebWamEnumWebcQuickActionSurface")
-          .WEBC_QUICK_ACTION_SURFACE.COMMUNITY_NAVIGATION,
-      },
+      s,
       u = {
-        text_status: (e = o("WAWebWamEnumWebcQuickActionId"))
-          .WEBC_QUICK_ACTION_ID.TEXT_STATUS,
-        photo_video: e.WEBC_QUICK_ACTION_ID.PHOTO_VIDEO,
-        create_channel: e.WEBC_QUICK_ACTION_ID.CREATE_CHANNEL,
-        find_channels: e.WEBC_QUICK_ACTION_ID.FIND_CHANNELS,
-        community_info: e.WEBC_QUICK_ACTION_ID.COMMUNITY_INFO,
-        community_members: e.WEBC_QUICK_ACTION_ID.COMMUNITY_MEMBERS,
-        community_settings: e.WEBC_QUICK_ACTION_ID.COMMUNITY_SETTINGS,
-        community_new_group: e.WEBC_QUICK_ACTION_ID.COMMUNITY_NEW_GROUP,
-        community_add_existing_group:
-          e.WEBC_QUICK_ACTION_ID.COMMUNITY_EXISTING_GROUP,
+        status: (e = o("WAWebWamEnumWebcQuickActionSurface"))
+          .WEBC_QUICK_ACTION_SURFACE.STATUS,
+        channels: e.WEBC_QUICK_ACTION_SURFACE.CHANNELS,
+        community_navigation: e.WEBC_QUICK_ACTION_SURFACE.COMMUNITY_NAVIGATION,
+        chats: e.WEBC_QUICK_ACTION_SURFACE.CHATS,
       },
-      c = !1,
-      d = new Set(),
-      m = new Set();
-    function p(e, t) {
+      c = {
+        text_status: (s = o("WAWebWamEnumWebcQuickActionId"))
+          .WEBC_QUICK_ACTION_ID.TEXT_STATUS,
+        photo_video: s.WEBC_QUICK_ACTION_ID.PHOTO_VIDEO,
+        create_channel: s.WEBC_QUICK_ACTION_ID.CREATE_CHANNEL,
+        find_channels: s.WEBC_QUICK_ACTION_ID.FIND_CHANNELS,
+        community_info: s.WEBC_QUICK_ACTION_ID.COMMUNITY_INFO,
+        community_members: s.WEBC_QUICK_ACTION_ID.COMMUNITY_MEMBERS,
+        community_settings: s.WEBC_QUICK_ACTION_ID.COMMUNITY_SETTINGS,
+        community_new_group: s.WEBC_QUICK_ACTION_ID.COMMUNITY_NEW_GROUP,
+        community_add_existing_group:
+          s.WEBC_QUICK_ACTION_ID.COMMUNITY_EXISTING_GROUP,
+        send_document: s.WEBC_QUICK_ACTION_ID.SEND_DOCUMENT,
+        add_contact: s.WEBC_QUICK_ACTION_ID.ADD_CONTACT,
+        ask_meta_ai: s.WEBC_QUICK_ACTION_ID.ASK_META_AI,
+      },
+      d = !1,
+      m = new Set(),
+      p = new Set();
+    function _(e, t) {
       return e + ":" + t;
     }
-    function _(e, t) {
-      if (!d.has(e)) {
-        d.add(e);
+    function f(e, t) {
+      if (!m.has(e)) {
+        m.add(e);
         var n = new (o(
           "WAWebWebcQuickActionWamEvent",
         ).WebcQuickActionWamEvent)();
         ((n.webcQuickActionEventType = o(
           "WAWebWamEnumWebcQuickActionEventType",
         ).WEBC_QUICK_ACTION_EVENT_TYPE.SURFACE_VIEW),
-          (n.webcQuickActionSurface = s[e]),
+          (n.webcQuickActionSurface = u[e]),
           (n.webcQuickActionNumVisible = t),
-          (n.webcQuickActionIsCustomized = c),
+          (n.webcQuickActionIsCustomized = d),
           n.commit());
       }
     }
-    function f(e, t, n, r) {
-      var a = p(e, t);
-      if (!m.has(a)) {
-        m.add(a);
+    function g(e, t, n, r) {
+      var a = _(e, t);
+      if (!p.has(a)) {
+        p.add(a);
         var i = new (o(
           "WAWebWebcQuickActionWamEvent",
         ).WebcQuickActionWamEvent)();
         ((i.webcQuickActionEventType = o(
           "WAWebWamEnumWebcQuickActionEventType",
         ).WEBC_QUICK_ACTION_EVENT_TYPE.IMPRESSION),
-          (i.webcQuickActionSurface = s[e]),
-          (i.webcQuickActionId = u[t]),
+          (i.webcQuickActionSurface = u[e]),
+          (i.webcQuickActionId = c[t]),
           (i.webcQuickActionSlotPosition = n),
           (i.webcQuickActionNumVisible = r),
-          (i.webcQuickActionIsCustomized = c),
+          (i.webcQuickActionIsCustomized = d),
           i.commit());
       }
     }
-    function g(e, t, n, r) {
+    function h(e, t, n, r) {
       var a = new (o("WAWebWebcQuickActionWamEvent").WebcQuickActionWamEvent)();
       ((a.webcQuickActionEventType = o(
         "WAWebWamEnumWebcQuickActionEventType",
       ).WEBC_QUICK_ACTION_EVENT_TYPE.TAP),
-        (a.webcQuickActionSurface = s[e]),
-        (a.webcQuickActionId = u[t]),
+        (a.webcQuickActionSurface = u[e]),
+        (a.webcQuickActionId = c[t]),
         (a.webcQuickActionSlotPosition = n),
         (a.webcQuickActionNumVisible = r),
-        (a.webcQuickActionIsCustomized = c),
+        (a.webcQuickActionIsCustomized = d),
         a.commit());
     }
-    ((l.logQuickActionSurfaceView = _),
-      (l.logQuickActionImpression = f),
-      (l.logQuickActionTap = g));
+    ((l.logQuickActionSurfaceView = f),
+      (l.logQuickActionImpression = g),
+      (l.logQuickActionTap = h));
   },
   98,
 );

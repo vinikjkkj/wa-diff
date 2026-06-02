@@ -1633,6 +1633,14 @@ __d(
       GUIDANCE_EXPERIMENT_DEBUGGER_POCKET_DELTOID_REFRESH:
         "guidance_experiment_debugger_pocket_deltoid_refresh",
       MAIBA_PUBLISH_BAND_AID_APPLIED: "maiba_publish_band_aid_applied",
+      MAIBA_AUDIENCE_CARD_IMPRESSION: "maiba_audience_card_impression",
+      MAIBA_AUDIENCE_CARD_SELECTED: "maiba_audience_card_selected",
+      MAIBA_AUDIENCE_PENCIL_EDIT_CLICKED: "maiba_audience_pencil_edit_clicked",
+      MAIBA_AUDIENCE_EDIT_SAVED: "maiba_audience_edit_saved",
+      MAIBA_AUDIENCE_REVERT_CLICKED: "maiba_audience_revert_clicked",
+      MAIBA_AUDIENCE_DISMISSED: "maiba_audience_dismissed",
+      MAIBA_AUDIENCE_KEPT_AFTER_EDIT: "maiba_audience_kept_after_edit",
+      MAIBA_AUDIENCE_SUBMIT_OUTCOME: "maiba_audience_submit_outcome",
       PROACTIVE_RESULTS_DELIVERY_SCHEDULED:
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:

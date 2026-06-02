@@ -1880,7 +1880,7 @@ __d(
                     .ERROR(
                       b ||
                         (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "[presence] getPresenceKey: lid-migrated regular user has no accountLid",
+                          "[presence] getPresenceKey: lid-migrated user no accountLid",
                         ])),
                     )
                     .sendLogs("presence-key-missing-account-lid"),

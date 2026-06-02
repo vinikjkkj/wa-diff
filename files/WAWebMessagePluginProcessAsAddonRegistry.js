@@ -114,6 +114,7 @@ __d(
       { type: "revoked", processor: null },
       { type: "revoked", processor: null },
       { type: "rich_response", processor: null },
+      { type: "sharable_event_invite", processor: null },
       { type: "status_notification", processor: null },
       { type: "sticker", processor: null },
       { type: "sticker-pack", processor: null },

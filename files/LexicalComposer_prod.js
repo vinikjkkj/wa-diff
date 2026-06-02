@@ -13,34 +13,30 @@ __d(
     var _require_closure_react;
     var o =
         _require_closure_react || (_require_closure_react = require("react")),
-      n = _require_closure_react;
-    var r =
-        "undefined" != typeof window &&
-        void 0 !== window.document &&
-        void 0 !== window.document.createElement,
-      i = r ? o.useLayoutEffect : o.useEffect,
-      a = { tag: require("Lexical").HISTORY_MERGE_TAG };
+      r = _require_closure_react;
+    var n = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect,
+      i = { tag: require("Lexical").HISTORY_MERGE_TAG };
     exports.LexicalComposer = function (_ref) {
-      var c = _ref.initialConfig,
-        s = _ref.children;
-      var l = o.useMemo(function () {
-        var o = c.theme,
-          n = c.namespace,
-          i = c.nodes,
-          s = c.onError,
-          l = c.editorState,
-          d = c.html,
+      var a = _ref.initialConfig,
+        c = _ref.children;
+      var s = o.useMemo(function () {
+        var o = a.theme,
+          r = a.namespace,
+          n = a.nodes,
+          c = a.onError,
+          s = a.editorState,
+          l = a.html,
           u = require("LexicalComposerContext").createLexicalComposerContext(
             null,
             o,
           ),
-          m = require("Lexical").createEditor({
-            editable: c.editable,
-            html: d,
-            namespace: n,
-            nodes: i,
+          d = require("Lexical").createEditor({
+            editable: a.editable,
+            html: l,
+            namespace: r,
+            nodes: n,
             onError: function onError(e) {
-              return s(e, m);
+              return c(e, d);
             },
             theme: o,
           });
@@ -51,42 +47,44 @@ __d(
               e.update(function () {
                 var o = require("Lexical").$getRoot();
                 if (o.isEmpty()) {
-                  var _n = require("Lexical").$createParagraphNode();
-                  o.append(_n);
-                  var _i = r ? document.activeElement : null;
+                  var _r = require("Lexical").$createParagraphNode();
+                  o.append(_r);
+                  var _n = require("Lexical").CAN_USE_DOM
+                    ? document.activeElement
+                    : null;
                   (null !== require("Lexical").$getSelection() ||
-                    (null !== _i && _i === e.getRootElement())) &&
-                    _n.select();
+                    (null !== _n && _n === e.getRootElement())) &&
+                    _r.select();
                 }
-              }, a);
+              }, i);
             else if (null !== o)
               switch (typeof o) {
                 case "string": {
                   var _t = e.parseEditorState(o);
-                  e.setEditorState(_t, a);
+                  e.setEditorState(_t, i);
                   break;
                 }
                 case "object":
-                  e.setEditorState(o, a);
+                  e.setEditorState(o, i);
                   break;
                 case "function":
                   e.update(function () {
                     require("Lexical").$getRoot().isEmpty() && o(e);
-                  }, a);
+                  }, i);
               }
-          })(m, l),
-          [m, u]
+          })(d, s),
+          [d, u]
         );
       }, []);
       return (
-        i(function () {
-          var e = c.editable,
-            t = l[0];
+        n(function () {
+          var e = a.editable,
+            t = s[0];
           t.setEditable(void 0 === e || e);
         }, []),
-        n.jsx(
+        r.jsx(
           require("LexicalComposerContext").LexicalComposerContext.Provider,
-          { value: l, children: s },
+          { value: s, children: c },
         )
       );
     };

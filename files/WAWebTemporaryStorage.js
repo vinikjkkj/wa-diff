@@ -6,7 +6,6 @@ __d(
     "WATypeUtils",
     "WAWebSessionStorage",
     "WAWebUserPrefsKeys",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -37,8 +36,11 @@ __d(
               (this.dataStore = {}),
               r("WANullthrows")(r("WAWebSessionStorage")).clear(),
               o &&
-                r("lodash").forOwn(o, function (e, t) {
-                  r("WANullthrows")(r("WAWebSessionStorage")).setItem(t, e);
+                Object.keys(o).forEach(function (e) {
+                  r("WANullthrows")(r("WAWebSessionStorage")).setItem(
+                    e,
+                    String(o[e]),
+                  );
                 }),
               (e || (e = n("Promise"))).resolve()
             );

@@ -143,6 +143,7 @@ __d(
       { type: "revoked", subtype: "admin", renderMsg: null },
       { type: "revoked", subtype: "sender", renderMsg: null },
       { type: "rich_response", subtype: void 0, renderMsg: null },
+      { type: "sharable_event_invite", subtype: void 0, renderMsg: null },
       {
         type: "status_notification",
         subtype: "status_notification_message",

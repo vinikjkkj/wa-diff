@@ -26,6 +26,14 @@ __d(
             );
             return;
           }
+          if (e.type === "add_username") {
+            n.withUser(
+              new (o("WAWebUsyncUser").USyncUser)()
+                .withId(e.lid)
+                .withUsername(e.username),
+            );
+            return;
+          }
           e.type;
           var t = e.contact,
             a = new (o("WAWebUsyncUser").USyncUser)().withType("delete");
@@ -66,6 +74,14 @@ __d(
           if (e.type === "add") {
             t.withUser(
               new (o("WAWebUsyncUser").USyncUser)().withPhone(e.phoneNumber),
+            );
+            return;
+          }
+          if (e.type === "add_username") {
+            t.withUser(
+              new (o("WAWebUsyncUser").USyncUser)()
+                .withId(e.lid)
+                .withUsername(e.username),
             );
             return;
           }

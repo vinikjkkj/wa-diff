@@ -347,6 +347,11 @@ __d(
           quotedMsgThumbnailIcon: null,
         },
         {
+          type: "sharable_event_invite",
+          subtype: void 0,
+          quotedMsgThumbnailIcon: null,
+        },
+        {
           type: "status_notification",
           subtype: "status_notification_message",
           quotedMsgThumbnailIcon: null,

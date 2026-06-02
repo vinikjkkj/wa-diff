@@ -395,6 +395,11 @@ __d(
         getAriaLabelForMsgTextComponent: null,
       },
       {
+        type: "sharable_event_invite",
+        subtype: void 0,
+        getAriaLabelForMsgTextComponent: null,
+      },
+      {
         type: "status_notification",
         subtype: "status_notification_message",
         getAriaLabelForMsgTextComponent: null,

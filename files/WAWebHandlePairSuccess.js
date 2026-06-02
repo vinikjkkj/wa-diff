@@ -342,25 +342,34 @@ __d(
             n = t.isChatDbLidMigrated,
             a = t.isSyncdPureLidSession,
             i = t.isSyncdSnapshotRecoveryEnabled,
-            l = t.subscriptionSyncPayload;
-          (n === !0 &&
-            (yield o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.setIsLidMigrated(
-              !0,
-              o("WAWebUserPrefsTypes").LidMigrationSource.HISTORY,
-              a,
-            ),
-            new (o(
-              "WAWebLid11MigrationLifecycleWamEvent",
-            ).Lid11MigrationLifecycleWamEvent)({
-              migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                .MIGRATION_STAGE_ENUM.COMPANION_MIGRATED_ON_NEW_PAIRING,
-              webClientDidPairingStanzaIndicated1x1MigrationThisSession: !0,
-              isLocally1x1MigratedFromDb: o(
+            l = t.subscriptionSyncPayload,
+            s = n === !0;
+          (!s &&
+            r("gkx")("10404") &&
+            (o("WAWebCoreActionsODS").logPairError(),
+            o("WAWebCoreActionsODS").logSessionForcedLogout(),
+            yield o("WAWebSocketLogoutJob").socketLogout(
+              o("WAWebLogoutReasonConstants").LogoutReason
+                .LidMigrationUnmigratedPrimary,
+            )),
+            s &&
+              (yield o(
                 "WAWebLid1X1MigrationGating",
-              ).Lid1X1MigrationUtils.isLidMigrated(),
-            }).commit()),
+              ).Lid1X1MigrationUtils.setIsLidMigrated(
+                !0,
+                o("WAWebUserPrefsTypes").LidMigrationSource.HISTORY,
+                a,
+              ),
+              new (o(
+                "WAWebLid11MigrationLifecycleWamEvent",
+              ).Lid11MigrationLifecycleWamEvent)({
+                migrationStage: o("WAWebWamEnumMigrationStageEnum")
+                  .MIGRATION_STAGE_ENUM.COMPANION_MIGRATED_ON_NEW_PAIRING,
+                webClientDidPairingStanzaIndicated1x1MigrationThisSession: !0,
+                isLocally1x1MigratedFromDb: o(
+                  "WAWebLid1X1MigrationGating",
+                ).Lid1X1MigrationUtils.isLidMigrated(),
+              }).commit()),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
