@@ -402,25 +402,11 @@ __d(
       );
     }
     function R(e, t) {
-      var n, r;
       if ((t === void 0 && (t = !1), o("WAWebMsgGetters").getIsBotQuery(e)))
         return !1;
-      var a = o("WAWebFrontendMsgGetters").getChat(e);
-      if (
-        (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          a != null &&
-          (n = a.id) != null &&
-          n.isUser() &&
-          ((a == null || (r = a.contact) == null ? void 0 : r.isHosted) ===
-            !0 ||
-            o(
-              "WAWebUserPrefsMultiDevice",
-            ).getIsHostedMeAccountFromLocalStorage() === !0) &&
-          !o("WAWebABProps").getABPropConfigValue("coex_edit_msg_enabled")) ||
-        S(a)
-      )
-        return !1;
-      var i =
+      var n = o("WAWebFrontendMsgGetters").getChat(e);
+      if (S(n)) return !1;
+      var r =
         (o("WAWebMsgGetters").getIsEdited(e) &&
           o("WAWebMsgGetters").getIsFailed(e) &&
           !t) ||
@@ -430,16 +416,16 @@ __d(
           o("WAWebFrontendMsgGetters").getChat(e),
         )
       ) {
-        var l, s;
+        var a, i;
         return (
-          ((l =
-            (s = o("WAWebFrontendMsgGetters").getChat(e).newsletterMetadata) ==
+          ((a =
+            (i = o("WAWebFrontendMsgGetters").getChat(e).newsletterMetadata) ==
             null
               ? void 0
-              : s.iAmAdminOrOwner()) != null
-            ? l
+              : i.iAmAdminOrOwner()) != null
+            ? a
             : !1) &&
-          i &&
+          r &&
           !e.isForwarded
         );
       }
@@ -450,7 +436,7 @@ __d(
           o(
             "WAWebMessageEditGatingUtils",
           ).isCrossDeviceMessageEditingEnabled()) &&
-        i &&
+        r &&
         o("WAWebFrontendMsgGetters").getChat(e).canSend &&
         !o("WAWebFrontendMsgGetters").getChat(e).contact.isEnterprise
       );

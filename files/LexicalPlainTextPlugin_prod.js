@@ -1,6 +1,7 @@
 __d(
   "LexicalPlainTextPlugin.prod",
   [
+    "Lexical",
     "LexicalComposerContext",
     "LexicalDragon",
     "LexicalExtension",
@@ -24,7 +25,7 @@ __d(
     var _require_closure_react;
     var o =
         _require_closure_react || (_require_closure_react = require("react")),
-      c = _require_closure_react;
+      s = _require_closure_react;
     function d(e) {
       var t = new URL("https://lexical.dev/docs/error"),
         n = new URLSearchParams();
@@ -50,13 +51,8 @@ __d(
         )
       );
     }
-    var x =
-      "undefined" != typeof window &&
-      void 0 !== window.document &&
-      void 0 !== window.document.createElement
-        ? o.useLayoutEffect
-        : o.useEffect;
-    function f(_ref) {
+    var f = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
+    function E(_ref) {
       var e = _ref.editor,
         r = _ref.ErrorBoundary;
       return (function (e, r) {
@@ -66,7 +62,7 @@ __d(
           t = _o$useState[0],
           n = _o$useState[1];
         return (
-          x(
+          f(
             function () {
               return e.registerDecoratorListener(function (e) {
                 require("ReactDOM").flushSync(function () {
@@ -86,20 +82,20 @@ __d(
             function () {
               var n = [],
                 a = Object.keys(t);
-              for (var _s = 0; _s < a.length; _s++) {
-                var _u = a[_s],
-                  _l = c.jsx(r, {
+              for (var _c = 0; _c < a.length; _c++) {
+                var _u = a[_c],
+                  _l = s.jsx(r, {
                     onError: function onError(r) {
                       return e._onError(r);
                     },
-                    children: c.jsx(o.Suspense, {
+                    children: s.jsx(o.Suspense, {
                       fallback: null,
                       children: t[_u],
                     }),
                   }),
-                  _d = e.getElementByKey(_u);
-                null !== _d &&
-                  n.push(require("ReactDOM").createPortal(_l, _d, _u));
+                  _x = e.getElementByKey(_u);
+                null !== _x &&
+                  n.push(require("ReactDOM").createPortal(_l, _x, _u));
               }
               return n;
             },
@@ -108,7 +104,7 @@ __d(
         );
       })(e, r);
     }
-    function E(_ref2) {
+    function g(_ref2) {
       var e = _ref2.editor,
         r = _ref2.ErrorBoundary;
       return (function (e) {
@@ -127,29 +123,29 @@ __d(
         return !1;
       })(e)
         ? null
-        : c.jsx(f, { editor: e, ErrorBoundary: r });
+        : s.jsx(E, { editor: e, ErrorBoundary: r });
     }
-    function g(e) {
+    function L(e) {
       return e
         .getEditorState()
         .read(require("LexicalText").$canShowPlaceholderCurry(e.isComposing()));
     }
-    function m(_ref3) {
+    function h(_ref3) {
       var t = _ref3.content;
       var _e$useLexicalComposer =
           require("LexicalComposerContext").useLexicalComposerContext(),
         n = _e$useLexicalComposer[0],
         i = (function (e) {
           var _o$useState2 = o.useState(function () {
-              return g(e);
+              return L(e);
             }),
             r = _o$useState2[0],
             t = _o$useState2[1];
           return (
-            x(
+            f(
               function () {
                 function r() {
-                  var r = g(e);
+                  var r = L(e);
                   t(r);
                 }
                 return (
@@ -169,8 +165,8 @@ __d(
             r
           );
         })(n),
-        c = require("useLexicalEditable").useLexicalEditable();
-      return i ? ("function" == typeof t ? t(c) : t) : null;
+        a = require("useLexicalEditable").useLexicalEditable();
+      return i ? ("function" == typeof t ? t(a) : t) : null;
     }
     exports.PlainTextPlugin = function (_ref4) {
       var r = _ref4.contentEditable,
@@ -182,7 +178,7 @@ __d(
         o = _e$useLexicalComposer2[0];
       return (
         (function (e) {
-          x(
+          f(
             function () {
               return require("LexicalUtils").mergeRegister(
                 require("LexicalPlainText").registerPlainText(e),
@@ -192,11 +188,11 @@ __d(
             [e],
           );
         })(o),
-        c.jsxs(c.Fragment, {
+        s.jsxs(s.Fragment, {
           children: [
             r,
-            c.jsx(m, { content: t }),
-            c.jsx(E, { editor: o, ErrorBoundary: n }),
+            s.jsx(h, { content: t }),
+            s.jsx(g, { editor: o, ErrorBoundary: n }),
           ],
         })
       );

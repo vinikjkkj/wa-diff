@@ -90,9 +90,8 @@ __d(
         String.fromCodePoint(128075),
         String.fromCodePoint(127922),
       ],
-      h = [String.fromCodePoint(127950), String.fromCodePoint(127950, 65039)],
-      y = [String.fromCodePoint(9917), String.fromCodePoint(9917, 65039)],
-      C = {
+      h = [String.fromCodePoint(9917), String.fromCodePoint(9917, 65039)],
+      y = {
         AnimatedAsset1FA87: "v1_Maracas_1FA87",
         AnimatedAsset1F494: "v1_Broken_heart_1F494",
         AnimatedAsset1F44F: "v2_Clapping_hands_1F44F",
@@ -127,7 +126,7 @@ __d(
         AnimatedAsset2728: "v1_Sparkles_2728",
         AnimatedAsset1F3CE: "v1_race_car_1F3CE",
       },
-      b = {
+      C = {
         AnimatedAsset1FA87: "v1_Maracas_1FA87",
         AnimatedAsset1F494: "v1_Broken_heart_1F494",
         AnimatedAsset1F44F: "v2_iOS_clapping_hands_1F44F",
@@ -162,23 +161,23 @@ __d(
         AnimatedAsset2728: "v1_Sparkles_2728",
         AnimatedAsset1F3CE: "v1_race_car_1F3CE",
       },
-      v = "fifa_soccer_ball_v3",
-      S = "soccer_test_ball_v1";
-    function R() {
+      b = "fifa_soccer_ball_v3",
+      v = "soccer_test_ball_v1";
+    function S() {
       return o(
         "WAWebAnimatedEmojiGatingUtils",
       ).isAnimatedEmojiSoccerBallProdEnabled()
-        ? v
-        : S;
+        ? b
+        : v;
     }
-    function L(e) {
+    function R(e) {
       var t = [
         o("WAWebMobilePlatforms").PLATFORMS.IPAD,
         o("WAWebMobilePlatforms").PLATFORMS.IPHONE,
         o("WAWebMobilePlatforms").PLATFORMS.SMBI,
       ].includes(e)
-        ? b
-        : C;
+        ? C
+        : y;
       return [
         [String.fromCodePoint(128536), "" + t.AnimatedAsset1F618],
         [String.fromCodePoint(10084, 65039), "" + t.AnimatedAsset2764FE0F],
@@ -217,28 +216,25 @@ __d(
         [String.fromCodePoint(10024), "" + t.AnimatedAsset2728],
         [String.fromCodePoint(127950), "" + t.AnimatedAsset1F3CE],
         [String.fromCodePoint(127950, 65039), "" + t.AnimatedAsset1F3CE],
-        [String.fromCodePoint(9917), R()],
-        [String.fromCodePoint(9917, 65039), R()],
+        [String.fromCodePoint(9917), S()],
+        [String.fromCodePoint(9917, 65039), S()],
       ];
     }
-    function E() {
+    function L() {
       var e = [];
       return (
         o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiSet1Enabled() &&
           (e = [].concat(e, f)),
         o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiFinalSetEnabled() &&
           (e = [].concat(e, g)),
-        o(
-          "WAWebAnimatedEmojiGatingUtils",
-        ).isAnimatedEmojiMercedesRacingEnabled() && (e = [].concat(e, h)),
         o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiSoccerBallEnabled() &&
-          (e = [].concat(e, y)),
+          (e = [].concat(e, h)),
         e
       );
     }
-    function k(e) {
-      var t = E(),
-        n = L(e),
+    function E(e) {
+      var t = L(),
+        n = R(e),
         r = n.filter(function (e) {
           var n = e[0];
           return t.includes(n);
@@ -253,8 +249,8 @@ __d(
       (l.LargeEmojiSize = m),
       (l.CATEGORY_ORDERING = p),
       (l.HEART_EMOJIS = _),
-      (l.getSupportedAnimatedEmojis = E),
-      (l.getSupportedAnimatedEmojisAssetIdsMapping = k));
+      (l.getSupportedAnimatedEmojis = L),
+      (l.getSupportedAnimatedEmojisAssetIdsMapping = E));
   },
   98,
 );

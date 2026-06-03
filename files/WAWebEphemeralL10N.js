@@ -211,7 +211,7 @@ __d(
                       )
                     : e === _.OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number} seconds after it\'s sent.","_1":"This message will disappear from this chat 1 second after it\'s sent."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} seconds.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 second."}',
                           [s._plural(t, "number")],
                         )
                       : e === _.Explanation
@@ -331,7 +331,7 @@ __d(
                       )
                     : e === _.OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number} minutes after it\'s sent.","_1":"This message will disappear from this chat 1 minute after it\'s sent."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} minutes.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 minute."}',
                           [s._plural(t, "number")],
                         )
                       : e === _.Explanation
@@ -450,7 +450,7 @@ __d(
                       ])
                     : e === _.OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number} hours after it\'s sent.","_1":"This message will disappear from this chat 1 hour after it\'s sent."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} hours.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 hour."}',
                           [s._plural(t, "number")],
                         )
                       : e === _.Explanation
@@ -569,7 +569,7 @@ __d(
                       ])
                     : e === _.OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number} days after it\'s sent.","_1":"This message will disappear from this chat 1 day after it\'s sent."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} days.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 day."}',
                           [s._plural(t, "number")],
                         )
                       : e === _.Explanation

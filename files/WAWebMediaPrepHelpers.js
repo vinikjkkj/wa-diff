@@ -3,7 +3,6 @@ __d(
   [
     "invariant",
     "WALogger",
-    "WAWebABProps",
     "WAWebChatGetters",
     "WAWebFrontendChatGetters",
     "WAWebMediaGatingUtils",
@@ -34,11 +33,7 @@ __d(
     }
     function c(e) {
       var t = o("WAWebMmsMediaTypes").getMsgMediaType(e);
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "upload_document_thumb_mms_enabled",
-        ) && t === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT
-      );
+      return t === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT;
     }
     var d = [
       o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO,

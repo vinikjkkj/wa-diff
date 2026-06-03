@@ -387,6 +387,12 @@ __d(
       p2p_pills_auto_send_messages: [30208, "bool", !1, !1],
       p2p_pills_enabled: [27959, "bool", !1, !1],
       p2p_pills_enabled_for_ineligible_contacts: [29715, "bool", !1, !1],
+      p2p_pills_entries: [
+        31469,
+        "string",
+        '{"enabled_for": {"sender": true,"receiver": true},"enabled_on": {"contact_card": true,"p2p_link": true,"phone_number": true,"username": true}}',
+        '{"enabled_for": {"sender": true,"receiver": true},"enabled_on": {"contact_card": true,"p2p_link": true,"phone_number": true,"username": true}}',
+      ],
       p2p_pills_graphql_enabled: [30629, "bool", !1, !1],
       p2p_pills_max_wait_on_contact_card_send: [30943, "int", 5, 5],
       p2p_pills_new_business_metadata_enabled: [30578, "bool", !1, !1],

@@ -13,6 +13,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBaseModel",
+    "WAWebCanonicalUtils",
     "WAWebClearCredentials",
     "WAWebConnModel",
     "WAWebCrashlog",
@@ -389,6 +390,7 @@ __d(
               (t === void 0 &&
                 (t = o("WAWebLogoutReasonConstants").LogoutReason
                   .UserInitiated),
+              o("WAWebCanonicalUtils").setCanonicalReloadPending(null),
               r("WAWebLocalStorage") == null ||
                 r("WAWebLocalStorage").removeItem("WebEncKeySalt"),
               r("WAWebLocalStorage") == null ||

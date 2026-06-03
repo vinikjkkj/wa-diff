@@ -9,7 +9,7 @@ __d(
     }
     function u() {
       return o("WAWebAfterReadUtils").isAfterReadEnabled()
-        ? s._(/*BTDS*/ "Set your own timer.")
+        ? s._(/*BTDS*/ "Set your own default timer.")
         : s._(/*BTDS*/ "Click to set your own default timer.");
     }
     function c() {

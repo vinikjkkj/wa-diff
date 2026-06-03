@@ -50,6 +50,8 @@ __d(
       BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
       CUSTOMER_MANAGER_INTRO: "customer_manager_intro",
       CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
+      NEWSLETTER_STATUS_INTRO: "newsletter_status_intro",
+      NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -159,6 +161,8 @@ __d(
           BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
           CUSTOMER_MANAGER_INTRO: "customer_manager_intro",
           CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
+          NEWSLETTER_STATUS_INTRO: "newsletter_status_intro",
+          NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
         },
       },
       g = {

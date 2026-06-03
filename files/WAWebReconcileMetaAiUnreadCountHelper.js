@@ -51,17 +51,20 @@ __d(
               a++
             ) {
               var i = r[a];
-              i.status === "rejected" &&
+              if (i.status === "rejected") {
+                var l = t[a].toString(),
+                  c = String(i.reason);
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[reconcile-unread] reconcileForBotAndNotifyFrontend failed for bot ",
-                      ": ",
+                      "[reconcile-unread] reconcileForBotAndNotifyFrontend failed ",
+                      " ",
                       "",
                     ])),
-                  t[a].toString(),
-                  String(i.reason),
+                  l,
+                  c,
                 );
+              }
             }
         })),
         m.apply(this, arguments)

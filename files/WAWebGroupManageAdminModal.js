@@ -2,6 +2,7 @@ __d(
   "WAWebGroupManageAdminModal",
   [
     "fbt",
+    "WAArrayDifferenceWith",
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebModalManager",
@@ -10,7 +11,6 @@ __d(
     "WAWebSelectModalFooter.react",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
-    "lodash",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -37,42 +37,46 @@ __d(
             a = t.groupType === o("WAWebGroupType").GroupType.COMMUNITY;
           return e || (o("WAWebUserPrefsMeUser").isMeAccount(n.id) && !a);
         },
-        l = function (a) {
-          var n = a.selectedItems,
-            i = n,
-            l = t.participants,
-            s = l.filter(function (e) {
+        l = function (r) {
+          var n = r.selectedItems,
+            a = n,
+            i = t.participants,
+            l = i.filter(function (e) {
               return e.isAdmin;
             }),
-            u = r("lodash")
-              .differenceWith(i, s, function (e, t) {
+            s = o("WAArrayDifferenceWith")
+              .differenceWith(a, l, function (e, t) {
                 return e.id.equals(t.id);
               })
               .map(function (e) {
-                return l.assertGet(e.id);
+                return i.assertGet(e.id);
               }),
-            c = r("lodash").differenceWith(s, i, function (e, t) {
-              return e.id.equals(t.id);
-            });
-          (u.length > 0 &&
-            (u.forEach(function (e) {
+            u = o("WAArrayDifferenceWith").differenceWith(
+              l,
+              a,
+              function (e, t) {
+                return e.id.equals(t.id);
+              },
+            );
+          (s.length > 0 &&
+            (s.forEach(function (e) {
               e.contact.pendingAction++;
             }),
             o("WAWebModifyParticipantsGroupAction")
-              .promoteParticipants(e, u)
+              .promoteParticipants(e, s)
               .finally(function () {
-                u.forEach(function (e) {
+                s.forEach(function (e) {
                   e.contact.pendingAction--;
                 });
               })),
-            c.length > 0 &&
-              (c.forEach(function (e) {
+            u.length > 0 &&
+              (u.forEach(function (e) {
                 e.contact.pendingAction++;
               }),
               o("WAWebModifyParticipantsGroupAction")
-                .demoteParticipants(e, c)
+                .demoteParticipants(e, u)
                 .finally(function () {
-                  c.forEach(function (e) {
+                  u.forEach(function (e) {
                     e.contact.pendingAction--;
                   });
                 })),

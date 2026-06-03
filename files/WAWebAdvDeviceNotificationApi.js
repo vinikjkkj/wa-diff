@@ -25,11 +25,7 @@ __d(
           var a = { notifications: [], chatIds: [] };
           if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
             var i = [];
-            if (
-              t.equals(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              )
-            )
+            if (o("WAWebUserPrefsMeUser").isMeAccount(t))
               o("WALogger")
                 .ERROR(
                   e ||

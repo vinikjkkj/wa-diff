@@ -1,6 +1,6 @@
 __d(
   "LexicalClearEditorPlugin.prod",
-  ["LexicalComposerContext", "LexicalExtension", "react"],
+  ["Lexical", "LexicalComposerContext", "LexicalExtension", "react"],
   function $module_LexicalClearEditorPlugin_prod(
     global,
     require,
@@ -11,25 +11,20 @@ __d(
   ) {
     "use strict";
     var _require_closure_react;
-    var o =
+    var i =
       _require_closure_react || (_require_closure_react = require("react"));
-    var r =
-      "undefined" != typeof window &&
-      void 0 !== window.document &&
-      void 0 !== window.document.createElement
-        ? o.useLayoutEffect
-        : o.useEffect;
+    var o = require("Lexical").CAN_USE_DOM ? i.useLayoutEffect : i.useEffect;
     exports.ClearEditorPlugin = function (_ref) {
-      var o = _ref.onClear;
-      var _t$useLexicalComposer =
+      var t = _ref.onClear;
+      var _r$useLexicalComposer =
           require("LexicalComposerContext").useLexicalComposerContext(),
-        n = _t$useLexicalComposer[0];
+        i = _r$useLexicalComposer[0];
       return (
-        r(
+        o(
           function () {
-            return require("LexicalExtension").registerClearEditor(n, o);
+            return require("LexicalExtension").registerClearEditor(i, t);
           },
-          [n, o],
+          [i, t],
         ),
         null
       );

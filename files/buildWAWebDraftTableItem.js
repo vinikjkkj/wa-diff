@@ -41,6 +41,7 @@ __d(
             pageId: a,
             profilePictureUrl: null,
             reach: 0,
+            regulatedCategories: [],
             spend: null,
             startTime: null,
             thumbnailUrl: n,

@@ -27,7 +27,6 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
-    "WAWebThreadsGating",
     "WAWebURLUtils",
     "WAWebWid",
     "WAWebWidFactory",
@@ -422,10 +421,7 @@ __d(
           botMetadata: m,
         });
       }
-      if (
-        !r("isArrayNullOrEmpty")(e.threadIds) &&
-        o("WAWebThreadsGating").isThreadsInfraEnabled()
-      ) {
+      if (!r("isArrayNullOrEmpty")(e.threadIds)) {
         var p = o("WAWebGenerateThreadIds").generateThreadIds(e);
         c.messageContextInfo = babelHelpers.extends({}, c.messageContextInfo, {
           threadId: p,

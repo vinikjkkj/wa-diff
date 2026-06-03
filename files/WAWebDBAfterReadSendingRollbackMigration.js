@@ -43,12 +43,18 @@ __d(
               "after_read_sending_enabled",
             ) === !0
           ) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "migrateAfterReadSendingRollback: feature enabled; skip",
-                ])),
-            );
+            (o(
+              "WAWebUserPrefsAfterReadSendingRollbackMigration",
+            ).getAfterReadSendingRollbackMigrationState() !== "migrated" &&
+              o(
+                "WAWebUserPrefsAfterReadSendingRollbackMigration",
+              ).setAfterReadSendingRollbackMigrationState("migrated"),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "migrateAfterReadSendingRollback: feature enabled; skip",
+                  ])),
+              ));
             return;
           }
           var t = o(

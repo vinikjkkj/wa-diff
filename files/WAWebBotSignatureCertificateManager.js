@@ -3,7 +3,9 @@ __d(
   [
     "WACryptoPrimitives",
     "WALogger",
+    "WAWebBotCertificateCachingSystem",
     "WAWebBotCertificateRevocationService",
+    "WAWebBotSignatureRootCertificate",
     "WAWebCertificateUtils",
     "asyncToGeneratorRuntime",
     "err",
@@ -60,33 +62,53 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebCertificateUtils").parseCertificateChain(e);
-          if (r.length === 0) throw new h("Certificate chain is empty");
-          var a = r[0],
-            i = n != null ? n : new Date();
-          if (!o("WAWebCertificateUtils").isCertificateValidAtTime(a, i))
+          var r = n != null ? n : new Date(),
+            a = r.getTime(),
+            i = o(
+              "WAWebBotSignatureRootCertificate",
+            ).getRootCertificateVersion(),
+            l = yield o(
+              "WAWebBotCertificateCachingSystem",
+            ).getCachedLeafPublicKey({
+              chainBytes: e,
+              rootCertVersion: i,
+              atTimeMs: a,
+            });
+          if (l != null) return l;
+          var s = yield o("WAWebCertificateUtils").parseCertificateChain(e);
+          if (s.length === 0) throw new h("Certificate chain is empty");
+          var u = s[0];
+          if (!o("WAWebCertificateUtils").isCertificateValidAtTime(u, r))
             throw new g("Leaf cert expired at serverTime");
-          for (var l = [].concat(r, [t]), s = 0; s < l.length - 1; s++) {
-            var u = l[s],
-              c = l[s + 1];
-            if (!o("WAWebCertificateUtils").isCertificateValidAtTime(c, i))
-              throw new g("Issuer cert at pos " + (s + 1) + " expired");
-            var d = yield v(u, c);
-            if (!d) throw new y("Signature verification failed at pos " + s);
-            var m = o("WAWebCertificateUtils").getCertificateSerialNumber(u);
-            if (m == null)
-              throw new h("Failed to extract serial number at pos " + s);
+          for (var c = [].concat(s, [t]), d = 0; d < c.length - 1; d++) {
+            var m = c[d],
+              p = c[d + 1];
+            if (!o("WAWebCertificateUtils").isCertificateValidAtTime(p, r))
+              throw new g("Issuer cert at pos " + (d + 1) + " expired");
+            var _ = yield v(m, p);
+            if (!_) throw new y("Signature verification failed at pos " + d);
+            var f = o("WAWebCertificateUtils").getCertificateSerialNumber(m);
+            if (f == null)
+              throw new h("Failed to extract serial number at pos " + d);
             if (
               o("WAWebBotCertificateRevocationService").isCertificateRevoked(
-                m,
-                i.getTime(),
+                f,
+                a,
               )
             )
-              throw new y("Certificate at pos " + s + " is revoked");
+              throw new y("Certificate at pos " + d + " is revoked");
           }
-          var p = T(a);
-          if (p == null) throw new h("Failed to extract leaf public key");
-          return p;
+          var C = T(u);
+          if (C == null) throw new h("Failed to extract leaf public key");
+          return (
+            yield o("WAWebBotCertificateCachingSystem").cacheLeafPublicKey({
+              chainBytes: e,
+              rootCertVersion: i,
+              publicKey: C,
+              certificates: s,
+            }),
+            C
+          );
         })),
         b.apply(this, arguments)
       );

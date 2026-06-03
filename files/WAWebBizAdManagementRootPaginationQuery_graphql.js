@@ -253,6 +253,13 @@ __d(
                 ],
                 storageKey: null,
               },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "regulated_categories",
+                storageKey: null,
+              },
             ],
             storageKey: null,
           },

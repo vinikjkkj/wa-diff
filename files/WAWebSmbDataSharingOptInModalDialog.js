@@ -35,6 +35,7 @@ __d(
     "WDSIconIcSettings.react",
     "WDSIconIcVisibilityOff.react",
     "asyncToGeneratorRuntime",
+    "compactMap",
     "react",
     "react-compiler-runtime",
   ],
@@ -576,17 +577,15 @@ __d(
                       i != null &&
                       i.length > 0
                     ) {
-                      var l = i
-                          .map(w)
-                          .filter(Boolean)
-                          .map(function (e) {
-                            return r(
-                              "WAWebCtwaPerCustomerDataSharingSync",
-                            ).sendPerCustomerDataSharingUpdate(e, !0, u);
-                          }),
-                        s = yield (d || (d = n("Promise"))).allSettled(l),
-                        m = s.some(M);
-                      m &&
+                      var l = r("compactMap")(i, w),
+                        s = l.map(function (e) {
+                          return r(
+                            "WAWebCtwaPerCustomerDataSharingSync",
+                          ).sendPerCustomerDataSharingUpdate(e, !0, u);
+                        }),
+                        m = yield (d || (d = n("Promise"))).allSettled(s),
+                        p = m.some(M);
+                      p &&
                         (o("WALogger")
                           .ERROR(
                             c ||

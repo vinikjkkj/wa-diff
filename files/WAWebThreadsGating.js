@@ -10,18 +10,13 @@ __d(
     });
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_threads_infra_enabled",
-      );
-    }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
         "view_replies_infra_enabled",
       );
     }
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue("hide_auto_quotes_on_web");
     }
-    function d() {
+    function c() {
       return (
         r("justknobx")._("3927") &&
         o("WAWebABProps").getABPropConfigValue(
@@ -29,55 +24,54 @@ __d(
         )
       );
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_follow_up_reply_icon",
       );
     }
-    function p(e) {
+    function m(e) {
       return !o("WAWebChatGetters").getIsUser(e) &&
         !o("WAWebChatGetters").getIsGroup(e)
         ? !1
         : !o("WAWebChatGetters").getIsBot(e);
     }
-    function _(t) {
-      if (!p(t)) return !1;
+    function p(t) {
+      if (!m(t)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
       return n === e.LABEL_ONLY || n === e.LABEL_AND_CONTEXT_MENU;
     }
-    function f(t) {
-      if (!p(t)) return !1;
+    function _(t) {
+      if (!m(t)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
       return n === e.LABEL_AND_CONTEXT_MENU || n === e.CONTEXT_MENU_ONLY;
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "view_replies_is_composer_enabled",
       );
     }
-    function h() {
+    function g() {
       return (
-        u() &&
+        s() &&
         o("WAWebABProps").getABPropConfigValue(
           "view_replies_with_threadid_enabled",
         )
       );
     }
     ((l.ViewRepliesEntryPoint = e),
-      (l.isThreadsInfraEnabled = s),
-      (l.isViewRepliesInfraEnabled = u),
-      (l.shouldHideAutoQuote = c),
-      (l.isThreadLoadingInfraEnabled = d),
-      (l.isFollowUpReplyEnabled = m),
-      (l.isViewRepliesSupportedChat = p),
-      (l.isViewRepliesEntryPointEnabled = _),
-      (l.isViewRepliesContextMenuEnabled = f),
-      (l.isViewRepliesComposerEnabled = g),
-      (l.isViewRepliesThreadIdEnabled = h));
+      (l.isViewRepliesInfraEnabled = s),
+      (l.shouldHideAutoQuote = u),
+      (l.isThreadLoadingInfraEnabled = c),
+      (l.isFollowUpReplyEnabled = d),
+      (l.isViewRepliesSupportedChat = m),
+      (l.isViewRepliesEntryPointEnabled = p),
+      (l.isViewRepliesContextMenuEnabled = _),
+      (l.isViewRepliesComposerEnabled = f),
+      (l.isViewRepliesThreadIdEnabled = g));
   },
   98,
 );

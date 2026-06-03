@@ -1,12 +1,6 @@
 __d(
   "WAWebBotBaseGating",
-  [
-    "WAWebABProps",
-    "WAWebBotUtils",
-    "WAWebMobilePlatforms",
-    "WAWebThreadsGating",
-    "justknobx",
-  ],
+  ["WAWebABProps", "WAWebBotUtils", "WAWebMobilePlatforms", "justknobx"],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(t) {
@@ -89,9 +83,8 @@ __d(
       );
     }
     function L() {
-      return (
-        o("WAWebThreadsGating").isThreadsInfraEnabled() &&
-        o("WAWebABProps").getABPropConfigValue("ai_chat_threads_infra_enabled")
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_chat_threads_infra_enabled",
       );
     }
     function E() {

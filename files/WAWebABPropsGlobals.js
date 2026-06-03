@@ -32,9 +32,7 @@ __d(
       }
     }
     function m(e) {
-      o("WAWebABProps").getABPropConfigValue("wam_disable_abkey_attribute")
-        ? o("WAWebWamGlobals").Global.set({ abKey2: null })
-        : e != null && o("WAWebWamGlobals").Global.set({ abKey2: e });
+      e != null && o("WAWebWamGlobals").Global.set({ abKey2: e });
     }
     function p(e) {
       r("justknobx")._("1964")

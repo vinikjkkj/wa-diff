@@ -19,11 +19,6 @@ __d(
       );
     }
     function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "animated_race_mercedes_car_emoji_enabled",
-      );
-    }
-    function d() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "animated_soccer_ball_prod_enabled",
@@ -33,7 +28,7 @@ __d(
         )
       );
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "animated_soccer_ball_prod_enabled",
       );
@@ -41,9 +36,8 @@ __d(
     ((l.isAnimatedEmojiEnabled = e),
       (l.isAnimatedEmojiSet1Enabled = s),
       (l.isAnimatedEmojiFinalSetEnabled = u),
-      (l.isAnimatedEmojiMercedesRacingEnabled = c),
-      (l.isAnimatedEmojiSoccerBallEnabled = d),
-      (l.isAnimatedEmojiSoccerBallProdEnabled = m));
+      (l.isAnimatedEmojiSoccerBallEnabled = c),
+      (l.isAnimatedEmojiSoccerBallProdEnabled = d));
   },
   98,
 );

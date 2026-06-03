@@ -80,85 +80,80 @@ __d(
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "status_save_to_camera_roll_enabled",
+        "whatsapp_vpv_logging_enabled",
       );
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "whatsapp_vpv_logging_enabled",
-      );
-    }
-    function h() {
-      return o("WAWebABProps").getABPropConfigValue(
         "status_pog_id_rotation_window_days",
       );
     }
-    function y() {
+    function h() {
       return r("gkx")("26256")
         ? r("gkx")("10809")
         : o("WAWebABProps").getABPropConfigValue(
             "web_navigation_bar_updates_tab",
           );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue("web_show_to_hide_enabled");
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_comet_video_player_enabled",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_first_upload_fix_enabled",
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_viewer_side_poster_identifiers_enabled",
       );
     }
-    function R() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "waweb_crossposting_attributions",
       );
     }
-    function L() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "waweb_status_close_friends_viewer_side_enabled",
       );
     }
-    function E() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_reshare_attribution_enabled",
       );
     }
-    function k() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_reshare_poster_side_enabled",
       );
     }
-    function I() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_resharer_flow_enabled",
       );
     }
-    function T() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_send_over_status_stanza",
       );
     }
-    function D() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_recv_over_status_stanza",
       );
     }
-    function x() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_chat_thread_and_info_status_ring",
       );
     }
-    function $() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_player_avatar_status_creation_entrypoint",
       );
@@ -169,23 +164,22 @@ __d(
       (l.isStatusMentionMessageEnabled = m),
       (l.isStatusPrivateGroupMentionsReceivingEnabled = p),
       (l.isStatusEmbeddedContentFutureproofingEnabled = _),
-      (l.isStatusSaveToDiskEnabled = f),
-      (l.isStatusVPVLoggingEnabled = g),
-      (l.statusPogIdRotationWindowDays = h),
-      (l.isUpdatesTabInNavigationBarEnabled = y),
-      (l.isStatusHideStringEnabled = C),
-      (l.isStatusCometVideoPlayerEnabled = b),
-      (l.isStatusFirstUploadFixEnabled = v),
-      (l.isStatusViewerSidePosterIdentifiersEnabled = S),
-      (l.isStatusCrosspostingAttributionsEnabled = R),
-      (l.isStatusCloseFriendsViewerSideEnabled = L),
-      (l.isStatusReshareAttributionEnabled = E),
-      (l.isStatusResharePosterSideEnabled = k),
-      (l.isStatusReshareViewerFlowEnabled = I),
-      (l.isStatusStanzaSendEnabled = T),
-      (l.isStatusStanzaReceiveEnabled = D),
-      (l.isStatusRingOutsideChatlistEnabled = x),
-      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = $));
+      (l.isStatusVPVLoggingEnabled = f),
+      (l.statusPogIdRotationWindowDays = g),
+      (l.isUpdatesTabInNavigationBarEnabled = h),
+      (l.isStatusHideStringEnabled = y),
+      (l.isStatusCometVideoPlayerEnabled = C),
+      (l.isStatusFirstUploadFixEnabled = b),
+      (l.isStatusViewerSidePosterIdentifiersEnabled = v),
+      (l.isStatusCrosspostingAttributionsEnabled = S),
+      (l.isStatusCloseFriendsViewerSideEnabled = R),
+      (l.isStatusReshareAttributionEnabled = L),
+      (l.isStatusResharePosterSideEnabled = E),
+      (l.isStatusReshareViewerFlowEnabled = k),
+      (l.isStatusStanzaSendEnabled = I),
+      (l.isStatusStanzaReceiveEnabled = T),
+      (l.isStatusRingOutsideChatlistEnabled = D),
+      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = x));
   },
   98,
 );

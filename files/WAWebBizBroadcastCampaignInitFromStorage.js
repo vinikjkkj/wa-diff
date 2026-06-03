@@ -66,7 +66,7 @@ __d(
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[bb:init-from-storage] restoreBizBroadcastCampaignInsights start",
+                "[bb:init-from-storage] restoreBizBroadcastCampaignInsights",
               ])),
           );
           try {

@@ -108,12 +108,11 @@ __d(
         (C = !0),
         (c = Date.now()));
       var i = c - d;
-      i >= r
-        ? ((d = c),
-          _ || (g = c),
-          i >= (f || e) && ((m = !0), (p = c)),
-          v.emit("user_activity", { event: n, idleness: i, last_inform: d }))
-        : i < u && (d = c);
+      if (i >= r) {
+        ((d = c), _ || (g = c), i >= (f || e) && ((m = !0), (p = c)));
+        var l = { event: n, idleness: i, last_inform: d };
+        v.emit("user_activity", l);
+      } else i < u && (d = c);
     }
     function W(e) {
       ((_ = !0), (p = Date.now()), O(e));

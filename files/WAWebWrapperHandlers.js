@@ -1,6 +1,7 @@
 __d(
   "WAWebWrapperHandlers",
   [
+    "WAWebAfterReadUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebBizCoexStringUtils",
     "WAWebBizPrivacyUtils",
@@ -53,21 +54,44 @@ __d(
           );
         },
         i = function () {
-          var t = e.ephemeralDuration || 0,
-            n = o(
-              "WAWebEphemeralFbtKic",
-            ).getDisappearingMessageOutOfSyncInfoStringKic(t);
-          o("WAWebModalManager").ModalManager.open(
-            s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: {
-                surface: "unknown",
-                viewName: "ephemeral-msg-info",
-              },
-              onOK: o("WAWebModalManager").closeModalManager,
-              children: n,
-            }),
-            { transition: "modal-flow" },
-          );
+          var t,
+            n,
+            r = (t = e.afterReadDuration) != null ? t : 0,
+            a = (n = e.ephemeralDuration) != null ? n : 0,
+            i,
+            l;
+          (o("WAWebAfterReadUtils").isAfterReadEnabled() && r > 0
+            ? ((i = o(
+                "WAWebEphemeralFbtKic",
+              ).getDisappearingMessageOutOfSyncDifferentTitle()),
+              (l = o(
+                "WAWebEphemeralFbtKic",
+              ).getDisappearingMessageOutOfSyncDifferentBody(r)))
+            : a > 0
+              ? ((i = o(
+                  "WAWebEphemeralFbtKic",
+                ).getDisappearingMessageOutOfSyncDifferentTitle()),
+                (l = o(
+                  "WAWebEphemeralFbtKic",
+                ).getDisappearingMessageOutOfSyncDifferentBody(a)))
+              : ((i = o(
+                  "WAWebEphemeralFbtKic",
+                ).getDisappearingMessageOutOfSyncWontDisappearTitle()),
+                (l = o(
+                  "WAWebEphemeralFbtKic",
+                ).getDisappearingMessageOutOfSyncWontDisappearBody())),
+            o("WAWebModalManager").ModalManager.open(
+              s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "ephemeral-msg-info",
+                },
+                title: i,
+                onOK: o("WAWebModalManager").closeModalManager,
+                children: l,
+              }),
+              { transition: "modal-flow" },
+            ));
         },
         l = function () {
           var t = e.bizPrivacyStatus;

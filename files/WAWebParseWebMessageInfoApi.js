@@ -10,7 +10,9 @@ __d(
     "WAWebDecodeJid",
     "WAWebE2EProtoParser",
     "WAWebEphemeralKeepInChat",
+    "WAWebEphemeralityTypes",
     "WAWebGroupHistoryProtoUtils",
+    "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
     "WAWebMessagingGatingUtils",
     "WAWebMsgType",
     "WAWebParseLimitSharingHistorySyncProto",
@@ -201,26 +203,63 @@ __d(
     function d(e, t) {
       var n,
         a,
-        i = e.scheduledMessageMetadata;
-      if (!(i == null || t == null)) {
-        var l = i.revealKey,
-          s = i.revealKeyId,
-          c = i.scheduledTime;
-        if (!(l == null || s == null || c == null)) {
-          var d = (n = t.id) == null ? void 0 : n.remote,
-            p = (a = t.id) == null ? void 0 : a.id;
-          if (!(d == null || p == null)) {
-            var _ = o("WAWebWidToJid").widToChatJid(d),
-              f = typeof t.body == "string" ? t.body : null,
-              g = o("WATimeUtils").castToUnixTime(Number(c)),
-              h = new Uint8Array(l);
+        i,
+        l,
+        s = e.scheduledMessageMetadata;
+      if (!(s == null || t == null)) {
+        var c = s.revealKey,
+          d = s.revealKeyId,
+          p = s.scheduledTime;
+        if (!(c == null || d == null || p == null)) {
+          var _ = (n = t.id) == null ? void 0 : n.remote,
+            f = (a = t.id) == null ? void 0 : a.id;
+          if (!(_ == null || f == null)) {
+            var g = o("WAWebWidToJid").widToChatJid(_),
+              h = typeof t.body == "string" ? t.body : null,
+              y = o("WATimeUtils").castToUnixTime(Number(p)),
+              C = new Uint8Array(c),
+              b = {
+                ephemeralDuration:
+                  typeof t.ephemeralDuration == "number"
+                    ? t.ephemeralDuration
+                    : null,
+                ephemeralSettingTimestamp:
+                  typeof t.ephemeralSettingTimestamp == "number"
+                    ? t.ephemeralSettingTimestamp
+                    : null,
+                afterReadDuration:
+                  typeof t.afterReadDuration == "number"
+                    ? t.afterReadDuration
+                    : null,
+                disappearingModeInitiator:
+                  typeof t.disappearingModeInitiator == "string" &&
+                  (i = o(
+                    "WAWebEphemeralityTypes",
+                  ).DisappearingModeInitiator.cast(
+                    t.disappearingModeInitiator,
+                  )) != null
+                    ? i
+                    : null,
+                disappearingModeTrigger:
+                  typeof t.disappearingModeTrigger == "string" &&
+                  (l = o("WAWebEphemeralityTypes").DisappearingModeTrigger.cast(
+                    t.disappearingModeTrigger,
+                  )) != null
+                    ? l
+                    : null,
+                disappearingModeInitiatedByMe:
+                  typeof t.disappearingModeInitiatedByMe == "boolean"
+                    ? t.disappearingModeInitiatedByMe
+                    : null,
+              };
             (m({
-              msgId: p,
-              chatId: _,
-              revealKeyId: s,
-              revealKey: h,
-              scheduledTimestampS: g,
-              body: f,
+              msgId: f,
+              chatId: g,
+              revealKeyId: d,
+              revealKey: C,
+              scheduledTimestampS: y,
+              body: h,
+              ephemeral: b,
             }).catch(function (e) {
               o("WALogger")
                 .ERROR(
@@ -229,7 +268,7 @@ __d(
                       "[scheduled_msg][history_sync] persist failed msg=",
                       "",
                     ])),
-                  p,
+                  f,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("scheduled-msg-history-sync-persist-failed");
@@ -246,10 +285,9 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t =
-              e.body != null && e.body !== ""
-                ? { conversation: e.body }
-                : { conversation: "" },
+          var t = o(
+              "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
+            ).buildHistorySyncInnerProto(e.body, e.ephemeral),
             n = o("encodeProtobuf")
               .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, t)
               .readByteArrayView(),

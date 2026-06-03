@@ -30,7 +30,6 @@ __d(
     "WAWebQuestionsProtoUtils",
     "WAWebQuotedMessageProtoUtils",
     "WAWebStatusGatingUtils",
-    "WAWebThreadsGating",
     "WAWebThreadsMetadataProtoUtils",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
     "WAWebWamEnumE2eFailureReason",
@@ -585,7 +584,6 @@ __d(
               );
         }
         (!r("isArrayNullOrEmpty")(t.threadId) &&
-          o("WAWebThreadsGating").isThreadsInfraEnabled() &&
           e.id != null &&
           o("WAWebThreadsMetadataProtoUtils").parseThreadsMetadataProto(e, t),
           o("WAWebThreadsMetadataProtoUtils").maybeParseAiThreadInfoFromProto(

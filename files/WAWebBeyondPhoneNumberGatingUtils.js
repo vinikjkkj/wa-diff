@@ -8,15 +8,7 @@ __d(
         r("justknobx")._("1500")
       );
     }
-    function s() {
-      return (
-        !!o("WAWebABProps").getABPropConfigValue(
-          "remove_device_pn_dependencies",
-        ) && r("justknobx")._("4846")
-      );
-    }
-    ((l.removePnDependenciesEnabled = e),
-      (l.removeDevicePnDependenciesEnabled = s));
+    l.removePnDependenciesEnabled = e;
   },
   98,
 );

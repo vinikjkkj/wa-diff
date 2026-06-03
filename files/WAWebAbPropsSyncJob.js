@@ -179,6 +179,9 @@ __d(
                     a.getABPropConfigValue(
                       "single_e2ee_session_migration_state_outgoing",
                     ),
+                  after_read_sending_enabled: a.getABPropConfigValue(
+                    "after_read_sending_enabled",
+                  ),
                 },
                 l = e
                   ? babelHelpers.extends({}, e)

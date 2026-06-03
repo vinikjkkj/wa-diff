@@ -34,30 +34,24 @@ __d(
     function m() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("qp_campaign_client_enabled")
-      );
-    }
-    function p() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_enabled",
         )
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_graphql_to_fetch_qp_frequency_mins",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? _()
+        ? p()
         : o("WAWebABProps").getABPropConfigValue(
             "consumer_web_qp_graphql_to_fetch_qp_frequency_mins",
           );
     }
-    function g() {
+    function f() {
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -65,10 +59,10 @@ __d(
         )
       );
     }
-    function h() {
-      return o("WAWebMobilePlatforms").isSMB() ? p() : g();
+    function g() {
+      return o("WAWebMobilePlatforms").isSMB() ? m() : f();
     }
-    function y(t) {
+    function h(t) {
       var n = new Map(
           Array.from(
             o("WAWebCTWAConstants").KNOWN_QP_SURFACES.values(),
@@ -99,36 +93,35 @@ __d(
         r
       );
     }
-    function C() {
-      return y(
+    function y() {
+      return h(
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function b() {
-      return y(
+    function C() {
+      return h(
         o("WAWebABProps").getABPropConfigValue(
           "consumer_graphql_web_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function v() {
-      return o("WAWebMobilePlatforms").isSMB() ? C() : b();
+    function b() {
+      return o("WAWebMobilePlatforms").isSMB() ? y() : C();
     }
     ((l.profilePrivacyTipsEnabled = s),
       (l.updatesTabQuickPromotionBannerEnabled = u),
       (l.getUpdatesTabPrivacyNoticeRolloutDate = c),
       (l.qpEmergencyForceFetchNonce = d),
-      (l.qpCampaignsEnabledSMB = m),
-      (l.qpGraphQLEnabledSMB = p),
-      (l.qpGraphQLFetchIntervalMinutesSMB = _),
-      (l.qpGraphQLFetchIntervalMinutes = f),
-      (l.consumerQpGraphQLEnabled = g),
-      (l.qpGraphQLEnabled = h),
-      (l.qpSurfaceIdsUsingGraphQLSMB = C),
-      (l.qpSurfaceIdsUsingGraphQLConsumer = b),
-      (l.qpSurfaceIdsUsingGraphQL = v));
+      (l.qpGraphQLEnabledSMB = m),
+      (l.qpGraphQLFetchIntervalMinutesSMB = p),
+      (l.qpGraphQLFetchIntervalMinutes = _),
+      (l.consumerQpGraphQLEnabled = f),
+      (l.qpGraphQLEnabled = g),
+      (l.qpSurfaceIdsUsingGraphQLSMB = y),
+      (l.qpSurfaceIdsUsingGraphQLConsumer = C),
+      (l.qpSurfaceIdsUsingGraphQL = b));
   },
   98,
 );

@@ -16,7 +16,7 @@ __d(
     function g(e, t) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByOthers,
           e,
@@ -27,7 +27,7 @@ __d(
     function h(e, t) {
       return (
         e === void 0 && (e = 0),
-        N(
+        A(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByOthers,
           e,
@@ -38,7 +38,7 @@ __d(
     function y(e) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType.SettingChangeByYou,
           e,
         )
@@ -47,7 +47,7 @@ __d(
     function C(e) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByUnknown,
           e,
@@ -57,7 +57,7 @@ __d(
     function b(e, t) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByOthersAsAdmin,
           e,
@@ -68,7 +68,7 @@ __d(
     function v(e, t) {
       return (
         e === void 0 && (e = 0),
-        N(
+        A(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByOthersAsAdmin,
           e,
@@ -79,7 +79,7 @@ __d(
     function S(e) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByYouAsAdmin,
           e,
@@ -89,7 +89,7 @@ __d(
     function R(e) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
             .SettingChangeByUnknownAsAdmin,
           e,
@@ -99,38 +99,49 @@ __d(
     function L(e) {
       return (
         e === void 0 && (e = 0),
-        D(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.Duration, e)
+        P(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.Duration, e)
       );
     }
     function E(e) {
-      return (
-        e === void 0 && (e = 0),
-        D(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.OutOfSyncInfo, e)
+      return P(
+        o("WAWebEphemeralFbtKicTypes").EphemeralStringType.OutOfSyncInfo,
+        e,
       );
     }
-    function k(e) {
-      return (
-        e === void 0 && (e = 0),
-        D(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.Explanation, e)
+    function k() {
+      return s._(/*BTDS*/ "Sent with a different timer");
+    }
+    function I() {
+      return s._(/*BTDS*/ "This message won't disappear");
+    }
+    function T() {
+      return s._(
+        /*BTDS*/ "The sender may be using an older version of WhatsApp.",
       );
     }
-    function I(e, t) {
+    function D(e) {
       return (
         e === void 0 && (e = 0),
-        D(
+        P(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.Explanation, e)
+      );
+    }
+    function x(e, t) {
+      return (
+        e === void 0 && (e = 0),
+        P(
           o("WAWebEphemeralFbtKicTypes").EphemeralStringType.ModeChangeByOthers,
           e,
           t,
         )
       );
     }
-    function T(e) {
+    function $(e) {
       return (
         e === void 0 && (e = 0),
-        D(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.ModeChangeByYou, e)
+        P(o("WAWebEphemeralFbtKicTypes").EphemeralStringType.ModeChangeByYou, e)
       );
     }
-    function D(t, n, r) {
+    function P(t, n, r) {
       if ((n === void 0 && (n = 0), n < 0))
         return (
           o("WALogger")
@@ -147,11 +158,11 @@ __d(
             .sendLogs("invalid-duration"),
           ""
         );
-      if (n === 0) return x(t, r);
-      if (n <= 60) return $(t, n, r);
+      if (n === 0) return N(t, r);
+      if (n <= 60) return M(t, n, r);
       if (n < 3600) {
         var a = Math.floor(n / 60);
-        return P(t, a, r);
+        return w(t, a, r);
       } else if (n <= 1440 * 60) {
         var i = Math.floor(n / 60 / 60);
         return o(
@@ -165,7 +176,7 @@ __d(
         r,
       );
     }
-    function x(e, t) {
+    function N(e, t) {
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && t != null
@@ -241,7 +252,7 @@ __d(
                           .sendLogs("invalid-ephemeral-string-type"),
                         "");
     }
-    function $(e, t, n) {
+    function M(e, t, n) {
       var r = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled();
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
@@ -317,7 +328,7 @@ __d(
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number_of_seconds} seconds after it\'s sent, except when kept.","_1":"This message will disappear from this chat 1 second after it\'s sent, except when kept."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number_of_seconds} seconds.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 second."}',
                           [s._plural(t, "number_of_seconds")],
                         )
                       : e ===
@@ -381,7 +392,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function P(e, t, n) {
+    function w(e, t, n) {
       var r = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled();
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
@@ -457,7 +468,7 @@ __d(
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number_of_minutes} minutes after it\'s sent, except when kept.","_1":"This message will disappear from this chat 1 minute after it\'s sent, except when kept."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number_of_minutes} minutes.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 minute."}',
                           [s._plural(t, "number_of_minutes")],
                         )
                       : e ===
@@ -521,7 +532,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function N(e, t, n) {
+    function A(e, t, n) {
       if ((t === void 0 && (t = 0), t < 0))
         return (
           o("WALogger")
@@ -538,11 +549,11 @@ __d(
             .sendLogs("invalid-duration"),
           ""
         );
-      if (t === 0) return M(e, n);
-      if (t <= 60) return w(e, t, n);
+      if (t === 0) return F(e, n);
+      if (t <= 60) return O(e, t, n);
       if (t < 3600) {
         var r = Math.floor(t / 60);
-        return A(e, r, n);
+        return B(e, r, n);
       } else if (t <= 1440 * 60) {
         var a = Math.floor(t / 60 / 60);
         return o(
@@ -554,7 +565,7 @@ __d(
         "WAWebEphemeralFbtKicHoursDaysHelpers",
       ).getEphemeralOnDaysComponent(e, i, n);
     }
-    function M(e, t) {
+    function F(e, t) {
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && t != null
@@ -586,7 +597,7 @@ __d(
               .sendLogs("invalid-ephemeral-string-type"),
             "");
     }
-    function w(e, t, n) {
+    function O(e, t, n) {
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && n != null
@@ -622,7 +633,7 @@ __d(
               .sendLogs("invalid-ephemeral-string-type"),
             "");
     }
-    function A(e, t, n) {
+    function B(e, t, n) {
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && n != null
@@ -658,7 +669,7 @@ __d(
               .sendLogs("invalid-ephemeral-string-type"),
             "");
     }
-    function F(e) {
+    function W(e) {
       var t = o("WAWebContactCollection").ContactCollection.assertGet(e);
       if (o("WAWebContactGetters").getIsMe(t))
         return s._(/*BTDS*/ "Kept by you");
@@ -667,7 +678,7 @@ __d(
         s._param("person-name", n),
       ]);
     }
-    ((F.displayName = F.name + " [from " + i.id + "]"),
+    ((W.displayName = W.name + " [from " + i.id + "]"),
       (l.EphemeralStringType = o(
         "WAWebEphemeralFbtKicTypes",
       ).EphemeralStringType),
@@ -680,11 +691,14 @@ __d(
       (l.getDisappearingMessageSettingYouAsAdminStringKic = S),
       (l.getDisappearingMessageSettingUnknownAsAdminStringKic = R),
       (l.getDisappearingMessageDurationStringKic = L),
-      (l.getDisappearingMessageOutOfSyncInfoStringKic = E),
-      (l.getDisappearingMessageExplanationStringKic = k),
-      (l.getDisappearingModeOtherStringKic = I),
-      (l.getDisappearingModeYouStringKic = T),
-      (l.getKeptByString = F));
+      (l.getDisappearingMessageOutOfSyncDifferentBody = E),
+      (l.getDisappearingMessageOutOfSyncDifferentTitle = k),
+      (l.getDisappearingMessageOutOfSyncWontDisappearTitle = I),
+      (l.getDisappearingMessageOutOfSyncWontDisappearBody = T),
+      (l.getDisappearingMessageExplanationStringKic = D),
+      (l.getDisappearingModeOtherStringKic = x),
+      (l.getDisappearingModeYouStringKic = $),
+      (l.getKeptByString = W));
   },
   226,
 );

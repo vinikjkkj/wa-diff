@@ -17,40 +17,39 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = new (o("WALruCache").LruCache)({
+      c = new (o("WALruCache").LruCache)({
         sizeLimit: 5e3,
         getSize: function () {
           return 1;
         },
       });
-    function m(e) {
+    function d(e) {
       var t,
         r = o("WAWebDeviceListPk").createDeviceListPK(e);
-      if (!d.has(r)) {
+      if (!c.has(r)) {
         var a = o("WAWebSchemaDeviceList").getDeviceListTable().get(r);
-        d.put(r, a);
+        c.put(r, a);
       }
       return (
-        d.get(r) != null &&
+        c.get(r) != null &&
           o("WAWebApiContact").checkPnToLidMapping(
             [e],
             o("WAWebApiContact").CheckPnToLidMappingCaller
               .WAWEB_API_DEVICE_LIST_GET_DEVICE_RECORD,
           ),
-        (t = d.get(r)) != null ? t : (c || (c = n("Promise"))).resolve(null)
+        (t = c.get(r)) != null ? t : (u || (u = n("Promise"))).resolve(null)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           if (
             (e.forEach(function (e) {
-              d.has(o("WAWebDeviceListPk").createDeviceListPK(e)) ||
+              c.has(o("WAWebDeviceListPk").createDeviceListPK(e)) ||
                 t.push(o("WAWebDeviceListPk").createDeviceListPK(e));
             }),
             t.length > 0)
@@ -59,11 +58,11 @@ __d(
               .getDeviceListTable()
               .bulkGet(t);
             r.forEach(function (e, r) {
-              d.put(t[r], (c || (c = n("Promise"))).resolve(e));
+              c.put(t[r], (u || (u = n("Promise"))).resolve(e));
             });
           }
           var a = e.filter(function (e) {
-            return d.get(o("WAWebDeviceListPk").createDeviceListPK(e)) != null;
+            return c.get(o("WAWebDeviceListPk").createDeviceListPK(e)) != null;
           });
           return (
             a.length > 0 &&
@@ -72,17 +71,17 @@ __d(
                 o("WAWebApiContact").CheckPnToLidMappingCaller
                   .WAWEB_API_DEVICE_LIST_BULK_GET_DEVICE_RECORD,
               ),
-            (c || (c = n("Promise"))).all(
+            (u || (u = n("Promise"))).all(
               e.map(function (e) {
-                return d.get(o("WAWebDeviceListPk").createDeviceListPK(e));
+                return c.get(o("WAWebDeviceListPk").createDeviceListPK(e));
               }),
             )
           );
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(t) {
+    function _(t) {
       if (t.deleted) {
         var n = o("WAWebWidFactory").createUserWidFromDeviceListPk(t.id);
         o("WAWebUserPrefsMeUser").isMeAccount(n) &&
@@ -94,12 +93,12 @@ __d(
           );
       }
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebApiContact").checkPnToLidMapping(
             [o("WAWebWidFactory").createUserWidFromDeviceListPk(e.id)],
             o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -108,18 +107,18 @@ __d(
             yield o("WAWebSchemaDeviceList")
               .getDeviceListTable()
               .createOrReplace(e),
-            d.put(e.id, (c || (c = n("Promise"))).resolve(e)),
-            f(e));
+            c.put(e.id, (u || (u = n("Promise"))).resolve(e)),
+            _(e));
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebApiContact").checkPnToLidMapping(
             e.map(function (e) {
               return o("WAWebWidFactory").createUserWidFromDeviceListPk(e.id);
@@ -131,20 +130,20 @@ __d(
               .getDeviceListTable()
               .bulkCreateOrReplace(e),
             e.forEach(function (e) {
-              (d.put(e.id, (c || (c = n("Promise"))).resolve(e)), f(e));
+              (c.put(e.id, (u || (u = n("Promise"))).resolve(e)), _(e));
             }));
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = !1);
-          var n = Array.from(yield p(e));
+          var n = Array.from(yield m(e));
           if (t) {
             var r = new Map();
             n.forEach(function (e) {
@@ -161,7 +160,7 @@ __d(
                 );
                 return (n != null && e.push(n), e);
               }, []),
-              l = yield p(i);
+              l = yield m(i);
             l.forEach(function (e, t) {
               if (!(!e || e.deleted)) {
                 var l = i[t],
@@ -208,17 +207,17 @@ __d(
             return null;
           });
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t === o("WAJids").DEFAULT_DEVICE_ID) return !0;
-          var n = yield b([e]),
+          var n = yield C([e]),
             r = n[0];
           return !(
             !r ||
@@ -227,16 +226,16 @@ __d(
             })
           );
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(e);
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(e);
           return t.map(function (e) {
             if (e && !e.deleted) {
               var t = e.devices.map(function (e) {
@@ -252,59 +251,40 @@ __d(
             return null;
           });
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
+    }
+    function E() {
+      return k.apply(this, arguments);
     }
     function k() {
-      return I.apply(this, arguments);
-    }
-    function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-            t = yield m(e);
-          if (!t || t.deleted) {
-            var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-              a = yield m(n),
-              i = t != null,
-              l = (t == null ? void 0 : t.deleted) === !0,
-              u = a != null,
-              c = (a == null ? void 0 : a.deleted) === !0;
-            throw (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[syncd] no device list pn=",
-                    "/",
-                    " lid=",
-                    "/",
-                    "",
-                  ])),
-                i,
-                l,
-                u,
-                c,
-              ),
-              r("err")("syncd: cannot find my device list")
-            );
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebUserPrefsMeUser").getMeDeviceOrThrow(),
+            t = yield d(e);
+          if ((t == null || t.deleted) && e.isLid()) {
+            var n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+            n != null && (t = yield d(n));
           }
+          if (t == null || t.deleted)
+            throw r("err")("syncd: cannot find my device list");
           return t;
         })),
-        I.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
+    function I() {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = self.performance.now(),
             t = yield o("WAWebSchemaDeviceList").getDeviceListTable().all();
           return (
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "getAllDeviceLists: got ",
                   " devices, took ",
                   "ms",
@@ -315,18 +295,18 @@ __d(
             t
           );
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    ((l.getDeviceRecord = m),
-      (l.bulkGetDeviceRecord = p),
-      (l.createOrReplaceDeviceRecord = g),
-      (l.bulkCreateOrReplaceDeviceRecord = y),
-      (l.getDeviceIds = b),
-      (l.hasDevice = S),
-      (l.getDeviceInfoForSync = L),
-      (l.getMyDeviceList = k),
-      (l.getAllDeviceLists = T));
+    ((l.getDeviceRecord = d),
+      (l.bulkGetDeviceRecord = m),
+      (l.createOrReplaceDeviceRecord = f),
+      (l.bulkCreateOrReplaceDeviceRecord = h),
+      (l.getDeviceIds = C),
+      (l.hasDevice = v),
+      (l.getDeviceInfoForSync = R),
+      (l.getMyDeviceList = E),
+      (l.getAllDeviceLists = I));
   },
   98,
 );

@@ -189,20 +189,19 @@ __d(
         a = e.rotateKey,
         i = e.wid;
       if (a && !n.rotateKey) {
-        var l, s;
+        var l;
         (r.includes(o("WAJids").DEFAULT_DEVICE_ID) &&
         t.includes(o("WAJids").DEFAULT_DEVICE_ID)
-          ? (s = o("WAWebWamEnumExpiryReason").EXPIRY_REASON.IDENTITY_CHANGE)
-          : (l = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null &&
-              l.equals(i)
-            ? (s = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
+          ? (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON.IDENTITY_CHANGE)
+          : o("WAWebUserPrefsMeUser").isMeAccount(i)
+            ? (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
                 .PEER_COMPANION_UNPAIR)
-            : (s = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
+            : (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
                 .OTHER_DEVICE_UNPAIR),
           o("WAWebPostSenderKeyExpiredMetric").postSenderKeyExpiredMetric({
             chatId: n.groupId,
             deviceCount: n.senderKey.size,
-            expiryReason: s,
+            expiryReason: l,
           }));
       }
     }

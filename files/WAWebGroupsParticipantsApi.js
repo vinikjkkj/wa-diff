@@ -71,7 +71,7 @@ __d(
             l = t.toString(),
             s = !1,
             u = [],
-            c = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             d = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
               .get(l);
@@ -169,9 +169,9 @@ __d(
             a = e.participants,
             i = t.toString(),
             l = [],
-            s = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             u = a.some(function (e) {
-              return s.equals(e.id);
+              return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
             }),
             c;
           if (u) {

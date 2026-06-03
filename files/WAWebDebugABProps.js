@@ -118,6 +118,9 @@ __d(
                 ).getABPropConfigValue(
                   "single_e2ee_session_migration_state_outgoing",
                 ),
+                after_read_sending_enabled: o(
+                  "WAWebABProps",
+                ).getABPropConfigValue("after_read_sending_enabled"),
               };
               return o("WAWebABPropsUpdateFromStorage")
                 .updateABPropsFromStorage()

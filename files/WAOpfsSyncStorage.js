@@ -1,90 +1,131 @@
 __d(
   "WAOpfsSyncStorage",
-  [],
+  ["Promise", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = "opfs-storage-testing-filesystem";
-    async function l() {
-      var t;
-      if (
-        (navigator == null || (t = navigator.storage) == null
-          ? void 0
-          : t.getDirectory) == null
-      )
-        return Promise.reject("OPFS is not supported");
-      var n = await navigator.storage.getDirectory(),
-        r = await n.getDirectoryHandle(e, { create: !0 });
-      return r;
+    var e,
+      l = "opfs-storage-testing-filesystem";
+    function s() {
+      return u.apply(this, arguments);
     }
-    async function s(e) {
-      var t = e.directoryHandle,
-        n = e.fileBuffer,
-        r = e.fileName,
-        o = await t.getFileHandle(r, { create: !0 }),
-        a = await o.createSyncAccessHandle(),
-        i = new DataView(n);
-      return (a.write(i, { at: 0 }), a.close());
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t;
+          if (
+            (navigator == null || (t = navigator.storage) == null
+              ? void 0
+              : t.getDirectory) == null
+          )
+            return (e || (e = n("Promise"))).reject("OPFS is not supported");
+          var r = yield navigator.storage.getDirectory(),
+            o = yield r.getDirectoryHandle(l, { create: !0 });
+          return o;
+        })),
+        u.apply(this, arguments)
+      );
     }
-    async function u(e) {
-      var t = e.directoryHandle,
-        n = e.fileName,
-        r = await t.getFileHandle(n),
-        o = await r.createSyncAccessHandle(),
-        a = o.getSize(),
-        i = new ArrayBuffer(a),
-        l = new DataView(i);
-      return (await o.read(l, { at: 0 }), o.close(), i);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    async function c(e) {
-      var t,
-        n = e.directoryHandle,
-        r = e.fileName;
-      if (
-        (navigator == null || (t = navigator.storage) == null
-          ? void 0
-          : t.getDirectory) == null
-      )
-        return Promise.reject("OPFS is not supported");
-      await n.removeEntry(r);
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.directoryHandle,
+            n = e.fileBuffer,
+            r = e.fileName,
+            o = yield t.getFileHandle(r, { create: !0 }),
+            a = yield o.createSyncAccessHandle(),
+            i = new DataView(n);
+          return (a.write(i, { at: 0 }), a.close());
+        })),
+        d.apply(this, arguments)
+      );
     }
-    async function d(e) {
-      var t,
-        n = e.directoryHandle;
-      if (
-        (navigator == null || (t = navigator.storage) == null
-          ? void 0
-          : t.getDirectory) == null
-      )
-        return Promise.reject("OPFS is not supported");
-      var r = 0,
-        o = !1,
-        a = !1,
-        i;
-      try {
-        for (
-          var l = babelHelpers.asyncIterator(n.values()), s;
-          (o = !(s = await l.next()).done);
-          o = !1
-        ) {
-          var u = s.value;
-          r++;
-        }
-      } catch (e) {
-        ((a = !0), (i = e));
-      } finally {
-        try {
-          o && l.return != null && (await l.return());
-        } finally {
-          if (a) throw i;
-        }
-      }
-      return r;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    ((i.prepareFileSystem = l),
-      (i.writeToFileSystem = s),
-      (i.readFromFileSystem = u),
-      (i.cleanupFileSystem = c),
-      (i.getFileCount = d));
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.directoryHandle,
+            n = e.fileName,
+            r = yield t.getFileHandle(n),
+            o = yield r.createSyncAccessHandle(),
+            a = o.getSize(),
+            i = new ArrayBuffer(a),
+            l = new DataView(i);
+          return (yield o.read(l, { at: 0 }), o.close(), i);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r,
+            o = t.directoryHandle,
+            a = t.fileName;
+          if (
+            (navigator == null || (r = navigator.storage) == null
+              ? void 0
+              : r.getDirectory) == null
+          )
+            return (e || (e = n("Promise"))).reject("OPFS is not supported");
+          yield o.removeEntry(a);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r,
+            o = t.directoryHandle;
+          if (
+            (navigator == null || (r = navigator.storage) == null
+              ? void 0
+              : r.getDirectory) == null
+          )
+            return (e || (e = n("Promise"))).reject("OPFS is not supported");
+          var a = 0,
+            i = !1,
+            l = !1,
+            s;
+          try {
+            for (
+              var u = babelHelpers.asyncIterator(o.values()), c;
+              (i = !(c = yield u.next()).done);
+              i = !1
+            ) {
+              var d = c.value;
+              a++;
+            }
+          } catch (e) {
+            ((l = !0), (s = e));
+          } finally {
+            try {
+              i && u.return != null && (yield u.return());
+            } finally {
+              if (l) throw s;
+            }
+          }
+          return a;
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    ((i.prepareFileSystem = s),
+      (i.writeToFileSystem = c),
+      (i.readFromFileSystem = m),
+      (i.cleanupFileSystem = _),
+      (i.getFileCount = g));
   },
   66,
 );

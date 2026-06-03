@@ -1,6 +1,12 @@
 __d(
   "WAWebPCheck",
-  ["WAResultOrError", "WASI", "WAWasmModuleCache", "bx"],
+  [
+    "WAResultOrError",
+    "WASI",
+    "WAWasmModuleCache",
+    "asyncToGeneratorRuntime",
+    "bx",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "input",
@@ -32,22 +38,28 @@ __d(
     }
     function c(e) {
       var t = e.getWasmModule,
-        n = e.logError,
-        r = e.logMessage;
-      return async function (a) {
-        var e = a.input,
-          i = o("WASI").createWasi(u({ input: e, stderr: n, stdout: r })),
-          l = i.getImportObject,
-          s = i.start,
-          c = await t(),
-          d = await WebAssembly.instantiate(c, l()),
-          m = s(d),
-          p = m.exitCode;
-        return p !== 0
-          ? (n("WebPCheck failed with exit code " + p),
-            o("WAResultOrError").makeError("invalid-media"))
-          : o("WAResultOrError").makeResult();
-      };
+        r = e.logError,
+        a = e.logMessage;
+      return (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var n = e.input,
+            i = o("WASI").createWasi(u({ input: n, stderr: r, stdout: a })),
+            l = i.getImportObject,
+            s = i.start,
+            c = yield t(),
+            d = yield WebAssembly.instantiate(c, l()),
+            m = s(d),
+            p = m.exitCode;
+          return p !== 0
+            ? (r("WebPCheck failed with exit code " + p),
+              o("WAResultOrError").makeError("invalid-media"))
+            : o("WAResultOrError").makeResult();
+        });
+        function i(t) {
+          return e.apply(this, arguments);
+        }
+        return i;
+      })();
     }
     var d = r("bx").getURL(r("bx")("6946")),
       m = function () {

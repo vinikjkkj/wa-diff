@@ -295,7 +295,7 @@ __d(
                 !1
               );
             }
-            var C = S(h, t, n),
+            var C = S({ botFbid: t, messageDigest: n, version: h }),
               b = new Uint8Array(i),
               v = R(b, C, c);
             return (
@@ -318,16 +318,19 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e, t, n) {
-      var r = new TextEncoder(),
-        o = r.encode(e),
-        a = r.encode(t),
-        i = new Uint8Array(o.length + a.length + n.length);
+    function S(e) {
+      var t = e.botFbid,
+        n = e.messageDigest,
+        r = e.version,
+        o = new TextEncoder(),
+        a = o.encode(r),
+        i = o.encode(t),
+        l = new Uint8Array(a.length + i.length + n.length);
       return (
-        i.set(o, 0),
-        i.set(a, o.length),
-        i.set(n, o.length + a.length),
-        i
+        l.set(a, 0),
+        l.set(i, a.length),
+        l.set(n, a.length + i.length),
+        l
       );
     }
     function R(t, n, a) {

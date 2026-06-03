@@ -10,6 +10,7 @@ __d(
     "WAPromiseTimeout",
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
+    "WAWebAfterReadSendingRollbackListener",
     "WAWebApiContact",
     "WAWebAuthAgentFeatureControlLifecycle",
     "WAWebBackendApi",
@@ -449,6 +450,9 @@ __d(
               o("WAWebDBAfterReadSendingRollbackMigration")
                 .migrateAfterReadSendingRollback,
             ),
+            o(
+              "WAWebAfterReadSendingRollbackListener",
+            ).registerAfterReadSendingRollbackListener(),
             o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               "WAReceivedBlocklistMigrationBefore1x1Migration",
             ) &&

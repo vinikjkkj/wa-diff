@@ -203,9 +203,7 @@ __d(
             return;
           }
           var l = [],
-            s =
-              e.user ===
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user;
+            s = o("WAWebUserPrefsMeUser").isMeAccount(e);
           (l.push({ id: e, ts: r.senderTimestamp }),
             s && t != null && l.push({ id: t, ts: r.recipientTimestamp }));
           var u = yield o(

@@ -8,6 +8,7 @@ __d(
     "compactMap",
     "countWhere",
     "err",
+    "getErrorSafe",
     "gkx",
     "sumBy",
   ],
@@ -344,35 +345,37 @@ __d(
             try {
               return new this.modelClass(t, e);
             } catch (e) {
-              var r,
-                a,
-                i = t.id,
-                l;
-              if (i == null) l = "null/undefined";
-              else if (typeof i == "object") {
-                var s, u;
-                l =
-                  (s = (u = i.constructor) == null ? void 0 : u.name) != null
-                    ? s
+              var a,
+                i,
+                l = t.id,
+                s;
+              if (l == null) s = "null/undefined";
+              else if (typeof l == "object") {
+                var u, c;
+                s =
+                  (u = (c = l.constructor) == null ? void 0 : c.name) != null
+                    ? u
                     : "unknown-object";
-              } else l = typeof i;
+              } else s = typeof l;
               o("WALogger")
                 .ERROR(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
                       "collection:_prepareModel: for model ",
                       " id_shape=",
+                      ", id=",
                       "",
                     ])),
-                  (r =
-                    this == null || (a = this.modelClass) == null
+                  (a =
+                    this == null || (i = this.modelClass) == null
                       ? void 0
-                      : a.name) != null
-                    ? r
+                      : i.name) != null
+                    ? a
                     : "",
-                  l,
+                  s,
+                  l == null || l.toString == null ? void 0 : l.toString(),
                 )
-                .catching(e)
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("collection-model-creation-error");
               return;
             }

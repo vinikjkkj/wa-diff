@@ -11,7 +11,6 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollsDbUtils",
     "WAWebProtobufsMdStorageMsgRowOpaqueData.pb",
-    "WAWebThreadsGating",
     "WAWebViewMode.flow",
     "WAWebWid",
     "WAWebWidFactory",
@@ -68,8 +67,7 @@ __d(
           (((i = _.to) == null ? void 0 : i.server) === "newsletter" ||
             ((l = _.from) != null && l.endsWith("@newsletter"))) &&
           (_.serverId = o("WAWebDBMessageUtils").getInChatMsgId(_.internalId)),
-        !r("isArrayNullOrEmpty")(_.internalThreadIDs) &&
-          o("WAWebThreadsGating").isThreadsInfraEnabled() &&
+        r("isArrayNullOrEmpty")(_.internalThreadIDs) ||
           (_.threadIds = _.internalThreadIDs.map(function (e) {
             return o("WAWebDBMessageUtils").getThreadIdFromInternalThreadId(e);
           })),

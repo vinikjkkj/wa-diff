@@ -170,6 +170,7 @@ __d(
                   );
                 },
                 onViewResults: n.onViewResults,
+                regulatedCategories: n.regulatedCategories,
               });
         },
         key: "actions",

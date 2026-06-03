@@ -107,7 +107,11 @@ __d(
             ),
           o("WAWebAccountSyncJob").getDevices("notification")
         );
-      var t = String(o("WAWebUserPrefsMeUser").getMeUser());
+      var t = o("WAWebUserPrefsMeUser")
+        .getMePNandLIDWids()
+        .map(function (e) {
+          return e.toString();
+        });
       if (
         o(
           "WAWebOfflineHandler",
@@ -118,12 +122,14 @@ __d(
             "WAWebOfflineHandler",
           ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
         )
-          return o("WAWebApiPendingDeviceSync").addUserToPendingDeviceSync([t]);
+          return o("WAWebApiPendingDeviceSync").addUserToPendingDeviceSync(t);
       } else
         return (
-          o(
-            "WAWebOfflineDeviceCache",
-          ).OfflinePendingDeviceCache.addOfflinePendingDevice(t, null),
+          t.forEach(function (e) {
+            return o(
+              "WAWebOfflineDeviceCache",
+            ).OfflinePendingDeviceCache.addOfflinePendingDevice(e, null);
+          }),
           (u || (u = n("Promise"))).resolve()
         );
       return o("WAWebAccountSyncJob").getDevices("notification");

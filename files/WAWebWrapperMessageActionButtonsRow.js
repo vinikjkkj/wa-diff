@@ -10,6 +10,7 @@ __d(
           paddingInlineEnd: "x1im30kd",
           paddingBottom: "x18d9i69",
           paddingInlineStart: "x1djpfga",
+          transition: "xcxita6",
           $$css: !0,
         },
       };

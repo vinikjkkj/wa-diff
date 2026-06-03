@@ -672,8 +672,7 @@ __d(
     function A(e, t) {
       return !(
         t == null ||
-        o("WAWebReportingTokenUtils").shouldSkipProcessingEditedMsg(e) ||
-        o("WAWebReportingTokenUtils").shouldSkipProcessingDualEncryptedMsg(e)
+        o("WAWebReportingTokenUtils").shouldSkipProcessingEditedMsg(e)
       );
     }
     ((l.validateMsgDestination = v),

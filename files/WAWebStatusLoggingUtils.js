@@ -25,7 +25,7 @@ __d(
             r,
             a = e.id.id,
             i = (t = e.id.remote) == null ? void 0 : t.toString({ legacy: !0 }),
-            l = yield C();
+            l = yield v();
           if (!l || !i) return a;
           var u = e.id.fromMe ? 1 : 0,
             c = e.id.fromMe
@@ -49,7 +49,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebMsgGetters").getIsGroupStatus(e) ? f(e, t) : p(e, t);
+          return o("WAWebMsgGetters").getIsGroupStatus(e) ? h(e, t) : p(e, t);
         })),
         m.apply(this, arguments)
       );
@@ -69,9 +69,9 @@ __d(
           if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
             var n,
               r = (n = e.id.remote) == null ? void 0 : n.toJid();
-            return r == null ? null : h(r, t);
+            return r == null ? null : C(r, t);
           }
-          return e.author ? h(e.author.toJid(), t) : null;
+          return e.author ? C(e.author.toJid(), t) : null;
         })),
         _.apply(this, arguments)
       );
@@ -82,14 +82,11 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.id.remote;
-          return !o(
+          return o(
             "WAWebStatusGatingUtils",
-          ).isStatusViewerSidePosterIdentifiersEnabled() ||
-            !o("WAWebMsgGetters").getIsGroupStatus(e) ||
-            n == null
-            ? null
-            : h(n.toJid(), t);
+          ).isStatusViewerSidePosterIdentifiersEnabled()
+            ? C(e.toJid(), t)
+            : null;
         })),
         g.apply(this, arguments)
       );
@@ -100,17 +97,35 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
-            r = yield C();
-          if (n === -1 || !r) return null;
-          var a = b(t, n),
-            i = yield o("WACryptoHmac").hmacSha256(r, s(e + a));
-          return o("WABase64").encodeB64(i);
+          var n = e.id.remote;
+          return !o(
+            "WAWebStatusGatingUtils",
+          ).isStatusViewerSidePosterIdentifiersEnabled() ||
+            !o("WAWebMsgGetters").getIsGroupStatus(e) ||
+            n == null
+            ? null
+            : C(n.toJid(), t);
         })),
         y.apply(this, arguments)
       );
     }
-    function C() {
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
+            r = yield v();
+          if (n === -1 || !r) return null;
+          var a = S(t, n),
+            i = yield o("WACryptoHmac").hmacSha256(r, s(e + a));
+          return o("WABase64").encodeB64(i);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v() {
       var e = o("WAWebUserPrefsMultiDevice")
         .getChatThreadLoggingSecretB64()
         .then(function (e) {
@@ -118,10 +133,10 @@ __d(
         });
       return e;
     }
-    function b(e, t) {
-      return t === 0 ? "" : v(e, t);
+    function S(e, t) {
+      return t === 0 ? "" : R(e, t);
     }
-    function v(e, t) {
+    function R(e, t) {
       var n = new Date(e.getTime() - 28800),
         r = n.getUTCFullYear(),
         a = (n.getUTCMonth() + 1).toString().padStart(2, "0"),
@@ -143,7 +158,8 @@ __d(
     ((l.statusIdForLogging = u),
       (l.statusPosterHashIdForLogging = d),
       (l.statusPosterIdForLogging = p),
-      (l.statusGroupIdForLogging = f));
+      (l.channelStatusPosterHashId = f),
+      (l.statusGroupIdForLogging = h));
   },
   98,
 );

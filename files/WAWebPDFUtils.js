@@ -2,7 +2,6 @@ __d(
   "WAWebPDFUtils",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WABackoffUtils",
     "WAPromiseDelays",
     "WAPromiseLoop",
@@ -17,8 +16,7 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
+    function e() {
       return o("WAPromiseLoop").promiseLoop(function (e, t, n) {
         var a = o("WAPromiseDelays").delayMs(
           o("WABackoffUtils").expBackoff(n, 12e4, 0, 0),
@@ -39,46 +37,42 @@ __d(
           });
       });
     }
-    function u(e) {
-      var t = URL.createObjectURL(e);
-      return s().then(function (e) {
-        return e.getDocument({ url: t, isEvalSupported: !1 }).promise;
+    function s(t) {
+      var n = URL.createObjectURL(t);
+      return e().then(function (e) {
+        return e.getDocument({ url: n, isEvalSupported: !1 }).promise;
       });
     }
-    function c(e) {
+    function u(e) {
       return e.destroy();
     }
-    function d(t, a) {
-      var i = document.createElement("canvas");
-      return t
-        .getPage(a)
+    function c(e, t) {
+      var a = document.createElement("canvas");
+      return e
+        .getPage(t)
         .then(function (e) {
           var t = e.getViewport({ scale: 1 }),
-            n = i.getContext("2d");
-          ((i.height = t.height), (i.width = t.width));
+            n = a.getContext("2d");
+          ((a.height = t.height), (a.width = t.width));
           var r = { canvasContext: n, viewport: t };
           return e.render(r).promise;
         })
         .then(function () {
-          var t;
+          var e;
           return o("WAPromiseProps").promiseProps({
-            blob: o("WAWebCanvasUtils").canvasToBlob(i),
-            thumbnail: (t = o("WAWebImageUtils")).rotateAndResize(
-              i,
+            blob: o("WAWebCanvasUtils").canvasToBlob(a),
+            thumbnail: (e = o("WAWebImageUtils")).rotateAndResize(
+              a,
               o("WAWebMediaConstants").DOC_THUMB_MAX_EDGE,
-              t.DATA_URL | t.CANVAS | t.BLOB,
+              e.DATA_URL | e.CANVAS | e.BLOB,
             ),
-            microThumbnail: o("WAWebABProps").getABPropConfigValue(
-              "upload_document_thumb_mms_enabled",
-            )
-              ? o("WAWebCanvasUtils").generateMicroThumb(
-                  i,
-                  o("WAWebABProps").getABPropConfigValue(
-                    "web_pdf_thumbnail_size_in_bytes",
-                  ),
-                  { mimetype: "image/jpeg", maxAttempts: 10 },
-                )
-              : (e || (e = n("Promise"))).resolve(null),
+            microThumbnail: o("WAWebCanvasUtils").generateMicroThumb(
+              a,
+              o("WAWebABProps").getABPropConfigValue(
+                "web_pdf_thumbnail_size_in_bytes",
+              ),
+              { mimetype: "image/jpeg", maxAttempts: 10 },
+            ),
           });
         })
         .then(function (e) {
@@ -86,11 +80,11 @@ __d(
         })
         .then(
           (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e.blob,
-                  a = e.microThumbnail,
-                  i = e.thumbnail,
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = t.blob,
+                  a = t.microThumbnail,
+                  i = t.thumbnail,
                   l = i.images,
                   s = l.blob,
                   u = l.canvas,
@@ -106,18 +100,18 @@ __d(
                     "WAWebMediaOpaqueData",
                   ).createFromData(s, "image/jpeg"),
                   fullPreviewSize: { width: u.width, height: u.height },
-                  pdfPages: t.numPages,
+                  pdfPages: e.numPages,
                   microThumbnail: a,
                 };
               },
             );
-            return function (t) {
-              return e.apply(this, arguments);
+            return function (e) {
+              return t.apply(this, arguments);
             };
           })(),
         );
     }
-    ((l.fileToPdf = u), (l.releasePdf = c), (l.pdfToImg = d));
+    ((l.fileToPdf = s), (l.releasePdf = u), (l.pdfToImg = c));
   },
   98,
 );

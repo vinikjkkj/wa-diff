@@ -85,7 +85,7 @@ __d(
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number_of_hours} hours after it\'s sent, except when kept.","_1":"This message will disappear from this chat 1 hour after it\'s sent, except when kept."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number_of_hours} hours.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 hour."}',
                           [s._plural(n, "number_of_hours")],
                         )
                       : t ===
@@ -225,7 +225,7 @@ __d(
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
                       ? s._(
-                          /*BTDS*/ '_j{"*":"This message will disappear from this chat {number_of_days} days after it\'s sent, except when kept.","_1":"This message will disappear from this chat 1 day after it\'s sent, except when kept."}',
+                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number_of_days} days.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 day."}',
                           [s._plural(t, "number_of_days")],
                         )
                       : e ===

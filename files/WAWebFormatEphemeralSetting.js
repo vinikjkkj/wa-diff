@@ -102,13 +102,13 @@ __d(
       return o("WAWebAfterReadUtils").isAfterReadEnabled()
         ? t
           ? s._(/*BTDS*/ "Change timer.")
-          : s._(/*BTDS*/ "Set your own timer.")
+          : s._(/*BTDS*/ "Set your own default timer.")
         : t
           ? s._(/*BTDS*/ "Click to change your default timer.")
           : s._(/*BTDS*/ "Click to set your own default timer.");
     }
     function f(e) {
-      return E(o("WAWebStateUtils").unproxy(e.unsafe()));
+      return k(o("WAWebStateUtils").unproxy(e.unsafe()));
     }
     function g(e) {
       var t = b(e),
@@ -141,7 +141,7 @@ __d(
       };
     }
     function h(e) {
-      return k(o("WAWebStateUtils").unproxy(e.unsafe()));
+      return I(o("WAWebStateUtils").unproxy(e.unsafe()));
     }
     function y(e) {
       if (o("WAWebFrontendMsgGetters").getChat(e) != null)
@@ -233,8 +233,8 @@ __d(
           : r === "update"
             ? s._(/*BTDS*/ "The message timer was updated.")
             : r === "on"
-              ? s._(/*BTDS*/ "Disappearing messages was turned on.")
-              : s._(/*BTDS*/ "Disappearing messages was turned off.");
+              ? s._(/*BTDS*/ "Disappearing messages were turned on.")
+              : s._(/*BTDS*/ "Disappearing messages were turned off.");
     }
     function R(t) {
       var n = o("WAWebEphemeralConstants").getDurationForString(t),
@@ -273,10 +273,17 @@ __d(
     }
     function L(e) {
       var t = R(e);
+      return s._(
+        /*BTDS*/ "New messages will disappear from this chat {dm-duration} after they're read, except when kept.",
+        [s._param("dm-duration", t)],
+      );
+    }
+    function E(e) {
+      var t = R(e);
       return o("WAWebAfterReadUtils").isAfterReadDuration(e) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
         ? s._(
-            /*BTDS*/ "New messages will disappear {dm-duration} after they're read.",
+            /*BTDS*/ "New messages in this chat will disappear {dm-duration} after they're read, except when kept.",
             [s._param("dm-duration", t)],
           )
         : s._(
@@ -284,8 +291,8 @@ __d(
             [s._param("dm-duration", t)],
           );
     }
-    function E(e) {
-      var t = k(e),
+    function k(e) {
+      var t = I(e),
         n = t.ctaText,
         r = t.text;
       return n == null
@@ -295,7 +302,7 @@ __d(
             s._param("dm-sm-action", n),
           ]);
     }
-    function k(e) {
+    function I(e) {
       var t,
         n = null;
       switch (e.type) {
@@ -329,7 +336,7 @@ __d(
           o("WAWebEphemeralityTypes").DisappearingModeTrigger
             .BizSupportFbHosting
       )
-        return { text: I(i), ctaText: null };
+        return { text: T(i), ctaText: null };
       var l = null;
       if (
         (n.newDuration ? (C(e) ? (l = "update") : (l = "on")) : (l = "off"),
@@ -355,7 +362,7 @@ __d(
             ((t = c.groupMetadata) == null
               ? void 0
               : t.canSetEphemeralSetting()));
-      return T({
+      return D({
         newDuration: n.newDuration,
         state: l,
         initiatorUsername: a,
@@ -363,7 +370,7 @@ __d(
         userCanChange: d === !0,
       });
     }
-    function I(e) {
+    function T(e) {
       var t = s._(
           /*BTDS*/ "Disappearing messages are no longer supported with this business.",
         ),
@@ -372,7 +379,7 @@ __d(
         );
       return e ? n : t;
     }
-    function T(e) {
+    function D(e) {
       var t = e.initiatorIsMe,
         n = e.initiatorUsername,
         r = e.newDuration,
@@ -384,7 +391,7 @@ __d(
           : s._(/*BTDS*/ "Click to change.");
       if (!r)
         return i !== !0 ? { text: l, ctaText: null } : { text: l, ctaText: u };
-      var c = L(r);
+      var c = E(r);
       return i !== !0
         ? {
             text: s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
@@ -401,8 +408,8 @@ __d(
             ctaText: u,
           };
     }
-    function D(e) {
-      var t = T(e),
+    function x(e) {
+      var t = D(e),
         n = t.ctaText,
         r = t.text;
       return n == null
@@ -412,7 +419,7 @@ __d(
             s._param("dm-sm-action", n),
           ]);
     }
-    function x() {
+    function $() {
       return s._(
         /*BTDS*/ "Disappearing messages are not supported in this chat. Your messages will not disappear.",
       );
@@ -424,10 +431,10 @@ __d(
       (l.getDefaultDisappearingModeParts = g),
       (l.getDisappearingModeUpdateParts = h),
       (l.getDisappearingMessageDurationString = R),
-      (l.formatEphemeralSetting = E),
-      (l.buildEphemeralSystemMessageParts = T),
-      (l.buildEphemeralSystemMessage = D),
-      (l.getDMUnsupportedSystemMessageText = x));
+      (l.formatEphemeralSetting = k),
+      (l.buildEphemeralSystemMessageParts = D),
+      (l.buildEphemeralSystemMessage = x),
+      (l.getDMUnsupportedSystemMessageText = $));
   },
   226,
 );

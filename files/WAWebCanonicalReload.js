@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBrokerGlobalAppState",
     "WAWebCallCollection",
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
@@ -103,6 +104,13 @@ __d(
       }
     }
     function C(e, t) {
+      if (
+        r("WAWebBrokerGlobalAppState").isLogoutInProgress ||
+        o("WAWebCanonicalUtils").getCanonicalReloadPending() == null
+      ) {
+        o("WAWebCanonicalUtils").setCanonicalReloadPending(null);
+        return;
+      }
       (o("WALogger").LOG(
         u ||
           (u = babelHelpers.taggedTemplateLiteralLoose([

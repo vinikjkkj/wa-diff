@@ -397,34 +397,32 @@ __d(
           o = "";
         }
         var r = null;
-        var i = t.getNodes(),
-          s = t.anchor,
-          l = t.focus,
-          c = t.isBackward(),
-          f = c ? l.getNode() : s.getNode(),
-          d = c ? s.getNode() : l.getNode(),
-          a = c ? l.offset : s.offset,
-          g = c ? s.offset : l.offset;
-        if (
-          require("Lexical").$isRangeSelection(t) &&
-          t.isCollapsed() &&
-          "" !== t.style
-        ) {
-          var _o5 = t.style,
-            _r4 = require("Lexical").getStyleObjectFromCSS(_o5);
-          if (null !== _r4 && n in _r4) return _r4[n];
+        var i = t.getNodes();
+        var s, l;
+        if (require("Lexical").$isRangeSelection(t)) {
+          if (t.isCollapsed() && "" !== t.style) {
+            var _o5 = require("Lexical").getStyleObjectFromCSS(t.style);
+            if (null !== _o5 && n in _o5) return _o5[n];
+          }
+          var _o6 = t.anchor,
+            _r4 = t.focus,
+            _i3 = t.isBackward(),
+            _c = _i3 ? _r4.getNode() : _o6.getNode(),
+            _f2 = _i3 ? _o6.getNode() : _r4.getNode(),
+            _d2 = _i3 ? _r4.offset : _o6.offset,
+            _a = _i3 ? _o6.offset : _r4.offset;
+          (require("Lexical").$isTextNode(_c) &&
+            _d2 === _c.getTextContentSize() &&
+            (s = _c),
+            0 === _a && (l = _f2));
         }
         for (var _t17 = 0; _t17 < i.length; _t17++) {
-          var _s4 = i[_t17];
+          var _c2 = i[_t17];
           if (
-            (0 !== _t17 ||
-              !_s4.is(f) ||
-              !require("Lexical").$isTextNode(_s4) ||
-              a !== _s4.getTextContentSize()) &&
-            (0 === _t17 || !_s4.is(d) || 0 !== g) &&
-            require("Lexical").$isTextNode(_s4)
+            require("Lexical").$isTextNode(_c2) &&
+            !_c2.is(0 === _t17 ? s : l)
           ) {
-            var _e14 = y(_s4, n, o);
+            var _e14 = y(_c2, n, o);
             if (null === r) r = _e14;
             else if (r !== _e14) {
               r = "";
@@ -457,8 +455,8 @@ __d(
       (exports.$patchStyleText = function (t, n) {
         if (require("Lexical").$isRangeSelection(t) && t.isCollapsed()) {
           f(t, n);
-          var _o6 = t.anchor.getNode();
-          require("Lexical").$isElementNode(_o6) && _o6.isEmpty() && f(_o6, n);
+          var _o7 = t.anchor.getNode();
+          require("Lexical").$isElementNode(_o7) && _o7.isEmpty() && f(_o7, n);
         }
         d(function (e) {
           f(e, n);
@@ -473,8 +471,8 @@ __d(
               0 !== _r5.getChildrenSize()
             )
               continue;
-            var _o7 = _r5.getKey();
-            _t18.has(_o7) || (_t18.add(_o7), f(_r5, n));
+            var _o8 = _r5.getKey();
+            _t18.has(_o8) || (_t18.add(_o8), f(_r5, n));
           }
         }
       }),
@@ -491,7 +489,7 @@ __d(
           var _require_Lexical;
           var _t19 = r[0],
             _n0 = r[1],
-            _o8 = (_require_Lexical = require("Lexical")).$findMatchingParent(
+            _o9 = (_require_Lexical = require("Lexical")).$findMatchingParent(
               _t19.getNode(),
               _require_Lexical.INTERNAL_$isBlock,
             );
@@ -501,7 +499,7 @@ __d(
           )),
             (i =
               require("Lexical").$isElementNode(s) &&
-              !s.is(_o8) &&
+              !s.is(_o9) &&
               (function (t, n) {
                 if (0 !== t.offset) return !1;
                 var o = t.getNode();
@@ -515,7 +513,7 @@ __d(
                 }
                 return !0;
               })(_n0, s)),
-            require("Lexical").$isElementNode(_o8) && l.set(_o8.getKey(), _o8),
+            require("Lexical").$isElementNode(_o9) && l.set(_o9.getKey(), _o9),
             require("Lexical").$isElementNode(s) && !i && l.set(s.getKey(), s));
         }
         for (var _n1 of t.getNodes())
@@ -566,29 +564,29 @@ __d(
           !require("Lexical").$isTokenOrSegmented(n) &&
           null !== r
         ) {
-          var _i3 = r[0],
-            _s5 = r[1],
+          var _i4 = r[0],
+            _s4 = r[1],
             _l2 = t.isBackward(),
-            _c = _i3.getNode(),
-            _f2 = _s5.getNode(),
-            _d2 = n.is(_c),
-            _a = n.is(_f2);
-          if (_d2 || _a) {
+            _c3 = _i4.getNode(),
+            _f3 = _s4.getNode(),
+            _d3 = n.is(_c3),
+            _a2 = n.is(_f3);
+          if (_d3 || _a2) {
             var _e$$getCharacterOffse =
                 require("Lexical").$getCharacterOffsets(t),
               _r6 = _e$$getCharacterOffse[0],
-              _i4 = _e$$getCharacterOffse[1],
-              _s6 = _c.is(_f2),
-              _d3 = n.is(_l2 ? _f2 : _c),
-              _a2 = n.is(_l2 ? _c : _f2);
+              _i5 = _e$$getCharacterOffse[1],
+              _s5 = _c3.is(_f3),
+              _d4 = n.is(_l2 ? _f3 : _c3),
+              _a3 = n.is(_l2 ? _c3 : _f3);
             var _g,
               _u = 0;
-            if (_s6)
-              ((_u = _r6 > _i4 ? _i4 : _r6), (_g = _r6 > _i4 ? _r6 : _i4));
-            else if (_d3) {
-              ((_u = _l2 ? _i4 : _r6), (_g = void 0));
-            } else if (_a2) {
-              ((_u = 0), (_g = _l2 ? _r6 : _i4));
+            if (_s5)
+              ((_u = _r6 > _i5 ? _i5 : _r6), (_g = _r6 > _i5 ? _r6 : _i5));
+            else if (_d4) {
+              ((_u = _l2 ? _i5 : _r6), (_g = void 0));
+            } else if (_a3) {
+              ((_u = 0), (_g = _l2 ? _r6 : _i5));
             }
             var _p = n.__text.slice(_u, _g);
             _p !== n.__text &&
@@ -632,18 +630,18 @@ __d(
         var c = null,
           f = [];
         for (var _r8 = 0; _r8 < l; _r8++) {
-          var _i5 = s[_r8];
-          require("Lexical").$isRootOrShadowRoot(_i5)
-            ? ($(t, f, f.length, n, o), (f = []), (c = _i5))
+          var _i6 = s[_r8];
+          require("Lexical").$isRootOrShadowRoot(_i6)
+            ? ($(t, f, f.length, n, o), (f = []), (c = _i6))
             : null === c ||
-                (null !== c && require("Lexical").$hasAncestor(_i5, c))
-              ? f.push(_i5)
-              : ($(t, f, f.length, n, o), (f = [_i5]));
+                (null !== c && require("Lexical").$hasAncestor(_i6, c))
+              ? f.push(_i6)
+              : ($(t, f, f.length, n, o), (f = [_i6]));
         }
         $(t, f, f.length, n, o);
       }),
       (exports.createDOMRange = function (t, r, i, s, l) {
-        var _o9, _o0;
+        var _o0, _o1;
         var c = r.getKey(),
           f = s.getKey(),
           d = document.createRange();
@@ -657,9 +655,9 @@ __d(
           void 0 === r || void 0 === s || null === a || null === g)
         )
           return null;
-        ("BR" === a.nodeName && ((_o9 = o(a)), (a = _o9[0]), (u = _o9[1]), _o9),
+        ("BR" === a.nodeName && ((_o0 = o(a)), (a = _o0[0]), (u = _o0[1]), _o0),
           "BR" === g.nodeName &&
-            ((_o0 = o(g)), (g = _o0[0]), (p = _o0[1]), _o0));
+            ((_o1 = o(g)), (g = _o1[0]), (p = _o1[1]), _o1));
         var $ = a.firstChild;
         a === g &&
           null != $ &&

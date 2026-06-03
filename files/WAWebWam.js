@@ -8,7 +8,6 @@ __d(
     "WAResolvable",
     "WAShiftTimer",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebABPropsLocalStorage",
     "WAWebBrowserApi",
     "WAWebBrowserInfo",
@@ -217,11 +216,8 @@ __d(
                 deviceClassification: o("WAWebWamEnumDeviceClassification")
                   .DEVICE_CLASSIFICATION.DESKTOP,
                 webcRevision: r("SiteData").client_revision,
-                abKey2: o("WAWebABProps").getABPropConfigValue(
-                  "wam_disable_abkey_attribute",
-                )
-                  ? null
-                  : (e = o("WAWebABPropsLocalStorage").getABKey()) != null
+                abKey2:
+                  (e = o("WAWebABPropsLocalStorage").getABKey()) != null
                     ? e
                     : "",
               },

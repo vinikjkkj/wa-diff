@@ -11,7 +11,14 @@ __d(
         e.BoostingStatus.EXTENDABLE,
         e.BoostingStatus.FINISHED,
       ];
-    l.RECREATE_ELIGIBLE_STATUSES = s;
+    function u(e, t) {
+      return e == null || !s.includes(e)
+        ? "ineligible"
+        : t.length > 0
+          ? "blocked_by_sac"
+          : "eligible";
+    }
+    ((l.RECREATE_ELIGIBLE_STATUSES = s), (l.getRecreateEligibility = u));
   },
   98,
 );

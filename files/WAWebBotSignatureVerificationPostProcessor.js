@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebBotCertificateRevocationService",
     "WAWebBotSignatureVerificationGating",
     "asyncToGeneratorRuntime",
   ],
@@ -11,20 +12,26 @@ __d(
       s,
       u,
       c = "[bot-signature-post-processor]",
-      d = r("JSResourceForInteraction")(
+      d = !1,
+      m = r("JSResourceForInteraction")(
         "WAWebBotSignatureVerificationUtils",
       ).__setRef("WAWebBotSignatureVerificationPostProcessor");
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!_(t)) return t;
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (!g(t)) return t;
+          d ||
+            ((d = !0),
+            o(
+              "WAWebBotCertificateRevocationService",
+            ).startPeriodicCrlRefresh());
           var n = t.botSignatureVerificationMetadata,
             r = t.forwardedAiBotMessageInfo;
           if (r == null || n == null) return t;
-          var a = f(t);
+          var a = h(t);
           if (a == null)
             return (
               o("WALogger")
@@ -40,11 +47,11 @@ __d(
               t
             );
           try {
-            var i = yield d.load(),
+            var i = yield m.load(),
               l = i.verifyBotMessageSignature,
-              m = yield l(r, n, a);
+              p = yield l(r, n, a);
             return (
-              m === "failed" &&
+              p === "failed" &&
                 o("WALogger")
                   .WARN(
                     s ||
@@ -57,7 +64,7 @@ __d(
                   .sendLogs("bot-sig-verification-failed"),
               babelHelpers.extends({}, t, {
                 forwardedAiBotMessageInfo: babelHelpers.extends({}, r, {
-                  validationStatus: m,
+                  validationStatus: p,
                 }),
               })
             );
@@ -77,10 +84,13 @@ __d(
           }
           return t;
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f() {
+      d = !1;
+    }
+    function g(e) {
       return !(
         e.isForwarded !== !0 ||
         e.forwardedAiBotMessageInfo == null ||
@@ -88,7 +98,7 @@ __d(
         !o("WAWebBotSignatureVerificationGating").isForwardVerificationEnabled()
       );
     }
-    function f(e) {
+    function h(e) {
       var t = e.unifiedResponseRawData;
       return t instanceof Uint8Array
         ? t
@@ -96,8 +106,9 @@ __d(
           ? new Uint8Array(t)
           : null;
     }
-    ((l.verifyForwardedBotMessage = m),
-      (l.shouldVerifyForwardedBotMessage = _));
+    ((l.verifyForwardedBotMessage = p),
+      (l.resetCrlRefreshStateForTesting = f),
+      (l.shouldVerifyForwardedBotMessage = g));
   },
   98,
 );

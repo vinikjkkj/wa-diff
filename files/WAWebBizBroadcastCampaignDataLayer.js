@@ -719,6 +719,31 @@ __d(
         A.apply(this, arguments)
       );
     }
+    function F(e, t) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield (_ || (_ = n("Promise"))).all([
+              e.msgId != null
+                ? $(e.msgId, e.broadcastJid)
+                : (_ || (_ = n("Promise"))).resolve(null),
+              D(e),
+            ]),
+            o = r[0],
+            a = r[1],
+            i = yield h(o, a),
+            l = i == null ? void 0 : i.previewUrl;
+          return (t == null ? void 0 : t.aborted) === !0 &&
+            l != null &&
+            l.startsWith("blob:")
+            ? (URL.revokeObjectURL(l), { attachment: null, thumbnailUrl: null })
+            : { attachment: i, thumbnailUrl: l };
+        })),
+        O.apply(this, arguments)
+      );
+    }
     ((l.getThumbnailUrl = C),
       (l.deriveCampaignStatus = R),
       (l.getDisplayMessageBody = k),
@@ -728,7 +753,8 @@ __d(
       (l.getAllRawCampaignsForCurrentDevice = o(
         "WAWebBizBroadcastCampaignAPI",
       ).getAllRawCampaignsForCurrentDevice),
-      (l.loadBroadcastCampaigns = w));
+      (l.loadBroadcastCampaigns = w),
+      (l.fetchCampaignMediaContext = F));
   },
   98,
 );

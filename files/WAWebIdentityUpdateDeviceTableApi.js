@@ -250,10 +250,7 @@ __d(
                   ),
                 );
               }),
-              o("WAWebDeviceListPk").createDeviceListPK(r) ===
-                o("WAWebDeviceListPk").createDeviceListPK(
-                  o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                ) &&
+              o("WAWebUserPrefsMeUser").isMeAccount(r) &&
                 p.length > 0 &&
                 (s = !0));
           }),

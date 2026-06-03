@@ -18,7 +18,6 @@ __d(
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -57,32 +56,32 @@ __d(
         );
       });
     function _(e, t) {
-      var n = r("lodash").flatten(Array.from(t.values())),
-        a = n[0],
-        i = babelHelpers.arrayLikeToArray(n).slice(1),
-        l =
-          i.length > 0
+      var n = Array.from(t.values()).flat(),
+        r = n[0],
+        a = babelHelpers.arrayLikeToArray(n).slice(1),
+        i =
+          a.length > 0
             ? o("WAWap").wap(
                 "list",
                 null,
-                i.map(function (e) {
+                a.map(function (e) {
                   return o("WAWap").wap("item", {
                     id: o("WAWap").CUSTOM_STRING(e),
                   });
                 }),
               )
             : null,
-        s = o("WAWap").wap(
+        l = o("WAWap").wap(
           "ack",
           {
-            id: o("WAWap").CUSTOM_STRING(a),
+            id: o("WAWap").CUSTOM_STRING(r),
             to: o("WAWebCommsWapMd").JID(e),
             class: "message",
             type: "text",
           },
-          l,
+          i,
         );
-      return o("WADeprecatedSendIq").deprecatedCastStanza(s);
+      return o("WADeprecatedSendIq").deprecatedCastStanza(l);
     }
     function f(e, t, n, r) {
       var a = e[0],

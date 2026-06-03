@@ -12,7 +12,6 @@ __d(
     "WAWebNewsletterValidationUtils",
     "WAWebNullFunc",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -67,31 +66,31 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.jid,
-            i = t.msgs,
-            l = t.range,
-            c = t.serverIdsToSkip,
-            d = c === void 0 ? new Set() : c;
-          if (i.length < 2 && l == null) return i;
-          var m = i[0].serverId,
-            p = i[i.length - 1].serverId;
-          if (m == null || p == null) return [];
+          var r = t.jid,
+            a = t.msgs,
+            i = t.range,
+            l = t.serverIdsToSkip,
+            c = l === void 0 ? new Set() : l;
+          if (a.length < 2 && i == null) return a;
+          var d = a[0].serverId,
+            m = a[a.length - 1].serverId;
+          if (d == null || m == null) return [];
           if (
+            d >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
             m >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
-            p >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
-            (p - m + 1 === i.length && l == null)
+            (m - d + 1 === a.length && i == null)
           )
-            return i;
-          var _;
-          if (l != null) {
-            var f = l.end,
-              g = l.start,
-              h = { serverId: Math.min(g, f) - 1 },
-              y = { serverId: Math.max(g, f) + 1 };
-            _ = u([h].concat(i).concat(y), d);
-          } else _ = u(i, d);
-          if (_.length === 0) return i;
-          var C = _.map(
+            return a;
+          var p;
+          if (i != null) {
+            var _ = i.end,
+              f = i.start,
+              g = { serverId: Math.min(f, _) - 1 },
+              h = { serverId: Math.max(f, _) + 1 };
+            p = u([g].concat(a).concat(h), c);
+          } else p = u(a, c);
+          if (p.length === 0) return a;
+          var y = p.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -99,7 +98,7 @@ __d(
                       .getNewsletterMessages(
                         o(
                           "WAWebNewsletterValidationUtils",
-                        ).toNewsletterJidOrThrow(String(a)),
+                        ).toNewsletterJidOrThrow(String(r)),
                         e.length,
                         { after: e[0] - 1 },
                       )
@@ -122,14 +121,12 @@ __d(
                 };
               })(),
             ),
-            b = r("lodash")
-              .flatten(yield (e || (e = n("Promise"))).all(C))
-              .filter(Boolean);
+            C = (yield (e || (e = n("Promise"))).all(y)).flat().filter(Boolean);
           return (
             o("WAWebNewsletterUpdateMsgsRecordsJob")
-              .addNewsletterMsgsRecordsJob(b)
+              .addNewsletterMsgsRecordsJob(C)
               .fireAndForget(),
-            i.concat(b).sort(s)
+            a.concat(C).sort(s)
           );
         })),
         d.apply(this, arguments)

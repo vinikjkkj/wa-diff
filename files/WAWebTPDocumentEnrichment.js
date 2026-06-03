@@ -66,17 +66,13 @@ __d(
             v = h.dataUrl;
           if (b == null || C == null || v == null)
             throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
-          var S = o("WAWebABProps").getABPropConfigValue(
-              "upload_document_thumb_mms_enabled",
-            )
-              ? yield o("WAWebCanvasUtils").generateMicroThumb(
-                  b,
-                  o("WAWebABProps").getABPropConfigValue(
-                    "web_pdf_thumbnail_size_in_bytes",
-                  ),
-                  { mimetype: "image/jpeg", maxAttempts: 10 },
-                )
-              : null,
+          var S = yield o("WAWebCanvasUtils").generateMicroThumb(
+              b,
+              o("WAWebABProps").getABPropConfigValue(
+                "web_pdf_thumbnail_size_in_bytes",
+              ),
+              { mimetype: "image/jpeg", maxAttempts: 10 },
+            ),
             R = yield r("WAWebMediaOpaqueData").createFromData(C, "image/jpeg");
           return {
             url: d,

@@ -83,7 +83,7 @@ __d(
     function E() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
-      ).removeDevicePnDependenciesEnabled()
+      ).removePnDependenciesEnabled()
         ? p()
         : m();
     }

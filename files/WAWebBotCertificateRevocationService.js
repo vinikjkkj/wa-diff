@@ -33,7 +33,7 @@ __d(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "",
-                  " No CRL available, treating certificate as potentially revoked",
+                  " no CRL, treating cert as revoked",
                 ])),
               c,
             )
