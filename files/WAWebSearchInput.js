@@ -119,6 +119,14 @@ __d(
           $$css: !0,
         },
         tealLighterColor: { color: "x1v5yvga", $$css: !0 },
+        placeholderTruncate: {
+          maxWidth: "x193iq5w",
+          overflowX: "x6ikm8r",
+          overflowY: "x10wlt62",
+          textOverflow: "xlyipyv",
+          whiteSpace: "xuxw1ft",
+          $$css: !0,
+        },
       },
       f = {
         inputWrapper: { backgroundColor: "x1od0jb8", $$css: !0 },
@@ -538,6 +546,7 @@ __d(
               multiline: !1,
               onClick: S,
               placeholder: E,
+              placeholderTextXStyle: _.placeholderTruncate,
               tabOrder: D,
               testid: "search-input",
               title: k,

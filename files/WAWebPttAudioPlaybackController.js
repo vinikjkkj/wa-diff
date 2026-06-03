@@ -11,6 +11,7 @@ __d(
     "WAWebPttPlaybackLogger",
     "WAWebPttPlaybackTone",
     "WAWebPttPrefs",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "playing",
@@ -19,53 +20,55 @@ __d(
       c = 400,
       d = (function () {
         function t(t) {
-          var n = this;
+          var r = this;
           ((this.$3 = !1),
             (this.$7 = function () {
-              o("WAWebMarkPlayedMsgAction").canMarkPlayed(n.$1.unsafe()) &&
-                o("WAWebMarkPlayedMsgAction").markPlayed(n.$1.unsafe());
+              o("WAWebMarkPlayedMsgAction").canMarkPlayed(r.$1.unsafe()) &&
+                o("WAWebMarkPlayedMsgAction").markPlayed(r.$1.unsafe());
             }),
             (this.$8 = function () {
-              n.$1.updateLastPlaybackProgress(
+              r.$1.updateLastPlaybackProgress(
                 o("WAWebPttCalculateAudioProgress").calculateAudioProgress(
-                  n.audio,
-                  n.$1.mediaData,
+                  r.audio,
+                  r.$1.mediaData,
                 ),
               );
             }),
             (this.$5 = function () {
-              n.$2 = o("WAWebPttPrefs").PttPrefs.setPlayingMessage(n.$1);
+              r.$2 = o("WAWebPttPrefs").PttPrefs.setPlayingMessage(r.$1);
             }),
             (this.$6 = function () {
-              (n.$2 == null || n.$2(),
-                (n.$2 = null),
-                (n.audio.currentTime = 0),
-                n.$1.updateLastPlaybackProgress(0),
-                n.$9(),
-                n.$3 && (n.$4 == null || n.$4(), (n.$4 = null)));
+              (r.$2 == null || r.$2(),
+                (r.$2 = null),
+                (r.audio.currentTime = 0),
+                r.$1.updateLastPlaybackProgress(0),
+                r.$9(),
+                r.$3 && (r.$4 == null || r.$4(), (r.$4 = null)));
             }),
-            (this.$9 = async function () {
-              var e = o("WAWebPttFindSequentialMsg").findSequentialMsg(n.$1),
-                t = !1,
-                r = o("WAWebPttAudioChannels").MainAudioChannel.claim(
-                  n,
-                  function () {
-                    t = !0;
-                  },
-                );
-              if ((await o("WAPromiseDelays").delayMs(c), r(), !t))
-                if (e) {
-                  o("WAWebPttPlaybackTone").playMidPttTone();
-                  var a = o("WAWebPttMsgAudioStore").MsgAudioStore.acquireAudio(
-                    e,
+            (this.$9 = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* () {
+                var e = o("WAWebPttFindSequentialMsg").findSequentialMsg(r.$1),
+                  t = !1,
+                  n = o("WAWebPttAudioChannels").MainAudioChannel.claim(
+                    r,
+                    function () {
+                      t = !0;
+                    },
                   );
-                  (a.controller.playAsSequential(), a.dispose());
-                } else
-                  n.$3 &&
-                    (o("WAWebPttPlaybackTone").playEndPttTone(),
-                    (n.$3 = !1),
-                    (n.pttPlaybackLogger.isSequentialPlayback = !1));
-            }),
+                if ((yield o("WAPromiseDelays").delayMs(c), n(), !t))
+                  if (e) {
+                    o("WAWebPttPlaybackTone").playMidPttTone();
+                    var a = o(
+                      "WAWebPttMsgAudioStore",
+                    ).MsgAudioStore.acquireAudio(e);
+                    (a.controller.playAsSequential(), a.dispose());
+                  } else
+                    r.$3 &&
+                      (o("WAWebPttPlaybackTone").playEndPttTone(),
+                      (r.$3 = !1),
+                      (r.pttPlaybackLogger.isSequentialPlayback = !1));
+              },
+            )),
             (this.audio = t.audio),
             (this.pttPlaybackLogger = new (o(
               "WAWebPttPlaybackLogger",
@@ -77,9 +80,9 @@ __d(
               this.audio.addEventListener(e, this.$7),
             this.audio.addEventListener(s, this.$8));
         }
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.playAsSequential = function () {
+          (r.playAsSequential = function () {
             ((o("WAWebPttPrefs").PttPrefs.outOfChatPlayerMessage = this.$1),
               (this.$4 = o("WAWebPttMsgAudioStore").MsgAudioStore.acquireAudio(
                 this.$1,
@@ -96,7 +99,7 @@ __d(
               (this.audio.currentTime = 0),
               this.audio.play());
           }),
-          (n.dispose = function () {
+          (r.dispose = function () {
             var t;
             (o("WAWebMarkPlayedMsgAction").canMarkPlayed(this.$1.unsafe()) &&
               this.audio.removeEventListener(e, this.$7),

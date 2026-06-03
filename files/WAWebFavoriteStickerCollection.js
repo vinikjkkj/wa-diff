@@ -1,6 +1,7 @@
 __d(
   "WAWebFavoriteStickerCollection",
   [
+    "Promise",
     "WABaseGlobals",
     "WAJids",
     "WALogger",
@@ -14,21 +15,22 @@ __d(
     "WAWebStickerModel",
     "WAWebStickerUtils",
     "WAWebWebpCalculateWebpFilehashWithoutMetadata",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e, t) {
+    var e, s, u, c, d, m, p, _, f;
+    function g(e, t) {
       return e.timestamp < t.timestamp ? 1 : -1;
     }
-    var g = (function (e) {
+    var h = (function (e) {
       function t() {
         for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t._comparator = function (e, t) {
-            return f(e, t);
+            return g(e, t);
           }),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
@@ -36,15 +38,15 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WAWebBaseCollection").BaseCollection);
-    g.model = r("WAWebFavoriteStickerModel");
-    var h = (function (t) {
-      function n() {
+    h.model = r("WAWebFavoriteStickerModel");
+    var y = (function (t) {
+      function a() {
         for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
         return (
           (e = t.call.apply(t, [this].concat(r)) || this),
           (e._comparator = function (e, t) {
-            return f(e, t);
+            return g(e, t);
           }),
           (e._emojiToCollection = new Map()),
           (e._hasInitializedFromCache = !1),
@@ -52,10 +54,10 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(n, t);
-      var a = n.prototype;
+      babelHelpers.inheritsLoose(a, t);
+      var i = a.prototype;
       return (
-        (a.add = function (n, r) {
+        (i.add = function (n, r) {
           var e = t.prototype.add.call(this, n, r),
             a = o("WAWebABProps").getABPropConfigValue(
               "web_autodownload_stickers",
@@ -67,19 +69,19 @@ __d(
             }
           return e;
         }),
-        (a._enqueueStickerAutoDownload = function (t) {
+        (i._enqueueStickerAutoDownload = function (t) {
           o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
             t.sticker,
             o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes.MEDIA,
           );
         }),
-        (a.remove = function (n, r) {
+        (i.remove = function (n, r) {
           return t.prototype.remove.call(this, n, r);
         }),
-        (a.reset = function () {
+        (i.reset = function () {
           t.prototype.reset.call(this);
         }),
-        (a._addSaveTask = function () {
+        (i._addSaveTask = function () {
           var e = this;
           (!this._idleTaskId ||
             !o("WAWebIdleTaskRunner").IdleCallbackTasks.isInQueue(
@@ -91,74 +93,82 @@ __d(
               e._saveToDb();
             }));
         }),
-        (a._saveToDb = async function () {
-          var t = this.toArray().map(function (e) {
-            var t = e.sticker.toDbData();
-            return {
-              id: e.id,
-              timestamp: e.timestamp,
-              sticker: {
-                index: t.index,
-                width: t.width,
-                height: t.height,
-                size: t.size,
-                mimetype: t.mimetype,
-                filehash: t.filehash,
-                directPath: t.directPath,
-                mediaKey: t.mediaKey,
-                mediaKeyTimestamp: t.mediaKeyTimestamp,
-                encFilehash: t.encFilehash,
-                deprecatedMms3Url: t.deprecatedMms3Url,
-                type: "sticker",
-              },
-              stickerHashWithoutMeta: e.stickerHashWithoutMeta,
-              isFavorite: e.isFavorite,
-              deviceId: e.deviceId,
-            };
-          });
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[FavStickers] saving to DB, count=",
-                "",
-              ])),
-            t.length,
-          );
-          try {
-            var n = o("WAWebSchemaFavoriteStickers").getFavoriteStickersTable(),
-              a = await n.count();
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[FavStickers] before save, DB count=",
+        (i._saveToDb = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = this.toArray().map(function (e) {
+              var t = e.sticker.toDbData();
+              return {
+                id: e.id,
+                timestamp: e.timestamp,
+                sticker: {
+                  index: t.index,
+                  width: t.width,
+                  height: t.height,
+                  size: t.size,
+                  mimetype: t.mimetype,
+                  filehash: t.filehash,
+                  directPath: t.directPath,
+                  mediaKey: t.mediaKey,
+                  mediaKeyTimestamp: t.mediaKeyTimestamp,
+                  encFilehash: t.encFilehash,
+                  deprecatedMms3Url: t.deprecatedMms3Url,
+                  type: "sticker",
+                },
+                stickerHashWithoutMeta: e.stickerHashWithoutMeta,
+                isFavorite: e.isFavorite,
+                deviceId: e.deviceId,
+              };
+            });
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[FavStickers] saving to DB, count=",
                   "",
                 ])),
-              a,
-            ),
-              await n.clear(),
-              await n.bulkCreateOrReplace(t),
-              (a = await n.count()),
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "Favorite Stickers: after save, stickers in DB with length: ",
+              t.length,
+            );
+            try {
+              var n = o(
+                  "WAWebSchemaFavoriteStickers",
+                ).getFavoriteStickersTable(),
+                a = yield n.count();
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[FavStickers] before save, DB count=",
                     "",
                   ])),
                 a,
-              ));
-          } catch (e) {
-            var i = r("getErrorSafe")(e);
-            o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "FavoriteStickerCollection attempt to save to database failed",
-                  ])),
-              )
-              .sendLogs(i.message);
+              ),
+                yield n.clear(),
+                yield n.bulkCreateOrReplace(t),
+                (a = yield n.count()),
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "Favorite Stickers: after save, stickers in DB with length: ",
+                      "",
+                    ])),
+                  a,
+                ));
+            } catch (e) {
+              var i = r("getErrorSafe")(e);
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "FavoriteStickerCollection attempt to save to database failed",
+                    ])),
+                )
+                .sendLogs(i.message);
+            }
+          });
+          function a() {
+            return t.apply(this, arguments);
           }
-        }),
-        (a._dbDataToModel = function (t) {
+          return a;
+        })()),
+        (i._dbDataToModel = function (t) {
           return new (r("WAWebFavoriteStickerModel"))({
             id: t.id,
             timestamp: t.timestamp,
@@ -166,66 +176,94 @@ __d(
             sticker: new (o("WAWebStickerModel").StickerModel)(t.sticker),
           });
         }),
-        (a._getStickerHashWithoutMeta = async function (t, n) {
-          var e = await o("WAWebMediaStore").LruMediaStore.get(t);
-          if (e == null) return t;
-          var a = o("WAWebStickerUtils").getStickerFileType(n);
-          return a === o("WAWebStickerUtils").StickerFileType.LOTTIE
-            ? o(
-                "WAWebStickerUtils",
-              ).getLottieStickerFilehashFromZippedStickerBuffer(e, t)
-            : r("WAWebWebpCalculateWebpFilehashWithoutMetadata")(e);
-        }),
-        (a.addOrUpdateStickers = async function (t, n, a) {
-          var e = this;
-          a === void 0 &&
-            (a = o("WAJids").interpretAsNumber(
-              o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid()),
-            ));
-          var i = t.filter(function (t) {
-            return !e.get(t.id);
-          });
-          if (
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "Favorite Stickers: length of stickers will be enqueued: ",
-                  "",
-                ])),
-              t.length,
-            ),
-            i.length !== 0)
-          ) {
-            var l = await Promise.all(
-              i.map(async function (t) {
-                return new (r("WAWebFavoriteStickerModel"))({
-                  id: t.filehash,
-                  sticker: t,
-                  stickerHashWithoutMeta: await e._getStickerHashWithoutMeta(
-                    t.filehash,
-                    t.mimetype,
-                  ),
-                  timestamp: n,
-                  isFavorite: !0,
-                  deviceId: a,
-                });
-              }),
-            );
-            (this.addAndSort(l),
-              this._hasInitializedFromCache &&
-                (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "Favorite Stickers: need to save collection to DB.",
-                    ])),
-                ),
-                this._addSaveTask()));
+        (i._getStickerHashWithoutMeta = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield o("WAWebMediaStore").LruMediaStore.get(e);
+              if (n == null) return e;
+              var a = o("WAWebStickerUtils").getStickerFileType(t);
+              return a === o("WAWebStickerUtils").StickerFileType.LOTTIE
+                ? o(
+                    "WAWebStickerUtils",
+                  ).getLottieStickerFilehashFromZippedStickerBuffer(n, e)
+                : r("WAWebWebpCalculateWebpFilehashWithoutMetadata")(n);
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
           }
-        }),
-        (a.addAndSort = function (t) {
+          return t;
+        })()),
+        (i.addOrUpdateStickers = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, a) {
+              var i = this;
+              a === void 0 &&
+                (a = o("WAJids").interpretAsNumber(
+                  o("WAJids").extractDeviceId(
+                    o("WABaseGlobals").getMyDeviceJid(),
+                  ),
+                ));
+              var l = e.filter(function (e) {
+                return !i.get(e.id);
+              });
+              if (
+                (o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "Favorite Stickers: length of stickers will be enqueued: ",
+                      "",
+                    ])),
+                  e.length,
+                ),
+                l.length !== 0)
+              ) {
+                var s = yield (f || (f = n("Promise"))).all(
+                  l.map(
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          return new (r("WAWebFavoriteStickerModel"))({
+                            id: e.filehash,
+                            sticker: e,
+                            stickerHashWithoutMeta:
+                              yield i._getStickerHashWithoutMeta(
+                                e.filehash,
+                                e.mimetype,
+                              ),
+                            timestamp: t,
+                            isFavorite: !0,
+                            deviceId: a,
+                          });
+                        },
+                      );
+                      return function (t) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  ),
+                );
+                (this.addAndSort(s),
+                  this._hasInitializedFromCache &&
+                    (o("WALogger").LOG(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "Favorite Stickers: need to save collection to DB.",
+                        ])),
+                    ),
+                    this._addSaveTask()));
+              }
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (i.addAndSort = function (t) {
           (this.add(t), this.sort());
         }),
-        (a.removeAndSave = function (t, n) {
+        (i.removeAndSave = function (t, n) {
           n === void 0 && (n = {});
           var e = this.remove(t, n);
           return (
@@ -242,7 +280,7 @@ __d(
             e
           );
         }),
-        (a.initializeFromCache = function (t) {
+        (i.initializeFromCache = function (t) {
           var e = this;
           o("WALogger").LOG(
             _ ||
@@ -269,7 +307,7 @@ __d(
           }
           this._hasInitializedFromCache = !0;
         }),
-        (a.updateFavoriteStickerWithNewSticker = function (t, n) {
+        (i.updateFavoriteStickerWithNewSticker = function (t, n) {
           var e = this.get(t);
           e != null &&
             ((e.sticker = new (o("WAWebStickerModel").StickerModel)(
@@ -278,7 +316,7 @@ __d(
             this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
             this._addSaveTask());
         }),
-        (a.getSuggestionsFromEmoji = function (t) {
+        (i.getSuggestionsFromEmoji = function (t) {
           var e;
           return (e = this._emojiToCollection.get(t)) == null
             ? void 0
@@ -286,12 +324,12 @@ __d(
                 return e.sticker;
               });
         }),
-        n
+        a
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    h.model = r("WAWebFavoriteStickerModel");
-    var y = new h();
-    l.FavoriteStickerCollection = y;
+    y.model = r("WAWebFavoriteStickerModel");
+    var C = new y();
+    l.FavoriteStickerCollection = C;
   },
   98,
 );

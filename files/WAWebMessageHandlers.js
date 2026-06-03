@@ -26,6 +26,7 @@ __d(
     "WAWebRichTextInputConst",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebStateUtils",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -155,47 +156,55 @@ __d(
           ).QuotedMessageUserJourneyLogger.quotedMessageAdded(e.id, n, t));
       }
     }
-    async function _(t) {
-      try {
-        t.shouldHideQuotedMsgAuthor = !0;
-        var n = o("WAWebStateUtils").unproxy(t),
-          r = await o("WAWebBotFrontendUtils").getMetaAiChat();
-        if (r == null) {
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[handleAskMetaAi] Failed to get Meta AI chat - chat is null",
-                ])),
-            )
-            .sendLogs("ask-meta-ai-null-chat");
-          return;
-        }
-        r.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(n);
-        var a = t.id.remote,
-          i = a.isGroup(),
-          l = i
-            ? o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup
-            : o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1;
-        o("WAWebBotGating").isAiChatThreadsEnabled()
-          ? o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(
-              r,
-              i ? { type: "AskMetaAiGroup" } : { type: "AskMetaAi1on1" },
-            )
-          : await o("WAWebCmd").Cmd.openChatBottom({
-              chat: r,
-              chatEntryPoint: l,
-            });
-      } catch (e) {
-        o("WALogger")
-          .ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[handleAskMetaAi] Failed to handle Ask Meta AI action",
-              ])),
-          )
-          .sendLogs("ask-meta-ai-error");
-      }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            t.shouldHideQuotedMsgAuthor = !0;
+            var n = o("WAWebStateUtils").unproxy(t),
+              r = yield o("WAWebBotFrontendUtils").getMetaAiChat();
+            if (r == null) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[handleAskMetaAi] Failed to get Meta AI chat - chat is null",
+                    ])),
+                )
+                .sendLogs("ask-meta-ai-null-chat");
+              return;
+            }
+            r.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(n);
+            var a = t.id.remote,
+              i = a.isGroup(),
+              l = i
+                ? o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup
+                : o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1;
+            o("WAWebBotGating").isAiChatThreadsEnabled()
+              ? o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(
+                  r,
+                  i ? { type: "AskMetaAiGroup" } : { type: "AskMetaAi1on1" },
+                )
+              : yield o("WAWebCmd").Cmd.openChatBottom({
+                  chat: r,
+                  chatEntryPoint: l,
+                });
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[handleAskMetaAi] Failed to handle Ask Meta AI action",
+                  ])),
+              )
+              .sendLogs("ask-meta-ai-error");
+          }
+        })),
+        f.apply(this, arguments)
+      );
     }
     ((l.handleOpenForwardFlow = m),
       (l.handleMessageReply = p),

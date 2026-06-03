@@ -71,7 +71,7 @@ __d(
           (e === 0 || _[e - 1] !== t) &&
             ((c = babelHelpers.extends({}, d)),
             d && (d.topViewEndpoint = t),
-            r && r.replaceTopOverlay && e > 0
+            r != null && r.replaceTopOverlay === !0 && e > 0
               ? ((_[e - 1] = t), f("replace_overlay_view", n))
               : (_.push(t), f("open_overlay_view", n)));
         }

@@ -5,6 +5,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebStorageErrorHandlingUtils",
     "WAWebWAWCStorage",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -78,23 +79,31 @@ __d(
                   e instanceof Error && s(e, "removeItem");
                 }));
           }),
-          (t.clear = async function (t) {
-            ((this.dataStore = {}),
-              r("WAWebLocalStorage") != null &&
-                (r("WAWebLocalStorage").clear(),
-                t &&
-                  Object.keys(t).forEach(function (e) {
-                    r("WAWebLocalStorage").setItem(e, String(t[e]));
-                  })),
-              await r("WAWebWAWCStorage")
-                .idb()
-                .then(function (e) {
-                  return e.user.clear();
-                })
-                .catch(function (e) {
-                  e instanceof Error && s(e, "clear");
-                }));
-          }),
+          (t.clear = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                ((this.dataStore = {}),
+                  r("WAWebLocalStorage") != null &&
+                    (r("WAWebLocalStorage").clear(),
+                    e &&
+                      Object.keys(e).forEach(function (t) {
+                        r("WAWebLocalStorage").setItem(t, String(e[t]));
+                      })),
+                  yield r("WAWebWAWCStorage")
+                    .idb()
+                    .then(function (e) {
+                      return e.user.clear();
+                    })
+                    .catch(function (e) {
+                      e instanceof Error && s(e, "clear");
+                    }));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           e
         );
       })(),

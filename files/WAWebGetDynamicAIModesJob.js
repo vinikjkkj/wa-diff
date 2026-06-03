@@ -7,6 +7,7 @@ __d(
     "WAWebDynamicAIModesMapper",
     "WAWebFetchDynamicAIModes",
     "WAWebOrchestratorNonPersistedJob",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,12 +16,12 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getDynamicAIModes",
-          async function () {
-            var t = await o(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = yield o(
               "WAWebDynamicAIModesCache",
             ).getCachedDynamicAIModes();
             if (t != null) return t;
-            var n = await o("WAWebFetchDynamicAIModes").fetchDynamicAIModes();
+            var n = yield o("WAWebFetchDynamicAIModes").fetchDynamicAIModes();
             if (n.type === "success") {
               var r = o(
                 "WAWebDynamicAIModesMapper",
@@ -37,7 +38,7 @@ __d(
                 r
               );
             }
-            var a = await o(
+            var a = yield o(
               "WAWebDynamicAIModesCache",
             ).getStaleCachedDynamicAIModes();
             return a != null
@@ -49,7 +50,7 @@ __d(
                     ])),
                 ),
                 []);
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

@@ -5,6 +5,7 @@ __d(
     "DGWLoggingContext",
     "DGWUtils",
     "StreamGroupWebSocketTransport",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -65,116 +66,139 @@ __d(
               authToken: (C = this.$4.authToken) != null ? C : void 0,
             })));
         }
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.initTransport = async function () {
-            var e = this,
-              t = {
-                maxRetries: 0,
-                baseRetryInterval: 1e3,
-                backoffFactor: Math.sqrt(2),
-              };
-            this.$6 =
-              this.$6 ||
-              o(
-                "StreamGroupWebSocketTransport",
-              ).StreamGroupWebSocketTransport.getTransport_DEPRECATED(
-                this.$7,
-                this.$3,
-                this.streamGroupLoggingContext,
-                function () {
-                  e.$2.removeStreamGroupAndTransport(e.$1);
-                },
-                t,
-                this.$5,
-              );
-            var n;
-            try {
-              ((n = await this.$6), (this.$6 = null));
-            } catch (e) {
-              throw ((this.$6 = null), e);
-            }
-            return (
-              this.$2.containsStreamGroup(this.$1) ||
-                this.$2.setStreamGroupAndTransport(this.$1, n),
-              n
-            );
-          }),
-          (n.establishStream = async function (n, r, a, i, l) {
-            var t = this;
-            if (this.$2.containsStreamGroup(this.$1) === !1)
-              if (
-                (this.streamGroupLoggingContext.logEvent(
-                  o("DGWLoggingContext").DGWLoggingComponent
-                    .STREAM_GROUP_COMPONENT,
-                  "createTransportWhenEstablishStream",
-                ),
-                this.$3.enableFirstStreamOnWsHandshake)
-              ) {
-                var u = await o(
+          (r.initTransport = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this,
+                t = {
+                  maxRetries: 0,
+                  baseRetryInterval: 1e3,
+                  backoffFactor: Math.sqrt(2),
+                };
+              this.$6 =
+                this.$6 ||
+                o(
                   "StreamGroupWebSocketTransport",
-                ).StreamGroupWebSocketTransport.getTransportWithInitialStream(
-                  n,
-                  r,
+                ).StreamGroupWebSocketTransport.getTransport_DEPRECATED(
+                  this.$7,
                   this.$3,
                   this.streamGroupLoggingContext,
                   function () {
-                    t.$2.removeStreamGroupAndTransport(t.$1);
+                    e.$2.removeStreamGroupAndTransport(e.$1);
                   },
-                  e,
+                  t,
                   this.$5,
                 );
-                return (
-                  this.$2.setStreamGroupAndTransport(this.$1, u.transport),
-                  u.streamPromise
-                );
-              } else {
-                this.$6 =
-                  this.$6 ||
-                  o(
-                    "StreamGroupWebSocketTransport",
-                  ).StreamGroupWebSocketTransport.getTransport_DEPRECATED(
-                    this.$7,
-                    this.$3,
-                    this.streamGroupLoggingContext,
-                    function () {
-                      t.$2.removeStreamGroupAndTransport(t.$1);
-                    },
-                    e,
-                    this.$5,
-                  );
-                var s;
-                try {
-                  ((s = await this.$6), (this.$6 = null));
-                } catch (e) {
-                  throw ((this.$6 = null), e);
-                }
-                this.$2.containsStreamGroup(this.$1) ||
-                  this.$2.setStreamGroupAndTransport(this.$1, s);
+              var n;
+              try {
+                ((n = yield this.$6), (this.$6 = null));
+              } catch (e) {
+                throw ((this.$6 = null), e);
               }
-            return this.establishStreamWithTransport(n, r, a, i, l);
-          }),
-          (n.establishStreamWithTransport = async function (t, n, r, a, i) {
-            var e,
-              l = t.loggingId;
-            this.streamGroupLoggingContext.logEvent(
-              o("DGWLoggingContext").DGWLoggingComponent.STREAM_GROUP_COMPONENT,
-              "Establishing Grouped Stream",
-              "initialData:" + String(r != null),
-              !0,
-              l,
+              return (
+                this.$2.containsStreamGroup(this.$1) ||
+                  this.$2.setStreamGroupAndTransport(this.$1, n),
+                n
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.establishStream = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, n, r, a, i) {
+                var l = this;
+                if (this.$2.containsStreamGroup(this.$1) === !1)
+                  if (
+                    (this.streamGroupLoggingContext.logEvent(
+                      o("DGWLoggingContext").DGWLoggingComponent
+                        .STREAM_GROUP_COMPONENT,
+                      "createTransportWhenEstablishStream",
+                    ),
+                    this.$3.enableFirstStreamOnWsHandshake)
+                  ) {
+                    var u = yield o(
+                      "StreamGroupWebSocketTransport",
+                    ).StreamGroupWebSocketTransport.getTransportWithInitialStream(
+                      t,
+                      n,
+                      this.$3,
+                      this.streamGroupLoggingContext,
+                      function () {
+                        l.$2.removeStreamGroupAndTransport(l.$1);
+                      },
+                      e,
+                      this.$5,
+                    );
+                    return (
+                      this.$2.setStreamGroupAndTransport(this.$1, u.transport),
+                      u.streamPromise
+                    );
+                  } else {
+                    this.$6 =
+                      this.$6 ||
+                      o(
+                        "StreamGroupWebSocketTransport",
+                      ).StreamGroupWebSocketTransport.getTransport_DEPRECATED(
+                        this.$7,
+                        this.$3,
+                        this.streamGroupLoggingContext,
+                        function () {
+                          l.$2.removeStreamGroupAndTransport(l.$1);
+                        },
+                        e,
+                        this.$5,
+                      );
+                    var s;
+                    try {
+                      ((s = yield this.$6), (this.$6 = null));
+                    } catch (e) {
+                      throw ((this.$6 = null), e);
+                    }
+                    this.$2.containsStreamGroup(this.$1) ||
+                      this.$2.setStreamGroupAndTransport(this.$1, s);
+                  }
+                return this.establishStreamWithTransport(t, n, r, a, i);
+              },
             );
-            var s = this.$5(
-                l,
-                t.disableFalcoLogging,
-                (e = t.verboseLoggingEnabled) != null ? e : !1,
-              ),
-              u = await this.$2
-                .getStreamGroupTransport(this.$1)
-                .establishGroupedStream(n, t, s, r, a, i);
-            return u;
-          }),
-          (n.canCreateGroupedStream = function () {
+            function r(e, n, r, o, a) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (r.establishStreamWithTransport = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, r, a) {
+                var i,
+                  l = e.loggingId;
+                this.streamGroupLoggingContext.logEvent(
+                  o("DGWLoggingContext").DGWLoggingComponent
+                    .STREAM_GROUP_COMPONENT,
+                  "Establishing Grouped Stream",
+                  "initialData:" + String(n != null),
+                  !0,
+                  l,
+                );
+                var s = this.$5(
+                    l,
+                    e.disableFalcoLogging,
+                    (i = e.verboseLoggingEnabled) != null ? i : !1,
+                  ),
+                  u = yield this.$2
+                    .getStreamGroupTransport(this.$1)
+                    .establishGroupedStream(t, e, s, n, r, a);
+                return u;
+              },
+            );
+            function t(t, n, r, o, a) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.canCreateGroupedStream = function () {
             var e = !0;
             if (this.$2.containsStreamGroup(this.$1) !== !1) {
               var t = this.$2.getStreamGroupTransport(this.$1);
@@ -189,7 +213,7 @@ __d(
               e
             );
           }),
-          (n.close = function () {
+          (r.close = function () {
             if (this.$2.containsStreamGroup(this.$1)) {
               var e = this.$2.getStreamGroupTransport(this.$1);
               e.close();

@@ -1,6 +1,6 @@
 __d(
   "JSSPTraceSizeOptimizer",
-  ["JSSPTraceBaseTransformer"],
+  ["JSSPTraceBaseTransformer", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -8,17 +8,23 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var r = t.prototype;
       return (
-        (n.transform = async function (t) {
-          var e = t;
-          return (
-            (e.resources = t.resources.map(function (e) {
-              return e.startsWith("data:") ? "inline JavaScript" : e;
-            })),
-            e
-          );
-        }),
+        (r.transform = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e;
+            return (
+              (t.resources = e.resources.map(function (e) {
+                return e.startsWith("data:") ? "inline JavaScript" : e;
+              })),
+              t
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

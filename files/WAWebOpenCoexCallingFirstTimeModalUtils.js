@@ -1,6 +1,7 @@
 __d(
   "WAWebOpenCoexCallingFirstTimeModalUtils",
   [
+    "Promise",
     "WAWebBizCoexGatingUtils",
     "WAWebCoexCallingConsumerFirstTimeModal.react",
     "WAWebCoexCallingFirstTimeAlertUtils",
@@ -8,61 +9,95 @@ __d(
     "WAWebContactCollection",
     "WAWebModalManager",
     "WAWebUserPrefsMultiDevice",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react"));
-    async function u() {
-      return o(
-        "WAWebCoexCallingFirstTimeAlertUtils",
-      ).shouldShowCoexCallingSMBFirstTimeAlert()
-        ? new Promise(function (e) {
-            var t = async function () {
-              (await o(
-                "WAWebCoexCallingFirstTimeAlertUtils",
-              ).markCoexCallingSMBFirstTimeAlertShown(),
-                e(!0));
-            };
-            o("WAWebModalManager").ModalManager.open(
-              s.jsx(r("WAWebCoexCallingSMBFirstTimeModal.react"), {
-                onConfirm: t,
-              }),
-            );
-          })
-        : !1;
+      s,
+      u = s || (s = o("react"));
+    function c() {
+      return d.apply(this, arguments);
     }
-    async function c(e) {
-      if (
-        !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-        o("WAWebUserPrefsMultiDevice").getIsHostedMeAccountFromLocalStorage()
-      )
-        return !1;
-      var t = o("WAWebContactCollection").ContactCollection.get(e),
-        n = (t == null ? void 0 : t.isHosted) === !0;
-      if (!n) return !1;
-      var a = e.toString();
-      return o(
-        "WAWebCoexCallingFirstTimeAlertUtils",
-      ).shouldShowCoexCallingConsumerFirstTimeAlert(a, n)
-        ? new Promise(function (e) {
-            var t = async function () {
-              (await o(
-                "WAWebCoexCallingFirstTimeAlertUtils",
-              ).markCoexCallingConsumerFirstTimeAlertShownForThread(a),
-                e(!0));
-            };
-            o("WAWebModalManager").ModalManager.open(
-              s.jsx(r("WAWebCoexCallingConsumerFirstTimeModal.react"), {
-                onConfirm: t,
-              }),
-            );
-          })
-        : !1;
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o(
+            "WAWebCoexCallingFirstTimeAlertUtils",
+          ).shouldShowCoexCallingSMBFirstTimeAlert()
+            ? new (e || (e = n("Promise")))(function (e) {
+                var t = (function () {
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      (yield o(
+                        "WAWebCoexCallingFirstTimeAlertUtils",
+                      ).markCoexCallingSMBFirstTimeAlertShown(),
+                        e(!0));
+                    },
+                  );
+                  return function () {
+                    return t.apply(this, arguments);
+                  };
+                })();
+                o("WAWebModalManager").ModalManager.open(
+                  u.jsx(r("WAWebCoexCallingSMBFirstTimeModal.react"), {
+                    onConfirm: t,
+                  }),
+                );
+              })
+            : !1;
+        })),
+        d.apply(this, arguments)
+      );
     }
-    ((l.maybeShowCoexCallingSMBFirstTimeModal = u),
-      (l.maybeShowCoexCallingConsumerFirstTimeModal = c));
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (
+            !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
+            o(
+              "WAWebUserPrefsMultiDevice",
+            ).getIsHostedMeAccountFromLocalStorage()
+          )
+            return !1;
+          var a = o("WAWebContactCollection").ContactCollection.get(t),
+            i = (a == null ? void 0 : a.isHosted) === !0;
+          if (!i) return !1;
+          var l = t.toString();
+          return o(
+            "WAWebCoexCallingFirstTimeAlertUtils",
+          ).shouldShowCoexCallingConsumerFirstTimeAlert(l, i)
+            ? new (e || (e = n("Promise")))(function (e) {
+                var t = (function () {
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      (yield o(
+                        "WAWebCoexCallingFirstTimeAlertUtils",
+                      ).markCoexCallingConsumerFirstTimeAlertShownForThread(l),
+                        e(!0));
+                    },
+                  );
+                  return function () {
+                    return t.apply(this, arguments);
+                  };
+                })();
+                o("WAWebModalManager").ModalManager.open(
+                  u.jsx(r("WAWebCoexCallingConsumerFirstTimeModal.react"), {
+                    onConfirm: t,
+                  }),
+                );
+              })
+            : !1;
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    ((l.maybeShowCoexCallingSMBFirstTimeModal = c),
+      (l.maybeShowCoexCallingConsumerFirstTimeModal = m));
   },
   98,
 );

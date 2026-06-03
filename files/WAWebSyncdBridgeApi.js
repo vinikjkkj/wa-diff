@@ -5,6 +5,7 @@ __d(
     "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdKeyCallbacksApi",
     "WAWebSyncdOrphan",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -14,12 +15,24 @@ __d(
           r = t.threadIds;
         return o("WAWebSyncdOrphan").checkOrphanMutations(n, e, r);
       },
-      handleSyncdFatal: async function () {
-        return o("WAWebSyncdDbCallbacksApi").handleSyncdFatal();
-      },
-      getDeviceFingerprint: async function () {
-        return o("WAWebSyncdKeyCallbacksApi").getDeviceFingerprint();
-      },
+      handleSyncdFatal: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o("WAWebSyncdDbCallbacksApi").handleSyncdFatal();
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getDeviceFingerprint: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o("WAWebSyncdKeyCallbacksApi").getDeviceFingerprint();
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       triggerAppStateSyncCompletedFromBridge: function () {
         o("WAWebCmd").Cmd.onAppStateSyncCompletedFromBridge();
       },

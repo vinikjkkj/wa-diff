@@ -5,6 +5,7 @@ __d(
     "WAWebVoipMediaEnums",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,22 +26,28 @@ __d(
             ).onRenderCallbackNoop),
             (this.$4 = !1));
         }
-        t.checkAvailability = async function () {
-          return (
-            typeof window != "undefined" &&
-            typeof window.VideoFrame == "function"
-          );
-        };
-        var n = t.prototype;
+        t.checkAvailability = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return (
+              typeof window != "undefined" &&
+              typeof window.VideoFrame == "function"
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })();
+        var a = t.prototype;
         return (
-          (n.cleanup = function () {}),
-          (n.reset = function () {
+          (a.cleanup = function () {}),
+          (a.reset = function () {
             this.$2.clearRect(0, 0, this.$1.width, this.$1.height);
           }),
-          (n.onCanvasResize = function (t, n) {
+          (a.onCanvasResize = function (t, n) {
             this.pendingResize = { width: t, height: n };
           }),
-          (n.applyPendingResize = function () {
+          (a.applyPendingResize = function () {
             if (this.pendingResize != null) {
               var e = this.pendingResize,
                 t = e.height,
@@ -50,7 +57,7 @@ __d(
                 (this.$1.height = t));
             }
           }),
-          (n.renderFrame = function (n, a, i, l, c, d, m, p) {
+          (a.renderFrame = function (n, a, i, l, c, d, m, p) {
             this.applyPendingResize();
             var t = o("WAWebVoipMediaEnums").videoFrameFormatFromFormatEnum(d);
             if (!t) {
@@ -107,15 +114,15 @@ __d(
               );
             }
           }),
-          (n.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
+          (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
             (i === void 0 && (i = !1),
               f(this.$1, this.$2, n, r, o, a, i, t, this.$4),
               this.$3());
           }),
-          (n.setRenderCallback = function (t) {
+          (a.setRenderCallback = function (t) {
             this.$3 = t;
           }),
-          (n.setCoverFit = function (t) {
+          (a.setCoverFit = function (t) {
             this.$4 = t;
           }),
           t

@@ -1,23 +1,36 @@
 __d(
   "WAWebKmpSyncdDerivedKeysProvider",
-  ["WASyncdKeyTypes", "WAWebSyncdCrypto", "wa-kmp-syncd-engine-crypto-api"],
+  [
+    "WASyncdKeyTypes",
+    "WAWebSyncdCrypto",
+    "asyncToGeneratorRuntime",
+    "wa-kmp-syncd-engine-crypto-api",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e) {
-      var t = await o("WAWebSyncdCrypto").generateEncryptionKeys(
-        o("WASyncdKeyTypes").toSyncKeyData(e.buffer),
-      );
-      return new (o(
-        "wa-kmp-syncd-engine-crypto-api",
-      ).KmpSyncdCryptoDerivedKeys)(
-        new Int8Array(t.indexKey),
-        new Int8Array(t.valueEncryptionKey),
-        new Int8Array(t.valueMacKey),
-        new Int8Array(t.snapshotMacKey),
-        new Int8Array(t.patchMacKey),
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSyncdCrypto").generateEncryptionKeys(
+            o("WASyncdKeyTypes").toSyncKeyData(e.buffer),
+          );
+          return new (o(
+            "wa-kmp-syncd-engine-crypto-api",
+          ).KmpSyncdCryptoDerivedKeys)(
+            new Int8Array(t.indexKey),
+            new Int8Array(t.valueEncryptionKey),
+            new Int8Array(t.valueMacKey),
+            new Int8Array(t.snapshotMacKey),
+            new Int8Array(t.patchMacKey),
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
-    var s = new (o(
+    var u = new (o(
       "wa-kmp-syncd-engine-crypto-api",
     ).JsKmpDerivedSyncdKeysProviderImpl)({
       getForInternal: function (n) {
@@ -26,7 +39,7 @@ __d(
         );
       },
     });
-    l.default = s;
+    l.default = u;
   },
   98,
 );

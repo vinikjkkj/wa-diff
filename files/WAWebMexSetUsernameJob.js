@@ -3,20 +3,32 @@ __d(
   [
     "WAWebMexClient",
     "WAWebMexSetUsernameJobMutation.graphql",
+    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    async function s(t) {
-      var a,
-        i =
-          e !== void 0 ? e : (e = n("WAWebMexSetUsernameJobMutation.graphql")),
-        l = await o("WAWebMexClient").fetchQuery(
-          i,
-          r("isStringNullOrEmpty")(t.input) ? {} : t,
-        );
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        ((a = l.xwa2_username_set) == null ? void 0 : a.result) === "SUCCESS"
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a,
+            i =
+              e !== void 0
+                ? e
+                : (e = n("WAWebMexSetUsernameJobMutation.graphql")),
+            l = yield o("WAWebMexClient").fetchQuery(
+              i,
+              r("isStringNullOrEmpty")(t.input) ? {} : t,
+            );
+          return (
+            ((a = l.xwa2_username_set) == null ? void 0 : a.result) ===
+            "SUCCESS"
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
     l.mexSetUsernameQueryJob = s;

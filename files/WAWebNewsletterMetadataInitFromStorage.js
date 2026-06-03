@@ -11,6 +11,7 @@ __d(
     "WAWebNewsletterMetadataCollection",
     "WAWebSchemaNewsletterMetadata",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
@@ -75,103 +76,131 @@ __d(
           return o("WAWebCommonNewsletterEnums").WamoSubStatus.INACTIVE;
       }
     }
-    async function p() {
-      try {
-        var t = await o("WAWebSchemaNewsletterMetadata")
-            .getNewsletterMetadataTable()
-            .all(),
-          n = new Set(),
-          a = [];
-        (t.forEach(async function (e) {
-          var t = o("WAWebWidFactory").createWid(e.id),
-            i = {
-              id: t,
-              creationTime: e.creationTime,
-              name: e.name,
-              nameUpdateTime: e.nameUpdateTime,
-              description: e.description,
-              descriptionUpdateTime: e.descriptionUpdateTime,
-              handle: e.handle,
-              inviteCode: e.inviteCode,
-              size: e.size,
-              verified: e.verified,
-              membershipType: s(e.membershipType),
-              reactionCodesSetting: u(e.reactionCodesSetting),
-              privacy: d(e.privacy),
-              website:
-                e.website != null ? o("WALinkify").findLink(e.website) : null,
-              adminCount: e.adminCount,
-              capabilities:
-                e.capabilities != null
-                  ? new Set(
-                      r("compactMap")(Array.from(e.capabilities), function (e) {
-                        var t = c(e);
-                        return (t == null && n.add(e), t);
-                      }),
-                    )
-                  : new Set(),
-              suspended: e.suspended,
-              geosuspended: e.geosuspended,
-              terminated: e.terminated,
-              wamoSubPlanId: e.wamoSubPlanId,
-              wamoSubStatus: m(e.wamoSubStatus),
-              statusMetadata: e.statusMetadata,
-              lastFilledStatusServerId: e.lastFilledStatusServerId,
-              statusMute: e.statusMute === !0,
-            };
-          if (
-            (r("WAWebNewsletterMetadataCollection") == null ||
-              r("WAWebNewsletterMetadataCollection").add(i, { merge: !0 }),
-            e.statusMute === !0 &&
-              o(
-                "WAWebNewsletterGatingUtils",
-              ).isNewsletterStatusReceiverEnabled() &&
-              a.push({ id: e.id, statusMute: !0 }),
-            e.messageDeliveryUpdates != null)
-          ) {
-            var l = [];
-            e.messageDeliveryUpdates.forEach(function (e, t) {
-              return l.push({ id: t, code: e.code });
-            });
-            var p = await o(
-                "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
-              ).getMessageDeliveryUpdatesModelToUpdate(
-                o("WAJids").toNewsletterJid(e.id),
-                l,
-                [],
-              ),
-              _ = p.modelUpdatesToAdd;
-            await o("WAWebBackendApi").frontendFireAndForget(
-              "updateNewsletterMessageDeliveryUpdate",
-              { id: t, modelUpdatesToAdd: _, modelUpdatesToRemove: [] },
-            );
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var t = yield o("WAWebSchemaNewsletterMetadata")
+                .getNewsletterMetadataTable()
+                .all(),
+              a = new Set(),
+              i = [];
+            (t.forEach(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = o("WAWebWidFactory").createWid(e.id),
+                      n = {
+                        id: t,
+                        creationTime: e.creationTime,
+                        name: e.name,
+                        nameUpdateTime: e.nameUpdateTime,
+                        description: e.description,
+                        descriptionUpdateTime: e.descriptionUpdateTime,
+                        handle: e.handle,
+                        inviteCode: e.inviteCode,
+                        size: e.size,
+                        verified: e.verified,
+                        membershipType: s(e.membershipType),
+                        reactionCodesSetting: u(e.reactionCodesSetting),
+                        privacy: d(e.privacy),
+                        website:
+                          e.website != null
+                            ? o("WALinkify").findLink(e.website)
+                            : null,
+                        adminCount: e.adminCount,
+                        capabilities:
+                          e.capabilities != null
+                            ? new Set(
+                                r("compactMap")(
+                                  Array.from(e.capabilities),
+                                  function (e) {
+                                    var t = c(e);
+                                    return (t == null && a.add(e), t);
+                                  },
+                                ),
+                              )
+                            : new Set(),
+                        suspended: e.suspended,
+                        geosuspended: e.geosuspended,
+                        terminated: e.terminated,
+                        wamoSubPlanId: e.wamoSubPlanId,
+                        wamoSubStatus: m(e.wamoSubStatus),
+                        statusMetadata: e.statusMetadata,
+                        lastFilledStatusServerId: e.lastFilledStatusServerId,
+                        statusMute: e.statusMute === !0,
+                      };
+                    if (
+                      (r("WAWebNewsletterMetadataCollection") == null ||
+                        r("WAWebNewsletterMetadataCollection").add(n, {
+                          merge: !0,
+                        }),
+                      e.statusMute === !0 &&
+                        o(
+                          "WAWebNewsletterGatingUtils",
+                        ).isNewsletterStatusReceiverEnabled() &&
+                        i.push({ id: e.id, statusMute: !0 }),
+                      e.messageDeliveryUpdates != null)
+                    ) {
+                      var l = [];
+                      e.messageDeliveryUpdates.forEach(function (e, t) {
+                        return l.push({ id: t, code: e.code });
+                      });
+                      var p = yield o(
+                          "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
+                        ).getMessageDeliveryUpdatesModelToUpdate(
+                          o("WAJids").toNewsletterJid(e.id),
+                          l,
+                          [],
+                        ),
+                        _ = p.modelUpdatesToAdd;
+                      yield o("WAWebBackendApi").frontendFireAndForget(
+                        "updateNewsletterMessageDeliveryUpdate",
+                        {
+                          id: t,
+                          modelUpdatesToAdd: _,
+                          modelUpdatesToRemove: [],
+                        },
+                      );
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+              i.length > 0 &&
+                (yield o("WAWebBackendApi").frontendFireAndForget(
+                  "updateContactsStatusMute",
+                  {
+                    userStatusMuteUpdates: [],
+                    groupStatusMuteUpdates: [],
+                    newsletterStatusMuteUpdates: i,
+                  },
+                )),
+              a.size > 0 &&
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Encountered ",
+                        " unexpected newsletter capabilities in DB: ",
+                        "",
+                      ])),
+                    a.size,
+                    Array.from(a).join(", "),
+                  )
+                  .tags("newsletter-capabilities")
+                  .sendLogs("Unexpected newsletter capability in DB"));
+          } finally {
           }
-        }),
-          a.length > 0 &&
-            (await o("WAWebBackendApi").frontendFireAndForget(
-              "updateContactsStatusMute",
-              {
-                userStatusMuteUpdates: [],
-                groupStatusMuteUpdates: [],
-                newsletterStatusMuteUpdates: a,
-              },
-            )),
-          n.size > 0 &&
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Encountered ",
-                    " unexpected newsletter capabilities in DB: ",
-                    "",
-                  ])),
-                n.size,
-                Array.from(n).join(", "),
-              )
-              .tags("newsletter-capabilities")
-              .sendLogs("Unexpected newsletter capability in DB"));
-      } finally {
-      }
+        })),
+        _.apply(this, arguments)
+      );
     }
     l.restoreNewsletterMetadata = p;
   },

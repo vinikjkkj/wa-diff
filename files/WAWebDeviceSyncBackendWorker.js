@@ -5,6 +5,7 @@ __d(
     "TaskScheduler",
     "WAWebAdvKeyIndexSignatureVerify",
     "WAWebProtobufsAdv.pb",
+    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
@@ -65,11 +66,20 @@ __d(
           };
     }
     var u = 50;
-    async function c(t) {
-      var n = [],
-        r = 0;
-      for (var o of t) (n.push(s(o)), r++, r % u === 0 && (await e.yield()));
-      return n;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = [],
+            r = 0;
+          for (var o of t)
+            (n.push(s(o)), r++, r % u === 0 && (yield e.yield()));
+          return n;
+        })),
+        d.apply(this, arguments)
+      );
     }
     ((l.decodeSignedKeyIndexBytes = s), (l.decodeSignedKeyIndexBytesBatch = c));
   },

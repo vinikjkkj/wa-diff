@@ -1,57 +1,68 @@
 __d(
   "WAWebMexFetchSubgroupSuggestionsJob",
   [
+    "Promise",
     "WAWebBackendErrors",
     "WAWebMexClient",
     "WAWebMexFetchSubgroupSuggestionsJobQuery.graphql",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u =
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchSubgroupSuggestionsJobQuery.graphql"));
-    async function u(e, t, n) {
-      var r = {
-        group_id: e.toString(),
-        query_context: n,
-        sub_group_hint_id: t.toString(),
-      };
-      try {
-        var a,
-          i = await o("WAWebMexClient").fetchQuery(s, r),
-          l =
-            (a = i.xwa2_group_query_by_id) == null ||
-            (a = a.sub_group_suggestions) == null
-              ? void 0
-              : a.edges;
-        if (l == null)
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            500,
-            "missing edges in response",
-          );
-        var u = l.map(function (t) {
-          var n = t.node;
-          if (n != null) return c(e, n);
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            500,
-            "null node in sub_group_suggestions",
-          );
-        });
-        return u;
-      } catch (e) {
-        return e instanceof o("WAWebBackendErrors").ServerStatusCodeError
-          ? Promise.reject(e)
-          : Promise.reject(
-              new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(e.code),
-                e.message,
-              ),
-            );
-      }
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c(e, t) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = {
+            group_id: e.toString(),
+            query_context: r,
+            sub_group_hint_id: t.toString(),
+          };
+          try {
+            var i,
+              l = yield o("WAWebMexClient").fetchQuery(u, a),
+              c =
+                (i = l.xwa2_group_query_by_id) == null ||
+                (i = i.sub_group_suggestions) == null
+                  ? void 0
+                  : i.edges;
+            if (c == null)
+              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                500,
+                "missing edges in response",
+              );
+            var d = c.map(function (t) {
+              var n = t.node;
+              if (n != null) return m(e, n);
+              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                500,
+                "null node in sub_group_suggestions",
+              );
+            });
+            return d;
+          } catch (e) {
+            return e instanceof o("WAWebBackendErrors").ServerStatusCodeError
+              ? (s || (s = n("Promise"))).reject(e)
+              : (s || (s = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(e.code),
+                    e.message,
+                  ),
+                );
+          }
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
       var n, a, i, l, s, u;
       if (t.is_existing_group == null)
         throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
@@ -91,7 +102,7 @@ __d(
         }
       );
     }
-    l.mexFetchSubgroupSuggestions = u;
+    l.mexFetchSubgroupSuggestions = c;
   },
   98,
 );

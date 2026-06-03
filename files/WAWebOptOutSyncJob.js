@@ -4,20 +4,33 @@ __d(
     "WAWebMarketingMessagesUserFeedbackGatingUtils",
     "WAWebQueryOptOutListJob",
     "WAWebWorkerSafeBackendApi",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e() {
-      if (
-        o("WAWebMarketingMessagesUserFeedbackGatingUtils").isMMOptOutEnabled()
-      ) {
-        var e = await o("WAWebQueryOptOutListJob").fetchAndUpdateOptOutList();
-        e.dhash != null &&
-          e.dhash !== "" &&
-          o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-            "updateOptOutListCollection",
-            { wids: e.wids },
-          );
-      }
+    function e() {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (
+            o(
+              "WAWebMarketingMessagesUserFeedbackGatingUtils",
+            ).isMMOptOutEnabled()
+          ) {
+            var e = yield o(
+              "WAWebQueryOptOutListJob",
+            ).fetchAndUpdateOptOutList();
+            e.dhash != null &&
+              e.dhash !== "" &&
+              o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+                "updateOptOutListCollection",
+                { wids: e.wids },
+              );
+          }
+        })),
+        s.apply(this, arguments)
+      );
     }
     l.updateOptOutList = e;
   },

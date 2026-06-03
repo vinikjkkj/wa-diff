@@ -11,10 +11,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f;
-    function g(t) {
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(t) {
       try {
-        (h(t), C(t), R(t), E(t), k(t), I(t));
+        (C(t), v(t), E(t), I(t), T(t), D(t), $(t), P(t));
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -27,7 +27,7 @@ __d(
           .sendLogs("stanza-validation-error");
       }
     }
-    function h(e) {
+    function C(e) {
       if (e.tag === "receipt") {
         var t = e.attrs.type,
           n = t != null ? o("WAWap").decodeAsString(t) : "unknown";
@@ -49,8 +49,8 @@ __d(
         if (r != null && a != null) {
           var i = o("WAWap").decodeAsString(r),
             l = o("WAWap").decodeAsString(a),
-            d = b(i),
-            m = b(l);
+            d = S(i),
+            m = S(l);
           l.includes("@lid") && i.includes("@s.whatsapp.net")
             ? o("WALogger")
                 .ERROR(
@@ -85,7 +85,7 @@ __d(
         }
       }
     }
-    function y(e) {
+    function b(e) {
       if (!Array.isArray(e.content)) return [];
       var t = e.content.find(function (e) {
           return (e == null ? void 0 : e.tag) === "participants";
@@ -103,13 +103,13 @@ __d(
         r
       );
     }
-    function C(e) {
+    function v(e) {
       if (e.tag === "message") {
         var t = e.attrs.to;
         if (
           !(t == null || !o("WAWap").decodeAsString(t).endsWith("@broadcast"))
         ) {
-          var n = y(e);
+          var n = b(e);
           if (n.length !== 0) {
             var r = [],
               a = !1,
@@ -129,7 +129,7 @@ __d(
               }),
               r.length > 0)
             ) {
-              var l = r.map(b).join(",");
+              var l = r.map(S).join(",");
               o("WALogger")
                 .ERROR(
                   d ||
@@ -157,14 +157,14 @@ __d(
         }
       }
     }
-    function b(e) {
+    function S(e) {
       try {
         return o("WAWebWidFactory").createWid(e).toLogString();
       } catch (t) {
         return e;
       }
     }
-    function v(e) {
+    function R(e) {
       return e.tag !== "message" || !Array.isArray(e.content)
         ? !1
         : e.content.some(function (e) {
@@ -175,28 +175,28 @@ __d(
             );
           });
     }
-    function S(e) {
+    function L(e) {
       var t = o("WAWebWidValidator").validateAndGetParts(e);
       if (t == null || t.userPart == null) return !1;
       var n = o("WAWebWidFactory").createWid(e);
       return o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) && !n.isLid();
     }
-    function R(e) {
+    function E(e) {
       if (!(e.tag === "receipt" || e.tag === "ack")) {
         var t = e.attrs.to;
         if (t != null) {
           var n = o("WAWap").decodeAsString(t);
           if (
-            S(n) &&
+            L(n) &&
             !(
               e.attrs.category === "peer" &&
               o("WAWebUserPrefsMeUser").isMeAccount(
                 o("WAWebWidFactory").createWid(n),
               )
             ) &&
-            !v(e)
+            !R(e)
           ) {
-            var r = b(n);
+            var r = S(n);
             o("WALogger")
               .ERROR(
                 m ||
@@ -213,7 +213,7 @@ __d(
         }
       }
     }
-    function L(e) {
+    function k(e) {
       if (e.tag !== "message") return null;
       var t = e.attrs.to;
       if (t == null) return null;
@@ -223,12 +223,12 @@ __d(
       var a = o("WAWebWidFactory").createWid(n);
       return a.isUser() ? n : null;
     }
-    function E(e) {
-      if (L(e) != null) {
-        var t = y(e),
-          n = t.filter(S);
+    function I(e) {
+      if (k(e) != null) {
+        var t = b(e),
+          n = t.filter(L);
         if (n.length !== 0) {
-          var r = n.map(b).join(",");
+          var r = n.map(S).join(",");
           o("WALogger")
             .ERROR(
               p ||
@@ -244,9 +244,9 @@ __d(
         }
       }
     }
-    function k(e) {
+    function T(e) {
       if (e.tag === "message") {
-        var t = y(e);
+        var t = b(e);
         if (t.length !== 0) {
           var n = 0,
             r = 0,
@@ -259,7 +259,7 @@ __d(
             }),
             n > 0 && r > 0)
           ) {
-            var i = a.map(b).join(",");
+            var i = a.map(S).join(",");
             o("WALogger")
               .ERROR(
                 _ ||
@@ -278,19 +278,19 @@ __d(
         }
       }
     }
-    function I(e) {
-      var t = L(e);
+    function D(e) {
+      var t = k(e);
       if (t != null) {
         var n;
         if (t.endsWith("@lid")) n = "@s.whatsapp.net";
         else if (t.endsWith("@s.whatsapp.net")) n = "@lid";
         else return;
-        var r = y(e).filter(function (e) {
+        var r = b(e).filter(function (e) {
           return e.endsWith(n);
         });
         if (r.length !== 0) {
-          var a = b(t),
-            i = r.map(b).join(",");
+          var a = S(t),
+            i = r.map(S).join(",");
           o("WALogger")
             .ERROR(
               f ||
@@ -306,7 +306,95 @@ __d(
         }
       }
     }
-    l.validateSentStanza = g;
+    function x(e, t) {
+      var n = e == null ? void 0 : e.content;
+      return Array.isArray(n)
+        ? n.find(function (e) {
+            return e.tag === t;
+          })
+        : null;
+    }
+    function $(e) {
+      if (e.tag === "iq") {
+        var t = e.attrs.xmlns,
+          n = e.attrs.type;
+        if (
+          !(
+            t == null ||
+            o("WAWap").decodeAsString(t) !== "privacy" ||
+            n == null ||
+            o("WAWap").decodeAsString(n) !== "get"
+          )
+        ) {
+          var r = x(e, "privacy");
+          if (r != null) {
+            var a = r.attrs.addressing_mode;
+            if (!(a != null && o("WAWap").decodeAsString(a) === "lid")) {
+              var i = x(r, "list"),
+                l = i == null ? void 0 : i.attrs.value;
+              if (
+                !(
+                  l == null ||
+                  o("WAWap").decodeAsString(l) !== "contact_blacklist"
+                )
+              ) {
+                var s = i == null ? void 0 : i.attrs.name,
+                  u = s != null ? o("WAWap").decodeAsString(s) : "unknown";
+                o("WALogger")
+                  .ERROR(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        '[stanza-validation] privacy-list-pn-query: <iq> privacy list "',
+                        '" fetched using legacy PN addressing',
+                      ])),
+                    u,
+                  )
+                  .sendLogs("stanza-validation-privacy-list-pn-query", {
+                    sampling: 0.01,
+                  });
+              }
+            }
+          }
+        }
+      }
+    }
+    function P(e) {
+      if (e.tag === "iq") {
+        var t = e.attrs.xmlns,
+          n = e.attrs.type;
+        if (
+          !(
+            t == null ||
+            o("WAWap").decodeAsString(t) !== "usync" ||
+            n == null ||
+            o("WAWap").decodeAsString(n) !== "get"
+          )
+        ) {
+          var r = x(e, "usync"),
+            a = x(x(r, "query"), "contact");
+          if (a != null) {
+            var i = a.attrs.addressing_mode;
+            if (!(i != null && o("WAWap").decodeAsString(i) === "lid")) {
+              var l = r == null ? void 0 : r.attrs.context,
+                s = l != null ? o("WAWap").decodeAsString(l) : "unknown";
+              o("WALogger")
+                .ERROR(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[stanza-validation] usync-contact-pn-query: <iq> usync contact protocol using PN addressing (context=",
+                      ")",
+                    ])),
+                  s,
+                )
+                .sendLogs("stanza-validation-usync-contact-pn-query", {
+                  sampling: 0.01,
+                });
+            }
+          }
+        }
+      }
+    }
+    l.validateSentStanza = y;
   },
   98,
 );

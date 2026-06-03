@@ -2,96 +2,117 @@ __d(
   "WAWebAdsRelayEnvironment",
   [
     "JSResourceForInteraction",
+    "Promise",
     "WAWebBackendApi",
     "WAWebDeviceIdHeader",
     "WAWebGraphQLConstants",
     "WAWebGraphQLRemapLocale",
     "WAWebMiscGatingUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e() {
-      var e = await r("JSResourceForInteraction")("relay-runtime")
-        .__setRef("WAWebAdsRelayEnvironment")
-        .load();
-      return {
-        Environment: e.Environment,
-        RecordSource: e.RecordSource,
-        Store: e.Store,
-      };
+    var e;
+    function s() {
+      return u.apply(this, arguments);
     }
-    var s = null;
-    async function u(t) {
-      if (s != null) {
-        var n = !1;
-        if (
-          (t.accessToken != null && t.accessToken !== s.accessToken && (n = !0),
-          t.actorID != null && t.actorID !== s.actorID && (n = !0),
-          !n)
-        )
-          return s.environment;
-      }
-      var a = await Promise.all([
-          e(),
-          r("JSResourceForInteraction")("URI")
-            .__setRef("WAWebAdsRelayEnvironment")
-            .load(),
-          r("JSResourceForInteraction")("createRelayFBNetwork")
-            .__setRef("WAWebAdsRelayEnvironment")
-            .load(),
-          r("JSResourceForInteraction")("createRelayFBNetworkFetch")
-            .__setRef("WAWebAdsRelayEnvironment")
-            .load(),
-          r("JSResourceForInteraction")("createRelayFBSubscribeFunction")
-            .__setRef("WAWebAdsRelayEnvironment")
-            .load(),
-        ]),
-        i = a[0],
-        l = i.Environment,
-        u = i.RecordSource,
-        c = i.Store,
-        d = a[1],
-        m = a[2],
-        p = a[3],
-        _ = a[4],
-        f = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
-        g = await o("WAWebBackendApi").frontendSendAndReceive(
-          "getFullLocale",
-          void 0,
-        ),
-        h = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
-          g.replace("-", "_"),
-          o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
-        ),
-        y = new d(f + "?locale=" + h),
-        C = m(
-          p({
-            graphURI: y,
-            accessToken: t.accessToken,
-            actorID: t.actorID,
-            getAdditionalHeaders: function () {
-              if (!o("WAWebDeviceIdHeader").isDeviceIdHeaderEnabled())
-                return {};
-              var e = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
-              return e != null ? { "X-WA-Device-ID": e } : {};
-            },
-          }),
-          _({ actorID: t.actorID, accessToken: t.accessToken }),
-        ),
-        b = new l({
-          network: C,
-          store: new c(new u()),
-          options: { actorID: t == null ? void 0 : t.actorID },
-        });
+    function u() {
       return (
-        (s = {
-          environment: b,
-          accessToken: t == null ? void 0 : t.accessToken,
-          actorID: t == null ? void 0 : t.actorID,
-        }),
-        b
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")("relay-runtime")
+            .__setRef("WAWebAdsRelayEnvironment")
+            .load();
+          return {
+            Environment: e.Environment,
+            RecordSource: e.RecordSource,
+            Store: e.Store,
+          };
+        })),
+        u.apply(this, arguments)
       );
     }
-    l.getEnvironment = u;
+    var c = null;
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (c != null) {
+            var a = !1;
+            if (
+              (t.accessToken != null &&
+                t.accessToken !== c.accessToken &&
+                (a = !0),
+              t.actorID != null && t.actorID !== c.actorID && (a = !0),
+              !a)
+            )
+              return c.environment;
+          }
+          var i = yield (e || (e = n("Promise"))).all([
+              s(),
+              r("JSResourceForInteraction")("URI")
+                .__setRef("WAWebAdsRelayEnvironment")
+                .load(),
+              r("JSResourceForInteraction")("createRelayFBNetwork")
+                .__setRef("WAWebAdsRelayEnvironment")
+                .load(),
+              r("JSResourceForInteraction")("createRelayFBNetworkFetch")
+                .__setRef("WAWebAdsRelayEnvironment")
+                .load(),
+              r("JSResourceForInteraction")("createRelayFBSubscribeFunction")
+                .__setRef("WAWebAdsRelayEnvironment")
+                .load(),
+            ]),
+            l = i[0],
+            u = l.Environment,
+            d = l.RecordSource,
+            m = l.Store,
+            p = i[1],
+            _ = i[2],
+            f = i[3],
+            g = i[4],
+            h = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
+            y = yield o("WAWebBackendApi").frontendSendAndReceive(
+              "getFullLocale",
+              void 0,
+            ),
+            C = o("WAWebGraphQLRemapLocale").graphQLRemapLocale(
+              y.replace("-", "_"),
+              o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
+            ),
+            b = new p(h + "?locale=" + C),
+            v = _(
+              f({
+                graphURI: b,
+                accessToken: t.accessToken,
+                actorID: t.actorID,
+                getAdditionalHeaders: function () {
+                  if (!o("WAWebDeviceIdHeader").isDeviceIdHeaderEnabled())
+                    return {};
+                  var e = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
+                  return e != null ? { "X-WA-Device-ID": e } : {};
+                },
+              }),
+              g({ actorID: t.actorID, accessToken: t.accessToken }),
+            ),
+            S = new u({
+              network: v,
+              store: new m(new d()),
+              options: { actorID: t == null ? void 0 : t.actorID },
+            });
+          return (
+            (c = {
+              environment: S,
+              accessToken: t == null ? void 0 : t.accessToken,
+              actorID: t == null ? void 0 : t.actorID,
+            }),
+            S
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    l.getEnvironment = d;
   },
   98,
 );

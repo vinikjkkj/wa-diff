@@ -1,39 +1,48 @@
 __d(
   "WAWebZipUtils",
-  ["WABinary", "WAWebZip"],
+  ["Promise", "WABinary", "WAWebZip", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = await Promise.all(
-          e.map(function (e) {
-            var t = e.blob;
-            return u(t);
-          }),
-        ),
-        n = new (r("WAWebZip"))();
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        t.forEach(function (t, r) {
-          return n.add(t, e[r].name);
-        }),
-        s(n.create())
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var o = yield (e || (e = n("Promise"))).all(
+              t.map(function (e) {
+                var t = e.blob;
+                return d(t);
+              }),
+            ),
+            a = new (r("WAWebZip"))();
+          return (
+            o.forEach(function (e, n) {
+              return a.add(e, t[n].name);
+            }),
+            c(a.create())
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
-    function s(e) {
+    function c(e) {
       return new Blob([e.readByteArrayView()], { type: "application/zip" });
     }
-    function u(e) {
-      var t;
-      return new Promise(function (n, r) {
-        ((t = new FileReader()),
-          t.addEventListener("loadend", function () {
-            n(o("WABinary").Binary.build(t.result));
+    function d(t) {
+      var r;
+      return new (e || (e = n("Promise")))(function (e, n) {
+        ((r = new FileReader()),
+          r.addEventListener("loadend", function () {
+            e(o("WABinary").Binary.build(r.result));
           }),
-          t.addEventListener("error", function () {
-            r(t.error);
+          r.addEventListener("error", function () {
+            n(r.error);
           }),
-          t.readAsArrayBuffer(e));
+          r.readAsArrayBuffer(t));
       });
     }
-    l.zipFiles = e;
+    l.zipFiles = s;
   },
   98,
 );

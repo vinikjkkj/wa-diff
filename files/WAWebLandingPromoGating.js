@@ -1,11 +1,12 @@
 __d(
   "WAWebLandingPromoGating",
-  ["WAWebEnvironment", "gkx"],
+  ["WAWebEnvironment", "WAWebHybridRegGating", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return r("WAWebEnvironment").getIsShowroom()
-        ? "test"
+      return !o("WAWebHybridRegGating").isHybridRegEnabled() ||
+        r("WAWebEnvironment").getIsShowroom()
+        ? "none"
         : r("gkx")("14815")
           ? u()
           : "none";

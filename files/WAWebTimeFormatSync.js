@@ -1,10 +1,16 @@
 __d(
   "WAWebTimeFormatSync",
-  ["WALogger", "WASyncdConst", "WAWebBackendApi", "WAWebSyncdAction"],
+  [
+    "WALogger",
+    "WASyncdConst",
+    "WAWebBackendApi",
+    "WAWebSyncdAction",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -14,53 +20,65 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.TimeFormat;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this,
-              r = 0,
-              a = n.map(function (e) {
-                var n;
-                if (e.operation !== "set")
-                  return (
-                    r++,
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    }
-                  );
-                var a =
-                  (n = e.value.timeFormatAction) == null
-                    ? void 0
-                    : n.isTwentyFourHourFormatEnabled;
-                return a == null
-                  ? t.malformedActionIndex()
-                  : (o("WAWebBackendApi").frontendFireAndForget("setIs24Hour", {
-                      is24Hour: a,
-                    }),
-                    { actionState: o("WASyncdConst").SyncActionState.Success });
-              });
-            return (
-              r > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "time format sync: ",
-                      " operations not supported",
-                    ])),
-                  r,
-                ),
-              a
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = this,
+                  r = 0,
+                  a = t.map(function (e) {
+                    var t;
+                    if (e.operation !== "set")
+                      return (
+                        r++,
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    var a =
+                      (t = e.value.timeFormatAction) == null
+                        ? void 0
+                        : t.isTwentyFourHourFormatEnabled;
+                    return a == null
+                      ? n.malformedActionIndex()
+                      : (o("WAWebBackendApi").frontendFireAndForget(
+                          "setIs24Hour",
+                          { is24Hour: a },
+                        ),
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Success,
+                        });
+                  });
+                return (
+                  r > 0 &&
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "time format sync: ",
+                          " operations not supported",
+                        ])),
+                      r,
+                    ),
+                  a
+                );
+              },
             );
-          }),
-          n
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       u = new s();

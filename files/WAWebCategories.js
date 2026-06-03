@@ -18,6 +18,7 @@ __d(
     "WAWebToastManager",
     "WAWebUISpacing",
     "WAWebUtilsLogQplEvents",
+    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -48,26 +49,26 @@ __d(
       y = { surface: "smb-business-profile-edit-categories" };
     function C(e) {
       var t = e.afterSave,
-        n = e.initialCategories,
-        a = e.onCancel,
-        i = e.saveBusinessProfile,
-        l = e.searchCategories,
-        u = _(n),
-        d = u[0],
-        p = u[1],
-        f = _(!1),
-        h = f[0],
-        C = f[1],
-        b = _(!1),
-        v = b[0],
-        R = b[1],
-        L = _([]),
-        E = L[0],
-        k = L[1],
-        I = _(""),
-        T = I[0],
-        D = I[1],
-        x = function () {
+        a = e.initialCategories,
+        i = e.onCancel,
+        l = e.saveBusinessProfile,
+        u = e.searchCategories,
+        d = _(a),
+        p = d[0],
+        f = d[1],
+        h = _(!1),
+        C = h[0],
+        b = h[1],
+        v = _(!1),
+        R = v[0],
+        L = v[1],
+        E = _([]),
+        k = E[0],
+        I = E[1],
+        T = _(""),
+        D = T[0],
+        x = T[1],
+        $ = function () {
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebToast.react").Toast, {
               msg: s._(
@@ -76,54 +77,54 @@ __d(
             }),
           );
         },
-        $ = function (t) {
-          for (var e = 0; e < d.length; e++) if (d[e].id === t) return !0;
+        P = function (t) {
+          for (var e = 0; e < p.length; e++) if (p[e].id === t) return !0;
           return !1;
         },
-        P = function (t) {
+        N = function (t) {
           return (
             t.not_a_biz !== !0 &&
-            !$(t.id) &&
-            d.length >= o("WAWebBusinessProfileModel").MAX_BUSINESS_CATEGORIES
+            !P(t.id) &&
+            p.length >= o("WAWebBusinessProfileModel").MAX_BUSINESS_CATEGORIES
           );
         },
-        N = function (t) {
-          var e = d.find(function (e) {
-              return e.id === T;
+        M = function (t) {
+          var e = p.find(function (e) {
+              return e.id === D;
             }),
-            n = d;
-          (d.length > 0 &&
+            n = p;
+          (p.length > 0 &&
             (t.not_a_biz === !0 && !e
-              ? ((n = []), x())
+              ? ((n = []), $())
               : t.not_a_biz !== !0 &&
                 e &&
-                ((n = d.filter(function (t) {
+                ((n = p.filter(function (t) {
                   return t.id !== e.id;
                 })),
-                x())),
-            $(t.id)
-              ? p(
+                $())),
+            P(t.id)
+              ? f(
                   n.filter(function (e) {
                     return e.id !== t.id;
                   }),
                 )
-              : p([].concat(n, [t])));
-        },
-        M = function (t) {
-          var e = d.filter(function (e) {
-            return e.id === t;
-          })[0];
-          e && N(e);
+              : f([].concat(n, [t])));
         },
         w = function (t) {
-          var e = E.filter(function (e) {
+          var e = p.filter(function (e) {
             return e.id === t;
           })[0];
-          e && N(e);
+          e && M(e);
         },
         A = function (t) {
-          (R(!0),
-            l(
+          var e = k.filter(function (e) {
+            return e.id === t;
+          })[0];
+          e && M(e);
+        },
+        F = function (t) {
+          (L(!0),
+            u(
               t ||
                 o("WAWebBusinessCategoriesResultModel")
                   .BUSINESS_CATEGORY_EMPTY_STR_ID,
@@ -134,9 +135,9 @@ __d(
                   (n = n.filter(function (e) {
                     return !e.not_a_biz;
                   })),
-                  R(!1),
-                  k(n),
-                  D(e.notABizId),
+                  L(!1),
+                  I(n),
+                  x(e.notABizId),
                   o("WAWebUtilsLogQplEvents").qplAnnotateProfileCatsView(
                     n.length,
                   ),
@@ -148,42 +149,42 @@ __d(
                     msg: s._(/*BTDS*/ "Something went wrong."),
                   }),
                 ),
-                  R(!1),
-                  k([]),
-                  D(""),
+                  L(!1),
+                  I([]),
+                  x(""),
                   o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(3));
               }));
         };
       m(function () {
-        A("");
+        F("");
       }, []);
-      var F = function (t) {
-        !v &&
-          !h &&
-          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"), A(t));
+      var O = function (t) {
+        !R &&
+          !C &&
+          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"), F(t));
       };
       return c.jsxs(r("WAWebSavePopup.react"), {
         title: s._(/*BTDS*/ "Choose up to three categories"),
         modalConfig: {
           type: o("WAWebModal.react").ModalTheme.BusinessCategories,
         },
-        isValid: d.length > 0,
-        doSave: async function () {
+        isValid: p.length > 0,
+        doSave: n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o("WAWebUtilsLogQplEvents").qplStartProfileSave("categories"),
-            await i({ categories: d }));
-        },
+            yield l({ categories: p }));
+        }),
         afterSave: function () {
-          (C(!0), t());
+          (b(!0), t());
         },
         onCancel: function () {
-          (C(!0), a());
+          (b(!0), i());
         },
         tsNavigationData: y,
         children: [
           c.jsx("div", {
             className: "xhjsbib xvue9z",
             children: c.jsx(o("WAWebChatListSearch.react").ListSearch, {
-              onSearch: F,
+              onSearch: O,
               placeholder: s._(/*BTDS*/ "Search categories"),
             }),
           }),
@@ -193,17 +194,17 @@ __d(
               c.jsx("div", {
                 className: "x1iyjqo2 x1odjw0f xvue9z",
                 children: c.jsx(S, {
-                  isLoading: v,
-                  results: E,
-                  isSelected: $,
-                  isDisabled: P,
-                  toggleResultById: w,
+                  isLoading: R,
+                  results: k,
+                  isSelected: P,
+                  isDisabled: N,
+                  toggleResultById: A,
                 }),
               }),
-              d &&
+              p &&
                 c.jsx(r("WAWebChipSelectorFooter.react"), {
-                  categories: d,
-                  onRemoveItem: M,
+                  categories: p,
+                  onRemoveItem: w,
                 }),
             ],
           }),

@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebVoipMediaEnums",
     "WAWebVoipVideoRendererInterface",
+    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -47,20 +48,26 @@ __d(
             (this.$2 = !1),
             this.renderer.initializeWebGPU());
         }
-        e.checkAvailability = async function () {
-          try {
-            var e,
-              t = (e = globalThis.navigator) == null ? void 0 : e.gpu;
-            if (t == null) return !1;
-            var n = await t.requestAdapter();
-            if (!n) return !1;
-            var r = new OffscreenCanvas(1, 1),
-              o = r.getContext("webgpu");
-            return o != null;
-          } catch (e) {
-            return !1;
+        e.checkAvailability = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            try {
+              var e,
+                t = (e = globalThis.navigator) == null ? void 0 : e.gpu;
+              if (t == null) return !1;
+              var n = yield t.requestAdapter();
+              if (!n) return !1;
+              var r = new OffscreenCanvas(1, 1),
+                o = r.getContext("webgpu");
+              return o != null;
+            } catch (e) {
+              return !1;
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
           }
-        };
+          return t;
+        })();
         var t = e.prototype;
         return (
           (t.reset = function () {
@@ -139,77 +146,12 @@ __d(
           e
         );
       })(),
-      f = `
-struct VertexOutput {
-  @builtin(position) position: vec4<f32>,
-  @location(0) texCoord: vec2<f32>,
-}
-
-struct Uniforms {
-  transformMatrix: mat2x2<f32>,
-}
-
-@group(0) @binding(3) var<uniform> uniforms: Uniforms;
-
-@vertex
-fn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VertexOutput {
-  var pos = array<vec2<f32>, 4>(
-    vec2<f32>(0.0, 0.0),
-    vec2<f32>(0.0, 1.0),
-    vec2<f32>(1.0, 0.0),
-    vec2<f32>(1.0, 1.0)
-  );
-
-  var output: VertexOutput;
-  let transformedPos = uniforms.transformMatrix * ((pos[vertexIndex] * 2.0 - 1.0) * vec2<f32>(1.0, -1.0));
-  output.position = vec4<f32>(transformedPos, 0.0, 1.0);
-  output.texCoord = pos[vertexIndex];
-  return output;
-}
-`,
-      g = `
-struct VertexOutput {
-  @builtin(position) position: vec4<f32>,
-  @location(0) texCoord: vec2<f32>,
-}
-
-@group(0) @binding(0) var yTexture: texture_2d<f32>;
-@group(0) @binding(1) var uvTexture: texture_2d<f32>;
-@group(0) @binding(2) var mySampler: sampler;
-
-@fragment
-fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
-  let y = textureSample(yTexture, mySampler, input.texCoord).r;
-  let uv = textureSample(uvTexture, mySampler, input.texCoord).rg;
-
-  // NV12 to RGB conversion using BT.601 (limited range)
-  // Y is in range [0, 1], U and V are in range [0, 1] with 0.5 as neutral
-  let yNorm = 1.164 * (y - 0.0625);
-  let u = uv.r - 0.5;
-  let v = uv.g - 0.5;
-
-  let r = yNorm + 1.596 * v;
-  let g = yNorm - 0.391 * u - 0.813 * v;
-  let b = yNorm + 2.018 * u;
-
-  return clamp(vec4<f32>(r, g, b, 1.0), vec4<f32>(0.0), vec4<f32>(1.0));
-}
-`,
-      h = `
-struct VertexOutput {
-  @builtin(position) position: vec4<f32>,
-  @location(0) texCoord: vec2<f32>,
-}
-
-@group(0) @binding(0) var rgbTexture: texture_2d<f32>;
-@group(0) @binding(2) var mySampler: sampler;
-
-@fragment
-fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
-  let color = textureSample(rgbTexture, mySampler, input.texCoord);
-  return vec4<f32>(color.r, color.g, color.b, 1.0);
-}
-`,
+      f =
+        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\nstruct Uniforms {\n  transformMatrix: mat2x2<f32>,\n}\n\n@group(0) @binding(3) var<uniform> uniforms: Uniforms;\n\n@vertex\nfn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VertexOutput {\n  var pos = array<vec2<f32>, 4>(\n    vec2<f32>(0.0, 0.0),\n    vec2<f32>(0.0, 1.0),\n    vec2<f32>(1.0, 0.0),\n    vec2<f32>(1.0, 1.0)\n  );\n\n  var output: VertexOutput;\n  let transformedPos = uniforms.transformMatrix * ((pos[vertexIndex] * 2.0 - 1.0) * vec2<f32>(1.0, -1.0));\n  output.position = vec4<f32>(transformedPos, 0.0, 1.0);\n  output.texCoord = pos[vertexIndex];\n  return output;\n}\n",
+      g =
+        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\n@group(0) @binding(0) var yTexture: texture_2d<f32>;\n@group(0) @binding(1) var uvTexture: texture_2d<f32>;\n@group(0) @binding(2) var mySampler: sampler;\n\n@fragment\nfn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {\n  let y = textureSample(yTexture, mySampler, input.texCoord).r;\n  let uv = textureSample(uvTexture, mySampler, input.texCoord).rg;\n\n  // NV12 to RGB conversion using BT.601 (limited range)\n  // Y is in range [0, 1], U and V are in range [0, 1] with 0.5 as neutral\n  let yNorm = 1.164 * (y - 0.0625);\n  let u = uv.r - 0.5;\n  let v = uv.g - 0.5;\n\n  let r = yNorm + 1.596 * v;\n  let g = yNorm - 0.391 * u - 0.813 * v;\n  let b = yNorm + 2.018 * u;\n\n  return clamp(vec4<f32>(r, g, b, 1.0), vec4<f32>(0.0), vec4<f32>(1.0));\n}\n",
+      h =
+        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\n@group(0) @binding(0) var rgbTexture: texture_2d<f32>;\n@group(0) @binding(2) var mySampler: sampler;\n\n@fragment\nfn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {\n  let color = textureSample(rgbTexture, mySampler, input.texCoord);\n  return vec4<f32>(color.r, color.g, color.b, 1.0);\n}\n",
       y = [1, 0, 0, 1],
       C = [
         [y, [0, -1, 1, 0], [-1, 0, 0, -1], [0, 1, -1, 0]],
@@ -243,106 +185,112 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
             (this.cachedMatrixData = new Float32Array(4)),
             (this.lastTransformMatrix = null));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.initializeWebGPU = async function () {
-            try {
-              var e,
-                t = (e = globalThis.navigator) == null ? void 0 : e.gpu;
-              if (t == null)
-                throw r("err")("WebGPU not supported in this browser");
-              var n = await t.requestAdapter();
-              if (!n) throw r("err")("No suitable WebGPU adapter found");
-              var o = await n.requestDevice();
-              if (!o) throw r("err")("Failed to create WebGPU device");
-              this.device = o;
-              var a;
+          (a.initializeWebGPU = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               try {
-                a = this.canvas.getContext("webgpu");
-              } catch (e) {
-                throw r("err")("Failed to get WebGPU context: " + String(e));
-              }
-              if (!a) throw r("err")("Failed to get WebGPU context");
-              var i = a;
-              ((this.context = i),
-                (this.swapChainFormat = "bgra8unorm"),
-                i.configure({ device: o, format: this.swapChainFormat }),
-                (this.sampler = o.createSampler({
-                  magFilter: "linear",
-                  minFilter: "linear",
-                  addressModeU: "clamp-to-edge",
-                  addressModeV: "clamp-to-edge",
+                var e,
+                  t = (e = globalThis.navigator) == null ? void 0 : e.gpu;
+                if (t == null)
+                  throw r("err")("WebGPU not supported in this browser");
+                var n = yield t.requestAdapter();
+                if (!n) throw r("err")("No suitable WebGPU adapter found");
+                var o = yield n.requestDevice();
+                if (!o) throw r("err")("Failed to create WebGPU device");
+                this.device = o;
+                var a;
+                try {
+                  a = this.canvas.getContext("webgpu");
+                } catch (e) {
+                  throw r("err")("Failed to get WebGPU context: " + String(e));
+                }
+                if (!a) throw r("err")("Failed to get WebGPU context");
+                var i = a;
+                ((this.context = i),
+                  (this.swapChainFormat = "bgra8unorm"),
+                  i.configure({ device: o, format: this.swapChainFormat }),
+                  (this.sampler = o.createSampler({
+                    magFilter: "linear",
+                    minFilter: "linear",
+                    addressModeU: "clamp-to-edge",
+                    addressModeV: "clamp-to-edge",
+                  })),
+                  (this.uniformBuffer = o.createBuffer({
+                    size: 16,
+                    usage: c.UNIFORM | c.COPY_DST,
+                  })));
+                var l = o.createShaderModule({ code: f }),
+                  s = o.createShaderModule({ code: g }),
+                  u = o.createBindGroupLayout({
+                    entries: [
+                      {
+                        binding: 0,
+                        visibility: d.FRAGMENT,
+                        texture: { sampleType: "float" },
+                      },
+                      {
+                        binding: 1,
+                        visibility: d.FRAGMENT,
+                        texture: { sampleType: "float" },
+                      },
+                      { binding: 2, visibility: d.FRAGMENT, sampler: {} },
+                      {
+                        binding: 3,
+                        visibility: d.VERTEX,
+                        buffer: { type: "uniform" },
+                      },
+                    ],
+                  });
+                ((this.nv12Pipeline = o.createRenderPipeline({
+                  layout: o.createPipelineLayout({ bindGroupLayouts: [u] }),
+                  vertex: { module: l, entryPoint: "vs_main" },
+                  fragment: {
+                    module: s,
+                    entryPoint: "fs_main",
+                    targets: [{ format: this.swapChainFormat }],
+                  },
+                  primitive: { topology: "triangle-strip" },
                 })),
-                (this.uniformBuffer = o.createBuffer({
-                  size: 16,
-                  usage: c.UNIFORM | c.COPY_DST,
-                })));
-              var l = o.createShaderModule({ code: f }),
-                s = o.createShaderModule({ code: g }),
-                u = o.createBindGroupLayout({
-                  entries: [
-                    {
-                      binding: 0,
-                      visibility: d.FRAGMENT,
-                      texture: { sampleType: "float" },
-                    },
-                    {
-                      binding: 1,
-                      visibility: d.FRAGMENT,
-                      texture: { sampleType: "float" },
-                    },
-                    { binding: 2, visibility: d.FRAGMENT, sampler: {} },
-                    {
-                      binding: 3,
-                      visibility: d.VERTEX,
-                      buffer: { type: "uniform" },
-                    },
-                  ],
-                });
-              ((this.nv12Pipeline = o.createRenderPipeline({
-                layout: o.createPipelineLayout({ bindGroupLayouts: [u] }),
-                vertex: { module: l, entryPoint: "vs_main" },
-                fragment: {
-                  module: s,
-                  entryPoint: "fs_main",
-                  targets: [{ format: this.swapChainFormat }],
-                },
-                primitive: { topology: "triangle-strip" },
-              })),
-                (this.nv12BindGroupLayout = u));
-              var m = o.createShaderModule({ code: h }),
-                p = o.createBindGroupLayout({
-                  entries: [
-                    {
-                      binding: 0,
-                      visibility: d.FRAGMENT,
-                      texture: { sampleType: "float" },
-                    },
-                    { binding: 2, visibility: d.FRAGMENT, sampler: {} },
-                    {
-                      binding: 3,
-                      visibility: d.VERTEX,
-                      buffer: { type: "uniform" },
-                    },
-                  ],
-                });
-              ((this.rgbPipeline = o.createRenderPipeline({
-                layout: o.createPipelineLayout({ bindGroupLayouts: [p] }),
-                vertex: { module: l, entryPoint: "vs_main" },
-                fragment: {
-                  module: m,
-                  entryPoint: "fs_main",
-                  targets: [{ format: this.swapChainFormat }],
-                },
-                primitive: { topology: "triangle-strip" },
-              })),
-                (this.rgbBindGroupLayout = p),
-                (this.initialized = !0));
-            } catch (e) {
-              throw r("err")("Failed to initialize WebGPU: " + String(e));
+                  (this.nv12BindGroupLayout = u));
+                var m = o.createShaderModule({ code: h }),
+                  p = o.createBindGroupLayout({
+                    entries: [
+                      {
+                        binding: 0,
+                        visibility: d.FRAGMENT,
+                        texture: { sampleType: "float" },
+                      },
+                      { binding: 2, visibility: d.FRAGMENT, sampler: {} },
+                      {
+                        binding: 3,
+                        visibility: d.VERTEX,
+                        buffer: { type: "uniform" },
+                      },
+                    ],
+                  });
+                ((this.rgbPipeline = o.createRenderPipeline({
+                  layout: o.createPipelineLayout({ bindGroupLayouts: [p] }),
+                  vertex: { module: l, entryPoint: "vs_main" },
+                  fragment: {
+                    module: m,
+                    entryPoint: "fs_main",
+                    targets: [{ format: this.swapChainFormat }],
+                  },
+                  primitive: { topology: "triangle-strip" },
+                })),
+                  (this.rgbBindGroupLayout = p),
+                  (this.initialized = !0));
+              } catch (e) {
+                throw r("err")("Failed to initialize WebGPU: " + String(e));
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          (n.cleanup = function () {
+            return t;
+          })()),
+          (a.cleanup = function () {
             (this.yTexture != null &&
               (this.yTexture.destroy(), (this.yTexture = null)),
               this.uvTexture != null &&
@@ -352,7 +300,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
               this.uniformBuffer != null &&
                 (this.uniformBuffer.destroy(), (this.uniformBuffer = null)));
           }),
-          (n.render = function (n, a, i, l, c, d, p) {
+          (a.render = function (n, a, i, l, c, d, p) {
             if (
               !(
                 !this.initialized ||

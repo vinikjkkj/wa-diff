@@ -31,7 +31,6 @@ __d(
     "WAWebWamMsgUtils",
     "WAWebWamNumberToSizeBucket",
     "WAWebWid",
-    "isStringNullOrEmpty",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -107,7 +106,7 @@ __d(
             I = k == null ? void 0 : k.getMeContact(),
             T = b.isRegularUser() ? (k == null ? void 0 : k.get(b)) : null;
           if (
-            ((this.$2.hasUsername = !r("isStringNullOrEmpty")(
+            ((this.$2.hasUsername = o("WAWebUsernameTypes").isPresentUsername(
               I == null ? void 0 : I.username,
             )),
             (this.$2.hasUsernamePin =

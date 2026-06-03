@@ -6,6 +6,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebThreadId",
     "WAWebThreadModel",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,7 +15,7 @@ __d(
       s,
       u,
       c = (function (t) {
-        function n() {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -24,10 +25,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.seedFromChat = function (a) {
+          (i.seedFromChat = function (a) {
             t.prototype.seedFromChat.call(this, a);
             var n = this.id.key.toString();
             if (this.msgs.get(n) == null) {
@@ -47,39 +48,45 @@ __d(
                   .sendLogs("hydrate-root-msg-fail");
               });
           }),
-          (a.hydrateRootMessage = async function () {
-            var e = this.id.key.toString();
-            if (this.msgs.get(e) == null) {
-              var t;
-              try {
-                var n = await o(
-                  "WAWebMsgCollection",
-                ).MsgCollection.hydrateOrGetMessages([e]);
-                t = n[0];
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ThreadChatParity] hydrateRootMessage: DB lookup failed",
+          (i.hydrateRootMessage = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this.id.key.toString();
+              if (this.msgs.get(e) == null) {
+                var t;
+                try {
+                  var n = yield o(
+                    "WAWebMsgCollection",
+                  ).MsgCollection.hydrateOrGetMessages([e]);
+                  t = n[0];
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[ThreadChatParity] hydrateRootMessage: DB lookup failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("hydrate-root-msg-db-fail");
+                  return;
+                }
+                t != null &&
+                  this.msgs.get(e) == null &&
+                  (this.msgs.add(t, { at: 0 }),
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[ThreadChatParity] hydrateRootMessage: added root to MRM",
                       ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("hydrate-root-msg-db-fail");
-                return;
+                  ));
               }
-              t != null &&
-                this.msgs.get(e) == null &&
-                (this.msgs.add(t, { at: 0 }),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ThreadChatParity] hydrateRootMessage: added root to MRM",
-                    ])),
-                ));
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          n
+            return t;
+          })()),
+          a
         );
       })(r("WAWebThreadModel"));
     ((c.Proxy = "viewRepliesThread"), (c.idClass = r("WAWebThreadId")));

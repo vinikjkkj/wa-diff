@@ -12,6 +12,7 @@ __d(
     "WAWebMsgType",
     "WAWebRichResponseCopyText",
     "WAWebUnifiedResponseUtils",
+    "asyncToGeneratorRuntime",
     "getPlainTextFromUnifiedResponse",
   ],
   function (t, n, r, o, a, i, l) {
@@ -66,8 +67,7 @@ __d(
         n.push(e.interactiveHeader.title),
         e.caption != null && n.push(e.caption),
         e.footer != null && n.push(e.footer));
-      var r = n.join(`
-`);
+      var r = n.join("\n");
       o("WAWebCopyToClipboard").copyTextToClipboard(r);
     }
     function m(e) {
@@ -107,23 +107,37 @@ __d(
           o("WAWebRichResponseCopyText").canCopyRichResponseMessage(e) &&
           m(e));
     }
-    async function _(e) {
-      if (e.length === 0) return null;
-      var t = e
-        .filter(function (e) {
-          return e.body != null;
-        })
-        .sort(
-          o("WAWebAllMsgTypeCollectionUtils").sortMsgsByInputComparator("asc"),
-        );
-      if (t.length === 0) return null;
-      var n = t.map(function (e) {
-        return e.body;
-      }).join(`
-`);
-      return (await o("WAWebCopyToClipboard").copyTextToClipboard(n), t.length);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function f(e) {
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return null;
+          var t = e
+            .filter(function (e) {
+              return e.body != null;
+            })
+            .sort(
+              o("WAWebAllMsgTypeCollectionUtils").sortMsgsByInputComparator(
+                "asc",
+              ),
+            );
+          if (t.length === 0) return null;
+          var n = t
+            .map(function (e) {
+              return e.body;
+            })
+            .join("\n");
+          return (
+            yield o("WAWebCopyToClipboard").copyTextToClipboard(n),
+            t.length
+          );
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
       var t = window.getSelection();
       if (t != null) {
         var n = o("WAWebCopyPasteClipboard").Clipboard.fromSelection(e, t);
@@ -134,7 +148,7 @@ __d(
       (l.canCopySelection = s),
       (l.copyMessageToClipboard = p),
       (l.copyMessagesToClipboard = _),
-      (l.copySelection = f));
+      (l.copySelection = g));
   },
   98,
 );

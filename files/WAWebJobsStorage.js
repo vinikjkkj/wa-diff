@@ -7,40 +7,49 @@ __d(
     "WAWebDexieCastTypes",
     "WAWebJobsStorageUtils",
     "WAWebSchemaJobs",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    async function u() {
-      return (
-        s == null &&
-          (await o("WAWebDbRolloutUtil").loadSchemaVersions(),
-          o("WAWebJobsStorageUtils").createStorage(),
-          o("WAWebSchemaJobs").addTable(),
-          (s = o("WAWebJobsStorageUtils")
-            .getStorage()
-            .initialize()
-            .catch(function (t) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "Assertion failed!",
-                      ])),
-                  )
-                  .verbose()
-                  .sendLogs("Failed to initialize jobs storage", {
-                    sendLogsType:
-                      o("WALogger").SendLogsType
-                        .CRASH_OR_UNRECOVERABLE_ERROR_SAD,
-                  }),
-                t
-              );
-            }))),
-        s
-      );
+    function u() {
+      return c.apply(this, arguments);
     }
     function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            s == null &&
+              (yield o("WAWebDbRolloutUtil").loadSchemaVersions(),
+              o("WAWebJobsStorageUtils").createStorage(),
+              o("WAWebSchemaJobs").addTable(),
+              (s = o("WAWebJobsStorageUtils")
+                .getStorage()
+                .initialize()
+                .catch(function (t) {
+                  throw (
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "Assertion failed!",
+                          ])),
+                      )
+                      .verbose()
+                      .sendLogs("Failed to initialize jobs storage", {
+                        sendLogsType:
+                          o("WALogger").SendLogsType
+                            .CRASH_OR_UNRECOVERABLE_ERROR_SAD,
+                      }),
+                    t
+                  );
+                }))),
+            s
+          );
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d() {
       return o("WAWebJobsStorageUtils")
         .destroyStorage()
         .catch(function () {
@@ -54,7 +63,7 @@ __d(
           s = null;
         });
     }
-    ((l.initialize = u), (l.destroy = c));
+    ((l.initialize = u), (l.destroy = d));
   },
   98,
 );

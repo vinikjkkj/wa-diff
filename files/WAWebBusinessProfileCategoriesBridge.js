@@ -2,7 +2,6 @@ __d(
   "WAWebBusinessProfileCategoriesBridge",
   [
     "JSResourceForInteraction",
-    "WAWebBizCatalogGatingUtils",
     "WAWebBizLogQplEvents",
     "WAWebBizProfileGatingUtils",
     "WAWebQueryBusinessCategoriesJob",
@@ -19,7 +18,7 @@ __d(
       var r;
       return (
         o("WAWebBizProfileGatingUtils").isCategorySearchViaGraphEnabled()
-          ? o("WAWebBizCatalogGatingUtils").getCatkitVersion() >= 2
+          ? o("WAWebBizProfileGatingUtils").getCatkitVersion() >= 2
             ? (r = s.load().then(function (e) {
                 return e.getBusinessCategoriesV2(t, n);
               }))

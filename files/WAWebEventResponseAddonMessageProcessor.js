@@ -13,6 +13,7 @@ __d(
     "WAWebPrepareEventResponsesToUpsert",
     "WAWebProcessEncryptedEventResponseMsgs",
     "WAWebShouldUpdateLastAddOnPreview",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = o(
@@ -20,62 +21,119 @@ __d(
       ).createAddonMsgProcessorDualEncrypted({
         isEnabled: o("WAWebBoolFunc").returnTrue,
         convert: {
-          fromHistorySyncMsg: async function (t) {
-            return o(
-              "WAWebEventsParseWebMsgInfoEventResponse",
-            ).parseWebMsgInfoEventResponses(t);
-          },
-          toDualEncryptedMsgData: async function (t, n) {
-            return t.kind === o("WAWebMsgType").MsgKind.EventResponseEncrypted
-              ? t
-              : o(
-                  "WAWebCreateEncryptedEventResponseMsgData",
-                ).createEncryptedEventResponseMsgData(t, n);
-          },
-          toDualDecryptedMsgData: async function (t, n) {
-            return t.kind === o("WAWebMsgType").MsgKind.EventResponseDecrypted
-              ? t
-              : o(
-                  "WAWebProcessEncryptedEventResponseMsgs",
-                ).decryptEncryptedEventResponseMsg(t, n);
-          },
-        },
-        updateCollection: async function (t) {
-          await o("WAWebBackendApi").frontendSendAndReceive(
-            "upsertEventResponsesModelCollection",
-            { eventResponses: t.add, eventResponsesToRemove: t.remove },
-          );
-        },
-        beforeUpsert: async function (t, n) {
-          var e = n.parents,
-            r = await o(
-              "WAWebProcessEncryptedEventResponseMsgs",
-            ).processEncryptedEventResponseMsgs(t, e),
-            a = await o(
-              "WAWebPrepareEventResponsesToUpsert",
-            ).prepareEventResponsesToUpsert(r);
-          return a;
-        },
-        afterUpsert: async function (t, n) {
-          var e = n.processMode,
-            r = t.map(
-              o("WAWebEventResponseMsgDataConversion")
-                .eventResponseMsgDataToResponseData,
+          fromHistorySyncMsg: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return o(
+                  "WAWebEventsParseWebMsgInfoEventResponse",
+                ).parseWebMsgInfoEventResponses(e);
+              },
             );
-          (await o(
-            "WAWebShouldUpdateLastAddOnPreview",
-          ).filterAndUpdateChatPreviews(r),
-            e !== o("WAWebAddonConstants").AddonProcessMode.HistorySync &&
-              e === o("WAWebAddonConstants").AddonProcessMode.OnlineReceive &&
-              (await o(
-                "WAWebDBMarkFutureproofMessagesReparsed",
-              ).markFutureproofMessagesReparsed(
-                t.map(function (e) {
-                  return e.id.toString();
-                }),
-              )));
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+          toDualEncryptedMsgData: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return e.kind ===
+                  o("WAWebMsgType").MsgKind.EventResponseEncrypted
+                  ? e
+                  : o(
+                      "WAWebCreateEncryptedEventResponseMsgData",
+                    ).createEncryptedEventResponseMsgData(e, t);
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+          toDualDecryptedMsgData: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return e.kind ===
+                  o("WAWebMsgType").MsgKind.EventResponseDecrypted
+                  ? e
+                  : o(
+                      "WAWebProcessEncryptedEventResponseMsgs",
+                    ).decryptEncryptedEventResponseMsg(e, t);
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
         },
-        manageNotifications: async function () {},
+        updateCollection: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "upsertEventResponsesModelCollection",
+              { eventResponses: e.add, eventResponsesToRemove: e.remove },
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        beforeUpsert: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = t.parents,
+                r = yield o(
+                  "WAWebProcessEncryptedEventResponseMsgs",
+                ).processEncryptedEventResponseMsgs(e, n),
+                a = yield o(
+                  "WAWebPrepareEventResponsesToUpsert",
+                ).prepareEventResponsesToUpsert(r);
+              return a;
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        afterUpsert: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = t.processMode,
+                r = e.map(
+                  o("WAWebEventResponseMsgDataConversion")
+                    .eventResponseMsgDataToResponseData,
+                );
+              (yield o(
+                "WAWebShouldUpdateLastAddOnPreview",
+              ).filterAndUpdateChatPreviews(r),
+                n !== o("WAWebAddonConstants").AddonProcessMode.HistorySync &&
+                  n ===
+                    o("WAWebAddonConstants").AddonProcessMode.OnlineReceive &&
+                  (yield o(
+                    "WAWebDBMarkFutureproofMessagesReparsed",
+                  ).markFutureproofMessagesReparsed(
+                    e.map(function (e) {
+                      return e.id.toString();
+                    }),
+                  )));
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        manageNotifications: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {},
+          );
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       }),
       s = e;
     l.default = s;

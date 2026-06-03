@@ -9,6 +9,7 @@ __d(
     "WAWebJidToWid",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebUpdateDisappearingModeForContact",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -28,66 +29,73 @@ __d(
           };
         },
       );
-    async function c(t) {
-      var n = t.duration,
-        r = t.from,
-        a = t.stanzaId,
-        i = t.ts;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        o("WALogger")
-          .LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "handleDisappearingModeNotification: received d=",
-                ":t=",
-                `
-    for `,
-                "",
-              ])),
-            n,
-            i,
-            r.toString(),
-          )
-          .tags("DM", "DDM"),
-        await o(
-          "WAWebUpdateDisappearingModeForContact",
-        ).updateDisappearingModeForContact({
-          contactId: r,
-          newDuration: n,
-          newSettingTimestamp: i,
-        }),
-        o("WAWap").wap("ack", {
-          id: o("WAWap").CUSTOM_STRING(a),
-          to: o("WAWebCommsWapMd").JID(r),
-          class: "notification",
-          type: "disappearing_mode",
-        })
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.duration,
+            n = e.from,
+            r = e.stanzaId,
+            a = e.ts;
+          return (
+            o("WALogger")
+              .LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleDisappearingModeNotification: received d=",
+                    ":t=",
+                    "\n    for ",
+                    "",
+                  ])),
+                t,
+                a,
+                n.toString(),
+              )
+              .tags("DM", "DDM"),
+            yield o(
+              "WAWebUpdateDisappearingModeForContact",
+            ).updateDisappearingModeForContact({
+              contactId: n,
+              newDuration: t,
+              newSettingTimestamp: a,
+            }),
+            o("WAWap").wap("ack", {
+              id: o("WAWap").CUSTOM_STRING(r),
+              to: o("WAWebCommsWapMd").JID(n),
+              class: "notification",
+              type: "disappearing_mode",
+            })
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      var t = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW;
+    function m(t) {
+      var n = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "handleDisappearingModeNotification",
           function () {
-            var t = u.parse(e);
-            return t.error
+            var n = u.parse(t);
+            return n.error
               ? (o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
                       "Parsing Error: ",
                       "",
                     ])),
-                  t.error.toString(),
+                  n.error.toString(),
                 ),
-                Promise.reject(t.error))
-              : c(t.success);
+                Promise.reject(n.error))
+              : c(n.success);
           },
-          { priority: t },
+          { priority: n },
         )
-        .waitUntilCompleted({ node: e });
+        .waitUntilCompleted({ node: t });
     }
-    l.handleDisappearingModeNotificationJob = d;
+    l.handleDisappearingModeNotificationJob = m;
   },
   98,
 );

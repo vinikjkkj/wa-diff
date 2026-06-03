@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -65,44 +66,60 @@ __d(
             })),
             _.onOrBefore(d)));
     }
-    async function h() {
-      var e = await r("WAWebLidAwareContactsDB").equals(
-          ["isContactSyncCompleted"],
-          0,
-        ),
-        t = e.map(function (e) {
-          return o("WAWebWidFactory").createWid(e.id);
-        });
+    function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        o("WALogger")
-          .LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "sync dirty contacts, found ",
-                " contacts to sync",
-              ])),
-            t.length,
-          )
-          .tags("contact-sync"),
-        o("WAWebContactSyncApi").syncContactListInChunks({
-          contactIds: t,
-          shouldDelayBetweenChunks: !0,
-          mode: "query",
-        })
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("WAWebLidAwareContactsDB").equals(
+              ["isContactSyncCompleted"],
+              0,
+            ),
+            t = e.map(function (e) {
+              return o("WAWebWidFactory").createWid(e.id);
+            });
+          return (
+            o("WALogger")
+              .LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "sync dirty contacts, found ",
+                    " contacts to sync",
+                  ])),
+                t.length,
+              )
+              .tags("contact-sync"),
+            o("WAWebContactSyncApi").syncContactListInChunks({
+              contactIds: t,
+              shouldDelayBetweenChunks: !0,
+              mode: "query",
+            })
+          );
+        })),
+        y.apply(this, arguments)
       );
     }
-    async function y() {
-      ((await o(
-        "WAWebUserPrefsMultiDevice",
-      ).getShouldCheckContactSyncStatus()) &&
-        self.setTimeout(function () {
-          h();
-        }, p * 1e3),
-        await o(
-          "WAWebUserPrefsAppStateSync",
-        ).setShouldCheckContactSyncStatus());
-    }
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          ((yield o(
+            "WAWebUserPrefsMultiDevice",
+          ).getShouldCheckContactSyncStatus()) &&
+            self.setTimeout(function () {
+              h();
+            }, p * 1e3),
+            yield o(
+              "WAWebUserPrefsAppStateSync",
+            ).setShouldCheckContactSyncStatus());
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v() {
       var e,
         t =
           (e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
@@ -113,8 +130,8 @@ __d(
       return parseInt(t, 10);
     }
     ((l.syncNewContact = g),
-      (l.runSyncDirtyContactsJob = y),
-      (l.getContactSyncRefreshSeconds = C));
+      (l.runSyncDirtyContactsJob = C),
+      (l.getContactSyncRefreshSeconds = v));
   },
   98,
 );

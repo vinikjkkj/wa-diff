@@ -4,6 +4,7 @@ __d(
     "WAWebMexClient",
     "WAWebMexFetchNewsletterAdminCapabilitiesJobQuery.graphql",
     "WAWebNewsletterModelUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -11,18 +12,27 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchNewsletterAdminCapabilitiesJobQuery.graphql"));
-    async function u(e) {
-      var t,
-        n = { newsletter_id: e },
-        r = await o("WAWebMexClient").fetchQuery(s, n),
-        a = (t = r.xwa2_newsletter_admin) == null ? void 0 : t.capabilities,
-        i =
-          a == null
-            ? []
-            : a.map(
-                o("WAWebNewsletterModelUtils").getNewsletterCapabilityFromValue,
-              );
-      return new Set(i);
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = { newsletter_id: e },
+            r = yield o("WAWebMexClient").fetchQuery(s, n),
+            a = (t = r.xwa2_newsletter_admin) == null ? void 0 : t.capabilities,
+            i =
+              a == null
+                ? []
+                : a.map(
+                    o("WAWebNewsletterModelUtils")
+                      .getNewsletterCapabilityFromValue,
+                  );
+          return new Set(i);
+        })),
+        c.apply(this, arguments)
+      );
     }
     l.mexFetchNewsletterAdminCapabilities = u;
   },

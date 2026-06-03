@@ -4,13 +4,14 @@ __d(
     "RSTLogger",
     "emptyFunction",
     "interaction-tracing",
+    "performance",
     "performanceNow",
     "relay-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t, n) {
+    var e, s;
+    function u(t, n) {
       if (!n) return r("emptyFunction");
       var a = o("RSTLogger").logSpanStart(
           "Relay_" + n.queryName,
@@ -25,39 +26,64 @@ __d(
           usedPrefetcher: n.usedPrefetcher,
         };
         if (n.resourceTimingData != null) {
-          var s = n.resourceTimingData;
-          ((t.resource_timing_duration = s.resource_timing_duration),
-            (t.resource_timing_fetch_start = s.resource_timing_fetch_start),
-            (t.resource_timing_response_end = s.resource_timing_response_end),
+          var u = n.resourceTimingData;
+          ((t.resource_timing_duration = u.resource_timing_duration),
+            (t.resource_timing_fetch_start = u.resource_timing_fetch_start),
+            (t.resource_timing_response_end = u.resource_timing_response_end),
             (t.resource_timing_transfer_size =
-              s.resource_timing_transfer_size));
+              u.resource_timing_transfer_size));
         }
         (n.store_size != null && (t.store_size = n.store_size),
           l && (t.error = l.message),
-          o("RSTLogger").logSpanEnd(a),
-          r("interaction-tracing")
-            .InteractionTracingCore.getPendingInteractions()
-            .forEach(function (o) {
-              o.addSubspan(
-                "Relay_" + n.queryName,
-                "RelayQuery",
-                i,
-                (e || (e = r("performanceNow")))(),
-                babelHelpers.extends({}, t, { full_duration: (e() - i) / 1e3 }),
-              );
-            }));
+          o("RSTLogger").logSpanEnd(a));
+        var c = n.serverTimestamp,
+          d = null,
+          m = null;
+        if (c != null) {
+          var p = c.startTime - (s || (s = r("performance"))).timeOrigin,
+            _ = c.endTime - s.timeOrigin;
+          Number.isFinite(p) &&
+            Number.isFinite(_) &&
+            _ >= p &&
+            ((d = p), (m = _));
+        }
+        r("interaction-tracing")
+          .InteractionTracingCore.getPendingInteractions()
+          .forEach(function (o) {
+            (o.addSubspan(
+              "Relay_" + n.queryName,
+              "RelayQuery",
+              i,
+              (e || (e = r("performanceNow")))(),
+              babelHelpers.extends({}, t, { full_duration: (e() - i) / 1e3 }),
+            ),
+              c != null &&
+                d != null &&
+                m != null &&
+                o.addSubspan(
+                  "Relay_" + n.queryName + "_server",
+                  "RelayQuery",
+                  d,
+                  m,
+                  {
+                    request_start_time_ms: c.startTime,
+                    server_duration_ms: c.endTime - c.startTime,
+                    time_at_flush_ms: c.endTime,
+                  },
+                ));
+          });
       };
     }
-    var u = !1;
-    function c() {
-      u ||
+    var c = !1;
+    function d() {
+      c ||
         (o("relay-runtime").RelayProfiler.attachProfileHandler(
           "fetchRelayQuery",
-          s,
+          u,
         ),
-        (u = !0));
+        (c = !0));
     }
-    l.install = c;
+    l.install = d;
   },
   98,
 );

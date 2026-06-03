@@ -11,6 +11,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -99,39 +100,47 @@ __d(
           : t.push(r);
       return { validPins: t, expiredPinParentKeys: n };
     }
-    async function p(t) {
-      var n = m(t),
-        r = n.expiredPinParentKeys,
-        a = n.validPins;
-      if (r.length > 0)
-        try {
-          (await o("WAWebDeleteExpiredPinsJob").deleteExpiredPins(
-            r.map(function (e) {
-              return e.toString();
-            }),
-          ),
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "deleteExpiredPins Success",
-                ])),
-            ),
-            r.forEach(function (e) {
-              return o(
-                "WAWebPinInChatCollection",
-              ).PinInChatCollection.deleteByParentMessageKey(e);
-            }));
-        } catch (e) {
-          o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "deleteExpiredPins: error deleting expired pins from DB: ",
-                "",
-              ])),
-            e,
-          );
-        }
-      return a;
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = m(t),
+            r = n.expiredPinParentKeys,
+            a = n.validPins;
+          if (r.length > 0)
+            try {
+              (yield o("WAWebDeleteExpiredPinsJob").deleteExpiredPins(
+                r.map(function (e) {
+                  return e.toString();
+                }),
+              ),
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "deleteExpiredPins Success",
+                    ])),
+                ),
+                r.forEach(function (e) {
+                  return o(
+                    "WAWebPinInChatCollection",
+                  ).PinInChatCollection.deleteByParentMessageKey(e);
+                }));
+            } catch (e) {
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "deleteExpiredPins: error deleting expired pins from DB: ",
+                    "",
+                  ])),
+                e,
+              );
+            }
+          return a;
+        })),
+        _.apply(this, arguments)
+      );
     }
     ((l.craftPinMessage = c),
       (l.updatePinCollection = d),

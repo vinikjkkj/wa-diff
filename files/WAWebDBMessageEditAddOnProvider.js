@@ -5,6 +5,7 @@ __d(
     "WAWebMessageAddOnType",
     "WAWebMessageEditUtils",
     "WAWebMsgType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -38,21 +39,29 @@ __d(
             return !0;
         }
       },
-      processOrphansForNewMsg: async function (t, n) {
-        var e,
-          r = await o("WAWebDBProcessEditProtocolMsgs").processEditProtocolMsgs(
-            n.map(function (e) {
-              return e.parsedMsgPayload;
-            }),
-          ),
-          a =
-            (e = r.find(function (e) {
-              return e.parentMsg.id.equals(t.id);
-            })) == null
-              ? void 0
-              : e.editedMsgData;
-        a && Object.assign(t, a);
-      },
+      processOrphansForNewMsg: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = yield o(
+              "WAWebDBProcessEditProtocolMsgs",
+            ).processEditProtocolMsgs(
+              t.map(function (e) {
+                return e.parsedMsgPayload;
+              }),
+            ),
+            a =
+              (n = r.find(function (t) {
+                return t.parentMsg.id.equals(e.id);
+              })) == null
+                ? void 0
+                : n.editedMsgData;
+          a && Object.assign(e, a);
+        });
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
     };
     l.messageEditAddOnProvider = e;
   },

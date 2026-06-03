@@ -10,6 +10,7 @@ __d(
     "WAWebSupportChatConfirmationModal.react",
     "WAWebWamEnumSupportAiEventType",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,36 +31,47 @@ __d(
           { transition: "modal-flow" },
         ));
     }
-    async function m(t) {
-      var n = o("WAWebWidFactory").createWid(t);
-      o("WAWebModalManager").ModalManager.open(
-        c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
-          target: { wid: n },
-          onSuccess: function () {
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "openSupportChat: successfully opened support chat",
-                ])),
-            ),
-              o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
-          },
-          msgText: null,
-          customError: c.jsx("div", {
-            children: c.jsx(r("WAWebSupportChatConfirmationModal.react"), {}),
-          }),
-          onError: function (t) {
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "InAppSupport: Error opening support chat: ",
-                  "",
-                ])),
-              t,
-            );
-          },
-        }),
-        { transition: "modal-flow" },
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = o("WAWebWidFactory").createWid(t);
+          o("WAWebModalManager").ModalManager.open(
+            c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+              target: { wid: n },
+              onSuccess: function () {
+                (o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "openSupportChat: successfully opened support chat",
+                    ])),
+                ),
+                  o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
+              },
+              msgText: null,
+              customError: c.jsx("div", {
+                children: c.jsx(
+                  r("WAWebSupportChatConfirmationModal.react"),
+                  {},
+                ),
+              }),
+              onError: function (t) {
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "InAppSupport: Error opening support chat: ",
+                      "",
+                    ])),
+                  t,
+                );
+              },
+            }),
+            { transition: "modal-flow" },
+          );
+        })),
+        p.apply(this, arguments)
       );
     }
     ((l.openSupportAINux = d), (l.openSupportChat = m));

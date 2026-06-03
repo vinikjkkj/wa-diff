@@ -6,6 +6,7 @@ __d(
     "WASmaxUnifiedSessionShareRPC",
     "WATimeUtils",
     "WAWebUnifiedSessionSocketManager",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -20,24 +21,24 @@ __d(
         function t(e) {
           ((this.$1 = null), (this.$2 = 0), (this.$3 = !1), (this.$4 = e));
         }
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.getSocketStreamChangeHandler = function () {
+          (r.getSocketStreamChangeHandler = function () {
             var e = this;
             return function () {
               return e.$5();
             };
           }),
-          (n.getSessionId = function () {
+          (r.getSessionId = function () {
             return this.$1;
           }),
-          (n.getSequence = function () {
+          (r.getSequence = function () {
             return ++this.$2;
           }),
-          (n.clearSessionId = function () {
+          (r.clearSessionId = function () {
             this.$1 = null;
           }),
-          (n.generateSessionId = function (n) {
+          (r.generateSessionId = function (n) {
             try {
               var t = (p() + c) % u,
                 r = this.$1;
@@ -55,30 +56,36 @@ __d(
                 .sendLogs("unified-session-generate-error");
             }
           }),
-          (n.$6 = async function () {
-            if (this.$4.isConnected() !== !1) {
-              var e = this.$1;
-              if (e != null && !this.$3)
-                try {
-                  (await o("WASmaxUnifiedSessionShareRPC").sendShareRPC({
-                    unifiedSessionId: e,
-                  }),
-                    (this.$3 = !0));
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[unified-session] failed to send session id: ",
-                          "",
-                        ])),
-                      e,
-                    )
-                    .sendLogs("send-unified-session-id-failed");
-                }
+          (r.$6 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (this.$4.isConnected() !== !1) {
+                var e = this.$1;
+                if (e != null && !this.$3)
+                  try {
+                    (yield o("WASmaxUnifiedSessionShareRPC").sendShareRPC({
+                      unifiedSessionId: e,
+                    }),
+                      (this.$3 = !0));
+                  } catch (e) {
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[unified-session] failed to send session id: ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .sendLogs("send-unified-session-id-failed");
+                  }
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          (n.$5 = function () {
+            return t;
+          })()),
+          (r.$5 = function () {
             this.$4.isInitialized() && this.$4.isConnected() && this.$6();
           }),
           t

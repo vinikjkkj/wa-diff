@@ -4,20 +4,24 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
+    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebExistingGroupPermissionsDrawer.react",
-        )
-          .__setRef("WAWebExistingGroupPermissionsDrawerLoadable")
-          .load();
-        return e;
-      }, "ExistingGroupPermissionsDrawer"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebExistingGroupPermissionsDrawer.react",
+          )
+            .__setRef("WAWebExistingGroupPermissionsDrawerLoadable")
+            .load();
+          return e;
+        }),
+        "ExistingGroupPermissionsDrawer",
+      ),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

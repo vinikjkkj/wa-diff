@@ -1,19 +1,26 @@
 __d(
   "WAWebVoipSctpPrewarm",
-  ["WALogger", "WAWebVoipPerfOptimizations", "err"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebVoipPerfOptimizations",
+    "asyncToGeneratorRuntime",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 5e3,
-      c = null;
-    function d(e) {
+      u,
+      c = 5e3,
+      d = null;
+    function m(e) {
       if (e.iceGatheringState === "complete" && e.localDescription != null) {
         var t = e.localDescription,
-          n = t.sdp,
-          r = t.type;
-        return Promise.resolve({ type: r, sdp: n });
+          r = t.sdp,
+          o = t.type;
+        return (u || (u = n("Promise"))).resolve({ type: o, sdp: r });
       }
-      return new Promise(function (t) {
+      return new (u || (u = n("Promise")))(function (t) {
         e.onicegatheringstatechange = function () {
           if (
             e.iceGatheringState === "complete" &&
@@ -27,78 +34,94 @@ __d(
         };
       });
     }
-    function m() {
-      return c != null
-        ? c
+    function p() {
+      return d != null
+        ? d
         : o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
               o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.SCTP_PREWARM,
             )
-          ? ((c = p()), c)
-          : Promise.resolve();
+          ? ((d = _()), d)
+          : (u || (u = n("Promise"))).resolve();
     }
-    async function p() {
-      var t = self.performance.now(),
-        n = null,
-        a = null,
-        i = null;
-      try {
-        ((n = new RTCPeerConnection()),
-          (a = new RTCPeerConnection()),
-          await Promise.race([
-            _(n, a),
-            new Promise(function (e, t) {
-              i = window.setTimeout(function () {
-                t(r("err")("SctpPrewarm timeout"));
-              }, u);
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = self.performance.now(),
+            a = null,
+            i = null,
+            l = null;
+          try {
+            ((a = new RTCPeerConnection()),
+              (i = new RTCPeerConnection()),
+              yield (u || (u = n("Promise"))).race([
+                g(a, i),
+                new u(function (e, t) {
+                  l = window.setTimeout(function () {
+                    t(r("err")("SctpPrewarm timeout"));
+                  }, c);
+                }),
+              ]));
+            var d = (self.performance.now() - t).toFixed(1);
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SctpPrewarm] completed in ",
+                  "ms",
+                ])),
+              d,
+            );
+          } catch (e) {
+            var m = (self.performance.now() - t).toFixed(1);
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SctpPrewarm] failed after ",
+                  "ms: ",
+                  "",
+                ])),
+              m,
+              String(e),
+            );
+          } finally {
+            var p, _;
+            (l != null && window.clearTimeout(l),
+              (p = a) == null || p.close(),
+              (_ = i) == null || _.close());
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = { negotiated: !0, id: 0, ordered: !1, maxRetransmits: 0 },
+            o = e.createDataChannel("sctp-prewarm", r);
+          t.createDataChannel("sctp-prewarm", r);
+          var a = new (u || (u = n("Promise")))(function (e) {
+              o.onopen = function () {
+                return e();
+              };
             }),
-          ]));
-        var l = (self.performance.now() - t).toFixed(1);
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [SctpPrewarm] completed in ",
-              "ms",
-            ])),
-          l,
-        );
-      } catch (e) {
-        var c = (self.performance.now() - t).toFixed(1);
-        o("WALogger").WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [SctpPrewarm] failed after ",
-              "ms: ",
-              "",
-            ])),
-          c,
-          String(e),
-        );
-      } finally {
-        var d, m;
-        (i != null && window.clearTimeout(i),
-          (d = n) == null || d.close(),
-          (m = a) == null || m.close());
-      }
+            i = yield e.createOffer();
+          yield e.setLocalDescription(i);
+          var l = yield m(e);
+          yield t.setRemoteDescription(l);
+          var s = yield t.createAnswer();
+          yield t.setLocalDescription(s);
+          var c = yield m(t);
+          (yield e.setRemoteDescription(c), yield a);
+        })),
+        h.apply(this, arguments)
+      );
     }
-    async function _(e, t) {
-      var n = { negotiated: !0, id: 0, ordered: !1, maxRetransmits: 0 },
-        r = e.createDataChannel("sctp-prewarm", n);
-      t.createDataChannel("sctp-prewarm", n);
-      var o = new Promise(function (e) {
-          r.onopen = function () {
-            return e();
-          };
-        }),
-        a = await e.createOffer();
-      await e.setLocalDescription(a);
-      var i = await d(e);
-      await t.setRemoteDescription(i);
-      var l = await t.createAnswer();
-      await t.setLocalDescription(l);
-      var s = await d(t);
-      (await e.setRemoteDescription(s), await o);
-    }
-    l.default = m;
+    l.default = p;
   },
   98,
 );

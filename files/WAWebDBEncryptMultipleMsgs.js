@@ -1,6 +1,7 @@
 __d(
   "WAWebDBEncryptMultipleMsgs",
   [
+    "Promise",
     "WAAsyncSleep",
     "WALogger",
     "WAWebBrokerGlobalAppState",
@@ -10,12 +11,14 @@ __d(
     "WAWebLinkify",
     "WAWebReleaseToEventLoop",
     "WAWebSchemaMessage",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = (function (e) {
+      u,
+      c = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -28,74 +31,107 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    async function c(t, n) {
-      (n === void 0 && (n = !1),
-        await o("WAWebDbEncryptionKey").DbEncKeyStore.waitForFinalDbMsgEncKey(),
-        await o("WAWebReleaseToEventLoop").releaseToEventLoop());
-      var a;
-      if (n) {
-        a = [];
-        for (var i = 0; i < t.length; i++)
-          try {
-            var l = t[i],
-              c = await d(l, i);
-            a.push(c);
-          } catch (t) {
-            if (t instanceof u) throw t;
-            var m = r("getErrorSafe")(t);
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "processAndEncryptSingleMsgRow throttle",
-                  ])),
-              )
-              .catching(m)
-              .tags("message-store");
-          }
-      } else {
-        var p = await Promise.all(
-          t.map(async function (e) {
-            var t = await d(e)
-              .catch(function (e) {
-                if (e instanceof u) throw e;
-                var t = r("getErrorSafe")(e);
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          (a === void 0 && (a = !1),
+            yield o(
+              "WAWebDbEncryptionKey",
+            ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
+            yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+          var i;
+          if (a) {
+            i = [];
+            for (var l = 0; l < t.length; l++)
+              try {
+                var d = t[l],
+                  m = yield p(d, l);
+                i.push(m);
+              } catch (t) {
+                if (t instanceof c) throw t;
+                var _ = r("getErrorSafe")(t);
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "processAndEncryptSingleMsgRow no-throttle",
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "processAndEncryptSingleMsgRow throttle",
                       ])),
                   )
-                  .catching(t)
+                  .catching(_)
                   .tags("message-store");
-              })
-              .finally(function () {});
-            return t;
-          }),
-        );
-        a = p.filter(Boolean);
-      }
-      return a;
-    }
-    async function d(e, t) {
-      if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)
-        return Promise.reject(new u());
-      t != null &&
-        (await o("WAAsyncSleep").asyncSleepAfterGivenLoopIteration(t, 35, 100));
-      var n = o("WAWebSchemaMessage").getMessageTable(),
-        a = o("WAWebDBMessageUtils").getVcardWids(e),
-        i = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
-        l = await n.preflightEncryptSingleRecord(babelHelpers.extends({}, i)),
-        s = babelHelpers.extends({}, i, l);
-      return (
-        a != null && (s.vcardWAids = a),
-        [s, o("WAWebLinkify").hasHttpLink(e)]
+              }
+          } else {
+            var f = yield (u || (u = n("Promise"))).all(
+              t.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = yield p(e)
+                        .catch(function (e) {
+                          if (e instanceof c) throw e;
+                          var t = r("getErrorSafe")(e);
+                          o("WALogger")
+                            .ERROR(
+                              s ||
+                                (s = babelHelpers.taggedTemplateLiteralLoose([
+                                  "processAndEncryptSingleMsgRow no-throttle",
+                                ])),
+                            )
+                            .catching(t)
+                            .tags("message-store");
+                        })
+                        .finally(function () {});
+                      return t;
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            );
+            i = f.filter(Boolean);
+          }
+          return i;
+        })),
+        m.apply(this, arguments)
       );
     }
-    ((l.DroppingMsgRowDueToLogout = u),
-      (l.encryptMultipleDBMsgs = c),
-      (l.processAndEncryptSingleMsgRow = d));
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)
+            return (u || (u = n("Promise"))).reject(new c());
+          t != null &&
+            (yield o("WAAsyncSleep").asyncSleepAfterGivenLoopIteration(
+              t,
+              35,
+              100,
+            ));
+          var a = o("WAWebSchemaMessage").getMessageTable(),
+            i = o("WAWebDBMessageUtils").getVcardWids(e),
+            l = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
+            s = yield a.preflightEncryptSingleRecord(
+              babelHelpers.extends({}, l),
+            ),
+            d = babelHelpers.extends({}, l, s);
+          return (
+            i != null && (d.vcardWAids = i),
+            [d, o("WAWebLinkify").hasHttpLink(e)]
+          );
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.DroppingMsgRowDueToLogout = c),
+      (l.encryptMultipleDBMsgs = d),
+      (l.processAndEncryptSingleMsgRow = p));
   },
   98,
 );

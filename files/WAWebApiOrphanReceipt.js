@@ -4,25 +4,34 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebSchemaOrphanReceipt",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebSchemaOrphanReceipt").getOrphanReceiptTable().remove(e);
     }
-    async function s(e) {
-      var t = [e];
-      if (e.remote.isUser()) {
-        var n = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
-        n != null && t.push(n);
-      }
-      var r = await o("WAWebSchemaOrphanReceipt")
-        .getOrphanReceiptTable()
-        .bulkGet(t.map(String));
-      return r.find(function (e) {
-        return e != null;
-      });
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function u(e, t, n) {
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = [e];
+          if (e.remote.isUser()) {
+            var n = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
+            n != null && t.push(n);
+          }
+          var r = yield o("WAWebSchemaOrphanReceipt")
+            .getOrphanReceiptTable()
+            .bulkGet(t.map(String));
+          return r.find(function (e) {
+            return e != null;
+          });
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e, t, n) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["orphan-receipt"], function (r) {
@@ -40,7 +49,7 @@ __d(
     }
     ((l.removeOrphanReceipt = e),
       (l.getOrphanReceipt = s),
-      (l.createOrUpdateOrphanReceipt = u));
+      (l.createOrUpdateOrphanReceipt = c));
   },
   98,
 );

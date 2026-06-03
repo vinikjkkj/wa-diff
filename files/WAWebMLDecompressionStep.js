@@ -1,6 +1,6 @@
 __d(
   "WAWebMLDecompressionStep",
-  ["WAResultOrError", "WAWebMLDecompressor"],
+  ["WAResultOrError", "WAWebMLDecompressor", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -9,12 +9,20 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.process = async function (t, n) {
-          var e = n.compressionType;
-          return o("WAWebMLDecompressor").requiresDecompression(e)
-            ? await o("WAWebMLDecompressor").decompressModel(t, e)
-            : o("WAResultOrError").makeResult(t);
-        }),
+        (t.process = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = t.compressionType;
+              return o("WAWebMLDecompressor").requiresDecompression(n)
+                ? yield o("WAWebMLDecompressor").decompressModel(e, n)
+                : o("WAResultOrError").makeResult(e);
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();

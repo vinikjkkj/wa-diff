@@ -15,6 +15,7 @@ __d(
     "WAWebListsGatingUtils",
     "WAWebSyncdCoreApi",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -47,65 +48,81 @@ __d(
           ? s._(/*BTDS*/ "Removed from Favourites")
           : s._(/*BTDS*/ "Removed from Favorites");
     }
-    async function p(t, n) {
-      if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
-        var a = t.toString();
-        n.entryPoint != null &&
-          o("WAWebFavoritesLogging").logRemovingMessagingFavorites(
-            [a],
-            n.entryPoint,
-          );
-        var i = await o("WAWebDBFavoriteDatabaseApi").getAllFavorites(),
-          l = i.find(function (e) {
-            var t = e.id;
-            return t === a;
-          }),
-          u = i.filter(function (e) {
-            var t = e.id;
-            return t !== a;
-          }),
-          p = o("WATimeUtils").unixTime(),
-          _ = await r("WAWebFavoritesSync").getFavoritesMutation(u, p);
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[Favorites] removeFromFavoritesAction, mutation generated",
-            ])),
-        );
-        var f = o("WAWebSyncdCoreApi")
-          .lockForSync(["favorite", "chat"], [_], async function () {
-            return o("WAWebDBFavoriteDatabaseApi").removeFavorites([a]);
-          })
-          .then(function () {
-            return o("WAWebFavoriteCollection").FavoriteCollection.remove([a]);
-          });
-        if (n.suppressToast === !0) await f;
-        else {
-          var g = new (o("WAWebActionToast.react").ActionType)(d()),
-            h = f.then(function () {
-              return new (o("WAWebActionToast.react").ActionType)(
-                m(),
-                l
-                  ? {
-                      actionText: s._(/*BTDS*/ "Undo"),
-                      actionHandler: function () {
-                        return o(
-                          "WAWebAddToFavoritesAction",
-                        ).addToFavoritesAction(l, { entryPoint: n.entryPoint });
-                      },
-                    }
-                  : void 0,
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
+            var i = t.toString();
+            a.entryPoint != null &&
+              o("WAWebFavoritesLogging").logRemovingMessagingFavorites(
+                [i],
+                a.entryPoint,
               );
-            });
-          o("WAWebToastManager").ToastManager.open(
-            c.jsx(o("WAWebActionToast.react").ActionToast, {
-              id: o("WAWebActionToast.react").genId(),
-              initialAction: g,
-              pendingAction: h,
-            }),
-          );
-        }
-      }
+            var l = yield o("WAWebDBFavoriteDatabaseApi").getAllFavorites(),
+              u = l.find(function (e) {
+                var t = e.id;
+                return t === i;
+              }),
+              p = l.filter(function (e) {
+                var t = e.id;
+                return t !== i;
+              }),
+              _ = o("WATimeUtils").unixTime(),
+              f = yield r("WAWebFavoritesSync").getFavoritesMutation(p, _);
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Favorites] removeFromFavoritesAction, mutation generated",
+                ])),
+            );
+            var g = o("WAWebSyncdCoreApi")
+              .lockForSync(
+                ["favorite", "chat"],
+                [f],
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  return o("WAWebDBFavoriteDatabaseApi").removeFavorites([i]);
+                }),
+              )
+              .then(function () {
+                return o("WAWebFavoriteCollection").FavoriteCollection.remove([
+                  i,
+                ]);
+              });
+            if (a.suppressToast === !0) yield g;
+            else {
+              var h = new (o("WAWebActionToast.react").ActionType)(d()),
+                y = g.then(function () {
+                  return new (o("WAWebActionToast.react").ActionType)(
+                    m(),
+                    u
+                      ? {
+                          actionText: s._(/*BTDS*/ "Undo"),
+                          actionHandler: function () {
+                            return o(
+                              "WAWebAddToFavoritesAction",
+                            ).addToFavoritesAction(u, {
+                              entryPoint: a.entryPoint,
+                            });
+                          },
+                        }
+                      : void 0,
+                  );
+                });
+              o("WAWebToastManager").ToastManager.open(
+                c.jsx(o("WAWebActionToast.react").ActionToast, {
+                  id: o("WAWebActionToast.react").genId(),
+                  initialAction: h,
+                  pendingAction: y,
+                }),
+              );
+            }
+          }
+        })),
+        _.apply(this, arguments)
+      );
     }
     l.removeFromFavoritesAction = p;
   },

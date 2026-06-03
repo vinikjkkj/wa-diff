@@ -1,11 +1,18 @@
 __d(
   "RSTIndexedDBSafe",
-  ["FBLogger", "RSTConfig", "RSTIndexedDB", "RSTUtils", "getErrorSafe"],
+  [
+    "FBLogger",
+    "RSTConfig",
+    "RSTIndexedDB",
+    "RSTUtils",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = o("RSTUtils").isIndexedDBSupported(),
       s = (function (t) {
-        function n() {
+        function a() {
           for (var n, r = arguments.length, o = new Array(r), a = 0; a < r; a++)
             o[a] = arguments[a];
           return (
@@ -21,43 +28,51 @@ __d(
               babelHelpers.assertThisInitialized(n)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.guardDB = async function (t, n, a) {
-            if (this.$RSTIndexedDBSafe$p_1) return n();
-            try {
-              return await t();
-            } catch (t) {
-              (this.closeDBConnection(), t == null || t.stack);
-              var e = r("getErrorSafe")(t);
-              if ((e == null || e.stack, !this.$RSTIndexedDBSafe$p_4(e)))
+          (i.guardDB = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                if (this.$RSTIndexedDBSafe$p_1) return t();
                 try {
-                  return n();
-                } catch (e) {}
-              if (
-                (this.$RSTIndexedDBSafe$p_2 <
-                  r("RSTConfig").MAX_DB_FAILED_COUNT &&
-                  this.$RSTIndexedDBSafe$p_2++,
-                this.$RSTIndexedDBSafe$p_2 >=
-                  r("RSTConfig").MAX_DB_FAILED_COUNT)
-              ) {
-                this.$RSTIndexedDBSafe$p_1 = !0;
-                var i =
-                  "Failed to " +
-                  a +
-                  " " +
-                  this.$RSTIndexedDBSafe$p_2 +
-                  " times disabling RST indexedDB";
-                (o("RSTUtils").debugLogImportant(i),
-                  r("FBLogger")("responsive-tracker")
-                    .catching(e)
-                    .warn(i + ": %s", e.message));
-              }
-              return n();
+                  return yield e();
+                } catch (e) {
+                  (this.closeDBConnection(), e == null || e.stack);
+                  var a = r("getErrorSafe")(e);
+                  if ((a == null || a.stack, !this.$RSTIndexedDBSafe$p_4(a)))
+                    try {
+                      return t();
+                    } catch (e) {}
+                  if (
+                    (this.$RSTIndexedDBSafe$p_2 <
+                      r("RSTConfig").MAX_DB_FAILED_COUNT &&
+                      this.$RSTIndexedDBSafe$p_2++,
+                    this.$RSTIndexedDBSafe$p_2 >=
+                      r("RSTConfig").MAX_DB_FAILED_COUNT)
+                  ) {
+                    this.$RSTIndexedDBSafe$p_1 = !0;
+                    var i =
+                      "Failed to " +
+                      n +
+                      " " +
+                      this.$RSTIndexedDBSafe$p_2 +
+                      " times disabling RST indexedDB";
+                    (o("RSTUtils").debugLogImportant(i),
+                      r("FBLogger")("responsive-tracker")
+                        .catching(a)
+                        .warn(i + ": %s", a.message));
+                  }
+                  return t();
+                }
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
             }
-          }),
-          (a.$RSTIndexedDBSafe$p_4 = function (t) {
+            return t;
+          })()),
+          (i.$RSTIndexedDBSafe$p_4 = function (t) {
             if (t == null) return !1;
             var e = typeof t == "string" ? t : t == null ? void 0 : t.message;
             return typeof e != "string"
@@ -66,7 +81,7 @@ __d(
                   return e.includes(t);
                 });
           }),
-          (a.initDB = function () {
+          (i.initDB = function () {
             var e = this;
             return this.guardDB(
               function () {
@@ -78,7 +93,7 @@ __d(
               "initDB",
             );
           }),
-          (a.persistLog = function (n) {
+          (i.persistLog = function (n) {
             var e = this;
             return this.guardDB(
               function () {
@@ -88,7 +103,7 @@ __d(
               "persistLog",
             );
           }),
-          (a.persistEventToDB = function (n) {
+          (i.persistEventToDB = function (n) {
             var e = this;
             return this.guardDB(
               function () {
@@ -98,7 +113,7 @@ __d(
               "persistEventToDB",
             );
           }),
-          (a.readEventsFromDB = function () {
+          (i.readEventsFromDB = function () {
             var e = this;
             return this.guardDB(
               function () {
@@ -110,7 +125,7 @@ __d(
               "readEventsFromDB",
             );
           }),
-          (a.updateIncidentInDB = function (n) {
+          (i.updateIncidentInDB = function (n) {
             var e = this;
             return this.guardDB(
               function () {
@@ -120,7 +135,7 @@ __d(
               "updateIncidentInDB",
             );
           }),
-          (a.clearIncidentFromDB = function (n) {
+          (i.clearIncidentFromDB = function (n) {
             var e = this;
             return this.guardDB(
               function () {
@@ -130,7 +145,7 @@ __d(
               "clearIncidentFromDB",
             );
           }),
-          (a.clearObjectStore = function (n) {
+          (i.clearObjectStore = function (n) {
             var e = this;
             return (
               n === void 0 && (n = r("RSTConfig").INDEX_DB_TABLE_NAME),
@@ -143,7 +158,7 @@ __d(
               )
             );
           }),
-          (a.deleteEventFromDB = function (n) {
+          (i.deleteEventFromDB = function (n) {
             var e = this;
             return this.guardDB(
               function () {
@@ -153,34 +168,40 @@ __d(
               "deleteEventFromDB",
             );
           }),
-          (a.maybeClearObsoleteIncidents = async function () {
-            try {
-              var e = await this.readEventsFromDB(),
-                t = new Set();
-              (e.forEach(function (e) {
-                e != null &&
-                  typeof e.incidentID == "string" &&
-                  (typeof e.detectTime != "number" ||
-                    Date.now() - e.detectTime >
-                      (1 + Math.random()) *
-                        r("RSTConfig")
-                          .OBSOLETE_PENDING_INCIDENT_THRESHOLD_MS) &&
-                  t.add(e.incidentID);
-              }),
-                await this.clearIncidentFromDB(t));
-            } catch (e) {
-              var n,
-                o = r("getErrorSafe")(e);
-              r("FBLogger")("responsive-tracker")
-                .catching(o)
-                .warn(
-                  (n = o.message) != null
-                    ? n
-                    : "Failed to clear obsolete incidents",
-                );
+          (i.maybeClearObsoleteIncidents = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              try {
+                var e = yield this.readEventsFromDB(),
+                  t = new Set();
+                (e.forEach(function (e) {
+                  e != null &&
+                    typeof e.incidentID == "string" &&
+                    (typeof e.detectTime != "number" ||
+                      Date.now() - e.detectTime >
+                        (1 + Math.random()) *
+                          r("RSTConfig")
+                            .OBSOLETE_PENDING_INCIDENT_THRESHOLD_MS) &&
+                    t.add(e.incidentID);
+                }),
+                  yield this.clearIncidentFromDB(t));
+              } catch (e) {
+                var n,
+                  o = r("getErrorSafe")(e);
+                r("FBLogger")("responsive-tracker")
+                  .catching(o)
+                  .warn(
+                    (n = o.message) != null
+                      ? n
+                      : "Failed to clear obsolete incidents",
+                  );
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          n
+            return t;
+          })()),
+          a
         );
       })(o("RSTIndexedDB").RSTIndexedDB),
       u = new s(),

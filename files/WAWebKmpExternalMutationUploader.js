@@ -5,6 +5,7 @@ __d(
     "WAWebKmpKotlinUtils",
     "WAWebSyncdMMSUpload",
     "WAWebSyncdNetCallbacksApi",
+    "asyncToGeneratorRuntime",
     "wa-kmp-syncd-engine-api",
   ],
   function (t, n, r, o, a, i, l) {
@@ -12,15 +13,15 @@ __d(
     var e = {
       upload: function (t) {
         return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e,
               n = (e = o("WAWebKmpKotlinUtils")).asUint8Array(
                 t.toByteArray(),
               ).buffer,
-              r = await o("WAWebSyncdNetCallbacksApi").uploadSyncExternalPatch(
+              r = yield o("WAWebSyncdNetCallbacksApi").uploadSyncExternalPatch(
                 n,
               ),
-              a = await o("WAWebSyncdMMSUpload").buildExternalBlobReference(
+              a = yield o("WAWebSyncdMMSUpload").buildExternalBlobReference(
                 r,
                 n,
               ),
@@ -40,7 +41,7 @@ __d(
               e.asKmpByteArray(new Uint8Array(s)),
               e.asKmpByteArray(new Uint8Array(l)),
             );
-          },
+          }),
         );
       },
     };

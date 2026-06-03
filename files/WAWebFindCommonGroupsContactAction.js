@@ -1,6 +1,7 @@
 __d(
   "WAWebFindCommonGroupsContactAction",
   [
+    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebApiContact",
@@ -13,71 +14,82 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebStateUtils",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "compactMap",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 2,
-      u = 4,
-      c = 3;
-    function d(e) {
+      s,
+      u = 2,
+      c = 4,
+      d = 3;
+    function m(e) {
       var t = e.split(/\s+/).filter(Boolean);
-      return t.length < s || t.length > u
+      return t.length < u || t.length > c
         ? !1
         : t.every(function (e) {
-            return e.length >= c;
+            return e.length >= d;
           });
     }
-    function m(t) {
-      var n = o("WAWebStateUtils").unproxy(t);
-      if (o("WAWebContactGetters").getIsMe(n)) return Promise.resolve(null);
-      var a = n.commonGroups,
-        i = n.id,
-        l = n.promises;
-      return l.findCommonGroups
-        ? l.findCommonGroups
-        : a && !a.stale
-          ? (a.set(
-              a.filter(function (e) {
+    function p(t) {
+      var a = o("WAWebStateUtils").unproxy(t);
+      if (o("WAWebContactGetters").getIsMe(a))
+        return (s || (s = n("Promise"))).resolve(null);
+      var i = a.commonGroups,
+        l = a.id,
+        u = a.promises;
+      return u.findCommonGroups
+        ? u.findCommonGroups
+        : i && !i.stale
+          ? (i.set(
+              i.filter(function (e) {
                 return !e.isParentGroup;
               }),
             ),
-            Promise.resolve(a))
-          : (l.findCommonGroups = p(
+            (s || (s = n("Promise"))).resolve(i))
+          : (u.findCommonGroups = _(
               [
-                n.id,
+                a.id,
                 o("WAWebApiContact").getAlternateUserWid(
-                  o("WAWebWidFactory").asUserWidOrThrow(n.id),
+                  o("WAWebWidFactory").asUserWidOrThrow(a.id),
                 ),
               ].filter(Boolean),
             )
-              .then(async function (e) {
-                var t = r("compactMap")(e, function (e) {
-                    return o("WAWebChatCollection").ChatCollection.get(e);
-                  }).filter(function (e) {
-                    return e.isParentGroup !== !0 && !e.isLocked;
-                  }),
-                  l = await Promise.all(
-                    t.map(function (e) {
-                      return o("WAWebGroupsParticipantsApi").checkMyMembership(
-                        e.id,
+              .then(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = r("compactMap")(e, function (e) {
+                          return o("WAWebChatCollection").ChatCollection.get(e);
+                        }).filter(function (e) {
+                          return e.isParentGroup !== !0 && !e.isLocked;
+                        }),
+                        u = yield (s || (s = n("Promise"))).all(
+                          t.map(function (e) {
+                            return o(
+                              "WAWebGroupsParticipantsApi",
+                            ).checkMyMembership(e.id);
+                          }),
+                        ),
+                        c = t.filter(function (e, t) {
+                          return u[t];
+                        });
+                      return (
+                        i
+                          ? (i.set(c), (i.stale = !1))
+                          : (a.commonGroups = new (r(
+                              "WAWebCommonGroupsCollection",
+                            ))(c, l)),
+                        a.commonGroups
                       );
-                    }),
-                  ),
-                  s = t.filter(function (e, t) {
-                    return l[t];
-                  });
-                return (
-                  a
-                    ? (a.set(s), (a.stale = !1))
-                    : (n.commonGroups = new (r("WAWebCommonGroupsCollection"))(
-                        s,
-                        i,
-                      )),
-                  n.commonGroups
-                );
-              })
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              )
               .catch(
                 o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
@@ -91,7 +103,7 @@ __d(
                           ])),
                         t.status,
                       ),
-                      Promise.reject(
+                      (s || (s = n("Promise"))).reject(
                         r("err")(
                           "models:Contact:findCommonGroups error: " + t.status,
                         ),
@@ -101,34 +113,42 @@ __d(
                 ),
               )
               .finally(function () {
-                l.findCommonGroups = null;
+                u.findCommonGroups = null;
               }));
     }
-    async function p(e) {
-      var t = await o("WAWebSchemaParticipant")
-          .getParticipantTable()
-          .anyOf(
-            ["participants"],
-            e.map(function (e) {
-              return e.toString();
-            }),
-          ),
-        n = t.map(function (e) {
-          return e.groupId;
-        }),
-        r = await o("WAWebSchemaGroupMetadata")
-          .getGroupMetadataTable()
-          .anyOf(["id"], n),
-        a = r
-          .filter(function (e) {
-            return e.defaultSubgroup !== !0;
-          })
-          .map(function (e) {
-            return o("WAWebWidFactory").createWid(e.id);
-          });
-      return a;
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _(e, t) {
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSchemaParticipant")
+              .getParticipantTable()
+              .anyOf(
+                ["participants"],
+                e.map(function (e) {
+                  return e.toString();
+                }),
+              ),
+            n = t.map(function (e) {
+              return e.groupId;
+            }),
+            r = yield o("WAWebSchemaGroupMetadata")
+              .getGroupMetadataTable()
+              .anyOf(["id"], n),
+            a = r
+              .filter(function (e) {
+                return e.defaultSubgroup !== !0;
+              })
+              .map(function (e) {
+                return o("WAWebWidFactory").createWid(e.id);
+              });
+          return a;
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
       var n = e.map(function (e) {
         var t = new Set();
         for (var n of e) {
@@ -175,8 +195,8 @@ __d(
           _.push([t, e]);
         }),
         _.sort(function (t, n) {
-          var r = f(t[1], e, p),
-            o = f(n[1], e, p);
+          var r = h(t[1], e, p),
+            o = h(n[1], e, p);
           return r !== o
             ? o - r
             : t[0].t != null && n[0].t != null
@@ -188,7 +208,7 @@ __d(
         _.slice(0, t)
       );
     }
-    function f(e, t, n) {
+    function h(e, t, n) {
       for (
         var r = 0,
           o = new Set(
@@ -208,9 +228,9 @@ __d(
       }
       return r;
     }
-    ((l.shouldRunMultiContactTokenSearch = d),
-      (l.findCommonGroups = m),
-      (l.findGroupsWithContactGroups = _));
+    ((l.shouldRunMultiContactTokenSearch = m),
+      (l.findCommonGroups = p),
+      (l.findGroupsWithContactGroups = g));
   },
   98,
 );

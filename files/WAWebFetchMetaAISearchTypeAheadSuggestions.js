@@ -7,6 +7,7 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
+    "asyncToGeneratorRuntime",
     "compactMap",
     "isStringNullOrEmpty",
   ],
@@ -17,36 +18,46 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebFetchMetaAISearchTypeAheadSuggestionsQuery.graphql"));
-    async function c(e) {
-      await r("WAWebNetworkStatus").waitIfOffline();
-      var t = e.capabilities,
-        n = e.experimentConfig,
-        a = e.locale,
-        i = e.query,
-        l = { param: { query: i, locale: a, exp_config: n, capabilities: t } };
-      try {
-        var c = await o("WAWebRelayClient").fetchQuery(u, l, {
-            environmentType: "whatsapp_www",
-            accessToken: o("WAWebGraphQLConstants")
-              .WHATSAPP_GRAPHQL_WWW_ACCESS_TOKEN,
-          }),
-          m = d(c);
-        return { type: "success", value: m };
-      } catch (e) {
-        return (
-          o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[GQL][getMetaAISearchTypeAheadSuggestions] failed",
-              ])),
-          ),
-          e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-            ? { type: "graphql-error", error: e }
-            : { type: "error" }
-        );
-      }
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function d(e) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield r("WAWebNetworkStatus").waitIfOffline();
+          var t = e.capabilities,
+            n = e.experimentConfig,
+            a = e.locale,
+            i = e.query,
+            l = {
+              param: { query: i, locale: a, exp_config: n, capabilities: t },
+            };
+          try {
+            var c = yield o("WAWebRelayClient").fetchQuery(u, l, {
+                environmentType: "whatsapp_www",
+                accessToken: o("WAWebGraphQLConstants")
+                  .WHATSAPP_GRAPHQL_WWW_ACCESS_TOKEN,
+              }),
+              d = m(c);
+            return { type: "success", value: d };
+          } catch (e) {
+            return (
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[GQL][getMetaAISearchTypeAheadSuggestions] failed",
+                  ])),
+              ),
+              e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+                ? { type: "graphql-error", error: e }
+                : { type: "error" }
+            );
+          }
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
       var t,
         n,
         o =
@@ -64,7 +75,7 @@ __d(
       });
     }
     ((l.fetchMetaAISearchTypeAheadSuggestions = c),
-      (l.parseMetaAISearchTypeAheadSuggestions = d));
+      (l.parseMetaAISearchTypeAheadSuggestions = m));
   },
   98,
 );

@@ -2,13 +2,16 @@ __d(
   "WAPttComposerOpusRecorder",
   [
     "$InternalEnum",
+    "Promise",
     "WAGetUserMedia",
     "WANullthrows",
     "WAOpusRecorderWorkerClient",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
+    var e,
+      s = {
         bitRate: 16e3,
         bufferLength: 4096,
         numberOfChannels: 1,
@@ -26,19 +29,19 @@ __d(
           },
         },
       },
-      s = n("$InternalEnum").Mirrored([
+      u = n("$InternalEnum").Mirrored([
         "INACTIVE",
         "RECORDING",
         "PAUSED",
         "STOPPED",
       ]),
-      u = (function () {
+      c = (function () {
         function t(t) {
-          var n = this;
+          var o = this;
           if (
             ((this._duration = 0),
             (this._recordedPages = []),
-            (this._state = s.INACTIVE),
+            (this._state = u.INACTIVE),
             (this._isFirstBuffer = !1),
             (this._requestCount = 0),
             (this._pendingFlushResolvers = new Map()),
@@ -46,16 +49,16 @@ __d(
               var t = e.data;
               switch (t.message) {
                 case "page":
-                  n._storePage(t.page);
+                  o._storePage(t.page);
                   break;
                 case "flushed":
-                  n._handleFlushed(t.requestId);
+                  o._handleFlushed(t.requestId);
                   break;
                 default:
                   throw r("err")("Invalid message event type: " + t.message);
               }
             }),
-            !d())
+            !m())
           )
             throw r("err")("Recording is not supported in this browser");
           ((this._createStream = t.createStream),
@@ -65,61 +68,70 @@ __d(
             (this._onStart = t.onStart),
             (this._onStop = t.onStop),
             (this._handlePage = t.onPage),
-            (this._completeRecordingPromise = new Promise(function (e) {
-              n._resolveCompleteRecordingPromise = e;
-            })),
+            (this._completeRecordingPromise = new (e || (e = n("Promise")))(
+              function (e) {
+                o._resolveCompleteRecordingPromise = e;
+              },
+            )),
             (this._audioContext = new AudioContext()),
             (this._encoderNode = this._audioContext.createScriptProcessor(
-              e.bufferLength,
-              e.numberOfChannels,
-              e.numberOfChannels,
+              s.bufferLength,
+              s.numberOfChannels,
+              s.numberOfChannels,
             )),
             (this._encoderNode.onaudioprocess = function (e) {
-              n._encodeBuffers(e.inputBuffer);
+              o._encodeBuffers(e.inputBuffer);
             }),
             (this._monitorNode = this._audioContext.createGain()));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.getState = function () {
+          (a.getState = function () {
             return this._state;
           }),
-          (n.start = async function () {
-            var t, n;
-            switch (this._state) {
-              case s.RECORDING:
-                return !0;
-              case s.STOPPED:
-                return !1;
-              case s.PAUSED:
-                return this.resume();
-              case s.INACTIVE:
-                break;
-            }
-            ((this._recordedPages = []),
-              (this._isFirstBuffer = !0),
-              (this._duration = 0));
-            var r = o("WAOpusRecorderWorkerClient").getOpusEncoderWorker();
-            ((this._encoder = r),
-              r.addEventListener("message", this._handleEncoderMessage));
-            var a = await this._startRecording();
-            return a
-              ? ((t = this._onStart) == null || t.call(this),
-                (n = this._onDuration) == null || n.call(this, this._duration),
-                r.postMessage({
-                  command: "encode-init",
-                  config: babelHelpers.extends({}, e, {
-                    originalSampleRate: this._audioContext.sampleRate,
+          (a.start = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e, t;
+              switch (this._state) {
+                case u.RECORDING:
+                  return !0;
+                case u.STOPPED:
+                  return !1;
+                case u.PAUSED:
+                  return this.resume();
+                case u.INACTIVE:
+                  break;
+              }
+              ((this._recordedPages = []),
+                (this._isFirstBuffer = !0),
+                (this._duration = 0));
+              var n = o("WAOpusRecorderWorkerClient").getOpusEncoderWorker();
+              ((this._encoder = n),
+                n.addEventListener("message", this._handleEncoderMessage));
+              var r = yield this._startRecording();
+              return r
+                ? ((e = this._onStart) == null || e.call(this),
+                  (t = this._onDuration) == null ||
+                    t.call(this, this._duration),
+                  n.postMessage({
+                    command: "encode-init",
+                    config: babelHelpers.extends({}, s, {
+                      originalSampleRate: this._audioContext.sampleRate,
+                    }),
                   }),
-                }),
-                this._encoderNode.connect(this._audioContext.destination),
-                !0)
-              : !1;
-          }),
-          (n.stop = function () {
+                  this._encoderNode.connect(this._audioContext.destination),
+                  !0)
+                : !1;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.stop = function () {
             var e, t;
-            this._state !== s.STOPPED &&
-              ((this._state = s.STOPPED),
+            this._state !== u.STOPPED &&
+              ((this._state = u.STOPPED),
               (e = this._recordingAbortController) == null || e.abort(),
               this._audioContext.close && this._audioContext.close(),
               this._monitorNode.disconnect(),
@@ -127,43 +139,51 @@ __d(
               (t = this._encoder) == null ||
                 t.postMessage({ command: "encode-done" }));
           }),
-          (n.pause = function () {
+          (a.pause = function () {
             var e, t;
-            this._state === s.RECORDING &&
-              ((this._state = s.PAUSED),
+            this._state === u.RECORDING &&
+              ((this._state = u.PAUSED),
               (e = this._recordingAbortController) == null || e.abort(),
               (t = this._onPause) == null || t.call(this));
           }),
-          (n.resume = async function () {
-            var e;
-            switch (this._state) {
-              case s.RECORDING:
-                return !0;
-              case s.STOPPED:
-                return !1;
-              case s.INACTIVE:
-                throw r("err")(
-                  "Attempting to resume recording that hasn't started",
-                );
-              case s.PAUSED:
-                break;
+          (a.resume = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e;
+              switch (this._state) {
+                case u.RECORDING:
+                  return !0;
+                case u.STOPPED:
+                  return !1;
+                case u.INACTIVE:
+                  throw r("err")(
+                    "Attempting to resume recording that hasn't started",
+                  );
+                case u.PAUSED:
+                  break;
+              }
+              var t = yield this._startRecording();
+              return t
+                ? ((e = this._onResume) == null || e.call(this), !0)
+                : !1;
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-            var t = await this._startRecording();
-            return t ? ((e = this._onResume) == null || e.call(this), !0) : !1;
-          }),
-          (n.getDuration = function () {
+            return t;
+          })()),
+          (a.getDuration = function () {
             return this._duration;
           }),
-          (n.getMonitorNode = function () {
+          (a.getMonitorNode = function () {
             return this._monitorNode;
           }),
-          (n._encodeBuffers = function (t) {
+          (a._encodeBuffers = function (t) {
             var e;
             if (this._isFirstBuffer) {
               this._isFirstBuffer = !1;
               return;
             }
-            if (this._state === s.RECORDING) {
+            if (this._state === u.RECORDING) {
               for (var n = [], o = 0; o < t.numberOfChannels; o++)
                 n[o] = t.getChannelData(o);
               var a = r("WANullthrows")(this._encoder);
@@ -172,54 +192,60 @@ __d(
                 (e = this._onDuration) == null || e.call(this, this._duration));
             }
           }),
-          (n._getNextRequestId = function () {
+          (a._getNextRequestId = function () {
             return (this._requestCount++, this._requestCount);
           }),
-          (n._startRecording = async function () {
-            ((this._state = s.RECORDING),
-              (this._recordingAbortController = new AbortController()));
-            var e = await m(
-              this._createStream,
-              this._audioContext,
-              [this._encoderNode, this._monitorNode],
-              this._recordingAbortController.signal,
-            );
-            return e ? !0 : (this.stop(), !1);
-          }),
-          (n._storePage = function (t) {
+          (a._startRecording = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              ((this._state = u.RECORDING),
+                (this._recordingAbortController = new AbortController()));
+              var e = yield p(
+                this._createStream,
+                this._audioContext,
+                [this._encoderNode, this._monitorNode],
+                this._recordingAbortController.signal,
+              );
+              return e ? !0 : (this.stop(), !1);
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a._storePage = function (t) {
             var e;
             if ((this._recordedPages.push(t), t[5] & 4)) {
               var n, o;
               (n = this._handlePage) == null || n.call(this, t, !0);
               var a = r("WANullthrows")(this._encoder);
               (a.removeEventListener("message", this._handleEncoderMessage),
-                this._resolveCompleteRecordingPromise(c(this._recordedPages)),
+                this._resolveCompleteRecordingPromise(d(this._recordedPages)),
                 (this._recordedPages = []),
                 (o = this._onStop) == null || o.call(this));
               return;
             }
             (e = this._handlePage) == null || e.call(this, t, !1);
           }),
-          (n._handleFlushed = function (t) {
+          (a._handleFlushed = function (t) {
             var e = r("WANullthrows")(this._pendingFlushResolvers.get(t));
-            (this._pendingFlushResolvers.delete(t), e(c(this._recordedPages)));
+            (this._pendingFlushResolvers.delete(t), e(d(this._recordedPages)));
           }),
-          (n.getPartialRecording = function () {
-            var e = this,
-              t = this._getNextRequestId(),
-              n = new Promise(function (n) {
-                e._pendingFlushResolvers.set(t, n);
+          (a.getPartialRecording = function () {
+            var t = this,
+              o = this._getNextRequestId(),
+              a = new (e || (e = n("Promise")))(function (e) {
+                t._pendingFlushResolvers.set(o, e);
               }),
-              o = r("WANullthrows")(this._encoder);
-            return (o.postMessage({ command: "flush", requestId: t }), n);
+              i = r("WANullthrows")(this._encoder);
+            return (i.postMessage({ command: "flush", requestId: o }), a);
           }),
-          (n.getCompleteRecording = function () {
+          (a.getCompleteRecording = function () {
             return this._completeRecordingPromise;
           }),
           t
         );
       })();
-    function c(e) {
+    function d(e) {
       var t = e.reduce(function (e, t) {
           return e + t.length;
         }, 0),
@@ -228,31 +254,41 @@ __d(
       for (var o of e) (n.set(o, r), (r += o.length));
       return new Blob([n], { type: "audio/ogg; codecs=opus" });
     }
-    function d() {
+    function m() {
       return !!(window.AudioContext && o("WAGetUserMedia").getUserMedia);
     }
-    async function m(e, t, n, r) {
-      var o = await e(r);
-      if (r.aborted || o == null) return !1;
-      var a = t.createMediaStreamSource(o);
+    function p(e, t, n, r) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        n.forEach(function (e) {
-          a.connect(e);
-        }),
-        r.addEventListener(
-          "abort",
-          function () {
-            (o.getTracks().forEach(function (e) {
-              e.stop();
-            }),
-              a.disconnect());
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var o = yield e(r);
+            if (r.aborted || o == null) return !1;
+            var a = t.createMediaStreamSource(o);
+            return (
+              n.forEach(function (e) {
+                a.connect(e);
+              }),
+              r.addEventListener(
+                "abort",
+                function () {
+                  (o.getTracks().forEach(function (e) {
+                    e.stop();
+                  }),
+                    a.disconnect());
+                },
+                { once: !0 },
+              ),
+              !0
+            );
           },
-          { once: !0 },
-        ),
-        !0
+        )),
+        _.apply(this, arguments)
       );
     }
-    l.OpusRecorder = u;
+    l.OpusRecorder = c;
   },
   98,
 );

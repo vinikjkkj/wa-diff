@@ -1,19 +1,28 @@
 __d(
   "WAWebDeleteAllCacheStorage",
-  [],
+  ["Promise", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i) {
-    async function e() {
-      var e = window.caches;
-      if (e != null) {
-        var t = await e.keys();
-        await Promise.all(
-          t.map(function (t) {
-            return e.delete(t);
-          }),
-        );
-      }
+    var e;
+    function l() {
+      return s.apply(this, arguments);
     }
-    i.default = e;
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = window.caches;
+          if (t != null) {
+            var r = yield t.keys();
+            yield (e || (e = n("Promise"))).all(
+              r.map(function (e) {
+                return t.delete(e);
+              }),
+            );
+          }
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    i.default = l;
   },
   66,
 );

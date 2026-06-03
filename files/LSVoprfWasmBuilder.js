@@ -1,112 +1,128 @@
 __d(
   "LSVoprfWasmBuilder",
-  ["FBLogger", "err", "getErrorSafe", "mapVoprfWasmError"],
+  [
+    "FBLogger",
+    "Promise",
+    "asyncToGeneratorRuntime",
+    "err",
+    "getErrorSafe",
+    "mapVoprfWasmError",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e;
+    function s(e) {
       return function (t) {
-        var n =
+        var o =
           t.locateFile != null
             ? { locateFile: t.locateFile }
             : {
-                instantiateWasm: async function (n, o) {
-                  try {
-                    var e = await t.getWasmModule(),
-                      a = await WebAssembly.instantiate(e, n);
-                    return (o(a), {});
-                  } catch (e) {
-                    var i = r("getErrorSafe")(e);
-                    return (
-                      r("FBLogger")("LSVoprfWasmBuilder").mustfix(
-                        "instantiateWasm failed with error: %s",
-                        i.toString(),
-                      ),
-                      !1
-                    );
+                instantiateWasm: (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e, n) {
+                      try {
+                        var o = yield t.getWasmModule(),
+                          a = yield WebAssembly.instantiate(o, e);
+                        return (n(a), {});
+                      } catch (e) {
+                        var i = r("getErrorSafe")(e);
+                        return (
+                          r("FBLogger")("LSVoprfWasmBuilder").mustfix(
+                            "instantiateWasm failed with error: %s",
+                            i.toString(),
+                          ),
+                          !1
+                        );
+                      }
+                    },
+                  );
+                  function o(t, n) {
+                    return e.apply(this, arguments);
                   }
-                },
+                  return o;
+                })(),
               };
-        return s(n, e);
+        return u(o, e);
       };
     }
-    function s(e, t) {
-      return new Promise(function (n, a) {
-        t(e)
-          .then(function (e) {
-            var t,
-              i = e._sodiumInit();
-            (i !== 0 && a(r("err")("Failed to initialize Sodium!")),
-              n({
+    function u(t, a) {
+      return new (e || (e = n("Promise")))(function (e, n) {
+        a(t)
+          .then(function (t) {
+            var a,
+              i = t._sodiumInit();
+            (i !== 0 && n(r("err")("Failed to initialize Sodium!")),
+              e({
                 createCurveRistretto: function () {
-                  var t;
+                  var e;
                   try {
                     return (
-                      (t = e._curve_create()),
-                      e._curve_init_ristretto(t),
-                      t
+                      (e = t._curve_create()),
+                      t._curve_init_ristretto(e),
+                      e
                     );
                   } catch (n) {
-                    throw (t != null && e._curve_free(t), n);
+                    throw (e != null && t._curve_free(e), n);
                   }
                 },
                 freeCurve: function (n) {
-                  e._curve_free(n);
+                  t._curve_free(n);
                 },
                 createVoprfExpTwohashdh: function (n) {
-                  var t;
+                  var e;
                   try {
                     return (
-                      (t = e._voprf_create()),
-                      e._voprf_init_exp_twohashdh(t, n),
-                      t
+                      (e = t._voprf_create()),
+                      t._voprf_init_exp_twohashdh(e, n),
+                      e
                     );
                   } catch (n) {
-                    throw (t != null && e._voprf_free(t), n);
+                    throw (e != null && t._voprf_free(e), n);
                   }
                 },
                 freeVoprf: function (n) {
-                  e._voprf_free(n);
+                  t._voprf_free(n);
                 },
                 getCurveBytes: function (n) {
-                  return e._get_curve_element_bytes(n.curvePtr);
+                  return t._get_curve_element_bytes(n.curvePtr);
                 },
                 getCurveScalarBytes: function (n) {
-                  return e._get_curve_scalar_bytes(n.curvePtr);
+                  return t._get_curve_scalar_bytes(n.curvePtr);
                 },
                 blind: function (n, r) {
-                  var t, a, i;
+                  var e, a, i;
                   try {
-                    var l = e._get_curve_element_bytes(n.curvePtr),
-                      s = e._get_curve_scalar_bytes(n.curvePtr);
-                    ((t = e._malloc(l)), (a = e._malloc(s)), (i = c(e, r)));
-                    var d = e._blind(n.voprfPtr, t, l, a, s, i, r.length);
-                    if (d !== 0)
-                      throw o("mapVoprfWasmError").mapVoprfWasmError(d);
-                    var m = u(e, t, l),
-                      p = u(e, a, s);
+                    var l = t._get_curve_element_bytes(n.curvePtr),
+                      s = t._get_curve_scalar_bytes(n.curvePtr);
+                    ((e = t._malloc(l)), (a = t._malloc(s)), (i = d(t, r)));
+                    var u = t._blind(n.voprfPtr, e, l, a, s, i, r.length);
+                    if (u !== 0)
+                      throw o("mapVoprfWasmError").mapVoprfWasmError(u);
+                    var m = c(t, e, l),
+                      p = c(t, a, s);
                     return { blindedElement: m, blindingFactor: p };
                   } finally {
-                    [t, a, i].forEach(function (t) {
-                      t != null && e._free(t);
+                    [e, a, i].forEach(function (e) {
+                      e != null && t._free(e);
                     });
                   }
                 },
-                verifiableUnblind: function (n, r, a, i, l, s, d, m) {
-                  var t, p, _, f, g, h, y;
+                verifiableUnblind: function (n, r, a, i, l, s, u, m) {
+                  var e, p, _, f, g, h, y;
                   try {
-                    ((t = r ? c(e, r) : null),
-                      (p = a ? c(e, a) : null),
-                      (_ = c(e, s)),
-                      (f = c(e, i)),
-                      (g = c(e, l)),
-                      (h = c(e, d)));
-                    var C = e._get_curve_element_bytes(n.curvePtr);
-                    y = e._malloc(C);
-                    var b = e._verifiable_unblind(
+                    ((e = r ? d(t, r) : null),
+                      (p = a ? d(t, a) : null),
+                      (_ = d(t, s)),
+                      (f = d(t, i)),
+                      (g = d(t, l)),
+                      (h = d(t, u)));
+                    var C = t._get_curve_element_bytes(n.curvePtr);
+                    y = t._malloc(C);
+                    var b = t._verifiable_unblind(
                       n.voprfPtr,
                       y,
                       C,
-                      t,
+                      e,
                       r ? r.length : 0,
                       p,
                       a ? a.length : 0,
@@ -117,76 +133,76 @@ __d(
                       _,
                       s.length,
                       h,
-                      d.length,
+                      u.length,
                       +m,
                     );
                     if (b !== 0)
                       throw o("mapVoprfWasmError").mapVoprfWasmError(b);
-                    var v = u(e, y, C);
+                    var v = c(t, y, C);
                     return { unblindedElement: v };
                   } finally {
-                    [t, p, _, f, g, h, y].forEach(function (t) {
-                      t != null && e._free(t);
+                    [e, p, _, f, g, h, y].forEach(function (e) {
+                      e != null && t._free(e);
                     });
                   }
                 },
                 clientFinalize: function (n, r, a) {
-                  var t, i, l;
+                  var e, i, l;
                   try {
-                    ((t = c(e, r)), (i = c(e, a)));
-                    var s = e._get_voprf_final_evaluation_bytes(n.voprfPtr);
-                    l = e._malloc(s);
-                    var d = e._voprf_client_finalize(
+                    ((e = d(t, r)), (i = d(t, a)));
+                    var s = t._get_voprf_final_evaluation_bytes(n.voprfPtr);
+                    l = t._malloc(s);
+                    var u = t._voprf_client_finalize(
                       n.voprfPtr,
                       l,
                       s,
-                      t,
+                      e,
                       r.length,
                       i,
                       a.length,
                     );
-                    if (d !== 0)
-                      throw o("mapVoprfWasmError").mapVoprfWasmError(d);
-                    var m = u(e, l, s);
+                    if (u !== 0)
+                      throw o("mapVoprfWasmError").mapVoprfWasmError(u);
+                    var m = c(t, l, s);
                     return { finalEvaluation: m };
                   } finally {
-                    [t, i, l].forEach(function (t) {
-                      t != null && e._free(t);
+                    [e, i, l].forEach(function (e) {
+                      e != null && t._free(e);
                     });
                   }
                 },
                 setup: function (n) {
-                  var t, r;
+                  var e, r;
                   try {
-                    var a = e._get_curve_scalar_bytes(n.curvePtr),
-                      i = e._get_curve_element_bytes(n.curvePtr);
-                    ((t = e._malloc(a)), (r = e._malloc(i)));
-                    var l = e._voprf_setup(n.voprfPtr, r, i, t, a);
+                    var a = t._get_curve_scalar_bytes(n.curvePtr),
+                      i = t._get_curve_element_bytes(n.curvePtr);
+                    ((e = t._malloc(a)), (r = t._malloc(i)));
+                    var l = t._voprf_setup(n.voprfPtr, r, i, e, a);
                     if (l !== 0)
                       throw o("mapVoprfWasmError").mapVoprfWasmError(l);
-                    var s = u(e, r, i),
-                      c = u(e, t, a);
-                    return { sk: s, pk: c };
+                    var s = c(t, r, i),
+                      u = c(t, e, a);
+                    return { sk: s, pk: u };
                   } finally {
-                    [t, r].forEach(function (t) {
-                      t != null && e._free(t);
+                    [e, r].forEach(function (e) {
+                      e != null && t._free(e);
                     });
                   }
                 },
                 evaluate: function (n, r, a, i) {
-                  var t, l, s, d, m;
+                  var e, l, s, u, m;
                   try {
-                    var p = e._get_curve_element_bytes(n.curvePtr);
-                    t = e._malloc(p);
-                    var _ = i ? e._get_curve_scalar_bytes(n.curvePtr) : 0;
-                    l = _ > 0 ? e._malloc(_) : null;
-                    var f = i ? e._get_curve_scalar_bytes(n.curvePtr) : 0;
-                    ((s = f > 0 ? e._malloc(f) : null),
-                      (d = c(e, a)),
-                      (m = c(e, r)));
-                    var g = e._voprf_evaluate(
+                    var p = t._get_curve_element_bytes(n.curvePtr);
+                    e = t._malloc(p);
+                    var _ = i ? t._get_curve_scalar_bytes(n.curvePtr) : 0;
+                    l = _ > 0 ? t._malloc(_) : null;
+                    var f = i ? t._get_curve_scalar_bytes(n.curvePtr) : 0;
+                    ((s = f > 0 ? t._malloc(f) : null),
+                      (u = d(t, a)),
+                      (m = d(t, r)));
+                    var g = t._voprf_evaluate(
                       n.voprfPtr,
-                      t,
+                      e,
                       p,
                       l,
                       _,
@@ -194,48 +210,48 @@ __d(
                       f,
                       m,
                       r.length,
-                      d,
+                      u,
                       a.length,
                       +i,
                     );
                     if (g !== 0)
                       throw o("mapVoprfWasmError").mapVoprfWasmError(g);
-                    var h = l !== null ? u(e, l, _) : null,
-                      y = s !== null ? u(e, s, f) : null,
-                      C = u(e, t, p);
+                    var h = l !== null ? c(t, l, _) : null,
+                      y = s !== null ? c(t, s, f) : null,
+                      C = c(t, e, p);
                     return { proofC: h, proofS: y, evaluatedElement: C };
                   } finally {
-                    [t, l, s, d, m].forEach(function (t) {
-                      t != null && e._free(t);
+                    [e, l, s, u, m].forEach(function (e) {
+                      e != null && t._free(e);
                     });
                   }
                 },
                 serverFinalize: function (n, r, a) {
-                  var t, i, l;
+                  var e, i, l;
                   try {
-                    ((t = c(e, r)), (i = c(e, a)));
-                    var s = e._get_voprf_final_evaluation_bytes(n.voprfPtr);
-                    l = e._malloc(s);
-                    var d = e._voprf_server_finalize(
+                    ((e = d(t, r)), (i = d(t, a)));
+                    var s = t._get_voprf_final_evaluation_bytes(n.voprfPtr);
+                    l = t._malloc(s);
+                    var u = t._voprf_server_finalize(
                       n.voprfPtr,
                       l,
                       s,
-                      t,
+                      e,
                       r.length,
                       i,
                       a.length,
                     );
-                    if (d !== 0)
-                      throw o("mapVoprfWasmError").mapVoprfWasmError(d);
-                    var m = u(e, l, s);
+                    if (u !== 0)
+                      throw o("mapVoprfWasmError").mapVoprfWasmError(u);
+                    var m = c(t, l, s);
                     return { finalEvaluation: m };
                   } finally {
-                    [t, i, l].forEach(function (t) {
-                      t != null && e._free(t);
+                    [e, i, l].forEach(function (e) {
+                      e != null && t._free(e);
                     });
                   }
                 },
-                wasmMemory: (t = e.wasmMemory) != null ? t : void 0,
+                wasmMemory: (a = t.wasmMemory) != null ? a : void 0,
               }));
           })
           .catch(function (e) {
@@ -243,17 +259,17 @@ __d(
           });
       });
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       for (var r = new Uint8Array(n), o = 0; o < n; ++o)
         r[o] = e.getValue(o + t, "i8");
       return r;
     }
-    function c(e, t) {
+    function d(e, t) {
       var n = t.length,
         r = e._malloc(n);
       return (e.writeArrayToMemory(t, r), r);
     }
-    l.default = e;
+    l.default = s;
   },
   98,
 );

@@ -12,6 +12,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebStartMediaDownloadQpl",
     "WAWebWamEnumDownloadOriginType",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -100,97 +101,108 @@ __d(
             e.agmId != null ? { agmId: e.agmId } : {},
           );
     }
-    async function C(e) {
-      var t = e[0],
-        n = t == null ? void 0 : t.flowResponsesCsvBundle,
-        a = n == null ? void 0 : n.galaxyFlowDownloadRequestId;
-      if (n == null) {
-        (o("WALogger").WARN(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "galaxy flow: flowResponsesCsvBundle is null in response",
-            ])),
-        ),
-          f());
-        return;
-      }
-      var i = n.directPath,
-        l = n.fileEncSha256,
-        s = n.fileName,
-        u = n.fileSha256,
-        h = n.mediaKey;
-      if (i == null || h == null || u == null || l == null) {
-        (o("WALogger").WARN(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
-              "galaxy flow: missing required MMS fields in flowResponsesCsvBundle",
-            ])),
-        ),
-          f(a));
-        return;
-      }
-      o("WALogger").LOG(
-        m ||
-          (m = babelHelpers.taggedTemplateLiteralLoose([
-            "galaxy flow: downloading flow responses CSV",
-          ])),
-      );
-      var y = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-        entryPoint: "GalaxyFlowResponsesDownload",
-      });
-      try {
-        var C,
-          b,
-          v = await o(
-            "WAWebDownloadManager",
-          ).downloadManager.downloadAndMaybeDecrypt({
-            signal: new AbortController().signal,
-            downloadQpl: y,
-            directPath: i,
-            encFilehash: o("WABase64").encodeB64(l),
-            filehash: o("WABase64").encodeB64(u),
-            mediaKey: o("WABase64").encodeB64(h),
-            mediaKeyTimestamp: o("WALongInt").maybeNumberOrThrowIfTooLarge(
-              n.mediaKeyTimestamp,
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e[0],
+            n = t == null ? void 0 : t.flowResponsesCsvBundle,
+            a = n == null ? void 0 : n.galaxyFlowDownloadRequestId;
+          if (n == null) {
+            (o("WALogger").WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "galaxy flow: flowResponsesCsvBundle is null in response",
+                ])),
             ),
-            type: o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT,
-            userDownloadAttemptCount: 0,
-            downloadOrigin: o("WAWebWamEnumDownloadOriginType")
-              .DOWNLOAD_ORIGIN_TYPE.P2B,
-          });
-        y.endSuccess();
-        var S = await o("WAGzip").inflate(new Uint8Array(v)),
-          R = new TextDecoder("utf-8"),
-          L = R.decode(S),
-          E = new Blob([L], { type: "text/csv;charset=utf-8;" }),
-          k = URL.createObjectURL(E),
-          I = document.createElement("a");
-        ((I.href = k),
-          (I.download = s != null ? s : "flow_responses.csv"),
-          (I.style.display = "none"),
-          (C = document.body) == null || C.appendChild(I),
-          I.click(),
-          (b = document.body) == null || b.removeChild(I),
-          URL.revokeObjectURL(k),
+              f());
+            return;
+          }
+          var i = n.directPath,
+            l = n.fileEncSha256,
+            s = n.fileName,
+            u = n.fileSha256,
+            h = n.mediaKey;
+          if (i == null || h == null || u == null || l == null) {
+            (o("WALogger").WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "galaxy flow: missing required MMS fields in flowResponsesCsvBundle",
+                ])),
+            ),
+              f(a));
+            return;
+          }
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "galaxy flow: flow responses CSV downloaded successfully",
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "galaxy flow: downloading flow responses CSV",
               ])),
-          ),
-          a != null && g(a));
-      } catch (e) {
-        (y.endFailWithError("download_failed", r("getErrorSafe")(e).message),
-          o("WALogger").ERROR(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "galaxy flow: failed to download flow responses CSV: ",
-                "",
-              ])),
-            e,
-          ),
-          f(a));
-      }
+          );
+          var y = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+            entryPoint: "GalaxyFlowResponsesDownload",
+          });
+          try {
+            var C,
+              b,
+              v = yield o(
+                "WAWebDownloadManager",
+              ).downloadManager.downloadAndMaybeDecrypt({
+                signal: new AbortController().signal,
+                downloadQpl: y,
+                directPath: i,
+                encFilehash: o("WABase64").encodeB64(l),
+                filehash: o("WABase64").encodeB64(u),
+                mediaKey: o("WABase64").encodeB64(h),
+                mediaKeyTimestamp: o("WALongInt").maybeNumberOrThrowIfTooLarge(
+                  n.mediaKeyTimestamp,
+                ),
+                type: o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT,
+                userDownloadAttemptCount: 0,
+                downloadOrigin: o("WAWebWamEnumDownloadOriginType")
+                  .DOWNLOAD_ORIGIN_TYPE.P2B,
+              });
+            y.endSuccess();
+            var S = yield o("WAGzip").inflate(new Uint8Array(v)),
+              R = new TextDecoder("utf-8"),
+              L = R.decode(S),
+              E = new Blob([L], { type: "text/csv;charset=utf-8;" }),
+              k = URL.createObjectURL(E),
+              I = document.createElement("a");
+            ((I.href = k),
+              (I.download = s != null ? s : "flow_responses.csv"),
+              (I.style.display = "none"),
+              (C = document.body) == null || C.appendChild(I),
+              I.click(),
+              (b = document.body) == null || b.removeChild(I),
+              URL.revokeObjectURL(k),
+              o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "galaxy flow: flow responses CSV downloaded successfully",
+                  ])),
+              ),
+              a != null && g(a));
+          } catch (e) {
+            (y.endFailWithError(
+              "download_failed",
+              r("getErrorSafe")(e).message,
+            ),
+              o("WALogger").ERROR(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "galaxy flow: failed to download flow responses CSV: ",
+                    "",
+                  ])),
+                e,
+              ),
+              f(a));
+          }
+        })),
+        b.apply(this, arguments)
+      );
     }
     ((l.handleGalaxyFlowLaunchRequest = h),
       (l.buildGalaxyFlowDataOperationRequest = y),

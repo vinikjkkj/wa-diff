@@ -17,6 +17,7 @@ __d(
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -59,12 +60,12 @@ __d(
       p = null,
       _ = null,
       f = new (r("WAPromiseCache"))(
-        async function () {
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var t,
-              n = await o("WAWebQueryPrivacySettingsJob").getPrivacy();
+              n = yield o("WAWebQueryPrivacySettingsJob").getPrivacy();
             o("WAWebUserPrefsGeneral").setUserPrivacySettings(n);
-            var r = await o(
+            var r = yield o(
               "WAWebSyncPrivacyDisallowedLists",
             ).syncPrivacyDisallowedLists([
               (t = o("WAWebSchemaPrivacyDisallowedList"))
@@ -87,7 +88,7 @@ __d(
               t
             );
           }
-        },
+        }),
         {
           maxCached: 1,
           maxAge: d,
@@ -136,15 +137,27 @@ __d(
         );
       });
     }
-    async function C() {
-      var e = await o("WAWebQueryDisappearingModeJob").queryDisappearingMode();
-      await o(
-        "WAWebUpdateDisappearingModeForContact",
-      ).updateDisappearingModeForContact({
-        contactId: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        newDuration: e.duration,
-        newSettingTimestamp: e.t,
-      });
+    function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o(
+            "WAWebQueryDisappearingModeJob",
+          ).queryDisappearingMode();
+          yield o(
+            "WAWebUpdateDisappearingModeForContact",
+          ).updateDisappearingModeForContact({
+            contactId: o(
+              "WAWebUserPrefsMeUser",
+            ).getMePnUserOrThrow_DO_NOT_USE(),
+            newDuration: e.duration,
+            newSettingTimestamp: e.t,
+          });
+        })),
+        b.apply(this, arguments)
+      );
     }
     ((l.AccountSyncType = s),
       (l.getDevices = u),

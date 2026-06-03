@@ -14,6 +14,7 @@ __d(
     "WAWebL10NRemoveAccents",
     "WAWebLidMigrationUtils",
     "WAWebUsernameGatingUtils",
+    "WAWebUsernameTypes",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "WAWebWid",
     "WAWebWidFormat",
@@ -49,16 +50,18 @@ __d(
       D = p("username");
     function x() {
       var e = c == null ? void 0 : c.getMeContact();
-      return e != null ? D(e) : null;
+      return e != null
+        ? o("WAWebUsernameTypes").serializeMaybeUsername(D(e))
+        : null;
     }
     var $ = p("isUsernameContact"),
       P = p("isEphemeralityDisabled"),
       N = m(
         function (e) {
           var t = e[0];
-          return t != null && t.length > 0
+          return o("WAWebUsernameTypes").isPresentUsername(t)
             ? {
-                displayName: "@" + t,
+                displayName: o("WAWebUsernameTypes").displayUsername(t),
                 type: o("WAWebWamEnumOppositeVisibleIdentificationType")
                   .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.USERNAME,
               }

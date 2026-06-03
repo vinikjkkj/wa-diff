@@ -2,6 +2,7 @@ __d(
   "WAWebActionListenerHelpers",
   [
     "fbt",
+    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebActionToast.react",
@@ -21,6 +22,7 @@ __d(
     "WAWebWamEnumDeleteActionType",
     "WAWebWamEnumSnackbarActionType",
     "WAWebWamMsgUtils",
+    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
   ],
@@ -29,9 +31,10 @@ __d(
       u,
       c,
       d,
-      m = d || (d = o("react")),
-      p = 4e3;
-    function _(t) {
+      m,
+      p = m || (m = o("react")),
+      _ = 4e3;
+    function f(t) {
       switch (t) {
         case 1:
           return s._(/*BTDS*/ "Alerts and sounds off for 1 hour");
@@ -55,40 +58,42 @@ __d(
           );
       }
     }
-    function f(e, t, n, a) {
+    function g(e, t, a, i) {
       if (
-        (a === void 0 && (a = "LEFT"),
+        (i === void 0 && (i = "LEFT"),
         !t ||
           t.some(function (e) {
             return !e.id;
           }))
       )
-        return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
-      var i = r("isStringNullOrEmpty")(n)
+        return (d || (d = n("Promise"))).reject(
+          new (o("WAWebMiscErrors").ActionError)(),
+        );
+      var l = r("isStringNullOrEmpty")(a)
           ? o("WAWebActionToast.react").genId()
-          : n,
-        l = t.length;
+          : a,
+        c = t.length;
       if (o("WAWebChatGetters").getIsPSA(e)) {
-        var c = 0;
-        for (c; c < l; c++) o("WAWebWamChatPSALogger").logChatPSAStar(t[c]);
+        var m = 0;
+        for (m; m < c; m++) o("WAWebWamChatPSALogger").logChatPSAStar(t[m]);
       }
-      var d = new (o("WAWebActionToast.react").ActionType)(
+      var _ = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ '_j{"*":"Starring messages","_1":"Starring message"}', [
-            s._plural(l),
+            s._plural(c),
           ]),
         ),
-        p = o("WAWebChatSendMessages")
+        f = o("WAWebChatSendMessages")
           .sendStarMsgs(e, t, !0)
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
               s._(
                 /*BTDS*/ '_j{"*":"{count} messages starred","_1":"1 message starred"}',
-                [s._plural(l, "count")],
+                [s._plural(c, "count")],
               ),
               {
                 actionText: s._(/*BTDS*/ "Undo"),
                 actionHandler: function () {
-                  return g(e, t, i, a);
+                  return h(e, t, l, i);
                 },
               },
             );
@@ -102,13 +107,13 @@ __d(
                     ? new (o("WAWebActionToast.react").ActionType)(
                         s._(
                           /*BTDS*/ '_j{"*":"Couldn\'t star messages because the messages may have expired","_1":"Couldn\'t star message because the message may have expired"}',
-                          [s._plural(l)],
+                          [s._plural(c)],
                         ),
                       )
                     : new (o("WAWebActionToast.react").ActionType)(
                         s._(
                           /*BTDS*/ '_j{"*":"Couldn\'t star messages","_1":"Couldn\'t star message"}',
-                          [s._plural(l)],
+                          [s._plural(c)],
                         ),
                       );
               },
@@ -125,12 +130,12 @@ __d(
               new (o("WAWebActionToast.react").ActionType)(
                 s._(
                   /*BTDS*/ '_j{"*":"Couldn\'t star messages","_1":"Couldn\'t star message"}',
-                  [s._plural(l)],
+                  [s._plural(c)],
                 ),
                 {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return f(e, t, i, a);
+                    return g(e, t, l, i);
                   },
                 },
               )
@@ -138,47 +143,49 @@ __d(
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            toastPosition: a,
-            initialAction: d,
-            pendingAction: p,
+          p.jsx(o("WAWebActionToast.react").ActionToast, {
+            id: l,
+            toastPosition: i,
+            initialAction: _,
+            pendingAction: f,
           }),
         ),
-        p
+        f
       );
     }
-    function g(e, t, n, a) {
+    function h(e, t, a, i) {
       if (
-        (a === void 0 && (a = "LEFT"),
+        (i === void 0 && (i = "LEFT"),
         !t ||
           t.some(function (e) {
             return !e.id;
           }))
       )
-        return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
-      var i = r("isStringNullOrEmpty")(n)
+        return (d || (d = n("Promise"))).reject(
+          new (o("WAWebMiscErrors").ActionError)(),
+        );
+      var l = r("isStringNullOrEmpty")(a)
           ? o("WAWebActionToast.react").genId()
-          : n,
-        l = t.length,
-        u = new (o("WAWebActionToast.react").ActionType)(
+          : a,
+        u = t.length,
+        m = new (o("WAWebActionToast.react").ActionType)(
           s._(
             /*BTDS*/ '_j{"*":"Unstarring messages","_1":"Unstarring message"}',
-            [s._plural(l)],
+            [s._plural(u)],
           ),
         ),
-        d = o("WAWebChatSendMessages")
+        _ = o("WAWebChatSendMessages")
           .sendStarMsgs(e, t, !1)
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
               s._(
                 /*BTDS*/ '_j{"*":"{count} messages unstarred","_1":"1 message unstarred"}',
-                [s._plural(l, "count")],
+                [s._plural(u, "count")],
               ),
               {
                 actionText: s._(/*BTDS*/ "Undo"),
                 actionHandler: function () {
-                  return f(e, t, i, a);
+                  return g(e, t, l, i);
                 },
               },
             );
@@ -192,13 +199,13 @@ __d(
                     ? new (o("WAWebActionToast.react").ActionType)(
                         s._(
                           /*BTDS*/ '_j{"*":"Couldn\'t unstar messages because the messages may have expired","_1":"Couldn\'t unstar message because the message may have expired"}',
-                          [s._plural(l)],
+                          [s._plural(u)],
                         ),
                       )
                     : new (o("WAWebActionToast.react").ActionType)(
                         s._(
                           /*BTDS*/ '_j{"*":"Couldn\'t unstar messages","_1":"Couldn\'t unstar message"}',
-                          [s._plural(l)],
+                          [s._plural(u)],
                         ),
                       );
               },
@@ -215,12 +222,12 @@ __d(
               new (o("WAWebActionToast.react").ActionType)(
                 s._(
                   /*BTDS*/ '_j{"*":"Couldn\'t unstar messages","_1":"Couldn\'t unstar message"}',
-                  [s._plural(l)],
+                  [s._plural(u)],
                 ),
                 {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return g(e, t, i, a);
+                    return h(e, t, l, i);
                   },
                 },
               )
@@ -228,17 +235,17 @@ __d(
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            toastPosition: a,
-            initialAction: u,
-            pendingAction: d,
+          p.jsx(o("WAWebActionToast.react").ActionToast, {
+            id: l,
+            toastPosition: i,
+            initialAction: m,
+            pendingAction: _,
           }),
         ),
-        d
+        _
       );
     }
-    function h(e) {
+    function y(e) {
       var t = Array.from(
         new Set(
           e.map(function (e) {
@@ -248,59 +255,77 @@ __d(
       );
       return t.length === 1 ? t[0] : void 0;
     }
-    async function y(e, t, n) {
-      if (t.type === "message") {
-        if (o("WAWebChatGetters").getIsPSA(e)) {
-          var r = 0;
-          for (r; r < t.list.length; r++)
-            o("WAWebWamChatPSALogger").logChatPSADelete(t.list[r]);
-        }
-        t.list
-          .filter(o("WAWebMsgGetters").getIsAuthenticationMessage)
-          .forEach(function (e) {
-            o("WAWebOTPLoggingHelper").logOTPMessageDeleted(
-              o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
-            );
-          });
-      }
-      new (o("WAWebMessageDeleteActionsWamEvent").MessageDeleteActionsWamEvent)(
-        {
-          deleteActionType: n
-            ? o("WAWebWamEnumDeleteActionType").DELETE_ACTION_TYPE
-                .DELETE_FOR_EVERYONE
-            : o("WAWebWamEnumDeleteActionType").DELETE_ACTION_TYPE
-                .DELETE_FOR_ME,
-          isAGroup: o("WAWebChatGetters").getIsGroup(e),
-          messagesDeleted: t.list.length,
-          threadId: await o("WAWebChatThreadLogging").getChatThreadID(
-            e.id.toJid(),
-          ),
-          mediaType: h(t.list),
-        },
-      ).commit();
+    function C(e, t, n) {
+      return b.apply(this, arguments);
     }
-    async function C(e, t, n) {
-      new (o("WAWebSnackbarDeleteUndoWamEvent").SnackbarDeleteUndoWamEvent)({
-        snackbarActionType:
-          n === "shown"
-            ? o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
-                .SNACKBAR_SHOWN
-            : o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
-                .MESSAGE_UNDELETE,
-        isAGroup: o("WAWebChatGetters").getIsGroup(e),
-        messagesUndeleted: t.list.length,
-        threadId: await o("WAWebChatThreadLogging").getChatThreadID(
-          e.id.toJid(),
-        ),
-        mediaType: h(t.list),
-      }).commit();
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (t.type === "message") {
+            if (o("WAWebChatGetters").getIsPSA(e)) {
+              var r = 0;
+              for (r; r < t.list.length; r++)
+                o("WAWebWamChatPSALogger").logChatPSADelete(t.list[r]);
+            }
+            t.list
+              .filter(o("WAWebMsgGetters").getIsAuthenticationMessage)
+              .forEach(function (e) {
+                o("WAWebOTPLoggingHelper").logOTPMessageDeleted(
+                  o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),
+                );
+              });
+          }
+          new (o(
+            "WAWebMessageDeleteActionsWamEvent",
+          ).MessageDeleteActionsWamEvent)({
+            deleteActionType: n
+              ? o("WAWebWamEnumDeleteActionType").DELETE_ACTION_TYPE
+                  .DELETE_FOR_EVERYONE
+              : o("WAWebWamEnumDeleteActionType").DELETE_ACTION_TYPE
+                  .DELETE_FOR_ME,
+            isAGroup: o("WAWebChatGetters").getIsGroup(e),
+            messagesDeleted: t.list.length,
+            threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
+              e.id.toJid(),
+            ),
+            mediaType: y(t.list),
+          }).commit();
+        })),
+        b.apply(this, arguments)
+      );
     }
-    ((l.MESSAGE_DELETE_DELAY_DURATION = p),
-      (l.getMuteAllDurationLabel = _),
-      (l.handleSendStarMsgs = f),
-      (l.handleSendUnstarMsgs = g),
-      (l.logMessageDeleteActionsMetric = y),
-      (l.logSnackbarDeleteUndoMetric = C));
+    function v(e, t, n) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          new (o("WAWebSnackbarDeleteUndoWamEvent").SnackbarDeleteUndoWamEvent)(
+            {
+              snackbarActionType:
+                n === "shown"
+                  ? o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
+                      .SNACKBAR_SHOWN
+                  : o("WAWebWamEnumSnackbarActionType").SNACKBAR_ACTION_TYPE
+                      .MESSAGE_UNDELETE,
+              isAGroup: o("WAWebChatGetters").getIsGroup(e),
+              messagesUndeleted: t.list.length,
+              threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
+                e.id.toJid(),
+              ),
+              mediaType: y(t.list),
+            },
+          ).commit();
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    ((l.MESSAGE_DELETE_DELAY_DURATION = _),
+      (l.getMuteAllDurationLabel = f),
+      (l.handleSendStarMsgs = g),
+      (l.handleSendUnstarMsgs = h),
+      (l.logMessageDeleteActionsMetric = C),
+      (l.logSnackbarDeleteUndoMetric = v));
   },
   226,
 );

@@ -10,6 +10,7 @@ __d(
     "WAWebMexGetPrivacySetting",
     "WAWebPrivacySettings",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -130,105 +131,137 @@ __d(
         t
       );
     });
-    async function f() {
-      var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "mex_get_privacy_settings_mode",
-        ) === 1 &&
-        e != null
-      )
-        return await g(e);
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "mex_get_privacy_settings_mode",
-        ) === 2 &&
-        e != null
-      ) {
-        var t,
-          n = await y(e);
-        return (C(n), (t = n.xmlPrivacyResult.response) != null ? t : {});
-      }
-      return await h();
+    function f() {
+      return g.apply(this, arguments);
     }
-    async function g(e) {
-      return o("WAWebMexGetPrivacySetting").fetchPrivacySettings({
-        jid: e,
-        privacyFeatures: [
-          "LAST",
-          "ONLINE",
-          "PROFILE",
-          "ABOUT",
-          "READRECEIPTS",
-          "GROUPADD",
-          "CALLADD",
-          "STICKERS",
-          "MESSAGES",
-          "DEFENSE",
-        ],
-      });
-    }
-    async function h() {
-      var e,
-        t = (e = o("WAWap")).wap(
-          "iq",
-          {
-            xmlns: "privacy",
-            to: e.S_WHATSAPP_NET,
-            type: "get",
-            id: e.generateId(),
-          },
-          e.wap("privacy", null),
-        ),
-        n = await o("WADeprecatedSendIq").deprecatedSendIq(t, _);
-      if (n.success) return n.result;
-      throw (
-        o("WAWebABProps").getABPropConfigValue(
-          "mex_get_privacy_settings_mode",
-        ) === 2 &&
-          o("WALogger")
-            .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "getPrivacyShadowMode: Request failed over SMAX errorCode:  ",
-                  ":",
-                  "",
-                ])),
-              n.errorCode,
-              n.errorType,
-            )
-            .sendLogs("getPrivacyShadowMode", { sampling: 0.01 }),
-        new (o("WAWebBackendErrors").ServerStatusCodeError)(
-          n.errorCode,
-          n.errorText,
-        )
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "mex_get_privacy_settings_mode",
+            ) === 1 &&
+            e != null
+          )
+            return yield h(e);
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "mex_get_privacy_settings_mode",
+            ) === 2 &&
+            e != null
+          ) {
+            var t,
+              n = yield v(e);
+            return (R(n), (t = n.xmlPrivacyResult.response) != null ? t : {});
+          }
+          return yield C();
+        })),
+        g.apply(this, arguments)
       );
     }
-    async function y(e) {
-      var t,
-        n,
-        r = await h()
-          .then(function (e) {
-            return ((n = !0), e);
-          })
-          .catch(function (e) {
-            t = e;
-          }),
-        o,
-        a,
-        i = await g(e)
-          .then(function (e) {
-            return ((a = !0), e);
-          })
-          .catch(function (e) {
-            o = e;
-          });
-      return {
-        xmlPrivacyResult: { response: r, isSuccess: n === !0, error: t },
-        mexPrivacyInfo: { response: i, isSuccess: a === !0, error: o },
-      };
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C(e) {
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebMexGetPrivacySetting").fetchPrivacySettings({
+            jid: e,
+            privacyFeatures: [
+              "LAST",
+              "ONLINE",
+              "PROFILE",
+              "ABOUT",
+              "READRECEIPTS",
+              "GROUPADD",
+              "CALLADD",
+              "STICKERS",
+              "MESSAGES",
+              "DEFENSE",
+            ],
+          });
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t = (e = o("WAWap")).wap(
+              "iq",
+              {
+                xmlns: "privacy",
+                to: e.S_WHATSAPP_NET,
+                type: "get",
+                id: e.generateId(),
+              },
+              e.wap("privacy", null),
+            ),
+            n = yield o("WADeprecatedSendIq").deprecatedSendIq(t, _);
+          if (n.success) return n.result;
+          throw (
+            o("WAWebABProps").getABPropConfigValue(
+              "mex_get_privacy_settings_mode",
+            ) === 2 &&
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "getPrivacyShadowMode: Request failed over SMAX errorCode:  ",
+                      ":",
+                      "",
+                    ])),
+                  n.errorCode,
+                  n.errorType,
+                )
+                .sendLogs("getPrivacyShadowMode", { sampling: 0.01 }),
+            new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              n.errorCode,
+              n.errorText,
+            )
+          );
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r = yield C()
+              .then(function (e) {
+                return ((n = !0), e);
+              })
+              .catch(function (e) {
+                t = e;
+              }),
+            o,
+            a,
+            i = yield h(e)
+              .then(function (e) {
+                return ((a = !0), e);
+              })
+              .catch(function (e) {
+                o = e;
+              });
+          return {
+            xmlPrivacyResult: { response: r, isSuccess: n === !0, error: t },
+            mexPrivacyInfo: { response: i, isSuccess: a === !0, error: o },
+          };
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
       var t = e.mexPrivacyInfo,
         n = e.xmlPrivacyResult,
         r = t.response,
@@ -247,8 +280,8 @@ __d(
           i.length > 0 &&
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "getPrivacy: MEX/XML settings mismatch",
                   ])),
               )
@@ -263,8 +296,8 @@ __d(
           !t.isSuccess &&
           o("WALogger")
             .WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "getPrivacy: xml query succeeded but mex query failed",
                 ])),
             )
@@ -275,8 +308,8 @@ __d(
           t.isSuccess &&
           o("WALogger")
             .WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "getPrivacy: mex query succeeded but xml query failed ",
                 ])),
             )
@@ -285,13 +318,13 @@ __d(
             }),
         !n.isSuccess && !t.isSuccess)
       ) {
-        var l, s;
+        var l, m;
         ((l = n.error) == null ? void 0 : l.statusCode) !==
-          ((s = t.error) == null ? void 0 : s.statusCode) &&
+          ((m = t.error) == null ? void 0 : m.statusCode) &&
           o("WALogger")
             .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "getPrivacy: xml/mex error codes mismatch",
                 ])),
             )

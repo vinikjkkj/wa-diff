@@ -1,6 +1,7 @@
 __d(
   "WAWebKmpMutationProcessorStore",
   [
+    "Promise",
     "WAArrayUtils",
     "WACryptoUtils",
     "WALogger",
@@ -13,14 +14,15 @@ __d(
     "WAWebKmpSyncdCollectionNameUtils",
     "WAWebKmpSyncdMutationUtils",
     "WAWebSyncdCollectionsStateMachine",
+    "asyncToGeneratorRuntime",
     "err",
     "sortBy",
     "wa-kmp-syncd-engine-api",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
+    var e, s;
+    function u(e) {
       return new (o(
         "wa-kmp-syncd-engine-api",
       ).KmpSyncdInterfaceError.KmpSyncdStoreError)(
@@ -29,10 +31,10 @@ __d(
         null,
       );
     }
-    function u(e) {
+    function c(e) {
       return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-        async function () {
-          var t = await o(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o(
             "WAWebGetCollectionVersion",
           ).getCollectionVersionLtHashInTransaction(
             o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(e),
@@ -40,14 +42,14 @@ __d(
           return t != null
             ? o("WAWebKmpKotlinUtils").asKmpByteArray(new Uint8Array(t))
             : o("WAWebKmpKotlinUtils").asKmpByteArray(new Uint8Array(0));
-        },
-        s,
+        }),
+        u,
       );
     }
-    function c(e) {
+    function d(e) {
       return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-        async function () {
-          var t = await o(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o(
             "WAWebGetCollectionVersion",
           ).getCollectionVersionInTransaction(
             o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(e),
@@ -55,15 +57,15 @@ __d(
           return (t == null ? void 0 : t.version) != null
             ? o("wa-kmp-syncd-engine-api").KmpLong.fromNumber(t.version)
             : null;
-        },
-        s,
+        }),
+        u,
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-        async function () {
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var n = o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(e),
-            r = await o(
+            r = yield o(
               "WAWebGetSyncAction",
             ).getSyncActionsByCollectionAndIndexesInTransaction(n, t),
             a = new Map(
@@ -77,14 +79,14 @@ __d(
               }),
             );
           return o("WAWebKmpKotlinUtils").asKtMap(a);
-        },
-        s,
+        }),
+        u,
       );
     }
-    var m = {
+    var p = {
         getDirtyCollections: function () {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = new Set(
                   r(
                     "WAWebSyncdCollectionsStateMachine",
@@ -99,15 +101,15 @@ __d(
                     ),
                 );
               return o("WAWebKmpKotlinUtils").asKtSet(t);
-            },
-            s,
+            }),
+            u,
           );
         },
-        getCollectionVersion: c,
+        getCollectionVersion: d,
         getAllCollectionVersions: function () {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
-              var e = await o(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
                   "WAWebGetCollectionVersion",
                 ).getAllCollectionVersionsInTransaction(),
                 t = e.map(function (e) {
@@ -122,61 +124,61 @@ __d(
               return o("WAWebKmpKotlinUtils").asKtMap(
                 new Map(t.filter(Boolean)),
               );
-            },
-            s,
+            }),
+            u,
           );
         },
-        getCollectionLtHash: u,
+        getCollectionLtHash: c,
         getOldestStoredMutationsExcludingKeyIdAndIndices: function (
           t,
-          n,
           a,
           i,
+          l,
         ) {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
-              var e = await o(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
                   "WAWebGetSyncAction",
                 ).getSyncActionsByCollectionsInTransaction([
                   o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(t),
                 ]),
-                l = o("WAWebKmpKotlinUtils").asSet(a),
+                n = o("WAWebKmpKotlinUtils").asSet(i),
                 s = e.filter(function (e) {
                   return (
-                    !l.has(e.index) &&
+                    !n.has(e.index) &&
                     !o("WACryptoUtils").arrayBuffersEqual(
                       e.keyId,
-                      o("WAWebKmpKotlinUtils").asUint8Array(n.bytes).buffer,
+                      o("WAWebKmpKotlinUtils").asUint8Array(a.bytes).buffer,
                     )
                   );
                 }),
                 u = r("sortBy")(s, function (e) {
                   return o("WASyncdKeyManagementUtils").getKeyEpoch(e.keyId);
                 }),
-                c = u.slice(0, i);
+                c = u.slice(0, l);
               return o("WAWebKmpKotlinUtils").asKtList(
                 c.map(o("WAWebKmpSyncdMutationUtils").asKmpSyncdMutation),
               );
-            },
-            s,
+            }),
+            u,
           );
         },
         getStoredMutationWithIndex: function (t) {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e =
-                await o("WAWebGetSyncAction").getSyncActionInTransaction(t);
+                yield o("WAWebGetSyncAction").getSyncActionInTransaction(t);
               return e == null
                 ? null
                 : o("WAWebKmpSyncdMutationUtils").asKmpSyncdMutation(e);
-            },
-            s,
+            }),
+            u,
           );
         },
         getAllPendingMutationsByCollection: function () {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
-              var e = await o(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
                   "WAWebGetPendingMutation",
                 ).getAllSyncPendingMutationsInTransaction(),
                 t = o("WAArrayUtils").groupBy(e, function (e) {
@@ -193,28 +195,40 @@ __d(
                   );
                 },
               );
-            },
-            s,
+            }),
+            u,
           );
         },
-        getLatestMutationsMac: d,
+        getLatestMutationsMac: m,
         getPendingMutationsForCriticalBlockCollectionForBootstrap:
-          async function () {
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return o("wa-kmp-syncd-engine-api").KmpResult.success(
+                o("WAWebKmpKotlinUtils").asKtList([]),
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+        getContactMutationsForBootstrap: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             return o("wa-kmp-syncd-engine-api").KmpResult.success(
               o("WAWebKmpKotlinUtils").asKtList([]),
             );
-          },
-        getContactMutationsForBootstrap: async function (t) {
-          return o("wa-kmp-syncd-engine-api").KmpResult.success(
-            o("WAWebKmpKotlinUtils").asKtList([]),
-          );
-        },
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       },
-      p = {
+      _ = {
         getAllLtHashes: function () {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
-              var e = await o(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
                   "WAWebGetCollectionVersion",
                 ).getAllCollectionVersionsInTransaction(),
                 t = e.map(function (e) {
@@ -228,17 +242,17 @@ __d(
                   ];
                 });
               return o("WAWebKmpKotlinUtils").asKtMap(new Map(t));
-            },
-            s,
+            }),
+            u,
           );
         },
-        getCollectionLtHash: u,
-        getCollectionVersion: c,
-        getLatestMutationsMac: d,
+        getCollectionLtHash: c,
+        getCollectionVersion: d,
+        getLatestMutationsMac: m,
         getMutationMacsGroupByCollectionName: function () {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
-              var e = await Promise.all(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield (s || (s = n("Promise"))).all(
                 o("wa-kmp-syncd-engine-api")
                   .KmpSyncdCollectionName.values()
                   .map(function (e) {
@@ -263,15 +277,15 @@ __d(
                   }),
               );
               return o("WAWebKmpKotlinUtils").asKtMap(new Map(e));
-            },
-            s,
+            }),
+            u,
           );
         },
-        markCollectionNonDirty: function (n) {
+        markCollectionNonDirty: function (a) {
           return o("WAWebKmpBridgeResultWrappers").wrapKmpSuccess(
-            async function () {
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               (r("WAWebSyncdCollectionsStateMachine").moveCollectionsToUpToDate(
-                [o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(n)],
+                [o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(a)],
               ),
                 r("WAWebSyncdCollectionsStateMachine")
                   .persistToDb()
@@ -285,16 +299,26 @@ __d(
                       t,
                     );
                   }));
-            },
-            s,
+            }),
+            u,
           );
         },
-        onSuccessfulPatchApplication: async function (t, n, o, a) {
-          throw r("err")("onSuccessfulPatchApplication not yet implemented");
-        },
+        onSuccessfulPatchApplication: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, o) {
+              throw r("err")(
+                "onSuccessfulPatchApplication not yet implemented",
+              );
+            },
+          );
+          function t(t, n, r, o) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       },
-      _ = babelHelpers.extends({}, m, p);
-    l.mutationProcessorStore = _;
+      f = babelHelpers.extends({}, p, _);
+    l.mutationProcessorStore = f;
   },
   98,
 );

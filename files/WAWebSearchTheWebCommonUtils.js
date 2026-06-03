@@ -30,6 +30,7 @@ __d(
     "WAWebWamEnumStwFormat",
     "WAWebWamEnumStwInteraction",
     "WDSIconIcInfo.react",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
     "react-compiler-runtime",
@@ -67,19 +68,19 @@ __d(
     }
     function C(t) {
       if (!o("WAWebSTWGatingUtils").isSearchTheWebEnabled()) return new Map();
-      var n = o("WAWebFrontendMsgGetters").getText(t),
-        a = o("WAWebMsgLinks").getLinksFromMsg(t),
-        i = new Map();
+      var a = o("WAWebFrontendMsgGetters").getText(t),
+        i = o("WAWebMsgLinks").getLinksFromMsg(t),
+        l = new Map();
       if (
-        a.length > 0 &&
+        i.length > 0 &&
         o("WAWebSTWGatingUtils").isSearchTheWebURLSearchEnabled()
       ) {
-        var l = a[0].href;
-        i.set(p.URL, {
+        var s = i[0].href;
+        l.set(p.URL, {
           handleSearchAction: function (t) {
             (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
               o("WAWebExternalLink.react").openExternalLink(
-                o("WAWebSTWText").createUrlSearchLink(l),
+                o("WAWebSTWText").createUrlSearchLink(s),
               ));
           },
         });
@@ -92,80 +93,92 @@ __d(
         ) &&
         o("WAWebSTWGatingUtils").isSearchTheWebImageSearchEnabled()
       ) {
-        var s,
-          u = (s = t.mediaObject) == null ? void 0 : s.filehash;
+        var u,
+          c = (u = t.mediaObject) == null ? void 0 : u.filehash;
         if (
-          u != null &&
-          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(u)
-        ) {
-          var c = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            u,
-          );
           c != null &&
-            i.set(p.IMAGE, {
-              handleSearchAction: function (n) {
-                o("WAWebSearchTheWebEventLogger").logSTWEvent(n);
-                async function t(t) {
-                  try {
-                    if (!r("WAWebNetworkStatus").online)
-                      throw (
-                        y(g()),
-                        new (o("WAWebMiscErrors").GoogleLensApiError)(
-                          o("WAWebSTWImage").LensApiErrorType
-                            .NO_INTERNET_CONNECTION,
-                        )
-                      );
-                    var a = await o("WAWebSTWImage").getImageSearchUrl(t);
-                    if (a == null)
-                      throw new (o("WAWebMiscErrors").GoogleLensApiError)(
-                        o("WAWebSTWImage").LensApiErrorType.NO_REDIRECT_URL,
-                      );
-                    if (a.includes("consent"))
-                      throw new (o("WAWebMiscErrors").GoogleLensApiError)(
-                        o("WAWebSTWImage").LensApiErrorType.CONSENT_FORM_IN_URL,
-                      );
-                    ((n.stwInteraction = o(
-                      "WAWebWamEnumStwInteraction",
-                    ).STW_INTERACTION.IMAGE_SEARCH_REDIRECT),
-                      o("WAWebSearchTheWebEventLogger").logSTWEvent(n),
-                      o("WAWebExternalLink.react").openExternalLink(a));
-                  } catch (t) {
-                    ((n.stwInteraction = o(
-                      "WAWebWamEnumStwInteraction",
-                    ).STW_INTERACTION.IMAGE_SEARCH_FAILED),
-                      (n.stwLensApiErrorType = o(
-                        "WAWebSTWImage",
-                      ).getImageSearchWamErrorType(r("getErrorSafe")(t))),
-                      o("WAWebSearchTheWebEventLogger").logSTWEvent(n),
-                      y(h()),
-                      o("WALogger")
-                        .ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "Error while running image seach on web",
-                            ])),
-                        )
-                        .tags("STW"));
-                  }
+          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(c)
+        ) {
+          var d = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+            c,
+          );
+          d != null &&
+            l.set(p.IMAGE, {
+              handleSearchAction: function (a) {
+                o("WAWebSearchTheWebEventLogger").logSTWEvent(a);
+                function t(e) {
+                  return i.apply(this, arguments);
                 }
-                return t(c);
+                function i() {
+                  return (
+                    (i = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (t) {
+                        try {
+                          if (!r("WAWebNetworkStatus").online)
+                            throw (
+                              y(g()),
+                              new (o("WAWebMiscErrors").GoogleLensApiError)(
+                                o("WAWebSTWImage").LensApiErrorType
+                                  .NO_INTERNET_CONNECTION,
+                              )
+                            );
+                          var n = yield o("WAWebSTWImage").getImageSearchUrl(t);
+                          if (n == null)
+                            throw new (o("WAWebMiscErrors").GoogleLensApiError)(
+                              o("WAWebSTWImage").LensApiErrorType
+                                .NO_REDIRECT_URL,
+                            );
+                          if (n.includes("consent"))
+                            throw new (o("WAWebMiscErrors").GoogleLensApiError)(
+                              o("WAWebSTWImage").LensApiErrorType
+                                .CONSENT_FORM_IN_URL,
+                            );
+                          ((a.stwInteraction = o(
+                            "WAWebWamEnumStwInteraction",
+                          ).STW_INTERACTION.IMAGE_SEARCH_REDIRECT),
+                            o("WAWebSearchTheWebEventLogger").logSTWEvent(a),
+                            o("WAWebExternalLink.react").openExternalLink(n));
+                        } catch (t) {
+                          ((a.stwInteraction = o(
+                            "WAWebWamEnumStwInteraction",
+                          ).STW_INTERACTION.IMAGE_SEARCH_FAILED),
+                            (a.stwLensApiErrorType = o(
+                              "WAWebSTWImage",
+                            ).getImageSearchWamErrorType(r("getErrorSafe")(t))),
+                            o("WAWebSearchTheWebEventLogger").logSTWEvent(a),
+                            y(h()),
+                            o("WALogger")
+                              .ERROR(
+                                e ||
+                                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                                    "Error while running image seach on web",
+                                  ])),
+                              )
+                              .tags("STW"));
+                        }
+                      },
+                    )),
+                    i.apply(this, arguments)
+                  );
+                }
+                return t(d);
               },
             });
         }
       }
       return (
-        n != null &&
+        a != null &&
           o("WAWebSTWGatingUtils").isSearchTheWebTextSearchEnabled() &&
-          b(n, a) &&
-          i.set(p.TEXT, {
+          b(a, i) &&
+          l.set(p.TEXT, {
             handleSearchAction: function (t) {
               (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
                 o("WAWebExternalLink.react").openExternalLink(
-                  o("WAWebSTWText").createTextSearchLink(n),
+                  o("WAWebSTWText").createTextSearchLink(a),
                 ));
             },
           }),
-        i
+        l
       );
     }
     function b(e, t) {
@@ -270,85 +283,90 @@ __d(
     }
     function D(e) {
       var t = o("react-compiler-runtime").c(18),
-        n = e.onSearchClick,
-        a = e.searchType,
-        i = d(!1),
-        l = i[0],
-        s = i[1],
-        u;
-      t[0] !== a ? ((u = I(a)), (t[0] = a), (t[1] = u)) : (u = t[1]);
-      var p, _;
+        a = e.onSearchClick,
+        i = e.searchType,
+        l = d(!1),
+        s = l[0],
+        u = l[1],
+        p;
+      t[0] !== i ? ((p = I(i)), (t[0] = i), (t[1] = p)) : (p = t[1]);
+      var _, f;
       t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = [m.paddingEnd4, m.paddingVert4]),
-          (_ = [m.paddingEnd4, m.paddingVert4]),
-          (t[2] = p),
-          (t[3] = _))
-        : ((p = t[2]), (_ = t[3]));
-      var f;
-      t[4] !== n
-        ? ((f = async function () {
-            r("WAWebNetworkStatus").online
-              ? (s(!0),
-                await n(),
-                s(!1),
-                new (o(
-                  "WAWebHfmTextSearchCompleteWamEvent",
-                ).HfmTextSearchCompleteWamEvent)().commit(),
-                o("WAWebModalManager").ModalManager.close())
-              : y(g());
-          }),
-          (t[4] = n),
-          (t[5] = f))
-        : (f = t[5]);
+        ? ((_ = [m.paddingEnd4, m.paddingVert4]),
+          (f = [m.paddingEnd4, m.paddingVert4]),
+          (t[2] = _),
+          (t[3] = f))
+        : ((_ = t[2]), (f = t[3]));
       var h;
-      t[6] !== a ? ((h = T(a)), (t[6] = a), (t[7] = h)) : (h = t[7]);
+      t[4] !== a
+        ? ((h = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              r("WAWebNetworkStatus").online
+                ? (u(!0),
+                  yield a(),
+                  u(!1),
+                  new (o(
+                    "WAWebHfmTextSearchCompleteWamEvent",
+                  ).HfmTextSearchCompleteWamEvent)().commit(),
+                  o("WAWebModalManager").ModalManager.close())
+                : y(g());
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[4] = a),
+          (t[5] = h))
+        : (h = t[5]);
       var C;
-      t[8] !== h
-        ? ((C = c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
+      t[6] !== i ? ((C = T(i)), (t[6] = i), (t[7] = C)) : (C = t[7]);
+      var b;
+      t[8] !== C
+        ? ((b = c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
             color: "primary",
             paddingStart: 12,
-            children: h,
+            children: C,
           })),
-          (t[8] = h),
-          (t[9] = C))
-        : (C = t[9]);
-      var b;
-      t[10] !== l
-        ? ((b = l
+          (t[8] = C),
+          (t[9] = b))
+        : (b = t[9]);
+      var v;
+      t[10] !== s
+        ? ((v = s
             ? c.jsx(o("WAWebSpinner.react").Spinner, {
                 size: 20,
                 color: "accent",
               })
             : null),
-          (t[10] = l),
-          (t[11] = b))
-        : (b = t[11]);
-      var v;
+          (t[10] = s),
+          (t[11] = v))
+        : (v = t[11]);
+      var S;
       return (
-        t[12] !== l || t[13] !== u || t[14] !== f || t[15] !== C || t[16] !== b
-          ? ((v = c.jsx(o("WAWebFlex.react").FlexItem, {
+        t[12] !== s || t[13] !== p || t[14] !== h || t[15] !== b || t[16] !== v
+          ? ((S = c.jsx(o("WAWebFlex.react").FlexItem, {
               testid: "search-modal-row",
               paddingTop: 8,
               paddingBottom: 8,
               children: c.jsx(r("WAWebCellV2.react"), {
-                detailLeft: u,
-                containerXStyle: p,
-                primaryRightXStyle: _,
-                disabled: l,
-                onClick: f,
-                primary: C,
+                detailLeft: p,
+                containerXStyle: _,
+                primaryRightXStyle: f,
+                disabled: s,
+                onClick: h,
+                primary: b,
                 alignDetailRight: "start",
-                primaryRight: b,
+                primaryRight: v,
               }),
             })),
-            (t[12] = l),
-            (t[13] = u),
-            (t[14] = f),
-            (t[15] = C),
-            (t[16] = b),
-            (t[17] = v))
-          : (v = t[17]),
-        v
+            (t[12] = s),
+            (t[13] = p),
+            (t[14] = h),
+            (t[15] = b),
+            (t[16] = v),
+            (t[17] = S))
+          : (S = t[17]),
+        S
       );
     }
     function x(e) {

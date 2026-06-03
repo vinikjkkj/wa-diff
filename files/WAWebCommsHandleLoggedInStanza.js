@@ -45,6 +45,7 @@ __d(
     "WAWebHandleWaChat",
     "WAWebPaymentNotificationHandler",
     "WAWebPostUnknownStanzaMetric",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -64,265 +65,275 @@ __d(
             .handleIndividualChatState,
         },
       });
-    async function _(t, n) {
-      var a = t.attrs;
-      switch (t.tag) {
-        case "receipt":
-          try {
-            if (a.type === "retry" || a.type === "enc_rekey_retry")
-              return await o(
-                "WAWebHandleMessageRetryRequest",
-              ).handleMessageRetryRequest(t);
-            o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Unhandled receipt stanza: type: '",
-                  "', id: '",
-                  "'",
-                ])),
-              a.type,
-              a.id,
-            );
-            break;
-          } catch (e) {
-            return e instanceof o("WAParsableWapNode").XmppParsingFailure
-              ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t),
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to parse receipt ",
-                        " stanza: ",
-                        "",
-                      ])),
-                    a.type,
-                    e,
-                  )
-                  .sendLogs("failed-to-parse-receipt-stanza", {
-                    sampling: r("gkx")("26259") ? 1 : 0.1,
-                  }),
-                o("WAWebCreateNackFromStanza").createNackFromStanza(
-                  t,
-                  o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-                ))
-              : o("WAWebCreateNackFromStanza").createNackFromStanza(
-                  t,
-                  o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
-                );
-          }
-        case "notification":
-          try {
-            switch (a.type) {
-              case "server_sync":
-                return await o(
-                  "WAWebHandleServerSyncNotification",
-                ).handleServerSyncNotification(t);
-              case "picture":
-                return await o(
-                  "WAWebHandleProfilePicNotification",
-                ).handleProfilePicNotificationJob(t);
-              case "business":
-                return await o(
-                  "WAWebHandleBusinessNotification",
-                ).handleBusinessNotificationJob(t);
-              case "digital_commerce_subscription":
-                return await o(
-                  "WAWebHandleDigitalCommerceSubscriptionNotification",
-                ).handleDigitalCommerceSubscriptionNotificationJob(t);
-              case "contacts": {
-                var i = t.content;
-                if (!Array.isArray(i) || !i.length) break;
-                var l = i[0].tag;
-                if (l === "invite") break;
-                return await r("WAWebHandleContactNotification")(t);
-              }
-              case "devices":
-                return await o(
-                  "WAWebHandleDeviceNotification",
-                ).handleDevicesNotification(t);
-              case "disappearing_mode":
-                return await o(
-                  "WAWebHandleDisappearingModeNotification",
-                ).handleDisappearingModeNotificationJob(t);
-              case "mediaretry": {
-                var m = await r("WAWebHandleMediaRetryNotification")(t);
-                return m;
-              }
-              case "encrypt": {
-                var _ = t.content;
-                if (!Array.isArray(_) || !_.length) break;
-                var g = _[0].tag;
-                switch (g) {
-                  case "count":
-                    return await r("WAWebHandlePreKeyLow")(t, n);
-                  case "digest":
-                    return await r("WAWebHandleDigestKey")(t);
-                }
-                break;
-              }
-              case "server":
-                return await o(
-                  "WAWebHandleServerNotification",
-                ).handleServerNotification(t);
-              case "status":
-                return await o(
-                  "WAWebHandleAboutNotification",
-                ).handleAboutNotification(t);
-              case "account_sync":
-                return await o(
-                  "WAWebHandleAccountSyncNotification",
-                ).handleAccountSyncNotification(t);
-              case "pay":
-                return await o(
-                  "WAWebPaymentNotificationHandler",
-                ).handlePaymentNotification(t);
-              case "psa":
-                if (
-                  a.from != null &&
-                  a.from.toString() === o("WAJids").PSA_JID
-                ) {
-                  var h = t.content;
-                  if (!Array.isArray(h) || !h.length) break;
-                  var y = h[0].tag;
-                  return y === "surfaces"
-                    ? await o(
-                        "WAWebHandleQPSurfacesNotification",
-                      ).handleQPSurfacesNotification(t)
-                    : y === "reset_smb_last_qp_prefetch_timestamp"
-                      ? o(
-                          "WAWebHandleQPPrefetchTimestampNotification",
-                        ).handleQPPrefetchTimestampNotification(t)
-                      : await r("WAWebHandleWaChat")(t);
-                }
-                return await r("WAWebHandlePsa")(t);
-              case "privacy_token":
-                return await r("WAWebHandlePrivacyTokensNotification")(t);
-              case "link_code_companion_reg":
-                return await o(
-                  "WAWebAltDeviceLinkingHandleNotification",
-                ).handleAltDeviceLinkingNotification(t);
-              case "newsletter":
-                return await r("WAWebHandleNewsletterNotification")(t);
-              case "w:growth":
-                return await r("WAWebHandleGrowthNotification")(t);
-              case "registration":
-                return await r("WAWebHandleDeviceSwitchingNotification")(t);
-              case "mex":
-                return await o(
-                  "WAWebHandleMexNotification",
-                ).handleMexNotification(t);
-              case "companion_reg_refresh":
-                return await o(
-                  "WAWebHandleCompanionReqRefreshNotification",
-                ).handleCompanionReqRefreshNotification(t);
-              case "waffle":
-                return await o(
-                  "WAWebAccountLinkingNotificationHandler",
-                ).handleAccountLinkingNotification(t);
-              case "fb:update":
-                return await o(
-                  "WAWebHandleBotProfileNotification",
-                ).handleBotProfileNotification(t);
-              case "hosted":
-                return await o(
-                  "WAWebHandleHostedNotification",
-                ).handleHostedNotification(t);
-            }
-          } catch (e) {
-            if (e instanceof o("WAParsableWapNode").XmppParsingFailure) {
-              var C, b;
-              o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t);
-              var v =
-                (C = (b = a.type) == null ? void 0 : b.toString()) != null
-                  ? C
-                  : "[empty]";
-              return (
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to parse notification ",
-                        " stanza: ",
-                        "",
-                      ])),
-                    v,
-                    e,
-                  )
-                  .sendLogs("failed-to-parse-notification-stanza-" + v, {
-                    sampling: 0.01,
-                  }),
-                o("WAWebCreateNackFromStanza").createNackFromStanza(
-                  t,
-                  o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-                )
-              );
-            }
-            return e instanceof
-              o("WAWebHandleMexNotification").MissingMEXNotificationHandler
-              ? f(t)
-              : o("WAWebCreateNackFromStanza").createNackFromStanza(
-                  t,
-                  o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
-                );
-          }
-          return f(t);
-        case "chatstate":
-          return o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
-            t,
-            p(t),
-          );
-        case "presence":
-          return r("WAWebHandlePresence")(t);
-        case "ib":
-          return r("WAWebHandleInfoBulletin")(t);
-        case "stream:error":
-          return r("WAWebHandleStreamError")(t);
-        case "failure":
-          return r("WAWebHandleFailure")(t);
-        case "success":
-          return r("WAWebHandleSuccess")(t);
-        case "call":
-          return o("WAWebHandleVoipCall").handleCall(t);
-        case "error":
-          return o("WABackendHandleError").handleError(t);
-        case "xmlstreamend":
-          return (
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "Comms.handleStanza received xmlstreamend, return NO_ACK",
-                ])),
-            ),
-            "NO_ACK"
-          );
-      }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        o("WALogger").DEV_XMPP(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
-              "Comms.handleStanza unrecognized stanza ",
-              "",
-            ])),
-          t,
-        ),
-        o("WAWebCreateNackFromStanza").createNackFromStanza(
-          t,
-          o("WAWebCreateNackFromStanza").NackReason.UnrecognizedStanza,
-        )
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.attrs;
+          switch (e.tag) {
+            case "receipt":
+              try {
+                if (n.type === "retry" || n.type === "enc_rekey_retry")
+                  return yield o(
+                    "WAWebHandleMessageRetryRequest",
+                  ).handleMessageRetryRequest(e);
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "Unhandled receipt stanza: type: '",
+                      "', id: '",
+                      "'",
+                    ])),
+                  n.type,
+                  n.id,
+                );
+                break;
+              } catch (t) {
+                return t instanceof o("WAParsableWapNode").XmppParsingFailure
+                  ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(
+                      e,
+                    ),
+                    o("WALogger")
+                      .ERROR(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "Failed to parse receipt ",
+                            " stanza: ",
+                            "",
+                          ])),
+                        n.type,
+                        t,
+                      )
+                      .sendLogs("failed-to-parse-receipt-stanza", {
+                        sampling: r("gkx")("26259") ? 1 : 0.1,
+                      }),
+                    o("WAWebCreateNackFromStanza").createNackFromStanza(
+                      e,
+                      o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                    ))
+                  : o("WAWebCreateNackFromStanza").createNackFromStanza(
+                      e,
+                      o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
+                    );
+              }
+            case "notification":
+              try {
+                switch (n.type) {
+                  case "server_sync":
+                    return yield o(
+                      "WAWebHandleServerSyncNotification",
+                    ).handleServerSyncNotification(e);
+                  case "picture":
+                    return yield o(
+                      "WAWebHandleProfilePicNotification",
+                    ).handleProfilePicNotificationJob(e);
+                  case "business":
+                    return yield o(
+                      "WAWebHandleBusinessNotification",
+                    ).handleBusinessNotificationJob(e);
+                  case "digital_commerce_subscription":
+                    return yield o(
+                      "WAWebHandleDigitalCommerceSubscriptionNotification",
+                    ).handleDigitalCommerceSubscriptionNotificationJob(e);
+                  case "contacts": {
+                    var a = e.content;
+                    if (!Array.isArray(a) || !a.length) break;
+                    var i = a[0].tag;
+                    if (i === "invite") break;
+                    return yield r("WAWebHandleContactNotification")(e);
+                  }
+                  case "devices":
+                    return yield o(
+                      "WAWebHandleDeviceNotification",
+                    ).handleDevicesNotification(e);
+                  case "disappearing_mode":
+                    return yield o(
+                      "WAWebHandleDisappearingModeNotification",
+                    ).handleDisappearingModeNotificationJob(e);
+                  case "mediaretry": {
+                    var l = yield r("WAWebHandleMediaRetryNotification")(e);
+                    return l;
+                  }
+                  case "encrypt": {
+                    var _ = e.content;
+                    if (!Array.isArray(_) || !_.length) break;
+                    var f = _[0].tag;
+                    switch (f) {
+                      case "count":
+                        return yield r("WAWebHandlePreKeyLow")(e, t);
+                      case "digest":
+                        return yield r("WAWebHandleDigestKey")(e);
+                    }
+                    break;
+                  }
+                  case "server":
+                    return yield o(
+                      "WAWebHandleServerNotification",
+                    ).handleServerNotification(e);
+                  case "status":
+                    return yield o(
+                      "WAWebHandleAboutNotification",
+                    ).handleAboutNotification(e);
+                  case "account_sync":
+                    return yield o(
+                      "WAWebHandleAccountSyncNotification",
+                    ).handleAccountSyncNotification(e);
+                  case "pay":
+                    return yield o(
+                      "WAWebPaymentNotificationHandler",
+                    ).handlePaymentNotification(e);
+                  case "psa":
+                    if (
+                      n.from != null &&
+                      n.from.toString() === o("WAJids").PSA_JID
+                    ) {
+                      var h = e.content;
+                      if (!Array.isArray(h) || !h.length) break;
+                      var y = h[0].tag;
+                      return y === "surfaces"
+                        ? yield o(
+                            "WAWebHandleQPSurfacesNotification",
+                          ).handleQPSurfacesNotification(e)
+                        : y === "reset_smb_last_qp_prefetch_timestamp"
+                          ? o(
+                              "WAWebHandleQPPrefetchTimestampNotification",
+                            ).handleQPPrefetchTimestampNotification(e)
+                          : yield r("WAWebHandleWaChat")(e);
+                    }
+                    return yield r("WAWebHandlePsa")(e);
+                  case "privacy_token":
+                    return yield r("WAWebHandlePrivacyTokensNotification")(e);
+                  case "link_code_companion_reg":
+                    return yield o(
+                      "WAWebAltDeviceLinkingHandleNotification",
+                    ).handleAltDeviceLinkingNotification(e);
+                  case "newsletter":
+                    return yield r("WAWebHandleNewsletterNotification")(e);
+                  case "w:growth":
+                    return yield r("WAWebHandleGrowthNotification")(e);
+                  case "registration":
+                    return yield r("WAWebHandleDeviceSwitchingNotification")(e);
+                  case "mex":
+                    return yield o(
+                      "WAWebHandleMexNotification",
+                    ).handleMexNotification(e);
+                  case "companion_reg_refresh":
+                    return yield o(
+                      "WAWebHandleCompanionReqRefreshNotification",
+                    ).handleCompanionReqRefreshNotification(e);
+                  case "waffle":
+                    return yield o(
+                      "WAWebAccountLinkingNotificationHandler",
+                    ).handleAccountLinkingNotification(e);
+                  case "fb:update":
+                    return yield o(
+                      "WAWebHandleBotProfileNotification",
+                    ).handleBotProfileNotification(e);
+                  case "hosted":
+                    return yield o(
+                      "WAWebHandleHostedNotification",
+                    ).handleHostedNotification(e);
+                }
+              } catch (t) {
+                if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
+                  var C, b;
+                  o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e);
+                  var v =
+                    (C = (b = n.type) == null ? void 0 : b.toString()) != null
+                      ? C
+                      : "[empty]";
+                  return (
+                    o("WALogger")
+                      .ERROR(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "Failed to parse notification ",
+                            " stanza: ",
+                            "",
+                          ])),
+                        v,
+                        t,
+                      )
+                      .sendLogs("failed-to-parse-notification-stanza-" + v, {
+                        sampling: 0.01,
+                      }),
+                    o("WAWebCreateNackFromStanza").createNackFromStanza(
+                      e,
+                      o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                    )
+                  );
+                }
+                return t instanceof
+                  o("WAWebHandleMexNotification").MissingMEXNotificationHandler
+                  ? g(e)
+                  : o("WAWebCreateNackFromStanza").createNackFromStanza(
+                      e,
+                      o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
+                    );
+              }
+              return g(e);
+            case "chatstate":
+              return o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
+                e,
+                p(e),
+              );
+            case "presence":
+              return r("WAWebHandlePresence")(e);
+            case "ib":
+              return r("WAWebHandleInfoBulletin")(e);
+            case "stream:error":
+              return r("WAWebHandleStreamError")(e);
+            case "failure":
+              return r("WAWebHandleFailure")(e);
+            case "success":
+              return r("WAWebHandleSuccess")(e);
+            case "call":
+              return o("WAWebHandleVoipCall").handleCall(e);
+            case "error":
+              return o("WABackendHandleError").handleError(e);
+            case "xmlstreamend":
+              return (
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "Comms.handleStanza received xmlstreamend, return NO_ACK",
+                    ])),
+                ),
+                "NO_ACK"
+              );
+          }
+          return (
+            o("WALogger").DEV_XMPP(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "Comms.handleStanza unrecognized stanza ",
+                  "",
+                ])),
+              e,
+            ),
+            o("WAWebCreateNackFromStanza").createNackFromStanza(
+              e,
+              o("WAWebCreateNackFromStanza").NackReason.UnrecognizedStanza,
+            )
+          );
+        })),
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
+    function g(t) {
       return (
         o("WALogger").DEV_XMPP(
-          m ||
-            (m = babelHelpers.taggedTemplateLiteralLoose([
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
               "Comms.handleStanza unrecognized stanza ",
               "",
             ])),
-          e,
+          t,
         ),
         o("WAWebCreateNackFromStanza").createNackFromStanza(
-          e,
+          t,
           o("WAWebCreateNackFromStanza").NackReason.UnrecognizedStanza,
         )
       );

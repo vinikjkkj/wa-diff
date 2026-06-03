@@ -8,6 +8,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebPrimaryFeaturesModel",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebVcardParsingUtils",
     "WAWebWamEnumBizPlatform",
@@ -46,7 +47,7 @@ __d(
       if (t.isRegularUser()) {
         var n = o("WAWebLidMigrationUtils").toUserLid(t),
           a = t.isRegularUserPn() ? t : e.phoneNumber,
-          i = e.username,
+          i = o("WAWebUsernameTypes").serializeMaybeUsername(e.username),
           l = o("WAWebFrontendContactGetters").getIsMyContact(e);
         if (!l) {
           var s,
@@ -160,7 +161,9 @@ __d(
             ? s
             : "",
         isExistingContact: f,
-        username: _ == null ? void 0 : _.username,
+        username: o("WAWebUsernameTypes").serializeMaybeUsername(
+          _ == null ? void 0 : _.username,
+        ),
       };
     }
     function f(e, t) {

@@ -14,6 +14,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWamEnumCoexSysMsgInsertionChannel",
     "WAWebWamEnumCoexSysMsgStateTransitionAttempt",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -176,19 +177,27 @@ __d(
           .sendLogs("coex wam event commit failed");
       }
     }
-    async function b(e) {
-      if (c.has(e)) return !1;
-      var t = await o("WAWebSchemaChat").getChatTable().get(e, !1);
-      return (c.add(e), !t);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function v(e) {
-      c.delete(e.toString());
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (c.has(e)) return !1;
+          var t = yield o("WAWebSchemaChat").getChatTable().get(e, !1);
+          return (c.add(e), !t);
+        })),
+        v.apply(this, arguments)
+      );
     }
     function S(e) {
+      c.delete(e.toString());
+    }
+    function R(e) {
       var t = e.toString() + "_" + o("WATimeUtils").unixTime().toString();
       return d.has(t) ? !0 : (d.add(t), !1);
     }
-    function R() {
+    function L() {
       d.clear();
     }
     ((l.HOSTED_DEVICE_ID = s),
@@ -200,9 +209,9 @@ __d(
       (l.sendWamCoexPrivacySysMsgInsertSuccess = h),
       (l.sendWamCoexPrivacySysMsgHistorySyncInsert = y),
       (l.shouldCreateFallbackHostedAdvSystemMsgOnPlaceholder = b),
-      (l.deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache = v),
-      (l.shouldDedupInitialHostedSystemMsg = S),
-      (l.clearDedupInitialHostedSystemMsgCache = R));
+      (l.deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache = S),
+      (l.shouldDedupInitialHostedSystemMsg = R),
+      (l.clearDedupInitialHostedSystemMsgCache = L));
   },
   98,
 );

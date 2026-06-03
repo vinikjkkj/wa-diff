@@ -11,6 +11,7 @@ __d(
     "WAWebSetUserNoticeStageJob",
     "WAWebTos",
     "WAWebUserPrefsStore",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "BIZ_BOT_TOS_DISMISSED_AT";
@@ -77,53 +78,93 @@ __d(
         ) === "ACCEPTED"
       );
     }
-    async function g() {
-      await b(Number(o("WAWebBotTosIds").getBotAgentTosId()));
+    function g() {
+      return h.apply(this, arguments);
     }
-    async function h() {
-      await b(Number(o("WAWebBotTosIds").getBotInvokeTosId()));
-    }
-    async function y() {
-      await b(Number(o("WAWebBotTosIds").getBotShortcutTosId()));
-    }
-    async function C() {
-      o("WAWebABProps").getABPropConfigValue(
-        "biz_ai_consumer_tos_notice_iq_web",
-      )
-        ? await o("WAWebSetUserNoticeStageJob").setUserNoticeStage(
-            Number(o("WAWebBotTosIds").getBizBotTosId()),
-            o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
-          )
-        : await b(Number(o("WAWebBotTosIds").getBizBotTosId()));
-    }
-    async function b(e) {
-      await o(
-        "WAWebSetUserDisclosureStageAction",
-      ).updateUserDisclosureStateAction(
-        e,
-        o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield L(Number(o("WAWebBotTosIds").getBotAgentTosId()));
+        })),
+        h.apply(this, arguments)
       );
     }
-    function v(t) {
-      r("WAWebUserPrefsStore").setUser(e, t);
+    function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield L(Number(o("WAWebBotTosIds").getBotInvokeTosId()));
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield L(Number(o("WAWebBotTosIds").getBotShortcutTosId()));
+        })),
+        v.apply(this, arguments)
+      );
     }
     function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebABProps").getABPropConfigValue(
+            "biz_ai_consumer_tos_notice_iq_web",
+          )
+            ? yield o("WAWebSetUserNoticeStageJob").setUserNoticeStage(
+                Number(o("WAWebBotTosIds").getBizBotTosId()),
+                o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
+              )
+            : yield L(Number(o("WAWebBotTosIds").getBizBotTosId()));
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o(
+            "WAWebSetUserDisclosureStageAction",
+          ).updateUserDisclosureStateAction(
+            e,
+            o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(t) {
+      r("WAWebUserPrefsStore").setUser(e, t);
+    }
+    function I() {
       return (
         o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getUgcAiStudioTosId(),
         ) === "ACCEPTED"
       );
     }
-    function R(e) {
+    function T(e) {
       var t = o("WAWebBotGating").getNonBlockingBotNoticeIds();
       return t.length === 0 ? !1 : t.includes(Number(e));
     }
-    function L(e) {
+    function D(e) {
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null && e === t;
     }
-    function E(e) {
-      if (R(Number(e))) return !0;
+    function x(e) {
+      if (T(Number(e))) return !0;
       var t = o("WAWebBotGating").getMasterBotNoticeId();
       return t != null ? !0 : o("WAWebBotTosIds").supportedTosNoticeIds.has(e);
     }
@@ -136,14 +177,14 @@ __d(
       (l.hasSeenBizBotTos = _),
       (l.hasAcceptedBizBotTos = f),
       (l.markSeenAgentTos = g),
-      (l.markSeenInvokeTos = h),
-      (l.markSeenShortcutTos = y),
-      (l.acceptBizBotTos = C),
-      (l.setBizBotTosDismissalTime = v),
-      (l.hasSeenUgcTos = S),
-      (l.isNonBlockingBotNotice = R),
-      (l.isMasterBotTosNotice = L),
-      (l.canShowBotTos = E));
+      (l.markSeenInvokeTos = y),
+      (l.markSeenShortcutTos = b),
+      (l.acceptBizBotTos = S),
+      (l.setBizBotTosDismissalTime = k),
+      (l.hasSeenUgcTos = I),
+      (l.isNonBlockingBotNotice = T),
+      (l.isMasterBotTosNotice = D),
+      (l.canShowBotTos = x));
   },
   98,
 );

@@ -1,76 +1,121 @@
 __d(
   "WAFtsSQLiteIndexer",
-  ["WAFtsBaseIndexer"],
+  ["Promise", "WAFtsBaseIndexer", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 2e3,
-      s = (function (t) {
-        function n(n) {
-          var r = n.batchSize,
-            o = r === void 0 ? e : r,
-            a = n.messageSource,
-            i = n.scheduler,
-            l = n.tableAdapter;
-          return t.call(this, new u(), a, l, o, i) || this;
+    var e,
+      s = 2e3,
+      u = (function (e) {
+        function t(t) {
+          var n = t.batchSize,
+            r = n === void 0 ? s : n,
+            o = t.messageSource,
+            a = t.scheduler,
+            i = t.tableAdapter;
+          return e.call(this, new c(), o, i, r, a) || this;
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(t, e);
+        var r = t.prototype;
         return (
-          (r.incremental = async function (n, r) {
-            var e = this;
-            return t.prototype.incremental.call(
-              this,
-              function (t) {
-                return e
-                  .getMessageSource()
-                  .removeFromBacklog(t)
-                  .then(function () {
-                    if (n) return n(t);
-                  });
+          (r.incremental = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, n) {
+                var r = this;
+                return e.prototype.incremental.call(
+                  this,
+                  function (e) {
+                    return r
+                      .getMessageSource()
+                      .removeFromBacklog(e)
+                      .then(function () {
+                        if (t) return t(e);
+                      });
+                  },
+                  n,
+                );
               },
-              r,
             );
-          }),
-          (r.__processBatch = async function (t) {
-            var e = t.map(function (e) {
-              var t = e.chatId,
-                n = e.id,
-                r = e.textFragments,
-                o = e.timestamp;
-              return {
-                id: n,
-                chatId: t,
-                timestamp: o.toString(),
-                text: r.join(" "),
-              };
-            });
-            await this.tableAdapter.bulkPut(e);
-          }),
-          (r.purge = async function (t) {
-            return !1;
-          }),
-          (r.purgeChat = async function (t) {
-            return !1;
-          }),
-          (r.purge__DEPRECATED_DO_NOT_USE = async function (t, n, r) {
-            return !1;
-          }),
-          n
+            function r(e, n) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (r.__processBatch = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.map(function (e) {
+                  var t = e.chatId,
+                    n = e.id,
+                    r = e.textFragments,
+                    o = e.timestamp;
+                  return {
+                    id: n,
+                    chatId: t,
+                    timestamp: o.toString(),
+                    text: r.join(" "),
+                  };
+                });
+                yield this.tableAdapter.bulkPut(t);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.purge = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return !1;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.purgeChat = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return !1;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.purge__DEPRECATED_DO_NOT_USE = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                return !1;
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          t
         );
       })(r("WAFtsBaseIndexer")),
-      u = (function () {
-        function e() {}
-        var t = e.prototype;
+      c = (function () {
+        function t() {}
+        var r = t.prototype;
         return (
-          (t.find = function (t, n) {
-            return Promise.resolve({ eof: !0, messages: [], status: 200 });
+          (r.find = function (r, o) {
+            return (e || (e = n("Promise"))).resolve({
+              eof: !0,
+              messages: [],
+              status: 200,
+            });
           }),
-          (t.invalidateCache = function (t) {}),
-          (t.invalidateAllCaches = function () {}),
-          e
+          (r.invalidateCache = function (t) {}),
+          (r.invalidateAllCaches = function () {}),
+          t
         );
       })();
-    l.default = s;
+    l.default = u;
   },
   98,
 );

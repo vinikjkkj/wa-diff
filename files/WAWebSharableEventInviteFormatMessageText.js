@@ -6,6 +6,7 @@ __d(
     "WAWebFormatEventDateString",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
+    "WAWebSharableEventInviteCoerceTimestampSeconds",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
@@ -22,7 +23,9 @@ __d(
           : s._(/*BTDS*/ "invited you to an event: {event-title}", [
               s._param("event-title", a.sharableEventInviteTitle),
             ]);
-      var i = a.sharableEventInviteStartTime;
+      var i = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
+        a.sharableEventInviteStartTime,
+      );
       return i != null
         ? s._(/*BTDS*/ "{event-title} \u2022 {event-time}", [
             s._param("event-title", a.sharableEventInviteTitle),

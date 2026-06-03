@@ -7,13 +7,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return !o(
-        "WAWebBotUnifiedResponseGating",
-      ).isReplyToRichResponseEnabled() ||
-        e.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST ||
+      return e.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST ||
         e.botEditType === o("WAWebBotTypes").BotMsgEditType.INNER
         ? !1
-        : s(e);
+        : s(e) &&
+            o("WAWebBotUnifiedResponseGating").isReplyToRichResponseEnabled();
     }
     function s(e) {
       var t = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e);

@@ -6,17 +6,26 @@ __d(
     "WAWebBizBroadcastRecipientLimitCommon",
     "WAWebContactCollection",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = await o("WAWebAudienceResolver").resolveAudienceExpression(e),
-        n = t.length;
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
       return (
-        n >= o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS &&
-        n <= o("WAWebBizBroadcastRecipientLimitCommon").getRecipientLimit()
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebAudienceResolver").resolveAudienceExpression(e),
+            n = t.length;
+          return (
+            n >= o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS &&
+            n <= o("WAWebBizBroadcastRecipientLimitCommon").getRecipientLimit()
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
-    function s(e) {
+    function u(e) {
       try {
         var t,
           n = o("WAWebWidFactory").createUserWidOrThrow(
@@ -42,7 +51,7 @@ __d(
         "WAWebBizBroadcastRecipientLimitCommon",
       ).getRecipientLimit),
       (l.isPredicateEligibleForSuggestedCard = e),
-      (l.getContactByUserId = s));
+      (l.getContactByUserId = u));
   },
   98,
 );

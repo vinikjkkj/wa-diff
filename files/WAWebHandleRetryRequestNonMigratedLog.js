@@ -4,36 +4,46 @@ __d(
     "WAWebCheckChatExistsOrCreate",
     "WAWebHandleRetryRequest",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = "na";
-      e.from.isRegularUser() && (t = e.from.isLid() ? "lid" : "pn");
-      var n = s(e),
-        r = o("WAWebHandleRetryRequest").getTargetChat(e),
-        a = "na",
-        i = !1;
-      r &&
-        r.isRegularUser() &&
-        ((a = r.isLid() ? "lid" : "pn"),
-        (i =
-          (await o("WAWebCheckChatExistsOrCreate").doesChatExist(r)) !== !1));
-      var l = e.offline ? "-offline" : "";
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
       return (
-        "handle-message-retry-request-no-chat-info-" +
-        n +
-        "-from-" +
-        t +
-        "-target-" +
-        a +
-        "-" +
-        e.type +
-        "-target-exists-" +
-        i.toString() +
-        l
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = "na";
+          e.from.isRegularUser() && (t = e.from.isLid() ? "lid" : "pn");
+          var n = u(e),
+            r = o("WAWebHandleRetryRequest").getTargetChat(e),
+            a = "na",
+            i = !1;
+          r &&
+            r.isRegularUser() &&
+            ((a = r.isLid() ? "lid" : "pn"),
+            (i =
+              (yield o("WAWebCheckChatExistsOrCreate").doesChatExist(r)) !==
+              !1));
+          var l = e.offline ? "-offline" : "";
+          return (
+            "handle-message-retry-request-no-chat-info-" +
+            n +
+            "-from-" +
+            t +
+            "-target-" +
+            a +
+            "-" +
+            e.type +
+            "-target-exists-" +
+            i.toString() +
+            l
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
-    function s(e) {
+    function u(e) {
       return e.from.isGroup()
         ? o("WAWebUserPrefsMeUser").isMeAccount(e.participant)
           ? "did_not_find_group_message_from_self"
@@ -46,7 +56,7 @@ __d(
             : "did_not_find_1on1_message_from_remote"
           : "did_not_find_message_other";
     }
-    ((l.buildNoChatInfoSendLogsArg = e), (l.selectRetryErrorType = s));
+    ((l.buildNoChatInfoSendLogsArg = e), (l.selectRetryErrorType = u));
   },
   98,
 );

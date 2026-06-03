@@ -1,6 +1,6 @@
 __d(
   "WAWebBizNativeAdsGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms", "justknobx"],
+  ["WAWebABProps", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -22,7 +22,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_web_native_ads_mvp_qe1_enabled",
+          "ctwa_ad_creation_entry_point_catalog_web",
         )
       );
     }
@@ -30,7 +30,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_web_native_ads_mvp_qe1_enabled_no_exposure",
+          "ctwa_ad_creation_entry_point_catalog_product_web",
         )
       );
     }
@@ -38,19 +38,33 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_web_native_ads_mvp_qe2_enabled",
+          "ctwa_web_native_ads_mvp_qe1_enabled",
         )
       );
     }
     function m() {
-      return o("WAWebMobilePlatforms").isSMB() && r("justknobx")._("4196");
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_web_native_ads_mvp_qe1_enabled_no_exposure",
+        )
+      );
+    }
+    function p() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_web_native_ads_mvp_qe2_enabled",
+        )
+      );
     }
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationTargetingModalHawkToolEnabled = s),
-      (l.nativeAdsMvpQE1Enabled = u),
-      (l.nativeAdsMvpQE1EnabledNoExposure = c),
-      (l.nativeAdsMvpQE2Enabled = d),
-      (l.nativeAdsAdvantagePlusAudienceEnabled = m));
+      (l.adCreationEntryPointCatalogEnabled = u),
+      (l.adCreationEntryPointCatalogProductEnabled = c),
+      (l.nativeAdsMvpQE1Enabled = d),
+      (l.nativeAdsMvpQE1EnabledNoExposure = m),
+      (l.nativeAdsMvpQE2Enabled = p));
   },
   98,
 );

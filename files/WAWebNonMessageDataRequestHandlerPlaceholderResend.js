@@ -1,6 +1,7 @@
 __d(
   "WAWebNonMessageDataRequestHandlerPlaceholderResend",
   [
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
@@ -19,210 +20,252 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumPeerDataResponseApplyResultType",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y;
-    async function C(t, n) {
-      var r = n.length;
-      if (
-        (o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[rdu] placeholder resend: handling response len=",
-              "",
-            ])),
-          r,
-        ),
-        r === 0)
-      ) {
-        (o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[rdu] Placeholder resend: got empty response in result",
-            ])),
-        ),
-          o(
-            "WAWebNonMessageDataRequestLoggingUtils",
-          ).logPlaceholderMessageResendResponse(
-            o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-              .PLACEHOLDER_MESSAGE_RESEND,
-            t,
-            o("WAWebWamEnumPeerDataResponseApplyResultType")
-              .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.INVALID_RESPONSE,
-            0,
-            0,
-            0,
-          ));
-        return;
-      }
-      var a = 0,
-        i = 0,
-        l = 0,
-        _ = 0;
-      (n.forEach(async function (e) {
-        try {
-          var t = e.placeholderMessageResendResponse;
-          if (t == null) {
-            (l++, i++);
-            return;
-          }
-          var n = t.webMessageInfoBytes;
-          if (n == null) {
-            (_++, i++);
-            return;
-          }
-          var r = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsWeb.pb").WebMessageInfoSpec,
-              n,
+    var e, s, u, c, d, m, p, _, f, g, h, y, C;
+    function b(e, t) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = t.length;
+          if (
+            (o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[rdu] placeholder resend: handling response len=",
+                  "",
+                ])),
+              r,
             ),
-            s = {
-              verifiedNameSerial: null,
-              verifiedLevel: null,
-              verifiedNameCert: null,
-              privacyMode: null,
-              nativeFlowName: null,
-              campaignId: null,
-            },
-            m = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(r);
-          o("WAWebCurrentUser").isEmployee() &&
-            m &&
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] placeholder resend: parsed msg type=",
-                  " subtype=",
-                  " id=",
-                  "",
+            r === 0)
+          ) {
+            (o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[rdu] Placeholder resend: got empty response in result",
                 ])),
-              String(m.type),
-              String(m.subtype),
-              m.id.toString(),
-            );
-          var p = m ? await b([m]) : [];
-          o("WAWebCurrentUser").isEmployee() &&
-            o("WAWebABProps").getABPropConfigValue(
-              "wa_web_debug_color_code_retry_messages",
-            ) &&
-            (p = p.map(function (e) {
-              return babelHelpers.extends({}, e, { backgroundColor: 8388736 });
-            }));
-          var f = v(r);
-          if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(f.chat)) {
-            var g = o("WAWebLidMigrationUtils").toUserLid(f.chat);
-            g && (f.accountLid = g);
+            ),
+              o(
+                "WAWebNonMessageDataRequestLoggingUtils",
+              ).logPlaceholderMessageResendResponse(
+                o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+                  .PLACEHOLDER_MESSAGE_RESEND,
+                e,
+                o("WAWebWamEnumPeerDataResponseApplyResultType")
+                  .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.INVALID_RESPONSE,
+                0,
+                0,
+                0,
+              ));
+            return;
           }
-          var h = o("WAWebMsgProcessingApiUtils").isRevokeInfo(f)
-            ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.PEER_RETRY
-            : o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.NO_OVERWRITE;
-          if (o("WAWebCurrentUser").isEmployee()) {
-            var y = p.entries().toArray().length;
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] placeholder resend: got webMsgInfo cnt=",
-                  "",
-                ])),
-              y,
-            );
-          }
-          o("WAWebHandleMsgProcess").processMsgs({
-            renderableMsgs: p,
-            reparsing: !1,
-            bizInfo: s,
-            msgMeta: null,
-            paymentInfo: r.paymentInfo,
-            info: f,
-            messageOverwriteOption: h,
-          });
-        } catch (e) {
-          (o("WALogger")
-            .ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] error: ",
-                  "",
-                ])),
+          var a = 0,
+            i = 0,
+            l = 0,
+            s = 0;
+          (t.forEach(
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  try {
+                    var t = e.placeholderMessageResendResponse;
+                    if (t == null) {
+                      (l++, i++);
+                      return;
+                    }
+                    var n = t.webMessageInfoBytes;
+                    if (n == null) {
+                      (s++, i++);
+                      return;
+                    }
+                    var r = o("decodeProtobuf").decodeProtobuf(
+                        o("WAWebProtobufsWeb.pb").WebMessageInfoSpec,
+                        n,
+                      ),
+                      u = {
+                        verifiedNameSerial: null,
+                        verifiedLevel: null,
+                        verifiedNameCert: null,
+                        privacyMode: null,
+                        nativeFlowName: null,
+                        campaignId: null,
+                      },
+                      c = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(
+                        r,
+                      );
+                    o("WAWebCurrentUser").isEmployee() &&
+                      c &&
+                      o("WALogger").LOG(
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            "[rdu] placeholder resend: parsed msg type=",
+                            " subtype=",
+                            " id=",
+                            "",
+                          ])),
+                        String(c.type),
+                        String(c.subtype),
+                        c.id.toString(),
+                      );
+                    var d = c ? yield S([c]) : [];
+                    o("WAWebCurrentUser").isEmployee() &&
+                      o("WAWebABProps").getABPropConfigValue(
+                        "wa_web_debug_color_code_retry_messages",
+                      ) &&
+                      (d = d.map(function (e) {
+                        return babelHelpers.extends({}, e, {
+                          backgroundColor: 8388736,
+                        });
+                      }));
+                    var m = L(r);
+                    if (
+                      o("WAWebLidMigrationUtils").shouldHaveAccountLid(m.chat)
+                    ) {
+                      var p = o("WAWebLidMigrationUtils").toUserLid(m.chat);
+                      p && (m.accountLid = p);
+                    }
+                    var h = o("WAWebMsgProcessingApiUtils").isRevokeInfo(m)
+                      ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
+                          .PEER_RETRY
+                      : o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
+                          .NO_OVERWRITE;
+                    if (o("WAWebCurrentUser").isEmployee()) {
+                      var y = d.entries().toArray().length;
+                      o("WALogger").LOG(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                            "[rdu] placeholder resend: got webMsgInfo cnt=",
+                            "",
+                          ])),
+                        y,
+                      );
+                    }
+                    o("WAWebHandleMsgProcess").processMsgs({
+                      renderableMsgs: d,
+                      reparsing: !1,
+                      bizInfo: u,
+                      msgMeta: null,
+                      paymentInfo: r.paymentInfo,
+                      info: m,
+                      messageOverwriteOption: h,
+                    });
+                  } catch (e) {
+                    (o("WALogger")
+                      .ERROR(
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                            "[rdu] error: ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .sendLogs(
+                        "placeholderResendResponse: error while handling response from placeholder resend request",
+                      ),
+                      i++);
+                    return;
+                  }
+                  a++;
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          ),
+            l > 0 &&
+              o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[rdu] placeholder resend: ",
+                    " null responses in result",
+                  ])),
+                l,
+              ),
+            s > 0 &&
+              o("WALogger").LOG(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[rdu] placeholder resend: ",
+                    " null webMsgInfo in result",
+                  ])),
+                s,
+              ),
+            o(
+              "WAWebNonMessageDataRequestLoggingUtils",
+            ).logPlaceholderMessageResendResponse(
+              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+                .PLACEHOLDER_MESSAGE_RESEND,
               e,
-            )
-            .sendLogs(
-              "placeholderResendResponse: error while handling response from placeholder resend request",
-            ),
-            i++);
-          return;
-        }
-        a++;
-      }),
-        l > 0 &&
-          o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "[rdu] placeholder resend: ",
-                " null responses in result",
-              ])),
-            l,
-          ),
-        _ > 0 &&
-          o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "[rdu] placeholder resend: ",
-                " null webMsgInfo in result",
-              ])),
-            _,
-          ),
-        o(
-          "WAWebNonMessageDataRequestLoggingUtils",
-        ).logPlaceholderMessageResendResponse(
-          o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-            .PLACEHOLDER_MESSAGE_RESEND,
-          t,
-          i === 0
-            ? o("WAWebWamEnumPeerDataResponseApplyResultType")
-                .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.SUCCESS
-            : o("WAWebWamEnumPeerDataResponseApplyResultType")
-                .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.OTHER_ERROR,
-          r,
-          a,
-          i,
-        ));
+              i === 0
+                ? o("WAWebWamEnumPeerDataResponseApplyResultType")
+                    .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.SUCCESS
+                : o("WAWebWamEnumPeerDataResponseApplyResultType")
+                    .PEER_DATA_RESPONSE_APPLY_RESULT_TYPE.OTHER_ERROR,
+              r,
+              a,
+              i,
+            ));
+        })),
+        v.apply(this, arguments)
+      );
     }
-    async function b(e) {
-      var t = e.map(async function (e) {
-        var t,
-          n = (
-            await o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkGet([
-                e.id.toString(),
-                (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id)) ==
-                null
-                  ? void 0
-                  : t.toString(),
-              ])
-          ).find(Boolean);
-        return n
-          ? babelHelpers.extends({}, e, {
-              id: r("WAWebMsgKey").from(n.id),
-              from: o("WAWebWidFactory").createWid(n.from),
-            })
-          : e;
-      });
-      return Promise.all(t);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function v(e) {
-      var t = o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(e.key),
-        n = {
-          externalId: t.id,
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t,
+                    n = (yield o("WAWebSchemaMessage")
+                      .getMessageTable()
+                      .bulkGet([
+                        e.id.toString(),
+                        (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(
+                          e.id,
+                        )) == null
+                          ? void 0
+                          : t.toString(),
+                      ])).find(Boolean);
+                  return n
+                    ? babelHelpers.extends({}, e, {
+                        id: r("WAWebMsgKey").from(n.id),
+                        from: o("WAWebWidFactory").createWid(n.from),
+                      })
+                    : e;
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          );
+          return (C || (C = n("Promise"))).all(t);
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(t) {
+      var n = o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(t.key),
+        a = {
+          externalId: n.id,
           ts:
-            e.messageTimestamp != null
-              ? o("WATimeUtils").castLongIntToUnixTime(e.messageTimestamp)
+            t.messageTimestamp != null
+              ? o("WATimeUtils").castLongIntToUnixTime(t.messageTimestamp)
               : o("WATimeUtils").unixTime(),
           edit: -1,
           isHsm: !1,
           count: null,
-          pushname: e.pushName,
+          pushname: t.pushName,
           displayName: null,
           senderPn: null,
           senderLid: null,
@@ -231,28 +274,28 @@ __d(
           category: null,
           offline: null,
         },
-        a;
-      t.remote.isGroup()
-        ? (a = t.remote)
-        : t.fromMe
-          ? (a = t.remote.isLid()
+        i;
+      n.remote.isGroup()
+        ? (i = n.remote)
+        : n.fromMe
+          ? (i = n.remote.isLid()
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
               : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE())
-          : (a = t.remote);
-      var i;
-      e.participant != null
-        ? (i = o("WAWebWidFactory").createWid(e.participant))
-        : t.participant != null && (i = t.participant);
-      var l = e.userReceipt.map(function (e) {
+          : (i = n.remote);
+      var l;
+      t.participant != null
+        ? (l = o("WAWebWidFactory").createWid(t.participant))
+        : n.participant != null && (l = n.participant);
+      var m = t.userReceipt.map(function (e) {
         return o("WAWebWidFactory").createUserWidOrThrow(e.userJid);
       });
-      if (a.isUser()) {
-        if (l != null && l.length > 0) {
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(a))
+      if (i.isUser()) {
+        if (m != null && m.length > 0) {
+          if (!o("WAWebUserPrefsMeUser").isMeAccount(i))
             throw (
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[rdu] placeholder resend: msgInfo fail - not from me",
                   ])),
               ),
@@ -260,21 +303,21 @@ __d(
             );
           return babelHelpers.extends(
             { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
-            n,
-            { chat: l[0], author: a },
+            a,
+            { chat: m[0], author: i },
           );
         }
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
-          n,
-          { chat: o("WAWebWidFactory").asUserWidOrThrow(a), author: a },
+          a,
+          { chat: o("WAWebWidFactory").asUserWidOrThrow(i), author: i },
         );
-      } else if (a.isGroup()) {
-        if (i == null)
+      } else if (i.isGroup()) {
+        if (l == null)
           throw (
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[rdu] placeholder resend: fail - group no participant",
                 ])),
             ),
@@ -282,29 +325,29 @@ __d(
           );
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP },
-          n,
-          { chat: a, author: i, isDirect: !1 },
+          a,
+          { chat: i, author: l, isDirect: !1 },
         );
-      } else if (a.isBroadcast() && !a.isStatus()) {
-        if (i == null)
+      } else if (i.isBroadcast() && !i.isStatus()) {
+        if (l == null)
           throw (
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[rdu] placeholder resend: fail - bcast no participant",
                 ])),
             ),
             r("err")("broadcast message with no participant")
           );
-        return o("WAWebUserPrefsMeUser").isMeAccount(i)
+        return o("WAWebUserPrefsMeUser").isMeAccount(l)
           ? babelHelpers.extends(
               {
                 type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST,
               },
-              n,
+              a,
               {
-                chat: a,
-                author: i,
+                chat: i,
+                author: l,
                 isDirect: !1,
                 bclParticipants: [],
                 bclHashValidated: !1,
@@ -315,15 +358,15 @@ __d(
                 type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                   .OTHER_BROADCAST,
               },
-              n,
-              { chat: a, author: i, isDirect: !1, ephSetting: null },
+              a,
+              { chat: i, author: l, isDirect: !1, ephSetting: null },
             );
-      } else if (a.isBroadcast() && a.isStatus()) {
-        if (i == null)
+      } else if (i.isBroadcast() && i.isStatus()) {
+        if (l == null)
           throw (
             o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[rdu] placeholder resend: fail - status no participant",
                 ])),
             ),
@@ -331,22 +374,22 @@ __d(
           );
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS },
-          n,
-          { chat: a, author: i, isDirect: !1 },
+          a,
+          { chat: i, author: l, isDirect: !1 },
         );
       }
       throw (
         o("WALogger").LOG(
-          y ||
-            (y = babelHelpers.taggedTemplateLiteralLoose([
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
               "[rdu] Placeholder resend: failed to recognize message type",
             ])),
         ),
         r("err")("Unrecognized message type")
       );
     }
-    ((l.handlePlaceholderResendOperationRequestResponse = C),
-      (l.applyMatOnBackfillMessages = b));
+    ((l.handlePlaceholderResendOperationRequestResponse = b),
+      (l.applyMatOnBackfillMessages = S));
   },
   98,
 );

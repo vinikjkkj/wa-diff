@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeRateTheApp",
-  ["WAWebODS", "WAWebWindowsHybridBridgeTrace"],
+  ["WAWebODS", "WAWebWindowsHybridBridgeTrace", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -26,23 +26,29 @@ __d(
             )
           );
         }),
-        (t.requestRateAndApp = async function () {
-          var e = this;
-          r("WAWebODS").incr(
-            "web.hybrid.bridge.rate_the_app.send.request_rate_and_review_app_async",
-          );
-          var t = await o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-            {
-              bridge: "rateTheApp",
-              method: "requestRateAndReviewAppAsync",
-              type: "async",
-            },
-            function () {
-              return e.$1.requestRateAndReviewAppAsync();
-            },
-          );
-          return JSON.parse(t);
-        }),
+        (t.requestRateAndApp = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = this;
+            r("WAWebODS").incr(
+              "web.hybrid.bridge.rate_the_app.send.request_rate_and_review_app_async",
+            );
+            var t = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "rateTheApp",
+                method: "requestRateAndReviewAppAsync",
+                type: "async",
+              },
+              function () {
+                return e.$1.requestRateAndReviewAppAsync();
+              },
+            );
+            return JSON.parse(t);
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();

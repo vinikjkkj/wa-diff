@@ -11,6 +11,7 @@ __d(
     "WAWebSubgroupSuggestionsActionJob",
     "WAWebToast.react",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -91,124 +92,142 @@ __d(
           }),
         });
       },
-      g = async function (t, n) {
-        n == null ||
-          n.forEach(function (e) {
-            e.currentState = o("WAWebCellRequestState").State.Loading;
-          });
-        try {
-          var e = await f(
-            t,
-            n,
-            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-              .CANCEL,
-          );
-          m(
-            e,
-            n,
-            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-              .CANCEL,
-          );
-          var a = _(n, o("WAWebCellRequestState").State.Canceled);
-          a > 0 &&
-            o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(
-                  /*BTDS*/ '_j{"*":"{number} suggestions canceled","_1":"Suggestion canceled"}',
-                  [s._plural(a, "number")],
-                ),
-              }),
-            );
-        } catch (e) {
-          p(r("getErrorSafe")(e), n);
-        }
-      },
-      h = async function (t, n) {
-        n == null ||
-          n.forEach(function (e) {
-            e.currentState = o("WAWebCellRequestState").State.Loading;
-          });
-        try {
-          var e = await f(
-            t,
-            n,
-            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-              .REJECT,
-          );
-          m(
-            e,
-            n,
-            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-              .REJECT,
-          );
-          var a = _(n, o("WAWebCellRequestState").State.Rejected);
-          a > 0 &&
-            o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(
-                  /*BTDS*/ '_j{"*":"{number} groups rejected","_1":"Group rejected"}',
-                  [s._plural(a, "number")],
-                ),
-              }),
-            );
-        } catch (e) {
-          p(r("getErrorSafe")(e), n);
-        }
-      },
-      y = async function (t, n, a) {
-        if (t.groupMetadata) {
-          var e =
-              t.groupMetadata.joinedSubgroups.length +
-              t.groupMetadata.unjoinedSubgroups.length,
-            i = o("WAWebCommunityGatingUtils").getParentGroupLinkLimit() - e;
-          if (i <= 0) {
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(
-                o("WAWebCommunitySubgroupSuggestionsModals.react")
-                  .SubgroupSuggestionsApproveLimit,
-                { onOK: a },
-              ),
-            );
-            return;
-          } else if (
-            n.length > i &&
-            !(await o(
-              "WAWebCommunitySubgroupSuggestionsModals.react",
-            ).confirmCommunityFull(i, n.length))
-          )
-            return;
-          n == null ||
-            n.forEach(function (e) {
+      g = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t == null ||
+            t.forEach(function (e) {
               e.currentState = o("WAWebCellRequestState").State.Loading;
             });
           try {
-            var l = await f(
+            var n = yield f(
+              e,
               t,
-              n,
               o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-                .APPROVE,
+                .CANCEL,
             );
             m(
-              l,
               n,
+              t,
               o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-                .APPROVE,
+                .CANCEL,
             );
-            var c = _(n, o("WAWebCellRequestState").State.Approved);
-            c > 0 &&
+            var a = _(t, o("WAWebCellRequestState").State.Canceled);
+            a > 0 &&
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
-                    /*BTDS*/ '_j{"*":"{number} groups added","_1":"Group added"}',
-                    [s._plural(c, "number")],
+                    /*BTDS*/ '_j{"*":"{number} suggestions canceled","_1":"Suggestion canceled"}',
+                    [s._plural(a, "number")],
                   ),
                 }),
               );
           } catch (e) {
-            p(r("getErrorSafe")(e), n);
+            p(r("getErrorSafe")(e), t);
           }
-        }
-      };
+        });
+        return function (n, r) {
+          return e.apply(this, arguments);
+        };
+      })(),
+      h = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t == null ||
+            t.forEach(function (e) {
+              e.currentState = o("WAWebCellRequestState").State.Loading;
+            });
+          try {
+            var n = yield f(
+              e,
+              t,
+              o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+                .REJECT,
+            );
+            m(
+              n,
+              t,
+              o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+                .REJECT,
+            );
+            var a = _(t, o("WAWebCellRequestState").State.Rejected);
+            a > 0 &&
+              o("WAWebToastManager").ToastManager.open(
+                u.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(
+                    /*BTDS*/ '_j{"*":"{number} groups rejected","_1":"Group rejected"}',
+                    [s._plural(a, "number")],
+                  ),
+                }),
+              );
+          } catch (e) {
+            p(r("getErrorSafe")(e), t);
+          }
+        });
+        return function (n, r) {
+          return e.apply(this, arguments);
+        };
+      })(),
+      y = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            if (e.groupMetadata) {
+              var a =
+                  e.groupMetadata.joinedSubgroups.length +
+                  e.groupMetadata.unjoinedSubgroups.length,
+                i =
+                  o("WAWebCommunityGatingUtils").getParentGroupLinkLimit() - a;
+              if (i <= 0) {
+                o("WAWebModalManager").ModalManager.open(
+                  u.jsx(
+                    o("WAWebCommunitySubgroupSuggestionsModals.react")
+                      .SubgroupSuggestionsApproveLimit,
+                    { onOK: n },
+                  ),
+                );
+                return;
+              } else if (
+                t.length > i &&
+                !(yield o(
+                  "WAWebCommunitySubgroupSuggestionsModals.react",
+                ).confirmCommunityFull(i, t.length))
+              )
+                return;
+              t == null ||
+                t.forEach(function (e) {
+                  e.currentState = o("WAWebCellRequestState").State.Loading;
+                });
+              try {
+                var l = yield f(
+                  e,
+                  t,
+                  o("WAWebSubgroupSuggestionsActionJob")
+                    .SubgroupSuggestionAction.APPROVE,
+                );
+                m(
+                  l,
+                  t,
+                  o("WAWebSubgroupSuggestionsActionJob")
+                    .SubgroupSuggestionAction.APPROVE,
+                );
+                var c = _(t, o("WAWebCellRequestState").State.Approved);
+                c > 0 &&
+                  o("WAWebToastManager").ToastManager.open(
+                    u.jsx(o("WAWebToast.react").Toast, {
+                      msg: s._(
+                        /*BTDS*/ '_j{"*":"{number} groups added","_1":"Group added"}',
+                        [s._plural(c, "number")],
+                      ),
+                    }),
+                  );
+              } catch (e) {
+                p(r("getErrorSafe")(e), t);
+              }
+            }
+          },
+        );
+        return function (n, r, o) {
+          return e.apply(this, arguments);
+        };
+      })();
     ((l.cancelSubgroupSuggestions = g),
       (l.rejectSubgroupSuggestions = h),
       (l.approveSubgroupSuggestions = y));

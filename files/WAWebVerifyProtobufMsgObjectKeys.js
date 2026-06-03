@@ -406,6 +406,8 @@ __d(
                                                                                                                   e ===
                                                                                                                     "paymentReminderMessage" ||
                                                                                                                   e ===
+                                                                                                                    "rootSecretDistributeMessage" ||
+                                                                                                                  e ===
                                                                                                                     "splitPaymentMessage"
                                                                                                                 ? s.UnknownMessageKey
                                                                                                                 : (function () {

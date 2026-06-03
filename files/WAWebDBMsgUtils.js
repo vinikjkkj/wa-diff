@@ -11,6 +11,7 @@ __d(
     "WAWebProtobufMsgKeyUtils",
     "WAWebSchemaMessage",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({ Message: 1, MessageEdit: 2 });
@@ -50,51 +51,71 @@ __d(
           })
       );
     }
-    async function d(e, t) {
-      if (t.length === 0) return t;
-      var n = t;
-      o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        r("WAWebWid").isUser(e) &&
-        !r("WAWebWid").isStringLid(e) &&
-        (n = t.map(function (t) {
-          var n = t.key,
-            r = t.timestamp,
-            o = {};
-          return (
-            r != null && (o.timestamp = r),
-            n != null &&
-              (o.key = babelHelpers.extends({}, n, { remoteJid: e })),
-            o
-          );
-        }));
-      var a = n.map(function (e) {
-          return o("WAWebProtobufMsgKeyUtils")
-            .protobufToMsgKey(r("WANullthrows")(e.key))
-            .toString();
-        }),
-        i = await o("WAWebSchemaMessage").getMessageTable().bulkGet(a, !1);
-      return t.filter(function (e, t) {
-        return i[t] != null;
-      });
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    async function m(e) {
-      if (o("WAWebABProps").getABPropConfigValue("web_get_msg_exist_optmise")) {
-        var t = await o("WAWebSchemaMessage")
-            .getMessageTable()
-            .anyOfPrimaryKeys(["id"], e),
-          n = new Set(t);
-        return e.map(function (e) {
-          return n.has(e);
-        });
-      }
-      return o("WAWebSchemaMessage")
-        .getMessageTable()
-        .bulkGet(e, !1)
-        .then(function (e) {
-          return e.map(Boolean);
-        });
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t.length === 0) return t;
+          var n = t;
+          o(
+            "WAWebLid1X1MigrationGating",
+          ).Lid1X1MigrationUtils.isLidMigrated() &&
+            r("WAWebWid").isUser(e) &&
+            !r("WAWebWid").isStringLid(e) &&
+            (n = t.map(function (t) {
+              var n = t.key,
+                r = t.timestamp,
+                o = {};
+              return (
+                r != null && (o.timestamp = r),
+                n != null &&
+                  (o.key = babelHelpers.extends({}, n, { remoteJid: e })),
+                o
+              );
+            }));
+          var a = n.map(function (e) {
+              return o("WAWebProtobufMsgKeyUtils")
+                .protobufToMsgKey(r("WANullthrows")(e.key))
+                .toString();
+            }),
+            i = yield o("WAWebSchemaMessage").getMessageTable().bulkGet(a, !1);
+          return t.filter(function (e, t) {
+            return i[t] != null;
+          });
+        })),
+        m.apply(this, arguments)
+      );
     }
     function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o("WAWebABProps").getABPropConfigValue("web_get_msg_exist_optmise")
+          ) {
+            var t = yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .anyOfPrimaryKeys(["id"], e),
+              n = new Set(t);
+            return e.map(function (e) {
+              return n.has(e);
+            });
+          }
+          return o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(e, !1)
+            .then(function (e) {
+              return e.map(Boolean);
+            });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(
@@ -108,8 +129,8 @@ __d(
       (l.getMsgsByMsgIdsAndChatId = u),
       (l.getMsgByMsgKey = c),
       (l.filterReceivedMessagesInRange = d),
-      (l.getMsgsExistByMsgKey = m),
-      (l.getMsgsByChatId = p));
+      (l.getMsgsExistByMsgKey = p),
+      (l.getMsgsByChatId = f));
   },
   98,
 );

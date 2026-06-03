@@ -1,6 +1,6 @@
 __d(
   "UserTimingUtils.shared",
-  ["UserTimingUtils", "performance"],
+  ["UserTimingUtils", "asyncToGeneratorRuntime", "performance"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -61,15 +61,26 @@ __d(
           "" + t;
         }
     }
-    async function h(t, n) {
-      var a = (e || (e = r("performance"))).now(),
-        i = await n(),
-        l = e.now();
-      return (o("UserTimingUtils").measureModern(t, { end: l, start: a }), i);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function y(e, t, n) {}
-    function C(e, t) {}
-    function b(t, n, a) {
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = (e || (e = r("performance"))).now(),
+            i = yield n(),
+            l = e.now();
+          return (
+            o("UserTimingUtils").measureModern(t, { end: l, start: a }),
+            i
+          );
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, n) {}
+    function b(e, t) {}
+    function v(t, n, a) {
       var i = (e || (e = r("performance"))).now();
       n();
       var l = e.now();
@@ -81,9 +92,9 @@ __d(
       (l.hasMark = f),
       (l.clearMarks = g),
       (l.asyncMeasure = h),
-      (l.measureReactCommit = y),
-      (l.measureReactPostCommit = C),
-      (l.measureCallback = b));
+      (l.measureReactCommit = C),
+      (l.measureReactPostCommit = b),
+      (l.measureCallback = v));
   },
   98,
 );

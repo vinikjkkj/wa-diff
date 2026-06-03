@@ -1,36 +1,52 @@
 __d(
   "WAWebMmSignalSharingShowDisclosureModal",
   [
+    "Promise",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMmSignalSharingModelUtils",
     "WAWebMmSignalSharingTos",
     "WAWebWamEnumDisclosureEventType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e, t, n) {
-      var r;
-      return !o(
-        "WAWebMmSignalSharingGatingUtils",
-      ).isMmSignalSharingDisclosureEnabled() ||
-        (o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
-          (r = e.contact) != null &&
-          r.isContactBlocked) ||
-        !o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMm(e, t) ||
-        !o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMsg(t) ||
-        (n ===
-          o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
-            .BODY_URL_CLICK &&
-          !o(
-            "WAWebMmSignalSharingGatingUtils",
-          ).isMmSignalSharingDisclosureForMarketingMessageBodyLinksEnabled()) ||
-        o("WAWebMmSignalSharingTos").isMmSignalSharingDisclosureTosAccepted()
-        ? Promise.resolve(!1)
-        : o(
-            "WAWebMmSignalSharingTos",
-          ).isMmSignalSharingDisclosureTosAccepted() === !1;
+    var e;
+    function s(e, t, n) {
+      return u.apply(this, arguments);
     }
-    l.showDisclosureModalForMm = e;
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          var i;
+          return !o(
+            "WAWebMmSignalSharingGatingUtils",
+          ).isMmSignalSharingDisclosureEnabled() ||
+            (o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
+              (i = t.contact) != null &&
+              i.isContactBlocked) ||
+            !o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMm(
+              t,
+              r,
+            ) ||
+            !o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMsg(r) ||
+            (a ===
+              o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
+                .BODY_URL_CLICK &&
+              !o(
+                "WAWebMmSignalSharingGatingUtils",
+              ).isMmSignalSharingDisclosureForMarketingMessageBodyLinksEnabled()) ||
+            o(
+              "WAWebMmSignalSharingTos",
+            ).isMmSignalSharingDisclosureTosAccepted()
+            ? (e || (e = n("Promise"))).resolve(!1)
+            : o(
+                "WAWebMmSignalSharingTos",
+              ).isMmSignalSharingDisclosureTosAccepted() === !1;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    l.showDisclosureModalForMm = s;
   },
   98,
 );

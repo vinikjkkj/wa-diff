@@ -49,6 +49,7 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipVideoStateUtils",
     "WAWebWamEnumMuteEntryPoint",
+    "asyncToGeneratorRuntime",
     "cr:13920",
     "cr:1923",
     "react",
@@ -240,7 +241,7 @@ __d(
     function C() {
       var e,
         t,
-        n =
+        r =
           (e =
             (t = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "left",
@@ -249,16 +250,25 @@ __d(
               : t.existsDrawer()) != null
             ? e
             : !1;
-      (n && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+      (r && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "new_group", isSubFlow: !1 }
             : _.jsx(o("WAWebNewGroupFlowLoadable").NewGroupFlowLoadable, {
                 onEnd: o("WAWebDrawerManager").closeDrawerLeft,
-                onCreateGroup: async function (t) {
-                  (await t,
-                    o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
-                },
+                onCreateGroup: (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      (yield e,
+                        o(
+                          "WAWebDrawerManager",
+                        ).DrawerManager.closeDrawerLeft());
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
               }),
         ));
     }
@@ -511,24 +521,24 @@ __d(
     function ee() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
-        (async function () {
-          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
             var n = !o("WAWebVoipVideoStateUtils").isVideoEnabled(
               e.selfVideoState,
             );
-            await t.setCallVideoMute(!n);
+            yield t.setCallVideoMute(!n);
           }
         })();
     }
     function te() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
-        (async function () {
-          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
             var n = e.selfMicMuted;
-            await t.setCallMute(!n);
+            yield t.setCallMute(!n);
           }
         })();
     }
@@ -539,34 +549,34 @@ __d(
     function re() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
-        (async function () {
-          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
             var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               r = e.isHandRaisedForParticipant(n);
-            await t.raiseHand(!r);
+            yield t.raiseHand(!r);
           }
         })();
     }
     function oe() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
-        (async function () {
-          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
             var n = e.isSelfScreenSharing();
-            n ? await t.stopScreenShare() : await t.startScreenShare();
+            n ? yield t.stopScreenShare() : yield t.startScreenShare();
           }
         })();
     }
     function ae() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
-        (async function () {
-          var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
-          await (e == null
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          yield e == null
             ? void 0
-            : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0));
+            : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0);
         })();
     }
     function ie() {

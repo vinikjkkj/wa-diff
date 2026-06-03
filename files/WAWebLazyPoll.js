@@ -1,6 +1,6 @@
 __d(
   "WAWebLazyPoll",
-  ["WALogger", "err"],
+  ["WALogger", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -38,15 +38,15 @@ __d(
           else if (n != null)
             throw r("err")("Poll handler must be a function or null");
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.$14 = function () {
+          (a.$14 = function () {
             return Math.ceil(Math.random() * this.$5);
           }),
-          (n.$15 = function () {
+          (a.$15 = function () {
             return (this.$7 ? this.$3 : this.$2) + this.$14();
           }),
-          (n.$13 = function () {
+          (a.$13 = function () {
             var t = this;
             document.addEventListener(
               "visibilitychange",
@@ -86,61 +86,67 @@ __d(
               !1,
             );
           }),
-          (n.$18 = function () {
+          (a.$18 = function () {
             if (!this.$11) return !0;
             var e = Date.now() - this.$11;
             return e >= this.$15();
           }),
-          (n.$16 = function () {
+          (a.$16 = function () {
             (self.clearTimeout(this.$9), (this.$6 = !1));
           }),
-          (n.$17 = function () {
+          (a.$17 = function () {
             ((this.$7 = !1), (this.$6 = !0), this.$19());
           }),
-          (n.$19 = async function () {
-            var e = this;
-            if (this.$6) {
-              if (this.$18())
-                if (this.$8)
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[",
-                        "] skipping poll - already executing",
-                      ])),
-                    this.$1,
-                  );
-                else {
-                  this.$8 = !0;
-                  try {
-                    (o("WALogger").LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+          (a.$19 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this;
+              if (this.$6) {
+                if (this.$18())
+                  if (this.$8)
+                    o("WALogger").LOG(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "[",
-                          "] polling",
+                          "] skipping poll - already executing",
                         ])),
                       this.$1,
-                    ),
-                      await this.$10(),
-                      (this.$11 = Date.now()));
-                  } finally {
-                    this.$8 = !1;
+                    );
+                  else {
+                    this.$8 = !0;
+                    try {
+                      (o("WALogger").LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[",
+                            "] polling",
+                          ])),
+                        this.$1,
+                      ),
+                        yield this.$10(),
+                        (this.$11 = Date.now()));
+                    } finally {
+                      this.$8 = !1;
+                    }
                   }
-                }
-              (self.clearTimeout(this.$9),
-                (this.$9 = self.setTimeout(function () {
-                  return e.$19();
-                }, this.$15())));
+                (self.clearTimeout(this.$9),
+                  (this.$9 = self.setTimeout(function () {
+                    return e.$19();
+                  }, this.$15())));
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          (n.poll = function (t) {
+            return t;
+          })()),
+          (a.poll = function (t) {
             if (this.$10 != null) {
               this.resume();
               return;
             }
             ((this.$10 = t), (this.$6 = !0), this.$19());
           }),
-          (n.pause = function () {
+          (a.pause = function () {
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -152,7 +158,7 @@ __d(
               (this.$12 = !0),
               this.$16());
           }),
-          (n.resume = function () {
+          (a.resume = function () {
             (o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([

@@ -1,63 +1,71 @@
 __d(
   "WAWebCryptoCurve25519",
-  ["WAWeb-curve25519-donna", "err"],
+  ["Promise", "WAWeb-curve25519-donna", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      e || (e = n("WAWeb-curve25519-donna"));
+    var e, s;
+    function u() {
+      s || (s = n("WAWeb-curve25519-donna"));
     }
-    var u = new Uint8Array(32);
-    u[0] = 9;
-    async function c(t) {
-      var n;
+    var c = new Uint8Array(32);
+    c[0] = 9;
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        t === void 0
-          ? ((n = new Uint8Array(32)), self.crypto.getRandomValues(n))
-          : (n = new Uint8Array(t)),
-        (n[0] &= 248),
-        (n[31] &= 127),
-        (n[31] |= 64),
-        v({ pubKey: 32, privKey: n, basepoint: u }, function (t) {
-          var o = e._curve25519_donna(t.pubKey, t.privKey, t.basepoint);
-          if (o) throw r("err")("Curve25519:keyPair Error Code " + o);
-          return { pubKey: b(t.pubKey, 32), privKey: n.buffer };
-        })
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          return (
+            e === void 0
+              ? ((t = new Uint8Array(32)), self.crypto.getRandomValues(t))
+              : (t = new Uint8Array(e)),
+            (t[0] &= 248),
+            (t[31] &= 127),
+            (t[31] |= 64),
+            R({ pubKey: 32, privKey: t, basepoint: c }, function (e) {
+              var n = s._curve25519_donna(e.pubKey, e.privKey, e.basepoint);
+              if (n) throw r("err")("Curve25519:keyPair Error Code " + n);
+              return { pubKey: S(e.pubKey, 32), privKey: t.buffer };
+            })
+          );
+        })),
+        m.apply(this, arguments)
       );
     }
-    function d(t, n) {
-      return Promise.resolve().then(function () {
-        return v({ sharedKey: 32, pubKey: t, privKey: n }, function (t) {
-          var n = e._curve25519_donna(t.sharedKey, t.privKey, t.pubKey);
-          if (n) throw r("err")("Curve25519:sharedSecret Error Code " + n);
-          return b(t.sharedKey, 32);
+    function p(t, o) {
+      return (e || (e = n("Promise"))).resolve().then(function () {
+        return R({ sharedKey: 32, pubKey: t, privKey: o }, function (e) {
+          var t = s._curve25519_donna(e.sharedKey, e.privKey, e.pubKey);
+          if (t) throw r("err")("Curve25519:sharedSecret Error Code " + t);
+          return S(e.sharedKey, 32);
         });
       });
     }
-    var m = 5;
-    function p(e) {
+    var _ = 5;
+    function f(e) {
       return e.pubKey.byteLength === 33 && e.privKey.byteLength === 32;
     }
-    function _(e) {
-      if (p(e)) return e;
+    function g(e) {
+      if (f(e)) return e;
       if (e.pubKey.byteLength !== 32 || e.privKey.byteLength !== 32)
         throw r("err")("Invalid key pair type");
-      var t = f(e.pubKey),
+      var t = h(e.pubKey),
         n = new Uint8Array(32);
       return (
         n.set(new Uint8Array(e.privKey)),
         { pubKey: t, privKey: n.buffer }
       );
     }
-    function f(e) {
+    function h(e) {
       if (e.byteLength !== 32) throw r("err")("Invalid key type");
       var t = new Uint8Array(33);
-      return ((t[0] = m), t.set(new Uint8Array(e), 1), t.buffer);
+      return ((t[0] = _), t.set(new Uint8Array(e), 1), t.buffer);
     }
-    function g(e) {
+    function y(e) {
       return e.privKey.byteLength === 32 && e.pubKey.byteLength === 32;
     }
-    function h(e) {
-      if (g(e)) return e;
+    function C(e) {
+      if (y(e)) return e;
       if (e.pubKey.byteLength !== 33 || e.privKey.byteLength !== 32)
         throw r("err")("Invalid key pair type");
       var t = new Uint8Array(32),
@@ -68,37 +76,37 @@ __d(
         { pubKey: t.buffer, privKey: n.buffer }
       );
     }
-    function y(e) {
+    function b(e) {
       if (e.byteLength !== 33) throw r("err")("Invalid key type");
       var t = new Uint8Array(32);
       return (t.set(new Uint8Array(e).subarray(1)), t.buffer);
     }
-    function C(t) {
-      if (typeof t == "number") return e._malloc(t);
-      var n = new Uint8Array(t.buffer || t),
-        r = e._malloc(n.length);
-      return (e.HEAPU8.set(n, r), r);
+    function v(e) {
+      if (typeof e == "number") return s._malloc(e);
+      var t = new Uint8Array(e.buffer || e),
+        n = s._malloc(t.length);
+      return (s.HEAPU8.set(t, n), n);
     }
-    function b(t, n) {
-      var r = new Uint8Array(n);
-      return (r.set(e.HEAPU8.subarray(t, t + n)), r.buffer);
+    function S(e, t) {
+      var n = new Uint8Array(t);
+      return (n.set(s.HEAPU8.subarray(e, e + t)), n.buffer);
     }
-    function v(t, n) {
-      s();
-      var r = {};
+    function R(e, t) {
+      u();
+      var n = {};
       try {
-        for (var o in t) r[o] = C(t[o]);
-        return n(r);
+        for (var r in e) n[r] = v(e[r]);
+        return t(n);
       } finally {
-        for (var a in r) e._free(r[a]);
+        for (var o in n) s._free(n[o]);
       }
     }
-    ((l.keyPair = c),
-      (l.sharedSecret = d),
-      (l.toSignalCurveKeyPair = _),
-      (l.toSignalCurvePubKey = f),
-      (l.toCurveKeyPair = h),
-      (l.toCurveKeyPubKey = y));
+    ((l.keyPair = d),
+      (l.sharedSecret = p),
+      (l.toSignalCurveKeyPair = g),
+      (l.toSignalCurvePubKey = h),
+      (l.toCurveKeyPair = C),
+      (l.toCurveKeyPubKey = b));
   },
   98,
 );

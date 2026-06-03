@@ -1,9 +1,10 @@
 __d(
   "DGWAckManager",
-  ["IDGWLoggingContext", "getErrorSafe"],
+  ["IDGWLoggingContext", "Promise", "asyncToGeneratorRuntime", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = (function () {
+    var e,
+      s = (function () {
         function e(e, t, n) {
           var r = this;
           ((this.$3 = n),
@@ -24,62 +25,71 @@ __d(
           e
         );
       })(),
-      s = (function () {
+      u = (function () {
         function t(e) {
           ((this.$1 = new Map()), (this.$2 = e), (this.$3 = !1));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.wasTransportClosed = function () {
+          (a.wasTransportClosed = function () {
             return this.$3;
           }),
-          (n.waitForAck = async function (n, a) {
-            this.$2.bumpODSKey(
-              o("IDGWLoggingContext").DGWLoggingComponent.ACK_MANAGER_COMPONENT,
-              "ack_expected",
-            );
-            var t = this.$1;
-            try {
-              var i = await new Promise(function (r, o) {
-                t.set(n, new e(n, a, r));
-              });
-              return (
-                i === !0
-                  ? this.$2.logEvent(
-                      o("IDGWLoggingContext").DGWLoggingComponent
-                        .ACK_MANAGER_COMPONENT,
-                      "Received ACK",
-                      "sendId:" + n,
-                      !0,
-                    )
-                  : (this.$2.bumpODSKey(
-                      o("IDGWLoggingContext").DGWLoggingComponent
-                        .ACK_MANAGER_COMPONENT,
-                      "ack_timeout",
-                    ),
-                    this.$2.logWarn(
-                      o("IDGWLoggingContext").DGWLoggingComponent
-                        .ACK_MANAGER_COMPONENT,
-                      "ACK timeout",
-                      "Request " + n + " timed out after " + a + "ms",
-                    )),
-                t.delete(n),
-                i
-              );
-            } catch (e) {
-              var l = r("getErrorSafe")(e);
-              throw (
+          (a.waitForAck = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, a) {
                 this.$2.bumpODSKey(
                   o("IDGWLoggingContext").DGWLoggingComponent
                     .ACK_MANAGER_COMPONENT,
-                  "ack_error",
-                ),
-                t.delete(n),
-                l
-              );
+                  "ack_expected",
+                );
+                var i = this.$1;
+                try {
+                  var l = yield new (e || (e = n("Promise")))(function (e, n) {
+                    i.set(t, new s(t, a, e));
+                  });
+                  return (
+                    l === !0
+                      ? this.$2.logEvent(
+                          o("IDGWLoggingContext").DGWLoggingComponent
+                            .ACK_MANAGER_COMPONENT,
+                          "Received ACK",
+                          "sendId:" + t,
+                          !0,
+                        )
+                      : (this.$2.bumpODSKey(
+                          o("IDGWLoggingContext").DGWLoggingComponent
+                            .ACK_MANAGER_COMPONENT,
+                          "ack_timeout",
+                        ),
+                        this.$2.logWarn(
+                          o("IDGWLoggingContext").DGWLoggingComponent
+                            .ACK_MANAGER_COMPONENT,
+                          "ACK timeout",
+                          "Request " + t + " timed out after " + a + "ms",
+                        )),
+                    i.delete(t),
+                    l
+                  );
+                } catch (e) {
+                  var u = r("getErrorSafe")(e);
+                  throw (
+                    this.$2.bumpODSKey(
+                      o("IDGWLoggingContext").DGWLoggingComponent
+                        .ACK_MANAGER_COMPONENT,
+                      "ack_error",
+                    ),
+                    i.delete(t),
+                    u
+                  );
+                }
+              },
+            );
+            function a(e, n) {
+              return t.apply(this, arguments);
             }
-          }),
-          (n.handleAckReceived = function (t) {
+            return a;
+          })()),
+          (a.handleAckReceived = function (t) {
             this.$2.bumpODSKey(
               o("IDGWLoggingContext").DGWLoggingComponent.ACK_MANAGER_COMPONENT,
               "ack_received",
@@ -103,7 +113,7 @@ __d(
             }
             e.handleAckReceived();
           }),
-          (n.clearPendingAcks = function () {
+          (a.clearPendingAcks = function () {
             var e = this;
             ((this.$3 = !0),
               this.$2.logEvent(
@@ -127,7 +137,7 @@ __d(
           t
         );
       })();
-    l.DGWAckManager = s;
+    l.DGWAckManager = u;
   },
   98,
 );

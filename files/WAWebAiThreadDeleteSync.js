@@ -1,6 +1,7 @@
 __d(
   "WAWebAiThreadDeleteSync",
   [
+    "Promise",
     "WALogger",
     "WASyncdConst",
     "WATimeUtils",
@@ -16,13 +17,15 @@ __d(
     "WAWebThreadMetadataBulkJob",
     "WAWebWid",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "isStringNotNullAndNotWhitespaceOnly",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = (function (t) {
-        function n() {
+      s,
+      u = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -33,134 +36,192 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.getVersion = function () {
+          (i.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (i.getAction = function () {
             return o("WASyncdConst").Actions.AiThreadDelete;
           }),
-          (a.applyMutations = async function (n) {
-            var t = this,
-              a = 0,
-              i = await Promise.all(
-                n.map(async function (e) {
-                  try {
-                    if (e.operation !== "set")
-                      return (
-                        a++,
-                        {
-                          actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
-                        }
-                      );
-                    var n = e.indexParts,
-                      i = n[1],
-                      l = n[2];
-                    if (
-                      !i ||
-                      !l ||
-                      !r("WAWebWid").isWid(i) ||
-                      !r("isStringNotNullAndNotWhitespaceOnly")(l)
-                    )
-                      return t.malformedActionIndex();
-                    var s = o("WAWebWidFactory").createWid(i);
-                    if (!s.isBot()) return t.malformedActionIndex();
-                    var u = o("WAWebWidFactory").asBotWidOrThrow(s);
-                    if (
-                      !o("WAWebBotBaseGating").isBotEnabled() ||
-                      !o("WAWebBotBaseGating").isAiChatThreadsInfraEnabled()
-                    )
-                      return {
-                        actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
-                      };
-                    var c = o(
-                        "WAWebAiThreadCreationUtils",
-                      ).createAiThreadFromMutationIndex(u, l),
-                      d = await o(
-                        "WAWebSyncdGetThread",
-                      ).resolveThreadForMutationIndex(c);
-                    return d.success
-                      ? t.$AiThreadDeleteSync$p_1(u, c, d.thread)
-                      : {
-                          actionState: o("WASyncdConst").SyncActionState.Orphan,
-                          orphanModel: d.orphanModel,
+          (i.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var a = this,
+                  i = 0,
+                  l = yield (s || (s = n("Promise"))).all(
+                    t.map(
+                      (function () {
+                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (e) {
+                            try {
+                              if (e.operation !== "set")
+                                return (
+                                  i++,
+                                  {
+                                    actionState:
+                                      o("WASyncdConst").SyncActionState
+                                        .Unsupported,
+                                  }
+                                );
+                              var t = e.indexParts,
+                                n = t[1],
+                                l = t[2];
+                              if (
+                                !n ||
+                                !l ||
+                                !r("WAWebWid").isWid(n) ||
+                                !r("isStringNotNullAndNotWhitespaceOnly")(l)
+                              )
+                                return a.malformedActionIndex();
+                              var s = o("WAWebWidFactory").createWid(n);
+                              if (!s.isBot()) return a.malformedActionIndex();
+                              var u = o("WAWebWidFactory").asBotWidOrThrow(s);
+                              if (
+                                !o("WAWebBotBaseGating").isBotEnabled() ||
+                                !o(
+                                  "WAWebBotBaseGating",
+                                ).isAiChatThreadsInfraEnabled()
+                              )
+                                return {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState
+                                      .Unsupported,
+                                };
+                              var c = o(
+                                  "WAWebAiThreadCreationUtils",
+                                ).createAiThreadFromMutationIndex(u, l),
+                                d = yield o(
+                                  "WAWebSyncdGetThread",
+                                ).resolveThreadForMutationIndex(c);
+                              return d.success
+                                ? a.$AiThreadDeleteSync$p_1(u, c, d.thread)
+                                : {
+                                    actionState:
+                                      o("WASyncdConst").SyncActionState.Orphan,
+                                    orphanModel: d.orphanModel,
+                                  };
+                            } catch (e) {
+                              return {
+                                actionState:
+                                  o("WASyncdConst").SyncActionState.Failed,
+                              };
+                            }
+                          },
+                        );
+                        return function (t) {
+                          return e.apply(this, arguments);
                         };
-                  } catch (e) {
-                    return {
-                      actionState: o("WASyncdConst").SyncActionState.Failed,
-                    };
-                  }
-                }),
-              );
-            return (
-              a > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd][ai-thread-delete] ",
-                      " operations not supported",
-                    ])),
-                  a,
-                ),
-              i
+                      })(),
+                    ),
+                  );
+                return (
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd][ai-thread-delete] ",
+                          " operations not supported",
+                        ])),
+                      i,
+                    ),
+                  l
+                );
+              },
             );
-          }),
-          (a.$AiThreadDeleteSync$p_1 = async function (t, n, r) {
-            var e = await o("WAWebThreadMetadataBulkJob").bulkDeleteThreads(t, [
-              n,
-            ]);
-            return (
-              o("WAWebBackendApi").frontendFireAndForget(
-                "deleteChatAiThreads",
-                { chatId: t, threadIds: [n], msgIds: e },
-              ),
-              Promise.resolve({
-                actionState: o("WASyncdConst").SyncActionState.Success,
-              })
+            function a(e) {
+              return t.apply(this, arguments);
+            }
+            return a;
+          })()),
+          (i.$AiThreadDeleteSync$p_1 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, r) {
+                var a = yield o("WAWebThreadMetadataBulkJob").bulkDeleteThreads(
+                  e,
+                  [t],
+                );
+                return (
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "deleteChatAiThreads",
+                    { chatId: e, threadIds: [t], msgIds: a },
+                  ),
+                  (s || (s = n("Promise"))).resolve({
+                    actionState: o("WASyncdConst").SyncActionState.Success,
+                  })
+                );
+              },
             );
-          }),
-          (a.getIndexParts = async function (t) {
-            var e = t.key.remote,
-              n = await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
-                e,
-                o("WASyncdConst").Actions.AiThreadDelete,
-              ),
-              r = t.key.id;
-            return [n, r];
-          }),
-          (a.sendMutation = async function (t) {
-            var e = this,
-              n = o("WATimeUtils").unixTimeMs(),
-              r = await Promise.all(
-                t.map(function (t) {
-                  return e.buildMutation(t, n);
-                }),
-              );
-            await o("WAWebSyncdCoreApi").lockForSync([], r, function () {
-              return Promise.resolve();
-            });
-          }),
-          (a.buildMutation = async function (t, n) {
-            return o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: this.collectionName,
-              indexArgs: await this.getIndexParts(t),
-              value: {},
-              version: this.getVersion(),
-              operation: o("WAWebProtobufsServerSync.pb")
-                .SyncdMutation$SyncdOperation.SET,
-              timestamp: n,
-              action: this.getAction(),
-            });
-          }),
-          n
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getIndexParts = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.key.remote,
+                  n = yield o(
+                    "WAWebSyncdGetChat",
+                  ).getChatJidMutationIndexForChat(
+                    t,
+                    o("WASyncdConst").Actions.AiThreadDelete,
+                  ),
+                  r = e.key.id;
+                return [n, r];
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.sendMutation = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  r = o("WATimeUtils").unixTimeMs(),
+                  a = yield (s || (s = n("Promise"))).all(
+                    e.map(function (e) {
+                      return t.buildMutation(e, r);
+                    }),
+                  );
+                yield o("WAWebSyncdCoreApi").lockForSync([], a, function () {
+                  return (s || (s = n("Promise"))).resolve();
+                });
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.buildMutation = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return o("WAWebSyncdActionUtils").buildPendingMutation({
+                  collection: this.collectionName,
+                  indexArgs: yield this.getIndexParts(e),
+                  value: {},
+                  version: this.getVersion(),
+                  operation: o("WAWebProtobufsServerSync.pb")
+                    .SyncdMutation$SyncdOperation.SET,
+                  timestamp: t,
+                  action: this.getAction(),
+                });
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          a
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase),
-      u = new s();
-    l.default = u;
+      c = new u();
+    l.default = c;
   },
   98,
 );

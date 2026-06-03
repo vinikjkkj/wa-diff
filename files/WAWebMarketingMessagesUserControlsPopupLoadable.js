@@ -4,20 +4,24 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadLoading.react",
     "WAWebLazyLoadedRetriable",
+    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebMarketingMessagesUserControlsPopup.react",
-        )
-          .__setRef("WAWebMarketingMessagesUserControlsPopupLoadable")
-          .load();
-        return e;
-      }, "WAWebMarketingMessagesUserControlsPopup"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebMarketingMessagesUserControlsPopup.react",
+          )
+            .__setRef("WAWebMarketingMessagesUserControlsPopupLoadable")
+            .load();
+          return e;
+        }),
+        "WAWebMarketingMessagesUserControlsPopup",
+      ),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

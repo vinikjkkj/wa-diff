@@ -8,40 +8,44 @@ __d(
     "WAWebDeleteStatusAction",
     "WAWebLidContactSync",
     "WAWebSyncdCoreApi",
+    "WAWebUsernameTypes",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, a, i, l) {
-      var s = r("WAWebContactSync").getContactSyncMutation({
+    function s(e, t, a, i, l, s) {
+      var u = r("WAWebContactSync").getContactSyncMutation({
           contactId: e,
           fullName: t,
-          firstName: n,
-          syncToAddressbook: a,
-          lid: i,
-          username: l,
+          firstName: a,
+          syncToAddressbook: i,
+          lid: l,
+          username: o("WAWebUsernameTypes").asMaybeUsername(s),
         }),
-        u = {
+        c = {
           id: e.toString({ legacy: !0 }),
           name: t,
-          shortName: n,
+          shortName: a,
           type: "in",
-          syncToAddressbook: a,
+          syncToAddressbook: i,
           isAddressBookContact: 1,
           isContactSyncCompleted: 0,
           isUsernameContact: !1,
         };
       return o("WAWebSyncdCoreApi")
-        .lockForSync(["contact"], [s], function () {
+        .lockForSync(["contact"], [u], function () {
           return o("WAWebApiContact").createOrMergeAddressBookContacts([
-            babelHelpers.extends({}, u),
+            babelHelpers.extends({}, c),
           ]);
         })
-        .then(async function () {
-          o("WAWebBackendApi").frontendFireAndForget(
-            "bulkAddContactToCollection",
-            { contacts: [babelHelpers.extends({}, u, { id: e.toString() })] },
-          );
-        });
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            o("WAWebBackendApi").frontendFireAndForget(
+              "bulkAddContactToCollection",
+              { contacts: [babelHelpers.extends({}, c, { id: e.toString() })] },
+            );
+          }),
+        );
     }
     function u(e) {
       var t = r("WAWebContactSync").getContactSyncMutation({
@@ -54,156 +58,167 @@ __d(
             e.toString({ legacy: !0 }),
           ]);
         })
-        .then(async function () {
-          (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(), _(e));
-        });
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(), _(e));
+          }),
+        );
     }
     function c(e) {
       var t = [],
-        n = [],
-        a = [];
-      for (var i of e)
+        a = [],
+        i = [];
+      for (var l of e)
         (t.push(
           r("WAWebContactSync").getContactSyncMutation({
-            contactId: i,
+            contactId: l,
             isDelete: !0,
           }),
         ),
-          n.push(i.toString()),
-          a.push(i.toString({ legacy: !0 })));
+          a.push(l.toString()),
+          i.push(l.toString({ legacy: !0 })));
       return o("WAWebSyncdCoreApi")
         .lockForSync(["contact"], t, function () {
-          return o("WAWebApiContact").setNotAddressBookContacts(a);
+          return o("WAWebApiContact").setNotAddressBookContacts(i);
         })
-        .then(async function () {
-          o("WAWebDeleteStatusAction").clearStatusForRemovedContact();
-          var t = e.map(function (e) {
-            return {
-              id: e.toString(),
-              type: "out",
-              name: void 0,
-              shortName: void 0,
-              isAddressBookContact: 0,
-              isContactSyncCompleted: 0,
-              syncToAddressbook: !1,
-              isUsernameContact: !1,
-            };
-          });
-          o("WAWebBackendApi").frontendFireAndForget(
-            "bulkAddContactToCollection",
-            { contacts: t },
-          );
-        });
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            o("WAWebDeleteStatusAction").clearStatusForRemovedContact();
+            var t = e.map(function (e) {
+              return {
+                id: e.toString(),
+                type: "out",
+                name: void 0,
+                shortName: void 0,
+                isAddressBookContact: 0,
+                isContactSyncCompleted: 0,
+                syncToAddressbook: !1,
+                isUsernameContact: !1,
+              };
+            });
+            o("WAWebBackendApi").frontendFireAndForget(
+              "bulkAddContactToCollection",
+              { contacts: t },
+            );
+          }),
+        );
     }
-    function d(e, t, n, a) {
-      var i = r("WAWebLidContactSync").getLidContactSyncMutation({
+    function d(e, t, a, i) {
+      var l = r("WAWebLidContactSync").getLidContactSyncMutation({
           contactId: e,
           fullName: t,
-          firstName: n,
-          username: a,
+          firstName: a,
+          username: o("WAWebUsernameTypes").serializeUsername(i),
         }),
-        l = {
+        s = {
           id: e.toString(),
           name: t,
-          shortName: n,
+          shortName: a,
           type: "in",
           syncToAddressbook: !1,
           isAddressBookContact: 0,
           isContactSyncCompleted: 0,
-          username: a,
+          username: i,
           isUsernameContact: !0,
         };
       return o("WAWebSyncdCoreApi")
-        .lockForSync(["contact"], [i], function () {
+        .lockForSync(["contact"], [l], function () {
           return o("WAWebApiContact").createOrMergeAddressBookContacts([
-            babelHelpers.extends({}, l),
+            babelHelpers.extends({}, s),
           ]);
         })
-        .then(async function () {
-          o("WAWebBackendApi").frontendFireAndForget(
-            "bulkAddContactToCollection",
-            {
-              contacts: [
-                babelHelpers.extends({}, l, {
-                  id: e.toString(),
-                  isUsernameContact: !0,
-                }),
-              ],
-            },
-          );
-        });
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            o("WAWebBackendApi").frontendFireAndForget(
+              "bulkAddContactToCollection",
+              {
+                contacts: [
+                  babelHelpers.extends({}, s, {
+                    id: e.toString(),
+                    isUsernameContact: !0,
+                    username: o("WAWebUsernameTypes").serializeUsername(i),
+                  }),
+                ],
+              },
+            );
+          }),
+        );
     }
     function m(e, t) {
-      var n = r("WAWebLidContactSync").getLidContactSyncMutation({
+      var a = r("WAWebLidContactSync").getLidContactSyncMutation({
           contactId: e,
           isDelete: !0,
         }),
-        a = [e.toString()];
+        i = [e.toString()];
       return o("WAWebSyncdCoreApi")
-        .lockForSync(["contact"], [n], function () {
+        .lockForSync(["contact"], [a], function () {
           var e = [t];
-          return o("WAWebApiContact").setNotAddressBookContacts(a, e);
+          return o("WAWebApiContact").setNotAddressBookContacts(i, e);
         })
-        .then(async function () {
-          (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(),
-            _(e, t));
-        });
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(),
+              _(e, t));
+          }),
+        );
     }
     function p(t) {
-      var n = [],
-        a = [];
-      for (var i of t)
-        (n.push(
+      var a = [],
+        i = [];
+      for (var l of t)
+        (a.push(
           r("WAWebContactSync").getContactSyncMutation({
-            contactId: i.contactId,
-            fullName: i.fullName,
-            firstName: i.shortName,
-            syncToAddressbook: i.syncToAddressbook,
-            lid: i.lid,
+            contactId: l.contactId,
+            fullName: l.fullName,
+            firstName: l.shortName,
+            syncToAddressbook: l.syncToAddressbook,
+            lid: l.lid,
           }),
         ),
-          a.push({
-            id: i.contactId.toString({ legacy: !0 }),
-            name: i.fullName,
-            shortName: i.shortName,
+          i.push({
+            id: l.contactId.toString({ legacy: !0 }),
+            name: l.fullName,
+            shortName: l.shortName,
             type: "in",
-            syncToAddressbook: i.syncToAddressbook,
+            syncToAddressbook: l.syncToAddressbook,
             isAddressBookContact: 1,
             isContactSyncCompleted: 0,
           }));
       return o("WAWebSyncdCoreApi")
-        .lockForSync(["contact"], n, function () {
+        .lockForSync(["contact"], a, function () {
           return o("WAWebApiContact").createOrMergeAddressBookContacts(
-            a.map(function (e) {
+            i.map(function (e) {
               return babelHelpers.extends({}, e);
             }),
           );
         })
-        .then(async function () {
-          var n = [];
-          (t.forEach(function (t, r) {
-            try {
-              var i = a[r];
-              n.push(
-                babelHelpers.extends({}, i, {
-                  id: t.contactId.toString(),
-                  isUsernameContact: !1,
-                }),
-              );
-            } catch (t) {
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sendContactUpdateBatch] Failed to add contact to collection",
-                  ])),
-              );
-            }
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var n = [];
+            (t.forEach(function (t, r) {
+              try {
+                var a = i[r];
+                n.push(
+                  babelHelpers.extends({}, a, {
+                    id: t.contactId.toString(),
+                    isUsernameContact: !1,
+                  }),
+                );
+              } catch (t) {
+                o("WALogger").ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sendContactUpdateBatch] Failed to add contact to collection",
+                    ])),
+                );
+              }
+            }),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "bulkAddContactToCollection",
+                { contacts: n },
+              ));
           }),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "bulkAddContactToCollection",
-              { contacts: n },
-            ));
-        });
+        );
     }
     function _(e, t) {
       o("WAWebBackendApi").frontendFireAndForget("bulkAddContactToCollection", {
@@ -213,7 +228,7 @@ __d(
             type: "out",
             name: void 0,
             shortName: void 0,
-            username: t,
+            username: o("WAWebUsernameTypes").serializeMaybeUsername(t),
             isAddressBookContact: 0,
             isContactSyncCompleted: 0,
             syncToAddressbook: !1,

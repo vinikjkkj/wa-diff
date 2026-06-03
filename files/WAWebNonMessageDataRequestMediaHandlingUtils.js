@@ -1,6 +1,7 @@
 __d(
   "WAWebNonMessageDataRequestMediaHandlingUtils",
   [
+    "Promise",
     "WAJobOrchestratorTypes",
     "WATimeUtils",
     "WAWebMediaMmsV4Upload",
@@ -8,33 +9,35 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaNonMessageDataRequest",
     "WAWebSendNonMessageDataRequest",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 15,
+    var e,
       s = 15,
-      u = new Set(),
-      c = new Map(),
-      d = new Map();
-    function m(e) {
-      (c.clear(),
+      u = 15,
+      c = new Set(),
+      d = new Map(),
+      m = new Map();
+    function p(e) {
+      (d.clear(),
         e.forEach(function (e) {
           e.operationType ===
             o("WAWebSchemaNonMessageDataRequest").DataRequestUploadOperationType
-              .MEDIA_UPLOAD && c.set(e.id, e);
+              .MEDIA_UPLOAD && d.set(e.id, e);
         }));
     }
-    function p() {
+    function _() {
       return (
-        d.clear(),
+        m.clear(),
         o("WAWebOrchestratorNonPersistedJob")
           .createNonPersistedJob(
             "requestAllSyncdMissingKeys",
-            async function () {
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = o("WATimeUtils").unixTime(),
                 t = o(
                   "WAWebSchemaNonMessageDataRequest",
                 ).getNonMessageDataRequestTable(),
-                n = await t.all();
+                n = yield t.all();
               (n.filter(function (t) {
                 return !(
                   t.operationType !==
@@ -60,54 +63,75 @@ __d(
                     }),
                   },
                 ));
-            },
+            }),
             { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
           )
           .waitUntilCompleted()
       );
     }
-    async function _(e, t) {
-      var n = o(
-          "WAWebSchemaNonMessageDataRequest",
-        ).getNonMessageDataRequestTable(),
-        r = Array.from(e.keys()),
-        a = o("WATimeUtils").unixTime(),
-        i = [];
-      await Promise.all(
-        r.map(async function (r) {
-          var l,
-            s = y(
-              r,
-              t,
-              o("WAWebSchemaNonMessageDataRequest")
-                .DataRequestUploadOperationType.SEND_REQUEST,
-            ),
-            u = await n.get(s);
-          i.push({
-            id: s,
-            fileKey: r,
-            requestType: t,
-            operationType: o("WAWebSchemaNonMessageDataRequest")
-              .DataRequestUploadOperationType.SEND_REQUEST,
-            lastRequestTimeStampSec: a,
-            requestRetryCount:
-              ((l = u == null ? void 0 : u.requestRetryCount) != null ? l : 0) +
-              1,
-            responseError: e.get(r),
-          });
-        }),
-      ).then(function () {
-        n.bulkCreateOrReplace(i);
-      });
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f(e, t, n) {
-      var r = y(
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a = o(
+              "WAWebSchemaNonMessageDataRequest",
+            ).getNonMessageDataRequestTable(),
+            i = Array.from(t.keys()),
+            l = o("WATimeUtils").unixTime(),
+            s = [];
+          yield (e || (e = n("Promise")))
+            .all(
+              i.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var n,
+                        i = b(
+                          e,
+                          r,
+                          o("WAWebSchemaNonMessageDataRequest")
+                            .DataRequestUploadOperationType.SEND_REQUEST,
+                        ),
+                        u = yield a.get(i);
+                      s.push({
+                        id: i,
+                        fileKey: e,
+                        requestType: r,
+                        operationType: o("WAWebSchemaNonMessageDataRequest")
+                          .DataRequestUploadOperationType.SEND_REQUEST,
+                        lastRequestTimeStampSec: l,
+                        requestRetryCount:
+                          ((n = u == null ? void 0 : u.requestRetryCount) !=
+                          null
+                            ? n
+                            : 0) + 1,
+                        responseError: t.get(e),
+                      });
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            )
+            .then(function () {
+              a.bulkCreateOrReplace(s);
+            });
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t, n) {
+      var r = b(
           e,
           t,
           o("WAWebSchemaNonMessageDataRequest").DataRequestUploadOperationType
             .MEDIA_UPLOAD,
         ),
-        a = c.get(r);
+        a = d.get(r);
       return (
         a != null &&
         a.lastMediaUploadSuccess === !0 &&
@@ -115,38 +139,38 @@ __d(
         n - a.lastMediaUploadTimeStampSec <= o("WATimeUtils").DAY_SECONDS
       );
     }
-    function g(t, n, r) {
-      var a = y(
+    function y(e, t, n) {
+      var r = b(
+          e,
           t,
-          n,
           o("WAWebSchemaNonMessageDataRequest").DataRequestUploadOperationType
             .MEDIA_UPLOAD,
         ),
-        i = c.get(a),
-        l = C(r, i == null ? void 0 : i.lastRequestTimeStampSec);
+        a = d.get(r),
+        i = v(n, a == null ? void 0 : a.lastRequestTimeStampSec);
       return (
-        i != null &&
-        i.lastMediaUploadSuccess === !1 &&
-        l &&
-        i.mediaUploadFailureCount != null &&
-        i.mediaUploadFailureCount >= e
+        a != null &&
+        a.lastMediaUploadSuccess === !1 &&
+        i &&
+        a.mediaUploadFailureCount != null &&
+        a.mediaUploadFailureCount >= s
       );
     }
-    function h(e, t) {
+    function C(e, t) {
       var n = [];
       e.forEach(function (e, r) {
         var a,
-          i = y(
+          i = b(
             r,
             o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .UPLOAD_STICKER,
             o("WAWebSchemaNonMessageDataRequest").DataRequestUploadOperationType
               .MEDIA_UPLOAD,
           ),
-          l = c.get(i),
-          s = !C(t, l == null ? void 0 : l.lastMediaUploadTimeStampSec),
+          l = d.get(i),
+          s = !v(t, l == null ? void 0 : l.lastMediaUploadTimeStampSec),
           u = e === o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS,
-          d =
+          c =
             (s
               ? 0
               : (a = l == null ? void 0 : l.mediaUploadFailureCount) != null
@@ -161,32 +185,32 @@ __d(
               .DataRequestUploadOperationType.MEDIA_UPLOAD,
             lastMediaUploadTimeStampSec: t,
             lastMediaUploadSuccess: u,
-            mediaUploadFailureCount: d,
+            mediaUploadFailureCount: c,
           };
-        (c.set(i, m), n.push(m));
+        (d.set(i, m), n.push(m));
       });
       var r = o(
         "WAWebSchemaNonMessageDataRequest",
       ).getNonMessageDataRequestTable();
       r.bulkCreateOrReplace(n);
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       return e + "_" + String(t) + "_" + String(n);
     }
-    function C(e, t) {
+    function v(e, t) {
       var n = new Date(e * 1e3).toDateString(),
         r = t != null ? new Date(t * 1e3).toDateString() : n;
       return n === r;
     }
-    ((l.MEDIA_REUPLOAD_REQUEST_LIMIT = s),
-      (l.inFlightStickerRequests = u),
-      (l.mediaReuploadRequestCountMap = d),
-      (l.initializeMediaUploadResultFromStorage = m),
-      (l.retryNonMessageDataRequestJob = p),
-      (l.insertResponseError = _),
-      (l.shouldSkipMediaUploadWithSuccess = f),
-      (l.shouldSkipMediaUploadWithCancellation = g),
-      (l.insertMediaUploadResult = h));
+    ((l.MEDIA_REUPLOAD_REQUEST_LIMIT = u),
+      (l.inFlightStickerRequests = c),
+      (l.mediaReuploadRequestCountMap = m),
+      (l.initializeMediaUploadResultFromStorage = p),
+      (l.retryNonMessageDataRequestJob = _),
+      (l.insertResponseError = f),
+      (l.shouldSkipMediaUploadWithSuccess = h),
+      (l.shouldSkipMediaUploadWithCancellation = y),
+      (l.insertMediaUploadResult = C));
   },
   98,
 );

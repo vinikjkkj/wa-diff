@@ -9,6 +9,7 @@ __d(
     "WAWebSyncdGatingUtils",
     "WAWebSyncdNetCallbacksApi",
     "WAWebSyncdRequestEncode",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -16,27 +17,47 @@ __d(
       s = 2e3,
       u = 10,
       c = 100;
-    async function d(e, t, n, r) {
-      var a = await o("WAWebSyncdNetCallbacksApi").uploadSyncExternalPatch(e),
-        i = await m(a, e);
-      return p(i, t, n, r);
+    function d(e, t, n, r) {
+      return m.apply(this, arguments);
     }
-    async function m(e, t) {
-      var n = e.directPath,
-        r = e.encFilehash,
-        a = e.handle,
-        i = e.mediaKey,
-        l = await o("WAMediaCalculateFilehash").calculateFilehash(t);
-      return {
-        mediaKey: i,
-        directPath: n,
-        handle: a,
-        fileSizeBytes: t.byteLength,
-        fileSha256: o("WABase64").decodeB64(l),
-        fileEncSha256: r,
-      };
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield o(
+                "WAWebSyncdNetCallbacksApi",
+              ).uploadSyncExternalPatch(e),
+              i = yield p(a, e);
+            return f(i, t, n, r);
+          },
+        )),
+        m.apply(this, arguments)
+      );
     }
-    function p(e, t, n, r) {
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.directPath,
+            r = e.encFilehash,
+            a = e.handle,
+            i = e.mediaKey,
+            l = yield o("WAMediaCalculateFilehash").calculateFilehash(t);
+          return {
+            mediaKey: i,
+            directPath: n,
+            handle: a,
+            fileSizeBytes: t.byteLength,
+            fileSha256: o("WABase64").decodeB64(l),
+            fileEncSha256: r,
+          };
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t, n, r) {
       var a = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid());
       return o("WAWebSyncdRequestEncode").encodeSyncdPatch({
         keyId: { id: o("WASyncdKeyTypes").fromSyncKeyId(t) },
@@ -46,7 +67,7 @@ __d(
         deviceIndex: a,
       });
     }
-    function _(t) {
+    function g(t) {
       var n = Math.min(
         s,
         Math.max(
@@ -56,7 +77,7 @@ __d(
       );
       return t.length > n;
     }
-    function f(e) {
+    function h(e) {
       var t =
         Math.min(
           c,
@@ -68,9 +89,9 @@ __d(
       return e.byteLength > t;
     }
     ((l.uploadPatch = d),
-      (l.buildExternalBlobReference = m),
-      (l.exceedInlineMutationCount = _),
-      (l.exceedPatchProtobufSize = f));
+      (l.buildExternalBlobReference = p),
+      (l.exceedInlineMutationCount = g),
+      (l.exceedPatchProtobufSize = h));
   },
   98,
 );

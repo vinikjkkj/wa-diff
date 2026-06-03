@@ -22,6 +22,7 @@ __d(
       DA_TEMPLATE_SINGLE_MEDIA: "da_template_single_media",
       DA_TO_SA: "da_to_sa",
       DELETED: "deleted_cag_spec",
+      DEPRECATED: "deprecated",
       DESTINATION_LIQUIDITY: "destination_liquidity",
       DYNAMIC_LANGUAGE_OPTIMIZATION: "dynamic_language_optimization",
       FLEX_FORMAT: "flexible_format",
@@ -64,6 +65,7 @@ __d(
       FORMAT_LIQUIDITY_VIDEO_TO_CAROUSEL: "format_liquidity_video_to_carousel",
       FORMAT_LIQUIDITY_WEBSITE_HIGHLIGHTS:
         "format_liquidity_website_highlights",
+      FRAMEWORK_LOG_ONLY_TEST_PRODUCT: "framework_log_only_test_product",
       GEN_AI: "gen_ai",
       GEN_AI_TEST_SA_QRT_ROUND_ONE: "gen_ai_test_sa_qrt_round_one",
       GEN_AI_TEST_SA_QRT_ROUND_THREE: "gen_ai_test_sa_qrt_round_three",

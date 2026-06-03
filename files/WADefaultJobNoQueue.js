@@ -1,6 +1,6 @@
 __d(
   "WADefaultJobNoQueue",
-  ["WAJobOrchestratorTypes", "WARandomHex", "err"],
+  ["WAJobOrchestratorTypes", "WARandomHex", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -22,30 +22,38 @@ __d(
         (t.getSnapshot = function () {
           throw r("err")("getSnapshot is not implemented for DefaultNoQueue");
         }),
-        (t.enqueue = async function (t, n, r) {
-          var e,
-            a,
-            i =
-              (e = r == null ? void 0 : r.jobId) != null
-                ? e
-                : o("WARandomHex").randomHex(8).substr(0, 64);
-          this.$1.logJobCreated({
-            jobId: i,
-            jobName: t,
-            jobPriority:
-              (a = r == null ? void 0 : r.priority) != null
-                ? a
-                : o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW,
-            pendingJobsCount: 0,
-          });
-          try {
-            this.$1.logJobStarted(i);
-            var l = await n();
-            return (this.$1.logJobCompleted(i), l);
-          } catch (e) {
-            throw (this.$1.logJobError(i), e);
+        (t.enqueue = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r,
+                a,
+                i =
+                  (r = n == null ? void 0 : n.jobId) != null
+                    ? r
+                    : o("WARandomHex").randomHex(8).substr(0, 64);
+              this.$1.logJobCreated({
+                jobId: i,
+                jobName: e,
+                jobPriority:
+                  (a = n == null ? void 0 : n.priority) != null
+                    ? a
+                    : o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW,
+                pendingJobsCount: 0,
+              });
+              try {
+                this.$1.logJobStarted(i);
+                var l = yield t();
+                return (this.$1.logJobCompleted(i), l);
+              } catch (e) {
+                throw (this.$1.logJobError(i), e);
+              }
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
           }
-        }),
+          return t;
+        })()),
         e
       );
     })();

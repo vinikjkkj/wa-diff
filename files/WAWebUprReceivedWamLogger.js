@@ -2,6 +2,7 @@ __d(
   "WAWebUprReceivedWamLogger",
   [
     "P2XFunnelIdGenerator",
+    "Promise",
     "WALogger",
     "WAWebMsgGetters",
     "WAWebStructuredMessageBuyerReceiveWamEvent",
@@ -10,93 +11,130 @@ __d(
     "WAWebWamEnumBizPlatform",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumStructuredMessageClass",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = "receiver_log_key",
-      u = "buyer_order_fs_log",
-      c = "individual",
-      d = "group",
-      m = "broadcast",
-      p = "newsletter";
-    async function _(t) {
-      await Promise.all(
-        t.map(async function (t) {
-          var n = o("WAWebUprPaymentRequest").parseUprPaymentInfo(t);
-          n != null &&
-            (await f(t, n).catch(function (t) {
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAM:UPR] structured msg receive log err: ",
-                    "",
-                  ])),
-                t,
-              );
-            }));
-        }),
+      s,
+      u = "receiver_log_key",
+      c = "buyer_order_fs_log",
+      d = "individual",
+      m = "group",
+      p = "broadcast",
+      _ = "newsletter";
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          yield (s || (s = n("Promise"))).all(
+            t.map(
+              (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (t) {
+                    var n = o("WAWebUprPaymentRequest").parseUprPaymentInfo(t);
+                    n != null &&
+                      (yield h(t, n).catch(function (t) {
+                        o("WALogger").WARN(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[WAM:UPR] structured msg receive log err: ",
+                              "",
+                            ])),
+                          t,
+                        );
+                      }));
+                  },
+                );
+                return function (e) {
+                  return t.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+        })),
+        g.apply(this, arguments)
       );
     }
-    async function f(e, t) {
-      var n = h(e),
-        r = t.paymentOptions.length === 1,
-        a = e.id.id + e.to.toJid(),
-        i = await g(s, a),
-        l = await g(i, u),
-        c = {
-          flow: "upr",
-          is_single_option: r,
-          chat_type: n,
-          order_funnel_id: i,
-          currency: t.currency,
-        };
-      new (o(
-        "WAWebStructuredMessageReceiveWamEvent",
-      ).StructuredMessageReceiveWamEvent)({
-        messageClass: o("WAWebWamEnumStructuredMessageClass")
-          .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-        messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.INTERACTIVE_NFM,
-        bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-        businessOwnerJid: y(e),
-        messageClassAttributes: JSON.stringify(c),
-      }).commit();
-      var d = {
-        flow: "upr",
-        chat_type: n,
-        order_funnel_id: l,
-        currency: t.currency,
-      };
-      new (o(
-        "WAWebStructuredMessageBuyerReceiveWamEvent",
-      ).StructuredMessageBuyerReceiveWamEvent)({
-        messageClass: o("WAWebWamEnumStructuredMessageClass")
-          .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-        messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.INTERACTIVE_NFM,
-        messageClassAttributes: JSON.stringify(d),
-      }).commit();
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    async function g(e, t) {
-      var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
-        r = await n.genFunnelInfo(),
-        a = r.funnel_id;
-      return a;
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = v(e),
+            r = t.paymentOptions.length === 1,
+            a = e.id.id + e.to.toJid(),
+            i = yield C(u, a),
+            l = yield C(i, c),
+            s = {
+              flow: "upr",
+              is_single_option: r,
+              chat_type: n,
+              order_funnel_id: i,
+              currency: t.currency,
+            };
+          new (o(
+            "WAWebStructuredMessageReceiveWamEvent",
+          ).StructuredMessageReceiveWamEvent)({
+            messageClass: o("WAWebWamEnumStructuredMessageClass")
+              .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+            messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
+              .INTERACTIVE_NFM,
+            bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
+            businessOwnerJid: S(e),
+            messageClassAttributes: JSON.stringify(s),
+          }).commit();
+          var d = {
+            flow: "upr",
+            chat_type: n,
+            order_funnel_id: l,
+            currency: t.currency,
+          };
+          new (o(
+            "WAWebStructuredMessageBuyerReceiveWamEvent",
+          ).StructuredMessageBuyerReceiveWamEvent)({
+            messageClass: o("WAWebWamEnumStructuredMessageClass")
+              .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+            messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
+              .INTERACTIVE_NFM,
+            messageClassAttributes: JSON.stringify(d),
+          }).commit();
+        })),
+        y.apply(this, arguments)
+      );
     }
-    function h(e) {
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
+            r = yield n.genFunnelInfo(),
+            a = r.funnel_id;
+          return a;
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
       var t, n, r;
       return ((t = e.from) == null ? void 0 : t.isGroup()) === !0
-        ? d
+        ? m
         : ((n = e.broadcastId) == null ? void 0 : n.isBroadcast()) === !0
-          ? m
+          ? p
           : ((r = e.from) == null ? void 0 : r.isNewsletter()) === !0
-            ? p
-            : c;
+            ? _
+            : d;
     }
-    function y(e) {
+    function S(e) {
       var t;
       return (t = o("WAWebMsgGetters").getSender(e)) == null ? void 0 : t.user;
     }
-    l.logUprReceivedWAMEvent = _;
+    l.logUprReceivedWAMEvent = f;
   },
   98,
 );

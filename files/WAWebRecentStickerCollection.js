@@ -7,12 +7,13 @@ __d(
     "WAWebConnModel",
     "WAWebMobilePlatforms",
     "WAWebStickerModel",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 32,
       u = (function (t) {
-        function n() {
+        function a() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
           return (
@@ -47,24 +48,24 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a._getWeight = function (t) {
+          (i._getWeight = function (t) {
             return r("WANullthrows")(this._weightMap.get(t.id));
           }),
-          (a.enqueue = function (t) {
+          (i.enqueue = function (t) {
             t.length !== 0 &&
               (o("WAWebConnModel").Conn.platform ===
               o("WAWebMobilePlatforms").PLATFORMS.ANDROID
                 ? this._enqueueAndroid(t)
                 : this._enqueueiOS(t));
           }),
-          (a.addStickerWithMediaData = function (t) {
+          (i.addStickerWithMediaData = function (t) {
             var e = new (o("WAWebStickerModel").StickerModel)(t);
             (e.id || (e.id = e.filehash), this.enqueue([e]));
           }),
-          (a._enqueueAndroid = function (t) {
+          (i._enqueueAndroid = function (t) {
             var e = this;
             (t.forEach(function (t) {
               (e.get(t.id) || (e._weightMap.set(t.id, 0), e.add(t)),
@@ -76,7 +77,7 @@ __d(
             }),
               this._sortTrimScale());
           }),
-          (a._enqueueiOS = function (t) {
+          (i._enqueueiOS = function (t) {
             var e = this;
             this.forEach(function (e, t) {
               e.index = s + t;
@@ -114,40 +115,52 @@ __d(
               this.sort(),
               this.remove(this.slice(s)));
           }),
-          (a.sync = async function () {
-            await this._sync();
-          }),
-          (a._sync = async function () {
-            if (this._syncStatus !== "INPROGRESS") {
-              this._syncStatus = "INPROGRESS";
-              try {
-                (await this.findQuery({}, { set: !0 }),
-                  this.sort(),
-                  (this._syncStatus = "SUCCESS"));
-              } catch (t) {
-                (o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "collection:recent_sticker:_sync error ",
-                    ])),
-                ),
-                  (this._syncStatus = "FAILURE"));
-              }
+          (i.sync = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              yield this._sync();
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          (a.isSynced = function () {
+            return t;
+          })()),
+          (i._sync = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (this._syncStatus !== "INPROGRESS") {
+                this._syncStatus = "INPROGRESS";
+                try {
+                  (yield this.findQuery({}, { set: !0 }),
+                    this.sort(),
+                    (this._syncStatus = "SUCCESS"));
+                } catch (t) {
+                  (o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "collection:recent_sticker:_sync error ",
+                      ])),
+                  ),
+                    (this._syncStatus = "FAILURE"));
+                }
+              }
+            });
+            function r() {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (i.isSynced = function () {
             return (
               this._syncStatus === "SUCCESS" || this._syncStatus === "FAILURE"
             );
           }),
-          (a.reset = function () {
+          (i.reset = function () {
             return (
               (this._syncStatus = "NONE"),
               this._weightMap.clear(),
               t.prototype.reset.call(this)
             );
           }),
-          n
+          a
         );
       })(o("WAWebBaseCollection").BaseCollection);
     u.model = o("WAWebStickerModel").StickerModel;

@@ -133,14 +133,10 @@ __d(
               });
               this.$11(u, l);
             }
-            var c = t
-              .filter(function (e) {
-                return e.isIntersecting === !0 || e.intersectionRatio > 0;
-              })
-              .map(function (e) {
-                return e.target;
-              });
-            this.$5 = new Set(c);
+            for (var c of t)
+              c.isIntersecting === !0 || c.intersectionRatio > 0
+                ? this.$5.add(c.target)
+                : this.$5.delete(c.target);
           }),
           (n.$8 = function () {
             (document.addEventListener("visibilitychange", this.$15),

@@ -8,22 +8,26 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipCallLinkLoadingPreview.react",
     "WAWebVoipInitEventEmitter",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e;
-        (e = o("WAWebVoipActivityTracker")).trackUiActivity(
-          e.VoipUiActivity.VOIP_UI_BUNDLE_LOADING,
-        );
-        var t = await r("JSResourceForInteraction")("WAWebVoipUi.react")
-          .__setRef("WAWebVoipUiLoadable")
-          .load();
-        return (e.trackUiActivity(e.VoipUiActivity.VOIP_UI_BUNDLE_LOADED), t);
-      }, "WAWebVoipUiLoadable");
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
+          (e = o("WAWebVoipActivityTracker")).trackUiActivity(
+            e.VoipUiActivity.VOIP_UI_BUNDLE_LOADING,
+          );
+          var t = yield r("JSResourceForInteraction")("WAWebVoipUi.react")
+            .__setRef("WAWebVoipUiLoadable")
+            .load();
+          return (e.trackUiActivity(e.VoipUiActivity.VOIP_UI_BUNDLE_LOADED), t);
+        }),
+        "WAWebVoipUiLoadable",
+      );
     function c() {
       typeof window.requestIdleCallback == "function" &&
         window.requestIdleCallback(function () {

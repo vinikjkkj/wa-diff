@@ -90,6 +90,7 @@ __d(
           "::selection_color": "x1bhl96m",
           $$css: !0,
         },
+        emojiRawFallback: { color: "x14ug900", $$css: !0 },
       },
       c = (function (t) {
         function n(e, n, r, o) {
@@ -145,7 +146,14 @@ __d(
             ).classnamesConvertMeToStylexPlease(
               n.className,
               this.__emojiSize === s.Small && "emoji",
-              (e || (e = r("stylex")))(u.emoji, a, i, l, c),
+              (e || (e = r("stylex")))(
+                u.emoji,
+                a,
+                i,
+                l,
+                c,
+                d == null && u.emojiRawFallback,
+              ),
             )),
               d != null && (n.style.backgroundImage = "url('" + d + "')"));
             var m = document.createElement("span");

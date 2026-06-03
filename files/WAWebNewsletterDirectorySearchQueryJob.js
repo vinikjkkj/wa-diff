@@ -10,41 +10,65 @@ __d(
     "WAWebMexNewsletterParseUtils",
     "WAWebNewsletterDirectoryCategoryUtils",
     "WAWebNewsletterRpcUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      var n,
-        r,
-        a = await o(
-          "WAWebMexFetchRecommendedNewslettersJob",
-        ).mexFetchRecommendedNewsletters(e, t),
-        i = u(
-          (n = a.xwa2_newsletters_recommended) == null ? void 0 : n.result,
-          "recommended_newsletters",
-        );
-      return {
-        pageInfo:
-          (r = a.xwa2_newsletters_recommended) == null ? void 0 : r.page_info,
-        newsletters: i,
-      };
+    function e(e, t) {
+      return s.apply(this, arguments);
     }
-    async function s(e) {
-      var t = async function () {
-        var t = await o(
-            "WAWebMexFetchSimilarNewslettersJob",
-          ).mexFetchSimilarNewsletters(e),
-          n = u(t, "similar_newsletters");
-        return { pageInfo: null, newsletters: n };
-      };
-      return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r,
+            a = yield o(
+              "WAWebMexFetchRecommendedNewslettersJob",
+            ).mexFetchRecommendedNewsletters(e, t),
+            i = d(
+              (n = a.xwa2_newsletters_recommended) == null ? void 0 : n.result,
+              "recommended_newsletters",
+            );
+          return {
+            pageInfo:
+              (r = a.xwa2_newsletters_recommended) == null
+                ? void 0
+                : r.page_info,
+            newsletters: i,
+          };
+        })),
+        s.apply(this, arguments)
+      );
     }
-    function u(e, t) {
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t = yield o(
+                  "WAWebMexFetchSimilarNewslettersJob",
+                ).mexFetchSimilarNewsletters(e),
+                n = d(t, "similar_newsletters");
+              return { pageInfo: null, newsletters: n };
+            });
+            return function () {
+              return t.apply(this, arguments);
+            };
+          })();
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t) {
       if (e != null)
         return e.map(function (e) {
           var t = o("WAWebMexNewsletterParseUtils").parseMexNewsletterResponse(
             e,
           );
-          if (t != null) return c(t);
+          if (t != null) return m(t);
           throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
             500,
             "unexpected null mex newsletter metadata",
@@ -55,7 +79,7 @@ __d(
         "unexpected " + t + " response",
       );
     }
-    function c(e) {
+    function m(e) {
       var t = e.idJid,
         n = e.newsletterCreationTimeMetadataMixin,
         r = e.newsletterDescriptionMetadataMixin,
@@ -79,87 +103,130 @@ __d(
         newsletterStatusMetadata: s,
       };
     }
-    async function d(e) {
-      var t = async function () {
-        var t,
-          n,
-          r = await o(
-            "WAWebMexFetchNewsletterDirectoryListJob",
-          ).mexFetchNewsletterDirectoryList(e),
-          a = u(
-            (t = r.xwa2_newsletters_directory_list) == null ? void 0 : t.result,
-            "directory_v2_list_newsletters",
-          );
-        return {
-          pageInfo:
-            (n = r.xwa2_newsletters_directory_list) == null
-              ? void 0
-              : n.page_info,
-          newsletters: a,
-        };
-      };
-      return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    async function m(e) {
-      var t = async function () {
-        var t,
-          n,
-          r = await o(
-            "WAWebMexFetchNewsletterDirectorySearchResultsJob",
-          ).mexFetchNewsletterDirectorySearchResults(e),
-          a = u(
-            (t = r.xwa2_newsletters_directory_search) == null
-              ? void 0
-              : t.result,
-            "directory_v2_search_newsletter",
-          );
-        return {
-          pageInfo:
-            (n = r.xwa2_newsletters_directory_search) == null
-              ? void 0
-              : n.page_info,
-          newsletters: a,
-        };
-      };
-      return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t,
+                n,
+                r = yield o(
+                  "WAWebMexFetchNewsletterDirectoryListJob",
+                ).mexFetchNewsletterDirectoryList(e),
+                a = d(
+                  (t = r.xwa2_newsletters_directory_list) == null
+                    ? void 0
+                    : t.result,
+                  "directory_v2_list_newsletters",
+                );
+              return {
+                pageInfo:
+                  (n = r.xwa2_newsletters_directory_list) == null
+                    ? void 0
+                    : n.page_info,
+                newsletters: a,
+              };
+            });
+            return function () {
+              return t.apply(this, arguments);
+            };
+          })();
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+        })),
+        _.apply(this, arguments)
+      );
     }
-    async function p(e) {
-      var t = async function () {
-        var t,
-          n = await o(
-            "WAWebMexFetchNewsletterDirectoryCategoriesPreviewJob",
-          ).mexFetchNewsletterDirectoryCategoriesPreview(e),
-          r =
-            (t = n.xwa2_newsletters_directory_category_preview) == null
-              ? void 0
-              : t.result,
-          a =
-            r == null
-              ? void 0
-              : r.map(function (e) {
-                  var t = u(
-                    e.newsletters,
-                    "directory_category_preview_newsletters",
-                  );
-                  return {
-                    category: {
-                      type: o(
-                        "WAWebNewsletterDirectoryCategoryUtils",
-                      ).getNewsletterDirectoryCategoryTypeFromValue(e.category),
-                      name: e.category_title,
-                    },
-                    newsletters: t,
-                  };
-                });
-        return a != null ? a : [];
-      };
-      return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t,
+                n,
+                r = yield o(
+                  "WAWebMexFetchNewsletterDirectorySearchResultsJob",
+                ).mexFetchNewsletterDirectorySearchResults(e),
+                a = d(
+                  (t = r.xwa2_newsletters_directory_search) == null
+                    ? void 0
+                    : t.result,
+                  "directory_v2_search_newsletter",
+                );
+              return {
+                pageInfo:
+                  (n = r.xwa2_newsletters_directory_search) == null
+                    ? void 0
+                    : n.page_info,
+                newsletters: a,
+              };
+            });
+            return function () {
+              return t.apply(this, arguments);
+            };
+          })();
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t,
+                n = yield o(
+                  "WAWebMexFetchNewsletterDirectoryCategoriesPreviewJob",
+                ).mexFetchNewsletterDirectoryCategoriesPreview(e),
+                r =
+                  (t = n.xwa2_newsletters_directory_category_preview) == null
+                    ? void 0
+                    : t.result,
+                a =
+                  r == null
+                    ? void 0
+                    : r.map(function (e) {
+                        var t = d(
+                          e.newsletters,
+                          "directory_category_preview_newsletters",
+                        );
+                        return {
+                          category: {
+                            type: o(
+                              "WAWebNewsletterDirectoryCategoryUtils",
+                            ).getNewsletterDirectoryCategoryTypeFromValue(
+                              e.category,
+                            ),
+                            name: e.category_title,
+                          },
+                          newsletters: t,
+                        };
+                      });
+              return a != null ? a : [];
+            });
+            return function () {
+              return t.apply(this, arguments);
+            };
+          })();
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(t);
+        })),
+        y.apply(this, arguments)
+      );
     }
     ((l.getRecommendedNewslettersQuery = e),
-      (l.getSimilarNewslettersQuery = s),
-      (l.getNewsletterDirectoryListQuery = d),
-      (l.getNewsletterDirectorySearchResultsQuery = m),
-      (l.getNewsletterDirectoryCategoriesPreviewQuery = p));
+      (l.getSimilarNewslettersQuery = u),
+      (l.getNewsletterDirectoryListQuery = p),
+      (l.getNewsletterDirectorySearchResultsQuery = f),
+      (l.getNewsletterDirectoryCategoriesPreviewQuery = h));
   },
   98,
 );

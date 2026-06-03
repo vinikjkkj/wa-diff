@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupModifyInfoJob",
   [
+    "Promise",
     "WASmaxGroupsSetDescriptionRPC",
     "WASmaxGroupsSetPropertyRPC",
     "WASmaxGroupsSetSubjectRPC",
@@ -8,107 +9,147 @@ __d(
     "WAWebEphemeralityUtils",
     "WAWebGroupConstants",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      var n = await o("WASmaxGroupsSetSubjectRPC").sendSetSubjectRPC({
-        iqTo: o("WAWebWidToJid").widToGroupJid(e),
-        subjectElementValue: t,
-      });
-      e: {
-        var r = n;
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.name === "SetSubjectResponseSuccess"
-        )
-          return;
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.name === "SetSubjectResponseClientError" &&
-          ((typeof r.value == "object" && r.value !== null) ||
-            typeof r.value == "function") &&
-          ((typeof r.value.errorSetSubjectClientErrors == "object" &&
-            r.value.errorSetSubjectClientErrors !== null) ||
-            typeof r.value.errorSetSubjectClientErrors == "function") &&
-          ((typeof r.value.errorSetSubjectClientErrors.value == "object" &&
-            r.value.errorSetSubjectClientErrors.value !== null) ||
-            typeof r.value.errorSetSubjectClientErrors.value == "function") &&
-          "code" in r.value.errorSetSubjectClientErrors.value &&
-          "text" in r.value.errorSetSubjectClientErrors.value
-        ) {
-          var a = r.value.errorSetSubjectClientErrors.value.code,
-            i = r.value.errorSetSubjectClientErrors.value.text;
-          return Promise.reject(
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(a), i),
-          );
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.name === "SetSubjectResponseServerError" &&
-          ((typeof r.value == "object" && r.value !== null) ||
-            typeof r.value == "function") &&
-          ((typeof r.value.errorServerErrors == "object" &&
-            r.value.errorServerErrors !== null) ||
-            typeof r.value.errorServerErrors == "function") &&
-          ((typeof r.value.errorServerErrors.value == "object" &&
-            r.value.errorServerErrors.value !== null) ||
-            typeof r.value.errorServerErrors.value == "function") &&
-          "code" in r.value.errorServerErrors.value &&
-          "text" in r.value.errorServerErrors.value
-        ) {
-          var l = r.value.errorServerErrors.value.code,
-            s = r.value.errorServerErrors.value.text;
-          return Promise.reject(
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(l), s),
-          );
-        }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            r,
-        );
-      }
+    var e;
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    async function s(e, t, n, r) {
-      var a =
-        t != null
-          ? await o("WASmaxGroupsSetDescriptionRPC").sendSetDescriptionRPC({
-              bodyArgs: { bodyElementValue: t },
-              iqTo: o("WAWebWidToJid").widToGroupJid(e),
-              descriptionId: n,
-              descriptionPrev: r,
-              hasDescriptionDeleteTrue: !1,
-            })
-          : await o("WASmaxGroupsSetDescriptionRPC").sendSetDescriptionRPC({
-              bodyArgs: void 0,
-              iqTo: o("WAWebWidToJid").widToGroupJid(e),
-              descriptionId: n,
-              descriptionPrev: r,
-              hasDescriptionDeleteTrue: !0,
-            });
-      switch (a.name) {
-        case "SetDescriptionResponseSuccess":
-          return;
-        case "SetDescriptionResponseClientError": {
-          var i = a.value.errorSetDescriptionClientErrors.value,
-            l = i.code,
-            s = i.text;
-          return Promise.reject(
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(l), s),
-          );
-        }
-        case "SetDescriptionResponseServerError": {
-          var u = a.value.errorServerErrors.value,
-            c = u.code,
-            d = u.text;
-          return Promise.reject(
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(c), d),
-          );
-        }
-      }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a = yield o("WASmaxGroupsSetSubjectRPC").sendSetSubjectRPC({
+            iqTo: o("WAWebWidToJid").widToGroupJid(t),
+            subjectElementValue: r,
+          });
+          e: {
+            var i = a;
+            if (
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.name === "SetSubjectResponseSuccess"
+            )
+              return;
+            if (
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.name === "SetSubjectResponseClientError" &&
+              ((typeof i.value == "object" && i.value !== null) ||
+                typeof i.value == "function") &&
+              ((typeof i.value.errorSetSubjectClientErrors == "object" &&
+                i.value.errorSetSubjectClientErrors !== null) ||
+                typeof i.value.errorSetSubjectClientErrors == "function") &&
+              ((typeof i.value.errorSetSubjectClientErrors.value == "object" &&
+                i.value.errorSetSubjectClientErrors.value !== null) ||
+                typeof i.value.errorSetSubjectClientErrors.value ==
+                  "function") &&
+              "code" in i.value.errorSetSubjectClientErrors.value &&
+              "text" in i.value.errorSetSubjectClientErrors.value
+            ) {
+              var l = i.value.errorSetSubjectClientErrors.value.code,
+                s = i.value.errorSetSubjectClientErrors.value.text;
+              return (e || (e = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(l),
+                  s,
+                ),
+              );
+            }
+            if (
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.name === "SetSubjectResponseServerError" &&
+              ((typeof i.value == "object" && i.value !== null) ||
+                typeof i.value == "function") &&
+              ((typeof i.value.errorServerErrors == "object" &&
+                i.value.errorServerErrors !== null) ||
+                typeof i.value.errorServerErrors == "function") &&
+              ((typeof i.value.errorServerErrors.value == "object" &&
+                i.value.errorServerErrors.value !== null) ||
+                typeof i.value.errorServerErrors.value == "function") &&
+              "code" in i.value.errorServerErrors.value &&
+              "text" in i.value.errorServerErrors.value
+            ) {
+              var u = i.value.errorServerErrors.value.code,
+                c = i.value.errorServerErrors.value.text;
+              return (e || (e = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(u),
+                  c,
+                ),
+              );
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                i,
+            );
+          }
+        })),
+        u.apply(this, arguments)
+      );
     }
-    function u(e, t, n) {
-      var a = {
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, r, a, i) {
+            var l =
+              r != null
+                ? yield o(
+                    "WASmaxGroupsSetDescriptionRPC",
+                  ).sendSetDescriptionRPC({
+                    bodyArgs: { bodyElementValue: r },
+                    iqTo: o("WAWebWidToJid").widToGroupJid(t),
+                    descriptionId: a,
+                    descriptionPrev: i,
+                    hasDescriptionDeleteTrue: !1,
+                  })
+                : yield o(
+                    "WASmaxGroupsSetDescriptionRPC",
+                  ).sendSetDescriptionRPC({
+                    bodyArgs: void 0,
+                    iqTo: o("WAWebWidToJid").widToGroupJid(t),
+                    descriptionId: a,
+                    descriptionPrev: i,
+                    hasDescriptionDeleteTrue: !0,
+                  });
+            switch (l.name) {
+              case "SetDescriptionResponseSuccess":
+                return;
+              case "SetDescriptionResponseClientError": {
+                var s = l.value.errorSetDescriptionClientErrors.value,
+                  u = s.code,
+                  c = s.text;
+                return (e || (e = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(u),
+                    c,
+                  ),
+                );
+              }
+              case "SetDescriptionResponseServerError": {
+                var d = l.value.errorServerErrors.value,
+                  m = d.code,
+                  p = d.text;
+                return (e || (e = n("Promise"))).reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    Number(m),
+                    p,
+                  ),
+                );
+              }
+            }
+          },
+        )),
+        d.apply(this, arguments)
+      );
+    }
+    function m(t, a, i) {
+      var l = {
         hasLocked: !1,
         hasAnnouncement: !1,
         hasNoFrequentlyForwarded: !1,
@@ -124,104 +165,116 @@ __d(
         hasNotAllowNonAdminSubGroupCreation: !1,
         hasGroupHistory: !1,
         hasNoGroupHistory: !1,
-        iqTo: o("WAWebWidToJid").widToGroupJid(e),
+        iqTo: o("WAWebWidToJid").widToGroupJid(t),
       };
-      switch (t) {
+      switch (a) {
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.ANNOUNCEMENT:
-          a = babelHelpers.extends({}, a, {
-            hasAnnouncement: n === 1,
-            hasNotAnnouncement: n !== 1,
+          l = babelHelpers.extends({}, l, {
+            hasAnnouncement: i === 1,
+            hasNotAnnouncement: i !== 1,
           });
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.RESTRICT:
-          a = babelHelpers.extends({}, a, {
-            hasLocked: n === 1,
-            hasUnlocked: n !== 1,
+          l = babelHelpers.extends({}, l, {
+            hasLocked: i === 1,
+            hasUnlocked: i !== 1,
           });
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE
           .NO_FREQUENTLY_FORWARDED:
-          a = babelHelpers.extends({}, a, {
-            hasNoFrequentlyForwarded: n === 1,
-            hasFrequentlyForwardedOk: n !== 1,
+          l = babelHelpers.extends({}, l, {
+            hasNoFrequentlyForwarded: i === 1,
+            hasFrequentlyForwardedOk: i !== 1,
           });
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL:
-          a = babelHelpers.extends({}, a, {
-            ephemeralArgs: n > 0 ? { ephemeralExpiration: n } : null,
-            hasNotEphemeral: n <= 0,
+          l = babelHelpers.extends({}, l, {
+            ephemeralArgs: i > 0 ? { ephemeralExpiration: i } : null,
+            hasNotEphemeral: i <= 0,
           });
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE
           .MEMBERSHIP_APPROVAL_MODE:
-          a = babelHelpers.extends({}, a, {
+          l = babelHelpers.extends({}, l, {
             membershipApprovalModeArgs: {
               membershipApprovalModesArgs:
-                n === 1
+                i === 1
                   ? { isGroupJoinMembershipApprovalModeEnabled: !0 }
                   : { isGroupJoinMembershipApprovalModeDisabled: !0 },
             },
           });
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.REPORT_TO_ADMIN_MODE:
-          a = babelHelpers.extends({}, a, {
-            hasAllowAdminReports: n === 1,
-            hasNotAllowAdminReports: n !== 1,
+          l = babelHelpers.extends({}, l, {
+            hasAllowAdminReports: i === 1,
+            hasNotAllowAdminReports: i !== 1,
           });
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE
           .ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
-          a = babelHelpers.extends({}, a, {
-            hasAllowNonAdminSubGroupCreation: n === 1,
-            hasNotAllowNonAdminSubGroupCreation: n !== 1,
+          l = babelHelpers.extends({}, l, {
+            hasAllowNonAdminSubGroupCreation: i === 1,
+            hasNotAllowNonAdminSubGroupCreation: i !== 1,
           });
           break;
         default:
-          return Promise.reject(r("err")("invalid group property " + t));
+          return (e || (e = n("Promise"))).reject(
+            r("err")("invalid group property " + a),
+          );
       }
-      return o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(a);
+      return o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(l);
     }
-    async function c(e) {
-      var t = e.ephemeralExpiration,
-        n = e.groupWid,
-        r = e.trigger,
-        a = {
-          hasLocked: !1,
-          hasAnnouncement: !1,
-          hasNoFrequentlyForwarded: !1,
-          ephemeralArgs: null,
-          hasUnlocked: !1,
-          hasNotAnnouncement: !1,
-          hasFrequentlyForwardedOk: !1,
-          hasNotEphemeral: !0,
-          membershipApprovalModeArgs: null,
-          hasAllowAdminReports: !1,
-          hasNotAllowAdminReports: !1,
-          hasAllowNonAdminSubGroupCreation: !1,
-          hasNotAllowNonAdminSubGroupCreation: !1,
-          hasGroupHistory: !1,
-          hasNoGroupHistory: !1,
-          iqTo: o("WAWebWidToJid").widToGroupJid(n),
-        },
-        i = o("WAWebEphemeralityUtils").getGroupEphemeralTrigger(r);
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        r != null
-          ? (a = babelHelpers.extends({}, a, {
-              ephemeralArgs:
-                t > 0 ? { ephemeralExpiration: t, ephemeralTrigger: i } : null,
-              hasNotEphemeral: t <= 0,
-            }))
-          : (a = babelHelpers.extends({}, a, {
-              ephemeralArgs: t > 0 ? { ephemeralExpiration: t } : null,
-              hasNotEphemeral: t <= 0,
-            })),
-        o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(a)
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ephemeralExpiration,
+            n = e.groupWid,
+            r = e.trigger,
+            a = {
+              hasLocked: !1,
+              hasAnnouncement: !1,
+              hasNoFrequentlyForwarded: !1,
+              ephemeralArgs: null,
+              hasUnlocked: !1,
+              hasNotAnnouncement: !1,
+              hasFrequentlyForwardedOk: !1,
+              hasNotEphemeral: !0,
+              membershipApprovalModeArgs: null,
+              hasAllowAdminReports: !1,
+              hasNotAllowAdminReports: !1,
+              hasAllowNonAdminSubGroupCreation: !1,
+              hasNotAllowNonAdminSubGroupCreation: !1,
+              hasGroupHistory: !1,
+              hasNoGroupHistory: !1,
+              iqTo: o("WAWebWidToJid").widToGroupJid(n),
+            },
+            i = o("WAWebEphemeralityUtils").getGroupEphemeralTrigger(r);
+          return (
+            r != null
+              ? (a = babelHelpers.extends({}, a, {
+                  ephemeralArgs:
+                    t > 0
+                      ? { ephemeralExpiration: t, ephemeralTrigger: i }
+                      : null,
+                  hasNotEphemeral: t <= 0,
+                }))
+              : (a = babelHelpers.extends({}, a, {
+                  ephemeralArgs: t > 0 ? { ephemeralExpiration: t } : null,
+                  hasNotEphemeral: t <= 0,
+                })),
+            o("WASmaxGroupsSetPropertyRPC").sendSetPropertyRPC(a)
+          );
+        })),
+        _.apply(this, arguments)
       );
     }
-    ((l.setGroupSubject = e),
-      (l.setGroupDescription = s),
-      (l.setGroupProperty = u),
-      (l.setEphemeralGroupProperty = c));
+    ((l.setGroupSubject = s),
+      (l.setGroupDescription = c),
+      (l.setGroupProperty = m),
+      (l.setEphemeralGroupProperty = p));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebAddonProcessMsgsUtils",
   [
+    "Promise",
     "WALogger",
     "WAWebAddonConstants",
     "WAWebAddonCrossWindowUtils",
@@ -14,11 +15,12 @@ __d(
     "WAWebMsgType",
     "WAWebParentMsgKeyValidation",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e, s;
+    function u(e) {
       if (e.targetMessageKey != null) return "targetMessageKey";
       if (e.pinParentKey != null) return "pinParentKey";
       if (e.pollUpdateParentKey != null) return "pollUpdateParentKey";
@@ -29,7 +31,7 @@ __d(
           .MISSING_PARENT_MESSAGE_KEY,
       );
     }
-    function u(e) {
+    function c(e) {
       var t,
         n,
         a,
@@ -51,8 +53,8 @@ __d(
           .MISSING_PARENT_MESSAGE_KEY,
       );
     }
-    function c(e) {
-      var t = u(e);
+    function d(e) {
+      var t = c(e);
       if (t.remote.isBroadcastList()) {
         var n = o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
             t,
@@ -67,16 +69,16 @@ __d(
       }
       return t;
     }
-    function d(e) {
+    function m(e) {
       var t = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(e);
       if (o("WAWebAddonPluginProcessor").getAddonProcessorsMap().has(t))
         return e;
     }
-    function m(e, t) {
+    function p(e, t) {
       var n = new Map(),
         a = e.map(function (e) {
           var a,
-            i = c(e),
+            i = d(e),
             l = o("WAWebLidMigrationUtils").getAlternateMsgKey(i),
             s = null;
           if (n.has(i.toString())) s = r("nullthrows")(n.get(i.toString()));
@@ -89,16 +91,16 @@ __d(
                 !i.equals(u.id) &&
                 ((s = u.id), n.set(i.toString(), s)));
           }
-          var d =
+          var c =
             (a = t.get(i.toString())) != null
               ? a
               : l != null
                 ? t.get(l.toString())
                 : void 0;
-          if (d == null) return e;
-          if (s == null) return p(e, d);
-          var m = _(e, s);
-          return p(m, d);
+          if (c == null) return e;
+          if (s == null) return _(e, c);
+          var m = f(e, s);
+          return _(m, c);
         });
       return (
         n.forEach(function (e, n) {
@@ -108,15 +110,15 @@ __d(
         [t, a]
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n,
         o =
           t.broadcastId != null &&
           r("WAWebWid").isWid(t.broadcastId) &&
           !!((n = t.broadcastId) != null && n.isBroadcastList());
       if (!o) return e;
-      var a = c(e);
-      return _(
+      var a = d(e);
+      return f(
         e,
         new (r("WAWebMsgKey"))({
           id: a.id,
@@ -125,9 +127,9 @@ __d(
         }),
       );
     }
-    function _(e, t) {
+    function f(e, t) {
       var n,
-        o = s(e),
+        o = u(e),
         a = e.id;
       return (
         e.id.remote.isUser() &&
@@ -140,73 +142,97 @@ __d(
         babelHelpers.extends({}, e, ((n = { id: a }), (n[o] = t), n))
       );
     }
-    async function f(e, t) {
-      var n = e.map(c),
-        r;
-      t === o("WAWebAddonConstants").AddonProcessMode.OnlineReceive &&
-        (r = await o("WAWebAddonPerfUtils").createMessagesQplMarker(
-          o("WAWebAddonPerfUtils").AddonQplMarkerType.Incoming,
-          {
-            type: o("WAWebAddonPerfUtils").AnnotationRequestType
-              .BulkGetParentMsgs,
-            size: n.length,
-          },
-        ));
-      try {
-        var a,
-          i = await g(e);
-        return ((a = r) == null || a.success(), i);
-      } catch (e) {
-        var l;
-        throw ((l = r) == null || l.fail(), e);
-      }
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    async function g(e) {
-      var t = e.map(c),
-        n = await o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(t);
-      return m(e, n);
-    }
-    async function h(t) {
-      try {
-        var n = [];
-        for (var r of o("WAWebAddonPluginProcessor")
-          .getAddonProcessorsMap()
-          .entries()) {
-          var a = r[0],
-            i = r[1];
-          o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(a) &&
-            n.push(i.convert.fromHistorySyncMsg(t));
-        }
-        var l = await Promise.all(n).then(function (e) {
-          var t;
-          return (t = []).concat.apply(t, e);
-        });
-        return l;
-      } catch (t) {
-        return (
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "parseHistorySyncMsg: error:",
-                  "",
-                ])),
-              t,
-            )
-            .tags("addons", "messaging")
-            .sendLogs("parseHistorySyncMsg"),
-          []
-        );
-      }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.map(d),
+            r;
+          t === o("WAWebAddonConstants").AddonProcessMode.OnlineReceive &&
+            (r = yield o("WAWebAddonPerfUtils").createMessagesQplMarker(
+              o("WAWebAddonPerfUtils").AddonQplMarkerType.Incoming,
+              {
+                type: o("WAWebAddonPerfUtils").AnnotationRequestType
+                  .BulkGetParentMsgs,
+                size: n.length,
+              },
+            ));
+          try {
+            var a,
+              i = yield y(e);
+            return ((a = r) == null || a.success(), i);
+          } catch (e) {
+            var l;
+            throw ((l = r) == null || l.fail(), e);
+          }
+        })),
+        h.apply(this, arguments)
+      );
     }
     function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(d),
+            n = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(t);
+          return p(e, n);
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            var r = [];
+            for (var a of o("WAWebAddonPluginProcessor")
+              .getAddonProcessorsMap()
+              .entries()) {
+              var i = a[0],
+                l = a[1];
+              o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(i) &&
+                r.push(l.convert.fromHistorySyncMsg(t));
+            }
+            var u = yield (s || (s = n("Promise"))).all(r).then(function (e) {
+              var t;
+              return (t = []).concat.apply(t, e);
+            });
+            return u;
+          } catch (t) {
+            return (
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "parseHistorySyncMsg: error:",
+                      "",
+                    ])),
+                  t,
+                )
+                .tags("addons", "messaging")
+                .sendLogs("parseHistorySyncMsg"),
+              []
+            );
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
       var t = [],
         n = [],
         r = [];
       for (var a of e) {
         var i = a.parsedMsgPayload;
         if (o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(i.type)) {
-          var l = d(i);
+          var l = m(i);
           l != null ? t.push(l) : n.push(a);
         } else
           i.kind === o("WAWebMsgType").MsgKind.ReactionDecrypted
@@ -215,13 +241,13 @@ __d(
       }
       return { unifiedAddons: t, otherOrphans: n, legacyReactionAddons: r };
     }
-    ((l.getParentMsgKey = c),
-      (l.castToAddonMsgData = d),
-      (l.updateMsgParentKeyValue = _),
-      (l.queryAddonParentMsgs = f),
-      (l.queryParentMsgs = g),
-      (l.parseHistorySyncMsg = h),
-      (l.sortAddonOrphans = y));
+    ((l.getParentMsgKey = d),
+      (l.castToAddonMsgData = m),
+      (l.updateMsgParentKeyValue = f),
+      (l.queryAddonParentMsgs = g),
+      (l.queryParentMsgs = y),
+      (l.parseHistorySyncMsg = b),
+      (l.sortAddonOrphans = S));
   },
   98,
 );

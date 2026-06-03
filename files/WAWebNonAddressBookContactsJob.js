@@ -12,6 +12,7 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebWid",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -59,225 +60,271 @@ __d(
         n
       );
     }
-    async function _() {
-      var e = new Set();
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        await o("WAWebSchemaParticipant")
-          .getParticipantTable()
-          .forEach(function (t) {
-            t.participants.forEach(function (t) {
-              r("WAWebWid").isStringLid(t)
-                ? e.add(
-                    o("WAJids").toLidUserJid(
-                      o("WAWebWidFactory").createWid(t).user,
-                    ),
-                  )
-                : e.add(
-                    o("WAJids").toPhoneUserJid(
-                      o("WAWebWidFactory").createWid(t).user,
-                    ),
-                  );
-            });
-          }),
-        await o("WAWebSchemaChat")
-          .getChatTable()
-          .forEach(function (t) {
-            r("WAWebWid").isEligibleForUSync(t.id) &&
-              (r("WAWebWid").isStringLid(t.id)
-                ? e.add(
-                    o("WAJids").toLidUserJid(
-                      o("WAWebWidFactory").createWid(t.id).user,
-                    ),
-                  )
-                : e.add(
-                    o("WAJids").toPhoneUserJid(
-                      o("WAWebWidFactory").createWid(t.id).user,
-                    ),
-                  ));
-          }),
-        o("WALogger")
-          .LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "found ",
-                " contacts from chat and group participant tables",
-              ])),
-            e.size,
-          )
-          .tags("contact-sync"),
-        Array.from(e)
-      );
-    }
-    async function f() {
-      var e = await r("WAWebLidAwareContactsDB").anyOf(
-          ["isAddressBookContact"],
-          [1, 0],
-        ),
-        t = new Map(
-          e.map(function (e) {
-            return [e.id, e.contactHash];
-          }),
-        );
-      return (
-        o("WALogger")
-          .LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "found ",
-                " contacts with isAddressBookContact set",
-              ])),
-            t.size,
-          )
-          .tags("contact-sync"),
-        t
-      );
-    }
-    async function g(e, t) {
-      if (e.size !== 0) {
-        var n = function (n, r) {
-            var e = {
-              id: n,
-              contactHash: o("WAWebApiContact").getContactHash(n),
-            };
-            if (r.isLid()) {
-              var a = o("WAWebApiContact").getPhoneNumber(r);
-              if (a != null) {
-                var i,
-                  l = a.toJid();
-                e.pnContactHash =
-                  (i = t.get(l)) != null
-                    ? i
-                    : o("WAWebApiContact").getContactHash(l);
-              }
-            }
-            return e;
-          },
-          a = Array.from(e).reduce(function (e, r) {
-            var a;
-            try {
-              a = o("WAWebWidFactory").createUserWidOrThrow(r);
-            } catch (t) {
-              return e;
-            }
-            var i = n(r, a);
-            if ((e.push(i), a.isLid())) {
-              var l = o("WAWebApiContact").getPhoneNumber(a);
-              if (l != null) {
-                var s = l.toJid();
-                if (t.get(s) == null) {
-                  var u = n(s, l);
-                  e.push(u);
-                }
-              }
-            } else {
-              var c = o("WAWebApiContact").getCurrentLid(a);
-              if (c != null) {
-                var d = c.toJid();
-                if (t.get(d) == null) {
-                  var m = n(d, c);
-                  e.push(m);
-                }
-              }
-            }
-            return e;
-          }, []);
-        return (
-          o("WALogger")
-            .LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "add missing contactHashes to ",
-                  " contacts",
-                ])),
-              a.length,
-            )
-            .tags("contact-sync"),
-          r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-            a,
-            "NonAddressBookContactsJob.addMissingContactHashesToContacts",
-          )
-        );
-      }
-    }
-    async function h() {
-      var e = await _();
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(["contact"], async function () {
-          var t = await f(),
-            n = new Set(),
-            a = Array.from(e, function (e) {
-              var r = { id: e, isContactSyncCompleted: 0 };
-              return (
-                t.has(e) || (r.isAddressBookContact = 0),
-                t.get(e) == null && n.add(e),
-                r
-              );
-            });
-          (o("WALogger")
-            .LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "mark ",
-                  " contacts dirty during the regular sync",
-                ])),
-              a.length,
-            )
-            .tags("contact-sync"),
-            await r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-              a,
-              "NonAddressBookContactsJob.getNonAddressBookContactsAndMarkAllContactsDirty",
-            ),
-            t.forEach(function (e, t) {
-              e == null && n.add(t);
-            }),
-            await g(n, t));
-        });
-    }
-    async function y() {
-      var e = await _();
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(["contact"], async function () {
-          var t = await f(),
-            n = e.filter(function (e) {
-              return !t.has(e);
-            }),
-            a = n.map(function (e) {
-              return {
-                id: e,
-                isAddressBookContact: 0,
-                isContactSyncCompleted: 0,
-              };
-            });
-          (o("WALogger")
-            .LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "get ",
-                  " non-AB contacts, mark dirty (initial sync)",
-                ])),
-              a.length,
-            )
-            .tags("contact-sync"),
-            await r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-              a,
-              "NonAddressBookContactsJob.getAndUpdateNonAddressBookContacts",
-            ));
-          var i = new Set(
-            e.filter(function (e) {
-              return t.get(e) == null;
-            }),
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = new Set();
+          return (
+            yield o("WAWebSchemaParticipant")
+              .getParticipantTable()
+              .forEach(function (t) {
+                t.participants.forEach(function (t) {
+                  r("WAWebWid").isStringLid(t)
+                    ? e.add(
+                        o("WAJids").toLidUserJid(
+                          o("WAWebWidFactory").createWid(t).user,
+                        ),
+                      )
+                    : e.add(
+                        o("WAJids").toPhoneUserJid(
+                          o("WAWebWidFactory").createWid(t).user,
+                        ),
+                      );
+                });
+              }),
+            yield o("WAWebSchemaChat")
+              .getChatTable()
+              .forEach(function (t) {
+                r("WAWebWid").isEligibleForUSync(t.id) &&
+                  (r("WAWebWid").isStringLid(t.id)
+                    ? e.add(
+                        o("WAJids").toLidUserJid(
+                          o("WAWebWidFactory").createWid(t.id).user,
+                        ),
+                      )
+                    : e.add(
+                        o("WAJids").toPhoneUserJid(
+                          o("WAWebWidFactory").createWid(t.id).user,
+                        ),
+                      ));
+              }),
+            o("WALogger")
+              .LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "found ",
+                    " contacts from chat and group participant tables",
+                  ])),
+                e.size,
+              )
+              .tags("contact-sync"),
+            Array.from(e)
           );
-          (t.forEach(function (e, t) {
-            e == null && i.add(t);
-          }),
-            await g(i, t));
-        });
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("WAWebLidAwareContactsDB").anyOf(
+              ["isAddressBookContact"],
+              [1, 0],
+            ),
+            t = new Map(
+              e.map(function (e) {
+                return [e.id, e.contactHash];
+              }),
+            );
+          return (
+            o("WALogger")
+              .LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "found ",
+                    " contacts with isAddressBookContact set",
+                  ])),
+                t.size,
+              )
+              .tags("contact-sync"),
+            t
+          );
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e, t) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e.size !== 0) {
+            var n = function (n, r) {
+                var e = {
+                  id: n,
+                  contactHash: o("WAWebApiContact").getContactHash(n),
+                };
+                if (r.isLid()) {
+                  var a = o("WAWebApiContact").getPhoneNumber(r);
+                  if (a != null) {
+                    var i,
+                      l = a.toJid();
+                    e.pnContactHash =
+                      (i = t.get(l)) != null
+                        ? i
+                        : o("WAWebApiContact").getContactHash(l);
+                  }
+                }
+                return e;
+              },
+              a = Array.from(e).reduce(function (e, r) {
+                var a;
+                try {
+                  a = o("WAWebWidFactory").createUserWidOrThrow(r);
+                } catch (t) {
+                  return e;
+                }
+                var i = n(r, a);
+                if ((e.push(i), a.isLid())) {
+                  var l = o("WAWebApiContact").getPhoneNumber(a);
+                  if (l != null) {
+                    var s = l.toJid();
+                    if (t.get(s) == null) {
+                      var u = n(s, l);
+                      e.push(u);
+                    }
+                  }
+                } else {
+                  var c = o("WAWebApiContact").getCurrentLid(a);
+                  if (c != null) {
+                    var d = c.toJid();
+                    if (t.get(d) == null) {
+                      var m = n(d, c);
+                      e.push(m);
+                    }
+                  }
+                }
+                return e;
+              }, []);
+            return (
+              o("WALogger")
+                .LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "add missing contactHashes to ",
+                      " contacts",
+                    ])),
+                  a.length,
+                )
+                .tags("contact-sync"),
+              r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+                a,
+                "NonAddressBookContactsJob.addMissingContactHashesToContacts",
+              )
+            );
+          }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield _();
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              ["contact"],
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield g(),
+                  n = new Set(),
+                  a = Array.from(e, function (e) {
+                    var r = { id: e, isContactSyncCompleted: 0 };
+                    return (
+                      t.has(e) || (r.isAddressBookContact = 0),
+                      t.get(e) == null && n.add(e),
+                      r
+                    );
+                  });
+                (o("WALogger")
+                  .LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "mark ",
+                        " contacts dirty during the regular sync",
+                      ])),
+                    a.length,
+                  )
+                  .tags("contact-sync"),
+                  yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+                    a,
+                    "NonAddressBookContactsJob.getNonAddressBookContactsAndMarkAllContactsDirty",
+                  ),
+                  t.forEach(function (e, t) {
+                    e == null && n.add(t);
+                  }),
+                  yield y(n, t));
+              }),
+            );
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield _();
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              ["contact"],
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield g(),
+                  n = e.filter(function (e) {
+                    return !t.has(e);
+                  }),
+                  a = n.map(function (e) {
+                    return {
+                      id: e,
+                      isAddressBookContact: 0,
+                      isContactSyncCompleted: 0,
+                    };
+                  });
+                (o("WALogger")
+                  .LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "get ",
+                        " non-AB contacts, mark dirty (initial sync)",
+                      ])),
+                    a.length,
+                  )
+                  .tags("contact-sync"),
+                  yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+                    a,
+                    "NonAddressBookContactsJob.getAndUpdateNonAddressBookContacts",
+                  ));
+                var i = new Set(
+                  e.filter(function (e) {
+                    return t.get(e) == null;
+                  }),
+                );
+                (t.forEach(function (e, t) {
+                  e == null && i.add(t);
+                }),
+                  yield y(i, t));
+              }),
+            );
+        })),
+        R.apply(this, arguments)
+      );
     }
     ((l.getAllContactsFromChatCollectionIntoChunks = p),
-      (l.getNonAddressBookContactsAndMarkAllContactsDirty = h),
-      (l.getAndUpdateNonAddressBookContacts = y));
+      (l.getNonAddressBookContactsAndMarkAllContactsDirty = b),
+      (l.getAndUpdateNonAddressBookContacts = S));
   },
   98,
 );

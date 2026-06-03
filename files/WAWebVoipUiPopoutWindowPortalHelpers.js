@@ -7,6 +7,7 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebUA",
     "WAWebVoipPopoutWindowState",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -45,83 +46,112 @@ __d(
       }
       return e;
     }
-    async function v(t, n, a) {
-      if (!o("WAWebUA").UA.isSafari || !n || !a) {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [popout] skipping permission priming: safari=",
-              ", needsVideo=",
-              ", needsAudio=",
-              "",
-            ])),
-          String(o("WAWebUA").UA.isSafari),
-          String(n),
-          String(a),
-        );
-        return;
-      }
-      try {
-        var i,
-          l = (i = t.navigator) == null ? void 0 : i.mediaDevices;
-        if (l == null) return;
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [popout] priming Safari combined camera+mic permission",
-            ])),
-        );
-        var d = await l.getUserMedia({ audio: !0, video: !0 });
-        (d.getTracks().forEach(function (e) {
-          e.stop();
-        }),
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [popout] Safari combined permission granted, released priming tracks",
-              ])),
-          ));
-      } catch (e) {
-        o("WALogger")
-          .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [popout] Safari permission priming failed, falling back to individual prompts",
-              ])),
-          )
-          .catching(r("getErrorSafe")(e))
-          .sendLogs("voip-safari-permission-prime-fail");
-      }
+    function v(e, t, n) {
+      return S.apply(this, arguments);
     }
-    var S = r("WAWebLazyLoadedRetriable")(async function () {
-      var e = await r("JSResourceForInteraction")("WAWebVoipVideoCameraCapture")
-        .__setRef("WAWebVoipUiPopoutWindowPortalHelpers")
-        .load();
-      return e.WAWebVoipVideoCameraCapture;
-    }, "WAWebVoipVideoCameraCapture");
-    async function R(e, t) {
-      var n, o, a;
-      if (
-        ((n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.id) ===
-        t
-      ) {
-        var i = await S();
-        if (
-          ((o = r("WAWebCallCollection").activeCall) == null
-            ? void 0
-            : o.id) === t
-        ) {
-          var l = i.currentDeviceId,
-            s = i.captureParams;
-          l == null ||
-            l === "" ||
-            s == null ||
-            (await i.startCameraCapture(l, s.width, s.height, s.maxFps, !1, e),
-            (a = r("WAWebCallCollection").activeCall) == null || a.id);
-        }
-      }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          if (!o("WAWebUA").UA.isSafari || !n || !a) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [popout] skipping permission priming: safari=",
+                  ", needsVideo=",
+                  ", needsAudio=",
+                  "",
+                ])),
+              String(o("WAWebUA").UA.isSafari),
+              String(n),
+              String(a),
+            );
+            return;
+          }
+          try {
+            var i,
+              l = (i = t.navigator) == null ? void 0 : i.mediaDevices;
+            if (l == null) return;
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [popout] priming Safari combined camera+mic permission",
+                ])),
+            );
+            var d = yield l.getUserMedia({ audio: !0, video: !0 });
+            (d.getTracks().forEach(function (e) {
+              e.stop();
+            }),
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [popout] Safari combined permission granted, released priming tracks",
+                  ])),
+              ));
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [popout] Safari permission priming failed, falling back to individual prompts",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("voip-safari-permission-prime-fail");
+          }
+        })),
+        S.apply(this, arguments)
+      );
     }
-    function L(e) {
+    var R = r("WAWebLazyLoadedRetriable")(
+      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = yield r("JSResourceForInteraction")(
+          "WAWebVoipVideoCameraCapture",
+        )
+          .__setRef("WAWebVoipUiPopoutWindowPortalHelpers")
+          .load();
+        return e.WAWebVoipVideoCameraCapture;
+      }),
+      "WAWebVoipVideoCameraCapture",
+    );
+    function L(e, t) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n, o, a;
+          if (
+            ((n = r("WAWebCallCollection").activeCall) == null
+              ? void 0
+              : n.id) === t
+          ) {
+            var i = yield R();
+            if (
+              ((o = r("WAWebCallCollection").activeCall) == null
+                ? void 0
+                : o.id) === t
+            ) {
+              var l = i.currentDeviceId,
+                s = i.captureParams;
+              l == null ||
+                l === "" ||
+                s == null ||
+                (yield i.startCameraCapture(
+                  l,
+                  s.width,
+                  s.height,
+                  s.maxFps,
+                  !1,
+                  e,
+                ),
+                (a = r("WAWebCallCollection").activeCall) == null || a.id);
+            }
+          }
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e) {
       o(
         "WAWebVoipPopoutWindowState",
       ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -144,8 +174,8 @@ __d(
       (l.clearActiveStreams = y),
       (l.getStreamsFromPopout = b),
       (l.primeSafariMediaPermissions = v),
-      (l.reacquireCameraInTargetWindow = R),
-      (l.emitPopoutWindowVisibilityChanged = L));
+      (l.reacquireCameraInTargetWindow = L),
+      (l.emitPopoutWindowVisibilityChanged = k));
   },
   98,
 );

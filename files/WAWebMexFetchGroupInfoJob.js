@@ -14,6 +14,7 @@ __d(
     "WAWebSuspendAppealStatusType",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -23,43 +24,61 @@ __d(
       d = "XWA2CommunitySubGroup",
       m = "LID",
       p = e !== void 0 ? e : (e = n("WAWebMexFetchGroupInfoJobQuery.graphql"));
-    async function _(e) {
-      var t = e.groupId,
-        n = e.participantsPhash,
-        r = e.queryContext;
-      return o("WAWebNewsletterRpcUtils").runWithBackoff(async function () {
-        var e = await o("WAWebMexClient").fetchQuery(p, {
-          id: t,
-          query_context: r,
-          include_username: o(
-            "WAWebUsernameGatingUtils",
-          ).usernameDisplayedEnabled(),
-          participants_phash: n,
-        });
-        return (
-          o("WALogger")
-            .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[MEX][GROUP] fetched get group info for ",
-                  "",
-                ])),
-              t,
-            )
-            .tags("GQL", "MEX"),
-          e
-        );
-      });
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    async function f(e) {
-      var t = e.groupId,
-        n = e.participantsPhash,
-        r = e.queryContext,
-        o = y(r),
-        a = await _({ groupId: t, queryContext: o, participantsPhash: n });
-      if (a != null) return g(a);
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupId,
+            r = e.participantsPhash,
+            a = e.queryContext;
+          return o("WAWebNewsletterRpcUtils").runWithBackoff(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o("WAWebMexClient").fetchQuery(p, {
+                id: t,
+                query_context: a,
+                include_username: o(
+                  "WAWebUsernameGatingUtils",
+                ).usernameDisplayedEnabled(),
+                participants_phash: r,
+              });
+              return (
+                o("WALogger")
+                  .LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[MEX][GROUP] fetched get group info for ",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .tags("GQL", "MEX"),
+                e
+              );
+            }),
+          );
+        })),
+        f.apply(this, arguments)
+      );
     }
     function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupId,
+            n = e.participantsPhash,
+            r = e.queryContext,
+            o = b(r),
+            a = yield _({ groupId: t, queryContext: o, participantsPhash: n });
+          if (a != null) return y(a);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
       var t,
         n,
         r,
@@ -71,9 +90,9 @@ __d(
         _,
         f,
         g,
+        h,
         y,
-        v,
-        S,
+        b,
         R,
         L,
         E,
@@ -130,15 +149,15 @@ __d(
             : _.addressing_mode) === m,
         ee = (f = O.properties) == null ? void 0 : f.locked,
         te = (g = O.properties) == null ? void 0 : g.member_add_mode,
-        ne = (y = O.properties) == null ? void 0 : y.member_link_mode,
+        ne = (h = O.properties) == null ? void 0 : h.member_link_mode,
         re =
-          (v = O.properties) == null
+          (y = O.properties) == null
             ? void 0
-            : v.member_share_group_history_mode,
+            : y.member_share_group_history_mode,
         oe =
-          (S = O.properties) == null
+          (b = O.properties) == null
             ? void 0
-            : S.membership_approval_mode_enabled,
+            : b.membership_approval_mode_enabled,
         ae = (R = O.properties) == null ? void 0 : R.support,
         ie = O.state,
         le = O.subject,
@@ -207,7 +226,7 @@ __d(
                 creatorUsername: H,
                 subject: le.value,
                 creation: Number(q),
-                participants: b(de, j),
+                participants: S(de, j),
                 subjectTime: Number(le == null ? void 0 : le.creation_time),
                 subjectOwner:
                   (le == null || (Le = le.creator) == null ? void 0 : Le.id) !=
@@ -249,7 +268,7 @@ __d(
                     : void 0,
                 afterReadDuration: J ? Y : void 0,
                 membershipApprovalMode: oe != null ? oe : !1,
-                memberAddMode: C(te),
+                memberAddMode: v(te),
               },
               $e !== c && $e !== u
                 ? {
@@ -262,12 +281,12 @@ __d(
                   }
                 : void 0,
               {
-                suspended: ie === h.SUSPENDED,
+                suspended: ie === C.SUSPENDED,
                 suspendAppealStatus: o(
                   "WAWebSuspendAppealStatusType",
                 ).toSuspendAppealStatus(ve),
                 suspendAppealUpdateTime: Se != null ? Se : null,
-                terminated: ie === h.TERMINATED ? !0 : void 0,
+                terminated: ie === C.TERMINATED ? !0 : void 0,
                 isLidAddressingMode: Z,
                 reportToAdminMode: K != null ? K : !1,
                 isParentGroupClosed: me === !0,
@@ -295,12 +314,12 @@ __d(
         return Pe;
       }
     }
-    var h = {
+    var C = {
       ACTIVE: "ACTIVE",
       TERMINATED: "NON_EXISTENT",
       SUSPENDED: "SUSPENDED",
     };
-    function y(e) {
+    function b(e) {
       return e === "interactive" || e === "enter_group_info"
         ? "INTERACTIVE"
         : e === "missing_participant_identification"
@@ -314,7 +333,7 @@ __d(
                 );
               })();
     }
-    function C(e) {
+    function v(e) {
       switch (e) {
         case "ADMIN_ADD":
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
@@ -324,7 +343,7 @@ __d(
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
       }
     }
-    function b(e, t) {
+    function S(e, t) {
       if (e) return [];
       if (t == null)
         throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
@@ -366,7 +385,7 @@ __d(
         });
       return r;
     }
-    l.mexGetGroupInfo = f;
+    l.mexGetGroupInfo = g;
   },
   98,
 );

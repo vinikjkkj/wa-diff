@@ -11,6 +11,7 @@ __d(
     "WAWebPhoneNumberSearch",
     "WAWebToast.react",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,63 +19,75 @@ __d(
       u,
       c,
       d = c || (c = o("react"));
-    async function m(t, n) {
-      if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
-        return !1;
-      var r = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
-      if (!o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(r))
-        return (
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "sendInvite: invalid phone number format",
-              ])),
-          ),
-          !1
-        );
-      var a,
-        i = !1,
-        l;
-      try {
-        var c = await o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
-          r,
-          n.toString(),
-        );
-        c != null
-          ? ((a = o("WAWebOutContactInviteUtils").getInviteMessageTextWithCode(
-              c,
-            )),
-            (i = !0))
-          : (a = o("WAWebOutContactInviteUtils").getInviteMessageText());
-      } catch (e) {
-        (o("WALogger").ERROR(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[out-contact-invite] MEX invite failed, fallback: ",
-              "",
-            ])),
-          e,
-        ),
-          o("WAWebToastManager").ToastManager.open(
-            d.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(
-                /*BTDS*/ "Could not generate invite link. Sending with default link.",
-              ),
-            }),
-          ),
-          (l = String(e)),
-          (a = o("WAWebOutContactInviteUtils").getInviteMessageText()));
-      }
-      o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
-        entryPoint: n,
-        inviteCodeError: l,
-        validInviteCode: i,
-      });
-      var m = encodeURIComponent(a),
-        _ = window.open("sms:+" + r + "?body=" + m);
-      return (p(_ == null), _ != null);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function p(e) {
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
+            return !1;
+          var r = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
+          if (
+            !o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(
+              r,
+            )
+          )
+            return (
+              o("WALogger").ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendInvite: invalid phone number format",
+                  ])),
+              ),
+              !1
+            );
+          var a,
+            i = !1,
+            l;
+          try {
+            var c = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+              r,
+              n.toString(),
+            );
+            c != null
+              ? ((a = o(
+                  "WAWebOutContactInviteUtils",
+                ).getInviteMessageTextWithCode(c)),
+                (i = !0))
+              : (a = o("WAWebOutContactInviteUtils").getInviteMessageText());
+          } catch (e) {
+            (o("WALogger").ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[out-contact-invite] MEX invite failed, fallback: ",
+                  "",
+                ])),
+              e,
+            ),
+              o("WAWebToastManager").ToastManager.open(
+                d.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(
+                    /*BTDS*/ "Could not generate invite link. Sending with default link.",
+                  ),
+                }),
+              ),
+              (l = String(e)),
+              (a = o("WAWebOutContactInviteUtils").getInviteMessageText()));
+          }
+          o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+            entryPoint: n,
+            inviteCodeError: l,
+            validInviteCode: i,
+          });
+          var m = encodeURIComponent(a),
+            p = window.open("sms:+" + r + "?body=" + m);
+          return (_(p == null), p != null);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
       e &&
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebToast.react").Toast, {
@@ -82,7 +95,7 @@ __d(
           }),
         );
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
         return !1;
       var r = e
@@ -105,9 +118,9 @@ __d(
           })
           .join(","),
         u = window.open("sms://open?addresses=" + s + "&body=" + i);
-      return (p(u == null), u != null);
+      return (_(u == null), u != null);
     }
-    ((l.sendInvite = m), (l.sendMultiGroupInvite = _));
+    ((l.sendInvite = m), (l.sendMultiGroupInvite = f));
   },
   226,
 );

@@ -1,45 +1,55 @@
 __d(
   "WAWebPrepareMessageSendingAction",
   [
+    "Promise",
     "WALogger",
     "WAWebChatGetters",
     "WAWebEagerlyEstablishE2eeSessionChatAction",
     "WAWebPrefetchDevicesAction",
     "WAWebStateUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    async function s(t) {
-      var n = o("WAWebStateUtils").unproxy(t);
-      if (
-        !o("WAWebChatGetters").getIsUser(n) &&
-        !o("WAWebChatGetters").getIsGroup(n) &&
-        !n.id.isStatus()
-      )
-        return Promise.resolve();
-      try {
-        o("WAWebChatGetters").getIsUser(n)
-          ? await Promise.all([
-              o(
-                "WAWebEagerlyEstablishE2eeSessionChatAction",
-              ).eagerlyEstablishE2EESession(n),
-              o("WAWebPrefetchDevicesAction").prefetchDevices(n),
-            ])
-          : await o(
-              "WAWebEagerlyEstablishE2eeSessionChatAction",
-            ).eagerlyEstablishE2EESession(n);
-      } catch (t) {
-        o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "prepareChatForMessageSending: failed with error: ",
-              "",
-            ])),
-          t,
-        );
-      }
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    l.prepareChatForMessageSending = s;
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = o("WAWebStateUtils").unproxy(t);
+          if (
+            !o("WAWebChatGetters").getIsUser(r) &&
+            !o("WAWebChatGetters").getIsGroup(r) &&
+            !r.id.isStatus()
+          )
+            return (s || (s = n("Promise"))).resolve();
+          try {
+            o("WAWebChatGetters").getIsUser(r)
+              ? yield (s || (s = n("Promise"))).all([
+                  o(
+                    "WAWebEagerlyEstablishE2eeSessionChatAction",
+                  ).eagerlyEstablishE2EESession(r),
+                  o("WAWebPrefetchDevicesAction").prefetchDevices(r),
+                ])
+              : yield o(
+                  "WAWebEagerlyEstablishE2eeSessionChatAction",
+                ).eagerlyEstablishE2EESession(r);
+          } catch (t) {
+            o("WALogger").ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "prepareChatForMessageSending: failed with error: ",
+                  "",
+                ])),
+              t,
+            );
+          }
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    l.prepareChatForMessageSending = u;
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WABinary",
     "WACryptoHmac",
     "WALogger",
+    "WAMemoizeCache",
     "WATypeUtils",
     "WAWebDataUrlToBlob",
     "WAWebFileUtils",
@@ -49,14 +50,19 @@ __d(
           var e = new URL(t, self.location.href);
           return e.href;
         },
-        hostname: r("lodash").memoize(function (e) {
-          try {
-            var t = new URL(this.isHttp(e) ? e : "http://" + e);
-            return t.hostname;
-          } catch (e) {
-            return "";
-          }
-        }),
+        hostname: o("WAMemoizeCache").memoizeWithArgs(
+          function (e) {
+            try {
+              var t = new URL(p.isHttp(e) ? e : "http://" + e);
+              return t.hostname;
+            } catch (e) {
+              return "";
+            }
+          },
+          function (e) {
+            return e;
+          },
+        ),
         withoutWww: function (t) {
           return t.split("www.").join("");
         },

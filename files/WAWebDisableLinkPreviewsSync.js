@@ -1,6 +1,7 @@
 __d(
   "WAWebDisableLinkPreviewsSync",
   [
+    "Promise",
     "WALogger",
     "WASyncdConst",
     "WATimeUtils",
@@ -10,13 +11,15 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdCoreApi",
     "WAWebSyncdIndexUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = (function (t) {
-        function n() {
+      c,
+      d = (function (t) {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -26,81 +29,93 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 8;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.DisableLinkPreviews;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this,
-              r,
-              a = [],
-              i = 0,
-              l = 0,
-              c = n.map(function (e) {
-                var n;
-                if (e.operation !== "set")
-                  return (
-                    i++,
-                    a.length < 3 && a.push(e.operation),
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    }
-                  );
-                var s =
-                  (n = e.value.privacySettingDisableLinkPreviewsAction) == null
-                    ? void 0
-                    : n.isPreviewsDisabled;
-                return s == null
-                  ? (l++,
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      t.collectionName,
-                    ))
-                  : ((r = s),
-                    { actionState: o("WASyncdConst").SyncActionState.Success });
-              });
-            return (
-              i > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "DisableLinkPreviewsSync: ",
-                      " operations not supported => ",
-                      "",
-                    ])),
-                  i,
-                  a,
-                ),
-              l > 0 &&
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "DisableLinkPreviewsSync: ",
-                      " mutation values are null",
-                    ])),
-                  l,
-                ),
-              r != null &&
-                (o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "DisableLinkPreviewsSync: set disabled=",
-                      "",
-                    ])),
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = this,
                   r,
-                ),
-                o(
-                  "WAWebDisableLinkPreviewsAction",
-                ).setDisableLinkPreviewsToUserPrefs(r)),
-              c
+                  a = [],
+                  i = 0,
+                  l = 0,
+                  c = t.map(function (e) {
+                    var t;
+                    if (e.operation !== "set")
+                      return (
+                        i++,
+                        a.length < 3 && a.push(e.operation),
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    var s =
+                      (t = e.value.privacySettingDisableLinkPreviewsAction) ==
+                      null
+                        ? void 0
+                        : t.isPreviewsDisabled;
+                    return s == null
+                      ? (l++,
+                        o("WAWebSyncdIndexUtils").malformedActionValue(
+                          n.collectionName,
+                        ))
+                      : ((r = s),
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Success,
+                        });
+                  });
+                return (
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "DisableLinkPreviewsSync: ",
+                          " operations not supported => ",
+                          "",
+                        ])),
+                      i,
+                      a,
+                    ),
+                  l > 0 &&
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "DisableLinkPreviewsSync: ",
+                          " mutation values are null",
+                        ])),
+                      l,
+                    ),
+                  r != null &&
+                    (o("WALogger").LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "DisableLinkPreviewsSync: set disabled=",
+                          "",
+                        ])),
+                      r,
+                    ),
+                    o(
+                      "WAWebDisableLinkPreviewsAction",
+                    ).setDisableLinkPreviewsToUserPrefs(r)),
+                  c
+                );
+              },
             );
-          }),
-          (r.getMutation = function (t, n) {
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.getMutation = function (t, n) {
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               collection: this.collectionName,
               indexArgs: [],
@@ -116,20 +131,28 @@ __d(
               action: this.getAction(),
             });
           }),
-          (r.sendMutation = async function (t) {
-            await o("WAWebSyncdCoreApi").lockForSync(
-              [],
-              [this.getMutation(o("WATimeUtils").unixTimeMs(), t)],
-              function () {
-                return Promise.resolve();
+          (a.sendMutation = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                yield o("WAWebSyncdCoreApi").lockForSync(
+                  [],
+                  [this.getMutation(o("WATimeUtils").unixTimeMs(), e)],
+                  function () {
+                    return (c || (c = n("Promise"))).resolve();
+                  },
+                );
               },
             );
-          }),
-          n
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      d = new c();
-    l.default = d;
+      m = new d();
+    l.default = m;
   },
   98,
 );

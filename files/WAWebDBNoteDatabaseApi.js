@@ -1,37 +1,69 @@
 __d(
   "WAWebDBNoteDatabaseApi",
-  ["WALogger", "WAWebSchemaNote"],
+  ["WALogger", "WAWebSchemaNote", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e;
-    async function s(e) {
-      return o("WAWebSchemaNote").getNoteTable().createOrReplace(e);
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    async function u(e) {
-      var t = o("WAWebSchemaNote").getNoteTable().equals(["chatJid"], e);
-      return t;
-    }
-    async function c(t) {
-      var n = await u(t);
+    function u() {
       return (
-        n.length > 1 &&
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[getOnlyNoteByChatJid] >1 note for jid ",
-                "",
-              ])),
-            t,
-          ),
-        n.length > 0 ? n[0] : null
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebSchemaNote").getNoteTable().createOrReplace(e);
+        })),
+        u.apply(this, arguments)
       );
     }
-    async function d(e) {
-      return o("WAWebSchemaNote").getNoteTable().bulkCreateOrMerge(e);
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebSchemaNote").getNoteTable().equals(["chatJid"], e);
+          return t;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = yield c(t);
+          return (
+            n.length > 1 &&
+              o("WALogger").ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[getOnlyNoteByChatJid] >1 note for jid ",
+                    "",
+                  ])),
+                t,
+              ),
+            n.length > 0 ? n[0] : null
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebSchemaNote").getNoteTable().bulkCreateOrMerge(e);
+        })),
+        f.apply(this, arguments)
+      );
     }
     ((l.addOrEditNote = s),
-      (l.getNotesByChatJid = u),
-      (l.getOnlyNoteByChatJid = c),
-      (l.bulkUpdateNotes = d));
+      (l.getNotesByChatJid = c),
+      (l.getOnlyNoteByChatJid = m),
+      (l.bulkUpdateNotes = _));
   },
   98,
 );

@@ -8,7 +8,7 @@ __d(
       c = (u = n("$InternalEnum"))({ UNKNOWN_PLUGIN: 0, REELS: 1, SEARCH: 2 }),
       d = u({ UNKNOWN: 0, BING: 1, GOOGLE: 2, SUPPORT: 3 }),
       m = u({ BOT_LINKED_ACCOUNT_TYPE_1P: 0 }),
-      p = u({ UNSPECIFIED: 0, WA_BOT_MSG: 1, WA_TEE_BOT_MSG: 2 }),
+      p = u({ UNSPECIFIED: 0, WA_BOT_MSG: 1, WA_TEE_BOT_MSG: 2, P2P_PILLS: 3 }),
       _ = u({ UNKNOWN_TYPE: 0, C50: 1, SURVEY_PLATFORM: 2 }),
       f = u({
         UNDEFINED_ENTRY_POINT: 0,

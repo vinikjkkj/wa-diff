@@ -14,6 +14,7 @@ __d(
     "WAWebNewsletterUpdateNewslettersRecordsJob",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebURLUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -24,50 +25,63 @@ __d(
           function () {
             return o("WAWebNewsletterCreateQueryJob")
               .createNewsletterQuery(t)
-              .then(async function (t) {
-                if (t == null) return null;
-                var n = o("WAWebNewsletterModelUtils").mapNewsletterToModels(t),
-                  r = n.chat,
-                  a = n.metadata;
-                try {
-                  var i = o(
-                    "WAWebNewsletterSystemMessages",
-                  ).genNewsletterCreationSystemMessages({
-                    id: r.id,
-                    name: r.name,
-                    t: a.creationTime,
-                    role: a.membershipType,
-                  });
-                  return (
-                    await o(
-                      "WAWebNewsletterUpdateNewslettersRecordsJob",
-                    ).updateNewsletterChatRecords([
-                      o("WAWebCreateChat").createNewsletterObjectForStorage(r),
-                    ]),
-                    await o(
-                      "WAWebNewsletterUpdateMsgsRecordsJob",
-                    ).addNewsletterMsgsRecords(i),
-                    await o(
-                      "WAWebNewsletterMetadataJob",
-                    ).updateNewsletterMetadata(
-                      o(
-                        "WAWebNewsletterStorageUtils",
-                      ).createNewsletterMetadataObjectForStorage(a),
-                    ),
-                    { newsletter: t, msgs: i }
+              .then(
+                (function () {
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (t) {
+                      if (t == null) return null;
+                      var n = o(
+                          "WAWebNewsletterModelUtils",
+                        ).mapNewsletterToModels(t),
+                        r = n.chat,
+                        a = n.metadata;
+                      try {
+                        var i = o(
+                          "WAWebNewsletterSystemMessages",
+                        ).genNewsletterCreationSystemMessages({
+                          id: r.id,
+                          name: r.name,
+                          t: a.creationTime,
+                          role: a.membershipType,
+                        });
+                        return (
+                          yield o(
+                            "WAWebNewsletterUpdateNewslettersRecordsJob",
+                          ).updateNewsletterChatRecords([
+                            o(
+                              "WAWebCreateChat",
+                            ).createNewsletterObjectForStorage(r),
+                          ]),
+                          yield o(
+                            "WAWebNewsletterUpdateMsgsRecordsJob",
+                          ).addNewsletterMsgsRecords(i),
+                          yield o(
+                            "WAWebNewsletterMetadataJob",
+                          ).updateNewsletterMetadata(
+                            o(
+                              "WAWebNewsletterStorageUtils",
+                            ).createNewsletterMetadataObjectForStorage(a),
+                          ),
+                          { newsletter: t, msgs: i }
+                        );
+                      } catch (t) {
+                        o("WALogger")
+                          .ERROR(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "[newsletter][join-notif] db update failed",
+                              ])),
+                          )
+                          .tags("newsletter")
+                          .sendLogs("newsletter-join-notification-db-fail");
+                      }
+                    },
                   );
-                } catch (t) {
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[newsletter][join-notif] db update failed",
-                        ])),
-                    )
-                    .tags("newsletter")
-                    .sendLogs("newsletter-join-notification-db-fail");
-                }
-              });
+                  return function (e) {
+                    return t.apply(this, arguments);
+                  };
+                })(),
+              );
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )

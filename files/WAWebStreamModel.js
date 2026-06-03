@@ -21,6 +21,7 @@ __d(
     "WAWebWamPageLoadReporter",
     "WAWebWebcPageResumeWamEvent",
     "WAWebWebcStreamModeChangeWamEvent",
+    "asyncToGeneratorRuntime",
     "cr:17219",
     "gkx",
   ],
@@ -88,9 +89,9 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.initialize = function () {
+          (a.initialize = function () {
             var t = this;
             (e.prototype.initialize.call(this),
               o("WAWebUserPrefsMultiDevice").isRegistered() ||
@@ -166,16 +167,16 @@ __d(
                 ),
               this.updateCouldForce());
           }),
-          (n.delete = function () {}),
-          (n.markAvailable = function () {
+          (a.delete = function () {}),
+          (a.markAvailable = function () {
             (this.unavailableShiftTimer.cancel(), (this.available = !0));
           }),
-          (n.markUnavailable = function (t) {
+          (a.markUnavailable = function (t) {
             t != null && t !== 0
               ? this.unavailableShiftTimer.onOrBefore(t)
               : (this.unavailableShiftTimer.cancel(), (this.available = !1));
           }),
-          (n.$StreamImpl$p_1 = function () {
+          (a.$StreamImpl$p_1 = function () {
             var e = S(),
               t = {
                 info: e,
@@ -207,19 +208,19 @@ __d(
               }
             this.set(t);
           }),
-          (n.unobscure = function () {
+          (a.unobscure = function () {
             this.obscurity = f.SHOW;
           }),
-          (n.$StreamImpl$p_3 = function () {
+          (a.$StreamImpl$p_3 = function () {
             this.phoneAuthed &&
               (r("WAWebEnvironment").isWindows
                 ? this.$StreamImpl$p_5()
                 : this.$StreamImpl$p_6());
           }),
-          (n.$StreamImpl$p_6 = function () {
+          (a.$StreamImpl$p_6 = function () {
             this.sendAvailability(!0);
           }),
-          (n.$StreamImpl$p_5 = function () {
+          (a.$StreamImpl$p_5 = function () {
             var e,
               t =
                 m == null ||
@@ -233,58 +234,64 @@ __d(
                 : this.sendAvailability(!1)
               : this.sendAvailability(!0);
           }),
-          (n.$StreamImpl$p_2 = async function () {
-            var e = this.available;
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "Stream:onAvailableUpdate user ",
-                  "",
-                ])),
-              e ? "available" : "unavailable",
-            );
-            var t = o(
-              "WAWebUserPrefsScreenLock",
-            ).getScreenLockDurationInSeconds();
-            (!e && t !== 0
-              ? this.unavailableAutoLockTimer.onOrBefore(t * 1e3)
-              : this.unavailableAutoLockTimer.cancel(),
-              this.sendAvailability(!1),
-              e ||
-                o(
-                  "WAWebPresenceCollection",
-                ).PresenceCollection.clearAllPresence());
-          }),
-          (n.$StreamImpl$p_4 = function () {
+          (a.$StreamImpl$p_2 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this.available;
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "Stream:onAvailableUpdate user ",
+                    "",
+                  ])),
+                e ? "available" : "unavailable",
+              );
+              var t = o(
+                "WAWebUserPrefsScreenLock",
+              ).getScreenLockDurationInSeconds();
+              (!e && t !== 0
+                ? this.unavailableAutoLockTimer.onOrBefore(t * 1e3)
+                : this.unavailableAutoLockTimer.cancel(),
+                this.sendAvailability(!1),
+                e ||
+                  o(
+                    "WAWebPresenceCollection",
+                  ).PresenceCollection.clearAllPresence());
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$StreamImpl$p_4 = function () {
             ((this.isInConnectedCall =
               r("WAWebEnvironment").isWindows &&
               r("WAWebCallCollection").isInConnectedCall),
               this.sendAvailability(!0));
           }),
-          (n.sendAvailability = function (t) {
+          (a.sendAvailability = function (t) {
             (t || this.uiActive || this.isInConnectedCall) &&
               (this.available || this.isInConnectedCall
                 ? o("WAWebPresenceChatAction").sendPresenceAvailable()
                 : o("WAWebPresenceChatAction").sendPresenceUnavailable());
           }),
-          (n.updateCouldForce = function () {
+          (a.updateCouldForce = function () {
             this.couldForce =
               (!this.uiActive || (!this.available && document.hidden)) &&
               !r("WAWebCallCollection").activeCall;
           }),
-          (n.logPageResume = function () {
+          (a.logPageResume = function () {
             this.info === p.RESUMING &&
               (this.resumeCount++,
               new (o("WAWebWebcPageResumeWamEvent").WebcPageResumeWamEvent)({
                 webcResumeCount: this.resumeCount,
               }).commit());
           }),
-          (n.updateWamLog = function () {
+          (a.updateWamLog = function () {
             var e = this.info === p.NORMAL;
             (o("WAWebWamPageLoadReporter").streamInfoChange(this.info, 1, e),
               e && this.stopListening(this, "change:info", this.updateWamLog));
           }),
-          (n.logModeChange = function () {
+          (a.logModeChange = function () {
             (this.mode === _.SYNCING && (this.lastSyncStart = E()),
               new (o(
                 "WAWebWebcStreamModeChangeWamEvent",

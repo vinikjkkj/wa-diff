@@ -11,6 +11,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -73,60 +74,59 @@ __d(
               });
               (l !== "" && m.push(l), (s = m.join(", ")));
             }
-            s !== "" &&
-              n.push(
-                r.label +
-                  `
-*` +
-                  s +
-                  "*",
-              );
+            s !== "" && n.push(r.label + "\n*" + s + "*");
           },
           a = 0;
         a < e.length;
         a++
       )
         r();
-      return n.join(`
-
-`);
+      return n.join("\n\n");
     }
-    async function u(e, t, n) {
-      var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        i = {
-          type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
-          kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
-          ack: o("WAWebAck").ACK.CLOCK,
-          to: e.id,
-          from: a,
-          id: new (r("WAWebMsgKey"))({
-            id: await r("WAWebMsgKey").newId(),
-            from: a,
-            to: e.id,
-            participant: void 0,
-            selfDir: "out",
-          }),
-          local: !0,
-          isNewMsg: !0,
-          t: o("WATimeUtils").unixTime(),
-          interactivePayload: {
-            type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-            name: String(
-              r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE,
-            ),
-            description: "Agentic Form Submitted",
-            paramsJson: JSON.stringify(t),
-            version: 1,
-          },
-          nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
-            .FORM_MESSAGE,
-          interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          body: n,
-        },
-        l = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, i),
-        s = l[1];
-      await s;
+    function u(e, t, n) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            i = {
+              type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
+              kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
+              ack: o("WAWebAck").ACK.CLOCK,
+              to: e.id,
+              from: a,
+              id: new (r("WAWebMsgKey"))({
+                id: yield r("WAWebMsgKey").newId(),
+                from: a,
+                to: e.id,
+                participant: void 0,
+                selfDir: "out",
+              }),
+              local: !0,
+              isNewMsg: !0,
+              t: o("WATimeUtils").unixTime(),
+              interactivePayload: {
+                type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+                name: String(
+                  r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE,
+                ),
+                description: "Agentic Form Submitted",
+                paramsJson: JSON.stringify(t),
+                version: 1,
+              },
+              nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
+                .FORM_MESSAGE,
+              interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              body: n,
+            },
+            l = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, i),
+            s = l[1];
+          yield s;
+        })),
+        c.apply(this, arguments)
+      );
     }
     ((l.buildResponseJson = e),
       (l.buildResponseBody = s),

@@ -10,6 +10,7 @@ __d(
     "WAWebMsgModel",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
+    "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
   ],
@@ -58,30 +59,36 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.searchImpl = async function (t) {
-          var e = t.chat,
-            n = t.count,
-            o = t.direction,
-            a = t.filter,
-            i = t.page,
-            l = i === void 0 ? 1 : i,
-            s = t.searchTerm;
-          throw r("err")("searchImpl must be implemented");
-        }),
-        (n.onSeachPromiseComplete = function (t) {}),
-        (n.delete = function (n) {
+        (a.searchImpl = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.chat,
+              n = e.count,
+              o = e.direction,
+              a = e.filter,
+              i = e.page,
+              l = i === void 0 ? 1 : i,
+              s = e.searchTerm;
+            throw r("err")("searchImpl must be implemented");
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.onSeachPromiseComplete = function (t) {}),
+        (a.delete = function (n) {
           (n && this.stopListening(), e.prototype.delete.call(this));
         }),
-        (n.resetSearch = function () {
+        (a.resetSearch = function () {
           var e;
           ((this.hasMoreMsgs = !0),
             (this.resultPage = 0),
             (this.searchTerm = null),
             (e = this.searchAbortController) == null || e.abort());
         }),
-        (n.search = function (t) {
+        (a.search = function (t) {
           var e = this,
             n = t.chat,
             a = t.count,

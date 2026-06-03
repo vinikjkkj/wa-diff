@@ -7,110 +7,111 @@ __d(
     "WAWebEmojiKeywordToUnicode",
     "WAWebSearchFirstPartyStickersAction",
     "WAWebStickerModel",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = {
         HAPPY: [
-          "\u{1F602}",
-          "\u{1F923}",
-          "\u{1F600}",
-          "\u{1F601}",
-          "\u{1F606}",
-          "\u{1F642}",
-          "\u{1F607}",
+          "\uD83D\uDE02",
+          "\uD83E\uDD23",
+          "\uD83D\uDE00",
+          "\uD83D\uDE01",
+          "\uD83D\uDE06",
+          "\uD83D\uDE42",
+          "\uD83D\uDE07",
           "\u263A\uFE0F",
-          "\u{1F604}",
-          "\u{1F603}",
+          "\uD83D\uDE04",
+          "\uD83D\uDE03",
         ],
         LOVE: [
-          "\u{1F60D}",
-          "\u{1F618}",
+          "\uD83D\uDE0D",
+          "\uD83D\uDE18",
           "\u2764\uFE0F",
-          "\u{1F495}",
-          "\u{1F970}",
-          "\u{1F617}",
-          "\u{1F619}",
-          "\u{1F63B}",
-          "\u{1F469}\u200D\u2764\uFE0F\u200D\u{1F469}",
-          "\u{1F490}",
-          "\u{1F48C}",
-          "\u{1F49B}",
-          "\u{1F49A}",
-          "\u{1F499}",
-          "\u{1F49C}",
-          "\u{1F493}",
-          "\u{1F498}",
-          "\u{1F48F}",
-          "\u{1F491}",
-          "\u{1F339}",
-          "\u{1F91F}",
-          "\u{1F3E9}",
+          "\uD83D\uDC95",
+          "\uD83E\uDD70",
+          "\uD83D\uDE17",
+          "\uD83D\uDE19",
+          "\uD83D\uDE3B",
+          "\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69",
+          "\uD83D\uDC90",
+          "\uD83D\uDC8C",
+          "\uD83D\uDC9B",
+          "\uD83D\uDC9A",
+          "\uD83D\uDC99",
+          "\uD83D\uDC9C",
+          "\uD83D\uDC93",
+          "\uD83D\uDC98",
+          "\uD83D\uDC8F",
+          "\uD83D\uDC91",
+          "\uD83C\uDF39",
+          "\uD83E\uDD1F",
+          "\uD83C\uDFE9",
         ],
         GREETINGS: [
-          "\u{1F44B}",
-          "\u{1F602}",
-          "\u{1F923}",
-          "\u{1F64F}",
+          "\uD83D\uDC4B",
+          "\uD83D\uDE02",
+          "\uD83E\uDD23",
+          "\uD83D\uDE4F",
           "\u270B",
-          "\u{1F9D5}",
-          "\u{1F6B6}\u200D\u2640\uFE0F",
-          "\u{1F6B6}",
-          "\u{1F460}",
-          "\u{1F97E}",
-          "\u{1F648}",
-          "\u{1F99B}",
-          "\u{1F33A}",
+          "\uD83E\uDDD5",
+          "\uD83D\uDEB6\u200D\u2640\uFE0F",
+          "\uD83D\uDEB6",
+          "\uD83D\uDC60",
+          "\uD83E\uDD7E",
+          "\uD83D\uDE48",
+          "\uD83E\uDD9B",
+          "\uD83C\uDF3A",
           "\u26A1",
-          "\u{1F3AF}",
-          "\u{1F684}",
-          "\u{1F685}",
-          "\u{1F492}",
-          "\u{1F6D5}",
-          "\u{1F6E3}\uFE0F",
-          "\u{1F549}\uFE0F",
-          "\u{1F50A}",
+          "\uD83C\uDFAF",
+          "\uD83D\uDE84",
+          "\uD83D\uDE85",
+          "\uD83D\uDC92",
+          "\uD83D\uDED5",
+          "\uD83D\uDEE3\uFE0F",
+          "\uD83D\uDD49\uFE0F",
+          "\uD83D\uDD0A",
         ],
         SAD: [
-          "\u{1F62D}",
-          "\u{1F614}",
-          "\u{1F622}",
-          "\u{1F61E}",
-          "\u{1F61F}",
-          "\u{1F615}",
-          "\u{1F641}",
+          "\uD83D\uDE2D",
+          "\uD83D\uDE14",
+          "\uD83D\uDE22",
+          "\uD83D\uDE1E",
+          "\uD83D\uDE1F",
+          "\uD83D\uDE15",
+          "\uD83D\uDE41",
           "\u2639\uFE0F",
-          "\u{1F616}",
-          "\u{1F62B}",
-          "\u{1F629}",
-          "\u{1F97A}",
-          "\u{1F625}",
-          "\u{1F613}",
-          "\u{1F62A}",
-          "\u{1F63F}",
-          "\u{1F4A7}",
-          "\u{1F494}",
+          "\uD83D\uDE16",
+          "\uD83D\uDE2B",
+          "\uD83D\uDE29",
+          "\uD83E\uDD7A",
+          "\uD83D\uDE25",
+          "\uD83D\uDE13",
+          "\uD83D\uDE2A",
+          "\uD83D\uDE3F",
+          "\uD83D\uDCA7",
+          "\uD83D\uDC94",
         ],
         ANGRY: [
-          "\u{1F620}",
-          "\u{1F621}",
-          "\u{1F624}",
-          "\u{1F47A}",
-          "\u{1F4A2}",
-          "\u{1F5EF}\uFE0F",
-          "\u{1F47F}",
+          "\uD83D\uDE20",
+          "\uD83D\uDE21",
+          "\uD83D\uDE24",
+          "\uD83D\uDC7A",
+          "\uD83D\uDCA2",
+          "\uD83D\uDDEF\uFE0F",
+          "\uD83D\uDC7F",
         ],
         CELEBRATE: [
-          "\u{1F973}",
-          "\u{1F942}",
-          "\u{1F388}",
-          "\u{1F38A}",
-          "\u{1F389}",
+          "\uD83E\uDD73",
+          "\uD83E\uDD42",
+          "\uD83C\uDF88",
+          "\uD83C\uDF8A",
+          "\uD83C\uDF89",
         ],
       },
       c = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
@@ -122,94 +123,102 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.isFetchingData = function () {
+          (a.isFetchingData = function () {
             return this.$StickerSearchCollectionImpl$p_4;
           }),
-          (r.hasFetchedData = function () {
+          (a.hasFetchedData = function () {
             return this.$StickerSearchCollectionImpl$p_2;
           }),
-          (r.setStartFetching = function () {
+          (a.setStartFetching = function () {
             ((this.$StickerSearchCollectionImpl$p_4 = !0),
               this.trigger("start_fetching"));
           }),
-          (r.setStopFetching = function () {
+          (a.setStopFetching = function () {
             ((this.$StickerSearchCollectionImpl$p_4 = !1),
               this.trigger("stop_fetching"));
           }),
-          (r.search = async function (r) {
-            this.$StickerSearchCollectionImpl$p_3 !== r &&
-              this.$StickerSearchCollectionImpl$p_2 &&
-              t.prototype.delete.call(this);
-            var n = r.trim().toUpperCase();
-            if (this.$StickerSearchCollectionImpl$p_1.has(r)) {
-              var a = this.$StickerSearchCollectionImpl$p_1.get(r);
-              if (a != null) {
-                (this.add(a), (this.$StickerSearchCollectionImpl$p_3 = r));
-                return;
-              }
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "StickerMoodCollection cache was invalid, re-searching.",
-                  ])),
-              );
-            }
-            var i = [];
-            if (Object.prototype.hasOwnProperty.call(u, n))
-              i.push.apply(i, u[n]);
-            else {
-              var l = o("WAWebEmoji").EmojiUtil.containsOnlyEmoji(n)
-                ? o("WAWebEmoji").EmojiUtil.splitEmojis(n)
-                : o("WAWebEmojiKeywordToUnicode").emojiKeywordToUnicodeSearch(
-                    n,
+          (a.search = (function () {
+            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (n) {
+                this.$StickerSearchCollectionImpl$p_3 !== n &&
+                  this.$StickerSearchCollectionImpl$p_2 &&
+                  t.prototype.delete.call(this);
+                var r = n.trim().toUpperCase();
+                if (this.$StickerSearchCollectionImpl$p_1.has(n)) {
+                  var a = this.$StickerSearchCollectionImpl$p_1.get(n);
+                  if (a != null) {
+                    (this.add(a), (this.$StickerSearchCollectionImpl$p_3 = n));
+                    return;
+                  }
+                  o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "StickerMoodCollection cache was invalid, re-searching.",
+                      ])),
                   );
-              if (l == null || l.length === 0) {
-                ((this.$StickerSearchCollectionImpl$p_3 = r),
-                  this.setStopFetching(),
-                  t.prototype.delete.call(this));
-                return;
-              }
-              i.push.apply(i, l);
+                }
+                var i = [];
+                if (Object.prototype.hasOwnProperty.call(u, r))
+                  i.push.apply(i, u[r]);
+                else {
+                  var l = o("WAWebEmoji").EmojiUtil.containsOnlyEmoji(r)
+                    ? o("WAWebEmoji").EmojiUtil.splitEmojis(r)
+                    : o(
+                        "WAWebEmojiKeywordToUnicode",
+                      ).emojiKeywordToUnicodeSearch(r);
+                  if (l == null || l.length === 0) {
+                    ((this.$StickerSearchCollectionImpl$p_3 = n),
+                      this.setStopFetching(),
+                      t.prototype.delete.call(this));
+                    return;
+                  }
+                  i.push.apply(i, l);
+                }
+                this.setStartFetching();
+                var c = [];
+                try {
+                  c = yield o(
+                    "WAWebSearchFirstPartyStickersAction",
+                  ).searchFirstPartyStickers(i);
+                } catch (e) {
+                  (o("WALogger")
+                    .WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "Sticker search request failed: error: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("sticker-search-request-failed"),
+                    this.setStopFetching());
+                  return;
+                }
+                (this.$StickerSearchCollectionImpl$p_1.set(n, c),
+                  (this.$StickerSearchCollectionImpl$p_2 = !0),
+                  (this.$StickerSearchCollectionImpl$p_3 = n),
+                  this.add(c),
+                  this.setStopFetching());
+              },
+            );
+            function a(e) {
+              return r.apply(this, arguments);
             }
-            this.setStartFetching();
-            var c = [];
-            try {
-              c = await o(
-                "WAWebSearchFirstPartyStickersAction",
-              ).searchFirstPartyStickers(i);
-            } catch (e) {
-              (o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Sticker search request failed: error: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("sticker-search-request-failed"),
-                this.setStopFetching());
-              return;
-            }
-            (this.$StickerSearchCollectionImpl$p_1.set(r, c),
-              (this.$StickerSearchCollectionImpl$p_2 = !0),
-              (this.$StickerSearchCollectionImpl$p_3 = r),
-              this.add(c),
-              this.setStopFetching());
-          }),
-          (r.searchMood = function (t) {
+            return a;
+          })()),
+          (a.searchMood = function (t) {
             return this.search(t);
           }),
-          (r.delete = function () {
+          (a.delete = function () {
             (t.prototype.delete.call(this),
               (this.$StickerSearchCollectionImpl$p_1 = new Map()),
               (this.$StickerSearchCollectionImpl$p_2 = !1),
               (this.$StickerSearchCollectionImpl$p_4 = !1));
           }),
-          n
+          r
         );
       })(o("WAWebBaseCollection").BaseCollection);
     c.model = o("WAWebStickerModel").StickerModel;

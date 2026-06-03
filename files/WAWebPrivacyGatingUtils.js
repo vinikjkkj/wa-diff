@@ -14,54 +14,36 @@ __d(
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "privacy_settings_about_lid_migration_enable",
+        "pnh_thread_promotion_to_general_lid",
       );
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
-        "privacy_settings_group_add_lid_migration_enable",
+        "profile_scraping_privacy_token_in_about_usync",
       );
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "privacy_settings_profile_lid_migration_enable",
+        "profile_scraping_privacy_token_in_about_iq",
       );
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "pnh_thread_promotion_to_general_lid",
-      );
-    }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_usync",
-      );
-    }
-    function _() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_iq",
-      );
-    }
-    function f() {
-      return o("WAWebABProps").getABPropConfigValue(
         "paa_support_for_disabled_epehemerality",
       );
     }
-    function g() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "mex_get_privacy_contact_list_enabled",
       );
     }
     ((l.isDataPrivacyPhase2Enabled = e),
       (l.isDataPrivacyPhase2NonE2eeEnabled = s),
-      (l.isPrivacyListLidMigrationForStatusEnabled = u),
-      (l.isPrivacyListLidMigrationForGroupAddEnabled = c),
-      (l.isPrivacyListLidMigrationForProfilePictureEnabled = d),
-      (l.isPhoneNumberHidingThreadPromotionToGeneralLidEnabled = m),
-      (l.isProfileScrappingProtectionInUsyncEnabled = p),
-      (l.isProfileScrappingProtectionInMexFetchEnabled = _),
-      (l.isPAASupportForDisabledEphemeralityEnabled = f),
-      (l.isMexPrivacyContactListEnabled = g));
+      (l.isPhoneNumberHidingThreadPromotionToGeneralLidEnabled = u),
+      (l.isProfileScrappingProtectionInUsyncEnabled = c),
+      (l.isProfileScrappingProtectionInMexFetchEnabled = d),
+      (l.isPAASupportForDisabledEphemeralityEnabled = m),
+      (l.isMexPrivacyContactListEnabled = p));
   },
   98,
 );

@@ -10,42 +10,49 @@ __d(
     "WAWebMiscErrors",
     "WAWebSchemaChat",
     "WAWebSendReadReceiptJob",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    async function u(e) {
-      var t = e.chat,
-        n = e.key,
-        a = e.threadId,
-        i = e.unreadDelta,
-        l = o("WATimeUtils").unixTimeMs();
-      if (i === -1) {
-        var s = await r("WAWebMarkChatAsReadSync").getMarkChatAsReadMutation(
-            l,
-            !0,
-            t.id,
-          ),
-          u = t.id.toString();
-        return (
-          o("WAWebMessageRangeUtils").lockForMessageRangeSync(
-            [],
-            [s],
-            function () {
-              return o("WAWebApiActiveMessageRanges").addActiveMessageRange(
-                t.id.toString(),
-                "markChatAsRead",
-                s.binarySyncAction,
-              );
-            },
-          ),
-          await o("WAWebApiChat").updateChatForMarkAsReadSync(u),
-          { fullyReadThreadIds: [] }
-        );
-      }
-      return await o("WAWebSendReadReceiptJob").markChatRead(t, n, a);
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function c(e, t) {
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.key,
+            a = e.threadId,
+            i = e.unreadDelta,
+            l = o("WATimeUtils").unixTimeMs();
+          if (i === -1) {
+            var s = yield r(
+                "WAWebMarkChatAsReadSync",
+              ).getMarkChatAsReadMutation(l, !0, t.id),
+              u = t.id.toString();
+            return (
+              o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+                [],
+                [s],
+                function () {
+                  return o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                    t.id.toString(),
+                    "markChatAsRead",
+                    s.binarySyncAction,
+                  );
+                },
+              ),
+              yield o("WAWebApiChat").updateChatForMarkAsReadSync(u),
+              { fullyReadThreadIds: [] }
+            );
+          }
+          return yield o("WAWebSendReadReceiptJob").markChatRead(t, n, a);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
       return r("WAWebMarkChatAsReadSync")
         .getMarkChatAsReadMutation(n, !1, e)
@@ -63,7 +70,7 @@ __d(
           );
         });
     }
-    function d(t, n) {
+    function m(t, n) {
       return o("WAWebSchemaChat")
         .getChatTable()
         .merge(t.toString(), { unreadCount: n, unreadDividerOffset: 0 })
@@ -84,7 +91,7 @@ __d(
               r("err")("update chat table failed"));
         });
     }
-    function m(e) {
+    function p(e) {
       return o("WAWebSchemaChat")
         .getChatTable()
         .merge(e.toString(), { unreadCount: -1, unreadDividerOffset: 0 })
@@ -106,9 +113,9 @@ __d(
         });
     }
     ((l.sendConversationSeen = u),
-      (l.sendConversationUnseen = c),
-      (l.markConversationSeen = d),
-      (l.markConversationUnseen = m));
+      (l.sendConversationUnseen = d),
+      (l.markConversationSeen = m),
+      (l.markConversationUnseen = p));
   },
   98,
 );

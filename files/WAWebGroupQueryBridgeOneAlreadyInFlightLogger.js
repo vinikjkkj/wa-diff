@@ -1,6 +1,6 @@
 __d(
   "WAWebGroupQueryBridgeOneAlreadyInFlightLogger",
-  ["WALogger", "WAWebWamEnumMismatchOriginType"],
+  ["WALogger", "WAWebWamEnumMismatchOriginType", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -36,26 +36,32 @@ __d(
         );
       })();
     function c(t) {
-      var n = new u();
-      return async function (a, i) {
-        n.increment(a) > 1 &&
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "lid_migration - ",
-                  "",
-                ])),
-              s[i],
-            )
-            .sendLogs("GroupLidInfra/one_in_flight_group_info_mismatch");
-        try {
-          var r = await t(a);
-          return (n.decrement(a), r);
-        } catch (e) {
-          throw (n.decrement(a), e);
+      var r = new u();
+      return (function () {
+        var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n, a) {
+          r.increment(n) > 1 &&
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "lid_migration - ",
+                    "",
+                  ])),
+                s[a],
+              )
+              .sendLogs("GroupLidInfra/one_in_flight_group_info_mismatch");
+          try {
+            var i = yield t(n);
+            return (r.decrement(n), i);
+          } catch (e) {
+            throw (r.decrement(n), e);
+          }
+        });
+        function i(e, t) {
+          return a.apply(this, arguments);
         }
-      };
+        return i;
+      })();
     }
     l.logDuplicateRequestsWrapper = c;
   },

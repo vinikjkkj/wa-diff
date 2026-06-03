@@ -1,6 +1,6 @@
 __d(
   "WAWebUsernameValidationUtils",
-  ["WAWebUsernameTypes"],
+  ["WAWebUsernameConstants"],
   function (t, n, r, o, a, i, l) {
     var e = new Set(
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
@@ -275,13 +275,12 @@ __d(
       return Array.from(t).every(function (e) {
         return u.has(e);
       })
-        ? t.length < o("WAWebUsernameTypes").USERNAME_MIN_LENGTH ||
-          t.length > o("WAWebUsernameTypes").USERNAME_MAX_LENGTH
+        ? t.length < o("WAWebUsernameConstants").USERNAME_MIN_LENGTH ||
+          t.length > o("WAWebUsernameConstants").USERNAME_MAX_LENGTH
           ? {
               isValid: !1,
-              errorType:
-                o("WAWebUsernameTypes").UsernameValidationErrorType
-                  .INVALID_LENGTH,
+              errorType: o("WAWebUsernameConstants").UsernameValidationErrorType
+                .INVALID_LENGTH,
             }
           : Array.from(t).some(function (t) {
                 return e.has(t);
@@ -289,38 +288,33 @@ __d(
             ? t.startsWith(".") || t.endsWith(".") || t.includes("..")
               ? {
                   isValid: !1,
-                  errorType:
-                    o("WAWebUsernameTypes").UsernameValidationErrorType
-                      .INVALID_PERIODS,
+                  errorType: o("WAWebUsernameConstants")
+                    .UsernameValidationErrorType.INVALID_PERIODS,
                 }
               : n.startsWith("www.")
                 ? {
                     isValid: !1,
-                    errorType:
-                      o("WAWebUsernameTypes").UsernameValidationErrorType
-                        .INVALID_WWW_PREFIX,
+                    errorType: o("WAWebUsernameConstants")
+                      .UsernameValidationErrorType.INVALID_WWW_PREFIX,
                   }
                 : c.some(function (e) {
                       return n.endsWith(e);
                     })
                   ? {
                       isValid: !1,
-                      errorType:
-                        o("WAWebUsernameTypes").UsernameValidationErrorType
-                          .INVALID_DOMAIN_SUFFIX,
+                      errorType: o("WAWebUsernameConstants")
+                        .UsernameValidationErrorType.INVALID_DOMAIN_SUFFIX,
                     }
                   : { isValid: !0 }
             : {
                 isValid: !1,
-                errorType:
-                  o("WAWebUsernameTypes").UsernameValidationErrorType
-                    .INVALID_NO_LETTERS,
+                errorType: o("WAWebUsernameConstants")
+                  .UsernameValidationErrorType.INVALID_NO_LETTERS,
               }
         : {
             isValid: !1,
-            errorType:
-              o("WAWebUsernameTypes").UsernameValidationErrorType
-                .INVALID_CHARACTER,
+            errorType: o("WAWebUsernameConstants").UsernameValidationErrorType
+              .INVALID_CHARACTER,
           };
     }
     l.validateUsernameLocally = d;

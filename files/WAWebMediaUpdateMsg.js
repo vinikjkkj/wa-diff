@@ -1,10 +1,18 @@
 __d(
   "WAWebMediaUpdateMsg",
-  ["WAWebDBUpdateMessageTable"],
+  ["WAWebDBUpdateMessageTable", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      (await o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, t),
-        e.set(t));
+    function e(e, t) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (yield o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, t),
+            e.set(t));
+        })),
+        s.apply(this, arguments)
+      );
     }
     l.default = e;
   },

@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsUsername",
     "WAWebUsernameTypes",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -18,10 +19,10 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getUsernameQueryJob",
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t,
               n =
-                (t = await o(
+                (t = yield o(
                   "WAWebMexGetUsernameJob",
                 ).mexGetUsernameQueryJob()) != null
                   ? t
@@ -60,17 +61,20 @@ __d(
                     .sendLogs("getUsernameJob-invalid-username-key"));
             var u = o("WAWebUserPrefsMeUser").getMeUser();
             return (
-              await o("WAWebSetUsernameJob").setUsernamesJob([
+              yield o("WAWebSetUsernameJob").setUsernamesJob([
                 i != null
-                  ? { userId: u, username: i }
+                  ? {
+                      userId: u,
+                      username: o("WAWebUsernameTypes").asUsername(i),
+                    }
                   : { userId: u, deleteUsername: !0 },
               ]),
               l != null
-                ? await o("WAWebSetUsernameKeyQueryJob").setUsernameKeyJob(l)
-                : await o("WAWebSetUsernameKeyQueryJob").deleteUsernameKeyJob(),
+                ? yield o("WAWebSetUsernameKeyQueryJob").setUsernameKeyJob(l)
+                : yield o("WAWebSetUsernameKeyQueryJob").deleteUsernameKeyJob(),
               i
             );
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

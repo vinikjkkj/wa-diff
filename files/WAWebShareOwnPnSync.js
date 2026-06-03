@@ -6,12 +6,13 @@ __d(
     "WAWebSyncdAction",
     "WAWebUpdateLidMetadataJob",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -21,62 +22,70 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 8;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.ShareOwnPn;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this,
-              r = [],
-              a = 0,
-              i = 0,
-              l = n.map(function (e) {
-                if (e.operation !== "set")
-                  return (
-                    a++,
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    }
-                  );
-                var n = e.indexParts[1];
-                if (!o("WAWebWidFactory").isWidlike(n))
-                  return (i++, t.malformedActionIndex());
-                var l = o("WAWebWidFactory").createUserLidOrThrow(n);
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = this,
+                  r = [],
+                  a = 0,
+                  i = 0,
+                  l = t.map(function (e) {
+                    if (e.operation !== "set")
+                      return (
+                        a++,
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    var t = e.indexParts[1];
+                    if (!o("WAWebWidFactory").isWidlike(t))
+                      return (i++, n.malformedActionIndex());
+                    var l = o("WAWebWidFactory").createUserLidOrThrow(t);
+                    return (
+                      r.push({ lid: l, data: { shareOwnPn: !0 } }),
+                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                    );
+                  });
                 return (
-                  r.push({ lid: l, data: { shareOwnPn: !0 } }),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
+                  a > 0 &&
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "share_own_pn sync: ",
+                          " operations not supported",
+                        ])),
+                      a,
+                    ),
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "share_own_pn sync: ",
+                          " malformed mutations - invalid key",
+                        ])),
+                      i,
+                    ),
+                  yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(r),
+                  l
                 );
-              });
-            return (
-              a > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "share_own_pn sync: ",
-                      " operations not supported",
-                    ])),
-                  a,
-                ),
-              i > 0 &&
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "share_own_pn sync: ",
-                      " malformed mutations - invalid key",
-                    ])),
-                  i,
-                ),
-              await o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(r),
-              l
+              },
             );
-          }),
-          n
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       c = new u();

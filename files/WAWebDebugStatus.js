@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugStatus",
   [
+    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebApiDeviceList",
@@ -17,178 +18,237 @@ __d(
     "WAWebUserPrefsStatus",
     "WAWebUserPrefsStatusType",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    async function m(e) {
-      await o("WAWebSendStatusMsgAction").sendStatusTextMsgAction({ text: e });
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    m.doc = "Send text status message to allow list";
-    async function p(e) {
-      var t = e.map(function (e) {
-        return o("WAWebWidFactory").createWid(e + "@c.us");
-      });
-      return r("WAWebUserPrefsStatus") == null
-        ? void 0
-        : r("WAWebUserPrefsStatus").setStatusPrivacyConfig({
-            setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-              .AllowList,
-            list: t,
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebSendStatusMsgAction").sendStatusTextMsgAction({
+            text: e,
           });
+        })),
+        _.apply(this, arguments)
+      );
     }
-    p.doc = "set status message allow list user jid";
-    function _(e) {
+    p.doc = "Send text status message to allow list";
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(function (e) {
+            return o("WAWebWidFactory").createWid(e + "@c.us");
+          });
+          return r("WAWebUserPrefsStatus") == null
+            ? void 0
+            : r("WAWebUserPrefsStatus").setStatusPrivacyConfig({
+                setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
+                  .AllowList,
+                list: t,
+              });
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    f.doc = "set status message allow list user jid";
+    function h(e) {
       return o("WAWebStatusDBOperations").createOrUpdateStatus(e);
     }
-    _.doc = "Store in database status";
-    function f() {
+    h.doc = "Store in database status";
+    function y() {
       return o("WAWebRevokeStatusPsaMsgAction").revokeAllStatusPSA();
     }
-    f.doc = "Deletes all PSA status campaigns";
-    async function g(t, n) {
-      var r = await t(),
-        a = r.map(function (e) {
-          return e.id;
-        });
-      (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "[debug] ",
-            ": removing ",
-            " messages",
-          ])),
-        n,
-        a.length,
-      ),
-        await o("WAWebSchemaMessage").getMessageTable().bulkRemove(a),
-        location.reload());
+    y.doc = "Deletes all PSA status campaigns";
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    async function h() {
-      return g(
-        o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper,
-        "clearGroupStatuses",
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r = yield t(),
+            a = r.map(function (e) {
+              return e.id;
+            });
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[debug] ",
+                ": removing ",
+                " messages",
+              ])),
+            n,
+            a.length,
+          ),
+            yield o("WAWebSchemaMessage").getMessageTable().bulkRemove(a),
+            location.reload());
+        })),
+        b.apply(this, arguments)
       );
     }
-    h.doc = "Clear all group statuses from DB and reload";
-    async function y() {
-      return g(
-        o("WAWebDBMessageStoreUtils").queryNewsletterStatusMsgsHelper,
-        "clearNewsletterStatuses",
+    function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return C(
+            o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper,
+            "clearGroupStatuses",
+          );
+        })),
+        S.apply(this, arguments)
       );
     }
-    y.doc = "Clear all newsletter statuses from DB and reload";
-    async function C(e) {
-      var t = o("WAWebWidFactory").createWid(e),
-        n = o("WAWebDBMessageUtils").InternalIdPrefix.Default;
-      t.isNewsletter()
-        ? (n = o("WAWebDBMessageUtils").InternalIdPrefix.NewsletterStatus)
-        : t.isGroup() &&
-          (n = o("WAWebDBMessageUtils").InternalIdPrefix.GroupStatus);
-      var r = n + o("WAWebDBMessageUtils").beginningOfChat(t),
-        a = n + o("WAWebDBMessageUtils").endOfChat(t),
-        i = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .between(["internalId"], r, a, {
-            lowerInclusive: !1,
-            upperInclusive: !1,
-          }),
-        l = i.map(function (e) {
-          return e.id;
-        });
-      (o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
-            "[debug] clearStatusesByChatWid: removing ",
-            " messages for ",
-            "",
-          ])),
-        l.length,
-        e,
-      ),
-        await o("WAWebSchemaMessage").getMessageTable().bulkRemove(l),
-        location.reload());
+    v.doc = "Clear all group statuses from DB and reload";
+    function R() {
+      return L.apply(this, arguments);
     }
-    C.doc = "Clear statuses for a specific chat WID from DB and reload";
-    async function b(e) {
-      var t = o("WAWebWidFactory").createWid(e),
-        n = await o("WAWebDBDeviceListFanout").getFanOutList({ wids: [t] });
-      if (n.length === 0) {
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[debug] forgetAndDeleteStatusSession: no devices found for ",
-              "",
-            ])),
-          e,
-        );
-        return;
-      }
-      (await r("WAWebUserPrefsStatus").markForgetStatusSenderKey(n),
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "[debug] forgetAndDeleteStatusSession: forgot key ",
-              " (",
-              ")",
-            ])),
-          e,
-          n.length,
-        ));
-      var a = [],
-        i = [t];
-      if (t.isUser()) {
-        var l = o("WAWebApiContact").getAlternateUserWid(
-          o("WAWebWidFactory").asUserWidOrThrow(t),
-        );
-        l != null && i.push(l);
-      }
-      for (var s of i) {
-        var m = await o("WAWebApiDeviceList").getDeviceRecord(s);
-        if (m != null && !m.deleted)
-          for (var p of m.devices)
-            a.push(
-              o("WAWebSignalSessionApi").deleteDeviceSenderKey(
-                o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
-                  m.id,
-                  p.id,
-                  p.isHosted,
-                ),
-              ),
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return C(
+            o("WAWebDBMessageStoreUtils").queryNewsletterStatusMsgsHelper,
+            "clearNewsletterStatuses",
+          );
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    R.doc = "Clear all newsletter statuses from DB and reload";
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebWidFactory").createWid(e),
+            n = o("WAWebDBMessageUtils").InternalIdPrefix.Default;
+          t.isNewsletter()
+            ? (n = o("WAWebDBMessageUtils").InternalIdPrefix.NewsletterStatus)
+            : t.isGroup() &&
+              (n = o("WAWebDBMessageUtils").InternalIdPrefix.GroupStatus);
+          var r = n + o("WAWebDBMessageUtils").beginningOfChat(t),
+            a = n + o("WAWebDBMessageUtils").endOfChat(t),
+            i = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .between(["internalId"], r, a, {
+                lowerInclusive: !1,
+                upperInclusive: !1,
+              }),
+            l = i.map(function (e) {
+              return e.id;
+            });
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[debug] clearStatusesByChatWid: removing ",
+                " messages for ",
+                "",
+              ])),
+            l.length,
+            e,
+          ),
+            yield o("WAWebSchemaMessage").getMessageTable().bulkRemove(l),
+            location.reload());
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    E.doc = "Clear statuses for a specific chat WID from DB and reload";
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebWidFactory").createWid(e),
+            a = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: [t] });
+          if (a.length === 0) {
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debug] forgetAndDeleteStatusSession: no devices found for ",
+                  "",
+                ])),
+              e,
             );
-      }
-      (await Promise.all(a),
-        await Promise.all(
-          n.map(function (e) {
-            return o("WAWebSignal").Session.deleteRemoteSession(e);
-          }),
-        ),
-        await o("WAWebSignalProtocolStore")
-          .getSignalProtocolStore()
-          .flushBufferToDiskIfNotMemOnlyMode(),
-        o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
-              "[debug] forgetAndDeleteStatusSession: deleted ",
-              " (",
-              ")",
-            ])),
-          e,
-          n.length,
-        ));
+            return;
+          }
+          (yield r("WAWebUserPrefsStatus").markForgetStatusSenderKey(a),
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debug] forgetAndDeleteStatusSession: forgot key ",
+                  " (",
+                  ")",
+                ])),
+              e,
+              a.length,
+            ));
+          var i = [],
+            l = [t];
+          if (t.isUser()) {
+            var s = o("WAWebApiContact").getAlternateUserWid(
+              o("WAWebWidFactory").asUserWidOrThrow(t),
+            );
+            s != null && l.push(s);
+          }
+          for (var p of l) {
+            var _ = yield o("WAWebApiDeviceList").getDeviceRecord(p);
+            if (_ != null && !_.deleted)
+              for (var f of _.devices)
+                i.push(
+                  o("WAWebSignalSessionApi").deleteDeviceSenderKey(
+                    o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
+                      _.id,
+                      f.id,
+                      f.isHosted,
+                    ),
+                  ),
+                );
+          }
+          (yield (m || (m = n("Promise"))).all(i),
+            yield m.all(
+              a.map(function (e) {
+                return o("WAWebSignal").Session.deleteRemoteSession(e);
+              }),
+            ),
+            yield o("WAWebSignalProtocolStore")
+              .getSignalProtocolStore()
+              .flushBufferToDiskIfNotMemOnlyMode(),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debug] forgetAndDeleteStatusSession: deleted ",
+                  " (",
+                  ")",
+                ])),
+              e,
+              a.length,
+            ));
+        })),
+        T.apply(this, arguments)
+      );
     }
-    b.doc =
+    I.doc =
       'Forget status sender key and delete all signal sessions for a LID (e.g. "12345@lid")';
-    var v = {
-      sendTextStatusToAllowlist: m,
-      setStatusAllowList: p,
-      createOrUpdateStatusInDebug: _,
-      clearPSAStatus: f,
-      clearGroupStatuses: h,
-      clearNewsletterStatuses: y,
-      clearStatusesByChatWid: C,
-      forgetAndDeleteStatusSession: b,
+    var D = {
+      sendTextStatusToAllowlist: p,
+      setStatusAllowList: f,
+      createOrUpdateStatusInDebug: h,
+      clearPSAStatus: y,
+      clearGroupStatuses: v,
+      clearNewsletterStatuses: R,
+      clearStatusesByChatWid: E,
+      forgetAndDeleteStatusSession: I,
     };
-    l.default = v;
+    l.default = D;
   },
   98,
 );

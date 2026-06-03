@@ -1,6 +1,7 @@
 __d(
   "WAWebHandleMsgReceiptCommon",
   [
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
@@ -22,6 +23,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebThreadId",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -31,8 +33,9 @@ __d(
       d,
       m,
       p,
-      _ = new (o("WAWebPromiseQueue").PromiseQueue)();
-    function f(e) {
+      _,
+      f = new (o("WAWebPromiseQueue").PromiseQueue)();
+    function g(e) {
       var t = null;
       for (var n of e)
         n.pendingReadReceipt != null &&
@@ -41,72 +44,106 @@ __d(
           (t = n.rowId);
       return t;
     }
-    async function g(e) {
-      var t = Array.from(new Set(e.map(String))),
-        n = await o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(t, !1),
-        r = [],
-        a = [];
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        n.forEach(function (e, n) {
-          e != null ? r.push(e) : a.push(t[n]);
-        }),
-        { maybeOrphans: a, msgs: r }
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = Array.from(new Set(e.map(String))),
+            n = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(t, !1),
+            r = [],
+            a = [];
+          return (
+            n.forEach(function (e, n) {
+              e != null ? r.push(e) : a.push(t[n]);
+            }),
+            { maybeOrphans: a, msgs: r }
+          );
+        })),
+        y.apply(this, arguments)
       );
     }
-    async function h(e, t) {
-      if (e.length > 0) return r("WAWebMsgKey").fromString(e[0].id).remote;
-      if (t.isLid()) {
-        var n = await o("WAWebApiChat").getChatRecordByAccountLid(t);
-        if (n.length > 0) return o("WAWebWidFactory").createWid(n[0].id);
-      }
-      return t;
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    async function y(e) {
-      if (e.length === 0) return new Set();
-      var t = await o(
-          "WAWebMarkAddOnsAsReadJob",
-        ).markUnclassifiedAddOnsAsReadJob(
-          e.map(function (e) {
-            return r("WAWebMsgKey").from(e);
-          }),
-        ),
-        n = t.updatedAddOns,
-        a = t.updatedOrphans;
-      return new Set([].concat(a, Array.from(n.values()).flat()).map(String));
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e.length > 0) return r("WAWebMsgKey").fromString(e[0].id).remote;
+          if (t.isLid()) {
+            var n = yield o("WAWebApiChat").getChatRecordByAccountLid(t);
+            if (n.length > 0) return o("WAWebWidFactory").createWid(n[0].id);
+          }
+          return t;
+        })),
+        b.apply(this, arguments)
+      );
     }
-    async function C(t) {
-      t.length > 0 &&
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "updateChatPeerRead: maybeOrphans ",
-              "",
-            ])),
-          t.length,
-        );
-      var n = await y(t),
-        r = t.filter(function (e) {
-          return !n.has(e);
-        });
-      _.enqueue(function () {
-        return (
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "updateChatPeerRead: storing ",
-                " orphan acks",
-              ])),
-            r.length,
-          ),
-          o("WAWebApiOrphanReceipt").createOrUpdateOrphanReceipt(
-            o("WAWebAck").ACK_STRING.READ,
-            0,
-            r,
-          )
-        );
-      });
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b(e) {
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) return new Set();
+          var t = yield o(
+              "WAWebMarkAddOnsAsReadJob",
+            ).markUnclassifiedAddOnsAsReadJob(
+              e.map(function (e) {
+                return r("WAWebMsgKey").from(e);
+              }),
+            ),
+            n = t.updatedAddOns,
+            a = t.updatedOrphans;
+          return new Set(
+            [].concat(a, Array.from(n.values()).flat()).map(String),
+          );
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e.length > 0 &&
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "updateChatPeerRead: maybeOrphans ",
+                  "",
+                ])),
+              e.length,
+            );
+          var t = yield v(e),
+            n = e.filter(function (e) {
+              return !t.has(e);
+            });
+          f.enqueue(function () {
+            return (
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "updateChatPeerRead: storing ",
+                    " orphan acks",
+                  ])),
+                n.length,
+              ),
+              o("WAWebApiOrphanReceipt").createOrUpdateOrphanReceipt(
+                o("WAWebAck").ACK_STRING.READ,
+                0,
+                n,
+              )
+            );
+          });
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e) {
       var t = new Map(),
         n = [];
       for (var r of e) {
@@ -122,242 +159,313 @@ __d(
       }
       return { msgsByThreadId: t, msgsWithoutThread: n };
     }
-    async function v(e, t) {
-      t.length > 0 &&
-        (await o("WAWebBackendApi").frontendSendAndReceive(
-          "resetAiThreadUnreadCounts",
-          { chatId: e, threadIds: [].concat(t) },
-        ));
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    async function S(e) {
-      if (e.isNewsletter()) {
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
-          (await o("WAWebBackendApi").frontendSendAndReceive(
-            "updateNewsletterUnreadMsgCount",
-            { id: e },
-          ));
-        return;
-      }
-      await o("WAWebBackendApi").frontendSendAndReceive(
-        "updateChatUnreadMsgCountAndClearMentions",
-        { remote: e },
-      );
-    }
-    async function R(e, t) {
-      var n = await o("WAWebApiActiveMessageRanges").getActiveMessageRanges(e),
-        a = n.filter(function (e) {
-          return (
-            e.action === "markChatAsRead" &&
-            e.actionValue.read === !1 &&
-            e.actionValue.messageRange != null
-          );
-        });
-      if (a.length === 0) return !0;
-      var i = a[0],
-        l = t.some(function (e) {
-          return !o("WAWebActiveMessageRanges").rangeContainsMessage(
-            i.actionValue.messageRange,
-            { id: r("WAWebMsgKey").fromString(e.id), t: e.t },
-          );
-        });
-      return l;
-    }
-    async function L(e) {
-      var t = e.chatId,
-        n = e.msgKeys,
-        a = e.msgs,
-        i = e.readAt,
-        l = e.threadId,
-        s = t.toString(),
-        u = f(a),
-        c = await R(s, a),
-        d = await Promise.all([
-          o("WAWebApiChat").markMessageAndChatAsRead({
-            lastReadRowId: u,
-            chatId: s,
-            keepChatUnread: !c,
-            readAt: i,
-            threadId: l,
-          }),
-          o("WAWebApiChat").markEditedMessageAndChatAsRead({
-            chatId: t,
-            readMsgKeys: n,
-            threadId: l,
-          }),
-        ]),
-        m = d[0],
-        p = d[1],
-        _ = new Set(
-          [].concat(
-            m.fullyReadThreadIds.map(function (e) {
-              return e.toString();
-            }),
-            p.fullyReadThreadIds.map(function (e) {
-              return e.toString();
-            }),
-          ),
-        );
-      return Array.from(_, function (e) {
-        return r("WAWebThreadId").from(e);
-      });
-    }
-    async function E(e, t, n) {
-      o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose(["updateChatPeerRead"])),
-      );
-      var a = await g(t),
-        i = a.maybeOrphans,
-        l = a.msgs;
-      await C(i);
-      var s = await h(l, e),
-        c,
-        d = o("WAWebBotUtils").isMetaAiBot(s),
-        m = d ? b(l) : { msgsByThreadId: new Map(), msgsWithoutThread: l },
-        p = m.msgsByThreadId,
-        _ = m.msgsWithoutThread;
-      if (d && _.length === 0 && p.size > 0) {
-        var f = await Promise.all(
-            Array.from(p.entries()).map(async function (e) {
-              var o = e[0],
-                a = e[1],
-                i = r("WAWebThreadId").from(o);
-              return L({
-                chatId: s,
-                msgs: a,
-                msgKeys: t,
-                readAt: n,
-                threadId: i,
-              });
-            }),
-          ),
-          y = new Set();
-        for (var R of f) for (var E of R) y.add(E.toString());
-        c = Array.from(y, function (e) {
-          return r("WAWebThreadId").from(e);
-        });
-      } else c = await L({ chatId: s, msgs: _, msgKeys: t, readAt: n });
-      (t.length > 0 &&
-        (await o("WAWebApiChat").tightenAfterReadExpirationFromPeerReceipt({
-          msgKeys: t,
-          readAt: n,
-        })),
-        await v(s, c),
-        await S(s));
-    }
-    async function k(e, t) {
-      var n = e.map(function (e) {
-          return o("WAWebDBMessageUtils").craftInternalId(t.toJid(), e);
-        }),
-        a = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .anyOf(["internalId"], n),
-        i = a.map(function (e) {
-          return r("WAWebMsgKey").fromString(e.id);
-        });
+    function I() {
       return (
-        await o("WAWebNewsletterDBUtils").updateMsgViewReceipt(i),
-        o("WAWebBackendApi").frontendFireAndForget("updateMsgsViewed", {
-          ids: i,
-        })
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t.length > 0 &&
+            (yield o("WAWebBackendApi").frontendSendAndReceive(
+              "resetAiThreadUnreadCounts",
+              { chatId: e, threadIds: [].concat(t) },
+            ));
+        })),
+        I.apply(this, arguments)
       );
     }
-    function I(e, t, n) {
-      _.enqueue(function () {
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.isNewsletter()) {
+            o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
+              (yield o("WAWebBackendApi").frontendSendAndReceive(
+                "updateNewsletterUnreadMsgCount",
+                { id: e },
+              ));
+            return;
+          }
+          yield o("WAWebBackendApi").frontendSendAndReceive(
+            "updateChatUnreadMsgCountAndClearMentions",
+            { remote: e },
+          );
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e, t) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebApiActiveMessageRanges").getActiveMessageRanges(
+              e,
+            ),
+            a = n.filter(function (e) {
+              return (
+                e.action === "markChatAsRead" &&
+                e.actionValue.read === !1 &&
+                e.actionValue.messageRange != null
+              );
+            });
+          if (a.length === 0) return !0;
+          var i = a[0],
+            l = t.some(function (e) {
+              return !o("WAWebActiveMessageRanges").rangeContainsMessage(
+                i.actionValue.messageRange,
+                { id: r("WAWebMsgKey").fromString(e.id), t: e.t },
+              );
+            });
+          return l;
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatId,
+            a = e.msgKeys,
+            i = e.msgs,
+            l = e.readAt,
+            s = e.threadId,
+            u = t.toString(),
+            c = g(i),
+            d = yield x(u, i),
+            m = yield (_ || (_ = n("Promise"))).all([
+              o("WAWebApiChat").markMessageAndChatAsRead({
+                lastReadRowId: c,
+                chatId: u,
+                keepChatUnread: !d,
+                readAt: l,
+                threadId: s,
+              }),
+              o("WAWebApiChat").markEditedMessageAndChatAsRead({
+                chatId: t,
+                readMsgKeys: a,
+                threadId: s,
+              }),
+            ]),
+            p = m[0],
+            f = m[1],
+            h = new Set(
+              [].concat(
+                p.fullyReadThreadIds.map(function (e) {
+                  return e.toString();
+                }),
+                f.fullyReadThreadIds.map(function (e) {
+                  return e.toString();
+                }),
+              ),
+            );
+          return Array.from(h, function (e) {
+            return r("WAWebThreadId").from(e);
+          });
+        })),
+        N.apply(this, arguments)
+      );
+    }
+    function M(e, t, n) {
+      return w.apply(this, arguments);
+    }
+    function w() {
+      return (
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "updateChatPeerRead",
+              ])),
+          );
+          var i = yield h(t),
+            l = i.maybeOrphans,
+            s = i.msgs;
+          yield R(l);
+          var u = yield C(s, e),
+            c,
+            d = o("WAWebBotUtils").isMetaAiBot(u),
+            m = d ? E(s) : { msgsByThreadId: new Map(), msgsWithoutThread: s },
+            f = m.msgsByThreadId,
+            g = m.msgsWithoutThread;
+          if (d && g.length === 0 && f.size > 0) {
+            var y = yield (_ || (_ = n("Promise"))).all(
+                Array.from(f.entries()).map(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var n = e[0],
+                          o = e[1],
+                          i = r("WAWebThreadId").from(n);
+                        return P({
+                          chatId: u,
+                          msgs: o,
+                          msgKeys: t,
+                          readAt: a,
+                          threadId: i,
+                        });
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                ),
+              ),
+              b = new Set();
+            for (var v of y) for (var S of v) b.add(S.toString());
+            c = Array.from(b, function (e) {
+              return r("WAWebThreadId").from(e);
+            });
+          } else c = yield P({ chatId: u, msgs: g, msgKeys: t, readAt: a });
+          (t.length > 0 &&
+            (yield o("WAWebApiChat").tightenAfterReadExpirationFromPeerReceipt({
+              msgKeys: t,
+              readAt: a,
+            })),
+            yield k(u, c),
+            yield T(u));
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e, t) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.map(function (e) {
+              return o("WAWebDBMessageUtils").craftInternalId(t.toJid(), e);
+            }),
+            a = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .anyOf(["internalId"], n),
+            i = a.map(function (e) {
+              return r("WAWebMsgKey").fromString(e.id);
+            });
+          return (
+            yield o("WAWebNewsletterDBUtils").updateMsgViewReceipt(i),
+            o("WAWebBackendApi").frontendFireAndForget("updateMsgsViewed", {
+              ids: i,
+            })
+          );
+        })),
+        F.apply(this, arguments)
+      );
+    }
+    function O(t, n, r) {
+      f.enqueue(function () {
         o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
               "updateMsgAcks: store ",
               " orphan acks",
             ])),
-          e.length,
+          t.length,
         );
-        var r = null;
+        var a = null;
         if (
-          (t === o("WAWebAck").ACK.PLAYED
-            ? (r = o("WAWebAck").ACK_STRING.PLAYED)
-            : t === o("WAWebAck").ACK.READ &&
-              (r = o("WAWebAck").ACK_STRING.READ),
-          r)
+          (n === o("WAWebAck").ACK.PLAYED
+            ? (a = o("WAWebAck").ACK_STRING.PLAYED)
+            : n === o("WAWebAck").ACK.READ &&
+              (a = o("WAWebAck").ACK_STRING.READ),
+          a)
         )
           return o("WAWebApiOrphanReceipt").createOrUpdateOrphanReceipt(
+            a,
             r,
-            n,
-            e.map(String),
+            t.map(String),
           );
       });
     }
-    function T(e) {
-      return _.enqueue(async function () {
-        var t = await o("WAWebApiOrphanReceipt").getOrphanReceipt(e);
-        if (t == null) {
-          o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "processOrphanPeerReceipt: no orphan ack found for incoming ",
-                "",
-              ])),
-            e,
-          );
-          return;
-        }
-        (t[o("WAWebAck").ACK_STRING.PLAYED] != null &&
-          (o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "processOrphanPeerReceipt: orphan played ack for ",
-                "",
-              ])),
-            e,
-          ),
-          await o("WAWebBackendApi").frontendSendAndReceive(
-            "updateMsgPeerAcks",
-            {
-              msgKeys: [e],
-              ack: o("WAWebAck").ACK.PLAYED,
-              t: t[o("WAWebAck").ACK_STRING.PLAYED],
-            },
-          )),
-          t[o("WAWebAck").ACK_STRING.READ] != null &&
+    function B(e) {
+      return f.enqueue(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebApiOrphanReceipt").getOrphanReceipt(e);
+          if (t == null) {
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "processOrphanPeerReceipt: no orphan ack found for incoming ",
+                  "",
+                ])),
+              e,
+            );
+            return;
+          }
+          (t[o("WAWebAck").ACK_STRING.PLAYED] != null &&
             (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "processOrphanPeerReceipt: orphan read ack for ",
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "processOrphanPeerReceipt: orphan played ack for ",
                   "",
                 ])),
               e,
             ),
-            E(e.remote, [e], t[o("WAWebAck").ACK_STRING.READ])),
-          await o("WAWebApiOrphanReceipt").removeOrphanReceipt(t.msgKey));
-      });
-    }
-    async function D(e) {
-      var t = e.map(String),
-        n = await o("WAWebSchemaMessage").getMessageTable().bulkGet(t, !1);
-      o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging(
-        n
-          .filter(Boolean)
-          .map(function (e) {
-            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-          })
-          .filter(function (e) {
-            return e.isViewOnce;
-          })
-          .map(function (e) {
-            var t;
-            return {
-              activityType: "viewOnceOpen",
-              ts: (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
-              chatId: e.id.remote,
-            };
-          }),
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "updateMsgPeerAcks",
+              {
+                msgKeys: [e],
+                ack: o("WAWebAck").ACK.PLAYED,
+                t: t[o("WAWebAck").ACK_STRING.PLAYED],
+              },
+            )),
+            t[o("WAWebAck").ACK_STRING.READ] != null &&
+              (o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "processOrphanPeerReceipt: orphan read ack for ",
+                    "",
+                  ])),
+                e,
+              ),
+              M(e.remote, [e], t[o("WAWebAck").ACK_STRING.READ])),
+            yield o("WAWebApiOrphanReceipt").removeOrphanReceipt(t.msgKey));
+        }),
       );
     }
-    ((l.updateChatPeerRead = E),
-      (l.updateMsgViewed = k),
-      (l.updateOrphanPeerReceipt = I),
-      (l.processOrphanPeerReceipt = T),
-      (l.handleViewOnceOpenedIfNecessary = D));
+    function W(e) {
+      return q.apply(this, arguments);
+    }
+    function q() {
+      return (
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(String),
+            n = yield o("WAWebSchemaMessage").getMessageTable().bulkGet(t, !1);
+          o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging(
+            n
+              .filter(Boolean)
+              .map(function (e) {
+                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+              })
+              .filter(function (e) {
+                return e.isViewOnce;
+              })
+              .map(function (e) {
+                var t;
+                return {
+                  activityType: "viewOnceOpen",
+                  ts: (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
+                  chatId: e.id.remote,
+                };
+              }),
+          );
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    ((l.updateChatPeerRead = M),
+      (l.updateMsgViewed = A),
+      (l.updateOrphanPeerReceipt = O),
+      (l.processOrphanPeerReceipt = B),
+      (l.handleViewOnceOpenedIfNecessary = W));
   },
   98,
 );

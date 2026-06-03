@@ -8,6 +8,7 @@ __d(
     "WAWebBackendApi",
     "WAWebUserPrefsMeUser",
     "WAWebWaOldCodeWamEvent",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -33,56 +34,64 @@ __d(
           };
         },
       );
-    async function c(t) {
-      var n = u.parse(t);
-      if (n.error)
-        throw (
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "Parsing Error: ",
-                "",
-              ])),
-            n.error.toString(),
-          ),
-          n.error
-        );
-      var r = n.success,
-        a = o("WAWap").wap("ack", {
-          id: o("WAWap").CUSTOM_STRING(r.stanzaId),
-          class: "notification",
-          type: "registration",
-          to: r.from,
-        }),
-        i = r.expiryTime,
-        l = o("WATimeUtils").unixTime();
-      if (l > i)
-        return (
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "OTP code has expired, expiry time: ",
-                " and current time: ",
-                "",
-              ])),
-            i,
-            l,
-          ),
-          a
-        );
-      var c = r.code;
-      o("WAWebBackendApi").frontendFireAndForget("showDeviceSwitchOtp", {
-        otpCode: c,
-      });
-      var d = o("WAWebUserPrefsMeUser")
-        .getMeDeviceOrThrow()
-        .getDeviceId()
-        .toString();
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        new (o("WAWebWaOldCodeWamEvent").WaOldCodeWamEvent)({
-          deviceId: d,
-        }).commit(),
-        a
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = u.parse(t);
+          if (n.error)
+            throw (
+              o("WALogger").ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Parsing Error: ",
+                    "",
+                  ])),
+                n.error.toString(),
+              ),
+              n.error
+            );
+          var r = n.success,
+            a = o("WAWap").wap("ack", {
+              id: o("WAWap").CUSTOM_STRING(r.stanzaId),
+              class: "notification",
+              type: "registration",
+              to: r.from,
+            }),
+            i = r.expiryTime,
+            l = o("WATimeUtils").unixTime();
+          if (l > i)
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "OTP code has expired, expiry time: ",
+                    " and current time: ",
+                    "",
+                  ])),
+                i,
+                l,
+              ),
+              a
+            );
+          var c = r.code;
+          o("WAWebBackendApi").frontendFireAndForget("showDeviceSwitchOtp", {
+            otpCode: c,
+          });
+          var d = o("WAWebUserPrefsMeUser")
+            .getMeDeviceOrThrow()
+            .getDeviceId()
+            .toString();
+          return (
+            new (o("WAWebWaOldCodeWamEvent").WaOldCodeWamEvent)({
+              deviceId: d,
+            }).commit(),
+            a
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
     l.default = c;

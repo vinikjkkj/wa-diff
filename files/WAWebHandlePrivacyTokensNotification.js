@@ -1,6 +1,7 @@
 __d(
   "WAWebHandlePrivacyTokensNotification",
   [
+    "Promise",
     "WAByteArray",
     "WADeprecatedWapParser",
     "WALogger",
@@ -10,6 +11,7 @@ __d(
     "WAWebJidToWid",
     "WAWebPresenceCollection",
     "WAWebSetTcTokenChatAction",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,11 +19,12 @@ __d(
       s,
       u,
       c,
-      d = function (t) {
+      d,
+      m = function (t) {
         var e = o("WAByteArray").uint8ArrayToBuffer(t.contentBytes());
         return { type: "trusted_contact", content: e, ts: t.attrTime("t") };
       },
-      m = new (r("WADeprecatedWapParser"))(
+      p = new (r("WADeprecatedWapParser"))(
         "incomingPrivacyTokensParser",
         function (t) {
           t.assertTag("notification");
@@ -35,7 +38,7 @@ __d(
               var n = t.attrString("type");
               switch (n) {
                 case "trusted_contact":
-                  l.push(d(t));
+                  l.push(m(t));
                   break;
                 default:
                   o("WALogger").LOG(
@@ -52,27 +55,35 @@ __d(
           );
         },
       );
-    async function p(e, t) {
-      var n = t.ts,
-        r = o("WAWebJidToWid").userJidToUserWid(e.from),
-        a =
-          e.senderLid != null
-            ? o("WAWebJidToWid").lidUserJidToUserLid(e.senderLid)
-            : null;
-      if (t.type === "trusted_contact") {
-        await o("WAWebSetTcTokenChatAction").handleIncomingTcToken(
-          r,
-          a,
-          n,
-          t.content,
-        );
-        var i = _(r, a);
-        await o(
-          "WAWebPresenceCollection",
-        ).PresenceCollection.reSubscribeWhenActive(i);
-      }
-    }
     function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.ts,
+            r = o("WAWebJidToWid").userJidToUserWid(e.from),
+            a =
+              e.senderLid != null
+                ? o("WAWebJidToWid").lidUserJidToUserLid(e.senderLid)
+                : null;
+          if (t.type === "trusted_contact") {
+            yield o("WAWebSetTcTokenChatAction").handleIncomingTcToken(
+              r,
+              a,
+              n,
+              t.content,
+            );
+            var i = g(r, a);
+            yield o(
+              "WAWebPresenceCollection",
+            ).PresenceCollection.reSubscribeWhenActive(i);
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
       if (e.isLid()) return e;
       if (t != null) return t;
       throw (
@@ -89,49 +100,57 @@ __d(
         r("err")("privacy-token-notification-without-lid")
       );
     }
-    async function f(e) {
-      var t = m.parse(e);
-      if (t.error)
-        throw (
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "error while parsing: ",
-                "",
-              ])),
-            e.toString(),
-          ),
-          o("WALogger").ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "Parsing Error: ",
-                "",
-              ])),
-            t.error.toString(),
-          ),
-          t.error
-        );
-      var n = t.success,
-        a = o("WAWap").wap("ack", {
-          id: o("WAWap").CUSTOM_STRING(n.id),
-          class: "notification",
-          to: o("WAWap").JID(n.from),
-          type: "privacy_token",
-        });
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        r("WAWebEnvironment").isGuest ||
-          (await o(
-            "WAWebEventsWaitForOfflineDeliveryEnd",
-          ).waitForOfflineDeliveryEnd(),
-          await Promise.all(
-            n.privacyTokens.map(function (e) {
-              return p(n, e);
-            }),
-          )),
-        a
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = p.parse(e);
+          if (t.error)
+            throw (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "error while parsing: ",
+                    "",
+                  ])),
+                e.toString(),
+              ),
+              o("WALogger").ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "Parsing Error: ",
+                    "",
+                  ])),
+                t.error.toString(),
+              ),
+              t.error
+            );
+          var a = t.success,
+            i = o("WAWap").wap("ack", {
+              id: o("WAWap").CUSTOM_STRING(a.id),
+              class: "notification",
+              to: o("WAWap").JID(a.from),
+              type: "privacy_token",
+            });
+          return (
+            r("WAWebEnvironment").isGuest ||
+              (yield o(
+                "WAWebEventsWaitForOfflineDeliveryEnd",
+              ).waitForOfflineDeliveryEnd(),
+              yield (d || (d = n("Promise"))).all(
+                a.privacyTokens.map(function (e) {
+                  return _(a, e);
+                }),
+              )),
+            i
+          );
+        })),
+        y.apply(this, arguments)
       );
     }
-    l.default = f;
+    l.default = h;
   },
   98,
 );

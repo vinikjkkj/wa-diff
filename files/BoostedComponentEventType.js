@@ -68,6 +68,7 @@ __d(
       ABS_MIGRATION_CREATE_ERROR_FALLBACK:
         "abs_migration_create_error_fallback",
       ABS_MIGRATION_DEBUG: "abs_migration_debug",
+      BML_ABS_MIGRATION_NOT_ENABLED: "bml_abs_migration_not_enabled",
       ABS_DELETE_L3: "abs_delete_l3",
       ABS_DELETE_L2: "abs_delete_l2",
       ABS_DELETE_L1: "abs_delete_l1",
@@ -1624,6 +1625,8 @@ __d(
       HEADLINE_SUGGESTION_DISLIKED: "headline_suggestion_disliked",
       HEADLINE_INITIAL_CLASSIFICATION_IMPRESSION:
         "headline_initial_classification_impression",
+      HEADLINE_AUTO_APPLY_SUCCEEDED: "headline_auto_apply_succeeded",
+      HEADLINE_AUTO_APPLY_FAILED: "headline_auto_apply_failed",
       MULTI_POST_SECTION_IMPRESSION: "multi_post_section_impression",
       MULTI_POST_PICKER_OPEN: "multi_post_picker_open",
       MULTI_POST_PICKER_SELECTED: "multi_post_picker_selected",

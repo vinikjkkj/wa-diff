@@ -6,6 +6,7 @@ __d(
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameTypes",
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidFormat",
@@ -63,7 +64,7 @@ __d(
               o("WAWebWidFormat").widToFormattedUser(y),
           ]);
       }
-      if (h.length === 0 && g && !r("isStringNullOrEmpty")(p)) {
+      if (h.length === 0 && g && o("WAWebUsernameTypes").isPresentUsername(p)) {
         var C = _.isLid()
           ? _
           : o("WAWebApiContact").getCurrentLid(

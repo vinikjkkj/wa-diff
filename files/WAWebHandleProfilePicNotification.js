@@ -1,6 +1,7 @@
 __d(
   "WAWebHandleProfilePicNotification",
   [
+    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAWap",
@@ -15,13 +16,15 @@ __d(
     "WAWebProfilePicConstants",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = new (r("WADeprecatedWapParser"))(
+      d,
+      m = new (r("WADeprecatedWapParser"))(
         "incomingProfilePicNotificationParser",
         function (e) {
           e.assertTag("notification");
@@ -64,96 +67,104 @@ __d(
               };
         },
       );
-    async function m(t) {
-      var n = d.parse(t);
-      if (n.error)
-        return (
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "Parsing Error: ",
-                "",
-              ])),
-            n.error.toString(),
-          ),
-          Promise.reject(n.error)
-        );
-      var r = n.success,
-        a = Promise.resolve();
-      if (r.jid || r.hash) {
-        var i;
-        if (r.jid) i = r.jid;
-        else {
-          var l = await o("WAWebApiContact").getContactRecordByHash(r.hash);
-          l == null
-            ? o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "side contact hash not found for pic update",
-                  ])),
-              )
-            : (i = o("WAWebWidFactory").createWid(l.id));
-        }
-        switch (r.type) {
-          case "delete":
-          case "set": {
-            var m =
-              r.type === "delete"
-                ? o("WAWebProfilePicConstants").ProfilePicCommand.Remove
-                : o("WAWebProfilePicConstants").ProfilePicCommand.Set;
-            i &&
-              (a = o("WAWebChangeProfilePicThumb")
-                .changeProfilePicThumb(i, m)
-                .then(function () {
-                  if (i.isGroup() && r.ts != null) {
-                    var e = o(
-                      "WAWebGroupSystemMsg",
-                    ).genGroupPicChangeNotificationMsg(
-                      i,
-                      m,
-                      r.ts,
-                      r.author || o("WAWebUserPrefsMeUser").getMeUser(),
-                    );
-                    return o(
-                      "WAWebHandleSingleMsgWorkerCompatible",
-                    ).handleSingleMsg({
-                      chatId: i,
-                      newMsg: e,
-                      handleSingleMsgOrigin: "profilePicNotification",
-                    });
-                  }
-                }));
-            break;
-          }
-          case "request":
-            break;
-          case "set_avatar":
-            o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "set_avatar picture notification is not implemented",
-                ])),
-            );
-            break;
-          default:
-            o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "Invalid type received",
-                ])),
-            );
-        }
-      }
-      return a.then(function () {
-        return o("WAWap").wap("ack", {
-          id: o("WAWap").CUSTOM_STRING(r.stanzaId),
-          to: o("WAWebCommsWapMd").JID(r.from),
-          class: "notification",
-          type: "picture",
-        });
-      });
-    }
     function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = m.parse(t);
+          if (r.error)
+            return (
+              o("WALogger").ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Parsing Error: ",
+                    "",
+                  ])),
+                r.error.toString(),
+              ),
+              (d || (d = n("Promise"))).reject(r.error)
+            );
+          var a = r.success,
+            i = (d || (d = n("Promise"))).resolve();
+          if (a.jid || a.hash) {
+            var l;
+            if (a.jid) l = a.jid;
+            else {
+              var p = yield o("WAWebApiContact").getContactRecordByHash(a.hash);
+              p == null
+                ? o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "side contact hash not found for pic update",
+                      ])),
+                  )
+                : (l = o("WAWebWidFactory").createWid(p.id));
+            }
+            switch (a.type) {
+              case "delete":
+              case "set": {
+                var _ =
+                  a.type === "delete"
+                    ? o("WAWebProfilePicConstants").ProfilePicCommand.Remove
+                    : o("WAWebProfilePicConstants").ProfilePicCommand.Set;
+                l &&
+                  (i = o("WAWebChangeProfilePicThumb")
+                    .changeProfilePicThumb(l, _)
+                    .then(function () {
+                      if (l.isGroup() && a.ts != null) {
+                        var e = o(
+                          "WAWebGroupSystemMsg",
+                        ).genGroupPicChangeNotificationMsg(
+                          l,
+                          _,
+                          a.ts,
+                          a.author || o("WAWebUserPrefsMeUser").getMeUser(),
+                        );
+                        return o(
+                          "WAWebHandleSingleMsgWorkerCompatible",
+                        ).handleSingleMsg({
+                          chatId: l,
+                          newMsg: e,
+                          handleSingleMsgOrigin: "profilePicNotification",
+                        });
+                      }
+                    }));
+                break;
+              }
+              case "request":
+                break;
+              case "set_avatar":
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "set_avatar picture notification is not implemented",
+                    ])),
+                );
+                break;
+              default:
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "Invalid type received",
+                    ])),
+                );
+            }
+          }
+          return i.then(function () {
+            return o("WAWap").wap("ack", {
+              id: o("WAWap").CUSTOM_STRING(a.stanzaId),
+              to: o("WAWebCommsWapMd").JID(a.from),
+              class: "notification",
+              type: "picture",
+            });
+          });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -161,13 +172,13 @@ __d(
         .createNonPersistedJob(
           "handleProfilePicNotification",
           function (e) {
-            return m(e.node);
+            return p(e.node);
           },
           { priority: t },
         )
         .waitUntilCompleted({ node: e });
     }
-    l.handleProfilePicNotificationJob = p;
+    l.handleProfilePicNotificationJob = f;
   },
   98,
 );

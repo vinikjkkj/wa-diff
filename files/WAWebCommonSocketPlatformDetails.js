@@ -5,6 +5,7 @@ __d(
     "WAVerifyChainCertificateWA6",
     "WAWapDict",
     "WAWebProtobufsWa6.pb",
+    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
     "err",
@@ -32,25 +33,32 @@ __d(
         e,
       ).serverHello;
     }
-    async function m(t) {
-      var n = t.certificate,
-        a = t.serverStatic;
-      o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "processCertificate start",
-          ])),
-      );
-      var i = await o("WAVerifyChainCertificateWA6").verifyChainCertificateWA6(
-        n,
-        a,
-      );
-      if (!i.success) throw r("err")("verifyCertificateWA6 - " + i.error);
+    function m(e) {
+      return p.apply(this, arguments);
     }
     function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.certificate,
+            a = t.serverStatic;
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "processCertificate start",
+              ])),
+          );
+          var i = yield o(
+            "WAVerifyChainCertificateWA6",
+          ).verifyChainCertificateWA6(n, a);
+          if (!i.success) throw r("err")("verifyCertificateWA6 - " + i.error);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _() {
       return null;
     }
-    function _(e) {
+    function f(e) {
       if (e == null) return null;
       var t = e != null ? e : {},
         n = t.intermediate,
@@ -62,8 +70,8 @@ __d(
       (l.encodeHandshakeFinish = c),
       (l.decodeServerHello = d),
       (l.processCertificate = m),
-      (l.serverInfoIfKnown = p),
-      (l.makeServerInfoIfKnown = _));
+      (l.serverInfoIfKnown = _),
+      (l.makeServerInfoIfKnown = f));
   },
   98,
 );

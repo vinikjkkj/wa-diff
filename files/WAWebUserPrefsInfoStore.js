@@ -1,6 +1,7 @@
 __d(
   "WAWebUserPrefsInfoStore",
   [
+    "Promise",
     "WAArrayBufferUtils",
     "WABase64",
     "WABinary",
@@ -15,6 +16,7 @@ __d(
     "WAWebSocketLogoutJob",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsScreenLock",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,20 +26,21 @@ __d(
       c,
       d,
       m,
-      p = 128,
-      _ = "AES-GCM",
-      f = "PBKDF2",
-      g = r("gkx")("26256") ? 1e4 : 6e5,
-      h = (function () {
+      p,
+      _ = 128,
+      f = "AES-GCM",
+      g = "PBKDF2",
+      h = r("gkx")("26256") ? 1e4 : 6e5,
+      y = (function () {
         function t() {
           this.cachedPasscodeDerivedKey = null;
         }
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.resetCachedPasscodeDerivedKey = function () {
+          (r.resetCachedPasscodeDerivedKey = function () {
             this.cachedPasscodeDerivedKey = null;
           }),
-          (n.getCertficateChain = function (n) {
+          (r.getCertficateChain = function (n) {
             var t = o("WAArrayBufferUtils").arrayBufferToString(n);
             try {
               var r = JSON.parse(t),
@@ -69,120 +72,142 @@ __d(
               );
             }
           }),
-          (n.get = async function () {
-            var e = o("WAWebUserPrefsMultiDevice").getNoiseInfo();
-            if (!e) return null;
-            var t = this.$1();
-            if (!t) return null;
-            if (
-              ((e = await this.$2(e, t)),
-              o("WAWebUserPrefsScreenLock").getScreenLockEnabled())
-            ) {
-              o("WAWebBackendEventBus").BackendEventBus.triggerSetSocketState(
-                o("WAWebSocketConstants").SOCKET_STATE.SCREEN_LOCKED,
-              );
-              var n = await this.passcodeUnlockNoiseInfo(e);
-              n && (e = n);
-            }
-            var r = await this.$3(e);
-            return r
-              ? e
-              : (o("WALogger")
-                  .LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "Decrypted noise key was invalid.",
-                      ])),
-                  )
-                  .tags("info-store"),
-                null);
-          }),
-          (n.setCertificateChain = async function (t) {
-            var e = await this.get();
-            if (e)
-              try {
-                var n = babelHelpers.extends({}, t.intermediate, {
-                    key: o("WABase64").encodeB64(t.intermediate.key),
-                  }),
-                  r = babelHelpers.extends({}, t.leaf, {
-                    key: o("WABase64").encodeB64(t.leaf.key),
-                  }),
-                  a = JSON.stringify({ intermediate: n, leaf: r });
-                return (
-                  (e.certificateChainBuffer =
-                    o("WAArrayBufferUtils").stringToArrayBuffer(a)),
-                  this.set(e)
+          (r.get = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = o("WAWebUserPrefsMultiDevice").getNoiseInfo();
+              if (!e) return null;
+              var t = this.$1();
+              if (!t) return null;
+              if (
+                ((e = yield this.$2(e, t)),
+                o("WAWebUserPrefsScreenLock").getScreenLockEnabled())
+              ) {
+                o("WAWebBackendEventBus").BackendEventBus.triggerSetSocketState(
+                  o("WAWebSocketConstants").SOCKET_STATE.SCREEN_LOCKED,
                 );
-              } catch (e) {
-                o("WALogger")
-                  .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "Error serializing certificate chain: ",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .sendLogs("handshake-serialization-failed");
+                var n = yield this.passcodeUnlockNoiseInfo(e);
+                n && (e = n);
               }
-          }),
-          (n.set = async function (t) {
-            var e = this,
-              n = t;
-            if (this.cachedPasscodeDerivedKey != null) {
-              var r = this.cachedPasscodeDerivedKey,
-                a = n,
-                i = a.certificateChainBuffer,
-                l = a.recoveryToken,
-                s = a.staticKeyPair,
-                u = s.privKey,
-                c = s.pubKey;
-              try {
-                var d = await Promise.all(
-                  [l, c, u, i].map(function (t) {
-                    return e.encryptNoiseWithPasscodeDerivedKey(t, r);
-                  }),
-                );
-                d[0] &&
-                  d[1] &&
-                  d[2] &&
-                  (n = {
-                    recoveryToken: d[0],
-                    staticKeyPair: { pubKey: d[1], privKey: d[2] },
-                    certificateChainBuffer: d[3],
-                  });
-              } catch (e) {}
+              var r = yield this.$3(e);
+              return r
+                ? e
+                : (o("WALogger")
+                    .LOG(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "Decrypted noise key was invalid.",
+                        ])),
+                    )
+                    .tags("info-store"),
+                  null);
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-            var m = new Uint8Array(64);
-            self.crypto.getRandomValues(m);
-            var p = this.$4(m);
-            await this.$5(p);
-            var _ = await Promise.all([
-                this.$6(n.recoveryToken, p[0]),
-                this.$6(n.staticKeyPair.pubKey, p[1]),
-                this.$6(n.staticKeyPair.privKey, p[2]),
-                n.certificateChainBuffer
-                  ? this.$6(n.certificateChainBuffer, p[3])
-                  : Promise.resolve(void 0),
-              ]),
-              f = _[0],
-              g = _[1],
-              h = _[2],
-              y = _[3];
-            return (
-              (n.recoveryToken = f),
-              (n.staticKeyPair.pubKey = g),
-              (n.staticKeyPair.privKey = h),
-              (n.certificateChainBuffer = y),
-              o("WAWebUserPrefsMultiDevice").setNoiseInfo(n)
+            return t;
+          })()),
+          (r.setCertificateChain = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.get();
+                if (t)
+                  try {
+                    var n = babelHelpers.extends({}, e.intermediate, {
+                        key: o("WABase64").encodeB64(e.intermediate.key),
+                      }),
+                      r = babelHelpers.extends({}, e.leaf, {
+                        key: o("WABase64").encodeB64(e.leaf.key),
+                      }),
+                      a = JSON.stringify({ intermediate: n, leaf: r });
+                    return (
+                      (t.certificateChainBuffer =
+                        o("WAArrayBufferUtils").stringToArrayBuffer(a)),
+                      this.set(t)
+                    );
+                  } catch (e) {
+                    o("WALogger")
+                      .LOG(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "Error serializing certificate chain: ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .sendLogs("handshake-serialization-failed");
+                  }
+              },
             );
-          }),
-          (n.$5 = function (t) {
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.set = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  r = e;
+                if (this.cachedPasscodeDerivedKey != null) {
+                  var a = this.cachedPasscodeDerivedKey,
+                    i = r,
+                    l = i.certificateChainBuffer,
+                    s = i.recoveryToken,
+                    u = i.staticKeyPair,
+                    c = u.privKey,
+                    d = u.pubKey;
+                  try {
+                    var m = yield (p || (p = n("Promise"))).all(
+                      [s, d, c, l].map(function (e) {
+                        return t.encryptNoiseWithPasscodeDerivedKey(e, a);
+                      }),
+                    );
+                    m[0] &&
+                      m[1] &&
+                      m[2] &&
+                      (r = {
+                        recoveryToken: m[0],
+                        staticKeyPair: { pubKey: m[1], privKey: m[2] },
+                        certificateChainBuffer: m[3],
+                      });
+                  } catch (e) {}
+                }
+                var _ = new Uint8Array(64);
+                self.crypto.getRandomValues(_);
+                var f = this.$4(_);
+                yield this.$5(f);
+                var g = yield (p || (p = n("Promise"))).all([
+                    this.$6(r.recoveryToken, f[0]),
+                    this.$6(r.staticKeyPair.pubKey, f[1]),
+                    this.$6(r.staticKeyPair.privKey, f[2]),
+                    r.certificateChainBuffer
+                      ? this.$6(r.certificateChainBuffer, f[3])
+                      : (p || (p = n("Promise"))).resolve(void 0),
+                  ]),
+                  h = g[0],
+                  y = g[1],
+                  C = g[2],
+                  b = g[3];
+                return (
+                  (r.recoveryToken = h),
+                  (r.staticKeyPair.pubKey = y),
+                  (r.staticKeyPair.privKey = C),
+                  (r.certificateChainBuffer = b),
+                  o("WAWebUserPrefsMultiDevice").setNoiseInfo(r)
+                );
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.$5 = function (t) {
             return o("WAWebUserPrefsMultiDevice").setNoiseInfoIv(
               t.map(o("WABase64").encodeB64),
             );
           }),
-          (n.$1 = function () {
+          (r.$1 = function () {
             var e = o("WAWebUserPrefsMultiDevice").getNoiseInfoIv();
             return e
               ? e.map(function (e) {
@@ -190,7 +215,7 @@ __d(
                 })
               : null;
           }),
-          (n.$4 = function (t) {
+          (r.$4 = function (t) {
             var e = new (o("WABinary").Binary)(t);
             return [
               e.readByteArrayView(16),
@@ -199,214 +224,288 @@ __d(
               e.readByteArrayView(16),
             ];
           }),
-          (n.$6 = async function (t, n) {
-            var e = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
-              r = await self.crypto.subtle.encrypt(
-                { iv: n, name: "AES-CBC" },
-                e.key,
-                t,
-              );
-            return r;
-          }),
-          (n.$2 = async function (t, n) {
-            var e = await Promise.all([
-                this.$7(t.recoveryToken, n[0]),
-                this.$7(t.staticKeyPair.pubKey, n[1]),
-                this.$7(t.staticKeyPair.privKey, n[2]),
-                t.certificateChainBuffer != null
-                  ? this.$7(t.certificateChainBuffer, n[3])
-                  : Promise.resolve(void 0),
-              ]),
-              r = e[0],
-              o = e[1],
-              a = e[2],
-              i = e[3];
-            return (
-              (t.certificateChainBuffer = i),
-              (t.recoveryToken = r),
-              (t.staticKeyPair.pubKey = o),
-              (t.staticKeyPair.privKey = a),
-              t
+          (r.$6 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var n = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
+                  r = yield self.crypto.subtle.encrypt(
+                    { iv: t, name: "AES-CBC" },
+                    n.key,
+                    e,
+                  );
+                return r;
+              },
             );
-          }),
-          (n.$7 = async function (t, n) {
-            var e = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
-              r = await self.crypto.subtle.decrypt(
-                { iv: n, name: "AES-CBC" },
-                e.key,
-                t,
-              );
-            return r;
-          }),
-          (n.$3 = async function (t) {
-            var e = !0;
-            try {
-              for (
-                var n = await o("WAWebCryptoCurve25519").keyPair(
-                    t.staticKeyPair.privKey,
-                  ),
-                  r = n.pubKey,
-                  a = new Uint8Array(r),
-                  i = new Uint8Array(t.staticKeyPair.pubKey),
-                  l = 0;
-                l < a.length;
-                l++
-              )
-                if (a[l] !== i[l]) {
-                  e = !1;
-                  break;
-                }
-            } catch (t) {
-              (o("WALogger")
-                .LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "Decrypted noise key failed validation.",
-                    ])),
-                )
-                .tags("info-store"),
-                (e = !1));
+            function t(t, n) {
+              return e.apply(this, arguments);
             }
-            return e;
-          }),
-          (n.lockNoiseInfo = async function (t) {
-            var e = await this.deriveKeyFromPasscode(t);
-            this.createScreenLockIv();
-            var n = await this.get();
-            if (!n || !n.staticKeyPair) return !1;
-            try {
-              return (
-                (this.cachedPasscodeDerivedKey = e),
-                await this.set(n),
-                !0
-              );
-            } catch (e) {
-              this.cachedPasscodeDerivedKey = null;
-            }
-            return !1;
-          }),
-          (n.passcodeUnlockNoiseInfo = async function (t, n) {
-            n === void 0 && (n = !1);
-            var e;
-            if (this.cachedPasscodeDerivedKey == null) {
-              var r;
-              (n
-                ? (r = await o("WAWebBackendApi").frontendSendAndReceive(
-                    "waitForPasscodeAfterIncorrectAttempt",
-                    void 0,
-                  ))
-                : (r = await o("WAWebBackendApi").frontendSendAndReceive(
-                    "waitForPasscode",
-                    void 0,
-                  )),
-                (e = await this.deriveKeyFromPasscode(r)));
-            } else e = this.cachedPasscodeDerivedKey;
-            var a = await this.getUnlockedNoiseInfo(t, e);
-            return !a || !(await this.$3(a))
-              ? (o("WALogger")
-                  .LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "Decrypted noise key was invalid.",
-                      ])),
-                  )
-                  .tags("info-store"),
-                this.passcodeUnlockNoiseInfo(t, !0))
-              : (await o("WAWebBackendApi").frontendSendAndReceive(
-                  "correctPasscodeEntered",
-                  { key: e },
-                ),
-                o("WAWebBackendEventBus").BackendEventBus.triggerSetSocketState(
-                  o("WAWebSocketConstants").SOCKET_STATE.OPENING,
-                ),
-                a);
-          }),
-          (n.getUnlockedNoiseInfo = async function (t, n) {
-            var e = this,
-              r = t.certificateChainBuffer,
-              o = t.recoveryToken,
-              a = t.staticKeyPair,
-              i = a.privKey,
-              l = a.pubKey;
-            try {
-              var s = await Promise.all(
-                [o, l, i, r].map(function (t) {
-                  return e.decryptNoiseWithPasscodeDerivedKey(t, n);
-                }),
-              );
-              if (s[0] && s[1] && s[2])
+            return t;
+          })()),
+          (r.$2 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var r = yield (p || (p = n("Promise"))).all([
+                    this.$7(e.recoveryToken, t[0]),
+                    this.$7(e.staticKeyPair.pubKey, t[1]),
+                    this.$7(e.staticKeyPair.privKey, t[2]),
+                    e.certificateChainBuffer != null
+                      ? this.$7(e.certificateChainBuffer, t[3])
+                      : (p || (p = n("Promise"))).resolve(void 0),
+                  ]),
+                  o = r[0],
+                  a = r[1],
+                  i = r[2],
+                  l = r[3];
                 return (
-                  (this.cachedPasscodeDerivedKey = n),
-                  {
-                    recoveryToken: s[0],
-                    staticKeyPair: { pubKey: s[1], privKey: s[2] },
-                    certificateChainBuffer: s[3],
-                  }
+                  (e.certificateChainBuffer = l),
+                  (e.recoveryToken = o),
+                  (e.staticKeyPair.pubKey = a),
+                  (e.staticKeyPair.privKey = i),
+                  e
                 );
-            } catch (e) {
-              return null;
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
             }
-          }),
-          (n.removeLockOnNoiseInfo = async function (t) {
-            var e = o("WAWebUserPrefsMultiDevice").getNoiseInfo();
-            if (!e) return !1;
-            var n = this.$1();
-            if (!n) return !1;
-            e = await this.$2(e, n);
-            var r = await this.deriveKeyFromPasscode(t),
-              a = await this.getUnlockedNoiseInfo(e, r);
-            if (a != null) {
-              var i = await this.$3(a);
-              return i
-                ? ((this.cachedPasscodeDerivedKey = null),
-                  await this.set(a),
-                  o("WAWebUserPrefsScreenLock").setScreenLockSalt(null),
-                  o("WAWebUserPrefsScreenLock").setScreenLockIvString(""),
-                  await o("WAWebUserPrefsScreenLock").setScreenLockIterations(
-                    null,
-                  ),
-                  !0)
-                : (o("WALogger")
+            return t;
+          })()),
+          (r.$7 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var n = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
+                  r = yield self.crypto.subtle.decrypt(
+                    { iv: t, name: "AES-CBC" },
+                    n.key,
+                    e,
+                  );
+                return r;
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.$3 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = !0;
+                try {
+                  for (
+                    var n = yield o("WAWebCryptoCurve25519").keyPair(
+                        e.staticKeyPair.privKey,
+                      ),
+                      r = n.pubKey,
+                      a = new Uint8Array(r),
+                      i = new Uint8Array(e.staticKeyPair.pubKey),
+                      l = 0;
+                    l < a.length;
+                    l++
+                  )
+                    if (a[l] !== i[l]) {
+                      t = !1;
+                      break;
+                    }
+                } catch (e) {
+                  (o("WALogger")
                     .LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "Decrypted noise key was invalid.",
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "Decrypted noise key failed validation.",
                         ])),
                     )
                     .tags("info-store"),
-                  !1);
+                    (t = !1));
+                }
+                return t;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return !1;
-          }),
-          (n.deriveKeyFromPasscode = async function (t) {
-            var e = new TextEncoder().encode(t),
-              n = await self.crypto.subtle.importKey(
-                "raw",
-                e,
-                { name: f },
-                !1,
-                ["deriveKey"],
-              ),
-              r = await this.getOrGenScreenLockSalt(),
-              o = await self.crypto.subtle.deriveKey(
-                {
-                  name: f,
-                  hash: "SHA-256",
-                  salt: r,
-                  iterations: await this.getScreenLockIterationCount(),
-                },
-                n,
-                { name: _, length: p },
-                !1,
-                ["encrypt", "decrypt"],
-              );
-            return o;
-          }),
-          (n.getOrGenScreenLockSalt = function () {
+            return t;
+          })()),
+          (r.lockNoiseInfo = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.deriveKeyFromPasscode(e);
+                this.createScreenLockIv();
+                var n = yield this.get();
+                if (!n || !n.staticKeyPair) return !1;
+                try {
+                  return (
+                    (this.cachedPasscodeDerivedKey = t),
+                    yield this.set(n),
+                    !0
+                  );
+                } catch (e) {
+                  this.cachedPasscodeDerivedKey = null;
+                }
+                return !1;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.passcodeUnlockNoiseInfo = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                t === void 0 && (t = !1);
+                var n;
+                if (this.cachedPasscodeDerivedKey == null) {
+                  var r;
+                  (t
+                    ? (r = yield o("WAWebBackendApi").frontendSendAndReceive(
+                        "waitForPasscodeAfterIncorrectAttempt",
+                        void 0,
+                      ))
+                    : (r = yield o("WAWebBackendApi").frontendSendAndReceive(
+                        "waitForPasscode",
+                        void 0,
+                      )),
+                    (n = yield this.deriveKeyFromPasscode(r)));
+                } else n = this.cachedPasscodeDerivedKey;
+                var a = yield this.getUnlockedNoiseInfo(e, n);
+                return !a || !(yield this.$3(a))
+                  ? (o("WALogger")
+                      .LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "Decrypted noise key was invalid.",
+                          ])),
+                      )
+                      .tags("info-store"),
+                    this.passcodeUnlockNoiseInfo(e, !0))
+                  : (yield o("WAWebBackendApi").frontendSendAndReceive(
+                      "correctPasscodeEntered",
+                      { key: n },
+                    ),
+                    o(
+                      "WAWebBackendEventBus",
+                    ).BackendEventBus.triggerSetSocketState(
+                      o("WAWebSocketConstants").SOCKET_STATE.OPENING,
+                    ),
+                    a);
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getUnlockedNoiseInfo = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var r = this,
+                  o = e.certificateChainBuffer,
+                  a = e.recoveryToken,
+                  i = e.staticKeyPair,
+                  l = i.privKey,
+                  s = i.pubKey;
+                try {
+                  var u = yield (p || (p = n("Promise"))).all(
+                    [a, s, l, o].map(function (e) {
+                      return r.decryptNoiseWithPasscodeDerivedKey(e, t);
+                    }),
+                  );
+                  if (u[0] && u[1] && u[2])
+                    return (
+                      (this.cachedPasscodeDerivedKey = t),
+                      {
+                        recoveryToken: u[0],
+                        staticKeyPair: { pubKey: u[1], privKey: u[2] },
+                        certificateChainBuffer: u[3],
+                      }
+                    );
+                } catch (e) {
+                  return null;
+                }
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.removeLockOnNoiseInfo = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = o("WAWebUserPrefsMultiDevice").getNoiseInfo();
+                if (!t) return !1;
+                var n = this.$1();
+                if (!n) return !1;
+                t = yield this.$2(t, n);
+                var r = yield this.deriveKeyFromPasscode(e),
+                  a = yield this.getUnlockedNoiseInfo(t, r);
+                if (a != null) {
+                  var i = yield this.$3(a);
+                  return i
+                    ? ((this.cachedPasscodeDerivedKey = null),
+                      yield this.set(a),
+                      o("WAWebUserPrefsScreenLock").setScreenLockSalt(null),
+                      o("WAWebUserPrefsScreenLock").setScreenLockIvString(""),
+                      yield o(
+                        "WAWebUserPrefsScreenLock",
+                      ).setScreenLockIterations(null),
+                      !0)
+                    : (o("WALogger")
+                        .LOG(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "Decrypted noise key was invalid.",
+                            ])),
+                        )
+                        .tags("info-store"),
+                      !1);
+                }
+                return !1;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.deriveKeyFromPasscode = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = new TextEncoder().encode(e),
+                  n = yield self.crypto.subtle.importKey(
+                    "raw",
+                    t,
+                    { name: g },
+                    !1,
+                    ["deriveKey"],
+                  ),
+                  r = yield this.getOrGenScreenLockSalt(),
+                  o = yield self.crypto.subtle.deriveKey(
+                    {
+                      name: g,
+                      hash: "SHA-256",
+                      salt: r,
+                      iterations: yield this.getScreenLockIterationCount(),
+                    },
+                    n,
+                    { name: f, length: _ },
+                    !1,
+                    ["encrypt", "decrypt"],
+                  );
+                return o;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getOrGenScreenLockSalt = function () {
             var e = null;
             return (
               o("WAWebUserPrefsScreenLock").getScreenLockEnabled() ||
-                ((e = new Uint8Array(p)),
+                ((e = new Uint8Array(_)),
                 self.crypto.getRandomValues(e),
                 (e = btoa(
                   String.fromCharCode.apply(
@@ -425,10 +524,10 @@ __d(
               (e = Uint8Array.from(atob(e), function (e) {
                 return e.charCodeAt(0);
               })),
-              Promise.resolve(e)
+              (p || (p = n("Promise"))).resolve(e)
             );
           }),
-          (n.createScreenLockIv = function () {
+          (r.createScreenLockIv = function () {
             var e = new Uint8Array(16);
             self.crypto.getRandomValues(e);
             var t = new (o("WABinary").Binary)(e).readByteArrayView(16);
@@ -436,45 +535,77 @@ __d(
               o("WABase64").encodeB64(t),
             );
           }),
-          (n.getScreenLockIvArray = function () {
+          (r.getScreenLockIvArray = function () {
             var e = o("WAWebUserPrefsScreenLock").getScreenLockIvString();
             return e ? new Uint8Array(o("WABase64").decodeB64(e)) : null;
           }),
-          (n.encryptNoiseWithPasscodeDerivedKey = async function (t, n) {
-            if (t == null) return null;
-            var e = this.getScreenLockIvArray();
-            if (!e) return null;
-            var r = await self.crypto.subtle.encrypt({ iv: e, name: _ }, n, t);
-            return r;
-          }),
-          (n.decryptNoiseWithPasscodeDerivedKey = async function (t, n) {
-            if (t == null) return null;
-            var e = this.getScreenLockIvArray();
-            if (!e) return null;
-            var r = await self.crypto.subtle.decrypt({ iv: e, name: _ }, n, t);
-            return r;
-          }),
-          (n.calculatePBKDF2Iterations = function () {
-            var e = navigator.hardwareConcurrency;
-            return g * Math.max(1, Number.isNaN(e) ? 1 : e);
-          }),
-          (n.getScreenLockIterationCount = async function () {
-            var e = await o(
-              "WAWebUserPrefsScreenLock",
-            ).getScreenLockIterations();
-            return (
-              (!o("WAWebUserPrefsScreenLock").getScreenLockEnabled() ||
-                e == null) &&
-                ((e = this.calculatePBKDF2Iterations()),
-                await o("WAWebUserPrefsScreenLock").setScreenLockIterations(e)),
-              e
+          (r.encryptNoiseWithPasscodeDerivedKey = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                if (e == null) return null;
+                var n = this.getScreenLockIvArray();
+                if (!n) return null;
+                var r = yield self.crypto.subtle.encrypt(
+                  { iv: n, name: f },
+                  t,
+                  e,
+                );
+                return r;
+              },
             );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.decryptNoiseWithPasscodeDerivedKey = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                if (e == null) return null;
+                var n = this.getScreenLockIvArray();
+                if (!n) return null;
+                var r = yield self.crypto.subtle.decrypt(
+                  { iv: n, name: f },
+                  t,
+                  e,
+                );
+                return r;
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.calculatePBKDF2Iterations = function () {
+            var e = navigator.hardwareConcurrency;
+            return h * Math.max(1, Number.isNaN(e) ? 1 : e);
           }),
+          (r.getScreenLockIterationCount = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
+                "WAWebUserPrefsScreenLock",
+              ).getScreenLockIterations();
+              return (
+                (!o("WAWebUserPrefsScreenLock").getScreenLockEnabled() ||
+                  e == null) &&
+                  ((e = this.calculatePBKDF2Iterations()),
+                  yield o("WAWebUserPrefsScreenLock").setScreenLockIterations(
+                    e,
+                  )),
+                e
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })(),
-      y = new h();
-    l.waNoiseInfo = y;
+      C = new y();
+    l.waNoiseInfo = C;
   },
   98,
 );

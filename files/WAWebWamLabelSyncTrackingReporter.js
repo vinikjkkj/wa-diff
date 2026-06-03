@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumLabelSyncDirectionType",
     "WAWebWamEnumLabelSyncResultType",
     "WAWebWamEnumLabelSyncTypeEnum",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "whatsapp_label_sync_tracking_v1",
@@ -33,45 +34,85 @@ __d(
         )
       );
     }
-    async function d(e) {
-      var t = await u(),
-        n = new TextEncoder(),
-        r = await crypto.subtle.sign("HMAC", t, n.encode(e));
-      return Array.from(new Uint8Array(r))
-        .map(function (e) {
-          return e.toString(16).padStart(2, "0");
-        })
-        .join("");
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    async function m(e) {
-      try {
-        for (
-          var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
-          r < t;
-          r++
-        )
-          n[r - 1] = arguments[r];
-        var o = n
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield u(),
+            n = new TextEncoder(),
+            r = yield crypto.subtle.sign("HMAC", t, n.encode(e));
+          return Array.from(new Uint8Array(r))
             .map(function (e) {
-              return ',"' + e + '"';
+              return e.toString(16).padStart(2, "0");
             })
-            .join(""),
-          a = '["' + e + '"' + o + "]";
-        return await d(a);
-      } catch (e) {
-        return "hash_generation_failed";
-      }
+            .join("");
+        })),
+        m.apply(this, arguments)
+      );
     }
-    async function p(e, t) {
-      return m("label_jid", e, t);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    async function _(e) {
-      return m("label_edit", e);
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            for (
+              var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
+              r < t;
+              r++
+            )
+              n[r - 1] = arguments[r];
+            var o = n
+                .map(function (e) {
+                  return ',"' + e + '"';
+                })
+                .join(""),
+              a = '["' + e + '"' + o + "]";
+            return yield d(a);
+          } catch (e) {
+            return "hash_generation_failed";
+          }
+        })),
+        _.apply(this, arguments)
+      );
     }
-    async function f(e) {
-      return m("label_reorder", e);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function g(e, t, n, r, a, i, l, s) {
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return p("label_jid", e, t);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return p("label_edit", e);
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return p("label_reorder", e);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t, n, r, a, i, l, s) {
       if (c()) {
         var u = {
           labelSyncHash: e,
@@ -91,11 +132,11 @@ __d(
         d.commit();
       }
     }
-    ((l.generateHash = m),
-      (l.generateLabelJidHash = p),
-      (l.generateLabelEditHash = _),
-      (l.generateLabelReorderHash = f),
-      (l.logLabelSyncEvent = g),
+    ((l.generateHash = p),
+      (l.generateLabelJidHash = f),
+      (l.generateLabelEditHash = h),
+      (l.generateLabelReorderHash = C),
+      (l.logLabelSyncEvent = v),
       (l.LABEL_SYNC_TYPE_ENUM = o(
         "WAWebWamEnumLabelSyncTypeEnum",
       ).LABEL_SYNC_TYPE_ENUM),

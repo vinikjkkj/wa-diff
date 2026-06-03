@@ -11,6 +11,7 @@ __d(
     "WAWebL10N",
     "WAWebLidMigrationUtils",
     "WAWebUsernameGatingUtils",
+    "WAWebUsernameTypes",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -113,7 +114,9 @@ __d(
       !o("WAWebFrontendContactGetters").getIsMyContact(t) &&
         !r("isStringNullOrEmpty")(a) &&
         n.push(a.toLowerCase());
-      var i = o("WAWebFrontendContactGetters").getUsername(t),
+      var i = o("WAWebUsernameTypes").serializeMaybeUsername(
+          o("WAWebFrontendContactGetters").getUsername(t),
+        ),
         l = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
       return (
         !r("isStringNullOrEmpty")(i) && l && n.push(i.toLowerCase()),

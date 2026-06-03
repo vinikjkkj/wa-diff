@@ -1,14 +1,17 @@
 __d(
   "WAWebNewsletterBridgeMsgAddOnsUtils",
   [
+    "Promise",
     "WAWebMsgCollection",
     "WAWebNewsletterPollVotesModelCollection",
     "WAWebNewsletterReactionCollection",
     "WAWebNoop",
     "WAWebPollsCreateOptionLocalIdMap",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e;
+    function s(e) {
       if (e != null && e.size > 0)
         for (var t of e.entries()) {
           var n = t[0],
@@ -17,7 +20,7 @@ __d(
           a == null || a.set("viewCount", r);
         }
     }
-    function s(e) {
+    function u(e) {
       if (e != null && e.size > 0)
         for (var t of e.entries()) {
           var n = t[0],
@@ -26,7 +29,7 @@ __d(
           a == null || a.set("questionResponsesCount", r);
         }
     }
-    function u(e) {
+    function c(e) {
       if (e != null && e.size > 0)
         for (var t of e.entries()) {
           var n = t[0],
@@ -39,73 +42,100 @@ __d(
           }
         }
     }
-    async function c(e) {
-      var t,
-        n = e.ids,
-        a = e.reactionIdsToRemove,
-        i = e.reactions;
-      (a != null &&
-        o(
-          "WAWebNewsletterReactionCollection",
-        ).NewsletterMessageReactionsCollection.remove(a),
-        await Promise.all(
-          (t = n.map(function (e) {
-            return o("WAWebNewsletterReactionCollection")
-              .NewsletterMessageReactionsCollection.find(e.toString())
-              .catch(r("WAWebNoop"));
-          })) != null
-            ? t
-            : [],
-        ),
-        o(
-          "WAWebNewsletterReactionCollection",
-        ).NewsletterMessageReactionsCollection.add(
-          i.map(function (e) {
-            return {
-              id: e.parentMsgKey,
-              reactionCountMap: e.emojiCountMap,
-              reactionCountMapTs: e.serverTimestamp,
-            };
-          }),
-          { merge: !0 },
-        ));
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    async function d(e) {
-      var t,
-        n = e.ids,
-        a = e.pollVotes;
-      await Promise.all(
-        (t = n.map(function (e) {
-          return o("WAWebNewsletterPollVotesModelCollection")
-            .NewsletterPollVotesModelCollection.find(e)
-            .catch(r("WAWebNoop"));
-        })) != null
-          ? t
-          : [],
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a,
+            i = t.ids,
+            l = t.reactionIdsToRemove,
+            s = t.reactions;
+          (l != null &&
+            o(
+              "WAWebNewsletterReactionCollection",
+            ).NewsletterMessageReactionsCollection.remove(l),
+            yield (e || (e = n("Promise"))).all(
+              (a = i.map(function (e) {
+                return o("WAWebNewsletterReactionCollection")
+                  .NewsletterMessageReactionsCollection.find(e.toString())
+                  .catch(r("WAWebNoop"));
+              })) != null
+                ? a
+                : [],
+            ),
+            o(
+              "WAWebNewsletterReactionCollection",
+            ).NewsletterMessageReactionsCollection.add(
+              s.map(function (e) {
+                return {
+                  id: e.parentMsgKey,
+                  reactionCountMap: e.emojiCountMap,
+                  reactionCountMapTs: e.serverTimestamp,
+                };
+              }),
+              { merge: !0 },
+            ));
+        })),
+        m.apply(this, arguments)
       );
-      var i = await Promise.all(
-        a.map(async function (e) {
-          var t = o("WAWebMsgCollection").MsgCollection.get(e.parentMsgKey),
-            n = t == null ? void 0 : t.pollOptions;
-          if (n != null) {
-            var r = await o(
-              "WAWebPollsCreateOptionLocalIdMap",
-            ).createOptionLocalIdMap(n);
-            return {
-              id: e.parentMsgKey,
-              pollVotesCountMap: m(e.voteCountMap, r),
-              pollVotesCountMapTs: e.serverTimestamp,
-            };
-          }
-        }),
-      );
-      o(
-        "WAWebNewsletterPollVotesModelCollection",
-      ).NewsletterPollVotesModelCollection.add(i.filter(Boolean), {
-        merge: !0,
-      });
     }
-    function m(e, t) {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a,
+            i = t.ids,
+            l = t.pollVotes;
+          yield (e || (e = n("Promise"))).all(
+            (a = i.map(function (e) {
+              return o("WAWebNewsletterPollVotesModelCollection")
+                .NewsletterPollVotesModelCollection.find(e)
+                .catch(r("WAWebNoop"));
+            })) != null
+              ? a
+              : [],
+          );
+          var s = yield e.all(
+            l.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = o("WAWebMsgCollection").MsgCollection.get(
+                        e.parentMsgKey,
+                      ),
+                      n = t == null ? void 0 : t.pollOptions;
+                    if (n != null) {
+                      var r = yield o(
+                        "WAWebPollsCreateOptionLocalIdMap",
+                      ).createOptionLocalIdMap(n);
+                      return {
+                        id: e.parentMsgKey,
+                        pollVotesCountMap: f(e.voteCountMap, r),
+                        pollVotesCountMapTs: e.serverTimestamp,
+                      };
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+          o(
+            "WAWebNewsletterPollVotesModelCollection",
+          ).NewsletterPollVotesModelCollection.add(s.filter(Boolean), {
+            merge: !0,
+          });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
       var n = new Map();
       for (var r of e.entries()) {
         var o = r[0],
@@ -114,19 +144,19 @@ __d(
       }
       return n;
     }
-    function p(e, t) {
+    function g(e, t) {
       t != null &&
         e.forEach(function (e) {
           var n = o("WAWebMsgCollection").MsgCollection.get(e);
           n == null || n.set("lastUpdateFromServerTs", t);
         });
     }
-    ((l.updateViewCounts = e),
-      (l.updateQuestionResponsesCounts = s),
-      (l.updateForwardCounts = u),
-      (l.updateReactions = c),
-      (l.updatePollVotes = d),
-      (l.updateLastUpdateTs = p));
+    ((l.updateViewCounts = s),
+      (l.updateQuestionResponsesCounts = u),
+      (l.updateForwardCounts = c),
+      (l.updateReactions = d),
+      (l.updatePollVotes = p),
+      (l.updateLastUpdateTs = g));
   },
   98,
 );

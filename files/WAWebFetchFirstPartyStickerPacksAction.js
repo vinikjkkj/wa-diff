@@ -12,44 +12,54 @@ __d(
     "WAWebURLUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumQueryType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "https://static.whatsapp.net/sticker";
-    async function s(t, n) {
-      var a = o("WAWebStickerUtils").getStickerFetchParamsFromABConfig(),
-        i = babelHelpers.extends({}, a, t),
-        l = r("WAWebURLUtils").build(e, i),
-        s = new (o(
-          "WAWebStickerCommonQueryToStaticServerWamEvent",
-        ).StickerCommonQueryToStaticServerWamEvent)();
-      s.startQueryLatencyMs();
-      var u = await r("WAWebPonyfillsFetch")(l, { signal: n.signal });
-      if (
-        (s.markQueryLatencyMs(),
-        s.set({
-          httpResponseCode: u.status,
-          params: new (r("WAWebPonyfillsUrlSearchParams"))(i).toString(),
-          queryType: o("WAWebWamEnumQueryType").QUERY_TYPE.STICKER_PACK_DATA,
-        }),
-        s.commit(),
-        !u.ok)
-      )
-        throw new (o("WAWebMiscErrors").InvalidServerResponseError)(
-          l,
-          u.status.toString(),
-          "Invalid response from WhatsApp stickers endpoint",
-        );
-      var c = await u.json();
-      if (c == null || c.length === 0)
-        throw new (o("WAWebMiscErrors").InvalidServerResponseError)(
-          l,
-          u.status.toString(),
-          "Invalid response from WhatsApp stickers endpoint: " +
-            JSON.stringify(c),
-        );
-      return c;
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    function u(e, t) {
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = o("WAWebStickerUtils").getStickerFetchParamsFromABConfig(),
+            i = babelHelpers.extends({}, a, t),
+            l = r("WAWebURLUtils").build(e, i),
+            s = new (o(
+              "WAWebStickerCommonQueryToStaticServerWamEvent",
+            ).StickerCommonQueryToStaticServerWamEvent)();
+          s.startQueryLatencyMs();
+          var u = yield r("WAWebPonyfillsFetch")(l, { signal: n.signal });
+          if (
+            (s.markQueryLatencyMs(),
+            s.set({
+              httpResponseCode: u.status,
+              params: new (r("WAWebPonyfillsUrlSearchParams"))(i).toString(),
+              queryType: o("WAWebWamEnumQueryType").QUERY_TYPE
+                .STICKER_PACK_DATA,
+            }),
+            s.commit(),
+            !u.ok)
+          )
+            throw new (o("WAWebMiscErrors").InvalidServerResponseError)(
+              l,
+              u.status.toString(),
+              "Invalid response from WhatsApp stickers endpoint",
+            );
+          var c = yield u.json();
+          if (c == null || c.length === 0)
+            throw new (o("WAWebMiscErrors").InvalidServerResponseError)(
+              l,
+              u.status.toString(),
+              "Invalid response from WhatsApp stickers endpoint: " +
+                JSON.stringify(c),
+            );
+          return c;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e, t) {
       var n,
         r = {
           id: e["sticker-pack-id"],
@@ -68,43 +78,59 @@ __d(
         };
       return r;
     }
-    async function c(e) {
-      var t,
-        n = r("WAWebL10N").getNormalizedLocale(),
-        a =
-          o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-            (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-              ? void 0
-              : t.user,
-          ) || "default",
-        i = babelHelpers.extends(
-          {},
-          o("WAWebStickerUtils").getPremiumParams(
-            o("WAWebRecentStickerCollectionMd").RecentStickerCollectionMd
-              .length,
-          ),
-          { cat: "sticker_store_data", id: "all", lg: n, country: a },
-        ),
-        l = await s(i, { signal: e.signal });
-      return l.map(function (e, t) {
-        return u(e, t);
-      });
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    async function d(e) {
-      var t = r("WAWebL10N").getNormalizedLocale(),
-        n = babelHelpers.extends(
-          {},
-          o("WAWebStickerUtils").getPremiumParams(
-            o("WAWebRecentStickerCollectionMd").RecentStickerCollectionMd
-              .length,
-          ),
-          { cat: "sticker_pack_data", id: e.id, lg: t },
-        ),
-        a = await s(n, { signal: e.signal }),
-        i = a[0];
-      return u(i);
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = r("WAWebL10N").getNormalizedLocale(),
+            a =
+              o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
+                (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+                  ? void 0
+                  : t.user,
+              ) || "default",
+            i = babelHelpers.extends(
+              {},
+              o("WAWebStickerUtils").getPremiumParams(
+                o("WAWebRecentStickerCollectionMd").RecentStickerCollectionMd
+                  .length,
+              ),
+              { cat: "sticker_store_data", id: "all", lg: n, country: a },
+            ),
+            l = yield s(i, { signal: e.signal });
+          return l.map(function (e, t) {
+            return c(e, t);
+          });
+        })),
+        m.apply(this, arguments)
+      );
     }
-    ((l.fetchFirstPartyStickerPacks = c), (l.fetchFirstPartyStickerPack = d));
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("WAWebL10N").getNormalizedLocale(),
+            n = babelHelpers.extends(
+              {},
+              o("WAWebStickerUtils").getPremiumParams(
+                o("WAWebRecentStickerCollectionMd").RecentStickerCollectionMd
+                  .length,
+              ),
+              { cat: "sticker_pack_data", id: e.id, lg: t },
+            ),
+            a = yield s(n, { signal: e.signal }),
+            i = a[0];
+          return c(i);
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.fetchFirstPartyStickerPacks = d), (l.fetchFirstPartyStickerPack = p));
   },
   98,
 );

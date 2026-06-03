@@ -1,6 +1,13 @@
 __d(
   "WAWebVoipSctpDataChannelThread",
-  ["WALogger", "WAWebAudioUtility", "WAWebBackendApi", "WorkerMessagePort"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebAudioUtility",
+    "WAWebBackendApi",
+    "WorkerMessagePort",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -20,10 +27,11 @@ __d(
       v,
       S,
       R,
-      L = 262144,
-      E = 8,
-      k = (function () {
-        function n(t) {
+      L,
+      E = 262144,
+      k = 8,
+      I = (function () {
+        function r(t) {
           ((this.$4 = !1), (this.$5 = null), (this.$1 = t));
           var n = t.startJsWorkerThread(),
             r = t.getJsWorkerPThreadId(n);
@@ -42,33 +50,39 @@ __d(
               r,
             ));
         }
-        n.create = async function () {
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [DCThread] Creating pthread for DC I/O",
-              ])),
-          );
-          var e =
-              await o("WAWebBackendApi").frontendSendAndReceive(
-                "initializeVoipWasm",
-              ),
-            t = new n(e),
-            r = await t.initRingBuffer();
-          return (
-            r ||
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [DCThread] Ring buffer init failed, using main thread",
-                  ])),
-              ),
-            t
-          );
-        };
-        var r = n.prototype;
+        r.create = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [DCThread] Creating pthread for DC I/O",
+                ])),
+            );
+            var e =
+                yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "initializeVoipWasm",
+                ),
+              t = new r(e),
+              n = yield t.initRingBuffer();
+            return (
+              n ||
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [DCThread] Ring buffer init failed, using main thread",
+                    ])),
+                ),
+              t
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })();
+        var a = r.prototype;
         return (
-          (r.transferChannel = function (t, n, r, a, i) {
+          (a.transferChannel = function (t, n, r, a, i) {
             if (!this.$4)
               return (
                 o("WALogger").WARN(
@@ -112,7 +126,7 @@ __d(
               );
             }
           }),
-          (r.sendPacket = function (t, n) {
+          (a.sendPacket = function (t, n) {
             if (!this.$4) return !1;
             try {
               return (
@@ -144,7 +158,7 @@ __d(
               );
             }
           }),
-          (r.closeChannel = function (t) {
+          (a.closeChannel = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -153,13 +167,13 @@ __d(
                 connectionId: t,
               });
           }),
-          (r.isActive = function () {
+          (a.isActive = function () {
             return this.$4;
           }),
-          (r.getVoipWasm = function () {
+          (a.getVoipWasm = function () {
             return this.$1;
           }),
-          (r.ping = function () {
+          (a.ping = function () {
             if (!this.$4) {
               o("WALogger").WARN(
                 p ||
@@ -176,7 +190,7 @@ __d(
               timestamp: Date.now(),
             });
           }),
-          (r.setRemoveRelayPortOverride = function (t) {
+          (a.setRemoveRelayPortOverride = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -185,7 +199,7 @@ __d(
                 enabled: t,
               });
           }),
-          (r.setSctpTimeoutMs = function (t) {
+          (a.setSctpTimeoutMs = function (t) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -194,7 +208,7 @@ __d(
                 ms: t,
               });
           }),
-          (r.updateIceRtt = function (t, n, r) {
+          (a.updateIceRtt = function (t, n, r) {
             this.$4 &&
               this.worker.postMessage({
                 type: "cmd",
@@ -205,95 +219,107 @@ __d(
                 relayPort: r,
               });
           }),
-          (r.joinThread = async function () {
-            for (var e = 50, n = 0; n < e; n++) {
-              var r = this.$1.tryJoinJsWorkerThread(this.$2);
-              if (r === 0) return !0;
-              await new Promise(function (e) {
-                t.setTimeout(function () {
-                  e();
-                }, 100);
-              });
-            }
-            return (
-              o("WALogger").ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [DCThread] joinThread max retries (",
-                    "), stuck",
-                  ])),
-                e,
-              ),
-              (this.$4 = !1),
-              !1
-            );
-          }),
-          (r.initRingBuffer = async function () {
-            if (!this.$4)
+          (a.joinThread = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              for (var e = 50, r = 0; r < e; r++) {
+                var a = this.$1.tryJoinJsWorkerThread(this.$2);
+                if (a === 0) return !0;
+                yield new (L || (L = n("Promise")))(function (e) {
+                  t.setTimeout(function () {
+                    e();
+                  }, 100);
+                });
+              }
               return (
-                o("WALogger").WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [DCThread] Cannot init ring buffer - thread not active",
+                o("WALogger").ERROR(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [DCThread] joinThread max retries (",
+                      "), stuck",
                     ])),
+                  e,
                 ),
+                (this.$4 = !1),
                 !1
               );
-            var e = this.$1,
-              t = L,
-              n = t + E;
-            try {
-              var r = await o("WAWebAudioUtility").mallocWasmBuffer(n);
-              if (r == null || r === 0)
+            });
+            function r() {
+              return e.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.initRingBuffer = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (!this.$4)
                 return (
                   o("WALogger").WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [DCThread] Failed to allocate ring buffer",
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [DCThread] Cannot init ring buffer - thread not active",
                       ])),
                   ),
                   !1
                 );
-              var a = e.GROWABLE_HEAP_U8();
-              a.fill(0, r, r + n);
-              var i = e.initSctpRingBuffer(r, t);
-              return i
-                ? ((this.$5 = r),
-                  this.worker.postMessage({
-                    type: "cmd",
-                    cmd: "jsWorkerCmd",
-                    jsWorkerCmd: "initRingBuffer",
-                    heapBuffer: a.buffer,
-                    heapBufferOffset: r,
-                    dataSize: t,
-                  }),
-                  !0)
-                : (o("WALogger").WARN(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [DCThread] C++ initSctpRingBuffer failed",
+              var e = this.$1,
+                t = E,
+                n = t + k;
+              try {
+                var r = yield o("WAWebAudioUtility").mallocWasmBuffer(n);
+                if (r == null || r === 0)
+                  return (
+                    o("WALogger").WARN(
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [DCThread] Failed to allocate ring buffer",
+                        ])),
+                    ),
+                    !1
+                  );
+                var a = e.GROWABLE_HEAP_U8();
+                a.fill(0, r, r + n);
+                var i = e.initSctpRingBuffer(r, t);
+                return i
+                  ? ((this.$5 = r),
+                    this.worker.postMessage({
+                      type: "cmd",
+                      cmd: "jsWorkerCmd",
+                      jsWorkerCmd: "initRingBuffer",
+                      heapBuffer: a.buffer,
+                      heapBufferOffset: r,
+                      dataSize: t,
+                    }),
+                    !0)
+                  : (o("WALogger").WARN(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [DCThread] C++ initSctpRingBuffer failed",
+                        ])),
+                    ),
+                    yield o("WAWebAudioUtility").freeWasmBuffer(r),
+                    !1);
+              } catch (e) {
+                return (
+                  o("WALogger").ERROR(
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [DCThread] Ring buffer init failed: ",
+                        "",
                       ])),
+                    e,
                   ),
-                  await o("WAWebAudioUtility").freeWasmBuffer(r),
-                  !1);
-            } catch (e) {
-              return (
-                o("WALogger").ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [DCThread] Ring buffer init failed: ",
-                      "",
-                    ])),
-                  e,
-                ),
-                this.$5 != null &&
-                  (this.shutdownRingBuffer(),
-                  await this.freeRingBufferMemory()),
-                !1
-              );
+                  this.$5 != null &&
+                    (this.shutdownRingBuffer(),
+                    yield this.freeRingBufferMemory()),
+                  !1
+                );
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          (r.shutdownRingBuffer = function () {
+            return t;
+          })()),
+          (a.shutdownRingBuffer = function () {
             var e = this.$5;
             if (e != null) {
               try {
@@ -316,60 +342,72 @@ __d(
                 });
             }
           }),
-          (r.freeRingBufferMemory = async function () {
-            var e = this.$5;
-            if (e != null) {
-              this.$5 = null;
-              try {
-                await o("WAWebAudioUtility").freeWasmBuffer(e);
-              } catch (e) {
-                o("WALogger").WARN(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [DCThread] Ring buffer free error: ",
-                      "",
-                    ])),
-                  e,
-                );
-              }
-            }
-          }),
-          (r.shutdown = async function () {
-            if (this.$4) {
-              (o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [DCThread] Shutting down pthread",
-                  ])),
-              ),
-                this.shutdownRingBuffer(),
-                (this.$4 = !1),
-                this.worker.postMessage({
-                  type: "cmd",
-                  cmd: "jsWorkerCmd",
-                  jsWorkerCmd: "shutdown",
-                }));
-              var e = await this.joinThread();
-              (e
-                ? await this.freeRingBufferMemory()
-                : o("WALogger").WARN(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [DCThread] Skip ring buffer free - join timed out",
+          (a.freeRingBufferMemory = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this.$5;
+              if (e != null) {
+                this.$5 = null;
+                try {
+                  yield o("WAWebAudioUtility").freeWasmBuffer(e);
+                } catch (e) {
+                  o("WALogger").WARN(
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [DCThread] Ring buffer free error: ",
+                        "",
                       ])),
-                  ),
-                o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [DCThread] Pthread shutdown complete",
-                    ])),
-                ));
+                    e,
+                  );
+                }
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          n
+            return t;
+          })()),
+          (a.shutdown = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (this.$4) {
+                (o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [DCThread] Shutting down pthread",
+                    ])),
+                ),
+                  this.shutdownRingBuffer(),
+                  (this.$4 = !1),
+                  this.worker.postMessage({
+                    type: "cmd",
+                    cmd: "jsWorkerCmd",
+                    jsWorkerCmd: "shutdown",
+                  }));
+                var e = yield this.joinThread();
+                (e
+                  ? yield this.freeRingBufferMemory()
+                  : o("WALogger").WARN(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [DCThread] Skip ring buffer free - join timed out",
+                        ])),
+                    ),
+                  o("WALogger").LOG(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [DCThread] Pthread shutdown complete",
+                      ])),
+                  ));
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          r
         );
       })();
-    l.default = k;
+    l.default = I;
   },
   98,
 );

@@ -9,6 +9,7 @@ __d(
     "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumContactType",
     "WAWebWamEnumQbmFlag",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -36,27 +37,35 @@ __d(
                   : o("WAWebWamEnumQbmFlag").QBM_FLAG.OTHER;
           })(o("WAWebMsgGetters").getHsmTag(e));
     }
-    async function d(e, t) {
-      if (
-        !(
-          e.length === 0 ||
-          !o("WAWebABProps").getABPropConfigValue(
-            "enable_logging_qbm_incoming_message",
-          )
-        )
-      )
-        for (
-          var n = e.map(function (e) {
-              return e.from != null ? e.from.toJid() : "";
-            }),
-            a = await r("WAWebLidAwareContactsDB").bulkGet(n),
-            i = 0;
-          i < e.length;
-          i++
-        )
-          m(e[i], t[i], a[i]);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function m(e, t, n) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            !(
+              e.length === 0 ||
+              !o("WAWebABProps").getABPropConfigValue(
+                "enable_logging_qbm_incoming_message",
+              )
+            )
+          )
+            for (
+              var n = e.map(function (e) {
+                  return e.from != null ? e.from.toJid() : "";
+                }),
+                a = yield r("WAWebLidAwareContactsDB").bulkGet(n),
+                i = 0;
+              i < e.length;
+              i++
+            )
+              p(e[i], t[i], a[i]);
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t, n) {
       var r;
       if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
         var a = e.from;

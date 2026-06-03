@@ -6,6 +6,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebWorkerSafeBackendApi",
+    "asyncToGeneratorRuntime",
     "gkx",
     "snakeCase",
   ],
@@ -25,52 +26,68 @@ __d(
           !1)
         : c.has(t);
     }
-    async function m(e) {
-      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-        o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
-        e,
-      );
-      var t = c,
-        n = new Set(_(e));
-      ((c = n),
-        o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
-          primaryFeatures: Array.from(c),
-        }));
-      var r = (t == null ? void 0 : t.has("favorite_sticker")) === !0,
-        a = n.has("favorite_sticker");
-      !r &&
-        a &&
-        (o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[primary features] favorite_sticker enabled, check orphans",
-            ])),
-        ),
-        await o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-          "checkOrphanFavoriteStickers",
-        ));
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    async function p() {
-      var e,
-        t =
-          (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
             o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
-          )) != null
-            ? e
-            : [];
-      ((t = _(t)),
-        (c = new Set(t)),
-        o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
-          primaryFeatures: t,
-        }),
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "primary features loaded",
-            ])),
-        ));
+            e,
+          );
+          var t = c,
+            n = new Set(g(e));
+          ((c = n),
+            o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
+              primaryFeatures: Array.from(c),
+            }));
+          var r = (t == null ? void 0 : t.has("favorite_sticker")) === !0,
+            a = n.has("favorite_sticker");
+          !r &&
+            a &&
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[primary features] favorite_sticker enabled, check orphans",
+                ])),
+            ),
+            yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
+              "checkOrphanFavoriteStickers",
+            ));
+        })),
+        p.apply(this, arguments)
+      );
     }
-    function _(e) {
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t =
+              (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+                o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
+              )) != null
+                ? e
+                : [];
+          ((t = g(t)),
+            (c = new Set(t)),
+            o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
+              primaryFeatures: t,
+            }),
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "primary features loaded",
+                ])),
+            ));
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
       var t,
         n,
         o,
@@ -101,7 +118,7 @@ __d(
     }
     ((l.primaryFeatureEnabled = d),
       (l.setPrimaryFeatures = m),
-      (l.loadPrimaryFeatures = p));
+      (l.loadPrimaryFeatures = _));
   },
   98,
 );

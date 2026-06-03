@@ -1,6 +1,7 @@
 __d(
   "WAWebDBStoreMessage",
   [
+    "Promise",
     "WAJids",
     "WALogger",
     "WAPromiseMap",
@@ -26,137 +27,169 @@ __d(
     "WAWebSchemaFtsIndexingQueue",
     "WAWebSyncGatingUtils",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = [
+      c,
+      d = [
         o("WAWebMsgType").MSG_TYPE.IMAGE,
         o("WAWebMsgType").MSG_TYPE.VIDEO,
         o("WAWebMsgType").MSG_TYPE.AUDIO,
       ],
-      d = 1e9;
-    function m(e) {
+      m = 1e9;
+    function p(e) {
       return e.some(function (e) {
         return e.type !== o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE;
       });
     }
-    function p(t, n, a) {
-      a === void 0 && (a = !1);
-      var i = n == null ? t[0].id.remote : n,
-        l = o("WAWebDBMessageUtils").beginningOfChat(i),
-        s = o("WAWebDBMessageUtils").endOfChat(i),
-        u = C(
+    function _(t, a, i) {
+      i === void 0 && (i = !1);
+      var l = a == null ? t[0].id.remote : a,
+        s = o("WAWebDBMessageUtils").beginningOfChat(l),
+        u = o("WAWebDBMessageUtils").endOfChat(l),
+        d = b(
           "storeMessageInTransaction: " +
             t.length +
             " message(s), chat " +
-            ((i == null ? void 0 : i.toString()) || "-"),
+            ((l == null ? void 0 : l.toString()) || "-"),
         ),
-        c = o("WAWebQuarantineDataStore").extractQuarantineDataFromMessages(t),
-        p = ["chat", "message", "message-association"],
-        g = c.length > 0 ? [].concat(p, ["quarantine-data"]) : p;
+        _ = o("WAWebQuarantineDataStore").extractQuarantineDataFromMessages(t),
+        h = ["chat", "message", "message-association"],
+        y = _.length > 0 ? [].concat(h, ["quarantine-data"]) : h;
       return o("WAWebModelStorageUtils")
         .getStorage()
-        .lock(g, async function (n) {
-          var r = n[0],
-            p = n[1],
-            g = n[2],
-            h = n[3];
-          u.addStage("got table lock");
-          var C = await r.get(i.toString());
-          if ((u.addStage("got chat"), !i.isStatus() && (C != null || m(t)))) {
-            var b = f(C, t, i);
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "storeMessageInTransaction: createOrMerge ",
-                  ". chat exists: ",
-                  "",
-                ])),
-              i.toLogString(),
-              C != null,
-            ),
-              await r.createOrMerge(i.toString(), b));
-          }
-          u.addStage("got messages meta");
-          var v = p
-              .all({
-                reverse: !a,
-                limit: 1,
-                index: ["rowId"],
-                returnKeyType: "keys",
-              })
-              .then(function (e) {
+        .lock(
+          y,
+          (function () {
+            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (r) {
+                var a = r[0],
+                  h = r[1],
+                  y = r[2],
+                  b = r[3];
+                d.addStage("got table lock");
+                var v = yield a.get(l.toString());
+                if (
+                  (d.addStage("got chat"), !l.isStatus() && (v != null || p(t)))
+                ) {
+                  var S = g(v, t, l);
+                  (o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "storeMessageInTransaction: createOrMerge ",
+                        ". chat exists: ",
+                        "",
+                      ])),
+                    l.toLogString(),
+                    v != null,
+                  ),
+                    yield a.createOrMerge(l.toString(), S));
+                }
+                d.addStage("got messages meta");
+                var R = h
+                    .all({
+                      reverse: !i,
+                      limit: 1,
+                      index: ["rowId"],
+                      returnKeyType: "keys",
+                    })
+                    .then(function (e) {
+                      return (
+                        d.addStage("got boundary row id"),
+                        e.length === 0 ? m : e[0]
+                      );
+                    }),
+                  L = h
+                    .between(["internalId"], s, u, {
+                      limit: 1,
+                      reverse: !i,
+                      returnKeyType: "keys",
+                    })
+                    .then(function (e) {
+                      return (
+                        d.addStage("got chat msg boundary id"),
+                        e.length === 0
+                          ? m
+                          : o("WAWebDBMessageUtils").getInChatMsgId(e[0])
+                      );
+                    }),
+                  E = yield (c || (c = n("Promise"))).all([R, L]),
+                  k = E[0],
+                  I = E[1];
+                d.addStage("got boundaries");
+                var T = i ? k - t.length : k + 1,
+                  D = i ? I - t.length : I + 1,
+                  x = yield o("WAPromiseMap").promiseMap(
+                    t,
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e, t) {
+                          var n,
+                            r = o(
+                              "WAWebDBMessageSerialization",
+                            ).dbRowFromMessage(e),
+                            a = !i && f(e.id, e);
+                          return C({
+                            msg: r,
+                            chatId: l.toString(),
+                            hasLink: o("WAWebLinkify").hasHttpLink(e),
+                            rowId: T + t,
+                            inChatMsgId: o(
+                              "WAWebMsgGetters",
+                            ).getIsNewsletterMsg(e)
+                              ? (n = e.serverId) != null
+                                ? n
+                                : yield o(
+                                    "WAWebNewsletterDBUtils",
+                                  ).getTemporaryServerId(
+                                    l,
+                                    o(
+                                      "WAWebDBMessageUtils",
+                                    ).getPrefixForInternalId({
+                                      isGroupStatus: e.isGroupStatus,
+                                      isNewsletterStatus: e.isNewsletterStatus,
+                                    }),
+                                  )
+                              : D +
+                                t +
+                                o(
+                                  "WAWebDBGroupHistoryPreProcessor",
+                                ).getBumpIdCountForGroupJoin(e),
+                            pendingReadReceipt: a,
+                          });
+                        },
+                      );
+                      return function (t, n) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  );
                 return (
-                  u.addStage("got boundary row id"),
-                  e.length === 0 ? d : e[0]
+                  d.addStage("messages ready for storing in db"),
+                  yield h.bulkCreate(x),
+                  o(
+                    "WAWebMessageAssociationGatingUtils",
+                  ).isMessageAssociationInfraEnabled() &&
+                    (yield o(
+                      "WAWebDBStoreMessageAssociations",
+                    ).bulkStoreMessageAssociations(x)),
+                  yield o(
+                    "WAWebQuarantineDataStore",
+                  ).bulkCreateOrReplaceQuarantineData(_, b),
+                  x
                 );
-              }),
-            S = p
-              .between(["internalId"], l, s, {
-                limit: 1,
-                reverse: !a,
-                returnKeyType: "keys",
-              })
-              .then(function (e) {
-                return (
-                  u.addStage("got chat msg boundary id"),
-                  e.length === 0
-                    ? d
-                    : o("WAWebDBMessageUtils").getInChatMsgId(e[0])
-                );
-              }),
-            R = await Promise.all([v, S]),
-            L = R[0],
-            E = R[1];
-          u.addStage("got boundaries");
-          var k = a ? L - t.length : L + 1,
-            I = a ? E - t.length : E + 1,
-            T = await o("WAPromiseMap").promiseMap(t, async function (e, t) {
-              var n,
-                r = o("WAWebDBMessageSerialization").dbRowFromMessage(e),
-                l = !a && _(e.id, e);
-              return y({
-                msg: r,
-                chatId: i.toString(),
-                hasLink: o("WAWebLinkify").hasHttpLink(e),
-                rowId: k + t,
-                inChatMsgId: o("WAWebMsgGetters").getIsNewsletterMsg(e)
-                  ? (n = e.serverId) != null
-                    ? n
-                    : await o("WAWebNewsletterDBUtils").getTemporaryServerId(
-                        i,
-                        o("WAWebDBMessageUtils").getPrefixForInternalId({
-                          isGroupStatus: e.isGroupStatus,
-                          isNewsletterStatus: e.isNewsletterStatus,
-                        }),
-                      )
-                  : I +
-                    t +
-                    o(
-                      "WAWebDBGroupHistoryPreProcessor",
-                    ).getBumpIdCountForGroupJoin(e),
-                pendingReadReceipt: l,
-              });
-            });
-          return (
-            u.addStage("messages ready for storing in db"),
-            await p.bulkCreate(T),
-            o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled() &&
-              (await o(
-                "WAWebDBStoreMessageAssociations",
-              ).bulkStoreMessageAssociations(T)),
-            await o(
-              "WAWebQuarantineDataStore",
-            ).bulkCreateOrReplaceQuarantineData(c, h),
-            T
-          );
-        })
+              },
+            );
+            return function (e) {
+              return r.apply(this, arguments);
+            };
+          })(),
+        )
         .then(function (e) {
-          (u.done(),
+          (d.done(),
             r("WAWeb-dexie").ignoreTransaction(function () {
               o("WAWebSchemaFtsIndexingQueue")
                 .getFtsIndexingQueueTable()
@@ -168,7 +201,7 @@ __d(
             }));
         });
     }
-    function _(e, t) {
+    function f(e, t) {
       if (e.fromMe || e.remote.isStatus()) return !1;
       var n = o("WAWebMsgDataUtils").eventTypeFromMsgType(t);
       return (
@@ -176,7 +209,7 @@ __d(
         n === o("WAWebCommonMsgUtils").EventType.DEFAULT
       );
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       var r,
         a,
         i = void 0,
@@ -195,7 +228,7 @@ __d(
                 !e.id.fromMe &&
                 e.read !== !0 &&
                 (l += 1));
-            var n = _(e.id, e);
+            var n = f(e.id, e);
             if (n && o("WAWebMsgGetters").getIsImportantMessage(e)) {
               var r = { id: e.id.toString(), timestamp: e.t };
               s.push(r);
@@ -206,7 +239,7 @@ __d(
         { id: n.toString(), unreadCount: l, t: i, unreadMentionsOfMe: s }
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = 0;
       switch (e) {
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT: {
@@ -226,7 +259,7 @@ __d(
         n === 0 ? void 0 : n
       );
     }
-    function h(e) {
+    function y(e) {
       var t,
         n,
         a = e.afterReadDuration;
@@ -250,14 +283,14 @@ __d(
           ? n
           : void 0;
     }
-    function y(e) {
+    function C(e) {
       var t = e.chatId,
         n = e.hasLink,
         a = e.inChatMsgId,
         i = e.msg,
         l = e.pendingReadReceipt,
         u = e.rowId,
-        d = c.includes(i.type),
+        c = d.includes(i.type),
         m = o("WAWebSyncGatingUtils").shouldPopulateStarMessageWithTimestamp()
           ? i.t
           : u,
@@ -267,22 +300,22 @@ __d(
           id: i.id.toString(),
           isStarred: i.star ? m : void 0,
           hasLink: p ? u : void 0,
-          isMediaMsg: d ? u : void 0,
+          isMediaMsg: c ? u : void 0,
           isDocMsg: i.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ? u : void 0,
           isCallLogMsg:
             i.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? i.t : void 0,
           isCarouselMsg: i.carouselCardsParsed != null ? u : void 0,
           isEventMsg:
             i.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ? u : void 0,
-          expiredTimestamp: h(i),
+          expiredTimestamp: y(i),
         }),
         f =
           t != null &&
           !r("WAWebWid").isStatus(t) &&
           !r("WAWebWid").isNewsletter(t);
       if (f) {
-        var y = g(i.type, p);
-        y != null && (_.typeFlag = y);
+        var g = h(i.type, p);
+        g != null && (_.typeFlag = g);
       }
       if ((u != null && (_.rowId = u), a != null)) {
         var C = o("WAWebDBMessageUtils").getPrefixForInternalId(i);
@@ -324,7 +357,7 @@ __d(
       }
       return _;
     }
-    function C(e) {
+    function b(e) {
       var t = 5e3,
         n = Date.now(),
         r = [];
@@ -349,10 +382,10 @@ __d(
         },
       };
     }
-    ((l.storeMessageInTransaction = p),
-      (l.isPendingUnreadReceipt = _),
-      (l.getMsgFlagType = g),
-      (l.addMsgMetadataToMsgRow = y));
+    ((l.storeMessageInTransaction = _),
+      (l.isPendingUnreadReceipt = f),
+      (l.getMsgFlagType = h),
+      (l.addMsgMetadataToMsgRow = C));
   },
   98,
 );

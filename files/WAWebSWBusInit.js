@@ -1,6 +1,7 @@
 __d(
   "WAWebSWBusInit",
   [
+    "Promise",
     "WALogger",
     "WAWebCmd",
     "WAWebCrashlog",
@@ -12,6 +13,7 @@ __d(
     "WAWebSafariTakeover",
     "WAWebSocketConstants",
     "WAWebSocketModel",
+    "asyncToGeneratorRuntime",
     "err",
     "requireDeferred",
   ],
@@ -21,14 +23,23 @@ __d(
       u,
       c,
       d,
-      m = r("requireDeferred")("WAWebPipVideoStreaming").__setRef(
+      m,
+      p = r("requireDeferred")("WAWebPipVideoStreaming").__setRef(
         "WAWebSWBusInit",
       );
-    async function p() {
-      return (await m.load()).handleVideoStreamingRequest;
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (yield p.load()).handleVideoStreamingRequest;
+        })),
+        f.apply(this, arguments)
+      );
     }
     if (r("WAWebFeatureDetectionSwSupport").supported) {
-      var _ = function () {
+      var g = function () {
         try {
           var t = navigator.serviceWorker;
           t != null &&
@@ -57,10 +68,10 @@ __d(
         }
       };
       try {
-        var f = navigator.serviceWorker;
-        f &&
-          f.addEventListener("controllerchange", function (e) {
-            _();
+        var h = navigator.serviceWorker;
+        h &&
+          h.addEventListener("controllerchange", function (e) {
+            g();
           });
       } catch (e) {
         o("WALogger").WARN(
@@ -73,9 +84,9 @@ __d(
         );
       }
       try {
-        var g = navigator.serviceWorker;
-        g &&
-          g.addEventListener("error", function (e) {
+        var y = navigator.serviceWorker;
+        y &&
+          y.addEventListener("error", function (e) {
             o("WAWebSocketModel").Socket.state !==
               o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED &&
               o("WALogger").WARN(
@@ -97,14 +108,14 @@ __d(
           e,
         );
       }
-      _();
-      var h = function (t, n) {
+      g();
+      var C = function (t, n) {
           t.buffer.forEach(function (e) {
             var t,
               r = (t = e.message[0]) != null ? t : "",
               a = "ServiceWorker (" + n + "): " + r,
               i = e.level.match(/^(.*?)(?:Verbose)?$/i),
-              l = C(i[1]);
+              l = v(i[1]);
             o("WAWebLoggerImpl").Logger.logImpl(
               l,
               a,
@@ -114,29 +125,29 @@ __d(
             );
           });
         },
-        y = new (r("WAWebSWBus"))(function (e) {
+        b = new (r("WAWebSWBus"))(function (e) {
           var t,
-            n = e.action,
-            a = e.message,
-            i = e.version;
-          switch (n) {
+            a = e.action,
+            i = e.message,
+            l = e.version;
+          switch (a) {
             case r("WAWebSWBusActions").REQUEST_STREAMING_INFO:
             case r("WAWebSWBusActions").EXP_BACKOFF:
             case r("WAWebSWBusActions").REQUEST_RMR:
             case r("WAWebSWBusActions").SEND_STREAMING_CHUNK:
-              return (t = p()) == null
+              return (t = _()) == null
                 ? void 0
                 : t.then(function (e) {
-                    return e == null ? void 0 : e({ action: n, message: a });
+                    return e == null ? void 0 : e({ action: a, message: i });
                   });
             case r("WAWebSWBusActions").LOG:
               return o("WAWebSocketModel").Socket.state ===
                 o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED
                 ? void 0
-                : (a && h(a, i), { test: !0 });
+                : (i && C(i, l), { test: !0 });
             case r("WAWebSWBusActions").UPLOAD_LOGS:
               return (
-                a && h(a, i),
+                i && C(i, l),
                 o("WAWebCrashlog")
                   .upload({ reason: "Requested by Service Worker" })
                   .then(r("WAWebNoop"))
@@ -144,12 +155,14 @@ __d(
             case r("WAWebSWBusActions").ACTIVE_TAB:
               return { isActive: o("WAWebSafariTakeover").getIsTabActive() };
             case r("WAWebSWBusActions").HEARTBEAT:
-              return a;
+              return i;
             default:
-              return Promise.reject(r("err")("Invalid Action: " + n));
+              return (m || (m = n("Promise"))).reject(
+                r("err")("Invalid Action: " + a),
+              );
           }
         });
-      (y.init(),
+      (b.init(),
         o("WAWebCmd").Cmd.on("logout_from_bridge", function () {
           var e = navigator.serviceWorker;
           e != null &&
@@ -159,7 +172,7 @@ __d(
               .catch(r("WAWebNoop"));
         }));
     }
-    function C(e) {
+    function v(e) {
       switch (e) {
         case "info":
           return 1;

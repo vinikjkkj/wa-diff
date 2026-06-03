@@ -2,7 +2,6 @@ __d(
   "buildWABizAdCreationLWIAudienceMap",
   [
     "fbt",
-    "WAWebBizNativeAdsGatingUtils",
     "emptyObject",
     "jsonParseSafe",
     "waWebBizAdCreationTargetingModalApplyTargetingAutomation",
@@ -13,51 +12,44 @@ __d(
     function u(t) {
       if (t == null) return r("emptyObject");
       var n = {},
-        a = o(
-          "WAWebBizNativeAdsGatingUtils",
-        ).nativeAdsAdvantagePlusAudienceEnabled()
-          ? s._(/*BTDS*/ "Suggested audience").toString()
-          : s._(/*BTDS*/ "Default").toString();
+        o = s._(/*BTDS*/ "Suggested audience").toString();
       return (
         t.forEach(function (t) {
-          var i,
-            l,
-            s = t == null ? void 0 : t.audience_key,
-            u = t == null ? void 0 : t.audience_option;
-          if (!(s == null || u == null)) {
-            var c = u === "NCPP",
-              d = babelHelpers.extends(
+          var a,
+            i,
+            l = t == null ? void 0 : t.audience_key,
+            s = t == null ? void 0 : t.audience_option;
+          if (!(l == null || s == null)) {
+            var u = s === "NCPP",
+              c = babelHelpers.extends(
                 {},
                 r("jsonParseSafe")(
                   String(
-                    (i =
+                    (a =
                       t == null
                         ? void 0
                         : t.target_spec_string_without_placements) != null
-                      ? i
+                      ? a
                       : "{}",
                   ),
                   e,
                 ),
               );
-            (c &&
-              o(
-                "WAWebBizNativeAdsGatingUtils",
-              ).nativeAdsAdvantagePlusAudienceEnabled() &&
-              ((l = d.targeting_automation) == null
+            (u &&
+              ((i = c.targeting_automation) == null
                 ? void 0
-                : l.advantage_audience) !== 1 &&
+                : i.advantage_audience) !== 1 &&
               r("waWebBizAdCreationTargetingModalApplyTargetingAutomation")(
-                d,
+                c,
                 !0,
               ),
-              (n[u] = {
-                audienceID: s,
-                audienceOption: u,
+              (n[s] = {
+                audienceID: l,
+                audienceOption: s,
                 clientEditable: !!(t != null && t.client_editable),
-                name: c ? a : String(t == null ? void 0 : t.name),
+                name: u ? o : String(t == null ? void 0 : t.name),
                 subjectToDSA: !!(t != null && t.subject_to_dsa),
-                targetSpec: d,
+                targetSpec: c,
               }));
           }
         }),

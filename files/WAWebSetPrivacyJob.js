@@ -1,7 +1,6 @@
 __d(
   "WAWebSetPrivacyJob",
   [
-    "invariant",
     "$InternalEnum",
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
@@ -12,12 +11,13 @@ __d(
     "WAWebCommsWapMd",
     "WAWebLidMigrationUtils",
     "WAWebQueryPrivacyDisallowedListUtil",
-    "WAWebSchemaPrivacyDisallowedList",
+    "WAWebUsernameTypes",
+    "asyncToGeneratorRuntime",
     "err",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = new (r("WADeprecatedWapParser"))("setPrivacyParser", function (e) {
+      s = new (r("WADeprecatedWapParser"))("setPrivacyParser", function (e) {
         return e.child("privacy").mapChildrenWithTag("category", function (e) {
           if (e.attrString("value") === "error") {
             var t = e.child("error");
@@ -33,26 +33,34 @@ __d(
           };
         });
       }),
-      c = n("$InternalEnum")({ Add: "add", Remove: "remove" });
-    async function d(e) {
-      var t = m(e),
-        n = await o("WADeprecatedSendIq").deprecatedSendIq(
-          o("WAWap").wap(
-            "iq",
-            {
-              to: o("WAWap").S_WHATSAPP_NET,
-              type: "set",
-              xmlns: "privacy",
-              id: o("WAWap").generateId(),
-            },
-            t,
-          ),
-          u,
-        );
-      if (n.success === !0) return n.result;
-      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-        n.errorCode,
-        n.errorText,
+      u = n("$InternalEnum")({ Add: "add", Remove: "remove" });
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = m(e),
+            n = yield o("WADeprecatedSendIq").deprecatedSendIq(
+              o("WAWap").wap(
+                "iq",
+                {
+                  to: o("WAWap").S_WHATSAPP_NET,
+                  type: "set",
+                  xmlns: "privacy",
+                  id: o("WAWap").generateId(),
+                },
+                t,
+              ),
+              s,
+            );
+          if (n.success === !0) return n.result;
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+            n.errorCode,
+            n.errorText,
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
     function m(t) {
@@ -64,7 +72,7 @@ __d(
       if (
         o(
           "WAWebQueryPrivacyDisallowedListUtil",
-        ).isPrivacyDisallowedListTypeLidMigrated(h(r))
+        ).isPrivacyDisallowedListTypeLidMigrated()
       )
         try {
           return _({ dhash: n, name: r, users: a, value: i });
@@ -161,7 +169,9 @@ __d(
         return o("WAWap").wap("user", {
           action: o("WAWap").CUSTOM_STRING(t),
           jid: o("WAWebCommsWapMd").JID(i),
-          username: o("WAWap").CUSTOM_STRING(n),
+          username: o("WAWap").CUSTOM_STRING(
+            o("WAWebUsernameTypes").serializeUsername(n),
+          ),
         });
       var l = o("WAWebLidMigrationUtils").toPn(a);
       if (l == null)
@@ -174,22 +184,7 @@ __d(
         pn_jid: o("WAWebCommsWapMd").JID(l),
       });
     }
-    function h(e) {
-      return e === "groupadd"
-        ? o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-            .GroupAdd
-        : e === "last"
-          ? o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-              .LastSeen
-          : e === "profile"
-            ? o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                .ProfilePicture
-            : e === "status"
-              ? o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                  .About
-              : s(!1, "[privacy] getPrivacyDisallowedListType: invalid name");
-    }
-    ((l.PrivacyUserAction = c), (l.setPrivacy = d));
+    ((l.PrivacyUserAction = u), (l.setPrivacy = c));
   },
   98,
 );

@@ -9,71 +9,104 @@ __d(
     "WAWebUserPrefsPostProcessors",
     "WAWebUserPrefsPreProcessors",
     "WAWebUserPrefsStorageUtils",
+    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
-    async function g(t) {
-      try {
-        await o("WAWebApiUserPrefs").createOrReplaceUserPref(t);
-      } catch (n) {
-        o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "userPrefsIdb: insert failed for '",
-              "': ",
-              "",
-            ])),
-          t.key,
-          n,
-        );
-      }
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    async function h(e) {
-      try {
-        await o("WAWebApiUserPrefs").removeUserPref(e);
-      } catch (t) {
-        o("WALogger").WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "userPrefsIdb: remove failed for '",
-              "': ",
-              "",
-            ])),
-          e,
-          t,
-        );
-      }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            yield o("WAWebApiUserPrefs").createOrReplaceUserPref(e);
+          } catch (t) {
+            o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "userPrefsIdb: insert failed for '",
+                  "': ",
+                  "",
+                ])),
+              e.key,
+              t,
+            );
+          }
+        })),
+        h.apply(this, arguments)
+      );
     }
-    async function y() {
-      try {
-        await o("WAWebApiUserPrefs").clearUserPrefs();
-      } catch (e) {
-        o("WALogger").WARN(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "userPrefsIdb: clear failed: ",
-              "",
-            ])),
-          e,
-        );
-      }
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    async function C(e) {
-      try {
-        await o("WAWebApiUserPrefs").bulkCreateOrReplaceUserPrefs(e);
-      } catch (e) {
-        o("WALogger").WARN(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "userPrefsIdb: bulk insert failed: ",
-              "",
-            ])),
-          e,
-        );
-      }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            yield o("WAWebApiUserPrefs").removeUserPref(e);
+          } catch (t) {
+            o("WALogger").WARN(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "userPrefsIdb: remove failed for '",
+                  "': ",
+                  "",
+                ])),
+              e,
+              t,
+            );
+          }
+        })),
+        C.apply(this, arguments)
+      );
     }
-    function b(e) {
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            yield o("WAWebApiUserPrefs").clearUserPrefs();
+          } catch (e) {
+            o("WALogger").WARN(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "userPrefsIdb: clear failed: ",
+                  "",
+                ])),
+              e,
+            );
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            yield o("WAWebApiUserPrefs").bulkCreateOrReplaceUserPrefs(e);
+          } catch (e) {
+            o("WALogger").WARN(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "userPrefsIdb: bulk insert failed: ",
+                  "",
+                ])),
+              e,
+            );
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
       var t = e;
       return (
         Object.values(o("WAWebUserPrefsKeys").HASHED_KEYS).some(function (t) {
@@ -82,27 +115,27 @@ __d(
         t
       );
     }
-    var v = (function () {
-        function e() {
+    var E = (function () {
+        function t() {
           ((this.loadedUserPrefs = null),
             (this.myInstanceId = Math.random().toString(36).substr(2, 5)),
             (this.$1 = null));
         }
-        var t = e.prototype;
+        var a = t.prototype;
         return (
-          (t.setSyncCallback = function (t) {
+          (a.setSyncCallback = function (t) {
             this.$1 = t;
           }),
-          (t.applySyncSet = function (t, n) {
+          (a.applySyncSet = function (t, n) {
             this.loadedUserPrefs != null && (this.loadedUserPrefs[t] = n);
           }),
-          (t.applySyncRemove = function (t) {
+          (a.applySyncRemove = function (t) {
             this.loadedUserPrefs != null && delete this.loadedUserPrefs[t];
           }),
-          (t.applySyncClear = function () {
+          (a.applySyncClear = function () {
             this.loadedUserPrefs != null && (this.loadedUserPrefs = {});
           }),
-          (t.init = function () {
+          (a.init = function () {
             var e = this;
             return (
               this.$2 == null &&
@@ -121,36 +154,47 @@ __d(
               this.$2
             );
           }),
-          (t.set = async function (t, n) {
-            var e,
-              a = b(t);
-            if (a != null) {
-              this.loadedUserPrefs == null &&
-                (o("WALogger")
-                  .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "UserPrefsIndexedDBStorage: set(",
-                        ") called before init",
-                      ])),
-                    t,
-                  )
-                  .sendLogs("userprefs-idb-set-before-init"),
-                await this.init());
-              var i = r("WANullthrows")(this.loadedUserPrefs),
-                l = o("WAWebUserPrefsPreProcessors").preProcessUserPref(t, n);
-              ((i[a] = l),
-                (e = this.$1) == null ||
-                  e.call(this, { action: "set", key: a, value: l }),
-                await g({ key: a, value: l }));
+          (a.set = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, n) {
+                var a,
+                  i = L(t);
+                if (i != null) {
+                  this.loadedUserPrefs == null &&
+                    (o("WALogger")
+                      .WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "UserPrefsIndexedDBStorage: set(",
+                            ") called before init",
+                          ])),
+                        t,
+                      )
+                      .sendLogs("userprefs-idb-set-before-init"),
+                    yield this.init());
+                  var l = r("WANullthrows")(this.loadedUserPrefs),
+                    s = o("WAWebUserPrefsPreProcessors").preProcessUserPref(
+                      t,
+                      n,
+                    );
+                  ((l[i] = s),
+                    (a = this.$1) == null ||
+                      a.call(this, { action: "set", key: i, value: s }),
+                    yield g({ key: i, value: s }));
+                }
+              },
+            );
+            function a(e, n) {
+              return t.apply(this, arguments);
             }
-          }),
-          (t.get = function (t) {
+            return a;
+          })()),
+          (a.get = function (t) {
             if (this.loadedUserPrefs == null)
               return (
                 o("WALogger").ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "UserPrefsIndexedDBStorage: get(",
                       ") called before init",
                     ])),
@@ -159,8 +203,8 @@ __d(
                 o("WAWebCurrentUser").isEmployee() &&
                   o("WALogger")
                     .ERROR(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "UserPrefsIndexedDBStorage",
                         ])),
                     )
@@ -168,7 +212,7 @@ __d(
                 null
               );
             var e = this.loadedUserPrefs,
-              n = b(t);
+              n = L(t);
             if (n != null) {
               var r,
                 a = n in e;
@@ -180,72 +224,93 @@ __d(
               return i;
             }
           }),
-          (t.remove = async function (t) {
-            var e;
-            this.loadedUserPrefs == null &&
-              (o("WALogger")
-                .WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "UserPrefsIndexedDBStorage: remove(",
-                      ") called before init.",
-                    ])),
-                  t,
-                )
-                .sendLogs("userprefs-idb-remove-before-init"),
-              await this.init());
-            var n = r("WANullthrows")(this.loadedUserPrefs),
-              a = b(t);
-            a != null &&
-              (delete n[a],
-              (e = this.$1) == null ||
-                e.call(this, { action: "remove", key: a }),
-              await h(a));
-          }),
-          (t.clear = async function () {
-            var e;
-            ((this.loadedUserPrefs = {}),
-              (e = this.$1) == null || e.call(this, { action: "clear" }),
-              await y());
-          }),
-          (t.bulkSetItemsToIndexedDB = async function (t) {
-            var e,
-              n = r("compactMap")(t, function (e) {
-                var t = b(e.key);
-                if (t != null)
-                  return {
-                    key: t,
-                    value: o("WAWebUserPrefsPreProcessors").preProcessUserPref(
-                      e.key,
-                      e.value,
-                    ),
-                  };
-              });
-            (await C(n),
-              this.loadedUserPrefs == null &&
-                (o("WALogger")
-                  .WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "userPrefsIdb: bulkSet called before init",
-                      ])),
-                  )
-                  .sendLogs("userprefs-idb-bulk-set-before-init"),
-                await this.init()));
-            var a = r("WANullthrows")(this.loadedUserPrefs);
-            for (var i of n) {
-              var l = i.key,
-                s = i.value;
-              a[l] = s;
+          (a.remove = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t;
+                this.loadedUserPrefs == null &&
+                  (o("WALogger")
+                    .WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "UserPrefsIndexedDBStorage: remove(",
+                          ") called before init.",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("userprefs-idb-remove-before-init"),
+                  yield this.init());
+                var n = r("WANullthrows")(this.loadedUserPrefs),
+                  a = L(e);
+                a != null &&
+                  (delete n[a],
+                  (t = this.$1) == null ||
+                    t.call(this, { action: "remove", key: a }),
+                  yield y(a));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            (e = this.$1) == null ||
-              e.call(this, { action: "bulkSet", entries: n });
-          }),
-          e
+            return t;
+          })()),
+          (a.clear = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e;
+              ((this.loadedUserPrefs = {}),
+                (e = this.$1) == null || e.call(this, { action: "clear" }),
+                yield b());
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.bulkSetItemsToIndexedDB = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  n = r("compactMap")(e, function (e) {
+                    var t = L(e.key);
+                    if (t != null)
+                      return {
+                        key: t,
+                        value: o(
+                          "WAWebUserPrefsPreProcessors",
+                        ).preProcessUserPref(e.key, e.value),
+                      };
+                  });
+                (yield S(n),
+                  this.loadedUserPrefs == null &&
+                    (o("WALogger")
+                      .WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "userPrefsIdb: bulkSet called before init",
+                          ])),
+                      )
+                      .sendLogs("userprefs-idb-bulk-set-before-init"),
+                    yield this.init()));
+                var a = r("WANullthrows")(this.loadedUserPrefs);
+                for (var i of n) {
+                  var l = i.key,
+                    s = i.value;
+                  a[l] = s;
+                }
+                (t = this.$1) == null ||
+                  t.call(this, { action: "bulkSet", entries: n });
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          t
         );
       })(),
-      S = new v();
-    l.userPrefsIdb = S;
+      k = new E();
+    l.userPrefsIdb = k;
   },
   98,
 );

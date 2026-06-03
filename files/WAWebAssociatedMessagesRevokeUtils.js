@@ -4,36 +4,55 @@ __d(
     "WAWebDBAssociatedMsgsAttachDetachAPI",
     "WAWebMessageAssociationGatingUtils",
     "WAWebMsgCollection",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e, t) {
-      if (
-        !o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      )
-        return [];
-      var n = await s([e]);
-      return n.map(t);
+    function e(e, t) {
+      return s.apply(this, arguments);
     }
-    async function s(e) {
-      var t = await o(
-          "WAWebDBAssociatedMsgsAttachDetachAPI",
-        ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
-          e.map(function (e) {
-            return e.id;
-          }),
-        ),
-        n = await o("WAWebMsgCollection").MsgCollection.hydrateOrGetMessages(
-          t.map(function (e) {
-            return e.msgKey;
-          }),
-        );
-      return n;
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            !o(
+              "WAWebMessageAssociationGatingUtils",
+            ).isMessageAssociationInfraEnabled()
+          )
+            return [];
+          var n = yield u([e]);
+          return n.map(t);
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+              "WAWebDBAssociatedMsgsAttachDetachAPI",
+            ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
+              e.map(function (e) {
+                return e.id;
+              }),
+            ),
+            n = yield o(
+              "WAWebMsgCollection",
+            ).MsgCollection.hydrateOrGetMessages(
+              t.map(function (e) {
+                return e.msgKey;
+              }),
+            );
+          return n;
+        })),
+        c.apply(this, arguments)
+      );
     }
     ((l.getAssociatedChildMessageRevokePromises = e),
-      (l.getHydratedAssociatedChildMessageModelsFromParentMsgs = s));
+      (l.getHydratedAssociatedChildMessageModelsFromParentMsgs = u));
   },
   98,
 );

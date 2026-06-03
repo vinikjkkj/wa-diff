@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumMdSyncdCriticalEventCode",
     "WAWebWid",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "countWhere",
     "decodeProtobuf",
   ],
@@ -62,62 +63,73 @@ __d(
       }
       return !0;
     }
-    async function p(e, t) {
-      var n,
-        r = await (n = o("WAWebDBMessageRange")).getLastMessageTimestamp(e);
-      n.logMaybeMillisecondTimestamp(r, "getLastMessageTimestamp");
-      var a = await n.getLastSystemMessageTimestamp(e);
-      n.logMaybeMillisecondTimestamp(a, "lastSystemMessageTimestamp");
-      var i = await n.getAdditionalMessages(e, r),
-        l = i.messages,
-        s = i.newLastMessageTimestamp;
-      if (
-        (s != null &&
-          ((r = s),
-          o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-            s,
-            "newLastMessageTimestamp",
-          )),
-        r == null)
-      ) {
-        var u,
-          c = l.sort(o("WAWebDBMessageRange").timestampComparison),
-          d = (u = c[l.length - 1]) == null ? void 0 : u.timestamp;
-        ((r = d != null ? o("WALongInt").numberOrThrowIfTooLarge(d) : null),
-          o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(r, "sorting"));
-      }
-      var m = { messages: l };
-      if (
-        (r != null && (m.lastMessageTimestamp = r),
-        a != null &&
-          (r == null || a > o("WALongInt").numberOrThrowIfTooLarge(r)) &&
-          ((m.lastSystemMessageTimestamp = a),
-          o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-            m.lastSystemMessageTimestamp,
-            "lastSystemMessageTimestamp",
-          )),
-        t.forOutgoingMutation && m.lastMessageTimestamp == null)
-      ) {
-        var p = await o("WAWebDBMessageRange").getFirstSystemMessageTimestamp(
-          e,
-        );
-        p != null &&
-          ((m.lastMessageTimestamp = p),
-          o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-            m.lastMessageTimestamp,
-            "firstSystemMessageTimestamp",
-          ),
-          p === a && (m.lastSystemMessageTimestamp = void 0));
-      }
-      if (t.forOutgoingMutation && t.mutationIndexJid != null)
-        for (var _ of m.messages) {
-          var f;
-          ((f = _.key) == null ? void 0 : f.remoteJid) != null &&
-            (_.key.remoteJid = t.mutationIndexJid);
-        }
-      return m;
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function _(e, t) {
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = yield (n = o("WAWebDBMessageRange")).getLastMessageTimestamp(e);
+          n.logMaybeMillisecondTimestamp(r, "getLastMessageTimestamp");
+          var a = yield n.getLastSystemMessageTimestamp(e);
+          n.logMaybeMillisecondTimestamp(a, "lastSystemMessageTimestamp");
+          var i = yield n.getAdditionalMessages(e, r),
+            l = i.messages,
+            s = i.newLastMessageTimestamp;
+          if (
+            (s != null &&
+              ((r = s),
+              o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+                s,
+                "newLastMessageTimestamp",
+              )),
+            r == null)
+          ) {
+            var u,
+              c = l.sort(o("WAWebDBMessageRange").timestampComparison),
+              d = (u = c[l.length - 1]) == null ? void 0 : u.timestamp;
+            ((r = d != null ? o("WALongInt").numberOrThrowIfTooLarge(d) : null),
+              o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+                r,
+                "sorting",
+              ));
+          }
+          var m = { messages: l };
+          if (
+            (r != null && (m.lastMessageTimestamp = r),
+            a != null &&
+              (r == null || a > o("WALongInt").numberOrThrowIfTooLarge(r)) &&
+              ((m.lastSystemMessageTimestamp = a),
+              o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+                m.lastSystemMessageTimestamp,
+                "lastSystemMessageTimestamp",
+              )),
+            t.forOutgoingMutation && m.lastMessageTimestamp == null)
+          ) {
+            var p = yield o(
+              "WAWebDBMessageRange",
+            ).getFirstSystemMessageTimestamp(e);
+            p != null &&
+              ((m.lastMessageTimestamp = p),
+              o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+                m.lastMessageTimestamp,
+                "firstSystemMessageTimestamp",
+              ),
+              p === a && (m.lastSystemMessageTimestamp = void 0));
+          }
+          if (t.forOutgoingMutation && t.mutationIndexJid != null)
+            for (var _ of m.messages) {
+              var f;
+              ((f = _.key) == null ? void 0 : f.remoteJid) != null &&
+                (_.key.remoteJid = t.mutationIndexJid);
+            }
+          return m;
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
       var n = m(e, t),
         r = m(t, e);
       return n && r
@@ -128,7 +140,7 @@ __d(
             ? d.RangeBEnclosesRangeA
             : d.RangesNotEnclosing;
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       var r = new Map(),
         a = e.concat(t);
       return (
@@ -162,7 +174,7 @@ __d(
         Array.from(r.values())
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n,
         r,
         a = o("WALongInt").numberOrThrowIfTooLarge(
@@ -172,7 +184,7 @@ __d(
           (r = t.lastMessageTimestamp) != null ? r : 0,
         ),
         l = Math.max(a, i),
-        s = f(e.messages, t.messages, l),
+        s = g(e.messages, t.messages, l),
         u = { messages: s };
       if (
         (l !== 0 && (u.lastMessageTimestamp = l),
@@ -193,7 +205,7 @@ __d(
       }
       return u;
     }
-    var h = [
+    var y = [
         [
           (c = o("WAWebWamEnumMdSyncdCriticalEventCode"))
             .MD_SYNCD_CRITICAL_EVENT_CODE
@@ -220,7 +232,7 @@ __d(
           },
         ],
       ],
-      y = [
+      C = [
         [
           c.MD_SYNCD_CRITICAL_EVENT_CODE.MESSAGE_RANGE_MESSAGE_KEY_UNSET,
           function (e) {
@@ -276,7 +288,7 @@ __d(
           },
         ],
       ];
-    function C(e, t, n) {
+    function b(e, t, n) {
       if (e == null) {
         o("WAWebSyncdMetrics").uploadMdCriticalEventMetric(
           o("WAWebWamEnumMdSyncdCriticalEventCode").MD_SYNCD_CRITICAL_EVENT_CODE
@@ -286,7 +298,7 @@ __d(
         );
         return;
       }
-      for (var r of h) {
+      for (var r of y) {
         var a = r[0],
           i = r[1];
         if (i(e)) {
@@ -296,7 +308,7 @@ __d(
       }
       if (e.messages == null) return e;
       for (var l of e.messages)
-        for (var s of y) {
+        for (var s of C) {
           var u = s[0],
             c = s[1];
           if (c(l)) {
@@ -306,159 +318,176 @@ __d(
         }
       return e;
     }
-    async function b(e, t) {
-      var n,
-        r = await p(e, { forOutgoingMutation: !0, mutationIndexJid: t }),
-        a = await o("WAWebApiActiveMessageRanges").getActiveMessageRanges(
-          e.toString(),
-        );
-      (a.forEach(function (e) {
-        var t = e.actionValue.messageRange;
-        t &&
-          (o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-            t.lastMessageTimestamp,
-            "activeRanges",
-          ),
-          o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-            t.lastSystemMessageTimestamp,
-            "activeRangesSystem",
-          ));
-        e: {
-          if (
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .ClearChatDeleteStarredDeleteMedia ||
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .ClearChatDeleteStarredKeepMedia ||
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .ClearChatKeepStarredDeleteMedia ||
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .ClearChatKeepStarredKeepMedia ||
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .DeleteChatDeleteMedia ||
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .DeleteChatKeepMedia
-          ) {
-            var n = e.actionValue.messageRange;
-            n && (r = g(r, n));
-            break e;
-          }
-          if (
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction.Archive ||
-            e.action ===
-              o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
-                .MarkChatAsRead
-          )
-            break e;
-          throw Error(
-            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-              e.action,
-          );
-        }
-      }),
-        o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-          r.lastMessageTimestamp,
-          "intermediaForwardMovingRange",
-        ));
-      var i = await v(e);
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (r.messages = f(
-          r.messages,
-          i,
-          o("WALongInt").numberOrThrowIfTooLarge(
-            (n = r.lastMessageTimestamp) != null ? n : 0,
-          ),
-        )),
-        (r = o("WAWebDBMessageRange").fixMessageRange(r)),
-        o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
-          r.lastMessageTimestamp,
-          "forwardMovingRange",
-        ),
-        r
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = yield p(e, { forOutgoingMutation: !0, mutationIndexJid: t }),
+            a = yield o("WAWebApiActiveMessageRanges").getActiveMessageRanges(
+              e.toString(),
+            );
+          (a.forEach(function (e) {
+            var t = e.actionValue.messageRange;
+            t &&
+              (o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+                t.lastMessageTimestamp,
+                "activeRanges",
+              ),
+              o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+                t.lastSystemMessageTimestamp,
+                "activeRangesSystem",
+              ));
+            e: {
+              if (
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .ClearChatDeleteStarredDeleteMedia ||
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .ClearChatDeleteStarredKeepMedia ||
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .ClearChatKeepStarredDeleteMedia ||
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .ClearChatKeepStarredKeepMedia ||
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .DeleteChatDeleteMedia ||
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .DeleteChatKeepMedia
+              ) {
+                var n = e.actionValue.messageRange;
+                n && (r = h(r, n));
+                break e;
+              }
+              if (
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .Archive ||
+                e.action ===
+                  o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
+                    .MarkChatAsRead
+              )
+                break e;
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e.action,
+              );
+            }
+          }),
+            o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+              r.lastMessageTimestamp,
+              "intermediaForwardMovingRange",
+            ));
+          var i = yield R(e);
+          return (
+            (r.messages = g(
+              r.messages,
+              i,
+              o("WALongInt").numberOrThrowIfTooLarge(
+                (n = r.lastMessageTimestamp) != null ? n : 0,
+              ),
+            )),
+            (r = o("WAWebDBMessageRange").fixMessageRange(r)),
+            o("WAWebDBMessageRange").logMaybeMillisecondTimestamp(
+              r.lastMessageTimestamp,
+              "forwardMovingRange",
+            ),
+            r
+          );
+        })),
+        S.apply(this, arguments)
       );
     }
-    async function v(t) {
-      var n = [],
-        r = await o("WAWebSyncdDb").getSyncActionsRows(
-          ["action"],
-          [o("WASyncdConst").Actions.DeleteMessageForMe],
-        );
-      o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "syncd: deleteForMeSyncActions length: ",
-            "",
-          ])),
-        r.length,
-      );
-      var a = [],
-        i = 0,
-        l = 0;
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        r.forEach(function (e) {
-          var r = t.toString({ legacy: !0 }),
-            s = JSON.parse(e.index);
-          if (s.length !== 5) (i++, a.length < 3 && a.push(e.index));
-          else if (
-            r === s[1] &&
-            e.actionState === o("WASyncdConst").SyncActionState.Success
-          ) {
-            var u,
-              c = o("decodeProtobuf").decodeProtobuf(
-                o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                e.binarySyncData,
-              ).value,
-              d =
-                c == null || (u = c.deleteMessageForMeAction) == null
-                  ? void 0
-                  : u.messageTimestamp;
-            if (d == null) l++;
-            else {
-              var m = {
-                remoteJid: s[1],
-                id: s[2],
-                fromMe: s[3] === "1",
-                participant: s[4] !== "0" ? s[4] : void 0,
-              };
-              n.push({
-                key: m,
-                timestamp: o(
-                  "WAWebTimestampConversionUtils",
-                ).maybeMillisecondsToSeconds(d),
-              });
-            }
-          }
-        }),
-        i > 0 &&
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = [],
+            r = yield o("WAWebSyncdDb").getSyncActionsRows(
+              ["action"],
+              [o("WASyncdConst").Actions.DeleteMessageForMe],
+            );
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[constructForwardMovingMessageRange] ",
-                " malformed indices => ",
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "syncd: deleteForMeSyncActions length: ",
                 "",
               ])),
-            i,
-            a,
-          ),
-        l > 0 &&
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[constructForwardMovingMessageRange] ",
-                " malformed actions",
-              ])),
-            l,
-          ),
-        n
+            r.length,
+          );
+          var a = [],
+            i = 0,
+            l = 0;
+          return (
+            r.forEach(function (e) {
+              var r = t.toString({ legacy: !0 }),
+                s = JSON.parse(e.index);
+              if (s.length !== 5) (i++, a.length < 3 && a.push(e.index));
+              else if (
+                r === s[1] &&
+                e.actionState === o("WASyncdConst").SyncActionState.Success
+              ) {
+                var u,
+                  c = o("decodeProtobuf").decodeProtobuf(
+                    o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                    e.binarySyncData,
+                  ).value,
+                  d =
+                    c == null || (u = c.deleteMessageForMeAction) == null
+                      ? void 0
+                      : u.messageTimestamp;
+                if (d == null) l++;
+                else {
+                  var m = {
+                    remoteJid: s[1],
+                    id: s[2],
+                    fromMe: s[3] === "1",
+                    participant: s[4] !== "0" ? s[4] : void 0,
+                  };
+                  n.push({
+                    key: m,
+                    timestamp: o(
+                      "WAWebTimestampConversionUtils",
+                    ).maybeMillisecondsToSeconds(d),
+                  });
+                }
+              }
+            }),
+            i > 0 &&
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[constructForwardMovingMessageRange] ",
+                    " malformed indices => ",
+                    "",
+                  ])),
+                i,
+                a,
+              ),
+            l > 0 &&
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[constructForwardMovingMessageRange] ",
+                    " malformed actions",
+                  ])),
+                l,
+              ),
+            n
+          );
+        })),
+        L.apply(this, arguments)
       );
     }
-    function S(e, t) {
+    function E(e, t) {
       return babelHelpers.extends({}, t, {
         messages: t.messages.map(function (t) {
           return babelHelpers.extends({}, t, {
@@ -467,7 +496,7 @@ __d(
         }),
       });
     }
-    var R = function (t, n, r) {
+    var k = function (t, n, r) {
       return o("WAWebSyncdCoreApi").lockForSync(
         [].concat(t, ["message", "active-message-ranges"]),
         n,
@@ -476,12 +505,12 @@ __d(
     };
     ((l.MessageRangeEncloseType = d),
       (l.constructMessageRange = p),
-      (l.compareMessageRanges = _),
-      (l.mergeMessageRanges = g),
-      (l.validateMessageRange = C),
-      (l.constructForwardMovingMessageRange = b),
-      (l.replaceMessageRangeRemoteJid = S),
-      (l.lockForMessageRangeSync = R));
+      (l.compareMessageRanges = f),
+      (l.mergeMessageRanges = h),
+      (l.validateMessageRange = b),
+      (l.constructForwardMovingMessageRange = v),
+      (l.replaceMessageRangeRemoteJid = E),
+      (l.lockForMessageRangeSync = k));
   },
   98,
 );

@@ -70,6 +70,14 @@ __d(
         "smb_web_category_search_via_graph_enabled",
       );
     }
+    function C() {
+      return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
+    }
+    function b() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_biz_profile_google_integration_enabled",
+      );
+    }
     ((l.webBizProfileOptions = e),
       (l.businessProfileRefreshEnabled = s),
       (l.businessProfileRefreshV2Enabled = u),
@@ -81,7 +89,9 @@ __d(
       (l.coverPhotoPrivacyMessagingEnabled = f),
       (l.bizLinkedAccountsEnabled = g),
       (l.canViewBizLinkedAccounts = h),
-      (l.isCategorySearchViaGraphEnabled = y));
+      (l.isCategorySearchViaGraphEnabled = y),
+      (l.getCatkitVersion = C),
+      (l.isGoogleProfileIntegrationEnabled = b));
   },
   98,
 );

@@ -1,23 +1,30 @@
 __d(
   "WAWebKmpLidMutationHelper",
-  ["WAWebLid1X1MigrationGating"],
+  ["Promise", "WAWebLid1X1MigrationGating", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e;
+    function s() {
       return o(
         "WAWebLid1X1MigrationGating",
       ).Lid1X1MigrationUtils.isLidMigrated();
     }
-    var s = {
-      isLidMutationEnabled: e,
-      migrateMutationToLidIfNeeded: async function (t) {
+    var u = {
+      isLidMutationEnabled: s,
+      migrateMutationToLidIfNeeded: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return e;
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
         return t;
-      },
-      findPhoneJidKeyStringFromMutation: function (t) {
-        return Promise.resolve(null);
+      })(),
+      findPhoneJidKeyStringFromMutation: function (r) {
+        return (e || (e = n("Promise"))).resolve(null);
       },
     };
-    l.lidMutationHelper = s;
+    l.lidMutationHelper = u;
   },
   98,
 );

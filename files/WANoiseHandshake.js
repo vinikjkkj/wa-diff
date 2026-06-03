@@ -1,6 +1,7 @@
 __d(
   "WANoiseHandshake",
   [
+    "Promise",
     "WABinary",
     "WACryptoDependencies",
     "WACryptoHkdf",
@@ -9,22 +10,24 @@ __d(
     "WANoiseSocket",
     "WAResolvable",
     "WATagsLogger",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u,
-      c = o("WATagsLogger").TAGS(["NoiseHandshake"]),
-      d = Promise.reject("UNINITIALIZED HANDSHAKE"),
-      m = new Uint8Array(0);
-    d.catch(function () {});
-    var p = (function () {
+      c,
+      d = o("WATagsLogger").TAGS(["NoiseHandshake"]),
+      m = (c || (c = n("Promise"))).reject("UNINITIALIZED HANDSHAKE"),
+      p = new Uint8Array(0);
+    m.catch(function () {});
+    var _ = (function () {
       function t(e) {
         var t = this;
-        ((this.$2 = d),
-          (this.$3 = d),
-          (this.$4 = d),
+        ((this.$2 = m),
+          (this.$3 = m),
+          (this.$4 = m),
           (this.$5 = 0),
           (this.$1 = e),
           (this.$6 = new (o("WAResolvable").Resolvable)()),
@@ -33,159 +36,192 @@ __d(
               new (o("WAErrors").Disconnected)("NoiseHandshake: SocketClosed"),
             );
           }),
-          C(this.$6.promise));
+          b(this.$6.promise));
       }
-      var n = t.prototype;
+      var r = t.prototype;
       return (
-        (n.start = function (t, n) {
+        (r.start = function (t, r) {
           var e = o("WABinary").Binary.build(t).readBuffer(),
-            r =
+            a =
               e.byteLength === 32
-                ? Promise.resolve(e)
+                ? (c || (c = n("Promise"))).resolve(e)
                 : o("WACryptoSha256").sha256(e);
-          ((this.$2 = r),
-            (this.$3 = r),
-            (this.$4 = r.then(f)),
-            this.authenticate(n));
+          ((this.$2 = a),
+            (this.$3 = a),
+            (this.$4 = a.then(g)),
+            this.authenticate(r));
         }),
-        (n.sendAndReceive = function (t) {
+        (r.sendAndReceive = function (t) {
           var e = this.$1,
-            n = new Promise(function (n) {
+            r = new (c || (c = n("Promise")))(function (n) {
               ((e.onFrame = function (t) {
                 ((e.onFrame = null), n(t));
               }),
                 e.sendFrame(t));
             });
-          return this.$7(n);
+          return this.$7(r);
         }),
-        (n.send = function (t) {
+        (r.send = function (t) {
           this.$1.sendFrame(t);
         }),
-        (n.authenticate = function (t) {
-          this.$2 = Promise.all([this.$2, t]).then(function (e) {
-            var t = e[0],
-              n = e[1],
-              r = o("WABinary").Binary.build(t, n).readByteArrayView();
-            return o("WACryptoSha256").sha256(r);
+        (r.authenticate = function (t) {
+          this.$2 = (c || (c = n("Promise")))
+            .all([this.$2, t])
+            .then(function (e) {
+              var t = e[0],
+                n = e[1],
+                r = o("WABinary").Binary.build(t, n).readByteArrayView();
+              return o("WACryptoSha256").sha256(r);
+            });
+        }),
+        (r.encrypt = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            try {
+              var r = this.$5++,
+                o = (c || (c = n("Promise")))
+                  .all([this.$4, this.$2, t])
+                  .then(function (e) {
+                    var t = e[0],
+                      n = e[1],
+                      o = e[2];
+                    return h(t, r, n, o);
+                  });
+              this.authenticate(o);
+              var a = yield this.$7(o);
+              return a;
+            } catch (t) {
+              throw (
+                d.ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Error on encrypt: ",
+                      "",
+                    ])),
+                  t,
+                ),
+                t
+              );
+            }
           });
-        }),
-        (n.encrypt = async function (n) {
-          try {
-            var t = this.$5++,
-              r = Promise.all([this.$4, this.$2, n]).then(function (e) {
-                var n = e[0],
-                  r = e[1],
-                  o = e[2];
-                return g(n, t, r, o);
-              });
-            this.authenticate(r);
-            var o = await this.$7(r);
-            return o;
-          } catch (t) {
-            throw (
-              c.ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Error on encrypt: ",
-                    "",
-                  ])),
-                t,
-              ),
-              t
-            );
+          function r(e) {
+            return t.apply(this, arguments);
           }
-        }),
-        (n.decrypt = async function (t, n) {
-          try {
-            var e = this.$5++,
-              r = Promise.all([this.$4, this.$2]).then(function (n) {
-                var r = n[0],
-                  o = n[1];
-                return h(r, e, o, t);
-              });
-            this.authenticate(t);
-            var o = await this.$7(r);
-            return o;
-          } catch (e) {
-            throw (
-              c.ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Error on decrypt: ",
-                    " reason: ",
-                    "",
-                  ])),
-                e,
-                n,
-              ),
-              e
-            );
+          return r;
+        })()),
+        (r.decrypt = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              try {
+                var r = this.$5++,
+                  o = (c || (c = n("Promise")))
+                    .all([this.$4, this.$2])
+                    .then(function (t) {
+                      var n = t[0],
+                        o = t[1];
+                      return y(n, r, o, e);
+                    });
+                this.authenticate(e);
+                var a = yield this.$7(o);
+                return a;
+              } catch (e) {
+                throw (
+                  d.ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "Error on decrypt: ",
+                        " reason: ",
+                        "",
+                      ])),
+                    e,
+                    t,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
           }
-        }),
-        (n.finish = async function () {
-          var e = this;
-          try {
-            var t = this.$3
-                .then(function (e) {
-                  return y(e, new Uint8Array(0));
-                })
-                .then(function (e) {
-                  var t = e[0],
-                    n = e[1];
-                  return Promise.all([f(t, ["encrypt"]), f(n, ["decrypt"])]);
-                })
-                .then(function (t) {
-                  var n = t[0],
-                    r = t[1];
-                  return new (o("WANoiseSocket").NoiseSocket)(e.$1, n, r);
-                }),
-              n = await this.$7(t);
-            return n;
-          } catch (e) {
-            throw (
-              c.ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "Error on finish: ",
-                    "",
-                  ])),
-                e,
-              ),
-              e
-            );
+          return t;
+        })()),
+        (r.finish = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = this;
+            try {
+              var t = this.$3
+                  .then(function (e) {
+                    return C(e, new Uint8Array(0));
+                  })
+                  .then(function (e) {
+                    var t = e[0],
+                      r = e[1];
+                    return (c || (c = n("Promise"))).all([
+                      g(t, ["encrypt"]),
+                      g(r, ["decrypt"]),
+                    ]);
+                  })
+                  .then(function (t) {
+                    var n = t[0],
+                      r = t[1];
+                    return new (o("WANoiseSocket").NoiseSocket)(e.$1, n, r);
+                  }),
+                r = yield this.$7(t);
+              return r;
+            } catch (e) {
+              throw (
+                d.ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "Error on finish: ",
+                      "",
+                    ])),
+                  e,
+                ),
+                e
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
           }
-        }),
-        (n.mixIntoKey = function (t) {
+          return t;
+        })()),
+        (r.mixIntoKey = function (t) {
           this.$5 = 0;
-          var e = Promise.all([this.$3, t]).then(function (e) {
-            var t = e[0],
-              n = e[1];
-            return y(t, new Uint8Array(n));
-          });
+          var e = (c || (c = n("Promise")))
+            .all([this.$3, t])
+            .then(function (e) {
+              var t = e[0],
+                n = e[1];
+              return C(t, new Uint8Array(n));
+            });
           ((this.$3 = e.then(function (e) {
             return e[0];
           })),
             (this.$4 = e.then(function (e) {
-              return f(e[1]);
+              return g(e[1]);
             })),
-            C(this.$3),
-            C(this.$4));
+            b(this.$3),
+            b(this.$4));
         }),
-        (n.$7 = function (t) {
+        (r.$7 = function (t) {
           var e = this;
-          return Promise.race([t, this.$6.promise]).then(function (t) {
-            return e.$6.resolveWasCalled() ? e.$6.promise : t;
-          });
+          return (c || (c = n("Promise")))
+            .race([t, this.$6.promise])
+            .then(function (t) {
+              return e.$6.resolveWasCalled() ? e.$6.promise : t;
+            });
         }),
         t
       );
     })();
-    function _(e) {
+    function f(e) {
       var t = new ArrayBuffer(12),
         n = new DataView(t);
       return (n.setUint32(8, e), new Uint8Array(t));
     }
-    function f(e, t) {
+    function g(e, t) {
       return (
         t === void 0 && (t = ["encrypt", "decrypt"]),
         o("WACryptoDependencies")
@@ -193,43 +229,43 @@ __d(
           .subtle.importKey("raw", new Uint8Array(e), "AES-GCM", !1, t)
       );
     }
-    function g(e, t, n, r) {
+    function h(e, t, n, r) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.encrypt(
           {
             name: "AES-GCM",
-            iv: _(t),
-            additionalData: n ? new Uint8Array(n) : m,
+            iv: f(t),
+            additionalData: n ? new Uint8Array(n) : p,
           },
           e,
           r,
         );
     }
-    function h(e, t, n, r) {
+    function y(e, t, n, r) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.decrypt(
           {
             name: "AES-GCM",
-            iv: _(t),
-            additionalData: n ? new Uint8Array(n) : m,
+            iv: f(t),
+            additionalData: n ? new Uint8Array(n) : p,
           },
           e,
           r,
         );
     }
-    function y(e, t) {
+    function C(e, t) {
       return o("WACryptoHkdf")
         .extractWithSaltAndExpand(t, new Uint8Array(e), "", 64)
         .then(function (e) {
           return [e.slice(0, 32), e.slice(32)];
         });
     }
-    function C(e) {
+    function b(e) {
       e.catch(function () {});
     }
-    l.NoiseHandshake = p;
+    l.NoiseHandshake = _;
   },
   98,
 );

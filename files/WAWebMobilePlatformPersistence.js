@@ -5,6 +5,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -13,12 +14,20 @@ __d(
       );
       return r("WAWebCastToLegacyEnum")(e, o("WAWebMobilePlatforms").PLATFORMS);
     }
-    async function s(e) {
-      e != null &&
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.MOBILE_PLATFORM,
-          e,
-        ));
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e != null &&
+            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.MOBILE_PLATFORM,
+              e,
+            ));
+        })),
+        u.apply(this, arguments)
+      );
     }
     ((l.getLastMobilePlatform = e), (l.setLastMobilePlatform = s));
   },

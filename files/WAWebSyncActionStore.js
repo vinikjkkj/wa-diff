@@ -1,90 +1,170 @@
 __d(
   "WAWebSyncActionStore",
-  ["WALogger", "WAWebSchemaSyncActions", "WAWebSyncdDb"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebSchemaSyncActions",
+    "WAWebSyncdDb",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function () {
+      s,
+      u = (function () {
         function t() {}
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.count = function () {
+          (r.count = function () {
             return o("WAWebSchemaSyncActions").getSyncActionsTable().count();
           }),
-          (n.get = async function (t) {
-            var e = await o("WAWebSyncdDb").getSyncAction(t);
-            return e == null
-              ? null
-              : o("WAWebSchemaSyncActions").convertToSyncActionFromRow(e);
-          }),
-          (n.getByCollections = async function (t) {
-            var e = await o("WAWebSyncdDb").getSyncActionsRows(
-              ["collection"],
-              t,
+          (r.get = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o("WAWebSyncdDb").getSyncAction(e);
+                return t == null
+                  ? null
+                  : o("WAWebSchemaSyncActions").convertToSyncActionFromRow(t);
+              },
             );
-            return e.map(
-              o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getByCollections = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o("WAWebSyncdDb").getSyncActionsRows(
+                  ["collection"],
+                  e,
+                );
+                return t.map(
+                  o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+                );
+              },
             );
-          }),
-          (n.getByIndexMacs = async function (t) {
-            return t.length < 7
-              ? this.getByIndexMacsMultiQuery(t)
-              : this.getByIndexMacsSingleQuery(t);
-          }),
-          (n.getByCollectionAndIndex = async function (n, r) {
-            var t = await o("WAWebSyncdDb").getSyncActionsRows(["index"], r),
-              a = t.filter(function (e) {
-                return e.collection === n;
-              });
-            return (
-              t.length !== a.length &&
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[syncd] collection mismatch for mutation index: ",
-                        "",
-                      ])),
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getByIndexMacs = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return e.length < 7
+                  ? this.getByIndexMacsMultiQuery(e)
+                  : this.getByIndexMacsSingleQuery(e);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getByCollectionAndIndex = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, n) {
+                var r = yield o("WAWebSyncdDb").getSyncActionsRows(
+                    ["index"],
                     n,
-                  )
-                  .sendLogs("index-in-wrong-collection"),
-              a.map(o("WAWebSchemaSyncActions").convertToSyncActionFromRow)
+                  ),
+                  a = r.filter(function (e) {
+                    return e.collection === t;
+                  });
+                return (
+                  r.length !== a.length &&
+                    o("WALogger")
+                      .WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[syncd] collection mismatch for mutation index: ",
+                            "",
+                          ])),
+                        t,
+                      )
+                      .sendLogs("index-in-wrong-collection"),
+                  a.map(o("WAWebSchemaSyncActions").convertToSyncActionFromRow)
+                );
+              },
             );
-          }),
-          (n.getByIndexMacsMultiQuery = async function (t) {
-            var e = await Promise.all(
-              t.map(function (e) {
-                return o("WAWebSyncdDb").getSyncActionsRows(["indexMac"], [e]);
-              }),
+            function r(e, n) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (r.getByIndexMacsMultiQuery = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield (s || (s = n("Promise"))).all(
+                  e.map(function (e) {
+                    return o("WAWebSyncdDb").getSyncActionsRows(
+                      ["indexMac"],
+                      [e],
+                    );
+                  }),
+                );
+                return t
+                  .flat()
+                  .map(o("WAWebSchemaSyncActions").convertToSyncActionFromRow);
+              },
             );
-            return e
-              .flat()
-              .map(o("WAWebSchemaSyncActions").convertToSyncActionFromRow);
-          }),
-          (n.getByIndexMacsSingleQuery = async function (t) {
-            var e = await o("WAWebSyncdDb").getSyncActionsRows(["indexMac"], t);
-            return e.map(
-              o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getByIndexMacsSingleQuery = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o("WAWebSyncdDb").getSyncActionsRows(
+                  ["indexMac"],
+                  e,
+                );
+                return t.map(
+                  o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+                );
+              },
             );
-          }),
-          (n.getByActionStates = async function (t) {
-            var e = await o("WAWebSyncdDb").getSyncActionsRows(
-              ["actionState"],
-              t,
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getByActionStates = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o("WAWebSyncdDb").getSyncActionsRows(
+                  ["actionState"],
+                  e,
+                );
+                return t.map(
+                  o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+                );
+              },
             );
-            return e.map(
-              o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getByModelInfos = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o("WAWebSyncdDb").getSyncActionsRows(
+                  ["modelId", "modelType", "actionState"],
+                  e,
+                );
+                return t.map(
+                  o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
+                );
+              },
             );
-          }),
-          (n.getByModelInfos = async function (t) {
-            var e = await o("WAWebSyncdDb").getSyncActionsRows(
-              ["modelId", "modelType", "actionState"],
-              t,
-            );
-            return e.map(
-              o("WAWebSchemaSyncActions").convertToSyncActionFromRow,
-            );
-          }),
-          (n.getAll = function () {
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getAll = function () {
             return o("WAWebSchemaSyncActions")
               .getSyncActionsTable()
               .all()
@@ -94,26 +174,26 @@ __d(
                 );
               });
           }),
-          (n.bulkSet = function (t) {
+          (r.bulkSet = function (t) {
             return o("WAWebSyncdDb").setSyncActionRows(
               t.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
             );
           }),
-          (n.bulkUpdate = function (t) {
+          (r.bulkUpdate = function (t) {
             return o("WAWebSyncdDb").updateSyncActionRows(
               t.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
             );
           }),
-          (n.bulkRemove = function (t) {
+          (r.bulkRemove = function (t) {
             return o("WAWebSyncdDb").deleteSyncActionRows(t);
           }),
-          (n.clear = function () {
+          (r.clear = function () {
             return o("WAWebSchemaSyncActions").getSyncActionsTable().clear();
           }),
           t
         );
       })();
-    ((s.locks = ["sync-actions"]), (l.WAWebSyncActionStore = s));
+    ((u.locks = ["sync-actions"]), (l.WAWebSyncActionStore = u));
   },
   98,
 );

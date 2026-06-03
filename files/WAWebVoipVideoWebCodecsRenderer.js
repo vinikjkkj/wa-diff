@@ -1,11 +1,13 @@
 __d(
   "WAWebVoipVideoWebCodecsRenderer",
   [
+    "Promise",
     "WAWebVoipMediaEnums",
     "WAWebVoipVideoFrameCtor",
     "WAWebVoipVideoRasterRenderer",
     "WAWebVoipVideoRendererLogging",
     "WAWebVoipWebCodecsEncoderState",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,25 +22,26 @@ __d(
       _,
       f,
       g,
-      h = (function (e) {
+      h,
+      y = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      y = null;
-    function C(e) {
-      y = e;
+      C = null;
+    function b(e) {
+      C = e;
     }
-    var b = "voip: WAWebVoipVideoWebCodecsRenderer: ",
-      v = 5,
-      S = 500,
-      R = 30,
-      L = 5e3,
-      E = 320,
-      k = 240,
-      I = (function (t) {
-        function n(e, n) {
+    var v = "voip: WAWebVoipVideoWebCodecsRenderer: ",
+      S = 5,
+      R = 500,
+      L = 30,
+      E = 5e3,
+      k = 320,
+      I = 240,
+      T = (function (t) {
+        function a(e, n) {
           var r;
           return (
             (r = t.call(this, e) || this),
@@ -59,49 +62,49 @@ __d(
             r
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.$WAWebVoipVideoWebCodecsRenderer$p_4 = function () {
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_4 = function () {
             var t = this,
-              r = this.$WAWebVoipVideoWebCodecsRenderer$p_2,
-              a = new this.$WAWebVoipVideoWebCodecsRenderer$p_1({
-                output: function (n) {
+              n = this.$WAWebVoipVideoWebCodecsRenderer$p_2,
+              r = new this.$WAWebVoipVideoWebCodecsRenderer$p_1({
+                output: function (r) {
                   try {
-                    if (r !== t.$WAWebVoipVideoWebCodecsRenderer$p_2) return;
+                    if (n !== t.$WAWebVoipVideoWebCodecsRenderer$p_2) return;
                     ((t.$WAWebVoipVideoWebCodecsRenderer$p_5 = 0),
                       (t.$WAWebVoipVideoWebCodecsRenderer$p_6 = 0),
                       t.$WAWebVoipVideoWebCodecsRenderer$p_7++,
-                      (t.$WAWebVoipVideoWebCodecsRenderer$p_8 = n.displayWidth),
+                      (t.$WAWebVoipVideoWebCodecsRenderer$p_8 = r.displayWidth),
                       (t.$WAWebVoipVideoWebCodecsRenderer$p_9 =
-                        n.displayHeight),
+                        r.displayHeight),
                       t.applyPendingResize());
                     var e = t.$WAWebVoipVideoWebCodecsRenderer$p_10(
-                        n.timestamp,
+                        r.timestamp,
                       ),
                       o = e.mirror,
                       a = e.orientation;
                     t.renderVideoFrameToCanvas(
-                      n,
-                      n.displayWidth,
-                      n.displayHeight,
+                      r,
+                      r.displayWidth,
+                      r.displayHeight,
                       a,
                       o,
                       !0,
                     );
                   } finally {
-                    n.close();
+                    r.close();
                   }
                 },
                 error: function (i) {
-                  r === t.$WAWebVoipVideoWebCodecsRenderer$p_2 &&
-                    (t.$WAWebVoipVideoWebCodecsRenderer$p_3 === a &&
+                  n === t.$WAWebVoipVideoWebCodecsRenderer$p_2 &&
+                    (t.$WAWebVoipVideoWebCodecsRenderer$p_3 === r &&
                       (t.$WAWebVoipVideoWebCodecsRenderer$p_3 = null),
                     t.$WAWebVoipVideoWebCodecsRenderer$p_11.clear(),
                     t.$WAWebVoipVideoWebCodecsRenderer$p_5++,
                     (t.$WAWebVoipVideoWebCodecsRenderer$p_12 = Date.now()),
-                    y == null || y(),
-                    t.$WAWebVoipVideoWebCodecsRenderer$p_5 > v
+                    C == null || C(),
+                    t.$WAWebVoipVideoWebCodecsRenderer$p_5 > S
                       ? o("WAWebVoipVideoRendererLogging").ERROR(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -110,8 +113,8 @@ __d(
                               ") exceeded. ",
                               "",
                             ])),
-                          b,
                           v,
+                          S,
                           i,
                         )
                       : o("WAWebVoipVideoRendererLogging").ERROR(
@@ -123,16 +126,16 @@ __d(
                               "). ",
                               "",
                             ])),
-                          b,
-                          t.$WAWebVoipVideoWebCodecsRenderer$p_5,
                           v,
+                          t.$WAWebVoipVideoWebCodecsRenderer$p_5,
+                          S,
                           i,
                         ));
                 },
               });
-            return (a.configure(n.$WAWebVoipVideoWebCodecsRenderer$p_13), a);
+            return (r.configure(a.$WAWebVoipVideoWebCodecsRenderer$p_13), r);
           }),
-          (a.$WAWebVoipVideoWebCodecsRenderer$p_14 = function () {
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_14 = function () {
             var e;
             ((this.$WAWebVoipVideoWebCodecsRenderer$p_6 = 0),
               this.$WAWebVoipVideoWebCodecsRenderer$p_11.clear(),
@@ -141,7 +144,7 @@ __d(
               (this.$WAWebVoipVideoWebCodecsRenderer$p_3 =
                 this.$WAWebVoipVideoWebCodecsRenderer$p_4()));
           }),
-          (a.reset = function () {
+          (i.reset = function () {
             var e = this.$WAWebVoipVideoWebCodecsRenderer$p_3;
             ((this.$WAWebVoipVideoWebCodecsRenderer$p_5 = 0),
               (this.$WAWebVoipVideoWebCodecsRenderer$p_12 = 0),
@@ -160,12 +163,12 @@ __d(
                   e.state !== "closed" && e.close();
                 }));
           }),
-          (a.requireKeyframe = function () {
+          (i.requireKeyframe = function () {
             var e = this.$WAWebVoipVideoWebCodecsRenderer$p_3;
             if ((e == null ? void 0 : e.state) === "configured") {
               var t = e.decodeQueueSize;
               (e.reset(),
-                e.configure(n.$WAWebVoipVideoWebCodecsRenderer$p_13),
+                e.configure(a.$WAWebVoipVideoWebCodecsRenderer$p_13),
                 o("WAWebVoipVideoRendererLogging").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -173,12 +176,12 @@ __d(
                       "requireKeyframe: decoder reset and reconfigured, [[key chunk required]] = true, decodeQueueSizeBeforeReset=",
                       "",
                     ])),
-                  b,
+                  v,
                   t,
                 ));
             }
           }),
-          (a.cleanup = function () {
+          (i.cleanup = function () {
             var e;
             (this.$WAWebVoipVideoWebCodecsRenderer$p_2++,
               (e = this.$WAWebVoipVideoWebCodecsRenderer$p_3) == null ||
@@ -186,160 +189,183 @@ __d(
               (this.$WAWebVoipVideoWebCodecsRenderer$p_3 = null),
               t.prototype.cleanup.call(this));
           }),
-          (n.checkAvailability = async function () {
-            return (
-              n.$WAWebVoipVideoWebCodecsRenderer$p_17 == null &&
-                (n.$WAWebVoipVideoWebCodecsRenderer$p_17 =
-                  n.$WAWebVoipVideoWebCodecsRenderer$p_18()),
-              n.$WAWebVoipVideoWebCodecsRenderer$p_17
-            );
-          }),
-          (n.$WAWebVoipVideoWebCodecsRenderer$p_18 = async function () {
-            var e = window.performance.now();
-            if (
-              typeof window == "undefined" ||
-              typeof window.VideoDecoder != "function"
-            )
-              return !1;
-            var t = await window.VideoDecoder.isConfigSupported(
-                n.$WAWebVoipVideoWebCodecsRenderer$p_13,
-              ),
-              r = t.supported;
-            if (r == null || !r)
+          (a.checkAvailability = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               return (
-                o("WAWebVoipVideoRendererLogging").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      "H264 decoder not supported",
-                    ])),
-                  b,
-                ),
-                !1
+                a.$WAWebVoipVideoWebCodecsRenderer$p_17 == null &&
+                  (a.$WAWebVoipVideoWebCodecsRenderer$p_17 =
+                    a.$WAWebVoipVideoWebCodecsRenderer$p_18()),
+                a.$WAWebVoipVideoWebCodecsRenderer$p_17
               );
-            if (typeof window.VideoEncoder != "function")
-              return (
-                o("WAWebVoipVideoRendererLogging").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      "VideoEncoder not available, skipping decode probe",
-                    ])),
-                  b,
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$WAWebVoipVideoWebCodecsRenderer$p_18 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = window.performance.now();
+              if (
+                typeof window == "undefined" ||
+                typeof window.VideoDecoder != "function"
+              )
+                return !1;
+              var t = yield window.VideoDecoder.isConfigSupported(
+                  a.$WAWebVoipVideoWebCodecsRenderer$p_13,
                 ),
-                !1
-              );
-            var a = !1;
-            try {
-              a = await n.$WAWebVoipVideoWebCodecsRenderer$p_19();
-            } catch (e) {}
-            var i = Math.round(window.performance.now() - e);
-            return a
-              ? (o("WAWebVoipVideoRendererLogging").LOG(
-                  p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                  b + "H264 decoder supported and probe passed in " + i + "ms",
-                ),
-                !0)
-              : (o("WAWebVoipVideoRendererLogging").LOG(
-                  m || (m = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                  b +
-                    "H264 decoder probe failed in " +
-                    i +
-                    "ms \u2014 falling back to WASM decode",
-                ),
-                !1);
-          }),
-          (n.$WAWebVoipVideoWebCodecsRenderer$p_19 = async function () {
-            var e = 2e3,
-              t = null,
-              a = null,
-              i = null;
-            try {
-              var l = await new Promise(function (l) {
-                var s,
-                  u,
-                  c = !1,
-                  d = function (t) {
-                    c || ((c = !0), l(t));
-                  },
-                  m = window.setTimeout(function () {
-                    return d(!1);
-                  }, e);
-                ((a = new VideoDecoder({
-                  output: function (t) {
-                    (t.close(), window.clearTimeout(m), d(!0));
-                  },
-                  error: function () {
-                    (window.clearTimeout(m), d(!1));
-                  },
-                })),
-                  a.configure(n.$WAWebVoipVideoWebCodecsRenderer$p_13),
-                  (t = new VideoEncoder({
+                n = t.supported;
+              if (n == null || !n)
+                return (
+                  o("WAWebVoipVideoRendererLogging").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        "H264 decoder not supported",
+                      ])),
+                    v,
+                  ),
+                  !1
+                );
+              if (typeof window.VideoEncoder != "function")
+                return (
+                  o("WAWebVoipVideoRendererLogging").LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        "VideoEncoder not available, skipping decode probe",
+                      ])),
+                    v,
+                  ),
+                  !1
+                );
+              var r = !1;
+              try {
+                r = yield a.$WAWebVoipVideoWebCodecsRenderer$p_19();
+              } catch (e) {}
+              var i = Math.round(window.performance.now() - e);
+              return r
+                ? (o("WAWebVoipVideoRendererLogging").LOG(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                    v +
+                      "H264 decoder supported and probe passed in " +
+                      i +
+                      "ms",
+                  ),
+                  !0)
+                : (o("WAWebVoipVideoRendererLogging").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                    v +
+                      "H264 decoder probe failed in " +
+                      i +
+                      "ms \u2014 falling back to WASM decode",
+                  ),
+                  !1);
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$WAWebVoipVideoWebCodecsRenderer$p_19 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = 2e3,
+                t = null,
+                i = null,
+                l = null;
+              try {
+                var s = yield new (h || (h = n("Promise")))(function (n) {
+                  var s,
+                    u,
+                    c = !1,
+                    d = function (t) {
+                      c || ((c = !0), n(t));
+                    },
+                    m = window.setTimeout(function () {
+                      return d(!1);
+                    }, e);
+                  ((i = new VideoDecoder({
                     output: function (t) {
-                      if (a == null || a.state === "closed") {
-                        (window.clearTimeout(m), d(!1));
-                        return;
-                      }
-                      var e = a;
-                      (e.decode(t),
-                        e.flush().then(
-                          function () {
-                            (window.clearTimeout(m), d(!1));
-                          },
-                          function () {
-                            (window.clearTimeout(m), d(!1));
-                          },
-                        ));
+                      (t.close(), window.clearTimeout(m), d(!0));
                     },
                     error: function () {
                       (window.clearTimeout(m), d(!1));
                     },
                   })),
-                  t.configure({
-                    codec: o("WAWebVoipWebCodecsEncoderState")
-                      .WEBCODECS_H264_CODEC,
-                    width: E,
-                    height: k,
-                    avc: { format: "annexb" },
-                  }));
-                var p = r("WAWebVoipVideoFrameCtor")();
-                if (p == null) {
-                  (window.clearTimeout(m), d(!1));
-                  return;
-                }
-                var _ = new Uint8Array(E * k * 4);
-                ((i = new p(_, {
-                  format: "RGBA",
-                  codedWidth: E,
-                  codedHeight: k,
-                  timestamp: 0,
-                })),
-                  (s = t) == null || s.encode(i, { keyFrame: !0 }),
-                  (u = t) == null ||
-                    u.flush().catch(function () {
-                      (window.clearTimeout(m), d(!1));
+                    i.configure(a.$WAWebVoipVideoWebCodecsRenderer$p_13),
+                    (t = new VideoEncoder({
+                      output: function (t) {
+                        if (i == null || i.state === "closed") {
+                          (window.clearTimeout(m), d(!1));
+                          return;
+                        }
+                        var e = i;
+                        (e.decode(t),
+                          e.flush().then(
+                            function () {
+                              (window.clearTimeout(m), d(!1));
+                            },
+                            function () {
+                              (window.clearTimeout(m), d(!1));
+                            },
+                          ));
+                      },
+                      error: function () {
+                        (window.clearTimeout(m), d(!1));
+                      },
+                    })),
+                    t.configure({
+                      codec: o("WAWebVoipWebCodecsEncoderState")
+                        .WEBCODECS_H264_CODEC,
+                      width: k,
+                      height: I,
+                      avc: { format: "annexb" },
                     }));
-              });
-              return l;
-            } catch (e) {
-              return !1;
-            } finally {
-              var s;
-              ((s = i) == null || s.close(),
-                t != null && t.state !== "closed" && t.close(),
-                a != null && a.state !== "closed" && a.close());
+                  var p = r("WAWebVoipVideoFrameCtor")();
+                  if (p == null) {
+                    (window.clearTimeout(m), d(!1));
+                    return;
+                  }
+                  var _ = new Uint8Array(k * I * 4);
+                  ((l = new p(_, {
+                    format: "RGBA",
+                    codedWidth: k,
+                    codedHeight: I,
+                    timestamp: 0,
+                  })),
+                    (s = t) == null || s.encode(l, { keyFrame: !0 }),
+                    (u = t) == null ||
+                      u.flush().catch(function () {
+                        (window.clearTimeout(m), d(!1));
+                      }));
+                });
+                return s;
+              } catch (e) {
+                return !1;
+              } finally {
+                var u;
+                ((u = l) == null || u.close(),
+                  t != null && t.state !== "closed" && t.close(),
+                  i != null && i.state !== "closed" && i.close());
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-          }),
-          (a.renderFrame = function (n, a, i, l, s, u, c, d) {
+            return t;
+          })()),
+          (i.renderFrame = function (n, a, i, l, s, u, c, d) {
             if (u === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.H264) {
               if (!this.$WAWebVoipVideoWebCodecsRenderer$p_3)
                 throw this.$WAWebVoipVideoWebCodecsRenderer$p_5 === 0
-                  ? new h(r("err")(b + "Decoder not available, awaiting reset"))
-                  : this.$WAWebVoipVideoWebCodecsRenderer$p_5 > v
-                    ? r("err")(b + "H264 Decoder closed due to fatal error")
+                  ? new y(r("err")(v + "Decoder not available, awaiting reset"))
+                  : this.$WAWebVoipVideoWebCodecsRenderer$p_5 > S
+                    ? r("err")(v + "H264 Decoder closed due to fatal error")
                     : Date.now() - this.$WAWebVoipVideoWebCodecsRenderer$p_12 <
-                        S
-                      ? new h(r("err")(b + "Decoder recovery cooldown"))
+                        R
+                      ? new y(r("err")(v + "Decoder recovery cooldown"))
                       : (o("WAWebVoipVideoRendererLogging").LOG(
                           _ ||
                             (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -348,14 +374,14 @@ __d(
                               "/",
                               ")",
                             ])),
-                          b,
-                          this.$WAWebVoipVideoWebCodecsRenderer$p_5,
                           v,
+                          this.$WAWebVoipVideoWebCodecsRenderer$p_5,
+                          S,
                         ),
                         this.$WAWebVoipVideoWebCodecsRenderer$p_14(),
-                        new h(
+                        new y(
                           r("err")(
-                            b + "Decoder recovered, requesting key frame",
+                            v + "Decoder recovered, requesting key frame",
                           ),
                         ));
               var e = (c * 1e3) / 90;
@@ -368,7 +394,7 @@ __d(
                   this.$WAWebVoipVideoWebCodecsRenderer$p_15++,
                   this.$WAWebVoipVideoWebCodecsRenderer$p_6++);
                 var m = Date.now();
-                (m - this.$WAWebVoipVideoWebCodecsRenderer$p_16 >= L &&
+                (m - this.$WAWebVoipVideoWebCodecsRenderer$p_16 >= E &&
                   (o("WAWebVoipVideoRendererLogging").LOG(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -380,7 +406,7 @@ __d(
                         " pending=",
                         "",
                       ])),
-                    b,
+                    v,
                     this.$WAWebVoipVideoWebCodecsRenderer$p_15,
                     this.$WAWebVoipVideoWebCodecsRenderer$p_7,
                     this.$WAWebVoipVideoWebCodecsRenderer$p_8,
@@ -391,20 +417,20 @@ __d(
                   this.$WAWebVoipVideoWebCodecsRenderer$p_22());
               } catch (e) {
                 throw e instanceof Error && e.name === "DataError"
-                  ? new h(e)
+                  ? new y(e)
                   : e;
               }
               return;
             }
             t.prototype.renderFrame.call(this, n, a, i, l, s, u, c, d);
           }),
-          (a.$WAWebVoipVideoWebCodecsRenderer$p_21 = function (t, n) {
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_21 = function (t, n) {
             var e = this.$WAWebVoipVideoWebCodecsRenderer$p_11.get(t);
             (e ||
               ((e = []), this.$WAWebVoipVideoWebCodecsRenderer$p_11.set(t, e)),
               e.push(n));
           }),
-          (a.$WAWebVoipVideoWebCodecsRenderer$p_10 = function (t) {
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_10 = function (t) {
             var e,
               n = this.$WAWebVoipVideoWebCodecsRenderer$p_11.get(t),
               r = {
@@ -419,7 +445,7 @@ __d(
               a
             );
           }),
-          (a.$WAWebVoipVideoWebCodecsRenderer$p_20 = function (t, n, r) {
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_20 = function (t, n, r) {
             var e,
               o = {
                 type: r ? "key" : "delta",
@@ -431,8 +457,8 @@ __d(
             (e = this.$WAWebVoipVideoWebCodecsRenderer$p_3) == null ||
               e.decode(a);
           }),
-          (a.$WAWebVoipVideoWebCodecsRenderer$p_22 = function () {
-            if (this.$WAWebVoipVideoWebCodecsRenderer$p_6 >= R)
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_22 = function () {
+            if (this.$WAWebVoipVideoWebCodecsRenderer$p_6 >= L)
               throw (
                 o("WAWebVoipVideoRendererLogging").ERROR(
                   g ||
@@ -441,23 +467,23 @@ __d(
                       "Watchdog: no output after ",
                       " frames, resetting decoder",
                     ])),
-                  b,
+                  v,
                   this.$WAWebVoipVideoWebCodecsRenderer$p_6,
                 ),
                 this.$WAWebVoipVideoWebCodecsRenderer$p_14(),
-                new h(r("err")(b + "Decoder output stalled"))
+                new y(r("err")(v + "Decoder output stalled"))
               );
           }),
-          n
+          a
         );
       })(o("WAWebVoipVideoRasterRenderer").WAWebVoipVideoFrameRenderer);
-    ((I.$WAWebVoipVideoWebCodecsRenderer$p_13 = {
+    ((T.$WAWebVoipVideoWebCodecsRenderer$p_13 = {
       codec: o("WAWebVoipWebCodecsEncoderState").WEBCODECS_H264_CODEC,
       optimizeForLatency: !0,
     }),
-      (l.KeyFrameNeededError = h),
-      (l.setFatalErrorCallback = C),
-      (l.WAWebVoipVideoWebCodecsRenderer = I));
+      (l.KeyFrameNeededError = y),
+      (l.setFatalErrorCallback = b),
+      (l.WAWebVoipVideoWebCodecsRenderer = T));
   },
   98,
 );

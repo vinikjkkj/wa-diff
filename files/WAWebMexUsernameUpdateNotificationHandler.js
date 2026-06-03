@@ -8,102 +8,134 @@ __d(
     "WAWebSetUsernameJob",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
+    "WAWebUsernameTypes",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
-    async function m(t, n) {
-      if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[mex][username] set notification received",
-            ])),
-        );
-        var r = n.xwa2_notify_username_on_change,
-          a = r.username,
-          i = r.lid,
-          l = o("WAWebWidFactory").createUserLidOrThrow(i),
-          s = [{ userId: l, username: a }],
-          u = await o("WAWebSetUsernameJob").setUsernamesJob(s);
-        await o(
-          "WAWebInsertUsernameChangeSystemMsg",
-        ).maybeInsertUsernameChangeSystemMsgs(s, u, "mexHandleUsernameChange");
-      }
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    async function p(e, t) {
-      var n;
-      if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[mex][username] delete notification received",
-            ])),
-        );
-        var r = t.xwa2_notify_username_delete,
-          a = r.lid,
-          i = (n = r.display_name) != null ? n : "",
-          l = o("WAWebWidFactory").createUserLidOrThrow(a),
-          u = await o("WAWebSetUsernameJob").deleteUsernamesJob([
-            { userId: l, displayNameLID: i },
-          ]);
-        await o(
-          "WAWebInsertUsernameChangeSystemMsg",
-        ).maybeInsertUsernameChangeSystemMsgs(
-          [{ userId: l, deleteUsername: !0, displayNameLID: i }],
-          u,
-          "mexHandleUsernameDelete",
-        );
-      }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[mex][username] set notification received",
+                ])),
+            );
+            var r = n.xwa2_notify_username_on_change,
+              a = r.username,
+              i = r.lid,
+              l = o("WAWebWidFactory").createUserLidOrThrow(i),
+              s = [
+                { userId: l, username: o("WAWebUsernameTypes").asUsername(a) },
+              ],
+              u = yield o("WAWebSetUsernameJob").setUsernamesJob(s);
+            yield o(
+              "WAWebInsertUsernameChangeSystemMsg",
+            ).maybeInsertUsernameChangeSystemMsgs(
+              s,
+              u,
+              "mexHandleUsernameChange",
+            );
+          }
+        })),
+        p.apply(this, arguments)
+      );
     }
-    async function _(e, t) {
-      var n;
-      if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[mex][username] side-sub change notification",
-            ])),
-        );
-        var r = t.xwa2_notify_username_on_update_side_sub.hash,
-          a = await o("WAWebApiContact").getContactRecordByHash(r);
-        if (a == null) {
-          o("WALogger").WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[mex][username] side contact hash not found",
-              ])),
-          );
-          return;
-        }
-        if (a.isAddressBookContact === 1) {
-          o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "[mex][username] side-sub notif for contact, skip",
-              ])),
-          );
-          return;
-        }
-        var i = o("WAWebWidFactory").createUserLidOrThrow(a.id);
-        if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
-          var l = await o("WAWebQueryExistsJob").queryWidUsernameExists(i);
-          l == null ||
-            l.wasUpdated !== !0 ||
-            (l.wasPreviouslyKnown === !0 &&
-              (await o(
-                "WAWebInsertUsernameChangeSystemMsg",
-              ).generateUsernameChangeNotificationSystemMsg({
-                wid: o("WAWebWidFactory").asUserLidOrThrow(i),
-                oldUsername: l.oldUsername,
-                newUsername: (n = l.username) != null ? n : "",
-              })));
-        }
-      }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[mex][username] delete notification received",
+                ])),
+            );
+            var r = t.xwa2_notify_username_delete,
+              a = r.lid,
+              i = (n = r.display_name) != null ? n : "",
+              l = o("WAWebWidFactory").createUserLidOrThrow(a),
+              u = yield o("WAWebSetUsernameJob").deleteUsernamesJob([
+                { userId: l, displayNameLID: i },
+              ]);
+            yield o(
+              "WAWebInsertUsernameChangeSystemMsg",
+            ).maybeInsertUsernameChangeSystemMsgs(
+              [{ userId: l, deleteUsername: !0, displayNameLID: i }],
+              u,
+              "mexHandleUsernameDelete",
+            );
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[mex][username] side-sub change notification",
+                ])),
+            );
+            var r = t.xwa2_notify_username_on_update_side_sub.hash,
+              a = yield o("WAWebApiContact").getContactRecordByHash(r);
+            if (a == null) {
+              o("WALogger").WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex][username] side contact hash not found",
+                  ])),
+              );
+              return;
+            }
+            if (a.isAddressBookContact === 1) {
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex][username] side-sub notif for contact, skip",
+                  ])),
+              );
+              return;
+            }
+            var i = o("WAWebWidFactory").createUserLidOrThrow(a.id);
+            if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
+              var l = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
+              l == null ||
+                l.wasUpdated !== !0 ||
+                (l.wasPreviouslyKnown === !0 &&
+                  (yield o(
+                    "WAWebInsertUsernameChangeSystemMsg",
+                  ).generateUsernameChangeNotificationSystemMsg({
+                    wid: o("WAWebWidFactory").asUserLidOrThrow(i),
+                    oldUsername: l.oldUsername,
+                    newUsername: (n = l.username) != null ? n : "",
+                  })));
+            }
+          }
+        })),
+        h.apply(this, arguments)
+      );
     }
     ((l.mexHandleUsernameChange = m),
-      (l.mexHandleUsernameDelete = p),
-      (l.mexHandleUsernameChangeForSideSub = _));
+      (l.mexHandleUsernameDelete = _),
+      (l.mexHandleUsernameChangeForSideSub = g));
   },
   98,
 );

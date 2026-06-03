@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugSyncd",
   [
+    "Promise",
     "WALogger",
     "WASyncdConst",
     "WASyncdKeyTypes",
@@ -24,234 +25,279 @@ __d(
     "WAWebSyncdIndexUtils",
     "WAWebSyncdWamUtils",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    async function m(t) {
-      var n,
-        r = await o("WAWebSchemaSyncActions").getSyncActionsTable().get(t);
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        r &&
-          (n = o("decodeProtobuf").decodeProtobuf(
-            o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-            r.binarySyncData,
-          ).value),
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "decodeSyncAction : ",
-              "",
-            ])),
-          JSON.stringify(n),
-        ),
-        n
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            r = yield o("WAWebSchemaSyncActions").getSyncActionsTable().get(t);
+          return (
+            r &&
+              (n = o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                r.binarySyncData,
+              ).value),
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "decodeSyncAction : ",
+                  "",
+                ])),
+              JSON.stringify(n),
+            ),
+            n
+          );
+        })),
+        _.apply(this, arguments)
       );
     }
-    m.doc = "Decode binary sync action value from sync-actions table";
-    function p(e) {
+    p.doc = "Decode binary sync action value from sync-actions table";
+    function f(e) {
       o("WAWebSyncdFatal").handleFatalError(e);
     }
-    p.doc = "enter syncd fatal state";
-    function _(e) {
+    f.doc = "enter syncd fatal state";
+    function g(e) {
       return o("WAWebApiActiveMessageRanges").getActiveMessageRanges(e);
     }
-    _.doc = "get all active message ranges for a chat";
-    function f() {
+    g.doc = "get all active message ranges for a chat";
+    function h() {
       return o("WAWebSyncdDb");
     }
-    f.doc = "SyncDB internal API";
-    async function g(e) {
-      e === void 0 && (e = 10);
-      var t = await Promise.all(
-          Array(e)
-            .fill(null)
-            .map(async function () {
-              return new (r("WAWebMsgKey"))({
-                id: await r("WAWebMsgKey").newId(),
-                remote: o("WAWebWidFactory").createWid("12345@c.us"),
-                fromMe: !0,
-              });
-            }),
-        ),
-        n = (
-          await r("WAWebStarMessageSync").getStarMessageMutations(t, !0)
-        ).map(function (e) {
-          var t = o(
-            "WAWebSyncdCollectionHandlerTypesConverter",
-          ).syncActionToSyncData(e.binarySyncAction);
-          return o(
-            "WAWebSyncdCollectionHandlerTypesConverter",
-          ).setMutationToSyncAction(
-            {
-              index: e.index,
-              version: e.version,
-              keyId: o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(6)),
-              indexMac: new ArrayBuffer(32),
-              valueMac: new ArrayBuffer(32),
-              collection: e.collection,
-              binarySyncData: t,
-              timestamp: e.timestamp,
-            },
-            o("WASyncdConst").SyncActionState.Orphan,
-            o("WASyncdConst").Actions.Star,
-            o("WAWebSyncdIndexUtils")
-              .getMsgKeyFromStarActionIndex(e.index)
-              .toString(),
-            o("WASyncdConst").SyncModelType.Msg,
-          );
-        });
-      await o("WAWebSyncdDb").setSyncActionRows(
-        n.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
-      );
+    h.doc = "SyncDB internal API";
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    g.doc =
-      "generate orphan mutations for star message with random message keys";
-    async function h(e) {
-      e === void 0 && (e = 10);
-      var t = Array.from(Array(e).keys(), function () {
-          return {
-            id: new (r("WAWebMsgKey"))({
-              id: r("WAWebMsgKey").newId_DEPRECATED(),
-              remote: o("WAWebWidFactory").createWid("12345@c.us"),
-              fromMe: !0,
-            }),
-            t: o("WATimeUtils").unixTimeMs(),
-          };
-        }),
-        n = (
-          await r("WAWebDeleteMessageForMeSync").getDeleteForMeMutations(t, !0)
-        ).map(function (e) {
-          var t = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-              e.binarySyncAction,
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e === void 0 && (e = 10);
+          var t = yield (m || (m = n("Promise"))).all(
+              Array(e)
+                .fill(null)
+                .map(
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    return new (r("WAWebMsgKey"))({
+                      id: yield r("WAWebMsgKey").newId(),
+                      remote: o("WAWebWidFactory").createWid("12345@c.us"),
+                      fromMe: !0,
+                    });
+                  }),
+                ),
             ),
-            n = o("encodeProtobuf")
-              .encodeProtobuf(
-                o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                { value: t },
-              )
-              .readBuffer();
-          return o(
-            "WAWebSyncdCollectionHandlerTypesConverter",
-          ).setMutationToSyncAction(
-            {
-              index: e.index,
-              version: e.version,
-              keyId: o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(6)),
-              indexMac: new ArrayBuffer(32),
-              valueMac: new ArrayBuffer(32),
-              collection: e.collection,
-              binarySyncData: n,
-              timestamp: e.timestamp,
-            },
-            o("WASyncdConst").SyncActionState.Orphan,
-            o("WASyncdConst").Actions.DeleteMessageForMe,
-            o("WAWebSyncdIndexUtils")
-              .getMsgKeyFromStarActionIndex(e.index)
-              .toString(),
-            o("WASyncdConst").SyncModelType.Msg,
+            a = (yield r("WAWebStarMessageSync").getStarMessageMutations(
+              t,
+              !0,
+            )).map(function (e) {
+              var t = o(
+                "WAWebSyncdCollectionHandlerTypesConverter",
+              ).syncActionToSyncData(e.binarySyncAction);
+              return o(
+                "WAWebSyncdCollectionHandlerTypesConverter",
+              ).setMutationToSyncAction(
+                {
+                  index: e.index,
+                  version: e.version,
+                  keyId: o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(6)),
+                  indexMac: new ArrayBuffer(32),
+                  valueMac: new ArrayBuffer(32),
+                  collection: e.collection,
+                  binarySyncData: t,
+                  timestamp: e.timestamp,
+                },
+                o("WASyncdConst").SyncActionState.Orphan,
+                o("WASyncdConst").Actions.Star,
+                o("WAWebSyncdIndexUtils")
+                  .getMsgKeyFromStarActionIndex(e.index)
+                  .toString(),
+                o("WASyncdConst").SyncModelType.Msg,
+              );
+            });
+          yield o("WAWebSyncdDb").setSyncActionRows(
+            a.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
           );
-        });
-      await o("WAWebSyncdDb").setSyncActionRows(
-        n.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
+        })),
+        C.apply(this, arguments)
       );
     }
-    h.doc =
+    y.doc =
+      "generate orphan mutations for star message with random message keys";
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e === void 0 && (e = 10);
+          var t = Array.from(Array(e).keys(), function () {
+              return {
+                id: new (r("WAWebMsgKey"))({
+                  id: r("WAWebMsgKey").newId_DEPRECATED(),
+                  remote: o("WAWebWidFactory").createWid("12345@c.us"),
+                  fromMe: !0,
+                }),
+                t: o("WATimeUtils").unixTimeMs(),
+              };
+            }),
+            n = (yield r("WAWebDeleteMessageForMeSync").getDeleteForMeMutations(
+              t,
+              !0,
+            )).map(function (e) {
+              var t = o("decodeProtobuf").decodeProtobuf(
+                  o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                  e.binarySyncAction,
+                ),
+                n = o("encodeProtobuf")
+                  .encodeProtobuf(
+                    o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                    { value: t },
+                  )
+                  .readBuffer();
+              return o(
+                "WAWebSyncdCollectionHandlerTypesConverter",
+              ).setMutationToSyncAction(
+                {
+                  index: e.index,
+                  version: e.version,
+                  keyId: o("WASyncdKeyTypes").toSyncKeyId(new ArrayBuffer(6)),
+                  indexMac: new ArrayBuffer(32),
+                  valueMac: new ArrayBuffer(32),
+                  collection: e.collection,
+                  binarySyncData: n,
+                  timestamp: e.timestamp,
+                },
+                o("WASyncdConst").SyncActionState.Orphan,
+                o("WASyncdConst").Actions.DeleteMessageForMe,
+                o("WAWebSyncdIndexUtils")
+                  .getMsgKeyFromStarActionIndex(e.index)
+                  .toString(),
+                o("WASyncdConst").SyncModelType.Msg,
+              );
+            });
+          yield o("WAWebSyncdDb").setSyncActionRows(
+            n.map(o("WAWebSchemaSyncActions").convertFromSyncActionToRow),
+          );
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    b.doc =
       "generate orphan mutations for delete message for me with random message keys";
-    function y() {
+    function S() {
       return o("WAWebSyncdWamUtils").getKeyStats();
     }
-    y.doc = "SyncD key statistics";
-    async function C() {
-      var e,
-        t = await m('["primary_version","current"]');
-      return t == null || (e = t.primaryVersionAction) == null
-        ? void 0
-        : e.version;
+    S.doc = "SyncD key statistics";
+    function R() {
+      return L.apply(this, arguments);
     }
-    C.doc = "getPrimaryVersion";
-    function b() {
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t = yield p('["primary_version","current"]');
+          return t == null || (e = t.primaryVersionAction) == null
+            ? void 0
+            : e.version;
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    R.doc = "getPrimaryVersion";
+    function E() {
       return o("WAWebPrimaryVersion").getPrimaryCurrentVersion();
     }
-    b.doc = "current primary app version";
-    function v() {
+    E.doc = "current primary app version";
+    function k() {
       return o("WAWebPrimaryVersion").getPrimarySessionStartVersion();
     }
-    v.doc = "primary app version at the time of syncd session start";
-    function S() {
+    k.doc = "primary app version at the time of syncd session start";
+    function I() {
       return r("WAWebSentinel")();
     }
-    async function R() {
-      var e = o("WAWebSchemaSyncActions").getSyncActionsTable(),
-        t = await e.all(),
-        n = t.filter(function (e) {
-          return (
-            e.collection === o("WASyncdConst").CollectionName.Regular &&
-            e.actionState !== o("WASyncdConst").SyncActionState.Orphan &&
-            e.actionState !== o("WASyncdConst").SyncActionState.Failed
-          );
-        });
-      if (n.length === 0) {
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "No stored SyncD mutations found in regular collection",
-            ])),
-        );
-        return;
-      }
-      var r = n.reduce(function (e, t) {
-        return t.timestamp > e.timestamp ? t : e;
-      });
-      o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose([
-            "Found last stored SyncD mutation in regular collection: ",
-            "",
-          ])),
-        r.index,
-      );
-      var a = o("WATimeUtils").unixTimeMs(),
-        i = { timestamp: a },
-        l = {
-          collection: o("WASyncdConst").CollectionName.Regular,
-          index: r.index,
-          binarySyncAction: o("encodeProtobuf")
-            .encodeProtobuf(
-              o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-              i,
-            )
-            .readBuffer(),
-          version: r.version,
-          operation: o("WAWebProtobufsServerSync.pb")
-            .SyncdMutation$SyncdOperation.REMOVE,
-          timestamp: a,
-          action: r.action,
-        };
-      (await o("WAWebSyncdDb").appendPendingMutationsRows([l]),
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "Created REMOVE mutation for: ",
-              "",
-            ])),
-          r.index,
-        ),
-        await o("WAWebSyncd").markCollectionsForSync([
-          o("WASyncdConst").CollectionName.Regular,
-        ]),
-        o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
-              "Submitted REMOVE mutation to server for collection regular",
-            ])),
-        ));
+    function T() {
+      return D.apply(this, arguments);
     }
-    R.doc =
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebSchemaSyncActions").getSyncActionsTable(),
+            t = yield e.all(),
+            n = t.filter(function (e) {
+              return (
+                e.collection === o("WASyncdConst").CollectionName.Regular &&
+                e.actionState !== o("WASyncdConst").SyncActionState.Orphan &&
+                e.actionState !== o("WASyncdConst").SyncActionState.Failed
+              );
+            });
+          if (n.length === 0) {
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "No stored SyncD mutations found in regular collection",
+                ])),
+            );
+            return;
+          }
+          var r = n.reduce(function (e, t) {
+            return t.timestamp > e.timestamp ? t : e;
+          });
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "Found last stored SyncD mutation in regular collection: ",
+                "",
+              ])),
+            r.index,
+          );
+          var a = o("WATimeUtils").unixTimeMs(),
+            i = { timestamp: a },
+            l = {
+              collection: o("WASyncdConst").CollectionName.Regular,
+              index: r.index,
+              binarySyncAction: o("encodeProtobuf")
+                .encodeProtobuf(
+                  o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                  i,
+                )
+                .readBuffer(),
+              version: r.version,
+              operation: o("WAWebProtobufsServerSync.pb")
+                .SyncdMutation$SyncdOperation.REMOVE,
+              timestamp: a,
+              action: r.action,
+            };
+          (yield o("WAWebSyncdDb").appendPendingMutationsRows([l]),
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "Created REMOVE mutation for: ",
+                  "",
+                ])),
+              r.index,
+            ),
+            yield o("WAWebSyncd").markCollectionsForSync([
+              o("WASyncdConst").CollectionName.Regular,
+            ]),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "Submitted REMOVE mutation to server for collection regular",
+                ])),
+            ));
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    T.doc =
       "Issues a REMOVE mutation for the last stored SyncD mutation in regular collection";
-    function L() {
+    function x() {
       o("WAWebKeyManagementHandleKeyShareApi").setAppStateSyncKeyShareHandler(
         function (e) {
           return function () {
@@ -261,13 +307,13 @@ __d(
               ).setAppStateSyncKeyShareHandler(function (t) {
                 return e;
               }),
-              Promise.resolve()
+              (m || (m = n("Promise"))).resolve()
             );
           };
         },
       );
     }
-    function E(e) {
+    function $(e) {
       return o("WAWebSendNonMessageDataRequest").sendPeerDataOperationRequest(
         o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY,
@@ -277,24 +323,24 @@ __d(
         },
       );
     }
-    E.doc = "requestSyncdSnapshotRecovery";
-    var k = {
-      enterSyncdFatalState: p,
-      getActiveMessageRanges: _,
-      decodeBinarySyncAction: m,
-      generateOrphanStarMessageMutations: g,
-      generateOrphanDeleteMessageForMeMutations: h,
-      getSyncDB: f,
-      getSyncdKeyStats: y,
-      getPrimaryVersion: C,
-      getPrimaryCurrentVersion: b,
-      getPrimarySessionStartVersion: v,
-      sendSentinelPatch: S,
-      removeLastStoredSyncDMutationForCollectionRegular: R,
-      ignoreNextSyncdKeyShare: L,
-      requestSyncdSnapshotRecovery: E,
+    $.doc = "requestSyncdSnapshotRecovery";
+    var P = {
+      enterSyncdFatalState: f,
+      getActiveMessageRanges: g,
+      decodeBinarySyncAction: p,
+      generateOrphanStarMessageMutations: y,
+      generateOrphanDeleteMessageForMeMutations: b,
+      getSyncDB: h,
+      getSyncdKeyStats: S,
+      getPrimaryVersion: R,
+      getPrimaryCurrentVersion: E,
+      getPrimarySessionStartVersion: k,
+      sendSentinelPatch: I,
+      removeLastStoredSyncDMutationForCollectionRegular: T,
+      ignoreNextSyncdKeyShare: x,
+      requestSyncdSnapshotRecovery: $,
     };
-    l.default = k;
+    l.default = P;
   },
   98,
 );

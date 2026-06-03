@@ -4,11 +4,17 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [{ defaultValue: null, kind: "LocalArgument", name: "id" }],
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "id" },
+          { defaultValue: "AUTO_SAVE", kind: "LocalArgument", name: "source" },
+        ],
         t = [
           {
             alias: null,
-            args: [{ kind: "Variable", name: "id", variableName: "id" }],
+            args: [
+              { kind: "Variable", name: "id", variableName: "id" },
+              { kind: "Variable", name: "source", variableName: "source" },
+            ],
             concreteType: "XFBMAIBAPotentialKnowledgeMutationResponse",
             kind: "LinkedField",
             name: "xfb_maiba_delete_potential_knowledge_mutation",

@@ -35,6 +35,7 @@ __d(
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
     "WAWebVoipWebTransportConnectionManager",
+    "asyncToGeneratorRuntime",
     "err",
     "justknobx",
   ],
@@ -125,169 +126,195 @@ __d(
       return {
         type: "web",
         parsers: r("WAWebVoipJsonParsersWeb"),
-        voipInit: async function (t, n, a) {
-          var e = await A;
-          ((O = e),
-            o("WAWebVoipGatingUtils").isWebTransportEnabled() && B(),
-            o("WAWebVoipStorageInit").initVoipStorageAndMLCache(e));
-          var i = !1,
-            _ = !1;
-          try {
-            await o(
-              "WAWebVoipVideoRendererRegistry",
-            ).videoRendererRegistry.init();
-            var f = o(
-              "WAWebVoipVideoRendererRegistry",
-            ).videoRendererRegistry.getRendererType();
-            i =
-              f ===
-              o("WAWebVoipVideoRendererInterface").WAWebVoipVideoRendererType
-                .WEBCODECS_H264;
-            var g = o("WAWebABProps").getABPropConfigValue(
-                "enable_webcodec_video_encode",
+        voipInit: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var a = yield A;
+              ((O = a),
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() && B(),
+                o("WAWebVoipStorageInit").initVoipStorageAndMLCache(a));
+              var i = !1,
+                _ = !1;
+              try {
+                yield o(
+                  "WAWebVoipVideoRendererRegistry",
+                ).videoRendererRegistry.init();
+                var f = o(
+                  "WAWebVoipVideoRendererRegistry",
+                ).videoRendererRegistry.getRendererType();
+                i =
+                  f ===
+                  o("WAWebVoipVideoRendererInterface")
+                    .WAWebVoipVideoRendererType.WEBCODECS_H264;
+                var g = o("WAWebABProps").getABPropConfigValue(
+                    "enable_webcodec_video_encode",
+                  ),
+                  h =
+                    i ||
+                    (yield o(
+                      "WAWebVoipVideoWebCodecsRenderer",
+                    ).WAWebVoipVideoWebCodecsRenderer.checkAvailability());
+                _ =
+                  !o("WAWebUA").UA.isFirefox && h && g === !0
+                    ? yield o(
+                        "WAWebVoipWebCodecsEncoderState",
+                      ).checkEncoderSupport()
+                    : !1;
+              } catch (e) {
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: video capability detection failed, disabling passthrough encode/decode: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+              (o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: voipInit: ptDec=",
+                    " ptEnc=",
+                    "",
+                  ])),
+                i,
+                _,
               ),
-              h =
-                i ||
-                (await o(
-                  "WAWebVoipVideoWebCodecsRenderer",
-                ).WAWebVoipVideoWebCodecsRenderer.checkAvailability());
-            _ =
-              !o("WAWebUA").UA.isFirefox && h && g === !0
-                ? await o(
-                    "WAWebVoipWebCodecsEncoderState",
-                  ).checkEncoderSupport()
-                : !1;
-          } catch (e) {
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: video capability detection failed, disabling passthrough encode/decode: ",
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [webcodec-encode] enabled=",
+                      "",
+                    ])),
+                  _,
+                ),
+                o("WAWebVoipWebCodecsEncoderState").setWebCodecsEncoderEnabled(
+                  _,
+                ),
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [webcodec-encode] WebCodecs encoder state ",
+                      "",
+                    ])),
+                  _,
+                ),
+                o("WAWebABProps").getABPropConfigValue(
+                  "wmi_worker_scheduler_web",
+                )
+                  ? yield r("WACommonTaskScheduler").yield()
+                  : yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+                o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                  o("WAWebVoipQplHelpers").VoipInitQplPoint
+                    .VOIP_STACK_INIT_START,
+                ));
+              try {
+                (o("WAWebVoipStackInterfaceWebHelpers").setABPropsOnWasm(a),
+                  a.setABPropBool("enable_passthrough_video_decoder", i),
+                  a.setABPropBool("enable_webcodec_video_encode", _),
+                  o(
+                    "WAWebLowEndDeviceExperimentGating",
+                  ).shouldDisableSoftwareAudioProcessing() &&
+                    (a.setABPropBool("ns_builtin_available", !0),
+                    a.setABPropBool("disable_sw_ns_when_builtin_available", !0),
+                    a.setABPropBool("ml_ns_skip_processing", !0),
+                    a.setABPropBool("disable_agc", !0),
+                    a.setABPropBool("hw_aec_available", !0),
+                    a.setABPropBool("disable_sw_ec_when_builtin_available", !0),
+                    a.setABPropBool("disable_standalone_agc", !0),
+                    a.setABPropBool("disable_eq", !0)),
+                  a.initVoipStack(e, t, n));
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    a,
+                    e,
+                  ),
+                  e
+                );
+              } finally {
+                o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                  o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_END,
+                );
+              }
+              (o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
+                a,
+                "voip_stack_init",
+              ),
+                o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+                  o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
+                    .LOG_RING_BUFFER,
+                ) && o("WAWebVoipLogDrainer").startLogDrainer(a));
+              var y = a.getWebP2PVirtualIpv4(),
+                C = a.getWebP2PVirtualIpv6(),
+                b = a.getWebP2PVirtualPort();
+              (o("WAWebVoipP2PConnectionManager").initP2PVirtualAddresses(
+                y,
+                C,
+                b,
+              ),
+                o("WAWebVoipP2PConnectionManager").registerOnDataChannelMessage(
+                  function (e) {
+                    var t = new Uint8Array(e),
+                      n = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
+                        a,
+                        l,
+                        t.byteLength,
+                      );
+                    (a.GROWABLE_HEAP_U8().set(t, n),
+                      a.handleOnMessageFromHeap(n, t.byteLength, y, b));
+                  },
+                ));
+              var v = !1;
+              o(
+                "WAWebVoipP2PConnectionManager",
+              ).registerOnDataChannelStateChange(function (e) {
+                e === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
+                  ? ((v = !0),
+                    o("WALogger").LOG(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: P2P DataChannel opened, notifying WASM active=true",
+                        ])),
+                    ),
+                    a.notifyWebP2PChannelReady(!0, !1))
+                  : v &&
+                    ((v = !1),
+                    o("WALogger").LOG(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: P2P DataChannel state changed to ",
+                          " after being open, notifying WASM active=false",
+                        ])),
+                      e,
+                    ),
+                    a.notifyWebP2PChannelReady(!1, !1));
+              });
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        setHideMyIp: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: setHideMyIp called with hideMyIp=",
                   "",
                 ])),
               e,
             );
+            var t = yield A;
+            t.setHideMyIp(e);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: voipInit: ptDec=",
-                " ptEnc=",
-                "",
-              ])),
-            i,
-            _,
-          ),
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [webcodec-encode] enabled=",
-                  "",
-                ])),
-              _,
-            ),
-            o("WAWebVoipWebCodecsEncoderState").setWebCodecsEncoderEnabled(_),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [webcodec-encode] WebCodecs encoder state ",
-                  "",
-                ])),
-              _,
-            ),
-            o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-              ? await r("WACommonTaskScheduler").yield()
-              : await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-            o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-              o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_START,
-            ));
-          try {
-            (o("WAWebVoipStackInterfaceWebHelpers").setABPropsOnWasm(e),
-              e.setABPropBool("enable_passthrough_video_decoder", i),
-              e.setABPropBool("enable_webcodec_video_encode", _),
-              o(
-                "WAWebLowEndDeviceExperimentGating",
-              ).shouldDisableSoftwareAudioProcessing() &&
-                (e.setABPropBool("ns_builtin_available", !0),
-                e.setABPropBool("disable_sw_ns_when_builtin_available", !0),
-                e.setABPropBool("ml_ns_skip_processing", !0),
-                e.setABPropBool("disable_agc", !0),
-                e.setABPropBool("hw_aec_available", !0),
-                e.setABPropBool("disable_sw_ec_when_builtin_available", !0),
-                e.setABPropBool("disable_standalone_agc", !0),
-                e.setABPropBool("disable_eq", !0)),
-              e.initVoipStack(t, n, a));
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          } finally {
-            o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-              o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_END,
-            );
-          }
-          (o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
-            e,
-            "voip_stack_init",
-          ),
-            o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-              o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                .LOG_RING_BUFFER,
-            ) && o("WAWebVoipLogDrainer").startLogDrainer(e));
-          var y = e.getWebP2PVirtualIpv4(),
-            C = e.getWebP2PVirtualIpv6(),
-            b = e.getWebP2PVirtualPort();
-          (o("WAWebVoipP2PConnectionManager").initP2PVirtualAddresses(y, C, b),
-            o("WAWebVoipP2PConnectionManager").registerOnDataChannelMessage(
-              function (t) {
-                var n = new Uint8Array(t),
-                  r = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
-                    e,
-                    l,
-                    n.byteLength,
-                  );
-                (e.GROWABLE_HEAP_U8().set(n, r),
-                  e.handleOnMessageFromHeap(r, n.byteLength, y, b));
-              },
-            ));
-          var v = !1;
-          o("WAWebVoipP2PConnectionManager").registerOnDataChannelStateChange(
-            function (t) {
-              t === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
-                ? ((v = !0),
-                  o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: P2P DataChannel opened, notifying WASM active=true",
-                      ])),
-                  ),
-                  e.notifyWebP2PChannelReady(!0, !1))
-                : v &&
-                  ((v = !1),
-                  o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: P2P DataChannel state changed to ",
-                        " after being open, notifying WASM active=false",
-                      ])),
-                    t,
-                  ),
-                  e.notifyWebP2PChannelReady(!1, !1));
-            },
-          );
-        },
-        setHideMyIp: async function (t) {
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: setHideMyIp called with hideMyIp=",
-                "",
-              ])),
-            t,
-          );
-          var e = await A;
-          e.setHideMyIp(t);
-        },
+          return t;
+        })(),
         handleSignOut: function () {
           (o("WALogger").LOG(
             f ||
@@ -305,720 +332,1036 @@ __d(
               o("WAWebVoipWasmHeapBuffer").freeHeapBuffer(e, l);
             }).catch(r("WAWebNoop")));
         },
-        startCall: async function (t, n, r, a, i, l, s) {
-          var e = await A;
-          o("WAWebBweMLModelManager")
-            .initBweMLModelsForCall(e)
-            .catch(function (e) {
-              o("WALogger").WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [initBweMLModelsForCall] unhandled error: ",
-                    "",
-                  ])),
-                e,
-              );
-            });
-          var u = new e.StringList();
-          n.forEach(function (e) {
-            u.push_back(e);
-          });
-          var c = F(e, s);
-          try {
-            e.startVoipCall(t.toString({ legacy: !0 }), u, r, a, i, l, c);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          } finally {
-            u.delete();
-          }
-        },
-        startGroupCall: async function (t, n, r, a, i, l, s, u, c, d, m, p, _) {
-          if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
-            o("WALogger").ERROR(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: startGroupCall: Web group calling is not enabled",
-                ])),
-            );
-            return;
-          }
-          var e = await A;
-          o("WAWebBweMLModelManager")
-            .initBweMLModelsForCall(e)
-            .catch(function (e) {
-              o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [initBweMLModelsForCall] unhandled error: ",
-                    "",
-                  ])),
-                e,
-              );
-            });
-          var f = new e.StringList();
-          t.forEach(function (e) {
-            f.push_back(e);
-          });
-          var g = new e.StringList();
-          n.forEach(function (e) {
-            g.push_back(e);
-          });
-          var b = new e.StringList();
-          r.forEach(function (e) {
-            b.push_back(e);
-          });
-          var v = e.startVoipGroupCall(
-            f,
-            g,
-            b,
-            a,
-            i,
-            l,
-            s,
-            u,
-            c,
-            d,
-            m != null ? m : 0,
-            p != null ? p : 0,
-            _ != null ? _ : "",
-          );
-          (v !== 0 &&
-            o("WALogger")
-              .ERROR(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: startGroupCall: failed to start group call",
-                  ])),
-              )
-              .sendLogs("voip-start-group-call-failed"),
-            f.delete(),
-            g.delete(),
-            b.delete());
-        },
-        acceptCall: async function (t, n) {
-          var e = await A;
-          try {
-            e.acceptCall(t, n);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        rejectCall: async function () {
-          var e = await A;
-          try {
-            e.rejectCall();
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        endCall: async function (t, n) {
-          var e = await A;
-          o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-            o("WAWebVoipWebTransportConnectionManager").prepareForEndCall();
-          try {
-            e.endCall(t, n);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          } finally {
-            o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-              o("WAWebVoipWebTransportConnectionManager").closeAllConnections();
-          }
-        },
-        rejectCallWithoutCallContext: async function (t, n, r, o, a, i, l) {
-          var e = await A;
-          e.rejectCallWithoutCallContext(t, n, r, o, a, i, l);
-        },
-        joinOngoingCall: async function (
-          t,
-          n,
-          a,
-          i,
-          l,
-          s,
-          u,
-          c,
-          d,
-          m,
-          p,
-          _,
-          f,
-          g,
-          h,
-          y,
-          C,
-        ) {
-          if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
-            o("WALogger").ERROR(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: joinOngoingCall: Web group calling is not enabled",
-                ])),
-            );
-            return;
-          }
-          var e = await A,
-            S = new e.StringList();
-          i.forEach(function (e) {
-            S.push_back(e);
-          });
-          var R = new e.StringList();
-          l.forEach(function (e) {
-            R.push_back(e);
-          });
-          var L = new e.StringList();
-          s.forEach(function (e) {
-            L.push_back(e);
-          });
-          try {
-            var E = e.joinVoipOngoingCall(
-              t,
-              n,
-              a,
-              S,
-              R,
-              L,
-              u,
-              c,
-              d,
-              m,
-              p,
-              _,
-              f,
-              g,
-              h,
-              y != null ? y : 0,
-              C != null ? C : !1,
-            );
-            if (E !== 0)
-              throw r("err")(
-                "voip: joinOngoingCall: failed to join ongoing call",
-              );
-          } catch (e) {
-            (o("WAWebCoreActionsODS").logCallGroupJoinError(),
-              o("WALogger")
-                .ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: joinOngoingCall: failed to join ongoing call ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("voip-join-ongoing-call-failed"));
-          } finally {
-            (S.delete(), R.delete(), L.delete());
-          }
-        },
-        simulateNativeAnr: r("WAWebNoop"),
-        handleDeviceJidList: r("WAWebNoop"),
-        previewCallLink: async function (t, n, r, a, i) {
-          if (!o("WAWebVoipGatingUtils").callLinksEnabled())
-            return (
-              o("WALogger").ERROR(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: previewCallLink: Call link feature is not enabled",
-                  ])),
-              ),
-              -1
-            );
-          var e = 22;
-          if (t.length !== e)
-            return (
-              o("WALogger").ERROR(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: previewCallLink: invalid token length ",
-                    ", expected ",
-                    "",
-                  ])),
-                t.length,
-                e,
-              ),
-              -1
-            );
-          var l = await A;
-          try {
-            var s = l.previewCallLink(
-              t,
-              n,
-              r != null ? r : 0,
-              a != null ? a : "",
-              i != null ? i : !1,
-            );
-            return (
-              s !== 0 &&
-                o("WALogger")
-                  .ERROR(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: previewCallLink: failed with status ",
+        startCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, a, i, l) {
+              var s = yield A;
+              o("WAWebBweMLModelManager")
+                .initBweMLModelsForCall(s)
+                .catch(function (e) {
+                  o("WALogger").WARN(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [initBweMLModelsForCall] unhandled error: ",
                         "",
                       ])),
+                    e,
+                  );
+                });
+              var u = new s.StringList();
+              t.forEach(function (e) {
+                u.push_back(e);
+              });
+              var c = F(s, l);
+              try {
+                s.startVoipCall(e.toString({ legacy: !0 }), u, n, r, a, i, c);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
                     s,
-                  )
-                  .sendLogs("voip-preview-call-link-failed"),
-              s
-            );
-          } catch (e) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(l, e),
-              e
-            );
+                    e,
+                  ),
+                  e
+                );
+              } finally {
+                u.delete();
+              }
+            },
+          );
+          function t(t, n, r, o, a, i, l) {
+            return e.apply(this, arguments);
           }
-        },
-        joinCallLink: async function () {
-          if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
-            o("WALogger").ERROR(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: joinCallLink: Call link feature is not enabled",
-                ])),
-            );
-            return;
-          }
-          var e = await A;
-          try {
-            var t = e.joinCallLink();
-            t !== 0 &&
-              o("WALogger")
-                .ERROR(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: joinCallLink: failed with status ",
-                      "",
+          return t;
+        })(),
+        startGroupCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, a, i, l, s, u, c, d, m, p) {
+              if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
+                o("WALogger").ERROR(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: startGroupCall: Web group calling is not enabled",
                     ])),
+                );
+                return;
+              }
+              var _ = yield A;
+              o("WAWebBweMLModelManager")
+                .initBweMLModelsForCall(_)
+                .catch(function (e) {
+                  o("WALogger").WARN(
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [initBweMLModelsForCall] unhandled error: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                });
+              var f = new _.StringList();
+              e.forEach(function (e) {
+                f.push_back(e);
+              });
+              var g = new _.StringList();
+              t.forEach(function (e) {
+                g.push_back(e);
+              });
+              var b = new _.StringList();
+              n.forEach(function (e) {
+                b.push_back(e);
+              });
+              var v = _.startVoipGroupCall(
+                f,
+                g,
+                b,
+                r,
+                a,
+                i,
+                l,
+                s,
+                u,
+                c,
+                d != null ? d : 0,
+                m != null ? m : 0,
+                p != null ? p : "",
+              );
+              (v !== 0 &&
+                o("WALogger")
+                  .ERROR(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: startGroupCall: failed to start group call",
+                      ])),
+                  )
+                  .sendLogs("voip-start-group-call-failed"),
+                f.delete(),
+                g.delete(),
+                b.delete());
+            },
+          );
+          function t(t, n, r, o, a, i, l, s, u, c, d, m, p) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        acceptCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A;
+              try {
+                n.acceptCall(e, t);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    n,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        rejectCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A;
+            try {
+              e.rejectCall();
+            } catch (t) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                t
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        endCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A;
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                o("WAWebVoipWebTransportConnectionManager").prepareForEndCall();
+              try {
+                n.endCall(e, t);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    n,
+                    e,
+                  ),
+                  e
+                );
+              } finally {
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                  o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).closeAllConnections();
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        rejectCallWithoutCallContext: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, o, a, i) {
+              var l = yield A;
+              l.rejectCallWithoutCallContext(e, t, n, r, o, a, i);
+            },
+          );
+          function t(t, n, r, o, a, i, l) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        joinOngoingCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, a, i, l, s, u, c, d, m, p, _, f, g, h, y) {
+              if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
+                o("WALogger").ERROR(
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: joinOngoingCall: Web group calling is not enabled",
+                    ])),
+                );
+                return;
+              }
+              var C = yield A,
+                S = new C.StringList();
+              a.forEach(function (e) {
+                S.push_back(e);
+              });
+              var R = new C.StringList();
+              i.forEach(function (e) {
+                R.push_back(e);
+              });
+              var L = new C.StringList();
+              l.forEach(function (e) {
+                L.push_back(e);
+              });
+              try {
+                var E = C.joinVoipOngoingCall(
+                  e,
                   t,
-                )
-                .sendLogs("voip-join-call-link-failed");
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                  n,
+                  S,
+                  R,
+                  L,
+                  s,
+                  u,
+                  c,
+                  d,
+                  m,
+                  p,
+                  _,
+                  f,
+                  g,
+                  h != null ? h : 0,
+                  y != null ? y : !1,
+                );
+                if (E !== 0)
+                  throw r("err")(
+                    "voip: joinOngoingCall: failed to join ongoing call",
+                  );
+              } catch (e) {
+                (o("WAWebCoreActionsODS").logCallGroupJoinError(),
+                  o("WALogger")
+                    .ERROR(
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: joinOngoingCall: failed to join ongoing call ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("voip-join-ongoing-call-failed"));
+              } finally {
+                (S.delete(), R.delete(), L.delete());
+              }
+            },
+          );
+          function t(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        simulateNativeAnr: r("WAWebNoop"),
+        handleDeviceJidList: r("WAWebNoop"),
+        previewCallLink: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, a) {
+              if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                return (
+                  o("WALogger").ERROR(
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: Call link feature is not enabled",
+                      ])),
+                  ),
+                  -1
+                );
+              var i = 22;
+              if (e.length !== i)
+                return (
+                  o("WALogger").ERROR(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewCallLink: invalid token length ",
+                        ", expected ",
+                        "",
+                      ])),
+                    e.length,
+                    i,
+                  ),
+                  -1
+                );
+              var l = yield A;
+              try {
+                var s = l.previewCallLink(
+                  e,
+                  t,
+                  n != null ? n : 0,
+                  r != null ? r : "",
+                  a != null ? a : !1,
+                );
+                return (
+                  s !== 0 &&
+                    o("WALogger")
+                      .ERROR(
+                        L ||
+                          (L = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: previewCallLink: failed with status ",
+                            "",
+                          ])),
+                        s,
+                      )
+                      .sendLogs("voip-preview-call-link-failed"),
+                  s
+                );
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    l,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n, r, o, a) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        joinCallLink: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
+              o("WALogger").ERROR(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: joinCallLink: Call link feature is not enabled",
+                  ])),
+              );
+              return;
+            }
+            var e = yield A;
+            try {
+              var t = e.joinCallLink();
+              t !== 0 &&
+                o("WALogger")
+                  .ERROR(
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: joinCallLink: failed with status ",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .sendLogs("voip-join-call-link-failed");
+            } catch (t) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
+                t
+              );
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        previewAndJoinCallLink: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, a) {
+              if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
+                o("WALogger").ERROR(
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: previewAndJoinCallLink: call links disabled",
+                    ])),
+                );
+                return;
+              }
+              var i = yield A;
+              try {
+                o("WAWebBweMLModelManager")
+                  .initBweMLModelsForCall(i)
+                  .catch(function (e) {
+                    o("WALogger").WARN(
+                      T ||
+                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [initBweMLModelsForCall] unhandled error: ",
+                          "",
+                        ])),
+                      e,
+                    );
+                  });
+                var l = i.previewAndJoinCallLink(
+                  e,
+                  t,
+                  n != null ? n : 0,
+                  r != null ? r : "",
+                  a != null ? a : !1,
+                );
+                l !== 0 &&
+                  o("WALogger")
+                    .ERROR(
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: previewAndJoinCallLink: failed with status ",
+                          "",
+                        ])),
+                      l,
+                    )
+                    .sendLogs("voip-preview-and-join-call-link-failed");
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    i,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n, r, o, a) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        handleIncomingSignalingOffer: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, a, i, l, s, u, c) {
+              var d = yield A;
+              o("WAWebBweMLModelManager")
+                .initBweMLModelsForCall(d)
+                .catch(function (e) {
+                  o("WALogger").WARN(
+                    x ||
+                      (x = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [initBweMLModelsForCall] unhandled error: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                });
+              var m = e.node();
+              r("justknobx")._("360") &&
+                o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(m);
+              var p = o("WABase64").encodeB64(o("WAWap").encodeStanza(m)),
+                _ = F(d, c),
+                f = a != null ? String(a) : "0",
+                g = i != null ? String(i) : "0";
+              try {
+                d.handleIncomingSignalingOffer(p, t, n, f, g, l, s, u, _);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    d,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n, r, o, a, i, l, s, u) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        handleIncomingSignalingMessage: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, a, i, l, s) {
+              var u = yield A,
+                c = o("WABase64").encodeB64(o("WAWap").encodeStanza(e.node())),
+                d = F(u, s),
+                m = r != null ? String(r) : "0",
+                p = a != null ? String(a) : "0";
+              try {
+                u.handleIncomingSignalingMessage(c, t, n, m, p, i, l, d);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    u,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n, r, o, a, i, l, s) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        handleIncomingSignalingAck: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, a, i) {
+              var l = yield A,
+                s = e.node();
+              r("justknobx")._("360") &&
+                o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(s);
+              var u = o("WABase64").encodeB64(o("WAWap").encodeStanza(s)),
+                c = F(l, i);
+              try {
+                l.handleIncomingSignalingAck(u, t, n, a, c);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    l,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n, r, o, a) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        handleIncomingSignalingReceipt: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = yield A,
+                a = o("WABase64").encodeB64(o("WAWap").encodeStanza(e.node())),
+                i = F(r, n);
+              try {
+                r.handleIncomingSignalingReceipt(a, t, i);
+              } catch (e) {
+                throw (
+                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
+                    r,
+                    e,
+                  ),
+                  e
+                );
+              }
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        resendOfferOnDecryptionFailure: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A;
+              n.resendOfferOnDecryptionFailure(e, t);
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        resendEncRekeyRetry: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A;
+              n.resendEncRekeyRetry(e, t);
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        notifyDeviceIdentityChangedOrDeleted: r("WAWebNoop"),
+        handleOnTransportMessage: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = O != null ? O : yield A,
+                a = new Uint8Array(e),
+                i = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
+                  r,
+                  l,
+                  a.byteLength,
+                );
+              i !== 0 &&
+                (r.GROWABLE_HEAP_U8().set(a, i),
+                r.handleOnMessageFromHeap(i, a.byteLength, t, n));
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        setCallMute: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.setCallMute(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        setCallVideoMute: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.setCallVideoMute(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        videoStreamPause: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.videoStreamPause();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        videoStreamResume: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.videoStreamResume();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        broadcastVideoState: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.broadcastVideoState();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        sendReaction: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A;
+            t.sendReaction(e);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        raiseHand: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A;
+            t.raiseHand(e);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        requestVideoUpgrade: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.requestVideoUpgrade();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getCallInfo: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.getCallInfo();
+            return (
+              t === "" &&
+                o("WALogger").ERROR(
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getCallInfo() failed to retrieve call info",
+                    ])),
+                ),
               t
             );
+          });
+          function t() {
+            return e.apply(this, arguments);
           }
-        },
-        previewAndJoinCallLink: async function (t, n, r, a, i) {
-          if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
-            o("WALogger").ERROR(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: previewAndJoinCallLink: call links disabled",
-                ])),
+          return t;
+        })(),
+        acceptPeerVideo: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.jid,
+              n = yield A,
+              r = n.acceptPeerVideo(t);
+            return (
+              r !== 0 &&
+                o("WALogger").ERROR(
+                  P ||
+                    (P = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: acceptPeerVideo: Failed with status ",
+                      "",
+                    ])),
+                  r,
+                ),
+              r
             );
-            return;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          var e = await A;
-          try {
-            o("WAWebBweMLModelManager")
-              .initBweMLModelsForCall(e)
-              .catch(function (e) {
-                o("WALogger").WARN(
-                  T ||
-                    (T = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [initBweMLModelsForCall] unhandled error: ",
+          return t;
+        })(),
+        requestPeerMute: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.requestPeerMute(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        removeCallParticipant: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.removeCallParticipant(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        waitingRoomAdmit: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.waitingRoomAdmit(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        waitingRoomDeny: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.waitingRoomDeny(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        waitingRoomAdmitAll: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.waitingRoomAdmitAll();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        waitingRoomToggleActiveCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.waitingRoomToggleActiveCall(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        updateParticipantsRxSubscription: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A,
+                r = new n.StringList();
+              e.forEach(function (e) {
+                r.push_back(e);
+              });
+              var o = new n.IntList();
+              t.forEach(function (e) {
+                o.push_back(e);
+              });
+              try {
+                var a = n.updateParticipantsRxSubscription(r, o);
+                return a;
+              } finally {
+                (r.delete(), o.delete());
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        startScreenShare: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.startScreenShare();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        stopScreenShare: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield A,
+              t = e.stopScreenShare();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        startVideoPreview: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A,
+                r = n.startVideoPreview(e, t);
+              return r;
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        requestKeyFrame: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield A,
+              n = t.requestKeyFrame(e);
+            return n;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        updateNetworkMedium: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A;
+              (n.updateNetworkMedium(e, 0),
+                o("WALogger").LOG(
+                  N ||
+                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: updateNetworkMedium: medium=",
+                      ", mtu=0",
+                    ])),
+                  e,
+                ));
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getNetworkConditionerState: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            try {
+              var e = yield A,
+                t = e.isTxNetworkConditionerOn(),
+                n = e.isRxNetworkConditionerOn(),
+                r = null,
+                o = null;
+              return (
+                t && (r = e.getCurrentTxNetworkConditionerParameters()),
+                n && (o = e.getCurrentRxNetworkConditionerParameters()),
+                { isTxOn: t, isRxOn: n, txParams: r, rxParams: o }
+              );
+            } catch (e) {
+              return null;
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getShortStatisticString: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            try {
+              var e = yield A;
+              return e.getShortStatisticString();
+            } catch (e) {
+              return "";
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getDebugStatisticString: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            try {
+              var e = yield A;
+              return e.getDebugStatisticString();
+            } catch (e) {
+              return "";
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        consumeVideoCaptureFps: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return o(
+              "WAWebVoipVideoCaptureFpsTracker",
+            ).consumeVideoCaptureFpsSnapshot();
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getVoipParam: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            try {
+              var t = yield A,
+                n = t.getVoipParam(e);
+              return (
+                o("WALogger").LOG(
+                  M ||
+                    (M = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getVoipParam(",
+                      ") = ",
                       "",
                     ])),
                   e,
-                );
-              });
-            var l = e.previewAndJoinCallLink(
-              t,
-              n,
-              r != null ? r : 0,
-              a != null ? a : "",
-              i != null ? i : !1,
-            );
-            l !== 0 &&
-              o("WALogger")
-                .ERROR(
-                  D ||
-                    (D = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewAndJoinCallLink: failed with status ",
+                  n,
+                ),
+                n
+              );
+            } catch (e) {
+              return (
+                o("WALogger").ERROR(
+                  w ||
+                    (w = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getVoipParam: error=",
                       "",
                     ])),
-                  l,
-                )
-                .sendLogs("voip-preview-and-join-call-link-failed");
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        handleIncomingSignalingOffer: async function (
-          t,
-          n,
-          a,
-          i,
-          l,
-          s,
-          u,
-          c,
-          d,
-        ) {
-          var e = await A;
-          o("WAWebBweMLModelManager")
-            .initBweMLModelsForCall(e)
-            .catch(function (e) {
-              o("WALogger").WARN(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [initBweMLModelsForCall] unhandled error: ",
-                    "",
-                  ])),
-                e,
+                  e,
+                ),
+                ""
               );
-            });
-          var m = t.node();
-          r("justknobx")._("360") &&
-            o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(m);
-          var p = o("WABase64").encodeB64(o("WAWap").encodeStanza(m)),
-            _ = F(e, d),
-            f = i != null ? String(i) : "0",
-            g = l != null ? String(l) : "0";
-          try {
-            e.handleIncomingSignalingOffer(p, n, a, f, g, s, u, c, _);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        handleIncomingSignalingMessage: async function (
-          t,
-          n,
-          r,
-          a,
-          i,
-          l,
-          s,
-          u,
-        ) {
-          var e = await A,
-            c = o("WABase64").encodeB64(o("WAWap").encodeStanza(t.node())),
-            d = F(e, u),
-            m = a != null ? String(a) : "0",
-            p = i != null ? String(i) : "0";
-          try {
-            e.handleIncomingSignalingMessage(c, n, r, m, p, l, s, d);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        handleIncomingSignalingAck: async function (t, n, a, i, l) {
-          var e = await A,
-            s = t.node();
-          r("justknobx")._("360") &&
-            o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(s);
-          var u = o("WABase64").encodeB64(o("WAWap").encodeStanza(s)),
-            c = F(e, l);
-          try {
-            e.handleIncomingSignalingAck(u, n, a, i, c);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        handleIncomingSignalingReceipt: async function (t, n, r) {
-          var e = await A,
-            a = o("WABase64").encodeB64(o("WAWap").encodeStanza(t.node())),
-            i = F(e, r);
-          try {
-            e.handleIncomingSignalingReceipt(a, n, i);
-          } catch (t) {
-            throw (
-              o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-              t
-            );
-          }
-        },
-        resendOfferOnDecryptionFailure: async function (t, n) {
-          var e = await A;
-          e.resendOfferOnDecryptionFailure(t, n);
-        },
-        resendEncRekeyRetry: async function (t, n) {
-          var e = await A;
-          e.resendEncRekeyRetry(t, n);
-        },
-        notifyDeviceIdentityChangedOrDeleted: r("WAWebNoop"),
-        handleOnTransportMessage: async function (t, n, r) {
-          var e = O != null ? O : await A,
-            a = new Uint8Array(t),
-            i = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
-              e,
-              l,
-              a.byteLength,
-            );
-          i !== 0 &&
-            (e.GROWABLE_HEAP_U8().set(a, i),
-            e.handleOnMessageFromHeap(i, a.byteLength, n, r));
-        },
-        setCallMute: async function (t) {
-          var e = await A,
-            n = e.setCallMute(t);
-          return n;
-        },
-        setCallVideoMute: async function (t) {
-          var e = await A,
-            n = e.setCallVideoMute(t);
-          return n;
-        },
-        videoStreamPause: async function () {
-          var e = await A,
-            t = e.videoStreamPause();
-          return t;
-        },
-        videoStreamResume: async function () {
-          var e = await A,
-            t = e.videoStreamResume();
-          return t;
-        },
-        broadcastVideoState: async function () {
-          var e = await A,
-            t = e.broadcastVideoState();
-          return t;
-        },
-        sendReaction: async function (t) {
-          var e = await A;
-          e.sendReaction(t);
-        },
-        raiseHand: async function (t) {
-          var e = await A;
-          e.raiseHand(t);
-        },
-        requestVideoUpgrade: async function () {
-          var e = await A,
-            t = e.requestVideoUpgrade();
-          return t;
-        },
-        getCallInfo: async function () {
-          var e = await A,
-            t = e.getCallInfo();
-          return (
-            t === "" &&
-              o("WALogger").ERROR(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: getCallInfo() failed to retrieve call info",
-                  ])),
-              ),
-            t
-          );
-        },
-        acceptPeerVideo: async function (t) {
-          var e = t.jid,
-            n = await A,
-            r = n.acceptPeerVideo(e);
-          return (
-            r !== 0 &&
-              o("WALogger").ERROR(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: acceptPeerVideo: Failed with status ",
-                    "",
-                  ])),
-                r,
-              ),
-            r
-          );
-        },
-        requestPeerMute: async function (t) {
-          var e = await A,
-            n = e.requestPeerMute(t);
-          return n;
-        },
-        removeCallParticipant: async function (t) {
-          var e = await A,
-            n = e.removeCallParticipant(t);
-          return n;
-        },
-        waitingRoomAdmit: async function (t) {
-          var e = await A,
-            n = e.waitingRoomAdmit(t);
-          return n;
-        },
-        waitingRoomDeny: async function (t) {
-          var e = await A,
-            n = e.waitingRoomDeny(t);
-          return n;
-        },
-        waitingRoomAdmitAll: async function () {
-          var e = await A,
-            t = e.waitingRoomAdmitAll();
-          return t;
-        },
-        waitingRoomToggleActiveCall: async function (t) {
-          var e = await A,
-            n = e.waitingRoomToggleActiveCall(t);
-          return n;
-        },
-        updateParticipantsRxSubscription: async function (t, n) {
-          var e = await A,
-            r = new e.StringList();
-          t.forEach(function (e) {
-            r.push_back(e);
+            }
           });
-          var o = new e.IntList();
-          n.forEach(function (e) {
-            o.push_back(e);
-          });
-          try {
-            var a = e.updateParticipantsRxSubscription(r, o);
-            return a;
-          } finally {
-            (r.delete(), o.delete());
+          function t(t) {
+            return e.apply(this, arguments);
           }
-        },
-        startScreenShare: async function () {
-          var e = await A,
-            t = e.startScreenShare();
           return t;
-        },
-        stopScreenShare: async function () {
-          var e = await A,
-            t = e.stopScreenShare();
+        })(),
+        sendWebP2PTransport: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r, o, a) {
+              var i = yield A,
+                l = JSON.stringify(a);
+              i.sendWebP2PTransport(e, t, n, r, o, l);
+            },
+          );
+          function t(t, n, r, o, a, i) {
+            return e.apply(this, arguments);
+          }
           return t;
-        },
-        startVideoPreview: async function (t, n) {
-          var e = await A,
-            r = e.startVideoPreview(t, n);
-          return r;
-        },
-        requestKeyFrame: async function (t) {
-          var e = await A,
-            n = e.requestKeyFrame(t);
-          return n;
-        },
-        updateNetworkMedium: async function (t, n) {
-          var e = await A;
-          (e.updateNetworkMedium(t, 0),
-            o("WALogger").LOG(
-              N ||
-                (N = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: updateNetworkMedium: medium=",
-                  ", mtu=0",
-                ])),
-              t,
-            ));
-        },
-        getNetworkConditionerState: async function () {
-          try {
-            var e = await A,
-              t = e.isTxNetworkConditionerOn(),
-              n = e.isRxNetworkConditionerOn(),
-              r = null,
-              o = null;
-            return (
-              t && (r = e.getCurrentTxNetworkConditionerParameters()),
-              n && (o = e.getCurrentRxNetworkConditionerParameters()),
-              { isTxOn: t, isRxOn: n, txParams: r, rxParams: o }
-            );
-          } catch (e) {
-            return null;
-          }
-        },
-        getShortStatisticString: async function () {
-          try {
-            var e = await A;
-            return e.getShortStatisticString();
-          } catch (e) {
-            return "";
-          }
-        },
-        getDebugStatisticString: async function () {
-          try {
-            var e = await A;
-            return e.getDebugStatisticString();
-          } catch (e) {
-            return "";
-          }
-        },
-        consumeVideoCaptureFps: async function () {
-          return o(
-            "WAWebVoipVideoCaptureFpsTracker",
-          ).consumeVideoCaptureFpsSnapshot();
-        },
-        getVoipParam: async function (t) {
-          try {
-            var e = await A,
-              n = e.getVoipParam(t);
-            return (
-              o("WALogger").LOG(
-                M ||
-                  (M = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: getVoipParam(",
-                    ") = ",
-                    "",
-                  ])),
-                t,
-                n,
-              ),
-              n
-            );
-          } catch (e) {
-            return (
-              o("WALogger").ERROR(
-                w ||
-                  (w = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: getVoipParam: error=",
-                    "",
-                  ])),
-                e,
-              ),
-              ""
-            );
-          }
-        },
-        sendWebP2PTransport: async function (t, n, r, o, a, i) {
-          var e = await A,
-            l = JSON.stringify(i);
-          e.sendWebP2PTransport(t, n, r, o, a, l);
-        },
+        })(),
         callbacks: t,
-        inviteToCall: async function (t, n, r) {
-          var e = await A,
-            o = new e.StringList();
-          r.forEach(function (e) {
-            return o.push_back(e);
-          });
-          var a = e.inviteToCall(t, n, o);
-        },
-        checkOngoingCalls: async function (t, n) {
-          var e = await A,
-            r = new e.StringList();
-          t.forEach(function (e) {
-            return r.push_back(e);
-          });
-          var o = new e.StringList();
-          n.forEach(function (e) {
-            return o.push_back(e);
-          });
-          try {
-            e.checkOngoingCalls(r, o);
-          } finally {
-            (r.delete(), o.delete());
+        inviteToCall: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = yield A,
+                o = new r.StringList();
+              n.forEach(function (e) {
+                return o.push_back(e);
+              });
+              var a = r.inviteToCall(e, t, o);
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
           }
-        },
+          return t;
+        })(),
+        checkOngoingCalls: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield A,
+                r = new n.StringList();
+              e.forEach(function (e) {
+                return r.push_back(e);
+              });
+              var o = new n.StringList();
+              t.forEach(function (e) {
+                return o.push_back(e);
+              });
+              try {
+                n.checkOngoingCalls(r, o);
+              } finally {
+                (r.delete(), o.delete());
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       };
     }
     function F(e, t) {

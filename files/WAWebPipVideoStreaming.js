@@ -1,6 +1,7 @@
 __d(
   "WAWebPipVideoStreaming",
   [
+    "Promise",
     "WABackoffUtils",
     "WALogger",
     "WAWebBuildConstants",
@@ -9,12 +10,14 @@ __d(
     "WAWebNetworkStatus",
     "WAWebSWBusActions",
     "WAWebWamEnumWebcRmrReasonCode",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = o("WAWebBuildConstants").WEB_PUBLIC_PATH + "stream/video",
-      u = (function () {
+      s,
+      u = o("WAWebBuildConstants").WEB_PUBLIC_PATH + "stream/video",
+      c = (function () {
         function t(t) {
           ((this.ranges = []),
             (this.buffer = []),
@@ -77,65 +80,75 @@ __d(
           t
         );
       })();
-    function c(e) {
+    function d(e) {
       var t = o("WAWebMsgCollection").MsgCollection.get(e);
       return t ? o("WAWebMedia").videoStreamingInfo(t) : null;
     }
-    async function d(e) {
-      var t = o("WAWebMsgCollection").MsgCollection.get(e.key);
-      if (!t) return null;
-      throw (
-        await t.downloadMedia({
-          downloadEvenIfExpensive: !0,
-          rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-            .VIDEO_STREAMING,
-          isUserInitiated: !0,
-        }),
-        r("err")("downloaded media instead of streaming")
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebMsgCollection").MsgCollection.get(e.key);
+          if (!t) return null;
+          throw (
+            yield t.downloadMedia({
+              downloadEvenIfExpensive: !0,
+              rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+                .VIDEO_STREAMING,
+              isUserInitiated: !0,
+            }),
+            r("err")("downloaded media instead of streaming")
+          );
+        })),
+        p.apply(this, arguments)
       );
     }
-    var m = {};
-    function p(e) {
+    var _ = {};
+    function f(e) {
       var t = e.action,
-        n = e.message;
+        a = e.message;
       switch (t) {
         case r("WAWebSWBusActions").REQUEST_STREAMING_INFO:
-          return c(n.key);
+          return d(a.key);
         case r("WAWebSWBusActions").EXP_BACKOFF:
           return o("WABackoffUtils")
-            .expDelaySec(n.generation, 60)
+            .expDelaySec(a.generation, 60)
             .then(function () {
               return r("WAWebNetworkStatus").waitIfOffline();
             });
         case r("WAWebSWBusActions").REQUEST_RMR:
-          return d(n);
+          return m(a);
         case r("WAWebSWBusActions").SEND_STREAMING_CHUNK: {
-          var a = n.msgKey,
-            i = o("WAWebMsgCollection").MsgCollection.get(a);
-          if (!i) {
-            delete m[a.toString()];
+          var i = a.msgKey,
+            l = o("WAWebMsgCollection").MsgCollection.get(i);
+          if (!l) {
+            delete _[i.toString()];
             return;
           }
-          var l;
-          (Object.prototype.hasOwnProperty.call(m, a)
-            ? (l = m[a.toString()])
-            : (m[a.toString()] = l = new u(i.size)),
-            l.push(n.data),
-            l.isComplete() &&
+          var u;
+          (Object.prototype.hasOwnProperty.call(_, i)
+            ? (u = _[i.toString()])
+            : (_[i.toString()] = u = new c(l.size)),
+            u.push(a.data),
+            u.isComplete() &&
               (o("WAWebMedia").manuallySetMedia({
-                msg: i,
-                media: l.serialize(),
+                msg: l,
+                media: u.serialize(),
                 rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                   .WEBC_RMR_REASON_CODE.VIDEO_STREAMING,
               }),
-              delete m[a.toString()]));
+              delete _[i.toString()]));
           break;
         }
         default:
-          return Promise.reject(r("err")("Invalid Video Streaming Action"));
+          return (s || (s = n("Promise"))).reject(
+            r("err")("Invalid Video Streaming Action"),
+          );
       }
     }
-    ((l.VIDEO_STREAM_URL = s), (l.handleVideoStreamingRequest = p));
+    ((l.VIDEO_STREAM_URL = u), (l.handleVideoStreamingRequest = f));
   },
   98,
 );

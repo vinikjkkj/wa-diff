@@ -1,6 +1,6 @@
 __d(
   "WAWebFlagEmojiAssetLoader",
-  ["WAWebEmoji", "WAWebEmojiAssetLoader", "WAWebEmojiConst", "lodash"],
+  ["WAMemoizeCache", "WAWebEmoji", "WAWebEmojiAssetLoader", "WAWebEmojiConst"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n,
@@ -25,37 +25,42 @@ __d(
         a
       );
     }
-    var s = r("lodash").memoize(function (t, n) {
-      var r = new Map(),
-        a = o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
-        i = n.categorizedEmojis,
-        l = n.orderedEmojis,
-        s = n.selector,
-        u = e(l, i);
-      for (var c of u) {
-        var d,
-          m = "emoji-" + s + "-b" + c,
-          p = 40;
-        r.set(m, {
-          id: m,
-          selectors: [".emoji." + s + ".b" + c, ".emojik." + s + ".b" + c],
-          low: {
-            webp: (d = o("WAWebEmoji")).EmojiUtil.getSpritesPath(
-              a,
-              c,
-              p,
-              "webp",
-            ),
-            default: d.EmojiUtil.getSpritesPath(a, c, 40, "png"),
-          },
-          high: {
-            default: d.EmojiUtil.getSpritesPath(a, c, 64, "png"),
-            webp: d.EmojiUtil.getSpritesPath(a, c, 64, "webp"),
-          },
-        });
-      }
-      return r;
-    });
+    var s = o("WAMemoizeCache").memoizeWithArgs(
+      function (t, n) {
+        var r = new Map(),
+          a = o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
+          i = n.categorizedEmojis,
+          l = n.orderedEmojis,
+          s = n.selector,
+          u = e(l, i);
+        for (var c of u) {
+          var d,
+            m = "emoji-" + s + "-b" + c,
+            p = 40;
+          r.set(m, {
+            id: m,
+            selectors: [".emoji." + s + ".b" + c, ".emojik." + s + ".b" + c],
+            low: {
+              webp: (d = o("WAWebEmoji")).EmojiUtil.getSpritesPath(
+                a,
+                c,
+                p,
+                "webp",
+              ),
+              default: d.EmojiUtil.getSpritesPath(a, c, 40, "png"),
+            },
+            high: {
+              default: d.EmojiUtil.getSpritesPath(a, c, 64, "png"),
+              webp: d.EmojiUtil.getSpritesPath(a, c, 64, "webp"),
+            },
+          });
+        }
+        return r;
+      },
+      function (e, t) {
+        return e;
+      },
+    );
     function u(e) {
       return function (t) {
         return s(t, e);

@@ -2,6 +2,7 @@ __d(
   "WAWebHistorySyncNotificationUtils",
   [
     "$InternalEnum",
+    "Promise",
     "WALogger",
     "WALongInt",
     "WANullthrows",
@@ -30,6 +31,7 @@ __d(
     "WAWebWamEnumMdBootstrapSource",
     "WAWebWamEnumMdBootstrapStepResult",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +40,8 @@ __d(
       u,
       c,
       d,
-      m = n("$InternalEnum").Mirrored([
+      m,
+      p = n("$InternalEnum").Mirrored([
         "NewRecentSyncNotification",
         "NewOnDemandSyncNotification",
         "LastProcessedNotification",
@@ -47,145 +50,162 @@ __d(
         "HistorySyncStatusCheck",
         "ManualRestart",
       ]);
-    async function p(t, n) {
-      var a = t.pastParticipants.map(function (e) {
-        return {
-          groupId: r("WANullthrows")(e.groupJid),
-          pastParticipants: e.pastParticipants.map(function (e) {
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.pastParticipants.map(function (e) {
             return {
-              id: o("WAWebWidFactory").createWid(r("WANullthrows")(e.userJid)),
-              leaveReason:
-                e.leaveReason ===
-                o("WAWebProtobufsHistorySync.pb").PastParticipant$LeaveReason
-                  .LEFT
-                  ? o("WAWebLeaveReasonType").LeaveReason.Left
-                  : o("WAWebLeaveReasonType").LeaveReason.Removed,
-              leaveTs: o("WALongInt").numberOrThrowIfTooLarge(
-                r("WANullthrows")(e.leaveTs),
-              ),
+              groupId: r("WANullthrows")(e.groupJid),
+              pastParticipants: e.pastParticipants.map(function (e) {
+                return {
+                  id: o("WAWebWidFactory").createWid(
+                    r("WANullthrows")(e.userJid),
+                  ),
+                  leaveReason:
+                    e.leaveReason ===
+                    o("WAWebProtobufsHistorySync.pb")
+                      .PastParticipant$LeaveReason.LEFT
+                      ? o("WAWebLeaveReasonType").LeaveReason.Left
+                      : o("WAWebLeaveReasonType").LeaveReason.Removed,
+                  leaveTs: o("WALongInt").numberOrThrowIfTooLarge(
+                    r("WANullthrows")(e.leaveTs),
+                  ),
+                };
+              }),
             };
-          }),
-        };
-      });
-      (await o("WAWebDBGroupParticipant").addPastParticipants(a),
-        a.forEach(function (e) {
-          var t = o("WAWebChatCollection").ChatCollection.gadd(
-              o("WAWebWidFactory").createWid(e.groupId),
-            ),
-            n = t.groupMetadata;
-          n == null ||
-            n.pastParticipants.add(e.pastParticipants, { merge: !0 });
-        }),
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[history sync] Past Participants completed, ",
-              "",
-            ])),
-          o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(n),
-        ));
+          });
+          (yield o("WAWebDBGroupParticipant").addPastParticipants(n),
+            n.forEach(function (e) {
+              var t = o("WAWebChatCollection").ChatCollection.gadd(
+                  o("WAWebWidFactory").createWid(e.groupId),
+                ),
+                n = t.groupMetadata;
+              n == null ||
+                n.pastParticipants.add(e.pastParticipants, { merge: !0 });
+            }),
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] Past Participants completed, ",
+                  "",
+                ])),
+              o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(t),
+            ));
+        })),
+        f.apply(this, arguments)
+      );
     }
-    async function _(e, t) {
-      var n = await o("WAWebSignalProtocolStore")
-        .getPersistSignalProtocolStore()
-        .loadIdentityKey(e);
-      n != null &&
-        n !== t &&
-        o("WALogger")
-          .ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                `[history sync] get changed self identity key from history sync,
-     existing length: `,
-                ", new length: ",
-                "",
-              ])),
-            n.length,
-            t.length,
-          )
-          .tags("history-sync")
-          .sendLogs("self-identity-change-from-history-sync");
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function f(e, t) {
-      var n;
-      if (t.isGroup()) {
-        var a = (n = e.disappearingMode) == null ? void 0 : n.trigger,
-          i;
-        if (a != null) {
-          var l = o(
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebSignalProtocolStore")
+            .getPersistSignalProtocolStore()
+            .loadIdentityKey(e);
+          n != null &&
+            n !== t &&
+            o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync] get changed self identity key from history sync,\n     existing length: ",
+                    ", new length: ",
+                    "",
+                  ])),
+                n.length,
+                t.length,
+              )
+              .tags("history-sync")
+              .sendLogs("self-identity-change-from-history-sync");
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(t, n) {
+      var a;
+      if (n.isGroup()) {
+        var i = (a = t.disappearingMode) == null ? void 0 : a.trigger,
+          l;
+        if (i != null) {
+          var s = o(
             "WAWebEphemeralityUtils",
-          ).getDisappearingModeTriggerFromProtobuf(a);
-          l != null && (i = l);
+          ).getDisappearingModeTriggerFromProtobuf(i);
+          s != null && (l = s);
         }
         if (
-          e.suspended != null ||
-          e.terminated != null ||
-          e.createdBy != null ||
-          e.createdAt != null ||
-          e.description != null ||
-          e.support != null ||
-          e.isParentGroup != null ||
-          e.isDefaultSubgroup != null ||
-          e.parentGroupId != null ||
-          e.disappearingMode != null ||
-          e.appealStatus != null ||
-          e.appealUpdateTime != null
+          t.suspended != null ||
+          t.terminated != null ||
+          t.createdBy != null ||
+          t.createdAt != null ||
+          t.description != null ||
+          t.support != null ||
+          t.isParentGroup != null ||
+          t.isDefaultSubgroup != null ||
+          t.parentGroupId != null ||
+          t.disappearingMode != null ||
+          t.appealStatus != null ||
+          t.appealUpdateTime != null
         ) {
-          var s,
+          var u,
             c,
             d = {
-              id: t,
-              subject: e.name,
-              suspended: e.suspended,
-              terminated: e.terminated,
+              id: n,
+              subject: t.name,
+              suspended: t.suspended,
+              terminated: t.terminated,
               owner:
-                e.createdBy != null
-                  ? o("WAWebWidFactory").createWid(e.createdBy)
+                t.createdBy != null
+                  ? o("WAWebWidFactory").createWid(t.createdBy)
                   : void 0,
-              creation: e.createdAt,
-              desc: e.description,
-              support: e.support,
-              isParentGroup: e.isParentGroup,
-              defaultSubgroup: e.isDefaultSubgroup,
+              creation: t.createdAt,
+              desc: t.description,
+              support: t.support,
+              isParentGroup: t.isParentGroup,
+              defaultSubgroup: t.isDefaultSubgroup,
               parentGroup:
-                e.parentGroupId != null
-                  ? o("WAWebWidFactory").createWid(e.parentGroupId)
+                t.parentGroupId != null
+                  ? o("WAWebWidFactory").createWid(t.parentGroupId)
                   : void 0,
               disappearingModeInitiatedByMe:
-                (s = e.disappearingMode) == null ? void 0 : s.initiatedByMe,
-              disappearingModeTrigger: i,
+                (u = t.disappearingMode) == null ? void 0 : u.initiatedByMe,
+              disappearingModeTrigger: l,
               suspendAppealStatus:
-                e.appealStatus != null
-                  ? e.appealStatus ===
+                t.appealStatus != null
+                  ? t.appealStatus ===
                     o("WAWebProtobufsHistorySync.pb")
                       .Conversation$GroupAppealStatus.APPEAL_IN_REVIEW
                     ? "IN_REVIEW"
-                    : e.appealStatus ===
+                    : t.appealStatus ===
                         o("WAWebProtobufsHistorySync.pb")
                           .Conversation$GroupAppealStatus.APPEAL_APPROVED
                       ? "APPROVED"
-                      : e.appealStatus ===
+                      : t.appealStatus ===
                           o("WAWebProtobufsHistorySync.pb")
                             .Conversation$GroupAppealStatus.APPEAL_REJECTED
                         ? "REJECTED"
-                        : e.appealStatus ===
+                        : t.appealStatus ===
                             o("WAWebProtobufsHistorySync.pb")
                               .Conversation$GroupAppealStatus.NO_APPEAL
                           ? null
                           : (function () {
                               throw Error(
                                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  e.appealStatus,
+                                  t.appealStatus,
                               );
                             })()
                   : void 0,
               suspendAppealUpdateTime:
-                e.appealUpdateTime != null
-                  ? Number(e.appealUpdateTime)
+                t.appealUpdateTime != null
+                  ? Number(t.appealUpdateTime)
                   : void 0,
             };
           o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-            t,
+            n,
             babelHelpers.extends({}, d, {
               id: d.id.toString(),
               owner: d.owner !== void 0 ? d.owner.toString() : void 0,
@@ -199,7 +219,7 @@ __d(
               { merge: !0 },
             )[0],
             p =
-              (c = e.participant) == null
+              (c = t.participant) == null
                 ? void 0
                 : c.map(function (e) {
                     var t =
@@ -217,10 +237,10 @@ __d(
                     });
                   });
           (m == null || m.participants.add(p, { merge: !0 }),
-            (e.readOnly === !0 || p.length > 0) &&
+            (t.readOnly === !0 || p.length > 0) &&
               o("WAWebGroupParticipantsJob")
                 .updateParticipantsJob({
-                  group: t,
+                  group: n,
                   participants: p.map(function (e) {
                     return {
                       id: e.id,
@@ -228,24 +248,24 @@ __d(
                       isSuperAdmin: e.isSuperAdmin,
                     };
                   }),
-                  skipDeviceSync: e.readOnly,
+                  skipDeviceSync: t.readOnly,
                 })
-                .catch(function (e) {
+                .catch(function (t) {
                   o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "updateParticipantsJob: failed: ",
                         "",
                       ])),
-                    e,
+                    t,
                   );
                 }));
         }
       }
     }
-    function g(e) {
-      var t = Promise.resolve(),
-        n = Promise.resolve();
+    function C(e) {
+      var t = (m || (m = n("Promise"))).resolve(),
+        r = m.resolve();
       return (
         e.threadIdUserSecret != null
           ? (t = o("WAWebChatThreadLogging").setThreadIdUserSecret(
@@ -253,105 +273,115 @@ __d(
             ))
           : o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync] handleChatThreadLoggingMetadata: missing threadIdUserSecret",
                   ])),
               )
               .sendLogs("ctl-missing-secret-history-sync"),
         e.threadDsTimeframeOffset != null
-          ? (n = o("WAWebChatThreadLogging").setThreadDsTimeframeOffset(
+          ? (r = o("WAWebChatThreadLogging").setThreadDsTimeframeOffset(
               e.threadDsTimeframeOffset,
             ))
           : o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync] handleChatThreadLoggingMetadata: missing threadDsTimeframeOffset",
                   ])),
               )
               .sendLogs("ctl-missing-offset-history-sync"),
-        Promise.all([t, n])
+        m.all([t, r])
       );
     }
-    async function h(e, t) {
-      var n =
-          e.syncType ===
-          o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
-            .INITIAL_BOOTSTRAP
-            ? o("WAWebWamEnumMdBootstrapPayloadType").MD_BOOTSTRAP_PAYLOAD_TYPE
-                .CRITICAL
-            : o("WAWebWamEnumMdBootstrapPayloadType").MD_BOOTSTRAP_PAYLOAD_TYPE
-                .NON_CRITICAL,
-        a = o(
-          "WAWebGetMetricHistorySyncPayloadType",
-        ).getMetricHistorySyncPayloadType(e.syncType),
-        i = await o(
-          "WAWebSyncdMdSyncFieldstatMeta",
-        ).MdSyncFieldStatsMeta.getMdSessionId(),
-        l = await o("WAWebGetHistorySyncProgress").getHistorySyncProgress(e),
-        s = new (o(
-          "WAWebMdBootstrapHistoryDataStartDownloadingWamEvent",
-        ).MdBootstrapHistoryDataStartDownloadingWamEvent)({
-          mdBootstrapPayloadType: n,
-          mdBootstrapPayloadSize: e.historySyncPayloadSize,
-          mdBootstrapHistoryPayloadType: a,
-          mdSessionId: i,
-          historySyncStageProgress: l,
-        }),
-        u = new (o(
-          "WAWebMdBootstrapHistoryDataDownloadedWamEvent",
-        ).MdBootstrapHistoryDataDownloadedWamEvent)({
-          mdBootstrapPayloadType: n,
-          mdBootstrapPayloadSize: e.historySyncPayloadSize,
-          mdBootstrapHistoryPayloadType: a,
-          mdSessionId: i,
-          historySyncStageProgress: l,
-        }),
-        c = new (o(
-          "WAWebMdBootstrapDataAppliedWamEvent",
-        ).MdBootstrapDataAppliedWamEvent)(
-          babelHelpers.extends(
-            {
+    function b(e, t) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n =
+              e.syncType ===
+              o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+                .INITIAL_BOOTSTRAP
+                ? o("WAWebWamEnumMdBootstrapPayloadType")
+                    .MD_BOOTSTRAP_PAYLOAD_TYPE.CRITICAL
+                : o("WAWebWamEnumMdBootstrapPayloadType")
+                    .MD_BOOTSTRAP_PAYLOAD_TYPE.NON_CRITICAL,
+            a = o(
+              "WAWebGetMetricHistorySyncPayloadType",
+            ).getMetricHistorySyncPayloadType(e.syncType),
+            i = yield o(
+              "WAWebSyncdMdSyncFieldstatMeta",
+            ).MdSyncFieldStatsMeta.getMdSessionId(),
+            l = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
+              e,
+            ),
+            s = new (o(
+              "WAWebMdBootstrapHistoryDataStartDownloadingWamEvent",
+            ).MdBootstrapHistoryDataStartDownloadingWamEvent)({
               mdBootstrapPayloadType: n,
-              mdBootstrapSource: o("WAWebWamEnumMdBootstrapSource")
-                .MD_BOOTSTRAP_SOURCE.HISTORY,
+              mdBootstrapPayloadSize: e.historySyncPayloadSize,
               mdBootstrapHistoryPayloadType: a,
               mdSessionId: i,
-              sentViaMms: t,
               historySyncStageProgress: l,
-            },
-            r("gkx")("17524")
-              ? {
-                  gkContext:
-                    r("gkx")("20033") === !0 ? "workerV2:1" : "workerV2:0",
-                }
-              : {},
-          ),
-        );
-      e.chunkOrder != null &&
-        ((s.historySyncChunkOrder = e.chunkOrder),
-        (u.historySyncChunkOrder = e.chunkOrder),
-        (c.historySyncChunkOrder = e.chunkOrder));
-      var d = await o(
-        "WAWebSyncdMdSyncFieldstatMeta",
-      ).MdSyncFieldStatsMeta.getStorageEstimation();
-      return (
-        d.mdStorageQuotaBytes !==
-          o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
-          ((u.mdStorageQuotaUsedBytes = d.mdStorageQuotaUsedBytes),
-          (u.mdStorageQuotaBytes = d.mdStorageQuotaBytes)),
-        {
-          historySyncStartDownloadingMetric: s,
-          historySyncDownloadedMetric: u,
-          historySyncDataAppliedMetric: c,
-        }
+            }),
+            u = new (o(
+              "WAWebMdBootstrapHistoryDataDownloadedWamEvent",
+            ).MdBootstrapHistoryDataDownloadedWamEvent)({
+              mdBootstrapPayloadType: n,
+              mdBootstrapPayloadSize: e.historySyncPayloadSize,
+              mdBootstrapHistoryPayloadType: a,
+              mdSessionId: i,
+              historySyncStageProgress: l,
+            }),
+            c = new (o(
+              "WAWebMdBootstrapDataAppliedWamEvent",
+            ).MdBootstrapDataAppliedWamEvent)(
+              babelHelpers.extends(
+                {
+                  mdBootstrapPayloadType: n,
+                  mdBootstrapSource: o("WAWebWamEnumMdBootstrapSource")
+                    .MD_BOOTSTRAP_SOURCE.HISTORY,
+                  mdBootstrapHistoryPayloadType: a,
+                  mdSessionId: i,
+                  sentViaMms: t,
+                  historySyncStageProgress: l,
+                },
+                r("gkx")("17524")
+                  ? {
+                      gkContext:
+                        r("gkx")("20033") === !0 ? "workerV2:1" : "workerV2:0",
+                    }
+                  : {},
+              ),
+            );
+          e.chunkOrder != null &&
+            ((s.historySyncChunkOrder = e.chunkOrder),
+            (u.historySyncChunkOrder = e.chunkOrder),
+            (c.historySyncChunkOrder = e.chunkOrder));
+          var d = yield o(
+            "WAWebSyncdMdSyncFieldstatMeta",
+          ).MdSyncFieldStatsMeta.getStorageEstimation();
+          return (
+            d.mdStorageQuotaBytes !==
+              o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
+              ((u.mdStorageQuotaUsedBytes = d.mdStorageQuotaUsedBytes),
+              (u.mdStorageQuotaBytes = d.mdStorageQuotaBytes)),
+            {
+              historySyncStartDownloadingMetric: s,
+              historySyncDownloadedMetric: u,
+              historySyncDataAppliedMetric: c,
+            }
+          );
+        })),
+        v.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
+    function S(e, t, n) {
       ((e.mdTimestamp = n), (e.mdBootstrapStepDuration = n - t), e.commit());
     }
-    function C(e) {
+    function R(e) {
       var t = e.chunkDownloadFinishTimestamp,
         n = e.historySyncDownloadMetric,
         r = e.isSuccess,
@@ -365,26 +395,34 @@ __d(
               .FAILURE),
         n.commit());
     }
-    async function b(e) {
-      var t = e.failureReason,
-        n = e.forceFlushWamBuffer,
-        r = e.historySyncDataAppliedMetric,
-        a = e.isSuccess,
-        i = e.startTs,
-        l = o("WATimeUtils").unixTimeMs();
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (r.mdTimestamp = l),
-        (r.mdBootstrapStepDuration = l - i),
-        (r.mdBootstrapStepResult = a
-          ? o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
-              .SUCCESS
-          : o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
-              .FAILURE),
-        t != null && (r.mdSyncFailureReason = t),
-        r.commitAndWaitForFlush(n)
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.failureReason,
+            n = e.forceFlushWamBuffer,
+            r = e.historySyncDataAppliedMetric,
+            a = e.isSuccess,
+            i = e.startTs,
+            l = o("WATimeUtils").unixTimeMs();
+          return (
+            (r.mdTimestamp = l),
+            (r.mdBootstrapStepDuration = l - i),
+            (r.mdBootstrapStepResult = a
+              ? o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
+                  .SUCCESS
+              : o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
+                  .FAILURE),
+            t != null && (r.mdSyncFailureReason = t),
+            r.commitAndWaitForFlush(n)
+          );
+        })),
+        E.apply(this, arguments)
       );
     }
-    function v(e) {
+    function k(e) {
       return [
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
           .INITIAL_BOOTSTRAP,
@@ -399,53 +437,61 @@ __d(
         ? e.initialHistBootstrapInlinePayload
         : null;
     }
-    async function S() {
-      return o("WAWebSchemaHistorySyncNotification")
-        .getHistorySyncNotificationTable()
-        .equals(
-          ["processed", "syncType"],
-          [
-            0,
-            o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
-              .RECENT,
-          ],
-          { shouldDecrypt: !1 },
-        )
-        .then(function (e) {
-          return e
-            .filter(function (e) {
-              return (
-                !o("WAWebApiHistorySyncNotification").inFlightChunk.has(
-                  e.msgKey,
-                ) && !e.reuploadPending
-              );
-            })
-            .sort(function (e, t) {
-              var n, r;
-              return (
-                ((n = e.chunkOrder) != null ? n : 0) -
-                ((r = t.chunkOrder) != null ? r : 0)
-              );
-            });
-        });
+    function I() {
+      return T.apply(this, arguments);
     }
-    ((l.HistorySyncScheduleSource = m),
-      (l.processPastParticipants = p),
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o("WAWebSchemaHistorySyncNotification")
+            .getHistorySyncNotificationTable()
+            .equals(
+              ["processed", "syncType"],
+              [
+                0,
+                o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+                  .RECENT,
+              ],
+              { shouldDecrypt: !1 },
+            )
+            .then(function (e) {
+              return e
+                .filter(function (e) {
+                  return (
+                    !o("WAWebApiHistorySyncNotification").inFlightChunk.has(
+                      e.msgKey,
+                    ) && !e.reuploadPending
+                  );
+                })
+                .sort(function (e, t) {
+                  var n, r;
+                  return (
+                    ((n = e.chunkOrder) != null ? n : 0) -
+                    ((r = t.chunkOrder) != null ? r : 0)
+                  );
+                });
+            });
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    ((l.HistorySyncScheduleSource = p),
+      (l.processPastParticipants = _),
       (l.getHistorySyncBasicChunkInfoString = o(
         "WAWebHistorySyncLogUtils",
       ).getHistorySyncBasicChunkInfoString),
       (l.getHistorySyncLogDetailsString = o(
         "WAWebHistorySyncLogUtils",
       ).getHistorySyncLogDetailsString),
-      (l.checkSelfHistorySyncIdentity = _),
-      (l.saveGroupMetadataForLeftGroup = f),
-      (l.handleChatThreadLoggingMetadata = g),
-      (l.getHistorySyncMetrics = h),
-      (l.commitHistoryStartDownloadingMetric = y),
-      (l.commitHistoryDownloadedMetric = C),
-      (l.commitHistoryDataAppliedMetric = b),
-      (l.maybeGetInlinePayload = v),
-      (l.getUnprocessedRecentSyncNotifications = S));
+      (l.checkSelfHistorySyncIdentity = g),
+      (l.saveGroupMetadataForLeftGroup = y),
+      (l.handleChatThreadLoggingMetadata = C),
+      (l.getHistorySyncMetrics = b),
+      (l.commitHistoryStartDownloadingMetric = S),
+      (l.commitHistoryDownloadedMetric = R),
+      (l.commitHistoryDataAppliedMetric = L),
+      (l.maybeGetInlinePayload = k),
+      (l.getUnprocessedRecentSyncNotifications = I));
   },
   98,
 );

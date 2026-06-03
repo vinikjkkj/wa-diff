@@ -9,6 +9,7 @@ __d(
     "WAWebOrderCatalogFormProduct",
     "WAWebProductCatalogCatalogConstants",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "react",
     "useWAWebDebouncedCallback",
     "useWAWebForceUpdate",
@@ -26,32 +27,32 @@ __d(
     function p(e) {
       "use no forget";
       var t = e.className,
-        n = e.flatListController,
-        a = e.onProductSelectChange,
-        i = e.orderItems,
-        l = e.productsSelection,
-        u = r("useWAWebUnmountSignal")(),
-        p = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
-        _ = r("useWAWebDebouncedCallback")(p, 100),
-        f = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        g = o("WAWebCatalogCollection").CatalogCollection.assertGet(f),
-        h = d(!1),
-        y = h[0],
-        C = h[1],
-        b = d(0),
-        v = b[0],
-        S = b[1],
-        R = d(!1),
-        L = R[0],
-        E = R[1],
-        k = function () {
+        a = e.flatListController,
+        i = e.onProductSelectChange,
+        l = e.orderItems,
+        u = e.productsSelection,
+        p = r("useWAWebUnmountSignal")(),
+        _ = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
+        f = r("useWAWebDebouncedCallback")(_, 100),
+        g = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        h = o("WAWebCatalogCollection").CatalogCollection.assertGet(g),
+        y = d(!1),
+        C = y[0],
+        b = y[1],
+        v = d(0),
+        S = v[0],
+        R = v[1],
+        L = d(!1),
+        E = L[0],
+        k = L[1],
+        I = function () {
           var e = new Set(
-              i.map(function (e) {
+              l.map(function (e) {
                 var t = e.id;
                 return t;
               }),
             ),
-            t = g.productCollection.getProductModels();
+            t = h.productCollection.getProductModels();
           return t
             .filter(function (t) {
               return !e.has(t.id);
@@ -60,76 +61,81 @@ __d(
               return { itemKey: e.id.toString(), product: e };
             });
         },
-        I = function (t) {
+        T = function (t) {
           t.forEach(function (e) {
-            var t = i.find(function (t) {
+            var t = l.find(function (t) {
               var n = t.id;
               return n === e.product.id;
             });
-            t !== void 0 && a(e.product, Number(t.quantity), !0);
+            t !== void 0 && i(e.product, Number(t.quantity), !0);
           });
         },
-        T = async function () {
-          if (!L && g.afterCursor) {
-            var e = g.productCollection.getProductModels().length;
-            (C(!0), S(e));
-            try {
-              var t = await o(
-                "WAWebCatalogCollection",
-              ).CatalogCollection.update(f);
-              if (u.aborted) return;
-              C(!1);
-              var n = Array.isArray(t) ? t[0] : t,
-                r = n.productCollection.getProductModels().length;
-              if (
-                (I(k().slice(e)),
-                r === v && E(!0),
-                e *
-                  o("WAWebProductCatalogCatalogConstants")
-                    .PRODUCT_LIST_ITEM_HEIGHT <
-                  window.innerHeight)
-              )
-                return T();
-            } catch (e) {
-              (C(!1), E(!0));
+        D = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (!E && h.afterCursor) {
+              var e = h.productCollection.getProductModels().length;
+              (b(!0), R(e));
+              try {
+                var t = yield o(
+                  "WAWebCatalogCollection",
+                ).CatalogCollection.update(g);
+                if (p.aborted) return;
+                b(!1);
+                var n = Array.isArray(t) ? t[0] : t,
+                  r = n.productCollection.getProductModels().length;
+                if (
+                  (T(I().slice(e)),
+                  r === S && k(!0),
+                  e *
+                    o("WAWebProductCatalogCatalogConstants")
+                      .PRODUCT_LIST_ITEM_HEIGHT <
+                    window.innerHeight)
+                )
+                  return D();
+              } catch (e) {
+                (b(!1), k(!0));
+              }
             }
-          }
-        };
+          });
+          return function () {
+            return e.apply(this, arguments);
+          };
+        })();
       (c(function () {
-        (I(k()), T());
+        (T(I()), D());
       }, []),
-        o("useWAWebListener").useListener(g.productCollection, "add", _));
-      var D = r("useWAWebThrottledCallback")(function (e) {
-          y ||
+        o("useWAWebListener").useListener(h.productCollection, "add", f));
+      var x = r("useWAWebThrottledCallback")(function (e) {
+          C ||
             (e.scrollTop + o("WAWebFrontendConstants").SCROLL_FUDGE >
               e.scrollHeight - e.clientHeight &&
-              T());
+              D());
         }, m),
-        x = function (t) {
-          t.currentTarget && D(t.currentTarget);
+        $ = function (t) {
+          t.currentTarget && x(t.currentTarget);
         };
       return s.jsxs(r("WAWebFlatListContainer.react"), {
         className: t,
-        flatListControllers: [n],
-        onScroll: x,
+        flatListControllers: [a],
+        onScroll: $,
         children: [
           s.jsx(o("WAWebFlatList.react").FlatList, {
-            flatListController: n,
+            flatListController: a,
             direction: "vertical",
             forceConsistentRenderCount: !1,
-            data: k(),
+            data: I(),
             renderItem: function (t) {
               var e = t.product;
               return s.jsx(r("WAWebOrderCatalogFormProduct"), {
                 product: e,
-                productsSelection: l,
-                onProductSelectChange: a,
+                productsSelection: u,
+                onProductSelectChange: i,
               });
             },
             defaultItemHeight: o("WAWebProductCatalogCatalogConstants")
               .PRODUCT_LIST_ITEM_HEIGHT,
           }),
-          y && s.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {}),
+          C && s.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {}),
         ],
       });
     }

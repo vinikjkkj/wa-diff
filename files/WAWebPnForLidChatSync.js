@@ -7,13 +7,14 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -23,87 +24,97 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 8;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.PnForLidChat;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this,
-              r = [],
-              a = 0,
-              i = 0,
-              l = 0,
-              c = n.map(function (e) {
-                var n;
-                if (e.operation !== "set")
-                  return (
-                    a++,
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    }
-                  );
-                var s = e.indexParts[1];
-                if (!o("WAWebWidFactory").isWidlike(s))
-                  return (i++, t.malformedActionIndex());
-                var u =
-                  (n = e.value.pnForLidChatAction) == null ? void 0 : n.pnJid;
-                if (u == null || !o("WAWebWidFactory").isWidlike(u))
-                  return (
-                    l++,
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      t.collectionName,
-                    )
-                  );
-                var c = o("WAWebWidFactory").createUserWidOrThrow(u),
-                  d = o("WAWebWidFactory").createUserLidOrThrow(s);
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = this,
+                  r = [],
+                  a = 0,
+                  i = 0,
+                  l = 0,
+                  c = t.map(function (e) {
+                    var t;
+                    if (e.operation !== "set")
+                      return (
+                        a++,
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    var s = e.indexParts[1];
+                    if (!o("WAWebWidFactory").isWidlike(s))
+                      return (i++, n.malformedActionIndex());
+                    var u =
+                      (t = e.value.pnForLidChatAction) == null
+                        ? void 0
+                        : t.pnJid;
+                    if (u == null || !o("WAWebWidFactory").isWidlike(u))
+                      return (
+                        l++,
+                        o("WAWebSyncdIndexUtils").malformedActionValue(
+                          n.collectionName,
+                        )
+                      );
+                    var c = o("WAWebWidFactory").createUserWidOrThrow(u),
+                      d = o("WAWebWidFactory").createUserLidOrThrow(s);
+                    return (
+                      r.push({ lid: d, pn: c }),
+                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                    );
+                  });
                 return (
-                  r.push({ lid: d, pn: c }),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
+                  a > 0 &&
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "pn_for_lid_chat sync: ",
+                          " operations not supported",
+                        ])),
+                      a,
+                    ),
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "pn_for_lid_chat sync: ",
+                          " malformed mutations - invalid key",
+                        ])),
+                      i,
+                    ),
+                  l > 0 &&
+                    o("WALogger").WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "pn_for_lid_chat sync: ",
+                          " malformed mutations - invalid pnJid",
+                        ])),
+                      l,
+                    ),
+                  yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                    mappings: r,
+                    flushImmediately: !0,
+                    learningSource: "other",
+                  }),
+                  c
                 );
-              });
-            return (
-              a > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "pn_for_lid_chat sync: ",
-                      " operations not supported",
-                    ])),
-                  a,
-                ),
-              i > 0 &&
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "pn_for_lid_chat sync: ",
-                      " malformed mutations - invalid key",
-                    ])),
-                  i,
-                ),
-              l > 0 &&
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "pn_for_lid_chat sync: ",
-                      " malformed mutations - invalid pnJid",
-                    ])),
-                  l,
-                ),
-              await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: r,
-                flushImmediately: !0,
-                learningSource: "other",
-              }),
-              c
+              },
             );
-          }),
-          n
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       d = new c();

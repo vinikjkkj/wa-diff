@@ -5,19 +5,23 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebSMBListsIntroPopup.react",
-        )
-          .__setRef("WAWebSMBListsIntroPopupLoadable")
-          .load();
-        return e.SMBListsIntroPopup;
-      }, "SMBListsIntroPopup"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebSMBListsIntroPopup.react",
+          )
+            .__setRef("WAWebSMBListsIntroPopupLoadable")
+            .load();
+          return e.SMBListsIntroPopup;
+        }),
+        "SMBListsIntroPopup",
+      ),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

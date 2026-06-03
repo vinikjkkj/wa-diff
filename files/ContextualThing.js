@@ -13,18 +13,23 @@ __d(
       return !1;
     }
     function u(e) {
-      for (var t = e, n; t; ) {
-        if (t.getAttribute && (n = t.getAttribute("data-ownerid")))
+      for (var t = e; t; ) {
+        var n = null;
+        if (
+          (t instanceof Element && (n = t.getAttribute("data-ownerid")),
+          n != null && n !== "")
+        )
           return r("ge")(n);
         t = t.parentNode;
       }
       return null;
     }
     function c(e, t) {
-      for (var n = e, a; n && !o("CSS").hasClass(n, t); )
-        n.getAttribute && (a = n.getAttribute("data-ownerid"))
-          ? (n = r("ge")(a))
-          : (n = n.parentNode);
+      for (var n = e; n && !o("CSS").hasClass(n, t); ) {
+        var a = null;
+        (n instanceof Element && (a = n.getAttribute("data-ownerid")),
+          a != null && a !== "" ? (n = r("ge")(a)) : (n = n.parentNode));
+      }
       return n;
     }
     ((l.register = e),

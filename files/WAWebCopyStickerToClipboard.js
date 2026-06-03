@@ -2,33 +2,45 @@ __d(
   "WAWebCopyStickerToClipboard",
   [
     "JSResourceForInteraction",
+    "Promise",
     "WALogger",
     "WAWebCopyToClipboard",
     "WAWebStickerUtils",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    async function u() {
-      var e = await r("JSResourceForInteraction")("WAWeb-lottie-light-canvas")
-        .__setRef("WAWebCopyStickerToClipboard")
-        .load();
-      return e;
+    var e, s, u;
+    function c() {
+      return d.apply(this, arguments);
     }
-    function c(t) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWeb-lottie-light-canvas",
+          )
+            .__setRef("WAWebCopyStickerToClipboard")
+            .load();
+          return e;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(t) {
       if (!o("WAWebCopyToClipboard").supportsCopyImageToClipboard())
         throw r("err")("Clipboard API not supported");
-      var n = d(t).then(function (e) {
+      var a = p(t).then(function (e) {
           return e == null
-            ? Promise.reject(
+            ? (u || (u = n("Promise"))).reject(
                 r("err")("Failed to create canvas from lottie sticker"),
               )
-            : new Promise(function (t) {
+            : new (u || (u = n("Promise")))(function (t) {
                 return e.toBlob(t, "image/png", 1);
               });
         }),
-        a = new window.ClipboardItem({ "image/png": n });
-      navigator.clipboard.write([a]).catch(function (t) {
+        i = new window.ClipboardItem({ "image/png": a });
+      navigator.clipboard.write([i]).catch(function (t) {
         return o("WALogger")
           .LOG(
             e ||
@@ -39,41 +51,49 @@ __d(
           .sendLogs(String(t));
       });
     }
-    async function d(e) {
-      var t = await u(),
-        n = document.createElement("canvas"),
-        r = n.getContext("2d");
-      ((n.width = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_WIDTH),
-        (n.height = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_HEIGHT));
-      try {
-        var a = t.loadAnimation({
-          renderer: "canvas",
-          animationData: e,
-          loop: !1,
-          autoplay: !1,
-          rendererSettings: { context: r },
-        });
-        return new Promise(function (e) {
-          a.addEventListener("DOMLoaded", function () {
-            return e(n);
-          });
-        });
-      } catch (e) {
-        return (
-          o("WALogger")
-            .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "LottieSticker: Copy image to clipboard failed",
-                ])),
-            )
-            .sendLogs(String(e)),
-          null
-        );
-      }
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    ((l.copyLottieStickerToClipboard = c),
-      (l.createCanvasFromLottieSticker = d));
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield c(),
+            r = document.createElement("canvas"),
+            a = r.getContext("2d");
+          ((r.width = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_WIDTH),
+            (r.height = o("WAWebStickerUtils").LOTTIE_STICKER_FULL_HEIGHT));
+          try {
+            var i = t.loadAnimation({
+              renderer: "canvas",
+              animationData: e,
+              loop: !1,
+              autoplay: !1,
+              rendererSettings: { context: a },
+            });
+            return new (u || (u = n("Promise")))(function (e) {
+              i.addEventListener("DOMLoaded", function () {
+                return e(r);
+              });
+            });
+          } catch (e) {
+            return (
+              o("WALogger")
+                .LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "LottieSticker: Copy image to clipboard failed",
+                    ])),
+                )
+                .sendLogs(String(e)),
+              null
+            );
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.copyLottieStickerToClipboard = m),
+      (l.createCanvasFromLottieSticker = p));
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingModal.react",
+    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
@@ -11,14 +12,17 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebSendPaymentRequestFlow.react",
-        )
-          .__setRef("WAWebSendPaymentRequestFlowLoadable")
-          .load();
-        return e;
-      }, "SendPaymentRequestFlow"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebSendPaymentRequestFlow.react",
+          )
+            .__setRef("WAWebSendPaymentRequestFlowLoadable")
+            .load();
+          return e;
+        }),
+        "SendPaymentRequestFlow",
+      ),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

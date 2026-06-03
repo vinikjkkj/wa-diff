@@ -1,6 +1,12 @@
 __d(
   "WAWebGetPushServerSettingsJob",
-  ["WADeprecatedSendIq", "WADeprecatedWapParser", "WALogger", "WAWap"],
+  [
+    "WADeprecatedSendIq",
+    "WADeprecatedWapParser",
+    "WALogger",
+    "WAWap",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -50,14 +56,22 @@ __d(
         },
         u.wap("settings", null),
       );
-    async function m() {
-      var e = await o("WADeprecatedSendIq").deprecatedSendIq(d, c);
-      if (!e.success) {
-        var t = e.errorCode,
-          n = e.errorText;
-        return { errorCode: t, errorText: n };
-      }
-      return e.result;
+    function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WADeprecatedSendIq").deprecatedSendIq(d, c);
+          if (!e.success) {
+            var t = e.errorCode,
+              n = e.errorText;
+            return { errorCode: t, errorText: n };
+          }
+          return e.result;
+        })),
+        p.apply(this, arguments)
+      );
     }
     l.getPushServerSettings = m;
   },

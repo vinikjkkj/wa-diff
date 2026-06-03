@@ -1,6 +1,7 @@
 __d(
   "WAFtsSQLiteClient",
   [
+    "Promise",
     "WAFtsIsSearchQueryEligibleForMessageSearch",
     "WAFtsMultiLangTokenizer",
     "WALogger",
@@ -11,23 +12,32 @@ __d(
     "WAWebODS",
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsHybridBridgeTrace",
+    "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    async function c(e) {
-      return e;
+    var e, s, u, c;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    var d = (function () {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return e;
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    var p = (function () {
       function t() {
         ((this.$1 = new (r("WAFtsMultiLangTokenizer"))()),
           (this.$3 = new Map()));
       }
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.initialize = function () {
+        (a.initialize = function () {
           var e = this;
           if (!this.$2) {
             var t = function (n) {
@@ -41,7 +51,7 @@ __d(
             this.$2 = r;
           }
         }),
-        (n.$6 = function (n) {
+        (a.$6 = function (n) {
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -51,43 +61,49 @@ __d(
             n,
           );
         }),
-        (n.$4 = function (t) {
+        (a.$4 = function (t) {
           this.$7(t.executeSqlite);
         }),
-        (n.$7 = async function (t) {
-          var e,
-            n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(),
-            a = n == null ? void 0 : n.sqlite;
-          return (
-            a != null &&
-              (r("WAWebODS").incr(
-                "web.hybrid.bridge.fts_sqlite.send.execute_sqlite",
-              ),
-              (e = await c(
-                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                  {
-                    bridge: "fts-sqlite",
-                    method: "executeSqlite",
-                    type: "sync",
-                  },
-                  function () {
-                    return a.executeSqlite(JSON.stringify(t));
-                  },
+        (a.$7 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t,
+              n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(),
+              a = n == null ? void 0 : n.sqlite;
+            return (
+              a != null &&
+                (r("WAWebODS").incr(
+                  "web.hybrid.bridge.fts_sqlite.send.execute_sqlite",
                 ),
-              ).catch(function (e) {
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[fts][client] call to native bridge failed: ",
-                      "",
-                    ])),
-                  e,
-                );
-              }))),
-            e == null || e === "" ? [] : JSON.parse(e)
-          );
-        }),
-        (n.$5 = function (t) {
+                (t = yield d(
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    {
+                      bridge: "fts-sqlite",
+                      method: "executeSqlite",
+                      type: "sync",
+                    },
+                    function () {
+                      return a.executeSqlite(JSON.stringify(e));
+                    },
+                  ),
+                ).catch(function (e) {
+                  o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fts][client] call to native bridge failed: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                }))),
+              t == null || t === "" ? [] : JSON.parse(t)
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.$5 = function (t) {
           var e = t.reqId,
             n = this.$3.get(e);
           n &&
@@ -104,10 +120,10 @@ __d(
               : n.resolve(t.result),
             this.$8(e));
         }),
-        (n.index = function () {
+        (a.index = function () {
           return this.$9({ operation: "consume" });
         }),
-        (n.startIndexer = function () {
+        (a.startIndexer = function () {
           return this.$9({
             operation: "start-indexer",
             isMentionSearchEnabled:
@@ -116,197 +132,222 @@ __d(
               ) === !0,
           });
         }),
-        (n.indexFull = function (t) {
+        (a.indexFull = function (t) {
           return this.$9({ operation: "run" });
         }),
-        (n.clearInitializationPromises = function () {
+        (a.clearInitializationPromises = function () {
           return this.$9({ operation: "clear-init" });
         }),
-        (n.purge = async function (t) {
-          return t.length === 0
-            ? { eof: !0, status: 200, messages: [] }
-            : (await this.$7([
-                [
-                  "DELETE FROM message WHERE id IN (" +
-                    t
-                      .map(function (e) {
-                        return "?";
-                      })
-                      .join(",") +
-                    ")",
-                ].concat(t),
-              ]),
-              { eof: !0, status: 200, messages: [] });
-        }),
-        (n.purgeRange = async function (t) {
-          var e = t.chatId,
-            n = t.endRowId,
-            r = t.startRowId;
-          return (
-            await this.$7([
-              [
-                "DELETE FROM message WHERE chatId = ? AND id BETWEEN ? AND ?",
-                e,
-                String(r),
-                String(n),
-              ],
-            ]),
-            { eof: !0, status: 200, messages: [] }
-          );
-        }),
-        (n.reInit = async function () {
-          return (
-            await this.destroyExternalStorage(),
-            this.$9({ operation: "re-init" })
-          );
-        }),
-        (n.destroyExternalStorage = async function () {
-          await this.$7([
-            ["BEGIN TRANSACTION;"],
-            ["DELETE FROM message;"],
-            ["INSERT INTO message_fts(message_fts) VALUES('delete-all');"],
-            ["END TRANSACTION;"],
-          ]);
-        }),
-        (n.initExternalStorage = async function () {
-          await this.$7([
-            [
-              `CREATE TABLE IF NOT EXISTS message (
-          rowid INTEGER PRIMARY KEY,
-          id TEXT,
-          chatId TEXT,
-          timestamp TEXT,
-          text TEXT);`,
-            ],
-            ["CREATE INDEX IF NOT EXISTS idx_message_id ON message(id);"],
-            [
-              "CREATE INDEX IF NOT EXISTS idx_message_chatId_id ON message(chatId, id);",
-            ],
-            [
-              "CREATE VIRTUAL TABLE IF NOT EXISTS message_fts USING fts5(text, content='', prefix=2, tokenize='unicode61');",
-            ],
-            [
-              `CREATE TRIGGER IF NOT EXISTS t1_message AFTER INSERT ON message
-          BEGIN
-          INSERT INTO message_fts(rowid, text) VALUES (new.rowid, new.text);
-          END;`,
-            ],
-            [
-              `CREATE TRIGGER IF NOT EXISTS t1_message_del AFTER DELETE ON message
-        BEGIN
-        INSERT INTO message_fts(message_fts, rowid, text) VALUES('delete', old.rowid, old.text);
-        END;`,
-            ],
-            [
-              `CREATE TRIGGER IF NOT EXISTS t1_message_up AFTER UPDATE ON message
-        BEGIN
-        INSERT INTO message_fts(message_fts, rowid, text) VALUES('delete', old.rowid, old.text);
-        INSERT INTO message_fts(rowid, text) VALUES (new.rowid, new.text);
-        END;`,
-            ],
-          ]);
-        }),
-        (n.search = async function (t, n) {
-          var e,
-            a = Array.from(this.$1.tokenize(t)).filter(
-              r("WAFtsIsSearchQueryEligibleForMessageSearch"),
-            );
-          if (a.length === 0)
-            return Promise.resolve({
-              canceled: !1,
-              eof: !0,
-              status: 200,
-              messages: [],
-            });
-          var i = [
-              a
-                .map(function (e) {
-                  var t = e.replaceAll('"', '""');
-                  return '"' + t + '"*';
-                })
-                .join(" AND "),
-            ],
-            l = ["message_fts MATCH ?"],
-            s = n == null ? void 0 : n.remote;
-          s != null && s && (l.push("AND chatId = ?"), i.push(s));
-          var u = n == null ? void 0 : n.limit,
-            c = n == null ? void 0 : n.page,
-            d = null,
-            m =
-              `SELECT t.rowid, t.id, t.chatId, t.timestamp, t.text, rank
-      FROM message t JOIN message_fts f ON t.rowid = f.rowid
-      WHERE ` +
-              l.join(" ") +
-              `
-      ORDER BY rank`;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "web_anr_async_sqlite_bridge_operations",
-            ) &&
-            typeof u == "number" &&
-            u > 0
-          ) {
-            d = u;
-            var p = typeof c == "number" && c > 0 ? c : 1,
-              _ = (p - 1) * d;
-            ((m += `
-      LIMIT ? OFFSET ?`),
-              i.push(String(d), String(_)));
+        (a.purge = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            return e.length === 0
+              ? { eof: !0, status: 200, messages: [] }
+              : (yield this.$7([
+                  [
+                    "DELETE FROM message WHERE id IN (" +
+                      e
+                        .map(function (e) {
+                          return "?";
+                        })
+                        .join(",") +
+                      ")",
+                  ].concat(e),
+                ]),
+                { eof: !0, status: 200, messages: [] });
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          var f = await this.$7([[m].concat(i)]);
-          if (f == null || f.length !== 1)
-            return Promise.resolve({
-              canceled: !1,
-              eof: !0,
-              status: 404,
-              messages: [],
-            });
-          var g = ((e = f[0].Rows) != null ? e : []).map(function (e) {
-              return {
-                id: String(e[1]),
-                chatId: String(e[2]),
-                timestamp: parseInt(e[3], 10),
-              };
-            }),
-            h = d == null || g.length < d;
-          return this.$10({ eof: h, status: 200, messages: g });
-        }),
-        (n.$10 = async function (t) {
-          if (Array.isArray(t) || typeof t == "boolean")
-            return { canceled: !1, eof: !0, status: 404, messages: [] };
-          var e = await o("WAWebFtsClientMessageIdResolver").resolveMsgIds(
-              t.messages,
-            ),
-            n = e.resolved,
-            r = e.unresolved,
-            a = t.eof,
-            i = t.status;
-          return (
-            r.length > 0 && this.purge(r),
-            { canceled: !1, eof: a, status: i, messages: n }
+          return t;
+        })()),
+        (a.purgeRange = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.chatId,
+              n = e.endRowId,
+              r = e.startRowId;
+            return (
+              yield this.$7([
+                [
+                  "DELETE FROM message WHERE chatId = ? AND id BETWEEN ? AND ?",
+                  t,
+                  String(r),
+                  String(n),
+                ],
+              ]),
+              { eof: !0, status: 200, messages: [] }
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.reInit = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return (
+              yield this.destroyExternalStorage(),
+              this.$9({ operation: "re-init" })
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.destroyExternalStorage = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            yield this.$7([
+              ["BEGIN TRANSACTION;"],
+              ["DELETE FROM message;"],
+              ["INSERT INTO message_fts(message_fts) VALUES('delete-all');"],
+              ["END TRANSACTION;"],
+            ]);
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.initExternalStorage = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            yield this.$7([
+              [
+                "CREATE TABLE IF NOT EXISTS message (\n          rowid INTEGER PRIMARY KEY,\n          id TEXT,\n          chatId TEXT,\n          timestamp TEXT,\n          text TEXT);",
+              ],
+              ["CREATE INDEX IF NOT EXISTS idx_message_id ON message(id);"],
+              [
+                "CREATE INDEX IF NOT EXISTS idx_message_chatId_id ON message(chatId, id);",
+              ],
+              [
+                "CREATE VIRTUAL TABLE IF NOT EXISTS message_fts USING fts5(text, content='', prefix=2, tokenize='unicode61');",
+              ],
+              [
+                "CREATE TRIGGER IF NOT EXISTS t1_message AFTER INSERT ON message\n          BEGIN\n          INSERT INTO message_fts(rowid, text) VALUES (new.rowid, new.text);\n          END;",
+              ],
+              [
+                "CREATE TRIGGER IF NOT EXISTS t1_message_del AFTER DELETE ON message\n        BEGIN\n        INSERT INTO message_fts(message_fts, rowid, text) VALUES('delete', old.rowid, old.text);\n        END;",
+              ],
+              [
+                "CREATE TRIGGER IF NOT EXISTS t1_message_up AFTER UPDATE ON message\n        BEGIN\n        INSERT INTO message_fts(message_fts, rowid, text) VALUES('delete', old.rowid, old.text);\n        INSERT INTO message_fts(rowid, text) VALUES (new.rowid, new.text);\n        END;",
+              ],
+            ]);
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.search = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var a,
+                i = Array.from(this.$1.tokenize(e)).filter(
+                  r("WAFtsIsSearchQueryEligibleForMessageSearch"),
+                );
+              if (i.length === 0)
+                return (c || (c = n("Promise"))).resolve({
+                  canceled: !1,
+                  eof: !0,
+                  status: 200,
+                  messages: [],
+                });
+              var l = [
+                  i
+                    .map(function (e) {
+                      var t = e.replaceAll('"', '""');
+                      return '"' + t + '"*';
+                    })
+                    .join(" AND "),
+                ],
+                s = ["message_fts MATCH ?"],
+                u = t == null ? void 0 : t.remote;
+              u != null && u && (s.push("AND chatId = ?"), l.push(u));
+              var d = t == null ? void 0 : t.limit,
+                m = t == null ? void 0 : t.page,
+                p = null,
+                _ =
+                  "SELECT t.rowid, t.id, t.chatId, t.timestamp, t.text, rank\n      FROM message t JOIN message_fts f ON t.rowid = f.rowid\n      WHERE " +
+                  s.join(" ") +
+                  "\n      ORDER BY rank";
+              if (
+                o("WAWebABProps").getABPropConfigValue(
+                  "web_anr_async_sqlite_bridge_operations",
+                ) &&
+                typeof d == "number" &&
+                d > 0
+              ) {
+                p = d;
+                var f = typeof m == "number" && m > 0 ? m : 1,
+                  g = (f - 1) * p;
+                ((_ += "\n      LIMIT ? OFFSET ?"),
+                  l.push(String(p), String(g)));
+              }
+              var h = yield this.$7([[_].concat(l)]);
+              if (h == null || h.length !== 1)
+                return (c || (c = n("Promise"))).resolve({
+                  canceled: !1,
+                  eof: !0,
+                  status: 404,
+                  messages: [],
+                });
+              var y = ((a = h[0].Rows) != null ? a : []).map(function (e) {
+                  return {
+                    id: String(e[1]),
+                    chatId: String(e[2]),
+                    timestamp: parseInt(e[3], 10),
+                  };
+                }),
+                C = p == null || y.length < p;
+              return this.$10({ eof: C, status: 200, messages: y });
+            },
           );
-        }),
-        (n.$9 = function (t) {
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.$10 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            if (Array.isArray(e) || typeof e == "boolean")
+              return { canceled: !1, eof: !0, status: 404, messages: [] };
+            var t = yield o("WAWebFtsClientMessageIdResolver").resolveMsgIds(
+                e.messages,
+              ),
+              n = t.resolved,
+              r = t.unresolved,
+              a = e.eof,
+              i = e.status;
+            return (
+              r.length > 0 && this.purge(r),
+              { canceled: !1, eof: a, status: i, messages: n }
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.$9 = function (t) {
           var e = this;
           this.initialize();
-          var n = r("WAWebFtsGenRequestId")();
-          return new Promise(function (r, o) {
-            var a = { command: t, reqId: n };
-            (e.$3.set(n, { resolve: r, reject: o, command: t }), e.$11(a));
+          var o = r("WAWebFtsGenRequestId")();
+          return new (c || (c = n("Promise")))(function (n, r) {
+            var a = { command: t, reqId: o };
+            (e.$3.set(o, { resolve: n, reject: r, command: t }), e.$11(a));
           }).finally(function () {
-            e.$8(n);
+            e.$8(o);
           });
         }),
-        (n.$8 = function (t) {
+        (a.$8 = function (t) {
           this.$3.delete(t);
         }),
-        (n.$11 = function (t) {
+        (a.$11 = function (t) {
           r("nullthrows")(this.$2).postMessage(t);
         }),
         t
       );
     })();
-    l.FtsSQLiteClient = d;
+    l.FtsSQLiteClient = p;
   },
   98,
 );

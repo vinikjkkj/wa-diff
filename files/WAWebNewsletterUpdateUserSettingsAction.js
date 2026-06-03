@@ -2,55 +2,70 @@ __d(
   "WAWebNewsletterUpdateUserSettingsAction",
   [
     "$InternalEnum",
+    "Promise",
     "WAWebNewsletterAttributionLogging",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterToggleAdminActivityMuteStateAction",
     "WAWebNewsletterToggleFollowerActivityMuteStateAction",
     "WAWebWamEnumChannelEventType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum")({
-      AdminActivity: "admin_activity",
-      FollowerActivity: "follower_activity",
-    });
-    async function s(t, n, r, a) {
-      var i = a.eventSurface,
-        l =
-          n === o("WAWebNewsletterModelUtils").MUTED_STATE
-            ? o("WAWebWamEnumChannelEventType").CHANNEL_EVENT_TYPE.MUTE
-            : o("WAWebWamEnumChannelEventType").CHANNEL_EVENT_TYPE.UNMUTE;
-      o("WAWebNewsletterAttributionLogging").NewsletterCoreEventLogger.log({
-        eventSurface: i,
-        cid: t,
-        channelCoreEventType: l,
-        channelRequestMetadata: JSON.stringify(
-          r.map(function (e) {
-            return (
-              (n === o("WAWebNewsletterModelUtils").MUTED_STATE
-                ? "mute"
-                : "unmute") +
-              "_" +
-              e
-            );
-          }),
-        ),
+    var e,
+      s = n("$InternalEnum")({
+        AdminActivity: "admin_activity",
+        FollowerActivity: "follower_activity",
       });
-      var s = [];
-      (r.includes(e.AdminActivity) &&
-        s.push(
-          o(
-            "WAWebNewsletterToggleAdminActivityMuteStateAction",
-          ).toggleNewsletterAdminActivityMuteStateAction(t, n),
-        ),
-        r.includes(e.FollowerActivity) &&
-          s.push(
-            o(
-              "WAWebNewsletterToggleFollowerActivityMuteStateAction",
-            ).toggleNewsletterFollowerActivityMuteStateAction(t, n),
-          ),
-        await Promise.all(s));
+    function u(e, t, n, r) {
+      return c.apply(this, arguments);
     }
-    ((l.NewsletterUserSetting = e), (l.updateNewsletterUserSettingsAction = s));
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, r, a, i) {
+            var l = i.eventSurface,
+              u =
+                r === o("WAWebNewsletterModelUtils").MUTED_STATE
+                  ? o("WAWebWamEnumChannelEventType").CHANNEL_EVENT_TYPE.MUTE
+                  : o("WAWebWamEnumChannelEventType").CHANNEL_EVENT_TYPE.UNMUTE;
+            o(
+              "WAWebNewsletterAttributionLogging",
+            ).NewsletterCoreEventLogger.log({
+              eventSurface: l,
+              cid: t,
+              channelCoreEventType: u,
+              channelRequestMetadata: JSON.stringify(
+                a.map(function (e) {
+                  return (
+                    (r === o("WAWebNewsletterModelUtils").MUTED_STATE
+                      ? "mute"
+                      : "unmute") +
+                    "_" +
+                    e
+                  );
+                }),
+              ),
+            });
+            var c = [];
+            (a.includes(s.AdminActivity) &&
+              c.push(
+                o(
+                  "WAWebNewsletterToggleAdminActivityMuteStateAction",
+                ).toggleNewsletterAdminActivityMuteStateAction(t, r),
+              ),
+              a.includes(s.FollowerActivity) &&
+                c.push(
+                  o(
+                    "WAWebNewsletterToggleFollowerActivityMuteStateAction",
+                  ).toggleNewsletterFollowerActivityMuteStateAction(t, r),
+                ),
+              yield (e || (e = n("Promise"))).all(c));
+          },
+        )),
+        c.apply(this, arguments)
+      );
+    }
+    ((l.NewsletterUserSetting = s), (l.updateNewsletterUserSettingsAction = u));
   },
   98,
 );

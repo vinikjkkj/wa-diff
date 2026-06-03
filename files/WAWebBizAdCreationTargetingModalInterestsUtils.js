@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationTargetingModalInterestsUtils",
-  ["fbt", "LWICometTargetingUtils", "justknobx"],
+  ["fbt", "LWICometTargetingUtils"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = new Set([
@@ -136,38 +136,35 @@ __d(
       return e;
     }
     function f(t, n) {
-      var a = [];
-      for (var i of t) {
-        var l,
+      var r = [];
+      for (var a of t) {
+        var i,
+          l,
           s,
           u,
-          c,
-          p = (l = i.node) == null ? void 0 : l.id,
-          f = (s = i.node) == null ? void 0 : s.name;
-        if (!(p == null || f == null)) {
-          var g = d(p),
-            h = (u = i.node) == null ? void 0 : u.path,
-            y = (c = i.node) == null ? void 0 : c.target_type;
-          if (y != null)
-            if (e.has(y))
-              (a.length === 0 && (a = [{ type: "" }]),
-                (a = [_(a[0], y, g)].concat(a.slice(1))));
+          c = (i = a.node) == null ? void 0 : i.id,
+          p = (l = a.node) == null ? void 0 : l.name;
+        if (!(c == null || p == null)) {
+          var f = d(c),
+            g = (s = a.node) == null ? void 0 : s.path,
+            h = (u = a.node) == null ? void 0 : u.target_type;
+          if (h != null)
+            if (e.has(h))
+              (r.length === 0 && (r = [{ type: "" }]),
+                (r = [_(r[0], h, f)].concat(r.slice(1))));
             else {
-              var C = {
-                  key: p,
-                  label: f,
-                  rawData: { id: g, name: f, path: h, targetType: y },
+              var y = {
+                  key: c,
+                  label: p,
+                  rawData: { id: f, name: p, path: g, targetType: h },
                   type: "entry",
                 },
-                b = o("LWICometTargetingUtils").getFlexibleSpecFromEntry(C, a);
-              b != null && (a = b);
+                C = o("LWICometTargetingUtils").getFlexibleSpecFromEntry(y, r);
+              C != null && (r = C);
             }
         }
       }
-      return (
-        n != null && n.length > 0 && r("justknobx")._("3010") && (a = m(a, n)),
-        a
-      );
+      return (n != null && n.length > 0 && (r = m(r, n)), r);
     }
     function g(e) {
       var t = e == null ? void 0 : e[0];

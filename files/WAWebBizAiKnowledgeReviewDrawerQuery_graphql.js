@@ -4,13 +4,17 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [
-          { defaultValue: null, kind: "LocalArgument", name: "timestamp" },
-        ],
-        t = [
+      var e = {
+          defaultValue: "AUTO_SAVE",
+          kind: "LocalArgument",
+          name: "source",
+        },
+        t = { defaultValue: null, kind: "LocalArgument", name: "timestamp" },
+        r = [
           {
             alias: null,
             args: [
+              { kind: "Variable", name: "source", variableName: "source" },
               {
                 kind: "Variable",
                 name: "timestamp",
@@ -81,20 +85,20 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, t],
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAiKnowledgeReviewDrawerQuery",
-          selections: t,
+          selections: r,
           type: "Query",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: e,
+          argumentDefinitions: [t, e],
           kind: "Operation",
           name: "WAWebBizAiKnowledgeReviewDrawerQuery",
-          selections: t,
+          selections: r,
         },
         params: {
           id: n("WAWebBizAiKnowledgeReviewDrawerQuery_facebookRelayOperation"),

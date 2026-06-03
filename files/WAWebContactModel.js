@@ -47,6 +47,7 @@ __d(
     "WAWebUpdateTextStatusForContact",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
+    "WAWebUsernameTypes",
     "WAWebWid",
     "WAWebWidFactory",
     "err",
@@ -476,7 +477,9 @@ __d(
           return this.isMarketingMessageThread;
         }),
         (a.$Contact$p_5 = function () {
-          var e = o("WAWebFrontendContactGetters").getUsername(this);
+          var e = o("WAWebUsernameTypes").serializeMaybeUsername(
+            o("WAWebFrontendContactGetters").getUsername(this),
+          );
           if (r("isStringNullOrEmpty")(e)) return !1;
           var t = o("WAWebFrontendContactGetters").getSearchName(this);
           if (!r("isStringNullOrEmpty")(t)) return !1;
@@ -547,7 +550,9 @@ __d(
             !r("isStringNullOrEmpty")(a)
           ) {
             var l,
-              u = o("WAWebFrontendContactGetters").getUsername(this);
+              u = o("WAWebUsernameTypes").serializeMaybeUsername(
+                o("WAWebFrontendContactGetters").getUsername(this),
+              );
             return t &&
               !r("isStringNullOrEmpty")(e) &&
               i(e, t) == null &&
@@ -591,20 +596,21 @@ __d(
           }
           var y = this.username;
           if (y != null) {
-            var C = o("WAWebL10NAccentFold").accentFold(y),
-              b = i(C, t);
+            var C = o("WAWebUsernameTypes").serializeUsername(y),
+              b = o("WAWebL10NAccentFold").accentFold(C),
+              v = i(b, t);
             if (
-              b != null &&
+              v != null &&
               o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
             )
-              return { match: y, results: b };
+              return { match: C, results: v };
           }
           if (o("WAWebContactGetters").getIsMe(this)) {
-            var v = o("WAWebL10NAccentFold").accentFold(
+            var S = o("WAWebL10NAccentFold").accentFold(
                 s._(/*BTDS*/ "Me").toString(),
               ),
-              S = i(v, t);
-            if (S != null) return { match: v, results: S };
+              R = i(S, t);
+            if (R != null) return { match: S, results: R };
           }
           return null;
         }),
@@ -635,7 +641,13 @@ __d(
               .concat(
                 o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
                   this.username != null
-                  ? [o("WAWebL10NAccentFold").accentFold(this.username)]
+                  ? [
+                      o("WAWebL10NAccentFold").accentFold(
+                        o("WAWebUsernameTypes").serializeUsername(
+                          this.username,
+                        ),
+                      ),
+                    ]
                   : [],
               )
               .filter(Boolean),

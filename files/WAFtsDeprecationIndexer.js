@@ -1,6 +1,6 @@
 __d(
   "WAFtsDeprecationIndexer",
-  ["WALogger"],
+  ["WALogger", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -22,75 +22,116 @@ __d(
       L,
       E = "deprecatedFTS",
       k = {
-        getBacklogged: async function (n) {
-          return (
+        getBacklogged: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": emptyMessageSource",
+                  ])),
+                E,
+              ),
+              []
+            );
+          });
+          function r(e) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        hasBacklogged: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": hasBacklogged",
+                  ])),
+                E,
+              ),
+              !1
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        removeFromBacklog: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "",
-                  ": emptyMessageSource",
+                  ": removeFromBacklog",
                 ])),
               E,
-            ),
-            []
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getAllAfterId: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return (
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      ": getAllAfterId",
+                    ])),
+                  E,
+                ),
+                []
+              );
+            },
           );
-        },
-        hasBacklogged: async function () {
-          return (
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "",
-                  ": hasBacklogged",
-                ])),
-              E,
-            ),
-            !1
-          );
-        },
-        removeFromBacklog: async function () {
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "",
-                ": removeFromBacklog",
-              ])),
-            E,
-          );
-        },
-        getAllAfterId: async function (t, n) {
-          return (
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "",
-                  ": getAllAfterId",
-                ])),
-              E,
-            ),
-            []
-          );
-        },
-        getAll: async function (t) {
-          return (
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose(["", ": getAll"])),
-              E,
-            ),
-            []
-          );
-        },
-        size: async function () {
-          return (
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose(["", ": size"])),
-              E,
-            ),
-            0
-          );
-        },
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getAll: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            return (
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": getAll",
+                  ])),
+                E,
+              ),
+              []
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        size: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return (
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose(["", ": size"])),
+                E,
+              ),
+              0
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       },
       I = (function () {
         function e(e) {
@@ -110,81 +151,132 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.purge = async function (t) {
-            return (
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    ": purge",
-                  ])),
-                E,
-              ),
-              !0
+          (t.purge = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return (
+                  o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ": purge",
+                      ])),
+                    E,
+                  ),
+                  !0
+                );
+              },
             );
-          }),
-          (t.purgeChat = async function (t) {
-            return (
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    ": purgeChat",
-                  ])),
-                E,
-              ),
-              !0
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (t.purgeChat = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return (
+                  o("WALogger").LOG(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ": purgeChat",
+                      ])),
+                    E,
+                  ),
+                  !0
+                );
+              },
             );
-          }),
-          (t.purge__DEPRECATED_DO_NOT_USE = async function (t, n, r) {
-            return (
-              o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    ": purge__DEPRECATED_DO_NOT_USE",
-                  ])),
-                E,
-              ),
-              !0
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (t.purge__DEPRECATED_DO_NOT_USE = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                return (
+                  o("WALogger").LOG(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ": purge__DEPRECATED_DO_NOT_USE",
+                      ])),
+                    E,
+                  ),
+                  !0
+                );
+              },
             );
-          }),
-          (t.search = async function (t, n) {
-            return (
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    ": search",
-                  ])),
-                E,
-              ),
-              { eof: !0, messages: [], status: 200 }
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (t.search = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return (
+                  o("WALogger").LOG(
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ": search",
+                      ])),
+                    E,
+                  ),
+                  { eof: !0, messages: [], status: 200 }
+                );
+              },
             );
-          }),
-          (t.incremental = async function (t) {
-            return (
-              o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    ": incremental",
-                  ])),
-                E,
-              ),
-              !0
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (t.incremental = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return (
+                  o("WALogger").LOG(
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ": incremental",
+                      ])),
+                    E,
+                  ),
+                  !0
+                );
+              },
             );
-          }),
-          (t.full = async function (t, n) {
-            return (
-              o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose(["", ": full"])),
-                E,
-              ),
-              [self.performance.now()]
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (t.full = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return (
+                  o("WALogger").LOG(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ": full",
+                      ])),
+                    E,
+                  ),
+                  [self.performance.now()]
+                );
+              },
             );
-          }),
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (t.getIndexingProgress = function () {
             return (
               o("WALogger").LOG(
@@ -237,16 +329,22 @@ __d(
               k
             );
           }),
-          (t.eraseIndex = async function () {
-            o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "",
-                  ": eraseIndex",
-                ])),
-              E,
-            );
-          }),
+          (t.eraseIndex = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              o("WALogger").LOG(
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": eraseIndex",
+                  ])),
+                E,
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           e
         );
       })();

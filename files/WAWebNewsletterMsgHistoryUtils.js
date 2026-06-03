@@ -1,6 +1,7 @@
 __d(
   "WAWebNewsletterMsgHistoryUtils",
   [
+    "Promise",
     "WAWebBackendApi",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterDBUtils",
@@ -10,10 +11,12 @@ __d(
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebNewsletterValidationUtils",
     "WAWebNullFunc",
+    "asyncToGeneratorRuntime",
     "lodash",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    var e;
+    function s(e, t) {
       return e.serverId == null
         ? t.serverId == null
           ? 0
@@ -22,7 +25,7 @@ __d(
           ? -1
           : e.serverId - t.serverId;
     }
-    function s(e, t) {
+    function u(e, t) {
       t === void 0 && (t = new Set());
       for (
         var n = [],
@@ -58,64 +61,81 @@ __d(
         a = r();
       return n;
     }
-    async function u(t) {
-      var n = t.jid,
-        a = t.msgs,
-        i = t.range,
-        l = t.serverIdsToSkip,
-        u = l === void 0 ? new Set() : l;
-      if (a.length < 2 && i == null) return a;
-      var c = a[0].serverId,
-        d = a[a.length - 1].serverId;
-      if (c == null || d == null) return [];
-      if (
-        c >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
-        d >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
-        (d - c + 1 === a.length && i == null)
-      )
-        return a;
-      var m;
-      if (i != null) {
-        var p = i.end,
-          _ = i.start,
-          f = { serverId: Math.min(_, p) - 1 },
-          g = { serverId: Math.max(_, p) + 1 };
-        m = s([f].concat(a).concat(g), u);
-      } else m = s(a, u);
-      if (m.length === 0) return a;
-      var h = m.map(async function (e) {
-          var t = await o("WAWebNewsletterGetMessagesJob")
-            .getNewsletterMessages(
-              o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
-                String(n),
-              ),
-              e.length,
-              { after: e[0] - 1 },
-            )
-            .catch(o("WAWebNullFunc").returnNull);
-          if (t != null)
-            return (
-              o("WAWebBackendApi").frontendFireAndForget(
-                "updateNewsletterMessages",
-                t,
-              ),
-              await o("WAWebNewsletterBackendAddOnsUtils").updateAddOnDbRecords(
-                t,
-              ),
-              t.msgs
-            );
-        }),
-        y = r("lodash")
-          .flatten(await Promise.all(h))
-          .filter(Boolean);
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        o("WAWebNewsletterUpdateMsgsRecordsJob")
-          .addNewsletterMsgsRecordsJob(y)
-          .fireAndForget(),
-        a.concat(y).sort(e)
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.jid,
+            i = t.msgs,
+            l = t.range,
+            c = t.serverIdsToSkip,
+            d = c === void 0 ? new Set() : c;
+          if (i.length < 2 && l == null) return i;
+          var m = i[0].serverId,
+            p = i[i.length - 1].serverId;
+          if (m == null || p == null) return [];
+          if (
+            m >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
+            p >= o("WAWebNewsletterDBUtils").TEMPORARY_SERVER_ID_LOWER_BOUND ||
+            (p - m + 1 === i.length && l == null)
+          )
+            return i;
+          var _;
+          if (l != null) {
+            var f = l.end,
+              g = l.start,
+              h = { serverId: Math.min(g, f) - 1 },
+              y = { serverId: Math.max(g, f) + 1 };
+            _ = u([h].concat(i).concat(y), d);
+          } else _ = u(i, d);
+          if (_.length === 0) return i;
+          var C = _.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = yield o("WAWebNewsletterGetMessagesJob")
+                      .getNewsletterMessages(
+                        o(
+                          "WAWebNewsletterValidationUtils",
+                        ).toNewsletterJidOrThrow(String(a)),
+                        e.length,
+                        { after: e[0] - 1 },
+                      )
+                      .catch(o("WAWebNullFunc").returnNull);
+                    if (t != null)
+                      return (
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "updateNewsletterMessages",
+                          t,
+                        ),
+                        yield o(
+                          "WAWebNewsletterBackendAddOnsUtils",
+                        ).updateAddOnDbRecords(t),
+                        t.msgs
+                      );
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+            b = r("lodash")
+              .flatten(yield (e || (e = n("Promise"))).all(C))
+              .filter(Boolean);
+          return (
+            o("WAWebNewsletterUpdateMsgsRecordsJob")
+              .addNewsletterMsgsRecordsJob(b)
+              .fireAndForget(),
+            i.concat(b).sort(s)
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    ((l.identifyMsgGaps = s), (l.fillMsgHistoryGaps = u));
+    ((l.identifyMsgGaps = u), (l.fillMsgHistoryGaps = c));
   },
   98,
 );

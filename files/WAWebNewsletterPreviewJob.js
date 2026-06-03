@@ -1,6 +1,7 @@
 __d(
   "WAWebNewsletterPreviewJob",
   [
+    "Promise",
     "WAJobOrchestratorTypes",
     "WANullthrows",
     "WAWebCreateChat",
@@ -14,84 +15,86 @@ __d(
     "WAWebNewsletterUpdateNewslettersRecordsJob",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
+    var e;
+    function s(t, a, i) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterPreviewData",
-          async function () {
-            var a = await Promise.all([
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var l = yield (e || (e = n("Promise"))).all([
                 o(
                   "WAWebNewsletterMetadataQueryJob",
-                ).queryNewsletterMetadataByInviteCode(e, t),
+                ).queryNewsletterMetadataByInviteCode(t, a),
                 o(
                   "WAWebNewsletterGetMessagesQueryJob",
                 ).queryNewsletterMessagesByInviteCode({
-                  inviteCode: e,
+                  inviteCode: t,
                   messagesCount: o(
                     "WAWebNewsletterGatingUtils",
                   ).getMaxMsgCountFromServer(),
-                  qpl: n,
+                  qpl: i,
                 }),
               ]),
-              i = a[0],
-              l = a[1],
-              s = l.messages,
-              u = l.timestamp,
-              c =
-                i != null
-                  ? o("WAWebWidFactory").createWid(i == null ? void 0 : i.idJid)
+              s = l[0],
+              u = l[1],
+              c = u.messages,
+              d = u.timestamp,
+              m =
+                s != null
+                  ? o("WAWebWidFactory").createWid(s == null ? void 0 : s.idJid)
                   : null,
-              d = await o(
+              p = yield o(
                 "WAWebNewsletterBackendAddOnsUtils",
               ).getMsgsAndAddOnsFromUpdates(
-                s,
-                r("WANullthrows")(c, "Unexpected null metadata"),
-                u,
+                c,
+                r("WANullthrows")(m, "Unexpected null metadata"),
+                d,
               ),
-              m = d.ids,
-              p = d.msgs,
-              _ = d.pollVotes,
-              f = d.reactions;
+              _ = p.ids,
+              f = p.msgs,
+              g = p.pollVotes,
+              h = p.reactions;
             return {
-              newsletterMetadata: i,
-              newsletterMessages: p,
-              newsletterReactions: f,
-              newsletterVotes: _,
-              timestamp: u,
-              ids: m,
+              newsletterMetadata: s,
+              newsletterMessages: f,
+              newsletterReactions: h,
+              newsletterVotes: g,
+              timestamp: d,
+              ids: _,
             };
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    function s(e, t, n) {
+    function u(e, t, r) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "persistPreviewNewsletterInfoInDb",
-          async function () {
-            (await o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            (yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
               o(
                 "WAWebNewsletterStorageUtils",
               ).createNewsletterMetadataObjectForStorage(t),
             ),
-              await o(
+              yield o(
                 "WAWebNewsletterUpdateNewslettersRecordsJob",
               ).updateNewsletterChatRecords([
                 o("WAWebCreateChat").createNewsletterObjectForStorage(e),
               ]),
-              await o(
+              yield o(
                 "WAWebNewsletterUpdateMsgsRecordsJob",
-              ).addNewsletterMsgsRecords(n));
-          },
+              ).addNewsletterMsgsRecords(r));
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    ((l.getNewsletterPreviewData = e),
-      (l.persistPreviewNewsletterInfoInDb = s));
+    ((l.getNewsletterPreviewData = s),
+      (l.persistPreviewNewsletterInfoInDb = u));
   },
   98,
 );

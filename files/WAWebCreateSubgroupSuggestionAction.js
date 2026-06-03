@@ -11,6 +11,7 @@ __d(
     "WAWebStateUtils",
     "WAWebSubgroupSuggestionCreateJob",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "countWhere",
     "react",
   ],
@@ -73,132 +74,160 @@ __d(
             return (n(), p().defaultErrorAction);
         }
       };
-    async function f(e, t, n, a) {
-      var i = p(t.length),
-        l = i.defaultErrorAction,
-        u = i.duplicateSubgroupSuggestionAction,
-        f = i.exitedAction,
-        g = i.initialAction,
-        h = o(
-          "WAWebSubgroupSuggestionCreateJob",
-        ).createExistingGroupSubgroupSuggestion(e, t),
-        y = h
-          .then(function (e) {
-            var i = r("countWhere")(e, function (e) {
-              return e.error == null;
-            });
-            if (i === 0) {
-              var c = e.some(function (e) {
-                return e.error === d || e.error === m;
-              });
-              return (n(), c ? u : l);
-            }
-            return (
-              a(),
-              i !== t.length
-                ? new (o("WAWebActionToast.react").ActionType)(
-                    s._(
-                      /*BTDS*/ '_j{"*":{"*":{"*":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions were sent successfully.","_1":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions was sent successfully."}}}',
-                      [
-                        s._param("succeeded-suggestions", i, [0]),
-                        s._param("total-suggestions", t.length, [0]),
-                        s._plural(i),
-                      ],
-                    ),
-                  )
-                : f
-            );
-          })
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                return _(e, n);
-              },
-            ),
-          )
-          .catch(function () {
-            return (n(), l);
-          });
-      (o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebActionToast.react").ActionToast, {
-          initialAction: g,
-          pendingAction: y,
-        }),
-      ),
-        await h);
+    function f(e, t, n, r) {
+      return g.apply(this, arguments);
     }
-    async function g(e, t, n, r) {
-      var a = o("WAWebStateUtils").unproxy(e),
-        i = p(),
-        l = i.defaultErrorAction,
-        s = i.exitedAction,
-        u = i.initialAction,
-        d = o(
-          "WAWebSubgroupSuggestionCreateJob",
-        ).createNewGroupSubgroupSuggestion({
-          announce: t.announce,
-          description: t.description,
-          memberAddMode: t.memberAddMode,
-          memberShareGroupHistoryMode: t.memberShareGroupHistoryMode,
-          membershipApprovalMode: t.membershipApprovalMode,
-          parentGroupId: a.id,
-          restrict: t.restrict,
-          subject: t.subject,
-        }),
-        m = d
-          .then(function (e) {
-            return (h(a, e), r == null || r(), s);
-          })
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                return _(e, n);
-              },
-            ),
-          )
-          .catch(function () {
-            return (n(), l);
-          });
-      (o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebActionToast.react").ActionToast, {
-          initialAction: u,
-          pendingAction: m,
-        }),
-      ),
-        await d);
-    }
-    async function h(t, n) {
-      try {
-        var r;
-        (await o("WAWebApiSubgroupSuggestionStore").addSubgroupSuggestions(
-          t.id,
-          [n],
-        ),
-          (r = t.groupMetadata) == null ||
-            (r = r.subgroupSuggestions) == null ||
-            r.add(
-              babelHelpers.extends({}, n, {
-                id: o(
-                  "WAWebCommunitySubgroupSuggestionsUtils",
-                ).getSubgroupSuggestionId(n.id, n.owner),
-                groupId: n.id,
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            var i = p(t.length),
+              l = i.defaultErrorAction,
+              u = i.duplicateSubgroupSuggestionAction,
+              f = i.exitedAction,
+              g = i.initialAction,
+              h = o(
+                "WAWebSubgroupSuggestionCreateJob",
+              ).createExistingGroupSubgroupSuggestion(e, t),
+              y = h
+                .then(function (e) {
+                  var i = r("countWhere")(e, function (e) {
+                    return e.error == null;
+                  });
+                  if (i === 0) {
+                    var c = e.some(function (e) {
+                      return e.error === d || e.error === m;
+                    });
+                    return (n(), c ? u : l);
+                  }
+                  return (
+                    a(),
+                    i !== t.length
+                      ? new (o("WAWebActionToast.react").ActionType)(
+                          s._(
+                            /*BTDS*/ '_j{"*":{"*":{"*":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions were sent successfully.","_1":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions was sent successfully."}}}',
+                            [
+                              s._param("succeeded-suggestions", i, [0]),
+                              s._param("total-suggestions", t.length, [0]),
+                              s._plural(i),
+                            ],
+                          ),
+                        )
+                      : f
+                  );
+                })
+                .catch(
+                  o("WAFilteredCatch").filteredCatch(
+                    o("WAWebBackendErrors").ServerStatusCodeError,
+                    function (e) {
+                      return _(e, n);
+                    },
+                  ),
+                )
+                .catch(function () {
+                  return (n(), l);
+                });
+            (o("WAWebToastManager").ToastManager.open(
+              c.jsx(o("WAWebActionToast.react").ActionToast, {
+                initialAction: g,
+                pendingAction: y,
               }),
-            ));
-      } catch (t) {
-        o("WALogger")
-          .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "failed to add subgroup suggestion to table",
-              ])),
-          )
-          .verbose();
-      }
+            ),
+              yield h);
+          },
+        )),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t, n, r) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = o("WAWebStateUtils").unproxy(e),
+              i = p(),
+              l = i.defaultErrorAction,
+              s = i.exitedAction,
+              u = i.initialAction,
+              d = o(
+                "WAWebSubgroupSuggestionCreateJob",
+              ).createNewGroupSubgroupSuggestion({
+                announce: t.announce,
+                description: t.description,
+                memberAddMode: t.memberAddMode,
+                memberShareGroupHistoryMode: t.memberShareGroupHistoryMode,
+                membershipApprovalMode: t.membershipApprovalMode,
+                parentGroupId: a.id,
+                restrict: t.restrict,
+                subject: t.subject,
+              }),
+              m = d
+                .then(function (e) {
+                  return (C(a, e), r == null || r(), s);
+                })
+                .catch(
+                  o("WAFilteredCatch").filteredCatch(
+                    o("WAWebBackendErrors").ServerStatusCodeError,
+                    function (e) {
+                      return _(e, n);
+                    },
+                  ),
+                )
+                .catch(function () {
+                  return (n(), l);
+                });
+            (o("WAWebToastManager").ToastManager.open(
+              c.jsx(o("WAWebActionToast.react").ActionToast, {
+                initialAction: u,
+                pendingAction: m,
+              }),
+            ),
+              yield d);
+          },
+        )),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          try {
+            var r;
+            (yield o("WAWebApiSubgroupSuggestionStore").addSubgroupSuggestions(
+              t.id,
+              [n],
+            ),
+              (r = t.groupMetadata) == null ||
+                (r = r.subgroupSuggestions) == null ||
+                r.add(
+                  babelHelpers.extends({}, n, {
+                    id: o(
+                      "WAWebCommunitySubgroupSuggestionsUtils",
+                    ).getSubgroupSuggestionId(n.id, n.owner),
+                    groupId: n.id,
+                  }),
+                ));
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "failed to add subgroup suggestion to table",
+                  ])),
+              )
+              .verbose();
+          }
+        })),
+        b.apply(this, arguments)
+      );
     }
     ((l.createExistingGroupsSubgroupSuggestionsAction = f),
-      (l.createNewGroupSubgroupSuggestionAction = g));
+      (l.createNewGroupSubgroupSuggestionAction = h));
   },
   226,
 );

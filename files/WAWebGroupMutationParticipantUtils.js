@@ -5,6 +5,7 @@ __d(
     "WAWebApiContact",
     "WAWebMiscErrors",
     "WAWebUsernameGatingUtils",
+    "WAWebUsernameTypes",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,7 +33,11 @@ __d(
             new (o("WAWebMiscErrors").ActionError)()
           );
         var l = t.username;
-        if (l != null) return { lid: i, username: l };
+        if (l != null)
+          return {
+            lid: i,
+            username: o("WAWebUsernameTypes").serializeUsername(l),
+          };
         if (a != null)
           return {
             lid: i,

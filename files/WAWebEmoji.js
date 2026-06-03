@@ -12,7 +12,6 @@ __d(
     "WAWebGetEmojiPathExperimental",
     "compactMap",
     "justknobx",
-    "lodash",
     "objectEntries",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -226,18 +225,23 @@ __d(
                 o = r.unqualifiedToNormalizedEmoji;
               return o.get(n);
             }),
-            (this.normalizeAllEmojis = r("lodash").memoize(function (n) {
-              return n
-                ? n.replace(t.emojiRegex(), function (n, r) {
-                    var o;
-                    return D.has(r)
-                      ? ""
-                      : (o = t.normalizeEmoji(r)) != null
-                        ? o
-                        : e;
-                  })
-                : "";
-            })),
+            (this.normalizeAllEmojis = o("WAMemoizeCache").memoizeWithArgs(
+              function (n) {
+                return n
+                  ? n.replace(t.emojiRegex(), function (n, r) {
+                      var o;
+                      return D.has(r)
+                        ? ""
+                        : (o = t.normalizeEmoji(r)) != null
+                          ? o
+                          : e;
+                    })
+                  : "";
+              },
+              function (e) {
+                return e;
+              },
+            )),
             (this.getSkinToneVariant = function (e, n) {
               var r = t.$8(),
                 o = r.get(e);

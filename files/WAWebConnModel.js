@@ -12,12 +12,13 @@ __d(
     "WAWebWamEnumPlatformType",
     "WAWebWamGlobals",
     "WAWebWebcRawPlatformsWamEvent",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function (t) {
-        function n() {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -73,36 +74,39 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.initialize = function () {
+          (i.initialize = function () {
             var e = this;
             (o("WAWebBaseModel").BaseModel.prototype.initialize.call(this),
               this.listenTo(this, "change:phone", function () {
                 u(e.phone);
               }),
               this.listenTo(this, "change:platform", this.$ConnImpl$p_1),
-              this.on("me_ready", async function () {
-                if (
-                  (await o("WAWebABPropsCache").waitForABPropConfigsReady(),
-                  o("WAWebVoipGatingUtils").isVoipDownloadEnabled())
-                ) {
-                  var e = await o(
-                      "WAWebVoipBackendLoadable",
-                    ).requireVoipJsBackend(),
-                    t = e.WAWebVoipInit;
-                  await t.initWAWebVoip();
-                }
-              }));
+              this.on(
+                "me_ready",
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  if (
+                    (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+                    o("WAWebVoipGatingUtils").isVoipDownloadEnabled())
+                  ) {
+                    var e = yield o(
+                        "WAWebVoipBackendLoadable",
+                      ).requireVoipJsBackend(),
+                      t = e.WAWebVoipInit;
+                    yield t.initWAWebVoip();
+                  }
+                }),
+              ));
           }),
-          (a.delete = function () {
+          (i.delete = function () {
             (o("WAWebUserPrefsGeneral").setPushname(), this.clear());
           }),
-          (a.canSetMyPushname = function () {
+          (i.canSetMyPushname = function () {
             return !this.isSMB;
           }),
-          (a.$ConnImpl$p_1 = function () {
+          (i.$ConnImpl$p_1 = function () {
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -122,12 +126,12 @@ __d(
                   webcRawPlatform: this.platform,
                 }).commit());
           }),
-          (a.shouldSaveToCache = function () {
+          (i.shouldSaveToCache = function () {
             return (
               !!o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() && !!this.id
             );
           }),
-          n
+          a
         );
       })(o("WAWebBaseModel").BaseModel);
     s.Proxy = "conn";

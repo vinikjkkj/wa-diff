@@ -1,6 +1,13 @@
 __d(
   "WAWebMsgKeyNewId",
-  ["WABinary", "WAHex", "WARandomHex", "WATimeUtils", "WAWebUserPrefsMeUser"],
+  [
+    "WABinary",
+    "WAHex",
+    "WARandomHex",
+    "WATimeUtils",
+    "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       var e = o("WATimeUtils").unixTime(),
@@ -14,14 +21,19 @@ __d(
         r.readByteArrayView()
       );
     }
-    var s = async function () {
-      var t = new Uint8Array(
-        await self.crypto.subtle.digest("SHA-256", e()),
-        0,
-        9,
-      );
-      return "3EB0" + o("WAHex").toHex(t);
-    };
+    var s = (function () {
+      var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var t = new Uint8Array(
+          yield self.crypto.subtle.digest("SHA-256", e()),
+          0,
+          9,
+        );
+        return "3EB0" + o("WAHex").toHex(t);
+      });
+      return function () {
+        return t.apply(this, arguments);
+      };
+    })();
     ((l.genMsgKeyUint = e), (l.getMsgKeyNewSHA256Id = s));
   },
   98,

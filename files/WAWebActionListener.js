@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "JSResourceForInteraction",
+    "Promise",
     "WAAbortError",
     "WALogger",
     "WAPromiseDelays",
@@ -67,6 +68,7 @@ __d(
     "WAWebWamEnumMuteEntryPoint",
     "WAWebWamEnumProfileEntryPoint",
     "WDSDialogBridge",
+    "asyncToGeneratorRuntime",
     "countWhere",
     "err",
     "isStringNullOrEmpty",
@@ -83,70 +85,71 @@ __d(
     var e,
       u,
       c,
-      d = c || (c = o("react")),
-      m = r("qpl")._(701183376, "3423");
-    function p(t) {
-      var n = o("react-compiler-runtime").c(60),
-        a = t.activeNavBarItem,
-        i = t.updateActiveNavBarItem,
-        l = r("useWAWebUIM")(),
-        c;
-      n[0] !== l
-        ? ((c = function (t) {
+      d,
+      m = d || (d = o("react")),
+      p = r("qpl")._(701183376, "3423");
+    function _(t) {
+      var a = o("react-compiler-runtime").c(60),
+        i = t.activeNavBarItem,
+        l = t.updateActiveNavBarItem,
+        d = r("useWAWebUIM")(),
+        p;
+      a[0] !== d
+        ? ((p = function (t) {
             var e = t.onSend,
               n = t.product;
             o("WAWebModalManager").ModalManager.open(
-              d.jsx(
+              m.jsx(
                 o("WAWebSendProductModalLoadable").SendProductModalLoadable,
                 { product: n, onSend: e },
               ),
-              { transition: "modal-flow", uim: l },
+              { transition: "modal-flow", uim: d },
             );
           }),
-          (n[0] = l),
-          (n[1] = c))
-        : (c = n[1]);
-      var m = c,
-        p;
-      n[2] !== l
-        ? ((p = function (t, n) {
+          (a[0] = d),
+          (a[1] = p))
+        : (p = a[1]);
+      var _ = p,
+        h;
+      a[2] !== d
+        ? ((h = function (t, n) {
             o("WAWebModalManager").ModalManager.openMedia(
-              d.jsx(r("WAWebProductCatalogProductImageViewFlow.react"), {
+              m.jsx(r("WAWebProductCatalogProductImageViewFlow.react"), {
                 activeProductImage: t.activeProductImage,
                 productImageCollection: t.productImageCollection,
                 getZoomNode: t.getZoomNode,
                 product: t.product,
                 sessionId: n,
               }),
-              { transition: "media-viewer", uim: l },
+              { transition: "media-viewer", uim: d },
             );
           }),
-          (n[2] = l),
-          (n[3] = p))
-        : (p = n[3]);
-      var g = p,
-        I = w,
-        A;
-      n[4] !== l
-        ? ((A = function (t) {
+          (a[2] = d),
+          (a[3] = h))
+        : (h = a[3]);
+      var y = h,
+        D = F,
+        O;
+      a[4] !== d
+        ? ((O = function (t) {
             o("WAWebHeader.react").openInfoPanel({
               chat: t,
               profileEntryPoint: o("WAWebWamEnumProfileEntryPoint")
                 .PROFILE_ENTRY_POINT.NOTIFICATION_BLOCK_ACTION,
-              uim: l,
+              uim: d,
             });
           }),
-          (n[4] = l),
-          (n[5] = A))
-        : (A = n[5]);
-      var F = A,
-        O;
-      n[6] !== l
-        ? ((O = function (t, n, a, i, u) {
+          (a[4] = d),
+          (a[5] = O))
+        : (O = a[5]);
+      var B = O,
+        W;
+      a[6] !== d
+        ? ((W = function (t, n, a, i, l) {
             var e = i === void 0 ? !0 : i,
-              c = u === void 0 ? !0 : u;
+              u = l === void 0 ? !0 : l;
             if (n) {
-              var m = function (n, r, i) {
+              var c = function (n, r, i) {
                 var e =
                     i === 1
                       ? o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
@@ -164,7 +167,7 @@ __d(
                     o("WAWebChatMuteLogger").logChatMute(t, e, l),
                   (t.pendingAction = t.pendingAction + 1),
                   t.mute
-                    .mute({ expiration: n, sendDevice: !0, showToast: c })
+                    .mute({ expiration: n, sendDevice: !0, showToast: u })
                     .finally(function () {
                       t.pendingAction = t.pendingAction - 1;
                     }),
@@ -179,26 +182,26 @@ __d(
               if (e) {
                 var p = s._(/*BTDS*/ "Mute notifications");
                 o("WAWebModalManager").ModalManager.open(
-                  d.jsx(r("WAWebMutePopup.react"), {
+                  m.jsx(r("WAWebMutePopup.react"), {
                     title: p,
                     mute: t.mute,
-                    onMute: m,
+                    onMute: c,
                     entryPoint: a,
                     children: s._(
                       /*BTDS*/ "No one else in this chat will see that you muted it, and you will still be notified if you are mentioned.",
                     ),
                   }),
-                  { transition: "modal", uim: l },
+                  { transition: "modal", uim: d },
                 );
               } else {
                 var _ = Number.POSITIVE_INFINITY,
                   f = o("WAWebMuteExpirations").calculateMuteExpiration(_);
-                m(f, _, a != null ? a : 0);
+                c(f, _, a != null ? a : 0);
               }
             } else {
               ((t.pendingAction = t.pendingAction + 1),
                 t.mute
-                  .unmute({ sendDevice: !0, showToast: c })
+                  .unmute({ sendDevice: !0, showToast: u })
                   .finally(function () {
                     t.pendingAction = t.pendingAction - 1;
                   }));
@@ -222,13 +225,13 @@ __d(
                   ).BusinessUnmuteWamEvent)().commit());
             }
           }),
-          (n[6] = l),
-          (n[7] = O))
-        : (O = n[7]);
-      var B = O,
-        W;
-      n[8] !== l
-        ? ((W = function (t, n, a) {
+          (a[6] = d),
+          (a[7] = W))
+        : (W = a[7]);
+      var q = W,
+        U;
+      a[8] !== d
+        ? ((U = function (t, n, a) {
             if (t) {
               var e = s._(
                 /*BTDS*/ '_j{"*":"Mute selected chats for...","_1":"Mute selected chat for..."}',
@@ -251,46 +254,46 @@ __d(
                     a());
                 };
                 o("WAWebModalManager").ModalManager.open(
-                  d.jsx(r("WAWebMutePopup.react"), {
+                  m.jsx(r("WAWebMutePopup.react"), {
                     title: e,
                     mute: t[0].mute,
                     onMute: i,
                   }),
-                  { transition: "modal", uim: l },
+                  { transition: "modal", uim: d },
                 );
-              } else (t.forEach(M), a());
+              } else (t.forEach(A), a());
             }
           }),
-          (n[8] = l),
-          (n[9] = W))
-        : (W = n[9]);
-      var q = W,
-        U;
-      n[10] !== B
-        ? ((U = function (t, n, r, o) {
-            return B(t, n, 0, r, o);
-          }),
-          (n[10] = B),
-          (n[11] = U))
-        : (U = n[11]);
+          (a[8] = d),
+          (a[9] = U))
+        : (U = a[9]);
       var V = U,
-        H = N,
-        G = P,
-        z;
-      n[12] !== l
-        ? ((z = function (t, n, a) {
+        H;
+      a[10] !== q
+        ? ((H = function (t, n, r, o) {
+            return q(t, n, 0, r, o);
+          }),
+          (a[10] = q),
+          (a[11] = H))
+        : (H = a[11]);
+      var G = H,
+        z = w,
+        j = M,
+        K;
+      a[12] !== d
+        ? ((K = function (t, n, a) {
             var e = a === void 0 ? !1 : a,
               i = s._(/*BTDS*/ "Turn off all reactions notifications for:"),
-              u = s._(/*BTDS*/ "Reactions notifications enabled"),
-              c = s._(
+              l = s._(/*BTDS*/ "Reactions notifications enabled"),
+              u = s._(
                 /*BTDS*/ "Enable sounds and notifications for reactions?",
               );
             if (n) {
-              var m = function (n, r) {
+              var c = function (n, r) {
                 (t.mute({ expiration: n }),
-                  G(!1),
+                  j(!1),
                   o("WAWebToastManager").ToastManager.open(
-                    d.jsx(o("WAWebToast.react").Toast, {
+                    m.jsx(o("WAWebToast.react").Toast, {
                       msg: o(
                         "WAWebActionListenerHelpers",
                       ).getMuteAllDurationLabel(r),
@@ -299,48 +302,48 @@ __d(
                   ));
               };
               o("WAWebModalManager").ModalManager.open(
-                d.jsx(r("WAWebMutePopup.react"), {
+                m.jsx(r("WAWebMutePopup.react"), {
                   mute: t,
                   title: i,
-                  onMute: m,
+                  onMute: c,
                   muteAll: !0,
                 }),
-                { transition: "modal", uim: l },
+                { transition: "modal", uim: d },
               );
             } else {
               if (e) {
-                (t.unmute(), G(!0));
+                (t.unmute(), j(!0));
                 return;
               }
               var p = function () {
                 (t.unmute(),
-                  G(!0),
+                  j(!0),
                   o("WAWebModalManager").ModalManager.close(),
                   o("WAWebToastManager").ToastManager.open(
-                    d.jsx(o("WAWebToast.react").Toast, {
-                      msg: u,
+                    m.jsx(o("WAWebToast.react").Toast, {
+                      msg: l,
                       id: o("WAWebToast.react").genId(),
                     }),
                   ));
               };
               o("WAWebModalManager").ModalManager.open(
-                d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                   onOK: p,
                   okText: s._(/*BTDS*/ "Unmute"),
                   onCancel: o("WAWebModalManager").closeModalManager,
                   cancelText: s._(/*BTDS*/ "Cancel"),
-                  children: c,
+                  children: u,
                 }),
               );
             }
           }),
-          (n[12] = l),
-          (n[13] = z))
-        : (z = n[13]);
-      var j = z,
-        K;
-      n[14] !== l
-        ? ((K = function (t, n) {
+          (a[12] = d),
+          (a[13] = K))
+        : (K = a[13]);
+      var Q = K,
+        X;
+      a[14] !== d
+        ? ((X = function (t, n) {
             var e = function (r) {
               if (
                 ((t.pendingAction = t.pendingAction + 1),
@@ -355,172 +358,180 @@ __d(
             };
             o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
               ? o("WDSDialogBridge").openWDSDialog(
-                  d.jsx(r("WAWebDeleteChatDialogV2.react"), {
+                  m.jsx(r("WAWebDeleteChatDialogV2.react"), {
                     chat: t,
                     onDeleteOrExit: e,
                   }),
                 )
               : o("WAWebModalManager").ModalManager.open(
-                  d.jsx(r("WAWebDeleteChatPopup.react"), {
+                  m.jsx(r("WAWebDeleteChatPopup.react"), {
                     chat: t,
                     onDeleteOrExit: e,
                   }),
-                  { transition: "modal", uim: l },
+                  { transition: "modal", uim: d },
                 );
           }),
-          (n[14] = l),
-          (n[15] = K))
-        : (K = n[15]);
-      var Q = K,
-        X;
-      n[16] !== Q
-        ? ((X = function (t) {
-            Q(t, 0);
-          }),
-          (n[16] = Q),
-          (n[17] = X))
-        : (X = n[17]);
+          (a[14] = d),
+          (a[15] = X))
+        : (X = a[15]);
       var Y = X,
-        J = $,
-        Z = x,
-        ee;
-      n[18] !== l
-        ? ((ee = function (t) {
+        J;
+      a[16] !== Y
+        ? ((J = function (t) {
+            Y(t, 0);
+          }),
+          (a[16] = Y),
+          (a[17] = J))
+        : (J = a[17]);
+      var Z = J,
+        ee = N,
+        te = P,
+        ne;
+      a[18] !== d
+        ? ((ne = function (t) {
             o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
               ? o("WDSDialogBridge").openWDSDialog(
-                  d.jsx(r("WAWebClearChatDialogV2.react"), { chat: t }),
+                  m.jsx(r("WAWebClearChatDialogV2.react"), { chat: t }),
                 )
               : o("WAWebModalManager").ModalManager.open(
-                  d.jsx(r("WAWebClearChatPopup.react"), { chat: t }),
-                  { transition: "modal", uim: l },
+                  m.jsx(r("WAWebClearChatPopup.react"), { chat: t }),
+                  { transition: "modal", uim: d },
                 );
           }),
-          (n[18] = l),
-          (n[19] = ee))
-        : (ee = n[19]);
-      var te = ee,
-        ne;
-      n[20] !== l
-        ? ((ne = function (t, n) {
+          (a[18] = d),
+          (a[19] = ne))
+        : (ne = a[19]);
+      var re = ne,
+        oe;
+      a[20] !== d
+        ? ((oe = function (t, n) {
             o("WAWebModalManager").ModalManager.open(
-              d.jsx(r("WAWebClearSelectedChatsPopup.react"), {
+              m.jsx(r("WAWebClearSelectedChatsPopup.react"), {
                 chats: t,
                 onComplete: n,
               }),
-              { transition: "modal", uim: l },
+              { transition: "modal", uim: d },
             );
           }),
-          (n[20] = l),
-          (n[21] = ne))
-        : (ne = n[21]);
-      var re = ne,
-        oe = D,
-        ae;
-      n[22] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ae = function (t) {
+          (a[20] = d),
+          (a[21] = oe))
+        : (oe = a[21]);
+      var ae = oe,
+        ie = $,
+        le;
+      a[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((le = function (t) {
             var e = t.archive,
               n = t.chat,
               r = t.showToast;
-            oe({ archive: e, chat: n, entryPoint: 0, showToast: r });
+            ie({ archive: e, chat: n, entryPoint: 0, showToast: r });
           }),
-          (n[22] = ae))
-        : (ae = n[22]);
-      var ie = ae,
-        le = T,
-        se = k,
-        ue = E,
-        ce = L,
-        de,
-        me;
-      if (n[23] === Symbol.for("react.memo_cache_sentinel")) {
-        de = function (n, a, i, l, u, c) {
-          var t = u === void 0 ? "LEFT" : u,
-            m = a.list;
-          if (!m || m.some(R))
-            return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
-          var p = r("isStringNullOrEmpty")(l)
+          (a[22] = le))
+        : (le = a[22]);
+      var se = le,
+        ue = x,
+        ce = T,
+        de = I,
+        me = k,
+        pe,
+        _e;
+      if (a[23] === Symbol.for("react.memo_cache_sentinel")) {
+        pe = function (a, i, l, u, d, p) {
+          var t = d === void 0 ? "LEFT" : d,
+            _ = i.list;
+          if (!_ || _.some(E))
+            return (c || (c = n("Promise"))).reject(
+              new (o("WAWebMiscErrors").ActionError)(),
+            );
+          var f = r("isStringNullOrEmpty")(u)
               ? o("WAWebActionToast.react").genId()
-              : l,
-            _ = m.length,
-            f = new AbortController(),
-            g = f.signal,
-            h;
-          if (a.type !== "addon") {
+              : u,
+            g = _.length,
+            h = new AbortController(),
+            y = h.signal,
+            C;
+          if (i.type !== "addon") {
             (o("WAWebActionListenerHelpers").logSnackbarDeleteUndoMetric(
-              n,
               a,
+              i,
               "shown",
             ),
-              a.list.forEach(S),
-              (n.pendingDeleteForMeCount =
-                n.pendingDeleteForMeCount + a.list.length));
-            var y = s._(
+              i.list.forEach(L),
+              (a.pendingDeleteForMeCount =
+                a.pendingDeleteForMeCount + i.list.length));
+            var b = s._(
                 /*BTDS*/ '_j{"*":"Deleted {number_of_messages} items","_1":"Deleted 1 item"}',
-                [s._plural(_, "number_of_messages")],
+                [s._plural(g, "number_of_messages")],
               ),
-              C =
-                _ === 1
+              v =
+                g === 1
                   ? s._(/*BTDS*/ "Message deleted for me")
                   : s._(
                       /*BTDS*/ '_j{"*":"{number_of_messages} messages deleted for me","_1":"1 message deleted for me"}',
-                      [s._plural(_, "number_of_messages")],
+                      [s._plural(g, "number_of_messages")],
                     ),
-              L = c === "mediaHub" ? y : C;
-            h = new (o("WAWebActionToast.react").ActionType)(L, {
+              k = p === "mediaHub" ? b : v;
+            C = new (o("WAWebActionToast.react").ActionType)(k, {
               actionText: s._(/*BTDS*/ "Undo"),
-              actionHandler: async function () {
-                (f.abort(),
-                  a.list.forEach(v),
-                  o(
-                    "WAWebMsgCollection",
-                  ).MsgCollection.makeParentMessagesVisibleInChat(a.list),
-                  (n.pendingDeleteForMeCount =
-                    n.pendingDeleteForMeCount - a.list.length),
-                  o("WAWebActionListenerHelpers").logSnackbarDeleteUndoMetric(
-                    n,
-                    a,
-                    "undo",
-                  ),
-                  await se(a.list, p));
-              },
+              actionHandler: (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    (h.abort(),
+                      i.list.forEach(R),
+                      o(
+                        "WAWebMsgCollection",
+                      ).MsgCollection.makeParentMessagesVisibleInChat(i.list),
+                      (a.pendingDeleteForMeCount =
+                        a.pendingDeleteForMeCount - i.list.length),
+                      o(
+                        "WAWebActionListenerHelpers",
+                      ).logSnackbarDeleteUndoMetric(a, i, "undo"),
+                      yield ce(i.list, f));
+                  },
+                );
+                function t() {
+                  return e.apply(this, arguments);
+                }
+                return t;
+              })(),
             });
           } else
-            h = new (o("WAWebActionToast.react").ActionType)(
+            C = new (o("WAWebActionToast.react").ActionType)(
               s._(
                 /*BTDS*/ '_j{"*":"Deleting messages","_1":"Deleting message"}',
-                [s._plural(_)],
+                [s._plural(g)],
               ),
             );
-          var E = Promise.resolve();
+          var I = (c || (c = n("Promise"))).resolve();
           return (
-            a.type !== "addon" && (E = E.then(b)),
-            (E = E.then(function () {
-              if (g.aborted) throw new (o("WAAbortError").AbortError)();
+            i.type !== "addon" && (I = I.then(S)),
+            (I = I.then(function () {
+              if (y.aborted) throw new (o("WAAbortError").AbortError)();
               return o("WAWebChatSendMessages").sendDeleteMsgs({
-                chat_: n,
-                clearMedia: i,
-                record: a,
+                chat_: a,
+                clearMedia: l,
+                record: i,
               });
             })
               .then(function (e) {
                 if (
-                  ((n.pendingDeleteForMeCount = n.pendingDeleteForMeCount - e),
-                  e === _)
+                  ((a.pendingDeleteForMeCount = a.pendingDeleteForMeCount - e),
+                  e === g)
                 )
                   return (
                     o(
                       "WAWebActionListenerHelpers",
-                    ).logMessageDeleteActionsMetric(n, a, !1),
-                    a.type !== "addon"
+                    ).logMessageDeleteActionsMetric(a, i, !1),
+                    i.type !== "addon"
                       ? null
                       : new (o("WAWebActionToast.react").ActionType)(
                           s._(
                             /*BTDS*/ '_j{"*":"{count} messages deleted","_1":"1 message deleted"}',
-                            [s._plural(_, "count")],
+                            [s._plural(g, "count")],
                           ),
                         )
                   );
-                var t = _ - e;
+                var t = g - e;
                 return new (o("WAWebActionToast.react").ActionType)(
                   s._(
                     /*BTDS*/ '_j{"*":"Couldn\'t delete messages","_1":"Couldn\'t delete message"}',
@@ -529,7 +540,7 @@ __d(
                 );
               })
               .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))
-              .catch(function (r) {
+              .catch(function (n) {
                 return (
                   o("WALogger").WARN(
                     e ||
@@ -540,349 +551,351 @@ __d(
                   new (o("WAWebActionToast.react").ActionType)(
                     s._(
                       /*BTDS*/ '_j{"*":"Couldn\'t delete messages","_1":"Couldn\'t delete message"}',
-                      [s._plural(_)],
+                      [s._plural(g)],
                     ),
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return de(n, a, !1, p, t);
+                        return pe(a, i, !1, f, t);
                       },
                     },
                   )
                 );
               })),
             o("WAWebToastManager").ToastManager.open(
-              d.jsx(o("WAWebActionToast.react").ActionToast, {
-                id: p,
+              m.jsx(o("WAWebActionToast.react").ActionToast, {
+                id: f,
                 toastPosition: t,
-                initialAction: h,
-                pendingAction: E,
+                initialAction: C,
+                pendingAction: I,
               }),
             ),
-            E
+            I
           );
         };
-        var pe = C;
-        ((me = function (t, n, a) {
+        var fe = v;
+        ((_e = function (t, a, i) {
           var e,
-            i,
-            l = a.clearMedia,
-            c =
-              (e = a.toastId) != null ? e : o("WAWebActionToast.react").genId(),
-            m = (i = a.toastPosition) != null ? i : "LEFT",
-            p = n.list;
-          if (!p)
-            return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
-          var _ = p.reduce(y, [!1, null]),
-            f = _[0],
-            g = _[1];
-          if (f)
-            return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
-          g && pe(t, g);
-          var C = p.length,
-            b = new (o("WAWebActionToast.react").ActionType)(
+            l,
+            d = i.clearMedia,
+            p =
+              (e = i.toastId) != null ? e : o("WAWebActionToast.react").genId(),
+            _ = (l = i.toastPosition) != null ? l : "LEFT",
+            f = a.list;
+          if (!f)
+            return (c || (c = n("Promise"))).reject(
+              new (o("WAWebMiscErrors").ActionError)(),
+            );
+          var g = f.reduce(b, [!1, null]),
+            h = g[0],
+            y = g[1];
+          if (h)
+            return (c || (c = n("Promise"))).reject(
+              new (o("WAWebMiscErrors").ActionError)(),
+            );
+          y && fe(t, y);
+          var v = f.length,
+            S = new (o("WAWebActionToast.react").ActionType)(
               o("WAWebChatGetters").getIsNewsletter(t)
                 ? s._(
                     /*BTDS*/ '_j{"*":"Deleting updates","_1":"Deleting update"}',
-                    [s._plural(C)],
+                    [s._plural(v)],
                   )
                 : s._(
                     /*BTDS*/ '_j{"*":"Deleting messages","_1":"Deleting message"}',
-                    [s._plural(C)],
+                    [s._plural(v)],
                   ),
             ),
-            v;
-          n.type === "addon"
-            ? (v = o("WAWebChatSendMessages").sendRevokeMsgs(t, n, l))
+            R;
+          a.type === "addon"
+            ? (R = o("WAWebChatSendMessages").sendRevokeMsgs(t, a, d))
             : o("WAWebChatGetters").getIsNewsletter(t)
-              ? (v = o(
+              ? (R = o(
                   "WAWebNewsletterRevokeMsgAction",
-                ).sendNewsletterRevokeMsgs(t, n.list, l))
-              : (v = o("WAWebChatSendMessages").sendRevokeMsgs(t, n, l));
-          var S = v
-            .then(function (e) {
-              var a = r("countWhere")(e, h);
-              if (a > 0) throw r("err")(a + " / " + e.length + " dropped");
-              return (
-                o("WAWebActionListenerHelpers").logMessageDeleteActionsMetric(
-                  t,
-                  n,
-                  !0,
-                ),
-                new (o("WAWebActionToast.react").ActionType)(
-                  o("WAWebChatGetters").getIsNewsletter(t)
-                    ? s._(
-                        /*BTDS*/ '_j{"*":"{number_of_updates} updates deleted","_1":"Update deleted"}',
-                        [s._plural(C, "number_of_updates")],
-                      )
-                    : s._(
-                        /*BTDS*/ '_j{"*":"{count} messages deleted","_1":"1 message deleted"}',
-                        [s._plural(C, "count")],
-                      ),
-                )
-              );
-            })
-            .catch(function (e) {
-              return (
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "chatAction:sendRevokeMsgs fail",
-                    ])),
-                ),
-                o("WAWebChatEphemerality").isEphemeralSettingOn(t)
-                  ? new (o("WAWebActionToast.react").ActionType)(
-                      s._(
-                        /*BTDS*/ '_j{"*":"Couldn\'t delete {count} messages because the messages may have expired","_1":"Couldn\'t delete message because the message may have expired"}',
-                        [s._plural(C, "count")],
-                      ),
+                ).sendNewsletterRevokeMsgs(t, a.list, d))
+              : (R = o("WAWebChatSendMessages").sendRevokeMsgs(t, a, d));
+          var L = R.then(function (e) {
+            var n = r("countWhere")(e, C);
+            if (n > 0) throw r("err")(n + " / " + e.length + " dropped");
+            return (
+              o("WAWebActionListenerHelpers").logMessageDeleteActionsMetric(
+                t,
+                a,
+                !0,
+              ),
+              new (o("WAWebActionToast.react").ActionType)(
+                o("WAWebChatGetters").getIsNewsletter(t)
+                  ? s._(
+                      /*BTDS*/ '_j{"*":"{number_of_updates} updates deleted","_1":"Update deleted"}',
+                      [s._plural(v, "number_of_updates")],
                     )
-                  : new (o("WAWebActionToast.react").ActionType)(
-                      o("WAWebChatGetters").getIsNewsletter(t)
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"Couldn\'t delete {number_of_updates} updates","_1":"Couldn\'t delete update"}',
-                            [s._plural(C, "number_of_updates")],
-                          )
-                        : s._(
-                            /*BTDS*/ '_j{"*":"Couldn\'t delete messages","_1":"Couldn\'t delete message"}',
-                            [s._plural(C)],
-                          ),
-                    )
-              );
-            });
+                  : s._(
+                      /*BTDS*/ '_j{"*":"{count} messages deleted","_1":"1 message deleted"}',
+                      [s._plural(v, "count")],
+                    ),
+              )
+            );
+          }).catch(function (e) {
+            return (
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "chatAction:sendRevokeMsgs fail",
+                  ])),
+              ),
+              o("WAWebChatEphemerality").isEphemeralSettingOn(t)
+                ? new (o("WAWebActionToast.react").ActionType)(
+                    s._(
+                      /*BTDS*/ '_j{"*":"Couldn\'t delete {count} messages because the messages may have expired","_1":"Couldn\'t delete message because the message may have expired"}',
+                      [s._plural(v, "count")],
+                    ),
+                  )
+                : new (o("WAWebActionToast.react").ActionType)(
+                    o("WAWebChatGetters").getIsNewsletter(t)
+                      ? s._(
+                          /*BTDS*/ '_j{"*":"Couldn\'t delete {number_of_updates} updates","_1":"Couldn\'t delete update"}',
+                          [s._plural(v, "number_of_updates")],
+                        )
+                      : s._(
+                          /*BTDS*/ '_j{"*":"Couldn\'t delete messages","_1":"Couldn\'t delete message"}',
+                          [s._plural(v)],
+                        ),
+                  )
+            );
+          });
           return (
             o("WAWebToastManager").ToastManager.open(
-              d.jsx(o("WAWebActionToast.react").ActionToast, {
-                id: c,
-                toastPosition: m,
-                initialAction: b,
-                pendingAction: S,
+              m.jsx(o("WAWebActionToast.react").ActionToast, {
+                id: p,
+                toastPosition: _,
+                initialAction: S,
+                pendingAction: L,
               }),
             ),
-            S
+            L
           );
         }),
-          (n[23] = de),
-          (n[24] = me));
-      } else ((de = n[23]), (me = n[24]));
-      var _e = me,
-        fe;
-      n[25] !== l
-        ? ((fe = function (t, n) {
+          (a[23] = pe),
+          (a[24] = _e));
+      } else ((pe = a[23]), (_e = a[24]));
+      var ge = _e,
+        he;
+      a[25] !== d
+        ? ((he = function (t, n) {
             o("WAWebModalManager").ModalManager.open(
-              d.jsx(r("WAWebBizMerchantDetailsEntityTypePopup.react"), {
+              m.jsx(r("WAWebBizMerchantDetailsEntityTypePopup.react"), {
                 legalEntityDetails: t,
                 onSave: n,
               }),
-              { transition: "modal", uim: l },
+              { transition: "modal", uim: d },
             );
           }),
-          (n[25] = l),
-          (n[26] = fe))
-        : (fe = n[26]);
-      var ge = fe,
-        he;
-      n[27] !== l
-        ? ((he = function (t, n, a, i, s, u, c) {
+          (a[25] = d),
+          (a[26] = he))
+        : (he = a[26]);
+      var ye = he,
+        Ce;
+      a[27] !== d
+        ? ((Ce = function (t, n, a, i, l, s, u) {
             o("WAWebModalManager").ModalManager.open(
-              d.jsx(r("WAWebCountrySelectorPopup.react"), {
+              m.jsx(r("WAWebCountrySelectorPopup.react"), {
                 title: t,
                 description: n,
                 countryCode: a,
                 lastUsedCountryCode: i,
-                countries: s,
-                onSave: u,
-                surface: c,
+                countries: l,
+                onSave: s,
+                surface: u,
               }),
-              { transition: "modal", uim: l },
+              { transition: "modal", uim: d },
             );
           }),
-          (n[27] = l),
-          (n[28] = he))
-        : (he = n[28]);
-      var ye = he,
-        Ce;
-      n[29] !== l
-        ? ((Ce = function () {
-            o("WAWebModalManager").ModalManager.open(
-              d.jsx(o("WAWebCommandPalette.react").CommandPaletteModal, {}),
-              { transition: "modal", uim: l },
-            );
-          }),
-          (n[29] = l),
-          (n[30] = Ce))
-        : (Ce = n[30]);
+          (a[27] = d),
+          (a[28] = Ce))
+        : (Ce = a[28]);
       var be = Ce,
-        ve = f,
-        Se = _,
-        Re;
-      (n[31] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Re = ["mute_all_reactions"]), (n[31] = Re))
-        : (Re = n[31]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Re, j));
-      var Le;
-      (n[32] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Le = ["mute_chat"]), (n[32] = Le))
-        : (Le = n[32]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Le, V));
-      var Ee;
-      (n[33] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ee = ["mute_chat_multiselect"]), (n[33] = Ee))
-        : (Ee = n[33]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ee, q));
+        ve;
+      a[29] !== d
+        ? ((ve = function () {
+            o("WAWebModalManager").ModalManager.open(
+              m.jsx(o("WAWebCommandPalette.react").CommandPaletteModal, {}),
+              { transition: "modal", uim: d },
+            );
+          }),
+          (a[29] = d),
+          (a[30] = ve))
+        : (ve = a[30]);
+      var Se = ve,
+        Re = g,
+        Le = f,
+        Ee;
+      (a[31] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ee = ["mute_all_reactions"]), (a[31] = Ee))
+        : (Ee = a[31]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ee, Q));
       var ke;
-      (n[34] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ke = ["mute_chat_with_duration"]), (n[34] = ke))
-        : (ke = n[34]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, ke, H));
+      (a[32] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ke = ["mute_chat"]), (a[32] = ke))
+        : (ke = a[32]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, ke, G));
       var Ie;
-      (n[35] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ie = ["mute_chat_from_entrypoint"]), (n[35] = Ie))
-        : (Ie = n[35]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ie, B));
+      (a[33] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ie = ["mute_chat_multiselect"]), (a[33] = Ie))
+        : (Ie = a[33]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ie, V));
       var Te;
-      (n[36] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Te = ["archive_chat"]), (n[36] = Te))
-        : (Te = n[36]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Te, ie));
+      (a[34] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Te = ["mute_chat_with_duration"]), (a[34] = Te))
+        : (Te = a[34]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Te, z));
       var De;
-      (n[37] === Symbol.for("react.memo_cache_sentinel")
-        ? ((De = ["archive_chat_from_entrypoint"]), (n[37] = De))
-        : (De = n[37]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, De, oe));
+      (a[35] === Symbol.for("react.memo_cache_sentinel")
+        ? ((De = ["mute_chat_from_entrypoint"]), (a[35] = De))
+        : (De = a[35]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, De, q));
       var xe;
-      (n[38] === Symbol.for("react.memo_cache_sentinel")
-        ? ((xe = ["clear_chat"]), (n[38] = xe))
-        : (xe = n[38]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, xe, te));
+      (a[36] === Symbol.for("react.memo_cache_sentinel")
+        ? ((xe = ["archive_chat"]), (a[36] = xe))
+        : (xe = a[36]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, xe, se));
       var $e;
-      (n[39] === Symbol.for("react.memo_cache_sentinel")
-        ? (($e = ["clear_selected_chats"]), (n[39] = $e))
-        : ($e = n[39]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, $e, re));
+      (a[37] === Symbol.for("react.memo_cache_sentinel")
+        ? (($e = ["archive_chat_from_entrypoint"]), (a[37] = $e))
+        : ($e = a[37]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, $e, ie));
       var Pe;
-      (n[40] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Pe = ["mark_chat_unread"]), (n[40] = Pe))
-        : (Pe = n[40]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Pe, le));
+      (a[38] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Pe = ["clear_chat"]), (a[38] = Pe))
+        : (Pe = a[38]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Pe, re));
       var Ne;
-      (n[41] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ne = ["pin_chat"]), (n[41] = Ne))
-        : (Ne = n[41]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ne, J));
+      (a[39] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ne = ["clear_selected_chats"]), (a[39] = Ne))
+        : (Ne = a[39]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ne, ae));
       var Me;
-      (n[42] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Me = ["assign_chat"]), (n[42] = Me))
-        : (Me = n[42]),
+      (a[40] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Me = ["mark_chat_unread"]), (a[40] = Me))
+        : (Me = a[40]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Me, ue));
       var we;
-      (n[43] === Symbol.for("react.memo_cache_sentinel")
-        ? ((we = ["favorite_chat"]), (n[43] = we))
-        : (we = n[43]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, we, Z));
+      (a[41] === Symbol.for("react.memo_cache_sentinel")
+        ? ((we = ["pin_chat"]), (a[41] = we))
+        : (we = a[41]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, we, ee));
       var Ae;
-      (n[44] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ae = ["send_star_msgs"]), (n[44] = Ae))
-        : (Ae = n[44]),
+      (a[42] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ae = ["assign_chat"]), (a[42] = Ae))
+        : (Ae = a[42]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ae, de));
+      var Fe;
+      (a[43] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Fe = ["favorite_chat"]), (a[43] = Fe))
+        : (Fe = a[43]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Fe, te));
+      var Oe;
+      (a[44] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Oe = ["send_star_msgs"]), (a[44] = Oe))
+        : (Oe = a[44]),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
-          Ae,
+          Oe,
           o("WAWebActionListenerHelpers").handleSendStarMsgs,
         ));
-      var Fe;
-      (n[45] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Fe = ["send_unstar_msgs"]), (n[45] = Fe))
-        : (Fe = n[45]),
+      var Be;
+      (a[45] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Be = ["send_unstar_msgs"]), (a[45] = Be))
+        : (Be = a[45]),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
-          Fe,
+          Be,
           o("WAWebActionListenerHelpers").handleSendUnstarMsgs,
         ));
-      var Oe;
-      (n[46] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Oe = ["send_delete_msgs"]), (n[46] = Oe))
-        : (Oe = n[46]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Oe, de));
-      var Be;
-      (n[47] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Be = ["send_revoke_msgs"]), (n[47] = Be))
-        : (Be = n[47]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Be, _e));
       var We;
-      (n[48] === Symbol.for("react.memo_cache_sentinel")
-        ? ((We = ["delete_or_exit_chat"]), (n[48] = We))
-        : (We = n[48]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, We, Y));
+      (a[46] === Symbol.for("react.memo_cache_sentinel")
+        ? ((We = ["send_delete_msgs"]), (a[46] = We))
+        : (We = a[46]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, We, pe));
       var qe;
-      (n[49] === Symbol.for("react.memo_cache_sentinel")
-        ? ((qe = ["delete_or_exit_chat_from_entrypoint"]), (n[49] = qe))
-        : (qe = n[49]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, qe, Q));
+      (a[47] === Symbol.for("react.memo_cache_sentinel")
+        ? ((qe = ["send_revoke_msgs"]), (a[47] = qe))
+        : (qe = a[47]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, qe, ge));
       var Ue;
-      (n[50] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ue = ["product_image_viewer_modal"]), (n[50] = Ue))
-        : (Ue = n[50]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ue, g));
+      (a[48] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ue = ["delete_or_exit_chat"]), (a[48] = Ue))
+        : (Ue = a[48]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ue, Z));
       var Ve;
-      (n[51] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ve = ["mute_all_reactions"]), (n[51] = Ve))
-        : (Ve = n[51]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ve, j));
+      (a[49] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ve = ["delete_or_exit_chat_from_entrypoint"]), (a[49] = Ve))
+        : (Ve = a[49]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ve, Y));
       var He;
-      (n[52] === Symbol.for("react.memo_cache_sentinel")
-        ? ((He = ["attach_product"]), (n[52] = He))
-        : (He = n[52]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, He, m));
+      (a[50] === Symbol.for("react.memo_cache_sentinel")
+        ? ((He = ["product_image_viewer_modal"]), (a[50] = He))
+        : (He = a[50]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, He, y));
       var Ge;
-      (n[53] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ge = ["show_country_selector_popup"]), (n[53] = Ge))
-        : (Ge = n[53]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ge, ye),
+      (a[51] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ge = ["mute_all_reactions"]), (a[51] = Ge))
+        : (Ge = a[51]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ge, Q));
+      var ze;
+      (a[52] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ze = ["attach_product"]), (a[52] = ze))
+        : (ze = a[52]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, ze, _));
+      var je;
+      (a[53] === Symbol.for("react.memo_cache_sentinel")
+        ? ((je = ["show_country_selector_popup"]), (a[53] = je))
+        : (je = a[53]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, je, be),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           "show_merchant_details_entity_type_popup",
-          ge,
+          ye,
         ));
-      var ze;
-      (n[54] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ze = ["open_groups_v4_invite_request_flow"]), (n[54] = ze))
-        : (ze = n[54]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, ze, I));
-      var je;
-      (n[55] === Symbol.for("react.memo_cache_sentinel")
-        ? ((je = ["open_profile"]), (n[55] = je))
-        : (je = n[55]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, je, F));
       var Ke;
-      (n[56] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ke = ["open_command_palette"]), (n[56] = Ke))
-        : (Ke = n[56]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ke, be),
-        r("useWAWebBotActionListeners")(a, i),
+      (a[54] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ke = ["open_groups_v4_invite_request_flow"]), (a[54] = Ke))
+        : (Ke = a[54]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ke, D));
+      var Qe;
+      (a[55] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Qe = ["open_profile"]), (a[55] = Qe))
+        : (Qe = a[55]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Qe, B));
+      var Xe;
+      (a[56] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Xe = ["open_command_palette"]), (a[56] = Xe))
+        : (Xe = a[56]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Xe, Se),
+        r("useWAWebBotActionListeners")(i, l),
         r("useWAWebCommunityActionListeners")(),
         r("useWAWebNewsletterActionListeners")());
-      var Qe;
-      (n[57] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Qe = ["trigger_bugreport_v2"]), (n[57] = Qe))
-        : (Qe = n[57]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Qe, ve));
-      var Xe;
-      (n[58] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Xe = ["open_event_info_drawer"]), (n[58] = Xe))
-        : (Xe = n[58]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Xe, Se));
       var Ye;
+      (a[57] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ye = ["trigger_bugreport_v2"]), (a[57] = Ye))
+        : (Ye = a[57]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ye, Re));
+      var Je;
+      (a[58] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Je = ["open_event_info_drawer"]), (a[58] = Je))
+        : (Je = a[58]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Je, Le));
+      var Ze;
       return (
-        n[59] === Symbol.for("react.memo_cache_sentinel")
-          ? ((Ye = ["change_ai_reply_status"]), (n[59] = Ye))
-          : (Ye = n[59]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ye, ce),
+        a[59] === Symbol.for("react.memo_cache_sentinel")
+          ? ((Ze = ["change_ai_reply_status"]), (a[59] = Ze))
+          : (Ze = a[59]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ze, me),
         null
       );
     }
-    function _(e, t, n, r) {
+    function f(e, t, n, r) {
       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-        d.jsx(
+        m.jsx(
           o("WAWebEventInfoFlowLoadable").EventInfoFlowLoadable,
           { chat: e, msg: t, onBack: n, onEnd: r },
           "event-info-drawer-" + t.id.toString(),
@@ -890,26 +903,36 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       o("WAWebCurrentUser").isEmployee() &&
-        r("WAWebLazyLoadedRetriable")(g, "bugnub_v2_popup")().then(
+        r("WAWebLazyLoadedRetriable")(h, "bugnub_v2_popup")().then(
           function (r) {
             r({ options: n, prefilledDescription: e, prefilledTitle: t });
           },
         );
     }
-    async function g() {
-      var e = await r("JSResourceForInteraction")("WAWebBugnubV2Popup.react")
-        .__setRef("WAWebActionListener")
-        .load();
-      return e.openBugNubV2Popup;
+    function h() {
+      return y.apply(this, arguments);
     }
-    function h(e) {
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebBugnubV2Popup.react",
+          )
+            .__setRef("WAWebActionListener")
+            .load();
+          return e.openBugNubV2Popup;
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
       return (
         e.messageSendResult !== o("WAWebSendMsgResultAction").SendMsgResult.OK
       );
     }
-    function y(e, t) {
+    function b(e, t) {
       var n =
           o("WAWebMsgActionCapability").canSenderRevokeMsg(t) ||
           o("WAWebMsgActionCapability").canAdminRevokeMsg(t) ||
@@ -921,18 +944,18 @@ __d(
             : null;
       return [e[0] || !n, e[1] || r];
     }
-    function C(e, t) {
+    function v(e, t) {
       throw r("err")("This call is not supported");
     }
-    function b() {
+    function S() {
       return o("WAPromiseDelays").delayMs(
         o("WAWebActionListenerHelpers").MESSAGE_DELETE_DELAY_DURATION,
       );
     }
-    function v(e) {
+    function R(e) {
       e.pendingDeleteForMe = !1;
     }
-    function S(e) {
+    function L(e) {
       ((e.pendingDeleteForMe = !0),
         e.hideParentMessageInChat({ duringDetach: !1 }));
       var t = o("WAWebMsgGetters").getBotPluginSearchProvider(e),
@@ -941,44 +964,44 @@ __d(
       (n || (t != null && r != null)) &&
         o("WAWebCmd").Cmd.botTogglePluginSearchDetailsToggle(r, !1);
     }
-    function R(e) {
+    function E(e) {
       return !e.id;
     }
-    function L(e, t) {
+    function k(e, t) {
       o("WAWebBizAiAgentStatusUtils").isChatEligibleForAiAgent(e) &&
         (t
           ? o("WAWebModalManager").ModalManager.open(
-              d.jsx(r("WAWebBizAiRepliesControlPopup.react"), { chat: e }),
+              m.jsx(r("WAWebBizAiRepliesControlPopup.react"), { chat: e }),
             )
           : o("WAWebAIAgentAIReplyUtils").mutateAiReplyStatus(e));
     }
-    function E(e, t) {
+    function I(e, t) {
       if (o("WAWebChatAssignmentUtils").canAssignChat(e) === !1) {
         o("WAWebModalManager").ModalManager.open(
-          d.jsx(r("WAWebBizChatAssignmentAiRepliesModal.react"), { chat: e }),
+          m.jsx(r("WAWebBizChatAssignmentAiRepliesModal.react"), { chat: e }),
         );
         return;
       }
       var n = o(
         "WAWebChatAssignmentLogEvents.flow",
       ).ChatAssignmentEntryPointType.getName(t);
-      (o("WAWebQplFlowWrapper").QPL.markerStart(m, {
+      (o("WAWebQplFlowWrapper").QPL.markerStart(p, {
         annotations: { string: { CHAT_ASSIGNMENT_ENTRY_POINT: n } },
       }),
         o("WAWebModalManager").ModalManager.open(
-          d.jsx(r("WAWebBizChatAssignmentModal.react"), {
+          m.jsx(r("WAWebBizChatAssignmentModal.react"), {
             chats: [e],
             entryPoint: t,
           }),
         ));
     }
-    function k(e, t) {
-      if (!e || e.some(I)) throw new (o("WAWebMiscErrors").ActionError)();
+    function T(e, t) {
+      if (!e || e.some(D)) throw new (o("WAWebMiscErrors").ActionError)();
       var n = r("isStringNullOrEmpty")(t)
         ? o("WAWebActionToast.react").genId()
         : t;
       o("WAWebToastManager").ToastManager.open(
-        d.jsx(o("WAWebToast.react").Toast, {
+        m.jsx(o("WAWebToast.react").Toast, {
           id: n,
           msg: s._(
             /*BTDS*/ '_j{"*":"Messages were restored","_1":"Message was restored"}',
@@ -987,10 +1010,10 @@ __d(
         }),
       );
     }
-    function I(e) {
+    function D(e) {
       return !e.id;
     }
-    function T(e, t) {
+    function x(e, t) {
       ((e.pendingAction = e.pendingAction + 1),
         o("WAWebUpdateUnreadChatAction")
           .markUnread(e, t)
@@ -998,7 +1021,7 @@ __d(
             e.pendingAction = e.pendingAction - 1;
           }));
     }
-    function D(e) {
+    function $(e) {
       var t = e.archive,
         n = e.chat,
         a = e.entryPoint,
@@ -1015,7 +1038,7 @@ __d(
             n.pendingAction = n.pendingAction - 1;
           }));
     }
-    function x(e, t, n) {
+    function P(e, t, n) {
       ((e.pendingAction = e.pendingAction + 1),
         t
           ? o("WAWebAddToFavoritesAction")
@@ -1031,7 +1054,7 @@ __d(
                 e.pendingAction = e.pendingAction - 1;
               }));
     }
-    function $(e, t) {
+    function N(e, t) {
       ((e.pendingAction = e.pendingAction + 1),
         o("WAWebSetPinChatAction")
           .setPin(e, t)
@@ -1040,7 +1063,7 @@ __d(
             e.pendingAction = e.pendingAction - 1;
           }));
     }
-    function P(e) {
+    function M(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -1055,7 +1078,7 @@ __d(
           "WAWebMuteCollection",
         ).MuteCollection.setGlobalStatusNotificationReactionsEnabled(e));
     }
-    function N(e, t) {
+    function w(e, t) {
       var n = o("WAWebMuteExpirations").calculateMuteExpiration(t);
       (o("WAWebUserPrefsGeneral").setLastChatMuteDuration(t),
         (e.pendingAction = e.pendingAction + 1),
@@ -1068,7 +1091,7 @@ __d(
           chat: e,
         }));
     }
-    function M(e) {
+    function A(e) {
       ((e.pendingAction = e.pendingAction + 1),
         e.mute
           .unmute({ sendDevice: !0, fromMultiselect: !0 })
@@ -1076,9 +1099,9 @@ __d(
             e.pendingAction = e.pendingAction - 1;
           }));
     }
-    function w(e, t, n, r, a) {
+    function F(e, t, n, r, a) {
       o("WAWebModalManager").ModalManager.open(
-        d.jsx(o("WAWebGroupsV4InviteFlowLoadable").GroupsV4InviteFlowLoadable, {
+        m.jsx(o("WAWebGroupsV4InviteFlowLoadable").GroupsV4InviteFlowLoadable, {
           participantNeedInvite: e,
           groupGid: t,
           subject: n,
@@ -1087,7 +1110,7 @@ __d(
         }),
       );
     }
-    l.default = p;
+    l.default = _;
   },
   226,
 );

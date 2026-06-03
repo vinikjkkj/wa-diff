@@ -62,9 +62,7 @@ __d(
       );
     }
     function v() {
-      return !!o("WAWebABProps").getABPropConfigValue(
-        "username_contact_usync_lid_based",
-      );
+      return !0;
     }
     function S() {
       return !!o("WAWebABProps").getABPropConfigValue(

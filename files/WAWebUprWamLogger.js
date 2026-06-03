@@ -11,6 +11,7 @@ __d(
     "WAWebWamEnumInteractionType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumStructuredMessageClass",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -47,13 +48,21 @@ __d(
             ? _
             : d;
     }
-    async function y(e, t) {
-      var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
-        r = await n.genFunnelInfo(),
-        a = r.funnel_id;
-      return a;
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function C(e) {
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
+            r = yield n.genFunnelInfo(),
+            a = r.funnel_id;
+          return a;
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
       var t,
         n = e.chat,
         r = e.cta,
@@ -81,7 +90,7 @@ __d(
           chatType: d,
           currency: a.currency,
         };
-      b({
+      v({
         buyerAttributes: p,
         businessOwnerJid: c,
         interaction: u,
@@ -98,36 +107,44 @@ __d(
         );
       });
     }
-    async function b(e) {
-      var t = e.businessOwnerJid,
-        n = e.buyerAttributes,
-        r = e.interaction,
-        a = e.msg,
-        i = e.psAttributes,
-        l = a.id.id + a.to.toJid(),
-        s = await y(c, l);
-      (new (o(
-        "WAWebPsStructuredMessageInteractionWamEvent",
-      ).PsStructuredMessageInteractionWamEvent)({
-        bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-        businessOwnerJid: t,
-        messageClass: o("WAWebWamEnumStructuredMessageClass")
-          .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-        messageClassAttributes: JSON.stringify(
-          babelHelpers.extends({}, i, { order_funnel_id: s }),
-        ),
-        messageInteraction: r,
-        messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
-      }).commit(),
-        await o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
-          attributes: n,
-          bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-          interaction: r,
-          isLoggingEnabled: !0,
-          psFunnelId: s,
-        }));
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    ((l.UprCtaType = f), (l.logUprInteractionWAMEvent = C));
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.businessOwnerJid,
+            n = e.buyerAttributes,
+            r = e.interaction,
+            a = e.msg,
+            i = e.psAttributes,
+            l = a.id.id + a.to.toJid(),
+            s = yield y(c, l);
+          (new (o(
+            "WAWebPsStructuredMessageInteractionWamEvent",
+          ).PsStructuredMessageInteractionWamEvent)({
+            bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
+            businessOwnerJid: t,
+            messageClass: o("WAWebWamEnumStructuredMessageClass")
+              .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+            messageClassAttributes: JSON.stringify(
+              babelHelpers.extends({}, i, { order_funnel_id: s }),
+            ),
+            messageInteraction: r,
+            messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
+          }).commit(),
+            yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
+              attributes: n,
+              bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
+              interaction: r,
+              isLoggingEnabled: !0,
+              psFunnelId: s,
+            }));
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    ((l.UprCtaType = f), (l.logUprInteractionWAMEvent = b));
   },
   98,
 );

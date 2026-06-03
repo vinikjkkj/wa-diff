@@ -1,6 +1,7 @@
 __d(
   "WAWebChatBridgeApi",
   [
+    "Promise",
     "WALogger",
     "WAWebChatCollection",
     "WAWebChatGetExistingBridge",
@@ -16,13 +17,15 @@ __d(
     "WAWebUpdateUnreadChatAction",
     "WAWebWamMemoryStat",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c = ["id", "integritySignalsPromise"],
-      d = {
+      d,
+      m = {
         getChat: function (t) {
           var e = t.chatId;
           return o("WAWebChatCollection").ChatCollection.get(e);
@@ -78,15 +81,21 @@ __d(
             a && (a.set(r), n != null && (a.promises.integritySignals = n));
           });
         },
-        updateChatReadStatus: async function (t) {
-          var e = t.id,
-            n = t.read,
-            r = await o("WAWebChatGetExistingBridge").getExisting(e);
-          if (r)
-            return n
-              ? o("WAWebUpdateUnreadChatAction").markSeen(r)
-              : o("WAWebUpdateUnreadChatAction").markUnseen(r);
-        },
+        updateChatReadStatus: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.id,
+              n = e.read,
+              r = yield o("WAWebChatGetExistingBridge").getExisting(t);
+            if (r)
+              return n
+                ? o("WAWebUpdateUnreadChatAction").markSeen(r)
+                : o("WAWebUpdateUnreadChatAction").markUnseen(r);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         updateChatUnreadMsgCountAndClearMentions: function (t) {
           var e = t.remote,
             n = o("WAWebChatCollection").ChatCollection.get(e);
@@ -154,11 +163,11 @@ __d(
         },
         updateBotInvokeSystemMsgCreated: function (t) {
           var e = t.chatId,
-            n = o("WAWebChatCollection").ChatCollection.get(e);
-          if (n != null)
-            return n.hasCreatedBotInvokeSystemMsg === !0
-              ? Promise.resolve()
-              : n.updateBotInvokeSystemMsgCreated();
+            r = o("WAWebChatCollection").ChatCollection.get(e);
+          if (r != null)
+            return r.hasCreatedBotInvokeSystemMsg === !0
+              ? (d || (d = n("Promise"))).resolve()
+              : r.updateBotInvokeSystemMsgCreated();
         },
         updateChatLimitSharing: function (t) {
           var e = t.id,
@@ -167,7 +176,7 @@ __d(
           r && (r.limitSharing = n);
         },
         getChatModelsArray: function () {
-          return Promise.resolve(
+          return (d || (d = n("Promise"))).resolve(
             [].concat(o("WAWebChatCollection").ChatCollection.getModelsArray()),
           );
         },
@@ -273,7 +282,7 @@ __d(
           });
         },
       };
-    l.ChatBridgeApi = d;
+    l.ChatBridgeApi = m;
   },
   98,
 );

@@ -1,37 +1,56 @@
 __d(
   "WAWebAddonProcessDeleteForMe",
   [
+    "Promise",
     "WALogger",
     "WAWebAddonConstants",
     "WAWebAddonDBTable",
     "WAWebAddonSortUtils",
     "WAWebAddonUpdateDataUtils",
     "WAWebMsgType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    async function s(e) {
-      return o("WAWebAddonDBTable").addonDBTable.getByMsgKey(
-        o("WAWebMsgType").MSG_TYPE.COMMENT,
-        e,
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebAddonDBTable").addonDBTable.getByMsgKey(
+            o("WAWebMsgType").MSG_TYPE.COMMENT,
+            e,
+          );
+        })),
+        c.apply(this, arguments)
       );
     }
-    async function u(e, t) {
-      await o("WAWebAddonUpdateDataUtils").updateAddonsInTableMode(
-        {
-          processMode: o("WAWebAddonConstants").AddonProcessMode.DeleteForMe,
-          tableMode: e,
-        },
-        { remove: t },
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield o("WAWebAddonUpdateDataUtils").updateAddonsInTableMode(
+            {
+              processMode: o("WAWebAddonConstants").AddonProcessMode
+                .DeleteForMe,
+              tableMode: e,
+            },
+            { remove: t },
+          );
+        })),
+        m.apply(this, arguments)
       );
     }
-    function c(t) {
+    function p(t) {
       return Array.from(
         o("WAWebAddonSortUtils").groupAddonsByTableMode(t),
         function (n) {
           var r = n[0],
             a = n[1];
-          return u(r, a).catch(function (n) {
+          return d(r, a).catch(function (n) {
             var a;
             o("WALogger")
               .ERROR(
@@ -54,16 +73,32 @@ __d(
         },
       );
     }
-    async function d(e) {
-      var t = c(e);
-      await Promise.all(t);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    async function m(e) {
-      await d([e]);
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = p(e);
+          yield (s || (s = n("Promise"))).all(t);
+        })),
+        f.apply(this, arguments)
+      );
     }
-    ((l.hasDeleteAddonForMe = s),
-      (l.processDeleteForMe = d),
-      (l.processDeleteForMeSingle = m));
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield _([e]);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    ((l.hasDeleteAddonForMe = u),
+      (l.processDeleteForMe = _),
+      (l.processDeleteForMeSingle = g));
   },
   98,
 );

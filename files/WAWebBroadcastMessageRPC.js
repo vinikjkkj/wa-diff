@@ -1,6 +1,6 @@
 __d(
   "WAWebBroadcastMessageRPC",
-  ["WAComms", "WAWap", "WAWebCommsWapMd"],
+  ["WAComms", "WAWap", "WAWebCommsWapMd", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (e == null && t == null) return null;
@@ -32,37 +32,45 @@ __d(
             : null;
       return o("WAWap").wap("biz", n, r);
     }
-    async function s(t) {
-      var n = t.businessMetadata,
-        r = t.deviceIdentity,
-        a = t.encryptedMessage,
-        i = t.keyDistribution,
-        l = t.messageId,
-        s = t.messageType,
-        u = t.nativeFlowName,
-        c = t.phash,
-        d = t.recipientJid,
-        m = e(n, u),
-        p = n
-          ? o("WAWap").wap("meta", {
-              metering_type: o("WAWap").CUSTOM_STRING("smb_mm"),
-            })
-          : null,
-        _ = o("WAWap").wap(
-          "message",
-          {
-            id: o("WAWap").CUSTOM_STRING(l),
-            to: o("WAWebCommsWapMd").CHAT_JID(d),
-            phash: o("WAWap").CUSTOM_STRING(c),
-            type: o("WAWap").CUSTOM_STRING(s),
-          },
-          p,
-          m,
-          a,
-          i,
-          r,
-        );
-      return o("WAComms").sendSmaxStanza(_);
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.businessMetadata,
+            r = t.deviceIdentity,
+            a = t.encryptedMessage,
+            i = t.keyDistribution,
+            l = t.messageId,
+            s = t.messageType,
+            u = t.nativeFlowName,
+            c = t.phash,
+            d = t.recipientJid,
+            m = e(n, u),
+            p = n
+              ? o("WAWap").wap("meta", {
+                  metering_type: o("WAWap").CUSTOM_STRING("smb_mm"),
+                })
+              : null,
+            _ = o("WAWap").wap(
+              "message",
+              {
+                id: o("WAWap").CUSTOM_STRING(l),
+                to: o("WAWebCommsWapMd").CHAT_JID(d),
+                phash: o("WAWap").CUSTOM_STRING(c),
+                type: o("WAWap").CUSTOM_STRING(s),
+              },
+              p,
+              m,
+              a,
+              i,
+              r,
+            );
+          return o("WAComms").sendSmaxStanza(_);
+        })),
+        u.apply(this, arguments)
+      );
     }
     l.sendBroadcastMessageRPC = s;
   },

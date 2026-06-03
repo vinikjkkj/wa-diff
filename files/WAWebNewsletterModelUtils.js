@@ -66,29 +66,26 @@ __d(
     function v(e) {
       var t,
         n,
-        a,
-        i =
+        r,
+        a =
           (t = e.newsletterNameMetadataMixin) == null
             ? void 0
             : t.nameElementValue,
-        l =
+        i =
           (n = e.newsletterMembershipMetadataMixin) == null
             ? void 0
             : n.membershipType,
-        s =
-          (a = e.newsletterCreationTimeMetadataMixin) == null
+        l =
+          (r = e.newsletterCreationTimeMetadataMixin) == null
             ? void 0
-            : a.creationTimeValue,
-        u = {
-          id: o("WAWebWidFactory").createWid(e.idJid),
-          name: i != null ? i : void 0,
-          isReadOnly: l != null ? !b(l) : void 0,
-          muteExpiration: k(e, "MUTE_ADMIN_ACTIVITY"),
-          t: s != null ? o("WATimeUtils").castToUnixTime(s) : void 0,
-        };
-      return r("lodash").pickBy(u, function (e) {
-        return e != null;
-      });
+            : r.creationTimeValue;
+      return {
+        id: o("WAWebWidFactory").createWid(e.idJid),
+        name: a != null ? a : void 0,
+        isReadOnly: i != null ? !b(i) : void 0,
+        muteExpiration: k(e, "MUTE_ADMIN_ACTIVITY"),
+        t: l != null ? o("WATimeUtils").castToUnixTime(l) : void 0,
+      };
     }
     function S(e) {
       var t = E(e);

@@ -6,58 +6,76 @@ __d(
     "WAWebPollsDbUtils",
     "WAWebProtobufsMdStorageMsgRowOpaqueData.pb",
     "WAWebUserPrefsInfoStore",
+    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = o("WAWebUserPrefsInfoStore").waNoiseInfo.cachedPasscodeDerivedKey;
-      if (t == null) {
-        location.reload();
-        return;
-      }
-      var n = c(e),
-        r = new Uint8Array(16);
-      self.crypto.getRandomValues(r);
-      var a = await self.crypto.subtle.encrypt(
-        { iv: r, name: "AES-GCM" },
-        t,
-        n,
-      );
-      e.encryptedData = { iv: r, data: a };
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    async function s(e, t) {
-      var n = e.encryptedData;
-      if (n != null) {
-        var r = await self.crypto.subtle.decrypt(
-          { iv: n.iv, name: "AES-GCM" },
-          t,
-          n.data,
-        );
-        (u(e, r), (e.encryptedData = null));
-      }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebUserPrefsInfoStore").waNoiseInfo
+            .cachedPasscodeDerivedKey;
+          if (t == null) {
+            location.reload();
+            return;
+          }
+          var n = m(e),
+            r = new Uint8Array(16);
+          self.crypto.getRandomValues(r);
+          var a = yield self.crypto.subtle.encrypt(
+            { iv: r, name: "AES-GCM" },
+            t,
+            n,
+          );
+          e.encryptedData = { iv: r, data: a };
+        })),
+        s.apply(this, arguments)
+      );
     }
     function u(e, t) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.encryptedData;
+          if (n != null) {
+            var r = yield self.crypto.subtle.decrypt(
+              { iv: n.iv, name: "AES-GCM" },
+              t,
+              n.data,
+            );
+            (d(e, r), (e.encryptedData = null));
+          }
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t) {
       var n = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb").MsgRowOpaqueDataSpec,
           t,
         ),
         r = n.currentMsg,
         a = n.quotedMsg;
-      (r && m(e, r),
-        e.quotedMsg && a && m(e.quotedMsg, r),
+      (r && _(e, r),
+        e.quotedMsg && a && _(e.quotedMsg, r),
         (e.encryptedData = null));
     }
-    function c(e) {
+    function m(e) {
       var t = { currentMsg: {}, quotedMsg: {} };
-      ((t.currentMsg = d(e)), e.quotedMsg && (t.quotedMsg = d(e.quotedMsg)));
+      ((t.currentMsg = p(e)), e.quotedMsg && (t.quotedMsg = p(e.quotedMsg)));
       var n = o("encodeProtobuf").encodeProtobuf(
         o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb").MsgRowOpaqueDataSpec,
         t,
       );
       return n.readBuffer();
     }
-    var d = function (t) {
+    var p = function (t) {
         var e,
           n = {};
         return (
@@ -85,7 +103,7 @@ __d(
           n
         );
       },
-      m = function (t, n) {
+      _ = function (t, n) {
         (n.paymentNoteMsgBody != null &&
           t.paymentNoteMsg &&
           (t.paymentNoteMsg.body = n == null ? void 0 : n.paymentNoteMsgBody),
@@ -105,7 +123,7 @@ __d(
             n == null ? void 0 : n.pollVotesSnapshot,
           )));
       };
-    ((l.encryptDataInMsgModel = e), (l.decryptDataInMsgModel = s));
+    ((l.encryptDataInMsgModel = e), (l.decryptDataInMsgModel = u));
   },
   98,
 );

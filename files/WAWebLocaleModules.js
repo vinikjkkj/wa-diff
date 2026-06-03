@@ -1,512 +1,534 @@
 __d(
   "WAWebLocaleModules",
-  ["JSResource", "WAWebL10nGetRenderedLocale"],
+  ["JSResource", "WAWebL10nGetRenderedLocale", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    async function e() {
-      return (function (e) {
-        return e === "af_ZA"
-          ? r("JSResource")("WAWebCountriesLocaleAF")
-              .__setRef("WAWebLocaleModules")
-              .load()
-          : e === "ar_AR"
-            ? r("JSResource")("WAWebCountriesLocaleAR")
-                .__setRef("WAWebLocaleModules")
-                .load()
-            : e === "az_AZ"
-              ? r("JSResource")("WAWebCountriesLocaleAZ")
+    function e() {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (function (e) {
+            return e === "af_ZA"
+              ? r("JSResource")("WAWebCountriesLocaleAF")
                   .__setRef("WAWebLocaleModules")
                   .load()
-              : e === "bg_BG"
-                ? r("JSResource")("WAWebCountriesLocaleBG")
+              : e === "ar_AR"
+                ? r("JSResource")("WAWebCountriesLocaleAR")
                     .__setRef("WAWebLocaleModules")
                     .load()
-                : e === "bn_IN"
-                  ? r("JSResource")("WAWebCountriesLocaleBN")
+                : e === "az_AZ"
+                  ? r("JSResource")("WAWebCountriesLocaleAZ")
                       .__setRef("WAWebLocaleModules")
                       .load()
-                  : e === "ca_ES"
-                    ? r("JSResource")("WAWebCountriesLocaleCA")
+                  : e === "bg_BG"
+                    ? r("JSResource")("WAWebCountriesLocaleBG")
                         .__setRef("WAWebLocaleModules")
                         .load()
-                    : e === "cs_CZ"
-                      ? r("JSResource")("WAWebCountriesLocaleCS")
+                    : e === "bn_IN"
+                      ? r("JSResource")("WAWebCountriesLocaleBN")
                           .__setRef("WAWebLocaleModules")
                           .load()
-                      : e === "da_DK"
-                        ? r("JSResource")("WAWebCountriesLocaleDA")
+                      : e === "ca_ES"
+                        ? r("JSResource")("WAWebCountriesLocaleCA")
                             .__setRef("WAWebLocaleModules")
                             .load()
-                        : e === "de_DE"
-                          ? r("JSResource")("WAWebCountriesLocaleDE")
+                        : e === "cs_CZ"
+                          ? r("JSResource")("WAWebCountriesLocaleCS")
                               .__setRef("WAWebLocaleModules")
                               .load()
-                          : e === "el_GR"
-                            ? r("JSResource")("WAWebCountriesLocaleEL")
+                          : e === "da_DK"
+                            ? r("JSResource")("WAWebCountriesLocaleDA")
                                 .__setRef("WAWebLocaleModules")
                                 .load()
-                            : e === "en_GB"
-                              ? r("JSResource")("WAWebCountriesLocaleEN")
+                            : e === "de_DE"
+                              ? r("JSResource")("WAWebCountriesLocaleDE")
                                   .__setRef("WAWebLocaleModules")
                                   .load()
-                              : e === "es_LA"
-                                ? r("JSResource")("WAWebCountriesLocaleES")
+                              : e === "el_GR"
+                                ? r("JSResource")("WAWebCountriesLocaleEL")
                                     .__setRef("WAWebLocaleModules")
                                     .load()
-                                : e === "et_EE"
-                                  ? r("JSResource")("WAWebCountriesLocaleET")
+                                : e === "en_GB"
+                                  ? r("JSResource")("WAWebCountriesLocaleEN")
                                       .__setRef("WAWebLocaleModules")
                                       .load()
-                                  : e === "fa_IR"
-                                    ? r("JSResource")("WAWebCountriesLocaleFA")
+                                  : e === "es_LA"
+                                    ? r("JSResource")("WAWebCountriesLocaleES")
                                         .__setRef("WAWebLocaleModules")
                                         .load()
-                                    : e === "fi_FI"
+                                    : e === "et_EE"
                                       ? r("JSResource")(
-                                          "WAWebCountriesLocaleFI",
+                                          "WAWebCountriesLocaleET",
                                         )
                                           .__setRef("WAWebLocaleModules")
                                           .load()
-                                      : e === "tl_PH"
+                                      : e === "fa_IR"
                                         ? r("JSResource")(
-                                            "WAWebCountriesLocaleFIL",
+                                            "WAWebCountriesLocaleFA",
                                           )
                                             .__setRef("WAWebLocaleModules")
                                             .load()
-                                        : e === "fr_FR"
+                                        : e === "fi_FI"
                                           ? r("JSResource")(
-                                              "WAWebCountriesLocaleFR",
+                                              "WAWebCountriesLocaleFI",
                                             )
                                               .__setRef("WAWebLocaleModules")
                                               .load()
-                                          : e === "gu_IN"
+                                          : e === "tl_PH"
                                             ? r("JSResource")(
-                                                "WAWebCountriesLocaleGU",
+                                                "WAWebCountriesLocaleFIL",
                                               )
                                                 .__setRef("WAWebLocaleModules")
                                                 .load()
-                                            : e === "he_IL"
+                                            : e === "fr_FR"
                                               ? r("JSResource")(
-                                                  "WAWebCountriesLocaleHE",
+                                                  "WAWebCountriesLocaleFR",
                                                 )
                                                   .__setRef(
                                                     "WAWebLocaleModules",
                                                   )
                                                   .load()
-                                              : e === "hi_IN"
+                                              : e === "gu_IN"
                                                 ? r("JSResource")(
-                                                    "WAWebCountriesLocaleHI",
+                                                    "WAWebCountriesLocaleGU",
                                                   )
                                                     .__setRef(
                                                       "WAWebLocaleModules",
                                                     )
                                                     .load()
-                                                : e === "hr_HR"
+                                                : e === "he_IL"
                                                   ? r("JSResource")(
-                                                      "WAWebCountriesLocaleHR",
+                                                      "WAWebCountriesLocaleHE",
                                                     )
                                                       .__setRef(
                                                         "WAWebLocaleModules",
                                                       )
                                                       .load()
-                                                  : e === "hu_HU"
+                                                  : e === "hi_IN"
                                                     ? r("JSResource")(
-                                                        "WAWebCountriesLocaleHU",
+                                                        "WAWebCountriesLocaleHI",
                                                       )
                                                         .__setRef(
                                                           "WAWebLocaleModules",
                                                         )
                                                         .load()
-                                                    : e === "id_ID"
+                                                    : e === "hr_HR"
                                                       ? r("JSResource")(
-                                                          "WAWebCountriesLocaleID",
+                                                          "WAWebCountriesLocaleHR",
                                                         )
                                                           .__setRef(
                                                             "WAWebLocaleModules",
                                                           )
                                                           .load()
-                                                      : e === "it_IT"
+                                                      : e === "hu_HU"
                                                         ? r("JSResource")(
-                                                            "WAWebCountriesLocaleIT",
+                                                            "WAWebCountriesLocaleHU",
                                                           )
                                                             .__setRef(
                                                               "WAWebLocaleModules",
                                                             )
                                                             .load()
-                                                        : e === "ja_JP"
+                                                        : e === "id_ID"
                                                           ? r("JSResource")(
-                                                              "WAWebCountriesLocaleJA",
+                                                              "WAWebCountriesLocaleID",
                                                             )
                                                               .__setRef(
                                                                 "WAWebLocaleModules",
                                                               )
                                                               .load()
-                                                          : e === "kk_KZ"
+                                                          : e === "it_IT"
                                                             ? r("JSResource")(
-                                                                "WAWebCountriesLocaleKK",
+                                                                "WAWebCountriesLocaleIT",
                                                               )
                                                                 .__setRef(
                                                                   "WAWebLocaleModules",
                                                                 )
                                                                 .load()
-                                                            : e === "kn_IN"
+                                                            : e === "ja_JP"
                                                               ? r("JSResource")(
-                                                                  "WAWebCountriesLocaleKN",
+                                                                  "WAWebCountriesLocaleJA",
                                                                 )
                                                                   .__setRef(
                                                                     "WAWebLocaleModules",
                                                                   )
                                                                   .load()
-                                                              : e === "ko_KR"
+                                                              : e === "kk_KZ"
                                                                 ? r(
                                                                     "JSResource",
                                                                   )(
-                                                                    "WAWebCountriesLocaleKO",
+                                                                    "WAWebCountriesLocaleKK",
                                                                   )
                                                                     .__setRef(
                                                                       "WAWebLocaleModules",
                                                                     )
                                                                     .load()
-                                                                : e === "lt_LT"
+                                                                : e === "kn_IN"
                                                                   ? r(
                                                                       "JSResource",
                                                                     )(
-                                                                      "WAWebCountriesLocaleLT",
+                                                                      "WAWebCountriesLocaleKN",
                                                                     )
                                                                       .__setRef(
                                                                         "WAWebLocaleModules",
                                                                       )
                                                                       .load()
                                                                   : e ===
-                                                                      "lv_LV"
+                                                                      "ko_KR"
                                                                     ? r(
                                                                         "JSResource",
                                                                       )(
-                                                                        "WAWebCountriesLocaleLV",
+                                                                        "WAWebCountriesLocaleKO",
                                                                       )
                                                                         .__setRef(
                                                                           "WAWebLocaleModules",
                                                                         )
                                                                         .load()
                                                                     : e ===
-                                                                        "mk_MK"
+                                                                        "lt_LT"
                                                                       ? r(
                                                                           "JSResource",
                                                                         )(
-                                                                          "WAWebCountriesLocaleMK",
+                                                                          "WAWebCountriesLocaleLT",
                                                                         )
                                                                           .__setRef(
                                                                             "WAWebLocaleModules",
                                                                           )
                                                                           .load()
                                                                       : e ===
-                                                                          "ml_IN"
+                                                                          "lv_LV"
                                                                         ? r(
                                                                             "JSResource",
                                                                           )(
-                                                                            "WAWebCountriesLocaleML",
+                                                                            "WAWebCountriesLocaleLV",
                                                                           )
                                                                             .__setRef(
                                                                               "WAWebLocaleModules",
                                                                             )
                                                                             .load()
                                                                         : e ===
-                                                                            "mr_IN"
+                                                                            "mk_MK"
                                                                           ? r(
                                                                               "JSResource",
                                                                             )(
-                                                                              "WAWebCountriesLocaleMR",
+                                                                              "WAWebCountriesLocaleMK",
                                                                             )
                                                                               .__setRef(
                                                                                 "WAWebLocaleModules",
                                                                               )
                                                                               .load()
                                                                           : e ===
-                                                                              "ms_MY"
+                                                                              "ml_IN"
                                                                             ? r(
                                                                                 "JSResource",
                                                                               )(
-                                                                                "WAWebCountriesLocaleMS",
+                                                                                "WAWebCountriesLocaleML",
                                                                               )
                                                                                 .__setRef(
                                                                                   "WAWebLocaleModules",
                                                                                 )
                                                                                 .load()
                                                                             : e ===
-                                                                                "nb_NO"
+                                                                                "mr_IN"
                                                                               ? r(
                                                                                   "JSResource",
                                                                                 )(
-                                                                                  "WAWebCountriesLocaleNB",
+                                                                                  "WAWebCountriesLocaleMR",
                                                                                 )
                                                                                   .__setRef(
                                                                                     "WAWebLocaleModules",
                                                                                   )
                                                                                   .load()
                                                                               : e ===
-                                                                                  "nl_NL"
+                                                                                  "ms_MY"
                                                                                 ? r(
                                                                                     "JSResource",
                                                                                   )(
-                                                                                    "WAWebCountriesLocaleNL",
+                                                                                    "WAWebCountriesLocaleMS",
                                                                                   )
                                                                                     .__setRef(
                                                                                       "WAWebLocaleModules",
                                                                                     )
                                                                                     .load()
                                                                                 : e ===
-                                                                                    "pa_IN"
+                                                                                    "nb_NO"
                                                                                   ? r(
                                                                                       "JSResource",
                                                                                     )(
-                                                                                      "WAWebCountriesLocalePA",
+                                                                                      "WAWebCountriesLocaleNB",
                                                                                     )
                                                                                       .__setRef(
                                                                                         "WAWebLocaleModules",
                                                                                       )
                                                                                       .load()
                                                                                   : e ===
-                                                                                      "pl_PL"
+                                                                                      "nl_NL"
                                                                                     ? r(
                                                                                         "JSResource",
                                                                                       )(
-                                                                                        "WAWebCountriesLocalePL",
+                                                                                        "WAWebCountriesLocaleNL",
                                                                                       )
                                                                                         .__setRef(
                                                                                           "WAWebLocaleModules",
                                                                                         )
                                                                                         .load()
                                                                                     : e ===
-                                                                                          "pt_BR" ||
-                                                                                        e ===
-                                                                                          "pt_PT"
+                                                                                        "pa_IN"
                                                                                       ? r(
                                                                                           "JSResource",
                                                                                         )(
-                                                                                          "WAWebCountriesLocalePT",
+                                                                                          "WAWebCountriesLocalePA",
                                                                                         )
                                                                                           .__setRef(
                                                                                             "WAWebLocaleModules",
                                                                                           )
                                                                                           .load()
                                                                                       : e ===
-                                                                                          "ro_RO"
+                                                                                          "pl_PL"
                                                                                         ? r(
                                                                                             "JSResource",
                                                                                           )(
-                                                                                            "WAWebCountriesLocaleRO",
+                                                                                            "WAWebCountriesLocalePL",
                                                                                           )
                                                                                             .__setRef(
                                                                                               "WAWebLocaleModules",
                                                                                             )
                                                                                             .load()
                                                                                         : e ===
-                                                                                            "ru_RU"
+                                                                                              "pt_BR" ||
+                                                                                            e ===
+                                                                                              "pt_PT"
                                                                                           ? r(
                                                                                               "JSResource",
                                                                                             )(
-                                                                                              "WAWebCountriesLocaleRU",
+                                                                                              "WAWebCountriesLocalePT",
                                                                                             )
                                                                                               .__setRef(
                                                                                                 "WAWebLocaleModules",
                                                                                               )
                                                                                               .load()
                                                                                           : e ===
-                                                                                              "sk_SK"
+                                                                                              "ro_RO"
                                                                                             ? r(
                                                                                                 "JSResource",
                                                                                               )(
-                                                                                                "WAWebCountriesLocaleSK",
+                                                                                                "WAWebCountriesLocaleRO",
                                                                                               )
                                                                                                 .__setRef(
                                                                                                   "WAWebLocaleModules",
                                                                                                 )
                                                                                                 .load()
                                                                                             : e ===
-                                                                                                "sl_SI"
+                                                                                                "ru_RU"
                                                                                               ? r(
                                                                                                   "JSResource",
                                                                                                 )(
-                                                                                                  "WAWebCountriesLocaleSL",
+                                                                                                  "WAWebCountriesLocaleRU",
                                                                                                 )
                                                                                                   .__setRef(
                                                                                                     "WAWebLocaleModules",
                                                                                                   )
                                                                                                   .load()
                                                                                               : e ===
-                                                                                                  "sq_AL"
+                                                                                                  "sk_SK"
                                                                                                 ? r(
                                                                                                     "JSResource",
                                                                                                   )(
-                                                                                                    "WAWebCountriesLocaleSQ",
+                                                                                                    "WAWebCountriesLocaleSK",
                                                                                                   )
                                                                                                     .__setRef(
                                                                                                       "WAWebLocaleModules",
                                                                                                     )
                                                                                                     .load()
                                                                                                 : e ===
-                                                                                                    "sr_RS"
+                                                                                                    "sl_SI"
                                                                                                   ? r(
                                                                                                       "JSResource",
                                                                                                     )(
-                                                                                                      "WAWebCountriesLocaleSR",
+                                                                                                      "WAWebCountriesLocaleSL",
                                                                                                     )
                                                                                                       .__setRef(
                                                                                                         "WAWebLocaleModules",
                                                                                                       )
                                                                                                       .load()
                                                                                                   : e ===
-                                                                                                      "sv_SE"
+                                                                                                      "sq_AL"
                                                                                                     ? r(
                                                                                                         "JSResource",
                                                                                                       )(
-                                                                                                        "WAWebCountriesLocaleSV",
+                                                                                                        "WAWebCountriesLocaleSQ",
                                                                                                       )
                                                                                                         .__setRef(
                                                                                                           "WAWebLocaleModules",
                                                                                                         )
                                                                                                         .load()
                                                                                                     : e ===
-                                                                                                        "sw_KE"
+                                                                                                        "sr_RS"
                                                                                                       ? r(
                                                                                                           "JSResource",
                                                                                                         )(
-                                                                                                          "WAWebCountriesLocaleSW",
+                                                                                                          "WAWebCountriesLocaleSR",
                                                                                                         )
                                                                                                           .__setRef(
                                                                                                             "WAWebLocaleModules",
                                                                                                           )
                                                                                                           .load()
                                                                                                       : e ===
-                                                                                                          "ta_IN"
+                                                                                                          "sv_SE"
                                                                                                         ? r(
                                                                                                             "JSResource",
                                                                                                           )(
-                                                                                                            "WAWebCountriesLocaleTA",
+                                                                                                            "WAWebCountriesLocaleSV",
                                                                                                           )
                                                                                                             .__setRef(
                                                                                                               "WAWebLocaleModules",
                                                                                                             )
                                                                                                             .load()
                                                                                                         : e ===
-                                                                                                            "te_IN"
+                                                                                                            "sw_KE"
                                                                                                           ? r(
                                                                                                               "JSResource",
                                                                                                             )(
-                                                                                                              "WAWebCountriesLocaleTE",
+                                                                                                              "WAWebCountriesLocaleSW",
                                                                                                             )
                                                                                                               .__setRef(
                                                                                                                 "WAWebLocaleModules",
                                                                                                               )
                                                                                                               .load()
                                                                                                           : e ===
-                                                                                                              "th_TH"
+                                                                                                              "ta_IN"
                                                                                                             ? r(
                                                                                                                 "JSResource",
                                                                                                               )(
-                                                                                                                "WAWebCountriesLocaleTH",
+                                                                                                                "WAWebCountriesLocaleTA",
                                                                                                               )
                                                                                                                 .__setRef(
                                                                                                                   "WAWebLocaleModules",
                                                                                                                 )
                                                                                                                 .load()
                                                                                                             : e ===
-                                                                                                                "tr_TR"
+                                                                                                                "te_IN"
                                                                                                               ? r(
                                                                                                                   "JSResource",
                                                                                                                 )(
-                                                                                                                  "WAWebCountriesLocaleTR",
+                                                                                                                  "WAWebCountriesLocaleTE",
                                                                                                                 )
                                                                                                                   .__setRef(
                                                                                                                     "WAWebLocaleModules",
                                                                                                                   )
                                                                                                                   .load()
                                                                                                               : e ===
-                                                                                                                  "uk_UA"
+                                                                                                                  "th_TH"
                                                                                                                 ? r(
                                                                                                                     "JSResource",
                                                                                                                   )(
-                                                                                                                    "WAWebCountriesLocaleUK",
+                                                                                                                    "WAWebCountriesLocaleTH",
                                                                                                                   )
                                                                                                                     .__setRef(
                                                                                                                       "WAWebLocaleModules",
                                                                                                                     )
                                                                                                                     .load()
                                                                                                                 : e ===
-                                                                                                                    "ur_PK"
+                                                                                                                    "tr_TR"
                                                                                                                   ? r(
                                                                                                                       "JSResource",
                                                                                                                     )(
-                                                                                                                      "WAWebCountriesLocaleUR",
+                                                                                                                      "WAWebCountriesLocaleTR",
                                                                                                                     )
                                                                                                                       .__setRef(
                                                                                                                         "WAWebLocaleModules",
                                                                                                                       )
                                                                                                                       .load()
                                                                                                                   : e ===
-                                                                                                                      "uz_UZ"
+                                                                                                                      "uk_UA"
                                                                                                                     ? r(
                                                                                                                         "JSResource",
                                                                                                                       )(
-                                                                                                                        "WAWebCountriesLocaleUZ",
+                                                                                                                        "WAWebCountriesLocaleUK",
                                                                                                                       )
                                                                                                                         .__setRef(
                                                                                                                           "WAWebLocaleModules",
                                                                                                                         )
                                                                                                                         .load()
                                                                                                                     : e ===
-                                                                                                                        "vi_VN"
+                                                                                                                        "ur_PK"
                                                                                                                       ? r(
                                                                                                                           "JSResource",
                                                                                                                         )(
-                                                                                                                          "WAWebCountriesLocaleVI",
+                                                                                                                          "WAWebCountriesLocaleUR",
                                                                                                                         )
                                                                                                                           .__setRef(
                                                                                                                             "WAWebLocaleModules",
                                                                                                                           )
                                                                                                                           .load()
                                                                                                                       : e ===
-                                                                                                                          "zh_CN"
+                                                                                                                          "uz_UZ"
                                                                                                                         ? r(
                                                                                                                             "JSResource",
                                                                                                                           )(
-                                                                                                                            "WAWebCountriesLocaleZH-CN",
+                                                                                                                            "WAWebCountriesLocaleUZ",
                                                                                                                           )
                                                                                                                             .__setRef(
                                                                                                                               "WAWebLocaleModules",
                                                                                                                             )
                                                                                                                             .load()
                                                                                                                         : e ===
-                                                                                                                            "zh_TW"
+                                                                                                                            "vi_VN"
                                                                                                                           ? r(
                                                                                                                               "JSResource",
                                                                                                                             )(
-                                                                                                                              "WAWebCountriesLocaleZH-TW",
+                                                                                                                              "WAWebCountriesLocaleVI",
                                                                                                                             )
                                                                                                                               .__setRef(
                                                                                                                                 "WAWebLocaleModules",
                                                                                                                               )
                                                                                                                               .load()
                                                                                                                           : e ===
-                                                                                                                              "zh_HK"
+                                                                                                                              "zh_CN"
                                                                                                                             ? r(
                                                                                                                                 "JSResource",
                                                                                                                               )(
-                                                                                                                                "WAWebCountriesLocaleZH-HK",
+                                                                                                                                "WAWebCountriesLocaleZH-CN",
                                                                                                                               )
                                                                                                                                 .__setRef(
                                                                                                                                   "WAWebLocaleModules",
                                                                                                                                 )
                                                                                                                                 .load()
-                                                                                                                            : r(
-                                                                                                                                "JSResource",
-                                                                                                                              )(
-                                                                                                                                "WAWebCountriesLocaleEN",
-                                                                                                                              )
-                                                                                                                                .__setRef(
-                                                                                                                                  "WAWebLocaleModules",
+                                                                                                                            : e ===
+                                                                                                                                "zh_TW"
+                                                                                                                              ? r(
+                                                                                                                                  "JSResource",
+                                                                                                                                )(
+                                                                                                                                  "WAWebCountriesLocaleZH-TW",
                                                                                                                                 )
-                                                                                                                                .load();
-      })(o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale());
+                                                                                                                                  .__setRef(
+                                                                                                                                    "WAWebLocaleModules",
+                                                                                                                                  )
+                                                                                                                                  .load()
+                                                                                                                              : e ===
+                                                                                                                                  "zh_HK"
+                                                                                                                                ? r(
+                                                                                                                                    "JSResource",
+                                                                                                                                  )(
+                                                                                                                                    "WAWebCountriesLocaleZH-HK",
+                                                                                                                                  )
+                                                                                                                                    .__setRef(
+                                                                                                                                      "WAWebLocaleModules",
+                                                                                                                                    )
+                                                                                                                                    .load()
+                                                                                                                                : r(
+                                                                                                                                    "JSResource",
+                                                                                                                                  )(
+                                                                                                                                    "WAWebCountriesLocaleEN",
+                                                                                                                                  )
+                                                                                                                                    .__setRef(
+                                                                                                                                      "WAWebLocaleModules",
+                                                                                                                                    )
+                                                                                                                                    .load();
+          })(o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale());
+        })),
+        s.apply(this, arguments)
+      );
     }
     l.getCountryData = e;
   },

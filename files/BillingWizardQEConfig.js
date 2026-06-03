@@ -219,16 +219,8 @@ __d(
           params: { share_credential: e },
           type: "PAYMENT_ACCOUNT",
         },
-        ce_ux_account_transitions: {
-          params: { show_new_transition_ux: e },
-          type: "PAYMENT_ACCOUNT",
-        },
         ce_ux_account_transitions_logging: {
           params: { dummy_param: e },
-          type: "PAYMENT_ACCOUNT",
-        },
-        ce_ux_postpay_upsell_h2_2025: {
-          params: { show_upsell: e },
           type: "PAYMENT_ACCOUNT",
         },
         ce_ux_postpay_upsell_h2_2025_logging: {

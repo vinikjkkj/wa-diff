@@ -1,6 +1,7 @@
 __d(
   "WAWebHandlePresence",
   [
+    "Promise",
     "WALogger",
     "WASmaxPresenceServerUpdateRPC",
     "WATimeUtils",
@@ -8,72 +9,86 @@ __d(
     "WAWebChangePresenceHandlerAction",
     "WAWebJidToWid",
     "WAWebLid1X1MigrationGating",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = ["deny", "none", "error"];
-    function c(e) {
+      u,
+      c = ["deny", "none", "error"];
+    function d(e) {
       if (e != null) {
-        if (!u.includes(e)) return o("WATimeUtils").castToUnixTime(Number(e));
+        if (!c.includes(e)) return o("WATimeUtils").castToUnixTime(Number(e));
       } else return o("WATimeUtils").unixTime();
     }
-    async function d(t) {
-      try {
-        var n = o("WASmaxPresenceServerUpdateRPC").receiveServerUpdateRPC(t),
-          a = n.parsedRequest.presenceUpdates;
-        if (a.name === "GroupAvailable") {
-          r("WAWebChangeGroupPresenceHandlerAction")({
-            id: o("WAWebJidToWid").chatJidToChatWid(a.value.from),
-            count: a.value.count,
-          });
-          return;
-        }
-        if (a.name === "GroupUnavailable") {
-          r("WAWebChangeGroupPresenceHandlerAction")({
-            id: o("WAWebJidToWid").chatJidToChatWid(a.value.from),
-            count: 0,
-          });
-          return;
-        }
-        a.name;
-        var i = o("WAWebJidToWid").lidUserJidToUserLid(a.value.from);
-        if (
-          !o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
-        )
-          return;
-        if (!i.isLid()) {
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[presence] Migrated client has a PN presence",
-              ])),
-          );
-          return;
-        }
-        var l = {
-          id: i,
-          type: a.value.type || "available",
-          deny: a.value.last === "deny" || void 0,
-          t: a.value.type === "unavailable" ? c(a.value.last) : void 0,
-        };
-        r("WAWebChangePresenceHandlerAction")(l);
-      } catch (e) {
-        return (
-          o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "Parsing Error: ",
-                "",
-              ])),
-            r("getErrorSafe")(e).toString(),
-          ),
-          Promise.reject(r("getErrorSafe")(e))
-        );
-      }
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    l.default = d;
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            var a = o("WASmaxPresenceServerUpdateRPC").receiveServerUpdateRPC(
+                t,
+              ),
+              i = a.parsedRequest.presenceUpdates;
+            if (i.name === "GroupAvailable") {
+              r("WAWebChangeGroupPresenceHandlerAction")({
+                id: o("WAWebJidToWid").chatJidToChatWid(i.value.from),
+                count: i.value.count,
+              });
+              return;
+            }
+            if (i.name === "GroupUnavailable") {
+              r("WAWebChangeGroupPresenceHandlerAction")({
+                id: o("WAWebJidToWid").chatJidToChatWid(i.value.from),
+                count: 0,
+              });
+              return;
+            }
+            i.name;
+            var l = o("WAWebJidToWid").lidUserJidToUserLid(i.value.from);
+            if (
+              !o(
+                "WAWebLid1X1MigrationGating",
+              ).Lid1X1MigrationUtils.isLidMigrated()
+            )
+              return;
+            if (!l.isLid()) {
+              o("WALogger").ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[presence] Migrated client has a PN presence",
+                  ])),
+              );
+              return;
+            }
+            var c = {
+              id: l,
+              type: i.value.type || "available",
+              deny: i.value.last === "deny" || void 0,
+              t: i.value.type === "unavailable" ? d(i.value.last) : void 0,
+            };
+            r("WAWebChangePresenceHandlerAction")(c);
+          } catch (e) {
+            return (
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Parsing Error: ",
+                    "",
+                  ])),
+                r("getErrorSafe")(e).toString(),
+              ),
+              (u || (u = n("Promise"))).reject(r("getErrorSafe")(e))
+            );
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    l.default = m;
   },
   98,
 );

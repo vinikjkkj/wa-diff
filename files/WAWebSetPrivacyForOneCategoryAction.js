@@ -10,6 +10,7 @@ __d(
     "WAWebSetPrivacyJob",
     "WAWebSyncPrivacyDisallowedLists",
     "WAWebUserPrefsGeneral",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -72,58 +73,66 @@ __d(
           throw r("err")("castToPrivacyDisallowedListType: invalid name");
       }
     }
-    async function d(e, t) {
-      var n,
-        a = await o("WAWebSetPrivacyJob").setPrivacy(e);
-      if (a.length !== 1)
-        throw r("err")("setPrivacy should return one response");
-      var i = a[0];
-      if (i instanceof o("WAWebBackendErrors").ServerStatusCodeError)
-        throw (
-          i.statusCode === 409 &&
-            e.value === "contact_blacklist" &&
-            (await o(
-              "WAWebSyncPrivacyDisallowedLists",
-            ).syncSinglePrivacyDisallowedList(c(e.name))),
-          i
-        );
-      var l = e.name,
-        u = e.value,
-        d = s(l);
-      if (
-        (o("WAWebUserPrefsGeneral").setUserPrivacySettings(
-          babelHelpers.extends(
-            {},
-            o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-            ((n = {}), (n[d] = u), n),
-          ),
-        ),
-        u === "contact_blacklist")
-      ) {
-        var p = c(l),
-          _ = {
-            id: p,
-            disallowedList: m(p, r("WANullthrows")(t)),
-            dhash: r("WANullthrows")(i.dhash),
-          };
-        await o("WAWebSchemaPrivacyDisallowedList")
-          .getPrivacyDisallowedListTable()
-          .createOrReplace(_);
-      }
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function m(t, n) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            a = yield o("WAWebSetPrivacyJob").setPrivacy(e);
+          if (a.length !== 1)
+            throw r("err")("setPrivacy should return one response");
+          var i = a[0];
+          if (i instanceof o("WAWebBackendErrors").ServerStatusCodeError)
+            throw (
+              i.statusCode === 409 &&
+                e.value === "contact_blacklist" &&
+                (yield o(
+                  "WAWebSyncPrivacyDisallowedLists",
+                ).syncSinglePrivacyDisallowedList(c(e.name))),
+              i
+            );
+          var l = e.name,
+            u = e.value,
+            d = s(l);
+          if (
+            (o("WAWebUserPrefsGeneral").setUserPrivacySettings(
+              babelHelpers.extends(
+                {},
+                o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+                ((n = {}), (n[d] = u), n),
+              ),
+            ),
+            u === "contact_blacklist")
+          ) {
+            var m = c(l),
+              _ = {
+                id: m,
+                disallowedList: p(r("WANullthrows")(t)),
+                dhash: r("WANullthrows")(i.dhash),
+              };
+            yield o("WAWebSchemaPrivacyDisallowedList")
+              .getPrivacyDisallowedListTable()
+              .createOrReplace(_);
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(t) {
       if (
         o(
           "WAWebQueryPrivacyDisallowedListUtil",
-        ).isPrivacyDisallowedListTypeLidMigrated(t)
+        ).isPrivacyDisallowedListTypeLidMigrated()
       ) {
-        var r = 0,
-          a = n.map(function (e) {
+        var n = 0,
+          r = t.map(function (e) {
             var t = o("WAWebLidMigrationUtils").toLid(e);
-            return t == null ? (r++, e.toString()) : t.toString();
+            return t == null ? (n++, e.toString()) : t.toString();
           });
         return (
-          r > 0 &&
+          n > 0 &&
             o("WALogger")
               .ERROR(
                 e ||
@@ -131,13 +140,13 @@ __d(
                     "getDisallowedListWids: ",
                     " unknown-lid-for-privacy-list-contact",
                   ])),
-                r,
+                n,
               )
               .sendLogs("unknown-lid-for-privacy-list-contact"),
-          a
+          r
         );
       }
-      return n.map(function (e) {
+      return t.map(function (e) {
         return e.toString();
       });
     }

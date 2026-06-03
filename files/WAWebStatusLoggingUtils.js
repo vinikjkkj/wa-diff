@@ -7,69 +7,110 @@ __d(
     "WAWebMsgGetters",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMultiDevice",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new TextEncoder(),
       s = function (n) {
         return e.encode(n).buffer;
       };
-    async function u(e) {
-      var t,
-        n,
-        r,
-        a = e.id.id,
-        i = (t = e.id.remote) == null ? void 0 : t.toString({ legacy: !0 }),
-        l = await _();
-      if (!l || !i) return a;
-      var u = e.id.fromMe ? 1 : 0,
-        c = e.id.fromMe
-          ? "0"
-          : (n =
-                (r = e.id.participant) == null
-                  ? void 0
-                  : r.toString({ legacy: !0 })) != null
-            ? n
-            : "0",
-        d = s([i, a, u, c].join("_")),
-        m = await o("WACryptoHmac").hmacSha256(l, d);
-      return o("WABase64").encodeB64(m);
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    async function c(e, t) {
-      return o("WAWebMsgGetters").getIsGroupStatus(e) ? m(e, t) : d(e, t);
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r,
+            a = e.id.id,
+            i = (t = e.id.remote) == null ? void 0 : t.toString({ legacy: !0 }),
+            l = yield C();
+          if (!l || !i) return a;
+          var u = e.id.fromMe ? 1 : 0,
+            c = e.id.fromMe
+              ? "0"
+              : (n =
+                    (r = e.id.participant) == null
+                      ? void 0
+                      : r.toString({ legacy: !0 })) != null
+                ? n
+                : "0",
+            d = s([i, a, u, c].join("_")),
+            m = yield o("WACryptoHmac").hmacSha256(l, d);
+          return o("WABase64").encodeB64(m);
+        })),
+        c.apply(this, arguments)
+      );
     }
-    async function d(e, t) {
-      if (
-        !o(
-          "WAWebStatusGatingUtils",
-        ).isStatusViewerSidePosterIdentifiersEnabled()
-      )
-        return null;
-      if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
-        var n,
-          r = (n = e.id.remote) == null ? void 0 : n.toJid();
-        return r == null ? null : p(r, t);
-      }
-      return e.author ? p(e.author.toJid(), t) : null;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    async function m(e, t) {
-      var n = e.id.remote;
-      return !o(
-        "WAWebStatusGatingUtils",
-      ).isStatusViewerSidePosterIdentifiersEnabled() ||
-        !o("WAWebMsgGetters").getIsGroupStatus(e) ||
-        n == null
-        ? null
-        : p(n.toJid(), t);
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o("WAWebMsgGetters").getIsGroupStatus(e) ? f(e, t) : p(e, t);
+        })),
+        m.apply(this, arguments)
+      );
     }
-    async function p(e, t) {
-      var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
-        r = await _();
-      if (n === -1 || !r) return null;
-      var a = f(t, n),
-        i = await o("WACryptoHmac").hmacSha256(r, s(e + a));
-      return o("WABase64").encodeB64(i);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
     function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            !o(
+              "WAWebStatusGatingUtils",
+            ).isStatusViewerSidePosterIdentifiersEnabled()
+          )
+            return null;
+          if (o("WAWebMsgGetters").getIsNewsletterStatus(e)) {
+            var n,
+              r = (n = e.id.remote) == null ? void 0 : n.toJid();
+            return r == null ? null : h(r, t);
+          }
+          return e.author ? h(e.author.toJid(), t) : null;
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.id.remote;
+          return !o(
+            "WAWebStatusGatingUtils",
+          ).isStatusViewerSidePosterIdentifiersEnabled() ||
+            !o("WAWebMsgGetters").getIsGroupStatus(e) ||
+            n == null
+            ? null
+            : h(n.toJid(), t);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebStatusGatingUtils").statusPogIdRotationWindowDays(),
+            r = yield C();
+          if (n === -1 || !r) return null;
+          var a = b(t, n),
+            i = yield o("WACryptoHmac").hmacSha256(r, s(e + a));
+          return o("WABase64").encodeB64(i);
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C() {
       var e = o("WAWebUserPrefsMultiDevice")
         .getChatThreadLoggingSecretB64()
         .then(function (e) {
@@ -77,10 +118,10 @@ __d(
         });
       return e;
     }
-    function f(e, t) {
-      return t === 0 ? "" : g(e, t);
+    function b(e, t) {
+      return t === 0 ? "" : v(e, t);
     }
-    function g(e, t) {
+    function v(e, t) {
       var n = new Date(e.getTime() - 28800),
         r = n.getUTCFullYear(),
         a = (n.getUTCMonth() + 1).toString().padStart(2, "0"),
@@ -100,9 +141,9 @@ __d(
               : r + "/" + a + "/" + s;
     }
     ((l.statusIdForLogging = u),
-      (l.statusPosterHashIdForLogging = c),
-      (l.statusPosterIdForLogging = d),
-      (l.statusGroupIdForLogging = m));
+      (l.statusPosterHashIdForLogging = d),
+      (l.statusPosterIdForLogging = p),
+      (l.statusGroupIdForLogging = f));
   },
   98,
 );

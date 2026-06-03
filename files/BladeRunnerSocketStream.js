@@ -4,36 +4,39 @@ __d(
     "BladeRunnerStream",
     "BladeRunnerStreamState",
     "BladeRunnerStreamStatus",
+    "Promise",
     "RequestStreamE2EClientLoggerEvent",
     "RequestStreamE2EClientLoggerMessageType",
+    "asyncToGeneratorRuntime",
     "uuidv4",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 4,
-      s = { reason: "stream_dead" },
-      u = (function (t) {
-        function n(n, o, a) {
-          var i;
+    var e,
+      s = 4,
+      u = { reason: "stream_dead" },
+      c = (function (t) {
+        function a(e, n, o) {
+          var a;
           return (
-            (i = t.call(this, n) || this),
-            (i.$BladeRunnerSocketStream$p_1 = a),
-            (i.$BladeRunnerSocketStream$p_2 = new (r("BladeRunnerStreamState"))(
-              o,
+            (a = t.call(this, e) || this),
+            (a.$BladeRunnerSocketStream$p_1 = o),
+            (a.$BladeRunnerSocketStream$p_2 = new (r("BladeRunnerStreamState"))(
+              n,
             )),
-            i.$BladeRunnerSocketStream$p_2.setRetriesAllowed(e),
-            i
+            a.$BladeRunnerSocketStream$p_2.setRetriesAllowed(s),
+            a
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.start = function () {
-            var e = this;
-            return new Promise(function (t) {
-              (e.send(), t());
+          (i.start = function () {
+            var t = this;
+            return new (e || (e = n("Promise")))(function (e) {
+              (t.send(), e());
             });
           }),
-          (a.send = function () {
+          (i.send = function () {
             var e,
               t,
               n = this.$BladeRunnerSocketStream$p_2.getRequest();
@@ -53,60 +56,70 @@ __d(
                 this.getStreamHandler(),
               ));
           }),
-          (a.amendWithAck = async function (t) {
-            var e,
-              n = this.$BladeRunnerSocketStream$p_2.getRequest(),
-              o = n.getInstrumentationData();
-            if (o) {
-              var a, i;
-              ((o.auxId = r("uuidv4")()),
-                (a = n.e2eLogger) == null ||
-                  a.logE2EEvent(
-                    r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
-                    r("RequestStreamE2EClientLoggerEvent").RECEIVED,
-                    {
-                      data_size:
-                        t == null || (i = t.length) == null
-                          ? void 0
-                          : i.toString(),
-                    },
-                    o.auxId,
-                  ));
-            }
-            if (this.canAmend()) {
-              if (o) {
-                var l, u;
-                (l = n.e2eLogger) == null ||
-                  l.logE2EEvent(
-                    r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
-                    r("RequestStreamE2EClientLoggerEvent").SENT,
-                    {
-                      data_size:
-                        t == null || (u = t.length) == null
-                          ? void 0
-                          : u.toString(),
-                    },
-                    o.auxId,
+          (i.amendWithAck = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var o,
+                  a = this.$BladeRunnerSocketStream$p_2.getRequest(),
+                  i = a.getInstrumentationData();
+                if (i) {
+                  var l, s;
+                  ((i.auxId = r("uuidv4")()),
+                    (l = a.e2eLogger) == null ||
+                      l.logE2EEvent(
+                        r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
+                        r("RequestStreamE2EClientLoggerEvent").RECEIVED,
+                        {
+                          data_size:
+                            t == null || (s = t.length) == null
+                              ? void 0
+                              : s.toString(),
+                        },
+                        i.auxId,
+                      ));
+                }
+                if (this.canAmend()) {
+                  if (i) {
+                    var c, d;
+                    (c = a.e2eLogger) == null ||
+                      c.logE2EEvent(
+                        r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
+                        r("RequestStreamE2EClientLoggerEvent").SENT,
+                        {
+                          data_size:
+                            t == null || (d = t.length) == null
+                              ? void 0
+                              : d.toString(),
+                        },
+                        i.auxId,
+                      );
+                  }
+                  return this.$BladeRunnerSocketStream$p_1.sendAmendmentWithAck(
+                    a.streamId,
+                    this.$BladeRunnerSocketStream$p_3(t),
+                    i == null ? null : JSON.stringify(i),
                   );
-              }
-              return this.$BladeRunnerSocketStream$p_1.sendAmendmentWithAck(
-                n.streamId,
-                this.$BladeRunnerSocketStream$p_3(t),
-                o == null ? null : JSON.stringify(o),
-              );
-            }
-            return (
-              (e = n.e2eLogger) == null ||
-                e.logE2EEvent(
-                  r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
-                  r("RequestStreamE2EClientLoggerEvent").FAILURE,
-                  s,
-                  o == null ? void 0 : o.auxId,
-                ),
-              Promise.reject("Stream is closed or not accepted")
+                }
+                return (
+                  (o = a.e2eLogger) == null ||
+                    o.logE2EEvent(
+                      r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
+                      r("RequestStreamE2EClientLoggerEvent").FAILURE,
+                      u,
+                      i == null ? void 0 : i.auxId,
+                    ),
+                  (e || (e = n("Promise"))).reject(
+                    "Stream is closed or not accepted",
+                  )
+                );
+              },
             );
-          }),
-          (a.amendFireAndForget = function (t) {
+            function o(e) {
+              return t.apply(this, arguments);
+            }
+            return o;
+          })()),
+          (i.amendFireAndForget = function (t) {
             var e = this.$BladeRunnerSocketStream$p_2.getRequest(),
               n = e.getInstrumentationData();
             if (n) {
@@ -149,27 +162,27 @@ __d(
                   );
               }
             } else {
-              var u;
-              (u = e.e2eLogger) == null ||
-                u.logE2EEvent(
+              var s;
+              (s = e.e2eLogger) == null ||
+                s.logE2EEvent(
                   r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
                   r("RequestStreamE2EClientLoggerEvent").FAILURE,
-                  s,
+                  u,
                   n == null ? void 0 : n.auxId,
                 );
               var c = new Error("Stream is closed or not accepted");
               throw (c.stack, c);
             }
           }),
-          (a.amendWithoutAck = function (t) {
+          (i.amendWithoutAck = function (t) {
             this.amendFireAndForget(t);
           }),
-          (a.$BladeRunnerSocketStream$p_3 = function (t) {
+          (i.$BladeRunnerSocketStream$p_3 = function (t) {
             return typeof t == "object"
               ? btoa(new TextDecoder("utf8").decode(t))
               : t;
           }),
-          (a.cancel = function () {
+          (i.cancel = function () {
             var e,
               t = this.$BladeRunnerSocketStream$p_2.getRequest();
             ((e = t.e2eLogger) == null ||
@@ -186,22 +199,22 @@ __d(
                 ),
                 this.getStreamHandler().onClientCancel()));
           }),
-          (a.isAlive = function () {
+          (i.isAlive = function () {
             return this.$BladeRunnerSocketStream$p_2.isAlive();
           }),
-          (a.canAmend = function () {
+          (i.canAmend = function () {
             return this.$BladeRunnerSocketStream$p_2.canAmend();
           }),
-          (a.getStatus = function () {
+          (i.getStatus = function () {
             return this.$BladeRunnerSocketStream$p_2.getLastStatus();
           }),
-          (a.getStreamId = function () {
+          (i.getStreamId = function () {
             return this.$BladeRunnerSocketStream$p_2.getRequest().streamId;
           }),
-          n
+          a
         );
       })(r("BladeRunnerStream"));
-    l.default = u;
+    l.default = c;
   },
   98,
 );

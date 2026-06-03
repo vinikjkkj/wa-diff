@@ -11,9 +11,13 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebBizAiKnowledgeReviewDeleteMutation.graphql"));
-    function u(e) {
+    function u(e, t) {
       return o("WAWebRelayClient")
-        .commitMutation(s, { id: e }, { environmentType: "facebook" })
+        .commitMutation(
+          s,
+          { id: e, source: t },
+          { environmentType: "facebook" },
+        )
         .then(function (e) {
           var t,
             n,

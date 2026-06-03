@@ -1,6 +1,7 @@
 __d(
   "WAWebTPThumbnailUtils",
   [
+    "Promise",
     "WAAbortError",
     "WAWebCryptoCalculateFilehash",
     "WAWebTPFrameUrlBuilder",
@@ -8,14 +9,16 @@ __d(
     "WAWebTPPdfViewerGatingUtils",
     "WAWebTPPdfViewerQpl",
     "WAWebTPThumbnailRenderer",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "webtp-iframe-thumbnail",
-      s = "webtp-iframe-pdf-viewer",
-      u = "webtp-iframe-inline-sharer";
-    function c(e, t) {
+    var e,
+      s = "webtp-iframe-thumbnail",
+      u = "webtp-iframe-pdf-viewer",
+      c = "webtp-iframe-inline-sharer";
+    function d(e, t) {
       var n,
         r = document.getElementById(t);
       if (r instanceof HTMLIFrameElement) return r;
@@ -31,130 +34,158 @@ __d(
         o
       );
     }
-    function d(t) {
-      t.parentElement ||
-        (document.body.appendChild(t),
-        (t.onerror = function () {
-          t.remove();
+    function m(e) {
+      e.parentElement ||
+        (document.body.appendChild(e),
+        (e.onerror = function () {
+          e.remove();
         }),
-        (t.onload = function () {
-          ((t.id === s || t.id === u) && t.remove(),
-            t.id === e && p.getReferenceNumber() <= 0 && t.remove());
+        (e.onload = function () {
+          ((e.id === u || e.id === c) && e.remove(),
+            e.id === s && _.getReferenceNumber() <= 0 && e.remove());
         }));
     }
-    var m = (function () {
-        function t() {
+    var p = (function () {
+        function e() {
           this.$1 = 0;
         }
-        var n = t.prototype;
+        var t = e.prototype;
         return (
-          (n.getReferenceNumber = function () {
+          (t.getReferenceNumber = function () {
             return this.$1;
           }),
-          (n.getIframe = function () {
-            var t = this;
+          (t.getIframe = function () {
+            var e = this;
             this.$1++;
-            var n = document.getElementById(e);
-            if (n instanceof HTMLIFrameElement) return n;
-            var r = o("WAWebTPFrameUrlBuilder").getWAWebTPThumbnailUrl(),
-              a = c(r, e);
+            var t = document.getElementById(s);
+            if (t instanceof HTMLIFrameElement) return t;
+            var n = o("WAWebTPFrameUrlBuilder").getWAWebTPThumbnailUrl(),
+              r = d(n, s);
             return (
-              d(a),
-              (a.onerror = function () {
-                (a.remove(), (t.$1 = 0));
+              m(r),
+              (r.onerror = function () {
+                (r.remove(), (e.$1 = 0));
               }),
-              (a.onload = function () {
-                t.$1 <= 0 && a.remove();
+              (r.onload = function () {
+                e.$1 <= 0 && r.remove();
               }),
-              a
+              r
             );
           }),
-          (n.release = function () {
+          (t.release = function () {
             if (!(this.$1 <= 0) && (this.$1--, this.$1 === 0)) {
-              var t = document.getElementById(e);
-              t instanceof HTMLIFrameElement && t.remove();
+              var e = document.getElementById(s);
+              e instanceof HTMLIFrameElement && e.remove();
             }
           }),
-          t
+          e
         );
       })(),
-      p = new m();
-    async function _(e, t, n, a) {
-      if (!o("WAWebTPPdfViewerGatingUtils").isWebTPThumbnailRendererEnabled())
-        return Promise.reject(
-          r("err")("WebTP PDF thumbnail renderer is not enabled"),
-        );
-      var i = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
-      (i.initialize("thumbnail"), i.renderThumbnailStart());
-      var l = p.getIframe(),
-        s = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(l),
-        u = null,
-        c = new Promise(function (e, t) {
-          u = t;
-        }),
-        d = function () {
-          u != null &&
-            u(new (o("WAAbortError").AbortError)("Render thumbnail aborted"));
-        };
-      (a != null && (a.aborted ? d() : a.addEventListener("abort", d)),
-        s.listen("QPL", function (e) {
-          e.forEach(function (e) {
-            var t = e.data,
-              n = e.pointName,
-              r = e.timestamp;
-            i.addIframePoint(n, r, t);
-          });
-        }),
-        s.listen("APP_READY", function () {
-          i.appReady();
-        }),
-        s.listen("APP_ERROR", function () {
-          i.appError();
-        }));
-      try {
-        var m = await Promise.race([
-            s.getThumbnail({
-              file: e,
-              fileName: t,
-              width: n.width,
-              height: n.height,
-            }),
-            c,
-          ]),
-          _ = await o("WAWebCryptoCalculateFilehash").calculateFilehashFromBlob(
-            e,
-          );
-        return (
-          o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
-            m.perfData,
-            _,
-            e.size,
-            m.sdkVersion,
-          ),
-          i.renderThumbnailEnd(),
-          { thumbnail: m.thumbnail, numPages: m.numPages, perfData: m.perfData }
-        );
-      } catch (t) {
-        var f = await o(
-          "WAWebCryptoCalculateFilehash",
-        ).calculateFilehashFromBlob(e);
-        throw (
-          o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(t, f, e.size),
-          i.renderThumbnailError(),
-          t
-        );
-      } finally {
-        (a == null || a.removeEventListener("abort", d),
-          s.destroy(),
-          p.release());
-      }
+      _ = new p();
+    function f(e, t, n, r) {
+      return g.apply(this, arguments);
     }
-    ((l.WEBTP_THUMBNAIL_IFRAME_ID = e),
-      (l.WEBTP_VIEWER_IFRAME_ID = s),
-      (l.WEBTP_INLINE_SHARER_IFRAME_ID = u),
-      (l.getSandboxIframe = c),
-      (l.appendToDocumentBody = d),
-      (l.renderWebTPThumbnailIfEnabled = _));
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l) {
+            if (
+              !o(
+                "WAWebTPPdfViewerGatingUtils",
+              ).isWebTPThumbnailRendererEnabled()
+            )
+              return (e || (e = n("Promise"))).reject(
+                r("err")("WebTP PDF thumbnail renderer is not enabled"),
+              );
+            var s = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
+            (s.initialize("thumbnail"), s.renderThumbnailStart());
+            var u = _.getIframe(),
+              c = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(
+                u,
+              ),
+              d = null,
+              m = new (e || (e = n("Promise")))(function (e, t) {
+                d = t;
+              }),
+              p = function () {
+                d != null &&
+                  d(
+                    new (o("WAAbortError").AbortError)(
+                      "Render thumbnail aborted",
+                    ),
+                  );
+              };
+            (l != null && (l.aborted ? p() : l.addEventListener("abort", p)),
+              c.listen("QPL", function (e) {
+                e.forEach(function (e) {
+                  var t = e.data,
+                    n = e.pointName,
+                    r = e.timestamp;
+                  s.addIframePoint(n, r, t);
+                });
+              }),
+              c.listen("APP_READY", function () {
+                s.appReady();
+              }),
+              c.listen("APP_ERROR", function () {
+                s.appError();
+              }));
+            try {
+              var f = yield (e || (e = n("Promise"))).race([
+                  c.getThumbnail({
+                    file: t,
+                    fileName: a,
+                    width: i.width,
+                    height: i.height,
+                  }),
+                  m,
+                ]),
+                g = yield o(
+                  "WAWebCryptoCalculateFilehash",
+                ).calculateFilehashFromBlob(t);
+              return (
+                o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
+                  f.perfData,
+                  g,
+                  t.size,
+                  f.sdkVersion,
+                ),
+                s.renderThumbnailEnd(),
+                {
+                  thumbnail: f.thumbnail,
+                  numPages: f.numPages,
+                  perfData: f.perfData,
+                }
+              );
+            } catch (e) {
+              var h = yield o(
+                "WAWebCryptoCalculateFilehash",
+              ).calculateFilehashFromBlob(t);
+              throw (
+                o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
+                  e,
+                  h,
+                  t.size,
+                ),
+                s.renderThumbnailError(),
+                e
+              );
+            } finally {
+              (l == null || l.removeEventListener("abort", p),
+                c.destroy(),
+                _.release());
+            }
+          },
+        )),
+        g.apply(this, arguments)
+      );
+    }
+    ((l.WEBTP_THUMBNAIL_IFRAME_ID = s),
+      (l.WEBTP_VIEWER_IFRAME_ID = u),
+      (l.WEBTP_INLINE_SHARER_IFRAME_ID = c),
+      (l.getSandboxIframe = d),
+      (l.appendToDocumentBody = m),
+      (l.renderWebTPThumbnailIfEnabled = f));
   },
   98,
 );

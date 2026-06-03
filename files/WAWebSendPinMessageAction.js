@@ -1,6 +1,7 @@
 __d(
   "WAWebSendPinMessageAction",
   [
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
@@ -20,111 +21,141 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    async function s(t, n, a, i) {
-      var l = o("WAWebFrontendMsgGetters").getChat(t),
-        s = l.id,
-        u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        d = o("WAWebChatGetters").getIsGroup(l)
-          ? o("WAWebWidFactory").asUserWidOrThrow(u)
-          : void 0,
-        m = new (r("WAWebMsgKey"))({
-          id: await r("WAWebMsgKey").newId(),
-          remote: l.id,
-          fromMe: !0,
-          participant: d,
-        }),
-        p = o("WATimeUtils").unixTimeMs(),
-        _ = o("WATimeUtils").unixTime(),
-        f,
-        g,
-        h;
-      if (
-        n ===
-        o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type.PIN_FOR_ALL
-      )
-        ((f = o("WAWebPinMsgConstants").PIN_STATE.PIN),
-          (g = o("WAWebPinMsgConstants").getPinExpiryDuration(
-            a != null
-              ? a
-              : o("WAWebPinMsgConstants").DEFAULT_PIN_EXPIRY_DURATION_OPTION,
-          )));
-      else if (
-        n ===
-        o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type.UNPIN_FOR_ALL
-      ) {
-        ((f = o("WAWebPinMsgConstants").PIN_STATE.UNPIN), (g = 0));
-        var y = o(
-          "WAWebPinInChatCollection",
-        ).PinInChatCollection.getByParentMsgKey(t.id);
-        y != null && (h = y.leftExpirationTime());
-      }
-      if (f == null)
-        return (
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "WAWebSendPinMessageAction:sendPinInChatMsg Invalid pinType",
-              ])),
-          ),
-          Promise.resolve(null)
-        );
-      var C = {
-          msgKey: m.toString(),
-          parentMsgKey: t.id.toString(),
-          senderTimestampMs: p,
-          sender: u.toString(),
-          chatId: l.id.toString(),
-          pinType: f,
-          pinExpiryDuration: g,
-          read: !0,
-          ack: i != null ? i : o("WAWebAck").ACK.CLOCK,
-        },
-        b = c(t, m, C, n, _, s, u, d),
-        v = await o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(b);
-      if (
-        v.messageSendResult !== o("WAWebSendMsgResultAction").SendMsgResult.OK
-      )
-        throw r("err")("PinInChat send Error");
-      var S = new (o("WAWebMsgModel").Msg)(b);
+    var e, s;
+    function u(e, t, n, r) {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        o("WAWebPinInChatMetricUtils").logPinInChatMessageSend({
-          msg: S,
-          parentMsg: t,
-          chat: l,
-          timeRemainingToExpirySecs: h,
-        }),
-        v
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l) {
+            var u = o("WAWebFrontendMsgGetters").getChat(t),
+              c = u.id,
+              d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              m = o("WAWebChatGetters").getIsGroup(u)
+                ? o("WAWebWidFactory").asUserWidOrThrow(d)
+                : void 0,
+              _ = new (r("WAWebMsgKey"))({
+                id: yield r("WAWebMsgKey").newId(),
+                remote: u.id,
+                fromMe: !0,
+                participant: m,
+              }),
+              f = o("WATimeUtils").unixTimeMs(),
+              g = o("WATimeUtils").unixTime(),
+              h,
+              y,
+              C;
+            if (
+              a ===
+              o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
+                .PIN_FOR_ALL
+            )
+              ((h = o("WAWebPinMsgConstants").PIN_STATE.PIN),
+                (y = o("WAWebPinMsgConstants").getPinExpiryDuration(
+                  i != null
+                    ? i
+                    : o("WAWebPinMsgConstants")
+                        .DEFAULT_PIN_EXPIRY_DURATION_OPTION,
+                )));
+            else if (
+              a ===
+              o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
+                .UNPIN_FOR_ALL
+            ) {
+              ((h = o("WAWebPinMsgConstants").PIN_STATE.UNPIN), (y = 0));
+              var b = o(
+                "WAWebPinInChatCollection",
+              ).PinInChatCollection.getByParentMsgKey(t.id);
+              b != null && (C = b.leftExpirationTime());
+            }
+            if (h == null)
+              return (
+                o("WALogger").ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "WAWebSendPinMessageAction:sendPinInChatMsg Invalid pinType",
+                    ])),
+                ),
+                (s || (s = n("Promise"))).resolve(null)
+              );
+            var v = {
+                msgKey: _.toString(),
+                parentMsgKey: t.id.toString(),
+                senderTimestampMs: f,
+                sender: d.toString(),
+                chatId: u.id.toString(),
+                pinType: h,
+                pinExpiryDuration: y,
+                read: !0,
+                ack: l != null ? l : o("WAWebAck").ACK.CLOCK,
+              },
+              S = p(t, _, v, a, g, c, d, m),
+              R = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(
+                S,
+              );
+            if (
+              R.messageSendResult !==
+              o("WAWebSendMsgResultAction").SendMsgResult.OK
+            )
+              throw r("err")("PinInChat send Error");
+            var L = new (o("WAWebMsgModel").Msg)(S);
+            return (
+              o("WAWebPinInChatMetricUtils").logPinInChatMessageSend({
+                msg: L,
+                parentMsg: t,
+                chat: u,
+                timeRemainingToExpirySecs: C,
+              }),
+              R
+            );
+          },
+        )),
+        c.apply(this, arguments)
       );
     }
-    async function u(e) {
-      var t = o("WAWebMsgCollection").MsgCollection.assertGet(e.parentMsgKey);
-      if (e.pinType === o("WAWebPinMsgConstants").PIN_STATE.PIN) {
-        var n;
-        await s(
-          t,
-          o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type.PIN_FOR_ALL,
-          o("WAWebPinMsgConstants").getPinExpiryOption(
-            (n = e.pinExpiryDuration) != null
-              ? n
-              : o("WAWebPinMsgConstants").getPinExpiryDuration(
-                  o("WAWebPinMsgConstants").DEFAULT_PIN_EXPIRY_DURATION_OPTION,
-                ),
-          ),
-          e.ack,
-        );
-      } else
-        await s(
-          t,
-          o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type.UNPIN_FOR_ALL,
-          void 0,
-          e.ack,
-        );
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function c(e, t, n, r, a, i, l, s) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebMsgCollection").MsgCollection.assertGet(
+            e.parentMsgKey,
+          );
+          if (e.pinType === o("WAWebPinMsgConstants").PIN_STATE.PIN) {
+            var n;
+            yield u(
+              t,
+              o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
+                .PIN_FOR_ALL,
+              o("WAWebPinMsgConstants").getPinExpiryOption(
+                (n = e.pinExpiryDuration) != null
+                  ? n
+                  : o("WAWebPinMsgConstants").getPinExpiryDuration(
+                      o("WAWebPinMsgConstants")
+                        .DEFAULT_PIN_EXPIRY_DURATION_OPTION,
+                    ),
+              ),
+              e.ack,
+            );
+          } else
+            yield u(
+              t,
+              o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
+                .UNPIN_FOR_ALL,
+              void 0,
+              e.ack,
+            );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t, n, r, a, i, l, s) {
       return {
         id: t,
         type: o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE,
@@ -143,7 +174,7 @@ __d(
         ack: n.ack,
       };
     }
-    ((l.sendPinInChatMsg = s), (l.resendPinInChatMsg = u), (l.getMsgJson = c));
+    ((l.sendPinInChatMsg = u), (l.resendPinInChatMsg = d), (l.getMsgJson = p));
   },
   98,
 );

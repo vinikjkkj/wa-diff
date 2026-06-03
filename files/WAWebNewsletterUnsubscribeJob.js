@@ -5,15 +5,16 @@ __d(
     "WAWebBackendErrors",
     "WAWebMexLeaveNewsletterJob",
     "WAWebOrchestratorNonPersistedJob",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "unsubscribeFromNewsletter",
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var t = await o("WAWebMexLeaveNewsletterJob").mexLeaveNewsletter(
+              var t = yield o("WAWebMexLeaveNewsletterJob").mexLeaveNewsletter(
                 e,
               );
               return t;
@@ -25,7 +26,7 @@ __d(
                 return !0;
               throw e;
             }
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

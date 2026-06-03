@@ -44,7 +44,11 @@ __d(
         },
         { merge: !0 },
       ),
-        o("WAWebVoipGatingUtils").isCallingEnabled()
+        (
+          l
+            ? o("WAWebVoipGatingUtils").isGroupCallingEnabled()
+            : o("WAWebVoipGatingUtils").isCallingEnabled()
+        )
           ? o("WALogger")
               .ERROR(
                 u ||

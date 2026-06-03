@@ -15,6 +15,7 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipUiManager",
     "WDSText.react",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -59,14 +60,25 @@ __d(
         }),
       );
     }
-    async function b() {
-      var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
-      e != null && e.type === "web"
-        ? await e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0)
-        : (r("WAWebCallCollection").setActiveCall(null),
-          r("WAWebCallCollection").setIsInConnectedCall(!1));
+    function b() {
+      return v.apply(this, arguments);
     }
-    function v(t, n) {
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          e != null && e.type === "web"
+            ? yield e.endCall(
+                o("WAWebVoipSignalingEnums").EndCallReason.Self,
+                !0,
+              )
+            : (r("WAWebCallCollection").setActiveCall(null),
+              r("WAWebCallCollection").setIsInConnectedCall(!1));
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(t, n) {
       var a = t != null && o("WAWebUserPrefsMeUser").isMeAccount(t);
       if (a)
         return (
@@ -117,7 +129,7 @@ __d(
         !1
       );
     }
-    function S(e) {
+    function R(e) {
       var t = r("WAWebCallCollection").activeCall;
       if (t) {
         for (var n of e.errors)
@@ -158,7 +170,7 @@ __d(
                 ));
               break;
             case y.NackGroupCallNotEnabled: {
-              a = v(i.errorJid, a);
+              a = S(i.errorJid, a);
               break;
             }
             default:
@@ -182,7 +194,7 @@ __d(
         );
       }
     }
-    var R = {
+    var L = {
       BadRequest: 400,
       DoesNotExist: 404,
       UnsupportedAppVersion: 427,
@@ -190,7 +202,7 @@ __d(
       NotCompatible: 432,
       ServiceUnavailable: 503,
     };
-    function L(e) {
+    function E(e) {
       o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -199,71 +211,87 @@ __d(
           ])),
         e,
       );
-      var t = E(e);
+      var t = k(e);
       C(t);
     }
-    function E(e) {
+    function k(e) {
       switch (e) {
-        case R.DoesNotExist:
+        case L.DoesNotExist:
           return s._(/*BTDS*/ "Invalid call link");
-        case R.CallFull:
+        case L.CallFull:
           return s._(/*BTDS*/ "This call is full.");
-        case R.UnsupportedAppVersion:
+        case L.UnsupportedAppVersion:
           return s._(/*BTDS*/ "Please update WhatsApp to join this call.");
-        case R.ServiceUnavailable:
+        case L.ServiceUnavailable:
           return s._(/*BTDS*/ "Unable to connect. Please try again later.");
         default:
           return s._(/*BTDS*/ "Couldn't join this call.");
       }
     }
-    E.displayName = E.name + " [from " + i.id + "]";
-    async function k() {
-      o("WALogger").LOG(
-        _ ||
-          (_ = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: handleLobbyNacked: ending call",
-          ])),
-      );
-      var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
-      (e != null && e.type === "web"
-        ? await e.endCall(
-            o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
-            !0,
-          )
-        : (r("WAWebCallCollection").setActiveCall(null),
-          r("WAWebCallCollection").setIsInConnectedCall(!1)),
-        o("WAWebVoipUiManager").closeAllVoipWindows({
-          callEnded: !0,
-          surveyInteracted: !1,
-        }),
-        C(s._(/*BTDS*/ "Unable to connect.")));
+    k.displayName = k.name + " [from " + i.id + "]";
+    function I() {
+      return T.apply(this, arguments);
     }
-    async function I() {
-      o("WALogger").LOG(
-        f ||
-          (f = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: handleLobbyTimeout: ending call",
-          ])),
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: handleLobbyNacked: ending call",
+              ])),
+          );
+          var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          (e != null && e.type === "web"
+            ? yield e.endCall(
+                o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
+                !0,
+              )
+            : (r("WAWebCallCollection").setActiveCall(null),
+              r("WAWebCallCollection").setIsInConnectedCall(!1)),
+            o("WAWebVoipUiManager").closeAllVoipWindows({
+              callEnded: !0,
+              surveyInteracted: !1,
+            }),
+            C(s._(/*BTDS*/ "Unable to connect.")));
+        })),
+        T.apply(this, arguments)
       );
-      var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
-      (e != null && e.type === "web"
-        ? await e.endCall(
-            o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
-            !0,
-          )
-        : (r("WAWebCallCollection").setActiveCall(null),
-          r("WAWebCallCollection").setIsInConnectedCall(!1)),
-        o("WAWebVoipUiManager").closeAllVoipWindows({
-          callEnded: !0,
-          surveyInteracted: !1,
-        }),
-        C(s._(/*BTDS*/ "Call preview has timed out.")));
+    }
+    function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: handleLobbyTimeout: ending call",
+              ])),
+          );
+          var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          (e != null && e.type === "web"
+            ? yield e.endCall(
+                o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
+                !0,
+              )
+            : (r("WAWebCallCollection").setActiveCall(null),
+              r("WAWebCallCollection").setIsInConnectedCall(!1)),
+            o("WAWebVoipUiManager").closeAllVoipWindows({
+              callEnded: !0,
+              surveyInteracted: !1,
+            }),
+            C(s._(/*BTDS*/ "Call preview has timed out.")));
+        })),
+        x.apply(this, arguments)
+      );
     }
     ((l.showErrorDialog = C),
-      (l.handleCallOfferNacked = S),
-      (l.handleCallLinkNacked = L),
-      (l.handleLobbyNacked = k),
-      (l.handleLobbyTimeout = I));
+      (l.handleCallOfferNacked = R),
+      (l.handleCallLinkNacked = E),
+      (l.handleLobbyNacked = I),
+      (l.handleLobbyTimeout = D));
   },
   226,
 );

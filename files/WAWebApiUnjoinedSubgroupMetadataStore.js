@@ -1,6 +1,6 @@
 __d(
   "WAWebApiUnjoinedSubgroupMetadataStore",
-  ["WAWebSchemaUnjoinedSubgroupMetadata"],
+  ["WAWebSchemaUnjoinedSubgroupMetadata", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = ["defaultSubgroup", "generalSubgroup", "parentGroupId"];
     function s(e) {
@@ -31,93 +31,128 @@ __d(
         })
       );
     }
-    async function c(e) {
-      var t = e.link,
-        n = e.parentGroupId,
-        r = e.unjoinedSubgroups;
-      if (!t) {
-        await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .bulkRemove(
-            r.map(function (e) {
-              return e.id.toString();
-            }),
-          );
-        return;
-      }
-      var a = [],
-        i = await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .bulkGet(
-            r.map(function (e) {
-              return e.id.toString();
-            }),
-          );
-      ((a = r.map(function (e, t) {
-        var r = i[t],
-          o = { subject: e.subject, subjectTime: e.subjectTime || 0 };
-        if (r) {
-          var a = r.subjectTime || 0;
-          a > o.subjectTime && (o = { subject: r.subject, subjectTime: a });
-        }
-        return u(babelHelpers.extends({}, e, o, { parentGroupId: n }));
-      })),
-        await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .bulkCreateOrMerge(a));
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    async function d(e) {
-      var t = e.parentGroupId,
-        n = e.unjoinedSubgroupIds,
-        r = await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .equals(["parentGroup"], t.toString()),
-        a = r.map(function (e) {
-          return e.id;
-        }),
-        i = n.map(function (e) {
-          return e.toString();
-        }),
-        l = a.filter(function (e) {
-          return !i.includes(e);
-        });
-      await o("WAWebSchemaUnjoinedSubgroupMetadata")
-        .getUnjoinedSubgroupMetadataTable()
-        .bulkRemoveByIndex(["id"], l);
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.link,
+            n = e.parentGroupId,
+            r = e.unjoinedSubgroups;
+          if (!t) {
+            yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .bulkRemove(
+                r.map(function (e) {
+                  return e.id.toString();
+                }),
+              );
+            return;
+          }
+          var a = [],
+            i = yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .bulkGet(
+                r.map(function (e) {
+                  return e.id.toString();
+                }),
+              );
+          ((a = r.map(function (e, t) {
+            var r = i[t],
+              o = { subject: e.subject, subjectTime: e.subjectTime || 0 };
+            if (r) {
+              var a = r.subjectTime || 0;
+              a > o.subjectTime && (o = { subject: r.subject, subjectTime: a });
+            }
+            return u(babelHelpers.extends({}, e, o, { parentGroupId: n }));
+          })),
+            yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .bulkCreateOrMerge(a));
+        })),
+        d.apply(this, arguments)
+      );
     }
-    async function m(e, t) {
-      var n = await o("WAWebSchemaUnjoinedSubgroupMetadata")
-        .getUnjoinedSubgroupMetadataTable()
-        .get(e.toString());
-      if (n != null) {
-        var r = babelHelpers.extends({}, n, { membershipApprovalRequest: t });
-        await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .bulkCreateOrMerge([r]);
-      }
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    async function p(e) {
-      var t = await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .bulkGet(
-            e.map(function (e) {
-              return e.id.toString();
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.parentGroupId,
+            n = e.unjoinedSubgroupIds,
+            r = yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .equals(["parentGroup"], t.toString()),
+            a = r.map(function (e) {
+              return e.id;
             }),
-          ),
-        n = [];
-      (e.forEach(function (e, r) {
-        var o = t[r];
-        o && n.push(babelHelpers.extends({}, o, { size: e.participantCount }));
-      }),
-        await o("WAWebSchemaUnjoinedSubgroupMetadata")
-          .getUnjoinedSubgroupMetadataTable()
-          .bulkCreateOrMerge(n));
+            i = n.map(function (e) {
+              return e.toString();
+            }),
+            l = a.filter(function (e) {
+              return !i.includes(e);
+            });
+          yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+            .getUnjoinedSubgroupMetadataTable()
+            .bulkRemoveByIndex(["id"], l);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+            .getUnjoinedSubgroupMetadataTable()
+            .get(e.toString());
+          if (n != null) {
+            var r = babelHelpers.extends({}, n, {
+              membershipApprovalRequest: t,
+            });
+            yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .bulkCreateOrMerge([r]);
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .bulkGet(
+                e.map(function (e) {
+                  return e.id.toString();
+                }),
+              ),
+            n = [];
+          (e.forEach(function (e, r) {
+            var o = t[r];
+            o &&
+              n.push(babelHelpers.extends({}, o, { size: e.participantCount }));
+          }),
+            yield o("WAWebSchemaUnjoinedSubgroupMetadata")
+              .getUnjoinedSubgroupMetadataTable()
+              .bulkCreateOrMerge(n));
+        })),
+        h.apply(this, arguments)
+      );
     }
     ((l.removeUnjoinedSubgroupMetadataFromStorage = s),
       (l.updateUnjoinedSubgroups = c),
-      (l.cleanUnjoinedSubgroups = d),
-      (l.updateMembershipApprovalRequestinDB = m),
-      (l.updateSizeInDB = p));
+      (l.cleanUnjoinedSubgroups = m),
+      (l.updateMembershipApprovalRequestinDB = _),
+      (l.updateSizeInDB = g));
   },
   98,
 );

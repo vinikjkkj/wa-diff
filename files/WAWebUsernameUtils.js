@@ -14,7 +14,9 @@ __d(
     function s(e) {
       var t = o("WAWebContactCollection").ContactCollection.findFirst(
         function (t) {
-          return t.username === e;
+          return (
+            o("WAWebUsernameTypes").serializeMaybeUsername(t.username) === e
+          );
         },
       );
       if (!t || !t.id.isUser()) return null;
