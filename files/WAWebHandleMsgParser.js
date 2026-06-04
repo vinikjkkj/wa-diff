@@ -9,7 +9,6 @@ __d(
     "WAWebAck",
     "WAWebAsISOCountryCode",
     "WAWebBackendJobs.flow",
-    "WAWebBizCoexGatingUtils",
     "WAWebBotTypes",
     "WAWebCreateNackFromStanza",
     "WAWebCurrentUser",
@@ -200,21 +199,19 @@ __d(
           : null,
         h = l.hasAttr("recipient")
           ? o("WAWebJidToWid").userJidToUserWid(l.attrUserJid("recipient"))
-          : null;
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        var y = !!(
+          : null,
+        y = !!(
           g != null &&
           g.isHosted() &&
           (f.isStatus() || f.isGroup() || f.isBroadcast())
         );
-        if (y)
-          throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            "incomingMsgParser",
-            "" +
-              o("WAWebCreateNackFromStanza").NackReason
-                .InvalidHostedCompanionStanza,
-          );
-      }
+      if (y)
+        throw new (o("WAParsableWapNode").XmppParsingFailure)(
+          "incomingMsgParser",
+          "" +
+            o("WAWebCreateNackFromStanza").NackReason
+              .InvalidHostedCompanionStanza,
+        );
       var b = a.every(function (e) {
           return e.e2eType !== o("WAWebBackendJobs.flow").CiphertextType.Skmsg;
         }),

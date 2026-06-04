@@ -9,6 +9,7 @@ __d(
     "WamPathfinderWebFalcoEvent",
     "isEmptyObject",
     "justknobx",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -180,23 +181,27 @@ __d(
         ? e
         : (R == null && (R = r("WAWebPonyfillsCryptoRandomUUID")()), R);
     }
-    function E() {
-      return r("justknobx")._("918")
-        ? 0
-        : o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging");
-    }
+    var E = null;
     function k() {
-      return E() > 0;
+      return (E == null && (E = r("qex")._("2703") === !0), E);
     }
-    var I = 50,
-      T = new Array(I),
-      D = 0,
-      x = !1;
-    function $() {
-      x || ((x = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(N));
+    function I() {
+      if (r("justknobx")._("918")) return 0;
+      var e = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging");
+      return e > 0 ? e : k() ? 2 : 0;
     }
-    function P(e) {
-      var t = E();
+    function T() {
+      return I() > 0;
+    }
+    var D = 50,
+      x = new Array(D),
+      $ = 0,
+      P = !1;
+    function N() {
+      P || ((P = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(w));
+    }
+    function M(e) {
+      var t = I();
       if (!(t < 1)) {
         var n = [];
         if (
@@ -267,7 +272,7 @@ __d(
         }
         if (t >= 3) {
           var c, _, f, g, h, y;
-          $();
+          N();
           var C = {
             eventType: e.eventType,
             timestampMs: e.timestampMs,
@@ -279,23 +284,23 @@ __d(
             debounceCount: (y = e.debounceCount) != null ? y : void 0,
           };
           (n.length > 0 && (C.extra = n.join(" ")),
-            (T[D] = C),
-            (D = (D + 1) % I));
+            (x[$] = C),
+            ($ = ($ + 1) % D));
         }
       }
     }
-    function N() {
-      for (var e = [], t = 0; t < I; t++) {
-        var n = (D + t) % I,
-          r = T[n];
+    function w() {
+      for (var e = [], t = 0; t < D; t++) {
+        var n = ($ + t) % D,
+          r = x[n];
         r != null && e.push(r);
       }
       return e;
     }
     ((l.FALCO_MAP = m),
-      (l.isPathfinderLoggingEnabled = k),
-      (l.emitPathfinderEvent = P),
-      (l.getPathfinderLogSnapshot = N));
+      (l.isPathfinderLoggingEnabled = T),
+      (l.emitPathfinderEvent = M),
+      (l.getPathfinderLogSnapshot = w));
   },
   98,
 );

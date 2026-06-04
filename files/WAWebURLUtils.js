@@ -13,7 +13,6 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLValidSchemes",
     "justknobx",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,10 +25,11 @@ __d(
       p = {
         URL_REGEX: s,
         build: function (t, n) {
-          var e = new (r("WAWebPonyfillsUrlSearchParams"))();
+          var e = new (r("WAWebPonyfillsUrlSearchParams"))(),
+            o = n || {};
           return (
-            r("lodash").forOwn(n || {}, function (t, n) {
-              e.set(n, t);
+            Object.keys(o).forEach(function (t) {
+              e.set(t, String(o[t]));
             }),
             t + "?" + e.toString()
           );
@@ -135,6 +135,32 @@ __d(
           return t === "" || t.indexOf(u) === 0
             ? t
             : u + "?u=" + encodeURIComponent(t);
+        },
+        consumeLoginNextParam: function (t) {
+          var e = new (r("WAWebPonyfillsUrlSearchParams"))(t),
+            n = e.get("next"),
+            o;
+          if (n == null) o = "/";
+          else {
+            if (!n.startsWith("/") || n.startsWith("//") || n.includes("\\"))
+              return "/";
+            o = n;
+          }
+          e.delete("next");
+          var a = e.toString();
+          if (a === "") return o;
+          var i = o.includes("?") ? "&" : "?";
+          return o + i + a;
+        },
+        buildLoginUrlWithNext: function (t, n) {
+          if (t === "/login" || t.startsWith("/login/")) return t + n;
+          var e = new (r("WAWebPonyfillsUrlSearchParams"))(n);
+          e.delete("next");
+          var o = e.toString(),
+            a = t === "" || t === "/";
+          if (a) return o === "" ? "/login/" : "/login/?" + o;
+          var i = "/login/?next=" + encodeURIComponent(t);
+          return o === "" ? i : i + "&" + o;
         },
       },
       _ = p;

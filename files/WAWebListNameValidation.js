@@ -8,7 +8,7 @@ __d(
       return n === ""
         ? !1
         : o("WAWebLabelCollection").LabelCollection.some(function (e) {
-            return e.name.toLocaleLowerCase(t) === n;
+            return e.name != null && e.name.toLocaleLowerCase(t) === n;
           });
     }
     l.isListNameDuplicate = e;

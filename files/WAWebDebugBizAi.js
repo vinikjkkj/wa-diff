@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugBizAi",
   [
+    "WAWebBizAiHubDeeplinkScheme",
     "WAWebBizAiKnowledgeReviewDrawerLoadable.react",
     "WAWebDrawerManager",
     "WAWebOpenBizAiHubDeeplink",
@@ -8,12 +9,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = "whatsapp-smb://biz-ai-hub";
-    function c(e) {
-      o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(u + "/" + e);
+      s = e || (e = o("react"));
+    function u(e) {
+      o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(
+        o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME + "/" + e,
+      );
     }
-    function d() {
+    function c() {
       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
         s.jsx(
           o("WAWebBizAiKnowledgeReviewDrawerLoadable.react")
@@ -22,71 +24,71 @@ __d(
         ),
       );
     }
-    ((d.doc =
+    ((c.doc =
       "biz-ai-hub deeplink: open Knowledge Review drawer (/review-knowledge)"),
+      (c.paramsToExecute = []));
+    function d() {
+      u("ai-replies");
+    }
+    ((d.doc = "biz-ai-hub deeplink: open AI replies drawer (/ai-replies)"),
       (d.paramsToExecute = []));
     function m() {
-      c("ai-replies");
+      u("business-info");
     }
-    ((m.doc = "biz-ai-hub deeplink: open AI replies drawer (/ai-replies)"),
+    ((m.doc =
+      "biz-ai-hub deeplink: open Business info drawer (/business-info)"),
       (m.paramsToExecute = []));
     function p() {
-      c("business-info");
+      u("chat-history");
     }
     ((p.doc =
-      "biz-ai-hub deeplink: open Business info drawer (/business-info)"),
+      "biz-ai-hub deeplink: open Knowledge drawer via chat history (/chat-history)"),
       (p.paramsToExecute = []));
     function _() {
-      c("chat-history");
+      u("faq");
     }
-    ((_.doc =
-      "biz-ai-hub deeplink: open Knowledge drawer via chat history (/chat-history)"),
+    ((_.doc = "biz-ai-hub deeplink: open Knowledge drawer via FAQ (/faq)"),
       (_.paramsToExecute = []));
     function f() {
-      c("faq");
+      u("instructions");
     }
-    ((f.doc = "biz-ai-hub deeplink: open Knowledge drawer via FAQ (/faq)"),
+    ((f.doc = "biz-ai-hub deeplink: open Instructions drawer (/instructions)"),
       (f.paramsToExecute = []));
     function g() {
-      c("instructions");
+      u("knowledge-center");
     }
-    ((g.doc = "biz-ai-hub deeplink: open Instructions drawer (/instructions)"),
+    ((g.doc = "biz-ai-hub deeplink: open Knowledge drawer (/knowledge-center)"),
       (g.paramsToExecute = []));
     function h() {
-      c("knowledge-center");
+      u("lead-gen-collect-info");
     }
-    ((h.doc = "biz-ai-hub deeplink: open Knowledge drawer (/knowledge-center)"),
+    ((h.doc =
+      "biz-ai-hub deeplink: open Lead gen drawer (/lead-gen-collect-info)"),
       (h.paramsToExecute = []));
     function y() {
-      c("lead-gen-collect-info");
+      u("purchase-info");
     }
     ((y.doc =
-      "biz-ai-hub deeplink: open Lead gen drawer (/lead-gen-collect-info)"),
+      "biz-ai-hub deeplink: open Purchase info drawer (/purchase-info)"),
       (y.paramsToExecute = []));
     function C() {
-      c("purchase-info");
+      u("select-catalog");
     }
-    ((C.doc =
-      "biz-ai-hub deeplink: open Purchase info drawer (/purchase-info)"),
+    ((C.doc = "biz-ai-hub deeplink: open Bestsellers drawer (/select-catalog)"),
       (C.paramsToExecute = []));
-    function b() {
-      c("select-catalog");
-    }
-    ((b.doc = "biz-ai-hub deeplink: open Bestsellers drawer (/select-catalog)"),
-      (b.paramsToExecute = []));
-    var v = {
-      maibaOpenAiReplies: m,
-      maibaOpenBusinessInfo: p,
-      maibaOpenChatHistory: _,
-      maibaOpenFaq: f,
-      maibaOpenInstructions: g,
-      maibaOpenKnowledgeCenter: h,
-      maibaOpenLeadGenCollectInfo: y,
-      maibaOpenPurchaseInfo: C,
-      maibaOpenReviewKnowledge: d,
-      maibaOpenSelectCatalog: b,
+    var b = {
+      maibaOpenAiReplies: d,
+      maibaOpenBusinessInfo: m,
+      maibaOpenChatHistory: p,
+      maibaOpenFaq: _,
+      maibaOpenInstructions: f,
+      maibaOpenKnowledgeCenter: g,
+      maibaOpenLeadGenCollectInfo: h,
+      maibaOpenPurchaseInfo: y,
+      maibaOpenReviewKnowledge: c,
+      maibaOpenSelectCatalog: C,
     };
-    l.default = v;
+    l.default = b;
   },
   98,
 );

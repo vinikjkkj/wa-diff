@@ -10,7 +10,6 @@ __d(
     "WAWebApiChat",
     "WAWebAssociationProcessor",
     "WAWebAssociationProcessorConstants",
-    "WAWebBizCoexGatingUtils",
     "WAWebBotBaseGating",
     "WAWebCmd",
     "WAWebCoexEditDeleteAlertUtils",
@@ -76,9 +75,8 @@ __d(
             : g(e, t, n);
       return m.then(function (e) {
         return (
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            e.messageSendResult ===
-              o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+          e.messageSendResult ===
+            o("WAWebSendMsgResultAction").SendMsgResult.OK &&
             o("WAWebCoexEditDeleteAlertUtils").shouldShowCoexDeleteAlert(
               u,
               c,

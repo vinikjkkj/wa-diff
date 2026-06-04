@@ -1,6 +1,6 @@
 __d(
   "WAWebUsyncDevice",
-  ["WAWap", "WAWebBizCoexGatingUtils"],
+  ["WAWap"],
   function (t, n, r, o, a, i, l) {
     var e = 2;
     function s(e) {
@@ -13,8 +13,8 @@ __d(
           errorText: n.attrString("text"),
         };
       var r = e.maybeChild("key-index-list"),
-        a = e.maybeChild("device-list"),
-        i =
+        o = e.maybeChild("device-list"),
+        a =
           r == null
             ? null
             : {
@@ -23,23 +23,22 @@ __d(
                 expectedTs:
                   (t = r.maybeAttrTime("expected_ts")) != null ? t : void 0,
               },
-        l =
-          a == null
+        i =
+          o == null
             ? void 0
-            : a.mapChildrenWithTag("device", function (e) {
+            : o.mapChildrenWithTag("device", function (e) {
                 var t = {
                   id: e.attrInt("id"),
                   keyIndex: e.maybeAttrInt("key-index"),
                 };
                 return (
-                  o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                    e.hasAttr("is_hosted") &&
+                  e.hasAttr("is_hosted") &&
                     e.attrString("is_hosted") === "true" &&
                     (t.isHosted = !0),
                   t
                 );
               });
-      return { deviceList: l, keyIndex: i };
+      return { deviceList: i, keyIndex: a };
     }
     var u = (function () {
       function t() {}

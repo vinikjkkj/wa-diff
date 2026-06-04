@@ -1,12 +1,12 @@
 __d(
   "WAWebVideoMsgDisplayClass",
-  ["cx"],
-  function (t, n, r, o, a, i, l, s) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
       var t = e.msg;
-      return t.mediaData.isGif ? "_amku" : "_amkv";
+      return t.mediaData.isGif ? "messageGif" : "messageVideo";
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

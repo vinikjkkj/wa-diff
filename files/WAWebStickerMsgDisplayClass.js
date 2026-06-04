@@ -1,12 +1,12 @@
 __d(
   "WAWebStickerMsgDisplayClass",
-  ["cx", "WAWebFrontendMsgGetters"],
-  function (t, n, r, o, a, i, l, s) {
+  ["WAWebFrontendMsgGetters"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.msg;
       return o("WAWebFrontendMsgGetters").getIsTransparentMsg(t)
-        ? "_amk9"
-        : "_amkr";
+        ? "messageTransparent"
+        : "messageSticker";
     }
     l.default = e;
   },

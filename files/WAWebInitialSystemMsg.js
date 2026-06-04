@@ -4,7 +4,6 @@ __d(
     "WANullthrows",
     "WAWebAdvHostedAccountTypeSystemMsg",
     "WAWebApiDeviceList",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebBotSystemMsg",
     "WAWebBotTos",
@@ -24,10 +23,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            o("WAWebMobilePlatforms").isSMB()
-          ) {
+          if (o("WAWebMobilePlatforms").isSMB()) {
             var t = yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount();
             if (t === !0)
               return [
@@ -66,10 +62,7 @@ __d(
             ];
           if (a === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P)
             return [o("WAWebBotSystemMsg").genBizBot3pDisclosureMessage(t)];
-          if (
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            t.isUser()
-          ) {
+          if (t.isUser()) {
             if (
               o("WAWebMobilePlatforms").isSMB() &&
               (yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount()) ===

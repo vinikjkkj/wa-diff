@@ -125,7 +125,6 @@ __d(
                             ).getMsgIfAuthorized({
                               chat: i,
                               identity: s,
-                              isLidBot: u,
                               originalMsgId: C,
                               requester: b,
                               retryCount: g,
@@ -145,7 +144,6 @@ __d(
                               ).getMsgIfAuthorized({
                                 chat: i,
                                 identity: s,
-                                isLidBot: u,
                                 originalMsgId: C,
                                 requester: R,
                                 retryCount: g,

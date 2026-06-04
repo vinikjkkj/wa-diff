@@ -9,7 +9,6 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebPrimaryFeaturesModel",
     "WAWebSaveContactAction",
-    "WAWebUsernameGatingUtils",
     "WAWebWamEnumAddContactActionType",
     "WAWebWamEnumCompanionAddContactEventType",
     "WAWebWamEnumCompanionAddContactSource",
@@ -110,12 +109,10 @@ __d(
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[contact] client-err act=",
                     " src=",
-                    " usync_lid=",
                     "",
                   ])),
                 n,
                 this.source,
-                o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),
               )
               .catching(r("getErrorSafe")(a))
               .sendLogs("companion-contact-client-error-" + n);

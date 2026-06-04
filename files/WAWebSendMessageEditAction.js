@@ -7,7 +7,6 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATimeUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebChatGetters",
     "WAWebCodeFormatMutator",
     "WAWebCoexEditDeleteAlertUtils",
@@ -125,8 +124,7 @@ __d(
             "WAWebUserPrefsMultiDevice",
           ).getIsHostedMeAccountFromLocalStorage() === !0;
       return S(o("WAWebStateUtils").unproxy(e), u).then(function () {
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          o("WAWebCoexEditDeleteAlertUtils").shouldShowCoexEditAlert(m, p) &&
+        o("WAWebCoexEditDeleteAlertUtils").shouldShowCoexEditAlert(m, p) &&
           (o("WAWebCoexEditDeleteAlertUtils").markCoexEditAlertShown(m),
           o("WAWebOpenCoexEditDeleteAlertModal").openCoexEditAlertModal(_));
       });

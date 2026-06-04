@@ -6,7 +6,6 @@ __d(
     "WANullthrows",
     "WAWebABProps",
     "WAWebAfterReadUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebChatEphemerality",
     "WAWebContactCollection",
     "WAWebEphemeralConstants",
@@ -331,10 +330,8 @@ __d(
       var a = null,
         i = o("WAWebUserPrefsMeUser").isMePrimary(n.initiatingUser);
       if (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
         n.disappearingModeTrigger ===
-          o("WAWebEphemeralityTypes").DisappearingModeTrigger
-            .BizSupportFbHosting
+        o("WAWebEphemeralityTypes").DisappearingModeTrigger.BizSupportFbHosting
       )
         return { text: T(i), ctaText: null };
       var l = null;

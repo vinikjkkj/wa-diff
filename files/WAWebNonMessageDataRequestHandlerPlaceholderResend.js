@@ -278,9 +278,7 @@ __d(
       n.remote.isGroup()
         ? (i = n.remote)
         : n.fromMe
-          ? (i = n.remote.isLid()
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE())
+          ? (i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())
           : (i = n.remote);
       var l;
       t.participant != null

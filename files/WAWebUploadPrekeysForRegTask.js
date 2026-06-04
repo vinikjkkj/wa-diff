@@ -59,7 +59,7 @@ __d(
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "PrekeyUploadForRegistrationTask: successfully generated ",
+                      "PrekeyUploadForRegistrationTask: generated ",
                       " keys",
                     ])),
                   l.length,
@@ -188,8 +188,8 @@ __d(
                 o("WALogger").WARN(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "_uploadPreKeys: disconnected, unclear if on server: ",
-                      " (count: ",
+                      "_uploadPreKeys: disconnected ",
+                      " (cnt: ",
                       ", size: ",
                       "b)",
                     ])),

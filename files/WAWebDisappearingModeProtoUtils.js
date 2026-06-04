@@ -1,11 +1,6 @@
 __d(
   "WAWebDisappearingModeProtoUtils",
-  [
-    "WAWebBizCoexGatingUtils",
-    "WAWebEphemeralityTypes",
-    "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
-  ],
+  ["WAWebEphemeralityTypes", "WAWebProtobufsE2E.pb", "WAWebUserPrefsMeUser"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (e.from != null) {
@@ -42,7 +37,6 @@ __d(
         i = t.trigger;
       if (
         i != null &&
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
         i ===
           o("WAWebProtobufsE2E.pb").DisappearingMode$Trigger
             .BIZ_SUPPORTS_FB_HOSTING
@@ -88,10 +82,8 @@ __d(
           return o("WAWebEphemeralityTypes").DisappearingModeTrigger.BulkChange;
         case o("WAWebProtobufsE2E.pb").DisappearingMode$Trigger
           .BIZ_SUPPORTS_FB_HOSTING:
-          return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-            ? o("WAWebEphemeralityTypes").DisappearingModeTrigger
-                .BizSupportFbHosting
-            : o("WAWebEphemeralityTypes").DisappearingModeTrigger.Unknown;
+          return o("WAWebEphemeralityTypes").DisappearingModeTrigger
+            .BizSupportFbHosting;
         case o("WAWebProtobufsE2E.pb").DisappearingMode$Trigger.UNKNOWN_GROUPS:
           return o("WAWebEphemeralityTypes").DisappearingModeTrigger
             .UnknownGroups;

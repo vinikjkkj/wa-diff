@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATimeUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizGatingUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
@@ -980,37 +979,21 @@ __d(
                   o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES));
             break;
           case l.BIZ_COEX_PRIVACY_INIT_SELF:
-            if (!o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-              t.templateParams = void 0;
-              break;
-            }
             ((t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
               (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate),
               (t.subtype = "biz_me_account_type_is_hosted"));
             break;
           case l.BIZ_COEX_PRIVACY_TRANSITION_SELF:
-            if (!o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-              t.templateParams = void 0;
-              break;
-            }
             ((t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
               (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate),
               (t.subtype = "biz_me_account_type_is_hosted_transition"));
             break;
           case l.BIZ_COEX_PRIVACY_INIT:
-            if (!o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-              t.templateParams = void 0;
-              break;
-            }
             ((t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
               (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate),
               (t.subtype = "biz_account_type_is_hosted"));
             break;
           case l.BIZ_COEX_PRIVACY_TRANSITION:
-            if (!o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-              t.templateParams = void 0;
-              break;
-            }
             ((t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
               (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate),
               (t.subtype = "biz_account_type_changed_to_hosted"));

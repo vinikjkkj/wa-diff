@@ -1,11 +1,11 @@
 __d(
   "WAWebListMsgDisplayClass",
-  ["cx"],
-  function (t, n, r, o, a, i, l, s) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
-      return "_amkn";
+      return "messageList";
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

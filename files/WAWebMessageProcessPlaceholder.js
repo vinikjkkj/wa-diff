@@ -9,7 +9,6 @@ __d(
     "WAWebApiDeviceList",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebCheckChatExistsOrCreate",
     "WAWebCurrentUser",
@@ -54,7 +53,6 @@ __d(
           try {
             var c = [];
             if (
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
               i.isUser() &&
               (t.placeholderType ===
                 o("WAWebHandleMsgTypes.flow").PlaceholderType.E2E ||
@@ -126,8 +124,7 @@ __d(
                 _.length === 0)
               )
                 return !1;
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                c.length > 0 &&
+              c.length > 0 &&
                 a.placeholderCreatedWhenAccountIsHosted === !0 &&
                 (_ = [].concat(c, _));
             } else

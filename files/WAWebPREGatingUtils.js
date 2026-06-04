@@ -15,12 +15,7 @@ __d(
         : !1;
     }
     function u() {
-      return r("justknobx")._("1784")
-        ? r("WAWebEnvironment").isWindows ||
-            o("WAWebABProps").getABPropConfigValue(
-              "smoothie_performance_resize_followup",
-            )
-        : !1;
+      return !!r("justknobx")._("1784");
     }
     function c() {
       return r("justknobx")._("2349")

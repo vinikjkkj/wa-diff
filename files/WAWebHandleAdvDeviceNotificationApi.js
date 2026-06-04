@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WALongInt",
     "WAWebAdvExpectedTsApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexHostedAddVerification",
     "WAWebBizCoexUtils",
     "WAWebDeviceListPk",
@@ -17,8 +16,7 @@ __d(
     function u(t, n, r, a, i, l, u) {
       if (!l || l.deleted)
         return (
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            o("WAWebBizCoexUtils").triggerUsyncForCoexDeviceAdd(n, t),
+          o("WAWebBizCoexUtils").triggerUsyncForCoexDeviceAdd(n, t),
           null
         );
       if (r < l.timestamp || i == null) return null;
@@ -28,22 +26,20 @@ __d(
       if (!c) return null;
       var d = c.rawId,
         m = o("WALongInt").numberOrThrowIfTooLarge(c.timestamp),
-        p = null;
+        p = c.accountType;
       if (
-        (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          ((p = c.accountType),
-          p === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleDeviceAddNotification: add to coex cache for ",
-                  "",
-                ])),
-              t == null ? void 0 : t.toLogString(),
-            ),
-            o(
-              "WAWebBizCoexHostedAddVerification",
-            ).addToCoexHostedVerificationCache(t))),
+        (p === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "handleDeviceAddNotification: add to coex cache for ",
+                "",
+              ])),
+            t == null ? void 0 : t.toLogString(),
+          ),
+          o(
+            "WAWebBizCoexHostedAddVerification",
+          ).addToCoexHostedVerificationCache(t)),
         m !== r)
       )
         return null;
@@ -51,8 +47,7 @@ __d(
         f = null,
         g = l.timestamp;
       (l.rawId !== d ? (_ = !0) : (f = l.devices),
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          l.advAccountType != null &&
+        l.advAccountType != null &&
           l.advAccountType !== p &&
           ((_ = !0),
           o("WALogger").LOG(
@@ -103,9 +98,7 @@ __d(
         (b.expectedTs = v.expectedTs),
         (b.expectedTsLastDeviceJobTs = v.expectedTsLastDeviceJobTs),
         (b.expectedTsUpdateTs = v.expectedTsUpdateTs),
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          p != null &&
-          (b.advAccountType = p),
+        p != null && (b.advAccountType = p),
         { update: b, clearRecord: _ }
       );
     }

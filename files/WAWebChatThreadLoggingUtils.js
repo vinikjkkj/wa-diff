@@ -209,7 +209,7 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var e = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return o("WAWebUsernameTypes").isPresentUsername(
             t == null ? void 0 : t.username,
@@ -224,7 +224,7 @@ __d(
     function F() {
       return (
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var e = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return (t == null ? void 0 : t.usernameKey) != null;
         })),

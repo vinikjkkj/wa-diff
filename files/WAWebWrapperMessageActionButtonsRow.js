@@ -1,10 +1,10 @@
 __d(
   "WAWebWrapperMessageActionButtonsRow",
-  ["cx", "WAWebFlex.react", "WAWebFlexItem.react", "react"],
-  function (t, n, r, o, a, i, l, s) {
+  ["WAWebFlex.react", "WAWebFlexItem.react", "react"],
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react")),
-      c = {
+      s = e || (e = o("react")),
+      u = {
         buttonWrapper: {
           paddingTop: "xexx8yu",
           paddingInlineEnd: "x1im30kd",
@@ -14,32 +14,39 @@ __d(
           $$css: !0,
         },
       };
-    function d(e) {
+    function c(e) {
       var t = e.hasReaction,
         n = e.isMsgGallery,
         a = e.isOutgoingMsg,
         i = e.messageActionButtons,
-        l = (a ? i.reverse() : i).map(function (e, t) {
+        l = e.positionLeft,
+        c = e.positionRight,
+        d = (a ? i.reverse() : i).map(function (e, t) {
           return e && !n
-            ? u.jsx(
+            ? s.jsx(
                 r("WAWebFlexItem.react"),
-                { xstyle: c.buttonWrapper, children: e },
+                { xstyle: u.buttonWrapper, children: e },
                 t,
               )
             : e;
         }),
-        s = "end";
+        m = "end";
       return (
-        !n && !a && (s = "start"),
-        u.jsx(o("WAWebFlex.react").FlexRow, {
-          justify: s,
+        !n && !a && (m = "start"),
+        s.jsx(o("WAWebFlex.react").FlexRow, {
+          justify: m,
           align: "center",
-          className: "_amj_",
-          children: l,
+          className: {
+            0: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw",
+            2: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xho9bl7",
+            1: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xej21xi",
+            3: "xken49m xexx8yu x18d9i69 x135b78x x11lfxj5 x10l6tqk xwa60dl xfvs6mw xho9bl7 xej21xi",
+          }[(!!l << 1) | (!!c << 0)],
+          children: d,
         })
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

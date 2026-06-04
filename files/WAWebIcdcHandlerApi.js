@@ -10,7 +10,6 @@ __d(
     "WAWebApiDeviceList",
     "WAWebApiPendingDeviceSync",
     "WAWebBackendEventBus",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexHostedAddVerification",
     "WAWebBizCoexOfflineICDCHandledCache",
     "WAWebHandleAdvForUsyncApi",
@@ -49,12 +48,7 @@ __d(
               hostedBizEncMismatch: !1,
               senderOrRecipientAccountTypeHosted: !1,
             };
-          if (
-            !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-            o("WAWebUserPrefsMeUser").isMeAccount(t) ||
-            !t.isUser()
-          )
-            return l;
+          if (o("WAWebUserPrefsMeUser").isMeAccount(t) || !t.isUser()) return l;
           var c = r == null ? void 0 : r.deviceListMetadata;
           if (c == null) return l;
           var d = o("WAWebUserPrefsMeUser").isMeAccount(n),

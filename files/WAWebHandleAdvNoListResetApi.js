@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WALongInt",
     "WAWebAdvExpectedTsApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebCryptoCurve25519",
     "WAWebIdentityUpdateDeviceTableApi",
     "WAWebSignalCommonUtils",
@@ -72,8 +71,7 @@ __d(
               ((h.expectedTs = y.expectedTs),
                 (h.expectedTsLastDeviceJobTs = y.expectedTsLastDeviceJobTs),
                 (h.expectedTsUpdateTs = y.expectedTsUpdateTs),
-                o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                  (h.advAccountType = c),
+                (h.advAccountType = c),
                 yield o(
                   "WAWebIdentityUpdateDeviceTableApi",
                 ).bulkApplyDeviceUpdate(

@@ -83,9 +83,9 @@ __d(
             .ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "customPaymentMethodTypeWithNoRecognizedKeys: type ",
-                  " received ",
-                  " input(s), 0 written",
+                  "[customPaymentMethods] noRecognizedKeys type=",
+                  " recv=",
+                  " wrote=0",
                 ])),
               p,
               f,

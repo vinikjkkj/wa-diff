@@ -95,10 +95,11 @@ __d(
           D &&
             (D.hasLayoutWrapper != null && D.hasLayoutWrapper(T) && (I = !0),
             D.getStyles && (C = babelHelpers.extends({}, C, D.getStyles(T, l))),
-            Object.assign(
+            (k = babelHelpers.extends(
+              {},
               k,
               D.getProps == null ? void 0 : D.getProps(T, e, i),
-            ));
+            )));
         }
       var x = function (i) {
         var r = i;

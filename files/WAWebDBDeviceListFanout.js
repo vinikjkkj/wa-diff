@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebApiDeviceList",
-    "WAWebBizCoexGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -31,8 +30,7 @@ __d(
                   var r = t.id === 99 || t.isHosted === !0,
                     a = !1;
                   if (
-                    (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                      n != null &&
+                    (n != null &&
                       (a = (n == null ? void 0 : n.isUser()) === !0),
                     !(r && !a))
                   ) {

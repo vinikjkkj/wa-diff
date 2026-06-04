@@ -185,7 +185,7 @@ __d(
                 : o("WALogger").LOG(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: handleClickCallLink: skipping auto-join, previewCallLink failed with status ",
+                        "voip: handleClickCallLink previewCallLink failed, skip join ",
                         "",
                       ])),
                     String(x),

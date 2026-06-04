@@ -35,24 +35,40 @@ __d(
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
     "isArrayNullOrEmpty",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g;
-    function h(t) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g,
+      h,
+      y,
+      C,
+      b = 3;
+    function v(t) {
       var n = t.bizInfo,
         r = t.bizSource,
-        a = t.editAttr,
-        i = t.finalLocation,
-        l = t.historyLidPnMappings,
-        s = t.message,
-        u = t.messageProtobuf,
-        c = t.msgBotInfo,
-        d = t.msgContext,
-        m = t.msgMeta,
-        p = t.paymentInfo,
-        _ = t.quotedPaymentInfo,
-        f = t.rcat;
-      u ||
+        a = t.depth,
+        i = a === void 0 ? 0 : a,
+        l = t.editAttr,
+        s = t.finalLocation,
+        u = t.historyLidPnMappings,
+        c = t.message,
+        d = t.messageProtobuf,
+        m = t.msgBotInfo,
+        p = t.msgContext,
+        _ = t.msgMeta,
+        f = t.paymentInfo,
+        g = t.quotedPaymentInfo,
+        h = t.rcat;
+      d ||
         o("WALogger")
           .ERROR(
             e ||
@@ -61,123 +77,126 @@ __d(
               ])),
           )
           .sendLogs("null-message");
-      var g = u.messageContextInfo,
-        h = y({
-          messageProtobuf: u,
-          message: s,
-          msgContext: d,
-          paymentInfo: p,
-          finalLocation: i,
-          quotedPaymentInfo: _,
+      var y = d.messageContextInfo,
+        C = S({
+          messageProtobuf: d,
+          message: c,
+          msgContext: p,
+          paymentInfo: f,
+          finalLocation: s,
+          quotedPaymentInfo: g,
           bizInfo: n,
-          editAttr: a,
-          rcat: f,
+          editAttr: l,
+          rcat: h,
           bizSource: r,
-          msgMeta: m,
-          msgBotInfo: c,
-          historyLidPnMappings: l,
+          msgMeta: _,
+          msgBotInfo: m,
+          historyLidPnMappings: u,
+          depth: i,
         }),
-        C = h.contextInfo,
-        v = h.msgData;
-      return (b(v, C, d, _), k(v, g, d), v);
+        b = C.contextInfo,
+        v = C.msgData;
+      return (L(v, b, p, g), x(v, y, p), v);
     }
-    function y(e) {
+    function S(e) {
       var t = e.bizInfo,
         n = e.bizSource,
-        r = e.editAttr,
-        a = e.finalLocation,
-        i = e.historyLidPnMappings,
-        l = e.message,
-        u = e.messageProtobuf,
-        c = e.msgBotInfo,
-        d = e.msgContext,
-        m = e.msgMeta,
-        p = e.paymentInfo,
-        _ = e.quotedPaymentInfo,
-        f = e.rcat,
-        g = u.callLogMesssage,
-        h = o(
+        r = e.depth,
+        a = r === void 0 ? 0 : r,
+        i = e.editAttr,
+        l = e.finalLocation,
+        u = e.historyLidPnMappings,
+        c = e.message,
+        d = e.messageProtobuf,
+        m = e.msgBotInfo,
+        p = e.msgContext,
+        _ = e.msgMeta,
+        f = e.paymentInfo,
+        g = e.quotedPaymentInfo,
+        h = e.rcat,
+        y = d.callLogMesssage,
+        C = o(
           "WAWebAssociationProtoUtils",
         ).validateMessageAssociationInMessageContextInfo(
-          l,
-          u.messageContextInfo,
-          d,
-          i,
+          c,
+          d.messageContextInfo,
+          p,
+          u,
         );
       if (
-        h != null &&
+        C != null &&
         o(
           "WAWebMessageAssociationGatingUtils",
         ).isMessageAssociationInfraEnabled()
       ) {
-        var y = o(
+        var b = o(
           "WAWebAssociationProtoUtils",
-        ).getValidatedAssociationFieldsFromProto(h, l, d);
+        ).getValidatedAssociationFieldsFromProto(C, c, p);
         if (
-          y.associationType ===
+          b.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
         ) {
-          var b = l,
-            v = babelHelpers.extends({}, b, {
+          var v = c,
+            S = babelHelpers.extends({}, v, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
               kind: "associatedUnknown",
-              associationType: y.associationType,
-              parentMsgKey: y.associationParentMsgKey,
-              viewMode: y.viewMode,
+              associationType: b.associationType,
+              parentMsgKey: b.associationParentMsgKey,
+              viewMode: b.viewMode,
             });
-          return { contextInfo: null, msgData: v };
+          return { contextInfo: null, msgData: S };
         }
       }
-      var k = o("WAWebMessagePluginParseProtobuf").parseProtobuf({
-        messageProtobuf: u,
-        baseMessage: l,
-        msgContext: d,
-        paymentInfo: p,
-        quotedPaymentInfo: _,
-        editAttr: r,
+      var L = o("WAWebMessagePluginParseProtobuf").parseProtobuf({
+        messageProtobuf: d,
+        baseMessage: c,
+        msgContext: p,
+        paymentInfo: f,
+        quotedPaymentInfo: g,
+        editAttr: i,
         bizInfo: t,
-        finalLocation: a,
-        rcat: f,
+        finalLocation: l,
+        rcat: h,
         bizSource: n,
-        msgMeta: m,
-        messageAssociation: h,
-        msgBotInfo: c,
+        msgMeta: _,
+        messageAssociation: C,
+        msgBotInfo: m,
       });
-      if (k) {
-        var I =
-          (k == null ? void 0 : k.msgData.type) ===
+      if (L) {
+        var E =
+          (L == null ? void 0 : L.msgData.type) ===
             o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-          (k == null ? void 0 : k.msgData.futureproofType) != null;
+          (L == null ? void 0 : L.msgData.futureproofType) != null;
         if (
-          !I &&
-          o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(k)
+          !E &&
+          o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(L)
         ) {
-          var T = l,
-            D = babelHelpers.extends({}, T, {
+          var x = c,
+            $ = babelHelpers.extends({}, x, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
               kind: "unknown",
               subtype: void 0,
             });
-          return { contextInfo: null, msgData: D };
+          return { contextInfo: null, msgData: $ };
         }
-        if (h != null) {
-          var x,
-            $ = o(
+        if (C != null) {
+          var P,
+            N = o(
               "WAWebAssociationProtoUtils",
             ).convertAssociationTypeFromProtoToClientSupportedAssociationType(
-              h.associationType,
+              C.associationType,
             );
           if (
-            !I &&
-            $ !==
+            !E &&
+            N !==
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .BOT_PLUGIN &&
-            (k == null ? void 0 : k.msgData.associationType) !== $ &&
-            (u == null || (x = u.protocolMessage) == null ? void 0 : x.type) !==
+            (L == null ? void 0 : L.msgData.associationType) !== N &&
+            (d == null || (P = d.protocolMessage) == null ? void 0 : P.type) !==
               o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
                 .MESSAGE_EDIT
           ) {
-            var P;
+            var M;
             throw (
               o("WALogger")
                 .WARN(
@@ -194,17 +213,17 @@ __d(
                       ", botEditType: ",
                       "",
                     ])),
-                  k == null ? void 0 : k.msgData.type,
-                  $,
-                  k == null ? void 0 : k.msgData.associationType,
-                  r,
-                  u == null || (P = u.protocolMessage) == null
+                  L == null ? void 0 : L.msgData.type,
+                  N,
+                  L == null ? void 0 : L.msgData.associationType,
+                  i,
+                  d == null || (M = d.protocolMessage) == null
                     ? void 0
-                    : P.type,
-                  m == null ? void 0 : m.type,
-                  m == null ? void 0 : m.pollType,
-                  m == null ? void 0 : m.eventType,
-                  c == null ? void 0 : c.botEditType,
+                    : M.type,
+                  _ == null ? void 0 : _.type,
+                  _ == null ? void 0 : _.pollType,
+                  _ == null ? void 0 : _.eventType,
+                  m == null ? void 0 : m.botEditType,
                 )
                 .tags("messaging")
                 .sendLogs("parseMsgProto-association-type-mismatch", {
@@ -223,36 +242,37 @@ __d(
         }
         return (
           o("WAWebLimitSharingProtoUtils").parseLimitSharingFromMessage(
-            l,
-            u,
+            c,
             d,
+            p,
           ),
-          C(k.msgData),
-          k
+          R(L.msgData),
+          L
         );
       }
-      var N = u.deviceSentMessage;
-      (N && S(l, N, d), g && L(l, g));
-      var M = u.groupStatusMessageV2;
-      M != null &&
+      var w = d.deviceSentMessage;
+      (w && k(c, w, p, a), y && T(c, y));
+      var A = d.groupStatusMessageV2;
+      A != null &&
         o("WAWebABProps").getABPropConfigValue(
           "group_status_receiver_enabled",
         ) &&
-        E(l, M, d);
-      var w = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(u);
+        D(c, A, p, a);
+      var F = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(d);
       return (
-        w != null &&
-          R({
-            message: l,
-            futureproofMessage: w,
-            msgContext: d,
-            topLevelMessageContextInfo: u.messageContextInfo,
-            editAttr: r,
+        F != null &&
+          I({
+            depth: a,
+            message: c,
+            futureproofMessage: F,
+            msgContext: p,
+            topLevelMessageContextInfo: d.messageContextInfo,
+            editAttr: i,
           }),
-        { contextInfo: null, msgData: l }
+        { contextInfo: null, msgData: c }
       );
     }
-    function C(e) {
+    function R(e) {
       e.isViewOnce === !0 &&
         ([
           "body",
@@ -283,12 +303,12 @@ __d(
           ).isChannelVideoServerTranscodeUploadEnabled() &&
           (e.metadataUrl = void 0));
     }
-    function b(e, t, n, r) {
+    function L(e, t, n, r) {
       t &&
-        (v(e, t, n, r),
+        (E(e, t, n, r),
         o("WAWebE2EProtoParserForCtwaContext").parseCtwaContextProto(e, t));
     }
-    function v(e, t, n, r) {
+    function E(e, t, n, r) {
       var a = t.quotedMessage,
         i = t.mentionedJid,
         l = t.groupMentions;
@@ -423,42 +443,78 @@ __d(
         (g == null ? void 0 : g.canBeReshared) != null &&
           (e.canBeReshared = g.canBeReshared));
     }
-    function S(e, t, n) {
-      var r = o("WAWebDecodeJid").decodeJid(t.destinationJid);
-      ((e.id.remote = r),
-        (e.to = r),
+    function k(e, t, n, a) {
+      if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= b)) {
+        o("WALogger")
+          .WARN(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "parseDeviceSentMessage: nesting depth exceeded limit of ",
+                "",
+              ])),
+            b,
+          )
+          .tags("messaging")
+          .sendLogs("parse-device-sent-msg-max-depth");
+        return;
+      }
+      var i = o("WAWebDecodeJid").decodeJid(t.destinationJid);
+      ((e.id.remote = i),
+        (e.to = i),
         Object.assign(
           e,
-          h({ messageProtobuf: t.message, message: e, msgContext: n }),
+          v({
+            messageProtobuf: t.message,
+            message: e,
+            msgContext: n,
+            depth: a + 1,
+          }),
         ));
     }
-    function R(e) {
-      var t = e.editAttr,
-        n = e.futureproofMessage,
-        o = e.message,
-        a = e.msgContext,
-        i = e.topLevelMessageContextInfo,
-        l = r("WANullthrows")(n.message),
-        s = [],
-        u =
-          i == null
-            ? babelHelpers.extends({}, l.messageContextInfo, { threadId: s })
-            : babelHelpers.extends({}, l.messageContextInfo, i, {
-                threadId: s,
+    function I(e) {
+      var t = e.depth,
+        n = t === void 0 ? 0 : t,
+        a = e.editAttr,
+        i = e.futureproofMessage,
+        l = e.message,
+        s = e.msgContext,
+        u = e.topLevelMessageContextInfo;
+      if (r("justknobx")._("2451") && n >= b) {
+        o("WALogger")
+          .WARN(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "parseFutureproofMessageProto: nesting depth exceeded limit of ",
+                "",
+              ])),
+            b,
+          )
+          .tags("messaging")
+          .sendLogs("parse-futureproof-msg-max-depth");
+        return;
+      }
+      var c = r("WANullthrows")(i.message),
+        d = [],
+        m =
+          u == null
+            ? babelHelpers.extends({}, c.messageContextInfo, { threadId: d })
+            : babelHelpers.extends({}, c.messageContextInfo, u, {
+                threadId: d,
               });
       Object.assign(
-        o,
-        h({
-          messageProtobuf: babelHelpers.extends({}, l, {
-            messageContextInfo: u,
+        l,
+        v({
+          messageProtobuf: babelHelpers.extends({}, c, {
+            messageContextInfo: m,
           }),
-          message: o,
-          msgContext: a,
-          editAttr: t,
+          message: l,
+          msgContext: s,
+          editAttr: a,
+          depth: n + 1,
         }),
       );
     }
-    function L(e, t) {
+    function T(e, t) {
       e.type = o("WAWebMsgType").MSG_TYPE.CALL_LOG;
       var n = !!t.isVideo;
       t.participants.length > 1
@@ -469,23 +525,42 @@ __d(
             ? o("WAWebCommonMsgSubtypeTypes").MsgSubtype.MissVideo
             : o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Miss);
     }
-    function E(e, t, n) {
+    function D(e, t, n, a) {
+      if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= b)) {
+        o("WALogger")
+          .WARN(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "parseGroupStatusMessageV2: nesting depth exceeded limit of ",
+                "",
+              ])),
+            b,
+          )
+          .tags("messaging")
+          .sendLogs("parse-group-status-msg-max-depth");
+        return;
+      }
       (t == null ? void 0 : t.message) != null
         ? ((e.isGroupStatus = !0),
           Object.assign(
             e,
-            h({ messageProtobuf: t.message, message: e, msgContext: n }),
+            v({
+              messageProtobuf: t.message,
+              message: e,
+              msgContext: n,
+              depth: a + 1,
+            }),
           ))
         : o("WALogger")
             .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[parseGroupStatusMessageV2] Unable to parse possible group status message",
                 ])),
             )
             .sendLogs("parse-group-status-message-skipped");
     }
-    function k(e, t, n) {
+    function x(e, t, n) {
       var a, i, l, s, u, c, d;
       if (t) {
         t.messageSecret != null &&
@@ -513,17 +588,17 @@ __d(
             e == null || (d = e.id) == null ? void 0 : d.remote,
           ) && (t == null ? void 0 : t.supportPayload) != null)
         ) {
-          var h = JSON.parse(t.supportPayload);
+          var p = JSON.parse(t.supportPayload);
           if (
-            (h.should_show_system_message != null &&
+            (p.should_show_system_message != null &&
               (e.shouldShowSupportAISystemMessage =
-                h.should_show_system_message),
-            h.is_ai_message != null &&
+                p.should_show_system_message),
+            p.is_ai_message != null &&
               o("WAWebABPropsSaga").getIsSagaProtobufAIStardustEnabled() &&
-              (e.isSupportAIMessage = h.is_ai_message),
-            Array.isArray(h.citation_items) &&
-              h.citation_items.length > 0 &&
-              (e.supportCitations = h.citation_items.map(function (e) {
+              (e.isSupportAIMessage = p.is_ai_message),
+            Array.isArray(p.citation_items) &&
+              p.citation_items.length > 0 &&
+              (e.supportCitations = p.citation_items.map(function (e) {
                 return {
                   title: e.title,
                   subtitle: e.subtitle,
@@ -531,54 +606,54 @@ __d(
                   imageUrl: e.image_url,
                 };
               })),
-            h.should_upload_client_logs === !0 &&
+            p.should_upload_client_logs === !0 &&
               o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled())
           )
-            if (h.ticket_id != null && h.ticket_id !== "no_ticket_created") {
-              var y = 864e5;
+            if (p.ticket_id != null && p.ticket_id !== "no_ticket_created") {
+              var _ = 864e5;
               o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "InAppSupport: Uploading logs for ticketId=",
                     "",
                   ])),
-                h.ticket_id,
+                p.ticket_id,
               );
-              var C = {
+              var f = {
                 reason: o("WAWebCrashlog").SERVER_REQUESTED,
                 immediate: !0,
                 isHighPri: !0,
                 logType: o("WAWebCrashlog").LogType.SUPPORT,
-                ticketId: h.ticket_id,
-                fromTimestamp: Date.now() - y,
+                ticketId: p.ticket_id,
+                fromTimestamp: Date.now() - _,
               };
               o("WAWebCrashlog")
-                .upload(C)
+                .upload(f)
                 .then(function (e) {
                   e == null
                     ? o("WALogger").LOG(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
                             "InAppSupport: Logs upload failed for ticketId=",
                             "",
                           ])),
-                        h.ticket_id,
+                        p.ticket_id,
                       )
                     : o("WALogger").LOG(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                        y ||
+                          (y = babelHelpers.taggedTemplateLiteralLoose([
                             "InAppSupport: Logs upload complete for ticketId=",
                             ", logsId=",
                             "",
                           ])),
-                        h.ticket_id,
+                        p.ticket_id,
                         e,
                       );
                 });
             } else
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "InAppSupport: Could not upload logs. No ticketId was provided.",
                   ])),
               );
@@ -598,10 +673,10 @@ __d(
           ).maybeAddHistoricalAiThreadForMetaAi(e, n));
       }
     }
-    ((l.parseMsgProto = h),
-      (l.parseContextInfo = b),
-      (l.parseContextInfoProto = v),
-      (l.parseMessageContextInfoProto = k));
+    ((l.parseMsgProto = v),
+      (l.parseContextInfo = L),
+      (l.parseContextInfoProto = E),
+      (l.parseMessageContextInfoProto = x));
   },
   98,
 );

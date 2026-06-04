@@ -1,7 +1,6 @@
 __d(
   "WAWebAddonSelectUtils",
   [
-    "WAWebABProps",
     "WAWebAddonConstants",
     "WAWebAddonCrossWindowUtils",
     "WAWebAddonInfraError",
@@ -22,11 +21,7 @@ __d(
         );
       switch (e) {
         case o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE:
-          return o("WAWebABProps").getABPropConfigValue(
-            "unified_pin_addon_table_enabled",
-          )
-            ? o("WAWebAddonConstants").AddonTableMode.Unified
-            : o("WAWebAddonConstants").AddonTableMode.Pin;
+          return o("WAWebAddonConstants").AddonTableMode.Pin;
         case o("WAWebMsgType").MSG_TYPE.COMMENT:
           return o("WAWebAddonConstants").AddonTableMode.Comment;
         case o("WAWebMsgType").MSG_TYPE.POLL_UPDATE:

@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebLidMigrationUtils",
-    "WAWebUsernameGatingUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
@@ -49,7 +48,7 @@ __d(
             .ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[constructUsyncDeltaQueryLid] ",
+                  "[constructUsyncDeltaQuery] ",
                   " not LID/PN => ",
                   "",
                 ])),
@@ -62,46 +61,7 @@ __d(
         n
       );
     }
-    function d(e) {
-      var t = new (o("WAWebUsync").USyncQuery)()
-        .withMode("delta")
-        .withContext("interactive")
-        .withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.PN)
-        .withLidProtocol()
-        .withUsernameProtocol();
-      return (
-        e.forEach(function (e) {
-          if (e.type === "add") {
-            t.withUser(
-              new (o("WAWebUsyncUser").USyncUser)().withPhone(e.phoneNumber),
-            );
-            return;
-          }
-          if (e.type === "add_username") {
-            t.withUser(
-              new (o("WAWebUsyncUser").USyncUser)()
-                .withId(e.lid)
-                .withUsername(e.username),
-            );
-            return;
-          }
-          e.type;
-          var n = e.contact,
-            r = new (o("WAWebUsyncUser").USyncUser)()
-              .withId(n)
-              .withType("delete"),
-            a = n.isLid() ? null : o("WAWebApiContact").getCurrentLid(n);
-          (a && r.withLid(a), t.withUser(r));
-        }),
-        t
-      );
-    }
-    function m(e) {
-      return o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased()
-        ? c(e)
-        : d(e);
-    }
-    function p(e, t) {
+    function d(e, t) {
       if (e.length === 0) return t;
       var n = new Map();
       (t.forEach(function (e) {
@@ -152,8 +112,8 @@ __d(
       }
       return t;
     }
-    ((l.constructUsyncDeltaQuery = m),
-      (l.backfillMissingDeviceSyncEntries = p));
+    ((l.constructUsyncDeltaQuery = c),
+      (l.backfillMissingDeviceSyncEntries = d));
   },
   98,
 );

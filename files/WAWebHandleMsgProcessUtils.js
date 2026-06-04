@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebDBCreateOrUpdateReactions",
     "WAWebDBPollsUpsertVotes",
     "WAWebDBProcessEditProtocolMsgs",
@@ -25,11 +24,18 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
-      var n = {
-        msg: e,
-        receiptInfo: { externalId: e.id.id, from: e.from, author: t.author },
-      };
-      o("WAWebGetMessageCache").getMessageCache().addMessages([n], !1);
+      var n = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
+        r = n
+          ? { msg: e }
+          : {
+              msg: e,
+              receiptInfo: {
+                externalId: e.id.id,
+                from: e.from,
+                author: t.author,
+              },
+            };
+      o("WAWebGetMessageCache").getMessageCache().addMessages([r], !1);
     }
     function u(e, t) {
       return c.apply(this, arguments);
@@ -79,16 +85,13 @@ __d(
           }
           return (
             n.messageContextInfo &&
-              (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                (r = t.chat.isUser()
-                  ? yield o(
-                      "WAWebIcdcHandlerApi",
-                    ).handleHostedIcdcMetadataInline(
-                      t.chat,
-                      t.author,
-                      n.messageContextInfo,
-                    )
-                  : null),
+              ((r = t.chat.isUser()
+                ? yield o("WAWebIcdcHandlerApi").handleHostedIcdcMetadataInline(
+                    t.chat,
+                    t.author,
+                    n.messageContextInfo,
+                  )
+                : null),
               o("WAWebIcdcHandlerApi").handleICDCData(
                 t.author,
                 t.chat.isUser() ? t.chat : null,

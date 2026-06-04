@@ -8,7 +8,6 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAdvExpectedTsApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebCryptoCurve25519",
     "WAWebDeviceListPk",
     "WAWebIdentityUpdateDeviceTableApi",
@@ -99,9 +98,7 @@ __d(
             ((b.expectedTs = v.expectedTs),
               (b.expectedTsLastDeviceJobTs = v.expectedTsLastDeviceJobTs),
               (b.expectedTsUpdateTs = v.expectedTsUpdateTs),
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                d != null &&
-                (b.advAccountType = d),
+              d != null && (b.advAccountType = d),
               yield o(
                 "WAWebIdentityUpdateDeviceTableApi",
               ).bulkApplyDeviceUpdate(

@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WANullthrows",
     "WAWebBizAiAgentGating",
+    "WAWebBizAiHubDeeplinkScheme",
     "WAWebBizAiKnowledgeReviewDrawerLoadable.react",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebBizMessageOpenCallModal",
@@ -132,10 +133,15 @@ __d(
     }
     function _(e, t) {
       if (e.data.url != null) {
-        var n = e.data.url.startsWith("whatsapp-smb://biz-ai-hub"),
+        var n = e.data.url.startsWith(
+            o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME,
+          ),
           a =
             e.data.url != null &&
-            e.data.url.startsWith("whatsapp-smb://biz-ai-hub/review-knowledge");
+            e.data.url.startsWith(
+              o("WAWebBizAiHubDeeplinkScheme")
+                .BIZ_AI_HUB_REVIEW_KNOWLEDGE_DEEPLINK,
+            );
         return a && o("WAWebBizAiAgentGating").isAiAgentAutoSaveEnabled()
           ? {
               label: e.data.label,

@@ -5,43 +5,48 @@ __d(
     "WABinary",
     "WAHasProperty",
     "WAHex",
+    "WALogger",
     "WAProtoCompile",
     "WAProtoConst",
     "WAProtoUtils",
     "WAProtoValidate",
+    "err",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      var n = new (o("WABinary").Binary)(t),
-        r = h(e, n, void 0, !1, !1);
-      return (o("WAProtoValidate").checkRequirements(e, r), r);
-    }
-    function s(e, t) {
-      var n = new (o("WABinary").Binary)(t),
-        r = h(e, n, void 0, !1, !0);
-      return (o("WAProtoValidate").checkRequirements(e, r), r);
-    }
+    var e,
+      s = 100;
     function u(e, t) {
       var n = new (o("WABinary").Binary)(t),
-        r = h(e, n, void 0, !0, !1);
+        r = C(e, n, void 0, !1, !1);
       return (o("WAProtoValidate").checkRequirements(e, r), r);
     }
-    function c(e) {
+    function c(e, t) {
+      var n = new (o("WABinary").Binary)(t),
+        r = C(e, n, void 0, !1, !0);
+      return (o("WAProtoValidate").checkRequirements(e, r), r);
+    }
+    function d(e, t) {
+      var n = new (o("WABinary").Binary)(t),
+        r = C(e, n, void 0, !0, !1);
+      return (o("WAProtoValidate").checkRequirements(e, r), r);
+    }
+    function m(e) {
       return r("WAHasProperty")(e, "$$unsafeUnknownFields")
         ? e.$$unsafeUnknownFields
         : null;
     }
-    function d(e, t, n) {
+    function p(e, t, n) {
       if (e !== o("WAProtoUtils").typeToEncType(t)) {
         var r = new Error("FormatError: " + n + " encoded with wire type " + e);
         throw (r.stack, r);
       }
     }
-    function m(e, t, n) {
+    function _(e, t, n) {
       switch (t) {
         case o("WAProtoConst").TYPES.INT32:
-          return p(
+          return f(
             n,
             -2147483648,
             2147483648,
@@ -49,25 +54,25 @@ __d(
             o("WABinary").parseInt64OrThrow,
           );
         case o("WAProtoConst").TYPES.INT64:
-          return n.readVarInt(_);
+          return n.readVarInt(g);
         case o("WAProtoConst").TYPES.UINT32:
-          return p(n, 0, 4294967296, e, o("WABinary").parseUint64OrThrow);
+          return f(n, 0, 4294967296, e, o("WABinary").parseUint64OrThrow);
         case o("WAProtoConst").TYPES.UINT64:
-          return n.readVarInt(f);
+          return n.readVarInt(h);
         case o("WAProtoConst").TYPES.SINT32: {
-          var r = p(n, 0, 4294967296, e, o("WABinary").parseInt64OrThrow);
+          var r = f(n, 0, 4294967296, e, o("WABinary").parseInt64OrThrow);
           return r & 1 ? ~(r >>> 1) : r >>> 1;
         }
         case o("WAProtoConst").TYPES.SINT64:
-          return n.readVarInt(g);
+          return n.readVarInt(y);
         case o("WAProtoConst").TYPES.BOOL:
-          return !!p(n, 0, 2, e, o("WABinary").parseUint64OrThrow);
+          return !!f(n, 0, 2, e, o("WABinary").parseUint64OrThrow);
         case o("WAProtoConst").TYPES.ENUM:
           return n.readVarInt(o("WABinary").parseInt64OrThrow);
         case o("WAProtoConst").TYPES.FIXED64:
-          return n.readLong(f, !0);
+          return n.readLong(h, !0);
         case o("WAProtoConst").TYPES.SFIXED64:
-          return n.readLong(_, !0);
+          return n.readLong(g, !0);
         case o("WAProtoConst").TYPES.DOUBLE:
           return n.readFloat64(!0);
         case o("WAProtoConst").TYPES.STRING:
@@ -82,7 +87,7 @@ __d(
           return n.readFloat32(!0);
       }
     }
-    function p(e, t, n, r, o) {
+    function f(e, t, n, r, o) {
       var a = e.readVarInt(o);
       if (a < t || a >= n) {
         var i = new Error(
@@ -92,10 +97,10 @@ __d(
       }
       return a;
     }
-    function _(e, t) {
+    function g(e, t) {
       var n = o("WABinary").longFitsInDouble(!0, e, t);
       if (n) {
-        var r = y(t);
+        var r = b(t);
         return e * 4294967296 + r;
       } else {
         var a = e < 0,
@@ -105,206 +110,221 @@ __d(
         return o("WAHex").createHexLongFrom32Bits(i, l, a);
       }
     }
-    function f(e, t) {
+    function h(e, t) {
       var n = o("WABinary").longFitsInDouble(!1, e, t);
       if (n) {
-        var r = y(e),
-          a = y(t);
+        var r = b(e),
+          a = b(t);
         return r * 4294967296 + a;
       } else return o("WAHex").createHexLongFrom32Bits(e, t);
     }
-    function g(e, t) {
+    function y(e, t) {
       var n = e >>> 1,
         r = (e << 31) | (t >>> 1);
-      return (t & 1 && ((n = ~n), (r = ~r)), _(n, r));
+      return (t & 1 && ((n = ~n), (r = ~r)), g(n, r));
     }
-    function h(e, t, n, r, a) {
-      var i,
-        l = o("WAProtoCompile").compileSpec(e),
-        s = l.fields,
-        u = l.fieldToOneof,
-        c = l.meta,
-        _ = l.names,
-        f = l.oneofToFields,
-        g = l.reservedFields,
-        y = l.reservedTags,
-        C = l.types,
-        b = e.internalDefaults,
-        v = n || babelHelpers.extends({}, b) || {};
-      v.$$unknownFieldCount =
-        (i = n == null ? void 0 : n.$$unknownFieldCount) != null ? i : 0;
-      for (var S = 0; S < _.length; S++)
-        C[S] & o("WAProtoConst").FLAGS.REPEATED
-          ? (v[_[S]] = [])
-          : C[S] ===
+    function C(t, n, a, i, l, u) {
+      var c;
+      if ((u === void 0 && (u = 0), r("justknobx")._("2451") && u >= s))
+        throw (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "decodeProtobuf: nesting depth exceeded limit of ",
+                  "",
+                ])),
+              s,
+            )
+            .tags("messaging")
+            .sendLogs("protobuf-decode-max-depth"),
+          r("err")("FormatError: protobuf nesting depth exceeded limit of " + s)
+        );
+      var d = o("WAProtoCompile").compileSpec(t),
+        m = d.fields,
+        g = d.fieldToOneof,
+        h = d.meta,
+        y = d.names,
+        b = d.oneofToFields,
+        v = d.reservedFields,
+        S = d.reservedTags,
+        R = d.types,
+        L = t.internalDefaults,
+        E = a || babelHelpers.extends({}, L) || {};
+      E.$$unknownFieldCount =
+        (c = a == null ? void 0 : a.$$unknownFieldCount) != null ? c : 0;
+      for (var k = 0; k < y.length; k++)
+        R[k] & o("WAProtoConst").FLAGS.REPEATED
+          ? (E[y[k]] = [])
+          : R[k] ===
               (o("WAProtoConst").TYPES.MAP & o("WAProtoConst").TYPE_MASK) &&
-            (v[_[S]] = new Map());
+            (E[y[k]] = new Map());
       for (
-        var R = 0,
-          L = s.length > 0,
-          E = s[0],
-          k = function () {
-            var e = p(
-                t,
+        var I = 0,
+          T = m.length > 0,
+          D = m[0],
+          x = function () {
+            var e = f(
+                n,
                 0,
                 4294967296,
                 "field and enc type",
                 o("WABinary").parseInt64OrThrow,
               ),
-              n = e & 7,
-              i = e >>> 3;
-            if (L && i !== E) {
-              var l = R;
-              do (++R === s.length && (R = 0), (E = s[R]));
-              while (i !== E && R !== l);
+              t = e & 7,
+              r = e >>> 3;
+            if (T && r !== D) {
+              var a = I;
+              do (++I === m.length && (I = 0), (D = m[I]));
+              while (r !== D && I !== a);
             }
-            if (L && i === E) {
-              var b = _[R],
-                S = C[R];
-              d(n, S, b);
-              var k = S & o("WAProtoConst").TYPE_MASK,
-                I = c[R];
-              if (S & o("WAProtoConst").FLAGS.PACKED)
+            if (T && r === D) {
+              var s = y[I],
+                c = R[I];
+              p(t, c, s);
+              var d = c & o("WAProtoConst").TYPE_MASK,
+                L = h[I];
+              if (c & o("WAProtoConst").FLAGS.PACKED)
                 for (
-                  var T = t.readVarInt(o("WABinary").parseUint64OrThrow),
-                    D = t.readBinary(T);
-                  D.size();
+                  var k = n.readVarInt(o("WABinary").parseUint64OrThrow),
+                    x = n.readBinary(k);
+                  x.size();
                 ) {
-                  var x = m(b, k, D);
-                  (k !== o("WAProtoConst").TYPES.ENUM ||
-                    I[x] ||
-                    (I.cast == null ? void 0 : I.cast(x)) !== void 0) &&
-                    v[b].push(x);
+                  var $ = _(s, d, x);
+                  (d !== o("WAProtoConst").TYPES.ENUM ||
+                    L[$] ||
+                    (L.cast == null ? void 0 : L.cast($)) !== void 0) &&
+                    E[s].push($);
                 }
-              else if (k === o("WAProtoConst").TYPES.MESSAGE) {
-                var $ = t.readVarInt(o("WABinary").parseUint64OrThrow),
-                  P = t.readBinary($);
-                if (S & o("WAProtoConst").FLAGS.REPEATED)
-                  v[b].push(h(I, P, void 0, r, a));
+              else if (d === o("WAProtoConst").TYPES.MESSAGE) {
+                var P = n.readVarInt(o("WABinary").parseUint64OrThrow),
+                  N = n.readBinary(P);
+                if (c & o("WAProtoConst").FLAGS.REPEATED)
+                  E[s].push(C(L, N, void 0, i, l, u + 1));
                 else {
-                  var N = v[b];
-                  v[b] = h(I, P, N, r, a);
+                  var M = E[s];
+                  E[s] = C(L, N, M, i, l, u + 1);
                 }
-              } else if (k === o("WAProtoConst").TYPES.MAP) {
+              } else if (d === o("WAProtoConst").TYPES.MAP) {
                 for (
-                  var M = t.readVarInt(o("WABinary").parseUint64OrThrow),
-                    w = t.readBinary(M),
-                    A,
+                  var w = n.readVarInt(o("WABinary").parseUint64OrThrow),
+                    A = n.readBinary(w),
                     F,
-                    O = 0;
-                  O < c[R].length;
-                  O++
+                    O,
+                    B = 0;
+                  B < h[I].length;
+                  B++
                 ) {
-                  var B = p(
-                      w,
+                  var W = f(
+                      A,
                       0,
                       4294967296,
                       "map field and enc type",
                       o("WABinary").parseInt64OrThrow,
                     ),
-                    W = B & 7,
-                    q = B >>> 3,
-                    U = void 0;
-                  switch (W) {
+                    q = W & 7,
+                    U = W >>> 3,
+                    V = void 0;
+                  switch (q) {
                     case o("WAProtoConst").ENC.VARINT:
-                      U = w.readVarInt(o("WABinary").parseInt64OrThrow);
+                      V = A.readVarInt(o("WABinary").parseInt64OrThrow);
                       break;
                     case o("WAProtoConst").ENC.BIT64:
-                      U = w.readBinary(8);
+                      V = A.readBinary(8);
                       break;
                     case o("WAProtoConst").ENC.BINARY: {
-                      var V = I[O];
+                      var H = L[B];
                       if (
-                        V === o("WAProtoConst").TYPES.BYTES ||
-                        V === o("WAProtoConst").TYPES.STRING
+                        H === o("WAProtoConst").TYPES.BYTES ||
+                        H === o("WAProtoConst").TYPES.STRING
                       )
-                        U = m(b, V, w);
+                        V = _(s, H, A);
                       else {
-                        var H = w.readVarInt(o("WABinary").parseUint64OrThrow),
-                          G = w.readBinary(H);
-                        U = h(V, G, void 0, r, a);
+                        var G = A.readVarInt(o("WABinary").parseUint64OrThrow),
+                          z = A.readBinary(G);
+                        V = C(H, z, void 0, i, l, u + 1);
                       }
                       break;
                     }
                     case o("WAProtoConst").ENC.BIT32:
-                      U = w.readBinary(4);
+                      V = A.readBinary(4);
                       break;
                   }
-                  q === 1 ? (A = U) : (F = U);
+                  U === 1 ? (F = V) : (O = V);
                 }
-                v[b].set(A, F);
+                E[s].set(F, O);
               } else {
-                var z = m(b, k, t);
-                (k !== o("WAProtoConst").TYPES.ENUM ||
-                  I[z] ||
-                  (I.cast == null ? void 0 : I.cast(z)) !== void 0) &&
-                  (S & o("WAProtoConst").FLAGS.REPEATED
-                    ? v[b].push(z)
-                    : (v[b] = z));
+                var j = _(s, d, n);
+                (d !== o("WAProtoConst").TYPES.ENUM ||
+                  L[j] ||
+                  (L.cast == null ? void 0 : L.cast(j)) !== void 0) &&
+                  (c & o("WAProtoConst").FLAGS.REPEATED
+                    ? E[s].push(j)
+                    : (E[s] = j));
               }
-              var j = u[b];
-              (j &&
-                typeof v[b] != "undefined" &&
-                j.forEach(function (e) {
-                  var t = f[e].filter(function (e) {
-                    return e !== b;
+              var K = g[s];
+              (K &&
+                typeof E[s] != "undefined" &&
+                K.forEach(function (e) {
+                  var t = b[e].filter(function (e) {
+                    return e !== s;
                   });
                   if (
                     (t.forEach(function (e) {
-                      delete v[e];
+                      delete E[e];
                     }),
-                    a)
+                    l)
                   ) {
                     var n;
-                    ((v[e] =
-                      ((n = { type: b, value: v[b] }),
+                    ((E[e] =
+                      ((n = { type: s, value: E[s] }),
                       (n[o("WABaseProto").TAGGED_UNION_TAG] = !0),
                       n)),
-                      delete v[b]);
+                      delete E[s]);
                   }
                 }),
-                (y[i] || g[b]) && delete v[b]);
-            } else if ((v.$$unknownFieldCount++, r)) {
-              v.$$unsafeUnknownFields || (v.$$unsafeUnknownFields = {});
-              var K;
-              switch (n) {
+                (S[r] || v[s]) && delete E[s]);
+            } else if ((E.$$unknownFieldCount++, i)) {
+              E.$$unsafeUnknownFields || (E.$$unsafeUnknownFields = {});
+              var Q;
+              switch (t) {
                 case o("WAProtoConst").ENC.VARINT:
-                  K = t.readVarInt(o("WABinary").parseInt64OrThrow);
+                  Q = n.readVarInt(o("WABinary").parseInt64OrThrow);
                   break;
                 case o("WAProtoConst").ENC.BIT64:
-                  K = t.readBinary(8);
+                  Q = n.readBinary(8);
                   break;
                 case o("WAProtoConst").ENC.BINARY:
-                  K = t.readBinary(
-                    t.readVarInt(o("WABinary").parseUint64OrThrow),
+                  Q = n.readBinary(
+                    n.readVarInt(o("WABinary").parseUint64OrThrow),
                   );
                   break;
                 case o("WAProtoConst").ENC.BIT32:
-                  K = t.readBinary(4);
+                  Q = n.readBinary(4);
                   break;
               }
-              v.$$unsafeUnknownFields[i] = K;
+              E.$$unsafeUnknownFields[r] = Q;
             } else
-              n === o("WAProtoConst").ENC.VARINT
-                ? t.readVarInt(o("WABinary").parseInt64OrThrow)
-                : n === o("WAProtoConst").ENC.BIT64
-                  ? t.advance(8)
-                  : n === o("WAProtoConst").ENC.BINARY
-                    ? t.advance(t.readVarInt(o("WABinary").parseUint64OrThrow))
-                    : n === o("WAProtoConst").ENC.BIT32 && t.advance(4);
+              t === o("WAProtoConst").ENC.VARINT
+                ? n.readVarInt(o("WABinary").parseInt64OrThrow)
+                : t === o("WAProtoConst").ENC.BIT64
+                  ? n.advance(8)
+                  : t === o("WAProtoConst").ENC.BINARY
+                    ? n.advance(n.readVarInt(o("WABinary").parseUint64OrThrow))
+                    : t === o("WAProtoConst").ENC.BIT32 && n.advance(4);
           };
-        t.size();
+        n.size();
       )
-        k();
-      return v;
+        x();
+      return E;
     }
-    function y(e) {
+    function b(e) {
       return e >= 0 ? e : 4294967296 + e;
     }
-    ((l.decodeProtobuf = e),
-      (l.decodeProtobufWithTaggedUnions = s),
-      (l.decodeProtobufWithUnknowns = u),
-      (l.getUnknownFields = c));
+    ((l.decodeProtobuf = u),
+      (l.decodeProtobufWithTaggedUnions = c),
+      (l.decodeProtobufWithUnknowns = d),
+      (l.getUnknownFields = m));
   },
   98,
 );

@@ -8,7 +8,6 @@ __d(
     "WAWebApiContact",
     "WAWebApiDeviceList",
     "WAWebBackendApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebContactSystemMsg",
     "WAWebDeviceListPk",
@@ -85,9 +84,8 @@ __d(
                 (d.devices.forEach(function (e) {
                   e.id !== o("WAJids").DEFAULT_DEVICE_ID && s.push(e.id);
                 }),
-                o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                  d.advAccountType ===
-                    o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                d.advAccountType ===
+                  o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
                   (c = !0)),
               (e || (e = n("Promise"))).all(
                 s.map(function (t) {
@@ -115,8 +113,7 @@ __d(
                   deleted: !0,
                 }),
               ]),
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                c === !0)
+              c === !0)
             ) {
               (yield o("WAWebApiContact").updateContactAdvHostedType(
                 l,

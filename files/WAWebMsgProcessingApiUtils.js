@@ -8,7 +8,6 @@ __d(
     "WAWebABProps",
     "WAWebAck",
     "WAWebBackendJobs.flow",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizGatingUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
@@ -803,20 +802,17 @@ __d(
             : null,
         );
       return (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          e.hostedBizEncStateMismatch === !0 &&
+        e.hostedBizEncStateMismatch === !0 &&
           (t = d.id) != null &&
           (t = t.remote) != null &&
           t.isUser() &&
           (d.hostedBizEncStateMismatch = !0),
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          e.senderOrRecipientAccountTypeHosted === !0 &&
+        e.senderOrRecipientAccountTypeHosted === !0 &&
           (n = d.id) != null &&
           (n = n.remote) != null &&
           n.isUser() &&
           (d.senderOrRecipientAccountTypeHosted = !0),
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          e.placeholderCreatedWhenAccountIsHosted != null &&
+        e.placeholderCreatedWhenAccountIsHosted != null &&
           (a = d.id) != null &&
           (a = a.remote) != null &&
           a.isUser() &&

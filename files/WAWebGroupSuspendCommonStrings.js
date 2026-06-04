@@ -10,7 +10,7 @@ __d(
         : s._(/*BTDS*/ "This group is suspended");
     }
     function u() {
-      return s._(/*BTDS*/ "Delete group");
+      return s._(/*BTDS*/ "Delete group for me");
     }
     function c() {
       return s._(/*BTDS*/ "Deactivate community");
@@ -159,7 +159,7 @@ __d(
           );
     }
     ((l.groupSuspendedTitle = e),
-      (l.deleteGroupLabel = u),
+      (l.deleteGroupForMeLabel = u),
       (l.deactivateCommunityLabel = c),
       (l.communitySuspendedTitle = d),
       (l.groupRestrictionsText = m),

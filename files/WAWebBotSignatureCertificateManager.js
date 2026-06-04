@@ -55,13 +55,49 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error)),
+      C = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            t === void 0 && (t = "Certificate revoked"),
+            (n = e.call(this, t) || this),
+            (n.name = "CertRevokedError"),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error)),
+      b = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            t === void 0 && (t = "CRL unavailable"),
+            (n = e.call(this, t) || this),
+            (n.name = "CrlUnavailableError"),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error)),
+      v = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            t === void 0 && (t = "CRL stale"),
+            (n = e.call(this, t) || this),
+            (n.name = "CrlStaleError"),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = n != null ? n : new Date(),
             a = r.getTime(),
             i = o(
@@ -80,52 +116,82 @@ __d(
           var u = s[0];
           if (!o("WAWebCertificateUtils").isCertificateValidAtTime(u, r))
             throw new g("Leaf cert expired at serverTime");
-          for (var c = [].concat(s, [t]), d = 0; d < c.length - 1; d++) {
-            var m = c[d],
-              p = c[d + 1];
-            if (!o("WAWebCertificateUtils").isCertificateValidAtTime(p, r))
-              throw new g("Issuer cert at pos " + (d + 1) + " expired");
-            var _ = yield v(m, p);
-            if (!_) throw new y("Signature verification failed at pos " + d);
-            var f = o("WAWebCertificateUtils").getCertificateSerialNumber(m);
-            if (f == null)
-              throw new h("Failed to extract serial number at pos " + d);
-            if (
-              o("WAWebBotCertificateRevocationService").isCertificateRevoked(
-                f,
-                a,
-              )
-            )
-              throw new y("Certificate at pos " + d + " is revoked");
-          }
-          var C = T(u);
-          if (C == null) throw new h("Failed to extract leaf public key");
+          for (
+            var c = [].concat(s, [t]),
+              d = function* () {
+                var e = c[m],
+                  t = c[m + 1];
+                if (!o("WAWebCertificateUtils").isCertificateValidAtTime(t, r))
+                  throw new g("Issuer cert at pos " + (m + 1) + " expired");
+                var n = yield L(e, t);
+                if (!n)
+                  throw new y("Signature verification failed at pos " + m);
+                var i = o("WAWebCertificateUtils").getCertificateSerialNumber(
+                  e,
+                );
+                if (i == null)
+                  throw new h("Failed to extract serial number at pos " + m);
+                var l = o(
+                  "WAWebBotCertificateRevocationService",
+                ).checkCertificateRevocationStatus(i, a);
+                if (l !== "valid") {
+                  var s =
+                    l === "revoked"
+                      ? new C("Certificate at pos " + m + " is revoked")
+                      : l === "crl_unavailable"
+                        ? new b(
+                            "CRL unavailable, treating cert at pos " +
+                              m +
+                              " as revoked",
+                          )
+                        : l === "crl_stale"
+                          ? new v(
+                              "CRL stale, treating cert at pos " +
+                                m +
+                                " as revoked",
+                            )
+                          : (function () {
+                              throw Error(
+                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                  l,
+                              );
+                            })();
+                  throw s;
+                }
+              },
+              m = 0;
+            m < c.length - 1;
+            m++
+          )
+            yield* d();
+          var p = $(u);
+          if (p == null) throw new h("Failed to extract leaf public key");
           return (
             yield o("WAWebBotCertificateCachingSystem").cacheLeafPublicKey({
               chainBytes: e,
               rootCertVersion: i,
-              publicKey: C,
+              publicKey: p,
               certificates: s,
             }),
-            C
+            p
           );
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n,
               a = (n = e.signatureAlgorithm) == null ? void 0 : n.algorithmId;
             return a === p
-              ? R(e, t)
+              ? k(e, t)
               : a === _
-                ? yield L(e, t)
+                ? yield I(e, t)
                 : (o("WALogger")
                     .WARN(
                       u ||
@@ -138,7 +204,7 @@ __d(
                       String(a),
                     )
                     .sendLogs("bot-signature-cert-unknown-sig-alg"),
-                  yield k(e, t));
+                  yield D(e, t));
           } catch (e) {
             return (
               o("WALogger")
@@ -155,10 +221,10 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function R(t, n) {
+    function k(t, n) {
       var r,
         a,
         i = new Uint8Array(t.tbs),
@@ -169,7 +235,7 @@ __d(
             ? r
             : l,
         ),
-        u = T(n);
+        u = $(n);
       return u == null
         ? (o("WALogger").WARN(
             e ||
@@ -182,12 +248,12 @@ __d(
           !1)
         : o("WACryptoPrimitives").signDetachedVerify(i, s, u);
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield e.verify(t);
             return n;
@@ -203,19 +269,19 @@ __d(
                   f,
                 )
                 .catching(n instanceof Error ? n : r("err")(String(n))),
-              k(e, t)
+              D(e, t)
             );
           }
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function I() {
+    function x() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield o("WAWebCertificateUtils").getPkiJs(),
               a = n.CertificateChainValidationEngine,
@@ -238,10 +304,10 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function T(e) {
+    function $(e) {
       try {
         var t,
           n,
@@ -274,8 +340,11 @@ __d(
     ((l.CertExpiredError = g),
       (l.CertInvalidError = h),
       (l.CertChainValidationError = y),
-      (l.getValidatedLeafPublicKey = C),
-      (l.extractRawPublicKey = T));
+      (l.CertRevokedError = C),
+      (l.CrlUnavailableError = b),
+      (l.CrlStaleError = v),
+      (l.getValidatedLeafPublicKey = S),
+      (l.extractRawPublicKey = $));
   },
   98,
 );

@@ -1,13 +1,6 @@
 __d(
   "WAWebVcardUtils",
-  [
-    "fbt",
-    "WATypeUtils",
-    "WAWebFbtIntlList",
-    "WAWebVcardParsingUtils",
-    "err",
-    "lodash",
-  ],
+  ["fbt", "WATypeUtils", "WAWebFbtIntlList", "WAWebVcardParsingUtils", "err"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t,
@@ -56,10 +49,10 @@ __d(
             /*BTDS*/ "Business name",
           )),
           t),
-        a = e.properties["X-ABLabel"] || n[e.type.toLowerCase()];
-      if (a != null && a !== "")
-        return o("WAWebVcardParsingUtils").clean(String(a));
-      var i = {
+        r = e.properties["X-ABLabel"] || n[e.type.toLowerCase()];
+      if (r != null && r !== "")
+        return o("WAWebVcardParsingUtils").clean(String(r));
+      var a = {
         TEL: [
           [["cell"], s._(/*BTDS*/ "Mobile")],
           [["iphone"], s._(/*BTDS*/ "iPhone")],
@@ -85,35 +78,31 @@ __d(
           [["work"], s._(/*BTDS*/ "Work")],
         ],
       };
-      return (
-        (a = e.type),
-        r("lodash").forOwn(i, function (t) {
-          if (t) {
-            var n,
-              r,
-              o = t[0],
-              i = t[1];
-            if (
-              Array.from(
-                new Set(o).difference(
-                  new Set(
-                    (n =
-                      (r = e.properties) == null || (r = r.type) == null
-                        ? void 0
-                        : r.map(function (e) {
-                            return e.toLowerCase();
-                          })) != null
-                      ? n
-                      : [],
-                  ),
-                ),
-              ).length === 0
-            )
-              return ((a = i), !1);
+      r = e.type;
+      var i = a[e.type];
+      if (i != null) {
+        var l,
+          u,
+          c = new Set(
+            (l =
+              (u = e.properties) == null || (u = u.type) == null
+                ? void 0
+                : u.map(function (e) {
+                    return e.toLowerCase();
+                  })) != null
+              ? l
+              : [],
+          );
+        for (var d of i) {
+          var m = d[0],
+            p = d[1];
+          if (new Set(m).difference(c).size === 0) {
+            r = p;
+            break;
           }
-        }),
-        a
-      );
+        }
+      }
+      return r;
     }
     function c(e) {
       return d(

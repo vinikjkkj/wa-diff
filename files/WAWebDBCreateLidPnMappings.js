@@ -144,10 +144,10 @@ __d(
                 .ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "createLidPnMappings: LID ",
-                      " already mapped to PN ",
-                      ", learning conflicting PN ",
-                      ", source ",
+                      "[createLidPnMappings] LID ",
+                      " cached PN ",
+                      " != new PN ",
+                      " src ",
                       "",
                     ])),
                   n,

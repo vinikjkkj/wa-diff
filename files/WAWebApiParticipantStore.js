@@ -339,15 +339,13 @@ __d(
             var n = yield o("WAWebSchemaParticipant")
                 .getParticipantTable()
                 .get(e),
-              r = o("WAWebUserPrefsMeUser")
-                .getMePnUserOrThrow_DO_NOT_USE()
-                .toString(),
-              a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
-              i =
+              r =
                 !!n &&
-                ((n == null ? void 0 : n.admins.includes(r)) ||
-                  (n == null ? void 0 : n.admins.includes(a)));
-            return (E.set(e, i), i);
+                n.admins &&
+                n.admins.some(function (e) {
+                  return o("WAWebUserPrefsMeUser").isSerializedWidMe(e);
+                });
+            return (E.set(e, r), r);
           }
           return t;
         })),

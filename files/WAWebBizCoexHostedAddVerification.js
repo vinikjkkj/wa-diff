@@ -1,6 +1,6 @@
 __d(
   "WAWebBizCoexHostedAddVerification",
-  ["WALogger", "WAWebBizCoexGatingUtils", "WAWebWidFactory", "err"],
+  ["WALogger", "WAWebWidFactory", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = new Set();
@@ -8,7 +8,7 @@ __d(
       e != null && s.add(o("WAWebWidFactory").asUserWidOrThrow(e));
     }
     function c(t) {
-      if (t != null && o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
+      if (t != null) {
         var n = s.has(o("WAWebWidFactory").asUserWidOrThrow(t));
         if (n !== !0) {
           var a = "not found in coex verification cache";

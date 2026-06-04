@@ -10,7 +10,6 @@ __d(
     "WAWebApiDeviceList",
     "WAWebApiGetDeviceUpdateLock",
     "WAWebBackendApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexHostedAddVerification",
     "WAWebBizCoexUtils",
     "WAWebDBEncryptMultipleMsgs",
@@ -29,30 +28,26 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
     function _(e, t) {
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled())
-        return e == null
-          ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
+      return e == null
+        ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
+          ? t
+          : null
+        : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
+          ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE
             ? t
             : null
-          : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
-            ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE
+          : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE
+            ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
               ? t
               : null
-            : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE
-              ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
-                ? t
-                : null
-              : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.NON_E2EE
-                ? null
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
-      if (t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED)
-        throw r("err")("Unexpected account type");
-      return null;
+            : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.NON_E2EE
+              ? null
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     function f(e, t, n, r, o) {
       return g.apply(this, arguments);
@@ -86,8 +81,7 @@ __d(
                   return e !== o("WAJids").DEFAULT_DEVICE_ID;
                 }),
               m = _(l, u);
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+            m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
               (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -134,8 +128,7 @@ __d(
                     id: o("WAWebDeviceListPk").createDeviceListPK(t),
                     deleted: !0,
                   };
-                o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                  m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                m === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
                   (i.deletedChangedToHost = !0);
                 var l = o("WAWebApiDeviceList")
                     .createOrReplaceDeviceRecord(i)
@@ -156,8 +149,7 @@ __d(
                       );
                     }),
                   u = (p || (p = n("Promise"))).resolve();
-                (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                  m != null &&
+                (m != null &&
                   ((u = o("WAWebApiContact").updateContactAdvHostedType(t, m)),
                   (y = {
                     contactId: o("WAWebWidFactory").asUserWidOrThrow(t),
@@ -218,22 +210,18 @@ __d(
                 },
               ),
               h = t == null,
-              y = o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-                ? _(
-                    t == null ? void 0 : t.advAccountType,
-                    n == null ? void 0 : n.advAccountType,
-                  )
-                : null;
-            (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+              y = _(
+                t == null ? void 0 : t.advAccountType,
+                n == null ? void 0 : n.advAccountType,
+              );
+            (y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
               (g.length < 3 && g.push(r == null ? void 0 : r.toLogString()),
               o(
                 "WAWebBizCoexHostedAddVerification",
               ).assertThrowsWidAdvTypeFromVerificationCache(r)),
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                (y != null && (m = !0),
-                y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                  (f = !0)),
+              y != null && (m = !0),
+              y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                (f = !0),
               i.push({
                 wid: r,
                 added: d,
@@ -265,8 +253,7 @@ __d(
                 g.length,
                 g,
               ),
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              f === !0 &&
+            f === !0 &&
               (yield o("WAWebUserPrefsMultiDevice").setHaveProcessedCoexAdv()));
           var h = yield C(i, t, (t || a) && m),
             y = h.chatIds,
@@ -276,9 +263,7 @@ __d(
               return v(e);
             }),
           );
-          var S =
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              (b == null ? void 0 : b.length) > 0,
+          var S = (b == null ? void 0 : b.length) > 0,
             R = [];
           yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -335,8 +320,7 @@ __d(
                     })
                   : (p || (p = n("Promise"))).resolve(),
                 m = [];
-              (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                S &&
+              (S &&
                 i.forEach(function (e) {
                   var t = e.newAdvAccountType,
                     n = e.wid;
@@ -372,7 +356,7 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = !1);
-          var r = o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() && n,
+          var r = n,
             a =
               r === !0
                 ? yield o(

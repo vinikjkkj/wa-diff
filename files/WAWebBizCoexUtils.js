@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebCoexPrivacySysMsgWamEvent",
     "WAWebMsgKey",
     "WAWebOfflineDeviceCache",
@@ -35,9 +34,7 @@ __d(
     }
     function p(e, t) {
       var n;
-      !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-        e == null ||
-        (((n = e[0]) == null ? void 0 : n.id) === s && _(t));
+      e != null && ((n = e[0]) == null ? void 0 : n.id) === s && _(t);
     }
     function _(e) {
       o(
@@ -56,29 +53,22 @@ __d(
           );
     }
     function f(e) {
-      return !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-        e == null
-        ? !1
-        : u.includes(e);
+      return e == null ? !1 : u.includes(e);
     }
     function g(e) {
-      return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-        ? !!(
-            o(
-              "WAWebUserPrefsMultiDevice",
-            ).getIsHostedMeAccountFromLocalStorage() || e.isHosted === !0
-          )
-        : !1;
+      return !!(
+        o("WAWebUserPrefsMultiDevice").getIsHostedMeAccountFromLocalStorage() ||
+        e.isHosted === !0
+      );
     }
     function h(e) {
-      o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        C(
-          e.map(function (e) {
-            var t = e[0],
-              n = e[1];
-            return t == null ? null : { id: t.id, subtype: t.subtype };
-          }),
-        );
+      C(
+        e.map(function (e) {
+          var t = e[0],
+            n = e[1];
+          return t == null ? null : { id: t.id, subtype: t.subtype };
+        }),
+      );
     }
     function y(e) {
       var t;

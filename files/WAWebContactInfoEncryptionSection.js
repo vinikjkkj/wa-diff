@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebABPropsSaga",
     "WAWebABPropsSupportGroup",
-    "WAWebBizCoexGatingUtils",
     "WAWebContactGetters",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
@@ -99,10 +98,7 @@ __d(
     }
     function d(e, t, n) {
       var a = o("WAWebLidMigrationUtils").toUserLid(t);
-      if (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-      ) {
+      if (o("WAWebMobilePlatforms").isSMB()) {
         var i = o(
           "WAWebUserPrefsMultiDevice",
         ).getIsHostedMeAccountFromLocalStorage();
@@ -127,7 +123,7 @@ __d(
             },
           };
       }
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() && n === !0)
+      if (n === !0)
         return {
           text: s._(
             /*BTDS*/ "This business uses a secure service from Meta to manage this chat. Click to learn more.",

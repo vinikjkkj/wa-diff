@@ -77,47 +77,43 @@ __d(
           return k;
       }
     }
-    function T(e, t) {
-      if ((t === void 0 && (t = !1), e == null)) return !1;
-      var n = e.match(/(.*)@(.*)/);
-      if (n == null) return e === "call" || e === "s.whatsapp.net";
-      var r = n[1],
-        o = n[2];
-      if (t) {
-        if (o === "hosted") return R.test(r);
-        if (o === "hosted.lid") return L.test(r);
-      }
-      var a = s.cast(o);
-      if (a == null) return !1;
-      var i = I(a);
-      return i.test(r);
+    function T(e) {
+      if (e == null) return !1;
+      var t = e.match(/(.*)@(.*)/);
+      if (t == null) return e === "call" || e === "s.whatsapp.net";
+      var n = t[1],
+        r = t[2];
+      if (r === "hosted") return R.test(n);
+      if (r === "hosted.lid") return L.test(n);
+      var o = s.cast(r);
+      if (o == null) return !1;
+      var a = I(o);
+      return a.test(n);
     }
-    function D(t, n) {
-      if ((n === void 0 && (n = !1), t == null)) return null;
-      var r = t.match(/(.*)@(.*)/);
-      if (n) {
-        if (r && r[2] === "hosted") {
-          var a = r[1],
-            i = a.match(R);
-          return i
-            ? { serverPart: "hosted", userPart: i[1], devicePart: "99" }
-            : null;
-        }
-        if (r && r[2] === "hosted.lid") {
-          var l = r[1],
-            u = l.match(L);
-          return u
-            ? { serverPart: "hosted.lid", userPart: u[1], devicePart: "99" }
-            : null;
-        }
+    function D(t) {
+      if (t == null) return null;
+      var n = t.match(/(.*)@(.*)/);
+      if (n && n[2] === "hosted") {
+        var r = n[1],
+          a = r.match(R);
+        return a
+          ? { serverPart: "hosted", userPart: a[1], devicePart: "99" }
+          : null;
       }
-      if (r == null)
+      if (n && n[2] === "hosted.lid") {
+        var i = n[1],
+          l = i.match(L);
+        return l
+          ? { serverPart: "hosted.lid", userPart: l[1], devicePart: "99" }
+          : null;
+      }
+      if (n == null)
         return t === "call" || t === "s.whatsapp.net"
           ? { serverPart: t }
           : null;
-      var c = r[1],
-        d = s.cast(r[2]);
-      if (d == null)
+      var u = n[1],
+        c = s.cast(n[2]);
+      if (c == null)
         return (
           o("WALogger").WARN(
             e ||
@@ -127,32 +123,32 @@ __d(
           ),
           null
         );
-      var m = I(d),
-        p = c.match(m);
-      if (!p) return null;
-      switch (d) {
+      var d = I(c),
+        m = u.match(d);
+      if (!m) return null;
+      switch (c) {
         case s.BROADCAST:
-          return { serverPart: s.BROADCAST, userPart: p[1] };
+          return { serverPart: s.BROADCAST, userPart: m[1] };
         case s.CALL:
-          return { serverPart: s.CALL, userPart: p[1] };
+          return { serverPart: s.CALL, userPart: m[1] };
         case s.G_US:
-          return { serverPart: s.G_US, userPart: p[1] };
+          return { serverPart: s.G_US, userPart: m[1] };
         case s.NEWSLETTER:
-          return { serverPart: s.NEWSLETTER, userPart: p[1] };
+          return { serverPart: s.NEWSLETTER, userPart: m[1] };
         case s.C_US:
-          return { serverPart: s.C_US, userPart: p[1], devicePart: p[3] };
+          return { serverPart: s.C_US, userPart: m[1], devicePart: m[3] };
         case s.S_WHATSAPP_NET:
           return {
             serverPart: s.S_WHATSAPP_NET,
-            userPart: p[1],
-            devicePart: p[3],
+            userPart: m[1],
+            devicePart: m[3],
           };
         case s.LID:
-          return { serverPart: s.LID, userPart: p[1], devicePart: p[3] };
+          return { serverPart: s.LID, userPart: m[1], devicePart: m[3] };
         case s.MSGR:
-          return { serverPart: s.LID, userPart: p[1], devicePart: p[2] };
+          return { serverPart: s.LID, userPart: m[1], devicePart: m[2] };
         case s.BOT:
-          return { serverPart: s.BOT, userPart: p[1], devicePart: p[2] };
+          return { serverPart: s.BOT, userPart: m[1], devicePart: m[2] };
       }
       return null;
     }

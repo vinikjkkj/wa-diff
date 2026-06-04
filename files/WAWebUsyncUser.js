@@ -1,12 +1,6 @@
 __d(
   "WAWebUsyncUser",
-  [
-    "WALogger",
-    "WAWebBizCoexGatingUtils",
-    "WAWebNonEmptyString",
-    "WAWebWidValidator",
-    "err",
-  ],
+  ["WALogger", "WAWebNonEmptyString", "WAWebWidValidator", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function () {
@@ -97,10 +91,7 @@ __d(
             )
               throw r("err")("user must have an id, phone, username or pnJid");
             if (this.$1) {
-              var t = o("WAWebWidValidator").validateWid(
-                this.$1.toString(),
-                o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled(),
-              );
+              var t = o("WAWebWidValidator").validateWid(this.$1.toString());
               if (!t) {
                 var n;
                 o("WALogger").WARN(

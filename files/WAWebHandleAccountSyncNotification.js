@@ -14,7 +14,6 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBizBroadcastDeviceRemovalCleanup",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebCommsWapMd",
     "WAWebContactSyncLogger",
@@ -63,9 +62,8 @@ __d(
             var n,
               r = e.attrDeviceJid("jid");
             if (
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              ((r != null && r.endsWith("@hosted")) ||
-                (r != null && r.endsWith("@hosted.lid")))
+              (r != null && r.endsWith("@hosted")) ||
+              (r != null && r.endsWith("@hosted.lid"))
             ) {
               var a,
                 i =
@@ -91,13 +89,7 @@ __d(
               keyIndex: e.maybeAttrInt("key-index"),
             };
           });
-        return (
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-            (a = a.filter(function (e) {
-              return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-            })),
-          a.length === 0 ? null : { deviceList: a, keyIndex: r }
-        );
+        return a.length === 0 ? null : { deviceList: a, keyIndex: r };
       },
       p = new (r("WADeprecatedWapParser"))(
         "incomingAccountSyncNotification",

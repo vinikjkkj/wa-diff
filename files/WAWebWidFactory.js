@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATypeUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebWid",
     "WAWebWidError",
     "WAWebWidStore",
@@ -50,11 +49,7 @@ __d(
               "createWid: expected string, got " + typeof t,
             )
           );
-      if (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        r("WAWebWid").isHosted(t)
-      )
-        return r("WANullthrows")(g(t));
+      if (r("WAWebWid").isHosted(t)) return r("WANullthrows")(g(t));
       var n = r("WAWebWidStore").cache[t];
       if (n) return n;
       var a = t;
@@ -70,29 +65,26 @@ __d(
       );
     }
     function g(e) {
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        if (r("WAWebWidStore").cache[e]) {
-          var t = r("WAWebWidStore").cache[e];
-          return t;
-        }
-        if (
-          !(
-            o("WATypeUtils").isString(e) &&
-            (e.endsWith("@hosted") || e.endsWith("@hosted.lid"))
-          )
-        )
-          throw r("err")("Hosted jid create called with wrong domain type");
-        var n = new (r("WAWebWid"))(e, {
-          intentionallyUsePrivateConstructor: !0,
-        });
-        if (!n.isHosted())
-          throw r("err")(
-            "createHostedDeviceWidOrThrow is called with invalid input",
-          );
-        var a = n;
-        return ((r("WAWebWidStore").cache[e] = a), a);
+      if (r("WAWebWidStore").cache[e]) {
+        var t = r("WAWebWidStore").cache[e];
+        return t;
       }
-      throw r("err")("createDeviceWidFromDeviceListPk: unsupported");
+      if (
+        !(
+          o("WATypeUtils").isString(e) &&
+          (e.endsWith("@hosted") || e.endsWith("@hosted.lid"))
+        )
+      )
+        throw r("err")("Hosted jid create called with wrong domain type");
+      var n = new (r("WAWebWid"))(e, {
+        intentionallyUsePrivateConstructor: !0,
+      });
+      if (!n.isHosted())
+        throw r("err")(
+          "createHostedDeviceWidOrThrow is called with invalid input",
+        );
+      var a = n;
+      return ((r("WAWebWidStore").cache[e] = a), a);
     }
     function h(e) {
       return e instanceof r("WAWebWid")
@@ -109,16 +101,11 @@ __d(
     }
     function C(e, t, n) {
       n === void 0 && (n = !1);
-      var a = e.split("@"),
-        i = a[0],
-        l = a[1],
-        s = l === void 0 ? "c.us" : l;
-      if (n === !0) {
-        if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled())
-          return S(i, s, t);
-        throw r("err")("WAWebWidFactory: feature unsupported");
-      }
-      return v(i, s, t);
+      var r = e.split("@"),
+        o = r[0],
+        a = r[1],
+        i = a === void 0 ? "c.us" : a;
+      return n === !0 ? S(o, i, t) : v(o, i, t);
     }
     function b(e) {
       var t = e.split("@"),
@@ -128,9 +115,7 @@ __d(
       return E(n, o);
     }
     function v(e, t, n) {
-      return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() && n === d
-        ? S(e, t, n)
-        : L(e + ":" + n + "@" + t);
+      return n === d ? S(e, t, n) : L(e + ":" + n + "@" + t);
     }
     function S(e, t, n) {
       return g(e + ":" + n + "@" + (t.includes(m) ? _ : p));

@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
-    "WAWebBizCoexGatingUtils",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgSendAck",
@@ -18,13 +17,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n, r) {
-      return m.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a) {
             var i;
             o("WALogger").LOG(
@@ -32,30 +31,30 @@ __d(
                 (e = babelHelpers.taggedTemplateLiteralLoose(["sendReceipt"])),
             );
             var l = t.externalId,
-              d = n.rawTs,
-              m = n.type,
-              _ = o("WAWebMsgProcessingApiUtils").getFrom(t),
-              f = null;
+              c = n.rawTs,
+              d = n.type,
+              p = o("WAWebMsgProcessingApiUtils").getFrom(t),
+              _ = null;
             if (
               t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
               o("WAWebUserPrefsMeUser").isMeAccount(t.author)
             )
-              if (t.originalBotRecipient != null) f = t.originalBotRecipient;
+              if (t.originalBotRecipient != null) _ = t.originalBotRecipient;
               else {
-                var g;
-                f = (g = t.preMatChat) != null ? g : t.chat;
+                var f;
+                _ = (f = t.preMatChat) != null ? f : t.chat;
               }
-            var h =
+            var g =
                 t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
                   ? null
                   : (i = t.preMatChat) != null
                     ? i
                     : t.author,
-              y = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
-              C = !t.chat.isBot() && t.author.isBot(),
-              b = _.isStatus() || n.isGroupStatus === !0,
-              v =
-                b && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
+              h = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
+              y = !t.chat.isBot() && t.author.isBot(),
+              C = p.isStatus() || n.isGroupStatus === !0,
+              b =
+                C && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
                   ? "status"
                   : void 0;
             if (r.result == null)
@@ -72,13 +71,13 @@ __d(
                   .sendLogs("send-receipt-missing-e2e-process-result"),
                 o("WAWebHandleMsgSendAck").sendAck({
                   externalId: l,
-                  from: _,
-                  participant: h,
-                  stanzaClass: v,
-                  type: m,
+                  from: p,
+                  participant: g,
+                  stanzaClass: b,
+                  type: d,
                 })
               );
-            var S = p(r);
+            var v = m(r);
             e: {
               if (
                 r.result ===
@@ -87,17 +86,17 @@ __d(
                   o("WAWebHandleMsgTypes.flow").E2EProcessResult
                     .SIGNAL_OLD_COUNTER_ERROR
               ) {
-                if (C) {
-                  var R, L, E;
+                if (y) {
+                  var S, R, L;
                   return (
                     t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
-                      ? ((R = t.author), (L = t.chat))
-                      : ((R = t.chat), (E = t.author)),
+                      ? ((S = t.author), (R = t.chat))
+                      : ((S = t.chat), (L = t.author)),
                     o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks(
                       [l],
+                      S,
                       R,
                       L,
-                      E,
                     )
                   );
                 } else if (
@@ -106,14 +105,14 @@ __d(
                 )
                   return o("WAWebHandleMsgSendAck").sendAck({
                     externalId: l,
-                    from: _,
-                    participant: h,
-                    stanzaClass: v,
-                    type: m,
+                    from: p,
+                    participant: g,
+                    stanzaClass: b,
+                    type: d,
                   });
                 return o(
                   "WAWebSendDeliveryReceiptJob",
-                ).sendDeliveryReceiptsAfterDecryption(l, _, f, h, y, r, b, S);
+                ).sendDeliveryReceiptsAfterDecryption(l, p, _, g, h, r, C, v);
               }
               if (
                 r.result ===
@@ -135,42 +134,22 @@ __d(
                 r.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY
               ) {
-                if (
-                  _ != null &&
-                  _.isHosted() &&
-                  !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-                )
-                  return (
-                    o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "Drop retry for coex when feature is disabled",
-                        ])),
-                    ),
-                    o("WAWebHandleMsgSendAck").sendAck({
-                      externalId: l,
-                      from: _,
-                      participant: h,
-                      stanzaClass: v,
-                      type: m,
-                    })
-                  );
-                var k = r.retryCount == null ? 1 : r.retryCount + 1;
+                var E = r.retryCount == null ? 1 : r.retryCount + 1;
                 (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
-                  retryCount: k,
-                  to: _,
-                  participant: h,
-                  recipient: f,
+                  retryCount: E,
+                  to: p,
+                  participant: g,
+                  recipient: _,
                   externalId: l,
-                  rawTs: d,
-                  isPeer: y,
+                  rawTs: c,
+                  isPeer: h,
                   retryReason: r.retryReason,
-                  isStateless: (_ == null ? void 0 : _.isHosted()) === !0,
-                  receiptModeBitmask: S,
+                  isStateless: (p == null ? void 0 : p.isHosted()) === !0,
+                  receiptModeBitmask: v,
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",
-                  ).maybePostMessageHighRetryCountMetric(k, t));
+                  ).maybePostMessageHighRetryCountMetric(E, t));
                 return;
               }
               if (
@@ -179,10 +158,10 @@ __d(
               )
                 return o("WAWebHandleMsgSendAck").sendAck({
                   externalId: l,
-                  from: _,
-                  participant: h,
-                  stanzaClass: v,
-                  type: m,
+                  from: p,
+                  participant: g,
+                  stanzaClass: b,
+                  type: d,
                 });
               if (
                 r.result ===
@@ -192,19 +171,19 @@ __d(
                 return (a == null ? void 0 : a.canNack) === !1
                   ? o("WAWebHandleMsgSendAck").sendAck({
                       externalId: l,
-                      from: _,
-                      participant: h,
-                      stanzaClass: v,
-                      type: m,
+                      from: p,
+                      participant: g,
+                      stanzaClass: b,
+                      type: d,
                     })
                   : o("WAWebHandleMsgSendAck").sendNack(
                       l,
-                      _,
-                      m,
-                      h,
+                      p,
+                      d,
+                      g,
                       o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf,
                       r.e2eFailureReason,
-                      v,
+                      b,
                     );
               if (
                 r.result ===
@@ -212,10 +191,10 @@ __d(
               )
                 return o("WAWebHandleMsgSendAck").sendAck({
                   externalId: l,
-                  from: _,
-                  participant: h,
-                  stanzaClass: v,
-                  type: m,
+                  from: p,
+                  participant: g,
+                  stanzaClass: b,
+                  type: d,
                 });
               if (
                 r.result ===
@@ -224,19 +203,19 @@ __d(
                 return (a == null ? void 0 : a.canNack) === !1
                   ? o("WAWebHandleMsgSendAck").sendAck({
                       externalId: l,
-                      from: _,
-                      participant: h,
-                      stanzaClass: v,
-                      type: m,
+                      from: p,
+                      participant: g,
+                      stanzaClass: b,
+                      type: d,
                     })
                   : o("WAWebHandleMsgSendAck").sendNack(
                       l,
-                      _,
-                      m,
-                      h,
+                      p,
+                      d,
+                      g,
                       o("WAWebCreateNackFromStanza").NackReason.ParsingError,
                       void 0,
-                      v,
+                      b,
                     );
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -245,10 +224,10 @@ __d(
             }
           },
         )),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e) {
+    function m(e) {
       var t = 0;
       return (
         e.isOrphanAddon === !0 &&
@@ -269,7 +248,7 @@ __d(
         t
       );
     }
-    l.sendReceipt = d;
+    l.sendReceipt = c;
   },
   98,
 );

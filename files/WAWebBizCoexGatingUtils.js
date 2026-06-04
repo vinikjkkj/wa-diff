@@ -17,33 +17,33 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "adv_accept_hosted_devices",
-      );
-    }
-    function p() {
       return !!(u != null && u());
     }
-    function _() {
-      return !(u != null && u()) || !c()
-        ? !1
-        : o("WAWebABProps").getABPropConfigValue(
+    function p() {
+      return u != null && u()
+        ? o("WAWebABProps").getABPropConfigValue(
             "lazy_system_message_insertion_enabled",
-          );
+          )
+        : !1;
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "auth_agents_consumer_exp_enabled",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "auth_agents_consumer_offboarding_exp_enabled",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_auth_agent_offboarding_enabled",
+      );
+    }
+    function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_auth_agents_feature_control_enabled",
       );
     }
     function y() {
@@ -51,21 +51,15 @@ __d(
         "smb_auth_agents_feature_control_enabled",
       );
     }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_auth_agents_feature_control_enabled",
-      );
-    }
-    ((l.bizHostedDevicesEnabled = c),
-      (l.bizHostedDevicesSystemMessageEnabled = d),
-      (l.hostedDeviceSecurityCodeVerificationEnabled = m),
-      (l.smbHostedPrimaryPairingAllowed = p),
-      (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = _),
-      (l.authorizedAgentsEnabled = f),
-      (l.agentOffboardingEnabled = g),
-      (l.agentSmbOffboardingEnabled = h),
-      (l.agentBizProfileFeatureControlEnabled = y),
-      (l.authAgentFeatureControlEnabled = C));
+    ((l.bizHostedDevicesSystemMessageEnabled = c),
+      (l.hostedDeviceSecurityCodeVerificationEnabled = d),
+      (l.smbHostedPrimaryPairingAllowed = m),
+      (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = p),
+      (l.authorizedAgentsEnabled = _),
+      (l.agentOffboardingEnabled = f),
+      (l.agentSmbOffboardingEnabled = g),
+      (l.agentBizProfileFeatureControlEnabled = h),
+      (l.authAgentFeatureControlEnabled = y));
   },
   98,
 );

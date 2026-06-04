@@ -1,13 +1,13 @@
 __d(
   "WAWebPtvMsgDisplayClass",
-  ["cx", "WAWebClassnames", "WAWebDisplayType"],
-  function (t, n, r, o, a, i, l, s) {
+  ["WAWebClassnames", "WAWebDisplayType"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.displayType;
       return o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-        "_amkd",
-        "_am--",
-        o("WAWebDisplayType").isWideDisplay(t) ? "_amqb" : null,
+        "messageChat",
+        "ptvMessage",
+        o("WAWebDisplayType").isWideDisplay(t) ? "ptvAnnouncement" : null,
       );
     }
     l.default = e;

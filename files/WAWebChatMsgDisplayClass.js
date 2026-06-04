@@ -1,29 +1,24 @@
 __d(
   "WAWebChatMsgDisplayClass",
   [
-    "cx",
-    "WAWebClassnames",
     "WAWebDisplayType",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebUtilsShouldShowVideoPreview",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.displayType,
         n = e.msg;
       return o("WAWebFrontendMsgGetters").getIsTransparentMsg(n)
-        ? "_amk9"
+        ? "messageTransparent"
         : r("WAWebUtilsShouldShowVideoPreview")(n)
           ? o("WAWebDisplayType").isWideDisplay(t)
-            ? "_aml6"
-            : "_aml5"
+            ? "messageVideoLinkPreviewWide"
+            : "messageVideoLinkPreview"
           : o("WAWebMsgGetters").getBotPluginMaybeParent(n) === !0
-            ? o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-                "_amkd",
-                "_ap4o",
-              )
-            : "_amkd";
+            ? "messageChat messageChatBotPluginParent"
+            : "messageChat";
     }
     l.default = e;
   },

@@ -10,7 +10,6 @@ __d(
     "WAWebApiContact",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
-    "WAWebBizCoexGatingUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebCommsWapMd",
     "WAWebDeviceSentMessageProtoUtils",
@@ -158,10 +157,7 @@ __d(
               v = d.id,
               S = o("WAWebBackendJobsCommon").getMetricEditTypeFromMsg(n, d),
               R = !1;
-            if (
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              C > 0
-            ) {
+            if (C > 0) {
               var L;
               ((L = t.data) == null
                 ? void 0

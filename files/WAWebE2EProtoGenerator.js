@@ -7,7 +7,6 @@ __d(
     "WAWebAfterReadUtils",
     "WAWebAssociationProtoUtils",
     "WAWebBackendApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotReplaceMentionWidsWithPushnames",
@@ -49,20 +48,8 @@ __d(
             recipientKeyHash: n == null ? void 0 : n.keyHash,
             recipientTimestamp: n == null ? void 0 : n.timestamp,
             recipientKeyIndexes: n == null ? void 0 : n.keyIndexes,
-            senderAccountType: o(
-              "WAWebBizCoexGatingUtils",
-            ).bizHostedDevicesEnabled()
-              ? t == null
-                ? void 0
-                : t.senderAccountType
-              : void 0,
-            receiverAccountType: o(
-              "WAWebBizCoexGatingUtils",
-            ).bizHostedDevicesEnabled()
-              ? n == null
-                ? void 0
-                : n.receiverAccountType
-              : void 0,
+            senderAccountType: t == null ? void 0 : t.senderAccountType,
+            receiverAccountType: n == null ? void 0 : n.receiverAccountType,
           },
           deviceListMetadataVersion: 2,
         }));

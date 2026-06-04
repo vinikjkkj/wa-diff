@@ -10,7 +10,6 @@ __d(
     "WAWebAdvHandlerApi",
     "WAWebAdvSignatureConstants",
     "WAWebBackendJobs.flow",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexHostedAddVerification",
     "WAWebCryptoCurve25519",
     "WAWebCryptoCurve25519CalculateSignature",
@@ -38,9 +37,7 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a) {
             a === void 0 && (a = !1);
-            var i = !1;
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              (i = t.isHosted());
+            var i = t.isHosted();
             try {
               var l = o("WAWebWidFactory").asUserWidOrThrow(t),
                 g = o("WAByteArray").uint8ArrayToBuffer(r),
@@ -101,20 +98,19 @@ __d(
               );
               S != null || s(0, 56341);
               var R = C.accountSignatureKey;
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                (S.accountType ===
-                  o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                  (o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "validateADVIdentity: add to coex cache for ",
-                        "",
-                      ])),
-                    t == null ? void 0 : t.toLogString(),
-                  ),
-                  o(
-                    "WAWebBizCoexHostedAddVerification",
-                  ).addToCoexHostedVerificationCache(t)),
+              (S.accountType ===
+                o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                (o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "validateADVIdentity: add to coex cache for ",
+                      "",
+                    ])),
+                  t == null ? void 0 : t.toLogString(),
+                ),
+                o(
+                  "WAWebBizCoexHostedAddVerification",
+                ).addToCoexHostedVerificationCache(t)),
                 (R = R && R.byteLength > 0 ? R : void 0));
               try {
                 yield o("WAWebAdvHandlerApi").handleADVDeviceUpdateForMessage(
@@ -307,19 +303,18 @@ __d(
     }
     function $(e, t, n, r) {
       var a = o(
-        "WAWebAdvSignatureConstants",
-      ).ADV_PREFIX_DEVICE_IDENTITY_ACCOUNT_SIGNATURE;
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        var i = o("decodeProtobuf").decodeProtobuf(
+          "WAWebAdvSignatureConstants",
+        ).ADV_PREFIX_DEVICE_IDENTITY_ACCOUNT_SIGNATURE,
+        i = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsAdv.pb").ADVDeviceIdentitySpec,
           e,
         );
-        i.deviceType === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-          (a = o(
-            "WAWebAdvSignatureConstants",
-          ).ADV_HOSTED_PREFIX_DEVICE_IDENTITY_ACCOUNT_SIGNATURE);
-      }
-      (r != null || s(0, 56344), t != null || s(0, 56295));
+      (i.deviceType === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+        (a = o(
+          "WAWebAdvSignatureConstants",
+        ).ADV_HOSTED_PREFIX_DEVICE_IDENTITY_ACCOUNT_SIGNATURE),
+        r != null || s(0, 56344),
+        t != null || s(0, 56295));
       var l = o("WABinary").Binary.build(a, e, n).readByteArrayView();
       return o("WAWebCryptoCurve25519VerifySignature").verifySignature(
         new Uint8Array(r),
@@ -330,16 +325,14 @@ __d(
     function P(e, t) {
       var n = e.details,
         r = e.accountSignatureKey || t;
-      (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        (r = r && r.byteLength > 0 ? r : t),
-        r != null || s(0, 56344));
-      var a = e.accountSignature;
+      ((r = r && r.byteLength > 0 ? r : t), r != null || s(0, 56344));
+      var o = e.accountSignature;
       return (
-        a != null || s(0, 56295),
+        o != null || s(0, 56295),
         n != null || s(0, 70451),
         {
           accountSignatureKey: r,
-          accountSignature: a,
+          accountSignature: o,
           advDeviceIdentityDetails: n,
         }
       );
@@ -367,8 +360,7 @@ __d(
       var i = o(
         "WAWebAdvSignatureConstants",
       ).ADV_PREFIX_DEVICE_IDENTITY_DEVICE_SIGNATURE;
-      o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        n === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+      n === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
         (i = o(
           "WAWebAdvSignatureConstants",
         ).ADV_HOSTED_PREFIX_DEVICE_IDENTITY_DEVICE_SIGNATURE);
@@ -383,14 +375,13 @@ __d(
       var n = e.details,
         r = e.deviceSignature;
       r != null || s(0, 56343);
-      var a = e.accountSignatureKey || t;
+      var o = e.accountSignatureKey || t;
       return (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          (a = a && a.byteLength > 0 ? a : t),
-        a != null || s(0, 56344),
+        (o = o && o.byteLength > 0 ? o : t),
+        o != null || s(0, 56344),
         n != null || s(0, 70451),
         {
-          accountSignatureKey: a,
+          accountSignatureKey: o,
           deviceSignature: r,
           advDeviceIdentityDetails: n,
         }
@@ -404,25 +395,20 @@ __d(
         s = a.deviceSignature,
         u = o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE;
       return (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          r &&
-          (u = o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED),
+        r && (u = o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED),
         M(l, t, u, s, i)
       );
     }
     function F(e) {
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        var t = o("decodeProtobuf").decodeProtobuf(
-          o("WAWebProtobufsAdv.pb").ADVDeviceIdentitySpec,
-          e.details,
-        );
-        t != null || s(0, 56341);
-        var n = t.accountType,
-          r = t.deviceType;
-        (n !== o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE || s(0, 70449),
-          r !== o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE ||
-            s(0, 70450));
-      }
+      var t = o("decodeProtobuf").decodeProtobuf(
+        o("WAWebProtobufsAdv.pb").ADVDeviceIdentitySpec,
+        e.details,
+      );
+      t != null || s(0, 56341);
+      var n = t.accountType,
+        r = t.deviceType;
+      (n !== o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE || s(0, 70449),
+        r !== o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE || s(0, 70450));
     }
     function O() {
       return B.apply(this, arguments);

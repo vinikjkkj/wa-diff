@@ -1,12 +1,14 @@
 __d(
   "WAWebPollMsgDisplayClass",
-  ["cx", "WAWebClassnames", "WAWebDisplayType"],
-  function (t, n, r, o, a, i, l, s) {
+  ["WAWebClassnames", "WAWebDisplayType"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.displayType;
       return o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-        "_amkd",
-        o("WAWebDisplayType").isWideDisplay(t) ? "_amlv" : "_amlu",
+        "messageChat",
+        o("WAWebDisplayType").isWideDisplay(t)
+          ? "pollAnnouncement"
+          : "pollMessage",
       );
     }
     l.default = e;

@@ -32,6 +32,8 @@ __d(
           return "Comet";
         case "" + 0x770a46dafb86b:
           return "Business";
+        case "1509803480261504":
+          return "instagram_airwave";
         default:
           return "(Unset-in-RST)";
       }

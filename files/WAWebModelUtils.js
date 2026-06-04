@@ -1,6 +1,7 @@
 __d(
   "WAWebModelUtils",
   [
+    "WAMemoizeCache",
     "WANullthrows",
     "WATypeUtils",
     "err",
@@ -136,8 +137,8 @@ __d(
       (e.Collection && (n.Collection = e.Collection),
         e.idClass && (n.idClass = e.idClass),
         e.allowedIds && (n.allowedIds = e.allowedIds));
-      var o = new Set(["constructor"]),
-        a = new Set([
+      var a = new Set(["constructor"]),
+        i = new Set([
           "collection",
           "parent",
           "revisionNumber",
@@ -145,12 +146,12 @@ __d(
           "__fired",
           "__initialized",
         ]),
-        i = new Map(
+        l = new Map(
           v(t)
             .filter(function (e) {
               var t = e[0],
                 n = e[1];
-              return !a.has(t) && (n == null ? void 0 : n.type) === c.GETTER;
+              return !i.has(t) && (n == null ? void 0 : n.type) === c.GETTER;
             })
             .map(function (e) {
               var t = e[0],
@@ -158,55 +159,63 @@ __d(
               return [n, t];
             }),
         ),
-        l = r("lodash").memoize(function (e) {
-          var t,
-            n = ((t = e.dependencies) != null ? t : []).flatMap(function (e) {
-              if (e.dependencyKey != null) return [e.dependencyKey];
-              var t = i.get(e);
-              return t != null ? [t] : l(e);
-            });
-          return Array.from(new Set(n));
-        });
+        s = new Map(),
+        u = 0,
+        d = o("WAMemoizeCache").memoizeWithArgs(
+          function (e) {
+            var t,
+              n = ((t = e.dependencies) != null ? t : []).flatMap(function (e) {
+                if (e.dependencyKey != null) return [e.dependencyKey];
+                var t = l.get(e);
+                return t != null ? [t] : d(e);
+              });
+            return Array.from(new Set(n));
+          },
+          function (e) {
+            var t = s.get(e);
+            return (t == null && ((t = (u++).toString()), s.set(e, t)), t);
+          },
+        );
       v(t).forEach(function (t) {
-        var i = t[0],
-          s = t[1];
-        if (!(a.has(i) || s == null))
-          switch (s.type) {
+        var o = t[0],
+          l = t[1];
+        if (!(i.has(o) || l == null))
+          switch (l.type) {
             case c.PROPS:
-              n.props[i] = g(s);
+              n.props[o] = g(l);
               break;
             case c.SESSION:
-              n.session[i] = g(s);
+              n.session[o] = g(l);
               break;
             case c.DERIVED:
-              ((n.derived[i] = r("omit")(s, ["type"])), o.add(s.fn.name));
+              ((n.derived[o] = r("omit")(l, ["type"])), a.add(l.fn.name));
               break;
             case c.GETTER: {
-              var u = s.fn;
-              ((n.derived[i] = {
+              var s = l.fn;
+              ((n.derived[o] = {
                 fn: function () {
-                  return u(this);
+                  return s(this);
                 },
-                deps: l(u),
+                deps: d(s),
               }),
-                o.add(u.name));
+                a.add(s.name));
               break;
             }
             case c.COLLECTION:
-              n.collections[i] = s.val;
+              n.collections[o] = l.val;
               break;
             default:
               throw r("err")(
-                "Invalid defineModel Class type for " + e.name + ":" + i + ".",
+                "Invalid defineModel Class type for " + e.name + ":" + o + ".",
               );
           }
       });
-      var s = S(t);
+      var m = S(t);
       return (
-        o.forEach(function (e) {
-          delete s[e];
+        a.forEach(function (e) {
+          delete m[e];
         }),
-        Object.assign(n, s),
+        Object.assign(n, m),
         n
       );
     }
@@ -223,37 +232,36 @@ __d(
       return r;
     }
     function E(t, n) {
-      var o,
-        a = r("WANullthrows")(n.name);
+      var o = r("WANullthrows")(n.name);
       delete n.name;
-      var i = L(t, a),
-        l = i.prototype,
-        u = (l.__props = []),
-        c = (l.__session = []),
-        d = (l.__derived = []),
-        m = (l._collections = {}),
-        p = (l._definition = {}),
-        _ = (l._derived = {}),
-        f = ["props", "session", "derived", "collections"];
-      ((o = r("lodash")).forOwn(n.props, function (e, t) {
-        (u.push(t), C(l, t, e, s.PROP));
+      var a = L(t, o),
+        i = a.prototype,
+        l = (i.__props = []),
+        u = (i.__session = []),
+        c = (i.__derived = []),
+        d = (i._collections = {}),
+        m = (i._definition = {}),
+        p = (i._derived = {}),
+        _ = ["props", "session", "derived", "collections"];
+      (Object.keys(n.props).forEach(function (e) {
+        (l.push(e), C(i, e, n.props[e], s.PROP));
       }),
-        o.forOwn(n.session, function (e, t) {
-          (c.push(t), C(l, t, e, s.SESSION));
+        Object.keys(n.session).forEach(function (e) {
+          (u.push(e), C(i, e, n.session[e], s.SESSION));
         }),
-        o.forOwn(n.derived, function (e, t) {
-          (d.push(t), b(l, t, e));
+        Object.keys(n.derived).forEach(function (e) {
+          (c.push(e), b(i, e, n.derived[e]));
         }),
-        o.forOwn(n.collections, function (e, t) {
-          m[t] = e;
+        Object.keys(n.collections).forEach(function (e) {
+          d[e] = n.collections[e];
         }),
-        Object.assign(l, o.omit(n, f)));
-      var g = u.concat(c),
-        h = g.length;
-      Object.defineProperties(l, {
+        Object.assign(i, r("lodash").omit(n, _)));
+      var f = l.concat(u),
+        g = f.length;
+      Object.defineProperties(i, {
         attributes: {
           get: function () {
-            for (var e = {}, t = 0; t < h; ++t) e[g[t]] = this[g[t]];
+            for (var e = {}, t = 0; t < g; ++t) e[f[t]] = this[f[t]];
             return e;
           },
         },
@@ -266,30 +274,32 @@ __d(
           },
         },
       });
-      for (var y = {}, v = 0; v < h; v++) {
-        var S = g[v];
-        "defaultValue" in p[S] && (y[S] = e);
+      for (var h = {}, y = 0; y < g; y++) {
+        var v = f[y];
+        "defaultValue" in m[v] && (h[v] = e);
       }
-      if ((r("isEmptyObject")(y) || (l.__defaults = y), d.length)) {
-        var R = [],
-          E = {},
-          k = {};
-        (r("lodash").forOwn(_, function (e, t) {
-          ((k[t] = !0),
-            r("lodash").forOwn(e.deps, function (e) {
-              ((k[e] = !0), (E[e] || (E[e] = [])).push(t), R.push([t, e]));
+      if ((r("isEmptyObject")(h) || (i.__defaults = h), c.length)) {
+        var S = [],
+          R = {},
+          E = {};
+        (Object.keys(p).forEach(function (e) {
+          var t,
+            n = p[e];
+          ((E[e] = !0),
+            ((t = n.deps) != null ? t : []).forEach(function (t) {
+              ((E[t] = !0), (R[t] || (R[t] = [])).push(e), S.push([e, t]));
             }));
         }),
-          R.length &&
-            ((l._deps = E),
-            (l._topo = r("toposort").array(Object.keys(k), R).reverse()),
-            (l._topoIndexMap = new Map(
-              l._topo.map(function (e, t) {
+          S.length &&
+            ((i._deps = R),
+            (i._topo = r("toposort").array(Object.keys(E), S).reverse()),
+            (i._topoIndexMap = new Map(
+              i._topo.map(function (e, t) {
                 return [e, t];
               }),
             ))));
       }
-      return i;
+      return a;
     }
     ((l.INIT = e),
       (l.Attr = s),

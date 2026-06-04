@@ -1,16 +1,16 @@
 __d(
   "WAWebWrapperGetTailIcon",
-  ["WAWebL10N", "WAWebTailInIcon.react", "WAWebTailOutIcon.react"],
+  ["WAWebL10N", "WAWebWrapperTailIcon.react"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = r("WAWebL10N").isRTL();
       return e
         ? t
-          ? o("WAWebTailInIcon.react").TailInIcon
-          : o("WAWebTailOutIcon.react").TailOutIcon
+          ? o("WAWebWrapperTailIcon.react").MessageTailInIcon
+          : o("WAWebWrapperTailIcon.react").MessageTailOutIcon
         : t
-          ? o("WAWebTailOutIcon.react").TailOutIcon
-          : o("WAWebTailInIcon.react").TailInIcon;
+          ? o("WAWebWrapperTailIcon.react").MessageTailOutIcon
+          : o("WAWebWrapperTailIcon.react").MessageTailInIcon;
     }
     l.getTailIcon = e;
   },

@@ -197,7 +197,7 @@ __d(
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[certificate-utils] Failed to extract certificate serial number",
+                  "[certificate-utils] extract cert serial failed",
                 ])),
             )
             .catching(r("getErrorSafe")(e))

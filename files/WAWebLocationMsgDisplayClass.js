@@ -1,12 +1,12 @@
 __d(
   "WAWebLocationMsgDisplayClass",
-  ["cx"],
-  function (t, n, r, o, a, i, l, s) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
       var t = e.msg;
-      return t.isLive ? "_amkx" : "_amkw";
+      return t.isLive ? "messageLiveLocation" : "messageLocation";
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

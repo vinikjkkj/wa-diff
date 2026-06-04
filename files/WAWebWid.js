@@ -7,7 +7,6 @@ __d(
     "WAWebABPropsCAPISupportNumber",
     "WAWebABPropsSupportGroup",
     "WAWebABPropsSupportLid",
-    "WAWebBizCoexGatingUtils",
     "WAWebWidError",
     "WAWebWidValidator",
     "err",
@@ -41,10 +40,7 @@ __d(
               (this._serialized = "call"));
             return;
           }
-          var i = o("WAWebWidValidator").validateAndGetParts(
-            t,
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled(),
-          );
+          var i = o("WAWebWidValidator").validateAndGetParts(t);
           if (i == null)
             throw (
               o("WALogger").LOG(
@@ -106,11 +102,7 @@ __d(
             var f = parseInt(m, 10);
             f && (l.push(":"), l.push(f), (this.device = f));
           }
-          if (
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            this.isHosted() &&
-            (this.device == null || this.device !== C)
-          )
+          if (this.isHosted() && (this.device == null || this.device !== C))
             throw (
               o("WALogger").LOG(
                 c ||
@@ -193,10 +185,7 @@ __d(
             );
           }),
           (n.isSameAccountAndAddressingMode = function (t) {
-            if (
-              o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              (this.device === C || t.device === C)
-            ) {
+            if (this.device === C || t.device === C) {
               o("WALogger")
                 .LOG(
                   d ||
@@ -368,9 +357,7 @@ __d(
             return t.isXWid("newsletter", n);
           }),
           (t.isHosted = function (n) {
-            return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-              ? t.isXWid("hosted", n) || t.isXWid("hosted.lid", n)
-              : !1;
+            return t.isXWid("hosted", n) || t.isXWid("hosted.lid", n);
           }),
           (t.isFbidBot = function (n) {
             return t.isXWid("bot", n);
@@ -398,10 +385,7 @@ __d(
           }),
           (t.isWid = function (n) {
             return o("WATypeUtils").isString(n)
-              ? o("WAWebWidValidator").validateWid(
-                  n,
-                  o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled(),
-                )
+              ? o("WAWebWidValidator").validateWid(n)
               : n instanceof t;
           }),
           (t.isServer = function (n) {

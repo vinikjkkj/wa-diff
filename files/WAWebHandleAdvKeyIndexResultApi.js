@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WALongInt",
     "WAWebAdvExpectedTsApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexHostedAddVerification",
     "WAWebDeviceListPk",
     "WAWebHandleAdvDeviceNotificationUtils",
@@ -24,22 +23,20 @@ __d(
       if (!f) return null;
       var g = f.rawId,
         h = o("WALongInt").numberOrThrowIfTooLarge(f.timestamp),
-        y = null;
+        y = f.accountType;
       if (
-        (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          ((y = f.accountType),
-          y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleKeyIndexResult: add to coex cache for ",
-                  "",
-                ])),
-              t == null ? void 0 : t.toLogString(),
-            ),
-            o(
-              "WAWebBizCoexHostedAddVerification",
-            ).addToCoexHostedVerificationCache(t))),
+        (y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "handleKeyIndexResult: add to coex cache for ",
+                "",
+              ])),
+            t == null ? void 0 : t.toLogString(),
+          ),
+          o(
+            "WAWebBizCoexHostedAddVerification",
+          ).addToCoexHostedVerificationCache(t)),
         h !== r)
       )
         return null;
@@ -47,30 +44,26 @@ __d(
         b = null,
         v = n;
       if (l && !l.deleted) {
-        if (
-          (v == null && (v = l.devices),
-          l.rawId !== g ? (C = !0) : (b = l.devices),
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled())
-        ) {
-          var S =
-            (l.advAccountType != null && l.advAccountType !== y) ||
-            (l != null &&
-              y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-              y !== (l == null ? void 0 : l.advAccountType));
-          S &&
-            ((C = !0),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ADV] clear record: type mismatch ",
-                  " for ",
-                  "",
-                ])),
-              y,
-              t == null ? void 0 : t.toLogString(),
-            ));
-        }
-      } else if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
+        (v == null && (v = l.devices),
+          l.rawId !== g ? (C = !0) : (b = l.devices));
+        var S =
+          (l.advAccountType != null && l.advAccountType !== y) ||
+          (l != null &&
+            y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+            y !== (l == null ? void 0 : l.advAccountType));
+        S &&
+          ((C = !0),
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[ADV] clear record: type mismatch ",
+                " for ",
+                "",
+              ])),
+            y,
+            t == null ? void 0 : t.toLogString(),
+          ));
+      } else {
         var R =
           y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
           (l == null ? void 0 : l.deletedChangedToHost) !== !0;
@@ -84,10 +77,7 @@ __d(
           var t = e.keyIndex;
           t != null &&
             E.has(t) &&
-            (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              e.id === c &&
-              (e.isHosted === !0 || s(0, 76137)),
-            L.set(e.id, t));
+            (e.id === c && (e.isHosted === !0 || s(0, 76137)), L.set(e.id, t));
         }),
         b != null &&
           b.forEach(function (e) {
@@ -97,8 +87,7 @@ __d(
       var I = Array.from(L.entries()).map(function (e) {
           var t = e[0],
             n = e[1];
-          return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            t === c
+          return t === c
             ? { id: t, keyIndex: n, isHosted: !0 }
             : { id: t, keyIndex: n };
         }),
@@ -144,8 +133,7 @@ __d(
       );
     }
     function _(e, t, n, r, a) {
-      return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        t != null &&
+      return t != null &&
         t.some(function (e) {
           return !!e.isHosted;
         })

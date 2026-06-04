@@ -1,24 +1,16 @@
 __d(
   "WAWebCommsWapMd",
-  [
-    "WALogger",
-    "WAWapJid",
-    "WAWebBizCoexGatingUtils",
-    "WAWebWid",
-    "WAWebWidValidator",
-    "err",
-  ],
+  ["WALogger", "WAWapJid", "WAWebWid", "WAWebWidValidator", "err"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        if (e.server === "hosted") return o("WAWapJid").DomainType.HOSTED;
-        if (e.server === "hosted.lid")
-          return o("WAWapJid").DomainType.HOSTED_LID;
-      }
-      return e.server === "lid"
-        ? o("WAWapJid").DomainType.LID
-        : o("WAWapJid").DomainType.WHATSAPP;
+      return e.server === "hosted"
+        ? o("WAWapJid").DomainType.HOSTED
+        : e.server === "hosted.lid"
+          ? o("WAWapJid").DomainType.HOSTED_LID
+          : e.server === "lid"
+            ? o("WAWapJid").DomainType.LID
+            : o("WAWapJid").DomainType.WHATSAPP;
     }
     function c(t) {
       if (!(t instanceof r("WAWebWid")) || !t.isUser())

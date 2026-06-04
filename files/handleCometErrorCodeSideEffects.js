@@ -7,8 +7,6 @@ __d(
     "CometErrorOverlay",
     "CometPlaceholder.react",
     "FDSDialogLoadingState.react",
-    "JSResourceForInteraction",
-    "NewsRegulationErrorMessageData",
     "OutsideExceptionKeyCommandListener.react",
     "ServerHTML.react",
     "cr:9610",
@@ -16,7 +14,6 @@ __d(
     "handleCABRedirect",
     "handleCheckpointRedirect",
     "handleErrorCodeBasicSideEffects",
-    "lazyLoadComponent",
     "react",
     "requireDeferredForDisplay",
   ],
@@ -29,42 +26,20 @@ __d(
           "handleCometErrorCodeSideEffects",
         ),
       ),
-      m = r("lazyLoadComponent")(
-        r("JSResourceForInteraction")(
-          "CometNewsRegulationDialog.react",
-        ).__setRef("handleCometErrorCodeSideEffects"),
-      ),
-      p = new Set();
-    function _(e) {
+      m = new Set();
+    function p(e) {
       return (
         typeof e == "object" &&
         e != null &&
         Object.prototype.hasOwnProperty.call(e, "__html")
       );
     }
-    function f(e, t, n) {
-      o("CometErrorOverlay").injectComponent(function (o) {
-        return c.jsx(r("OutsideExceptionKeyCommandListener.react"), {
-          children: c.jsx(r("CometPlaceholder.react"), {
-            fallback: c.jsx(r("FDSDialogLoadingState.react"), {}),
-            name: i.id,
-            children: c.jsx(m, {
-              errorDescription: t,
-              onClose: function () {
-                (p.delete(e), o());
-              },
-              regulationType: n,
-            }),
-          }),
-        });
-      });
-    }
-    function g(e, t, n, a) {
+    function _(e, t, n, a) {
       a === void 0 && (a = null);
       var l = n,
         s = t;
       ((l = c.jsx(r("ServerHTML.react"), { blob: l })),
-        _(s) && (s = u._(/*BTDS*/ "Something went wrong.")),
+        p(s) && (s = u._(/*BTDS*/ "Something went wrong.")),
         o("CometErrorOverlay").injectComponent(function (t) {
           return c.jsx(r("OutsideExceptionKeyCommandListener.react"), {
             children: c.jsx(r("CometPlaceholder.react"), {
@@ -72,10 +47,11 @@ __d(
               name: i.id,
               children: c.jsx(d, {
                 debugInfo: a,
+                errorCode: e,
                 errorDescription: l,
                 errorSummary: s,
                 onClose: function () {
-                  (p.delete(e), t());
+                  (m.delete(e), t());
                 },
                 testid: void 0,
               }),
@@ -83,26 +59,22 @@ __d(
           });
         }));
     }
-    function h(e, t, a, i, l, s) {
-      if (
-        (i === void 0 && (i = null),
+    function f(e, t, a, i, l, s) {
+      (i === void 0 && (i = null),
         l === void 0 && (l = !0),
         s === void 0 && (s = null),
         !(n("cr:9610") != null && n("cr:9610")(e)) &&
-          !r("handleErrorCodeBasicSideEffects")(e))
-      ) {
-        if (e === 1357053 && i != null) r("handleCheckpointRedirect")(i);
-        else if (e === 1357057 && i != null) r("handleCABRedirect")(i);
-        else if (
-          !p.has(e) &&
-          (o("CometErrorCodeExtraHandlers").executeHandlers(e), p.add(e), l)
-        ) {
-          var u = r("NewsRegulationErrorMessageData").errorCodeToRegType[e];
-          u != null ? f(e, a, u) : g(e, t, a, s);
-        }
-      }
+          (r("handleErrorCodeBasicSideEffects")(e) ||
+            (e === 1357053 && i != null
+              ? r("handleCheckpointRedirect")(i)
+              : e === 1357057 && i != null
+                ? r("handleCABRedirect")(i)
+                : m.has(e) ||
+                  (o("CometErrorCodeExtraHandlers").executeHandlers(e),
+                  m.add(e),
+                  l && _(e, t, a, s)))));
     }
-    l.default = h;
+    l.default = f;
   },
   226,
 );

@@ -2,7 +2,6 @@ __d(
   "WAWebOpenCoexCallingFirstTimeModalUtils",
   [
     "Promise",
-    "WAWebBizCoexGatingUtils",
     "WAWebCoexCallingConsumerFirstTimeModal.react",
     "WAWebCoexCallingFirstTimeAlertUtils",
     "WAWebCoexCallingSMBFirstTimeModal.react",
@@ -58,7 +57,6 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
-            !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
             o(
               "WAWebUserPrefsMultiDevice",
             ).getIsHostedMeAccountFromLocalStorage()

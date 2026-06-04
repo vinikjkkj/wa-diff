@@ -1,11 +1,11 @@
 __d(
   "WAWebGroupInviteMsgDisplayClass",
-  ["cx"],
-  function (t, n, r, o, a, i, l, s) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
-      return "_amkd";
+      return "messageChat";
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

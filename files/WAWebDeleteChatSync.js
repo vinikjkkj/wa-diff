@@ -8,7 +8,6 @@ __d(
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebChatDeleteBridge",
     "WAWebDBMessageRange",
@@ -180,15 +179,14 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 if (
-                  (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                    (o(
-                      "WAWebBizCoexUtils",
-                    ).deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache(
-                      e,
-                    ),
-                    o(
-                      "WAWebBizCoexUtils",
-                    ).clearDedupInitialHostedSystemMsgCache()),
+                  (o(
+                    "WAWebBizCoexUtils",
+                  ).deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache(
+                    e,
+                  ),
+                  o(
+                    "WAWebBizCoexUtils",
+                  ).clearDedupInitialHostedSystemMsgCache(),
                   t)
                 ) {
                   var n = yield o(

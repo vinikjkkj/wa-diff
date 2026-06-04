@@ -272,18 +272,35 @@ __d(
                 .CERT_VERIFICATION_RESULT_TYPE.FAILED_CHAIN_VALIDATION;
               return (
                 e instanceof
-                o("WAWebBotSignatureCertificateManager").CertExpiredError
+                o("WAWebBotSignatureCertificateManager").CertRevokedError
                   ? (y = o("WAWebBotCertificateValidationLogger")
-                      .CERT_VERIFICATION_RESULT_TYPE.FAILED_EXPIRED_CERT)
+                      .CERT_VERIFICATION_RESULT_TYPE.FAILED_CERTIFICATE_REVOKED)
                   : e instanceof
-                      o("WAWebBotSignatureCertificateManager").CertInvalidError
+                      o("WAWebBotSignatureCertificateManager")
+                        .CrlUnavailableError
                     ? (y = o("WAWebBotCertificateValidationLogger")
-                        .CERT_VERIFICATION_RESULT_TYPE.FAILED_INVALID_CERT)
+                        .CERT_VERIFICATION_RESULT_TYPE.FAILED_CRL_UNAVAILABLE)
                     : e instanceof
-                        o("WAWebBotSignatureCertificateManager")
-                          .CertChainValidationError &&
-                      (y = o("WAWebBotCertificateValidationLogger")
-                        .CERT_VERIFICATION_RESULT_TYPE.FAILED_CHAIN_VALIDATION),
+                        o("WAWebBotSignatureCertificateManager").CrlStaleError
+                      ? (y = o("WAWebBotCertificateValidationLogger")
+                          .CERT_VERIFICATION_RESULT_TYPE.FAILED_CRL_EXPIRED)
+                      : e instanceof
+                          o("WAWebBotSignatureCertificateManager")
+                            .CertExpiredError
+                        ? (y = o("WAWebBotCertificateValidationLogger")
+                            .CERT_VERIFICATION_RESULT_TYPE.FAILED_EXPIRED_CERT)
+                        : e instanceof
+                            o("WAWebBotSignatureCertificateManager")
+                              .CertInvalidError
+                          ? (y = o("WAWebBotCertificateValidationLogger")
+                              .CERT_VERIFICATION_RESULT_TYPE
+                              .FAILED_INVALID_CERT)
+                          : e instanceof
+                              o("WAWebBotSignatureCertificateManager")
+                                .CertChainValidationError &&
+                            (y = o("WAWebBotCertificateValidationLogger")
+                              .CERT_VERIFICATION_RESULT_TYPE
+                              .FAILED_CHAIN_VALIDATION),
                 o(
                   "WAWebBotCertificateValidationLogger",
                 ).logCertificateValidation({

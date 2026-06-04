@@ -7,8 +7,10 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGetGroupHistoryBundleMessagesCount",
     "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryPostJoinEligibilityFull",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistorySendMessagesModal.react",
+    "WAWebGroupMetadataCollection",
     "WAWebModalManager",
     "WAWebSendHistoryBundleAction",
     "WAWebToast.react",
@@ -23,92 +25,138 @@ __d(
     "use strict";
     var e,
       u,
-      c = u || (u = o("react")),
-      d = 100;
-    function m(e, t, a) {
-      var i,
-        l = (i = t.joinTime) != null ? i : a;
-      if (l != null) {
-        var u = o("WAWebFrontendContactGetters").getFormattedShortName(
-            t.contact,
-          ),
-          m = o("WAWebWidFactory").asGroupWidOrThrow(e),
-          _ = (function () {
-            var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var n = yield o(
-                "WAWebGetGroupHistoryBundleMessagesCount",
-              ).getGroupHistoryBundleMessageCount({
-                groupWid: m,
-                targetStartMessageTime: l,
-              });
-              if (n !== 0) {
-                var a = Math.min(d, n);
-                o("WAWebModalManager").ModalManager.openSupportModal(
-                  c.jsx(r("WAWebGroupHistorySendMessagesModal.react"), {
-                    currentMessageCount: n,
-                    selectedMessageCount: a,
-                    showPinDisclaimer: o(
-                      "WAWebGroupHistoryGating",
-                    ).isOutOfWindowPinSenderEnabled(m),
-                    primaryButtonLabel: s._(/*BTDS*/ "Send"),
-                    onDone: function (r) {
-                      (o("WAWebModalManager").ModalManager.closeSupportModal(),
-                        o("WAWebModalManager").ModalManager.close(),
-                        p(e, t.contact.id, l, u, r));
-                    },
-                    onCancel: function () {
-                      return o(
-                        "WAWebModalManager",
-                      ).ModalManager.closeSupportModal();
-                    },
-                  }),
-                );
-              }
-            });
-            return function () {
-              return a.apply(this, arguments);
-            };
-          })(),
-          f = c.jsx(r("WDSTextualLink.react"), {
-            onClick: function () {
-              _();
-            },
-            testid: "group-history-post-join-recent-messages-link",
-            textConfig: "Body2",
-            children: s._(/*BTDS*/ "recent messages"),
-          });
-        o("WAWebModalManager").ModalManager.openSupportModal(
-          c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            tsNavigationData: {
-              surface: "unknown",
-              viewName: "group-history-post-join",
-            },
-            onOK: function () {
-              (o("WAWebModalManager").ModalManager.close(),
-                p(e, t.contact.id, l, u, null));
-            },
-            okText: s._(/*BTDS*/ "Send recent"),
-            onCancel: o("WAWebModalManager").closeModalManager,
-            cancelText: s._(/*BTDS*/ "Cancel"),
-            children: s._(
-              /*BTDS*/ "Send {recentMessagesLink} from this group to {contactName}.",
-              [s._param("recentMessagesLink", f), s._param("contactName", u)],
-            ),
-          }),
-        );
-      }
+      c,
+      d = c || (c = o("react")),
+      m = 100;
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function p(t, n, r, a, i) {
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          var i,
+            l = (i = t.joinTime) != null ? i : a;
+          if (l != null) {
+            var c = o("WAWebWidFactory").asGroupWidOrThrow(e),
+              p = r("WAWebGroupMetadataCollection").get(c);
+            if (p == null) {
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history] post-join send flow: missing groupMetadata for ",
+                      "",
+                    ])),
+                  c.toString(),
+                )
+                .sendLogs("group-history-post-join-missing-group");
+              return;
+            }
+            var _ = yield o(
+              "WAWebGroupHistoryPostJoinEligibilityFull",
+            ).isEligibleForPostJoinHistoryFull({
+              groupMetadata: p,
+              groupWid: c,
+              joinTimeFallback: a,
+              participant: t,
+            });
+            if (!_.eligible) {
+              o("WAWebToastManager").ToastManager.open(
+                d.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(/*BTDS*/ "Message history is not available"),
+                }),
+              );
+              return;
+            }
+            var g = o("WAWebFrontendContactGetters").getFormattedShortName(
+                t.contact,
+              ),
+              h = (function () {
+                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    var n = yield o(
+                      "WAWebGetGroupHistoryBundleMessagesCount",
+                    ).getGroupHistoryBundleMessageCount({
+                      groupWid: c,
+                      targetStartMessageTime: l,
+                    });
+                    if (n !== 0) {
+                      var a = Math.min(m, n);
+                      o("WAWebModalManager").ModalManager.openSupportModal(
+                        d.jsx(r("WAWebGroupHistorySendMessagesModal.react"), {
+                          currentMessageCount: n,
+                          selectedMessageCount: a,
+                          showPinDisclaimer: o(
+                            "WAWebGroupHistoryGating",
+                          ).isOutOfWindowPinSenderEnabled(c),
+                          primaryButtonLabel: s._(/*BTDS*/ "Send"),
+                          onDone: function (r) {
+                            (o(
+                              "WAWebModalManager",
+                            ).ModalManager.closeSupportModal(),
+                              o("WAWebModalManager").ModalManager.close(),
+                              f(e, t.contact.id, l, g, r));
+                          },
+                          onCancel: function () {
+                            return o(
+                              "WAWebModalManager",
+                            ).ModalManager.closeSupportModal();
+                          },
+                        }),
+                      );
+                    }
+                  },
+                );
+                return function () {
+                  return a.apply(this, arguments);
+                };
+              })(),
+              y = d.jsx(r("WDSTextualLink.react"), {
+                onClick: function () {
+                  h();
+                },
+                testid: "group-history-post-join-recent-messages-link",
+                textConfig: "Body2",
+                children: s._(/*BTDS*/ "recent messages"),
+              });
+            o("WAWebModalManager").ModalManager.openSupportModal(
+              d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "group-history-post-join",
+                },
+                onOK: function () {
+                  (o("WAWebModalManager").ModalManager.close(),
+                    f(e, t.contact.id, l, g, null));
+                },
+                okText: s._(/*BTDS*/ "Send recent"),
+                onCancel: o("WAWebModalManager").closeModalManager,
+                cancelText: s._(/*BTDS*/ "Cancel"),
+                children: s._(
+                  /*BTDS*/ "Send {recentMessagesLink} from this group to {contactName}.",
+                  [
+                    s._param("recentMessagesLink", y),
+                    s._param("contactName", g),
+                  ],
+                ),
+              }),
+            );
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(t, n, r, a, i) {
       var l = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([n]),
         u = l.historyReceivers,
-        d = l.nonHistoryReceivers;
+        c = l.nonHistoryReceivers;
       if (u.length !== 0) {
         var m = o("WAWebWidToJid").widToGroupJid(t);
         o("WAWebSendHistoryBundleAction")
-          .sendHistoryBundleAction(m, u, d, i, r)
+          .sendHistoryBundleAction(m, u, c, i, r)
           .then(function () {
             o("WAWebToastManager").ToastManager.open(
-              c.jsx(o("WAWebToast.react").Toast, {
+              d.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Message history sent to {contactName}", [
                   s._param("contactName", a),
                 ]),
@@ -129,7 +177,7 @@ __d(
           });
       }
     }
-    l.startPostJoinSendFlow = m;
+    l.startPostJoinSendFlow = p;
   },
   226,
 );

@@ -8,16 +8,19 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "err",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = n("$InternalEnum")({
+      s,
+      u = 3,
+      c = n("$InternalEnum")({
         Buttons: 1,
         Template: 2,
         SenderKeyDistribution: 3,
         UnknownMessageKey: 4,
       });
-    function u(e, t) {
+    function d(e, t) {
       var n, r, a, i;
       return e === "$$unknownFieldCount"
         ? t[e] === 0
@@ -149,15 +152,15 @@ __d(
                                                                               .CALL_LOG
                                                                           : e ===
                                                                               "buttonsMessage"
-                                                                            ? s.Buttons
+                                                                            ? c.Buttons
                                                                             : e ===
                                                                                 "templateMessage"
-                                                                              ? s.Template
+                                                                              ? c.Template
                                                                               : e ===
                                                                                     "senderKeyDistributionMessage" ||
                                                                                   e ===
                                                                                     "fastRatchetKeySenderKeyDistributionMessage"
-                                                                                ? s.SenderKeyDistribution
+                                                                                ? c.SenderKeyDistribution
                                                                                 : e ===
                                                                                     "newsletterAdminInviteMessage"
                                                                                   ? o(
@@ -409,7 +412,7 @@ __d(
                                                                                                                     "rootSecretDistributeMessage" ||
                                                                                                                   e ===
                                                                                                                     "splitPaymentMessage"
-                                                                                                                ? s.UnknownMessageKey
+                                                                                                                ? c.UnknownMessageKey
                                                                                                                 : (function () {
                                                                                                                     throw Error(
                                                                                                                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -417,73 +420,89 @@ __d(
                                                                                                                     );
                                                                                                                   })();
     }
-    function c(e) {
+    function m(e) {
       if (e != null && typeof e == "object" && "message" in e) {
         var t = e.message;
         if (t != null && typeof t == "object") return t;
       }
       return null;
     }
-    function d(e) {
-      _(e);
+    function p(e) {
+      g(e);
       var t;
       for (var n of Object.keys(e)) {
-        var r = c(e[n]);
+        var r = m(e[n]);
         if (r != null) {
-          var o = m(r);
+          var o = _(r);
           for (var a of o) {
             var i = a[0],
               l = a[1];
             typeof i != "number" && (t = r);
           }
         } else {
-          var s = u(n, e);
+          var s = d(n, e);
           s != null && (t = e);
         }
         if (t != null) break;
       }
       return t;
     }
-    function m(e) {
-      var t = [];
-      for (var n of Object.keys(e)) {
-        var r = c(e[n]);
-        if (r != null) {
-          var a = m(r);
-          a.length === 0
-            ? t.push([o("WAWebMsgType").MSG_TYPE.UNKNOWN, n])
-            : t.push.apply(t, m(r));
+    function _(t, n) {
+      n === void 0 && (n = 0);
+      var a = [];
+      if (r("justknobx")._("2451") && n >= u)
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "getProtobufMessageTypesToKeys: nesting depth exceeded limit of ",
+                  "",
+                ])),
+              u,
+            )
+            .tags("messaging")
+            .sendLogs("protobuf-msg-keys-max-depth"),
+          []
+        );
+      for (var i of Object.keys(t)) {
+        var l = m(t[i]);
+        if (l != null) {
+          var s = _(l, n + 1);
+          s.length === 0
+            ? a.push([o("WAWebMsgType").MSG_TYPE.UNKNOWN, i])
+            : a.push.apply(a, _(l, n + 1));
         } else {
-          var i = u(n, e);
-          i != null && t.push([i, n]);
+          var c = d(i, t);
+          c != null && a.push([c, i]);
         }
       }
-      return t;
+      return a;
     }
-    function p(e) {
+    function f(e) {
       return !!e.find(function (e) {
         var t = e[0];
-        return typeof t == "number" && t === s.SenderKeyDistribution;
+        return typeof t == "number" && t === c.SenderKeyDistribution;
       });
     }
-    function _(t) {
-      var n = m(t),
-        r = n.length === 1 || (n.length === 2 && p(n));
-      if (!r)
+    function g(e) {
+      var t = _(e),
+        n = t.length === 1 || (t.length === 2 && f(t));
+      if (!n)
         throw (
           o("WAWebCurrentUser").isEmployee() &&
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Protobuf message keys validation failed: ",
                     "",
                   ])),
-                n.join(),
+                t.join(),
               )
               .sendLogs("protobuf-msg-keys-validation-failed-intern"),
           new (o("WAWebHandleMsgError").MessageProtobufInvalidMessageTypes)(
-            n.map(function (e) {
+            t.map(function (e) {
               var t = e[0],
                 n = e[1];
               return n;
@@ -491,27 +510,27 @@ __d(
           )
         );
     }
-    function f(e) {
+    function h(e) {
       var t = new Set();
-      for (var n of m(e)) {
+      for (var n of _(e)) {
         var o = n[0],
           a = n[1];
         if (typeof o != "number") t.add(o);
-        else if (s.cast(o) != null && (o === s.Buttons || o === s.Template))
+        else if (c.cast(o) != null && (o === c.Buttons || o === c.Template))
           throw r("err")("Undeclared message types");
       }
       return t;
     }
-    function g(e, t) {
-      return f(e).has(t);
+    function y(e, t) {
+      return h(e).has(t);
     }
-    ((l.UndeclaredMessageType = s),
-      (l.getWrappedMessage = c),
-      (l.getUnwrappedProtobufMessage = d),
-      (l.getProtobufMessageTypesToKeys = m),
-      (l.verifyProtobufMessageObjectKeys = _),
-      (l.getProtobufMessageTypesSet = f),
-      (l.isProtobufHasMessageType = g));
+    ((l.UndeclaredMessageType = c),
+      (l.getWrappedMessage = m),
+      (l.getUnwrappedProtobufMessage = p),
+      (l.getProtobufMessageTypesToKeys = _),
+      (l.verifyProtobufMessageObjectKeys = g),
+      (l.getProtobufMessageTypesSet = h),
+      (l.isProtobufHasMessageType = y));
   },
   98,
 );

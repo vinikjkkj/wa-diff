@@ -13,7 +13,6 @@ __d(
     "WAWebHandleUsernameSync",
     "WAWebNetworkStatus",
     "WAWebSaveContactAction",
-    "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWid",
     "WAWebWidFactory",
@@ -77,18 +76,15 @@ __d(
               )
             );
           o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, _);
-          var g = o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),
-            h = g ? "lid" : "pn",
-            y = (t = (n = _.list) == null ? void 0 : n.length) != null ? t : 0;
+          var g =
+            (t = (n = _.list) == null ? void 0 : n.length) != null ? t : 0;
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[deleteContactAction] addr_mode=",
-                " usyncListSize=",
+                "[deleteContactAction] usyncListSize=",
                 "",
               ])),
-            h,
-            y,
+            g,
           );
           try {
             yield o("WAWebContactSyncApi").handleLidSync(_);
@@ -98,11 +94,9 @@ __d(
                 .ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteContactAction] handleLidSync addr_mode=",
-                      " err:",
+                      "[deleteContactAction] handleLidSync err:",
                       "",
                     ])),
-                  h,
                   e,
                 )
                 .sendLogs("delete-contact-handle-lid-sync-error"),
@@ -117,11 +111,9 @@ __d(
                 .ERROR(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteContactAction] handleUsernameSync addr_mode=",
-                      " err:",
+                      "[deleteContactAction] handleUsernameSync err:",
                       "",
                     ])),
-                  h,
                   e,
                 )
                 .sendLogs("delete-contact-handle-username-sync-error"),
@@ -141,19 +133,17 @@ __d(
                 .ERROR(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteContactAction] markContactsSyncCompleted addr_mode=",
-                      " err:",
+                      "[deleteContactAction] markContactsSyncCompleted err:",
                       "",
                     ])),
-                  h,
                   e,
                 )
                 .sendLogs("delete-contact-mark-sync-completed-error"),
               e
             );
           }
-          var C = o("WAWebContactCollection").ContactCollection.get(a);
-          if (!C || !o("WAWebFrontendContactGetters").getIsMyContact(C)) {
+          var h = o("WAWebContactCollection").ContactCollection.get(a);
+          if (!h || !o("WAWebFrontendContactGetters").getIsMyContact(h)) {
             o("WALogger").ERROR(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -162,10 +152,10 @@ __d(
             );
             return;
           }
-          if ((C.setNotMyContact(), e.lid)) {
-            var b = e.lid,
-              v = o("WAWebUsernameTypes").asMaybeUsername(e.username);
-            if (v == null) {
+          if ((h.setNotMyContact(), e.lid)) {
+            var y = e.lid,
+              C = o("WAWebUsernameTypes").asMaybeUsername(e.username);
+            if (C == null) {
               o("WALogger")
                 .ERROR(
                   p ||
@@ -180,17 +170,17 @@ __d(
               "companion-contact-client-error-delete-syncd-send-username-contact-delete",
               function () {
                 return o("WAWebContactEditSync").sendUsernameContactDelete(
-                  b,
-                  v,
+                  y,
+                  C,
                 );
               },
             );
           } else {
-            var S = e.phoneNumber;
+            var b = e.phoneNumber;
             yield o("WAWebSaveContactAction").runOrSendClientErrorLogs(
               "companion-contact-client-error-delete-syncd-send-contact-delete",
               function () {
-                return o("WAWebContactEditSync").sendContactDelete(S);
+                return o("WAWebContactEditSync").sendContactDelete(b);
               },
             );
           }
@@ -252,8 +242,6 @@ __d(
               )
             );
           o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i);
-          var s = o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),
-            u = s ? "lid" : "pn";
           try {
             yield o("WAWebContactSyncApi").handleLidSync(i);
           } catch (e) {
@@ -262,11 +250,9 @@ __d(
                 .ERROR(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteContactBatchAction] handleLidSync addr_mode=",
-                      " err:",
+                      "[deleteContactBatchAction] handleLidSync err:",
                       "",
                     ])),
-                  u,
                   e,
                 )
                 .sendLogs("delete-contact-batch-handle-lid-sync-error"),
@@ -281,11 +267,9 @@ __d(
                 .ERROR(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteContactBatchAction] handleUsernameSync addr_mode=",
-                      " err:",
+                      "[deleteContactBatchAction] handleUsernameSync err:",
                       "",
                     ])),
-                  u,
                   e,
                 )
                 .sendLogs("delete-contact-batch-handle-username-sync-error"),
@@ -305,26 +289,24 @@ __d(
                 .ERROR(
                   g ||
                     (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteContactBatchAction] markContactsSyncCompleted addr_mode=",
-                      " err:",
+                      "[deleteContactBatchAction] markContactsSyncCompleted err:",
                       "",
                     ])),
-                  u,
                   e,
                 )
                 .sendLogs("delete-contact-batch-mark-sync-completed-error"),
               e
             );
           }
-          var c = [],
-            d = 0,
-            m = t.filter(function (e) {
+          var s = [],
+            u = 0,
+            c = t.filter(function (e) {
               var t = o("WAWebContactCollection").ContactCollection.get(e);
               return !t || !o("WAWebFrontendContactGetters").getIsMyContact(t)
-                ? (d++, c.length < 3 && c.push(e), !1)
+                ? (u++, s.length < 3 && s.push(e), !1)
                 : (t.setNotMyContact(), !0);
             });
-          (d > 0 &&
+          (u > 0 &&
             o("WALogger").ERROR(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -332,14 +314,14 @@ __d(
                   " contacts are already deleted => ",
                   "",
                 ])),
-              d,
-              c,
+              u,
+              s,
             ),
-            m.length > 0 &&
+            c.length > 0 &&
               (yield o("WAWebSaveContactAction").runOrSendClientErrorLogs(
                 "companion-contact-client-error-delete-batch-syncd-send-contact-delete",
                 function () {
-                  return o("WAWebContactEditSync").sendContactDeleteBatch(m);
+                  return o("WAWebContactEditSync").sendContactDeleteBatch(c);
                 },
               )));
         })),
@@ -355,10 +337,8 @@ __d(
             .ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[deleteContactBatchAction] companion-contact-client-error-delete-batch-create-user-wid username_contact_usync_lid_based=",
-                  "",
+                  "[deleteContactBatchAction] companion-contact-client-error-delete-batch-create-user-wid",
                 ])),
-              o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),
             )
             .catching(r("getErrorSafe")(t))
             .sendLogs(

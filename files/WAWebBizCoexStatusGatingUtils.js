@@ -1,13 +1,10 @@
 __d(
   "WAWebBizCoexStatusGatingUtils",
-  ["WAWebBizCoexGatingUtils", "WAWebUserPrefsMultiDevice"],
+  ["WAWebUserPrefsMultiDevice"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        o("WAWebUserPrefsMultiDevice").getHaveProcessedCoexAdv()
-      );
+      return o("WAWebUserPrefsMultiDevice").getHaveProcessedCoexAdv();
     }
     l.smbHostedstatusReplyPrivacyDisclaimerEnabled = e;
   },

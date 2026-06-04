@@ -2,8 +2,6 @@ __d(
   "WAWebQueryExistsJob",
   [
     "WALogger",
-    "WAPhoneFindCC",
-    "WAWebApiContact",
     "WAWebBackendErrors",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
@@ -16,7 +14,6 @@ __d(
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
-    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -36,33 +33,17 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),
-            a = new (o("WAWebUsyncUser").USyncUser)(),
-            i = new (o("WAWebUsync").USyncQuery)();
-          if (
-            (e.type === "phone"
-              ? (i.withContactProtocol(
-                  n
-                    ? o("WAWebUsync").USYNC_ADDRESSING_MODE.LID
-                    : o("WAWebUsync").USYNC_ADDRESSING_MODE.PN,
-                ),
-                a.withPhone(e.phone))
-              : a.withId(e.wid),
-            !n && (i.withLidProtocol(), e.type === "phone"))
-          ) {
-            var l = o("WAPhoneFindCC").extractDigits(e.phone) + "@c.us";
-            if (r("WAWebWid").isWid(l)) {
-              var s = o("WAWebApiContact").getCurrentLid(
-                o("WAWebWidFactory").createUserWidOrThrow(l),
-              );
-              s && a.withLid(s);
-            }
-          }
-          (i.withUser(a),
-            i.withBusinessProtocol(),
-            i.withDisappearingModeProtocol(),
-            i.withUsernameProtocol());
-          var u = o(
+          var n = new (o("WAWebUsyncUser").USyncUser)(),
+            r = new (o("WAWebUsync").USyncQuery)();
+          (e.type === "phone"
+            ? (r.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID),
+              n.withPhone(e.phone))
+            : n.withId(e.wid),
+            r.withUser(n),
+            r.withBusinessProtocol(),
+            r.withDisappearingModeProtocol(),
+            r.withUsernameProtocol());
+          var a = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
               syncType: o("WAWebContactSyncLogger").getSyncTypeString(
@@ -74,89 +55,89 @@ __d(
                   ? t
                   : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
               requestedCount: 1,
-              protocols: i.protocols,
+              protocols: r.protocols,
             }),
-            c = yield o(
+            i = yield o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.executeWithLogging(
-              u,
+              a,
               function () {
-                return i.execute();
+                return r.execute();
               },
               o("WAWebContactSyncErrorCodes").QUERY_EXIST,
             ),
-            d = c.error.all || c.error.contact;
-          if (d)
+            l = i.error.all || i.error.contact;
+          if (l)
             throw (
               o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                u,
-                d.errorCode,
-                c,
+                a,
+                l.errorCode,
+                i,
                 o("WAWebContactSyncErrorCodes").QUERY_EXIST,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                d.errorCode,
-                d.errorText,
+                l.errorCode,
+                l.errorText,
               )
             );
-          var m = c.list;
-          if (m.length !== 1)
+          var s = i.list;
+          if (s.length !== 1)
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(u, c),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
               null
             );
-          var p = m[0],
-            _ = p.business,
-            f = p.contact,
-            g = p.id,
-            h = p.lid,
-            y = p.pn,
-            C = p.username,
-            b = m[0].disappearingMode;
-          if (e.type === "phone" && (f == null ? void 0 : f.type) !== "in")
+          var u = s[0],
+            c = u.business,
+            d = u.contact,
+            m = u.id,
+            p = u.lid,
+            _ = u.pn,
+            f = u.username,
+            g = s[0].disappearingMode;
+          if (e.type === "phone" && (d == null ? void 0 : d.type) !== "in")
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(u, c),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
               null
             );
-          var v = {
-            wid: g,
-            biz: _ != null,
-            bizInfo: _,
+          var h = {
+            wid: m,
+            biz: c != null,
+            bizInfo: c,
             isUsernameSearch: e.type === "phone" ? !1 : void 0,
           };
           (o("WAWebUsernameGatingUtils").usernameSearchEnabled() &&
-            C != null &&
-            (v.username = C),
-            b &&
-              ((v.disappearingMode = {
-                duration: b.duration,
-                settingTimestamp: b.t,
+            f != null &&
+            (h.username = f),
+            g &&
+              ((h.disappearingMode = {
+                duration: g.duration,
+                settingTimestamp: g.t,
               }),
-              b.ephemeralityDisabled &&
-                (v.disappearingMode.isEphemeralityDisabled = !0)));
-          var S = null,
-            R = null;
+              g.ephemeralityDisabled &&
+                (h.disappearingMode.isEphemeralityDisabled = !0)));
+          var y = null,
+            C = null;
           return (
-            g.isLid()
-              ? ((S = y), (R = g))
-              : ((S = g),
-                h != null &&
-                  (R = o("WAWebWidFactory").createUserWidOrThrow(h, "lid"))),
-            S != null &&
-              R != null &&
+            m.isLid()
+              ? ((y = _), (C = m))
+              : ((y = m),
+                p != null &&
+                  (C = o("WAWebWidFactory").createUserWidOrThrow(p, "lid"))),
+            y != null &&
+              C != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: [{ pn: S, lid: R }],
+                mappings: [{ pn: y, lid: C }],
                 flushImmediately: !0,
                 learningSource: "usync",
               }),
-              !g.isLid() &&
+              !m.isLid() &&
                 o(
                   "WAWebUsernameWorkerCompatibleGatingUtils",
                 ).onlyShowLidContacts() &&
-                (v.wid = R)),
-            yield o("WAWebHandleUsernameSync").handleUsernameSync(c),
-            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(u, c),
-            v
+                (h.wid = C)),
+            yield o("WAWebHandleUsernameSync").handleUsernameSync(i),
+            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
+            h
           );
         })),
         m.apply(this, arguments)
@@ -316,19 +297,14 @@ __d(
             e.length > o("WAWebUsernameTypes").USERNAME_MAX_LENGTH
           )
             return null;
-          var r = o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),
-            a = new (o("WAWebUsyncUser").USyncUser)(),
-            i = new (o("WAWebUsync").USyncQuery)();
-          (i.withUser(a),
-            i.withContactProtocol(
-              r
-                ? o("WAWebUsync").USYNC_ADDRESSING_MODE.LID
-                : o("WAWebUsync").USYNC_ADDRESSING_MODE.PN,
-            ),
-            i.withBusinessProtocol(),
-            a.withUsername(e),
-            t != null && a.withUsernameKey(t));
-          var l = o(
+          var r = new (o("WAWebUsyncUser").USyncUser)(),
+            a = new (o("WAWebUsync").USyncQuery)();
+          (a.withUser(r),
+            a.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID),
+            a.withBusinessProtocol(),
+            r.withUsername(e),
+            t != null && r.withUsernameKey(t));
+          var i = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
               syncType: o("WAWebContactSyncLogger").getSyncTypeString(
@@ -340,79 +316,79 @@ __d(
                   ? n
                   : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
               requestedCount: 1,
-              protocols: i.protocols,
+              protocols: a.protocols,
             }),
-            s = yield o(
+            l = yield o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.executeWithLogging(
-              l,
+              i,
               function () {
-                return i.execute();
+                return a.execute();
               },
               o("WAWebContactSyncErrorCodes").QUERY_USERNAME_EXIST,
             ),
-            u = s.error.all || s.error.contact;
-          if (u)
+            s = l.error.all || l.error.contact;
+          if (s)
             throw (
               o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
+                i,
+                s.errorCode,
                 l,
-                u.errorCode,
-                s,
                 o("WAWebContactSyncErrorCodes").QUERY_USERNAME_EXIST,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                u.errorCode,
-                u.errorText,
+                s.errorCode,
+                s.errorText,
               )
             );
-          var c = s.list;
-          if (c.length !== 1)
+          var u = l.list;
+          if (u.length !== 1)
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, s),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
               null
             );
-          var d = c[0],
-            m = d.business,
-            p = d.contact,
-            _ = d.id,
-            f = p.type,
-            g = p.username;
-          if (f === "out")
+          var c = u[0],
+            d = c.business,
+            m = c.contact,
+            p = c.id,
+            _ = m.type,
+            f = m.username;
+          if (_ === "out")
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, s),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
               null
             );
-          if (_ != null) {
-            var h = !1,
-              y = o("WAWebUsernameTypes").asMaybeUsername(g);
-            if (y != null) {
-              var C = yield o("WAWebSetUsernameJob").setUsernamesJob([
-                  { userId: _, username: y },
+          if (p != null) {
+            var g = !1,
+              h = o("WAWebUsernameTypes").asMaybeUsername(f);
+            if (h != null) {
+              var y = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                  { userId: p, username: h },
                 ]),
-                b = C.get(_.toString());
-              h = (b == null ? void 0 : b.wasUpdated) === !0;
+                C = y.get(p.toString());
+              g = (C == null ? void 0 : C.wasUpdated) === !0;
             } else {
-              var v = yield o("WAWebSetUsernameJob").setUsernamesJob([
-                  { userId: _, deleteUsername: !0 },
+              var b = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                  { userId: p, deleteUsername: !0 },
                 ]),
-                S = v.get(_.toString());
-              h = (S == null ? void 0 : S.wasUpdated) === !0;
+                v = b.get(p.toString());
+              g = (v == null ? void 0 : v.wasUpdated) === !0;
             }
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, s),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
               {
-                wid: _,
-                biz: m != null,
-                bizInfo: m,
-                username: g,
-                wasUpdated: h,
+                wid: p,
+                biz: d != null,
+                bizInfo: d,
+                username: f,
+                wasUpdated: g,
                 isUsernameSearch: !0,
               }
             );
           }
           return (
-            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, s),
-            { keyRequired: !0, username: g, isUsernameSearch: !0 }
+            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
+            { keyRequired: !0, username: f, isUsernameSearch: !0 }
           );
         })),
         y.apply(this, arguments)

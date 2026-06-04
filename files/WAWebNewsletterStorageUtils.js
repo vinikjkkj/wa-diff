@@ -56,7 +56,7 @@ __d(
         t.reactionCodesSetting != null &&
           (n.reactionCodesSetting = t.reactionCodesSetting),
         t.adminCount != null && (n.adminCount = t.adminCount),
-        t.adminProfile != null && (n.adminProfile = t.adminProfile),
+        Object.hasOwn(t, "adminProfile") && (n.adminProfile = t.adminProfile),
         t.adminProfilesSettingEnabled != null &&
           (n.adminProfilesSettingEnabled = t.adminProfilesSettingEnabled),
         t.capabilities != null &&

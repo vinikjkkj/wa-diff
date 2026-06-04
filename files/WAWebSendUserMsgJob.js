@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebBotBaseGating",
     "WAWebDBDeviceListFanout",
@@ -62,8 +61,7 @@ __d(
                 ? r
                 : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
             E = { wids: [R, L] };
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            R != null &&
+          R != null &&
             R.isUser() &&
             (E.chatWidSetToIncludeHostedInFanoutOneToOneChatOnly = R);
           var k = yield o("WAWebDBDeviceListFanout").getFanOutList(E);
@@ -92,8 +90,7 @@ __d(
                 y.isBot() &&
                 (S === "sender_revoke" || S === "admin_revoke") &&
                 (k = [].concat(k, [y]));
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
+          o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
             o("WAWebDBUpdateMessageTable").updateMessageTable(p.data.id, {
               senderOrRecipientAccountTypeHosted: !0,
             });

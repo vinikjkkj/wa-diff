@@ -7,29 +7,47 @@ __d(
     "WAWebLocalStorageUtils",
     "WAWebLogoutReason",
     "WAWebPonyfillsUrlSearchParams",
+    "WAWebReloadAfterLogout",
     "WAWebURLUtils",
     "WAWebWAWCInit",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e, t) {
-      t != null &&
-        Object.keys(t).forEach(function (n) {
-          e.set(n, t[n]);
+    function u() {
+      var e,
+        t = n("WAWebPonyfillsUrlSearchParams"),
+        a = new t((e = window.location.search) != null ? e : ""),
+        i = a.get("logout_reason");
+      i != null && o("WAWebLogoutReason").setPrevLogoutReasonCode(i);
+      var l = a.get("logout_message_header"),
+        s = a.get("logout_message_subtext");
+      (l != null || s != null) &&
+        o("WAWebLogoutReason").setPrevCustomLogoutMessage({
+          logoutMessageHeader: l,
+          logoutMessageSubtext: s,
         });
+      var u = a.get("post_logout") === "1";
+      if (!(!u && i == null) && r("WAWebURLUtils").canMuckHistory()) {
+        for (var c of o("WAWebReloadAfterLogout").POST_LOGOUT_URL_MARKERS)
+          a.delete(c);
+        var d = a.toString(),
+          m =
+            d !== ""
+              ? window.location.pathname + "?" + d
+              : window.location.pathname;
+        window.history.replaceState({}, document.title, m);
+      }
     }
-    function c(e, t) {
+    function c() {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i;
-          (t === void 0 && (t = "/"), a === void 0 && (a = {}));
-          var l = o("WAWebLocalStorageUtils").isLogoutDirtyBitSet(),
-            c = o("WAWebLocalStorageUtils").isUserLoggedOut();
-          if (l || c)
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = o("WAWebLocalStorageUtils").isLogoutDirtyBitSet(),
+            a = o("WAWebLocalStorageUtils").isUserLoggedOut();
+          if (t || a)
             try {
               (yield o("WAWebIndexedDBPurge").deleteAllIdb(),
                 yield o("WAWebWAWCInit").initWAWC());
@@ -45,41 +63,28 @@ __d(
                 )
                 .tags("app-wrapper");
             }
-          var d = n("WAWebPonyfillsUrlSearchParams"),
-            m = new d((i = window.location.search) != null ? i : "");
-          l &&
+          if (t) {
+            var i,
+              l = n("WAWebPonyfillsUrlSearchParams"),
+              c = new l((i = window.location.search) != null ? i : "");
             (r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear(),
-            m.set("post_logout", "1"),
-            u(m, a),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[reload] handlePreviousLogoutFailures",
-                ])),
-            ),
-            (window.location.href =
-              window.location.pathname + "?" + m.toString()));
-          var p = m.get("logout_reason");
-          p != null && o("WAWebLogoutReason").setPrevLogoutReasonCode(p);
-          var _ = m.get("logout_message_header"),
-            f = m.get("logout_message_subtext");
-          (_ != null || f != null) &&
-            o("WAWebLogoutReason").setPrevCustomLogoutMessage({
-              logoutMessageHeader: _,
-              logoutMessageSubtext: f,
-            });
-          var g = m.get("post_logout") === "1";
-          if ((g || p != null) && r("WAWebURLUtils").canMuckHistory()) {
-            var h = new d();
-            u(h, a);
-            var y = h.toString() !== "" ? t + "?" + h.toString() : t;
-            window.history.replaceState({}, document.title, y);
+              c.set("post_logout", "1"),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[reload] handlePreviousLogoutFailures",
+                  ])),
+              ),
+              (window.location.href =
+                window.location.pathname + "?" + c.toString()));
           }
+          u();
         })),
         d.apply(this, arguments)
       );
     }
-    l.handlePreviousLogoutFailures = c;
+    ((l.processLogoutReasonAndCleanupUrl = u),
+      (l.handlePreviousLogoutFailures = c));
   },
   98,
 );

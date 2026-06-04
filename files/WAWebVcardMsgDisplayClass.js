@@ -1,11 +1,11 @@
 __d(
   "WAWebVcardMsgDisplayClass",
-  ["cx"],
-  function (t, n, r, o, a, i, l, s) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
-      return "_amks";
+      return "messageVcard";
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

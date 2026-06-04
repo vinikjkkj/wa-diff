@@ -62,42 +62,39 @@ __d(
       );
     }
     function v() {
-      return !0;
-    }
-    function S() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_contact_ui_vcard",
       );
     }
-    function R() {
+    function S() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_global_search_enabled",
       );
     }
-    function L() {
+    function R() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_exposed_logging_enabled",
       );
     }
-    function E() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue("username_key_upsell_mode");
     }
-    function k() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_characters",
       );
     }
-    function I() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_numbers",
       );
     }
-    function T() {
+    function I() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_engagement_network_impact_logging",
       );
     }
-    function D() {
+    function T() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
@@ -115,15 +112,14 @@ __d(
       (l.lidGroupMigrationNonMemberIQEnabled = y),
       (l.usernameGroupMutationEnabled = C),
       (l.usernameEligibilityDebounceMs = b),
-      (l.usernameContactUsyncLidBased = v),
-      (l.usernameContactUiVcardEnabled = S),
-      (l.usernameGlobalSearchEnabled = R),
-      (l.usernameExposedLoggingEnabled = L),
-      (l.usernameKeyUpsellMode = E),
-      (l.usernameKeyUpsellMaxCharacters = k),
-      (l.usernameKeyUpsellMaxNumbers = I),
-      (l.usernameEngagementNetworkImpactLoggingEnabled = T),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = D));
+      (l.usernameContactUiVcardEnabled = v),
+      (l.usernameGlobalSearchEnabled = S),
+      (l.usernameExposedLoggingEnabled = R),
+      (l.usernameKeyUpsellMode = L),
+      (l.usernameKeyUpsellMaxCharacters = E),
+      (l.usernameKeyUpsellMaxNumbers = k),
+      (l.usernameEngagementNetworkImpactLoggingEnabled = I),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = T));
   },
   98,
 );

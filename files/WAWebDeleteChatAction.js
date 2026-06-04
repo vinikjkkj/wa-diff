@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBizChatAssignmentAction",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebChatDeleteBridge",
     "WAWebChatFlowTypes",
@@ -86,10 +85,9 @@ __d(
     }
     function h(t, r) {
       if (
-        (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          o(
-            "WAWebBizCoexUtils",
-          ).deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache(t.id),
+        (o(
+          "WAWebBizCoexUtils",
+        ).deleteChatFromFallbackHostedAdvSystemMsgOnPlaceholderCache(t.id),
         t.promises.sendDelete)
       )
         return t.promises.sendDelete;

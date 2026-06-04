@@ -23,8 +23,9 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function s() {
+    function s(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: e,
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.AI_HOME,

@@ -11,7 +11,6 @@ __d(
     "WAWebApiOrphanRevoke",
     "WAWebBackendApi",
     "WAWebBackendEventBusWorkerCompatible",
-    "WAWebBizCoexGatingUtils",
     "WAWebCastToReactionMsg",
     "WAWebCheckUpdateOrphanReactions",
     "WAWebCommonMsgUtils",
@@ -581,8 +580,7 @@ __d(
         (i.internalId = n.internalId),
         (i.rowId = n.rowId),
         (i.pendingReadReceipt = n.pendingReadReceipt),
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          n.placeholderCreatedWhenAccountIsHosted === !1 &&
+        n.placeholderCreatedWhenAccountIsHosted === !1 &&
           i.senderOrRecipientAccountTypeHosted === !0 &&
           (r = e.id) != null &&
           (r = r.remote) != null &&

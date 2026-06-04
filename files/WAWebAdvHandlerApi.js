@@ -10,8 +10,6 @@ __d(
     "WAWebApiDeviceList",
     "WAWebAppTracker",
     "WAWebBackendWorkerClient",
-    "WAWebBizCoexGatingUtils",
-    "WAWebBizCoexUtils",
     "WAWebCryptoCurve25519",
     "WAWebDeviceListPk",
     "WAWebHandleAdvDeviceNotificationUtils",
@@ -123,50 +121,38 @@ __d(
               .loadIdentityKey(
                 o("WAWebSignalCommonUtils").createSignalAddress(e).toString(),
               );
-            if (
-              ((r =
-                a != null
-                  ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                      o("WAWebSignalCommonUtils").strToBuffer(a),
-                    )
-                  : null),
-              !o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                t.deviceList != null)
-            ) {
-              var i;
-              t.deviceList =
-                (i = t.deviceList) == null
-                  ? void 0
-                  : i.filter(function (e) {
-                      return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-                    });
-            }
+            r =
+              a != null
+                ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
+                    o("WAWebSignalCommonUtils").strToBuffer(a),
+                  )
+                : null;
           }
-          var l = yield o("WAWebApiDeviceList").getDeviceRecord(e),
-            s = yield o(
+          var i = yield o("WAWebApiDeviceList").getDeviceRecord(e),
+            l = yield o(
               "WAWebLastADVCheckTimeApi",
             ).getLastADVDeviceInfoCheckTime(),
-            u = o("WAWebHandleAdvForUsyncApi").handleDeviceNotification(
+            s = o("WAWebHandleAdvForUsyncApi").handleDeviceNotification(
               e,
               n,
               t,
               r,
+              i,
               l,
-              s,
             );
-          if (u) {
-            if (u.clearRecord) {
-              var c;
+          if (s) {
+            if (s.clearRecord) {
+              var u;
               yield o("WAWebIdentityUpdateDeviceTableApi").clearDeviceRecord(
                 e,
-                (l == null ? void 0 : l.devices) || [],
+                (i == null ? void 0 : i.devices) || [],
                 !1,
-                l == null ? void 0 : l.advAccountType,
-                u == null || (c = u.update) == null ? void 0 : c.advAccountType,
+                i == null ? void 0 : i.advAccountType,
+                s == null || (u = s.update) == null ? void 0 : u.advAccountType,
               );
             }
             return o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
-              [{ wid: e, update: u.update, currentRecord: l }],
+              [{ wid: e, update: s.update, currentRecord: i }],
             );
           }
         })),
@@ -179,18 +165,6 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-            e.forEach(function (e) {
-              var t, n;
-              (e == null || (t = e.devices) == null ? void 0 : t.deviceList) !=
-                null &&
-                (e.devices.deviceList =
-                  (n = e.devices.deviceList) == null
-                    ? void 0
-                    : n.filter(function (e) {
-                        return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-                      }));
-            });
           var t = e.map(function (e) {
               return e.wid;
             }),
@@ -339,18 +313,6 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() ||
-            e.forEach(function (e) {
-              var t, n;
-              (e == null || (t = e.devices) == null ? void 0 : t.deviceList) !=
-                null &&
-                (e.devices.deviceList =
-                  (n = e.devices.deviceList) == null
-                    ? void 0
-                    : n.filter(function (e) {
-                        return e.id !== o("WAWebBizCoexUtils").HOSTED_DEVICE_ID;
-                      }));
-            });
           var t = e.map(function (e) {
               return e.wid;
             }),
@@ -388,7 +350,6 @@ __d(
               if (
                 a != null &&
                 !(
-                  o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
                   r.devices.deviceList != null &&
                   r.devices.deviceList.some(function (e) {
                     return !!e.isHosted;

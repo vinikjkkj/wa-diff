@@ -1,11 +1,11 @@
 __d(
   "WAWebAudioMsgDisplayClass",
-  ["cx"],
-  function (t, n, r, o, a, i, l, s) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
-      return "_amkl";
+      return "messageAudio";
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

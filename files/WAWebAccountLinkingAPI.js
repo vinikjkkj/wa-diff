@@ -1058,13 +1058,21 @@ __d(
               y = _.tag,
               C = yield o(
                 "WAWebAccountLinkingCryptoUtils",
-              ).decryptRSAEncryptedPayload(s, g, f, h, y),
-              b = C;
-            if (b.success === !0 && b.link_mutation_succeeded === !0)
+              ).decryptRSAEncryptedPayload(s, g, f, h, y);
+            if (
+              "link_mutation_succeeded" in C &&
+              C.success === !0 &&
+              C.link_mutation_succeeded === !0
+            )
               yield W.updateAccountLinkingState(
                 o("WAWebAccountLinkingConstants").AccountLinkState.Active,
               );
-            else
+            else {
+              var b = "success" in C ? C.success : void 0,
+                v =
+                  "link_mutation_succeeded" in C
+                    ? C.link_mutation_succeeded
+                    : void 0;
               throw (
                 o("WALogger")
                   .ERROR(
@@ -1074,19 +1082,20 @@ __d(
                         " link_mutation_succeeded=",
                         "",
                       ])),
-                    String(b.success),
-                    String(b.link_mutation_succeeded),
+                    String(b),
+                    String(v),
                   )
                   .sendLogs("waffle-linking-mutation-failed"),
                 r("err")("Linking mutation failed")
               );
+            }
           } else {
-            var v = p.value.errorEncryptedPayloadRequestErrors,
-              S = yield o(
+            var S = p.value.errorEncryptedPayloadRequestErrors,
+              R = yield o(
                 "WAWebWaffleIQErrorHandler",
-              ).handleCommonWaffleIQError("linkAction", v.name);
+              ).handleCommonWaffleIQError("linkAction", S.name);
             throw (
-              yield te(S, Z),
+              yield te(R, Z),
               o("WALogger")
                 .ERROR(
                   O ||
@@ -1094,10 +1103,10 @@ __d(
                       "[WAFFLE] Linking mutation RPC error: ",
                       "",
                     ])),
-                  v.name,
+                  S.name,
                 )
                 .sendLogs("waffle-linking-mutation-rpc-error"),
-              r("err")("Linking mutation RPC error: %s", v.name)
+              r("err")("Linking mutation RPC error: %s", S.name)
             );
           }
         })),

@@ -10,7 +10,6 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendJobs.flow",
-    "WAWebBizCoexGatingUtils",
     "WAWebConditionalRevealPreProcessor",
     "WAWebCurrentUser",
     "WAWebDBMsgUtils",
@@ -285,11 +284,10 @@ __d(
           }
           var ee = yield o("WAWebHandleMsgProcessUtils").preProcessMsg(c, T);
           if (
-            (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              ((ee == null ? void 0 : ee.senderOrRecipientAccountTypeHosted) ===
-                !0 && (c.senderOrRecipientAccountTypeHosted = !0),
-              (ee == null ? void 0 : ee.hostedBizEncMismatch) === !0 &&
-                (c.hostedBizEncStateMismatch = !0)),
+            ((ee == null ? void 0 : ee.senderOrRecipientAccountTypeHosted) ===
+              !0 && (c.senderOrRecipientAccountTypeHosted = !0),
+            (ee == null ? void 0 : ee.hostedBizEncMismatch) === !0 &&
+              (c.hostedBizEncStateMismatch = !0),
             c.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST &&
               s.retryCount > 0)

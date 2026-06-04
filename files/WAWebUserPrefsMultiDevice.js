@@ -483,10 +483,7 @@ __d(
     function ge() {
       return (
         (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-            o("WAWebMobilePlatforms").isSMB()
-          ) {
+          if (o("WAWebMobilePlatforms").isSMB()) {
             var e = yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.IS_HOSTED_ME_ACCOUNT,
             );
@@ -498,10 +495,7 @@ __d(
       );
     }
     function he() {
-      if (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-        o("WAWebMobilePlatforms").isSMB()
-      ) {
+      if (o("WAWebMobilePlatforms").isSMB()) {
         var e = r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.IS_HOSTED_ME_ACCOUNT,
         );
@@ -515,29 +509,23 @@ __d(
     function Ce() {
       return (
         (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-            if (
-              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-                o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
-                  .HAVE_PROCESSED_COEX_ADV,
-              ) === !0
-            )
-              return;
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.HAVE_PROCESSED_COEX_ADV,
+          ) !== !0 &&
+            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
               o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.HAVE_PROCESSED_COEX_ADV,
               !0,
-            );
-          }
+            ));
         })),
         Ce.apply(this, arguments)
       );
     }
     function be() {
-      return o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()
-        ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.HAVE_PROCESSED_COEX_ADV,
-          ) === !0
-        : !1;
+      return (
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+          o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.HAVE_PROCESSED_COEX_ADV,
+        ) === !0
+      );
     }
     ((l.clearRegistrationInfo = s),
       (l.setNoiseInfo = c),

@@ -8,7 +8,6 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebApiDeviceList",
-    "WAWebBizCoexGatingUtils",
     "WAWebCryptoCurve25519",
     "WAWebIdentityApiUtils",
     "WAWebProtobufsAdv.pb",
@@ -101,19 +100,17 @@ __d(
           }
           return (
             (u || g(s)) && (n.timestamp = s),
-            o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              (o("WAWebUserPrefsMeUser").isMeAccount(e) &&
-                (yield o(
-                  "WAWebUserPrefsMultiDevice",
-                ).getIsHostedMeAccount()) === !0 &&
-                (n.senderAccountType = o(
-                  "WAWebProtobufsAdv.pb",
-                ).ADVEncryptionType.HOSTED),
-              !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
-                a === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                (n.receiverAccountType = o(
-                  "WAWebProtobufsAdv.pb",
-                ).ADVEncryptionType.HOSTED)),
+            o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+              (yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount()) ===
+                !0 &&
+              (n.senderAccountType = o(
+                "WAWebProtobufsAdv.pb",
+              ).ADVEncryptionType.HOSTED),
+            !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+              a === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+              (n.receiverAccountType = o(
+                "WAWebProtobufsAdv.pb",
+              ).ADVEncryptionType.HOSTED),
             n
           );
         })),

@@ -35,25 +35,29 @@ __d(
                 );
               return;
             }
-            var c = a == null ? void 0 : a.name;
-            if (c == null) return;
-            var d = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var c = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 i,
               ),
-              m = {
-                id: a == null ? void 0 : a.id,
-                name: c,
-                pictureId: a == null || (l = a.picture) == null ? void 0 : l.id,
-                pictureDirectPath:
-                  a == null || (u = a.picture) == null ? void 0 : u.direct_path,
-              };
+              d =
+                (a == null ? void 0 : a.name) == null
+                  ? null
+                  : {
+                      id: a == null ? void 0 : a.id,
+                      name: a == null ? void 0 : a.name,
+                      pictureId:
+                        a == null || (l = a.picture) == null ? void 0 : l.id,
+                      pictureDirectPath:
+                        a == null || (u = a.picture) == null
+                          ? void 0
+                          : u.direct_path,
+                    };
             yield o(
               "WAWebNewsletterAdminNotificationJob",
-            ).updateNewsletterAdminProfile(d, m);
-            var p = o("WAWebJidToWid").newsletterJidToWid(d);
+            ).updateNewsletterAdminProfile(c, d);
+            var m = o("WAWebJidToWid").newsletterJidToWid(c);
             o("WAWebBackendApi").frontendFireAndForget(
               "updateNewsletterAdminProfile",
-              { id: p, adminProfile: m },
+              { id: m, adminProfile: d },
             );
           } catch (e) {
             o("WALogger")

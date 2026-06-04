@@ -1,12 +1,6 @@
 __d(
   "WAWebSignalAddress",
-  [
-    "WAWebApiContact",
-    "WAWebBizCoexGatingUtils",
-    "WAWebSessionScope",
-    "WAWebWidFactory",
-    "err",
-  ],
+  ["WAWebApiContact", "WAWebSessionScope", "WAWebWidFactory", "err"],
   function (t, n, r, o, a, i, l) {
     var e = ":99",
       s = "_status",
@@ -29,16 +23,13 @@ __d(
             if (this.wid.isFbidBot()) return [this.wid.user, "@bot"].join("");
             if (this.wid.isBot()) return [this.wid.user, t, "@c.us"].join("");
             if (this.wid.isHosted()) {
-              if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-                if (t !== e) throw r("err")("Hosted jid with wrong device id");
-                var n = o("WAWebWidFactory").asUserWidOrThrow(this.wid),
-                  a = !n.isLid() && !n.isHostedLid() && n.isUser(),
-                  i = a ? o("WAWebApiContact").getCurrentLid(n) : n;
-                return i == null
-                  ? [this.wid.user, t, "@hosted"].join("")
-                  : [i.user, t, "@hosted.lid"].join("");
-              }
-              throw r("err")("Unexpected hosted jid");
+              if (t !== e) throw r("err")("Hosted jid with wrong device id");
+              var n = o("WAWebWidFactory").asUserWidOrThrow(this.wid),
+                a = !n.isLid() && !n.isHostedLid() && n.isUser(),
+                i = a ? o("WAWebApiContact").getCurrentLid(n) : n;
+              return i == null
+                ? [this.wid.user, t, "@hosted"].join("")
+                : [i.user, t, "@hosted.lid"].join("");
             }
             var l = o("WAWebWidFactory").asUserWidOrThrow(this.wid),
               u = !l.isLid() && l.isUser(),

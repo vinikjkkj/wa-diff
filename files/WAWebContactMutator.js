@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
-    "WAWebBizCoexGatingUtils",
     "WAWebContactCollection",
     "WAWebProtobufsAdv.pb",
     "WAWebWidFactory",
@@ -178,13 +177,11 @@ __d(
     }
     function v(e) {
       var t = e.advAccountType,
-        n = e.contactId;
-      if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-        var r = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
-        o("WAWebContactCollection")
-          .ContactCollection.gadd(n)
-          .set(r ? { isHosted: !0, isOrHasBeenHosted: !0 } : { isHosted: !1 });
-      }
+        n = e.contactId,
+        r = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
+      o("WAWebContactCollection")
+        .ContactCollection.gadd(n)
+        .set(r ? { isHosted: !0, isOrHasBeenHosted: !0 } : { isHosted: !1 });
     }
     function S(e) {
       var t = e.showMe,

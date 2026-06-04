@@ -133,7 +133,7 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebLimitSharingGatingUtils").isOpusEnabled()) {
             var t = _(e),
-              a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               i = o("WATimeUtils").unixTime(),
               l = {
                 sharingLimited: !t,

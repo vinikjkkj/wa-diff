@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebContactSyncLogger",
     "WAWebPerformanceUtils",
-    "WAWebUsernameGatingUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWid",
@@ -28,12 +27,7 @@ __d(
               .withContext("interactive");
           (n.withBusinessProtocol === !0 && u.withBusinessProtocol(),
             n.withPictureProtocol === !0 && u.withPictureProtocol(),
-            o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased()
-              ? u.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID)
-              : (u.withContactProtocol(
-                  o("WAWebUsync").USYNC_ADDRESSING_MODE.PN,
-                ),
-                u.withLidProtocol()));
+            u.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID));
           var c = self.performance.now();
           t.forEach(function (e) {
             u.withUser(new (o("WAWebUsyncUser").USyncUser)().withPhone(e));

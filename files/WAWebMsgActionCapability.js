@@ -7,7 +7,6 @@ __d(
     "WAWebABProps",
     "WAWebAck",
     "WAWebAuraGating",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCtwaAGMUtils",
     "WAWebBizGatingUtils",
     "WAWebBotBaseGating",
@@ -391,7 +390,6 @@ __d(
     function S(e) {
       var t, n;
       return (
-        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
         (e == null || (t = e.id) == null ? void 0 : t.isUser()) === !0 &&
         o(
           "WAWebUserPrefsMultiDevice",
@@ -402,11 +400,24 @@ __d(
       );
     }
     function R(e, t) {
+      var n, r;
       if ((t === void 0 && (t = !1), o("WAWebMsgGetters").getIsBotQuery(e)))
         return !1;
-      var n = o("WAWebFrontendMsgGetters").getChat(e);
-      if (S(n)) return !1;
-      var r =
+      var a = o("WAWebFrontendMsgGetters").getChat(e);
+      if (
+        (a != null &&
+          (n = a.id) != null &&
+          n.isUser() &&
+          ((a == null || (r = a.contact) == null ? void 0 : r.isHosted) ===
+            !0 ||
+            o(
+              "WAWebUserPrefsMultiDevice",
+            ).getIsHostedMeAccountFromLocalStorage() === !0) &&
+          !o("WAWebABProps").getABPropConfigValue("coex_edit_msg_enabled")) ||
+        S(a)
+      )
+        return !1;
+      var i =
         (o("WAWebMsgGetters").getIsEdited(e) &&
           o("WAWebMsgGetters").getIsFailed(e) &&
           !t) ||
@@ -416,16 +427,16 @@ __d(
           o("WAWebFrontendMsgGetters").getChat(e),
         )
       ) {
-        var a, i;
+        var l, s;
         return (
-          ((a =
-            (i = o("WAWebFrontendMsgGetters").getChat(e).newsletterMetadata) ==
+          ((l =
+            (s = o("WAWebFrontendMsgGetters").getChat(e).newsletterMetadata) ==
             null
               ? void 0
-              : i.iAmAdminOrOwner()) != null
-            ? a
+              : s.iAmAdminOrOwner()) != null
+            ? l
             : !1) &&
-          r &&
+          i &&
           !e.isForwarded
         );
       }
@@ -436,7 +447,7 @@ __d(
           o(
             "WAWebMessageEditGatingUtils",
           ).isCrossDeviceMessageEditingEnabled()) &&
-        r &&
+        i &&
         o("WAWebFrontendMsgGetters").getChat(e).canSend &&
         !o("WAWebFrontendMsgGetters").getChat(e).contact.isEnterprise
       );
@@ -666,8 +677,7 @@ __d(
             o("WAWebContactGetters").getIsMe(n.contact) ||
             (n.contact.isEnterprise && !n.contact.id.isBot()) ||
             o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n) ||
-            (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              !o("WAWebChatGetters").getIsGroup(n) &&
+            (!o("WAWebChatGetters").getIsGroup(n) &&
               (n.contact.isHosted === !0 ||
                 o(
                   "WAWebUserPrefsMultiDevice",

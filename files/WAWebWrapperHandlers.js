@@ -2,7 +2,6 @@ __d(
   "WAWebWrapperHandlers",
   [
     "WAWebAfterReadUtils",
-    "WAWebBizCoexGatingUtils",
     "WAWebBizCoexStringUtils",
     "WAWebBizPrivacyUtils",
     "WAWebChatGroupUtils",
@@ -109,34 +108,33 @@ __d(
             );
         },
         u = function () {
-          var t, n;
-          if (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {
-            var r =
+          var t,
+            n,
+            r =
               ((t = o("WAWebFrontendMsgGetters").getChat(e)) == null ||
               (t = t.contact) == null
                 ? void 0
                 : t.isOrHasBeenHosted) === !0;
-            !r ||
-              !(
-                e != null &&
-                (n = e.id) != null &&
-                (n = n.remote) != null &&
-                n.isUser()
-              ) ||
-              o("WAWebModalManager").ModalManager.open(
-                s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  tsNavigationData: {
-                    surface: "unknown",
-                    viewName: "biz-enc-state-mismatch",
-                  },
-                  onOK: o("WAWebModalManager").closeModalManager,
-                  children: o(
-                    "WAWebBizCoexStringUtils",
-                  ).bizEncStateMismatchString(),
-                }),
-                { transition: "modal-flow" },
-              );
-          }
+          !r ||
+            !(
+              e != null &&
+              (n = e.id) != null &&
+              (n = n.remote) != null &&
+              n.isUser()
+            ) ||
+            o("WAWebModalManager").ModalManager.open(
+              s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "biz-enc-state-mismatch",
+                },
+                onOK: o("WAWebModalManager").closeModalManager,
+                children: o(
+                  "WAWebBizCoexStringUtils",
+                ).bizEncStateMismatchString(),
+              }),
+              { transition: "modal-flow" },
+            );
         },
         c = function () {
           var e = o(
