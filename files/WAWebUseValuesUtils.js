@@ -1,16 +1,16 @@
 __d(
   "WAWebUseValuesUtils",
-  ["WAMemoizeCache", "WAWebDummyCacheMap", "WAWebGetters", "lodash"],
+  ["WAMemoizeCache", "WAWebDummyCacheMap", "WAWebGetters"],
   function (t, n, r, o, a, i, l) {
     var e = new (o("WAWebDummyCacheMap").FakeCacheMap)(),
-      s = r("lodash").memoize(function (t) {
+      s = o("WAMemoizeCache").memoizeWithArgs(function (t) {
         return o("WAWebGetters").createGetterFactories({
           root: t,
           createCache: function () {
             return e;
           },
         });
-      }),
+      }, m),
       u = o("WAMemoizeCache").memoizeWithArgs(
         function (e) {
           var t = e[0].$$root,

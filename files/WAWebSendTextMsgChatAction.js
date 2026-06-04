@@ -1,7 +1,6 @@
 __d(
   "WAWebSendTextMsgChatAction",
   [
-    "WACommonTaskScheduler",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WAWebABProps",
@@ -420,12 +419,7 @@ __d(
             ),
             o("WAWebABProps").getABPropConfigValue(
               "web_anr_async_msg_send_handler",
-            ) &&
-              (o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              )
-                ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
+            ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             (s = d.wamMessageSendPerfReporter) == null ||
               s.startRenderedStage(),
             _.length > 0 && e.msgs.add(_),
@@ -439,12 +433,7 @@ __d(
           return (
             o("WAWebABProps").getABPropConfigValue(
               "web_anr_async_msg_send_handler",
-            ) &&
-              (o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              )
-                ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
+            ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             o("WAWebOrchestratorNonPersistedJob")
               .createNonPersistedJob(
                 "sendMessage",

@@ -3,7 +3,6 @@ __d(
   [
     "WAWebCallCollection",
     "WAWebTypedEventEmitter",
-    "WAWebVoipWaCallEnums",
     "WAWebVoipWindowConstants.stylex.const",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,13 +24,7 @@ __d(
         : s;
     }
     function f() {
-      if (d) return c;
-      var t = r("WAWebCallCollection").activeCall;
-      return t != null &&
-        t.isCallLink &&
-        t.getState() === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely
-        ? c
-        : e;
+      return d ? c : e;
     }
     ((l.MIN_WINDOW_WIDTH = e),
       (l.MIN_WINDOW_HEIGHT = s),

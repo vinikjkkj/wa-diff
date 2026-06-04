@@ -3,7 +3,7 @@ __d(
   [
     "WALongInt",
     "WAWebMsgType",
-    "WAWebSharableEventInviteGatingUtils",
+    "WAWebSharableEventGatingUtils",
     "WAWebSharableEventInviteValidationError",
     "WAWebWamEnumE2eFailureReason",
   ],
@@ -18,13 +18,13 @@ __d(
       if (a == null) return null;
       if (
         !o(
-          "WAWebSharableEventInviteGatingUtils",
+          "WAWebSharableEventGatingUtils",
         ).shouldRenderSharableEventInviteBubble()
       ) {
         var i,
           l = (i = a.contextInfo) != null ? i : null;
         return o(
-          "WAWebSharableEventInviteGatingUtils",
+          "WAWebSharableEventGatingUtils",
         ).isSharableEventInviteReceiveEnabled()
           ? {
               msgData: babelHelpers.extends({}, n, {

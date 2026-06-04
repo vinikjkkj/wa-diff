@@ -165,7 +165,7 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
-                .sendLogs(y),
+                .sendLogs(y + "-clear-chats"),
               e
             );
           }
@@ -216,7 +216,7 @@ __d(
                             e,
                           )
                           .catching(r("getErrorSafe")(t))
-                          .sendLogs(y);
+                          .sendLogs(y + "-emit-system-msg");
                       }
                     },
                   );

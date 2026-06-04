@@ -6,6 +6,7 @@ __d(
     "WAWebContactlessChatUtils",
     "WAWebMexCreateInviteCodeJob",
     "WAWebOutContactInviteGating",
+    "WAWebOutContactInviteJourney",
     "WAWebOutContactInviteUtils",
     "WAWebOutContactLoggingUtils",
     "WAWebPhoneNumberSearch",
@@ -24,9 +25,31 @@ __d(
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
-            return !1;
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
+            ? g(e, t)
+            : !1;
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return g(e, t);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
           if (
             !o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(
@@ -75,19 +98,20 @@ __d(
               (l = String(e)),
               (a = o("WAWebOutContactInviteUtils").getInviteMessageText()));
           }
-          o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+          (o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
             entryPoint: n,
             inviteCodeError: l,
             validInviteCode: i,
-          });
+          }),
+            o("WAWebOutContactInviteJourney").clearOutContactInviteJourney());
           var m = encodeURIComponent(a),
             p = window.open("sms:+" + r + "?body=" + m);
-          return (_(p == null), p != null);
+          return (y(p == null), p != null);
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function _(e) {
+    function y(e) {
       e &&
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebToast.react").Toast, {
@@ -95,7 +119,7 @@ __d(
           }),
         );
     }
-    function f(e, t, n) {
+    function C(e, t, n) {
       if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
         return !1;
       var r = e
@@ -110,17 +134,20 @@ __d(
       if (r.length === 0) return !1;
       var a = o("WAWebOutContactInviteUtils").getMultiGroupInviteMessageText(),
         i = encodeURIComponent(a),
-        l = o("WAWebOutContactLoggingUtils").createCompanionInviteSessionId();
-      o("WAWebOutContactLoggingUtils").logMultiGroupInviteContacts(t, r, n, l);
+        l = o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
+      (o("WAWebOutContactLoggingUtils").logMultiGroupInviteContacts(t, r, n, l),
+        o("WAWebOutContactInviteJourney").clearOutContactInviteJourney());
       var s = r
           .map(function (e) {
             return "+" + e;
           })
           .join(","),
         u = window.open("sms://open?addresses=" + s + "&body=" + i);
-      return (_(u == null), u != null);
+      return (y(u == null), u != null);
     }
-    ((l.sendInvite = m), (l.sendMultiGroupInvite = f));
+    ((l.sendInvite = m),
+      (l.sendDeactivatedUserInvite = _),
+      (l.sendMultiGroupInvite = C));
   },
   226,
 );

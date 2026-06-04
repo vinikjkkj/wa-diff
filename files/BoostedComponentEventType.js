@@ -1652,8 +1652,14 @@ __d(
       PROACTIVE_PIPELINE_ELIGIBLE: "proactive_pipeline_eligible",
       PROACTIVE_PIPELINE_FETCH: "proactive_pipeline_fetch",
       GENAI_TRANSPARENCY_IMPRESSION: "genai_transparency_impression",
+      GENAI_TRANSPARENCY_SELF_DISCLOSURE_ELIGIBLE:
+        "genai_transparency_self_disclosure_eligible",
+      GENAI_TRANSPARENCY_TARGETING_GEOLOCATION:
+        "genai_transparency_targeting_geolocation",
       GENAI_TRANSPARENCY_TOGGLE_OPT_IN: "genai_transparency_toggle_opt_in",
       GENAI_TRANSPARENCY_TOGGLE_OPT_OUT: "genai_transparency_toggle_opt_out",
+      GENAI_TRANSPARENCY_SELF_DISCLOSURE_TOGGLE:
+        "genai_transparency_self_disclosure_toggle",
     });
     i.default = e;
   },

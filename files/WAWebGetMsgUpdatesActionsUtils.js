@@ -36,7 +36,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "gkx",
-    "lodash",
+    "omit",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -356,23 +356,24 @@ __d(
                             delete n[Z];
                         (u.type !== n.type && (n.subtype = n.subtype || void 0),
                           i.isHistory === !0 && (n.isNewMsg = !1));
-                        var ee = ["t", "id", "from", "to"],
-                          te = u.t ? r("lodash").omit(n, ee) : n,
-                          ne = u.applyUpdate(te).then(function () {
+                        var ee = u.t
+                            ? r("omit")(n, ["t", "id", "from", "to"])
+                            : n,
+                          te = u.applyUpdate(ee).then(function () {
                             return u;
                           });
                         if (
-                          (I.push(ne), r("WAWebWid").isBroadcast(u.id.remote))
+                          (I.push(te), r("WAWebWid").isBroadcast(u.id.remote))
                         ) {
-                          var re =
+                          var ne =
                             o("WAWebMsgModelUtils").getBroadcastFanoutKeys(u);
-                          re &&
-                            re.forEach(function (e) {
+                          ne &&
+                            ne.forEach(function (e) {
                               var t =
                                 o("WAWebMsgCollection").MsgCollection.get(e);
                               t &&
                                 I.push(
-                                  t.applyUpdate(te).then(function () {
+                                  t.applyUpdate(ee).then(function () {
                                     return u;
                                   }),
                                 );
@@ -393,7 +394,7 @@ __d(
                               L.push({ id: u.id }))
                             : i.add === "search" && L.push({ id: u.id });
                       } else {
-                        var oe;
+                        var re;
                         n.subtype === "payment_action_request_declined" ||
                         n.subtype === "payment_transaction_request_cancelled"
                           ? I.push(
@@ -408,11 +409,11 @@ __d(
                                 "WAWebPaymentRequestMsgAction",
                               ).fulfillPaymentRequest(n),
                             );
-                        var ae =
-                          (oe = o("WAWebChatCollection").ChatCollection.get(
+                        var oe =
+                          (re = o("WAWebChatCollection").ChatCollection.get(
                             n.id.remote,
                           )) != null
-                            ? oe
+                            ? re
                             : r("WAWebNewsletterCollection").get(n.id.remote);
                         if (
                           (i.add === "search" && (n.search = !0),
@@ -426,18 +427,18 @@ __d(
                           i.update !== !0 && L.push(n),
                           i.isHistory !== !0 &&
                             i.add !== "search" &&
-                            ae &&
-                            I.push(x(n, ae)),
+                            oe &&
+                            I.push(x(n, oe)),
                           n.ephemeralOutOfSync && (K++, Q.length < 3))
                         ) {
-                          var ie;
+                          var ae;
                           Q.push(
                             "msgId=" +
                               n.id.toString() +
                               " chatId=" +
-                              ((ie = ae == null ? void 0 : ae.id.toString()) !=
+                              ((ae = oe == null ? void 0 : oe.id.toString()) !=
                               null
-                                ? ie
+                                ? ae
                                 : "unknown"),
                           );
                         }

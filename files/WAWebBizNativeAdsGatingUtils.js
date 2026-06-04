@@ -58,13 +58,19 @@ __d(
         )
       );
     }
+    function _() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_ctwa_web_enable_continuous_duration",
+      );
+    }
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationTargetingModalHawkToolEnabled = s),
       (l.adCreationEntryPointCatalogEnabled = u),
       (l.adCreationEntryPointCatalogProductEnabled = c),
       (l.nativeAdsMvpQE1Enabled = d),
       (l.nativeAdsMvpQE1EnabledNoExposure = m),
-      (l.nativeAdsMvpQE2Enabled = p));
+      (l.nativeAdsMvpQE2Enabled = p),
+      (l.continuousDurationEnabled = _));
   },
   98,
 );

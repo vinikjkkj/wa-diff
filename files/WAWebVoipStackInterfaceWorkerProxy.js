@@ -18,6 +18,7 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipJsWorkerThread",
     "WAWebVoipJsonParsersWeb",
+    "WAWebVoipLobbyEntryPointStore",
     "WAWebVoipLogDrainer",
     "WAWebVoipMessagePortRpc",
     "WAWebVoipP2PConnectionManager",
@@ -660,6 +661,7 @@ __d(
         startCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, n, r, a, i, l, s) {
+              o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint();
               var u = yield t;
               (o("WAWebBweMLModelManager")
                 .initBweMLModelsForCall(u)
@@ -701,6 +703,10 @@ __d(
                 );
                 return;
               }
+              o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                p != null ? p : null,
+                a,
+              );
               var f = yield t;
               (o("WAWebBweMLModelManager")
                 .initBweMLModelsForCall(f)
@@ -739,7 +745,8 @@ __d(
         acceptCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield Z("acceptCall", { isMicEnabled: e, isCameraEnabled: t });
+              (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+                yield Z("acceptCall", { isMicEnabled: e, isCameraEnabled: t }));
             },
           );
           function t(t, n) {
@@ -807,25 +814,29 @@ __d(
                 );
                 return;
               }
-              yield Z("joinOngoingCall", {
-                callId: e,
-                callCreatorJid: t,
-                initialPeerJid: n,
-                groupParticipantsPnUserJid: r,
-                groupParticipantsLidUserJid: a,
-                groupParticipantsDeviceJidsCsv: i,
-                hasVideo: l,
-                groupJid: s,
-                initialGroupTransactionId: u,
-                callCreatorIsNotContact: c,
-                callLinkCode: d,
-                isLightweight: m,
-                scheduledId: p,
-                joinAndAccept: _,
-                chatName: f,
-                lobbyEntryType: g != null ? g : 0,
-                isDeviceSwitch: h != null ? h : !1,
-              });
+              (o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                g != null ? g : null,
+                e,
+              ),
+                yield Z("joinOngoingCall", {
+                  callId: e,
+                  callCreatorJid: t,
+                  initialPeerJid: n,
+                  groupParticipantsPnUserJid: r,
+                  groupParticipantsLidUserJid: a,
+                  groupParticipantsDeviceJidsCsv: i,
+                  hasVideo: l,
+                  groupJid: s,
+                  initialGroupTransactionId: u,
+                  callCreatorIsNotContact: c,
+                  callLinkCode: d,
+                  isLightweight: m,
+                  scheduledId: p,
+                  joinAndAccept: _,
+                  chatName: f,
+                  lobbyEntryType: g != null ? g : 0,
+                  isDeviceSwitch: h != null ? h : !1,
+                }));
             },
           );
           function t(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h) {
@@ -863,6 +874,10 @@ __d(
                   ),
                   -1
                 );
+              o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                n != null ? n : null,
+                null,
+              );
               var l = yield te("previewCallLink", {
                 token: e,
                 videoEnabled: t,
@@ -872,7 +887,7 @@ __d(
               });
               return (
                 l !== 0 &&
-                  o("WALogger").ERROR(
+                  (o("WALogger").ERROR(
                     w ||
                       (w = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: previewCallLink: failed with status ",
@@ -880,6 +895,7 @@ __d(
                       ])),
                     String(l),
                   ),
+                  o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint()),
                 Number(l)
               );
             },
@@ -919,6 +935,10 @@ __d(
                 );
                 return;
               }
+              o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
+                r != null ? r : null,
+                null,
+              );
               var l = yield t;
               (o("WAWebBweMLModelManager")
                 .initBweMLModelsForCall(l)

@@ -81,6 +81,7 @@ __d(
           (e.shortName = o("WAWebBaseModel").prop()),
           (e.pushname = o("WAWebBaseModel").prop()),
           (e.type = o("WAWebBaseModel").prop("in")),
+          (e.isDeactivated = o("WAWebBaseModel").prop(!1)),
           (e.verifiedName = o("WAWebBaseModel").prop()),
           (e.isBusiness = o("WAWebBaseModel").prop()),
           (e.isEnterprise = o("WAWebBaseModel").prop()),

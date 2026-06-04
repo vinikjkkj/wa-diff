@@ -15,19 +15,20 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r = n.xwa2_notify_newsletter_on_admin_metadata_update,
-            a = r.id,
-            i = r.messages,
-            l = r.thread_metadata;
+            a = r.admin_settings,
+            i = r.id,
+            l = r.messages,
+            u = r.thread_metadata;
           try {
-            if (a == null) {
+            if (i == null) {
               o("WALogger")
                 .ERROR(
                   e ||
@@ -41,7 +42,7 @@ __d(
                 );
               return;
             }
-            (yield p(a, l), yield f(a, i));
+            (yield _(i, u), yield g(i, l), yield y(i, a));
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -54,15 +55,15 @@ __d(
               .sendLogs("mex-newsletter-admin-metadata-notification-db-fail");
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if ((t == null ? void 0 : t.geo_states) != null) {
             var n = t.geo_states,
               r = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(e),
@@ -127,15 +128,15 @@ __d(
             }
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t != null)
             try {
               var n = o(
@@ -176,10 +177,47 @@ __d(
                 );
             }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.mexHandleNewsletterAdminNotification = d;
+    function y(e, t) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t == null ? void 0 : t.admin_profiles_enabled;
+          if (n != null)
+            try {
+              var r = o(
+                "WAWebNewsletterValidationUtils",
+              ).toNewsletterJidOrThrow(e);
+              yield o(
+                "WAWebNewsletterAdminNotificationJob",
+              ).updateNewsletterAdminProfileSettings(r, n);
+              var a = o("WAWebJidToWid").newsletterJidToWid(r);
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateNewsletterAdminProfileSetting",
+                { id: a, adminProfilesSettingEnabled: n },
+              );
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[mex][newsletter] admin-profile-settings persist failed",
+                    ])),
+                )
+                .tags("mex", "newsletter")
+                .sendLogs(
+                  "mex-newsletter-admin-metadata-notification-adminprofilesettings-db-fail",
+                );
+            }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    l.mexHandleNewsletterAdminNotification = m;
   },
   98,
 );

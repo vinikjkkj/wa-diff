@@ -3,12 +3,10 @@ __d(
   [
     "invariant",
     "Promise",
-    "WACommonTaskScheduler",
     "WADeprecatedSendIq",
     "WAJids",
     "WALogger",
     "WAWap",
-    "WAWebABProps",
     "WAWebAdvSignatureApi",
     "WAWebBackendApi",
     "WAWebBackendJobs.flow",
@@ -49,9 +47,7 @@ __d(
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a, i;
-          o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-            ? yield r("WACommonTaskScheduler").yield()
-            : yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
+          yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
           var l = Date.now(),
             s = t.peerJid,
             d = t.xmlPayload,
@@ -105,20 +101,18 @@ __d(
                 var I = o("WAWebWidFactory").createWid(g.toString()),
                   T = o("WAWebWidFactory").createWid(k);
                 I.server !== T.server &&
-                  o("WALogger")
-                    .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: reject stanza domain mismatch: peer=",
-                          " recipient=",
-                          " creatorDomain=",
-                          "",
-                        ])),
-                      L(s),
-                      L(g.toString()),
-                      T.server,
-                    )
-                    .sendLogs("voip-reject-domain-mismatch");
+                  o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: reject stanza domain mismatch: peer=",
+                        " recipient=",
+                        " creatorDomain=",
+                        "",
+                      ])),
+                    L(s),
+                    L(g.toString()),
+                    T.server,
+                  );
               } catch (e) {}
           }
           var D = o("WAWap").generateId(),

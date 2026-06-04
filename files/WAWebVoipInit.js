@@ -320,18 +320,16 @@ __d(
         try {
           L = Math.max(0, r("justknobx")._("4786"));
         } catch (e) {
-          (o("WALogger")
-            .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: init retry count JK unavailable, using fallback=",
-                  ": ",
-                  "",
-                ])),
-              b,
-              String(e),
-            )
-            .sendLogs("voip-init-retry-count-jk-missing"),
+          (o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: init retry count JK unavailable, using fallback=",
+                ": ",
+                "",
+              ])),
+            b,
+            String(e),
+          ),
             (L = b));
         }
       return L;

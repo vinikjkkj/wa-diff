@@ -11,7 +11,7 @@ __d(
     "compactMap",
     "err",
     "isEmptyIterable",
-    "lodash",
+    "omit",
     "react",
     "react-transition-group",
     "useWAWebOnUnmount",
@@ -131,7 +131,7 @@ __d(
           var o = S(L),
             a = o[e];
           if (!o || !a) return (p || (p = n("Promise"))).resolve();
-          var i = r("lodash").omit(o, b.LEAVE, b.ENTER),
+          var i = r("omit")(o, ["enter", "leave"]),
             u = x(),
             c = w(u, a);
           return (

@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipUiManager",
   [
-    "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
     "WAWebCallCollection",
@@ -293,35 +292,34 @@ __d(
                 }));
             }
           else W();
-          (o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-            ? r("WACommonTaskScheduler").yield()
-            : o("WAWebReleaseToEventLoop").releaseToEventLoop()
-          ).then(function () {
-            var e;
-            ((e = o("WAWebVoipActivityTracker")).trackUiActivity(
-              e.VoipUiActivity.VOIP_WINDOW_MOUNTING,
-            ),
-              r("WAWebPipController").openVoipUiPiP(S),
-              e.trackUiActivity(e.VoipUiActivity.VOIP_WINDOW_LAUNCHED),
-              o(
-                "WAWebVoipUiDocPipPortalContainer.react",
-              ).WAWebVoipUiDocPipEventEmitter.trigger("setDocPipProps", {
-                callLogMsg: S,
-              }),
-              t.outgoing === !0 &&
-                t.isVideo === !0 &&
-                o("WAWebABProps").getABPropConfigValue(
-                  "web_calling_auto_popout_video",
-                ) &&
-                !o(
-                  "WAWebVoipUiPopoutWindowPortalContainer.react",
-                ).getIsCallActiveInPopoutWindow() &&
-                o("WAWebReleaseToEventLoop")
-                  .releaseToEventLoop()
-                  .then(function () {
-                    X();
-                  }));
-          });
+          o("WAWebReleaseToEventLoop")
+            .releaseToEventLoop()
+            .then(function () {
+              var e;
+              ((e = o("WAWebVoipActivityTracker")).trackUiActivity(
+                e.VoipUiActivity.VOIP_WINDOW_MOUNTING,
+              ),
+                r("WAWebPipController").openVoipUiPiP(S),
+                e.trackUiActivity(e.VoipUiActivity.VOIP_WINDOW_LAUNCHED),
+                o(
+                  "WAWebVoipUiDocPipPortalContainer.react",
+                ).WAWebVoipUiDocPipEventEmitter.trigger("setDocPipProps", {
+                  callLogMsg: S,
+                }),
+                t.outgoing === !0 &&
+                  t.isVideo === !0 &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "web_calling_auto_popout_video",
+                  ) &&
+                  !o(
+                    "WAWebVoipUiPopoutWindowPortalContainer.react",
+                  ).getIsCallActiveInPopoutWindow() &&
+                  o("WAWebReleaseToEventLoop")
+                    .releaseToEventLoop()
+                    .then(function () {
+                      X();
+                    }));
+            });
         } else {
           var P = Date.now();
           o("WALogger").LOG(

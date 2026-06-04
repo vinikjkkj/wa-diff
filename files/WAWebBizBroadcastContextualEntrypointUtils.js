@@ -3,12 +3,16 @@ __d(
   [
     "WAWebAttachMediaCollection",
     "WAWebBizBroadcastMediaProcessor",
+    "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebFileUtils",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaOpaqueData",
     "WAWebMsgGetters",
+    "WAWebWamEnumEntryPoint",
+    "WAWebWamEnumSurfaceType",
     "WAWebWamEnumWebcRmrReasonCode",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -70,7 +74,17 @@ __d(
             }
             return t;
           } catch (e) {
-            return null;
+            return (
+              o(
+                "WAWebBusinessBroadcastUserJourneyLogger",
+              ).BusinessBroadcastUserJourneyLogger.createBroadcastButtonClickFailed(
+                o("WAWebWamEnumEntryPoint").ENTRY_POINT.BB_FORWARD_MODAL,
+                o("WAWebWamEnumSurfaceType").SURFACE_TYPE.FORWARD_MODAL,
+                "attachment",
+                r("getErrorSafe")(e).message,
+              ),
+              null
+            );
           }
         })),
         s.apply(this, arguments)
@@ -80,36 +94,46 @@ __d(
       try {
         var t,
           n,
-          r =
+          a =
             (t = e.interactivePayload) == null || (t = t.buttons) == null
               ? void 0
               : t.at(0);
-        if (r == null) return null;
-        var o = r.name,
-          a = r.buttonParamsJson,
-          i = a != null ? JSON.parse(a) : null;
-        if (o == null || i == null) return null;
-        var l =
-          o === "cta_url"
+        if (a == null) return null;
+        var i = a.name,
+          l = a.buttonParamsJson,
+          s = l != null ? JSON.parse(l) : null;
+        if (i == null || s == null) return null;
+        var u =
+          i === "cta_url"
             ? {
-                displayText: i.display_text,
+                displayText: s.display_text,
                 linkTrackingEnabled:
-                  (n = i.link_tracking_enabled) != null ? n : !1,
+                  (n = s.link_tracking_enabled) != null ? n : !1,
                 type: "cta_url",
-                url: i.url,
+                url: s.url,
               }
-            : o === "cta_call"
+            : i === "cta_call"
               ? {
-                  displayText: i.display_text,
-                  phoneNumber: i.phone_number,
+                  displayText: s.display_text,
+                  phoneNumber: s.phone_number,
                   type: "cta_call",
                 }
-              : o === "quick_reply"
-                ? { displayText: i.display_text, type: "quick_reply" }
+              : i === "quick_reply"
+                ? { displayText: s.display_text, type: "quick_reply" }
                 : null;
-        return l;
+        return u;
       } catch (e) {
-        return null;
+        return (
+          o(
+            "WAWebBusinessBroadcastUserJourneyLogger",
+          ).BusinessBroadcastUserJourneyLogger.createBroadcastButtonClickFailed(
+            o("WAWebWamEnumEntryPoint").ENTRY_POINT.BB_FORWARD_MODAL,
+            o("WAWebWamEnumSurfaceType").SURFACE_TYPE.FORWARD_MODAL,
+            "cta_button",
+            r("getErrorSafe")(e).message,
+          ),
+          null
+        );
       }
     }
     function c(e) {
@@ -157,24 +181,48 @@ __d(
             };
             return l;
           } catch (e) {
-            return null;
+            return (
+              o(
+                "WAWebBusinessBroadcastUserJourneyLogger",
+              ).BusinessBroadcastUserJourneyLogger.createBroadcastButtonClickFailed(
+                o("WAWebWamEnumEntryPoint").ENTRY_POINT.BB_SHARE_MODAL,
+                o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SHARE_MODAL,
+                "attachment",
+                r("getErrorSafe")(e).message,
+              ),
+              null
+            );
           }
         })),
         m.apply(this, arguments)
       );
     }
     function p(e, t) {
-      var n;
       if (e == null || !t) return null;
-      var r = e.trim().split(/\s+/),
-        o = (n = r.pop()) != null ? n : "",
-        a = r.join(" ");
-      return {
-        type: "cta_url",
-        displayText: a,
-        linkTrackingEnabled: !1,
-        url: o,
-      };
+      try {
+        var n,
+          a = e.trim().split(/\s+/),
+          i = (n = a.pop()) != null ? n : "",
+          l = a.join(" ");
+        return {
+          type: "cta_url",
+          displayText: l,
+          linkTrackingEnabled: !1,
+          url: i,
+        };
+      } catch (e) {
+        return (
+          o(
+            "WAWebBusinessBroadcastUserJourneyLogger",
+          ).BusinessBroadcastUserJourneyLogger.createBroadcastButtonClickFailed(
+            o("WAWebWamEnumEntryPoint").ENTRY_POINT.BB_SHARE_MODAL,
+            o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SHARE_MODAL,
+            "cta_button",
+            r("getErrorSafe")(e).message,
+          ),
+          null
+        );
+      }
     }
     ((l.getAttachmentDataFromMsg = e),
       (l.getCTAButtonDataFromMsgText = u),

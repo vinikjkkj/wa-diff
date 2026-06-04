@@ -98,7 +98,7 @@ __d(
               b = h.pics;
             (m == null || m.addPoint("getAllNewslettersMetadata_end"),
               m == null || m.addPoint("processDeletedNewsletters_start"),
-              yield $(f),
+              yield N(f),
               m == null || m.addPoint("processDeletedNewsletters_end"));
             var v = (p = g.map(function (e) {
               return e.idJid;
@@ -112,7 +112,7 @@ __d(
               t === L.DirtyBit &&
                 (m == null ||
                   m.addPoint("processUnsubscribedNewsletters_start"),
-                yield N(v),
+                yield w(v),
                 m == null || m.addPoint("processUnsubscribedNewsletters_end")),
               m == null ||
                 m.addPoint("fetchAdminCountsForOwnerNewsletter_start"),
@@ -121,7 +121,9 @@ __d(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
-                        if (o("WAWebNewsletterMembershipUtil").iAmOwner(e)) {
+                        if (
+                          o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(e)
+                        ) {
                           var t = yield o(
                               "WAWebNewsletterGetAdminInfoJob",
                             ).getNewsletterAdminInfo(
@@ -130,7 +132,8 @@ __d(
                             n = t.adminCount,
                             r = t.adminProfile,
                             a = t.adminProfilesSettingEnabled;
-                          ((e.adminCount = n),
+                          (o("WAWebNewsletterMembershipUtil").iAmOwner(e) &&
+                            (e.adminCount = n),
                             (e.adminProfile = r),
                             (e.adminProfilesSettingEnabled = a));
                         }
@@ -142,15 +145,14 @@ __d(
                   })(),
                 ),
               ),
-              m == null ||
-                m.addPoint("fetchAdminCountsForOwnerNewsletter_start"),
+              m == null || m.addPoint("fetchAdminCountsForOwnerNewsletter_end"),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[queryAndUpdateAllNewsletterMetadataAction] update model",
                   ])),
               ),
-              yield D({
+              yield $({
                 chats: y,
                 metadata: C,
                 pics: b,
@@ -219,54 +221,50 @@ __d(
           try {
             var n,
               a,
-              i,
-              l = o("WAWebNewsletterRoleIdentifier").getRoleByIdentifier(e),
-              s = yield o("WAWebNewsletterMetadataJob").getNewsletterMetadata(
+              i = o("WAWebNewsletterRoleIdentifier").getRoleByIdentifier(e),
+              l = yield o("WAWebNewsletterMetadataJob").getNewsletterMetadata(
                 e,
-                l,
+                i,
                 t == null ? void 0 : t.fields,
               );
-            if (s == null) return;
-            var u = o("WAWebNewsletterModelUtils").mapNewsletterToChat(s),
-              c = o("WAWebNewsletterModelUtils").mapNewsletterToMetadata(s),
-              d =
-                (n = s.newsletterPictureMetadataMixin) == null
+            if (l == null) return;
+            var s = o("WAWebNewsletterModelUtils").mapNewsletterToChat(l),
+              u = o("WAWebNewsletterModelUtils").mapNewsletterToMetadata(l),
+              c =
+                (n = l.newsletterPictureMetadataMixin) == null
                   ? void 0
                   : n.picture,
-              f = d
+              d = c
                 ? [
                     o("WAWebNewsletterModelUtils").mapPicturesToProfilePicThumb(
                       e,
-                      d,
+                      c,
                     ),
                   ]
                 : [],
-              g = void 0,
-              h = (a = t == null ? void 0 : t.adminFields) != null ? a : {},
-              y = h.adminCount;
-            if (y === !0) {
-              var C = yield o(
-                "WAWebNewsletterGetAdminInfoJob",
-              ).getNewsletterAdminInfo(e);
-              g = C.adminCount;
-            }
-            var b = void 0,
-              v = (i = t == null ? void 0 : t.adminFields) != null ? i : {},
-              S = v.capabilities;
+              f = yield D(e, t == null ? void 0 : t.adminFields),
+              g = f.adminCount,
+              h = f.adminProfile,
+              y = f.adminProfilesSettingEnabled,
+              C = void 0;
             return (
-              S === !0 &&
-                (b = yield o(
+              (t == null || (a = t.adminFields) == null
+                ? void 0
+                : a.capabilities) === !0 &&
+                (C = yield o(
                   "WAWebNewsletterGetAdminCapabilitiesJob",
                 ).getNewsletterAdminCapabilities(e)),
-              yield D({
-                chats: [u],
+              yield $({
+                chats: [s],
                 metadata: [
-                  babelHelpers.extends({}, c, {
+                  babelHelpers.extends({}, u, {
                     adminCount: g,
-                    capabilities: b,
+                    adminProfile: h,
+                    adminProfilesSettingEnabled: y,
+                    capabilities: C,
                   }),
                 ],
-                pics: f,
+                pics: d,
                 messageCount: t == null ? void 0 : t.messageCount,
               }),
               o("WALogger").LOG(
@@ -275,7 +273,7 @@ __d(
                     "[newsletters][queryAndUpdateNewsletterMetadataAction] End",
                   ])),
               ),
-              r("WAWebNewsletterCollection").get(s.idJid)
+              r("WAWebNewsletterCollection").get(l.idJid)
             );
           } catch (e) {
             if (
@@ -297,12 +295,42 @@ __d(
         T.apply(this, arguments)
       );
     }
-    function D(e) {
+    function D(e, t) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t != null ? t : {},
+            r = n.adminCount,
+            a = n.adminProfileData,
+            i = n.adminProfilesSettingEnabled;
+          if (r !== !0 && a !== !0 && i !== !0)
+            return {
+              adminCount: void 0,
+              adminProfile: void 0,
+              adminProfilesSettingEnabled: void 0,
+            };
+          var l = yield o(
+            "WAWebNewsletterGetAdminInfoJob",
+          ).getNewsletterAdminInfo(e);
+          return {
+            adminCount: r ? l.adminCount : void 0,
+            adminProfile: a ? l.adminProfile : void 0,
+            adminProfilesSettingEnabled: i
+              ? l.adminProfilesSettingEnabled
+              : void 0,
+          };
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.addSystemMsgs,
             a = e.chats,
             i = e.messageCount,
@@ -315,7 +343,7 @@ __d(
                 "[newsletters][updateCollections] Start",
               ])),
           );
-          var c = w(a, l, s),
+          var c = F(a, l, s),
             d = c.filteredChats,
             m = c.filteredMetadata,
             p = c.filteredPics;
@@ -450,15 +478,15 @@ __d(
           (o("WAWebContactCollection").ContactCollection.add(_, { merge: !0 }),
             u == null || u.addPoint("contactUpdates_end"));
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function P() {
+    function M() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e != null) {
             var t = e.id.map(function (e) {
                 return { id: e.jid.toString(), terminated: !0 };
@@ -473,15 +501,15 @@ __d(
               r("WAWebNewsletterMetadataCollection").add(n, { merge: !0 }));
           }
         })),
-        P.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function M() {
+    function A() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaChat").getChatTable().all(),
             r = t
               .map(function (e) {
@@ -512,10 +540,10 @@ __d(
           }),
             yield (S || (S = n("Promise"))).all(a));
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
+    function F(e, t, n) {
       var a = t
           .filter(function (e) {
             if (e.membershipType != null)
@@ -547,7 +575,7 @@ __d(
     ((l.NewsletterMetadataUpdateEntryPoint = L),
       (l.queryAndUpdateAllNewsletterMetadataAction = E),
       (l.queryAndUpdateNewsletterMetadataAction = I),
-      (l.updateCollections = D));
+      (l.updateCollections = $));
   },
   98,
 );

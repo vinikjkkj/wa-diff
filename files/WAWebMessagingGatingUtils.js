@@ -96,6 +96,20 @@ __d(
         ) === 1
       );
     }
+    function I() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_coex_simple_signal_enabled",
+        ) === 1
+      );
+    }
+    function T() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_biz_simple_signal_group_enabled",
+        ) === !0
+      );
+    }
     ((l.sendKeyDistributionMsgToNewGroups = e),
       (l.sendKeyDistributionMsgMinGroupSize = s),
       (l.sendKeyDistributionMsgMaxGroupSize = u),
@@ -115,7 +129,9 @@ __d(
       (l.isTopLevelMessageSecretCheckEnabled = R),
       (l.isRemoveMessageSecretFromQuotedEnabled = L),
       (l.isMoveMessageSecretTopLevelEnabled = E),
-      (l.isSimpleSignalEnabled = k));
+      (l.isSimpleSignalEnabled = k),
+      (l.isCoexSimpleSignalEnabled = I),
+      (l.isGroupSimpleSignalEnabled = T));
   },
   98,
 );

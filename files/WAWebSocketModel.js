@@ -2,12 +2,10 @@ __d(
   "WAWebSocketModel",
   [
     "Promise",
-    "WACommonTaskScheduler",
     "WAComms",
     "WALogger",
     "WANullthrows",
     "WAPromiseTimeout",
-    "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebAddMeContactAction",
     "WAWebBackendApi",
@@ -130,7 +128,8 @@ __d(
         var i = a.prototype;
         return (
           (i.initialize = function () {
-            var t = this;
+            var t = this,
+              a;
             ((this.clearAppStatesDeferred = q.load()),
               o("WAWebLogForCrash").onLogForCrashReady(function () {
                 (o("WAWebLogForCrash").logForCrash(
@@ -149,63 +148,52 @@ __d(
               this.listenTo(this, "change:stream", function () {
                 return t.$SocketImpl$p_2();
               }),
-              (o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              )
-                ? r("WACommonTaskScheduler").yield()
-                : o("WAWebReleaseToEventLoop").releaseToEventLoop()
-              )
+              o("WAWebReleaseToEventLoop")
+                .releaseToEventLoop()
                 .then(r("WAWebFeatureDetectionDetermineIncognito"))
                 .then(function (e) {
                   t.isIncognito = e;
                 }),
-              o("WAWebBackendEventBus").BackendEventBus.onSetSocketState(
+              (a = o("WAWebBackendEventBus")).BackendEventBus.onSetSocketState(
                 function (e) {
                   t.state = e;
                 },
               ),
-              o("WAWebBackendEventBus").BackendEventBus.onOpenSocketStream(
-                function () {
-                  ((r("WAWebNetworkStatus").online = !0),
-                    r("WAWebNetworkStatus").checkOnline(),
-                    t.openStream().catch(function (t) {
-                      o("WALogger")
-                        .ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[open socket stream] failed to open stream",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(t))
-                        .sendLogs("socket-model-failed-to-open-stream");
-                    }),
-                    t.hasSynced &&
-                      t.set({
-                        stream: o("WAWebSocketConstants").SOCKET_STREAM
-                          .CONNECTED,
-                      }));
-                },
-              ),
-              o(
-                "WAWebBackendEventBus",
-              ).BackendEventBus.onSocketStreamDisconnected(function () {
+              a.BackendEventBus.onOpenSocketStream(function () {
+                ((r("WAWebNetworkStatus").online = !0),
+                  r("WAWebNetworkStatus").checkOnline(),
+                  t.openStream().catch(function (t) {
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[open socket stream] failed to open stream",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(t))
+                      .sendLogs("socket-model-failed-to-open-stream");
+                  }),
+                  t.hasSynced &&
+                    t.set({
+                      stream: o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED,
+                    }));
+              }),
+              a.BackendEventBus.onSocketStreamDisconnected(function () {
                 (t.set({
                   stream: o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED,
                 }),
                   r("WAWebNetworkStatus").checkOnline());
               }),
-              o("WAWebBackendEventBus").BackendEventBus.onCriticalSyncDone(
-                function () {
-                  (o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ws2] observed on_critical_sync_done",
-                      ])),
-                  ),
-                    t.$SocketImpl$p_3());
-                },
-              ),
-              o("WAWebBackendEventBus").BackendEventBus.onMainStreamModeReady(
+              a.BackendEventBus.onCriticalSyncDone(function () {
+                (o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ws2] observed on_critical_sync_done",
+                    ])),
+                ),
+                  t.$SocketImpl$p_3());
+              }),
+              a.BackendEventBus.onMainStreamModeReady(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   if (
                     (o("WALogger").LOG(
@@ -238,9 +226,7 @@ __d(
                     }));
                 }),
               ),
-              o(
-                "WAWebBackendEventBus",
-              ).BackendEventBus.onSocketStreamDisconnected(function () {
+              a.BackendEventBus.onSocketStreamDisconnected(function () {
                 t.stream = o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED;
               }));
           }),

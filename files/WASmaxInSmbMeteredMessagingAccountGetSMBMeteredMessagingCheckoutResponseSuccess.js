@@ -69,7 +69,20 @@ __d(
           })
         : i;
     }
-    function c(e, t) {
+    function c(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "offer_status");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrStringEnum(
+        e,
+        "value",
+        o("WASmaxInSmbMeteredMessagingAccountEnums")
+          .ENUM_ALREADYCLAIMED_EXPIRED_INVALID_NOTFOUND_NOTOWNED_VALID,
+      );
+      return n.success
+        ? o("WAResultOrError").makeResult({ value: n.value })
+        : n;
+    }
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "cost");
@@ -84,90 +97,93 @@ __d(
         s,
       );
       if (!l.success) return l;
-      var c = o("WASmaxParseUtils").optionalChildWithTag(e, "quota", u);
-      if (!c.success) return c;
-      var d = o("WASmaxParseUtils").attrInt(r.value, "before_tax");
+      var d = o("WASmaxParseUtils").optionalChildWithTag(e, "quota", u);
       if (!d.success) return d;
-      var m = o("WASmaxParseUtils").attrInt(r.value, "tax");
+      var m = o("WASmaxParseUtils").optionalChildWithTag(e, "offer_status", c);
       if (!m.success) return m;
-      var p = o("WASmaxParseUtils").attrInt(r.value, "offset");
+      var p = o("WASmaxParseUtils").attrInt(r.value, "before_tax");
       if (!p.success) return p;
-      var _ = o("WASmaxParseUtils").attrString(r.value, "currency");
+      var _ = o("WASmaxParseUtils").attrInt(r.value, "tax");
       if (!_.success) return _;
-      var f = o("WASmaxParseUtils").optional(
-        o("WASmaxParseUtils").attrInt,
-        r.value,
-        "base",
-      );
+      var f = o("WASmaxParseUtils").attrInt(r.value, "offset");
       if (!f.success) return f;
-      var g = o("WASmaxParseUtils").optional(
-        o("WASmaxParseUtils").attrString,
-        r.value,
-        "base_formatted",
-      );
+      var g = o("WASmaxParseUtils").attrString(r.value, "currency");
       if (!g.success) return g;
       var h = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrInt,
         r.value,
-        "discount_percent",
+        "base",
       );
       if (!h.success) return h;
       var y = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrString,
+        r.value,
+        "base_formatted",
+      );
+      if (!y.success) return y;
+      var C = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrInt,
+        r.value,
+        "discount_percent",
+      );
+      if (!C.success) return C;
+      var b = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrInt,
         r.value,
         "before_discount",
       );
-      if (!y.success) return y;
-      var C = o("WASmaxParseUtils").optional(
+      if (!b.success) return b;
+      var v = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrString,
         r.value,
         "before_discount_formatted",
       );
-      if (!C.success) return C;
-      var b = o("WASmaxParseUtils").attrStringEnum(
+      if (!v.success) return v;
+      var S = o("WASmaxParseUtils").attrStringEnum(
         a.value,
         "is_eligible",
         o("WASmaxInSmbMeteredMessagingAccountEnums").ENUM_FALSE_TRUE,
       );
-      if (!b.success) return b;
-      var v = o("WASmaxParseUtils").attrInt(i.value, "billing");
-      if (!v.success) return v;
-      var S = o("WASmaxParseUtils").attrInt(i.value, "available");
       if (!S.success) return S;
-      var R = o("WASmaxParseUtils").attrInt(i.value, "offset");
+      var R = o("WASmaxParseUtils").attrInt(i.value, "billing");
       if (!R.success) return R;
-      var L = o(
+      var L = o("WASmaxParseUtils").attrInt(i.value, "available");
+      if (!L.success) return L;
+      var E = o("WASmaxParseUtils").attrInt(i.value, "offset");
+      if (!E.success) return E;
+      var k = o(
         "WASmaxInSmbMeteredMessagingAccountHackBaseIQResultResponseMixin",
       ).parseHackBaseIQResultResponseMixin(e, t);
-      return L.success
+      return k.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
               {
-                costBeforeTax: d.value,
-                costTax: m.value,
-                costOffset: p.value,
-                costCurrency: _.value,
-                costBase: f.value,
-                costBaseFormatted: g.value,
-                costDiscountPercent: h.value,
-                costBeforeDiscount: y.value,
-                costBeforeDiscountFormatted: C.value,
-                integrityIsEligible: b.value,
-                accountBalanceBilling: v.value,
-                accountBalanceAvailable: S.value,
-                accountBalanceOffset: R.value,
+                costBeforeTax: p.value,
+                costTax: _.value,
+                costOffset: f.value,
+                costCurrency: g.value,
+                costBase: h.value,
+                costBaseFormatted: y.value,
+                costDiscountPercent: C.value,
+                costBeforeDiscount: b.value,
+                costBeforeDiscountFormatted: v.value,
+                integrityIsEligible: S.value,
+                accountBalanceBilling: R.value,
+                accountBalanceAvailable: L.value,
+                accountBalanceOffset: E.value,
               },
-              L.value,
-              { costDiscounts: l.value, quota: c.value },
+              k.value,
+              { costDiscounts: l.value, quota: d.value, offerStatus: m.value },
             ),
           )
-        : L;
+        : k;
     }
     ((l.parseGetSMBMeteredMessagingCheckoutResponseSuccessCostDiscountsDiscount =
       e),
       (l.parseGetSMBMeteredMessagingCheckoutResponseSuccessCostDiscounts = s),
       (l.parseGetSMBMeteredMessagingCheckoutResponseSuccessQuota = u),
-      (l.parseGetSMBMeteredMessagingCheckoutResponseSuccess = c));
+      (l.parseGetSMBMeteredMessagingCheckoutResponseSuccessOfferStatus = c),
+      (l.parseGetSMBMeteredMessagingCheckoutResponseSuccess = d));
   },
   98,
 );

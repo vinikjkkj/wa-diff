@@ -2,10 +2,8 @@ __d(
   "WAWebChatUpdates",
   [
     "WAAbortError",
-    "WACommonTaskScheduler",
     "WALogger",
     "WARaceSignal",
-    "WAWebABProps",
     "WAWebChatGetMessage",
     "WAWebChatLoadMessages",
     "WAWebDBUpdateChatTable",
@@ -63,11 +61,7 @@ __d(
           a = r("WARaceSignal")(
             [n, e.getAbortController().signal],
             function (t) {
-              var n = o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              )
-                ? r("WACommonTaskScheduler").yield()
-                : o("WAWebReleaseToEventLoop").releaseToEventLoop();
+              var n = o("WAWebReleaseToEventLoop").releaseToEventLoop();
               return n
                 .then(function () {
                   var t = o("WAWebChatGetMessage").getLastTimestampMsg(e);

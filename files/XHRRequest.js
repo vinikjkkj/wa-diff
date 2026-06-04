@@ -235,7 +235,9 @@ __d(
             (o.onerror = this.$23(g)),
             o.upload && this.$19 && (o.upload.onprogress = this.$24.bind(this)),
             this.$4 && (o.onprogress = this.$25.bind(this)),
-            t && (this.$17 = setTimeout(this.$26.bind(this), t)),
+            t != null &&
+              t !== 0 &&
+              (this.$17 = setTimeout(this.$26.bind(this), t)),
             this.$21 != null && (o.withCredentials = this.$21),
             o.open(this.$7, a.toString(), !0));
           var h = !1;
@@ -346,7 +348,8 @@ __d(
                   if (i) {
                     var _ = 119500;
                     s === "HTTP_TRANSPORT_ERROR" &&
-                      e.$10 &&
+                      e.$10 != null &&
+                      e.$10 !== 0 &&
                       e.$10 + _ < (c || (c = n("performance"))).now() &&
                       (s = "HTTP_STREAM_TIMEOUT");
                     var f = {

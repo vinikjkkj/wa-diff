@@ -60,6 +60,7 @@ __d(
       CHANNEL_STATUS_VIEWER_TOP_BAR: 55,
       MEDIA_BROWSER_STATUS_MENU: 56,
       ARCHIVE_STATUS_VIEWER: 57,
+      ME_TAB: 58,
     });
     i.STATUS_POST_ORIGIN = e;
   },

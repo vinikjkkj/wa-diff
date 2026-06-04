@@ -2,7 +2,6 @@ __d(
   "WAWebSendMsgChatAction",
   [
     "Promise",
-    "WACommonTaskScheduler",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WATimeUtils",
@@ -339,8 +338,8 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n,
-                  a = t.msg,
-                  i = t.systemMsgs;
+                  r = t.msg,
+                  a = t.systemMsgs;
                 if (
                   (o("WAWebAppTracker").AppTracker.start(
                     o("WAWebAppTracker").AppTrackerType.SendMessage,
@@ -348,29 +347,23 @@ __d(
                   o("WAWebABProps").getABPropConfigValue(
                     "web_anr_async_msg_send_handler",
                   ) &&
-                    (o("WAWebABProps").getABPropConfigValue(
-                      "wmi_worker_scheduler_web",
-                    )
-                      ? yield r("WACommonTaskScheduler").yield()
-                      : yield o(
-                          "WAWebReleaseToEventLoop",
-                        ).releaseToEventLoop()),
-                  (n = a.wamMessageSendPerfReporter) == null ||
+                    (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
+                  (n = r.wamMessageSendPerfReporter) == null ||
                     n.startRenderedStage(),
-                  i)
+                  a)
                 ) {
-                  var l = i.map(function (e) {
+                  var i = a.map(function (e) {
                     return new (o("WAWebMsgModel").Msg)(e);
                   });
-                  e.msgs.add(l);
+                  e.msgs.add(i);
                 }
-                var s = e.msgs.add(a)[0];
+                var l = e.msgs.add(r)[0];
                 return (
                   o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(
                     e,
-                    [s],
+                    [l],
                   ),
-                  s
+                  l
                 );
               },
             );

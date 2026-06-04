@@ -41,12 +41,16 @@ __d(
                   o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE.INTEROP
               ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
                   .CHAT_GROUP
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
+              : e ===
+                  o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE.WA_BACKUP
+                ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
+                    .WA_BACKUP
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
     }
     l.getDownloadOriginFromUploadOrigin = e;
   },

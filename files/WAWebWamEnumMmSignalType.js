@@ -35,6 +35,7 @@ __d(
       BODY_URL_LONG_PRESS: 29,
       USER_BLOCK_REASON_DONT_RECOGNIZE: 30,
       IAB_LPV: 31,
+      IAB_LPV_BODY: 32,
     });
     i.MM_SIGNAL_TYPE = e;
   },

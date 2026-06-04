@@ -95,8 +95,7 @@ __d(
                     "voip: [popout] Safari permission priming failed, falling back to individual prompts",
                   ])),
               )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("voip-safari-permission-prime-fail");
+              .catching(r("getErrorSafe")(e));
           }
         })),
         S.apply(this, arguments)

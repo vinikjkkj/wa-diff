@@ -40,6 +40,7 @@ __d(
       CHANNEL_THREAD_SCREEN: 37,
       ARCHIVE_STATUS_VIEWER: 38,
       ARCHIVE_STORAGE: 39,
+      ME_TAB: 40,
     });
     i.STATUS_ROW_SECTION = e;
   },

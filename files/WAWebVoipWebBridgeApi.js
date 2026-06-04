@@ -41,6 +41,7 @@ __d(
     "WAWebVoipCallStateUtils",
     "WAWebVoipCallSurveyState",
     "WAWebVoipCameraPrewarm",
+    "WAWebVoipCrashContext",
     "WAWebVoipEventConstants",
     "WAWebVoipGatingUtils",
     "WAWebVoipLinkPreviewCallLink",
@@ -1382,7 +1383,8 @@ __d(
         ).videoRendererRegistry.consumeWebCodecsFatalErrorCount();
       },
       startAnrTracking: function () {
-        o("WAWebVoipAnrTracker").startAnrTracking();
+        (o("WAWebVoipCrashContext").ensureVoipCrashContextRegistered(),
+          o("WAWebVoipAnrTracker").startAnrTracking());
       },
       consumeAnrCount: function () {
         return o("WAWebVoipAnrTracker").consumeAnrCount();

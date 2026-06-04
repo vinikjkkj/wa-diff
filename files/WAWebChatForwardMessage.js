@@ -37,7 +37,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWid",
     "asyncToGeneratorRuntime",
-    "lodash",
+    "filterObject",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -392,40 +392,43 @@ __d(
             "quotedRemoteJid",
             "quotedStanzaID",
           ].concat(l)));
-      var c = r("lodash").omit(e.toJSON(), l);
+      var c = new Set(l),
+        d = r("filterObject")(e.toJSON(), function (e, t) {
+          return !c.has(t);
+        });
       (e.ctwaContext &&
-        ((c.body = e.ctwaContext.sourceUrl),
-        (c.type = o("WAWebMsgType").MSG_TYPE.CHAT),
-        (c.mediaObject = void 0)),
+        ((d.body = e.ctwaContext.sourceUrl),
+        (d.type = o("WAWebMsgType").MSG_TYPE.CHAT),
+        (d.mediaObject = void 0)),
         e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
-          ((c.type = o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT),
-          (c.pollVotesSnapshot = o(
+          ((d.type = o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT),
+          (d.pollVotesSnapshot = o(
             "WAWebGeneratePollVotesSnapshotFromPoll",
           ).generatePollVotesSnapshotFromPoll(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))),
-        (c.forwardedNewsletterMessageInfo = o(
+        (d.forwardedNewsletterMessageInfo = o(
           "WAWebGetNewsletterContextForForwardedMsg",
         ).getNewsletterContextForForwardedMsg(e)),
-        (c.forwardedAiBotMessageInfo = o(
+        (d.forwardedAiBotMessageInfo = o(
           "WAWebGetAiBotContextForForwardedMsg",
         ).getAiBotContextForForwardedMsg(e)),
         o("WAWebChatEphemerality").isEphemeralSettingOn(t) &&
-          ((c.ephemeralDuration = o(
+          ((d.ephemeralDuration = o(
             "WAWebChatEphemerality",
           ).getEphemeralSetting(t)),
-          (c.afterReadDuration = o(
+          (d.afterReadDuration = o(
             "WAWebChatEphemerality",
           ).getAfterReadDurationForChat(t))));
-      var d = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
-      d != null && (c.ephemeralSettingTimestamp = d);
-      var m = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
-      m != null && (c.disappearingModeInitiator = m);
-      var p = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
-      p != null && (c.disappearingModeTrigger = p);
-      var _ = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
+      var m = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
+      m != null && (d.ephemeralSettingTimestamp = m);
+      var p = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
+      p != null && (d.disappearingModeInitiator = p);
+      var _ = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
+      _ != null && (d.disappearingModeTrigger = _);
+      var f = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
       if (
-        (_ != null && (c.disappearingModeInitiatedByMe = _),
+        (f != null && (d.disappearingModeInitiatedByMe = f),
         !(
           ((a = e.id.remote) != null && a.isBot()) ||
           ((i = e.mentionedJidList) == null
@@ -435,19 +438,19 @@ __d(
               })) != null
         ) &&
           t.isCAGAdmin() &&
-          (c.messageSecret = self.crypto.getRandomValues(new Uint8Array(32))),
+          (d.messageSecret = self.crypto.getRandomValues(new Uint8Array(32))),
         t.id.isBot())
       ) {
-        var f,
-          g =
-            (f = o("WAWebBotProfileCollection").BotProfileCollection.get(
+        var g,
+          h =
+            (g = o("WAWebBotProfileCollection").BotProfileCollection.get(
               t.id,
             )) == null
               ? void 0
-              : f.personaId;
-        g != null && (c.botPersonaId = g);
+              : g.personaId;
+        h != null && (d.botPersonaId = h);
       }
-      return c;
+      return d;
     }
     ((l.forwardMessages = v), (l.getForwardedMessageFields = R));
   },

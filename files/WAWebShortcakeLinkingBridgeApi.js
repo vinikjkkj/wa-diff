@@ -29,10 +29,11 @@ __d(
           ).WAWebLinkDeviceEvents.triggerShortcakePrologueSent();
         },
         shortcakeVerificationCodeReady: function (t) {
-          var e = t.verificationCode;
+          var e = t.skipHandoffUx,
+            n = t.verificationCode;
           o(
             "WAWebLinkDeviceEvents",
-          ).WAWebLinkDeviceEvents.triggerShortcakeVerificationCodeReady(e);
+          ).WAWebLinkDeviceEvents.triggerShortcakeVerificationCodeReady(n, e);
         },
         shortcakeError: function (t) {
           var e = t.reason;

@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipActionWriteCallLogOfferNotice",
   [
-    "WACommonTaskScheduler",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebCallLogUtils",
@@ -23,10 +22,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebABProps").getABPropConfigValue(
             "enable_web_voip_anr_optimizations",
-          ) &&
-            (o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-              ? yield r("WACommonTaskScheduler").yield()
-              : yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+          ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           var t = e.callCreatorWid,
             n = e.callId,
             a = e.callOutcome,

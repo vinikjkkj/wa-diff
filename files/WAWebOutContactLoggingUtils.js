@@ -4,45 +4,88 @@ __d(
     "WAWebCompanionInviteContactWamEvent",
     "WAWebContactCollection",
     "WAWebOutContactCollection",
+    "WAWebOutContactInviteJourney",
     "WAWebOutContactInviteUtils",
+    "WAWebWamEnumCompanionInviteActionType",
     "WAWebWamEnumCompanionInviteMethodType",
+    "WAWebWamEnumCompanionInviteOriginType",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = e.entryPoint,
-        n = e.inviteCodeError,
-        r = e.validInviteCode;
+    function e(e, t) {
+      return e != null
+        ? o("WAWebWamEnumCompanionInviteOriginType")
+            .COMPANION_INVITE_ORIGIN_TYPE.GROUPS_CREATE_PARTICIPANT_SELECTOR
+        : t
+          ? o("WAWebWamEnumCompanionInviteOriginType")
+              .COMPANION_INVITE_ORIGIN_TYPE.CONTACT_PICKER_SEARCH
+          : o("WAWebWamEnumCompanionInviteOriginType")
+              .COMPANION_INVITE_ORIGIN_TYPE.CONTACT_PICKER_LIST;
+    }
+    function s(e) {
+      var t,
+        n = e.entryPoint,
+        r = e.inviteCodeError,
+        a = e.validInviteCode;
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          p(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
-              .COMPANION_INVITE_METHOD_TYPE.UNKNOWN,
-            companionInviteOrigin: t,
-            companionInviteSessionId: d(),
-            companionValidInviteCode: r,
+              .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
+            companionInviteOrigin: n,
+            companionInviteSessionId:
+              (t = o(
+                "WAWebOutContactInviteJourney",
+              ).getOutContactInviteSessionId()) != null
+                ? t
+                : o(
+                    "WAWebOutContactInviteJourney",
+                  ).createCompanionInviteSessionId(),
+            companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
+              .COMPANION_INVITE_ACTION_TYPE.INVITE_SEND,
+            companionValidInviteCode: a,
           },
-          n != null ? { companionInviteCodeError: n } : {},
+          r != null ? { companionInviteCodeError: r } : {},
         ),
       ).commit();
     }
-    function s(e, t, n, r) {
-      return u.apply(this, arguments);
+    function u(e) {
+      var t = e.entryPoint,
+        n = o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
+      new (o(
+        "WAWebCompanionInviteContactWamEvent",
+      ).CompanionInviteContactWamEvent)(
+        babelHelpers.extends(
+          {},
+          p(),
+          {
+            companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
+              .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
+            companionInviteOrigin: t,
+            companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
+              .COMPANION_INVITE_ACTION_TYPE.IMPRESSION,
+          },
+          n != null ? { companionInviteSessionId: n } : {},
+        ),
+      ).commit();
     }
-    function u() {
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = yield o(
               "WAWebOutContactInviteUtils",
             ).storeMultiGroupInviteSms(e, t, n);
             t.forEach(function (e, t) {
               var o = a[t];
-              c({
+              m({
                 entryPoint: n,
                 inviteCodeError: o != null ? o.toString() : void 0,
                 sessionId: r,
@@ -50,33 +93,43 @@ __d(
             });
           },
         )),
-        u.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function c(e) {
-      var t = e.entryPoint,
-        n = e.inviteCodeError,
-        r = e.sessionId;
+    function m(e) {
+      var t,
+        n = e.entryPoint,
+        r = e.inviteCodeError,
+        a = e.sessionId;
       new (o(
         "WAWebCompanionInviteContactWamEvent",
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          p(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
-              .COMPANION_INVITE_METHOD_TYPE.UNKNOWN,
-            companionInviteOrigin: t,
-            companionInviteSessionId: r != null ? r : d(),
+              .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
+            companionInviteOrigin: n,
+            companionInviteAction: o("WAWebWamEnumCompanionInviteActionType")
+              .COMPANION_INVITE_ACTION_TYPE.INVITE_SEND,
+            companionInviteSessionId:
+              (t =
+                a != null
+                  ? a
+                  : o(
+                      "WAWebOutContactInviteJourney",
+                    ).getOutContactInviteSessionId()) != null
+                ? t
+                : o(
+                    "WAWebOutContactInviteJourney",
+                  ).createCompanionInviteSessionId(),
           },
-          n != null ? { companionInviteCodeError: n } : {},
+          r != null ? { companionInviteCodeError: r } : {},
         ),
       ).commit();
     }
-    function d() {
-      return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-    }
-    function m() {
+    function p() {
       var e = o("WAWebContactCollection").ContactCollection.length,
         t = e + o("WAWebOutContactCollection").OutContactCollection.length;
       return {
@@ -84,10 +137,11 @@ __d(
         companionInviteNumContactsWa: e,
       };
     }
-    ((l.logOneToOneInviteContact = e),
-      (l.logMultiGroupInviteContacts = s),
-      (l.logGroupInviteContact = c),
-      (l.createCompanionInviteSessionId = d));
+    ((l.getOutContactEntryPoint = e),
+      (l.logOneToOneInviteContact = s),
+      (l.logOutContactImpression = u),
+      (l.logMultiGroupInviteContacts = c),
+      (l.logGroupInviteContact = m));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WAWebQuickPromotionClientSideDryRunRuleValidator",
     "WAWebQuickPromotionClientTtlRuleValidator",
     "WAWebQuickPromotionContentRuleValidator",
+    "WAWebQuickPromotionDebugLogger",
     "WAWebQuickPromotionEnabledTimeRuleValidator",
     "WAWebQuickPromotionFiltersRuleValidator",
     "WAWebQuickPromotionForcePassRuleValidator",
@@ -94,10 +95,44 @@ __d(
             }).commit(),
           m.forcePass === !0)
         )
-          return !0;
-        if (p == null) return !1;
+          return (
+            o("WAWebQuickPromotionDebugLogger").qpLog("eligibility.forcePass", {
+              promotionId: a,
+              step: c,
+            }),
+            o("WAWebQuickPromotionDebugLogger").qpLog("eligibility.summary", {
+              promotionId: a,
+              passed: !0,
+              forcePassed: !0,
+            }),
+            !0
+          );
+        if (p == null)
+          return (
+            o("WAWebQuickPromotionDebugLogger").qpLog("eligibility.fail", {
+              promotionId: a,
+              step: c,
+              reason: m.reason,
+            }),
+            o("WAWebQuickPromotionDebugLogger").qpLog("eligibility.summary", {
+              promotionId: a,
+              passed: !1,
+              failedAt: c,
+            }),
+            !1
+          );
+        o("WAWebQuickPromotionDebugLogger").qpLog("eligibility.pass", {
+          promotionId: a,
+          step: c,
+        });
       }
-      return !0;
+      return (
+        o("WAWebQuickPromotionDebugLogger").qpLog("eligibility.summary", {
+          promotionId: a,
+          passed: !0,
+        }),
+        !0
+      );
     }
     l.checkPromotionEligible = s;
   },

@@ -93,6 +93,7 @@ __d(
       BB_SUGGESTED_AUDIENCE_LIST: 88,
       BB_SHARE_MODAL: 89,
       BB_FORWARD_MODAL: 90,
+      ATTACHMENT_TRAY: 91,
     });
     i.ENTRY_POINT = e;
   },

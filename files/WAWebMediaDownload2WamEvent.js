@@ -126,6 +126,7 @@ __d(
               prefetchOrder: [66, e.TYPES.INTEGER],
               sleepModeAffected: [51, e.TYPES.BOOLEAN],
               statusId: [67, e.TYPES.STRING],
+              streamingUsedNonStreamingFallback: [70, e.TYPES.BOOLEAN],
               timeDelayed: [54, e.TYPES.TIMER],
               usedFallbackHint: [40, e.TYPES.STRING],
             },

@@ -24,7 +24,13 @@ __d(
         timeoutInMs: 12e4,
         annotations: t,
       });
-      return ((u = n), n);
+      u = n;
+      var r = window.performance;
+      return (
+        r != null &&
+          n.addAnnotations({ int: { session_age_ms: Math.round(r.now()) } }),
+        n
+      );
     }
     function d(e, t) {
       var n;

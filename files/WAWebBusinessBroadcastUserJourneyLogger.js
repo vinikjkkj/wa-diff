@@ -590,6 +590,15 @@ __d(
               r,
             );
           }),
+          (t.createBroadcastButtonClickFailed = function (t, n, r, a) {
+            o("WAWebBBInfoDrawerLogs").createBroadcastButtonClickFailed(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+            );
+          }),
           (t.newBroadcastButtonClicked = function (t, n, r) {
             o("WAWebBBInfoDrawerLogs").newBroadcastButtonClicked(
               this.$1,

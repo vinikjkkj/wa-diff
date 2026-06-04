@@ -7,6 +7,7 @@ __d(
     "isEmptyObject",
     "isPlainObject",
     "lodash",
+    "omit",
     "toposort",
   ],
   function (t, n, r, o, a, i, l) {
@@ -178,7 +179,7 @@ __d(
               n.session[i] = g(s);
               break;
             case c.DERIVED:
-              ((n.derived[i] = r("lodash").omit(s, "type")), o.add(s.fn.name));
+              ((n.derived[i] = r("omit")(s, ["type"])), o.add(s.fn.name));
               break;
             case c.GETTER: {
               var u = s.fn;

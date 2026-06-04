@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipWebLoadable",
   [
-    "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
     "WAWebEnvironment",
@@ -87,9 +86,7 @@ __d(
             o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_END,
           ),
             o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(n, "wasm_load"),
-            o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-              ? yield r("WACommonTaskScheduler").yield()
-              : yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+            yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           var a = o("WAWebABProps").getABPropConfigValue(
               "web_voip_dynamic_thread_preallocate_count",
             ),

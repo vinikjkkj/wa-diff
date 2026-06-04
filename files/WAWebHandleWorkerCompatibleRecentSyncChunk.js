@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WABinary",
-    "WACommonTaskScheduler",
     "WAGzip",
     "WALogger",
     "WATimeUtils",
@@ -294,9 +293,7 @@ __d(
                   "[recent sync] processing msgs",
                 ])),
             ),
-              o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-                ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
             var W = yield o(
                 "WAWebPreprocessHistorySyncProto",
               ).preprocessHistorySyncProto(M, w),

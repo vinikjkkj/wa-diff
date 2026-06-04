@@ -124,6 +124,8 @@ __d(
               languageCode: [5, e.TYPES.STRING],
               lastBackupTimestamp: [63, e.TYPES.INTEGER],
               lastCloudBackupSize: [185, e.TYPES.INTEGER],
+              lidToPnMappingCount: [253, e.TYPES.INTEGER],
+              lidToUsernameMappingCount: [254, e.TYPES.INTEGER],
               locationCode: [6, e.TYPES.STRING],
               lockFolderHidden: [171, e.TYPES.BOOLEAN],
               lowestAppStandbyBucket: [160, e.TYPES.INTEGER],

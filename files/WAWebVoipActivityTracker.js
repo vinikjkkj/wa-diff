@@ -295,11 +295,28 @@ __d(
           e != null ? e : "none",
           t != null ? t : "none",
         ),
-        V(),
+        H(),
         { lastVoipUiActivity: e, lastVoipUiActivityTimestampSec: t }
       );
     }
     function V() {
+      if (!L && !P) return null;
+      var e = E,
+        t = function (n) {
+          return n != null && e != null ? Math.floor((n - e) / 1e3) : null;
+        },
+        n = S != null ? S : b,
+        r = R != null ? R : v,
+        o = D != null ? D : I,
+        a = x != null ? x : T;
+      return {
+        lastVoipActivity: n,
+        lastVoipActivityTimestampSec: t(r),
+        lastVoipUiActivity: o,
+        lastVoipUiActivityTimestampSec: t(a),
+      };
+    }
+    function H() {
       ((I = null),
         (T = null),
         (D = null),
@@ -313,8 +330,8 @@ __d(
             ])),
         ));
     }
-    function H() {
-      (O(), V(), (E = null));
+    function G() {
+      (O(), H(), (E = null));
     }
     ((l.VoipActivity = y),
       (l.VoipUiActivity = C),
@@ -327,8 +344,9 @@ __d(
       (l.startUiActivityTracking = B),
       (l.trackUiActivity = q),
       (l.consumeUiActivityData = U),
-      (l.clearUiActivityTracking = V),
-      (l.clearAllActivityTracking = H));
+      (l.peekVoipActivitySnapshot = V),
+      (l.clearUiActivityTracking = H),
+      (l.clearAllActivityTracking = G));
   },
   98,
 );

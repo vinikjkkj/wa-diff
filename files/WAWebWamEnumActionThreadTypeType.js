@@ -9,6 +9,7 @@ __d(
       META_AI: 4,
       TO_CHARACTER: 5,
       TO_UGC: 6,
+      AR_SURFACE: 7,
     });
     i.ACTION_THREAD_TYPE_TYPE = e;
   },

@@ -51,6 +51,10 @@ __d(
             (n.parentCompanyName = o("WAWebBaseModel").prop()),
             (n.parentCompanyLogoUrl = o("WAWebBaseModel").prop()),
             (n.obaPhoneNumber = o("WAWebBaseModel").prop()),
+            (n.googlePlaceId = o("WAWebBaseModel").prop()),
+            (n.showGoogleReviews = o("WAWebBaseModel").prop()),
+            (n.showGoogleInfo = o("WAWebBaseModel").prop()),
+            (n.googlePlace = o("WAWebBaseModel").session()),
             (n.customUrl = o("WAWebBaseModel").derived(
               function () {
                 var t;

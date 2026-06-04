@@ -2,7 +2,6 @@ __d(
   "WAWebVoipSctpConnectionManager",
   [
     "Promise",
-    "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
     "WAWebCoreActionsODS",
@@ -841,9 +840,7 @@ __d(
               e.port === 3478
                 ? o("WAWebCoreActionsODS").logCallIceStartedPort3478()
                 : o("WAWebCoreActionsODS").logCallIceStartedPort3480(),
-              o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-                ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
               Pe))
           )
             return (mt(e.id), Xe(e.id), !1);

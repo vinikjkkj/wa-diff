@@ -17,11 +17,11 @@ __d(
       );
     }
     function u() {
-      return (
-        e() &&
-        !o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled")
-      );
+      return o("WAWebMobilePlatforms").isSMB()
+        ? e() &&
+            o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled")
+        : e() &&
+            o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled");
     }
     function c() {
       return o("WAWebMobilePlatforms").isSMB() ? e() : u();

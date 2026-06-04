@@ -201,7 +201,10 @@ __d(
         : c(t, o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS);
     }
     function S(e) {
-      return e == null || !e.iAmAdminOrOwner()
+      return e == null ||
+        !e.iAmAdminOrOwner() ||
+        !e.adminProfilesSettingEnabled ||
+        !e.adminProfile
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
               "channels_admin_profiles_sender_enabled",

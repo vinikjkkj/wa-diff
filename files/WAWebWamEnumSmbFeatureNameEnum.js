@@ -25,6 +25,7 @@ __d(
       BUSINESS_TOOLS_REC_CARD: 19,
       LISTS_CREATION: 20,
       LIST_APPLICATION: 21,
+      SEND_QUICK_REPLY: 22,
     });
     i.SMB_FEATURE_NAME_ENUM = e;
   },

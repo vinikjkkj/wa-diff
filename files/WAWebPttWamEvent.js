@@ -4,6 +4,7 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumPttResultType",
     "WAWebWamEnumPttSourceType",
+    "WAWebWamEnumPttWaveformResult",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -25,6 +26,7 @@ __d(
               pttDraftPlayCnt: [7, e.TYPES.INTEGER],
               pttDraftSeekCnt: [8, e.TYPES.INTEGER],
               pttDuration: [5, e.TYPES.TIMER],
+              pttIntensityAggregateValue: [50, e.TYPES.NUMBER],
               pttLock: [4, e.TYPES.BOOLEAN],
               pttOggPageWriteBucketGte10msPct: [38, e.TYPES.NUMBER],
               pttOggPageWriteBucketLt10msPct: [39, e.TYPES.NUMBER],
@@ -51,6 +53,10 @@ __d(
               pttSource: [2, o("WAWebWamEnumPttSourceType").PTT_SOURCE_TYPE],
               pttStop: [6, e.TYPES.BOOLEAN],
               pttStopTapCnt: [10, e.TYPES.INTEGER],
+              pttWaveformResult: [
+                51,
+                o("WAWebWamEnumPttWaveformResult").PTT_WAVEFORM_RESULT,
+              ],
             },
             [1, 1, 1],
             "regular",

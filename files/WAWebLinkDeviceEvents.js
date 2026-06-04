@@ -24,10 +24,11 @@ __d(
           (n.triggerShortcakePrologueSent = function () {
             this.trigger("link_device_events:shortcake_prologue_sent");
           }),
-          (n.triggerShortcakeVerificationCodeReady = function (t) {
+          (n.triggerShortcakeVerificationCodeReady = function (t, n) {
             this.trigger(
               "link_device_events:shortcake_verification_code_ready",
               t,
+              n,
             );
           }),
           (n.triggerShortcakeError = function (t) {

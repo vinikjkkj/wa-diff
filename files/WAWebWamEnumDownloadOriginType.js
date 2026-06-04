@@ -22,6 +22,7 @@ __d(
       WAMO_BIZ_PROFILE: 17,
       WAMO_PREFERENCES: 18,
       RICH_ORDER_STATUS: 19,
+      WA_BACKUP: 20,
     });
     i.DOWNLOAD_ORIGIN_TYPE = e;
   },

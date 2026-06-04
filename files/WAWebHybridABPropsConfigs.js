@@ -393,6 +393,12 @@ __d(
         '{"enabled_for": {"sender": true,"receiver": true},"enabled_on": {"contact_card": true,"p2p_link": true,"phone_number": true,"username": true}}',
         '{"enabled_for": {"sender": true,"receiver": true},"enabled_on": {"contact_card": true,"p2p_link": true,"phone_number": true,"username": true}}',
       ],
+      p2p_pills_entries_enabled: [
+        31471,
+        "string",
+        '{"enabled_for": {"sender": true,"receiver": true},"enabled_on": {"contact_card": true,"p2p_link": true,"phone_number": true,"username": true}}',
+        '{"enabled_for": {"sender": true,"receiver": true},"enabled_on": {"contact_card": true,"p2p_link": true,"phone_number": true,"username": true}}',
+      ],
       p2p_pills_graphql_enabled: [30629, "bool", !1, !1],
       p2p_pills_max_wait_on_contact_card_send: [30943, "int", 5, 5],
       p2p_pills_new_business_metadata_enabled: [30578, "bool", !1, !1],

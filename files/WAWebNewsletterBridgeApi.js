@@ -423,6 +423,13 @@ __d(
           .gadd(n)
           .set({ adminProfile: e }, { merge: !0 });
       },
+      updateNewsletterAdminProfileSetting: function (t) {
+        var e = t.adminProfilesSettingEnabled,
+          n = t.id;
+        r("WAWebNewsletterMetadataCollection")
+          .gadd(n)
+          .set({ adminProfilesSettingEnabled: e }, { merge: !0 });
+      },
       getActiveNewsletter: function () {
         var e;
         return (e = r("WAWebNewsletterCollection").getActive()) == null

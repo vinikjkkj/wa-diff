@@ -2,11 +2,9 @@ __d(
   "WAWebHistorySyncBackendWorkerV2",
   [
     "WABinary",
-    "WACommonTaskScheduler",
     "WAGzip",
     "WALogger",
     "WAResultOrError",
-    "WAWebABProps",
     "WAWebBackendEventBusWorkerCompatible",
     "WAWebDBCreateLidPnMappings",
     "WAWebGetHistorySyncProgress",
@@ -118,9 +116,7 @@ __d(
                     "[history sync][recent sync] start processing recent sync messages",
                   ])),
               ),
-              o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-                ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
             var C = yield o(
                 "WAWebPreprocessHistorySyncProto",
               ).preprocessHistorySyncProto(g, h),

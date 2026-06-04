@@ -46,8 +46,7 @@ __d(
                   "voip: stack interface load telemetry failed",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("voip-stack-interface-load-telemetry-failed");
+            .catching(r("getErrorSafe")(t));
         });
     }
     function y() {

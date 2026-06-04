@@ -45,6 +45,8 @@ __d(
     "WAWebHandleWaChat",
     "WAWebPaymentNotificationHandler",
     "WAWebPostUnknownStanzaMetric",
+    "WAWebShortcakeLinkingHandleNotification",
+    "WAWebShortcakeLinkingHandlePasskeyPrologueRequest",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -236,6 +238,17 @@ __d(
                       "WAWebHandleHostedNotification",
                     ).handleHostedNotification(e);
                 }
+                if (
+                  n.type != null &&
+                  String(n.type) === "passkey_prologue_request"
+                )
+                  return yield o(
+                    "WAWebShortcakeLinkingHandlePasskeyPrologueRequest",
+                  ).handlePasskeyPrologueRequestNotification(e);
+                if (n.type != null && String(n.type) === "crsc_continuation")
+                  return o(
+                    "WAWebShortcakeLinkingHandleNotification",
+                  ).handleShortcakeLinkingNotification(e);
               } catch (t) {
                 if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
                   var C, b;

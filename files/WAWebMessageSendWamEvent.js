@@ -150,6 +150,7 @@ __d(
               ],
               messageSendT: [11, e.TYPES.TIMER],
               messageType: [2, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
+              messageTypeStr: [92, e.TYPES.STRING],
               networkWasDisconnected: [37, e.TYPES.BOOLEAN],
               oppositeVisibleIdentification: [
                 60,

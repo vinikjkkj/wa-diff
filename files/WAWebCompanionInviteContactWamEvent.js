@@ -2,6 +2,7 @@ __d(
   "WAWebCompanionInviteContactWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumCompanionInviteActionType",
     "WAWebWamEnumCompanionInviteMethodType",
     "WAWebWamEnumCompanionInviteOriginType",
   ],
@@ -12,6 +13,11 @@ __d(
           CompanionInviteContact: [
             8230,
             {
+              companionInviteAction: [
+                8,
+                o("WAWebWamEnumCompanionInviteActionType")
+                  .COMPANION_INVITE_ACTION_TYPE,
+              ],
               companionInviteCodeError: [1, e.TYPES.STRING],
               companionInviteMethod: [
                 2,

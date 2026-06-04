@@ -5,6 +5,7 @@ __d(
     "CometDASHPrefetchTaskQueue",
     "RunComet",
     "cr:13904",
+    "cr:19794",
     "cr:9469",
     "oz-player/configs/OzGlobalConfig",
     "vulture",
@@ -13,14 +14,20 @@ __d(
     "use strict";
     var e,
       s,
-      u =
+      u,
+      c =
         (e = n("cr:9469")) != null
           ? e
           : { preloadVideoPlayerNextgendashWorker: null },
-      c = u.preloadVideoPlayerNextgendashWorker,
-      d = (s = n("cr:13904")) != null ? s : { prefetchUsingNextgendash: null },
-      m = d.prefetchUsingNextgendash,
-      p = (function () {
+      d = c.preloadVideoPlayerNextgendashWorker,
+      m = (s = n("cr:13904")) != null ? s : { prefetchUsingNextgendash: null },
+      p = m.prefetchUsingNextgendash,
+      _ =
+        (u = n("cr:19794")) != null
+          ? u
+          : { releasePrefetchUsingNextgendash: null },
+      f = _.releasePrefetchUsingNextgendash,
+      g = (function () {
         function e() {
           var e = this;
           ((this.$1 = new Map()),
@@ -39,11 +46,11 @@ __d(
         var t = e.prototype;
         return (
           (t.fetchUsingNextgendash = function (t, n) {
-            if (!m) {
+            if (!p) {
               this.fetch(t, n);
               return;
             }
-            m({ prefetchKey: t, representations: n });
+            p({ prefetchKey: t, representations: n });
           }),
           (t.fetch = function (t, n) {
             var e = this.$1.get(t),
@@ -56,10 +63,14 @@ __d(
               this.$1.set(t, e),
               o || e.fetch(n)),
               o && e.fetch(n),
-              c == null || c());
+              d == null || d());
           }),
           (t.get = function (t) {
             return this.$1.get(t);
+          }),
+          (t.releaseUsingNextgendash = function (t) {
+            var e = this.$1.get(t);
+            (e != null && (e.clear(), this.$1.delete(t)), f == null || f(t));
           }),
           (t.schedulePrefetchTask = function (t, n) {
             var e = this.$1.get(t);
@@ -100,9 +111,9 @@ __d(
           e
         );
       })(),
-      _ = new p(),
-      f = _;
-    l.default = f;
+      h = new g(),
+      y = h;
+    l.default = y;
   },
   98,
 );

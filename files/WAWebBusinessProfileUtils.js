@@ -28,6 +28,8 @@ __d(
         "cover_photo",
         "custom_url",
         "fb_page",
+        "google_place",
+        "google_place_id",
         "ig_professional",
         "is_authorized_agent",
         "legal_entity_details",
@@ -41,6 +43,8 @@ __d(
         "profile_options",
         "prompts",
         "service_areas",
+        "show_google_info",
+        "show_google_reviews",
         "structured_address",
         "welcome_message_protocol_mode",
       ],
@@ -144,11 +148,15 @@ __d(
       );
     }
     function y(e) {
+      var t = e == null ? void 0 : e.googlePlaceId;
+      return t != null && t !== "";
+    }
+    function C(e) {
       var t,
         n = e == null || (t = e.profileOptions) == null ? void 0 : t.shopURL;
       n != null && n !== "" && o("WAWebExternalLink.react").openExternalLink(n);
     }
-    function C(e) {
+    function b(e) {
       var t,
         n =
           e == null || (t = e.profileOptions) == null
@@ -157,10 +165,10 @@ __d(
         r = n != null && n !== "" ? n : d;
       o("WAWebExternalLink.react").openExternalLink(r);
     }
-    var b = function (t) {
+    var v = function (t) {
         return _(t);
       },
-      v = function (t) {
+      S = function (t) {
         var e = t.email,
           n = t.landline_number,
           o = t.mobile_number,
@@ -171,21 +179,21 @@ __d(
           a
         );
       },
-      S = function (t) {
+      R = function (t) {
         var e = t.email,
           n = t.landline_number,
           r = t.mobile_number;
-        return v({ email: e, landline_number: n, mobile_number: r });
+        return S({ email: e, landline_number: n, mobile_number: r });
       },
-      R = function (t) {
+      L = function (t) {
         var e = t.email,
           n = t.landline_number,
           r = t.mobile_number,
           o = t.name,
-          a = v({ email: e, landline_number: n, mobile_number: r });
+          a = S({ email: e, landline_number: n, mobile_number: r });
         return babelHelpers.extends({}, a, { name: o });
       },
-      L = function (t) {
+      E = function (t) {
         var e = t.customer_care_details,
           n = t.entity_name,
           o = t.entity_type,
@@ -195,12 +203,12 @@ __d(
           s = { entityName: n, entityType: o, isRegistered: l };
         return (
           r("isStringNullOrEmpty")(a) || (s.entityTypeCustom = a),
-          e && (s.customerCareDetails = S(e)),
-          i && (s.grievanceOfficerDetails = R(i)),
+          e && (s.customerCareDetails = R(e)),
+          i && (s.grievanceOfficerDetails = L(i)),
           s
         );
       },
-      E = function (t) {
+      k = function (t) {
         var e = {
           commerceExperience: t.commerce_experience,
           directConnection: t.direct_connection,
@@ -216,7 +224,7 @@ __d(
           e
         );
       };
-    function k(t) {
+    function I(t) {
       var n = t.id,
         a = t.profile,
         i = t.queryCatalog;
@@ -230,31 +238,35 @@ __d(
         f = a.cover_photo,
         g = a.custom_url,
         h = a.fb_page,
-        y = a.ig_professional,
-        C = a.is_authorized_agent,
-        v = a.legal_entity_details,
-        S = a.member_since_text,
-        R = a.oba_phone_number,
-        k = a.offerings,
-        I = a.parent_company_logo_url,
-        T = a.parent_company_name,
-        D = a.price_tier,
-        x = a.profile_is_linked,
-        $ = a.profile_options,
-        P = a.prompts,
-        N = a.service_areas,
-        M = a.structured_address,
-        w = a.welcome_message_protocol_mode,
-        A = babelHelpers.objectWithoutPropertiesLoose(a, u),
-        F = { id: n };
+        y = a.google_place,
+        C = a.google_place_id,
+        b = a.ig_professional,
+        S = a.is_authorized_agent,
+        R = a.legal_entity_details,
+        L = a.member_since_text,
+        I = a.oba_phone_number,
+        T = a.offerings,
+        D = a.parent_company_logo_url,
+        x = a.parent_company_name,
+        $ = a.price_tier,
+        P = a.profile_is_linked,
+        N = a.profile_options,
+        M = a.prompts,
+        w = a.service_areas,
+        A = a.show_google_info,
+        F = a.show_google_reviews,
+        O = a.structured_address,
+        B = a.welcome_message_protocol_mode,
+        W = babelHelpers.objectWithoutPropertiesLoose(a, u),
+        q = { id: n };
       return (
-        c ? (F.businessHours = p(c)) : (F.businessHours = null),
-        S != null &&
+        c ? (q.businessHours = p(c)) : (q.businessHours = null),
+        L != null &&
           o("WAWebBizGatingUtils").getFmxAgmEnabled() &&
-          (F.memberSinceText = S),
-        $ && (F.profileOptions = E($)),
-        b(a) &&
-          ((F.catalogStatus = d),
+          (q.memberSinceText = L),
+        N && (q.profileOptions = k(N)),
+        v(a) &&
+          ((q.catalogStatus = d),
           i &&
             o("WAWebCatalogCollection")
               .CatalogCollection.findCarouselCatalog(n)
@@ -271,48 +283,64 @@ __d(
                     ])),
                 );
               })),
-        M
-          ? (F.structuredAddress = {
-              streetAddress: M.street_address,
-              cityId: M.city_id,
-              localizedCityName: M.localized_city_name,
-              zipCode: M.zip_code,
+        O
+          ? (q.structuredAddress = {
+              streetAddress: O.street_address,
+              cityId: O.city_id,
+              localizedCityName: O.localized_city_name,
+              zipCode: O.zip_code,
             })
-          : (F.address = r("isStringNullOrEmpty")(l) ? null : l),
-        (F.priceTier = D != null ? D : null),
-        v && (F.legalEntityDetails = L(v)),
+          : (q.address = r("isStringNullOrEmpty")(l) ? null : l),
+        (q.priceTier = $ != null ? $ : null),
+        R && (q.legalEntityDetails = E(R)),
         h &&
-          (F.fbPage = {
+          (q.fbPage = {
             displayName: h.display_name,
             likes: h.likes,
             id: h.id,
           }),
-        y &&
-          (F.igProfessional = { handle: y.ig_handle, followers: y.followers }),
-        x != null && (F.isProfileLinked = !!x),
-        g != null && (F.customUrlPath = g),
-        (F.automatedType =
+        b &&
+          (q.igProfessional = { handle: b.ig_handle, followers: b.followers }),
+        P != null && (q.isProfileLinked = !!P),
+        g != null && (q.customUrlPath = g),
+        (q.automatedType =
           s != null ? s : o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN),
-        (F.welcomeMsgProtocolMode =
-          w != null
-            ? w
+        (q.welcomeMsgProtocolMode =
+          B != null
+            ? B
             : o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE),
-        (F.commandsDescription = _ != null ? _ : null),
-        (F.prompts = P != null ? P : null),
-        (F.commands = m != null ? m : null),
-        (F.coverPhoto = f != null ? { id: f.id, url: f.url } : null),
-        N != null && N.length > 0
-          ? (F.serviceAreas = N)
-          : (F.serviceAreas = null),
-        k != null && k.length > 0 ? (F.offerings = k) : (F.offerings = null),
-        C != null && (F.isAuthorizedAgent = C),
-        T != null && (F.parentCompanyName = T),
-        I != null && (F.parentCompanyLogoUrl = I),
-        R != null && (F.obaPhoneNumber = R),
-        babelHelpers.extends({}, o("WAWebBusinessProfileModel").DEFAULTS, A, F)
+        (q.commandsDescription = _ != null ? _ : null),
+        (q.prompts = M != null ? M : null),
+        (q.commands = m != null ? m : null),
+        (q.coverPhoto = f != null ? { id: f.id, url: f.url } : null),
+        w != null && w.length > 0
+          ? (q.serviceAreas = w)
+          : (q.serviceAreas = null),
+        T != null && T.length > 0 ? (q.offerings = T) : (q.offerings = null),
+        S != null && (q.isAuthorizedAgent = S),
+        x != null && (q.parentCompanyName = x),
+        D != null && (q.parentCompanyLogoUrl = D),
+        I != null && (q.obaPhoneNumber = I),
+        C != null && (q.googlePlaceId = C),
+        F != null && (q.showGoogleReviews = F),
+        A != null && (q.showGoogleInfo = A),
+        y != null &&
+          (q.googlePlace = {
+            placeName: y.place_name,
+            formattedAddress: y.formatted_address,
+            rating: y.rating,
+            userRatingCount: y.user_rating_count,
+            reviewsUri: y.reviews_uri,
+            mapsUri: y.google_maps_uri,
+            websiteUri: y.website_uri,
+            weekdayHours: y.weekday_hours,
+            latitude: y.latitude,
+            longitude: y.longitude,
+          }),
+        babelHelpers.extends({}, o("WAWebBusinessProfileModel").DEFAULTS, W, q)
       );
     }
-    var I = {
+    var T = {
       OPEN: "open",
       CLOSED: "closed",
       OPEN_TODAY: "open_today",
@@ -321,20 +349,20 @@ __d(
       OPEN_24H: "open_24h",
       UNKNOWN: "unknown",
     };
-    function T(e, t) {
+    function D(e, t) {
       if (e.timezone == null) return { status: "unknown" };
       var n = t || new Date(),
         r = new Date(n.toLocaleString("en-US", { timeZone: e.timezone })),
         a = (n.getTime() - r.getTime()) / 1e3 / 60,
         i = e.config[o("WAWebBusinessProfileTypes").DAYS_OF_WEEK[n.getDay()]];
-      if (!i) return { status: I.CLOSED_TODAY };
+      if (!i) return { status: T.CLOSED_TODAY };
       var l = i.mode;
       switch (l) {
         case o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.OPEN_24H:
-          return { status: I.OPEN_24H };
+          return { status: T.OPEN_24H };
         case o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES
           .APPOINTMENT_ONLY:
-          return { status: I.OPEN_APPOINTMENT };
+          return { status: T.OPEN_APPOINTMENT };
         case o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES
           .SPECIFIC_HOURS: {
           var s,
@@ -344,10 +372,10 @@ __d(
             var d = i.hours[0][0],
               m = i.hours[0][1];
             return c >= d && c <= m
-              ? { status: I.OPEN, openUntil: D(a + m) }
+              ? { status: T.OPEN, openUntil: x(a + m) }
               : c <= d
-                ? { status: I.CLOSED, opensAt: D(a + d) }
-                : { status: I.CLOSED };
+                ? { status: T.CLOSED, opensAt: x(a + d) }
+                : { status: T.CLOSED };
           } else if (((u = i.hours) == null ? void 0 : u.length) === 2) {
             var p = i.hours[0][0],
               _ = i.hours[0][1],
@@ -355,49 +383,49 @@ __d(
               g = i.hours[1][1];
             return c >= p && c <= _
               ? {
-                  status: I.OPEN,
-                  openUntil: D(a + _),
-                  additionalOpen: D(a + f),
-                  additionalClose: D(a + g),
+                  status: T.OPEN,
+                  openUntil: x(a + _),
+                  additionalOpen: x(a + f),
+                  additionalClose: x(a + g),
                 }
               : c < p
                 ? {
-                    status: I.CLOSED,
-                    opensAt: D(a + p),
-                    additionalOpen: D(a + f),
-                    additionalClose: D(a + g),
+                    status: T.CLOSED,
+                    opensAt: x(a + p),
+                    additionalOpen: x(a + f),
+                    additionalClose: x(a + g),
                   }
                 : c >= f && c <= g
-                  ? { status: I.OPEN, openUntil: D(a + g) }
+                  ? { status: T.OPEN, openUntil: x(a + g) }
                   : c < f
-                    ? { status: I.CLOSED, opensAt: D(a + f) }
-                    : { status: I.CLOSED };
+                    ? { status: T.CLOSED, opensAt: x(a + f) }
+                    : { status: T.CLOSED };
           }
           break;
         }
       }
       return { status: "unknown" };
     }
-    function D(e) {
+    function x(e) {
       var t = new Date(),
         n = Math.floor(e / 60);
       return (t.setHours(n), t.setMinutes(e % 60), t.setSeconds(0), t);
     }
-    function x(e) {
-      var t = T(e);
+    function $(e) {
+      var t = D(e);
       switch (t.status) {
-        case I.OPEN_24H:
-        case I.OPEN_APPOINTMENT:
-        case I.OPEN:
+        case T.OPEN_24H:
+        case T.OPEN_APPOINTMENT:
+        case T.OPEN:
           return !0;
-        case I.CLOSED:
-        case I.CLOSED_TODAY:
+        case T.CLOSED:
+        case T.CLOSED_TODAY:
         default:
           return !1;
       }
     }
-    function $(e) {
-      var t = x(e)
+    function P(e) {
+      var t = $(e)
           ? s._(/*BTDS*/ "We're currently *open*")
           : s._(/*BTDS*/ "We're currently *closed*"),
         n = s._(/*BTDS*/ "Our business hours are:"),
@@ -414,12 +442,13 @@ __d(
       (l.hasCatalog = f),
       (l.hasShop = g),
       (l.isShopBanned = h),
-      (l.goToShop = y),
-      (l.goToCommerceManager = C),
-      (l.parseBusinessProfile = k),
-      (l.BUSINESS_OPEN_STATUS = I),
-      (l.getBusinessOpenState = T),
-      (l.quickReplyHoursStr = $));
+      (l.isGoogleLinked = y),
+      (l.goToShop = C),
+      (l.goToCommerceManager = b),
+      (l.parseBusinessProfile = I),
+      (l.BUSINESS_OPEN_STATUS = T),
+      (l.getBusinessOpenState = D),
+      (l.quickReplyHoursStr = P));
   },
   226,
 );

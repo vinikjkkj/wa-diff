@@ -17,6 +17,7 @@ __d(
               leafCertCommonName: [3, e.TYPES.STRING],
               leafCertId: [4, e.TYPES.STRING],
               leafCertTtlDays: [5, e.TYPES.INTEGER],
+              rawErrorCode: [8, e.TYPES.STRING],
               signatureVersion: [6, e.TYPES.STRING],
               verificationLatency: [7, e.TYPES.TIMER],
             },

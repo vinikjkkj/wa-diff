@@ -16,6 +16,7 @@ __d(
       BROADCAST: 11,
       MULTI_CHAT: 12,
       INTEROP: 13,
+      WA_BACKUP: 14,
     });
     i.UPLOAD_ORIGIN_TYPE = e;
   },

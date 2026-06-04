@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAAsyncSleep",
     "WABinary",
-    "WACommonTaskScheduler",
     "WAGzip",
     "WALogger",
     "WALongInt",
@@ -572,9 +571,7 @@ __d(
                   "[history sync] start processing non initial status messages",
                 ])),
             ),
-            o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-              ? yield r("WACommonTaskScheduler").yield()
-              : yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+            yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
             !Q(e, ae))
           ) {
             var fe = [],

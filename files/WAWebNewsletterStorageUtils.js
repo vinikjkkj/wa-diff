@@ -56,6 +56,9 @@ __d(
         t.reactionCodesSetting != null &&
           (n.reactionCodesSetting = t.reactionCodesSetting),
         t.adminCount != null && (n.adminCount = t.adminCount),
+        t.adminProfile != null && (n.adminProfile = t.adminProfile),
+        t.adminProfilesSettingEnabled != null &&
+          (n.adminProfilesSettingEnabled = t.adminProfilesSettingEnabled),
         t.capabilities != null &&
           (n.capabilities = new Set(
             Array.from(t.capabilities, function (e) {

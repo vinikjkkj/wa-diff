@@ -17,7 +17,7 @@ __d(
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_bulk_add_contacts_enabled",
+        "web_group_bulk_add_contact",
       );
     }
     function d(e) {
@@ -49,7 +49,7 @@ __d(
       return (Number.isNaN(e) && (e = 0x43bafc6a5bf34), e);
     }
     ((l.contactManagementEnabled = e),
-      (l.bulkAddContactsFromGroupsEnabled = c),
+      (l.bulkAddContactGroupInfoEnabled = c),
       (l.addContactChatHeaderEnabled = m),
       (l.addContactChatListEnabled = p),
       (l.addContactGroupMemberEnabled = _),

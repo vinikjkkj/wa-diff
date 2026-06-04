@@ -87,6 +87,7 @@ __d(
               ],
               messageIsInvisible: [10, e.TYPES.BOOLEAN],
               messageMediaType: [7, o("WAWebWamEnumMediaType").MEDIA_TYPE],
+              messageTypeStr: [28, e.TYPES.STRING],
               retryCount: [3, e.TYPES.INTEGER],
               revokeType: [11, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
               sessionScope: [

@@ -1,15 +1,14 @@
 __d(
   "WAWebBizAdCreationContinuousDurationUtils",
-  ["TWAWebBizAdCreationSpec", "justknobx"],
+  ["TWAWebBizAdCreationSpec", "WAWebBizNativeAdsGatingUtils"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return r("justknobx")._("1330");
+    function e(e) {
+      return (
+        o("WAWebBizNativeAdsGatingUtils").continuousDurationEnabled() &&
+        e === o("TWAWebBizAdCreationSpec").CONTINUOUS_DURATION
+      );
     }
-    function s(t) {
-      return e() && t === o("TWAWebBizAdCreationSpec").CONTINUOUS_DURATION;
-    }
-    ((l.isContinuousDurationFeatureEnabled = e),
-      (l.isContinuousDurationActive = s));
+    l.isContinuousDurationActive = e;
   },
   98,
 );

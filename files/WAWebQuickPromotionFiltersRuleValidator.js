@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCommonQPSurfacesTypes",
     "WAWebProtobufsQuickPromotionSurfaces.pb",
+    "WAWebQuickPromotionDebugLogger",
     "WAWebQuickPromotionFilterUnknown",
     "WAWebQuickPromotionFilters",
     "err",
@@ -16,9 +17,14 @@ __d(
       if (n == null) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
       try {
         return c(n, e, t, 0);
-      } catch (e) {
-        return o("WAWebCommonQPSurfacesTypes")
-          .RESULT_FALSE_FILTERS_CHECK_EXCEPTION;
+      } catch (t) {
+        return (
+          o("WAWebQuickPromotionDebugLogger").qpLog(
+            "eligibility.filter.exception",
+            { promotionId: e.id },
+          ),
+          o("WAWebCommonQPSurfacesTypes").RESULT_FALSE_FILTERS_CHECK_EXCEPTION
+        );
       }
     }
     function c(t, n, a, i) {
@@ -43,22 +49,48 @@ __d(
             f = _.filterName,
             g = o("WAWebQuickPromotionFilters").getFilterValidator(f),
             h = void 0;
-          g != null
-            ? (h = g.filter(n, _.parameters, a))
-            : (h = o("WAWebQuickPromotionFilterUnknown").unknownFilter(
-                _.clientNotSupportedConfig,
-              )
+          if (g != null)
+            ((h = g.filter(n, _.parameters, a)),
+              h === o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
+                ? o("WAWebQuickPromotionDebugLogger").qpLog(
+                    "eligibility.filter.pass",
+                    {
+                      promotionId: n.id,
+                      filterName: f,
+                      parameters: _.parameters,
+                    },
+                  )
+                : o("WAWebQuickPromotionDebugLogger").qpLog(
+                    "eligibility.filter.fail",
+                    {
+                      promotionId: n.id,
+                      filterName: f,
+                      parameters: _.parameters,
+                      reason: h.reason,
+                    },
+                  ));
+          else {
+            var y = o("WAWebQuickPromotionFilterUnknown").unknownFilter(
+              _.clientNotSupportedConfig,
+            );
+            (o("WAWebQuickPromotionDebugLogger").qpLog(
+              "eligibility.filter.unknown",
+              { promotionId: n.id, filterName: f, defaultAllow: y },
+            ),
+              (h = y
                 ? o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
-                : o("WAWebCommonQPSurfacesTypes").RESULT_FALSE_FILTERS_UNKNOWN);
-          var y = d(u, h);
-          if (y != null) return y;
+                : o("WAWebCommonQPSurfacesTypes")
+                    .RESULT_FALSE_FILTERS_UNKNOWN));
+          }
+          var C = d(u, h);
+          if (C != null) return C;
         }
       if (l.length > 0)
-        for (var C = 0; C < l.length; C++) {
-          var b = l[C],
-            v = c(b, n, a, i + 1),
-            S = d(u, v);
-          if (S != null) return S;
+        for (var b = 0; b < l.length; b++) {
+          var v = l[b],
+            S = c(v, n, a, i + 1),
+            R = d(u, S);
+          if (R != null) return R;
         }
       switch (u) {
         case o("WAWebProtobufsQuickPromotionSurfaces.pb").QP$ClauseType.OR:

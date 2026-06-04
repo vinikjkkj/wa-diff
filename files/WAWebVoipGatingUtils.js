@@ -45,8 +45,7 @@ __d(
                 "voip: [portal-mode] bitmaprenderer probe failed",
               ])),
           )
-          .catching(r("getErrorSafe")(t))
-          .sendLogs("voip-portal-probe-fail"),
+          .catching(r("getErrorSafe")(t)),
           (g = !1));
       }
       return g;

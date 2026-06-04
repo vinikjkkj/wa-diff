@@ -1,10 +1,8 @@
 __d(
   "WAWebVoipActionWriteCallLogCallStateChanged",
   [
-    "WACommonTaskScheduler",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebMsgCollection",
@@ -126,9 +124,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
-            ? yield r("WACommonTaskScheduler").yield()
-            : yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
+          yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
           try {
             var t,
               n,
