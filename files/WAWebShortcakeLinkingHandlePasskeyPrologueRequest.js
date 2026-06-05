@@ -142,7 +142,7 @@ __d(
               : o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake handoff: pairing already in progress, skipping handoff stash + ADV rotation",
+                      "Shortcake handoff: in progress, skip stash + ADV rotate",
                     ])),
                 ),
             o("WAWebBackendApi").frontendFireAndForget(

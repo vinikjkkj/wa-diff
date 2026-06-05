@@ -47,6 +47,7 @@ __d(
               g = {
                 id: t.enforcementId,
                 chatId: o("WAWebWidFactory").createWid(a),
+                appealReasonOptions: t.appealReasonOptions,
                 enforcementViolationCategory: t.enforcementViolationCategory,
                 enforcementType: t.enforcementType,
                 enforcementId: t.enforcementId,
@@ -104,6 +105,7 @@ __d(
           m = {
             id: t.enforcementId,
             chatId: o("WAWebWidFactory").createWid(a),
+            appealReasonOptions: t.appealReasonOptions,
             enforcementViolationCategory: t.enforcementViolationCategory,
             enforcementType: t.enforcementType,
             enforcementId: t.enforcementId,
@@ -141,6 +143,7 @@ __d(
         appeal: {
           id: l.enforcementId,
           chatId: o("WAWebWidFactory").createWid(a),
+          appealReasonOptions: l.appealReasonOptions,
           enforcementViolationCategory: l.enforcementViolationCategory,
           enforcementType: l.enforcementType,
           enforcementId: l.enforcementId,
@@ -166,6 +169,7 @@ __d(
             var a = {
               id: e.enforcementId,
               chatId: o("WAWebWidFactory").createWid(t),
+              appealReasonOptions: e.appealReasonOptions,
               enforcementViolationCategory: e.enforcementViolationCategory,
               enforcementType: e.enforcementType,
               enforcementId: e.enforcementId,
@@ -227,6 +231,7 @@ __d(
               g = {
                 id: t.enforcementId,
                 chatId: o("WAWebWidFactory").createWid(a),
+                appealReasonOptions: t.appealReasonOptions,
                 enforcementViolationCategory: t.enforcementViolationCategory,
                 enforcementType: t.enforcementType,
                 enforcementId: t.enforcementId,

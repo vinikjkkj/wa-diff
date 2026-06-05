@@ -273,6 +273,7 @@ __d(
                   skipStarred: !n,
                   skipMessages: r,
                   deleteAutomatedGreetingMessages: !0,
+                  skipScheduledMessages: !0,
                 });
                 (yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
                   o("WAWebWidToJid").widToChatJid(e),

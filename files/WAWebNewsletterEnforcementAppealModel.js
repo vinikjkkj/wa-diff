@@ -17,6 +17,7 @@ __d(
           (t.countryCode = o("WAWebBaseModel").prop()),
           (t.enforcementExtraData = o("WAWebBaseModel").prop()),
           (t.enforcementPolicyInformation = o("WAWebBaseModel").prop()),
+          (t.appealReasonOptions = o("WAWebBaseModel").prop()),
           (t.appealState = o("WAWebBaseModel").prop()),
           (t.appealCreationTime = o("WAWebBaseModel").prop()),
           (t.appealReason = o("WAWebBaseModel").prop()),

@@ -18,6 +18,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebServerPropConstants",
     "WAWebStaleBaseCollection",
+    "WAWebUserPrefsMeUser",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -203,6 +204,21 @@ __d(
           (i.getValid = function (t) {
             var e = this.get(t);
             if (e != null && e.isValid()) return e;
+          }),
+          (i.getMeBusinessProfile = function () {
+            var e;
+            for (var t of [
+              o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
+              o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+            ])
+              if (t != null) {
+                var n = this.get(t);
+                if (n != null) {
+                  if (n.dataSource !== "placeholder") return n;
+                  e = n;
+                }
+              }
+            return e;
           }),
           (i.markProfileAsStale = function (t) {
             var e;

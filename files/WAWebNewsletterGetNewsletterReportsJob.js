@@ -8,22 +8,22 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterReports",
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e,
-              t,
-              n = yield o(
+            var t,
+              n,
+              r = yield o(
                 "WAWebMexFetchNewsletterReportsJob",
-              ).mexFetchNewsletterReports();
+              ).mexFetchNewsletterReports(e);
             return (
-              (e =
-                n == null || (t = n.xwa2_channels_reports) == null
+              (t =
+                r == null || (n = r.xwa2_channels_reports) == null
                   ? void 0
-                  : t.channels_reports) != null
-                ? e
+                  : n.channels_reports) != null
+                ? t
                 : []
             ).map(
               o("WAWebNewsletterReportModelUtils")

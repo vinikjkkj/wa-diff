@@ -1,7 +1,7 @@
 __d(
   "WAWebNuxCtwaSuggestionHelpers",
   [
-    "WAWebBizGatingUtils",
+    "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWASuggestionCollection",
     "WAWebNewCTWASuggestionAction",
     "WAWebNux",
@@ -57,7 +57,7 @@ __d(
         bannerId: t,
       });
       return (
-        o("WAWebBizGatingUtils").adsActionBannersEnabled() &&
+        o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabled() &&
         o("WAWebCTWASuggestionCollection").CTWASuggestionCollection.get(t) !=
           null &&
         o("WAWebNuxCoolOff").shouldShowNUX(

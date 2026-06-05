@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
+    "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWAParseSuggestion",
     "WAWebSchemaCTWASuggestion",
     "asyncToGeneratorRuntime",
@@ -31,7 +31,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebBizGatingUtils").adsActionBannersEnabled()) {
+          if (o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabled()) {
             var n = t.bannerLocale,
               r = babelHelpers.objectWithoutPropertiesLoose(t, c),
               a = yield o("WAWebBackendApi").frontendSendAndReceive(

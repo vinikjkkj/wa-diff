@@ -84,15 +84,19 @@ __d(
             T = x[0];
           }
           var $ = yield o(
-            "WAWebHandleForMessageRange",
-          ).handleForActiveMessageRange(a, T);
+              "WAWebHandleForMessageRange",
+            ).handleForActiveMessageRange(a, T),
+            P = l === "scheduledMsgReveal";
           if (
-            !$.has(
-              o("WAWebHandleForMessageRangeEnums").ActiveRangeHandlerAction
-                .DropMessage,
+            !(
+              !P &&
+              $.has(
+                o("WAWebHandleForMessageRangeEnums").ActiveRangeHandlerAction
+                  .DropMessage,
+              )
             )
           ) {
-            var P = $.has(
+            var N = $.has(
               o("WAWebHandleForMessageRangeEnums").ActiveRangeHandlerAction
                 .SkipUI,
             );
@@ -286,12 +290,12 @@ __d(
                     T.type,
                     T.subtype,
                     L,
-                    P,
+                    N,
                   )
                   .tags("messaging"));
               try {
-                var N,
-                  M = ((N = T.threadIds) != null ? N : []).map(function (e) {
+                var M,
+                  w = ((M = T.threadIds) != null ? M : []).map(function (e) {
                     return e.toString();
                   });
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -299,14 +303,14 @@ __d(
                   {
                     msgIds: [T.id.toString()],
                     chatIds: [a.toString()],
-                    threadIds: M,
+                    threadIds: w,
                   },
                 ),
                   yield o(
                     "WAWebCheckUpdateOrphanReactions",
                   ).checkUpdateForOrphanReactions([T.id.toString()]));
               } catch (e) {
-                var w = r("getErrorSafe")(e);
+                var A = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
                     _ ||
@@ -318,17 +322,17 @@ __d(
                     String(T.id),
                     String(a),
                   )
-                  .catching(w);
+                  .catching(A);
               }
-              var A = !1;
+              var F = !1;
               if (
                 l === "createChat" &&
                 T.type !== o("WAWebMsgType").MSG_TYPE.CHAT &&
                 a.isRegularUser()
               ) {
-                var F = yield o("WAWebApiChatCommon").getChatRecord(a);
-                F == null &&
-                  ((A = !0),
+                var O = yield o("WAWebApiChatCommon").getChatRecord(a);
+                O == null &&
+                  ((F = !0),
                   o("WALogger").WARN(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -338,8 +342,8 @@ __d(
                     a.toLogString(),
                   ));
               }
-              !P &&
-                !A &&
+              !N &&
+                !F &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "processMultipleMessages",
                   {
@@ -374,7 +378,7 @@ __d(
                 );
                 return;
               }
-              var O = r("getErrorSafe")(e);
+              var B = r("getErrorSafe")(e);
               r("gkx")("26258")
                 ? o("WALogger")
                     .WARN(
@@ -389,9 +393,9 @@ __d(
                         ])),
                       String(T.id),
                       String(a),
-                      O.name,
-                      O.message,
-                      O.stack,
+                      B.name,
+                      B.message,
+                      B.stack,
                     )
                     .tags("messaging")
                 : o("WALogger")
@@ -407,9 +411,9 @@ __d(
                         ])),
                       String(T.id),
                       String(a),
-                      O.name,
-                      O.message,
-                      O.stack,
+                      B.name,
+                      B.message,
+                      B.stack,
                     )
                     .tags("messaging")
                     .sendLogs(

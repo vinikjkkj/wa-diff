@@ -16,6 +16,7 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufMsgKeyUtils",
     "WAWebSchemaMessage",
+    "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -256,6 +257,13 @@ __d(
                 (a = a.filter(function (e) {
                   return e.isStarred === void 0;
                 })),
+              (r == null ? void 0 : r.skipScheduledMessages) === !0 &&
+                (a = a.filter(function (e) {
+                  return (
+                    e.viewMode !==
+                    o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
+                  );
+                })),
               n === o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage)
             ) {
               for (var i, l = a.length - 1; l >= 0; l--)
@@ -331,10 +339,17 @@ __d(
             s = [];
           return (
             l.forEach(function (e) {
-              e != null &&
-                (((n == null ? void 0 : n.skipStarred) !== !1 &&
-                  e.isStarred != null) ||
-                  s.push(e.id));
+              if (e != null) {
+                if (
+                  ((n == null ? void 0 : n.skipStarred) !== !1 &&
+                    e.isStarred != null) ||
+                  ((n == null ? void 0 : n.skipScheduledMessages) === !0 &&
+                    e.viewMode ===
+                      o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE)
+                )
+                  return;
+                s.push(e.id);
+              }
             }),
             s
           );

@@ -2,6 +2,7 @@ __d(
   "WAWebMessageListGenerateMsgListRows",
   [
     "WALogger",
+    "WAThrottle",
     "WATimeUtils",
     "WAWebFrontendMsgGetters",
     "WAWebMaybeInsertHistoryBundleInfo",
@@ -11,7 +12,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebThreadMsgUtils",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -247,7 +247,7 @@ __d(
         n >= 2 && g(e, t, n);
       }
     }
-    var g = r("lodash").debounce(
+    var g = o("WAThrottle").throttle(
       function (t, n, r) {
         return o("WALogger").WARN(
           e ||

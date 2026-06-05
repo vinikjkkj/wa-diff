@@ -60,6 +60,7 @@ __d(
                 ).queryAndRemoveMessagesInMessageRange(t.id, a, {
                   skipStarred: i,
                   skipRecentSystemMessages: !1,
+                  skipScheduledMessages: !0,
                 });
               }),
             ),

@@ -1028,6 +1028,11 @@ __d(
                         ])),
                     )
                     .catching(r("getErrorSafe")(e));
+                })
+                .finally(function () {
+                  o(
+                    "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+                  ).syncVoipPersistentFSWithIdleCallback();
                 }),
               o(
                 "WAWebVoipHandleNativeCallEventMediaHandlers",
@@ -1035,9 +1040,6 @@ __d(
               o(
                 "WAWebVoipHandleNativeCallEventCallLinkHandlers",
               ).resetCallLinkHandlerState(),
-              o(
-                "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
-              ).syncVoipPersistentFSWithIdleCallback(),
               o("WAWebVoipErrorLogUpload").maybeUploadErrorLogs());
           }
         })),

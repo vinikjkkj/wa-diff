@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAResolvable",
     "WAWebPonyfillsIdleCallback",
     "asyncToGeneratorRuntime",
     "err",
@@ -20,45 +19,82 @@ __d(
       p,
       _,
       f,
-      g = "/wa_voip_storage",
-      h = 1e3,
-      y = 10,
-      C = !1,
-      b = null,
-      v = !1,
-      S = null,
-      R = 0,
-      L = null,
-      E = 5e3,
-      k = 2;
-    function I(e, t) {
-      return new (f || (f = n("Promise")))(function (n, o) {
+      g,
+      h = "/wa_voip_storage",
+      y = 1e3,
+      C = 10,
+      b = !1,
+      v = null,
+      S = !1,
+      R = null,
+      L = 0,
+      E = null,
+      k = 5e3,
+      I = 2;
+    function T(e, t) {
+      return new (g || (g = n("Promise")))(function (n, o) {
         var a = !1,
           i = window.setTimeout(function () {
             a ||
               ((a = !0),
-              o(r("err")("[IDBFS] syncfs timed out after " + E + "ms")));
-          }, E);
+              o(r("err")("[IDBFS] syncfs timed out after " + k + "ms")));
+          }, k);
         e.syncfs(t, function (e) {
           a || ((a = !0), window.clearTimeout(i), e ? o(e) : n());
         });
       });
     }
-    var T = r("once")(
+    function D(e) {
+      return e == null || typeof e != "object"
+        ? !1
+        : e.name === "InvalidStateError";
+    }
+    function x(e) {
+      var t = e.filesystems.IDBFS;
+      t == null || t.quit == null || t.quit();
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            yield T(e, !1);
+          } catch (t) {
+            if (!D(t)) throw t;
+            x(e);
+            try {
+              yield T(e, !1);
+            } catch (e) {
+              if (!D(e)) throw e;
+              o("WALogger").WARN(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [IDBFS] sync skipped: IndexedDB connection closing (best-effort)",
+                  ])),
+              );
+            }
+          }
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    var N = r("once")(
       (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.FS;
           if (!a) throw r("err")("[IDBFS] FS not available in WASM module");
           try {
-            a.mkdir(g);
+            a.mkdir(h);
           } catch (e) {}
-          a.mount(a.filesystems.IDBFS, {}, g);
+          a.mount(a.filesystems.IDBFS, {}, h);
           for (
             var i = function* () {
                 try {
                   return (
-                    yield I(a, !0),
-                    (C = !0),
+                    yield T(a, !0),
+                    (b = !0),
                     o("WALogger").LOG(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -70,7 +106,7 @@ __d(
                     { v: void 0 }
                   );
                 } catch (e) {
-                  if (u < k) {
+                  if (u < I) {
                     var t = (u + 1) * 1e4;
                     (o("WALogger").LOG(
                       s ||
@@ -82,7 +118,7 @@ __d(
                       u + 1,
                       t,
                     ),
-                      yield new (f || (f = n("Promise")))(function (e) {
+                      yield new (g || (g = n("Promise")))(function (e) {
                         window.setTimeout(function () {
                           o("WAWebPonyfillsIdleCallback").requestIdleCallback(
                             function () {
@@ -96,7 +132,7 @@ __d(
               },
               l,
               u = 0;
-            u <= k;
+            u <= I;
             u++
           )
             if (((l = yield* i()), l)) return l.v;
@@ -106,44 +142,39 @@ __d(
         };
       })(),
     );
-    function D(e) {
-      return x.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function x() {
+    function w() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!C) throw r("err")("[IDBFS] Persistent FS not initialized");
-          if (b != null) return b.promise;
-          var t = new (o("WAResolvable").Resolvable)();
-          b = t;
-          try {
-            var n = e.FS;
-            if (!n) throw r("err")("[IDBFS] FS not available in WASM module");
-            (yield I(n, !1), t.resolve());
-          } catch (e) {
-            throw (t.reject(e), e);
-          } finally {
-            b = null;
-          }
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!b) throw r("err")("[IDBFS] Persistent FS not initialized");
+          if (v != null) return v;
+          var t = e.FS;
+          if (!t) throw r("err")("[IDBFS] FS not available in WASM module");
+          var n = $(t).finally(function () {
+            v = null;
+          });
+          return ((v = n), n);
         })),
-        x.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function $() {
-      return g;
+    function A() {
+      return h;
     }
-    function P() {
-      !v ||
-        S == null ||
+    function F() {
+      !S ||
+        R == null ||
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          var e = S;
-          if (!(!v || e == null)) {
+          var e = R;
+          if (!(!S || e == null)) {
             var t = Date.now();
-            D(e)
+            M(e)
               .then(function () {
                 var e = Date.now() - t;
-                (R++,
-                  R % y === 0 &&
+                (L++,
+                  L % C === 0 &&
                     o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -151,12 +182,12 @@ __d(
                           " completed in ",
                           "ms",
                         ])),
-                      R,
+                      L,
                       e,
                     ));
               })
               .catch(function (e) {
-                (R++,
+                (L++,
                   o("WALogger").ERROR(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -164,30 +195,30 @@ __d(
                         " failed: ",
                         "",
                       ])),
-                    R,
+                    L,
                     e,
                   ));
               })
               .finally(function () {
-                v && window.setTimeout(P, h);
+                S && window.setTimeout(F, y);
               });
           }
         });
     }
-    function N() {
-      v &&
-        S != null &&
+    function O() {
+      S &&
+        R != null &&
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [IDBFS] page unload, skipping final sync (last periodic sync #",
               ")",
             ])),
-          R,
+          L,
         );
     }
-    function M(e) {
-      if (v) {
+    function B(e) {
+      if (S) {
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -196,43 +227,43 @@ __d(
         );
         return;
       }
-      ((R = 0),
-        (v = !0),
-        (S = e),
+      ((L = 0),
+        (S = !0),
+        (R = e),
         o("WALogger").LOG(
           p ||
             (p = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [IDBFS] Starting periodic sync (target interval: ",
               "ms)",
             ])),
-          h,
+          y,
         ),
-        P(),
+        F(),
         typeof window != "undefined" &&
-          (window.addEventListener("beforeunload", N),
-          (L = function () {
-            window.removeEventListener("beforeunload", N);
+          (window.addEventListener("beforeunload", O),
+          (E = function () {
+            window.removeEventListener("beforeunload", O);
           })));
     }
-    function w() {
-      v &&
+    function W() {
+      S &&
         (o("WALogger").LOG(
           _ ||
             (_ = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [IDBFS] Stopping periodic sync after ",
               " syncs",
             ])),
-          R,
+          L,
         ),
-        (v = !1),
-        (S = null),
-        L != null && (L(), (L = null)));
+        (S = !1),
+        (R = null),
+        E != null && (E(), (E = null)));
     }
-    ((l.initPersistentFS = T),
-      (l.syncPersistentFS = D),
-      (l.getVoipPersistentDirectoryPath = $),
-      (l.startPeriodicVoipSync = M),
-      (l.stopPeriodicVoipSync = w));
+    ((l.initPersistentFS = N),
+      (l.syncPersistentFS = M),
+      (l.getVoipPersistentDirectoryPath = A),
+      (l.startPeriodicVoipSync = B),
+      (l.stopPeriodicVoipSync = W));
   },
   98,
 );

@@ -151,7 +151,7 @@ __d(
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "Shortcake prologue: IQ sent, state machine at WaitingForPrimaryIdentity",
+                    "Shortcake prologue: IQ sent -> WaitingForPrimaryIdentity",
                   ])),
               ));
           } catch (e) {

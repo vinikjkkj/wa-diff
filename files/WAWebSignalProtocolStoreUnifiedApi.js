@@ -753,7 +753,7 @@ __d(
                     .LOG(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip for memory mode",
+                          "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
                         ])),
                     )
                     .tags("unified-store"),
@@ -904,7 +904,7 @@ __d(
                   .LOG(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]maybeCleanUpUnconvertedSession: delete unconverted session",
+                        "[Signal]maybeCleanUpUnconvertedSession: delete unconverted",
                       ])),
                   )
                   .tags("unified-store"),

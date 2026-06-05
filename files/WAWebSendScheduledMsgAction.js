@@ -6,6 +6,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactSystemMsg",
     "WAWebDBProcessMessage",
+    "WAWebIsScheduledMessagesAvailableForChat",
     "WAWebLidMigrationFrontendUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
@@ -14,7 +15,6 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebScheduledMessagesGatingUtils",
     "WAWebSendMsgRecordAction",
     "WAWebSendTextMsgChatAction",
     "WAWebStateUtils",
@@ -36,11 +36,11 @@ __d(
             if (
               (l === void 0 && (l = {}),
               !o(
-                "WAWebScheduledMessagesGatingUtils",
-              ).isScheduledMessagesSenderEnabled())
+                "WAWebIsScheduledMessagesAvailableForChat",
+              ).isScheduledMessagesAvailableForChat(t))
             )
               throw r("err")(
-                "[scheduled_msg] Scheduled messages sender is not enabled",
+                "[scheduled_msg] Scheduled messages not available for this chat",
               );
             var c = o("WAWebStateUtils").unproxy(t),
               d = yield o("WAWebSendTextMsgChatAction").createTextMsgData(

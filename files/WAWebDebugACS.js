@@ -7,7 +7,7 @@ __d(
     "WAWebOHAIKeyConfigProvider",
     "WAWebRedeemACSCredential",
     "WAWebRedeemACSToken",
-    "WAWebSNAPLPersistentId",
+    "WAWebSNAPLUserPrefs",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,7 +18,7 @@ __d(
         .mexFetchOHAIKeyConfig,
       provideOHAIKeyConfig: o("WAWebOHAIKeyConfigProvider")
         .provideOHAIKeyConfig,
-      getSNAPLPersistentId: o("WAWebSNAPLPersistentId").getSNAPLPersistentId,
+      getSNAPLPersistentId: o("WAWebSNAPLUserPrefs").getSNAPLPersistentId,
       fetchOHAI: o("WAWebOHAIClient").fetchOHAI,
       fetchWithACSCredential: o("WAWebACSNetwork").fetchWithACSCredential,
     };

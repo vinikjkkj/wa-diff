@@ -1,6 +1,6 @@
 __d(
   "WAWebEditedMedia",
-  ["WAWebFileUtils", "WAWebURLUtils", "lodash"],
+  ["WAWebFileUtils", "WAWebURLUtils"],
   function (t, n, r, o, a, i, l) {
     var e = function e(t) {
       var n = this,
@@ -9,7 +9,7 @@ __d(
         l = t.originalImage,
         s = t.previous;
       ((this.updateEditData = function (e) {
-        (n.saveEdits(), (n.editData = r("lodash").merge({}, n.editData, e)));
+        (n.saveEdits(), (n.editData = babelHelpers.extends({}, n.editData, e)));
       }),
         (this.updateEditItems = function (e, t) {
           n.saveEdits();
@@ -61,17 +61,19 @@ __d(
           : ((this.originalImage = new Image()),
             (this.originalImage.src = window.URL.createObjectURL(i))),
         (this.previous = s),
-        (this.editData = {
-          height: 0,
-          width: 0,
-          offsetX: 0,
-          offsetY: 0,
-          rotation: 0,
-          scale: 1,
-          items: [],
-          baseItem: null,
-        }),
-        r("lodash").merge(this.editData, a));
+        (this.editData = babelHelpers.extends(
+          {
+            height: 0,
+            width: 0,
+            offsetX: 0,
+            offsetY: 0,
+            rotation: 0,
+            scale: 1,
+            items: [],
+            baseItem: null,
+          },
+          a != null ? a : {},
+        )));
     };
     l.default = e;
   },

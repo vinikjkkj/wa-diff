@@ -5,13 +5,15 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
+    "WAWebBizSuggestionsGatingUtils",
     "WAWebSchemaCTWASuggestion",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u() {
-      if (!o("WAWebBizGatingUtils").adsActionBannersEnabledOnStartup())
+      if (
+        !o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabledOnStartup()
+      )
         return (s || (s = n("Promise"))).resolve();
       var t = o("WAWebSchemaCTWASuggestion").getCTWASuggestionTable();
       return t.all().then(function (n) {

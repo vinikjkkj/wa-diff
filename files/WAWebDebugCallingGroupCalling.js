@@ -163,7 +163,7 @@ __d(
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[wgc] row deleted \u2014 reload to test the missing-cache fallback",
+                    "[wgc] row deleted \u2014 reload to test missing-cache fallback",
                   ])),
               ));
           } finally {

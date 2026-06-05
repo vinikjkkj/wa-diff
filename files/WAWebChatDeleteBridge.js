@@ -26,6 +26,7 @@ __d(
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPinChatSync",
+    "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaChat",
     "WAWebSchemaChatAssignment",
     "WAWebSchemaGroupMetadata",
@@ -50,6 +51,7 @@ __d(
             "message",
             "chat-assignment",
             "orphan-tc-token",
+            "scheduled-msg-reveal-key",
             "sync-actions",
             "thread-metadata",
           ],
@@ -76,6 +78,13 @@ __d(
                     ? o("WAWebWidFactory").createWid(r.accountLid)
                     : null,
                 ),
+                t.isNewsletter() || t.isBroadcast()
+                  ? (s || (s = n("Promise"))).resolve([])
+                  : o(
+                      "WAWebScheduledMsgRevealKeyStore",
+                    ).deleteRevealKeysForChat(
+                      o("WAWebWidToJid").widToChatJid(t),
+                    ),
                 t.isNewsletter()
                   ? (s || (s = n("Promise"))).resolve()
                   : o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
@@ -260,6 +269,7 @@ __d(
                   "message-association",
                   "group-metadata",
                   "orphan-tc-token",
+                  "scheduled-msg-reveal-key",
                   "sync-actions",
                   "thread-metadata",
                 ],
@@ -290,6 +300,13 @@ __d(
                         ? o("WAWebWidFactory").createWid(t.accountLid)
                         : null,
                     ),
+                    e.isBroadcast()
+                      ? (s || (s = n("Promise"))).resolve([])
+                      : o(
+                          "WAWebScheduledMsgRevealKeyStore",
+                        ).deleteRevealKeysForChat(
+                          o("WAWebWidToJid").widToChatJid(e),
+                        ),
                     o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
                       e.isBroadcast()
                         ? o("WAWebWidToJid").widToBroadcastJid(e)

@@ -2,6 +2,7 @@ __d(
   "WAWebNewsletterGetReportsAction",
   [
     "WALogger",
+    "WAWebL10N",
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterGetNewsletterReportsJob",
     "WAWebNewsletterMetadataCollection",
@@ -18,7 +19,7 @@ __d(
           try {
             var t = yield o(
                 "WAWebNewsletterGetNewsletterReportsJob",
-              ).getNewsletterReports(),
+              ).getNewsletterReports(r("WAWebL10N").getLocale()),
               n = t.map(function (e) {
                 var t;
                 return (

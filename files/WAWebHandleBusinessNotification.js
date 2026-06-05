@@ -9,6 +9,7 @@ __d(
     "WAWebBackendJobsCommon",
     "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
     "WAWebBizGatingUtils",
+    "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCTWAParsePrivacy",
     "WAWebCTWAParseSuggestion",
@@ -95,7 +96,9 @@ __d(
                 i,
               );
             } else if (e.hasChild("ctwa_suggestion")) {
-              if (o("WAWebBizGatingUtils").adsActionBannersEnabled()) {
+              if (
+                o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabled()
+              ) {
                 var _ = o("WAWebCTWAParseSuggestion").parseCTWASuggestion(e);
                 if (_ != null)
                   return babelHelpers.extends(

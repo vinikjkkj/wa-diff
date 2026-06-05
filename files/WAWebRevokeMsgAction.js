@@ -46,7 +46,6 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
@@ -543,12 +542,10 @@ __d(
           );
           return;
         }
-        (r("lodash")
-          .zip(v, S)
-          .forEach(function (e) {
-            var n = c.get(e[0]);
-            n && f(n, { msgKey: e[1], subtype: t.subtype, sender: t.sender });
-          }),
+        (v.forEach(function (e, n) {
+          var r = c.get(e);
+          r && f(r, { msgKey: S[n], subtype: t.subtype, sender: t.sender });
+        }),
           o("WAWebFtsClient")
             .ftsClient.purge([String(e.rowId)])
             .catch(r("WAWebNoop")));

@@ -323,6 +323,7 @@ __d(
       br_smb_paymentshome_enabled: [23042, "bool", !1, !1],
       br_smb_pix_payment_request_variant: [24388, "int", 0, 0],
       brigading_privacy_setting_enabled: [9876, "bool", !1, !0],
+      broadcast_to_your_followers_enabled: [31580, "bool", !1, !1],
       bug_reporting_attach_pathfinder_pre_bug_creation: [26311, "bool", !0, !1],
       bug_reporting_attach_view_dump_pre_bug_creation: [26307, "bool", !0, !1],
       bug_reporting_not_shipped_yet_enabled: [29458, "bool", !1, !1],
@@ -1667,6 +1668,8 @@ __d(
       poll_option_length: [1407, "int", 100, 100],
       poll_receiving_cag_enabled: [2737, "bool", !1, !1],
       poll_result_snapshot_polltype_envelope_enabled: [12258, "bool", !1, !0],
+      poll_tc_receiving_enabled: [31592, "bool", !1, !0],
+      poll_tc_sending_enabled: [31593, "bool", !1, !0],
       premium_blue_enabled: [5318, "bool", !1, !1],
       premium_broadcast_smb_capping_enabled: [13808, "bool", !1, !0],
       premium_msg_bb_campaign_sync_enabled: [29650, "bool", !1, !1],
@@ -2800,6 +2803,7 @@ __d(
       wmi_task_scheduler_second_step: [30276, "bool", !1, !1],
       wmi_worker_scheduler_web: [27237, "bool", !1, !1],
       xplat_attachment_format_check_v2: [8082, "bool", !1, !1],
+      youtube_inline_playback_killswitch: [3522, "bool", !1, !1],
     };
     i.ABPropConfigs = e;
   },

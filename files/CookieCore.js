@@ -48,7 +48,7 @@ __d(
     function C(e) {
       return {
         insecure: e.i || !1,
-        path: e.p || "/",
+        path: e.p != null && e.p !== "" ? e.p : "/",
         ttlSeconds: e.t || 0,
         sameSite: e.s || "None",
       };

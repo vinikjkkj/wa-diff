@@ -219,11 +219,24 @@ __d(
     function _(e, t) {
       var n,
         r,
-        a = e.enforcement_policy_information;
+        a,
+        i,
+        l = e.enforcement_policy_information;
       return {
         appealCreationTime: o("WATimeUtils").castToUnixTime(
           parseInt((n = e.appeal_creation_time) != null ? n : 0, 10),
         ),
+        appealReasonOptions:
+          (r =
+            (a = e.appeal_reason_options) == null
+              ? void 0
+              : a.map(function (e) {
+                  var t = e.label,
+                    n = e.reason;
+                  return { label: t, reason: n };
+                })) != null
+            ? r
+            : [],
         enforcementCreationTime: o("WATimeUtils").castToUnixTime(
           parseInt(e.enforcement_creation_time, 10),
         ),
@@ -231,16 +244,16 @@ __d(
         enforcementViolationCategory: e.enforcement_violation_category,
         enforcementId: e.enforcement_id,
         enforcementType: t,
-        enforcementSource: (r = e.enforcement_source) != null ? r : null,
+        enforcementSource: (i = e.enforcement_source) != null ? i : null,
         enforcementExtraData: p(e.enforcement_extra_data),
         enforcementPolicyInformation:
-          a != null
+          l != null
             ? {
-                overview: a.overview,
-                headline: a.headline,
-                subtitle: a.subtitle,
-                explanation: a.explanation,
-                adminDisclaimer: a.admin_disclaimer,
+                overview: l.overview,
+                headline: l.headline,
+                subtitle: l.subtitle,
+                explanation: l.explanation,
+                adminDisclaimer: l.admin_disclaimer,
               }
             : null,
       };

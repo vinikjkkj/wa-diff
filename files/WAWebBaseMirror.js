@@ -1,7 +1,7 @@
 __d(
   "WAWebBaseMirror",
-  ["lodash"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     function e(e) {
       var t = {},
         n = 0,
@@ -15,18 +15,18 @@ __d(
         t
       );
     }
-    var s = "change",
-      u = 32;
-    function c(e, t) {
+    var l = "change",
+      s = 32;
+    function u(e, t) {
       for (var n = [], r = 0; r < t.length; r++) {
         var o = e["change:" + t[r]],
-          a = Math.floor(o / u),
-          i = o % u;
-        (p(n, a + 1), (n[a] |= 1 << i));
+          a = Math.floor(o / s),
+          i = o % s;
+        (m(n, a + 1), (n[a] |= 1 << i));
       }
       return n;
     }
-    var d = (function () {
+    var c = (function () {
       function e(e) {
         this.state = e;
       }
@@ -42,40 +42,39 @@ __d(
             (this.changeEvents = []));
         }),
         (t.onGatherEvent = function (t) {
-          if (t === s) {
+          if (t === l) {
             var e = this.changeEvents;
             if (!e.some(Boolean)) return;
             (this.onChange(), (this.changeEvents = []));
           } else {
             var n = this.state.mirrorMask[t];
             if (n === void 0) return;
-            var r = (n / u) | 0,
-              o = (n % u) | 0;
-            (p(this.changeEvents, r + 1), (this.changeEvents[r] |= 1 << o));
+            var r = (n / s) | 0,
+              o = (n % s) | 0;
+            (m(this.changeEvents, r + 1), (this.changeEvents[r] |= 1 << o));
           }
         }),
         (t.onChange = function () {
-          if (this.listeners != null) {
-            var e = this.state,
-              t = this.changeEvents;
-            r("lodash")
-              .zip(this.masks, this.listeners)
-              .forEach(function (n) {
-                for (
-                  var r = n[0],
-                    o = n[1],
-                    a = Math.min(t.length, r.length),
-                    i = 0;
-                  i < a;
-                  i++
-                )
-                  if (t[i] & r[i]) {
-                    var l = o[0],
-                      s = o[1];
-                    l != null && s != null && l(s, e);
-                    break;
-                  }
-              });
+          var e = this.listeners;
+          if (e != null) {
+            var t = this.state,
+              n = this.changeEvents,
+              r = this.masks;
+            r.map(function (t, n) {
+              return [t, e[n]];
+            }).forEach(function (e) {
+              for (
+                var r = e[0], o = e[1], a = Math.min(n.length, r.length), i = 0;
+                i < a;
+                i++
+              )
+                if (n[i] & r[i]) {
+                  var l = o[0],
+                    s = o[1];
+                  l != null && s != null && l(s, t);
+                  break;
+                }
+            });
           }
         }),
         (t.addListener = function (t, n, r) {
@@ -89,19 +88,19 @@ __d(
           if (e != null)
             for (var n = 0; n < e.length; n++)
               e[n][0] === t &&
-                ((e[n][0] = null), (e[n][1] = null), m(this.masks, n), m(e, n));
+                ((e[n][0] = null), (e[n][1] = null), d(this.masks, n), d(e, n));
         }),
         e
       );
     })();
-    function m(e, t) {
+    function d(e, t) {
       ((e[t] = e[e.length - 1]), e.pop());
     }
-    function p(e, t) {
+    function m(e, t) {
       if (!(t <= e.length))
         for (var n = t - e.length, r = 0; r < n; r++) e.push(0);
     }
-    ((l.genMirrorMask = e), (l.genBitMask = c), (l.BaseMirror = d));
+    ((i.genMirrorMask = e), (i.genBitMask = u), (i.BaseMirror = c));
   },
-  98,
+  66,
 );

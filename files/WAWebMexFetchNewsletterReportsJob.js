@@ -14,15 +14,15 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchNewsletterReportsJobQuery.graphql"));
-    function c() {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = {},
-            t = yield o("WAWebMexClient").fetchQuery(u, e);
-          if ((t == null ? void 0 : t.xwa2_channels_reports) == null)
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = { locale: e },
+            n = yield o("WAWebMexClient").fetchQuery(u, t);
+          if ((n == null ? void 0 : n.xwa2_channels_reports) == null)
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
               500,
               "Mex unexpected null response for fetching newsletter reports",
@@ -36,7 +36,7 @@ __d(
                   ])),
               )
               .tags("GQL", "MEX", "wa-ice", "DSAR"),
-            t
+            n
           );
         })),
         d.apply(this, arguments)

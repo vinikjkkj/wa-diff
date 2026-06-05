@@ -3,8 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebApiParse",
-    "WAWebBizGatingUtils",
     "WAWebBizNativeAdsWamLogger",
+    "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWASuggestionCollection",
     "WAWebCTWASuggestionModel",
     "WAWebExecApiCmd",
@@ -65,7 +65,9 @@ __d(
         });
     }
     function _(e) {
-      if (o("WAWebBizGatingUtils").adsActionBannersLoggingEnabled()) {
+      if (
+        o("WAWebBizSuggestionsGatingUtils").adsActionBannersLoggingEnabled()
+      ) {
         var t = o("WAWebApiParse").parseAPICmd(e.actionLink);
         t.resultType === "MANAGE_ADS"
           ? o("WAWebBizNativeAdsWamLogger").logManageAdsEntryPointImpression(

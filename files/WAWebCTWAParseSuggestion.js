@@ -5,7 +5,7 @@ __d(
     "WASmaxBizCtwaActionBannerSuggestionRPC",
     "WATimeUtils",
     "WAWebApiParse",
-    "WAWebBizGatingUtils",
+    "WAWebBizSuggestionsGatingUtils",
     "WAWebCtwaActionBannerUnderstandWamEvent",
     "WAWebUpdaterVersion",
   ],
@@ -23,7 +23,9 @@ __d(
       h = "manage_ads",
       y = "parseCTWASuggestion: missing action link";
     function C(t) {
-      if (o("WAWebBizGatingUtils").adsActionBannersLoggingEnabled()) {
+      if (
+        o("WAWebBizSuggestionsGatingUtils").adsActionBannersLoggingEnabled()
+      ) {
         var n = new (o(
           "WAWebCtwaActionBannerUnderstandWamEvent",
         ).CtwaActionBannerUnderstandWamEvent)();
@@ -155,7 +157,9 @@ __d(
           return;
         }
       } else if (M.resultType === "MANAGE_ADS") {
-        if (!o("WAWebBizGatingUtils").adsActionManageAdsBannerEnabled()) {
+        if (
+          !o("WAWebBizSuggestionsGatingUtils").adsActionManageAdsBannerEnabled()
+        ) {
           (C({ bannerIdentifier: a, validNotification: !1 }),
             o("WALogger").WARN(
               _ ||

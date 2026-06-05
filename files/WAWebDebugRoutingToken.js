@@ -6,7 +6,6 @@ __d(
     "WAWebUserPrefsMultiDeviceDebug",
     "encodeProtobuf",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -64,38 +63,43 @@ __d(
     function p(e) {
       var t = e.toLowerCase();
       if (!t || t.match(/^\s*default\s*$/)) return "";
-      var n = r("lodash").unzip(e.split(",").map(m)),
-        a = n[0],
-        i = babelHelpers.arrayLikeToArray(n).slice(1),
-        l = i[0],
-        s = i[1],
-        u = {};
-      if (((l = Array.from(new Set(l))), l.length !== 1))
-        throw r("err")("Too many clusters: " + l.toString());
+      var n = e.split(",").map(m),
+        a = n.map(function (e) {
+          return e[0];
+        }),
+        i = n.map(function (e) {
+          return e[1];
+        }),
+        l = n.map(function (e) {
+          return e[2];
+        }),
+        s = {};
+      if (((i = Array.from(new Set(i))), i.length !== 1))
+        throw r("err")("Too many clusters: " + i.toString());
       if (
-        (l[0] != null && (u.clusterId = [l[0]]),
-        (s = Array.from(new Set(s))),
-        s.length !== 1)
+        (i[0] != null && (s.clusterId = [i[0]]),
+        (l = Array.from(new Set(l))),
+        l.length !== 1)
       )
-        throw r("err")("Too many tasks: " + s.toString());
-      s[0] != null && (u.taskId = s[0]);
-      var c = Array.from(new Set(a)),
-        d = !1,
-        p = c.reduce(function (e, t) {
-          return (t === void 0 ? (d = !0) : e.push(t), e);
+        throw r("err")("Too many tasks: " + l.toString());
+      l[0] != null && (s.taskId = l[0]);
+      var u = Array.from(new Set(a)),
+        c = !1,
+        d = u.reduce(function (e, t) {
+          return (t === void 0 ? (c = !0) : e.push(t), e);
         }, []);
-      if (a.length !== c.length)
+      if (a.length !== u.length)
         throw r("err")("Redundant regions: " + a.toString());
-      if (c.length > 1 && d)
+      if (u.length > 1 && c)
         throw r("err")(
           "May not mix clusters with and without region: " + a.toString(),
         );
-      d || (u.regionId = p);
-      var _ = o("encodeProtobuf").encodeProtobuf(
+      c || (s.regionId = d);
+      var p = o("encodeProtobuf").encodeProtobuf(
         o("WAWebProtobufsRoutingInfo.pb").RoutingInfoSpec,
-        u,
+        s,
       );
-      return o("WABase64").encodeB64UrlSafe(_.readByteArrayView());
+      return o("WABase64").encodeB64UrlSafe(p.readByteArrayView());
     }
     var _ = { setDebugRoutingToken: e };
     l.default = _;

@@ -96,12 +96,32 @@ __d(
         y.apply(this, arguments)
       );
     }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o(
+              "WAWebSchemaScheduledMsgRevealKey",
+            ).getScheduledMsgRevealKeyTable(),
+            n = yield t.equals(["chatId"], e);
+          if (n.length === 0) return [];
+          var r = n.map(function (e) {
+            return e.msgId;
+          });
+          return (yield t.bulkRemove(r), r);
+        })),
+        b.apply(this, arguments)
+      );
+    }
     ((l.storeRevealKey = e),
       (l.getRevealKeyByMsgId = u),
       (l.getRevealKeyByRevealKeyId = d),
       (l.getRevealKeysForChat = p),
       (l.updateRevealKeyStatus = f),
-      (l.deleteRevealKey = h));
+      (l.deleteRevealKey = h),
+      (l.deleteRevealKeysForChat = C));
   },
   98,
 );

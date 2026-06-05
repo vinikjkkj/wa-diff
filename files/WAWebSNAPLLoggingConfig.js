@@ -4,7 +4,7 @@ __d(
     "MediaPlaybackLogFlusher",
     "WAWebCometVideoPlayerUtils",
     "WAWebMediaPlaybackLogFlusher",
-    "WAWebSNAPLPersistentId",
+    "WAWebSNAPLUserPrefs",
     "WAWebVideoMetadataProvider",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,11 +22,9 @@ __d(
           ).getCurrentWatchingModule(i, n),
           is_copyright_muted: t,
         };
-      if (r != null) {
-        var s = o("WAWebSNAPLPersistentId").getSNAPLPersistentId(i, n === !0);
-        s != null && (l.persistent_id = s);
-      }
-      var u = {
+      r != null &&
+        (l.persistent_id = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId(r, i));
+      var s = {
         loggingToSNAPLCreateLogFlusher: function (t, n) {
           return new (o(
             "WAWebMediaPlaybackLogFlusher",
@@ -36,7 +34,7 @@ __d(
           .createWAVideoMetadataProvider,
         loggingToSNAPLEnabled: !0,
       };
-      return { loggingConfig: u, loggingToSNAPLAdditionalData: l };
+      return { loggingConfig: s, loggingToSNAPLAdditionalData: l };
     }
     function s() {
       return {

@@ -13,21 +13,19 @@ __d(
     "WAWebListsLabelGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
     "react-compiler-runtime",
     "useWAWebChatValues",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e,
-        t =
-          (e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) != null
-            ? e
-            : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        n = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-          t,
-        );
-      return (n == null ? void 0 : n.isBizBot1p) === !0;
+      var e;
+      return (
+        ((e = o(
+          "WAWebBusinessProfileCollection",
+        ).BusinessProfileCollection.getMeBusinessProfile()) == null
+          ? void 0
+          : e.isBizBot1p) === !0
+      );
     }
     function s(t) {
       var n = o("WAWebContactGetters").getIsMe(t.contact),

@@ -4,49 +4,51 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = {
+      var e = [{ defaultValue: null, kind: "LocalArgument", name: "locale" }],
+        t = [{ kind: "Variable", name: "locale", variableName: "locale" }],
+        n = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "report_id",
           storageKey: null,
         },
-        t = {
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "status",
           storageKey: null,
         },
-        n = {
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "creation_time",
           storageKey: null,
         },
-        r = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "last_update_time",
           storageKey: null,
         },
-        o = {
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "channel_name",
           storageKey: null,
         },
-        a = {
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "channel_jid",
           storageKey: null,
         },
-        i = {
+        s = {
           kind: "InlineFragment",
           selections: [
             {
@@ -60,7 +62,7 @@ __d(
           type: "XWA2ChannelServerMsgData",
           abstractKey: null,
         },
-        l = {
+        u = {
           kind: "InlineFragment",
           selections: [
             {
@@ -74,21 +76,21 @@ __d(
           type: "XWA2ChannelStatusData",
           abstractKey: null,
         },
-        s = {
+        c = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "server_response_id",
           storageKey: null,
         },
-        u = {
+        d = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "notify_name",
           storageKey: null,
         },
-        c = {
+        m = {
           alias: null,
           args: null,
           concreteType: "XWA2ReportAppeal",
@@ -110,8 +112,8 @@ __d(
               name: "appeal_reason",
               storageKey: null,
             },
+            o,
             n,
-            e,
             {
               alias: null,
               args: null,
@@ -122,7 +124,7 @@ __d(
           ],
           storageKey: null,
         },
-        d = {
+        p = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -131,14 +133,14 @@ __d(
         };
       return {
         fragment: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
           name: "WAWebMexFetchNewsletterReportsJobQuery",
           selections: [
             {
               alias: null,
-              args: null,
+              args: t,
               concreteType: "XWA2UserChannelsReportList",
               kind: "LinkedField",
               name: "xwa2_channels_reports",
@@ -152,12 +154,12 @@ __d(
                   name: "channels_reports",
                   plural: !0,
                   selections: [
-                    e,
-                    t,
                     n,
                     r,
                     o,
                     a,
+                    i,
+                    l,
                     {
                       alias: null,
                       args: null,
@@ -166,13 +168,13 @@ __d(
                       name: "reported_content_data",
                       plural: !1,
                       selections: [
-                        i,
-                        l,
+                        s,
+                        u,
                         {
                           kind: "InlineFragment",
                           selections: [
-                            s,
-                            u,
+                            c,
+                            d,
                             {
                               alias: null,
                               args: null,
@@ -180,7 +182,7 @@ __d(
                               kind: "LinkedField",
                               name: "question_data",
                               plural: !1,
-                              selections: [i],
+                              selections: [s],
                               storageKey: null,
                             },
                           ],
@@ -190,7 +192,7 @@ __d(
                       ],
                       storageKey: null,
                     },
-                    c,
+                    m,
                   ],
                   storageKey: null,
                 },
@@ -203,13 +205,13 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebMexFetchNewsletterReportsJobQuery",
           selections: [
             {
               alias: null,
-              args: null,
+              args: t,
               concreteType: "XWA2UserChannelsReportList",
               kind: "LinkedField",
               name: "xwa2_channels_reports",
@@ -223,12 +225,12 @@ __d(
                   name: "channels_reports",
                   plural: !0,
                   selections: [
-                    e,
-                    t,
                     n,
                     r,
                     o,
                     a,
+                    i,
+                    l,
                     {
                       alias: null,
                       args: null,
@@ -237,14 +239,14 @@ __d(
                       name: "reported_content_data",
                       plural: !1,
                       selections: [
-                        d,
-                        i,
-                        l,
+                        p,
+                        s,
+                        u,
                         {
                           kind: "InlineFragment",
                           selections: [
-                            s,
-                            u,
+                            c,
+                            d,
                             {
                               alias: null,
                               args: null,
@@ -252,7 +254,7 @@ __d(
                               kind: "LinkedField",
                               name: "question_data",
                               plural: !1,
-                              selections: [d, i],
+                              selections: [p, s],
                               storageKey: null,
                             },
                           ],
@@ -262,7 +264,7 @@ __d(
                       ],
                       storageKey: null,
                     },
-                    c,
+                    m,
                   ],
                   storageKey: null,
                 },
@@ -272,7 +274,7 @@ __d(
           ],
         },
         params: {
-          id: "24241374008893508",
+          id: "27717296871209353",
           metadata: {},
           name: "WAWebMexFetchNewsletterReportsJobQuery",
           operationKind: "query",

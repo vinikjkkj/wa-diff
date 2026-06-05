@@ -64,11 +64,36 @@ __d(
         c = {
           alias: null,
           args: null,
+          concreteType: "XWA2EnforcementAppealReasonOption",
+          kind: "LinkedField",
+          name: "appeal_reason_options",
+          plural: !0,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "reason",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "label",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        d = {
+          alias: null,
+          args: null,
           kind: "ScalarField",
           name: "appeal_form_url",
           storageKey: null,
         },
-        d = {
+        m = {
           alias: null,
           args: null,
           concreteType: "XWA2IPViolationReportData",
@@ -83,7 +108,7 @@ __d(
               name: "report_fbid",
               storageKey: null,
             },
-            c,
+            d,
             {
               alias: null,
               args: null,
@@ -101,17 +126,17 @@ __d(
           ],
           storageKey: null,
         },
-        m = {
+        p = {
           alias: null,
           args: null,
           concreteType: "XWA2EnforcementExtraData",
           kind: "LinkedField",
           name: "enforcement_extra_data",
           plural: !1,
-          selections: [d],
+          selections: [m],
           storageKey: null,
         },
-        p = {
+        _ = {
           alias: null,
           args: null,
           concreteType: "XWA2EnforcementPolicyInformation",
@@ -157,7 +182,7 @@ __d(
           ],
           storageKey: null,
         },
-        _ = {
+        f = {
           kind: "InlineFragment",
           selections: [
             {
@@ -171,7 +196,7 @@ __d(
           type: "XWA2ChannelServerMsgData",
           abstractKey: null,
         },
-        f = {
+        g = {
           kind: "InlineFragment",
           selections: [
             {
@@ -185,28 +210,28 @@ __d(
           type: "XWA2ChannelStatusData",
           abstractKey: null,
         },
-        g = [_, f],
-        h = {
+        h = [f, g],
+        y = {
           alias: null,
           args: null,
           concreteType: null,
           kind: "LinkedField",
           name: "enforcement_target_data",
           plural: !1,
-          selections: g,
+          selections: h,
           storageKey: null,
         },
-        y = {
+        C = {
           alias: null,
           args: null,
           concreteType: "XWA2AppealExtraData",
           kind: "LinkedField",
           name: "appeal_extra_data",
           plural: !1,
-          selections: [c],
+          selections: [d],
           storageKey: null,
         },
-        C = {
+        b = {
           alias: null,
           args: null,
           concreteType: "XWA2EnforcingEntityData",
@@ -224,35 +249,35 @@ __d(
           ],
           storageKey: null,
         },
-        b = {
+        v = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "enforcement_origin_workflow",
           storageKey: null,
         },
-        v = {
+        S = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "enforcement_origin_legal_basis",
           storageKey: null,
         },
-        S = {
+        R = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "country_codes",
           storageKey: null,
         },
-        R = {
+        L = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        L = {
+        E = {
           alias: null,
           args: null,
           concreteType: null,
@@ -260,9 +285,9 @@ __d(
           name: "enforcement_target_data",
           plural: !1,
           selections: [
-            R,
-            _,
+            L,
             f,
+            g,
             {
               kind: "InlineFragment",
               selections: [
@@ -302,7 +327,7 @@ __d(
                   kind: "LinkedField",
                   name: "profile_picture_deletions",
                   plural: !0,
-                  selections: [r, o, a, i, l, u, m, p],
+                  selections: [r, o, a, i, l, u, c, p, _],
                   storageKey: null,
                 },
                 {
@@ -319,6 +344,7 @@ __d(
                     i,
                     u,
                     l,
+                    c,
                     {
                       alias: null,
                       args: null,
@@ -326,10 +352,10 @@ __d(
                       kind: "LinkedField",
                       name: "enforcement_extra_data",
                       plural: !1,
-                      selections: [d, h, y],
+                      selections: [m, y, C],
                       storageKey: null,
                     },
-                    p,
+                    _,
                   ],
                   storageKey: null,
                 },
@@ -348,7 +374,7 @@ __d(
                       kind: "LinkedField",
                       name: "base_enforcement_data",
                       plural: !1,
-                      selections: [r, o, a, u, i, l, m, p],
+                      selections: [r, o, a, u, i, l, c, p, _],
                       storageKey: null,
                     },
                     {
@@ -358,7 +384,7 @@ __d(
                       kind: "LinkedField",
                       name: "content_data",
                       plural: !1,
-                      selections: g,
+                      selections: h,
                       storageKey: null,
                     },
                   ],
@@ -386,6 +412,7 @@ __d(
                         u,
                         i,
                         l,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -393,14 +420,14 @@ __d(
                           kind: "LinkedField",
                           name: "enforcement_extra_data",
                           plural: !1,
-                          selections: [d, h, y, C, b, v],
+                          selections: [m, y, C, b, v, S],
                           storageKey: null,
                         },
-                        p,
+                        _,
                       ],
                       storageKey: null,
                     },
-                    S,
+                    R,
                   ],
                   storageKey: null,
                 },
@@ -432,7 +459,7 @@ __d(
                   kind: "LinkedField",
                   name: "profile_picture_deletions",
                   plural: !0,
-                  selections: [r, o, a, i, l, s, m, p],
+                  selections: [r, o, a, i, l, s, c, p, _],
                   storageKey: null,
                 },
                 {
@@ -449,6 +476,7 @@ __d(
                     i,
                     s,
                     l,
+                    c,
                     {
                       alias: null,
                       args: null,
@@ -456,10 +484,10 @@ __d(
                       kind: "LinkedField",
                       name: "enforcement_extra_data",
                       plural: !1,
-                      selections: [d, L, y],
+                      selections: [m, E, C],
                       storageKey: null,
                     },
-                    p,
+                    _,
                   ],
                   storageKey: null,
                 },
@@ -478,7 +506,7 @@ __d(
                       kind: "LinkedField",
                       name: "base_enforcement_data",
                       plural: !1,
-                      selections: [r, o, a, s, i, l, m, p],
+                      selections: [r, o, a, s, i, l, c, p, _],
                       storageKey: null,
                     },
                     {
@@ -488,7 +516,7 @@ __d(
                       kind: "LinkedField",
                       name: "content_data",
                       plural: !1,
-                      selections: [R, _, f],
+                      selections: [L, f, g],
                       storageKey: null,
                     },
                   ],
@@ -516,6 +544,7 @@ __d(
                         s,
                         i,
                         l,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -523,14 +552,14 @@ __d(
                           kind: "LinkedField",
                           name: "enforcement_extra_data",
                           plural: !1,
-                          selections: [d, L, y, C, b, v],
+                          selections: [m, E, C, b, v, S],
                           storageKey: null,
                         },
-                        p,
+                        _,
                       ],
                       storageKey: null,
                     },
-                    S,
+                    R,
                   ],
                   storageKey: null,
                 },
@@ -540,7 +569,7 @@ __d(
           ],
         },
         params: {
-          id: "26807357005541676",
+          id: "27144556038512360",
           metadata: {},
           name: "WAWebMexFetchNewsletterEnforcementsJobQuery",
           operationKind: "query",
