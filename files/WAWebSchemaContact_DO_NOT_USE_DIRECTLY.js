@@ -62,6 +62,7 @@ __d(
             a("pnContactHash"),
             r("isUsernameContact"),
             r("isEphemeralityDisabled"),
+            r("externalUserState"),
           ])
           .view(function (e) {
             return e;

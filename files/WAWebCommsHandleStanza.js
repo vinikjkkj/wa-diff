@@ -6,6 +6,7 @@ __d(
     "WAWebCommsHandleWorkerCompatibleStanza",
     "WAWebHandleStanzaCommon",
     "WAWebOfflineHandler",
+    "WAWebVoipBackendEnqueueCallOfferPlaceholder",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -33,10 +34,13 @@ __d(
           ).handleWorkerCompatibleStanza(e);
           return l != null
             ? l
-            : o("WAWebCommsHandleLoggedInStanzaDeferred").handleLoggedInStanza(
+            : (o(
+                "WAWebVoipBackendEnqueueCallOfferPlaceholder",
+              ).maybeEnqueueCallOfferPlaceholderFromStanza(e),
+              o("WAWebCommsHandleLoggedInStanzaDeferred").handleLoggedInStanza(
                 e,
                 t,
-              );
+              ));
         })),
         c.apply(this, arguments)
       );

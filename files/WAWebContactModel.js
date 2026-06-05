@@ -23,6 +23,7 @@ __d(
     "WAWebChatCollection",
     "WAWebConnModel",
     "WAWebContactCollection",
+    "WAWebContactExternalUserState",
     "WAWebContactGetters",
     "WAWebContactManagementGating",
     "WAWebContactSearchGatingUtils",
@@ -109,6 +110,7 @@ __d(
           (e.usernameKey = o("WAWebBaseModel").prop()),
           (e.usernameCountryCode = o("WAWebBaseModel").prop()),
           (e.isUsernameContact = o("WAWebBaseModel").prop(!1)),
+          (e.externalUserState = o("WAWebBaseModel").prop()),
           (e.syncToAddressbook = o("WAWebBaseModel").prop(!1)),
           (e.isContactBlocked = o("WAWebBaseModel").session(!1)),
           (e.isContactOptedOut = o("WAWebBaseModel").session(!1)),
@@ -174,6 +176,12 @@ __d(
                   t * d,
                   this.meTextStatusExpiryTimer,
                 )));
+        }),
+        (a.isGuest = function () {
+          return (
+            this.externalUserState ===
+            o("WAWebContactExternalUserState").ExternalUserState.GuestUser
+          );
         }),
         (a.initialize = function () {
           var n = this;

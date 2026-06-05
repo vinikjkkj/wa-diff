@@ -56,9 +56,9 @@ __d(
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [popout] skipping permission priming: safari=",
-                  ", needsVideo=",
-                  ", needsAudio=",
+                  "[voip][popout] skip prime: safari=",
+                  " vid=",
+                  " aud=",
                   "",
                 ])),
               String(o("WAWebUA").UA.isSafari),
@@ -74,7 +74,7 @@ __d(
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [popout] priming Safari combined camera+mic permission",
+                  "[voip][popout] priming Safari cam+mic perm",
                 ])),
             );
             var d = yield l.getUserMedia({ audio: !0, video: !0 });
@@ -84,7 +84,7 @@ __d(
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [popout] Safari combined permission granted, released priming tracks",
+                    "[voip][popout] Safari perm granted, tracks released",
                   ])),
               ));
           } catch (e) {
@@ -92,7 +92,7 @@ __d(
               .WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [popout] Safari permission priming failed, falling back to individual prompts",
+                    "[voip][popout] Safari perm prime failed, falling back",
                   ])),
               )
               .catching(r("getErrorSafe")(e));

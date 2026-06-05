@@ -67,7 +67,8 @@ __d(
         (t.processResponse = function (t) {
           var e = this.$1(t, this.$4, p, this.$3, this.$5),
             n = [],
-            r = [];
+            r = [],
+            o = [];
           (e.incrementalPlaceholders != null &&
             e.incrementalPlaceholders.length > 0 &&
             this.$10(
@@ -76,17 +77,22 @@ __d(
               e.fieldPayloads,
               n,
               r,
+              o,
             ),
             e.followupPayloads != null &&
               e.followupPayloads.length > 0 &&
-              this.$11(e.followupPayloads, e.isFinal, n, r));
-          var o = babelHelpers.extends({}, e, {
+              this.$11(e.followupPayloads, null, e.isFinal, n, r, o));
+          var a = babelHelpers.extends({}, e, {
             followupPayloads: null,
             incrementalPlaceholders: null,
             isFinal: this.$12(e.isFinal),
             isPreNormalized: !0,
           });
-          return { payloads: [o].concat(n), pendingModules: r };
+          return {
+            payloads: [a].concat(n),
+            payloadOrigins: [null].concat(r),
+            pendingModules: o,
+          };
         }),
         (t.processIncrementalResponse = function (t) {
           var e = t.label,
@@ -129,7 +135,8 @@ __d(
               this.$5,
             ),
             o = [],
-            a = [];
+            a = [],
+            i = [];
           (e.incrementalPlaceholders != null &&
             e.incrementalPlaceholders.length > 0 &&
             this.$10(
@@ -138,24 +145,29 @@ __d(
               e.fieldPayloads,
               o,
               a,
+              i,
             ),
             e.followupPayloads != null &&
               e.followupPayloads.length > 0 &&
-              this.$11(e.followupPayloads, e.isFinal, o, a));
-          var i = r.selector.dataID,
-            l = this.$8.get(i),
-            s = e.fieldPayloads;
-          l != null &&
-            l.fieldPayloads.length > 0 &&
-            (s = (s != null ? s : []).concat(l.fieldPayloads));
-          var u = babelHelpers.extends({}, e, {
-            fieldPayloads: s,
+              this.$11(e.followupPayloads, r, e.isFinal, o, a, i));
+          var l = r.selector.dataID,
+            s = this.$8.get(l),
+            u = e.fieldPayloads;
+          s != null &&
+            s.fieldPayloads.length > 0 &&
+            (u = (u != null ? u : []).concat(s.fieldPayloads));
+          var c = babelHelpers.extends({}, e, {
+            fieldPayloads: u,
             followupPayloads: null,
             incrementalPlaceholders: null,
             isFinal: this.$12(e.isFinal),
             isPreNormalized: !0,
           });
-          return { payloads: [u].concat(o), pendingModules: a };
+          return {
+            payloads: [c].concat(o),
+            payloadOrigins: [r].concat(a),
+            pendingModules: i,
+          };
         }),
         (t.$14 = function (t, n, r) {
           var e = r.node,
@@ -205,6 +217,7 @@ __d(
                   storeUpdater: _,
                 }),
               ],
+              payloadOrigins: [null],
               pendingModules: [],
             }
           );
@@ -296,138 +309,147 @@ __d(
             storageKey: y,
           };
         }),
-        (t.$10 = function (t, r, o, a, i) {
+        (t.$10 = function (t, r, o, a, i, s) {
           for (
             var e = this,
-              s = function () {
-                var s = t[c],
-                  d = s.label,
-                  m = s.path,
-                  p = m.map(String).join("."),
-                  _ = y(d, p);
-                e.$6.set(_, s);
-                var h;
-                s.kind === "stream"
-                  ? (h = s.parentID)
-                  : (h = s.selector.dataID);
-                var C = r.get(h);
-                if (C == null)
+              c = function () {
+                var c = t[d],
+                  m = c.label,
+                  p = c.path,
+                  _ = p.map(String).join("."),
+                  h = y(m, _);
+                e.$6.set(h, c);
+                var C;
+                c.kind === "stream"
+                  ? (C = c.parentID)
+                  : (C = c.selector.dataID);
+                var b = r.get(C);
+                if (b == null)
                   throw f(
                     "NormalizationEngine: Expected record `" +
-                      h +
+                      C +
                       "` to exist.",
                   );
-                var b = (o != null ? o : []).filter(function (e) {
+                var v = (o != null ? o : []).filter(function (e) {
                     var t = u(e.dataID, e.fieldKey);
-                    return e.dataID === h || t === h;
+                    return e.dataID === C || t === C;
                   }),
-                  v = e.$8.get(h);
-                if (v != null) {
+                  S = e.$8.get(C);
+                if (S != null) {
                   for (
-                    var S = (
+                    var R = (
                         l || (l = n("relay-runtime/store/RelayModernRecord"))
-                      ).update(v.record, C),
-                      R = new Map(),
-                      L = 0;
-                    L < v.fieldPayloads.length;
-                    L++
+                      ).update(S.record, b),
+                      L = new Map(),
+                      E = 0;
+                    E < S.fieldPayloads.length;
+                    E++
                   ) {
-                    var E = v.fieldPayloads[L];
-                    R.set(g(E), E);
+                    var k = S.fieldPayloads[E];
+                    L.set(g(k), k);
                   }
-                  for (var k = 0; k < b.length; k++) {
-                    var I = b[k];
-                    R.set(g(I), I);
+                  for (var I = 0; I < v.length; I++) {
+                    var T = v[I];
+                    L.set(g(T), T);
                   }
-                  e.$8.set(h, {
-                    fieldPayloads: Array.from(R.values()),
-                    record: S,
+                  e.$8.set(C, {
+                    fieldPayloads: Array.from(L.values()),
+                    record: R,
                   });
-                } else e.$8.set(h, { fieldPayloads: b, record: C });
-                var T = e.$7.get(_);
-                if (T != null) {
-                  e.$7.delete(_);
-                  for (var D = 0; D < T.length; D++) {
-                    var x = T[D],
-                      $ = void 0;
-                    if (s.kind === "defer") {
-                      var P;
-                      $ = e.$13(x, (P = x.path) != null ? P : [], s);
-                    } else {
+                } else e.$8.set(C, { fieldPayloads: v, record: b });
+                var D = e.$7.get(h);
+                if (D != null) {
+                  e.$7.delete(h);
+                  for (var x = 0; x < D.length; x++) {
+                    var $ = D[x],
+                      P = void 0;
+                    if (c.kind === "defer") {
                       var N;
-                      $ = e.$14(x, (N = x.path) != null ? N : [], s);
+                      P = e.$13($, (N = $.path) != null ? N : [], c);
+                    } else {
+                      var M;
+                      P = e.$14($, (M = $.path) != null ? M : [], c);
                     }
-                    $ != null &&
-                      (a.push.apply(a, $.payloads),
-                      i.push.apply(i, $.pendingModules));
+                    P != null &&
+                      (a.push.apply(a, P.payloads),
+                      i.push.apply(i, P.payloadOrigins),
+                      s.push.apply(s, P.pendingModules));
                   }
                 }
               },
-              c = 0;
-            c < t.length;
-            c++
+              d = 0;
+            d < t.length;
+            d++
           )
-            s();
+            c();
         }),
-        (t.$11 = function (t, n, r, o) {
+        (t.$11 = function (t, n, r, o, a, i) {
           for (var e = 0; e < t.length; e++) {
-            var a = t[e];
-            a.kind === "ModuleImportPayload" && this.$16(a, n, r, o);
+            var l = t[e];
+            l.kind === "ModuleImportPayload" && this.$16(l, n, r, o, a, i);
           }
         }),
-        (t.$16 = function (t, n, r, o) {
+        (t.$16 = function (t, n, r, o, a, i) {
           var e = this,
-            a = this.$2;
-          if (a != null) {
-            var i = a.get(t.operationReference);
-            if (i != null) {
-              var l = this.$17(t, i, n);
-              (r.push.apply(r, l.payloads), o.push.apply(o, l.pendingModules));
+            l = this.$2;
+          if (l != null) {
+            var s = l.get(t.operationReference);
+            if (s != null) {
+              var u = this.$17(t, s, n, r);
+              (o.push.apply(o, u.payloads),
+                a.push.apply(a, u.payloadOrigins),
+                i.push.apply(i, u.pendingModules));
               return;
             }
-            var s = { payloads: [], pendingModules: [] };
-            o.push(
-              a.load(t.operationReference).then(function (r) {
-                return r != null ? e.$17(t, r, n) : s;
+            var c = { payloads: [], payloadOrigins: [], pendingModules: [] };
+            i.push(
+              l.load(t.operationReference).then(function (o) {
+                return o != null ? e.$17(t, o, n, r) : c;
               }),
             );
           }
         }),
-        (t.$17 = function (t, n, r) {
+        (t.$17 = function (t, n, r, o) {
           var e = n.kind === "SplitOperation" ? n : n.operation,
-            o =
+            a =
               e.kind === "SplitOperation"
                 ? c(t.variables, e.argumentDefinitions, t.args)
                 : t.variables,
-            a = d(e, t.dataID, o),
-            i = this.$1(
-              { data: t.data, extensions: r ? { is_final: !0 } : void 0 },
-              a,
+            i = d(e, t.dataID, a),
+            l = this.$1(
+              { data: t.data, extensions: o ? { is_final: !0 } : void 0 },
+              i,
               t.typeName,
               babelHelpers.extends({}, this.$3, { path: t.path }),
               this.$5,
             ),
-            l = [],
-            s = [];
-          (i.incrementalPlaceholders != null &&
-            i.incrementalPlaceholders.length > 0 &&
+            s = [],
+            u = [],
+            m = [];
+          (l.incrementalPlaceholders != null &&
+            l.incrementalPlaceholders.length > 0 &&
             this.$10(
-              i.incrementalPlaceholders,
-              i.source,
-              i.fieldPayloads,
-              l,
+              l.incrementalPlaceholders,
+              l.source,
+              l.fieldPayloads,
               s,
+              u,
+              m,
             ),
-            i.followupPayloads != null &&
-              i.followupPayloads.length > 0 &&
-              this.$11(i.followupPayloads, i.isFinal, l, s));
-          var u = babelHelpers.extends({}, i, {
+            l.followupPayloads != null &&
+              l.followupPayloads.length > 0 &&
+              this.$11(l.followupPayloads, r, l.isFinal, s, u, m));
+          var p = babelHelpers.extends({}, l, {
             followupPayloads: null,
             incrementalPlaceholders: null,
-            isFinal: this.$12(i.isFinal),
+            isFinal: this.$12(l.isFinal),
             isPreNormalized: !0,
           });
-          return { payloads: [u].concat(l), pendingModules: s };
+          return {
+            payloads: [p].concat(s),
+            payloadOrigins: [r].concat(u),
+            pendingModules: m,
+          };
         }),
         (t.$12 = function (t) {
           return (t || this.$9) && this.$7.size === 0;

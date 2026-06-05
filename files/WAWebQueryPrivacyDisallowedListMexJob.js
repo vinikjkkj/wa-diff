@@ -38,33 +38,38 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r,
             a,
-            i = yield o("WAWebMexGetPrivacyList").fetchPrivacyList({
+            i,
+            l = yield o("WAWebSchemaPrivacyDisallowedList")
+              .getPrivacyDisallowedListTable()
+              .get(t),
+            s = (r = l == null ? void 0 : l.dhash) != null ? r : "",
+            u = yield o("WAWebMexGetPrivacyList").fetchPrivacyList({
               jid: n,
-              dhash: "",
+              dhash: s,
               category: e(t),
               type: "DENYLIST",
             }),
-            l =
-              (r = i.xwa2_fetch_wa_users) == null || (r = r[0]) == null
+            c =
+              (a = u.xwa2_fetch_wa_users) == null || (a = a[0]) == null
                 ? void 0
-                : r.privacy_contact_list,
-            s = (a = l == null ? void 0 : l.contacts) != null ? a : [],
-            u = [];
-          for (var c of s) {
-            var d;
-            if (c != null) {
-              var m = (d = c.jid) != null ? d : c.pn_jid;
-              m != null &&
-                m !== "" &&
-                u.push(o("WAWebWidFactory").createUserWidOrThrow(m));
+                : a.privacy_contact_list,
+            d = (i = c == null ? void 0 : c.contacts) != null ? i : [],
+            m = [];
+          for (var p of d) {
+            var _;
+            if (p != null) {
+              var f = (_ = p.jid) != null ? _ : p.pn_jid;
+              f != null &&
+                f !== "" &&
+                m.push(o("WAWebWidFactory").createUserWidOrThrow(f));
             }
           }
-          return u.length === 0
+          return m.length === 0
             ? { status: "match" }
             : {
                 status: "mismatch",
-                users: u,
-                dhash: (l == null ? void 0 : l.dhash) != null ? l.dhash : "",
+                users: m,
+                dhash: (c == null ? void 0 : c.dhash) != null ? c.dhash : "",
               };
         })),
         u.apply(this, arguments)

@@ -261,6 +261,7 @@ __d(
                 e.$8 || e.$30(o, r);
                 break;
               case "ClientEdgeToClientObject":
+              case "ClientEdgeToServerObject":
                 e.$8 || e.$30(o.backingField, r);
                 break;
               default:

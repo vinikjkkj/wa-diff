@@ -737,11 +737,28 @@ __d(
             a = r[1],
             i = yield y(o, a),
             l = i == null ? void 0 : i.previewUrl;
-          return (t == null ? void 0 : t.aborted) === !0 &&
+          if (
+            (t == null ? void 0 : t.aborted) === !0 &&
             l != null &&
             l.startsWith("blob:")
-            ? (URL.revokeObjectURL(l), { attachment: null, thumbnailUrl: null })
-            : { attachment: i, thumbnailUrl: l };
+          )
+            return (
+              URL.revokeObjectURL(l),
+              {
+                attachment: null,
+                ctaButtonData: null,
+                messageBody: "",
+                thumbnailUrl: null,
+              }
+            );
+          var s = I(o, a),
+            u = k(o, a);
+          return {
+            attachment: i,
+            ctaButtonData: u,
+            messageBody: s,
+            thumbnailUrl: l,
+          };
         })),
         B.apply(this, arguments)
       );

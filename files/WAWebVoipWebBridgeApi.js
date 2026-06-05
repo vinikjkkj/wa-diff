@@ -33,6 +33,7 @@ __d(
     "WAWebVoipActionWriteCallLogEventUpdate1to1",
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
     "WAWebVoipActionWriteCallLogOfferNotice",
+    "WAWebVoipActionWriteCallLogPlaceholder",
     "WAWebVoipActivityTracker",
     "WAWebVoipAnrTracker",
     "WAWebVoipAudioCaptureAndPlayback",
@@ -238,6 +239,11 @@ __d(
         return o(
           "WAWebVoipActionWriteCallLogOfferNotice",
         ).generateCallLogOfferNotice(t);
+      },
+      writeCallOfferPlaceholder: function (t) {
+        return o(
+          "WAWebVoipActionWriteCallLogPlaceholder",
+        ).writeCallOfferPlaceholder(t);
       },
       generateCallLogFromNativeCallEndingEvent: function (t) {
         var e = t.callEndingData;

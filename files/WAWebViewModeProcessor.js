@@ -36,6 +36,10 @@ __d(
         case o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME:
           return o("WAWebCallLogViewModeProcessor")
             .CallLogOfflineResumeViewModeProcessor;
+        case o("WAWebViewMode.flow").ViewModeType
+          .CALL_LOG_OFFLINE_RESUME_PROMOTED:
+          return o("WAWebCallLogViewModeProcessor")
+            .CallLogOfflineResumePromotedViewModeProcessor;
         case o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL:
           return o("WAWebCallLogViewModeProcessor")
             .CallLogAdHocGroupCallViewModeProcessor;

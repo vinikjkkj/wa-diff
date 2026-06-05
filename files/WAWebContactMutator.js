@@ -48,6 +48,20 @@ __d(
       return (m(r, l), !0);
     }
     function _(e) {
+      var t = e.contactId,
+        n = e.externalUserState,
+        r = d(o("WAWebWidFactory").asUserWidOrThrow(t)),
+        a = r.lidContact,
+        i = r.pnContact;
+      if (
+        (i == null || i.externalUserState === n) &&
+        (a == null || a.externalUserState === n)
+      )
+        return !1;
+      var l = { externalUserState: n };
+      return (m(r, l), !0);
+    }
+    function f(e) {
       var t = e.pushnameUpdates;
       t.forEach(function (e) {
         var t = e.contactId,
@@ -55,7 +69,7 @@ __d(
         p({ contactId: t, pushname: n });
       });
     }
-    function f(e) {
+    function g(e) {
       var t = e.lidPhoneNumberMappings;
       t.forEach(function (e) {
         var t = e.lid,
@@ -77,7 +91,7 @@ __d(
           a == null || a.updateContactOptedOutOfMarketingMessages());
       });
     }
-    function g(e) {
+    function h(e) {
       var t = e.lidContactDataMappings;
       t.forEach(function (e) {
         var t = e.displayNameLID,
@@ -91,7 +105,7 @@ __d(
           r != null && (i.requestedPnTimestamp = r));
       });
     }
-    function h(t) {
+    function y(t) {
       var n = t.contactId,
         r = t.disappearingModeDuration,
         a = t.disappearingModeSettingTimestamp,
@@ -112,7 +126,7 @@ __d(
           )
           .tags("contact"));
     }
-    function y(e) {
+    function C(e) {
       var t = e.contactId,
         n = e.textStatusEmoji,
         r = e.textStatusEphemeralDuration,
@@ -137,7 +151,7 @@ __d(
           )
           .tags("contact"));
     }
-    function C(e) {
+    function b(e) {
       var t = e.businessInfo,
         n = e.contactId;
       if (t != null) {
@@ -153,7 +167,7 @@ __d(
             .tags("contact"));
       }
     }
-    function b(e) {
+    function v(e) {
       var t = e.usernameUpdates;
       t.forEach(function (e) {
         var t = e.displayNameLID,
@@ -175,7 +189,7 @@ __d(
         }
       });
     }
-    function v(e) {
+    function S(e) {
       var t = e.advAccountType,
         n = e.contactId,
         r = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
@@ -183,7 +197,7 @@ __d(
         .ContactCollection.gadd(n)
         .set(r ? { isHosted: !0, isOrHasBeenHosted: !0 } : { isHosted: !1 });
     }
-    function S(e) {
+    function R(e) {
       var t = e.showMe,
         n = e.showWithoutName;
       return o("WAWebContactCollection").ContactCollection.getFilteredContacts({
@@ -191,7 +205,7 @@ __d(
         showWithoutName: n,
       });
     }
-    function R(e) {
+    function L(e) {
       var t = e.id,
         n = e.usernameKey,
         r = d(o("WAWebWidFactory").createUserWidOrThrow(t)),
@@ -207,16 +221,17 @@ __d(
           .tags("contact"));
     }
     ((l.updatePushname = p),
-      (l.bulkUpdateContactPushnames = _),
-      (l.bulkUpdatePhoneNumberJids = f),
-      (l.bulkUpdateLidContactState = g),
-      (l.updateDisappearingMode = h),
-      (l.updateTextStatus = y),
-      (l.updateBusinessInfo = C),
-      (l.bulkUpdateUsernames = b),
-      (l.updateContactAdvAccountType = v),
-      (l.getFilteredContacts = S),
-      (l.updateUsernameKey = R));
+      (l.updateContactExternalUserState = _),
+      (l.bulkUpdateContactPushnames = f),
+      (l.bulkUpdatePhoneNumberJids = g),
+      (l.bulkUpdateLidContactState = h),
+      (l.updateDisappearingMode = y),
+      (l.updateTextStatus = C),
+      (l.updateBusinessInfo = b),
+      (l.bulkUpdateUsernames = v),
+      (l.updateContactAdvAccountType = S),
+      (l.getFilteredContacts = R),
+      (l.updateUsernameKey = L));
   },
   98,
 );

@@ -10,6 +10,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogPlaceholderTracker",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,13 +42,16 @@ __d(
             _ = m.chatId,
             f = m.fromMe,
             g = m.msgKeyId,
-            h =
-              s === !0 ||
-              c == null ||
-              !o("WATimeUtils").sameDay(
-                o("WATimeUtils").castToUnixTime(c),
-                o("WATimeUtils").unixTime(),
-              ),
+            h = o(
+              "WAWebVoipCallLogPlaceholderTracker",
+            ).isOfflineCallLogOrderingEnabled()
+              ? !1
+              : s === !0 ||
+                c == null ||
+                !o("WATimeUtils").sameDay(
+                  o("WATimeUtils").castToUnixTime(c),
+                  o("WATimeUtils").unixTime(),
+                ),
             y,
             C = {
               type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,

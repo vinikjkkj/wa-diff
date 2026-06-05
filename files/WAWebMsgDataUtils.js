@@ -14,6 +14,7 @@ __d(
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -95,7 +96,7 @@ __d(
                       o("WAWebViewMode.flow").ViewModeType
                         .CALL_LOG_AD_HOC_GROUP_CALL
                       ? o("WAWebCommonMsgUtils").EventType.IGNORE
-                      : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
+                      : u(e))
                 : e.broadcast === !0
                   ? r("WAWebWid").isBroadcast(e.id.remote)
                     ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
@@ -132,12 +133,19 @@ __d(
         a
       );
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function u(e) {
+      return o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
+        e.viewMode,
+      )
+        ? o("WAWebCommonMsgUtils").EventType.AMBIENT
+        : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
     }
-    function c() {
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i = t.id,
             l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
@@ -214,10 +222,10 @@ __d(
             }
           );
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    ((l.eventTypeFromMsgType = s), (l.genOutgoingMsgData = u));
+    ((l.eventTypeFromMsgType = s), (l.genOutgoingMsgData = c));
   },
   98,
 );

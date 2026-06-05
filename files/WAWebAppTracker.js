@@ -45,6 +45,8 @@ __d(
       "CommunitiesTab",
       "UpdatesTab",
       "MediaMgr",
+      "InitialChatLoad",
+      "LoadMainScreen",
     ]);
     function s(e, t, n) {
       Object.prototype.hasOwnProperty.call(e, "appContext") ||

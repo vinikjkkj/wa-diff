@@ -57,7 +57,7 @@ __d(
               case "flow_status_started":
               case "data_received":
               case "stream_ping_success":
-                this.$1 = "available";
+                ((this.$1 = "available"), (this.$2 = "available"));
                 break;
               case "stream_ping_timeout":
                 ((this.$1 = "unavailable"), (this.$9 = "DOWNSTREAM"));

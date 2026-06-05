@@ -270,8 +270,13 @@ __d(
           var t = e[0],
             n = e[1],
             r = e[2];
+          if (n != null) return !1;
           if (
-            n != null ||
+            t === "call_log" &&
+            o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(r)
+          )
+            return !0;
+          if (
             !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
               o("WAWebViewMode.flow").ViewModeSurface.CHAT,
               r,

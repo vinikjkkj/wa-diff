@@ -8,6 +8,7 @@ __d(
     "WAWebABProps",
     "WAWebApiChat",
     "WAWebApiHydrateWidsUtil",
+    "WAWebAppTracker",
     "WAWebChatCollection",
     "WAWebChatComparator",
     "WAWebChatGetters",
@@ -94,6 +95,9 @@ __d(
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[init-from-storage] load DbEncKeyStore key",
                 ])),
+            ),
+            o("WAWebAppTracker").AppTracker.start(
+              o("WAWebAppTracker").AppTrackerType.InitialChatLoad,
             ),
             o("WAWebModelStorageInitialize")
               .initializeWithoutGKs()
@@ -187,6 +191,11 @@ __d(
                     )
                     .catching(r("getErrorSafe")(e)),
                   e
+                );
+              })
+              .finally(function () {
+                o("WAWebAppTracker").AppTracker.stop(
+                  o("WAWebAppTracker").AppTrackerType.InitialChatLoad,
                 );
               })
           );

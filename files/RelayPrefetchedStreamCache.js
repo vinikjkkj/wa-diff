@@ -6,7 +6,6 @@ __d(
     "RelayAsyncStreamPool",
     "WebDriverConfig",
     "clearImmediate",
-    "gkx",
     "setImmediateAcrossTransitions",
     "stableStringifyPrefetchedRelayVariablesWithActor",
   ],
@@ -71,7 +70,7 @@ __d(
     }
     function v(e, t) {
       if (
-        !S() ||
+        !r("WebDriverConfig").isJestE2ETestRun ||
         e == null ||
         !Object.prototype.hasOwnProperty.call(c, e) ||
         Object.prototype.hasOwnProperty.call(u, t)
@@ -80,13 +79,7 @@ __d(
       var n = c[e];
       return Object.prototype.hasOwnProperty.call(u, n) ? n : t;
     }
-    function S() {
-      if (!r("WebDriverConfig").isJestE2ETestRun) return !1;
-      if (r("gkx")("15236")) return !0;
-      var e = r("WebDriverConfig").experiments;
-      return e == null ? !1 : e.includes("relay_e2e_query_name_cache");
-    }
-    function R(t, n, o, a, i, l) {
+    function S(t, n, o, a, i, l) {
       l === void 0 && (l = !1);
       var c = r("stableStringifyPrefetchedRelayVariablesWithActor")(t, o),
         m = y(n, c);
@@ -99,7 +92,7 @@ __d(
       ) {
         var p = Object.keys(u[n]),
           _ = u[n][p[0]],
-          f = I(_, t, o);
+          f = k(_, t, o);
         r("FBLogger")("RelayQueryPreloader")
           .addMetadata("RELAY_PRELOADER", "QUERY_ID", n)
           .addMetadata(
@@ -142,7 +135,7 @@ __d(
         };
       return (a.start(h), g || a.complete(), h);
     }
-    function L(e, t) {
+    function R(e, t) {
       var n = null,
         o = 0,
         a = null;
@@ -162,11 +155,11 @@ __d(
       var l = n == null || a !== !1;
       l && s.complete(e, o + 1);
     }
-    function E(e, t, n) {
+    function L(e, t, n) {
       (n === void 0 && (n = 0),
         n === 0 ? s.forceError(e, t) : s.error(e, t, n));
     }
-    function k(e, t, n, o, a) {
+    function E(e, t, n, o, a) {
       var i = r("stableStringifyPrefetchedRelayVariablesWithActor")(o, n);
       g(t, i);
       var l = y(t, i);
@@ -181,9 +174,9 @@ __d(
         s.forceComplete(l),
         f(t, i)),
         C(t, i, e, o, n),
-        S() && a != null && (c[a] = t));
+        r("WebDriverConfig").isJestE2ETestRun && a != null && (c[a] = t));
     }
-    function I(e, t, n) {
+    function k(e, t, n) {
       if (e == null) return "";
       var r = e.actorID,
         o = e.variables,
@@ -204,11 +197,10 @@ __d(
     }
     ((l.clear = b),
       (l.transformQueryIDForE2ETest = v),
-      (l.isE2EQueryNameCacheExperimentRunning = S),
-      (l.subscribe = R),
-      (l.next = L),
-      (l.error = E),
-      (l.registerPreloader = k));
+      (l.subscribe = S),
+      (l.next = R),
+      (l.error = L),
+      (l.registerPreloader = E));
   },
   98,
 );

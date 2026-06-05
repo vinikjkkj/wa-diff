@@ -7,6 +7,7 @@ __d(
     "WAPromiseDelays",
     "WAPromiseLoop",
     "WAWebABProps",
+    "WAWebAppTracker",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBlocklistMigration",
@@ -249,34 +250,43 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o("WAWebAppTracker").AppTracker.start(
+            o("WAWebAppTracker").AppTrackerType.LoadMainScreen,
+          );
           try {
-            yield o(
-              "WAWebPruneExpiredMessagesWithAddOns",
-            ).pruneExpiredMessagesWithAddOns();
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume] loadMainScreen: pruneExpiredMessages message failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e)),
-              e
+            try {
+              yield o(
+                "WAWebPruneExpiredMessagesWithAddOns",
+              ).pruneExpiredMessagesWithAddOns();
+            } catch (e) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume] loadMainScreen: pruneExpiredMessages message failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e)),
+                e
+              );
+            }
+            (yield D(e),
+              N(),
+              o(
+                "WAWebBackendEventBus",
+              ).BackendEventBus.triggerOfflineProcessReady(),
+              o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume] loadMainScreen complete",
+                  ])),
+              ));
+          } finally {
+            o("WAWebAppTracker").AppTracker.stop(
+              o("WAWebAppTracker").AppTrackerType.LoadMainScreen,
             );
           }
-          (yield D(e),
-            N(),
-            o(
-              "WAWebBackendEventBus",
-            ).BackendEventBus.triggerOfflineProcessReady(),
-            o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "[offline-resume] loadMainScreen complete",
-                ])),
-            ));
         })),
         P.apply(this, arguments)
       );

@@ -106,14 +106,16 @@ __d(
               ]);
               continue;
             }
-            var v = h.broadcastId || h.from,
-              S = h.author || h.from;
-            g.push({
-              id: C.id,
-              sender: o("WAWebWidFactory").createWidFromWidLike(S),
-              chat: o("WAWebWidFactory").createWidFromWidLike(v),
-              serverStoreTimeMicros: m(h.serverStoreTimeMicros),
-            });
+            if (h.type !== o("WAWebMsgType").MSG_TYPE.CALL_LOG) {
+              var v = h.broadcastId || h.from,
+                S = h.author || h.from;
+              g.push({
+                id: C.id,
+                sender: o("WAWebWidFactory").createWidFromWidLike(S),
+                chat: o("WAWebWidFactory").createWidFromWidLike(v),
+                serverStoreTimeMicros: m(h.serverStoreTimeMicros),
+              });
+            }
           }
           var R = b(g),
             L = R[0],

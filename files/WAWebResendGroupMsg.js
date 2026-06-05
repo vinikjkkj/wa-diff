@@ -1,6 +1,7 @@
 __d(
   "WAWebResendGroupMsg",
   [
+    "WAArrayDifferenceBy",
     "WALogger",
     "WATimeUtils",
     "WAWebCurrentUser",
@@ -20,7 +21,6 @@ __d(
     "WAWebWamEnumMessageSendResultType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v;
@@ -31,16 +31,16 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.ackTime,
-            a = t.groupData,
-            i = t.isDirect,
-            l = t.metricReporter,
-            b = t.msgProtobuf,
-            v = t.msgRecord,
-            S = t.oldList,
-            R = t.phash,
-            k = t.serverAddressingMode,
-            I = v.data.id.id,
-            T = v.data.to;
+            r = t.groupData,
+            a = t.isDirect,
+            i = t.metricReporter,
+            l = t.msgProtobuf,
+            b = t.msgRecord,
+            v = t.oldList,
+            S = t.phash,
+            R = t.serverAddressingMode,
+            k = b.data.id.id,
+            I = b.data.to;
           (o("WALogger")
             .LOG(
               e ||
@@ -49,25 +49,25 @@ __d(
                   " to ",
                   "",
                 ])),
-              I,
-              T.toString(),
+              k,
+              I.toString(),
             )
             .tags("messaging"),
             o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric(
-              T,
-              v,
+              I,
               b,
-              a,
-              k,
+              l,
+              r,
+              R,
             ),
-            (l.sendReporter = l.createSendReporter({
+            (i.sendReporter = i.createSendReporter({
               isResend: !0,
-              originalMessage: v.type === "message" ? v.data : void 0,
-              groupData: a,
+              originalMessage: b.type === "message" ? b.data : void 0,
+              groupData: r,
             })));
-          var D = Array.from(
+          var T = Array.from(
             new Set(
-              S.map(function (e) {
+              v.map(function (e) {
                 return o("WAWebWidFactory").asUserWidOrThrow(e).toString();
               }),
             ),
@@ -75,10 +75,10 @@ __d(
               return o("WAWebWidFactory").createUserWidOrThrow(e);
             },
           );
-          if (!o("WAWebGroupMsgSendUtils").isCagAddon(v.data, a))
+          if (!o("WAWebGroupMsgSendUtils").isCagAddon(b.data, r))
             try {
               yield o("WAWebFetchResendMissingKeyJob").fetchResendMissingKeys(
-                S,
+                v,
               );
             } catch (e) {
               o("WALogger")
@@ -90,20 +90,20 @@ __d(
                 )
                 .sendLogs("fetchResendMissingKeys-sync-error");
             }
-          if (i)
+          if (a)
             yield o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-              S,
+              v,
               "message",
-              R,
+              S,
             );
           else
             try {
-              (yield o("WAWebGroupQueryBridge").sendQueryGroup(T),
+              (yield o("WAWebGroupQueryBridge").sendQueryGroup(I),
                 E({
-                  groupData: a,
-                  groupId: T,
-                  msgProtobuf: b,
-                  oldParticipantList: D.map(
+                  groupData: r,
+                  groupId: I,
+                  msgProtobuf: l,
+                  oldParticipantList: T.map(
                     o("WAWebWidFactory").createWidFromWidLike,
                   ),
                 }).catch(function (e) {
@@ -115,7 +115,7 @@ __d(
                           ": failed ",
                           "",
                         ])),
-                      I,
+                      k,
                       String(e),
                     )
                     .tags("messaging");
@@ -130,17 +130,17 @@ __d(
                         ": sendQueryGroup failed: ",
                         "",
                       ])),
-                    I,
+                    k,
                     e,
                   )
                   .tags("messaging"),
-                L(l),
+                L(i),
                 e
               );
             }
-          var x = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
-          if (o("WATimeUtils").unixTime() - n > x) {
-            var $;
+          var D = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
+          if (o("WATimeUtils").unixTime() - n > D) {
+            var x;
             (o("WALogger")
               .LOG(
                 d ||
@@ -149,28 +149,28 @@ __d(
                     ": skip group resending due to ",
                     " min timeout",
                   ])),
-                I,
-                x / 60,
+                k,
+                D / 60,
               )
               .tags("messaging"),
-              ($ = l.sendReporter) == null ||
-                $.postFailure({
+              (x = i.sendReporter) == null ||
+                x.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_EXPIRED,
                   isTerminal: !1,
                 }),
-              (l.sendReporter = null));
+              (i.sendReporter = null));
             return;
           }
           try {
-            var P = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
-                T.toString(),
+            var $ = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+                I.toString(),
               ),
-              N = P == null ? void 0 : P.participants;
-            if (N != null && N.length !== D.length) {
-              var M = N.length - D.length,
-                w = M > 0 ? "increased" : "decreased",
-                A = Math.abs(M);
+              P = $ == null ? void 0 : $.participants;
+            if (P != null && P.length !== T.length) {
+              var N = P.length - T.length,
+                M = N > 0 ? "increased" : "decreased",
+                w = Math.abs(N);
               if (
                 (o("WALogger").LOG(
                   m ||
@@ -180,20 +180,20 @@ __d(
                       " by ",
                       "",
                     ])),
-                  I,
+                  k,
+                  M,
                   w,
-                  A,
                 ),
                 o("WAWebCurrentUser").isEmployee())
               ) {
-                var F = N.map(function (e) {
+                var A = P.map(function (e) {
                     return o("WAWebWidFactory").createUserWidOrThrow(e);
                   }),
-                  O = new Set(D),
-                  B = F.filter(function (e) {
-                    return !O.has(e);
+                  F = new Set(T),
+                  O = A.filter(function (e) {
+                    return !F.has(e);
                   }),
-                  W = B.join();
+                  B = O.join();
                 o("WALogger")
                   .LOG(
                     p ||
@@ -202,19 +202,19 @@ __d(
                         ": msg not sent to: ",
                         "",
                       ])),
-                    I,
-                    W,
+                    k,
+                    B,
                   )
                   .sendLogs("resendGroupMsg-missed-participants", {
                     sampling: 0.01,
                   });
               }
             }
-            var q = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: D,
+            var W = yield o("WAWebDBDeviceListFanout").getFanOutList({
+                wids: T,
               }),
-              U = r("lodash").differenceBy(q, S, String);
-            if (U.length === 0) {
+              q = o("WAArrayDifferenceBy").differenceBy(W, v, String);
+            if (q.length === 0) {
               o("WALogger")
                 .LOG(
                   _ ||
@@ -222,7 +222,7 @@ __d(
                       "resendGroupMsg: ",
                       ": skip resending to the empty list",
                     ])),
-                  I,
+                  k,
                 )
                 .tags("messaging");
               return;
@@ -236,11 +236,11 @@ __d(
                       ": resending to devices: ",
                       "",
                     ])),
-                  I,
-                  U.join(","),
+                  k,
+                  q.join(","),
                 )
                 .tags("messaging"),
-              v.data.isOverwrittenByRevoke === !0)
+              b.data.isOverwrittenByRevoke === !0)
             ) {
               o("WALogger")
                 .LOG(
@@ -249,7 +249,7 @@ __d(
                       "resendGroupMsg: ",
                       ": skip, msg overwritten by revoke",
                     ])),
-                  I,
+                  k,
                 )
                 .tags("messaging");
               return;
@@ -257,11 +257,11 @@ __d(
             (yield o(
               "WAWebSendDirectMsgToDeviceList",
             ).sendDirectMsgToDeviceList({
-              deviceList: U,
-              groupData: a,
-              metricReporter: l,
-              msgProtobuf: b,
-              msgRecord: v,
+              deviceList: q,
+              groupData: r,
+              metricReporter: i,
+              msgProtobuf: l,
+              msgRecord: b,
               option: {
                 fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
                 isResendingMsg: !0,
@@ -274,11 +274,11 @@ __d(
                       "resendGroupMsg: ",
                       ": done",
                     ])),
-                  I,
+                  k,
                 )
                 .tags("messaging"));
           } catch (e) {
-            var V;
+            var U;
             throw (
               o("WALogger")
                 .LOG(
@@ -288,7 +288,7 @@ __d(
                       " message: ",
                       "",
                     ])),
-                  I,
+                  k,
                   e,
                 )
                 .tags("messaging"),
@@ -302,18 +302,18 @@ __d(
                   e,
                 )
                 .tags("messaging"),
-              (V = l.sendReporter) == null ||
-                V.postFailure({
+              (U = i.sendReporter) == null ||
+                U.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !1,
                 }),
-              (l.sendReporter = null),
+              (i.sendReporter = null),
               e
             );
           }
           yield o("WAWebMsgUtilsBridge").logMessageSendForChatThreadLogging(
-            v.data,
+            b.data,
           );
         })),
         R.apply(this, arguments)

@@ -21,6 +21,7 @@ __d(
       s,
       u = {
         updatePushname: (s = o("WAWebContactMutator")).updatePushname,
+        updateContactExternalUserState: s.updateContactExternalUserState,
         bulkUpdatePhoneNumberJids: s.bulkUpdatePhoneNumberJids,
         bulkUpdateLidContactState: s.bulkUpdateLidContactState,
         updateDisappearingMode: s.updateDisappearingMode,

@@ -8,7 +8,6 @@ __d(
     "LWICometCTAUtils",
     "ads-lib-urllib",
     "isStringNullOrEmpty",
-    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -556,8 +555,10 @@ __d(
             video_data: null,
           };
     }
-    function g(e, t, n, a, i) {
-      var l,
+    function g(e, t, n, r) {
+      var a,
+        i,
+        l,
         s,
         u,
         c,
@@ -600,168 +601,160 @@ __d(
         j,
         K,
         Q,
-        X,
-        Y,
-        J,
-        Z = e == null || (l = e.link_data) == null ? void 0 : l.image_crops;
-      Z =
-        ((s = Z) == null ? void 0 : s.crop_dimension) != null
+        X = e == null || (a = e.link_data) == null ? void 0 : a.image_crops;
+      X =
+        ((i = X) == null ? void 0 : i.crop_dimension) != null
           ? JSON.stringify(
-              ((p = {}),
-              (p[Z.crop_dimension] = [
+              ((d = {}),
+              (d[X.crop_dimension] = [
                 [
-                  (u = Z.upper_left) == null ? void 0 : u.x,
-                  (c = Z.upper_left) == null ? void 0 : c.y,
+                  (l = X.upper_left) == null ? void 0 : l.x,
+                  (s = X.upper_left) == null ? void 0 : s.y,
                 ],
                 [
-                  (d = Z.lower_right) == null ? void 0 : d.x,
-                  (m = Z.lower_right) == null ? void 0 : m.y,
+                  (u = X.lower_right) == null ? void 0 : u.x,
+                  (c = X.lower_right) == null ? void 0 : c.y,
                 ],
               ]),
-              p),
+              d),
             )
           : void 0;
-      var ee =
-        e == null || (_ = e.link_data) == null ? void 0 : _.child_attachments;
-      ((ee =
-        ee != null
-          ? ee.map(function (e) {
+      var Y =
+        e == null || (m = e.link_data) == null ? void 0 : m.child_attachments;
+      ((Y =
+        Y != null
+          ? Y.map(function (e) {
               var t;
               return babelHelpers.extends({}, e, {
                 link: (t = e.link) != null ? t : "",
               });
             })
           : void 0),
-        ((f = ee) == null ? void 0 : f.length) === 0 && (ee = void 0));
-      var te =
-          e == null || (g = e.product_data) == null
+        ((p = Y) == null ? void 0 : p.length) === 0 && (Y = void 0));
+      var J =
+          e == null || (_ = e.product_data) == null
             ? void 0
-            : g.map(function (e) {
+            : _.map(function (e) {
                 var t;
                 return {
                   product_id: e.product_id,
                   product_source: (t = e.product_source) != null ? t : "",
                 };
               }),
-        ne =
-          e == null || (h = e.link_data) == null ? void 0 : h.retailer_item_ids,
-        re =
-          (e == null || (y = e.photo_data) == null ? void 0 : y.image_hash) !==
+        Z =
+          e == null || (f = e.link_data) == null ? void 0 : f.retailer_item_ids,
+        ee =
+          (e == null || (g = e.photo_data) == null ? void 0 : g.image_hash) !==
           null,
-        oe = o("LWICometCTALinkUtils").getShouldUseLinkFromCTA(t, e),
-        ae =
-          (C = e == null || (b = e.link_data) == null ? void 0 : b.link) != null
-            ? C
+        te = o("LWICometCTALinkUtils").getShouldUseLinkFromCTA(t, e),
+        ne =
+          (h = e == null || (y = e.link_data) == null ? void 0 : y.link) != null
+            ? h
             : void 0;
       return e
         ? babelHelpers.extends(
             {
               instagram_actor_id:
-                (v = e == null ? void 0 : e.instagram_actor_id) != null
-                  ? v
+                (C = e == null ? void 0 : e.instagram_actor_id) != null
+                  ? C
                   : void 0,
             },
-            i && {
+            r && {
               instagram_user_id:
-                (S = e == null ? void 0 : e.instagram_user_id) != null
-                  ? S
+                (b = e == null ? void 0 : e.instagram_user_id) != null
+                  ? b
                   : void 0,
             },
             {
               link_data: e.link_data
                 ? {
                     call_to_action: t != null ? t : void 0,
-                    child_attachments: ee != null ? ee : void 0,
+                    child_attachments: Y != null ? Y : void 0,
                     description:
-                      (R = e.link_data.description) != null ? R : void 0,
-                    event_id: (L = e.link_data.event_id) != null ? L : void 0,
-                    image_crops: Z,
+                      (v = e.link_data.description) != null ? v : void 0,
+                    event_id: (S = e.link_data.event_id) != null ? S : void 0,
+                    image_crops: X,
                     image_hash:
-                      (E = e.link_data.image_hash) != null ? E : void 0,
+                      (R = e.link_data.image_hash) != null ? R : void 0,
                     link: o("LWICometCTAUtils").getLWICTALinkData(
-                      oe,
-                      t == null || (k = t.value) == null ? void 0 : k.link,
-                      ae,
-                      a,
+                      te,
+                      t == null || (L = t.value) == null ? void 0 : L.link,
+                      ne,
+                      n,
                     ),
                     message:
-                      (I = (T = e.link_data) == null ? void 0 : T.message) !=
+                      (E = (k = e.link_data) == null ? void 0 : k.message) !=
                       null
-                        ? I
+                        ? E
                         : void 0,
                     name:
-                      (D = (x = e.link_data) == null ? void 0 : x.name) != null
-                        ? D
+                      (I = (T = e.link_data) == null ? void 0 : T.name) != null
+                        ? I
                         : void 0,
                     picture:
-                      ($ = (P = e.link_data) == null ? void 0 : P.picture) !=
+                      (D = (x = e.link_data) == null ? void 0 : x.picture) !=
                       null
-                        ? $
+                        ? D
                         : void 0,
-                    retailer_item_ids:
-                      ne != null && ne.length > 0 ? ne : void 0,
-                    use_flexible_image_aspect_ratio: (
-                      (N =
-                        (M = e.link_data) == null
-                          ? void 0
-                          : M.use_flexible_image_aspect_ratio) != null
-                        ? N
-                        : !n && r("qex")._("1392") === !0
-                    )
-                      ? !0
-                      : void 0,
+                    retailer_item_ids: Z != null && Z.length > 0 ? Z : void 0,
+                    use_flexible_image_aspect_ratio:
+                      (($ = e.link_data) == null
+                        ? void 0
+                        : $.use_flexible_image_aspect_ratio) === !0
+                        ? !0
+                        : void 0,
                   }
                 : void 0,
               page_id:
-                (w =
-                  (A = e.page) == null || (A = A.node) == null
+                (P =
+                  (N = e.page) == null || (N = N.node) == null
                     ? void 0
-                    : A.id) != null
-                  ? w
+                    : N.id) != null
+                  ? P
                   : void 0,
               photo_data: e.photo_data
-                ? re
+                ? ee
                   ? {
                       call_to_action: t != null ? t : void 0,
-                      caption: (F = e.photo_data.caption) != null ? F : void 0,
+                      caption: (M = e.photo_data.caption) != null ? M : void 0,
                       image_hash:
-                        (O = e.photo_data.image_hash) != null ? O : void 0,
+                        (w = e.photo_data.image_hash) != null ? w : void 0,
                     }
                   : {
                       call_to_action: t != null ? t : void 0,
-                      caption: (B = e.photo_data.caption) != null ? B : void 0,
-                      url: (W = e.photo_data.url) != null ? W : void 0,
+                      caption: (A = e.photo_data.caption) != null ? A : void 0,
+                      url: (F = e.photo_data.url) != null ? F : void 0,
                     }
                 : void 0,
-              product_data: te != null ? te : void 0,
+              product_data: J != null ? J : void 0,
               template_data: e.template_data
                 ? {
                     call_to_action: t != null ? t : void 0,
                     description:
-                      (q = e.template_data.description) != null ? q : void 0,
+                      (O = e.template_data.description) != null ? O : void 0,
                     format_option:
-                      (U = e.template_data.format_option) != null ? U : void 0,
-                    link: (V = e.template_data.link) != null ? V : void 0,
-                    message: (H = e.template_data.message) != null ? H : void 0,
+                      (B = e.template_data.format_option) != null ? B : void 0,
+                    link: (W = e.template_data.link) != null ? W : void 0,
+                    message: (q = e.template_data.message) != null ? q : void 0,
                     multi_share_end_card:
-                      (G = e.template_data.multi_share_end_card) != null
-                        ? G
+                      (U = e.template_data.multi_share_end_card) != null
+                        ? U
                         : void 0,
-                    name: (z = e.template_data.name) != null ? z : void 0,
+                    name: (V = e.template_data.name) != null ? V : void 0,
                   }
                 : void 0,
               video_data: e.video_data
                 ? {
                     call_to_action: t != null ? t : void 0,
                     image_hash:
-                      (j = e.video_data.image_hash) != null ? j : void 0,
+                      (H = e.video_data.image_hash) != null ? H : void 0,
                     image_url:
-                      (K = e.video_data.image_url) != null ? K : void 0,
+                      (G = e.video_data.image_url) != null ? G : void 0,
                     link_description:
-                      (Q = e.video_data.link_description) != null ? Q : void 0,
-                    message: (X = e.video_data.message) != null ? X : void 0,
-                    title: (Y = e.video_data.title) != null ? Y : void 0,
-                    video_id: (J = e.video_data.video_id) != null ? J : void 0,
+                      (z = e.video_data.link_description) != null ? z : void 0,
+                    message: (j = e.video_data.message) != null ? j : void 0,
+                    title: (K = e.video_data.title) != null ? K : void 0,
+                    video_id: (Q = e.video_data.video_id) != null ? Q : void 0,
                   }
                 : void 0,
             },

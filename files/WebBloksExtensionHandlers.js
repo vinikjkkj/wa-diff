@@ -16,6 +16,7 @@ __d(
     "WebBloksTouchExtensionHandler",
     "WebBloksViewTransformExtensionHandler",
     "WebBloksVisibilityExtensionHandler",
+    "WebBloksWebDataAttributesExtensionHandler",
     "WebBloksWebFocusBoundaryExtensionHandler",
     "WebBloksWebNativeAccessibilityExtensionHandler",
   ],
@@ -30,6 +31,9 @@ __d(
       ),
       "bk.components.AccessibilityExtension": r(
         "WebBloksAccessibilityExtensionHandler",
+      ),
+      "bk.components.WebDataAttributesExtension": r(
+        "WebBloksWebDataAttributesExtensionHandler",
       ),
       "bk.components.WebNativeAccessibilityExtension": r(
         "WebBloksWebNativeAccessibilityExtensionHandler",

@@ -389,7 +389,12 @@ __d(
         CallLinkCreatorCallMissed: 4,
         WaitingRoomJoined: 5,
         WaitingRoomMultipleJoined: 6,
-      });
+      }),
+      $ = e({ Unknown: 0, Guest: 1 }),
+      P = "guest";
+    function N(e) {
+      return e === P ? $.Guest : $.Unknown;
+    }
     ((l.CallState = s),
       (l.CallResult = u),
       (l.CallLogResult = c),
@@ -412,7 +417,9 @@ __d(
       (l.CallUserType = I),
       (l.CallLinkState = T),
       (l.CallFailedReason = D),
-      (l.ServerReminderType = x));
+      (l.ServerReminderType = x),
+      (l.AccountKind = $),
+      (l.wireStringToAccountKind = N));
   },
   98,
 );

@@ -21,6 +21,7 @@ __d(
       s = n("$InternalEnum").Mirrored([
         "FLOATER",
         "OG_FLOATER",
+        "OG_INLINE_PLAYER",
         "MEDIA_VIEWER",
       ]),
       u = n("$InternalEnum").Mirrored(["OG", "YOUTUBE", "MSG", "VOIP"]),

@@ -31,7 +31,14 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.markBootstrapped = function () {
+          ((this.bootstrapped = !0), this.trigger("bootstrapped"));
+        }),
+        t
+      );
     })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     ((e.model = o("WAWebBizBroadcastCampaignModel").BizBroadcastCampaign),
       (e.comparator = function (e, t) {

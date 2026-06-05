@@ -139,11 +139,15 @@ __d(
           }),
           (t.getPinnedChatsBenefitLimit = function () {
             var e;
-            return (e = this.benefit(
+            return this.$7(
               o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
-            )) == null
-              ? void 0
-              : e.limit;
+            )
+              ? (e = this.$6().benefit(
+                  o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
+                )) == null
+                ? void 0
+                : e.limit
+              : null;
           }),
           (t.isListsEnabled = function () {
             return this.benefit(

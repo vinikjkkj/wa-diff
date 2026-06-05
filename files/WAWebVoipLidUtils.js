@@ -4,12 +4,15 @@ __d(
     "WALogger",
     "WAPromiseEach",
     "WAWebAsISOCountryCode",
+    "WAWebContactExternalUserState",
     "WAWebDBCreateLidPnMappings",
     "WAWebHandlePushnameUpdate",
     "WAWebSetUsernameJob",
+    "WAWebUpdateContactExternalUserState",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebVoipGatingUtils",
+    "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -44,6 +47,7 @@ __d(
                       phoneNumber: e.user_pn,
                       username: e.username,
                       pushName: e.push_name,
+                      accountKind: e.account_kind,
                       flushImmediately: t && o,
                     });
                   },
@@ -63,32 +67,39 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.countryCode,
-            a = t.flushImmediately,
-            i = t.jid,
-            l = t.phoneNumber,
-            s = t.pushName,
-            u = t.username,
-            c = o("WAWebWidFactory").asUserWidOrThrow(i);
+          var n = t.accountKind,
+            a = t.countryCode,
+            i = t.flushImmediately,
+            l = t.jid,
+            s = t.phoneNumber,
+            u = t.pushName,
+            c = t.username,
+            d = o("WAWebWidFactory").asUserWidOrThrow(l),
+            p = m(n);
           if (
-            (r("isStringNullOrEmpty")(s) ||
-              o("WAWebHandlePushnameUpdate").updatePushname(i, s, !1),
-            !!c.isLid())
+            (p != null &&
+              o("WAWebVoipGatingUtils").isGuestCallingRepresentationEnabled() &&
+              o(
+                "WAWebUpdateContactExternalUserState",
+              ).updateContactExternalUserState(l, p),
+            r("isStringNullOrEmpty")(u) ||
+              o("WAWebHandlePushnameUpdate").updatePushname(l, u, !1),
+            !!d.isLid())
           ) {
             if (
-              u != null &&
+              c != null &&
               o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
             ) {
-              var d = o("WAWebUsernameTypes").asMaybeUsername(u);
-              if (d != null) {
-                var m = { userId: c, username: d };
-                if (n != null) {
-                  var p = o("WAWebAsISOCountryCode").asISOCountryCode(n);
-                  p != null && (m.usernameCountryCode = p);
+              var _ = o("WAWebUsernameTypes").asMaybeUsername(c);
+              if (_ != null) {
+                var f = { userId: d, username: _ };
+                if (a != null) {
+                  var g = o("WAWebAsISOCountryCode").asISOCountryCode(a);
+                  g != null && (f.usernameCountryCode = g);
                 }
                 if (
-                  (yield o("WAWebSetUsernameJob").setUsernamesJob([m]),
-                  l != null &&
+                  (yield o("WAWebSetUsernameJob").setUsernamesJob([f]),
+                  s != null &&
                     o(
                       "WAWebVoipGatingUtils",
                     ).usernameCallingPhoneNumberPrivacyEnabled())
@@ -105,18 +116,29 @@ __d(
                 }
               }
             }
-            l != null &&
+            s != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [
-                  { lid: c, pn: o("WAWebWidFactory").asUserWidOrThrow(l) },
+                  { lid: d, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },
                 ],
-                flushImmediately: a,
+                flushImmediately: i,
                 learningSource: "other",
               }));
           }
         })),
         d.apply(this, arguments)
       );
+    }
+    function m(e) {
+      return (function (e) {
+        if (e === o("WAWebVoipWaCallEnums").AccountKind.Guest)
+          return o("WAWebContactExternalUserState").ExternalUserState.GuestUser;
+        if (e === o("WAWebVoipWaCallEnums").AccountKind.Unknown) return null;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(o("WAWebVoipWaCallEnums").wireStringToAccountKind(e));
     }
     ((l.persistAttributesAndLidMappingsForCall = s),
       (l.attemptPersistLidMappingAndUserAttributes = c));

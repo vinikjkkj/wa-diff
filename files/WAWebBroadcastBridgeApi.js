@@ -50,8 +50,9 @@ __d(
           (r("WAWebBizBroadcastCampaignInsightsCollection").add(n, {
             merge: !0,
           }),
-            (r("WAWebBizBroadcastCampaignInsightsCollection").bootstrapped =
-              !0));
+            r(
+              "WAWebBizBroadcastCampaignInsightsCollection",
+            ).markBootstrapped());
         },
         loadedBizBroadcastCampaigns: function (n) {
           var t = n.rows;
@@ -69,7 +70,7 @@ __d(
             return babelHelpers.extends({ id: n }, r);
           });
           (r("WAWebBizBroadcastCampaignCollection").add(a, { merge: !0 }),
-            (r("WAWebBizBroadcastCampaignCollection").bootstrapped = !0));
+            r("WAWebBizBroadcastCampaignCollection").markBootstrapped());
         },
         refreshBroadcastCampaignState: function (t) {
           var e = t.broadcastJids;

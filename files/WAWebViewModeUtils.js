@@ -1,6 +1,7 @@
 __d(
   "WAWebViewModeUtils",
   [
+    "WAWebABProps",
     "WAWebMessageAssociation.flow",
     "WAWebMsgType",
     "WAWebPollCreationUtils",
@@ -32,7 +33,20 @@ __d(
         ? !0
         : e(o("WAWebViewMode.flow").ViewModeSurface.CHAT, t.viewMode);
     }
-    ((l.isViewModeVisibleInSurface = e), (l.isMessageExistingInChat = s));
+    function u(e) {
+      return (
+        (e === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
+          e ===
+            o("WAWebViewMode.flow").ViewModeType
+              .CALL_LOG_OFFLINE_RESUME_PROMOTED) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "web_calling_offline_resume_ordering",
+        )
+      );
+    }
+    ((l.isViewModeVisibleInSurface = e),
+      (l.isMessageExistingInChat = s),
+      (l.isOfflineResumeCallLogPlaceholderViewMode = u));
   },
   98,
 );

@@ -1,15 +1,37 @@
 __d(
   "WAWebSNAPLPersistentId",
-  ["WAWebPonyfillsCryptoRandomUUID"],
+  [
+    "WAWebEncryptedRid",
+    "WAWebPonyfillsCryptoRandomUUID",
+    "WAWebUserPrefsKeys",
+    "WAWebUserPrefsStore",
+    "WAWebWamEnumMessageType",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      return r("WAWebPonyfillsCryptoRandomUUID")();
+    function e(e, t) {
+      return e === o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS && t
+        ? s()
+        : o("WAWebEncryptedRid").getEncryptedRid();
     }
-    function s(e) {
-      return e;
+    function s() {
+      var e = r("WAWebUserPrefsStore").getUser(
+        o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId,
+      );
+      if (e != null && typeof e == "object") {
+        var t = e.persistentId;
+        if (typeof t == "string") return t;
+      }
+      var n = r("WAWebPonyfillsCryptoRandomUUID")();
+      return (
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId,
+          { persistentId: n },
+        ),
+        n
+      );
     }
-    ((l.computeSNAPLPersistentId = e), (l.castToSNAPLPersistentId = s));
+    l.getSNAPLPersistentId = e;
   },
   98,
 );

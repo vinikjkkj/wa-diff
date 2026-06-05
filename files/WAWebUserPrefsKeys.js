@@ -27,7 +27,6 @@ __d(
         "PhoneNumberHidingThreadPromotionMigrationState",
         "AfterReadSendingRollbackMigrationState",
         "SNAPLPersistentId",
-        "SNAPLNewsLetterPersistentId",
         "MusicEligibleCountries",
         "CartDbLidMigrationComplete",
         "WindowsNotificationBannerSetting",

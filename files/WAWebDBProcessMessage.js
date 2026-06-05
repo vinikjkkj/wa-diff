@@ -20,6 +20,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSyncGatingUtils",
     "WAWebViewMode.flow",
+    "WAWebVoipCallLogAnrGating",
     "asyncToGeneratorRuntime",
     "cr:375",
     "err",
@@ -72,12 +73,23 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function y(e) {
+      (e.length > 0 &&
+        e.every(function (e) {
+          return o("WAWebCommonMsgUtils").isCallLogMsg(e.type);
+        }) &&
+        o(
+          "WAWebVoipCallLogAnrGating",
+        ).isWebVoipCallLogAnrOptimizationEnabled()) ||
+        _ == null ||
+        _.index().catch(r("WAWebNoop"));
     }
-    function C() {
+    function C(e, t, n) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           return (
             a === void 0 && (a = !1),
             o("WALogger").LOG(
@@ -102,7 +114,7 @@ __d(
                 o("WAWebDBStoreMessage").storeMessageInTransaction(e, t, a),
               )
               .then(function () {
-                _ == null || _.index().catch(r("WAWebNoop"));
+                y(e);
               })
               .catch(function (e) {
                 throw e instanceof r("WAWeb-dexie").BulkError ||
@@ -118,28 +130,28 @@ __d(
               })
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      var a,
-        i = t == null ? ((a = e[0]) == null ? void 0 : a.id.remote) : t;
-      if (i) {
-        var l = e.map(function (e) {
+    function v(e, t) {
+      var r,
+        a = t == null ? ((r = e[0]) == null ? void 0 : r.id.remote) : t;
+      if (a) {
+        var i = e.map(function (e) {
           var t = o("WAWebDBMessageSerialization").dbRowFromMessage(e);
           return o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
             msg: t,
-            chatId: i.toString(),
+            chatId: a.toString(),
             hasLink: o("WAWebLinkify").hasHttpLink(e),
             pendingReadReceipt: !1,
           });
         });
         return (m || (m = n("Promise")))
           .resolve(
-            o("WAWebSchemaMessage").getMessageTable().bulkCreateOrMerge(l),
+            o("WAWebSchemaMessage").getMessageTable().bulkCreateOrMerge(i),
           )
           .then(function () {
-            _ == null || _.index().catch(r("WAWebNoop"));
+            y(e);
           })
           .catch(function (e) {
             throw (
@@ -155,7 +167,7 @@ __d(
       }
       return (m || (m = n("Promise"))).resolve();
     }
-    function v(e) {
+    function S(e) {
       return o("WAWebCommonMsgUtils").isPlaceholderMsg(e.type)
         ? (m || (m = n("Promise"))).resolve(e)
         : o("WAWebModelStorageUtils")
@@ -223,7 +235,7 @@ __d(
                         ).postPlaceholderActivityPopulateEvent([
                           o("WAWebDBMessageSerialization").messageFromDbRow(a),
                         ]),
-                      _ == null || _.index().catch(r("WAWebNoop")),
+                      y([e]),
                       l
                     );
                   },
@@ -234,7 +246,7 @@ __d(
               })(),
             );
     }
-    function S(e) {
+    function R(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .bulkGet(e)
@@ -299,7 +311,7 @@ __d(
           })(),
         );
     }
-    function R(e) {
+    function L(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .bulkCreateOrMerge(
@@ -311,11 +323,11 @@ __d(
     ((l.NoMessageToUpdateError = f),
       (l.DuplicateMessageError = g),
       (l.PreviousMsgNotUpdatableError = h),
-      (l.storeMessages = y),
-      (l.updateExistingMessages = b),
-      (l.updateMessage = v),
-      (l.starMessages = S),
-      (l.unstarMessages = R));
+      (l.storeMessages = C),
+      (l.updateExistingMessages = v),
+      (l.updateMessage = S),
+      (l.starMessages = R),
+      (l.unstarMessages = L));
   },
   98,
 );

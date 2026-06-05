@@ -61,51 +61,56 @@ __d(
           v = _.carouselMessage;
         if (v != null && ((b = c(a, v, d, i, l)), b == null)) return p(a, _);
         if (f === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
-          var S,
-            R = r("WAWebInteractiveMessagesNativeFlowName").cast(
-              o("WAWebE2EProtoUtils").getBizNativeFlowName({
-                interactiveMessage: _,
-              }),
-            );
-          C = babelHelpers.extends({}, C, { nativeFlowName: R });
-          var L =
-            (a == null || (S = a.id) == null ? void 0 : S.remote) != null &&
-            o("WAWebBotUtils").isBotChannelFBID(a.id.remote);
-          if ((d === "relay" || d === "history") && !L) {
-            var E;
+          var S = r("WAWebInteractiveMessagesNativeFlowName").cast(
+            o("WAWebE2EProtoUtils").getBizNativeFlowName({
+              interactiveMessage: _,
+            }),
+          );
+          if (
+            ((C = babelHelpers.extends({}, C, { nativeFlowName: S })),
+            d === "relay" || d === "history")
+          ) {
+            var R,
+              L,
+              E =
+                (a == null || (R = a.id) == null ? void 0 : R.remote) != null &&
+                o("WAWebBotUtils").isAnyMetaAiBot(a.id.remote),
+              k =
+                E ||
+                o("WAWebE2EProtoUtils").isValidNativeFlowName({
+                  name: S,
+                  bizInfo: i,
+                  msgContext: d,
+                });
             if (
-              !o("WAWebE2EProtoUtils").isValidNativeFlowName({
-                name: R,
-                bizInfo: i,
-                msgContext: d,
-              }) ||
+              !k ||
               !o("WAWebNativeFlowValidation").isValidNativeFlowMessage(
                 C,
                 l,
-                a == null || (E = a.id) == null ? void 0 : E.fromMe,
+                a == null || (L = a.id) == null ? void 0 : L.fromMe,
                 a,
               )
             )
               return p(a, _);
           }
         }
-        var k = _.header != null ? u(_.header, a, d) : void 0,
-          I = m(_);
+        var I = _.header != null ? u(_.header, a, d) : void 0,
+          T = m(_);
         return {
           msgData: babelHelpers.extends(
             {},
             a,
-            (n = k == null ? void 0 : k.headerMessage) != null ? n : {},
+            (n = I == null ? void 0 : I.headerMessage) != null ? n : {},
             C,
             {
-              interactiveHeader: k == null ? void 0 : k.interactiveHeader,
+              interactiveHeader: I == null ? void 0 : I.interactiveHeader,
               footer: h
                 ? o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
                     h.text,
                   )
                 : a.footer,
               carouselCardsParsed: b != null ? b : void 0,
-              bloksWidget: I,
+              bloksWidget: T,
             },
           ),
           contextInfo: _.contextInfo,

@@ -1,6 +1,7 @@
 __d(
   "WAWebResendUserMsg",
   [
+    "WAArrayDifferenceBy",
     "WALogger",
     "WATimeUtils",
     "WAWebDBDeviceListFanout",
@@ -13,7 +14,6 @@ __d(
     "WAWebWamEnumMessageSendResultType",
     "asyncToGeneratorRuntime",
     "cr:10198",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -23,9 +23,9 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l, p, _) {
-            var f = t.data.to,
-              g = t.data.id.id;
+          function* (t, n, r, a, i, l, p) {
+            var _ = t.data.to,
+              f = t.data.id.id;
             o("WALogger")
               .LOG(
                 e ||
@@ -34,13 +34,13 @@ __d(
                     " to ",
                     "",
                   ])),
-                g,
-                f.toString(),
+                f,
+                _.toString(),
               )
               .tags("messaging");
-            var h = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
-            if (o("WATimeUtils").unixTime() - i > h) {
-              var y;
+            var g = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
+            if (o("WATimeUtils").unixTime() - a > g) {
+              var h;
               (o("WALogger")
                 .LOG(
                   s ||
@@ -49,35 +49,35 @@ __d(
                       ": skip resending due to ",
                       " min timeout",
                     ])),
-                  g,
-                  h / 60,
+                  f,
+                  g / 60,
                 )
                 .tags("messaging"),
-                (y = l.sendReporter) == null ||
-                  y.postFailure({
+                (h = i.sendReporter) == null ||
+                  h.postFailure({
                     result: o("WAWebWamEnumMessageSendResultType")
                       .MESSAGE_SEND_RESULT_TYPE.ERROR_EXPIRED,
                     isTerminal: !1,
                   }),
-                (l.sendReporter = null));
+                (i.sendReporter = null));
               return;
             }
             try {
-              var C,
-                b = f.isRegularUserPn()
+              var y,
+                C = _.isRegularUserPn()
                   ? o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
-                  : (C = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) !=
+                  : (y = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) !=
                       null
-                    ? C
+                    ? y
                     : o(
                         "WAWebUserPrefsMeUser",
                       ).getMeDevicePnOrThrow_DO_NOT_USE(),
-                v = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                  wids: [f, b],
+                b = yield o("WAWebDBDeviceListFanout").getFanOutList({
+                  wids: [_, C],
                 }),
-                S = r("lodash").differenceBy(v, a, String);
-              if (S.length === 0) {
-                var R;
+                v = o("WAArrayDifferenceBy").differenceBy(b, r, String);
+              if (v.length === 0) {
+                var S;
                 (o("WALogger")
                   .LOG(
                     u ||
@@ -85,16 +85,16 @@ __d(
                         "resendUserMsg: ",
                         ": skip resending to the empty list",
                       ])),
-                    g,
+                    f,
                   )
                   .tags("messaging"),
-                  (R = l.sendReporter) == null ||
-                    R.postFailure({
+                  (S = i.sendReporter) == null ||
+                    S.postFailure({
                       result: o("WAWebWamEnumMessageSendResultType")
                         .MESSAGE_SEND_RESULT_TYPE.ERROR_BACKFILL_USYNC_FAILED,
                       isTerminal: !1,
                     }),
-                  (l.sendReporter = null));
+                  (i.sendReporter = null));
                 return;
               }
               if (
@@ -106,8 +106,8 @@ __d(
                         ": resending to devices: ",
                         "",
                       ])),
-                    g,
-                    S.join(","),
+                    f,
+                    v.join(","),
                   )
                   .tags("messaging"),
                 t.data.isOverwrittenByRevoke === !0)
@@ -119,25 +119,25 @@ __d(
                         "resendUserMsg: ",
                         ": skip, msg overwritten by revoke",
                       ])),
-                    g,
+                    f,
                   )
                   .tags("messaging");
                 return;
               }
-              var L = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList(
+              var R = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList(
                   t,
                   n,
-                  S,
+                  v,
                   {
                     fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT,
                     isResendingMsg: !0,
                   },
+                  i,
                   l,
                   p,
-                  _,
                 ),
-                E = L.phash;
-              E != null &&
+                L = R.phash;
+              L != null &&
                 (o("WALogger")
                   .LOG(
                     m ||
@@ -145,24 +145,24 @@ __d(
                         "resendUserMsg: ",
                         ": got phash during the resend",
                       ])),
-                    g,
+                    f,
                   )
                   .tags("messaging"),
                 o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-                  [f, b],
+                  [_, C],
                   "message",
-                  E,
+                  L,
                 ));
             } catch (e) {
-              var k;
+              var E;
               throw (
-                (k = l.sendReporter) == null ||
-                  k.postFailure({
+                (E = i.sendReporter) == null ||
+                  E.postFailure({
                     result: o("WAWebWamEnumMessageSendResultType")
                       .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                     isTerminal: !1,
                   }),
-                (l.sendReporter = null),
+                (i.sendReporter = null),
                 e
               );
             }

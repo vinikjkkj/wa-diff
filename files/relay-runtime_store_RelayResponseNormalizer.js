@@ -215,6 +215,7 @@ __d(
                   : this.$28(u, o, a);
                 break;
               case "ClientEdgeToClientObject":
+              case "ClientEdgeToServerObject":
                 this.$13
                   ? ((i = u.backingField.resolverInfo) == null
                       ? void 0

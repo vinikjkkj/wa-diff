@@ -97,6 +97,7 @@ __d(
         case o("WAWebMessageAddOnType").MessageAddOnType.Comment:
           return o("WAWebCommentCollection").CommentCollection.getByMsgKey(t);
         case o("WAWebMessageAddOnType").MessageAddOnType.BotMsmsg:
+        case o("WAWebMessageAddOnType").MessageAddOnType.CallLogOrphan:
         case o("WAWebMessageAddOnType").MessageAddOnType.KeepInChat:
         case o("WAWebMessageAddOnType").MessageAddOnType.MessageEdit:
         case o("WAWebMessageAddOnType").MessageAddOnType.ReactionEnc:

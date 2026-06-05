@@ -5,6 +5,7 @@ __d(
     "invariant",
     "CometSmartGraphqlPrefetch",
     "DTSGParser",
+    "FBLogger",
     "MetaConfig",
     "RelayAPIConfig",
     "RelayAPIRequest",
@@ -185,26 +186,29 @@ __d(
       };
     }
     function g(e, t, n) {
-      var r,
-        a,
+      var a,
         i,
         l,
-        s =
-          (r =
-            (a = n.metadata) == null
+        s,
+        u =
+          (a =
+            (i = n.metadata) == null
               ? void 0
-              : a.cacheNetworkResponseWithoutRender) != null
-            ? r
+              : i.cacheNetworkResponseWithoutRender) != null
+            ? a
             : !1,
-        u = (i = n.metadata) == null ? void 0 : i.freshTTLSeconds,
-        c = typeof u == "number" ? u : null,
-        d = (l = n.metadata) == null ? void 0 : l.cacheTTLSeconds,
-        m = typeof d == "number" ? d : null;
-      if (c == null && m == null) return e.ifEmpty(t);
-      var p = m != null ? m : 1 / 0,
-        _ = c != null ? c : p;
+        c = (l = n.metadata) == null ? void 0 : l.freshTTLSeconds,
+        d = typeof c == "number" ? c : null,
+        m = (s = n.metadata) == null ? void 0 : s.cacheTTLSeconds,
+        p = typeof m == "number" ? m : null;
+      if (d == null && p == null) return e.ifEmpty(t);
+      var _ = p != null ? p : 1 / 0,
+        f = d != null ? d : _;
       return (
-        _ > p,
+        f > _ &&
+          r("FBLogger")("relay").warn(
+            "`metadata.freshTTLSeconds` cannot be greater than `metadata.cacheTTLSeconds`",
+          ),
         o("RelayRuntime").Observable.create(function (n) {
           var r = !0,
             o = !0,
@@ -212,7 +216,7 @@ __d(
             i = e.subscribe({
               complete: function () {
                 r
-                  ? a && s
+                  ? a && u
                     ? (n.complete(), t.subscribe({}))
                     : (i = t.subscribe(n))
                   : n.complete();
@@ -233,8 +237,8 @@ __d(
                             : s.cacheTimestamp
                           : null,
                       c = u == null ? 0 : (Date.now() - u) / 1e3;
-                    a = c <= p;
-                    var d = c <= _ && a;
+                    a = c <= _;
+                    var d = c <= f && a;
                     (d && (r = !1), (o = !1));
                   }
                   a && n.next(i);

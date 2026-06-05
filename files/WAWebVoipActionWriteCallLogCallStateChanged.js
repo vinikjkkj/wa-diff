@@ -10,6 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebReleaseToEventLoop",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogAnrGating",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipCallStateUtils",
     "WAWebVoipOngoingCallCollection",
@@ -218,10 +219,16 @@ __d(
                   e.callResult,
                   e.callDuration,
                 ),
-              };
+              },
+              S =
+                o(
+                  "WAWebVoipCallLogAnrGating",
+                ).isWebVoipCallLogAnrOptimizationEnabled() &&
+                C != null &&
+                !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState);
             return o(
               "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(s, v, !1, !0);
+            ).writeVoipCallLogMessageImpl(s, v, !1, !0, S);
           } catch (e) {
             o("WALogger")
               .ERROR(

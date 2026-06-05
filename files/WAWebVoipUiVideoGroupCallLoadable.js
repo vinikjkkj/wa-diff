@@ -2,8 +2,10 @@ __d(
   "WAWebVoipUiVideoGroupCallLoadable",
   [
     "JSResourceForInteraction",
+    "WAWebFlex.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
+    "WAWebSpinner.react",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -11,7 +13,15 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
+      u = {
+        loading: {
+          backgroundColor: "x1e6sl3u",
+          height: "x5yr21d",
+          width: "xh8yej3",
+          $$css: !0,
+        },
+      },
+      c = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
             "WAWebVoipUiVideoGroupCall.react",
@@ -22,13 +32,23 @@ __d(
         }),
         "WAWebVoipUiVideoGroupCallLoadable",
       ),
-      c = r("WAWebLoadable")({
-        loader: u,
+      d = r("WAWebLoadable")({
+        loader: c,
         loading: function (t) {
-          return s.jsx(s.Fragment, {});
+          return s.jsx(o("WAWebFlex.react").FlexRow, {
+            testid: "voip_group_call_ui_loading",
+            align: "center",
+            justify: "center",
+            xstyle: u.loading,
+            children: s.jsx(o("WAWebSpinner.react").Spinner, {
+              color: "accent",
+              size: 40,
+              stroke: 3,
+            }),
+          });
         },
       });
-    l.WAWebVoipUiVideoGroupCallLoadable = c;
+    ((l.requireBundle = c), (l.WAWebVoipUiVideoGroupCallLoadable = d));
   },
   98,
 );

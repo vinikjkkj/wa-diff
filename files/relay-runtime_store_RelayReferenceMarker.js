@@ -129,6 +129,7 @@ __d(
                 t.$14(a, o);
                 break;
               case "ClientEdgeToClientObject":
+              case "ClientEdgeToServerObject":
                 t.$15(a, o);
                 break;
               default:

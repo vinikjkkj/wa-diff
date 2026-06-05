@@ -574,7 +574,8 @@ __d(
     ((l.calculateRevokeSenderList = b),
       (l.encryptAndSendStatusMsg = R),
       (l.genMessageBody = E),
-      (l.maybeApplyStatusTag = I));
+      (l.maybeApplyStatusTag = I),
+      (l.encryptAndSendStatusDirectMsg = $));
   },
   98,
 );

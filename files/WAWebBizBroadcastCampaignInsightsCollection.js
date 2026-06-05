@@ -21,7 +21,14 @@ __d(
               babelHelpers.assertThisInitialized(r)
           );
         }
-        return (babelHelpers.inheritsLoose(r, t), r);
+        babelHelpers.inheritsLoose(r, t);
+        var o = r.prototype;
+        return (
+          (o.markBootstrapped = function () {
+            ((this.bootstrapped = !0), this.trigger("bootstrapped"));
+          }),
+          r
+        );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     s.model = o(
       "WAWebBizBroadcastCampaignInsightsModel",

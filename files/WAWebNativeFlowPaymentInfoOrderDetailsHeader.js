@@ -62,193 +62,160 @@ __d(
       );
     }
     function m(e) {
-      var t = o("react-compiler-runtime").c(44),
+      var t = o("react-compiler-runtime").c(23),
         n = e.isSentByMe,
         a = e.orderInfo,
         i = a.paymentSettings,
         l,
         m,
         p,
-        _,
-        f,
-        g,
-        h,
-        y,
-        C,
-        b,
-        v,
-        S,
-        R,
-        L;
+        _;
       if (t[0] !== n || t[1] !== i) {
-        var E,
-          k,
-          I,
-          T,
-          D =
-            i == null || (E = i.at(0)) == null
+        var f,
+          g,
+          h,
+          y,
+          C =
+            i == null || (f = i.at(0)) == null
               ? void 0
-              : E[
+              : f[
                   o("WAWebBizOrderDetailsParams").PaymentSettingType
                     .PIX_STATIC_CODE
                 ];
-        ((f = o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(
-          (k = D == null ? void 0 : D.key) != null ? k : "",
-          (I = o("WAWebUserPrefsTypes").PixKeyType.cast(
-            D == null ? void 0 : D.key_type,
+        ((l = o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(
+          (g = C == null ? void 0 : C.key) != null ? g : "",
+          (h = o("WAWebUserPrefsTypes").PixKeyType.cast(
+            C == null ? void 0 : C.key_type,
           )) != null
-            ? I
+            ? h
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
         )),
-          (g = o("WAWebBrazilPixKeyFormattingUtils").getPixKeyTypeLabel(
-            D == null ? void 0 : D.key_type,
-          )));
-        var x = (T = D == null ? void 0 : D.merchant_name) != null ? T : "";
-        _ = o("WAWebFlex.react").FlexColumn;
-        var $ = n ? c.bubbleOut : c.bubbleIn;
-        if (t[16] !== $) {
-          var P;
-          ((L = [
-            c.header,
-            (P = o("WAWebUISpacing")).uiPadding.top6,
-            P.uiPadding.bottom8,
-            P.uiPadding.horiz8,
-            P.uiMargin.bottom12,
-            $,
-          ]),
-            (t[16] = $),
-            (t[17] = L));
-        } else L = t[17];
-        ((p = o("WAWebFlex.react").FlexRow),
-          (S = c.paymentInfo),
-          (R = "all"),
-          (m = o("WAWebFlex.react").FlexRow),
-          (C = "center"),
-          t[18] === Symbol.for("react.memo_cache_sentinel")
-            ? ((b = "xh8yej3"),
-              (v = d()
-                ? u.jsx(
-                    o("WAWebWdsSmbPaymentsPixFilledIcon.react")
-                      .WdsSmbPaymentsPixFilledIcon,
-                    { height: 24, width: 24, xstyle: c.pixIcon },
-                  )
-                : u.jsx(o("WAWebPixLogoIcon.react").PixLogoIcon, {
-                    height: 48,
-                    innerStyles: {
-                      background: c.iconBackground,
-                      primary: c.iconPrimary,
-                    },
-                  })),
-              (t[18] = b),
-              (t[19] = v))
-            : ((b = t[18]), (v = t[19])),
-          (l = o("WAWebFlex.react").FlexColumn),
-          t[20] === Symbol.for("react.memo_cache_sentinel")
-            ? ((h = [
-                c.paymentInfoContent,
-                o("WAWebUISpacing").uiPadding.horiz8,
-                d() && o("WAWebUISpacing").uiPadding.top4,
-              ]),
-              (t[20] = h))
-            : (h = t[20]),
-          (y = d()
-            ? u.jsx(r("WDSText.react"), {
-                type: "Body2Emphasized",
-                colorName: "contentDefault",
-                children: s._(/*BTDS*/ "Requested by {merchant_name}", [
-                  s._param("merchant_name", x),
-                ]),
-              })
-            : u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                textWrap: "ellipsis",
-                children: x,
-              })),
+          (p = o("WAWebBrazilPixKeyFormattingUtils").getPixKeyTypeLabel(
+            C == null ? void 0 : C.key_type,
+          )),
+          (m = (y = C == null ? void 0 : C.merchant_name) != null ? y : ""),
+          (_ = n
+            ? s._(/*BTDS*/ "Requested by You")
+            : s._(/*BTDS*/ "Requested by {merchant_name}", [
+                s._param("merchant_name", m),
+              ])),
           (t[0] = n),
           (t[1] = i),
           (t[2] = l),
           (t[3] = m),
           (t[4] = p),
-          (t[5] = _),
-          (t[6] = f),
-          (t[7] = g),
-          (t[8] = h),
-          (t[9] = y),
-          (t[10] = C),
-          (t[11] = b),
-          (t[12] = v),
-          (t[13] = S),
-          (t[14] = R),
-          (t[15] = L));
-      } else
-        ((l = t[2]),
-          (m = t[3]),
-          (p = t[4]),
-          (_ = t[5]),
-          (f = t[6]),
-          (g = t[7]),
-          (h = t[8]),
-          (y = t[9]),
-          (C = t[10]),
-          (b = t[11]),
-          (v = t[12]),
-          (S = t[13]),
-          (R = t[14]),
-          (L = t[15]));
-      var N;
-      t[21] !== f || t[22] !== g
-        ? ((N = d()
+          (t[5] = _));
+      } else ((l = t[2]), (m = t[3]), (p = t[4]), (_ = t[5]));
+      var b = _,
+        v = n ? c.bubbleOut : c.bubbleIn,
+        S;
+      if (t[6] !== v) {
+        var R;
+        ((S = [
+          c.header,
+          (R = o("WAWebUISpacing")).uiPadding.top6,
+          R.uiPadding.bottom8,
+          R.uiPadding.horiz8,
+          R.uiMargin.bottom12,
+          v,
+        ]),
+          (t[6] = v),
+          (t[7] = S));
+      } else S = t[7];
+      var L, E;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = "xh8yej3"),
+          (E = d()
+            ? u.jsx(
+                o("WAWebWdsSmbPaymentsPixFilledIcon.react")
+                  .WdsSmbPaymentsPixFilledIcon,
+                { height: 24, width: 24, xstyle: c.pixIcon },
+              )
+            : u.jsx(o("WAWebPixLogoIcon.react").PixLogoIcon, {
+                height: 48,
+                innerStyles: {
+                  background: c.iconBackground,
+                  primary: c.iconPrimary,
+                },
+              })),
+          (t[8] = L),
+          (t[9] = E))
+        : ((L = t[8]), (E = t[9]));
+      var k;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = [
+            c.paymentInfoContent,
+            o("WAWebUISpacing").uiPadding.horiz8,
+            d() && o("WAWebUISpacing").uiPadding.top4,
+          ]),
+          (t[10] = k))
+        : (k = t[10]);
+      var I;
+      t[11] !== m || t[12] !== b
+        ? ((I = d()
+            ? u.jsx(r("WDSText.react"), {
+                type: "Body2Emphasized",
+                colorName: "contentDefault",
+                children: b,
+              })
+            : u.jsx(o("WAWebText.react").WAWebTextTitle, {
+                textWrap: "ellipsis",
+                children: m,
+              })),
+          (t[11] = m),
+          (t[12] = b),
+          (t[13] = I))
+        : (I = t[13]);
+      var T;
+      t[14] !== l || t[15] !== p
+        ? ((T = d()
             ? u.jsx(r("WDSText.react"), {
                 type: "Body3",
                 colorName: "contentDeemphasized",
-                children: f,
+                children: l,
               })
             : u.jsxs(o("WAWebText.react").WAWebTextMuted, {
                 color: "secondary",
                 textWrap: "ellipsis",
-                children: [g, ": ", f],
+                children: [p, ": ", l],
               })),
-          (t[21] = f),
-          (t[22] = g),
-          (t[23] = N))
-        : (N = t[23]);
-      var M;
-      t[24] !== l || t[25] !== h || t[26] !== y || t[27] !== N
-        ? ((M = u.jsxs(l, { xstyle: h, children: [y, N] })),
-          (t[24] = l),
-          (t[25] = h),
-          (t[26] = y),
-          (t[27] = N),
-          (t[28] = M))
-        : (M = t[28]);
-      var w;
-      t[29] !== m || t[30] !== M || t[31] !== C || t[32] !== b || t[33] !== v
-        ? ((w = u.jsxs(m, { align: C, className: b, children: [v, M] })),
-          (t[29] = m),
-          (t[30] = M),
-          (t[31] = C),
-          (t[32] = b),
-          (t[33] = v),
-          (t[34] = w))
-        : (w = t[34]);
-      var A;
-      t[35] !== p || t[36] !== w || t[37] !== S || t[38] !== R
-        ? ((A = u.jsx(p, { xstyle: S, justify: R, children: w })),
-          (t[35] = p),
-          (t[36] = w),
-          (t[37] = S),
-          (t[38] = R),
-          (t[39] = A))
-        : (A = t[39]);
-      var F;
+          (t[14] = l),
+          (t[15] = p),
+          (t[16] = T))
+        : (T = t[16]);
+      var D;
+      t[17] !== I || t[18] !== T
+        ? ((D = u.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: c.paymentInfo,
+            justify: "all",
+            children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              className: L,
+              children: [
+                E,
+                u.jsxs(o("WAWebFlex.react").FlexColumn, {
+                  xstyle: k,
+                  children: [I, T],
+                }),
+              ],
+            }),
+          })),
+          (t[17] = I),
+          (t[18] = T),
+          (t[19] = D))
+        : (D = t[19]);
+      var x;
       return (
-        t[40] !== _ || t[41] !== A || t[42] !== L
-          ? ((F = u.jsx(_, { xstyle: L, children: A })),
-            (t[40] = _),
-            (t[41] = A),
-            (t[42] = L),
-            (t[43] = F))
-          : (F = t[43]),
-        F
+        t[20] !== S || t[21] !== D
+          ? ((x = u.jsx(o("WAWebFlex.react").FlexColumn, {
+              xstyle: S,
+              children: D,
+            })),
+            (t[20] = S),
+            (t[21] = D),
+            (t[22] = x))
+          : (x = t[22]),
+        x
       );
     }
     l.default = m;

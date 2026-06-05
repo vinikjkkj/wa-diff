@@ -9,6 +9,7 @@ __d(
       KeepInChat: "keep_in_chat",
       MessageEdit: "message_edit",
       PinMessage: "pin_message",
+      CallLogOrphan: "call_log_orphan",
       Comment: "comment",
       BotMsmsg: "bot_msmsg",
       Unknown: "unknown",
