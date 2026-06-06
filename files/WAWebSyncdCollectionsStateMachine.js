@@ -5,7 +5,6 @@ __d(
     "WASyncdConst",
     "WATimeUtils",
     "WAWebGetCollectionVersion",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,25 +14,19 @@ __d(
       u = (function () {
         function t() {}
         return (
-          (t.loadStatesFromDb = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this,
-                t = yield o(
-                  "WAWebGetCollectionVersion",
-                ).getAllCollectionVersionsInTransaction();
-              t.forEach(function (t) {
-                return e.collectionStates.set(t.collection, {
-                  collection: t.collection,
-                  state: t.state,
-                  finiteFailureStartTime: t.finiteFailureStartTime,
-                });
+          (t.loadStatesFromDb = async function () {
+            var e = this,
+              t = await o(
+                "WAWebGetCollectionVersion",
+              ).getAllCollectionVersionsInTransaction();
+            t.forEach(function (t) {
+              return e.collectionStates.set(t.collection, {
+                collection: t.collection,
+                state: t.state,
+                finiteFailureStartTime: t.finiteFailureStartTime,
               });
             });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           (t.persistToDb = function () {
             var t = [];
             this.collectionStates.forEach(function (e) {

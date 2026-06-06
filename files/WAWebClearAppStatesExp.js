@@ -1,34 +1,20 @@
 __d(
   "WAWebClearAppStatesExp",
-  [
-    "Promise",
-    "WAWebClearAppStates",
-    "WAWebClearAppStatesAsync",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebClearAppStates", "WAWebClearAppStatesAsync"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 50;
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    var e = 50;
+    async function s(t, n) {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, o) {
-          return (
-            t === void 0 && (t = !1),
-            o === void 0 && (o = !1),
-            t
-              ? yield r("WAWebClearAppStatesAsync")(s, o)
-              : new (e || (e = n("Promise")))(function (e) {
-                  (r("WAWebClearAppStates")(o), e());
-                })
-          );
-        })),
-        c.apply(this, arguments)
+        t === void 0 && (t = !1),
+        n === void 0 && (n = !1),
+        t
+          ? await r("WAWebClearAppStatesAsync")(e, n)
+          : new Promise(function (e) {
+              (r("WAWebClearAppStates")(n), e());
+            })
       );
     }
-    l.default = u;
+    l.default = s;
   },
   98,
 );

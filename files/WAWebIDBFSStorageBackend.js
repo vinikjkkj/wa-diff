@@ -1,6 +1,6 @@
 __d(
   "WAWebIDBFSStorageBackend",
-  ["Promise", "WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -15,12 +15,11 @@ __d(
       g,
       h,
       y,
-      C,
-      b = "WAWebIDBFSStorageBackend",
-      v = "/wa_voip_storage/ml_models",
-      S = (function () {
+      C = "WAWebIDBFSStorageBackend",
+      b = "/wa_voip_storage/ml_models",
+      v = (function () {
         function t(e) {
-          (e === void 0 && (e = v),
+          (e === void 0 && (e = b),
             (this.$1 = null),
             (this.$2 = !1),
             (this.$4 = !1),
@@ -29,9 +28,9 @@ __d(
             (this.$7 = !1),
             (this.$3 = e));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.initialize = function (n) {
+          (n.initialize = function (n) {
             this.$1 = n;
             var t = this.$8();
             if (t == null) {
@@ -41,77 +40,71 @@ __d(
                     "",
                     ": FS unavailable in WASM module, storage disabled",
                   ])),
-                b,
+                C,
               );
               return;
             }
             this.$2 = !0;
           }),
-          (r.$8 = function () {
+          (n.$8 = function () {
             return this.$1 == null ? null : this.$1.FS;
           }),
-          (r.$9 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              if (this.$4)
-                return new (C || (C = n("Promise")))(function (t) {
-                  e.$5.push(t);
-                });
-              var t = this.$8();
-              if (t == null)
-                return (
-                  o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        ": FS not available for sync",
-                      ])),
-                    b,
-                  ),
-                  !1
-                );
-              this.$4 = !0;
-              try {
-                yield new (C || (C = n("Promise")))(function (e, n) {
-                  t.syncfs(!1, function (t) {
-                    t ? n(t) : e();
-                  });
-                });
-                var r = this.$5;
-                this.$5 = [];
-                for (var a of r) a(!0);
-                return !0;
-              } catch (e) {
+          (n.$9 = async function () {
+            var e = this;
+            if (this.$4)
+              return new Promise(function (t) {
+                e.$5.push(t);
+              });
+            var t = this.$8();
+            if (t == null)
+              return (
                 o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "",
-                      ": Failed to sync to IndexedDB: ",
-                      "",
+                      ": FS not available for sync",
                     ])),
-                  b,
-                  e instanceof Error ? e.message : String(e),
-                );
-                var i = this.$5;
-                this.$5 = [];
-                for (var l of i) l(!1);
-                return !1;
-              } finally {
-                ((this.$4 = !1),
-                  this.$5.length > 0 &&
-                    !this.$6 &&
-                    ((this.$6 = !0),
-                    this.$9().finally(function () {
-                      e.$6 = !1;
-                    })));
-              }
-            });
-            function t() {
-              return e.apply(this, arguments);
+                  C,
+                ),
+                !1
+              );
+            this.$4 = !0;
+            try {
+              await new Promise(function (e, n) {
+                t.syncfs(!1, function (t) {
+                  t ? n(t) : e();
+                });
+              });
+              var n = this.$5;
+              this.$5 = [];
+              for (var r of n) r(!0);
+              return !0;
+            } catch (e) {
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": Failed to sync to IndexedDB: ",
+                    "",
+                  ])),
+                C,
+                e instanceof Error ? e.message : String(e),
+              );
+              var a = this.$5;
+              this.$5 = [];
+              for (var i of a) i(!1);
+              return !1;
+            } finally {
+              ((this.$4 = !1),
+                this.$5.length > 0 &&
+                  !this.$6 &&
+                  ((this.$6 = !0),
+                  this.$9().finally(function () {
+                    e.$6 = !1;
+                  })));
             }
-            return t;
-          })()),
-          (r.$10 = function (t) {
+          }),
+          (n.$10 = function (t) {
             if (!this.$7) {
               try {
                 t.mkdir(this.$3);
@@ -119,75 +112,65 @@ __d(
               this.$7 = !0;
             }
           }),
-          (r.$11 = function (t, n) {
+          (n.$11 = function (t, n) {
             return this.$3 + "/" + t + "_" + n;
           }),
-          (r.isReady = function () {
+          (n.isReady = function () {
             return this.$2 && this.$1 != null;
           }),
-          (r.write = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                if (!this.isReady()) {
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        ": Storage backend not initialized, skipping write for ",
-                        " v",
-                        "",
-                      ])),
-                    b,
-                    e,
-                    t,
-                  );
-                  return;
-                }
-                var r = this.$8();
-                if (r == null) {
-                  o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        ": FS not available, skipping write for ",
-                        " v",
-                        "",
-                      ])),
-                    b,
-                    e,
-                    t,
-                  );
-                  return;
-                }
-                var a = this.$11(e, t);
-                try {
-                  (this.$10(r),
-                    r.writeFile(a, new Uint8Array(n)),
-                    yield this.$9());
-                } catch (n) {
-                  o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        ": Failed to write model ",
-                        " v",
-                        ": ",
-                        "",
-                      ])),
-                    b,
-                    e,
-                    t,
-                    n instanceof Error ? n.message : String(n),
-                  );
-                }
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
+          (n.write = async function (t, n, r) {
+            if (!this.isReady()) {
+              o("WALogger").WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": Storage backend not initialized, skipping write for ",
+                    " v",
+                    "",
+                  ])),
+                C,
+                t,
+                n,
+              );
+              return;
             }
-            return t;
-          })()),
-          (r.read = function (t, n) {
+            var e = this.$8();
+            if (e == null) {
+              o("WALogger").WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": FS not available, skipping write for ",
+                    " v",
+                    "",
+                  ])),
+                C,
+                t,
+                n,
+              );
+              return;
+            }
+            var a = this.$11(t, n);
+            try {
+              (this.$10(e), e.writeFile(a, new Uint8Array(r)), await this.$9());
+            } catch (e) {
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": Failed to write model ",
+                    " v",
+                    ": ",
+                    "",
+                  ])),
+                C,
+                t,
+                n,
+                e instanceof Error ? e.message : String(e),
+              );
+            }
+          }),
+          (n.read = function (t, n) {
             if (!this.isReady())
               return (
                 o("WALogger").WARN(
@@ -196,7 +179,7 @@ __d(
                       "",
                       ": Storage backend not initialized",
                     ])),
-                  b,
+                  C,
                 ),
                 null
               );
@@ -209,7 +192,7 @@ __d(
                       "",
                       ": FS not available",
                     ])),
-                  b,
+                  C,
                 ),
                 null
               );
@@ -228,7 +211,7 @@ __d(
                       ": ",
                       "",
                     ])),
-                  b,
+                  C,
                   t,
                   n,
                   e instanceof Error ? e.message : String(e),
@@ -237,85 +220,69 @@ __d(
               );
             }
           }),
-          (r.delete = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                if (!this.isReady()) {
-                  o("WALogger").WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        ": Storage backend not initialized, skipping delete for ",
-                        " v",
-                        "",
-                      ])),
-                    b,
-                    e,
-                    t,
-                  );
-                  return;
-                }
-                var n = this.$8();
-                if (n == null) {
-                  o("WALogger").WARN(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        ": FS not available, skipping delete for ",
-                        " v",
-                        "",
-                      ])),
-                    b,
-                    e,
-                    t,
-                  );
-                  return;
-                }
-                var r = this.$11(e, t);
+          (n.delete = async function (t, n) {
+            if (!this.isReady()) {
+              o("WALogger").WARN(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": Storage backend not initialized, skipping delete for ",
+                    " v",
+                    "",
+                  ])),
+                C,
+                t,
+                n,
+              );
+              return;
+            }
+            var e = this.$8();
+            if (e == null) {
+              o("WALogger").WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    ": FS not available, skipping delete for ",
+                    " v",
+                    "",
+                  ])),
+                C,
+                t,
+                n,
+              );
+              return;
+            }
+            var r = this.$11(t, n);
+            try {
+              (e.unlink(r), await this.$9());
+            } catch (e) {}
+          }),
+          (n.deleteMultiple = async function (t) {
+            if (!(!this.isReady() || t.length === 0)) {
+              var e = this.$8();
+              if (e == null) {
+                o("WALogger").WARN(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      ": FS not available, skipping batch delete",
+                    ])),
+                  C,
+                );
+                return;
+              }
+              for (var n of t) {
+                var r = n.modelName,
+                  a = n.version,
+                  i = this.$11(r, a);
                 try {
-                  (n.unlink(r), yield this.$9());
+                  e.unlink(i);
                 } catch (e) {}
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+              }
+              await this.$9();
             }
-            return t;
-          })()),
-          (r.deleteMultiple = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (!(!this.isReady() || e.length === 0)) {
-                  var t = this.$8();
-                  if (t == null) {
-                    o("WALogger").WARN(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          ": FS not available, skipping batch delete",
-                        ])),
-                      b,
-                    );
-                    return;
-                  }
-                  for (var n of e) {
-                    var r = n.modelName,
-                      a = n.version,
-                      i = this.$11(r, a);
-                    try {
-                      t.unlink(i);
-                    } catch (e) {}
-                  }
-                  yield this.$9();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.list = function () {
+          }),
+          (n.list = function () {
             if (!this.isReady()) return [];
             var e = this.$8();
             if (e == null) return [];
@@ -344,7 +311,7 @@ __d(
             } catch (e) {}
             return t;
           }),
-          (r.getFilePath = function (t, n) {
+          (n.getFilePath = function (t, n) {
             if (!this.isReady()) return null;
             var e = this.$8();
             if (e == null) return null;
@@ -358,12 +325,12 @@ __d(
           t
         );
       })();
-    function R(e) {
-      return new S(e);
+    function S(e) {
+      return new v(e);
     }
-    ((l.ML_MODEL_PERSIST_DIR = v),
-      (l.IDBFSStorageBackend = S),
-      (l.createIDBFSStorageBackend = R));
+    ((l.ML_MODEL_PERSIST_DIR = b),
+      (l.IDBFSStorageBackend = v),
+      (l.createIDBFSStorageBackend = S));
   },
   98,
 );

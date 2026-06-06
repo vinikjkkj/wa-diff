@@ -5,17 +5,16 @@ __d(
     "WAWebMexFetchNewsletterReportsJob",
     "WAWebNewsletterReportModelUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterReports",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             var t,
               n,
-              r = yield o(
+              r = await o(
                 "WAWebMexFetchNewsletterReportsJob",
               ).mexFetchNewsletterReports(e);
             return (
@@ -29,7 +28,7 @@ __d(
               o("WAWebNewsletterReportModelUtils")
                 .mapMexReportToNewsletterReport,
             );
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

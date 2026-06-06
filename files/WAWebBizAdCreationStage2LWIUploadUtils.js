@@ -3,63 +3,43 @@ __d(
   [
     "fbt",
     "FBLogger",
-    "Promise",
     "WAWebBizAdCreationLWIMediaUpload",
     "WAWebBizAdCreationLinkWAMediaToStatus",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e;
-    function u() {
+    function e() {
       return s._(/*BTDS*/ "Some media failed to process and were removed.");
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function u(e, t, n) {
+      var o = e.map(async function (e) {
+          var o = await Promise.all([
+              r("WAWebBizAdCreationLWIMediaUpload")([e], t, n),
+              r("WAWebBizAdCreationLinkWAMediaToStatus")([e]),
+            ]),
+            a = o[0];
+          return a[0];
+        }),
+        a = await Promise.allSettled(o),
+        i = [],
+        l = [];
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, o, a) {
-          var i = t.map(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var i = yield (e || (e = n("Promise"))).all([
-                        r("WAWebBizAdCreationLWIMediaUpload")([t], o, a),
-                        r("WAWebBizAdCreationLinkWAMediaToStatus")([t]),
-                      ]),
-                      l = i[0];
-                    return l[0];
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ),
-            l = yield (e || (e = n("Promise"))).allSettled(i),
-            s = [],
-            u = [];
-          return (
-            l.forEach(function (e, t) {
-              e.status === "fulfilled"
-                ? s.push(e.value)
-                : (u.push(t),
-                  r("FBLogger")("wa_ctwa_web").mustfix(
-                    "performPartialStage2LWIUpload: upload failed item " +
-                      t +
-                      " - " +
-                      String(e.reason),
-                  ));
-            }),
-            { failedIndices: u, successfulResults: s }
-          );
-        })),
-        d.apply(this, arguments)
+        a.forEach(function (e, t) {
+          e.status === "fulfilled"
+            ? i.push(e.value)
+            : (l.push(t),
+              r("FBLogger")("wa_ctwa_web").mustfix(
+                "performPartialStage2LWIUpload: upload failed item " +
+                  t +
+                  " - " +
+                  String(e.reason),
+              ));
+        }),
+        { failedIndices: l, successfulResults: i }
       );
     }
-    ((l.LWI_PARTIAL_UPLOAD_FAILURE_TOAST_MSG = u),
-      (l.performPartialStage2LWIUpload = c));
+    ((l.LWI_PARTIAL_UPLOAD_FAILURE_TOAST_MSG = e),
+      (l.performPartialStage2LWIUpload = u));
   },
   226,
 );

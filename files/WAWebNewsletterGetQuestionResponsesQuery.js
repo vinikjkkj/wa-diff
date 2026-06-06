@@ -1,16 +1,13 @@
 __d(
   "WAWebNewsletterGetQuestionResponsesQuery",
   [
-    "Promise",
     "WASmaxNewslettersGetNewsletterResponsesRPC",
     "WAWebBackendErrors",
     "WAWebNewsletterRpcUtils",
     "WAWebQuestions.flow",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e(e) {
       if (!e) return null;
       switch (e) {
         case o("WAWebQuestions.flow").ResponsesFilterType.CONTACTS:
@@ -29,125 +26,117 @@ __d(
           return null;
       }
     }
-    function u(e) {
+    function s(e) {
       return o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
-        return c(e);
+        return u(e);
       });
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.cursor,
-            a = t.filter,
-            i = t.newsletterJid,
-            l = t.questionResponsesCount,
-            u = t.questionResponsesServerId,
-            c = t.searchQuery,
-            d = s(a),
-            m = yield o(
-              "WASmaxNewslettersGetNewsletterResponsesRPC",
-            ).sendGetNewsletterResponsesRPC({
-              iqTo: i,
-              questionResponsesServerId: u,
-              questionResponsesCount: l,
-              beforeQuestionResponseMixinMixinArgs:
-                r != null ? { questionResponsesBefore: r } : void 0,
-              filterQuestionResponseMixinMixinArgs: d,
-              searchQuestionResponseMixinMixinArgs:
-                c != null && c.length >= 3 ? { searchText: c } : void 0,
-            });
-          switch (m.name) {
-            case "GetNewsletterResponsesResponseSuccess":
-              return m.value;
-            case "GetNewsletterResponsesResponseServerError": {
-              var p = m.value.errorIQErrorInternalServerErrorMixin,
-                _ = p.code,
-                f = p.text;
-              throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(_),
-                f,
+    async function u(t) {
+      var n = t.cursor,
+        r = t.filter,
+        a = t.newsletterJid,
+        i = t.questionResponsesCount,
+        l = t.questionResponsesServerId,
+        s = t.searchQuery,
+        u = e(r),
+        c = await o(
+          "WASmaxNewslettersGetNewsletterResponsesRPC",
+        ).sendGetNewsletterResponsesRPC({
+          iqTo: a,
+          questionResponsesServerId: l,
+          questionResponsesCount: i,
+          beforeQuestionResponseMixinMixinArgs:
+            n != null ? { questionResponsesBefore: n } : void 0,
+          filterQuestionResponseMixinMixinArgs: u,
+          searchQuestionResponseMixinMixinArgs:
+            s != null && s.length >= 3 ? { searchText: s } : void 0,
+        });
+      switch (c.name) {
+        case "GetNewsletterResponsesResponseSuccess":
+          return c.value;
+        case "GetNewsletterResponsesResponseServerError": {
+          var d = c.value.errorIQErrorInternalServerErrorMixin,
+            m = d.code,
+            p = d.text;
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+            Number(m),
+            p,
+          );
+        }
+        case "GetNewsletterResponsesResponseClientError": {
+          var _ = c.value.getNewsletterResponsesClientErrors;
+          switch (_.name) {
+            case "ItemNotFoundIQErrorResponse": {
+              var f = _.value.errorIQErrorItemNotFoundMixin,
+                g = f.code,
+                h = f.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(g),
+                  h,
+                ),
               );
             }
-            case "GetNewsletterResponsesResponseClientError": {
-              var g = m.value.getNewsletterResponsesClientErrors;
-              switch (g.name) {
-                case "ItemNotFoundIQErrorResponse": {
-                  var h = g.value.errorIQErrorItemNotFoundMixin,
-                    y = h.code,
-                    C = h.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(y),
-                      C,
-                    ),
-                  );
-                }
-                case "RateLimitedIQErrorResponse": {
-                  var b = g.value.errorIQErrorRateOverlimitMixin,
-                    v = b.code,
-                    S = b.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(v),
-                      S,
-                    ),
-                  );
-                }
-                case "BadRequestIQErrorResponse": {
-                  var R = g.value.errorIQErrorBadRequestMixin,
-                    L = R.code,
-                    E = R.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(L),
-                      E,
-                    ),
-                  );
-                }
-                case "SuspendedIQErrorResponse": {
-                  var k = g.value.errorIQErrorLockedMixin,
-                    I = k.code,
-                    T = k.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(I),
-                      T,
-                    ),
-                  );
-                }
-                case "NotAllowedIQErrorResponse": {
-                  var D = g.value.errorIQErrorNotAllowedMixin,
-                    x = D.code,
-                    $ = D.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(x),
-                      $,
-                    ),
-                  );
-                }
-                case "UnauthorizedIQErrorResponse": {
-                  var P = g.value.errorIQErrorNotAuthorizedMixin,
-                    N = P.code,
-                    M = P.text;
-                  return (e || (e = n("Promise"))).reject(
-                    new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      Number(N),
-                      M,
-                    ),
-                  );
-                }
-              }
+            case "RateLimitedIQErrorResponse": {
+              var y = _.value.errorIQErrorRateOverlimitMixin,
+                C = y.code,
+                b = y.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(C),
+                  b,
+                ),
+              );
+            }
+            case "BadRequestIQErrorResponse": {
+              var v = _.value.errorIQErrorBadRequestMixin,
+                S = v.code,
+                R = v.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(S),
+                  R,
+                ),
+              );
+            }
+            case "SuspendedIQErrorResponse": {
+              var L = _.value.errorIQErrorLockedMixin,
+                E = L.code,
+                k = L.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(E),
+                  k,
+                ),
+              );
+            }
+            case "NotAllowedIQErrorResponse": {
+              var I = _.value.errorIQErrorNotAllowedMixin,
+                T = I.code,
+                D = I.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(T),
+                  D,
+                ),
+              );
+            }
+            case "UnauthorizedIQErrorResponse": {
+              var x = _.value.errorIQErrorNotAuthorizedMixin,
+                $ = x.code,
+                P = x.text;
+              return Promise.reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number($),
+                  P,
+                ),
+              );
             }
           }
-        })),
-        d.apply(this, arguments)
-      );
+        }
+      }
     }
-    l.getQuestionResponsesQuery = u;
+    l.getQuestionResponsesQuery = s;
   },
   98,
 );

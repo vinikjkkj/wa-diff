@@ -1,67 +1,56 @@
 __d(
   "WAWebMmsClientPollMediaHosts",
   [
-    "Promise",
     "WAPromiseDelays",
     "WARetryPromise",
     "WAWebMediaHostsMaybeSwitchHost",
     "WAWebMmsMediaTypes",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 3e5;
-    function u(e, t) {
+    var e = 3e5;
+    function s(e, t) {
       return (
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
         t > o("WAWebMediaHostsMaybeSwitchHost").THRESHOLD
       );
     }
-    function c(e, t) {
+    function u(e, t) {
       return (
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
         (t != null ? t : 0) > o("WAWebMediaHostsMaybeSwitchHost").THRESHOLD
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function c(t) {
+      var n = t.connectionBlock;
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.connectionBlock;
-          return (
-            yield o("WAPromiseDelays").delayMs(s, t.signal),
-            r("WARetryPromise")(function (r) {
-              var i = r.retry;
-              return new (e || (e = n("Promise")))(function (e) {
-                return t.getMediaHosts().then(function (n) {
-                  var r = n.fallbackHost,
-                    l = n.selectedHost,
-                    u = { selectedHost: l, fallbackHost: r },
-                    c = t.getRemainingBytes();
-                  if (c == null) return i(s);
-                  var d = o("WAWebMediaHostsMaybeSwitchHost").maybeSwitchHost(
-                      t.getHost(),
-                      a,
-                      u,
-                      c,
-                    ),
-                    m = d.changed,
-                    p = d.host;
-                  return ((a = u), m ? e(p) : i(s));
-                });
-              });
-            }, t.signal)
-          );
-        })),
-        m.apply(this, arguments)
+        await o("WAPromiseDelays").delayMs(e, t.signal),
+        r("WARetryPromise")(function (r) {
+          var a = r.retry;
+          return new Promise(function (r) {
+            return t.getMediaHosts().then(function (i) {
+              var l = i.fallbackHost,
+                s = i.selectedHost,
+                u = { selectedHost: s, fallbackHost: l },
+                c = t.getRemainingBytes();
+              if (c == null) return a(e);
+              var d = o("WAWebMediaHostsMaybeSwitchHost").maybeSwitchHost(
+                  t.getHost(),
+                  n,
+                  u,
+                  c,
+                ),
+                m = d.changed,
+                p = d.host;
+              return ((n = u), m ? r(p) : a(e));
+            });
+          });
+        }, t.signal)
       );
     }
-    ((l.SERVER_POLLING_INTERVAL = s),
-      (l.shouldPollUploadHosts = u),
-      (l.shouldPollDownloadHosts = c),
-      (l.pollMediaHosts = d));
+    ((l.SERVER_POLLING_INTERVAL = e),
+      (l.shouldPollUploadHosts = s),
+      (l.shouldPollDownloadHosts = u),
+      (l.pollMediaHosts = c));
   },
   98,
 );

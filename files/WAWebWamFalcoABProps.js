@@ -13,8 +13,11 @@ __d(
     var e,
       s = null;
     function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_canonical_wam_falco_buffer_enabled",
+      return (
+        r("justknobx")._("2716") &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_canonical_wam_falco_buffer_enabled",
+        )
       );
     }
     function c() {

@@ -7,7 +7,6 @@ __d(
     "WAShiftTimer",
     "WAWebApiPendingDeviceSync",
     "WAWebPromiseQueue",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -27,9 +26,9 @@ __d(
               "WAWebPromiseQueue",
             ).PromiseQueue)()));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.addOfflinePendingDevice = function (n, r) {
+          (n.addOfflinePendingDevice = function (n, r) {
             (this.pendingDeviceCache.add(n),
               r && this.pendingAcks.push(r),
               this.snapshotTimer.isScheduled() ||
@@ -43,7 +42,7 @@ __d(
                 ),
                 this.snapshotTimer.onOrAfter(u)));
           }),
-          (r.createSnapshot = function () {
+          (n.createSnapshot = function () {
             this.snapshotTimer.isScheduled() && this.snapshotTimer.cancel();
             var e = Array.from(this.pendingDeviceCache),
               t = this.pendingAcks;
@@ -55,17 +54,15 @@ __d(
                 ])),
               e.join(","),
             ),
-              this.checkpointQueue.enqueue(
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  (yield o(
-                    "WAWebApiPendingDeviceSync",
-                  ).addUserToPendingDeviceSync(e),
-                    t.forEach(function (e) {
-                      return o("WADeprecatedSendIq").deprecatedCastStanza(e);
-                    }),
-                    o("WAComms").cancelDeadSocketTimer());
-                }),
-              ),
+              this.checkpointQueue.enqueue(async function () {
+                (await o(
+                  "WAWebApiPendingDeviceSync",
+                ).addUserToPendingDeviceSync(e),
+                  t.forEach(function (e) {
+                    return o("WADeprecatedSendIq").deprecatedCastStanza(e);
+                  }),
+                  o("WAComms").cancelDeadSocketTimer());
+              }),
               (this.pendingDeviceCache = new Set()),
               (this.pendingAcks = []));
           }),

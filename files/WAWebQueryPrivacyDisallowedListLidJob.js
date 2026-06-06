@@ -10,181 +10,167 @@ __d(
     "WAWebSetUsernameJob",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
-          if (
-            t ===
-            o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-              .About
-          )
-            n = "status";
+    async function _(t) {
+      var n;
+      if (
+        t ===
+        o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType.About
+      )
+        n = "status";
+      else if (
+        t ===
+        o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType.GroupAdd
+      )
+        n = "groupadd";
+      else if (
+        t ===
+        o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType.LastSeen
+      )
+        n = "last";
+      else if (
+        t ===
+        o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+          .ProfilePicture
+      )
+        n = "profile";
+      else
+        throw (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "invalid privacyType: ",
+                "",
+              ])),
+            t,
+          ),
+          r("err")("GetContactBlacklist lid request invalid privacyType")
+        );
+      var a = {
+          getContactBlacklistGetContactBlacklistLIDOrGetContactBlacklistPNMixinGroupArgs:
+            {
+              getContactBlacklistGetContactBlacklistLID: {
+                categoryNamesForContactBlacklistMixinArgs: { anyName: n },
+              },
+            },
+        },
+        i = await o(
+          "WASmaxPrivacyGetContactBlacklistRPC",
+        ).sendGetContactBlacklistRPC(a);
+      if (i.name === "GetContactBlacklistResponseError")
+        throw (
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "GetContactBlacklist lid err: ",
+                "",
+              ])),
+            i.value.errorGetPrivacyListError.name,
+          ),
+          r("err")("GetContactBlacklist lid request invalid response")
+        );
+      var l = i.value,
+        _ = l.privacyAddressingMode,
+        f = l.privacyList,
+        g = f == null ? void 0 : f.user;
+      if (f == null || g == null || g.length === 0)
+        return {
+          status: "mismatch",
+          users: [],
+          dhash: f == null ? void 0 : f.dhash,
+        };
+      if (i.name === "GetContactBlacklistResponseSuccess")
+        throw (
+          o("WALogger").ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "retrieved pn response for GetContactBlacklist lid request",
+              ])),
+          ),
+          r("err")("GetContactBlacklist lid request invalid response")
+        );
+      if (_ !== "lid")
+        throw (
+          o("WALogger").ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "response privacyAddressingMode should be lid but it is pn",
+              ])),
+          ),
+          r("err")("GetContactBlacklist lid request invalid response")
+        );
+      var h = [],
+        y = [],
+        C = g.map(function (e) {
+          var t = e.jid,
+            n;
+          if (t == null) {
+            var a = e.contactListIds;
+            if (a == null || a.name !== "PnJid")
+              throw (
+                o("WALogger").ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "contactListIds should be PnJid for user without LID",
+                    ])),
+                ),
+                r("err")("GetContactBlacklist lid request invalid response")
+              );
+            var i = o("WAWebJidToWid").userJidToUserWid(a.value.pnJid),
+              l = o("WAWebLidMigrationUtils").toUserLid(i);
+            if (l == null) return i;
+            n = o("WAWebLidMigrationUtils").toUserLidOrThrow(l);
+          } else {
+            var s = o("WAWebJidToWid").userJidToUserWid(t);
+            n = o("WAWebLidMigrationUtils").toUserLidOrThrow(s);
+          }
+          var u = e.contactListIds;
+          if ((u == null ? void 0 : u.name) === "Username")
+            h.push({
+              userId: n,
+              username: o("WAWebUsernameTypes").asUsername(u.value.username),
+            });
+          else if ((u == null ? void 0 : u.name) === "PnJid")
+            y.push({
+              lid: n,
+              pn: o("WAWebJidToWid").userJidToUserWid(u.value.pnJid),
+            });
           else if (
-            t ===
-            o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-              .GroupAdd
+            (u == null ? void 0 : u.name) === "EmptyContactListIdentifier"
           )
-            n = "groupadd";
-          else if (
-            t ===
-            o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-              .LastSeen
-          )
-            n = "last";
-          else if (
-            t ===
-            o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-              .ProfilePicture
-          )
-            n = "profile";
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "response contactListIds name is EmptyContactListIdentifier",
+                ])),
+            );
           else
             throw (
               o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "invalid privacyType: ",
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "response contactListIds name is unexpected ",
                     "",
                   ])),
-                t,
-              ),
-              r("err")("GetContactBlacklist lid request invalid privacyType")
-            );
-          var a = {
-              getContactBlacklistGetContactBlacklistLIDOrGetContactBlacklistPNMixinGroupArgs:
-                {
-                  getContactBlacklistGetContactBlacklistLID: {
-                    categoryNamesForContactBlacklistMixinArgs: { anyName: n },
-                  },
-                },
-            },
-            i = yield o(
-              "WASmaxPrivacyGetContactBlacklistRPC",
-            ).sendGetContactBlacklistRPC(a);
-          if (i.name === "GetContactBlacklistResponseError")
-            throw (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "GetContactBlacklist lid err: ",
-                    "",
-                  ])),
-                i.value.errorGetPrivacyListError.name,
+                u == null ? void 0 : u.name,
               ),
               r("err")("GetContactBlacklist lid request invalid response")
             );
-          var l = i.value,
-            _ = l.privacyAddressingMode,
-            f = l.privacyList,
-            g = f == null ? void 0 : f.user;
-          if (f == null || g == null || g.length === 0)
-            return {
-              status: "mismatch",
-              users: [],
-              dhash: f == null ? void 0 : f.dhash,
-            };
-          if (i.name === "GetContactBlacklistResponseSuccess")
-            throw (
-              o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "retrieved pn response for GetContactBlacklist lid request",
-                  ])),
-              ),
-              r("err")("GetContactBlacklist lid request invalid response")
-            );
-          if (_ !== "lid")
-            throw (
-              o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "response privacyAddressingMode should be lid but it is pn",
-                  ])),
-              ),
-              r("err")("GetContactBlacklist lid request invalid response")
-            );
-          var h = [],
-            y = [],
-            C = g.map(function (e) {
-              var t = e.jid,
-                n;
-              if (t == null) {
-                var a = e.contactListIds;
-                if (a == null || a.name !== "PnJid")
-                  throw (
-                    o("WALogger").ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "contactListIds should be PnJid for user without LID",
-                        ])),
-                    ),
-                    r("err")("GetContactBlacklist lid request invalid response")
-                  );
-                var i = o("WAWebJidToWid").userJidToUserWid(a.value.pnJid),
-                  l = o("WAWebLidMigrationUtils").toUserLid(i);
-                if (l == null) return i;
-                n = o("WAWebLidMigrationUtils").toUserLidOrThrow(l);
-              } else {
-                var s = o("WAWebJidToWid").userJidToUserWid(t);
-                n = o("WAWebLidMigrationUtils").toUserLidOrThrow(s);
-              }
-              var u = e.contactListIds;
-              if ((u == null ? void 0 : u.name) === "Username")
-                h.push({
-                  userId: n,
-                  username: o("WAWebUsernameTypes").asUsername(
-                    u.value.username,
-                  ),
-                });
-              else if ((u == null ? void 0 : u.name) === "PnJid")
-                y.push({
-                  lid: n,
-                  pn: o("WAWebJidToWid").userJidToUserWid(u.value.pnJid),
-                });
-              else if (
-                (u == null ? void 0 : u.name) === "EmptyContactListIdentifier"
-              )
-                o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "response contactListIds name is EmptyContactListIdentifier",
-                    ])),
-                );
-              else
-                throw (
-                  o("WALogger").ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "response contactListIds name is unexpected ",
-                        "",
-                      ])),
-                    u == null ? void 0 : u.name,
-                  ),
-                  r("err")("GetContactBlacklist lid request invalid response")
-                );
-              return n;
-            });
-          (yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
-            mappings: y,
-            flushImmediately: !0,
-            learningSource: "other",
-          }),
-            o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-              h.length > 0 &&
-              (yield o("WAWebSetUsernameJob").setUsernamesJob(h)));
-          var b = f.dhash;
-          return { status: "mismatch", users: C, dhash: b };
-        })),
-        f.apply(this, arguments)
-      );
+          return n;
+        });
+      (await o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
+        mappings: y,
+        flushImmediately: !0,
+        learningSource: "other",
+      }),
+        o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+          h.length > 0 &&
+          (await o("WAWebSetUsernameJob").setUsernamesJob(h)));
+      var b = f.dhash;
+      return { status: "mismatch", users: C, dhash: b };
     }
     l.queryPrivacyDisallowedListLid = _;
   },

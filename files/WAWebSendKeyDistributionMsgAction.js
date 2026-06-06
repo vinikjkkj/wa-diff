@@ -1,46 +1,35 @@
 __d(
   "WAWebSendKeyDistributionMsgAction",
   [
-    "Promise",
     "WAWebGroupMetadataCollection",
     "WAWebMsgKey",
     "WAWebSendMsgJob",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function e(e) {
+      if (!e.isGroup())
+        return Promise.reject(
+          r("err")(
+            "[messaging] sendKeyDistributionMsg: only group chats are supported`",
+          ),
+        );
+      var t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        n = new (r("WAWebMsgKey"))({
+          from: t,
+          to: e,
+          id: await r("WAWebMsgKey").newId(),
+          participant: o("WAWebWidFactory").asUserWidOrThrow(t),
+          selfDir: "out",
+        });
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!t.isGroup())
-            return (e || (e = n("Promise"))).reject(
-              r("err")(
-                "[messaging] sendKeyDistributionMsg: only group chats are supported`",
-              ),
-            );
-          var a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            i = new (r("WAWebMsgKey"))({
-              from: a,
-              to: t,
-              id: yield r("WAWebMsgKey").newId(),
-              participant: o("WAWebWidFactory").asUserWidOrThrow(a),
-              selfDir: "out",
-            });
-          return (
-            yield r("WAWebGroupMetadataCollection").find(t),
-            o("WAWebSendMsgJob").encryptAndSendKeyDistributionMsg(i)
-          );
-        })),
-        u.apply(this, arguments)
+        await r("WAWebGroupMetadataCollection").find(e),
+        o("WAWebSendMsgJob").encryptAndSendKeyDistributionMsg(n)
       );
     }
-    l.sendKeyDistributionMsg = s;
+    l.sendKeyDistributionMsg = e;
   },
   98,
 );

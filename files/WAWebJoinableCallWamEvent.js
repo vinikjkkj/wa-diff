@@ -38,6 +38,7 @@ __d(
               isRejoin: [3, e.TYPES.BOOLEAN],
               isRering: [8, e.TYPES.BOOLEAN],
               isScheduledCall: [40, e.TYPES.BOOLEAN],
+              isTransferRejoin: [56, e.TYPES.BOOLEAN],
               isUpgradedGroupCallBeforeConnected: [47, e.TYPES.BOOLEAN],
               isVoiceChat: [43, e.TYPES.BOOLEAN],
               isWaitingRoomEnabled: [52, e.TYPES.BOOLEAN],

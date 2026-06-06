@@ -20,7 +20,6 @@ __d(
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebVcardUtils",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -44,132 +43,122 @@ __d(
         p(u, e.length, t, n, r);
         return;
       }
-      f(i, t, c, n, r);
+      _(i, t, c, n, r);
     }
-    function p(e, t, n, r, o) {
-      return _.apply(this, arguments);
+    async function p(t, n, a, i, l) {
+      var s = {
+          file: t,
+          type: o("WAWebMsgType").MSG_TYPE.DOCUMENT,
+          filename: t.name,
+          mimetype: d,
+          isVcardOverMmsDocument: !0,
+          documentPageCount: n,
+        },
+        u = new (r("WAWebAttachMediaCollection"))({
+          chatParticipantCount: a.getParticipantCount(),
+        });
+      await u.processAttachmentsForChat([s], void 0, a);
+      var m = u.uiProcessMsgs(1, null),
+        p = m.errorMsgs;
+      if (p) {
+        o("WAWebToastManager").ToastManager.open(
+          c.jsx(o("WAWebToast.react").Toast, { msg: p }),
+        );
+        return;
+      }
+      var _ = r("WANullthrows")(u.getValidMedias()[0]);
+      try {
+        await _.sendToChat({
+          chat: a,
+          options: { quotedMsg: i, ctwaContext: l },
+        });
+      } catch (t) {
+        throw (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Error sending contact: ",
+                "",
+              ])),
+            t,
+          ),
+          t
+        );
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            var l = {
-                file: e,
-                type: o("WAWebMsgType").MSG_TYPE.DOCUMENT,
-                filename: e.name,
-                mimetype: d,
-                isVcardOverMmsDocument: !0,
-                documentPageCount: t,
-              },
-              u = new (r("WAWebAttachMediaCollection"))({
-                chatParticipantCount: n.getParticipantCount(),
-              });
-            yield u.processAttachmentsForChat([l], void 0, n);
-            var m = u.uiProcessMsgs(1, null),
-              p = m.errorMsgs;
-            if (p) {
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, { msg: p }),
-              );
-              return;
-            }
-            var _ = r("WANullthrows")(u.getValidMedias()[0]);
-            try {
-              yield _.sendToChat({
-                chat: n,
-                options: { quotedMsg: a, ctwaContext: i },
-              });
-            } catch (e) {
-              throw (
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Error sending contact: ",
-                      "",
-                    ])),
-                  e,
-                ),
-                e
-              );
-            }
-          },
-        )),
-        _.apply(this, arguments)
-      );
-    }
-    function f(t, a, i, l, s) {
-      var u,
-        c,
-        d = l && l.msgContextInfo(a.id),
-        m = o("WAWebUserPrefsMeUser").getMeUser(),
-        p = babelHelpers.extends(
+    function _(e, t, n, a, i) {
+      var l,
+        u,
+        c = a && a.msgContextInfo(t.id),
+        d = o("WAWebUserPrefsMeUser").getMeUser(),
+        m = babelHelpers.extends(
           {
             ack: o("WAWebAck").ACK.CLOCK,
-            from: m,
+            from: d,
             id: new (r("WAWebMsgKey"))({
-              from: m,
-              to: a.id,
+              from: d,
+              to: t.id,
               id: r("WAWebMsgKey").newId_DEPRECATED(),
-              participant: o("WAWebChatGetters").getIsGroup(a) ? m : void 0,
+              participant: o("WAWebChatGetters").getIsGroup(t) ? d : void 0,
               selfDir: "out",
             }),
             local: !0,
             isNewMsg: !0,
             t: o("WATimeUtils").unixTime(),
-            to: a.id,
+            to: t.id,
           },
-          d,
-          { ctwaContext: s },
+          c,
+          { ctwaContext: i },
         ),
-        _ = o("WAWebBotUtils").isHatchBot(a.id)
+        p = o("WAWebBotUtils").isHatchBot(t.id)
           ? self.crypto.getRandomValues(new Uint8Array(32))
           : void 0,
-        f =
-          o("WAWebBotUtils").isHatchBot(a.id) &&
-          (u =
-            (c = o("WAWebBotProfileCollection").BotProfileCollection.get(
-              a.id,
+        _ =
+          o("WAWebBotUtils").isHatchBot(t.id) &&
+          (l =
+            (u = o("WAWebBotProfileCollection").BotProfileCollection.get(
+              t.id,
             )) == null
               ? void 0
-              : c.personaId) != null
-            ? u
+              : u.personaId) != null
+            ? l
             : void 0,
-        g =
-          t.length === 1
+        f =
+          e.length === 1
             ? babelHelpers.extends(
                 {
                   type: "vcard",
-                  vcardFormattedName: t[0].displayName.toString(),
-                  body: t[0].vcard,
+                  vcardFormattedName: e[0].displayName.toString(),
+                  body: e[0].vcard,
                 },
-                p,
+                m,
                 o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  a,
+                  t,
                 ),
-                { messageSecret: _, botPersonaId: f },
+                { messageSecret: p, botPersonaId: _ },
               )
             : babelHelpers.extends(
-                { type: "multi_vcard", vcardList: t },
-                p,
+                { type: "multi_vcard", vcardList: e },
+                m,
                 o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  a,
+                  t,
                 ),
-                { messageSecret: _, botPersonaId: f },
+                { messageSecret: p, botPersonaId: _ },
               );
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      (async function () {
         try {
-          yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(a, g)[1];
-        } catch (t) {
+          await o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, f)[1];
+        } catch (e) {
           throw (
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "Error sending contact: ",
                   "",
                 ])),
-              t,
+              e,
             ),
-            t
+            e
           );
         }
       })();

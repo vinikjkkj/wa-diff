@@ -26,6 +26,8 @@ __d(
       MEDIA_VIEWER: 20,
       EVENT_COVER_BOTTOM_SHEET: 21,
       FORWARD: 22,
+      DEEP_LINK: 23,
+      AI_TAB: 24,
     });
     i.IMAGINE_ACTION_SOURCE = e;
   },

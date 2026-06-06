@@ -7,7 +7,6 @@ __d(
     "WAWebBotCertificateRevocationService",
     "WAWebBotSignatureRootCertificate",
     "WAWebCertificateUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -92,222 +91,183 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function S(e, t, n) {
-      return R.apply(this, arguments);
-    }
-    function R() {
+    async function S(e, t, n) {
+      var r = n != null ? n : new Date(),
+        a = r.getTime(),
+        i = o("WAWebBotSignatureRootCertificate").getRootCertificateVersion(),
+        l = await o("WAWebBotCertificateCachingSystem").getCachedLeafPublicKey({
+          chainBytes: e,
+          rootCertVersion: i,
+          atTimeMs: a,
+        });
+      if (l != null) return l;
+      var s = await o("WAWebCertificateUtils").parseCertificateChain(e);
+      if (s.length === 0) throw new h("Certificate chain is empty");
+      var u = s[0];
+      if (!o("WAWebCertificateUtils").isCertificateValidAtTime(u, r))
+        throw new g("Leaf cert expired at serverTime");
+      for (
+        var c = [].concat(s, [t]),
+          d = async function () {
+            var e = c[m],
+              t = c[m + 1];
+            if (!o("WAWebCertificateUtils").isCertificateValidAtTime(t, r))
+              throw new g("Issuer cert at pos " + (m + 1) + " expired");
+            var n = await R(e, t);
+            if (!n) throw new y("Signature verification failed at pos " + m);
+            var i = o("WAWebCertificateUtils").getCertificateSerialNumber(e);
+            if (i == null)
+              throw new h("Failed to extract serial number at pos " + m);
+            var l = o(
+              "WAWebBotCertificateRevocationService",
+            ).checkCertificateRevocationStatus(i, a);
+            if (l !== "valid") {
+              var s =
+                l === "revoked"
+                  ? new C("Certificate at pos " + m + " is revoked")
+                  : l === "crl_unavailable"
+                    ? new b(
+                        "CRL unavailable, treating cert at pos " +
+                          m +
+                          " as revoked",
+                      )
+                    : l === "crl_stale"
+                      ? new v(
+                          "CRL stale, treating cert at pos " +
+                            m +
+                            " as revoked",
+                        )
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              l,
+                          );
+                        })();
+              throw s;
+            }
+          },
+          m = 0;
+        m < c.length - 1;
+        m++
+      )
+        await d();
+      var p = I(u);
+      if (p == null) throw new h("Failed to extract leaf public key");
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = n != null ? n : new Date(),
-            a = r.getTime(),
-            i = o(
-              "WAWebBotSignatureRootCertificate",
-            ).getRootCertificateVersion(),
-            l = yield o(
-              "WAWebBotCertificateCachingSystem",
-            ).getCachedLeafPublicKey({
-              chainBytes: e,
-              rootCertVersion: i,
-              atTimeMs: a,
-            });
-          if (l != null) return l;
-          var s = yield o("WAWebCertificateUtils").parseCertificateChain(e);
-          if (s.length === 0) throw new h("Certificate chain is empty");
-          var u = s[0];
-          if (!o("WAWebCertificateUtils").isCertificateValidAtTime(u, r))
-            throw new g("Leaf cert expired at serverTime");
-          for (
-            var c = [].concat(s, [t]),
-              d = function* () {
-                var e = c[m],
-                  t = c[m + 1];
-                if (!o("WAWebCertificateUtils").isCertificateValidAtTime(t, r))
-                  throw new g("Issuer cert at pos " + (m + 1) + " expired");
-                var n = yield L(e, t);
-                if (!n)
-                  throw new y("Signature verification failed at pos " + m);
-                var i = o("WAWebCertificateUtils").getCertificateSerialNumber(
-                  e,
-                );
-                if (i == null)
-                  throw new h("Failed to extract serial number at pos " + m);
-                var l = o(
-                  "WAWebBotCertificateRevocationService",
-                ).checkCertificateRevocationStatus(i, a);
-                if (l !== "valid") {
-                  var s =
-                    l === "revoked"
-                      ? new C("Certificate at pos " + m + " is revoked")
-                      : l === "crl_unavailable"
-                        ? new b(
-                            "CRL unavailable, treating cert at pos " +
-                              m +
-                              " as revoked",
-                          )
-                        : l === "crl_stale"
-                          ? new v(
-                              "CRL stale, treating cert at pos " +
-                                m +
-                                " as revoked",
-                            )
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  l,
-                              );
-                            })();
-                  throw s;
-                }
-              },
-              m = 0;
-            m < c.length - 1;
-            m++
-          )
-            yield* d();
-          var p = $(u);
-          if (p == null) throw new h("Failed to extract leaf public key");
-          return (
-            yield o("WAWebBotCertificateCachingSystem").cacheLeafPublicKey({
-              chainBytes: e,
-              rootCertVersion: i,
-              publicKey: p,
-              certificates: s,
-            }),
-            p
-          );
-        })),
-        R.apply(this, arguments)
+        await o("WAWebBotCertificateCachingSystem").cacheLeafPublicKey({
+          chainBytes: e,
+          rootCertVersion: i,
+          publicKey: p,
+          certificates: s,
+        }),
+        p
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n,
-              a = (n = e.signatureAlgorithm) == null ? void 0 : n.algorithmId;
-            return a === p
-              ? k(e, t)
-              : a === _
-                ? yield I(e, t)
-                : (o("WALogger")
-                    .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          " unknown sig alg OID: ",
-                          ", pkijs fallback",
-                        ])),
-                      f,
-                      String(a),
-                    )
-                    .sendLogs("bot-signature-cert-unknown-sig-alg"),
-                  yield D(e, t));
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+    async function R(t, n) {
+      try {
+        var a,
+          i = (a = t.signatureAlgorithm) == null ? void 0 : a.algorithmId;
+        return i === p
+          ? L(t, n)
+          : i === _
+            ? await E(t, n)
+            : (o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
                       "",
-                      " cert sig verify error",
+                      " unknown sig alg OID: ",
+                      ", pkijs fallback",
                     ])),
                   f,
+                  String(i),
                 )
-                .catching(e instanceof Error ? e : r("err")(String(e))),
-              !1
-            );
-          }
-        })),
-        E.apply(this, arguments)
-      );
+                .sendLogs("bot-signature-cert-unknown-sig-alg"),
+              await k(t, n));
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " cert sig verify error",
+                ])),
+              f,
+            )
+            .catching(e instanceof Error ? e : r("err")(String(e))),
+          !1
+        );
+      }
     }
-    function k(t, n) {
-      var r,
-        a,
-        i = new Uint8Array(t.tbs),
-        l = t.signatureValue,
-        s = new Uint8Array(
-          (r = l == null || (a = l.valueBlock) == null ? void 0 : a.valueHex) !=
+    function L(e, t) {
+      var n,
+        r,
+        a = new Uint8Array(e.tbs),
+        i = e.signatureValue,
+        l = new Uint8Array(
+          (n = i == null || (r = i.valueBlock) == null ? void 0 : r.valueHex) !=
             null
-            ? r
-            : l,
+            ? n
+            : i,
         ),
-        u = $(n);
-      return u == null
+        s = I(t);
+      return s == null
         ? (o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " issuer pubkey extract failed for Ed25519",
               ])),
             f,
           ),
           !1)
-        : o("WACryptoPrimitives").signDetachedVerify(i, s, u);
+        : o("WACryptoPrimitives").signDetachedVerify(a, l, s);
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    async function E(e, t) {
+      try {
+        var n = await e.verify(t);
+        return n;
+      } catch (n) {
+        return (
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " cert.verify() failed, fallback to engine",
+                ])),
+              f,
+            )
+            .catching(n instanceof Error ? n : r("err")(String(n))),
+          k(e, t)
+        );
+      }
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield e.verify(t);
-            return n;
-          } catch (n) {
-            return (
-              o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " cert.verify() failed, fallback to engine",
-                    ])),
-                  f,
-                )
-                .catching(n instanceof Error ? n : r("err")(String(n))),
-              D(e, t)
-            );
-          }
-        })),
-        T.apply(this, arguments)
-      );
+    async function k(e, t) {
+      try {
+        var n = await o("WAWebCertificateUtils").getPkiJs(),
+          a = n.CertificateChainValidationEngine,
+          i = new a({ trustedCerts: [t], certs: [e] }),
+          l = await i.verify();
+        return l.result;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " pkijs verification failed",
+                ])),
+              f,
+            )
+            .catching(e instanceof Error ? e : r("err")(String(e))),
+          !1
+        );
+      }
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield o("WAWebCertificateUtils").getPkiJs(),
-              a = n.CertificateChainValidationEngine,
-              i = new a({ trustedCerts: [t], certs: [e] }),
-              l = yield i.verify();
-            return l.result;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " pkijs verification failed",
-                    ])),
-                  f,
-                )
-                .catching(e instanceof Error ? e : r("err")(String(e))),
-              !1
-            );
-          }
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
+    function I(e) {
       try {
         var t,
           n,
@@ -319,14 +279,14 @@ __d(
               ? void 0
               : n.valueHex;
         if (l == null) return null;
-        var u = new Uint8Array(l);
-        return i === p ? u : u[0] === 4 ? u.slice(1) : u;
+        var s = new Uint8Array(l);
+        return i === p ? s : s[0] === 4 ? s.slice(1) : s;
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "",
                   " Failed to extract raw public key",
                 ])),
@@ -344,7 +304,7 @@ __d(
       (l.CrlUnavailableError = b),
       (l.CrlStaleError = v),
       (l.getValidatedLeafPublicKey = S),
-      (l.extractRawPublicKey = $));
+      (l.extractRawPublicKey = I));
   },
   98,
 );

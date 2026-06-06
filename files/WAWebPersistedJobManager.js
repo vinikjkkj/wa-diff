@@ -1,7 +1,6 @@
 __d(
   "WAWebPersistedJobManager",
   [
-    "Promise",
     "WAPersistedJobManager",
     "WARandomHex",
     "WATimeUtils",
@@ -10,36 +9,26 @@ __d(
     "WAWebNullFunc",
     "WAWebPersistedJob",
     "WAWebSchemaJobs",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = null;
+    var e = null;
+    async function s() {
+      await o("WAWebJobsStorage").initialize();
+      var t = o("WAWebSchemaJobs").getTable();
+      ((e = new (o("WAPersistedJobManager").PersistedJobManager)({
+        accessors: u(),
+        unfinishedJobEntries: t.all(),
+        isRestartAfterCrash: !1,
+        listeners: {
+          onJobStarted: r("WAWebNoop"),
+          onJobFinished: o("WAWebNullFunc").returnNull,
+        },
+        deprecatedJobs: {},
+      })),
+        r("WAWebPersistedJob")(e));
+    }
     function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebJobsStorage").initialize();
-          var e = o("WAWebSchemaJobs").getTable();
-          ((s = new (o("WAPersistedJobManager").PersistedJobManager)({
-            accessors: d(),
-            unfinishedJobEntries: e.all(),
-            isRestartAfterCrash: !1,
-            listeners: {
-              onJobStarted: r("WAWebNoop"),
-              onJobFinished: o("WAWebNullFunc").returnNull,
-            },
-            deprecatedJobs: {},
-          })),
-            r("WAWebPersistedJob")(s));
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
       return {
         deletePersistedJob: function (t) {
           var e = o("WAWebSchemaJobs").getTable();
@@ -57,72 +46,63 @@ __d(
           var e = o("WAWebSchemaJobs").getTable();
           return e.all();
         },
-        maybeCreateJob: m,
+        maybeCreateJob: c,
       };
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    async function c(e) {
+      var t,
+        n,
+        r,
+        a = o("WAWebSchemaJobs").getTable(),
+        i = JSON.stringify([
+          e.type,
+          (t = e.uniqKey) != null ? t : o("WARandomHex").randomHex(32),
+        ]),
+        l = {
+          type: e.type,
+          uniqKey: i,
+          startTime: o("WATimeUtils").unixTime(),
+          version: (n = e.version) != null ? n : 1,
+          original: e.args,
+          current: e.args,
+          step: o("WAPersistedJobManager").UNSTARTED_JOB,
+          waitUntil: (r = e == null ? void 0 : e.waitUntil) != null ? r : null,
+          stepFirstStartTime: null,
+          stepHardStartCountAfterTimeout: 0,
+          stepUnexpectedErrorCount: 0,
+          backedOffCount: 0,
+        };
+      if (e.uniqKey == null)
+        return a.createOrReplace(l).then(function (e) {
+          return { id: e, newlyCreated: !0 };
+        });
+      var s = await a.equals(["uniqKey"], [e.uniqKey]);
+      if (s.length === 0)
+        return a.createOrReplace(l).then(function (e) {
+          return { id: e, newlyCreated: !0 };
+        });
+      var u = [],
+        c = null;
+      for (var d of s)
+        d.step !== o("WAPersistedJobManager").FINISHED_JOB
+          ? (c = d)
+          : u.push(a.remove(d.jobId));
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r,
-            a,
-            i,
-            l = o("WAWebSchemaJobs").getTable(),
-            s = JSON.stringify([
-              t.type,
-              (r = t.uniqKey) != null ? r : o("WARandomHex").randomHex(32),
-            ]),
-            u = {
-              type: t.type,
-              uniqKey: s,
-              startTime: o("WATimeUtils").unixTime(),
-              version: (a = t.version) != null ? a : 1,
-              original: t.args,
-              current: t.args,
-              step: o("WAPersistedJobManager").UNSTARTED_JOB,
-              waitUntil:
-                (i = t == null ? void 0 : t.waitUntil) != null ? i : null,
-              stepFirstStartTime: null,
-              stepHardStartCountAfterTimeout: 0,
-              stepUnexpectedErrorCount: 0,
-              backedOffCount: 0,
-            };
-          if (t.uniqKey == null)
-            return l.createOrReplace(u).then(function (e) {
+        await Promise.all(u),
+        c != null
+          ? { id: c.jobId, newlyCreated: !1 }
+          : a.createOrReplace(l).then(function (e) {
               return { id: e, newlyCreated: !0 };
-            });
-          var c = yield l.equals(["uniqKey"], [t.uniqKey]);
-          if (c.length === 0)
-            return l.createOrReplace(u).then(function (e) {
-              return { id: e, newlyCreated: !0 };
-            });
-          var d = [],
-            m = null;
-          for (var p of c)
-            p.step !== o("WAPersistedJobManager").FINISHED_JOB
-              ? (m = p)
-              : d.push(l.remove(p.jobId));
-          return (
-            yield (e || (e = n("Promise"))).all(d),
-            m != null
-              ? { id: m.jobId, newlyCreated: !1 }
-              : l.createOrReplace(u).then(function (e) {
-                  return { id: e, newlyCreated: !0 };
-                })
-          );
-        })),
-        p.apply(this, arguments)
+            })
       );
     }
-    function _() {
-      if (s == null) throw r("err")("jobs manager has not been initialized");
-      return s;
+    function d() {
+      if (e == null) throw r("err")("jobs manager has not been initialized");
+      return e;
     }
-    ((l.startWebPersistedJobManager = u),
-      (l.maybeCreateJob = m),
-      (l.getJobManager = _));
+    ((l.startWebPersistedJobManager = s),
+      (l.maybeCreateJob = c),
+      (l.getJobManager = d));
   },
   98,
 );

@@ -1,23 +1,14 @@
 __d(
   "WAWebNewsletterSubscriberListQueryJob",
-  [
-    "WAWebMexFetchNewsletterFollowersJob",
-    "WAWebNewsletterRpcUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebMexFetchNewsletterFollowersJob", "WAWebNewsletterRpcUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var r = (function () {
-        var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o(
-            "WAWebMexFetchNewsletterFollowersJob",
-          ).mexFetchNewsletterFollowers(e, t);
-        });
-        return function () {
-          return r.apply(this, arguments);
-        };
-      })();
-      return o("WAWebNewsletterRpcUtils").runWithBackoff(r);
+      var n = async function () {
+        return o(
+          "WAWebMexFetchNewsletterFollowersJob",
+        ).mexFetchNewsletterFollowers(e, t);
+      };
+      return o("WAWebNewsletterRpcUtils").runWithBackoff(n);
     }
     l.getNewsletterSubscribers = e;
   },

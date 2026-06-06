@@ -1,7 +1,6 @@
 __d(
   "WAWebMsgCollection",
   [
-    "Promise",
     "WALogger",
     "WANullthrows",
     "WAPromiseProps",
@@ -44,7 +43,6 @@ __d(
     "WAWebViewModeUtils",
     "WAWebWid",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -56,127 +54,105 @@ __d(
       m,
       p,
       _,
-      f,
-      g = 50,
-      h = (function (t) {
-        function a() {
-          var a;
+      f = 50,
+      g = (function (t) {
+        function n() {
+          var n;
           return (
-            (a = t.call(this) || this),
-            (a.pendingAdd = {}),
-            (a.ftsCache = {}),
-            (a.productListMessagesPrefetchChain = (
-              f || (f = n("Promise"))
-            ).resolve([])),
-            (a._editKeyByParentKey = new Map()),
-            (a._parentKeyByEditKey = new Map()),
-            (a._encryptedData = null),
-            (a.loadMessagesQuery = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var i = a,
-                    l = t.anchor,
-                    u = l.remote,
-                    c;
-                  switch (t.direction) {
-                    case "before":
-                    case "after":
-                      c = t.direction;
-                      break;
-                    default:
-                      c = "before";
-                      break;
-                  }
-                  var d = { add: c, isHistory: !0 },
-                    m = yield o("WAWebDBMessageFindLocal").msgFindByDirection({
-                      direction: c,
-                      anchor: l,
-                      count: t.count,
-                      threadId: t.threadId,
-                    });
-                  if (m.status >= 400)
-                    return (
-                      o("WALogger").WARN(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "model:Msg:findQuery error ",
-                            "",
-                          ])),
-                        m.status,
-                      ),
-                      (f || (f = n("Promise"))).reject(m.status)
-                    );
-                  var p = m.messages,
-                    _ = i.get(l);
-                  r("WAWebWid").isNewsletter(u) &&
-                    _ != null &&
-                    (p = yield o(
-                      "WAWebNewsletterMsgHistoryUtils",
-                    ).fillMsgHistoryGaps({
-                      jid: u,
-                      msgs:
-                        c === "before"
-                          ? p.concat(
-                              o("WAWebMsgDataFromModel").msgDataFromMsgModel(_),
-                            )
-                          : [
-                              o("WAWebMsgDataFromModel").msgDataFromMsgModel(_),
-                            ].concat(p),
-                      serverIdsToSkip: o(
-                        "WAWebNewsletterViewModeUIUtils",
-                      ).getHiddenMessageServerIdsForChat(u),
-                    }));
-                  var g = t.threadId,
-                    h = function () {
-                      var e = i.get(l);
-                      if (e != null)
-                        return g != null ? e.getMsgChunk(g) : e.getMsgChunk();
-                      var t = o("WAWebChatCollection").ChatCollection.get(u);
-                      if (t != null)
-                        return o(
-                          "WAWebThreadModelResolver",
-                        ).resolveThreadOrChat(t, g).msgs;
-                    };
-                  return (
-                    p.forEach(function (e) {
-                      e.invis = !0;
-                    }),
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "model:Msg:findQuery:got:",
-                          ":",
-                          "",
-                        ])),
-                      p.length,
-                      t.direction,
-                    ),
-                    i.processMultipleMessages(
-                      u,
-                      p,
-                      d,
-                      "msgCollectionFindQuery",
-                      h,
-                    )
-                  );
-                },
+            (n = t.call(this) || this),
+            (n.pendingAdd = {}),
+            (n.ftsCache = {}),
+            (n.productListMessagesPrefetchChain = Promise.resolve([])),
+            (n._editKeyByParentKey = new Map()),
+            (n._parentKeyByEditKey = new Map()),
+            (n._encryptedData = null),
+            (n.loadMessagesQuery = async function (t) {
+              var a = n,
+                i = t.anchor,
+                l = i.remote,
+                u;
+              switch (t.direction) {
+                case "before":
+                case "after":
+                  u = t.direction;
+                  break;
+                default:
+                  u = "before";
+                  break;
+              }
+              var c = { add: u, isHistory: !0 },
+                d = await o("WAWebDBMessageFindLocal").msgFindByDirection({
+                  direction: u,
+                  anchor: i,
+                  count: t.count,
+                  threadId: t.threadId,
+                });
+              if (d.status >= 400)
+                return (
+                  o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "model:Msg:findQuery error ",
+                        "",
+                      ])),
+                    d.status,
+                  ),
+                  Promise.reject(d.status)
+                );
+              var m = d.messages,
+                p = a.get(i);
+              r("WAWebWid").isNewsletter(l) &&
+                p != null &&
+                (m = await o(
+                  "WAWebNewsletterMsgHistoryUtils",
+                ).fillMsgHistoryGaps({
+                  jid: l,
+                  msgs:
+                    u === "before"
+                      ? m.concat(
+                          o("WAWebMsgDataFromModel").msgDataFromMsgModel(p),
+                        )
+                      : [
+                          o("WAWebMsgDataFromModel").msgDataFromMsgModel(p),
+                        ].concat(m),
+                  serverIdsToSkip: o(
+                    "WAWebNewsletterViewModeUIUtils",
+                  ).getHiddenMessageServerIdsForChat(l),
+                }));
+              var _ = t.threadId,
+                f = function () {
+                  var e = a.get(i);
+                  if (e != null)
+                    return _ != null ? e.getMsgChunk(_) : e.getMsgChunk();
+                  var t = o("WAWebChatCollection").ChatCollection.get(l);
+                  if (t != null)
+                    return o("WAWebThreadModelResolver").resolveThreadOrChat(
+                      t,
+                      _,
+                    ).msgs;
+                };
+              return (
+                m.forEach(function (e) {
+                  e.invis = !0;
+                }),
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "model:Msg:findQuery:got:",
+                      ":",
+                      "",
+                    ])),
+                  m.length,
+                  t.direction,
+                ),
+                a.processMultipleMessages(l, m, c, "msgCollectionFindQuery", f)
               );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })()),
-            (a.findQueryImpl = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = { anchor: e, count: e.count, serverId: e.serverId };
-                  return a.loadMessagesQuery(t);
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })()),
-            (a.byParentMessage = o("WAWebCollectionUtils").aggregated(
+            }),
+            (n.findQueryImpl = async function (e) {
+              var t = { anchor: e, count: e.count, serverId: e.serverId };
+              return n.loadMessagesQuery(t);
+            }),
+            (n.byParentMessage = o("WAWebCollectionUtils").aggregated(
               function (e) {
                 var t = e.parentMsgKey,
                   n = e.type;
@@ -187,26 +163,26 @@ __d(
               },
               { subscribeToKey: "parentMsgKey" },
             )),
-            (a.byChat = o("WAWebCollectionUtils").aggregated(function (e) {
+            (n.byChat = o("WAWebCollectionUtils").aggregated(function (e) {
               var t = e.id;
               return t.remote;
             })),
-            (a.byThreadId = o("WAWebCollectionUtils").aggregated(function (e) {
+            (n.byThreadId = o("WAWebCollectionUtils").aggregated(function (e) {
               var t = e.threadIds;
               return t;
             })),
-            a.listenTo(a, "remove", a.removeFromCollection),
-            a
+            n.listenTo(n, "remove", n.removeFromCollection),
+            n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.removeFromCollection = function (t) {
+          (a.removeFromCollection = function (t) {
             var e = o("WAWebFrontendMsgGetters").getMaybeChat(t);
             e == null || e.removeFromCollection(t);
           }),
-          (i.add = function (n, a) {
+          (a.add = function (n, a) {
             var e = Array.isArray(n) ? n : [n],
               i = e.filter(function (e) {
                 var t =
@@ -226,7 +202,7 @@ __d(
               l
             );
           }),
-          (i.makeParentMessagesVisibleInChat = function (t) {
+          (a.makeParentMessagesVisibleInChat = function (t) {
             var e = this;
             t.filter(Boolean).forEach(function (t) {
               var n = t.parentMsgKey,
@@ -260,7 +236,7 @@ __d(
               }
             });
           }),
-          (i.processVCardMessagesForLidMappings = function (t) {
+          (a.processVCardMessagesForLidMappings = function (t) {
             var e = t.reduce(function (e, t) {
               if (
                 t == null ||
@@ -295,7 +271,7 @@ __d(
                 },
               );
           }),
-          (i._prefetchProductListMessages = function (t) {
+          (a._prefetchProductListMessages = function (t) {
             this.productListMessagesPrefetchChain = t
               .filter(function (e) {
                 var t, n;
@@ -338,179 +314,121 @@ __d(
                   : e;
               }, this.productListMessagesPrefetchChain);
           }),
-          (i.getStarred = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r =
-                    typeof t == "number" && !isNaN(t)
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  a = { add: "search" },
-                  i = yield o("WAWebDBMessageFindLocal").msgFindStarred({
-                    count: r,
-                    chat: e != null ? e : void 0,
-                    anchor: n,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  a,
-                  "msgCollectionGetStarred",
+          (a.getStarred = async function (t, n, r) {
+            var e =
+                typeof n == "number" && !isNaN(n)
+                  ? n
+                  : o("WAWebCollectionConstants").PAGE_SIZE,
+              a = { add: "search" },
+              i = await o("WAWebDBMessageFindLocal").msgFindStarred({
+                count: e,
+                chat: t != null ? t : void 0,
+                anchor: r,
+              });
+            return this.processMultipleMessages(
+              void 0,
+              i,
+              a,
+              "msgCollectionGetStarred",
+            );
+          }),
+          (a.getEventMsgs = async function (t, n, r) {
+            var e =
+                typeof n == "number" && !Number.isNaN(n)
+                  ? n
+                  : o("WAWebCollectionConstants").PAGE_SIZE,
+              a = { add: "search" },
+              i = await o("WAWebDBMessageFindLocal").msgFindEvents({
+                count: e,
+                chat: t,
+                anchor: r,
+              });
+            return this.processMultipleMessages(
+              void 0,
+              i,
+              a,
+              "msgCollectionGetEvents",
+            );
+          }),
+          (a.getGroupMemberUpdateMsgs = async function (t, n, r) {
+            var e =
+                typeof n == "number" && !Number.isNaN(n)
+                  ? n
+                  : o("WAWebCollectionConstants").PAGE_SIZE,
+              a = { add: "search" },
+              i = await o(
+                "WAWebDBGetGroupMemberUpdateMessages",
+              ).getGroupMemberUpdateMessagesForChat(t, e, r);
+            return this.processMultipleMessages(
+              void 0,
+              i,
+              a,
+              "msgCollectionGetGroupMemberUpdates",
+            );
+          }),
+          (a.getVoipCallLogMsgs = async function (t, n) {
+            var e =
+                typeof t == "number" && !isNaN(t)
+                  ? t
+                  : o("WAWebCollectionConstants").PAGE_SIZE,
+              r = await o("WAWebDBMessageFindLocal").msgFindCallLog({
+                count: e,
+                anchor: n,
+              });
+            return this.processMultipleMessages(
+              void 0,
+              r,
+              { add: "search" },
+              "msgCollectionGetVoipCallLogs",
+            );
+          }),
+          (a.getAllDocsMsgs = async function (t, n, r) {
+            var e = t != null ? t : f,
+              a = r === "after" ? "after" : "before",
+              i = await o("WAWebDBMessageFindLocal").getAllDocsMessages({
+                chat: n == null ? void 0 : n.remote,
+                count: e,
+                direction: a,
+                msgKey: n,
+              });
+            return this.processMultipleMessages(
+              void 0,
+              i,
+              { add: "search" },
+              "msgCollectionGetAllMedia",
+            );
+          }),
+          (a.getMessagesById = async function (t) {
+            var e = await o("WAWebDBMsgUtils").getMsgsByMsgKey(t);
+            return o("WAPromiseProps").promiseProps({
+              messages: this.processMultipleMessages(
+                void 0,
+                e,
+                { add: "search" },
+                "msgCollectionGetMessagesById",
+              ),
+              eof: !0,
+              canceled: !1,
+            });
+          }),
+          (a.hydrateOrGetMessages = async function (t) {
+            var e = this,
+              n = t.filter(function (t) {
+                return !e.get(t);
+              });
+            if (n.length > 0) {
+              var a = await this.getMessagesById(n),
+                i = a.messages;
+              if (i.length !== n.length)
+                throw new (o("WAWebBaseCollection").CollectionSilentQueryError)(
+                  "No message found for one or more ids",
                 );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
             }
-            return t;
-          })()),
-          (i.getEventMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r =
-                    typeof t == "number" && !Number.isNaN(t)
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  a = { add: "search" },
-                  i = yield o("WAWebDBMessageFindLocal").msgFindEvents({
-                    count: r,
-                    chat: e,
-                    anchor: n,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  a,
-                  "msgCollectionGetEvents",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getGroupMemberUpdateMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r =
-                    typeof t == "number" && !Number.isNaN(t)
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  a = { add: "search" },
-                  i = yield o(
-                    "WAWebDBGetGroupMemberUpdateMessages",
-                  ).getGroupMemberUpdateMessagesForChat(e, r, n);
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  a,
-                  "msgCollectionGetGroupMemberUpdates",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getVoipCallLogMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n =
-                    typeof e == "number" && !isNaN(e)
-                      ? e
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  r = yield o("WAWebDBMessageFindLocal").msgFindCallLog({
-                    count: n,
-                    anchor: t,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  r,
-                  { add: "search" },
-                  "msgCollectionGetVoipCallLogs",
-                );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getAllDocsMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = e != null ? e : g,
-                  a = n === "after" ? "after" : "before",
-                  i = yield o("WAWebDBMessageFindLocal").getAllDocsMessages({
-                    chat: t == null ? void 0 : t.remote,
-                    count: r,
-                    direction: a,
-                    msgKey: t,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  { add: "search" },
-                  "msgCollectionGetAllMedia",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getMessagesById = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield o("WAWebDBMsgUtils").getMsgsByMsgKey(e);
-                return o("WAPromiseProps").promiseProps({
-                  messages: this.processMultipleMessages(
-                    void 0,
-                    t,
-                    { add: "search" },
-                    "msgCollectionGetMessagesById",
-                  ),
-                  eof: !0,
-                  canceled: !1,
-                });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.hydrateOrGetMessages = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n = e.filter(function (e) {
-                    return !t.get(e);
-                  });
-                if (n.length > 0) {
-                  var a = yield this.getMessagesById(n),
-                    i = a.messages;
-                  if (i.length !== n.length)
-                    throw new (o(
-                      "WAWebBaseCollection",
-                    ).CollectionSilentQueryError)(
-                      "No message found for one or more ids",
-                    );
-                }
-                return e.map(function (e) {
-                  return r("WANullthrows")(t.get(e));
-                });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.incrementalStarredUpdate = function (t) {
+            return t.map(function (t) {
+              return r("WANullthrows")(e.get(t));
+            });
+          }),
+          (a.incrementalStarredUpdate = function (t) {
             return this.processMultipleMessages(
               void 0,
               t,
@@ -518,7 +436,7 @@ __d(
               "msgCollectionIncrementalStarredUpdate",
             );
           }),
-          (i.search = function (t, n, r, a, i) {
+          (a.search = function (t, n, r, a, i) {
             var e = this;
             (n === void 0 && (n = 1), i === void 0 && (i = {}));
             var l = t + "__" + (i.label || (i.kind && i.kind) || "");
@@ -552,371 +470,306 @@ __d(
               searchTerm: t,
             });
           }),
-          (i._search = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.count,
-                  r = e.jid,
-                  a = e.kind,
-                  i = e.label,
-                  l = e.page,
-                  s = e.searchTerm,
-                  c = {
-                    searchTerm: s,
-                    page: o("WATypeUtils").isNumber(l) && l !== 0 ? l : 1,
-                    count:
-                      o("WATypeUtils").isNumber(t) && t !== 0
-                        ? t
-                        : o("WAWebCollectionConstants").PAGE_SIZE,
-                    remote: r,
-                    tagToCancel: r ? this.pendingSearchTag : void 0,
-                    label: i,
-                    kind: a,
-                  },
-                  d = { add: "search" },
-                  m;
-                try {
-                  m = yield o("WAWebDBMessageFindLocal").msgFindSearch(c);
-                } catch (e) {
-                  throw (o("WAWebCoreActionsODS").logGlobalSearchError(), e);
-                }
-                if (
-                  (c.tagToCancel === this.pendingSearchTag &&
-                    (this.pendingSearchTag = void 0),
-                  m.status === 499)
+          (a._search = async function (t) {
+            var e = t.count,
+              n = t.jid,
+              r = t.kind,
+              a = t.label,
+              i = t.page,
+              l = t.searchTerm,
+              s = {
+                searchTerm: l,
+                page: o("WATypeUtils").isNumber(i) && i !== 0 ? i : 1,
+                count:
+                  o("WATypeUtils").isNumber(e) && e !== 0
+                    ? e
+                    : o("WAWebCollectionConstants").PAGE_SIZE,
+                remote: n,
+                tagToCancel: n ? this.pendingSearchTag : void 0,
+                label: a,
+                kind: r,
+              },
+              c = { add: "search" },
+              d;
+            try {
+              d = await o("WAWebDBMessageFindLocal").msgFindSearch(s);
+            } catch (e) {
+              throw (o("WAWebCoreActionsODS").logGlobalSearchError(), e);
+            }
+            if (
+              (s.tagToCancel === this.pendingSearchTag &&
+                (this.pendingSearchTag = void 0),
+              d.status === 499)
+            )
+              return o("WAPromiseProps").promiseProps({
+                messages: Promise.resolve([]),
+                eof: !1,
+                canceled: !0,
+              });
+            if (d.status === 404)
+              return (
+                o("WAWebCoreActionsODS").logGlobalSearchError(),
+                Promise.reject(new (o("WAWebBackendErrors").E404)())
+              );
+            if (d.status >= 400)
+              return (
+                o("WAWebCoreActionsODS").logGlobalSearchError(),
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "model:Msg:search error ",
+                      "",
+                    ])),
+                  d.status,
+                ),
+                Promise.reject(
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    d.status,
+                    "failed to find a msg during fts",
+                  ),
                 )
-                  return o("WAPromiseProps").promiseProps({
-                    messages: (f || (f = n("Promise"))).resolve([]),
-                    eof: !1,
-                    canceled: !0,
-                  });
-                if (m.status === 404)
-                  return (
-                    o("WAWebCoreActionsODS").logGlobalSearchError(),
-                    (f || (f = n("Promise"))).reject(
-                      new (o("WAWebBackendErrors").E404)(),
-                    )
-                  );
-                if (m.status >= 400)
-                  return (
-                    o("WAWebCoreActionsODS").logGlobalSearchError(),
-                    o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "model:Msg:search error ",
-                          "",
-                        ])),
-                      m.status,
-                    ),
-                    (f || (f = n("Promise"))).reject(
-                      new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                        m.status,
-                        "failed to find a msg during fts",
-                      ),
-                    )
-                  );
-                var p = Array.isArray(m) ? m : m.messages,
-                  _ = Array.isArray(m) ? !0 : m.eof,
-                  g = p.filter(function (e) {
-                    return (e == null ? void 0 : e.isGroupStatus) !== !0;
-                  });
-                return o("WAPromiseProps").promiseProps({
+              );
+            var m = Array.isArray(d) ? d : d.messages,
+              p = Array.isArray(d) ? !0 : d.eof,
+              _ = m.filter(function (e) {
+                return (e == null ? void 0 : e.isGroupStatus) !== !0;
+              });
+            return o("WAPromiseProps").promiseProps({
+              messages: this.processMultipleMessages(
+                void 0,
+                _,
+                c,
+                "msgCollectionSearch",
+              ),
+              eof: p,
+              canceled: !1,
+            });
+          }),
+          (a.queryMedia = async function (t, n, r, a, i) {
+            var e =
+                o("WATypeUtils").isNumber(n) && n !== 0
+                  ? n
+                  : o("WAWebCollectionConstants").PAGE_SIZE,
+              l = r || "before",
+              s = { add: "search" },
+              u = await o("WAWebDBMessageFindLocal").msgFindMedia({
+                count: e,
+                mediaType: i,
+                direction: l,
+                chat: t,
+                anchor: a,
+              });
+            return Array.isArray(u)
+              ? this.processMultipleMessages(
+                  void 0,
+                  u,
+                  { add: "search" },
+                  "msgCollectionQueryMedia",
+                )
+              : o("WAPromiseProps").promiseProps({
+                  docCount: u.docCount,
+                  linkCount: u.linkCount,
+                  mediaCount: u.mediaCount,
                   messages: this.processMultipleMessages(
                     void 0,
-                    g,
-                    d,
-                    "msgCollectionSearch",
+                    u.messages,
+                    s,
+                    "msgCollectionQueryMedia",
                   ),
-                  eof: _,
-                  canceled: !1,
                 });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.queryMedia = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, a) {
-                var i =
-                    o("WATypeUtils").isNumber(t) && t !== 0
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  l = n || "before",
-                  s = { add: "search" },
-                  u = yield o("WAWebDBMessageFindLocal").msgFindMedia({
-                    count: i,
-                    mediaType: a,
-                    direction: l,
-                    chat: e,
-                    anchor: r,
-                  });
-                return Array.isArray(u)
-                  ? this.processMultipleMessages(
-                      void 0,
-                      u,
-                      { add: "search" },
-                      "msgCollectionQueryMedia",
-                    )
-                  : o("WAPromiseProps").promiseProps({
-                      docCount: u.docCount,
-                      linkCount: u.linkCount,
-                      mediaCount: u.mediaCount,
-                      messages: this.processMultipleMessages(
-                        void 0,
-                        u.messages,
-                        s,
-                        "msgCollectionQueryMedia",
-                      ),
-                    });
-              },
-            );
-            function t(t, n, r, o, a) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getContext = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var a = this,
-                  i = e.anchor,
-                  l = i.remote,
-                  s = this.get(i),
-                  u = r("WAWebWid").isNewsletter(l);
-                if (s != null && !s.fromQuotedMsg)
-                  return (f || (f = n("Promise")))
-                    .all([
-                      o("WAWebDBMessageFindLocal").msgFindBefore({
-                        anchor: i,
-                        count: e.count,
-                        threadId: e.threadId,
-                      }),
-                      o("WAWebDBMessageFindLocal").msgFindAfter({
-                        anchor: i,
-                        count: e.count,
-                        threadId: e.threadId,
-                      }),
-                    ])
-                    .then(
-                      (function () {
-                        var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (r) {
-                            var i = r[0],
-                              d = r[1];
-                            if ((i.status >= 400 || d.status >= 400) && !u) {
-                              if (
-                                (o("WALogger").WARN(
-                                  c ||
-                                    (c =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "model:msg:getContext fetch error",
-                                      ])),
-                                ),
-                                i.status >= 400)
-                              )
-                                throw i.status;
-                              if (d.status >= 400) throw d.status;
-                            }
-                            var m = i.messages,
-                              p = d.messages,
-                              _ = s.serverId;
-                            return (
-                              (s.search = !1),
-                              (f || (f = n("Promise"))).all([
-                                a.processMultipleMessages(
-                                  l,
-                                  !u || _ == null
-                                    ? m
-                                    : yield o(
-                                        "WAWebNewsletterMsgHistoryUtils",
-                                      ).fillMsgHistoryGaps({
-                                        jid: l,
-                                        msgs: m.concat(
-                                          o(
-                                            "WAWebMsgDataFromModel",
-                                          ).msgDataFromMsgModel(s),
-                                        ),
-                                        range: { start: _ - e.count, end: _ },
-                                        serverIdsToSkip: o(
-                                          "WAWebNewsletterViewModeUIUtils",
-                                        ).getHiddenMessageServerIdsForChat(l),
-                                      }),
-                                  { add: "before", isHistory: !0 },
-                                  "msgCollectionGetContext",
-                                  t,
-                                ),
-                                a.processMultipleMessages(
-                                  l,
-                                  !u || _ == null
-                                    ? p
-                                    : yield o(
-                                        "WAWebNewsletterMsgHistoryUtils",
-                                      ).fillMsgHistoryGaps({
-                                        jid: l,
-                                        msgs: [
-                                          o(
-                                            "WAWebMsgDataFromModel",
-                                          ).msgDataFromMsgModel(s),
-                                        ].concat(p),
-                                        range: { start: _, end: _ + e.count },
-                                        serverIdsToSkip: o(
-                                          "WAWebNewsletterViewModeUIUtils",
-                                        ).getHiddenMessageServerIdsForChat(l),
-                                      }),
-                                  { add: "after", isHistory: !0 },
-                                  "msgCollectionGetContext",
-                                  t,
-                                ),
-                              ])
-                            );
-                          },
-                        );
-                        return function (e) {
-                          return r.apply(this, arguments);
-                        };
-                      })(),
-                    );
-                var _ = { add: "after", isHistory: !0 };
-                if (!(i instanceof r("WAWebMsgKey"))) return [[], []];
-                var g = yield o("WAWebDBMessageFindLocal").msgFindAfter({
-                  anchor: i,
-                  count: e.count,
-                  threadId: e.threadId,
-                });
-                if (g.status >= 400)
-                  throw (
-                    o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "model:msg:getContext:after fetch error",
+          }),
+          (a.getContext = async function (t, n) {
+            var e = this,
+              a = t.anchor,
+              i = a.remote,
+              l = this.get(a),
+              s = r("WAWebWid").isNewsletter(i);
+            if (l != null && !l.fromQuotedMsg)
+              return Promise.all([
+                o("WAWebDBMessageFindLocal").msgFindBefore({
+                  anchor: a,
+                  count: t.count,
+                  threadId: t.threadId,
+                }),
+                o("WAWebDBMessageFindLocal").msgFindAfter({
+                  anchor: a,
+                  count: t.count,
+                  threadId: t.threadId,
+                }),
+              ]).then(async function (r) {
+                var a = r[0],
+                  u = r[1];
+                if ((a.status >= 400 || u.status >= 400) && !s) {
+                  if (
+                    (o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "model:msg:getContext fetch error",
                         ])),
                     ),
-                    g.status
-                  );
-                return (f || (f = n("Promise")))
-                  .resolve(g.messages)
-                  .then(
-                    (function () {
-                      var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (n) {
-                          if (r("WAWebWid").isStatus(n[0].id.remote))
-                            throw r("err")(
-                              "status, stop querying before the msg",
-                            );
-                          var i = e.serverId;
-                          return a.processMultipleMessages(
-                            l,
-                            !u || i == null
-                              ? n
-                              : yield o(
-                                  "WAWebNewsletterMsgHistoryUtils",
-                                ).fillMsgHistoryGaps({
-                                  jid: l,
-                                  msgs: n,
-                                  range: { start: i, end: i + e.count },
-                                  serverIdsToSkip: o(
-                                    "WAWebNewsletterViewModeUIUtils",
-                                  ).getHiddenMessageServerIdsForChat(l),
-                                }),
-                            _,
-                            "msgCollectionFindQuery",
-                            t,
-                          );
-                        },
-                      );
-                      return function (e) {
-                        return i.apply(this, arguments);
-                      };
-                    })(),
+                    a.status >= 400)
                   )
-                  .then(
-                    (function () {
-                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (t) {
-                          var s = r("WANullthrows")(t[0]),
-                            c = s.id,
-                            d = e.count + 1,
-                            _ = { add: "before", isHistory: !0 },
-                            g = yield o(
-                              "WAWebDBMessageFindLocal",
-                            ).msgFindBefore({
-                              anchor: c,
-                              count: d,
-                              threadId: e.threadId,
-                            });
-                          if (g.status >= 400)
-                            throw (
-                              o("WALogger").WARN(
-                                m ||
-                                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                                    "model:msg:getContext:before fetch error",
-                                  ])),
-                              ),
-                              g.status
-                            );
-                          var h = g.messages,
-                            y = h[h.length - 1];
-                          y.fromQuotedMsg = !1;
-                          var C = y.id;
-                          if (!(i instanceof r("WAWebMsgKey")) || !C.equals(i))
-                            throw (
-                              o("WALogger").WARN(
-                                p ||
-                                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                                    "model:msg:getContext:before ctx message mismatch",
-                                  ])),
-                              ),
-                              405
-                            );
-                          var b = function () {
-                              return s.getMsgChunk();
-                            },
-                            v = s.serverId;
-                          return (f || (f = n("Promise"))).all([
-                            a.processMultipleMessages(
-                              l,
-                              !u || v == null
-                                ? h
-                                : yield o(
-                                    "WAWebNewsletterMsgHistoryUtils",
-                                  ).fillMsgHistoryGaps({
-                                    jid: l,
-                                    msgs: h,
-                                    range: { start: v, end: v - e.count },
-                                    serverIdsToSkip: o(
-                                      "WAWebNewsletterViewModeUIUtils",
-                                    ).getHiddenMessageServerIdsForChat(l),
-                                  }),
-                              _,
-                              "msgCollectionFindQuery",
-                              b,
+                    throw a.status;
+                  if (u.status >= 400) throw u.status;
+                }
+                var d = a.messages,
+                  m = u.messages,
+                  p = l.serverId;
+                return (
+                  (l.search = !1),
+                  Promise.all([
+                    e.processMultipleMessages(
+                      i,
+                      !s || p == null
+                        ? d
+                        : await o(
+                            "WAWebNewsletterMsgHistoryUtils",
+                          ).fillMsgHistoryGaps({
+                            jid: i,
+                            msgs: d.concat(
+                              o("WAWebMsgDataFromModel").msgDataFromMsgModel(l),
                             ),
-                            f.resolve(t),
-                          ]);
-                        },
-                      );
-                      return function (e) {
-                        return t.apply(this, arguments);
-                      };
-                    })(),
+                            range: { start: p - t.count, end: p },
+                            serverIdsToSkip: o(
+                              "WAWebNewsletterViewModeUIUtils",
+                            ).getHiddenMessageServerIdsForChat(i),
+                          }),
+                      { add: "before", isHistory: !0 },
+                      "msgCollectionGetContext",
+                      n,
+                    ),
+                    e.processMultipleMessages(
+                      i,
+                      !s || p == null
+                        ? m
+                        : await o(
+                            "WAWebNewsletterMsgHistoryUtils",
+                          ).fillMsgHistoryGaps({
+                            jid: i,
+                            msgs: [
+                              o("WAWebMsgDataFromModel").msgDataFromMsgModel(l),
+                            ].concat(m),
+                            range: { start: p, end: p + t.count },
+                            serverIdsToSkip: o(
+                              "WAWebNewsletterViewModeUIUtils",
+                            ).getHiddenMessageServerIdsForChat(i),
+                          }),
+                      { add: "after", isHistory: !0 },
+                      "msgCollectionGetContext",
+                      n,
+                    ),
+                  ])
+                );
+              });
+            var u = { add: "after", isHistory: !0 };
+            if (!(a instanceof r("WAWebMsgKey"))) return [[], []];
+            var _ = await o("WAWebDBMessageFindLocal").msgFindAfter({
+              anchor: a,
+              count: t.count,
+              threadId: t.threadId,
+            });
+            if (_.status >= 400)
+              throw (
+                o("WALogger").WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "model:msg:getContext:after fetch error",
+                    ])),
+                ),
+                _.status
+              );
+            return Promise.resolve(_.messages)
+              .then(async function (a) {
+                if (r("WAWebWid").isStatus(a[0].id.remote))
+                  throw r("err")("status, stop querying before the msg");
+                var l = t.serverId;
+                return e.processMultipleMessages(
+                  i,
+                  !s || l == null
+                    ? a
+                    : await o(
+                        "WAWebNewsletterMsgHistoryUtils",
+                      ).fillMsgHistoryGaps({
+                        jid: i,
+                        msgs: a,
+                        range: { start: l, end: l + t.count },
+                        serverIdsToSkip: o(
+                          "WAWebNewsletterViewModeUIUtils",
+                        ).getHiddenMessageServerIdsForChat(i),
+                      }),
+                  u,
+                  "msgCollectionFindQuery",
+                  n,
+                );
+              })
+              .then(async function (n) {
+                var l = r("WANullthrows")(n[0]),
+                  u = l.id,
+                  c = t.count + 1,
+                  d = { add: "before", isHistory: !0 },
+                  _ = await o("WAWebDBMessageFindLocal").msgFindBefore({
+                    anchor: u,
+                    count: c,
+                    threadId: t.threadId,
+                  });
+                if (_.status >= 400)
+                  throw (
+                    o("WALogger").WARN(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "model:msg:getContext:before fetch error",
+                        ])),
+                    ),
+                    _.status
                   );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.hasSynced = function () {
+                var f = _.messages,
+                  g = f[f.length - 1];
+                g.fromQuotedMsg = !1;
+                var h = g.id;
+                if (!(a instanceof r("WAWebMsgKey")) || !h.equals(a))
+                  throw (
+                    o("WALogger").WARN(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "model:msg:getContext:before ctx message mismatch",
+                        ])),
+                    ),
+                    405
+                  );
+                var y = function () {
+                    return l.getMsgChunk();
+                  },
+                  C = l.serverId;
+                return Promise.all([
+                  e.processMultipleMessages(
+                    i,
+                    !s || C == null
+                      ? f
+                      : await o(
+                          "WAWebNewsletterMsgHistoryUtils",
+                        ).fillMsgHistoryGaps({
+                          jid: i,
+                          msgs: f,
+                          range: { start: C, end: C - t.count },
+                          serverIdsToSkip: o(
+                            "WAWebNewsletterViewModeUIUtils",
+                          ).getHiddenMessageServerIdsForChat(i),
+                        }),
+                    d,
+                    "msgCollectionFindQuery",
+                    y,
+                  ),
+                  Promise.resolve(n),
+                ]);
+              });
+          }),
+          (a.hasSynced = function () {
             return r("WAWebEventsWaitForBbEvent")(
               this,
               o("WAWebCollectionConstants").COLLECTION_HAS_SYNCED,
             );
           }),
-          (i.processMultipleMessages = function (t, n, a, i, l, s) {
+          (a.processMultipleMessages = function (t, n, a, i, l, s) {
             var e = this;
             (s === void 0 && (s = !0),
               t != null &&
@@ -951,7 +804,7 @@ __d(
             }
             return u();
           }),
-          (i.hasUnsentMessages = function () {
+          (a.hasUnsentMessages = function () {
             return this.some(function (e) {
               return (
                 e.ack === o("WAWebAck").ACK.CLOCK &&
@@ -960,11 +813,11 @@ __d(
               );
             });
           }),
-          (i.getByEditMsgKey = function (t) {
+          (a.getByEditMsgKey = function (t) {
             var e = this._parentKeyByEditKey.get(t.toString());
             return e && this.get(e);
           }),
-          (i.processEditedMessages = function (t) {
+          (a.processEditedMessages = function (t) {
             var e = this;
             t.forEach(function (t) {
               if (!(!t || !o("WAWebMsgGetters").getIsEdited(t))) {
@@ -977,91 +830,62 @@ __d(
               }
             });
           }),
-          (i.addInitialBotTypingIndicatorToChat = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n,
-                  r = o("WAWebChatCollection").ChatCollection.get(e);
-                if (
-                  !(
-                    !r ||
-                    (!(r != null && r.id.isBot()) &&
-                      !(
-                        (n = r.contact.businessProfile) != null && n.isBizBot3p
-                      ))
-                  )
-                ) {
-                  if (r.botInitialTypingIndicatorMsgId != null) {
-                    var a = this.get(r.botInitialTypingIndicatorMsgId);
-                    if (a == null) return;
-                    a == null || a.delete({ skipUpdatingSortTime: !0 });
-                  }
-                  r.set({ botInitialTypingIndicatorMsgId: t }, { silent: !0 });
-                  var i = {
-                    id: t,
-                    t: o("WATimeUtils").unixTime(),
-                    from: e,
-                    to: o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                    type: "chat",
-                    subtype: o("WAWebBotGenTypingIndicatorMsg")
-                      .BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE,
-                    body: "",
-                  };
-                  this.processMultipleMessages(
-                    e,
-                    [
-                      babelHelpers.extends({}, i, {
-                        recvFresh: !0,
-                        isNewMsg: !0,
-                      }),
-                    ],
-                    { add: "after", isHistory: !1 },
-                    "createChatOnNewMsg",
-                    null,
-                    !0,
-                  );
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+          (a.addInitialBotTypingIndicatorToChat = async function (t, n) {
+            var e,
+              r = o("WAWebChatCollection").ChatCollection.get(t);
+            if (
+              !(
+                !r ||
+                (!(r != null && r.id.isBot()) &&
+                  !((e = r.contact.businessProfile) != null && e.isBizBot3p))
+              )
+            ) {
+              if (r.botInitialTypingIndicatorMsgId != null) {
+                var a = this.get(r.botInitialTypingIndicatorMsgId);
+                if (a == null) return;
+                a == null || a.delete({ skipUpdatingSortTime: !0 });
+              }
+              r.set({ botInitialTypingIndicatorMsgId: n }, { silent: !0 });
+              var i = {
+                id: n,
+                t: o("WATimeUtils").unixTime(),
+                from: t,
+                to: o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                type: "chat",
+                subtype: o("WAWebBotGenTypingIndicatorMsg")
+                  .BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE,
+                body: "",
+              };
+              this.processMultipleMessages(
+                t,
+                [babelHelpers.extends({}, i, { recvFresh: !0, isNewMsg: !0 })],
+                { add: "after", isHistory: !1 },
+                "createChatOnNewMsg",
+                null,
+                !0,
+              );
             }
-            return t;
-          })()),
-          (i.encryptAndClearModels = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this._models.map(function (e) {
-                return o("WAWebMsgOpaqueData").encryptDataInMsgModel(e);
-              });
-              yield (f || (f = n("Promise"))).all(e);
+          }),
+          (a.encryptAndClearModels = async function () {
+            var e = this._models.map(function (e) {
+              return o("WAWebMsgOpaqueData").encryptDataInMsgModel(e);
             });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.decryptAndSetModels = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this._models.map(function (t) {
-                  return o("WAWebMsgOpaqueData").decryptDataInMsgModel(t, e);
-                });
-                yield (f || (f = n("Promise"))).all(t);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+            await Promise.all(e);
+          }),
+          (a.decryptAndSetModels = async function (t) {
+            var e = this._models.map(function (e) {
+              return o("WAWebMsgOpaqueData").decryptDataInMsgModel(e, t);
+            });
+            await Promise.all(e);
+          }),
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    h.model = o("WAWebMsgModel").Msg;
-    var y = new h();
-    ((l.MEDIA_QUERY_LIMIT = g),
-      (l.MsgCollectionImpl = h),
-      (l.MsgCollection = y));
+    g.model = o("WAWebMsgModel").Msg;
+    var h = new g();
+    ((l.MEDIA_QUERY_LIMIT = f),
+      (l.MsgCollectionImpl = g),
+      (l.MsgCollection = h));
   },
   98,
 );

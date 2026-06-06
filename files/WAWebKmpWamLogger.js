@@ -1,7 +1,6 @@
 __d(
   "WAWebKmpWamLogger",
   [
-    "Promise",
     "WABase64",
     "WALogger",
     "WANullthrows",
@@ -22,243 +21,167 @@ __d(
     "WAWebWamEnumMutationBundleType",
     "WAWebWamEnumMutationDirectionType",
     "WAWebWamEnumSyncdCollectionType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c;
-    function d() {
-      return m.apply(this, arguments);
+    var e, s, u;
+    async function c() {
+      var t = {
+        reportSyncdMutationsSummary: async function (t, n) {
+          var e = await o("WAWebSyncdWamReportingUtils").getShortMdSessionId(),
+            a = r("WANullthrows")(_(t.collectionName)),
+            i = await g(o("WAWebKmpKotlinUtils").asMap(t.keyMap));
+          new (o(
+            "WAWebMdSyncdMutationsSummaryWamEvent",
+          ).MdSyncdMutationsSummaryWamEvent)({
+            appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
+            companionSessionIds: e,
+            isInBootstrap: t.isInBootstrap,
+            lidMutations: t.lidMutations,
+            mutationBundle: d(t.bundleType),
+            mutationDirection: m(t.mutationDirection),
+            patchMac: t.patchMac
+              ? o("WABase64").encodeB64UrlSafe(
+                  o("WAWebKmpKotlinUtils").asUint8Array(t.patchMac).buffer,
+                )
+              : void 0,
+            removeMutations: t.removeMutations,
+            seqNumber: parseInt(n.toDecimalString(), 10),
+            setMutations: t.setMutations,
+            snapshotMac: o("WABase64").encodeB64UrlSafe(
+              o("WAWebKmpKotlinUtils").asUint8Array(t.snapshotMac).buffer,
+            ),
+            syncdCollection: a,
+            syncdKeyidKeyhash: i,
+          }).commit();
+        },
+        reportSyncdBundle: async function (t, n) {
+          var e = await o("WAWebSyncdWamReportingUtils").getShortMdSessionId(),
+            a = r("WANullthrows")(_(t.collectionName)),
+            i = await o("WAWebSyncdWamReportingUtils").encodeKeyDataForWam(
+              o("WAWebKmpKotlinUtils").asUint8Array(t.syncdKeyData.keyData)
+                .buffer,
+            );
+          new (o("WAWebMdSyncdBundleWamEvent").MdSyncdBundleWamEvent)({
+            appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
+            bundleVersion: parseInt(t.versionNumber.toDecimalString(), 10),
+            companionSessionIds: e,
+            computedLthash: o("WABase64").encodeB64UrlSafe(
+              o("WAWebKmpKotlinUtils").asUint8Array(t.computedLtHash).buffer,
+            ),
+            expectedMac: o("WABase64").encodeB64UrlSafe(
+              o("WAWebKmpKotlinUtils").asUint8Array(t.expectedMac).buffer,
+            ),
+            kmpSyncdFlow: p(t.mutationDirection),
+            mutationBundle: d(t.bundleType),
+            mutationDirection: m(t.mutationDirection),
+            patchMac: t.computedPatchMac
+              ? o("WABase64").encodeB64UrlSafe(
+                  o("WAWebKmpKotlinUtils").asUint8Array(t.computedPatchMac)
+                    .buffer,
+                )
+              : void 0,
+            patchSize: t.patchSize
+              ? parseInt(t.patchSize.toDecimalString(), 10)
+              : void 0,
+            processingErrorMessage: t.errorMessage || void 0,
+            seqNumber: parseInt(n.toDecimalString(), 10),
+            snapshotMac: o("WABase64").encodeB64UrlSafe(
+              o("WAWebKmpKotlinUtils").asUint8Array(t.computedSnapshotMac)
+                .buffer,
+            ),
+            snapshotSize: t.snapshotSize
+              ? parseInt(t.snapshotSize.toDecimalString(), 10)
+              : void 0,
+            syncdCollection: a,
+            syncdKeyhash: i,
+            syncdKeyid: o("WABase64").encodeB64UrlSafe(
+              o("WAWebKmpKotlinUtils").asUint8Array(t.syncdKeyId.bytes).buffer,
+            ),
+          }).commit();
+        },
+        reportBootstrapAppStateDataDownloaded: async function (t) {
+          var e = new (o(
+            "WAWebMdBootstrapAppStateDataDownloadedWamEvent",
+          ).MdBootstrapAppStateDataDownloadedWamEvent)({
+            mdBootstrapPayloadType: t.isCriticalCollection
+              ? o("WAWebWamEnumMdBootstrapPayloadType")
+                  .MD_BOOTSTRAP_PAYLOAD_TYPE.CRITICAL
+              : o("WAWebWamEnumMdBootstrapPayloadType")
+                  .MD_BOOTSTRAP_PAYLOAD_TYPE.NON_CRITICAL,
+            mdTimestamp: Number(t.timestampMs),
+            mdBootstrapStepDuration: Number(t.stepDurationMs),
+            mdBootstrapStepResult: t.isSuccess
+              ? o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
+                  .SUCCESS
+              : o("WAWebWamEnumMdBootstrapStepResult").MD_BOOTSTRAP_STEP_RESULT
+                  .FAILURE,
+            mdSessionId: await o(
+              "WAWebSyncdMdSyncFieldstatMeta",
+            ).MdSyncFieldStatsMeta.getMdSessionId(),
+          });
+          t.payloadSizeBytes != null &&
+            (e.mdBootstrapPayloadSize = Number(t.payloadSizeBytes));
+          var n = await o(
+            "WAWebSyncdMdSyncFieldstatMeta",
+          ).MdSyncFieldStatsMeta.getStorageEstimation();
+          (n.mdStorageQuotaBytes !==
+            o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
+            ((e.mdStorageQuotaUsedBytes = n.mdStorageQuotaUsedBytes),
+            (e.mdStorageQuotaBytes = n.mdStorageQuotaBytes)),
+            e.commit());
+        },
+        reportMdCriticalEvent: async function (n) {
+          var t,
+            r = o("WAWebWamEnumMdSyncdCriticalEventCode")
+              .MD_SYNCD_CRITICAL_EVENT_CODE[n.criticalEventCode.name];
+          if (r == null) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[KmpWamLogger] Unknown critical event code: ",
+                    "",
+                  ])),
+                n.criticalEventCode.name,
+              )
+              .sendLogs("kmp-unknown-critical-event");
+            return;
+          }
+          new (o("WAWebMdCriticalEventWamEvent").MdCriticalEventWamEvent)({
+            mdCriticalEventCode: r,
+            mutationActionName: (t = n.mutationActionName) != null ? t : void 0,
+          }).commit();
+        },
+        reportMdFatalError: async function (t) {
+          var e = f(t.fatalErrorCode.name);
+          if (e == null) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[KmpWamLogger] Unknown fatal error code: ",
+                    "",
+                  ])),
+                t.fatalErrorCode.name,
+              )
+              .sendLogs("kmp-unknown-fatal-error");
+            return;
+          }
+          var n =
+            t.collectionName != null
+              ? _(t.collectionName.toWamSyncdCollectionType())
+              : void 0;
+          await new (o("WAWebMdFatalErrorWamEvent").MdFatalErrorWamEvent)({
+            mdFatalErrorCode: e,
+            collection: n,
+            isFatal: t.isFatal,
+          }).commitAndWaitForFlush(!0);
+        },
+      };
+      return t;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = {
-            reportSyncdMutationsSummary: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e, t) {
-                  var n = yield o(
-                      "WAWebSyncdWamReportingUtils",
-                    ).getShortMdSessionId(),
-                    a = r("WANullthrows")(g(e.collectionName)),
-                    i = yield y(o("WAWebKmpKotlinUtils").asMap(e.keyMap));
-                  new (o(
-                    "WAWebMdSyncdMutationsSummaryWamEvent",
-                  ).MdSyncdMutationsSummaryWamEvent)({
-                    appSessionId: o(
-                      "WAWebGetSharedSessionId",
-                    ).getSharedSessionId(),
-                    companionSessionIds: n,
-                    isInBootstrap: e.isInBootstrap,
-                    lidMutations: e.lidMutations,
-                    mutationBundle: p(e.bundleType),
-                    mutationDirection: _(e.mutationDirection),
-                    patchMac: e.patchMac
-                      ? o("WABase64").encodeB64UrlSafe(
-                          o("WAWebKmpKotlinUtils").asUint8Array(e.patchMac)
-                            .buffer,
-                        )
-                      : void 0,
-                    removeMutations: e.removeMutations,
-                    seqNumber: parseInt(t.toDecimalString(), 10),
-                    setMutations: e.setMutations,
-                    snapshotMac: o("WABase64").encodeB64UrlSafe(
-                      o("WAWebKmpKotlinUtils").asUint8Array(e.snapshotMac)
-                        .buffer,
-                    ),
-                    syncdCollection: a,
-                    syncdKeyidKeyhash: i,
-                  }).commit();
-                },
-              );
-              function t(t, n) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-            reportSyncdBundle: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e, t) {
-                  var n = yield o(
-                      "WAWebSyncdWamReportingUtils",
-                    ).getShortMdSessionId(),
-                    a = r("WANullthrows")(g(e.collectionName)),
-                    i = yield o(
-                      "WAWebSyncdWamReportingUtils",
-                    ).encodeKeyDataForWam(
-                      o("WAWebKmpKotlinUtils").asUint8Array(
-                        e.syncdKeyData.keyData,
-                      ).buffer,
-                    );
-                  new (o("WAWebMdSyncdBundleWamEvent").MdSyncdBundleWamEvent)({
-                    appSessionId: o(
-                      "WAWebGetSharedSessionId",
-                    ).getSharedSessionId(),
-                    bundleVersion: parseInt(
-                      e.versionNumber.toDecimalString(),
-                      10,
-                    ),
-                    companionSessionIds: n,
-                    computedLthash: o("WABase64").encodeB64UrlSafe(
-                      o("WAWebKmpKotlinUtils").asUint8Array(e.computedLtHash)
-                        .buffer,
-                    ),
-                    expectedMac: o("WABase64").encodeB64UrlSafe(
-                      o("WAWebKmpKotlinUtils").asUint8Array(e.expectedMac)
-                        .buffer,
-                    ),
-                    kmpSyncdFlow: f(e.mutationDirection),
-                    mutationBundle: p(e.bundleType),
-                    mutationDirection: _(e.mutationDirection),
-                    patchMac: e.computedPatchMac
-                      ? o("WABase64").encodeB64UrlSafe(
-                          o("WAWebKmpKotlinUtils").asUint8Array(
-                            e.computedPatchMac,
-                          ).buffer,
-                        )
-                      : void 0,
-                    patchSize: e.patchSize
-                      ? parseInt(e.patchSize.toDecimalString(), 10)
-                      : void 0,
-                    processingErrorMessage: e.errorMessage || void 0,
-                    seqNumber: parseInt(t.toDecimalString(), 10),
-                    snapshotMac: o("WABase64").encodeB64UrlSafe(
-                      o("WAWebKmpKotlinUtils").asUint8Array(
-                        e.computedSnapshotMac,
-                      ).buffer,
-                    ),
-                    snapshotSize: e.snapshotSize
-                      ? parseInt(e.snapshotSize.toDecimalString(), 10)
-                      : void 0,
-                    syncdCollection: a,
-                    syncdKeyhash: i,
-                    syncdKeyid: o("WABase64").encodeB64UrlSafe(
-                      o("WAWebKmpKotlinUtils").asUint8Array(e.syncdKeyId.bytes)
-                        .buffer,
-                    ),
-                  }).commit();
-                },
-              );
-              function t(t, n) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-            reportBootstrapAppStateDataDownloaded: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = new (o(
-                    "WAWebMdBootstrapAppStateDataDownloadedWamEvent",
-                  ).MdBootstrapAppStateDataDownloadedWamEvent)({
-                    mdBootstrapPayloadType: e.isCriticalCollection
-                      ? o("WAWebWamEnumMdBootstrapPayloadType")
-                          .MD_BOOTSTRAP_PAYLOAD_TYPE.CRITICAL
-                      : o("WAWebWamEnumMdBootstrapPayloadType")
-                          .MD_BOOTSTRAP_PAYLOAD_TYPE.NON_CRITICAL,
-                    mdTimestamp: Number(e.timestampMs),
-                    mdBootstrapStepDuration: Number(e.stepDurationMs),
-                    mdBootstrapStepResult: e.isSuccess
-                      ? o("WAWebWamEnumMdBootstrapStepResult")
-                          .MD_BOOTSTRAP_STEP_RESULT.SUCCESS
-                      : o("WAWebWamEnumMdBootstrapStepResult")
-                          .MD_BOOTSTRAP_STEP_RESULT.FAILURE,
-                    mdSessionId: yield o(
-                      "WAWebSyncdMdSyncFieldstatMeta",
-                    ).MdSyncFieldStatsMeta.getMdSessionId(),
-                  });
-                  e.payloadSizeBytes != null &&
-                    (t.mdBootstrapPayloadSize = Number(e.payloadSizeBytes));
-                  var n = yield o(
-                    "WAWebSyncdMdSyncFieldstatMeta",
-                  ).MdSyncFieldStatsMeta.getStorageEstimation();
-                  (n.mdStorageQuotaBytes !==
-                    o("WAWebSyncdMdSyncFieldstatMeta")
-                      .STORAGE_QUOTA_UNAVAILABLE &&
-                    ((t.mdStorageQuotaUsedBytes = n.mdStorageQuotaUsedBytes),
-                    (t.mdStorageQuotaBytes = n.mdStorageQuotaBytes)),
-                    t.commit());
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-            reportMdCriticalEvent: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t,
-                    n = o("WAWebWamEnumMdSyncdCriticalEventCode")
-                      .MD_SYNCD_CRITICAL_EVENT_CODE[e.criticalEventCode.name];
-                  if (n == null) {
-                    o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[KmpWamLogger] Unknown critical event code: ",
-                            "",
-                          ])),
-                        e.criticalEventCode.name,
-                      )
-                      .sendLogs("kmp-unknown-critical-event");
-                    return;
-                  }
-                  new (o(
-                    "WAWebMdCriticalEventWamEvent",
-                  ).MdCriticalEventWamEvent)({
-                    mdCriticalEventCode: n,
-                    mutationActionName:
-                      (t = e.mutationActionName) != null ? t : void 0,
-                  }).commit();
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-            reportMdFatalError: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = h(e.fatalErrorCode.name);
-                  if (t == null) {
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[KmpWamLogger] Unknown fatal error code: ",
-                            "",
-                          ])),
-                        e.fatalErrorCode.name,
-                      )
-                      .sendLogs("kmp-unknown-fatal-error");
-                    return;
-                  }
-                  var n =
-                    e.collectionName != null
-                      ? g(e.collectionName.toWamSyncdCollectionType())
-                      : void 0;
-                  yield new (o(
-                    "WAWebMdFatalErrorWamEvent",
-                  ).MdFatalErrorWamEvent)({
-                    mdFatalErrorCode: t,
-                    collection: n,
-                    isFatal: e.isFatal,
-                  }).commitAndWaitForFlush(!0);
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-          };
-          return e;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function d(e) {
       return e.name === "PATCH"
         ? o("WAWebWamEnumMutationBundleType").MUTATION_BUNDLE_TYPE.PATCH
         : e.name === "SNAPSHOT"
@@ -270,7 +193,7 @@ __d(
               );
             })();
     }
-    function _(e) {
+    function m(e) {
       return e.name === "INCOMING"
         ? o("WAWebWamEnumMutationDirectionType").MUTATION_DIRECTION_TYPE
             .INCOMING
@@ -284,7 +207,7 @@ __d(
               );
             })();
     }
-    function f(e) {
+    function p(e) {
       return e.name === "INCOMING"
         ? o("WAWebWamEnumKmpSyncdFlowEnum").KMP_SYNCD_FLOW_ENUM
             .KMP_INCOMING_PROCESSOR
@@ -298,36 +221,36 @@ __d(
               );
             })();
     }
-    function g(t) {
+    function _(e) {
       e: {
         if (
-          t ===
+          e ===
           o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE.REGULAR
         )
           return o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .REGULAR;
         if (
-          t ===
+          e ===
           o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE.REGULAR_LOW
         )
           return o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .REGULAR_LOW;
         if (
-          t ===
+          e ===
           o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .REGULAR_HIGH
         )
           return o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .REGULAR_HIGH;
         if (
-          t ===
+          e ===
           o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .CRITICAL_BLOCK
         )
           return o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .CRITICAL_BLOCK;
         if (
-          t ===
+          e ===
           o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .CRITICAL_UNBLOCK_LOW
         )
@@ -336,19 +259,19 @@ __d(
         {
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[KmpWamLogger] Unexpected collection name value ",
                   "",
                 ])),
-              t,
+              e,
             )
             .sendLogs("kmp-invalid-collection-name");
           return;
         }
       }
     }
-    function h(e) {
+    function f(e) {
       var t = e
           .replace(/([a-z])([A-Z])/g, "$1_$2")
           .replace(/([a-z])(\d)/g, "$1_$2")
@@ -356,48 +279,28 @@ __d(
         n = o("WAWebWamEnumMdSyncdFatalErrorCode").MD_SYNCD_FATAL_ERROR_CODE;
       return n[t];
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (c || (c = n("Promise"))).all(
-              e.entries().map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1],
-                        r = o("WABase64").encodeB64UrlSafe(
-                          o("WAWebKmpKotlinUtils").asUint8Array(t.bytes).buffer,
-                        ),
-                        a = yield o(
-                          "WAWebSyncdWamReportingUtils",
-                        ).encodeKeyDataForWam(
-                          o("WAWebKmpKotlinUtils").asUint8Array(n.keyData)
-                            .buffer,
-                        );
-                      return [r, a];
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
+    async function g(e) {
+      var t = await Promise.all(
+          e.entries().map(async function (e) {
+            var t = e[0],
+              n = e[1],
+              r = o("WABase64").encodeB64UrlSafe(
+                o("WAWebKmpKotlinUtils").asUint8Array(t.bytes).buffer,
               ),
-            ),
-            r = t.reduce(function (e, t) {
-              var n = t[0],
-                r = t[1];
-              return ((e[n] = r), e);
-            }, {});
-          return JSON.stringify(r);
-        })),
-        C.apply(this, arguments)
-      );
+              a = await o("WAWebSyncdWamReportingUtils").encodeKeyDataForWam(
+                o("WAWebKmpKotlinUtils").asUint8Array(n.keyData).buffer,
+              );
+            return [r, a];
+          }),
+        ),
+        n = t.reduce(function (e, t) {
+          var n = t[0],
+            r = t[1];
+          return ((e[n] = r), e);
+        }, {});
+      return JSON.stringify(n);
     }
-    l.getWamLogger = d;
+    l.getWamLogger = c;
   },
   98,
 );

@@ -5,27 +5,18 @@ __d(
     "WAWebBotTypes",
     "WAWebDBProcessMessage",
     "WAWebMsgModelFromData",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.bizBotSystemMsgType !== o("WAWebBotTypes").BizBotType.BIZ_1P) {
-            var t = o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e.id);
-            (e.msgs.add(o("WAWebMsgModelFromData").msgModelFromMsgData(t)),
-              (e.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P),
-              yield o("WAWebDBProcessMessage").storeMessages([t], e.id),
-              yield e.updateBizBotSysMsgCreated(
-                o("WAWebBotTypes").BizBotType.BIZ_1P,
-              ));
-          }
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      if (e.bizBotSystemMsgType !== o("WAWebBotTypes").BizBotType.BIZ_1P) {
+        var t = o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e.id);
+        (e.msgs.add(o("WAWebMsgModelFromData").msgModelFromMsgData(t)),
+          (e.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P),
+          await o("WAWebDBProcessMessage").storeMessages([t], e.id),
+          await e.updateBizBotSysMsgCreated(
+            o("WAWebBotTypes").BizBotType.BIZ_1P,
+          ));
+      }
     }
     l.maybeCreateBizBot1pDisclosureSysMsg = e;
   },

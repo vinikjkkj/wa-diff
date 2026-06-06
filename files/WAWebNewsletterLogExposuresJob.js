@@ -4,18 +4,17 @@ __d(
     "WAJobOrchestratorTypes",
     "WAWebMexLogNewsletterExposuresJob",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "logNewsletterExposures",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return o(
               "WAWebMexLogNewsletterExposuresJob",
             ).mexLogNewsletterExposures(e);
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
         )
         .waitUntilCompleted();

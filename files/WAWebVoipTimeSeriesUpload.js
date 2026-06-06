@@ -11,7 +11,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipPersistentFS",
     "WAWebZip",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -69,263 +68,251 @@ __d(
         t
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (t.timeSeriesPath == null) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[VoIP TS Upload] no time-series path, skip",
-                ])),
-            );
-            return;
-          }
-          var a = t.timeSeriesPath;
+    async function $(t, n) {
+      if (t.timeSeriesPath == null) {
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[VoIP TS Upload] no time-series path, skip",
+            ])),
+        );
+        return;
+      }
+      var a = t.timeSeriesPath;
+      try {
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[VoIP TS Upload] Starting upload for call: ",
+              "",
+            ])),
+          t.callId,
+        ),
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] Time-series directory: ",
+                "",
+              ])),
+            a,
+          ));
+        var i = n.FS;
+        if (!i) {
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] WASM FS not available, skipping upload",
+              ])),
+          );
+          return;
+        }
+        var l;
+        try {
+          ((l = i.readdir(a)),
+            (l = l.filter(function (e) {
+              return e !== "." && e !== "..";
+            })));
+        } catch (e) {
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] Failed to read directory ",
+                ": ",
+                "",
+              ])),
+            a,
+            String(e),
+          );
+          return;
+        }
+        if (l.length === 0) {
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] No files found in directory ",
+                "",
+              ])),
+            a,
+          );
+          return;
+        }
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[VoIP TS Upload] Found ",
+              " segment files: ",
+              "",
+            ])),
+          l.length,
+          l.join(", "),
+        );
+        var $ = new (r("WAWebZip"))(),
+          P = 0,
+          N = [];
+        for (var M of l) {
+          var w = a + "/" + M;
           try {
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[VoIP TS Upload] Starting upload for call: ",
+            var A = i.readFile(w),
+              F = new (o("WABinary").Binary)(A);
+            ($.add(F, M), (P += A.length), N.push({ name: M, size: A.length }));
+          } catch (e) {
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[VoIP TS Upload] Failed to read file ",
+                  ": ",
                   "",
                 ])),
-              t.callId,
+              w,
+              String(e),
+            );
+          }
+        }
+        if (
+          (N.length > 0 &&
+            o("WALogger").LOG(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[VoIP TS Upload] Added ",
+                  " files to ZIP. Examples: ",
+                  "",
+                ])),
+              N.length,
+              N.slice(0, 3).map(function (e) {
+                return e.name + " (" + e.size + " bytes)";
+              }),
             ),
+          P > k)
+        ) {
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] size ",
+                " > max ",
+                ", skip",
+              ])),
+            P,
+            k,
+          );
+          return;
+        }
+        var O = $.create(),
+          B = new Blob([O.readByteArrayView()], { type: "application/zip" });
+        if (
+          (o("WALogger").LOG(
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] ZIP created, size=",
+                " orig=",
+                "",
+              ])),
+            B.size,
+            P,
+          ),
+          B.size > k)
+        ) {
+          o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] ZIP ",
+                " > max ",
+                ", skip",
+              ])),
+            B.size,
+            k,
+          );
+          return;
+        }
+        var W = x(t),
+          q = t.callId + "_timeseries.zip";
+        W.append("file", B, q);
+        var U = r("WAWebURLUtils").build(T, { access_token: D, type: I }),
+          V = await self.fetch(U, { method: "POST", body: W });
+        if (V.status === 200) {
+          o("WALogger").LOG(
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] uploaded call=",
+                " size=",
+                "",
+              ])),
+            t.callId,
+            B.size,
+          );
+          for (var H of l)
+            try {
+              i.unlink(a + "/" + H);
+            } catch (e) {
+              o("WALogger").WARN(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[VoIP TS Upload] Failed to cleanup file ",
+                    ": ",
+                    "",
+                  ])),
+                H,
+                String(e),
+              );
+            }
+          try {
+            (i.rmdir(a),
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] Time-series directory: ",
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                    "[VoIP TS Upload] Cleaned up directory ",
                     "",
                   ])),
                 a,
               ));
-            var i = n.FS;
-            if (!i) {
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] WASM FS not available, skipping upload",
-                  ])),
-              );
-              return;
-            }
-            var l;
-            try {
-              ((l = i.readdir(a)),
-                (l = l.filter(function (e) {
-                  return e !== "." && e !== "..";
-                })));
-            } catch (e) {
-              o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] Failed to read directory ",
-                    ": ",
-                    "",
-                  ])),
-                a,
-                String(e),
-              );
-              return;
-            }
-            if (l.length === 0) {
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] No files found in directory ",
-                    "",
-                  ])),
-                a,
-              );
-              return;
-            }
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[VoIP TS Upload] Found ",
-                  " segment files: ",
+          } catch (e) {
+            o("WALogger").WARN(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "[VoIP TS Upload] Failed to remove directory ",
+                  ": ",
                   "",
                 ])),
-              l.length,
-              l.join(", "),
+              a,
+              String(e),
             );
-            var $ = new (r("WAWebZip"))(),
-              P = 0,
-              N = [];
-            for (var M of l) {
-              var w = a + "/" + M;
-              try {
-                var A = i.readFile(w),
-                  F = new (o("WABinary").Binary)(A);
-                ($.add(F, M),
-                  (P += A.length),
-                  N.push({ name: M, size: A.length }));
-              } catch (e) {
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[VoIP TS Upload] Failed to read file ",
-                      ": ",
-                      "",
-                    ])),
-                  w,
-                  String(e),
-                );
-              }
-            }
-            if (
-              (N.length > 0 &&
-                o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[VoIP TS Upload] Added ",
-                      " files to ZIP. Examples: ",
-                      "",
-                    ])),
-                  N.length,
-                  N.slice(0, 3).map(function (e) {
-                    return e.name + " (" + e.size + " bytes)";
-                  }),
-                ),
-              P > k)
-            ) {
-              o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] size ",
-                    " > max ",
-                    ", skip",
-                  ])),
-                P,
-                k,
-              );
-              return;
-            }
-            var O = $.create(),
-              B = new Blob([O.readByteArrayView()], {
-                type: "application/zip",
-              });
-            if (
-              (o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] ZIP created, size=",
-                    " orig=",
-                    "",
-                  ])),
-                B.size,
-                P,
-              ),
-              B.size > k)
-            ) {
-              o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] ZIP ",
-                    " > max ",
-                    ", skip",
-                  ])),
-                B.size,
-                k,
-              );
-              return;
-            }
-            var W = x(t),
-              q = t.callId + "_timeseries.zip";
-            W.append("file", B, q);
-            var U = r("WAWebURLUtils").build(T, { access_token: D, type: I }),
-              V = yield self.fetch(U, { method: "POST", body: W });
-            if (V.status === 200) {
-              o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] uploaded call=",
-                    " size=",
-                    "",
-                  ])),
-                t.callId,
-                B.size,
-              );
-              for (var H of l)
-                try {
-                  i.unlink(a + "/" + H);
-                } catch (e) {
-                  o("WALogger").WARN(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
-                        "[VoIP TS Upload] Failed to cleanup file ",
-                        ": ",
-                        "",
-                      ])),
-                    H,
-                    String(e),
-                  );
-                }
-              try {
-                (i.rmdir(a),
-                  o("WALogger").LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "[VoIP TS Upload] Cleaned up directory ",
-                        "",
-                      ])),
-                    a,
-                  ));
-              } catch (e) {
-                o("WALogger").WARN(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "[VoIP TS Upload] Failed to remove directory ",
-                      ": ",
-                      "",
-                    ])),
-                  a,
-                  String(e),
-                );
-              }
-              try {
-                yield o("WAWebVoipPersistentFS").syncPersistentFS(n);
-              } catch (e) {
-                o("WALogger").WARN(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "[VoIP TS Upload] Failed to sync filesystem deletions: ",
-                      "",
-                    ])),
-                  String(e),
-                );
-              }
-            } else {
-              var G = yield V.text();
-              o("WALogger").LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VoIP TS Upload] failed status=",
-                    " call=",
-                    " ",
-                    "",
-                  ])),
-                V.status,
-                t.callId,
-                G,
-              );
-            }
+          }
+          try {
+            await o("WAWebVoipPersistentFS").syncPersistentFS(n);
           } catch (e) {
-            o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "[VoIP TS Upload] Failed to upload time-series logs: ",
+            o("WALogger").WARN(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[VoIP TS Upload] Failed to sync filesystem deletions: ",
                   "",
                 ])),
               String(e),
             );
           }
-        })),
-        P.apply(this, arguments)
-      );
+        } else {
+          var G = await V.text();
+          o("WALogger").LOG(
+            L ||
+              (L = babelHelpers.taggedTemplateLiteralLoose([
+                "[VoIP TS Upload] failed status=",
+                " call=",
+                " ",
+                "",
+              ])),
+            V.status,
+            t.callId,
+            G,
+          );
+        }
+      } catch (e) {
+        o("WALogger").LOG(
+          E ||
+            (E = babelHelpers.taggedTemplateLiteralLoose([
+              "[VoIP TS Upload] Failed to upload time-series logs: ",
+              "",
+            ])),
+          String(e),
+        );
+      }
     }
     l.uploadTimeSeriesLogsAsync = $;
   },

@@ -12,7 +12,6 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,61 +57,49 @@ __d(
             accountType: i,
           };
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-            n = [],
-            r = function (t) {
-              n.push({
-                localPrimaryIdentity: t.localPrimaryIdentity,
-                signedKeyIndexBytes: t.signedKeyIndexBytes.buffer.slice(
-                  t.signedKeyIndexBytes.byteOffset,
-                  t.signedKeyIndexBytes.byteOffset +
-                    t.signedKeyIndexBytes.byteLength,
-                ),
-              });
-            },
-            a = o("WAWebABProps").getABPropConfigValue(
-              "wmi_worker_scheduler_web",
-            );
-          if (a) {
-            var i = o("TaskScheduler").taskScheduler(
-              "device-sync",
-              { concurrency: 1 },
-              o(
-                "NativeSchedulerTickStrategy",
-              ).makeNativeSchedulerTickStrategy(),
-            );
-            for (var l of e) (r(l), yield i.yield());
-          } else {
-            var s = self.performance.now();
-            for (var u of e)
-              (r(u),
-                self.performance.now() - s > g &&
-                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                  (s = self.performance.now())));
-          }
-          var c = n.flatMap(function (e) {
-            return [e.localPrimaryIdentity, e.signedKeyIndexBytes];
+    async function p(e) {
+      var t = await o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
+        n = [],
+        r = function (t) {
+          n.push({
+            localPrimaryIdentity: t.localPrimaryIdentity,
+            signedKeyIndexBytes: t.signedKeyIndexBytes.buffer.slice(
+              t.signedKeyIndexBytes.byteOffset,
+              t.signedKeyIndexBytes.byteOffset +
+                t.signedKeyIndexBytes.byteLength,
+            ),
           });
-          return t.sendAndReceive(
-            "deviceSync",
-            "decodeSignedKeyIndexBytesBatch",
-            { items: n },
-            !1,
-            void 0,
-            void 0,
-            c,
-          );
-        })),
-        _.apply(this, arguments)
+        },
+        a = o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web");
+      if (a) {
+        var i = o("TaskScheduler").taskScheduler(
+          "device-sync",
+          { concurrency: 1 },
+          o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
+        );
+        for (var l of e) (r(l), await i.yield());
+      } else {
+        var s = self.performance.now();
+        for (var u of e)
+          (r(u),
+            self.performance.now() - s > f &&
+              (await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+              (s = self.performance.now())));
+      }
+      var c = n.flatMap(function (e) {
+        return [e.localPrimaryIdentity, e.signedKeyIndexBytes];
+      });
+      return t.sendAndReceive(
+        "deviceSync",
+        "decodeSignedKeyIndexBytesBatch",
+        { items: n },
+        !1,
+        void 0,
+        void 0,
+        c,
       );
     }
-    function f(t, n) {
+    function _(t, n) {
       var r;
       try {
         r = o("decodeProtobuf").decodeProtobuf(
@@ -215,10 +202,10 @@ __d(
         identityUpdatePromise: h,
       };
     }
-    var g = 100;
+    var f = 100;
     ((l.decodeSignedKeyIndexBytes = m),
       (l.decodeSignedKeyIndexBytesBatchInWorker = p),
-      (l.verifySKeyIndexWithAccSigKey = f));
+      (l.verifySKeyIndexWithAccSigKey = _));
   },
   98,
 );

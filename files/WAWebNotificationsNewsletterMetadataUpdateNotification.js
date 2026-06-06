@@ -13,7 +13,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebParticipantListUtils",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -28,9 +27,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.buildKey = function () {
+        (n.buildKey = function () {
           return (
             "newslowner:" +
             this.chat.id.toString() +
@@ -40,19 +39,19 @@ __d(
             o("WATimeUtils").unixTime().toString()
           );
         }),
-        (r.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
             ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(this.chat)
             : !1;
         }),
-        (r.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return e.prototype.shouldShowBanner.call(this)
             ? o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
                 this.chat,
               )
             : !1;
         }),
-        (r.getBannerOptions = function () {
+        (n.getBannerOptions = function () {
           var e = this,
             t = this.updates.some(function (e) {
               var t = e.item;
@@ -69,32 +68,26 @@ __d(
             },
           };
         }),
-        (r.getNotificationBody = function () {
+        (n.getNotificationBody = function () {
           var e = this.getActor();
           return c(e, this.updates).toString();
         }),
-        (r.getActor = function () {
+        (n.getActor = function () {
           var e = o("WAWebContactCollection").ContactCollection.get(this.user);
           return e != null
             ? o("WAWebParticipantListUtils").getFirstNameForContact(e)
             : o("WAWebWidFormat").widToFormattedUser(this.user);
         }),
-        (r.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-              this.chat,
-              this.abortController.signal,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (r.matchesChat = function (t) {
+        (n.getIcon = async function () {
+          return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+            this.chat,
+            this.abortController.signal,
+          );
+        }),
+        (n.matchesChat = function (t) {
           return t.equals(this.chat);
         }),
-        (r.getChatKind = function () {
+        (n.getChatKind = function () {
           return o("WAWebChatFlowTypes").ChatKindType.Newsletter;
         }),
         t

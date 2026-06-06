@@ -10,7 +10,6 @@ __d(
     "WAWebCommsWapMd",
     "WAWebJidToWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -48,47 +47,39 @@ __d(
           messages: c,
         };
       });
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = c.parse(t);
-          if (n.error)
-            throw (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "error while parsing: ",
-                    "",
-                  ])),
-                t.toString(),
-              ),
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                n.error.toString(),
-              ),
-              n.error
-            );
-          var r = n.success,
-            a = o("WAWap").wap("ack", {
-              id: o("WAWap").CUSTOM_STRING(r.stanzaId),
-              participant: o("WAWebCommsWapMd").JID(r.participant),
-              class: "notification",
-              type: "psa",
-              to: o("WAWebCommsWapMd").JID(
-                o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-              ),
-            });
-          return a;
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(t) {
+      var n = c.parse(t);
+      if (n.error)
+        throw (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "error while parsing: ",
+                "",
+              ])),
+            t.toString(),
+          ),
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          n.error
+        );
+      var r = n.success,
+        a = o("WAWap").wap("ack", {
+          id: o("WAWap").CUSTOM_STRING(r.stanzaId),
+          participant: o("WAWebCommsWapMd").JID(r.participant),
+          class: "notification",
+          type: "psa",
+          to: o("WAWebCommsWapMd").JID(
+            o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
+          ),
+        });
+      return a;
     }
     l.default = d;
   },

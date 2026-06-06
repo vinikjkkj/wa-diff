@@ -1,11 +1,6 @@
 __d(
   "WAWebMobilePlatforms",
-  [
-    "WALogger",
-    "WAWebEnvironment",
-    "WAWebMobilePlatformPersistence",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebEnvironment", "WAWebMobilePlatformPersistence"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -29,45 +24,35 @@ __d(
             ),
           c);
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function m(e, t) {
+      (t === void 0 && (t = !0),
+        t &&
+          (await o("WAWebMobilePlatformPersistence").setLastMobilePlatform(e)),
+        (c = e),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "Successfully writes platform to UserPrefs, platform: ",
+              "",
+            ])),
+          e,
+        ));
     }
     function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (t === void 0 && (t = !0),
-            t &&
-              (yield o("WAWebMobilePlatformPersistence").setLastMobilePlatform(
-                e,
-              )),
-            (c = e),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "Successfully writes platform to UserPrefs, platform: ",
-                  "",
-                ])),
-              e,
-            ));
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
       return c === u.SMBA || c === u.SMBI;
     }
-    function f() {
+    function _() {
       return c === u.ANDROID || c === u.SMBA;
     }
-    function g() {
+    function f() {
       return c === u.IPHONE || c === u.IPAD || c === u.SMBI;
     }
     ((l.PLATFORMS = u),
       (l.getMobilePlatform = d),
       (l.setMobilePlatform = m),
-      (l.isSMB = _),
-      (l.isAndroidPrimary = f),
-      (l.isIOSPrimary = g));
+      (l.isSMB = p),
+      (l.isAndroidPrimary = _),
+      (l.isIOSPrimary = f));
   },
   98,
 );

@@ -6,23 +6,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebGroupInviteLinkDrawer.react",
-          )
-            .__setRef("WAWebGroupInviteLinkDrawerLoadable")
-            .load();
-          return e;
-        }),
-        "GroupInviteLinkDrawer",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebGroupInviteLinkDrawer.react",
+        )
+          .__setRef("WAWebGroupInviteLinkDrawerLoadable")
+          .load();
+        return e;
+      }, "GroupInviteLinkDrawer"),
       d = r("WAWebLoadable")({
         loader: c,
         loading: function (t) {

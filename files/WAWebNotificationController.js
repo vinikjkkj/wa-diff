@@ -7,7 +7,6 @@ __d(
     "WAWebEnvironment",
     "WAWebFrontendMsgGetters",
     "WAWebNotificationsMsgNotification",
-    "asyncToGeneratorRuntime",
     "cr:4692",
     "getErrorSafe",
   ],
@@ -31,7 +30,7 @@ __d(
             r("WAWebEnvironment").isWindows &&
               o("WAWebCmd").Cmd.on(
                 "offline_delivery_end_from_bridge",
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                async function () {
                   (o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -39,7 +38,7 @@ __d(
                       ])),
                   ),
                     e.$3());
-                }),
+                },
               ));
         }
         var t = e.prototype;
@@ -70,71 +69,63 @@ __d(
               n.matchesChat(t) && e.closeOrCancelNotification(r);
             });
           }),
-          (t.triggerNotification = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n = e.buildKey();
-                this.$5(n, e);
-                try {
-                  var a,
-                    i = yield e.triggerNotification(
-                      (a = this.$2) == null ? void 0 : a.call(this),
-                    );
-                  if (i != null) {
-                    if (
-                      o(
-                        "WAWebNotificationsMsgNotification",
-                      ).shouldReplaceMsgNotificationManually() &&
-                      e instanceof
-                        o("WAWebNotificationsMsgNotification").WAMsgNotification
-                    ) {
-                      var l = o("WAWebFrontendMsgGetters")
-                          .getChat(e.msg)
-                          .id.toString(),
-                        s = this.lastMsgNotifByChat.get(l);
-                      (s &&
-                        self.setTimeout(function () {
-                          return s.close();
-                        }, 2e3),
-                        this.lastMsgNotifByChat.set(l, i),
-                        i.waitForClose().then(function () {
-                          t.lastMsgNotifByChat.get(l) === i &&
-                            t.lastMsgNotifByChat.delete(l);
-                        }));
-                    }
+          (t.triggerNotification = async function (t) {
+            var e = this,
+              n = t.buildKey();
+            this.$5(n, t);
+            try {
+              var a,
+                i = await t.triggerNotification(
+                  (a = this.$2) == null ? void 0 : a.call(this),
+                );
+              if (i != null) {
+                if (
+                  o(
+                    "WAWebNotificationsMsgNotification",
+                  ).shouldReplaceMsgNotificationManually() &&
+                  t instanceof
+                    o("WAWebNotificationsMsgNotification").WAMsgNotification
+                ) {
+                  var l = o("WAWebFrontendMsgGetters")
+                      .getChat(t.msg)
+                      .id.toString(),
+                    s = this.lastMsgNotifByChat.get(l);
+                  (s &&
+                    self.setTimeout(function () {
+                      return s.close();
+                    }, 2e3),
+                    this.lastMsgNotifByChat.set(l, i),
                     i.waitForClose().then(function () {
-                      t.$4(n);
-                    });
-                  } else
-                    (o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "WANotificationController: notification not invoked:",
-                        ])),
-                    ),
-                      this.$4(n));
-                } catch (e) {
-                  o("WAAbortError").catchAbort(function (e) {
-                    (o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "WANotificationController: notification aborted: ",
-                          "",
-                        ])),
-                      e,
-                    ),
-                      t.$4(n));
-                  })(r("getErrorSafe")(e));
+                      e.lastMsgNotifByChat.get(l) === i &&
+                        e.lastMsgNotifByChat.delete(l);
+                    }));
                 }
-                return e;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                i.waitForClose().then(function () {
+                  e.$4(n);
+                });
+              } else
+                (o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "WANotificationController: notification not invoked:",
+                    ])),
+                ),
+                  this.$4(n));
+            } catch (t) {
+              o("WAAbortError").catchAbort(function (t) {
+                (o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "WANotificationController: notification aborted: ",
+                      "",
+                    ])),
+                  t,
+                ),
+                  e.$4(n));
+              })(r("getErrorSafe")(t));
             }
             return t;
-          })()),
+          }),
           (t.setAppContext = function (t) {
             this.$2 = t;
           }),

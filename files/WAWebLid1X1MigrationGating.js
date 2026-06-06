@@ -1,21 +1,14 @@
 __d(
   "WAWebLid1X1MigrationGating",
-  [
-    "Promise",
-    "WALogger",
-    "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsTypes",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebUserPrefsIndexedDBStorage", "WAWebUserPrefsTypes"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function () {
+      u = (function () {
         function t() {}
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.isLidMigrated = function (n) {
+          (n.isLidMigrated = function (n) {
             if ((n === void 0 && (n = !1), n)) {
               var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
                 "WAIsAccountLidFieldMigrated",
@@ -41,75 +34,67 @@ __d(
               ) === !0
             );
           }),
-          (r.setIsLidMigrated = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r) {
-                (t === void 0 &&
-                  (t = o("WAWebUserPrefsTypes").LidMigrationSource.PEER),
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "lid: setIsLidMigrated: ",
-                        ", source: ",
-                        ", isPureLidSyncDSession: ",
-                        "",
-                      ])),
-                    e,
-                    t,
-                    r,
-                  ),
-                  yield (u || (u = n("Promise"))).all([
-                    o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                      "WAIsAccountLidFieldMigrated",
-                      e,
+          (n.setIsLidMigrated = async function (t, n, r) {
+            (n === void 0 &&
+              (n = o("WAWebUserPrefsTypes").LidMigrationSource.PEER),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "lid: setIsLidMigrated: ",
+                    ", source: ",
+                    ", isPureLidSyncDSession: ",
+                    "",
+                  ])),
+                t,
+                n,
+                r,
+              ),
+              await Promise.all([
+                o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                  "WAIsAccountLidFieldMigrated",
+                  t,
+                ),
+                o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                  "WALidOneOnOneMigrationSource",
+                  n,
+                ),
+                r == null
+                  ? Promise.resolve()
+                  : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                      "WAIsPureLidSyncDSession",
+                      r,
                     ),
-                    o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                      "WALidOneOnOneMigrationSource",
-                      t,
-                    ),
-                    r == null
-                      ? (u || (u = n("Promise"))).resolve()
-                      : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                          "WAIsPureLidSyncDSession",
-                          r,
-                        ),
-                  ]));
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.hasStateDiscrepancy = function () {
+              ]));
+          }),
+          (n.hasStateDiscrepancy = function () {
             return (
-              !d.isLidMigrated() &&
+              !c.isLidMigrated() &&
               o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
                 "WAIsAccountLidFieldMigrated",
               ) === !0
             );
           }),
-          (r.isSyncdSessionMigrated = function () {
+          (n.isSyncdSessionMigrated = function () {
             return !1;
           }),
-          (r.lidMigrationSource = function () {
+          (n.lidMigrationSource = function () {
             return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               "WALidOneOnOneMigrationSource",
             );
           }),
-          (r.isPureLidSyncDSession = function () {
+          (n.isPureLidSyncDSession = function () {
             return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               "WAIsPureLidSyncDSession",
             );
           }),
-          (r.shouldCreatePnChat = function () {
+          (n.shouldCreatePnChat = function () {
             return !1;
           }),
           t
         );
       })(),
-      d = new c();
-    l.Lid1X1MigrationUtils = d;
+      c = new u();
+    l.Lid1X1MigrationUtils = c;
   },
   98,
 );

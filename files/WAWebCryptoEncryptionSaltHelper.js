@@ -1,70 +1,49 @@
 __d(
   "WAWebCryptoEncryptionSaltHelper",
   [
-    "Promise",
     "WALogger",
     "WAWebCoreActionsODS",
     "WAWebLogoutReasonConstants",
     "WAWebSocketLogoutJob",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    var e;
+    async function s() {
+      var t = 128,
+        n = !!o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+        r = null;
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = 128,
-            r = !!o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            a = null;
-          return (
-            r ||
-              ((a = new Uint8Array(t)),
-              self.crypto.getRandomValues(a),
-              (a = btoa(
-                String.fromCharCode.apply(
-                  String,
-                  Array.from(new Uint8Array(a)),
-                ),
-              )),
-              yield o("WAWebUserPrefsMultiDevice").setWebEncSalt(a)),
-            (a = o("WAWebUserPrefsMultiDevice").getWebEncSalt()),
-            a == null &&
-              (o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DB ENC CRITICAL ERROR] null returned for local enc salt",
-                  ])),
-              ),
-              o("WAWebCoreActionsODS").logSessionForcedLogout(),
-              o("WAWebSocketLogoutJob").socketLogout(
-                o("WAWebLogoutReasonConstants").LogoutReason.MissingEncSalt,
-              )),
-            (a = Uint8Array.from(atob(a), function (e) {
-              return e.charCodeAt(0);
-            })),
-            (s || (s = n("Promise"))).resolve(a)
-          );
+        n ||
+          ((r = new Uint8Array(t)),
+          self.crypto.getRandomValues(r),
+          (r = btoa(
+            String.fromCharCode.apply(String, Array.from(new Uint8Array(r))),
+          )),
+          await o("WAWebUserPrefsMultiDevice").setWebEncSalt(r)),
+        (r = o("WAWebUserPrefsMultiDevice").getWebEncSalt()),
+        r == null &&
+          (o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[DB ENC CRITICAL ERROR] null returned for local enc salt",
+              ])),
+          ),
+          o("WAWebCoreActionsODS").logSessionForcedLogout(),
+          o("WAWebSocketLogoutJob").socketLogout(
+            o("WAWebLogoutReasonConstants").LogoutReason.MissingEncSalt,
+          )),
+        (r = Uint8Array.from(atob(r), function (e) {
+          return e.charCodeAt(0);
         })),
-        c.apply(this, arguments)
+        Promise.resolve(r)
       );
     }
-    function d() {
-      return m.apply(this, arguments);
+    async function u() {
+      await o("WAWebUserPrefsMultiDevice").setWebEncSalt(null);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebUserPrefsMultiDevice").setWebEncSalt(null);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    ((l.getOrGenSalt = u), (l.deleteSalt = d));
+    ((l.getOrGenSalt = s), (l.deleteSalt = u));
   },
   98,
 );

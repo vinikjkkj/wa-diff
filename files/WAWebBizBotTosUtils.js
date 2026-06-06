@@ -1,7 +1,6 @@
 __d(
   "WAWebBizBotTosUtils",
   [
-    "Promise",
     "WAWebBizBotTos.react",
     "WAWebBotBaseGating",
     "WAWebBotTos",
@@ -9,52 +8,40 @@ __d(
     "WAWebContactGetters",
     "WAWebCreateBizBotSysMsgAction",
     "WAWebModalManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = s || (s = o("react"));
-    function c(e) {
-      return d.apply(this, arguments);
+      s = e || (e = o("react"));
+    async function u(e) {
+      var t;
+      if (
+        !(
+          !o("WAWebBotBaseGating").isBizBot1pEnabled() ||
+          !((t = e.contact.businessProfile) != null && t.isBizBot1p) ||
+          o("WAWebBotTos").hasSeenBizBotTos(
+            o("WAWebBotTypes").BizBotType.BIZ_1P,
+          ) ||
+          o("WAWebContactGetters").getIsMe(e.contact)
+        )
+      )
+        return new Promise(function (t) {
+          o("WAWebModalManager").ModalManager.open(
+            s.jsx(r("WAWebBizBotTos.react"), {
+              onAccept: async function () {
+                (await o(
+                  "WAWebCreateBizBotSysMsgAction",
+                ).maybeCreateBizBot1pDisclosureSysMsg(e),
+                  t());
+              },
+              onCancel: t,
+              chatEntryPoint: e.chatEntryPoint,
+            }),
+            { blockClose: !0 },
+          );
+        });
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a;
-          if (
-            !(
-              !o("WAWebBotBaseGating").isBizBot1pEnabled() ||
-              !((a = t.contact.businessProfile) != null && a.isBizBot1p) ||
-              o("WAWebBotTos").hasSeenBizBotTos(
-                o("WAWebBotTypes").BizBotType.BIZ_1P,
-              ) ||
-              o("WAWebContactGetters").getIsMe(t.contact)
-            )
-          )
-            return new (e || (e = n("Promise")))(function (e) {
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(r("WAWebBizBotTos.react"), {
-                  onAccept: n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      (yield o(
-                        "WAWebCreateBizBotSysMsgAction",
-                      ).maybeCreateBizBot1pDisclosureSysMsg(t),
-                        e());
-                    },
-                  ),
-                  onCancel: e,
-                  chatEntryPoint: t.chatEntryPoint,
-                }),
-                { blockClose: !0 },
-              );
-            });
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    l.maybeShowBizBot1pTos = c;
+    l.maybeShowBizBot1pTos = u;
   },
   98,
 );

@@ -5,25 +5,21 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebNewsletterProfilePictureDeletionDetailScreenDrawer.react",
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebNewsletterProfilePictureDeletionDetailScreenDrawer.react",
+        )
+          .__setRef(
+            "WAWebNewsletterProfilePictureDeletionDetailScreenDrawerLoadable",
           )
-            .__setRef(
-              "WAWebNewsletterProfilePictureDeletionDetailScreenDrawerLoadable",
-            )
-            .load();
-          return e;
-        }),
-        "NewsletterProfilePictureDeletionDetailScreenDrawer",
-      ),
+          .load();
+        return e;
+      }, "NewsletterProfilePictureDeletionDetailScreenDrawer"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

@@ -1,46 +1,38 @@
 __d(
   "WAWebPendingBusinessBroadcastSerialization",
-  ["asyncToGeneratorRuntime"],
+  [],
   function (t, n, r, o, a, i) {
-    function e(e, t) {
-      return l.apply(this, arguments);
-    }
-    function l() {
+    async function e(e, t) {
+      var n = null,
+        r = null,
+        o = e.mediaFile;
       return (
-        (l = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = null,
-            r = null,
-            o = e.mediaFile;
-          return (
-            o != null &&
-              ((n = yield o.arrayBuffer()),
-              (r = JSON.stringify({
-                lastModified: o.lastModified,
-                name: o.name,
-                type: o.type,
-              }))),
-            {
-              messageRow: {
-                ctaButtonJson: e.ctaButtonJson,
-                mediaData: n,
-                mediaMetadata: r,
-                messageBody: e.messageBody,
-                pendingBroadcastMessageId: t,
-              },
-              parentRow: {
-                adGroupId: e.adGroupId,
-                broadcastJid: e.broadcastJid,
-                freeReservedMsgs: e.freeReservedMsgs,
-                pendingBroadcastMessageId: t,
-                sendTimestamp: e.sendTimestamp,
-              },
-            }
-          );
-        })),
-        l.apply(this, arguments)
+        o != null &&
+          ((n = await o.arrayBuffer()),
+          (r = JSON.stringify({
+            lastModified: o.lastModified,
+            name: o.name,
+            type: o.type,
+          }))),
+        {
+          messageRow: {
+            ctaButtonJson: e.ctaButtonJson,
+            mediaData: n,
+            mediaMetadata: r,
+            messageBody: e.messageBody,
+            pendingBroadcastMessageId: t,
+          },
+          parentRow: {
+            adGroupId: e.adGroupId,
+            broadcastJid: e.broadcastJid,
+            freeReservedMsgs: e.freeReservedMsgs,
+            pendingBroadcastMessageId: t,
+            sendTimestamp: e.sendTimestamp,
+          },
+        }
       );
     }
-    function s(e, t) {
+    function l(e, t) {
       var n = null,
         r = null,
         o = null,
@@ -72,7 +64,7 @@ __d(
       };
     }
     ((i.serializePendingBusinessBroadcast = e),
-      (i.deserializePendingBusinessBroadcast = s));
+      (i.deserializePendingBusinessBroadcast = l));
   },
   66,
 );

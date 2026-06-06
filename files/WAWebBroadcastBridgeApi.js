@@ -1,7 +1,6 @@
 __d(
   "WAWebBroadcastBridgeApi",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WAWebBizBroadcastCampaignAPI",
@@ -14,7 +13,6 @@ __d(
     "WAWebChatCollection",
     "WAWebCmd",
     "WAWebContactCollection",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,8 +22,7 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = {
+      p = {
         loadedBizBroadcastCampaignInsights: function (t) {
           var e = t.rows;
           o("WALogger").LOG(
@@ -100,45 +97,36 @@ __d(
         },
         syncBroadcastCampaignsToCollection: function (t) {
           var e = t.removedCampaignIds,
-            a = t.upsertedCampaignIds;
-          for (var i of e) r("WAWebBizBroadcastCampaignCollection").remove(i);
-          a.length > 0 &&
-            (p || (p = n("Promise"))).all(
-              a.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        var t = yield o(
-                          "WAWebBizBroadcastCampaignAPI",
-                        ).getBizBroadcastCampaignByKey(e);
-                        if (t == null) return;
-                        var n = t.campaignId,
-                          a = babelHelpers.objectWithoutPropertiesLoose(t, s);
-                        r("WAWebBizBroadcastCampaignCollection").add(
-                          babelHelpers.extends({ id: n }, a),
-                          { merge: !0 },
-                        );
-                      } catch (t) {
-                        o("WALogger")
-                          .ERROR(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
-                                "[BroadcastBridgeApi] failed to sync campaign ",
-                                " into collection",
-                              ])),
-                            e,
-                          )
-                          .catching(r("getErrorSafe")(t))
-                          .sendLogs("bb-sync-campaign-collection-failure");
-                      }
-                    },
+            n = t.upsertedCampaignIds;
+          for (var a of e) r("WAWebBizBroadcastCampaignCollection").remove(a);
+          n.length > 0 &&
+            Promise.all(
+              n.map(async function (e) {
+                try {
+                  var t = await o(
+                    "WAWebBizBroadcastCampaignAPI",
+                  ).getBizBroadcastCampaignByKey(e);
+                  if (t == null) return;
+                  var n = t.campaignId,
+                    a = babelHelpers.objectWithoutPropertiesLoose(t, s);
+                  r("WAWebBizBroadcastCampaignCollection").add(
+                    babelHelpers.extends({ id: n }, a),
+                    { merge: !0 },
                   );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
+                } catch (t) {
+                  o("WALogger")
+                    .ERROR(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "[BroadcastBridgeApi] failed to sync campaign ",
+                          " into collection",
+                        ])),
+                      e,
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("bb-sync-campaign-collection-failure");
+                }
+              }),
             );
         },
         syncBroadcastInsightsToCollection: function (t) {
@@ -191,7 +179,7 @@ __d(
               ));
         },
       };
-    l.BroadcastBridgeApi = _;
+    l.BroadcastBridgeApi = p;
   },
   98,
 );

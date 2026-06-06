@@ -14,62 +14,45 @@ __d(
     "WASignalWhisperTextProtocol.pb",
     "WATimeUtils",
     "WAWebCryptoLibrary",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function () {
         function t() {}
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.createSenderKeyDistributionMsg = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var a = yield e(n, r);
-                if (!a.success && a.error === "errLoadSenderKeySession") {
-                  var i = yield o("WASignalKeys").makeKeyPair();
-                  (yield o("WAWebCryptoLibrary")
-                    .getCryptoLibModule()
-                    .rotateGroupSenderKey({ saveSenderKeySession: t }, n, r, i),
-                    (a = yield e(n, r)));
-                }
-                if (a.success) {
-                  var l = a.value.senderKeyStates.slice(-1);
-                  if (l.length > 0)
-                    return o("WAResultOrError").makeResult(
-                      o("WASignalGroupCipher").createSenderKeyDistributionProto(
-                        o(
-                          "WASignalGroupSession",
-                        ).convertFromRawToSenderKeyState(l[0]),
-                      ),
-                    );
-                }
-                return o("WAResultOrError").makeError("errGetSenderKeyProto");
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
+          (n.createSenderKeyDistributionMsg = async function (t, n, r, a) {
+            var e = await t(r, a);
+            if (!e.success && e.error === "errLoadSenderKeySession") {
+              var i = await o("WASignalKeys").makeKeyPair();
+              (await o("WAWebCryptoLibrary")
+                .getCryptoLibModule()
+                .rotateGroupSenderKey({ saveSenderKeySession: n }, r, a, i),
+                (e = await t(r, a)));
             }
-            return t;
-          })()),
-          (r.getSessionAliceBaseKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield t(e);
-                return n != null && n.aliceBaseKey
-                  ? o("WAResultOrError").makeResult(
-                      o("WASignalOther").toBuffer(n.aliceBaseKey),
-                    )
-                  : o("WAResultOrError").makeError("errSessionExists");
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+            if (e.success) {
+              var l = e.value.senderKeyStates.slice(-1);
+              if (l.length > 0)
+                return o("WAResultOrError").makeResult(
+                  o("WASignalGroupCipher").createSenderKeyDistributionProto(
+                    o("WASignalGroupSession").convertFromRawToSenderKeyState(
+                      l[0],
+                    ),
+                  ),
+                );
             }
-            return t;
-          })()),
-          (r.extractIdentityKey = function (n) {
+            return o("WAResultOrError").makeError("errGetSenderKeyProto");
+          }),
+          (n.getSessionAliceBaseKey = async function (t, n) {
+            var e = await n(t);
+            return e != null && e.aliceBaseKey
+              ? o("WAResultOrError").makeResult(
+                  o("WASignalOther").toBuffer(e.aliceBaseKey),
+                )
+              : o("WAResultOrError").makeError("errSessionExists");
+          }),
+          (n.extractIdentityKey = function (n) {
             var t = o("WASignalCipher").readContent(
               n,
               o("WASignalSessions").FORMAT_VERSION,
@@ -110,29 +93,18 @@ __d(
               );
             }
           }),
-          (r.verifySignature = function (t, n, r) {
+          (n.verifySignature = function (t, n, r) {
             var e =
                 o("WASignalSignatures").convertPublicKeyToSerializedPubKey(t),
               a = o("WASignalOther").ensureSize(r, 64);
             return o("WASignalSignatures").verifyMsgSignalVariant(e, n, a);
           }),
-          (r.signMsg = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = o("WASignalKeys").makeKeyPairFromArrayBuffers(e, t),
-                  a = yield o("WASignalSignatures").signMsg(
-                    r,
-                    new Uint8Array(n),
-                  );
-                return o("WASignalOther").toBuffer(a);
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.makePreKey = function (t) {
+          (n.signMsg = async function (t, n, r) {
+            var e = o("WASignalKeys").makeKeyPairFromArrayBuffers(t, n),
+              a = await o("WASignalSignatures").signMsg(e, new Uint8Array(r));
+            return o("WASignalOther").toBuffer(a);
+          }),
+          (n.makePreKey = function (t) {
             var e = o("WASignalKeys").makePreKeys(t, 1),
               n = e[0].plainObject,
               r = n.id,
@@ -143,7 +115,7 @@ __d(
               pubKey: o("WASignalOther").toBuffer(a.publicKey),
             };
           }),
-          (r.makeSignedPreKey = function (t, n) {
+          (n.makeSignedPreKey = function (t, n) {
             var e = o("WASignalKeys").makeKeyPairFromArrayBuffers(
                 t.pubKey,
                 t.privKey,
@@ -160,7 +132,7 @@ __d(
               privKey: o("WASignalOther").toBuffer(r.keyPair.privateKey),
             };
           }),
-          (r.makeKeyPair = function () {
+          (n.makeKeyPair = function () {
             var e = o("WASignalKeys").makeKeyPair(),
               t = e.privateKey,
               n = e.publicKey;

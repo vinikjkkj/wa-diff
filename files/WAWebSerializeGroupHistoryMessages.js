@@ -1,84 +1,65 @@
 __d(
   "WAWebSerializeGroupHistoryMessages",
   [
-    "Promise",
     "WAWebGroupHistorySerializationUtils",
     "WAWebProtobufsGroupHistory.pb",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "encodeProtobuf",
     "fflate",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield o(
+    async function e(e) {
+      var t = await o(
+          "WAWebGroupHistorySerializationUtils",
+        ).getAddonsDBRowFromParentMsgs(e),
+        n = t.eventResponses,
+        a = t.keepInChat,
+        i = t.pinInChat,
+        l = t.pollVotes,
+        s = t.reactions,
+        u = await Promise.allSettled(
+          e.map(function (e) {
+            return o(
               "WAWebGroupHistorySerializationUtils",
-            ).getAddonsDBRowFromParentMsgs(t),
-            i = a.eventResponses,
-            l = a.keepInChat,
-            s = a.pinInChat,
-            u = a.pollVotes,
-            c = a.reactions,
-            d = yield (e || (e = n("Promise"))).allSettled(
-              t.map(function (e) {
-                return o(
-                  "WAWebGroupHistorySerializationUtils",
-                ).serializeSingleMessage({
-                  msgData: e,
-                  reactions: c,
-                  pollVotes: u,
-                  pinInChat: s,
-                  eventResponses: i,
-                  keepInChat: l,
-                });
-              }),
-            ),
-            m = r("compactMap")(
-              d.filter(function (e) {
-                return e.status === "fulfilled";
-              }),
-              function (e) {
-                return e.value;
-              },
-            );
-          return m;
-        })),
-        u.apply(this, arguments)
-      );
+            ).serializeSingleMessage({
+              msgData: e,
+              reactions: s,
+              pollVotes: l,
+              pinInChat: i,
+              eventResponses: n,
+              keepInChat: a,
+            });
+          }),
+        ),
+        c = r("compactMap")(
+          u.filter(function (e) {
+            return e.status === "fulfilled";
+          }),
+          function (e) {
+            return e.value;
+          },
+        );
+      return c;
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function s(t, n) {
+      var r = await Promise.all([
+          e(t),
+          n != null && n.length > 0 ? e(n) : void 0,
+        ]),
+        a = r[0],
+        i = r[1],
+        l = await o("encodeProtobuf").encodeProtobuf(
+          o("WAWebProtobufsGroupHistory.pb").GroupHistorySpec,
+          { messages: a, outOfWindowPinnedMessages: i },
+        ),
+        s = l.readByteArrayView();
+      return {
+        compressedBundle: o("fflate").zlibSync(s).buffer,
+        encodedBytes: new Uint8Array(s).buffer,
+      };
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = yield (e || (e = n("Promise"))).all([
-              s(t),
-              r != null && r.length > 0 ? s(r) : void 0,
-            ]),
-            i = a[0],
-            l = a[1],
-            u = yield o("encodeProtobuf").encodeProtobuf(
-              o("WAWebProtobufsGroupHistory.pb").GroupHistorySpec,
-              { messages: i, outOfWindowPinnedMessages: l },
-            ),
-            c = u.readByteArrayView();
-          return {
-            compressedBundle: o("fflate").zlibSync(c).buffer,
-            encodedBytes: new Uint8Array(c).buffer,
-          };
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    ((l.getWebMessageInfos = s), (l.serializeGroupHistoryMessages = c));
+    ((l.getWebMessageInfos = e), (l.serializeGroupHistoryMessages = s));
   },
   98,
 );

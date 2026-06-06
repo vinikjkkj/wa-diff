@@ -5,19 +5,16 @@ __d(
     "DGWConstants",
     "DGWCppBridge",
     "IDGWLoggingContext",
-    "Promise",
     "Random",
     "URI",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = 4;
-    function c() {
+      s = 4;
+    function u() {
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
         /[xy]/g,
         function (e) {
@@ -27,44 +24,37 @@ __d(
         },
       );
     }
-    function d(e) {
+    function c(e) {
       var t = new TextDecoder(),
         n = t.decode(e),
         o = r("Base64").encode(n),
         a = o.replace(/\+/gi, "-").replace(/\//gi, "_").replace(/=/gi, "");
       return a;
     }
-    var m = null,
-      p = null;
-    function _() {
+    var d = null,
+      m = null;
+    function p() {
       return (
-        p == null &&
-          (p = (s || (s = n("Promise")))
-            .resolve()
+        m == null &&
+          (m = Promise.resolve()
             .then(function () {
               return r("DGWCppBridge")();
             })
             .then(function (e) {
-              m = e;
+              d = e;
             })
             .catch(function (e) {
-              throw (r("justknobx")._("5404") && (p = null), e);
+              throw (r("justknobx")._("5404") && (m = null), e);
             })),
-        p
+        m
       );
     }
-    var f = (function () {
+    var _ = (function () {
         function t() {}
         return (
-          (t.initialize = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return _();
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (t.initialize = async function () {
+            return p();
+          }),
           (t.constructConnectUrl = function (n) {
             var t,
               a,
@@ -72,7 +62,7 @@ __d(
               l = n.appVersion,
               s = n.authToken,
               u = n.authType,
-              c = n.deviceId,
+              d = n.deviceId,
               m = n.dgwVersion,
               p = n.endpoint,
               _ = n.establishStreamFrame,
@@ -97,13 +87,13 @@ __d(
                 o(
                   "DGWConstants",
                 ).HEADER_CONSTANTS.HEADER_ESTABLISH_STREAM_FRAME_BASE64
-              ] = d(_)),
+              ] = c(_)),
               h !== void 0 &&
                 (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_LOGGING_ID] = h),
               y !== void 0 &&
                 (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_REGIONHINT] = y),
-              c !== void 0 &&
-                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_DEVICE_ID] = c),
+              d !== void 0 &&
+                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_DEVICE_ID] = d),
               v !== void 0 &&
                 (S[o("DGWConstants").HEADER_CONSTANTS.TRAFFIC_TRACING] =
                   "debug:" + v),
@@ -129,24 +119,18 @@ __d(
           t
         );
       })(),
-      g = (function () {
+      f = (function () {
         function e(e, t, n) {
           ((this.$1 = null), (this.$2 = e), (this.$3 = t), (this.$4 = n));
         }
-        e.initialize = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return _();
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })();
+        e.initialize = async function () {
+          return p();
+        };
         var t = e.prototype;
         return (
           (t.malloc = function (t) {
             try {
-              var e = m.__malloc(t);
+              var e = d.__malloc(t);
               if (e === 0) {
                 var n;
                 return (
@@ -176,7 +160,7 @@ __d(
             }
           }),
           (t.free = function (t) {
-            m.__free(t);
+            d.__free(t);
           }),
           (t.append = function (t) {
             if (this.$1 == null) {
@@ -193,16 +177,16 @@ __d(
               var t = this.$1.length,
                 n = this.malloc(t);
               if (n !== -1) {
-                var r = m.HEAPU8.subarray(n, n + t);
+                var r = d.HEAPU8.subarray(n, n + t);
                 if (this.$1)
                   for (var a = 0; a < r.length; ++a) r[a] = this.$1[a];
-                var i = this.malloc(u * 4);
+                var i = this.malloc(s * 4);
                 if (i !== -1) {
                   var l = i,
-                    s = l + u,
-                    c = s + u,
-                    d = c + u,
-                    p = m.__DgwCodecDecode(n, t, l, s, c, d);
+                    u = l + s,
+                    c = u + s,
+                    m = c + s,
+                    p = d.__DgwCodecDecode(n, t, l, u, c, m);
                   if (
                     (this.free(n),
                     p !==
@@ -221,7 +205,7 @@ __d(
                         ));
                     return;
                   }
-                  var f = m.HEAPU32.subarray(d / u, d / u + 1)[0];
+                  var f = d.HEAPU32.subarray(m / s, m / s + 1)[0];
                   if (this.$1 == null) {
                     this.free(i);
                     return;
@@ -234,17 +218,17 @@ __d(
                     );
                   } else this.$1 = null;
                   for (
-                    var y = m.HEAPU32.subarray(s / u, s / u + 1)[0],
-                      C = m.HEAPU32.subarray(l / u, l / u + 1)[0],
+                    var y = d.HEAPU32.subarray(u / s, u / s + 1)[0],
+                      C = d.HEAPU32.subarray(l / s, l / s + 1)[0],
                       b = [],
                       v = function () {
-                        var t = m.__getDGWFramePtr(C, S),
-                          n = m.__getFrameType(t);
+                        var t = d.__getDGWFramePtr(C, S),
+                          n = d.__getFrameType(t);
                         switch (n) {
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_Drain: {
                             var r,
-                              a = m.__getDrainReasonFromDrainFrame(t),
+                              a = d.__getDrainReasonFromDrainFrame(t),
                               i =
                                 o(
                                   "DGWConstants",
@@ -266,14 +250,14 @@ __d(
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_EstabStream: {
-                            var l = m.__getStreamIdFromStreamGroupFrame(t),
+                            var l = d.__getStreamIdFromStreamGroupFrame(t),
                               s =
-                                m.__getEncodedParamsFromEstablishStreamFrame(t),
+                                d.__getEncodedParamsFromEstablishStreamFrame(t),
                               u = new Uint8Array(
-                                m.HEAPU8.subarray(
+                                d.HEAPU8.subarray(
                                   s,
                                   s +
-                                    m.__getEncodedParamsSizeFromEstablishStreamFrame(
+                                    d.__getEncodedParamsSizeFromEstablishStreamFrame(
                                       t,
                                     ),
                                 ),
@@ -292,21 +276,21 @@ __d(
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_Data: {
-                            var c = m.__getStreamIdFromStreamGroupFrame(t),
-                              d = m.__getDataFromGroupedStreamDataFrame(t),
+                            var c = d.__getStreamIdFromStreamGroupFrame(t),
+                              m = d.__getDataFromGroupedStreamDataFrame(t),
                               p = new Uint8Array(
-                                m.HEAPU8.subarray(
-                                  d,
-                                  d +
-                                    m.__getDataSizeFromGroupedStreamDataFrame(
+                                d.HEAPU8.subarray(
+                                  m,
+                                  m +
+                                    d.__getDataSizeFromGroupedStreamDataFrame(
                                       t,
                                     ),
                                 ),
                               );
-                            e.free(d);
+                            e.free(m);
                             var _ =
-                              m.__getRequiresAckFromGroupedStreamDataFrame(t)
-                                ? m.__getAckIdFromGroupedStreamDataFrame(t)
+                              d.__getRequiresAckFromGroupedStreamDataFrame(t)
+                                ? d.__getAckIdFromGroupedStreamDataFrame(t)
                                 : null;
                             b.push(function () {
                               var t;
@@ -318,8 +302,8 @@ __d(
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_Ack: {
-                            var f = m.__getStreamIdFromStreamGroupFrame(t),
-                              g = m.__getAckIdFromGroupedStreamAckFrame(t);
+                            var f = d.__getStreamIdFromStreamGroupFrame(t),
+                              g = d.__getAckIdFromGroupedStreamAckFrame(t);
                             b.push(function () {
                               var t;
                               return (t = e.$3) == null
@@ -330,7 +314,7 @@ __d(
                           }
                           case o("DGWConstants").DgwFrameType
                             .DgwFrameType_StreamGroup_EndOfData: {
-                            var h = m.__getStreamIdFromStreamGroupFrame(t);
+                            var h = d.__getStreamIdFromStreamGroupFrame(t);
                             b.push(function () {
                               var t;
                               return (t = e.$3) == null
@@ -379,22 +363,22 @@ __d(
             var e = this.malloc(t.length);
             if (e === -1) return null;
             for (
-              var i = m.HEAPU8.subarray(e, e + t.length), l = 0;
+              var i = d.HEAPU8.subarray(e, e + t.length), l = 0;
               l < i.length;
               ++l
             )
               i[l] = t[l];
-            var s = this.malloc(u * 2),
-              c = s,
-              d = s + u,
-              p = m.__DgwCodecEncodeStreamGroup_Data(
+            var u = this.malloc(s * 2),
+              c = u,
+              m = u + s,
+              p = d.__DgwCodecEncodeStreamGroup_Data(
                 a,
                 e,
                 i.length,
                 n,
                 r,
                 c,
-                d,
+                m,
               );
             if (
               (this.free(e),
@@ -413,17 +397,17 @@ __d(
                 null
               );
             }
-            var f = m.HEAPU32.subarray(c / u, c / u + 1)[0],
-              g = m.HEAPU32.subarray(d / u, d / u + 1)[0],
-              h = new Uint8Array(m.HEAPU8.subarray(f, f + g));
-            return (this.free(f), this.free(s), h);
+            var f = d.HEAPU32.subarray(c / s, c / s + 1)[0],
+              g = d.HEAPU32.subarray(m / s, m / s + 1)[0],
+              h = new Uint8Array(d.HEAPU8.subarray(f, f + g));
+            return (this.free(f), this.free(u), h);
           }),
           (t.encodeAck = function (t, n) {
-            var e = this.malloc(u * 2);
+            var e = this.malloc(s * 2);
             if (e === -1) return null;
             var r = e,
-              a = e + u,
-              i = m.__DgwCodecEncodeStreamGroup_Ack(n, t, r, a);
+              a = e + s,
+              i = d.__DgwCodecEncodeStreamGroup_Ack(n, t, r, a);
             if (
               i !==
               o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success
@@ -440,17 +424,17 @@ __d(
                 null
               );
             }
-            var s = m.HEAPU32.subarray(r / u, r / u + 1)[0],
-              c = m.HEAPU32.subarray(a / u, a / u + 1)[0],
-              d = new Uint8Array(m.HEAPU8.subarray(s, s + c));
-            return (this.free(s), this.free(e), d);
+            var u = d.HEAPU32.subarray(r / s, r / s + 1)[0],
+              c = d.HEAPU32.subarray(a / s, a / s + 1)[0],
+              m = new Uint8Array(d.HEAPU8.subarray(u, u + c));
+            return (this.free(u), this.free(e), m);
           }),
           (t.encodeDrain = function (t) {
-            var e = this.malloc(u * 2);
+            var e = this.malloc(s * 2);
             if (e === -1) return null;
             var n = e,
-              r = e + u,
-              a = m.__DgwCodecEncodeDrain(t, n, r);
+              r = e + s,
+              a = d.__DgwCodecEncodeDrain(t, n, r);
             if (
               a !==
               o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success
@@ -467,39 +451,39 @@ __d(
                 null
               );
             }
-            var l = m.HEAPU32.subarray(n / u, n / u + 1)[0],
-              s = m.HEAPU32.subarray(r / u, r / u + 1)[0],
-              c = new Uint8Array(m.HEAPU8.subarray(l, l + s));
+            var l = d.HEAPU32.subarray(n / s, n / s + 1)[0],
+              u = d.HEAPU32.subarray(r / s, r / s + 1)[0],
+              c = new Uint8Array(d.HEAPU8.subarray(l, l + u));
             return (this.free(l), this.free(e), c);
           }),
           (t.encodeEstablishStream = function (t, n) {
             var e = this.malloc(n.length);
             if (e === -1) return null;
             for (
-              var r = m.HEAPU8.subarray(e, e + n.length), a = 0;
+              var r = d.HEAPU8.subarray(e, e + n.length), a = 0;
               a < n.length;
               ++a
             )
               r[a] = n[a];
-            var i = this.malloc(u * 2),
+            var i = this.malloc(s * 2),
               l = i,
-              s = i + u,
-              c = m.__DgwCodecEncodeStreamGroup_EstabStream(
+              u = i + s,
+              c = d.__DgwCodecEncodeStreamGroup_EstabStream(
                 t,
                 e,
                 n.length,
                 l,
-                s,
+                u,
               );
             if (
               (this.free(e),
               c !==
                 o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success)
             ) {
-              var d;
+              var m;
               return (
-                (d = this.$2) == null ||
-                  d.logError(
+                (m = this.$2) == null ||
+                  m.logError(
                     o("IDGWLoggingContext").DGWLoggingComponent.CODEC_COMPONENT,
                     "EstablishStream Frame encode failure",
                     "Failed to encode EstablishStream Frame. Received error code " +
@@ -510,17 +494,17 @@ __d(
                 null
               );
             }
-            var p = m.HEAPU32.subarray(l / u, l / u + 1)[0],
-              _ = m.HEAPU32.subarray(s / u, s / u + 1)[0],
-              f = new Uint8Array(m.HEAPU8.subarray(p, p + _));
+            var p = d.HEAPU32.subarray(l / s, l / s + 1)[0],
+              _ = d.HEAPU32.subarray(u / s, u / s + 1)[0],
+              f = new Uint8Array(d.HEAPU8.subarray(p, p + _));
             return (this.free(p), this.free(i), f);
           }),
           (t.encodeEndOfData = function (t) {
-            var e = this.malloc(u * 2);
+            var e = this.malloc(s * 2);
             if (e === -1) return null;
             var n = e,
-              r = e + u,
-              a = m.__DgwCodecEncodeStreamGroup_EndOfData(t, n, r);
+              r = e + s,
+              a = d.__DgwCodecEncodeStreamGroup_EndOfData(t, n, r);
             if (
               a !==
               o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success
@@ -537,17 +521,17 @@ __d(
                 null
               );
             }
-            var l = m.HEAPU32.subarray(n / u, n / u + 1)[0],
-              s = m.HEAPU32.subarray(r / u, r / u + 1)[0],
-              c = new Uint8Array(m.HEAPU8.subarray(l, l + s));
+            var l = d.HEAPU32.subarray(n / s, n / s + 1)[0],
+              u = d.HEAPU32.subarray(r / s, r / s + 1)[0],
+              c = new Uint8Array(d.HEAPU8.subarray(l, l + u));
             return (this.free(l), this.free(e), c);
           }),
           (t.encodePing = function () {
-            var e = this.malloc(u * 2);
+            var e = this.malloc(s * 2);
             if (e === -1) return null;
             var t = e,
-              n = e + u,
-              r = m.__DgwCodecEncodePing(t, n);
+              n = e + s,
+              r = d.__DgwCodecEncodePing(t, n);
             if (
               r !==
               o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success
@@ -564,18 +548,18 @@ __d(
                 null
               );
             }
-            var i = m.HEAPU32.subarray(t / u, t / u + 1)[0],
-              l = m.HEAPU32.subarray(n / u, n / u + 1)[0],
-              s = new Uint8Array(m.HEAPU8.subarray(i, i + l));
-            return (this.free(i), this.free(e), s);
+            var i = d.HEAPU32.subarray(t / s, t / s + 1)[0],
+              l = d.HEAPU32.subarray(n / s, n / s + 1)[0],
+              u = new Uint8Array(d.HEAPU8.subarray(i, i + l));
+            return (this.free(i), this.free(e), u);
           }),
           (t.encodePong = function () {
             if (this.$5 != null) return this.$5;
-            var e = this.malloc(u * 2);
+            var e = this.malloc(s * 2);
             if (e === -1) return null;
             var t = e,
-              n = e + u,
-              r = m.__DgwCodecEncodePong(t, n);
+              n = e + s,
+              r = d.__DgwCodecEncodePong(t, n);
             if (
               r !==
               o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success
@@ -592,18 +576,18 @@ __d(
                 null
               );
             }
-            var i = m.HEAPU32.subarray(t / u, t / u + 1)[0],
-              l = m.HEAPU32.subarray(n / u, n / u + 1)[0],
-              s = new Uint8Array(m.HEAPU8.subarray(i, i + l));
-            return (this.free(i), this.free(e), (this.$5 = s), s);
+            var i = d.HEAPU32.subarray(t / s, t / s + 1)[0],
+              l = d.HEAPU32.subarray(n / s, n / s + 1)[0],
+              u = new Uint8Array(d.HEAPU8.subarray(i, i + l));
+            return (this.free(i), this.free(e), (this.$5 = u), u);
           }),
           e
         );
       })();
-    ((l.uuidv4 = c),
-      (l.Uint8ArrayToBase64UrlStr = d),
-      (l.DGWUtils = f),
-      (l.DGWCodec = g));
+    ((l.uuidv4 = u),
+      (l.Uint8ArrayToBase64UrlStr = c),
+      (l.DGWUtils = _),
+      (l.DGWCodec = f));
   },
   98,
 );

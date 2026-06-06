@@ -40,10 +40,8 @@ __d(
                                 );
                               })(),
             n =
-              t === o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS
-                ? e
-                  ? o("WAWebPinChatLimits").MAX_PINNED_CHATS_PREMIUM
-                  : o("WAWebPinChatLimits").MAX_PINNED_CHATS
+              t === o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS && e
+                ? o("WAWebPinChatLimits").MAX_PINNED_CHATS_PREMIUM
                 : null;
           return { id: t, isActive: e, limit: n };
         }),

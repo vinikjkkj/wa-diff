@@ -1,11 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeSystemIntegrations.v2622",
-  [
-    "WAWebEventEmitter",
-    "WAWebODS",
-    "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebEventEmitter", "WAWebODS", "WAWebWindowsHybridBridgeTrace"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -94,30 +89,24 @@ __d(
               },
             ));
         }),
-        (t.isNotificationEnabledInSystem = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this;
-            return this.$1 == null
-              ? !1
-              : (r("WAWebODS").incr(
-                  "web.hybrid.bridge.system_integrations.send.is_notification_enabled_in_system",
-                ),
-                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                  {
-                    bridge: "systemIntegrations",
-                    method: "isNotificationEnabledInSystem",
-                    type: "sync",
-                  },
-                  function () {
-                    return e.$1.isNotificationEnabledInSystem();
-                  },
-                ));
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.isNotificationEnabledInSystem = async function () {
+          var e = this;
+          return this.$1 == null
+            ? !1
+            : (r("WAWebODS").incr(
+                "web.hybrid.bridge.system_integrations.send.is_notification_enabled_in_system",
+              ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "systemIntegrations",
+                  method: "isNotificationEnabledInSystem",
+                  type: "sync",
+                },
+                function () {
+                  return e.$1.isNotificationEnabledInSystem();
+                },
+              ));
+        }),
         (t.updateTaskbarBadge = function (t) {
           var e = this;
           (r("WAWebODS").incr(

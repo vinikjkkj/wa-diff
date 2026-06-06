@@ -1,58 +1,29 @@
 __d(
   "JSSPLongTaskLinker",
-  [
-    "JSSPSetting",
-    "JSSPTraceBaseDataCollector",
-    "asyncToGeneratorRuntime",
-    "one-trace",
-  ],
+  ["JSSPSetting", "JSSPTraceBaseDataCollector", "one-trace"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Map(),
       s = new Map(),
       u = (function (t) {
-        function a() {
+        function n() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.onProfilerStarts = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n) {
-                (n === void 0 && (n = null),
-                  s.set(t, Date.now()),
-                  n != null && e.set(t, new Set(n)));
-              },
-            );
-            function r(e, n) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.onProfilerEnds = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n, r) {
-                return (s.delete(t), e.delete(t), r);
-              },
-            );
-            function r(e, n, r) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.onProfilerAborts = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                (s.delete(t), e.delete(t));
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.startLongtaskObserver = function () {
+          (a.onProfilerStarts = async function (n, r) {
+            (r === void 0 && (r = null),
+              s.set(n, Date.now()),
+              r != null && e.set(n, new Set(r)));
+          }),
+          (a.onProfilerEnds = async function (n, r, o) {
+            return (s.delete(n), e.delete(n), o);
+          }),
+          (a.onProfilerAborts = async function (n) {
+            (s.delete(n), e.delete(n));
+          }),
+          (n.startLongtaskObserver = function () {
             r("one-trace").subscribe("trace-end-before-logging", function (t) {
               if (t.traceType === "LONGTASK") {
                 var n = !1;
@@ -78,7 +49,7 @@ __d(
               }
             });
           }),
-          a
+          n
         );
       })(r("JSSPTraceBaseDataCollector"));
     (o("JSSPSetting").isCollectingINP && u.startLongtaskObserver(),

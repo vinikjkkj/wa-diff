@@ -1,12 +1,6 @@
 __d(
   "WAWebRelayClient",
-  [
-    "Promise",
-    "WAWebGraphQLServerError",
-    "WAWebRelayEnvironment",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WAWebGraphQLServerError", "WAWebRelayEnvironment", "err"],
   function (t, n, r, o, a, i, l) {
     var e = [
         "accessToken",
@@ -19,95 +13,78 @@ __d(
         "environmentType",
         "eventLogger",
         "getInlineDataReader",
-      ],
-      u;
-    function c(e) {
+      ];
+    function u(e) {
       throw r("err")("Invariant Violation");
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    async function c(t, n, r) {
+      var a = r === void 0 ? {} : r,
+        i = a.accessToken,
+        l = a.environmentType,
+        s = a.eventLogger,
+        u = a.getInlineDataReader,
+        c = babelHelpers.objectWithoutPropertiesLoose(a, e),
+        d = await o("WAWebRelayEnvironment").requireRelayRuntime(),
+        m = d.fetchQuery,
+        p = d.readInlineData,
+        _ = typeof i == "object" ? i.token : i,
+        f = typeof i == "object" ? i.bp_id : null;
+      try {
+        var g = await o("WAWebRelayEnvironment").getEnvironment({
+            environmentType: l,
+            accessToken: _,
+            actorID: f,
+          }),
+          h = (await m)(g, t, n, c).toPromise();
+        return (s == null || s.success(), u == null || u(p), h);
+      } catch (e) {
+        throw (
+          e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
+            (s == null || s.failure(e.source.errors)),
+          e
+        );
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = r === void 0 ? {} : r,
-            i = a.accessToken,
-            l = a.environmentType,
-            s = a.eventLogger,
-            u = a.getInlineDataReader,
-            c = babelHelpers.objectWithoutPropertiesLoose(a, e),
-            d = yield o("WAWebRelayEnvironment").requireRelayRuntime(),
-            m = d.fetchQuery,
-            p = d.readInlineData,
-            _ = typeof i == "object" ? i.token : i,
-            f = typeof i == "object" ? i.bp_id : null;
-          try {
-            var g = yield o("WAWebRelayEnvironment").getEnvironment({
-                environmentType: l,
-                accessToken: _,
-                actorID: f,
-              }),
-              h = (yield m)(g, t, n, c).toPromise();
-            return (s == null || s.success(), u == null || u(p), h);
-          } catch (e) {
-            throw (
-              e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
-                (s == null || s.failure(e.source.errors)),
-              e
-            );
-          }
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e, t, n) {
+      var r = n === void 0 ? {} : n,
+        a = r.accessToken,
+        i = r.environmentType,
+        l = r.eventLogger,
+        u = r.getInlineDataReader,
+        c = babelHelpers.objectWithoutPropertiesLoose(r, s),
+        d = await o("WAWebRelayEnvironment").requireRelayRuntime(),
+        m = d.commitMutation,
+        p = d.readInlineData,
+        _ = typeof a == "object" ? a.token : a,
+        f = typeof a == "object" ? a.bp_id : null;
+      try {
+        var g = await o("WAWebRelayEnvironment").getEnvironment({
+          environmentType: i,
+          accessToken: _,
+          actorID: f,
+        });
+        return new Promise(function (n, r) {
+          m(
+            g,
+            babelHelpers.extends({ mutation: e, variables: t }, c, {
+              onCompleted: function (t) {
+                (l == null || l.success(), u == null || u(p), n(t));
+              },
+              onError: function (t) {
+                r(t);
+              },
+            }),
+          );
+        });
+      } catch (e) {
+        throw (
+          e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
+            (l == null || l.failure(e.source.errors)),
+          e
+        );
+      }
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = r === void 0 ? {} : r,
-            i = a.accessToken,
-            l = a.environmentType,
-            c = a.eventLogger,
-            d = a.getInlineDataReader,
-            m = babelHelpers.objectWithoutPropertiesLoose(a, s),
-            p = yield o("WAWebRelayEnvironment").requireRelayRuntime(),
-            _ = p.commitMutation,
-            f = p.readInlineData,
-            g = typeof i == "object" ? i.token : i,
-            h = typeof i == "object" ? i.bp_id : null;
-          try {
-            var y = yield o("WAWebRelayEnvironment").getEnvironment({
-              environmentType: l,
-              accessToken: g,
-              actorID: h,
-            });
-            return new (u || (u = n("Promise")))(function (n, r) {
-              _(
-                y,
-                babelHelpers.extends({ mutation: e, variables: t }, m, {
-                  onCompleted: function (t) {
-                    (c == null || c.success(), d == null || d(f), n(t));
-                  },
-                  onError: function (t) {
-                    r(t);
-                  },
-                }),
-              );
-            });
-          } catch (e) {
-            throw (
-              e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
-                (c == null || c.failure(e.source.errors)),
-              e
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    ((l.graphql = c), (l.fetchQuery = d), (l.commitMutation = p));
+    ((l.graphql = u), (l.fetchQuery = c), (l.commitMutation = d));
   },
   98,
 );

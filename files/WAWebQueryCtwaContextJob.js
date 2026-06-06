@@ -11,7 +11,6 @@ __d(
     "WAWebCtwaAGMUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -80,35 +79,25 @@ __d(
       }
       return n;
     });
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i = o("WAWebWidFactory").createWid(e).toString({ legacy: !0 }),
-            l = (a = o("WAWap")).wap(
-              "iq",
-              {
-                xmlns: "fb:thrift_iq",
-                id: a.generateId(),
-                type: "get",
-                to: a.S_WHATSAPP_NET,
-                smax_id: a.SMAX_ID(r("WAWapDeprecatedSmaxID").CtwaGetContext),
-              },
-              a.wap("account_number", null, i),
-              a.wap("code", null, t),
-              a.wap("expected_source_url", null, n),
-            ),
-            s = yield o("WADeprecatedSendIq").deprecatedSendIq(l, u);
-          if (s.success) return s.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            s.errorCode,
-          );
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(e, t, n) {
+      var a,
+        i = o("WAWebWidFactory").createWid(e).toString({ legacy: !0 }),
+        l = (a = o("WAWap")).wap(
+          "iq",
+          {
+            xmlns: "fb:thrift_iq",
+            id: a.generateId(),
+            type: "get",
+            to: a.S_WHATSAPP_NET,
+            smax_id: a.SMAX_ID(r("WAWapDeprecatedSmaxID").CtwaGetContext),
+          },
+          a.wap("account_number", null, i),
+          a.wap("code", null, t),
+          a.wap("expected_source_url", null, n),
+        ),
+        s = await o("WADeprecatedSendIq").deprecatedSendIq(l, u);
+      if (s.success) return s.result;
+      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(s.errorCode);
     }
     l.default = c;
   },

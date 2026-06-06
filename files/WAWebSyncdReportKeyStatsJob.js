@@ -5,7 +5,6 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSyncdKeyCountWamEvent",
     "WAWebSyncdWamUtils",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,9 +12,9 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "reportSyncdKeyStats",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             if (!r("gkx")("26258")) {
-              var e = yield o("WAWebSyncdWamUtils").getKeyStats(),
+              var e = await o("WAWebSyncdWamUtils").getKeyStats(),
                 t = {
                   keysUsedInSnapshotCount: e.keysUsedInSnapshotCount,
                   p80MuationsPerKey: e.p80MuationsPerKey,
@@ -28,7 +27,7 @@ __d(
                   t,
                 ).commit());
             }
-          }),
+          },
           {
             priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
             maxTimeoutMs: 1e3 * 30,

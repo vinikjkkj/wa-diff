@@ -1,31 +1,22 @@
 __d(
   "WAAsyncCache",
-  ["WAAbortError", "WAMemoizeConcurrent", "asyncToGeneratorRuntime"],
+  ["WAAbortError", "WAMemoizeConcurrent"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, a) {
-      return r("WAMemoizeConcurrent")(
-        e,
-        (function () {
-          var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            if (n != null && n.signal.aborted)
-              throw new (o("WAAbortError").AbortError)();
-            var r = e(n),
-              i = yield t.get(r, n);
-            if (n != null && n.signal.aborted)
-              throw new (o("WAAbortError").AbortError)();
-            if (i != null) return i;
-            var l = yield a(n);
-            if (n != null && n.signal.aborted)
-              throw new (o("WAAbortError").AbortError)();
-            return (yield t.set(r, l, n), l);
-          });
-          function i(e) {
-            return r.apply(this, arguments);
-          }
-          return i;
-        })(),
-      );
+    function e(e, t, n) {
+      return r("WAMemoizeConcurrent")(e, async function (a) {
+        if (a != null && a.signal.aborted)
+          throw new (o("WAAbortError").AbortError)();
+        var r = e(a),
+          i = await t.get(r, a);
+        if (a != null && a.signal.aborted)
+          throw new (o("WAAbortError").AbortError)();
+        if (i != null) return i;
+        var l = await n(a);
+        if (a != null && a.signal.aborted)
+          throw new (o("WAAbortError").AbortError)();
+        return (await t.set(r, l, a), l);
+      });
     }
     l.asyncCache = e;
   },

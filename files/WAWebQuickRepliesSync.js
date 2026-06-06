@@ -1,7 +1,6 @@
 __d(
   "WAWebQuickRepliesSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebBackendApi",
@@ -10,14 +9,12 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function (t) {
-        function r() {
+      u = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -27,149 +24,124 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 2;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WASyncdConst").Actions.QuickReply;
           }),
-          (a.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = this,
-                  a = 0,
-                  i = 0,
-                  l = yield (u || (u = n("Promise"))).all(
-                    t.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              if (e.operation === "set") {
-                                var t = e.indexParts,
-                                  n = e.value,
-                                  l = t[1];
-                                if (!l) return r.malformedActionIndex();
-                                var s = n.quickReplyAction;
-                                if (!s)
-                                  return (
-                                    a++,
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(r.collectionName)
-                                  );
-                                if (s.deleted === !0)
-                                  return (
-                                    yield o("WAWebSchemaQuickReply")
-                                      .getQuickReplyTable()
-                                      .remove(l),
-                                    o("WAWebBackendApi").frontendFireAndForget(
-                                      "removeQuickReplyFromCollection",
-                                      { id: l },
-                                    ),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Success,
-                                    }
-                                  );
-                                var u = s.message,
-                                  c = s.shortcut;
-                                if (
-                                  c == null ||
-                                  c === "" ||
-                                  u == null ||
-                                  u === ""
-                                )
-                                  return (
-                                    a++,
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(r.collectionName)
-                                  );
-                                var d = s.keywords || [],
-                                  m = s.count || 0,
-                                  p = {
-                                    id: l,
-                                    shortcut: c,
-                                    count: m,
-                                    message: u,
-                                    keywords: d,
-                                  };
-                                return (
-                                  yield o("WAWebSchemaQuickReply")
-                                    .getQuickReplyTable()
-                                    .createOrReplace(p),
-                                  o("WAWebBackendApi").frontendFireAndForget(
-                                    "updateQuickReplyCollection",
-                                    {
-                                      count: m,
-                                      id: l,
-                                      keywords: d,
-                                      message: u,
-                                      shortcut: c,
-                                    },
-                                  ),
-                                  {
-                                    actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
-                                  }
-                                );
-                              }
-                              return (
-                                i++,
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState
-                                      .Unsupported,
-                                }
-                              );
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
-                              };
-                            }
-                          },
+          (r.applyMutations = async function (n) {
+            var t = this,
+              r = 0,
+              a = 0,
+              i = await Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n = e.indexParts,
+                        i = e.value,
+                        l = n[1];
+                      if (!l) return t.malformedActionIndex();
+                      var s = i.quickReplyAction;
+                      if (!s)
+                        return (
+                          r++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
+                      if (s.deleted === !0)
+                        return (
+                          await o("WAWebSchemaQuickReply")
+                            .getQuickReplyTable()
+                            .remove(l),
+                          o("WAWebBackendApi").frontendFireAndForget(
+                            "removeQuickReplyFromCollection",
+                            { id: l },
+                          ),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          }
+                        );
+                      var u = s.message,
+                        c = s.shortcut;
+                      if (c == null || c === "" || u == null || u === "")
+                        return (
+                          r++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
+                        );
+                      var d = s.keywords || [],
+                        m = s.count || 0,
+                        p = {
+                          id: l,
+                          shortcut: c,
+                          count: m,
+                          message: u,
+                          keywords: d,
                         };
-                      })(),
-                    ),
-                  );
-                return (
-                  a > 0 &&
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "quick replies sync: ",
-                          " malformed mutations",
-                        ])),
-                      a,
-                    ),
-                  i > 0 &&
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "quick replies sync: ",
-                          " operations not supported",
-                        ])),
-                      i,
-                    ),
-                  l
-                );
-              },
+                      return (
+                        await o("WAWebSchemaQuickReply")
+                          .getQuickReplyTable()
+                          .createOrReplace(p),
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "updateQuickReplyCollection",
+                          {
+                            count: m,
+                            id: l,
+                            keywords: d,
+                            message: u,
+                            shortcut: c,
+                          },
+                        ),
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Success,
+                        }
+                      );
+                    }
+                    return (
+                      a++,
+                      {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      }
+                    );
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              r > 0 &&
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "quick replies sync: ",
+                      " malformed mutations",
+                    ])),
+                  r,
+                ),
+              a > 0 &&
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "quick replies sync: ",
+                      " operations not supported",
+                    ])),
+                  a,
+                ),
+              i
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.getQuickReplyDeleteMutation = function (t, n) {
+          }),
+          (r.getQuickReplyDeleteMutation = function (t, n) {
             var e = {
               quickReplyAction: {
                 deleted: !0,
@@ -191,7 +163,7 @@ __d(
               action: this.getAction(),
             });
           }),
-          (a.getQuickReplyAddOrEditMutation = function (t, n, r, a, i, l) {
+          (r.getQuickReplyAddOrEditMutation = function (t, n, r, a, i, l) {
             var e = {
               quickReplyAction: {
                 deleted: !1,
@@ -213,11 +185,11 @@ __d(
               action: this.getAction(),
             });
           }),
-          r
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      d = new c();
-    l.default = d;
+      c = new u();
+    l.default = c;
   },
   98,
 );

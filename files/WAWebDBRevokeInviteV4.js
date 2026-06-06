@@ -1,57 +1,43 @@
 __d(
   "WAWebDBRevokeInviteV4",
   [
-    "Promise",
     "WAWebApiGroupInviteV4Store",
     "WAWebBackendApi",
     "WAWebDBMsgUtils",
     "WAWebDBProcessMessage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function e(e) {
+      var t = e.expiration,
+        n = e.from,
+        r = e.groupId,
+        a = e.to,
+        i = await o("WAWebApiGroupInviteV4Store").revokeGroupInvites(
+          n,
+          a,
+          r,
+          t,
+        ),
+        l =
+          (i == null
+            ? void 0
+            : i.map(function (e) {
+                return e.id;
+              })) || [],
+        s = await o("WAWebDBMsgUtils").getMsgsByMsgKey(l, function (e) {
+          e.inviteCodeExp = "0";
+        }),
+        u = [];
+      for (var c of s)
+        (o("WAWebBackendApi").frontendFireAndForget("expireGroupInviteV4", {
+          inviteMsgId: c.id,
+        }),
+          u.push(
+            o("WAWebDBProcessMessage").updateExistingMessages([c], c.id.remote),
+          ));
+      await Promise.all(u);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.expiration,
-            a = t.from,
-            i = t.groupId,
-            l = t.to,
-            s = yield o("WAWebApiGroupInviteV4Store").revokeGroupInvites(
-              a,
-              l,
-              i,
-              r,
-            ),
-            u =
-              (s == null
-                ? void 0
-                : s.map(function (e) {
-                    return e.id;
-                  })) || [],
-            c = yield o("WAWebDBMsgUtils").getMsgsByMsgKey(u, function (e) {
-              e.inviteCodeExp = "0";
-            }),
-            d = [];
-          for (var m of c)
-            (o("WAWebBackendApi").frontendFireAndForget("expireGroupInviteV4", {
-              inviteMsgId: m.id,
-            }),
-              d.push(
-                o("WAWebDBProcessMessage").updateExistingMessages(
-                  [m],
-                  m.id.remote,
-                ),
-              ));
-          yield (e || (e = n("Promise"))).all(d);
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.revokeGroupInviteV4 = s;
+    l.revokeGroupInviteV4 = e;
   },
   98,
 );

@@ -53,7 +53,6 @@ __d(
     "WAWebWamEnumPmButtonType",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
     "WDSIconIcOpenInNew.react",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
   ],
@@ -102,14 +101,14 @@ __d(
               i = R(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER:
-              i = D(a);
+              i = T(a);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .BOOKING_CONFIRMATION:
-              i = x(a, t);
+              i = D(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST:
-              i = $(a, t);
+              i = x(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
@@ -658,51 +657,43 @@ __d(
         }
       }
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
-    }
-    function T() {
+    async function I(e, t) {
+      var n,
+        a,
+        i = r("WANullthrows")(
+          o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(t),
+        ),
+        l = o("WAWebFrontendMsgGetters").getChat(i),
+        s = r("WANullthrows")(
+          i.carouselCards,
+          "Parent of carousel card does not have carouselCards field.",
+        ).slice(),
+        u = s.indexOf(t);
+      if (u === -1) {
+        o("WALogger").WARN(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "sendTextMsgToChatForReplyToCarouselCard: card not found",
+            ])),
+        );
+        return;
+      }
+      var d = new (o("WAWebMsgModel").Msg)(t);
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a,
-            i = r("WANullthrows")(
-              o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(t),
-            ),
-            l = o("WAWebFrontendMsgGetters").getChat(i),
-            s = r("WANullthrows")(
-              i.carouselCards,
-              "Parent of carousel card does not have carouselCards field.",
-            ).slice(),
-            u = s.indexOf(t);
-          if (u === -1) {
-            o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendTextMsgToChatForReplyToCarouselCard: card not found",
-                ])),
-            );
-            return;
-          }
-          var d = new (o("WAWebMsgModel").Msg)(t);
-          return (
-            (d.id = i.id),
-            o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
-              l,
-              (n = e.data) == null ? void 0 : n.label,
-              {
-                quotedMsg: d,
-                selectedIndex: e.index,
-                selectedId: (a = e.data) == null ? void 0 : a.selectionId,
-                selectedCarouselCardIndex: u,
-              },
-            )
-          );
-        })),
-        T.apply(this, arguments)
+        (d.id = i.id),
+        o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+          l,
+          (n = e.data) == null ? void 0 : n.label,
+          {
+            quotedMsg: d,
+            selectedIndex: e.index,
+            selectedId: (a = e.data) == null ? void 0 : a.selectionId,
+            selectedCarouselCardIndex: u,
+          },
+        )
       );
     }
-    function D(e) {
+    function T(e) {
       var t = e.data,
         n = t.label,
         a = t.paymentReminderInfo;
@@ -721,7 +712,7 @@ __d(
             },
           };
     }
-    function x(e, t) {
+    function D(e, t) {
       var n = e.data,
         r = n.bookingInfo,
         a = n.label;
@@ -737,7 +728,7 @@ __d(
             testid: "booking-confirmation-view-details-button",
           };
     }
-    function $(e, t) {
+    function x(e, t) {
       if (
         !o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(
           t.isFromTemplate === !0,

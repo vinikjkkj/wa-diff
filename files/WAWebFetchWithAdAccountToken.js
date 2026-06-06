@@ -1,6 +1,6 @@
 __d(
   "WAWebFetchWithAdAccountToken",
-  ["WAWebFetchAdAccountToken", "asyncToGeneratorRuntime"],
+  ["WAWebFetchAdAccountToken"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t(t) {
@@ -16,30 +16,22 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(babelHelpers.wrapNativeSuper(Error));
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (n.type !== "success") throw new e(n);
-          try {
-            return yield t(n.token);
-          } catch (n) {
-            if (
-              !(n instanceof Error) ||
-              !o("WAWebFetchAdAccountToken").hasGraphQLAuthError(n)
-            )
-              throw n;
-            o("WAWebFetchAdAccountToken").markTokenAsInvalid();
-            var r = yield o("WAWebFetchAdAccountToken").fetchToken(!0);
-            if (r.type !== "success") throw new e(r);
-            return t(r.token);
-          }
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t) {
+      var n = await o("WAWebFetchAdAccountToken").fetchToken();
+      if (n.type !== "success") throw new e(n);
+      try {
+        return await t(n.token);
+      } catch (n) {
+        if (
+          !(n instanceof Error) ||
+          !o("WAWebFetchAdAccountToken").hasGraphQLAuthError(n)
+        )
+          throw n;
+        o("WAWebFetchAdAccountToken").markTokenAsInvalid();
+        var r = await o("WAWebFetchAdAccountToken").fetchToken(!0);
+        if (r.type !== "success") throw new e(r);
+        return t(r.token);
+      }
     }
     ((l.FetchAdAccountTokenError = e), (l.fetchWithAdAccountToken = s));
   },

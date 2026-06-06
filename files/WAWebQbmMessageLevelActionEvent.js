@@ -1,96 +1,70 @@
 __d(
   "WAWebQbmMessageLevelActionEvent",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebFrontendContactGetters",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageLevelActionWamEvent",
     "WAWebWamEnumContactType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = [
-        "chatsFolderType",
-        "deltaTime",
-        "hsmTagStr",
-        "messageTypeStr",
-        "qbmFlag",
-      ],
-      s;
-    function u(e) {
-      return c.apply(this, arguments);
+      "chatsFolderType",
+      "deltaTime",
+      "hsmTagStr",
+      "messageTypeStr",
+      "qbmFlag",
+    ];
+    async function s(t) {
+      var n = t.chat,
+        r = t.messageActionEntryPoint,
+        a = t.messageLevelAction,
+        i = t.msg;
+      o("WAWebABProps").getABPropConfigValue(
+        "web_biz_quality_telemetry_message_level_actions_enabled",
+      ) &&
+        new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(i, n)
+          .addCommonFields()
+          .addAttributionFields()
+          .log(async function (t) {
+            var l,
+              s,
+              u = o("WAWebFrontendContactGetters").getIsMyContact(n.contact),
+              c = await Promise.all([
+                o("WAWebChatThreadLogging").getMessageIDHMAC(i.id.toString()),
+                o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                  n.id.toString(),
+                ),
+              ]),
+              d = c[0],
+              m = c[1],
+              p = t.chatsFolderType,
+              _ = t.deltaTime,
+              f = t.hsmTagStr,
+              g = t.messageTypeStr,
+              h = t.qbmFlag,
+              y = babelHelpers.objectWithoutPropertiesLoose(t, e);
+            new (o(
+              "WAWebQbmMessageLevelActionWamEvent",
+            ).QbmMessageLevelActionWamEvent)(
+              babelHelpers.extends({}, y, {
+                contactType:
+                  (l = y.contactType) != null
+                    ? l
+                    : o("WAWebWamEnumContactType").CONTACT_TYPE.CONSUMER,
+                messageActionEntryPoint: r,
+                messageLevelAction: a,
+                messageHasUrl: ((s = t.urlUniqueCountInt) != null ? s : 0) > 0,
+                isInsubContact: u,
+                messageIdHmac: d != null ? d : void 0,
+                threadIdHmac: m != null ? m : "",
+              }),
+            ).commit();
+          });
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.chat,
-            a = t.messageActionEntryPoint,
-            i = t.messageLevelAction,
-            l = t.msg;
-          o("WAWebABProps").getABPropConfigValue(
-            "web_biz_quality_telemetry_message_level_actions_enabled",
-          ) &&
-            new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(l, r)
-              .addCommonFields()
-              .addAttributionFields()
-              .log(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var u,
-                        c,
-                        d = o("WAWebFrontendContactGetters").getIsMyContact(
-                          r.contact,
-                        ),
-                        m = yield (s || (s = n("Promise"))).all([
-                          o("WAWebChatThreadLogging").getMessageIDHMAC(
-                            l.id.toString(),
-                          ),
-                          o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                            r.id.toString(),
-                          ),
-                        ]),
-                        p = m[0],
-                        _ = m[1],
-                        f = t.chatsFolderType,
-                        g = t.deltaTime,
-                        h = t.hsmTagStr,
-                        y = t.messageTypeStr,
-                        C = t.qbmFlag,
-                        b = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                      new (o(
-                        "WAWebQbmMessageLevelActionWamEvent",
-                      ).QbmMessageLevelActionWamEvent)(
-                        babelHelpers.extends({}, b, {
-                          contactType:
-                            (u = b.contactType) != null
-                              ? u
-                              : o("WAWebWamEnumContactType").CONTACT_TYPE
-                                  .CONSUMER,
-                          messageActionEntryPoint: a,
-                          messageLevelAction: i,
-                          messageHasUrl:
-                            ((c = t.urlUniqueCountInt) != null ? c : 0) > 0,
-                          isInsubContact: d,
-                          messageIdHmac: p != null ? p : void 0,
-                          threadIdHmac: _ != null ? _ : "",
-                        }),
-                      ).commit();
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              );
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    l.logQbmMessageLevelAction = u;
+    l.logQbmMessageLevelAction = s;
   },
   98,
 );

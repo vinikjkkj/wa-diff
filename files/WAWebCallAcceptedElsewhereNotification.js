@@ -5,13 +5,12 @@ __d(
     "WAWebBaseNotification",
     "WAWebChatFlowTypes",
     "WAWebNotificationIconUtils",
-    "asyncToGeneratorRuntime",
     "bx",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = r("bx").getURL(r("bx")("9555")),
       u = (function (t) {
-        function r(e) {
+        function n(e) {
           var n,
             r = e.callId,
             o = e.groupJid,
@@ -30,38 +29,32 @@ __d(
             n
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.buildKey = function () {
+          (r.buildKey = function () {
             return "call-accepted-elsewhere:" + this.callId;
           }),
-          (a.getChatKind = function () {
+          (r.getChatKind = function () {
             return o("WAWebChatFlowTypes").ChatKindType.Group;
           }),
-          (a.getIcon = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.groupJid != null)
-                return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-                  this.groupJid,
+          (r.getIcon = async function () {
+            if (this.groupJid != null)
+              return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+                this.groupJid,
+                this.abortController.signal,
+                e,
+              );
+            var t = this.participantWids[0];
+            return t != null
+              ? o("WAWebNotificationIconUtils").getNotificationIconByWid(
+                  t,
                   this.abortController.signal,
-                  e,
-                );
-              var t = this.participantWids[0];
-              return t != null
-                ? o("WAWebNotificationIconUtils").getNotificationIconByWid(
-                    t,
-                    this.abortController.signal,
-                    o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-                  )
-                : e;
-            });
-            function r() {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.getBannerOptions = function () {
+                  o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
+                )
+              : e;
+          }),
+          (r.getBannerOptions = function () {
             var e,
               t,
               n = this.isVideo
@@ -82,7 +75,7 @@ __d(
               tag: "call-accepted-elsewhere:" + this.callId,
             };
           }),
-          r
+          n
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     l.WACallAcceptedElsewhereNotification = u;

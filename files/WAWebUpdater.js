@@ -1,7 +1,6 @@
 __d(
   "WAWebUpdater",
   [
-    "Promise",
     "WALogger",
     "WAPromiseDelays",
     "WAWebAlarm",
@@ -14,7 +13,6 @@ __d(
     "WAWebUpdaterVersion",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
-    "asyncToGeneratorRuntime",
     "cr:12474",
     "cr:6022",
   ],
@@ -26,10 +24,9 @@ __d(
       d,
       m,
       p,
-      _,
-      f = 6e4,
-      g = 1e3,
-      h = (function (t) {
+      _ = 6e4,
+      f = 1e3,
+      g = (function (t) {
         function a() {
           return t.apply(this, arguments) || this;
         }
@@ -47,13 +44,13 @@ __d(
             ((o("WAWebStreamModel").Stream.needsUpdate = !0),
               (o("WAWebStreamModel").Stream.isHardRefresh = !1));
           }),
-          (i.update = function (a) {
+          (i.update = function (n) {
             var t = this,
-              i = a === void 0 ? {} : a,
-              l = i.belowHard,
-              u = i.belowSoft,
-              c = i.beta,
-              d = i.serverVersion;
+              a = n === void 0 ? {} : n,
+              i = a.belowHard,
+              l = a.belowSoft,
+              u = a.beta,
+              c = a.serverVersion;
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -62,16 +59,16 @@ __d(
                   "",
                 ])),
               String(this.activeVersion),
-              String(d),
+              String(c),
             );
-            var m = ++this.latestUpdateIteration,
-              p =
-                d == null ? void 0 : new (o("WAWebUpdaterVersion").Version)(d),
-              g = u === !0,
-              h = typeof l == "number";
+            var d = ++this.latestUpdateIteration,
+              m =
+                c == null ? void 0 : new (o("WAWebUpdaterVersion").Version)(c),
+              p = l === !0,
+              f = typeof i == "number";
             return (
               this.clearHardExpiration(),
-              typeof l == "number" &&
+              typeof i == "number" &&
                 (this.hardExpirationTimer = r("WAWebAlarm").setLocalTimeout(
                   function () {
                     if (r("WAWebCallCollection").activeCall != null) {
@@ -95,19 +92,18 @@ __d(
                           r("WAWebCallCollection").activeCall == null && e();
                         },
                       ),
-                        window.setTimeout(e, f));
+                        window.setTimeout(e, _));
                     } else t.restart();
                   },
-                  Date.now() + l,
+                  Date.now() + i,
                 )),
-              (this.updateInProgress = (_ || (_ = n("Promise")))
-                .resolve(this.updateInProgress)
+              (this.updateInProgress = Promise.resolve(this.updateInProgress)
                 .then(function () {
-                  return t._update(p);
+                  return t._update(m);
                 })
                 .then(function (e) {
                   t.updateInProgress = void 0;
-                  var n = m !== t.latestUpdateIteration,
+                  var n = d !== t.latestUpdateIteration,
                     r =
                       e ===
                       o("WAWebUpdaterDownloadStateType").DownloadState.ERROR,
@@ -119,10 +115,10 @@ __d(
                     n ||
                       r ||
                       a ||
-                      ((g || h) &&
+                      ((p || f) &&
                         ((o("WAWebStreamModel").Stream.needsUpdate = !0),
-                        (o("WAWebStreamModel").Stream.isHardRefresh = h)),
-                      h &&
+                        (o("WAWebStreamModel").Stream.isHardRefresh = f)),
+                      f &&
                         t.listenToAndRun(
                           o("WAWebStreamModel").Stream,
                           "change:couldForce",
@@ -150,7 +146,7 @@ __d(
                         "AppUpdate: deferring SW update during active call",
                       ])),
                   ),
-                  (_ || (_ = n("Promise"))).resolve(
+                  Promise.resolve(
                     o("WAWebUpdaterDownloadStateType").DownloadState
                       .UPDATE_NOT_AVAILABLE,
                   ))
@@ -160,11 +156,11 @@ __d(
                   .UPDATE_NOT_AVAILABLE
               : o("WAWebUpdaterDownloadStateType").DownloadState
                   .UPDATE_DOWNLOADED;
-            return (_ || (_ = n("Promise"))).resolve(e);
+            return Promise.resolve(e);
           }),
           (i.killServiceWorker = function () {
             if (!(n("cr:6022") != null && n("cr:6022").alive))
-              return (_ || (_ = n("Promise"))).resolve();
+              return Promise.resolve();
             var e = navigator.serviceWorker;
             return e
               ? (o("WALogger").LOG(
@@ -187,7 +183,7 @@ __d(
                       String(e),
                     );
                   }))
-              : (_ || (_ = n("Promise"))).resolve();
+              : Promise.resolve();
           }),
           (i._doRestart = function () {
             return (
@@ -202,50 +198,39 @@ __d(
               o("WAWebUpdaterDownloadStateType").DownloadState.UPDATE_DOWNLOADED
             );
           }),
-          (i.restart = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return e === !0
-                  ? this.update({ belowHard: 0, belowSoft: !0 })
-                  : (r("WAWebCallCollection").activeCall != null &&
-                      (o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "[reload] Updater.restart: ending active call before refresh",
-                          ])),
-                      ),
-                      yield (_ || (_ = n("Promise"))).race([
-                        n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* () {
-                            try {
-                              var e = yield o(
-                                "WAWebVoipStackInterface",
-                              ).getVoipStackInterface();
-                              e != null &&
-                                e.type === "web" &&
-                                (yield e.endCall(
-                                  o("WAWebVoipSignalingEnums").EndCallReason
-                                    .Self,
-                                  !0,
-                                ));
-                            } catch (e) {}
-                          },
-                        )(),
-                        o("WAPromiseDelays").delayMs(g),
+          (i.restart = async function (t) {
+            return t === !0
+              ? this.update({ belowHard: 0, belowSoft: !0 })
+              : (r("WAWebCallCollection").activeCall != null &&
+                  (o("WALogger").LOG(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "[reload] Updater.restart: ending active call before refresh",
                       ])),
-                    this._doRestart());
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+                  ),
+                  await Promise.race([
+                    (async function () {
+                      try {
+                        var e = await o(
+                          "WAWebVoipStackInterface",
+                        ).getVoipStackInterface();
+                        e != null &&
+                          e.type === "web" &&
+                          (await e.endCall(
+                            o("WAWebVoipSignalingEnums").EndCallReason.Self,
+                            !0,
+                          ));
+                      } catch (e) {}
+                    })(),
+                    o("WAPromiseDelays").delayMs(f),
+                  ])),
+                this._doRestart());
+          }),
           a
         );
       })(o("WAWebUpdaterBaseUpdater").UpdaterBase),
-      y = new h();
-    ((l.UpdaterImpl = h), (l.Updater = y));
+      h = new g();
+    ((l.UpdaterImpl = g), (l.Updater = h));
   },
   98,
 );

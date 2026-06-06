@@ -7,7 +7,6 @@ __d(
     "WAWebFontLoader",
     "WAWebMsgGetters",
     "WAWebProtobufsE2E.pb",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -123,62 +122,54 @@ __d(
         for (var w = 0; w < E.length; w++) u.fillText(E[w], i / 2, T + w * k);
       return s;
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAWebTextStatusImageRenderer] Starting text status rendering for message: ",
-                "",
+    async function y(t) {
+      var n;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[WAWebTextStatusImageRenderer] Starting text status rendering for message: ",
+            "",
+          ])),
+        t.id.toString(),
+      );
+      var a =
+        (n = t.font) != null
+          ? n
+          : o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
+              .SYSTEM;
+      try {
+        await o("WAWebFontLoader").FontLoader.loadMessageFont(a);
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[WAWebTextStatusImageRenderer] Font loading failed, using fallback",
               ])),
-            t.id.toString(),
-          );
-          var a =
-            (n = t.font) != null
-              ? n
-              : o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
-                  .SYSTEM;
-          try {
-            yield o("WAWebFontLoader").FontLoader.loadMessageFont(a);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAWebTextStatusImageRenderer] Font loading failed, using fallback",
-                  ])),
-              )
-              .catching(e instanceof Error ? e : r("err")(String(e)));
-          }
-          var i = h(t),
-            l = yield o("WAWebCanvasUtils").canvasToBlob(i, "image/jpeg");
-          return (
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAWebTextStatusImageRenderer] Text status rendered successfully, blob size: ",
-                  "",
-                ])),
-              l.size,
-            ),
-            l
-          );
-        })),
-        C.apply(this, arguments)
+          )
+          .catching(e instanceof Error ? e : r("err")(String(e)));
+      }
+      var i = h(t),
+        l = await o("WAWebCanvasUtils").canvasToBlob(i, "image/jpeg");
+      return (
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[WAWebTextStatusImageRenderer] Text status rendered successfully, blob size: ",
+              "",
+            ])),
+          l.size,
+        ),
+        l
       );
     }
-    function b(e) {
+    function C(e) {
       return e.type === "chat" && e.mediaData == null;
     }
     ((l.breakLongWordInTextStatusImage = f),
       (l.wrapTextInTextStatusImage = g),
       (l.renderTextStatusToBlob = y),
-      (l.isTextStatusMessage = b));
+      (l.isTextStatusMessage = C));
   },
   98,
 );

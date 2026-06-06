@@ -7,7 +7,6 @@ __d(
     "WASemaphore",
     "WAWebABProps",
     "WAWebReleaseToEventLoop",
-    "asyncToGeneratorRuntime",
     "lodash",
     "structuredClone",
   ],
@@ -54,56 +53,50 @@ __d(
             { update: t, remove: n }
           );
         }),
-        (t.$2 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this,
-              t = [],
-              n = [],
-              a = o("WAWebABProps").getABPropConfigValue(
-                "web_anr_async_msg_send_handler",
-              ),
-              i = function (i) {
-                var o = e.SessionStore.get(i);
-                o &&
-                  (o.deleted
-                    ? n.push(i)
-                    : t.push({
-                        address: i,
-                        session:
-                          r("structuredClone") != null && a
-                            ? r("structuredClone")(o.session)
-                            : r("lodash").cloneDeep(o.session),
-                      }));
-              },
-              l = o("WAWebABProps").getABPropConfigValue(
-                "wmi_worker_scheduler_web",
-              );
-            if (l) {
-              var s = o("TaskScheduler").taskScheduler(
-                "signal",
-                { concurrency: 1 },
-                o(
-                  "NativeSchedulerTickStrategy",
-                ).makeNativeSchedulerTickStrategy(),
-              );
-              for (var c of this.Dirty.session)
-                (i(c), yield s.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
-            } else {
-              var d = a ? 20 : u,
-                m = self.performance.now();
-              for (var p of this.Dirty.session)
-                (self.performance.now() - m > d &&
-                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                  (m = self.performance.now())),
-                  i(p));
-            }
-            return { update: t, remove: n };
-          });
-          function t() {
-            return e.apply(this, arguments);
+        (t.$2 = async function () {
+          var e = this,
+            t = [],
+            n = [],
+            a = o("WAWebABProps").getABPropConfigValue(
+              "web_anr_async_msg_send_handler",
+            ),
+            i = function (i) {
+              var o = e.SessionStore.get(i);
+              o &&
+                (o.deleted
+                  ? n.push(i)
+                  : t.push({
+                      address: i,
+                      session:
+                        r("structuredClone") != null && a
+                          ? r("structuredClone")(o.session)
+                          : r("lodash").cloneDeep(o.session),
+                    }));
+            },
+            l = o("WAWebABProps").getABPropConfigValue(
+              "wmi_worker_scheduler_web",
+            );
+          if (l) {
+            var s = o("TaskScheduler").taskScheduler(
+              "signal",
+              { concurrency: 1 },
+              o(
+                "NativeSchedulerTickStrategy",
+              ).makeNativeSchedulerTickStrategy(),
+            );
+            for (var c of this.Dirty.session)
+              (i(c), await s.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
+          } else {
+            var d = a ? 20 : u,
+              m = self.performance.now();
+            for (var p of this.Dirty.session)
+              (self.performance.now() - m > d &&
+                (await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+                (m = self.performance.now())),
+                i(p));
           }
-          return t;
-        })()),
+          return { update: t, remove: n };
+        }),
         (t.$3 = function () {
           var e = this,
             t = [];
@@ -167,25 +160,19 @@ __d(
             };
           return n;
         }),
-        (t.generateCacheUpdateThrottled = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this.$4(),
-              t = yield this.$2(),
-              n = {
-                sessionUpdate: t.update,
-                sessionRemove: t.remove,
-                identityUpdate: e.update,
-                identityRemove: e.remove,
-                senderKeyUpdate: this.$3(),
-                preKeyRemove: this.$5(),
-              };
-            return n;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.generateCacheUpdateThrottled = async function () {
+          var e = this.$4(),
+            t = await this.$2(),
+            n = {
+              sessionUpdate: t.update,
+              sessionRemove: t.remove,
+              identityUpdate: e.update,
+              identityRemove: e.remove,
+              senderKeyUpdate: this.$3(),
+              preKeyRemove: this.$5(),
+            };
+          return n;
+        }),
         (t.clearDirty = function () {
           this.Dirty = {
             session: new Set(),

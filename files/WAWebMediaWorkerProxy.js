@@ -1,72 +1,32 @@
 __d(
   "WAWebMediaWorkerProxy",
-  ["asyncToGeneratorRuntime", "cr:36997"],
+  ["cr:36997"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      return n("cr:36997").calculateFilehashInWorker(e);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").calculateFilehashInWorker(e);
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e, t, r) {
+      return n("cr:36997").hmacSha256InWorker(e, t, r);
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      return n("cr:36997").transcodeToMp4InWorker(e);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          return n("cr:36997").hmacSha256InWorker(e, t, r);
-        })),
-        c.apply(this, arguments)
-      );
+    async function c(e) {
+      return n("cr:36997").mp4RepairMuxInWorker(e);
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      return n("cr:36997").kaleidoscopeClassifyInWorker(e);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").transcodeToMp4InWorker(e);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").mp4RepairMuxInWorker(e);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").kaleidoscopeClassifyInWorker(e);
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function m(e) {
       n("cr:36997").prewarmMediaWasmWorker(e);
     }
     ((l.calculateFilehashInWorker = e),
-      (l.hmacSha256InWorker = u),
-      (l.transcodeToMp4InWorker = d),
-      (l.mp4RepairMuxInWorker = p),
-      (l.kaleidoscopeClassifyInWorker = f),
-      (l.prewarmMediaWasmWorker = h));
+      (l.hmacSha256InWorker = s),
+      (l.transcodeToMp4InWorker = u),
+      (l.mp4RepairMuxInWorker = c),
+      (l.kaleidoscopeClassifyInWorker = d),
+      (l.prewarmMediaWasmWorker = m));
   },
   98,
 );

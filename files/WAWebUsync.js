@@ -21,7 +21,6 @@ __d(
     "WAWebUsyncTextStatus",
     "WAWebUsyncUsername",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -301,30 +300,24 @@ __d(
               ),
             );
           }),
-          (t.execute = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this.$3();
-              yield o("WAWebUsyncBackoff").waitForBackoff(this);
-              var t = yield o("WADeprecatedSendIq").deprecatedSendIq(e, p);
-              return t.success
-                ? (f(t.result), t.result)
-                : {
-                    error: {
-                      all: {
-                        errorCode: t.errorCode,
-                        errorText: t.errorText,
-                        errorType: t.errorType,
-                      },
+          (t.execute = async function () {
+            var e = this.$3();
+            await o("WAWebUsyncBackoff").waitForBackoff(this);
+            var t = await o("WADeprecatedSendIq").deprecatedSendIq(e, p);
+            return t.success
+              ? (f(t.result), t.result)
+              : {
+                  error: {
+                    all: {
+                      errorCode: t.errorCode,
+                      errorText: t.errorText,
+                      errorType: t.errorType,
                     },
-                    refresh: {},
-                    list: [],
-                  };
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+                  },
+                  refresh: {},
+                  list: [],
+                };
+          }),
           e
         );
       })();

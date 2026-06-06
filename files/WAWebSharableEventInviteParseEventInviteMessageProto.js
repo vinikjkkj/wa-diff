@@ -4,17 +4,15 @@ __d(
     "WALongInt",
     "WAWebMsgType",
     "WAWebSharableEventGatingUtils",
+    "WAWebSharableEventInviteCoerceTimestampSeconds",
     "WAWebSharableEventInviteValidationError",
     "WAWebWamEnumE2eFailureReason",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e != null ? Math.floor(e / 1e3) : void 0;
-    }
-    function s(t) {
-      var n = t.baseMessage,
-        r = t.messageProtobuf,
-        a = r.eventInviteMessage;
+      var t = e.baseMessage,
+        n = e.messageProtobuf,
+        a = n.eventInviteMessage;
       if (a == null) return null;
       if (
         !o(
@@ -27,7 +25,7 @@ __d(
           "WAWebSharableEventGatingUtils",
         ).isSharableEventInviteReceiveEnabled()
           ? {
-              msgData: babelHelpers.extends({}, n, {
+              msgData: babelHelpers.extends({}, t, {
                 type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
                 kind: o("WAWebMsgType").MsgKind.Unknown,
                 futureproofType:
@@ -36,7 +34,7 @@ __d(
               contextInfo: l,
             }
           : {
-              msgData: babelHelpers.extends({}, n, {
+              msgData: babelHelpers.extends({}, t, {
                 type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
                 kind: o("WAWebMsgType").MsgKind.Unknown,
               }),
@@ -80,22 +78,25 @@ __d(
             .SHARABLE_EVENT_INVITE_MISSING_START_TIME,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var y = e(o("WALongInt").maybeNumberOrThrowIfTooLarge(d)),
-        C = babelHelpers.extends({}, n, {
+      var y = r("WAWebSharableEventInviteCoerceTimestampSeconds")(h),
+        C = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
+          o("WALongInt").maybeNumberOrThrowIfTooLarge(d),
+        ),
+        b = babelHelpers.extends({}, t, {
           type: o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE,
           kind: o("WAWebMsgType").MsgKind.SharableEventInvite,
           sharableEventInviteId: m,
           sharableEventInviteTitle: p,
-          sharableEventInviteStartTime: Math.floor(h / 1e3),
-          sharableEventInviteEndTime: y != null ? y : void 0,
+          sharableEventInviteStartTime: y != null ? y : void 0,
+          sharableEventInviteEndTime: C != null ? C : void 0,
           sharableEventInviteCaption: u != null ? u : void 0,
           sharableEventInviteIsCanceled: _ != null ? _ : void 0,
           sharableEventInviteJpegThumbnail: f != null ? f : void 0,
           sharableEventInviteCallLink: s != null ? s : void 0,
         });
-      return { msgData: C, contextInfo: c };
+      return { msgData: b, contextInfo: c };
     }
-    l.default = s;
+    l.default = e;
   },
   98,
 );

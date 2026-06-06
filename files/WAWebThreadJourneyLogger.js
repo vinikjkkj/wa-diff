@@ -1,7 +1,6 @@
 __d(
   "WAWebThreadJourneyLogger",
   [
-    "Promise",
     "WALogger",
     "WAWebAiThreadsUserJourneyWamEvent",
     "WAWebBotJourneyLogger",
@@ -11,14 +10,12 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebWamEnumMetaAiActionEntryPoint",
     "WAWebWamEnumThreadActionTypes",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = (function () {
+      u = (function () {
         function t() {
           var e = this;
           this.logFirstPromptSent = function (t, n) {
@@ -31,112 +28,98 @@ __d(
               }));
           };
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.maybeGenAiSessionId = function () {
+          (n.maybeGenAiSessionId = function () {
             this.$1 == null &&
               ((this.$1 = r("WAWebPonyfillsCryptoRandomUUID")()),
               o("WAWebBotJourneyLogger").BotJourneyLogger.setAiSessionId(
                 this.$1,
               ));
           }),
-          (a.getAiSessionId = function () {
+          (n.getAiSessionId = function () {
             return this.$1;
           }),
-          (a.getLastMessageSentAiThreadId = function () {
+          (n.getLastMessageSentAiThreadId = function () {
             return this.$3;
           }),
-          (a.clearAiThreadLoggingContext = function () {
+          (n.clearAiThreadLoggingContext = function () {
             ((this.$1 = null),
               (this.$3 = null),
               o("WAWebBotJourneyLogger").BotJourneyLogger.setAiSessionId(null));
           }),
-          (a.log = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n,
-                  r = t.entryPoint,
-                  a = t.hashedThreadId,
-                  i = t.threadActionType,
-                  l = t.threadCreationTs,
-                  u = t.threadId,
-                  c = this.$1;
-                if (c == null) {
-                  o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "ThreadJourneyWamEvent:skipped - aiSessionId is null",
-                      ])),
-                  );
-                  return;
-                }
-                var d = (n = r != null ? r : this.$2) != null ? n : void 0;
-                r != null && (this.$2 = r);
-                var m = o(
-                    "WAWebBotJourneyLogger",
-                  ).BotJourneyLogger.getEntryPoint(),
-                  p =
-                    m != null
-                      ? o(
-                          "WAWebBotLoggingUtils",
-                        ).getBotMetricsEntryPointFromBotEntryPoint(m)
-                      : void 0,
-                  _ =
-                    p != null
-                      ? o(
-                          "WAWebBotLoggingUtils",
-                        ).getBotOriginFromBotMetricsEntryPoint(p)
-                      : void 0,
-                  f =
-                    a != null
-                      ? a
-                      : u != null
-                        ? yield o("WAWebChatThreadLogging").getThreadIDHMAC(u)
-                        : void 0,
-                  g = new (o(
-                    "WAWebAiThreadsUserJourneyWamEvent",
-                  ).AiThreadsUserJourneyWamEvent)({
-                    aiSessionId: c,
-                    appSessionId: o(
-                      "WAWebGetSharedSessionId",
-                    ).getSharedSessionId(),
-                    conversationThreadCreationTs: l != null ? l : void 0,
-                    conversationThreadId: f != null ? f : void 0,
-                    eventTsMs: Date.now(),
-                    metaAiActionEntryPoint: d,
-                    rawBotEntryPoint: _ != null ? _ : void 0,
-                    threadActionType: i,
-                  }),
-                  h = o("WAWebBotLoggingUtils").getMetaAiActionEntryPointName(
-                    d,
-                  ),
-                  y = o("WAWebBotLoggingUtils").getThreadActionTypeName(i);
-                (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "ThreadJourneyWamEvent:commit entryPoint=",
-                      " actionType=",
-                      "",
-                    ])),
-                  h,
-                  y,
-                ),
-                  g.commit());
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
+          (n.log = async function (n) {
+            var t,
+              r = n.entryPoint,
+              a = n.hashedThreadId,
+              i = n.threadActionType,
+              l = n.threadCreationTs,
+              u = n.threadId,
+              c = this.$1;
+            if (c == null) {
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "ThreadJourneyWamEvent:skipped - aiSessionId is null",
+                  ])),
+              );
+              return;
             }
-            return r;
-          })()),
-          (a.logNewChatClick = function (t) {
+            var d = (t = r != null ? r : this.$2) != null ? t : void 0;
+            r != null && (this.$2 = r);
+            var m = o("WAWebBotJourneyLogger").BotJourneyLogger.getEntryPoint(),
+              p =
+                m != null
+                  ? o(
+                      "WAWebBotLoggingUtils",
+                    ).getBotMetricsEntryPointFromBotEntryPoint(m)
+                  : void 0,
+              _ =
+                p != null
+                  ? o(
+                      "WAWebBotLoggingUtils",
+                    ).getBotOriginFromBotMetricsEntryPoint(p)
+                  : void 0,
+              f =
+                a != null
+                  ? a
+                  : u != null
+                    ? await o("WAWebChatThreadLogging").getThreadIDHMAC(u)
+                    : void 0,
+              g = new (o(
+                "WAWebAiThreadsUserJourneyWamEvent",
+              ).AiThreadsUserJourneyWamEvent)({
+                aiSessionId: c,
+                appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
+                conversationThreadCreationTs: l != null ? l : void 0,
+                conversationThreadId: f != null ? f : void 0,
+                eventTsMs: Date.now(),
+                metaAiActionEntryPoint: d,
+                rawBotEntryPoint: _ != null ? _ : void 0,
+                threadActionType: i,
+              }),
+              h = o("WAWebBotLoggingUtils").getMetaAiActionEntryPointName(d),
+              y = o("WAWebBotLoggingUtils").getThreadActionTypeName(i);
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "ThreadJourneyWamEvent:commit entryPoint=",
+                  " actionType=",
+                  "",
+                ])),
+              h,
+              y,
+            ),
+              g.commit());
+          }),
+          (n.logNewChatClick = function (t) {
             this.log({
               entryPoint: t,
               threadActionType: o("WAWebWamEnumThreadActionTypes")
                 .THREAD_ACTION_TYPES.CLICK_NEW_CHAT,
             });
           }),
-          (a.logThreeDotMenuClick = function () {
+          (n.logThreeDotMenuClick = function () {
             this.log({
               entryPoint: o("WAWebWamEnumMetaAiActionEntryPoint")
                 .META_AI_ACTION_ENTRY_POINT.THREE_DOT_MENU,
@@ -144,7 +127,7 @@ __d(
                 .THREAD_ACTION_TYPES.THREE_DOT_MENU,
             });
           }),
-          (a.logThreadEnter = function (t, n, r) {
+          (n.logThreadEnter = function (t, n, r) {
             this.log({
               entryPoint: n,
               threadActionType: o("WAWebWamEnumThreadActionTypes")
@@ -153,7 +136,7 @@ __d(
               threadId: t,
             });
           }),
-          (a.logThreadRename = function (t, n) {
+          (n.logThreadRename = function (t, n) {
             this.log({
               threadActionType: o("WAWebWamEnumThreadActionTypes")
                 .THREAD_ACTION_TYPES.RENAME,
@@ -161,7 +144,7 @@ __d(
               threadId: t,
             });
           }),
-          (a.logThreadPin = function (t, n) {
+          (n.logThreadPin = function (t, n) {
             this.log({
               threadActionType: o("WAWebWamEnumThreadActionTypes")
                 .THREAD_ACTION_TYPES.PIN,
@@ -169,7 +152,7 @@ __d(
               threadId: t,
             });
           }),
-          (a.logThreadUnpin = function (t, n) {
+          (n.logThreadUnpin = function (t, n) {
             this.log({
               threadActionType: o("WAWebWamEnumThreadActionTypes")
                 .THREAD_ACTION_TYPES.UNPIN,
@@ -177,35 +160,35 @@ __d(
               threadId: t,
             });
           }),
-          (a.logThreadDelete = function (t, r) {
+          (n.logThreadDelete = function (t, n) {
             var e = this;
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var a = yield (u || (u = n("Promise"))).all(
+            (async function () {
+              var r = await Promise.all(
                 t.map(function (e) {
                   return o("WAWebChatThreadLogging").getThreadIDHMAC(e);
                 }),
               );
-              yield u.all(
-                a.map(function (t, n) {
+              await Promise.all(
+                r.map(function (t, r) {
                   var a;
                   return e.log({
                     hashedThreadId: t,
                     threadActionType: o("WAWebWamEnumThreadActionTypes")
                       .THREAD_ACTION_TYPES.DELETE,
                     threadCreationTs:
-                      r == null || (a = r[n]) == null ? void 0 : a.toString(),
+                      n == null || (a = n[r]) == null ? void 0 : a.toString(),
                   });
                 }),
               );
             })();
           }),
-          (a.logSearchResultShown = function () {
+          (n.logSearchResultShown = function () {
             this.log({
               threadActionType: o("WAWebWamEnumThreadActionTypes")
                 .THREAD_ACTION_TYPES.SEARCH_RESULT_SHOWN,
             });
           }),
-          (a.logSearchResultClick = function (t, n) {
+          (n.logSearchResultClick = function (t, n) {
             this.log({
               threadActionType: o("WAWebWamEnumThreadActionTypes")
                 .THREAD_ACTION_TYPES.SEARCH_RESULT_CLICK,
@@ -216,8 +199,8 @@ __d(
           t
         );
       })(),
-      d = new c();
-    l.ThreadJourneyLogger = d;
+      c = new u();
+    l.ThreadJourneyLogger = c;
   },
   98,
 );

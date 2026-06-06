@@ -17,7 +17,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,94 +47,78 @@ __d(
           });
         });
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      var t = o("WAWebWidFactory").createWid(e),
+        n = o(
+          "WAWebThreadsMetadataIdUtils",
+        ).craftThreadsMetadataInternalIdPrefixForChatAndThreadType(
+          o("WAWebWidToJid").widToChatJid(t),
+          o("WAWebThreadUtils").ThreadType.AiThread,
+        ),
+        a = await o("WAWebSchemaThreadsMetadata")
+          .getThreadsMetadataTable()
+          .startsWithAnyOf(["internalId"], [n]),
+        i = [];
+      for (var l of a) {
+        var s = l.pinThreadTimestamp;
+        if (s != null && s > 0 && l.aiThreadInfo != null) {
+          var u = r("WAWebThreadId").tryFrom(l.id);
+          u != null && i.push({ threadId: u, timestamp: s, dbRow: l });
+        }
+      }
+      var c = await d(e);
+      return [].concat(i, c);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidFactory").createWid(e),
-            n = o(
-              "WAWebThreadsMetadataIdUtils",
-            ).craftThreadsMetadataInternalIdPrefixForChatAndThreadType(
-              o("WAWebWidToJid").widToChatJid(t),
-              o("WAWebThreadUtils").ThreadType.AiThread,
-            ),
-            a = yield o("WAWebSchemaThreadsMetadata")
-              .getThreadsMetadataTable()
-              .startsWithAnyOf(["internalId"], [n]),
-            i = [];
-          for (var l of a) {
-            var s = l.pinThreadTimestamp;
-            if (s != null && s > 0 && l.aiThreadInfo != null) {
-              var u = r("WAWebThreadId").tryFrom(l.id);
-              u != null && i.push({ threadId: u, timestamp: s, dbRow: l });
-            }
-          }
-          var c = yield m(e);
-          return [].concat(i, c);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o("WAWebSyncdDb").getSyncActionsRows(
-              ["action"],
-              [o("WASyncdConst").Actions.AiThreadPin],
-            ),
-            a = [];
-          for (var i of n)
-            if (i.actionState === o("WASyncdConst").SyncActionState.Orphan)
-              try {
-                var l = JSON.parse(i.index);
-                if (l.length < s) continue;
-                var u = l[1];
-                if (u !== t) continue;
-                var c = o("decodeProtobuf").decodeProtobuf(
-                  o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                  i.binarySyncData,
-                ).value;
-                if (
-                  (c == null ? void 0 : c.threadPinAction) == null ||
-                  (c == null ? void 0 : c.threadPinAction.pinned) !== !0
-                )
-                  continue;
-                var d = l[2];
-                if (r("WAWebWid").isWid(u)) {
-                  var m = o("WAWebWidFactory").createWid(u);
-                  if (m.isBot()) {
-                    var p,
-                      _ = o("WAWebWidFactory").asBotWidOrThrow(m),
-                      f = o(
-                        "WAWebAiThreadCreationUtils",
-                      ).createAiThreadFromMutationIndex(_, d);
-                    a.push({
-                      threadId: f,
-                      timestamp: o("WALongInt").numberOrThrowIfTooLarge(
-                        (p = c.timestamp) != null ? p : 0,
-                      ),
-                      isOrphan: !0,
-                    });
-                  }
-                }
-              } catch (t) {
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd][ai-thread-pin] failed to parse orphan sync action row",
-                    ])),
-                );
-                continue;
+    async function d(t) {
+      var n = await o("WAWebSyncdDb").getSyncActionsRows(
+          ["action"],
+          [o("WASyncdConst").Actions.AiThreadPin],
+        ),
+        a = [];
+      for (var i of n)
+        if (i.actionState === o("WASyncdConst").SyncActionState.Orphan)
+          try {
+            var l = JSON.parse(i.index);
+            if (l.length < s) continue;
+            var u = l[1];
+            if (u !== t) continue;
+            var c = o("decodeProtobuf").decodeProtobuf(
+              o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+              i.binarySyncData,
+            ).value;
+            if (
+              (c == null ? void 0 : c.threadPinAction) == null ||
+              (c == null ? void 0 : c.threadPinAction.pinned) !== !0
+            )
+              continue;
+            var d = l[2];
+            if (r("WAWebWid").isWid(u)) {
+              var m = o("WAWebWidFactory").createWid(u);
+              if (m.isBot()) {
+                var p,
+                  _ = o("WAWebWidFactory").asBotWidOrThrow(m),
+                  f = o(
+                    "WAWebAiThreadCreationUtils",
+                  ).createAiThreadFromMutationIndex(_, d);
+                a.push({
+                  threadId: f,
+                  timestamp: o("WALongInt").numberOrThrowIfTooLarge(
+                    (p = c.timestamp) != null ? p : 0,
+                  ),
+                  isOrphan: !0,
+                });
               }
-          return a;
-        })),
-        p.apply(this, arguments)
-      );
+            }
+          } catch (t) {
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[syncd][ai-thread-pin] failed to parse orphan sync action row",
+                ])),
+            );
+            continue;
+          }
+      return a;
     }
     ((l.updatePinState = u), (l.getLocalThreadPins = c));
   },

@@ -20,7 +20,17 @@ __d(
         ) === s
       );
     }
-    ((l.isOutContactInviteEnabled = u), (l.isContactEditInviteCtaEnabled = c));
+    function d() {
+      return r("WAWebEnvironment").isWeb
+        ? o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC &&
+            o("WAWebABProps").getABPropConfigValue(
+              "invite_deactivated_user_web",
+            ) === !0
+        : !1;
+    }
+    ((l.isOutContactInviteEnabled = u),
+      (l.isContactEditInviteCtaEnabled = c),
+      (l.isInviteDeactivatedUserWebEnabled = d));
   },
   98,
 );

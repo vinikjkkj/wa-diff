@@ -1,7 +1,6 @@
 __d(
   "WAWebDBReportingTokenUtils",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WAStanzaUtils",
@@ -15,14 +14,12 @@ __d(
     "WAWebSchemaReportingInfo",
     "WAWebSchemaReportingToken",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = ["reportingTag"],
-      u;
-    function c(e) {
+      s = ["reportingTag"];
+    function u(e) {
       var t,
         n,
         a = e.reportingTokenInfo;
@@ -46,128 +43,94 @@ __d(
         };
       return (s != null && (d.version = s), d);
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function c(e) {
+      if (
+        !(
+          !o("WAWebMessagingGatingUtils").isReportingTagSyncingEnabled() ||
+          e.length === 0
+        )
+      ) {
+        var t = r("compactMap")(e, function (e) {
+          return u(e);
+        });
+        return o("WAWebSchemaReportingInfo")
+          .getReportingInfoTable()
+          .bulkCreate(t);
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              !o("WAWebMessagingGatingUtils").isReportingTagSyncingEnabled() ||
-              e.length === 0
-            )
-          ) {
-            var t = r("compactMap")(e, function (e) {
-              return c(e);
-            });
-            return o("WAWebSchemaReportingInfo")
-              .getReportingInfoTable()
-              .bulkCreate(t);
-          }
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e) {
+      return o("WAWebSchemaReportingInfo")
+        .getReportingInfoTable()
+        .anyOf(["msgKey"], e);
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaReportingInfo")
+    async function m(e) {
+      if (
+        !(
+          e == null ||
+          e <=
+            o("WAWebReportingTokenConstants").DEFAULT_RT_CLEANUP_OLDER_THAN_DAYS
+        )
+      ) {
+        if (e === 0) {
+          await Promise.all([
+            o("WAWebSchemaReportingToken").getReportingTokenTable().clear(),
+            o("WAWebSchemaReportingInfo").getReportingInfoTable().clear(),
+          ]);
+          return;
+        }
+        var t =
+            o("WATimeUtils").unixTimeMs() -
+            e * o("WATimeUtils").DAY_MILLISECONDS,
+          n = await o("WAWebSchemaReportingToken")
+            .getReportingTokenTable()
+            .lessThan(["ts"], t),
+          r = await o("WAWebSchemaReportingInfo")
             .getReportingInfoTable()
-            .anyOf(["msgKey"], e);
-        })),
-        _.apply(this, arguments)
-      );
+            .lessThan(["receivedTs"], t);
+        await Promise.all([
+          o("WAWebSchemaReportingToken")
+            .getReportingTokenTable()
+            .bulkRemove(
+              n.map(function (e) {
+                return e.id;
+              }),
+            ),
+          o("WAWebSchemaReportingInfo")
+            .getReportingInfoTable()
+            .bulkRemove(
+              r.map(function (e) {
+                return e.id;
+              }),
+            ),
+        ]);
+      }
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function p(e) {
+      if (
+        !(
+          e <=
+          o("WAWebReportingTokenConstants").DEFAULT_RT_CLEANUP_OLDER_THAN_DAYS
+        )
+      ) {
+        var t =
+            o("WATimeUtils").unixTimeMs() -
+            e * o("WATimeUtils").DAY_MILLISECONDS,
+          n = await o("WAWebSchemaReportingInfo")
+            .getReportingInfoTable()
+            .lessThan(["receivedTs"], t),
+          r = n.map(function (e) {
+            return babelHelpers.extends({}, e, {
+              reportingToken: null,
+              reportingTokenContentOpaqueData: null,
+              version: null,
+            });
+          });
+        await o("WAWebSchemaReportingInfo")
+          .getReportingInfoTable()
+          .bulkCreateOrReplace(r);
+      }
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              e == null ||
-              e <=
-                o("WAWebReportingTokenConstants")
-                  .DEFAULT_RT_CLEANUP_OLDER_THAN_DAYS
-            )
-          ) {
-            if (e === 0) {
-              yield (u || (u = n("Promise"))).all([
-                o("WAWebSchemaReportingToken").getReportingTokenTable().clear(),
-                o("WAWebSchemaReportingInfo").getReportingInfoTable().clear(),
-              ]);
-              return;
-            }
-            var t =
-                o("WATimeUtils").unixTimeMs() -
-                e * o("WATimeUtils").DAY_MILLISECONDS,
-              r = yield o("WAWebSchemaReportingToken")
-                .getReportingTokenTable()
-                .lessThan(["ts"], t),
-              a = yield o("WAWebSchemaReportingInfo")
-                .getReportingInfoTable()
-                .lessThan(["receivedTs"], t);
-            yield (u || (u = n("Promise"))).all([
-              o("WAWebSchemaReportingToken")
-                .getReportingTokenTable()
-                .bulkRemove(
-                  r.map(function (e) {
-                    return e.id;
-                  }),
-                ),
-              o("WAWebSchemaReportingInfo")
-                .getReportingInfoTable()
-                .bulkRemove(
-                  a.map(function (e) {
-                    return e.id;
-                  }),
-                ),
-            ]);
-          }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              e <=
-              o("WAWebReportingTokenConstants")
-                .DEFAULT_RT_CLEANUP_OLDER_THAN_DAYS
-            )
-          ) {
-            var t =
-                o("WATimeUtils").unixTimeMs() -
-                e * o("WATimeUtils").DAY_MILLISECONDS,
-              n = yield o("WAWebSchemaReportingInfo")
-                .getReportingInfoTable()
-                .lessThan(["receivedTs"], t),
-              r = n.map(function (e) {
-                return babelHelpers.extends({}, e, {
-                  reportingToken: null,
-                  reportingTokenContentOpaqueData: null,
-                  version: null,
-                });
-              });
-            yield o("WAWebSchemaReportingInfo")
-              .getReportingInfoTable()
-              .bulkCreateOrReplace(r);
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
+    function _(e) {
       var t = e.incomingMsgReportingTokenInfo,
         n = e.msgKey,
         r = e.msgTs,
@@ -196,201 +159,159 @@ __d(
             );
       }
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function f(e) {
+      e.sort(function (e, t) {
+        var n, r;
+        return ((n = e.ts) != null ? n : 0) - ((r = t.ts) != null ? r : 0);
+      });
+      var t = e.map(function (e) {
+          return e.id;
+        }),
+        n = await o("WAWebSchemaReportingToken")
+          .getReportingTokenTable()
+          .bulkGet(t),
+        r = new Map(),
+        a = new Set();
+      (e.forEach(function (e, t) {
+        var o = n[t];
+        if ((o == null || o.reportingTag == null) && !a.has(e.id))
+          r.set(e.id, e);
+        else {
+          var i = e.reportingTag,
+            l = babelHelpers.objectWithoutPropertiesLoose(e, s);
+          r.set(e.id, babelHelpers.extends({}, r.get(e.id), l));
+        }
+        a.add(e.id);
+      }),
+        await o("WAWebSchemaReportingToken")
+          .getReportingTokenTable()
+          .bulkCreateOrMerge(Array.from(r.values())));
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e.sort(function (e, t) {
-            var n, r;
-            return ((n = e.ts) != null ? n : 0) - ((r = t.ts) != null ? r : 0);
-          });
-          var t = e.map(function (e) {
-              return e.id;
-            }),
-            n = yield o("WAWebSchemaReportingToken")
-              .getReportingTokenTable()
-              .bulkGet(t),
-            r = new Map(),
-            a = new Set();
-          (e.forEach(function (e, t) {
-            var o = n[t];
-            if ((o == null || o.reportingTag == null) && !a.has(e.id))
-              r.set(e.id, e);
-            else {
-              var i = e.reportingTag,
-                l = babelHelpers.objectWithoutPropertiesLoose(e, s);
-              r.set(e.id, babelHelpers.extends({}, r.get(e.id), l));
-            }
-            a.add(e.id);
-          }),
-            yield o("WAWebSchemaReportingToken")
-              .getReportingTokenTable()
-              .bulkCreateOrMerge(Array.from(r.values())));
-        })),
-        v.apply(this, arguments)
-      );
+    async function g(e) {
+      await o("WAWebSchemaReportingInfo").getReportingInfoTable().bulkCreate(e);
     }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSchemaReportingInfo")
+    async function h(t, n) {
+      try {
+        if (t.length === 0) return;
+        if (n.removeWholeRow)
+          return o("WAWebSchemaReportingInfo")
             .getReportingInfoTable()
-            .bulkCreate(e);
-        })),
-        R.apply(this, arguments)
-      );
+            .bulkRemoveByIndex(["msgKey"], t);
+        var r = await o("WAWebSchemaReportingInfo")
+          .getReportingInfoTable()
+          .equals(["msgKey"], t);
+        if (r.length === 0) return;
+        var a = r.map(function (e) {
+          return babelHelpers.extends({}, e, {
+            reportingToken: null,
+            reportingTokenContentOpaqueData: null,
+            version: null,
+          });
+        });
+        await o("WAWebSchemaReportingInfo")
+          .getReportingInfoTable()
+          .bulkCreateOrReplace(a);
+      } catch (t) {
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "Error deleting reporting infos",
+            ])),
+        );
+      }
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    async function y(e) {
+      var t = e.msgSecret,
+        n = e.remoteJid,
+        r = e.reportingInfo,
+        a = e.senderWid,
+        i = r.version,
+        l = i === void 0 ? -1 : i,
+        s = r.reportingTokenContentOpaqueData,
+        u = r.reportingToken,
+        c = r.reportingTokenKey,
+        d = s != null ? { reportingContentElementValue: s } : null,
+        m;
+      c != null
+        ? (m = c)
+        : t != null &&
+          a != null &&
+          n != null &&
+          (m = await o(
+            "WAWebReportingTokenUtils",
+          ).genReportingTokenKeyFromMessageSecret({
+            messageSecret: t,
+            stanzaId: r.stanzaId,
+            senderJid: o("WAWebWidToJid").widToUserJid(a),
+            remoteJid: n,
+          }));
+      var p =
+          m != null
+            ? new Uint8Array(m)
+            : new Uint8Array(
+                o("WAWebReportingTokenUtils").REPORTING_TOKEN_KEY_SIZE,
+              ),
+        _ =
+          l != null && u != null
+            ? {
+                reportingTokenV: l,
+                reportingTokenElementValue: u,
+                reportingTokenKeyElementValue: p,
+              }
+            : null,
+        f =
+          r.reportingTagParticipant != null
+            ? o("WAJids").unsafeCoerceToUserJid(r.reportingTagParticipant)
+            : void 0;
+      return {
+        reportingTagElementValue: r.reportingTag,
+        reportingTagTsS: r.msgTs,
+        reportingTagId: o("WAStanzaUtils").toStanzaId(r.stanzaId),
+        reportingContentArgs: d,
+        contentValidationArgs: _,
+        reportingTagParticipant: f,
+      };
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          try {
-            if (t.length === 0) return;
-            if (n.removeWholeRow)
-              return o("WAWebSchemaReportingInfo")
-                .getReportingInfoTable()
-                .bulkRemoveByIndex(["msgKey"], t);
-            var r = yield o("WAWebSchemaReportingInfo")
+    async function C(e) {
+      if (e.length !== 0) {
+        var t = new Map();
+        for (var n of e) {
+          var r = n[0],
+            a = n[1];
+          t.set(r.toString(), a);
+        }
+        var i = Array.from(t.keys()),
+          l = await d(i);
+        if (l.length !== 0) {
+          var s = [];
+          (l.forEach(function (e) {
+            var n = t.get(e.msgKey);
+            e.stanzaId !== n &&
+              s.push(
+                babelHelpers.extends({}, e, {
+                  reportingToken: null,
+                  reportingTokenContentOpaqueData: null,
+                  version: null,
+                }),
+              );
+          }),
+            await o("WAWebSchemaReportingInfo")
               .getReportingInfoTable()
-              .equals(["msgKey"], t);
-            if (r.length === 0) return;
-            var a = r.map(function (e) {
-              return babelHelpers.extends({}, e, {
-                reportingToken: null,
-                reportingTokenContentOpaqueData: null,
-                version: null,
-              });
-            });
-            yield o("WAWebSchemaReportingInfo")
-              .getReportingInfoTable()
-              .bulkCreateOrReplace(a);
-          } catch (t) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Error deleting reporting infos",
-                ])),
-            );
-          }
-        })),
-        E.apply(this, arguments)
-      );
+              .bulkCreateOrReplace(s));
+        }
+      }
     }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msgSecret,
-            n = e.remoteJid,
-            r = e.reportingInfo,
-            a = e.senderWid,
-            i = r.version,
-            l = i === void 0 ? -1 : i,
-            s = r.reportingTokenContentOpaqueData,
-            u = r.reportingToken,
-            c = r.reportingTokenKey,
-            d = s != null ? { reportingContentElementValue: s } : null,
-            m;
-          c != null
-            ? (m = c)
-            : t != null &&
-              a != null &&
-              n != null &&
-              (m = yield o(
-                "WAWebReportingTokenUtils",
-              ).genReportingTokenKeyFromMessageSecret({
-                messageSecret: t,
-                stanzaId: r.stanzaId,
-                senderJid: o("WAWebWidToJid").widToUserJid(a),
-                remoteJid: n,
-              }));
-          var p =
-              m != null
-                ? new Uint8Array(m)
-                : new Uint8Array(
-                    o("WAWebReportingTokenUtils").REPORTING_TOKEN_KEY_SIZE,
-                  ),
-            _ =
-              l != null && u != null
-                ? {
-                    reportingTokenV: l,
-                    reportingTokenElementValue: u,
-                    reportingTokenKeyElementValue: p,
-                  }
-                : null,
-            f =
-              r.reportingTagParticipant != null
-                ? o("WAJids").unsafeCoerceToUserJid(r.reportingTagParticipant)
-                : void 0;
-          return {
-            reportingTagElementValue: r.reportingTag,
-            reportingTagTsS: r.msgTs,
-            reportingTagId: o("WAStanzaUtils").toStanzaId(r.stanzaId),
-            reportingContentArgs: d,
-            contentValidationArgs: _,
-            reportingTagParticipant: f,
-          };
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = new Map();
-            for (var n of e) {
-              var r = n[0],
-                a = n[1];
-              t.set(r.toString(), a);
-            }
-            var i = Array.from(t.keys()),
-              l = yield p(i);
-            if (l.length !== 0) {
-              var s = [];
-              (l.forEach(function (e) {
-                var n = t.get(e.msgKey);
-                e.stanzaId !== n &&
-                  s.push(
-                    babelHelpers.extends({}, e, {
-                      reportingToken: null,
-                      reportingTokenContentOpaqueData: null,
-                      version: null,
-                    }),
-                  );
-              }),
-                yield o("WAWebSchemaReportingInfo")
-                  .getReportingInfoTable()
-                  .bulkCreateOrReplace(s));
-            }
-          }
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    ((l.msgToReportingInfoRow = c),
-      (l.handleHistorySyncedReportingInfo = d),
-      (l.getReportingInfosFromMsgKeys = p),
-      (l.cleanupReportingTable = f),
-      (l.cleanupReportingTokenAndContent = h),
-      (l.maybeStoreReportingTag = C),
-      (l.handleAddReportingTokenInfos = b),
-      (l.handleAddReportingInfos = S),
-      (l.handleDeleteReportingInfos = L),
-      (l.createReportingValidationArgs = k),
-      (l.handleReportingInfosUpdateOnMessageEdit = T));
+    ((l.msgToReportingInfoRow = u),
+      (l.handleHistorySyncedReportingInfo = c),
+      (l.getReportingInfosFromMsgKeys = d),
+      (l.cleanupReportingTable = m),
+      (l.cleanupReportingTokenAndContent = p),
+      (l.maybeStoreReportingTag = _),
+      (l.handleAddReportingTokenInfos = f),
+      (l.handleAddReportingInfos = g),
+      (l.handleDeleteReportingInfos = h),
+      (l.createReportingValidationArgs = y),
+      (l.handleReportingInfosUpdateOnMessageEdit = C));
   },
   98,
 );

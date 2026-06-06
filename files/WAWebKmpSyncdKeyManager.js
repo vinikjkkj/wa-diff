@@ -1,7 +1,6 @@
 __d(
   "WAWebKmpSyncdKeyManager",
   [
-    "Promise",
     "WALogger",
     "WAWebKmpBridgeResultWrappers",
     "WAWebKmpKotlinUtils",
@@ -12,16 +11,14 @@ __d(
     "WAWebSyncdHandleMissingKeys",
     "WAWebSyncdKeyCache",
     "WAWebSyncdKeyManagement",
-    "asyncToGeneratorRuntime",
     "wa-kmp-syncd-engine-api",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = {
+      s = {
         getCollectionsWaitingForKeys: function () {
-          return (s || (s = n("Promise"))).resolve(
+          return Promise.resolve(
             o("wa-kmp-syncd-engine-api").KmpResult.success(
               o("WAWebKmpKotlinUtils").asKtSet(
                 new Set(
@@ -39,61 +36,50 @@ __d(
         },
         resolveActiveKey: function () {
           return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o("WAWebSyncdKeyManagement").getActiveKey(!0);
+            async function () {
+              var e = await o("WAWebSyncdKeyManagement").getActiveKey(!0);
               return o("WAWebKmpSyncdMutationKeyIdUtils").toKmpSyncdMutationKey(
                 e.keyId,
                 e.keyData,
               );
-            }),
+            },
           );
         },
-        resolveKeys: function (a, i) {
+        resolveKeys: function (n, a) {
           return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            async function () {
               var t = new Set(),
-                l = yield (s || (s = n("Promise"))).all(
+                i = await Promise.all(
                   o("WAWebKmpKotlinUtils")
-                    .asSet(i)
+                    .asSet(a)
                     .keys()
-                    .map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            var n = o(
+                    .map(async function (e) {
+                      var n = o("WAWebKmpSyncdMutationKeyIdUtils").toSyncdKeyId(
+                          e,
+                        ),
+                        r = await o("WAWebSyncdKeyCache").getKeyData(n);
+                      return (
+                        r ||
+                          t.add(o("WAWebSyncdCryptoUtils").syncKeyIdToHex(n)),
+                        [
+                          e,
+                          r
+                            ? o(
                                 "WAWebKmpSyncdMutationKeyIdUtils",
-                              ).toSyncdKeyId(e),
-                              r = yield o("WAWebSyncdKeyCache").getKeyData(n);
-                            return (
-                              r ||
-                                t.add(
-                                  o("WAWebSyncdCryptoUtils").syncKeyIdToHex(n),
-                                ),
-                              [
-                                e,
-                                r
-                                  ? o(
-                                      "WAWebKmpSyncdMutationKeyIdUtils",
-                                    ).toKmpSyncdMutationKey(n, r)
-                                  : null,
-                              ]
-                            );
-                          },
-                        );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
+                              ).toKmpSyncdMutationKey(n, r)
+                            : null,
+                        ]
+                      );
+                    }),
                 );
               if (t.size > 0) {
-                yield o("WAWebSyncdHandleMissingKeys").handleMissingKeys(t);
-                var u = o(
+                await o("WAWebSyncdHandleMissingKeys").handleMissingKeys(t);
+                var l = o(
                   "WAWebKmpSyncdCollectionNameUtils",
-                ).asWebCollectionName(a);
+                ).asWebCollectionName(n);
                 (r(
                   "WAWebSyncdCollectionsStateMachine",
-                ).moveCollectionsToBlocked([u]),
+                ).moveCollectionsToBlocked([l]),
                   o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -101,17 +87,17 @@ __d(
                         " as blocked due to ",
                         " missing keys",
                       ])),
-                    u,
+                    l,
                     t.size,
                   ));
               }
-              var c = yield o("WAWebSyncdKeyManagement").getActiveKey(!0);
-              return o("WAWebKmpKotlinUtils").asKtMap(new Map(l));
-            }),
+              var s = await o("WAWebSyncdKeyManagement").getActiveKey(!0);
+              return o("WAWebKmpKotlinUtils").asKtMap(new Map(i));
+            },
           );
         },
       };
-    l.syncdKeyManager = u;
+    l.syncdKeyManager = s;
   },
   98,
 );

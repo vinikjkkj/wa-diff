@@ -11,7 +11,6 @@ __d(
     "WAWebL10N",
     "WAWebStickerConstants",
     "WAWebStickerPackModelMd",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,7 +25,7 @@ __d(
         "ERROR",
       ]),
       m = (function (t) {
-        function a() {
+        function n() {
           var e;
           return (
             (e = t.call(this) || this),
@@ -44,13 +43,13 @@ __d(
             e
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.$StickerPackCollection$p_7 = function () {
+          (a.$StickerPackCollection$p_7 = function () {
             (this.$StickerPackCollection$p_8(), this.reset());
           }),
-          (i.$StickerPackCollection$p_8 = function () {
+          (a.$StickerPackCollection$p_8 = function () {
             var e;
             ((e = this.$StickerPackCollection$p_5) == null || e.abort(),
               (this.$StickerPackCollection$p_5 = null),
@@ -65,23 +64,23 @@ __d(
               (this.$StickerPackCollection$p_3 = null),
               this.$StickerPackCollection$p_4.clear());
           }),
-          (i.$StickerPackCollection$p_11 = function (t) {
+          (a.$StickerPackCollection$p_11 = function (t) {
             t !== this.fetchState &&
               ((this.fetchState = t), this.trigger("change:fetchState", t));
           }),
-          (i.$StickerPackCollection$p_9 = function () {
+          (a.$StickerPackCollection$p_9 = function () {
             this.$StickerPackCollection$p_11(d.INITIAL);
           }),
-          (i.$StickerPackCollection$p_12 = function (t, n) {
+          (a.$StickerPackCollection$p_12 = function (t, n) {
             n !== this.packFetchState.get(t) &&
               (this.packFetchState.set(t, n),
               this.trigger("change:packFetchState", t, n));
           }),
-          (i.$StickerPackCollection$p_10 = function () {
+          (a.$StickerPackCollection$p_10 = function () {
             (this.packFetchState.clear(),
               this.trigger("change:packFetchState"));
           }),
-          (i.$StickerPackCollection$p_13 = function (t, n, r) {
+          (a.$StickerPackCollection$p_13 = function (t, n, r) {
             var e = this;
             (this.$StickerPackCollection$p_14(t, n, function (n, o) {
               var a = r[o - t];
@@ -97,138 +96,120 @@ __d(
               this.$StickerPackCollection$p_2.clear(),
               this.$StickerPackCollection$p_4.clear());
           }),
-          (i.$StickerPackCollection$p_14 = function (t, n, r) {
+          (a.$StickerPackCollection$p_14 = function (t, n, r) {
             for (var e = t; e < n; e++) {
               var o = this.at(e);
               r(o, e);
             }
           }),
-          (i.fetch = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t,
-                n = r("WAWebAuraGating").isStickersEnabled(),
-                a =
-                  this.fetchState === d.SUCCESS &&
-                  o("WATimeUtils").unixTime() -
-                    ((t = this.$StickerPackCollection$p_1) != null ? t : 0) <
+          (a.fetch = async function () {
+            var t,
+              n = r("WAWebAuraGating").isStickersEnabled(),
+              a =
+                this.fetchState === d.SUCCESS &&
+                o("WATimeUtils").unixTime() -
+                  ((t = this.$StickerPackCollection$p_1) != null ? t : 0) <
+                  o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT &&
+                this.$StickerPackCollection$p_3 === n;
+            if (!(this.fetchState === d.PENDING || a)) {
+              (this.$StickerPackCollection$p_11(d.PENDING),
+                (this.$StickerPackCollection$p_1 = o("WATimeUtils").unixTime()),
+                (this.$StickerPackCollection$p_3 = n),
+                (this.$StickerPackCollection$p_5 = new AbortController()));
+              try {
+                var i = await o(
+                    "WAWebFetchFirstPartyStickerPacksAction",
+                  ).fetchFirstPartyStickerPacks({
+                    signal: this.$StickerPackCollection$p_5.signal,
+                  }),
+                  l = Math.max(this.length, i.length);
+                (this.$StickerPackCollection$p_13(0, l, i),
+                  this.$StickerPackCollection$p_11(d.SUCCESS));
+              } catch (t) {
+                var u = r("getErrorSafe")(t);
+                if (
+                  (this.$StickerPackCollection$p_11(d.ERROR),
+                  u.name === o("WAAbortError").ABORT_ERROR)
+                ) {
+                  o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "First party sticker packs request cancelled",
+                      ])),
+                  );
+                  return;
+                }
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "First party sticker packs request failed: error",
+                      ])),
+                  )
+                  .catching(u)
+                  .sendLogs("sticker-packs-fetch-request-failed");
+              }
+            }
+          }),
+          (a.fetchStickerPack = async function (t) {
+            var e;
+            if (t && !this.get(t)) {
+              var n = r("WAWebAuraGating").isStickersEnabled(),
+                a = this.packFetchState.get(t),
+                i =
+                  (e = this.$StickerPackCollection$p_2.get(t)) != null ? e : 0,
+                l =
+                  a === d.SUCCESS &&
+                  o("WATimeUtils").unixTime() - i <
                     o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT &&
-                  this.$StickerPackCollection$p_3 === n;
-              if (!(this.fetchState === d.PENDING || a)) {
-                (this.$StickerPackCollection$p_11(d.PENDING),
-                  (this.$StickerPackCollection$p_1 =
-                    o("WATimeUtils").unixTime()),
-                  (this.$StickerPackCollection$p_3 = n),
-                  (this.$StickerPackCollection$p_5 = new AbortController()));
+                  this.$StickerPackCollection$p_4.get(t) === n;
+              if (!(a === d.PENDING || l)) {
+                (this.$StickerPackCollection$p_12(t, d.PENDING),
+                  this.$StickerPackCollection$p_2.set(
+                    t,
+                    o("WATimeUtils").unixTime(),
+                  ),
+                  this.$StickerPackCollection$p_4.set(t, n));
+                var s = new AbortController();
+                this.$StickerPackCollection$p_6.set(t, s);
                 try {
-                  var i = yield o(
-                      "WAWebFetchFirstPartyStickerPacksAction",
-                    ).fetchFirstPartyStickerPacks({
-                      signal: this.$StickerPackCollection$p_5.signal,
-                    }),
-                    l = Math.max(this.length, i.length);
-                  (this.$StickerPackCollection$p_13(0, l, i),
-                    this.$StickerPackCollection$p_11(d.SUCCESS));
-                } catch (t) {
-                  var u = r("getErrorSafe")(t);
+                  var m = await o(
+                    "WAWebFetchFirstPartyStickerPacksAction",
+                  ).fetchFirstPartyStickerPack({ id: t, signal: s.signal });
+                  (this.$StickerPackCollection$p_12(t, d.SUCCESS), this.add(m));
+                } catch (e) {
+                  var p = r("getErrorSafe")(e);
                   if (
-                    (this.$StickerPackCollection$p_11(d.ERROR),
-                    u.name === o("WAAbortError").ABORT_ERROR)
+                    (this.$StickerPackCollection$p_12(t, d.ERROR),
+                    p.name === o("WAAbortError").ABORT_ERROR)
                   ) {
                     o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "First party sticker packs request cancelled",
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "First party sticker pack request cancelled",
                         ])),
                     );
                     return;
                   }
                   o("WALogger")
                     .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "First party sticker packs request failed: error",
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "First party sticker pack request failed: error",
                         ])),
                     )
-                    .catching(u)
+                    .catching(p)
                     .sendLogs("sticker-packs-fetch-request-failed");
                 }
               }
-            });
-            function a() {
-              return t.apply(this, arguments);
             }
-            return a;
-          })()),
-          (i.fetchStickerPack = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t;
-                if (e && !this.get(e)) {
-                  var n = r("WAWebAuraGating").isStickersEnabled(),
-                    a = this.packFetchState.get(e),
-                    i =
-                      (t = this.$StickerPackCollection$p_2.get(e)) != null
-                        ? t
-                        : 0,
-                    l =
-                      a === d.SUCCESS &&
-                      o("WATimeUtils").unixTime() - i <
-                        o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT &&
-                      this.$StickerPackCollection$p_4.get(e) === n;
-                  if (!(a === d.PENDING || l)) {
-                    (this.$StickerPackCollection$p_12(e, d.PENDING),
-                      this.$StickerPackCollection$p_2.set(
-                        e,
-                        o("WATimeUtils").unixTime(),
-                      ),
-                      this.$StickerPackCollection$p_4.set(e, n));
-                    var s = new AbortController();
-                    this.$StickerPackCollection$p_6.set(e, s);
-                    try {
-                      var m = yield o(
-                        "WAWebFetchFirstPartyStickerPacksAction",
-                      ).fetchFirstPartyStickerPack({ id: e, signal: s.signal });
-                      (this.$StickerPackCollection$p_12(e, d.SUCCESS),
-                        this.add(m));
-                    } catch (t) {
-                      var p = r("getErrorSafe")(t);
-                      if (
-                        (this.$StickerPackCollection$p_12(e, d.ERROR),
-                        p.name === o("WAAbortError").ABORT_ERROR)
-                      ) {
-                        o("WALogger").LOG(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "First party sticker pack request cancelled",
-                            ])),
-                        );
-                        return;
-                      }
-                      o("WALogger")
-                        .WARN(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "First party sticker pack request failed: error",
-                            ])),
-                        )
-                        .catching(p)
-                        .sendLogs("sticker-packs-fetch-request-failed");
-                    }
-                  }
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.delete = function () {
+          }),
+          (a.delete = function () {
             (t.prototype.delete.call(this),
               this.stopListening(),
               this.$StickerPackCollection$p_8());
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
     ((m.model = o("WAWebStickerPackModelMd").StickerPackModel),

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAudienceExpressionTypes",
     "WAWebBaseModel",
+    "WAWebBroadcastMetadataCollection",
     "WAWebBroadcastRecipientCollection",
     "WAWebWid",
   ],
@@ -25,7 +26,14 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.getCollection = function () {
+          return r("WAWebBroadcastMetadataCollection");
+        }),
+        t
+      );
     })(o("WAWebBaseModel").BaseModel);
     ((e.Proxy = "broadcast"), (e.idClass = r("WAWebWid")));
     var s = o("WAWebBaseModel").defineModel(e);

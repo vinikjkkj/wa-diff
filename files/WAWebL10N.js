@@ -14,7 +14,6 @@ __d(
     "WAWebLocaleToMomentResource",
     "WAWebMomentLocales",
     "WAWebUserPrefsLocales",
-    "asyncToGeneratorRuntime",
     "bcp-47",
     "gkx",
     "justknobx",
@@ -43,180 +42,167 @@ __d(
         "-",
       ),
       E = (function (t) {
-        function a() {
-          var a;
-          ((a = t.call(this, { l: "en", loc: "en" }) || this),
-            (a.$L10n$p_4 = null),
-            (a.setLocale = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t, n, r) {
+        function n() {
+          var n;
+          ((n = t.call(this, { l: "en", loc: "en" }) || this),
+            (n.$L10n$p_4 = null),
+            (n.setLocale = async function (t, r, a) {
+              if (
+                (o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[l10n] setLocale called with locale ",
+                      ", priority ",
+                      ", reload ",
+                      "",
+                    ])),
+                  t,
+                  r,
+                  a,
+                ),
+                t != null)
+              ) {
+                var i, l;
+                ((i = a != null ? a : !1),
+                  (l =
+                    r != null
+                      ? r
+                      : o("WAWebL10NConstants").L10N_PRIORITY.PHONE));
+                var _ = o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled(),
+                  f = _ && l >= o("WAWebL10NConstants").L10N_PRIORITY.SAVED,
+                  g = n.normalizeLocaleToBcp47Compliant(t);
+                if (
+                  !(g == null || g === n.$L10n$p_2) &&
+                  (o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[l10n] setLocale: before use user lang",
+                      ])),
+                  ),
+                  f
+                    ? o("WAWebUserPrefsLocales").setUserLangPref(t)
+                    : o("WAWebUserPrefsLocales").setPhoneLangPref(t),
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[l10n] setLocale: after use user lang",
+                      ])),
+                  ),
+                  !(
+                    _ &&
+                    l === o("WAWebL10NConstants").L10N_PRIORITY.PHONE &&
+                    o("WAWebUserPrefsLocales").getUserLangPref() != null
+                  ))
+                ) {
+                  var h = n.$L10n$p_1;
+                  n.$L10n$p_2 = g;
+                  var y = o(
+                    "WAWebL10NCoerceToFBLocale",
+                  ).coerceWAWebL10nLocaleToFBLocale(g);
                   if (
-                    (o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[l10n] setLocale called with locale ",
-                          ", priority ",
-                          ", reload ",
+                    (o("WAWebL10NCookieUtils").setWAWebLocalePrefCookieValue(y),
+                    (n.$L10n$p_3 = g),
+                    (n.$L10n$p_4 = y),
+                    i === !0 &&
+                      l === o("WAWebL10NConstants").L10N_PRIORITY.SAVED &&
+                      o("WALogger").LOG(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[l10n] setLocale: user lang change ",
+                            " -> ",
+                            "",
+                          ])),
+                        h,
+                        y,
+                      ),
+                    o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[l10n] setLocale: fullLocale:",
+                          ", renderedLocale:",
+                          ", newLocale:",
                           "",
                         ])),
-                      t,
-                      n,
-                      r,
+                      g,
+                      n.$L10n$p_1,
+                      y,
                     ),
-                    t != null)
-                  ) {
-                    var i, l;
-                    ((i = r != null ? r : !1),
-                      (l =
-                        n != null
-                          ? n
-                          : o("WAWebL10NConstants").L10N_PRIORITY.PHONE));
-                    var _ =
-                        o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled(),
-                      f = _ && l >= o("WAWebL10NConstants").L10N_PRIORITY.SAVED,
-                      g = a.normalizeLocaleToBcp47Compliant(t);
-                    if (
-                      !(g == null || g === a.$L10n$p_2) &&
-                      (o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[l10n] setLocale: before use user lang",
-                          ])),
-                      ),
-                      f
-                        ? o("WAWebUserPrefsLocales").setUserLangPref(t)
-                        : o("WAWebUserPrefsLocales").setPhoneLangPref(t),
+                    i !== !0)
+                  )
+                    n.trigger("locale_changed_on_phone", {
+                      newLocale: y,
+                      currentLocale: h,
+                    });
+                  else if (h === y)
+                    (n.$L10n$p_9.cancel(),
                       o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[l10n] setLocale: after use user lang",
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "[l10n] setLocale: no lang change (",
+                            "), skip reload",
                           ])),
+                        h,
                       ),
-                      !(
-                        _ &&
-                        l === o("WAWebL10NConstants").L10N_PRIORITY.PHONE &&
-                        o("WAWebUserPrefsLocales").getUserLangPref() != null
-                      ))
+                      await n.applyMomentLocale(g),
+                      n.trigger("locale_change", { l: y, loc: g }));
+                  else if (i === !0) {
+                    if (
+                      (o("WALogger").LOG(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "[l10n] setLocale: lang change ",
+                            " -> ",
+                            ", reloading",
+                          ])),
+                        h,
+                        y,
+                      ),
+                      (n.$L10n$p_1 = y),
+                      l >= o("WAWebL10NConstants").L10N_PRIORITY.SAVED)
                     ) {
-                      var h = a.$L10n$p_1;
-                      a.$L10n$p_2 = g;
-                      var y = o(
-                        "WAWebL10NCoerceToFBLocale",
-                      ).coerceWAWebL10nLocaleToFBLocale(g);
-                      if (
-                        (o(
-                          "WAWebL10NCookieUtils",
-                        ).setWAWebLocalePrefCookieValue(y),
-                        (a.$L10n$p_3 = g),
-                        (a.$L10n$p_4 = y),
-                        i === !0 &&
-                          l === o("WAWebL10NConstants").L10N_PRIORITY.SAVED &&
-                          o("WALogger").LOG(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "[l10n] setLocale: user lang change ",
-                                " -> ",
-                                "",
-                              ])),
-                            h,
-                            y,
-                          ),
-                        o("WALogger").LOG(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
-                              "[l10n] setLocale: fullLocale:",
-                              ", renderedLocale:",
-                              ", newLocale:",
-                              "",
-                            ])),
-                          g,
-                          a.$L10n$p_1,
-                          y,
-                        ),
-                        i !== !0)
-                      )
-                        a.trigger("locale_changed_on_phone", {
-                          newLocale: y,
-                          currentLocale: h,
-                        });
-                      else if (h === y)
-                        (a.$L10n$p_9.cancel(),
-                          o("WALogger").LOG(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
-                                "[l10n] setLocale: no lang change (",
-                                "), skip reload",
-                              ])),
-                            h,
-                          ),
-                          yield a.applyMomentLocale(g),
-                          a.trigger("locale_change", { l: y, loc: g }));
-                      else if (i === !0) {
-                        if (
-                          (o("WALogger").LOG(
-                            p ||
-                              (p = babelHelpers.taggedTemplateLiteralLoose([
-                                "[l10n] setLocale: lang change ",
-                                " -> ",
-                                ", reloading",
-                              ])),
-                            h,
-                            y,
-                          ),
-                          (a.$L10n$p_1 = y),
-                          l >= o("WAWebL10NConstants").L10N_PRIORITY.SAVED)
-                        ) {
-                          a.$L10n$p_10();
-                          return;
-                        }
-                        a.$L10n$p_9();
-                      }
+                      n.$L10n$p_10();
+                      return;
                     }
+                    n.$L10n$p_9();
                   }
-                },
+                }
+              }
+            }),
+            (n.$L10n$p_9 = r("WAWebDebounce")(async function () {
+              return (
+                await r("WAWebEventsWaitForMainStreamReadyMd")(),
+                n.$L10n$p_10()
               );
-              return function (e, n, r) {
-                return t.apply(this, arguments);
-              };
-            })()),
-            (a.$L10n$p_9 = r("WAWebDebounce")(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                return (
-                  yield r("WAWebEventsWaitForMainStreamReadyMd")(),
-                  a.$L10n$p_10()
-                );
-              }),
-              R,
-            )),
-            (a.$L10n$p_1 = o(
+            }, R)),
+            (n.$L10n$p_1 = o(
               "WAWebL10nGetRenderedLocale",
             ).WAWebL10nGetRenderedLocale()),
-            (a.$L10n$p_2 = a.$L10n$p_5(
+            (n.$L10n$p_2 = n.$L10n$p_5(
               o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale(),
             )));
-          var i = a.$L10n$p_6(),
-            l = a.$L10n$p_7(),
-            f = i != null ? i : l,
-            g = i == null;
-          if (f == null)
+          var a = n.$L10n$p_6(),
+            i = n.$L10n$p_7(),
+            l = a != null ? a : i,
+            f = a == null;
+          if (l == null)
             return (
-              o("WAWebUserPrefsLocales").setPhoneLangPref(a.$L10n$p_1),
-              babelHelpers.assertThisInitialized(a)
+              o("WAWebUserPrefsLocales").setPhoneLangPref(n.$L10n$p_1),
+              babelHelpers.assertThisInitialized(n)
             );
-          var h = a.$L10n$p_5(f);
-          if (((a.$L10n$p_3 = h), h == null))
+          var g = n.$L10n$p_5(l);
+          if (((n.$L10n$p_3 = g), g == null))
             return (
-              g
-                ? o("WAWebUserPrefsLocales").setPhoneLangPref(a.$L10n$p_1)
-                : o("WAWebUserPrefsLocales").setUserLangPref(a.$L10n$p_1),
-              babelHelpers.assertThisInitialized(a)
+              f
+                ? o("WAWebUserPrefsLocales").setPhoneLangPref(n.$L10n$p_1)
+                : o("WAWebUserPrefsLocales").setUserLangPref(n.$L10n$p_1),
+              babelHelpers.assertThisInitialized(n)
             );
-          var y = o(
+          var h = o(
             "WAWebL10NCoerceToFBLocale",
-          ).coerceWAWebL10nLocaleToFBLocale(h);
+          ).coerceWAWebL10nLocaleToFBLocale(g);
           return (
-            (a.$L10n$p_4 = y),
-            y === a.$L10n$p_1 &&
+            (n.$L10n$p_4 = h),
+            h === n.$L10n$p_1 &&
               (o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -224,18 +210,18 @@ __d(
                     ", rendered: ",
                     "",
                   ])),
-                f,
-                a.$L10n$p_1,
+                l,
+                n.$L10n$p_1,
               ),
-              (a.$L10n$p_2 = h)),
-            a.applyMomentLocale(h),
-            a
+              (n.$L10n$p_2 = g)),
+            n.applyMomentLocale(g),
+            n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.init = function (t) {
+          (a.init = function (t) {
             return (
               o("WALogger").LOG(
                 f ||
@@ -248,10 +234,10 @@ __d(
               this.setLocale(t, o("WAWebL10NConstants").L10N_PRIORITY.SAVED, !1)
             );
           }),
-          (i.getLocale = function () {
+          (a.getLocale = function () {
             return this.$L10n$p_1;
           }),
-          (i.getFullLocale = function () {
+          (a.getFullLocale = function () {
             return r("gkx")("26258")
               ? this.$L10n$p_2
               : o("WAWebL10NCoerceToFBLocale").isWAWebl10nDebugLocale(
@@ -260,7 +246,7 @@ __d(
                 ? L
                 : this.$L10n$p_2;
           }),
-          (i.getNormalizedLocale = function () {
+          (a.getNormalizedLocale = function () {
             var e;
             return (e = this.normalizeLocaleToWajsLocale(
               String(this.getLocale()),
@@ -268,13 +254,13 @@ __d(
               ? e
               : this.getLocale();
           }),
-          (i.getLanguage = function () {
+          (a.getLanguage = function () {
             return this.$L10n$p_8(this.getFullLocale());
           }),
-          (i.$L10n$p_8 = function (t) {
+          (a.$L10n$p_8 = function (t) {
             return o("bcp-47").parse(t).language;
           }),
-          (i.getRegion = function () {
+          (a.getRegion = function () {
             var e,
               t,
               n =
@@ -287,17 +273,17 @@ __d(
               (t = o("bcp-47").parse(a)) == null ? void 0 : t.region,
             );
           }),
-          (i.$L10n$p_6 = function () {
+          (a.$L10n$p_6 = function () {
             return this.normalizeLocaleToBcp47Compliant(
               o("WAWebUserPrefsLocales").getUserLangPref(),
             );
           }),
-          (i.$L10n$p_7 = function () {
+          (a.$L10n$p_7 = function () {
             return this.normalizeLocaleToBcp47Compliant(
               o("WAWebUserPrefsLocales").getPhoneLangPref(),
             );
           }),
-          (i.normalizeLocaleToBcp47Compliant = function (t) {
+          (a.normalizeLocaleToBcp47Compliant = function (t) {
             if (t == null) return null;
             var e = this.$L10n$p_5(t);
             if (e !== t) {
@@ -331,10 +317,10 @@ __d(
             }
             return e;
           }),
-          (i.$L10n$p_5 = function (t) {
+          (a.$L10n$p_5 = function (t) {
             return t.replace(/@.*/, "").replace(/_/g, "-");
           }),
-          (i.$L10n$p_10 = function () {
+          (a.$L10n$p_10 = function () {
             (o("WALogger").LOG(
               y ||
                 (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -345,67 +331,59 @@ __d(
                 window.location.reload();
               }, 100));
           }),
-          (i.applyMomentLocale = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.toLocaleLowerCase("en"),
-                  n;
-                if (
-                  t ===
-                  o(
-                    "WAWebL10NConstants",
-                  ).DEFAULT_MOMENT_LOCALE.toLocaleLowerCase("en")
-                )
-                  n = t;
-                else {
-                  var a = [];
-                  if ((a.push(t), t.match(/en/i) == null)) {
-                    var i = t.replace(/_/g, "-");
-                    (a.push(i),
-                      r("WAWebLocaleToMomentResource")[i] != null &&
-                        a.push(r("WAWebLocaleToMomentResource")[i]));
-                  }
-                  (a.push(this.getLanguage()), a.push(L));
-                  for (var l = 0; l < a.length; ++l) {
-                    var s = yield o(
-                      "WAWebMomentLocales",
-                    ).downloadAndDefineLocale(a[l]);
-                    if (s) {
-                      n = a[l];
-                      break;
-                    }
-                  }
+          (a.applyMomentLocale = async function (t) {
+            var e = t.toLocaleLowerCase("en"),
+              n;
+            if (
+              e ===
+              o("WAWebL10NConstants").DEFAULT_MOMENT_LOCALE.toLocaleLowerCase(
+                "en",
+              )
+            )
+              n = e;
+            else {
+              var a = [];
+              if ((a.push(e), e.match(/en/i) == null)) {
+                var i = e.replace(/_/g, "-");
+                (a.push(i),
+                  r("WAWebLocaleToMomentResource")[i] != null &&
+                    a.push(r("WAWebLocaleToMomentResource")[i]));
+              }
+              (a.push(this.getLanguage()), a.push(L));
+              for (var l = 0; l < a.length; ++l) {
+                var s = await o("WAWebMomentLocales").downloadAndDefineLocale(
+                  a[l],
+                );
+                if (s) {
+                  n = a[l];
+                  break;
                 }
-                (n == null &&
-                  (o("WALogger").WARN(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "Could not fetch moment locales, using default en-US",
-                      ])),
-                  ),
-                  (n = o("WAWebL10NConstants").DEFAULT_MOMENT_LOCALE)),
-                  r("WAWeb-moment").locale(n),
-                  o("WALogger").LOG(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
-                        "[l10n] moment locale updated to: ",
-                        "",
-                      ])),
-                    n,
-                  ),
-                  this.customizeMomentLocale(r("WAWeb-moment").locale()));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+              }
             }
-            return t;
-          })()),
-          (i.customizeMomentLocale = function (t) {
+            (n == null &&
+              (o("WALogger").WARN(
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                    "Could not fetch moment locales, using default en-US",
+                  ])),
+              ),
+              (n = o("WAWebL10NConstants").DEFAULT_MOMENT_LOCALE)),
+              r("WAWeb-moment").locale(n),
+              o("WALogger").LOG(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[l10n] moment locale updated to: ",
+                    "",
+                  ])),
+                n,
+              ),
+              this.customizeMomentLocale(r("WAWeb-moment").locale()));
+          }),
+          (a.customizeMomentLocale = function (t) {
             var e = o("WAWebL10NConstants").LOCALE_CUSTOMIZATIONS[t];
             e && r("WAWeb-moment").updateLocale(t, e);
           }),
-          (i.checkForLocaleMismatchBetweenCookieAndUserPref = function () {
+          (a.checkForLocaleMismatchBetweenCookieAndUserPref = function () {
             if (
               o("WAWebL10NCoerceToFBLocale").coerceWAWebL10nLocaleToFBLocale(
                 this.$L10n$p_1,
@@ -448,7 +426,7 @@ __d(
                 ).setLangPrefCookieDidMismatchWithUserPref(!0),
                 r("justknobx")._("2237") || this.$L10n$p_9());
           }),
-          a
+          n
         );
       })(o("WAWebBaseL10N").WAWebBaseL10n),
       k = new E();

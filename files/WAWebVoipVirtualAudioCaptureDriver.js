@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipVirtualAudioCaptureDriver",
-  ["WALogger", "WAWebAudioUtility", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAWebAudioUtility"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -30,149 +30,133 @@ __d(
             (this.$5 = 0),
             (this.$6 = null));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.initCaptureDriver = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = t.bits_per_sample,
-                  r = t.channels,
-                  a = t.frames_per_chunk,
-                  i = t.sample_rate;
-                (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [VirtualAudioCapture] initCaptureDriver params:\n      sampleRate=",
-                      ",\n      channels=",
-                      ",\n      bitsPerSample=",
-                      ",\n      framesPerChunk=",
-                      "",
-                    ])),
-                  i,
-                  r,
-                  n,
-                  a,
-                ),
-                  (this.$6 = {
-                    sampleRate: i,
-                    channels: r,
-                    bitsPerSample: n,
-                    framesPerChunk: a,
-                  }),
-                  this.$7(i, r),
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [VirtualAudioCapture] initCaptureDriver completed",
-                      ])),
-                  ));
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
+          (n.initCaptureDriver = async function (n) {
+            var t = n.bits_per_sample,
+              r = n.channels,
+              a = n.frames_per_chunk,
+              i = n.sample_rate;
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  `voip: [VirtualAudioCapture] initCaptureDriver params:
+      sampleRate=`,
+                  `,
+      channels=`,
+                  `,
+      bitsPerSample=`,
+                  `,
+      framesPerChunk=`,
+                  "",
+                ])),
+              i,
+              r,
+              t,
+              a,
+            ),
+              (this.$6 = {
+                sampleRate: i,
+                channels: r,
+                bitsPerSample: t,
+                framesPerChunk: a,
+              }),
+              this.$7(i, r),
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [VirtualAudioCapture] initCaptureDriver completed",
+                  ])),
+              ));
+          }),
+          (n.startCapture = async function () {
+            var e = this;
+            (o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [VirtualAudioCapture] startCapture",
+                ])),
+            ),
+              this.$3 != null &&
+                (window.clearInterval(this.$3), (this.$3 = null)),
+              this.$2 != null &&
+                (await o("WAWebAudioUtility").freeWasmBuffer(this.$2),
+                (this.$2 = null)),
+              (this.$1 = !1),
+              (this.$5 = 0));
+            var t = this.$6;
+            if (t == null || this.$4 == null) {
+              o("WALogger").ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [VirtualAudioCapture] startCapture: params or tone buffer is null",
+                  ])),
+              );
+              return;
             }
-            return r;
-          })()),
-          (r.startCapture = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [VirtualAudioCapture] startCapture",
-                  ])),
-              ),
-                this.$3 != null &&
-                  (window.clearInterval(this.$3), (this.$3 = null)),
-                this.$2 != null &&
-                  (yield o("WAWebAudioUtility").freeWasmBuffer(this.$2),
-                  (this.$2 = null)),
-                (this.$1 = !1),
-                (this.$5 = 0));
-              var t = this.$6;
-              if (t == null || this.$4 == null) {
-                o("WALogger").ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [VirtualAudioCapture] startCapture: params or tone buffer is null",
-                    ])),
-                );
-                return;
-              }
-              var n =
-                t.framesPerChunk * t.channels * Float32Array.BYTES_PER_ELEMENT;
-              this.$2 = yield o("WAWebAudioUtility").mallocWasmBuffer(n);
-              var r = (t.framesPerChunk / t.sampleRate) * 1e3;
-              (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [VirtualAudioCapture] startCapture: chunkSize=",
-                    ", intervalMs=",
-                    "",
-                  ])),
-                t.framesPerChunk * t.channels,
-                r,
-              ),
-                (this.$3 = window.setInterval(function () {
-                  if (!e.$1) {
-                    var n = e.$2,
-                      r = e.$4;
-                    if (!(n == null || r == null)) {
-                      for (
-                        var a = t.framesPerChunk * t.channels,
-                          i = new Float32Array(a),
-                          l = 0;
-                        l < a;
-                        l++
-                      )
-                        i[l] = r[(e.$5 + l) % r.length];
-                      ((e.$5 = (e.$5 + a) % r.length),
-                        o("WAWebAudioUtility").sendAudioToWasm(n, i));
-                    }
+            var n =
+              t.framesPerChunk * t.channels * Float32Array.BYTES_PER_ELEMENT;
+            this.$2 = await o("WAWebAudioUtility").mallocWasmBuffer(n);
+            var r = (t.framesPerChunk / t.sampleRate) * 1e3;
+            (o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [VirtualAudioCapture] startCapture: chunkSize=",
+                  ", intervalMs=",
+                  "",
+                ])),
+              t.framesPerChunk * t.channels,
+              r,
+            ),
+              (this.$3 = window.setInterval(function () {
+                if (!e.$1) {
+                  var n = e.$2,
+                    r = e.$4;
+                  if (!(n == null || r == null)) {
+                    for (
+                      var a = t.framesPerChunk * t.channels,
+                        i = new Float32Array(a),
+                        l = 0;
+                      l < a;
+                      l++
+                    )
+                      i[l] = r[(e.$5 + l) % r.length];
+                    ((e.$5 = (e.$5 + a) % r.length),
+                      o("WAWebAudioUtility").sendAudioToWasm(n, i));
                   }
-                }, r)),
-                o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [VirtualAudioCapture] startCapture: started successfully",
-                    ])),
-                ));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.stopCapture = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [VirtualAudioCapture] stopCapture",
+                }
+              }, r)),
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [VirtualAudioCapture] startCapture: started successfully",
                   ])),
-              ),
-                (this.$1 = !0),
-                this.$3 != null &&
-                  (window.clearInterval(this.$3), (this.$3 = null)),
-                this.$2 != null &&
-                  (yield o("WAWebAudioUtility").freeWasmBuffer(this.$2),
-                  (this.$2 = null)),
-                (this.$4 = null),
-                (this.$6 = null),
-                (this.$5 = 0),
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [VirtualAudioCapture] stopCapture: completed",
-                    ])),
-                ));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$7 = function (t, n) {
+              ));
+          }),
+          (n.stopCapture = async function () {
+            (o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [VirtualAudioCapture] stopCapture",
+                ])),
+            ),
+              (this.$1 = !0),
+              this.$3 != null &&
+                (window.clearInterval(this.$3), (this.$3 = null)),
+              this.$2 != null &&
+                (await o("WAWebAudioUtility").freeWasmBuffer(this.$2),
+                (this.$2 = null)),
+              (this.$4 = null),
+              (this.$6 = null),
+              (this.$5 = 0),
+              o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [VirtualAudioCapture] stopCapture: completed",
+                  ])),
+              ));
+          }),
+          (n.$7 = function (t, n) {
             for (
               var e = t * h,
                 r = e * n,

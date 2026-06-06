@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeLinksPreview",
-  ["WAWebODS", "WAWebWindowsHybridBridgeTrace", "asyncToGeneratorRuntime"],
+  ["WAWebODS", "WAWebWindowsHybridBridgeTrace"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -8,29 +8,23 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.getPreviewAsync = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this;
-            r("WAWebODS").incr(
-              "web.hybrid.bridge.links_preview.send.get_preview_async",
-            );
-            var n = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-              {
-                bridge: "linksPreview",
-                method: "getPreviewAsync",
-                type: "async",
-              },
-              function () {
-                return t.$1.getPreviewAsync(e);
-              },
-            );
-            return n == null || n === "" ? null : JSON.parse(n);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.getPreviewAsync = async function (t) {
+          var e = this;
+          r("WAWebODS").incr(
+            "web.hybrid.bridge.links_preview.send.get_preview_async",
+          );
+          var n = await o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+            {
+              bridge: "linksPreview",
+              method: "getPreviewAsync",
+              type: "async",
+            },
+            function () {
+              return e.$1.getPreviewAsync(t);
+            },
+          );
+          return n == null || n === "" ? null : JSON.parse(n);
+        }),
         e
       );
     })();

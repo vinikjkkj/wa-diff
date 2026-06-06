@@ -1,46 +1,42 @@
 __d(
   "WAWebMessageProcessDBPipeline",
   [
-    "Promise",
     "WALogger",
     "WAWebHandleOrphansForNewMsg",
     "WAWebMessageProcessorCache",
     "WAWebWamWorkerOfflineProcessReporter",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(t, r) {
+    var e, s;
+    function u(t, n) {
       return o("WAWebMessageProcessorCache")
         .messageProcessorCache.addMessages(
           t.map(function (e) {
             return { msg: e };
           }),
-          r,
+          n,
         )
-        .then(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (o(
-              "WAWebWamWorkerOfflineProcessReporter",
-            ).WorkerOfflineResumeReporter.updateProcessedMessageCount(),
-              r &&
-                (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "process msgs orphans ",
-                      "",
-                    ])),
-                  t.length,
-                ),
-                yield (u || (u = n("Promise"))).all(
-                  t.map(function (e) {
-                    return o(
-                      "WAWebHandleOrphansForNewMsg",
-                    ).handleOrphansForNewMsg(e);
-                  }),
-                )));
-          }),
-        )
+        .then(async function () {
+          (o(
+            "WAWebWamWorkerOfflineProcessReporter",
+          ).WorkerOfflineResumeReporter.updateProcessedMessageCount(),
+            n &&
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "process msgs orphans ",
+                    "",
+                  ])),
+                t.length,
+              ),
+              await Promise.all(
+                t.map(function (e) {
+                  return o(
+                    "WAWebHandleOrphansForNewMsg",
+                  ).handleOrphansForNewMsg(e);
+                }),
+              )));
+        })
         .catch(function (e) {
           o("WALogger")
             .ERROR(
@@ -57,7 +53,7 @@ __d(
             );
         });
     }
-    l.processMsgDataDBPipeline = c;
+    l.processMsgDataDBPipeline = u;
   },
   98,
 );

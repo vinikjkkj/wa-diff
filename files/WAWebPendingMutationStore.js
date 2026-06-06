@@ -1,31 +1,20 @@
 __d(
   "WAWebPendingMutationStore",
-  [
-    "WAWebNoop",
-    "WAWebSchemaPendingMutations",
-    "WAWebSyncdDb",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebNoop", "WAWebSchemaPendingMutations", "WAWebSyncdDb"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e() {}
       var t = e.prototype;
       return (
-        (t.getByCollection = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield o("WAWebSyncdDb").getPendingMutationsRows(
-              ["collection"],
-              e,
-            );
-            return t.map(
-              o("WAWebSchemaPendingMutations").convertToPendingMutationFromRow,
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.getByCollection = async function (t) {
+          var e = await o("WAWebSyncdDb").getPendingMutationsRows(
+            ["collection"],
+            t,
+          );
+          return e.map(
+            o("WAWebSchemaPendingMutations").convertToPendingMutationFromRow,
+          );
+        }),
         (t.getAll = function () {
           return o("WAWebSyncdDb").getAllPendingMutationsRows();
         }),

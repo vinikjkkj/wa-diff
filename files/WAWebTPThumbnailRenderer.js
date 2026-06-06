@@ -1,98 +1,77 @@
 __d(
   "WAWebTPThumbnailRenderer",
   [
-    "Promise",
     "WACustomError",
     "WAWebABProps",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebTPPdfViewerGatingUtils",
     "WAWebTPWhatsAppNetBridge",
-    "asyncToGeneratorRuntime",
     "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = r("gkx")("17264")
-        ? Number.MAX_SAFE_INTEGER
-        : r("justknobx")._("2857") || 15e3;
-    function u() {
-      var e;
+    var e = r("gkx")("17264")
+      ? Number.MAX_SAFE_INTEGER
+      : r("justknobx")._("2857") || 15e3;
+    function s() {
+      var t;
       return o("WAWebTPPdfViewerGatingUtils").isAsyncPdfSendEnabled()
         ? r("justknobx")._("5486") || 6e4
-        : (e = o("WAWebABProps").getABPropConfigValue(
+        : (t = o("WAWebABProps").getABPropConfigValue(
               "wa_webtp_thumbnail_renderer_timeout_ms",
             )) != null
-          ? e
-          : s;
+          ? t
+          : e;
     }
-    var c = (function () {
-      function t(e) {
+    var u = (function () {
+      function e(e) {
         this.$1 = new (o("WAWebTPWhatsAppNetBridge").WAWebTPWhatsAppNetBridge)(
           e,
         );
       }
-      var a = t.prototype;
+      var t = e.prototype;
       return (
-        (a.listen = function (t, n) {
+        (t.listen = function (t, n) {
           return this.$1.listen(t, n);
         }),
-        (a.getThumbnail = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var a = this,
-              i = r("WAWebPonyfillsCryptoRandomUUID")();
-            return new (e || (e = n("Promise")))(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, n) {
-                    var r = null,
-                      l = a.$1.listen(
-                        "RENDER_PDF_THUMBNAIL_RESPONSE",
-                        function (t) {
-                          t.requestId === i &&
-                            (r != null && window.clearTimeout(r),
-                            l(),
-                            t.success ? e(t) : n(t.error));
-                        },
-                      ),
-                      s = u();
-                    r = window.setTimeout(function () {
-                      (l(),
-                        n(
-                          new (o("WACustomError").TimeoutError)(
-                            "RENDER_PDF_THUMBNAIL_RESPONSE, timeoutMs: " + s,
-                          ),
-                        ));
-                    }, s);
-                    var c = babelHelpers.extends({}, t, { requestId: i });
-                    a.$1
-                      .publishWhenReady("RENDER_PDF_THUMBNAIL", c)
-                      .catch(function (e) {
-                        (r != null && window.clearTimeout(r), l(), n(e));
-                      });
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
+        (t.getThumbnail = async function (t) {
+          var e = this,
+            n = r("WAWebPonyfillsCryptoRandomUUID")();
+          return new Promise(async function (r, a) {
+            var i = null,
+              l = e.$1.listen("RENDER_PDF_THUMBNAIL_RESPONSE", function (e) {
+                e.requestId === n &&
+                  (i != null && window.clearTimeout(i),
+                  l(),
+                  e.success ? r(e) : a(e.error));
+              }),
+              u = s();
+            i = window.setTimeout(function () {
+              (l(),
+                a(
+                  new (o("WACustomError").TimeoutError)(
+                    "RENDER_PDF_THUMBNAIL_RESPONSE, timeoutMs: " + u,
+                  ),
+                ));
+            }, u);
+            var c = babelHelpers.extends({}, t, { requestId: n });
+            e.$1
+              .publishWhenReady("RENDER_PDF_THUMBNAIL", c)
+              .catch(function (e) {
+                (i != null && window.clearTimeout(i), l(), a(e));
+              });
           });
-          function a(e) {
-            return t.apply(this, arguments);
-          }
-          return a;
-        })()),
-        (a.destroy = function () {
+        }),
+        (t.destroy = function () {
           this.$1.destroy();
         }),
-        t
+        e
       );
     })();
-    ((l.PDF_RENDER_THUMBNAIL_TIMEOUT_MS = s),
-      (l.getPdfThumbnailTimeoutMs = u),
-      (l.WAWebTPThumbnailRenderer = c));
+    ((l.PDF_RENDER_THUMBNAIL_TIMEOUT_MS = e),
+      (l.getPdfThumbnailTimeoutMs = s),
+      (l.WAWebTPThumbnailRenderer = u));
   },
   98,
 );

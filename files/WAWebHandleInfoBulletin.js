@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebDirtyBitsConsts",
     "WAWebHandleInfoBulletinTypes.flow",
+    "WAWebHandleRecoveryNonceIB",
     "WAWebHandleReportServerSyncNotification",
     "WAWebHandleRoutingInfo",
     "WAWebHandleServerClientExpiration",
@@ -15,7 +16,6 @@ __d(
     "WAWebParseThreadMetadata",
     "WAWebThreadMetadata",
     "WAWebTos",
-    "asyncToGeneratorRuntime",
     "cr:1175",
   ],
   function (t, n, r, o, a, i, l) {
@@ -173,100 +173,106 @@ __d(
                   .CLIENT_EXPIRATION,
                 newClientExpirationTime: c,
               };
+            } else if (
+              e.hasChild(
+                o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.RECOVERY_NONCE,
+              )
+            ) {
+              var d = e.child(
+                o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.RECOVERY_NONCE,
+              );
+              return {
+                type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
+                  .RECOVERY_NONCE,
+                code: d.attrString("code"),
+                useCase: d.attrInt("use_case"),
+              };
             }
           }
         }
         return null;
       });
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = p.parse(e);
-          if (t.error)
-            throw (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                t.error.toString(),
-              ),
-              t.error
-            );
-          var n = t.success;
-          if (!n) {
+    async function _(e) {
+      var t = p.parse(e);
+      if (t.error)
+        throw (
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            t.error.toString(),
+          ),
+          t.error
+        );
+      var n = t.success;
+      if (!n) {
+        o("WALogger").WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "handleInfoBulletin unrecognized info bulletin",
+            ])),
+        );
+        return;
+      }
+      switch (n.type) {
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.DIRTY:
+          if (!m) {
             o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleInfoBulletin unrecognized info bulletin",
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "handleInfoBulletin dirty bits not supported",
                 ])),
             );
             return;
           }
-          switch (n.type) {
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.DIRTY:
-              if (!m) {
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleInfoBulletin dirty bits not supported",
-                    ])),
-                );
-                return;
-              }
-              return (yield m(n), "NO_ACK");
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.ROUTING:
-              return (
-                yield o("WAWebHandleRoutingInfo").handleRoutingInfo(n),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE:
-              return (
-                o("WAWebOfflineHandler").OfflineMessageHandler.processOfflineIb(
-                  n.count,
-                ),
-                o(
-                  "WAWebHandleReportServerSyncNotification",
-                ).reportOfflineNotifications(),
-                o("WAWebMessageDedupUtils").maybeClearPendingMessages(n.count),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-              .OFFLINE_PREVIEW:
-              return (
-                yield o(
-                  "WAWebOfflineHandler",
-                ).OfflineMessageHandler.processOfflinePreviewIb(n.count),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.TOS:
-              return (
-                o("WAWebTos").TosManager.maybeUpdateServer(n.noticeIds),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.THREAD_META:
-              return (
-                o("WAWebThreadMetadata").setOfflineThreadMeta(n.threadMeta),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-              .CLIENT_EXPIRATION:
-              return (
-                o(
-                  "WAWebHandleServerClientExpiration",
-                ).handleServerClientExpiration(n.newClientExpirationTime),
-                "NO_ACK"
-              );
-            default:
-              return;
-          }
-        })),
-        f.apply(this, arguments)
-      );
+          return (await m(n), "NO_ACK");
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.ROUTING:
+          return (
+            await o("WAWebHandleRoutingInfo").handleRoutingInfo(n),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE:
+          return (
+            o("WAWebOfflineHandler").OfflineMessageHandler.processOfflineIb(
+              n.count,
+            ),
+            o(
+              "WAWebHandleReportServerSyncNotification",
+            ).reportOfflineNotifications(),
+            o("WAWebMessageDedupUtils").maybeClearPendingMessages(n.count),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE_PREVIEW:
+          return (
+            await o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.processOfflinePreviewIb(n.count),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.TOS:
+          return (
+            o("WAWebTos").TosManager.maybeUpdateServer(n.noticeIds),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.THREAD_META:
+          return (
+            o("WAWebThreadMetadata").setOfflineThreadMeta(n.threadMeta),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.CLIENT_EXPIRATION:
+          return (
+            o("WAWebHandleServerClientExpiration").handleServerClientExpiration(
+              n.newClientExpirationTime,
+            ),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.RECOVERY_NONCE:
+          return (r("WAWebHandleRecoveryNonceIB")(n.code, n.useCase), "NO_ACK");
+        default:
+          return;
+      }
     }
     l.default = _;
   },

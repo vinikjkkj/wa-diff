@@ -11,36 +11,42 @@ __d(
     function e(e) {
       var t,
         n,
-        r = e.contact,
-        a = e.id,
-        i = (n = o("WAWebChatGetters")).getIsGroup(e),
-        l = n.getIsNewsletter(e),
-        s = n.getIsBroadcast(e),
-        u = n.getIsPSA(e),
-        c = o("WAWebContactGetters").getIsMe(r),
-        d = o("WAWebFrontendChatGetters").getGroupMetadata(e),
-        m =
-          i &&
-          ((d == null ? void 0 : d.participants.iAmMember()) !== !0 ||
-            ((d == null ? void 0 : d.announce) === !0 &&
-              !(
-                (t = d == null ? void 0 : d.participants.iAmAdmin()) != null &&
-                t
-              )) ||
-            (d == null ? void 0 : d.isSuspendedOrTerminated()) === !0),
-        p = (d == null ? void 0 : d.hasCapi) === !0,
+        r,
+        a = e.contact,
+        i = e.id,
+        l = (r = o("WAWebChatGetters")).getIsGroup(e),
+        s = r.getIsNewsletter(e),
+        u = r.getIsBroadcast(e),
+        c = r.getIsPSA(e),
+        d = o("WAWebContactGetters").getIsMe(a),
+        m = o("WAWebFrontendChatGetters").getGroupMetadata(e),
+        p =
+          l &&
+          ((t = m == null ? void 0 : m.participants.length) != null ? t : 0) ===
+            1,
         _ =
-          (d == null ? void 0 : d.groupType) !==
+          l &&
+          ((m == null ? void 0 : m.participants.iAmMember()) !== !0 ||
+            ((m == null ? void 0 : m.announce) === !0 &&
+              !(
+                (n = m == null ? void 0 : m.participants.iAmAdmin()) != null &&
+                n
+              )) ||
+            (m == null ? void 0 : m.isSuspendedOrTerminated()) === !0 ||
+            p),
+        f = (m == null ? void 0 : m.hasCapi) === !0,
+        g =
+          (m == null ? void 0 : m.groupType) !==
             o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-          !p &&
+          !f &&
+          !d &&
+          !s &&
+          !i.isBot() &&
+          !a.isEnterprise &&
           !c &&
-          !l &&
-          !a.isBot() &&
-          !r.isEnterprise &&
-          !u &&
-          !m &&
-          !s;
-      return { shouldShow: _, shouldDisableStartCall: m };
+          !_ &&
+          !u;
+      return { shouldShow: g, shouldDisableStartCall: _ };
     }
     function s(t) {
       return e(t).shouldShow;

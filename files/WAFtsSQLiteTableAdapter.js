@@ -1,6 +1,6 @@
 __d(
   "WAFtsSQLiteTableAdapter",
-  ["Promise", "WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -10,80 +10,47 @@ __d(
       d,
       m,
       p,
-      _,
-      f = (function () {
+      _ = (function () {
         function t(e) {
           this.$1 = e;
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.bulkPut = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Using SQLite FTS insert",
-                    ])),
-                );
-                var n = t.map(function (e) {
-                    return [
-                      "INSERT INTO message (id, chatId, timestamp, text) VALUES (?, ?, ?, ?)",
-                      e.id,
-                      e.chatId,
-                      e.timestamp,
-                      e.text,
-                    ];
-                  }),
-                  r = [["BEGIN TRANSACTION"]].concat(n, [["COMMIT"]]);
-                this.$1.postMessage({ executeSqlite: r });
-              },
+          (n.bulkPut = async function (n) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Using SQLite FTS insert",
+                ])),
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (r.bulkCreate = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                yield this.bulkPut(e);
-              },
+            var t = n.map(function (e) {
+                return [
+                  "INSERT INTO message (id, chatId, timestamp, text) VALUES (?, ?, ?, ?)",
+                  e.id,
+                  e.chatId,
+                  e.timestamp,
+                  e.text,
+                ];
+              }),
+              r = [["BEGIN TRANSACTION"]].concat(t, [["COMMIT"]]);
+            this.$1.postMessage({ executeSqlite: r });
+          }),
+          (n.bulkCreate = async function (t) {
+            await this.bulkPut(t);
+          }),
+          (n.bulkGetByKey = async function (t) {
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "SQLite FTS bulkGetByKey not supported",
+                  ])),
+              ),
+              Promise.resolve([])
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.bulkGetByKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return (
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "SQLite FTS bulkGetByKey not supported",
-                      ])),
-                  ),
-                  (_ || (_ = n("Promise"))).resolve([])
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.erase = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* () {},
-            );
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.between = function (t, r, a, i) {
+          }),
+          (n.erase = async function () {}),
+          (n.between = function (t, n, r, a) {
             return (
               o("WALogger").LOG(
                 u ||
@@ -91,10 +58,10 @@ __d(
                     "SQLite FTS between not supported",
                   ])),
               ),
-              (_ || (_ = n("Promise"))).resolve([])
+              Promise.resolve([])
             );
           }),
-          (r.bulkRemoveByIndex = function (t, r) {
+          (n.bulkRemoveByIndex = function (t, n) {
             return (
               o("WALogger").LOG(
                 c ||
@@ -102,10 +69,10 @@ __d(
                     "SQLite FTS bulkRemoveByIndex not supported",
                   ])),
               ),
-              (_ || (_ = n("Promise"))).resolve()
+              Promise.resolve()
             );
           }),
-          (r.merge = function (t, r) {
+          (n.merge = function (t, n) {
             return (
               o("WALogger").LOG(
                 d ||
@@ -113,22 +80,14 @@ __d(
                     "SQLite FTS merge not supported",
                   ])),
               ),
-              (_ || (_ = n("Promise"))).resolve()
+              Promise.resolve()
             );
           }),
-          (r.bulkGetAnyOf = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.bulkGetByKey(t);
-                return n.filter(Boolean);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.bulkGetStartsWithAnyOf = function (t, r) {
+          (n.bulkGetAnyOf = async function (t, n) {
+            var e = await this.bulkGetByKey(n);
+            return e.filter(Boolean);
+          }),
+          (n.bulkGetStartsWithAnyOf = function (t, n) {
             return (
               o("WALogger").LOG(
                 m ||
@@ -136,10 +95,10 @@ __d(
                     "SQLite FTS bulkGetStartsWithAnyOf not supported",
                   ])),
               ),
-              (_ || (_ = n("Promise"))).resolve([])
+              Promise.resolve([])
             );
           }),
-          (r.getKey = function () {
+          (n.getKey = function () {
             return {
               type: "public",
               extractable: !1,
@@ -147,29 +106,21 @@ __d(
               usages: null,
             };
           }),
-          (r.query = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return (
-                  o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "SQLite FTS query not supported",
-                      ])),
-                  ),
-                  (_ || (_ = n("Promise"))).resolve([])
-                );
-              },
+          (n.query = async function (t) {
+            return (
+              o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "SQLite FTS query not supported",
+                  ])),
+              ),
+              Promise.resolve([])
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           t
         );
       })();
-    l.default = f;
+    l.default = _;
   },
   98,
 );

@@ -139,9 +139,7 @@ __d(
           }),
           (t.getPinnedChatsBenefitLimit = function () {
             var e;
-            return this.$7(
-              o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
-            )
+            return this.isPinnedChatsBenefitActive()
               ? (e = this.$6().benefit(
                   o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
                 )) == null

@@ -2,6 +2,7 @@ __d(
   "WAWebSmbPerCustomerDataSharingControlWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumSmbDataSharingConsentScreenEntryPoint",
     "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
   ],
@@ -29,6 +30,15 @@ __d(
                 4,
                 o("WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint")
                   .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT,
+              ],
+              smbPerCustomerDataSharingControlGlobalDataSharingEntryPoint: [
+                6,
+                o("WAWebWamEnumSmbDataSharingConsentScreenEntryPoint")
+                  .SMB_DATA_SHARING_CONSENT_SCREEN_ENTRY_POINT,
+              ],
+              smbPerCustomerDataSharingControlOptInCustomerCount: [
+                7,
+                e.TYPES.INTEGER,
               ],
               smbPerCustomerDataSharingControlVersion: [5, e.TYPES.INTEGER],
             },

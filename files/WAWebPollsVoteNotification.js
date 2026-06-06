@@ -12,7 +12,6 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebPollsPollVoteCollection",
     "WAWebWamEnumNotificationTypeEnum",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -40,9 +39,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           if (!e.prototype.shouldPlaySound.call(this)) return !1;
           var t = o("WAWebFrontendMsgGetters").getChat(
             this.$PollVoteNotification$p_1.unsafe(),
@@ -52,7 +51,7 @@ __d(
             !o("WAWebNotificationHelpers").shouldSquelch(t, !1)
           );
         }),
-        (a.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           if (!e.prototype.shouldShowBanner.call(this)) return !1;
           var t = o("WAWebFrontendMsgGetters").getChat(
             this.$PollVoteNotification$p_1.unsafe(),
@@ -61,7 +60,7 @@ __d(
             t,
           );
         }),
-        (a.shouldMute = function (t) {
+        (n.shouldMute = function (t) {
           return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
             ? r("WAWebNotificationMuteReason").AppState
             : o("WAWebNotificationHelpers").isMutedAndNotMentioned(
@@ -81,7 +80,7 @@ __d(
                     ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                     : null;
         }),
-        (a.shouldSquelch = function () {
+        (n.shouldSquelch = function () {
           if (
             o(
               "WAWebNotificationController",
@@ -95,7 +94,7 @@ __d(
             ? r("WAWebNotificationMuteReason").GroupFlood
             : null;
         }),
-        (a.afterBannerShown = function (t) {
+        (n.afterBannerShown = function (t) {
           var e = this;
           (this.$PollVoteNotification$p_2.on(
             "change add remove reset",
@@ -108,37 +107,31 @@ __d(
               );
             }));
         }),
-        (a.buildKey = function () {
+        (n.buildKey = function () {
           return "vote:" + this.$PollVoteNotification$p_1.id.toString();
         }),
-        (a.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return o("WAWebFrontendMsgGetters")
             .getChat(this.$PollVoteNotification$p_1.unsafe())
             .equals(t);
         }),
-        (a.getChatKind = function () {
+        (n.getChatKind = function () {
           return o("WAWebFrontendChatGetters").getKind(
             o("WAWebFrontendMsgGetters").getChat(
               this.$PollVoteNotification$p_1.unsafe(),
             ),
           );
         }),
-        (a.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = o("WAWebFrontendMsgGetters").getChat(
-              this.$PollVoteNotification$p_1.unsafe(),
-            );
-            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-              e,
-              this.abortController.signal,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getBannerOptions = function () {
+        (n.getIcon = async function () {
+          var e = o("WAWebFrontendMsgGetters").getChat(
+            this.$PollVoteNotification$p_1.unsafe(),
+          );
+          return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+            e,
+            this.abortController.signal,
+          );
+        }),
+        (n.getBannerOptions = function () {
           var e = this.$PollVoteNotification$p_1,
             t = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
           return {
@@ -153,21 +146,15 @@ __d(
             ),
           };
         }),
-        (a.$PollVoteNotification$p_4 = function () {
+        (n.$PollVoteNotification$p_4 = function () {
           return { body: this.bodyText };
         }),
-        (a.getNotificationDeliveryWamEventData = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return {
-              uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
-                .NOTIFICATION_TYPE_ENUM.POLL_MESSAGE,
-            };
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (n.getNotificationDeliveryWamEventData = async function () {
+          return {
+            uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
+              .NOTIFICATION_TYPE_ENUM.POLL_MESSAGE,
+          };
+        }),
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);

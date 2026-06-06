@@ -1,27 +1,18 @@
 __d(
   "WAWebSWBus",
-  [
-    "Promise",
-    "WALogger",
-    "WAWebBuildConstants",
-    "WAWebNoop",
-    "WAWebSWBusActions",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WALogger", "WAWebBuildConstants", "WAWebNoop", "WAWebSWBusActions", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = [r("WAWebSWBusActions").HEARTBEAT],
-      d = (function () {
+      u = [r("WAWebSWBusActions").HEARTBEAT],
+      c = (function () {
         function e(t) {
-          var o = this;
+          var n = this;
           ((this.$1 = function (t) {
             if (!(t.data == null || t.data.action == null)) {
-              var a = t.data;
+              var o = t.data;
               if (!(t.ports == null || t.ports.length === 0)) {
-                var i = t.ports;
+                var a = t.ports;
                 if (
                   !(
                     !e.isSW() &&
@@ -29,20 +20,19 @@ __d(
                     t.source !== window.navigator.serviceWorker.controller
                   )
                 ) {
-                  var l;
+                  var i;
                   (typeof t.waitUntil == "function"
-                    ? (l = function (n) {
+                    ? (i = function (n) {
                         return t.waitUntil(n);
                       })
-                    : (l = r("WAWebNoop")),
-                    l(
-                      (u || (u = n("Promise")))
-                        .resolve(o.requestHandler(a))
+                    : (i = r("WAWebNoop")),
+                    i(
+                      Promise.resolve(n.requestHandler(o))
                         .then(function (e) {
-                          i[0].postMessage(e);
+                          a[0].postMessage(e);
                         })
                         .catch(function (e) {
-                          i[0].postMessage({ error: String(e) });
+                          a[0].postMessage({ error: String(e) });
                         }),
                     ));
                 }
@@ -63,9 +53,9 @@ __d(
           (e.isSW = function () {
             return typeof window == "undefined";
           }),
-          (e.getRequestor = function (r) {
+          (e.getRequestor = function (n) {
             if (e.isSW()) {
-              if (typeof r == "string") return self.clients.get(r);
+              if (typeof n == "string") return self.clients.get(n);
             } else
               return window.navigator.serviceWorker
                 ? window.navigator.serviceWorker.ready.then(function () {
@@ -73,60 +63,50 @@ __d(
                       ? window.navigator.serviceWorker.controller
                       : null;
                   })
-                : (u || (u = n("Promise"))).resolve(null);
-            return (u || (u = n("Promise"))).resolve(r);
+                : Promise.resolve(null);
+            return Promise.resolve(n);
           }),
-          (e.broadcast = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, o) {
-                if (!e.isSW())
-                  throw r("err")("Broadcast called from non-serviceworker.");
-                var a = yield self.clients.matchAll();
-                return a.length === 0
-                  ? (u || (u = n("Promise"))).reject(
-                      r("err")("No clients available."),
-                    )
-                  : (u || (u = n("Promise"))).all(
-                      a.map(function (n) {
-                        return e.request(n, t, o);
-                      }),
-                    );
-              },
-            );
-            function o(e, n) {
-              return t.apply(this, arguments);
-            }
-            return o;
-          })()),
-          (e.request = function (a, i, l) {
+          (e.broadcast = async function (n, o) {
+            if (!e.isSW())
+              throw r("err")("Broadcast called from non-serviceworker.");
+            var t = await self.clients.matchAll();
+            return t.length === 0
+              ? Promise.reject(r("err")("No clients available."))
+              : Promise.all(
+                  t.map(function (t) {
+                    return e.request(t, n, o);
+                  }),
+                );
+          }),
+          (e.request = function (n, a, i) {
             var t,
-              s = o("WAWebBuildConstants").VERSION_STR,
-              c = new MessageChannel(),
-              d = new (u || (u = n("Promise")))(function (t, n) {
+              l = o("WAWebBuildConstants").VERSION_STR,
+              s = new MessageChannel(),
+              u = new Promise(function (t, o) {
                 return (
-                  (c.port1.onmessage = function (e) {
-                    var r;
-                    (r = e.data) != null && r.error
-                      ? n(e.data.error)
+                  (s.port1.onmessage = function (e) {
+                    var n;
+                    (n = e.data) != null && n.error
+                      ? o(e.data.error)
                       : t(e.data);
                   }),
-                  e.getRequestor(a).then(function (e) {
+                  e.getRequestor(n).then(function (e) {
                     if (!e)
-                      return n(
+                      return o(
                         r("err")("No ServiceWorker controlling this client."),
                       );
-                    e.postMessage({ action: i, message: l, version: s }, [
-                      c.port2,
+                    e.postMessage({ action: a, message: i, version: l }, [
+                      s.port2,
                     ]);
                   })
                 );
               });
-            return d;
+            return u;
           }),
           e
         );
       })();
-    l.default = d;
+    l.default = c;
   },
   98,
 );

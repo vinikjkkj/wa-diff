@@ -1,7 +1,6 @@
 __d(
   "WAWebGetNewsletterEnforcementAlertsJob",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WAWebCommonNewsletterEnums",
     "WAWebMexFetchNewsletterEnforcementsJob",
@@ -9,66 +8,64 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaNewsletterMetadata",
     "WAWebSuspendInformDataModelUtils",
-    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = r("requireDeferred")("WAWebEnforcementStatusMsgModelUtils").__setRef(
-        "WAWebGetNewsletterEnforcementAlertsJob",
-      );
-    function u(t, r, a) {
+    var e = r("requireDeferred")(
+      "WAWebEnforcementStatusMsgModelUtils",
+    ).__setRef("WAWebGetNewsletterEnforcementAlertsJob");
+    function s(t, n, r) {
       return (
-        a === void 0 &&
-          (a = o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION),
+        r === void 0 &&
+          (r = o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION),
         o("WAWebOrchestratorNonPersistedJob")
           .createNonPersistedJob(
             "getNewsletterEnforcementAlerts",
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var a = yield o("WAWebSchemaNewsletterMetadata")
+            async function () {
+              var r = await o("WAWebSchemaNewsletterMetadata")
                 .getNewsletterMetadataTable()
                 .get(t);
-              if (a != null) {
-                var i = yield o(
+              if (r != null) {
+                var a = await o(
                     "WAWebMexFetchNewsletterEnforcementsJob",
-                  ).mexFetchNewsletterEnforcements(t, r),
-                  l = m(i),
-                  u = l.msgIds,
-                  c = l.statusIds,
-                  d = yield (e || (e = n("Promise"))).all([
+                  ).mexFetchNewsletterEnforcements(t, n),
+                  i = d(a),
+                  l = i.msgIds,
+                  s = i.statusIds,
+                  u = await Promise.all([
                     o("WAWebSuspendInformDataModelUtils").populateMsgModels(
-                      Array.from(u),
+                      Array.from(l),
                       t,
                     ),
-                    s.load().then(function (e) {
+                    e.load().then(function (e) {
                       var n = e.populateStatusMsgModelsForEnforcement;
-                      return n(c, t);
+                      return n(s, t);
                     }),
                   ]),
-                  p = d[0],
-                  _ = d[1];
+                  c = u[0],
+                  m = u[1];
                 return {
                   enforcementData:
-                    i != null
+                    a != null
                       ? o(
                           "WAWebNewsletterEnforcementAlertModelUtils",
                         ).convertNewsletterBaseEnforcementTypeToNewsletterAlert(
-                          i,
-                          p,
-                          _,
+                          a,
+                          c,
+                          m,
                           t,
                         )
                       : [],
-                  msgModelMap: p,
+                  msgModelMap: c,
                 };
               }
-            }),
-            { priority: a },
+            },
+            { priority: r },
           )
           .waitUntilCompleted()
       );
     }
-    function c(e) {
+    function u(e) {
       var t = [],
         n = [];
       return (
@@ -88,7 +85,7 @@ __d(
         { msgIds: t, statusIds: n }
       );
     }
-    function d(e) {
+    function c(e) {
       var t = [],
         n = [];
       return (
@@ -103,20 +100,20 @@ __d(
         { msgIds: t, statusIds: n }
       );
     }
-    function m(e) {
+    function d(e) {
       if (e == null) return { msgIds: new Set(), statusIds: new Set() };
       var t = e.geoSuspensions,
         n = e.suspensions,
         r = e.violatingMessages,
-        o = c(n),
-        a = d(r),
-        i = c(t);
+        o = u(n),
+        a = c(r),
+        i = u(t);
       return {
         msgIds: new Set([].concat(o.msgIds, a.msgIds, i.msgIds)),
         statusIds: new Set([].concat(a.statusIds, o.statusIds, i.statusIds)),
       };
     }
-    l.getNewsletterEnforcementAlerts = u;
+    l.getNewsletterEnforcementAlerts = s;
   },
   98,
 );

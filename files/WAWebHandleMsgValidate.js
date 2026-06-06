@@ -30,7 +30,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,99 +47,88 @@ __d(
       y,
       C,
       b = "message_edit";
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
+    async function v(t, n) {
+      var r,
+        a,
+        i = (r = n.preMatChat) != null ? r : n.chat;
+      if (!S({ encDestination: t, envelopeDestination: i }))
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "encDestination: ",
+                  ", destination: ",
+                  ", type: ",
+                  "",
+                ])),
+              t.toString(),
+              i.toString(),
+              n.type,
+            )
+            .sendLogs(
+              "validateMsgDestination: drop due to the deviceSentMessage meta mismatch.",
+            ),
+          !1
+        );
+      var l = n.author;
+      if (!o("WAWebUserPrefsMeUser").isMeAccount(l))
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose(["sender: ", ""])),
+              l.toString(),
+            )
+            .sendLogs(
+              "validateMsgDestination: drop due to msg is not sent from your own device.",
+            ),
+          !1
+        );
+      var c = await o("WAWebApiDeviceList").hasDevice(
+        l,
+        (a = l.device) != null ? a : 0,
+      );
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = (n = t.preMatChat) != null ? n : t.chat;
-          if (!R({ encDestination: e, envelopeDestination: a }))
-            return (
-              o("WALogger")
-                .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "encDestination: ",
-                      ", destination: ",
-                      ", type: ",
-                      "",
-                    ])),
-                  e.toString(),
-                  a.toString(),
-                  t.type,
-                )
-                .sendLogs(
-                  "validateMsgDestination: drop due to the deviceSentMessage meta mismatch.",
-                ),
-              !1
-            );
-          var i = t.author;
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(i))
-            return (
-              o("WALogger")
-                .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "sender: ",
-                      "",
-                    ])),
-                  i.toString(),
-                )
-                .sendLogs(
-                  "validateMsgDestination: drop due to msg is not sent from your own device.",
-                ),
-              !1
-            );
-          var l = yield o("WAWebApiDeviceList").hasDevice(
-            i,
-            (r = i.device) != null ? r : 0,
-          );
-          return (
-            l ||
-              o("WALogger")
-                .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "no record found for sender: ",
-                      "",
-                    ])),
-                  i.toString(),
-                )
-                .sendLogs("validateMsgDestination:drop due to invalid device"),
-            l
-          );
-        })),
-        S.apply(this, arguments)
+        c ||
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "no record found for sender: ",
+                  "",
+                ])),
+              l.toString(),
+            )
+            .sendLogs("validateMsgDestination:drop due to invalid device"),
+        c
       );
     }
-    function R(t) {
-      var n = t.encDestination,
-        a = t.envelopeDestination;
-      if (n.equals(a)) return !0;
-      var i = o(
+    function S(e) {
+      var t = e.encDestination,
+        n = e.envelopeDestination;
+      if (t.equals(n)) return !0;
+      var a = o(
         "WAWebSimpleSignalPNToFBIDMigration",
-      ).getDeprecatedPnChatForFbidThread(n);
-      if (r("WAWebWid").equals(i, a)) return !0;
+      ).getDeprecatedPnChatForFbidThread(t);
+      if (r("WAWebWid").equals(a, n)) return !0;
       if (
-        n.isUser() &&
-        r("WAWebWid").equals(o("WAWebApiContact").getAlternateUserWid(n), a)
+        t.isUser() &&
+        r("WAWebWid").equals(o("WAWebApiContact").getAlternateUserWid(t), n)
       ) {
-        var l = a.toLogString(),
-          s = n.toLogString();
+        var i = n.toLogString(),
+          l = t.toLogString();
         return (
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "validateMsgDestination: match but addressing mode mismatch: envelope: ",
                   ", enc: ",
                   "",
                 ])),
+              i,
               l,
-              s,
             )
             .sendLogs("validateMsgDestination-addressing-mode-mismatch"),
           !0
@@ -148,64 +136,47 @@ __d(
       }
       return !1;
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    async function R(e, t) {
+      var n,
+        r =
+          t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
+            ? t.bclParticipants.map(function (e) {
+                var t;
+                return (t = e.preMatWid) != null ? t : e.wid;
+              })
+            : (n = t.directPeerStatusBclParticipants) != null
+              ? n
+              : [],
+        a = await o("WAWebPhashUtils").phashV2(r);
+      return a !== e
+        ? (o("WALogger")
+            .ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "received: ",
+                  " from peer, computed: ",
+                  "",
+                ])),
+              e,
+              a,
+            )
+            .sendLogs("validateBclHash: drop due to invalid hash."),
+          !1)
+        : ((t.bclHashValidated = !0), !0);
     }
-    function E() {
+    async function L(e) {
+      var t = e.device == null ? o("WAJids").DEFAULT_DEVICE_ID : e.device;
+      if (t === o("WAJids").DEFAULT_DEVICE_ID) return !0;
+      var n = await o("WAWebApiDeviceList").getDeviceIds([e]),
+        r = n[0];
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r =
-              t.type ===
-              o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
-                ? t.bclParticipants.map(function (e) {
-                    var t;
-                    return (t = e.preMatWid) != null ? t : e.wid;
-                  })
-                : (n = t.directPeerStatusBclParticipants) != null
-                  ? n
-                  : [],
-            a = yield o("WAWebPhashUtils").phashV2(r);
-          return a !== e
-            ? (o("WALogger")
-                .ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "received: ",
-                      " from peer, computed: ",
-                      "",
-                    ])),
-                  e,
-                  a,
-                )
-                .sendLogs("validateBclHash: drop due to invalid hash."),
-              !1)
-            : ((t.bclHashValidated = !0), !0);
-        })),
-        E.apply(this, arguments)
+        r != null &&
+        r.devices.some(function (e) {
+          return e.id === t;
+        })
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.device == null ? o("WAJids").DEFAULT_DEVICE_ID : e.device;
-          if (t === o("WAJids").DEFAULT_DEVICE_ID) return !0;
-          var n = yield o("WAWebApiDeviceList").getDeviceIds([e]),
-            r = n[0];
-          return (
-            r != null &&
-            r.devices.some(function (e) {
-              return e.id === t;
-            })
-          );
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t) {
+    function E(e, t) {
       var n = e.buttonsMessage,
         r = e.highlyStructuredMessage,
         a = e.listMessage,
@@ -214,8 +185,8 @@ __d(
         return (
           o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "no biz node found in list message",
                 ])),
             )
@@ -227,32 +198,32 @@ __d(
         );
       if (n) {
         var l,
-          d,
-          m =
+          s,
+          u =
             (t == null ? void 0 : t.verifiedButtonsEnvelope) === !0 ||
             (t == null ? void 0 : t.nativeFlowName) != null ||
             (((l = n.contextInfo) == null ? void 0 : l.isForwarded) === !0 &&
-              (n == null || (d = n.buttons) == null ? void 0 : d.length) === 0);
+              (n == null || (s = n.buttons) == null ? void 0 : s.length) === 0);
         return (
-          m ||
+          u ||
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "button message is invalid",
                   ])),
               )
               .sendLogs(
                 "validateBizNode:drop due to invalid SMAX for buttons message",
               ),
-          m
+          u
         );
       }
       return (r || i) && (t == null ? void 0 : t.verifiedHsmEnvelope) !== !0
         ? (o("WALogger")
             .ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "no biz node found in HSM",
                 ])),
             )
@@ -262,7 +233,7 @@ __d(
           !1)
         : !0;
     }
-    function D(e) {
+    function k(e) {
       var t,
         n = (t = e.ctwaContext) == null ? void 0 : t.alwaysShowAdAttribution;
       if (
@@ -280,7 +251,7 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
     }
-    function x(e) {
+    function I(e) {
       for (var t of Object.keys(e)) {
         var n = e[t];
         if (n != null && typeof n == "object" && "contextInfo" in n) {
@@ -290,8 +261,8 @@ __d(
       }
       return null;
     }
-    function $(e, t) {
-      var n = x(e),
+    function T(e, t) {
+      var n = I(e),
         r = n == null ? void 0 : n.externalAdReply;
       if (
         !o("WAWebMobilePlatforms").isSMB() &&
@@ -307,7 +278,7 @@ __d(
           { sendLogs: 0 },
         );
     }
-    function P(e, t) {
+    function D(e, t) {
       var n =
         (e == null ? void 0 : e.context_source) ===
         o("WAWebHandleMsgCommon").CONTEXT_SOURCE;
@@ -322,8 +293,8 @@ __d(
         throw (
           o("WALogger")
             .ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "Dropping NEWSLETTER_FOLLOWER_INVITE message without valid context_source. Message type: ",
                   ", Context source: ",
                   "",
@@ -345,13 +316,13 @@ __d(
         );
       }
     }
-    function N(e) {
+    function x(e) {
       var t = e.bizInfo,
         n = e.info,
         a = e.msgMeta,
         i = e.proto,
         l = e.renderableMsgs;
-      if (l.length > 0 && !T(i, t))
+      if (l.length > 0 && !E(i, t))
         throw new (o("WAWebHandleMsgError").BizNodeValidationError)(
           "[messaging] Biz node validation failed due to absence of biz node in SMAX",
         );
@@ -383,14 +354,14 @@ __d(
           var d =
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofType === o("WAWebMsgType").MSG_TYPE.COMMENT,
-            g = new Set([
+            m = new Set([
               o("WAWebMsgType").MsgKind.CommentEncrypted,
               o("WAWebMsgType").MsgKind.CommentDecrypted,
               o("WAWebMsgType").MsgKind.RevokedAddon,
               o("WAWebMsgType").MsgKind.ProtocolRevoke,
               o("WAWebMsgType").MsgKind.NewsletterQuestionResponse,
             ]);
-          if (!d && !g.has(s.kind))
+          if (!d && !m.has(s.kind))
             throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
               o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                 .INVALID_COMMENT_STANZA,
@@ -398,10 +369,10 @@ __d(
         }
         if (n.edit !== o("WAWebAck").EDIT_ATTR.NONE)
           if (n.edit === o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT) {
-            var h =
+            var p =
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofType === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE;
-            if (s.type !== o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE && !h)
+            if (s.type !== o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE && !p)
               throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
                 o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                   .INVALID_PIN_IN_CHAT_STANZA,
@@ -415,10 +386,10 @@ __d(
                 o("WAWebBotUtils").isMetaAiBot(n.author))
             )
           ) {
-            var y =
+            var _ =
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofSubtype === b;
-            if (s.subtype !== b && !y)
+            if (s.subtype !== b && !_)
               throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
                 o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                   .INVALID_EDIT_STANZA,
@@ -435,8 +406,8 @@ __d(
                   r("gkx")("26259") &&
                     o("WALogger")
                       .ERROR(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
                             "RenderableMessagesValidation: msg.type: ",
                             "",
                           ])),
@@ -449,20 +420,20 @@ __d(
                   )
                 );
             } else if (n.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE) {
-              var C,
+              var f,
                 v = [
-                  (C = o("WAWebMsgType")).MSG_TYPE.REACTION,
-                  C.MSG_TYPE.REACTION_ENC,
-                  C.MSG_TYPE.PROTOCOL,
-                  C.MSG_TYPE.KEEP_IN_CHAT,
+                  (f = o("WAWebMsgType")).MSG_TYPE.REACTION,
+                  f.MSG_TYPE.REACTION_ENC,
+                  f.MSG_TYPE.PROTOCOL,
+                  f.MSG_TYPE.KEEP_IN_CHAT,
                 ];
               if (!v.includes(s.type))
                 throw (
                   r("gkx")("26259") &&
                     o("WALogger")
                       .ERROR(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
                             "RenderableMessagesValidation: msg.type: ",
                             "",
                           ])),
@@ -477,8 +448,8 @@ __d(
             } else
               o("WALogger")
                 .WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "RenderableMessagesValidation: Unvalidated edit attribute ",
                       "",
                     ])),
@@ -502,34 +473,34 @@ __d(
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofType ===
                 o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED,
-            E = s.type === o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED;
-          if (!L && !E)
+            I = s.type === o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED;
+          if (!L && !I)
             throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
               o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                 .INVALID_EVENT_EDIT_STANZA,
             );
         }
         if (o("WAWebHandleMsgMetaUtils").isPollEditMsgMeta(a)) {
-          var k =
+          var x =
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofType ===
                 o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED,
-            I = s.type === o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED;
-          if (!k && !I)
+            $ = s.type === o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED;
+          if (!x && !$)
             throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
               o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                 .INVALID_POLL_EDIT_STANZA,
             );
         }
         if (o("WAWebHandleMsgMetaUtils").isMemberTagMsgMeta(a)) {
-          var x =
+          var P =
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofType === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               s.futureproofSubtype === "member_label",
             N =
               s.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               s.subtype === "member_label";
-          if (!x && !N)
+          if (!P && !N)
             throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
               o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                 .INVALID_MEMBER_TAG_STANZA,
@@ -540,8 +511,8 @@ __d(
           M !== (a == null ? void 0 : a.type) &&
             o("WALogger")
               .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "Type in stanza [",
                     "] is different from the one derived from protobuf [",
                     "]. Message type: ",
@@ -556,131 +527,118 @@ __d(
                 sampling: 0.01,
               });
         }
-        (P(a, s), $(i, s), D(s));
+        (D(a, s), T(i, s), k(s));
       }
     }
-    function M(e) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r,
-            a = e.forceDualEncryptedValidation,
-            i = a === void 0 ? !1 : a,
-            l = e.renderableMsgs;
-          if (
-            o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled()
-          ) {
-            var s = l[0];
+    async function $(e) {
+      var t,
+        n,
+        r,
+        a = e.forceDualEncryptedValidation,
+        i = a === void 0 ? !1 : a,
+        l = e.renderableMsgs;
+      if (o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled()) {
+        var s = l[0];
+        if (
+          !(
+            s == null ||
+            s.plainProtobufBytes == null ||
+            s.reportingTokenInfo == null
+          )
+        ) {
+          var u = s.plainProtobufBytes,
+            c = s.reportingTokenInfo,
+            d = c.reportingTag,
+            m = c.reportingToken,
+            p = c.version,
+            _ =
+              p === void 0
+                ? o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
+                    .DEFAULT
+                : p;
+          if (d != null) {
+            var f = (t = s.protocolMessageKey) == null ? void 0 : t.toString(),
+              g = {
+                msgKey: f != null ? f : s.id.toString(),
+                stanzaId: s.id.id,
+                reportingTag: d,
+                receivedTs: o("WATimeUtils").unixTimeMs(),
+                msgTs: (n = (r = c.stanzaTs) != null ? r : s.t) != null ? n : 0,
+              };
+            if (s.kind === o("WAWebMsgType").MsgKind.Unknown) {
+              o("WAWebGetMessageCache")
+                .getMessageCache()
+                .addAdditionalInfo(
+                  {
+                    type: o("WAWebHandleMessageTypes.flow")
+                      .MsgAdditionalInfoType.ReportingInfo,
+                    data: babelHelpers.extends({}, g),
+                  },
+                  f != null,
+                );
+              return;
+            }
             if (
               !(
-                s == null ||
-                s.plainProtobufBytes == null ||
-                s.reportingTokenInfo == null
+                (s.kind === o("WAWebMsgType").MsgKind.CommentEncrypted ||
+                  s.kind === o("WAWebMsgType").MsgKind.EventEditEncrypted ||
+                  s.kind === o("WAWebMsgType").MsgKind.MessageEditEncrypted) &&
+                i === !1
               )
             ) {
-              var u = s.plainProtobufBytes,
-                c = s.reportingTokenInfo,
-                d = c.reportingTag,
-                m = c.reportingToken,
-                p = c.version,
-                _ =
-                  p === void 0
-                    ? o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION
-                        .DEFAULT
-                    : p;
-              if (d != null) {
-                var f =
-                    (t = s.protocolMessageKey) == null ? void 0 : t.toString(),
-                  g = {
-                    msgKey: f != null ? f : s.id.toString(),
-                    stanzaId: s.id.id,
-                    reportingTag: d,
-                    receivedTs: o("WATimeUtils").unixTimeMs(),
-                    msgTs:
-                      (n = (r = c.stanzaTs) != null ? r : s.t) != null ? n : 0,
-                  };
-                if (s.kind === o("WAWebMsgType").MsgKind.Unknown) {
-                  o("WAWebGetMessageCache")
-                    .getMessageCache()
-                    .addAdditionalInfo(
+              var h = await o(
+                  "WAWebReportingTokenUtils",
+                ).validateReportingTokenInfo(s, u),
+                y = h.reportingTokenContent,
+                C = h.reportingTokenKey,
+                b = h.res,
+                v = P(s, m)
+                  ? babelHelpers.extends(
                       {
-                        type: o("WAWebHandleMessageTypes.flow")
-                          .MsgAdditionalInfoType.ReportingInfo,
-                        data: babelHelpers.extends({}, g),
+                        reportingToken:
+                          m == null
+                            ? void 0
+                            : m.slice(
+                                0,
+                                b
+                                  ? o("WAWebReportingTokenUtils")
+                                      .REPORTING_TOKEN_STORAGE_SIZE
+                                  : o("WAWebReportingTokenUtils")
+                                      .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
+                              ),
+                        reportingTokenContentOpaqueData: y,
+                        version: _,
                       },
-                      f != null,
-                    );
-                  return;
-                }
-                if (
-                  !(
-                    (s.kind === o("WAWebMsgType").MsgKind.CommentEncrypted ||
-                      s.kind === o("WAWebMsgType").MsgKind.EventEditEncrypted ||
-                      s.kind ===
-                        o("WAWebMsgType").MsgKind.MessageEditEncrypted) &&
-                    i === !1
-                  )
-                ) {
-                  var h = yield o(
-                      "WAWebReportingTokenUtils",
-                    ).validateReportingTokenInfo(s, u),
-                    y = h.reportingTokenContent,
-                    C = h.reportingTokenKey,
-                    b = h.res,
-                    v = A(s, m)
-                      ? babelHelpers.extends(
-                          {
-                            reportingToken:
-                              m == null
-                                ? void 0
-                                : m.slice(
-                                    0,
-                                    b
-                                      ? o("WAWebReportingTokenUtils")
-                                          .REPORTING_TOKEN_STORAGE_SIZE
-                                      : o("WAWebReportingTokenUtils")
-                                          .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
-                                  ),
-                            reportingTokenContentOpaqueData: y,
-                            version: _,
-                          },
-                          C != null && { reportingTokenKey: C },
-                        )
-                      : null;
-                  o("WAWebGetMessageCache")
-                    .getMessageCache()
-                    .addAdditionalInfo(
-                      {
-                        type: o("WAWebHandleMessageTypes.flow")
-                          .MsgAdditionalInfoType.ReportingInfo,
-                        data: babelHelpers.extends({}, g, v),
-                      },
-                      f != null || i === !0,
-                    );
-                }
-              }
+                      C != null && { reportingTokenKey: C },
+                    )
+                  : null;
+              o("WAWebGetMessageCache")
+                .getMessageCache()
+                .addAdditionalInfo(
+                  {
+                    type: o("WAWebHandleMessageTypes.flow")
+                      .MsgAdditionalInfoType.ReportingInfo,
+                    data: babelHelpers.extends({}, g, v),
+                  },
+                  f != null || i === !0,
+                );
             }
           }
-        })),
-        w.apply(this, arguments)
-      );
+        }
+      }
     }
-    function A(e, t) {
+    function P(e, t) {
       return !(
         t == null ||
         o("WAWebReportingTokenUtils").shouldSkipProcessingEditedMsg(e)
       );
     }
     ((l.validateMsgDestination = v),
-      (l.validateBclHash = L),
-      (l.isFromKnownDevice = k),
-      (l.validateBizNode = T),
-      (l.renderableMessagesValidation = N),
-      (l.validateAndProcessReportingTokenInfo = M));
+      (l.validateBclHash = R),
+      (l.isFromKnownDevice = L),
+      (l.validateBizNode = E),
+      (l.renderableMessagesValidation = x),
+      (l.validateAndProcessReportingTokenInfo = $));
   },
   98,
 );

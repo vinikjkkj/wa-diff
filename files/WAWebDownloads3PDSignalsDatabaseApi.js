@@ -1,80 +1,46 @@
 __d(
   "WAWebDownloads3PDSignalsDatabaseApi",
-  ["WATimeUtils", "WAWebSchemaDownload3PDSignals", "asyncToGeneratorRuntime"],
+  ["WATimeUtils", "WAWebSchemaDownload3PDSignals"],
   function (t, n, r, o, a, i, l) {
     var e = 30,
       s = 30;
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      return o("WAWebSchemaDownload3PDSignals")
+        .getDownload3PDSignalsTable()
+        .createOrReplace(e);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaDownload3PDSignals")
-            .getDownload3PDSignalsTable()
-            .createOrReplace(e);
-        })),
-        c.apply(this, arguments)
-      );
+    async function c() {
+      return o("WAWebSchemaDownload3PDSignals")
+        .getDownload3PDSignalsTable()
+        .all();
     }
-    function d() {
-      return m.apply(this, arguments);
+    async function d() {
+      var t = e,
+        n =
+          o("WATimeUtils").unixTimeMs() - t * o("WATimeUtils").DAY_MILLISECONDS;
+      return o("WAWebSchemaDownload3PDSignals")
+        .getDownload3PDSignalsTable()
+        .greaterThan(["timestamp"], n);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebSchemaDownload3PDSignals")
-            .getDownload3PDSignalsTable()
-            .all();
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = e,
-            n =
-              o("WATimeUtils").unixTimeMs() -
-              t * o("WATimeUtils").DAY_MILLISECONDS;
-          return o("WAWebSchemaDownload3PDSignals")
-            .getDownload3PDSignalsTable()
-            .greaterThan(["timestamp"], n);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e =
-              o("WATimeUtils").unixTimeMs() -
-              s * o("WATimeUtils").DAY_MILLISECONDS,
-            t = yield o("WAWebSchemaDownload3PDSignals")
-              .getDownload3PDSignalsTable()
-              .lessThan(["timestamp"], e);
-          t.length !== 0 &&
-            (yield o("WAWebSchemaDownload3PDSignals")
-              .getDownload3PDSignalsTable()
-              .bulkRemove(
-                t.map(function (e) {
-                  return e.id;
-                }),
-              ));
-        })),
-        g.apply(this, arguments)
-      );
+    async function m() {
+      var e =
+          o("WATimeUtils").unixTimeMs() - s * o("WATimeUtils").DAY_MILLISECONDS,
+        t = await o("WAWebSchemaDownload3PDSignals")
+          .getDownload3PDSignalsTable()
+          .lessThan(["timestamp"], e);
+      t.length !== 0 &&
+        (await o("WAWebSchemaDownload3PDSignals")
+          .getDownload3PDSignalsTable()
+          .bulkRemove(
+            t.map(function (e) {
+              return e.id;
+            }),
+          ));
     }
     ((l.addOrEdit3PDSignal = u),
-      (l.getAll3PDSignals = d),
-      (l.getRecent3PDSignals = p),
-      (l.cleanup3PDSignalsTable = f));
+      (l.getAll3PDSignals = c),
+      (l.getRecent3PDSignals = d),
+      (l.cleanup3PDSignalsTable = m));
   },
   98,
 );

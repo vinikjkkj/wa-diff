@@ -2,7 +2,6 @@ __d(
   "WAWebAttachMediaCollection",
   [
     "fbt",
-    "Promise",
     "WAWebAttachMediaModel",
     "WAWebBaseCollection",
     "WAWebBotGating",
@@ -23,13 +22,11 @@ __d(
     "WAWebWamEnumImagineMediaType",
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWamMediaPickerStatsLogger",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = 1,
-      c = (function (t) {
-        function a(e) {
+    var e = 1,
+      u = (function (t) {
+        function n(e) {
           var n,
             a = e.chatParticipantCount;
           return (
@@ -55,10 +52,10 @@ __d(
             n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.removeSingleton = function (t, n) {
+          (a.removeSingleton = function (t, n) {
             var e;
             t &&
               (n || this.mediaPickerStatsLogger.logDelete(t.id),
@@ -67,7 +64,7 @@ __d(
                 e.url &&
                 window.URL.revokeObjectURL(t.original.url));
           }),
-          (i.remove = function (n, r) {
+          (a.remove = function (n, r) {
             var e = this,
               o = t.prototype.remove.call(this, n, r);
             return (
@@ -78,7 +75,7 @@ __d(
               o
             );
           }),
-          (i.delete = function () {
+          (a.delete = function () {
             var e = this;
             (t.prototype.delete.call(this),
               this.forEach(function (t) {
@@ -86,14 +83,14 @@ __d(
               }),
               this.selection.init(this.getPreviewableMedias(), !0));
           }),
-          (i.reorder = function (t, n) {
+          (a.reorder = function (t, n) {
             return (
               this.reorderMutate(t, n),
               this.selection.init(this.getPreviewableMedias(), !0),
               this.getPreviewableMedias()
             );
           }),
-          (i.replace = function (t, n) {
+          (a.replace = function (t, n) {
             var e = this.get(t);
             if (e) {
               var r = e.quality,
@@ -111,7 +108,7 @@ __d(
               return (this.add(s, i ? { at: i } : {}), s.processPromise);
             }
           }),
-          (i.getValidMedias = function () {
+          (a.getValidMedias = function () {
             return this.filter(function (e) {
               return (
                 e.state ===
@@ -121,165 +118,139 @@ __d(
               );
             });
           }),
-          (i.getPreviewableMedias = function () {
+          (a.getPreviewableMedias = function () {
             return this.filter(function (e) {
               return e.previewable;
             });
           }),
-          (i.getActive = function () {
+          (a.getActive = function () {
             return this.selection.getVal();
           }),
-          (i.setActive = function (t) {
+          (a.setActive = function (t) {
             this.selection.setVal(t);
           }),
-          (i.unsetActive = function () {
+          (a.unsetActive = function () {
             this.selection.unset();
           }),
-          (i.setNextAsActive = function () {
+          (a.setNextAsActive = function () {
             var e = this.selection.list.length - 1;
             return this.selection.index === -1 || this.selection.index === e
               ? this.selection.getVal()
               : (this.selection.setNext(), this.selection.getVal());
           }),
-          (i.setPrevAsActive = function () {
+          (a.setPrevAsActive = function () {
             return this.selection.index === -1 || this.selection.index === 0
               ? this.selection.getVal()
               : (this.selection.setPrev(), this.selection.getVal());
           }),
-          (i.processAttachmentsForChat = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r, a) {
-                var i = o(
-                    "WAWebMediaGatingUtils",
-                  ).getSupportedMediaTypesForChat(n),
-                  l = this.getPreviewableMedias().length,
-                  s =
-                    r != null
-                      ? r
-                      : o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
-                          e.length + l,
-                          n.id,
-                        ),
-                  u = null;
-                o("WAWebBotUtils").isHatchBot(n.id)
-                  ? (u =
-                      o(
-                        "WAWebBotGating",
-                      ).getHatchDocumentUploadSizeLimitBytes())
-                  : o("WAWebBotUtils").isMetaAiBot(n.id) &&
-                    (u =
-                      o(
-                        "WAWebBotGating",
-                      ).getMetaAiDocumentUploadSizeLimitBytes());
-                var c = o("WAWebBotUtils").isMetaAiBot(n.id)
-                  ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
-                  : null;
-                (yield this.processAttachments(e, t, i, s, a, u, c),
-                  o("WAWebBotUtils").isMetaAiBot(n.id) && m(this, n));
-              },
-            );
-            function t(t, n, r, o, a) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.processAttachments = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a, i, l, s, c, d) {
-                var m = this,
-                  p = this.getPreviewableMedias().length,
-                  _ = t.length + p > l ? Math.max(l - p, 0) : t.length,
-                  f = t.length - _;
-                _ === 0
-                  ? f && this.trigger("max_upload_limit", f)
-                  : this.ignore(f);
-                var g = t.slice(0, _).map(function (t) {
-                  var l = m.$AttachMediaCollection$p_2(t);
-                  (c != null &&
-                    (l = l.then(function (e) {
-                      if (
-                        e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
-                        e.file.size > c
-                      )
-                        throw new (r("WAWebMediaFileTooLargeError"))(
-                          "document",
-                          c,
-                          e.file.size,
-                        );
-                      return e;
-                    })),
-                    d != null &&
-                      (l = l.then(function (e) {
-                        if (
-                          e.type === o("WAWebFileUtils").FILETYPE.VIDEO &&
-                          e.file.size > d
-                        )
-                          throw new (r("WAWebMediaFileTooLargeError"))(
-                            "video",
-                            d,
-                            e.file.size,
-                          );
-                        return e;
-                      })));
-                  var s = new (o("WAWebAttachMediaModel").AttachMedia)({
-                    id: u++,
-                    file: l,
-                    fileOrigin: a,
-                    supportedTypes: i,
-                  });
-                  if (!(t instanceof (e || (e = n("Promise"))))) {
-                    var p,
-                      _,
-                      f,
-                      g,
-                      h =
-                        (p = t.filename) != null
-                          ? p
-                          : (_ = t.file) == null
-                            ? void 0
-                            : _.name,
-                      y =
-                        (f = t.mimetype) != null
-                          ? f
-                          : (g = t.file) == null
-                            ? void 0
-                            : g.type;
-                    (h != null || y != null) &&
-                      s.set({ filename: h, mimetype: y });
-                  }
-                  return s;
+          (a.processAttachmentsForChat = async function (t, n, r, a, i) {
+            var e = o("WAWebMediaGatingUtils").getSupportedMediaTypesForChat(r),
+              l = this.getPreviewableMedias().length,
+              s =
+                a != null
+                  ? a
+                  : o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
+                      t.length + l,
+                      r.id,
+                    ),
+              u = null;
+            o("WAWebBotUtils").isHatchBot(r.id)
+              ? (u = o("WAWebBotGating").getHatchDocumentUploadSizeLimitBytes())
+              : o("WAWebBotUtils").isMetaAiBot(r.id) &&
+                (u =
+                  o("WAWebBotGating").getMetaAiDocumentUploadSizeLimitBytes());
+            var c = o("WAWebBotUtils").isMetaAiBot(r.id)
+              ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
+              : null;
+            (await this.processAttachments(t, n, e, s, i, u, c),
+              o("WAWebBotUtils").isMetaAiBot(r.id) && d(this, r));
+          }),
+          (a.processAttachments = async function (n, a, i, l, s, u, c) {
+            var t = this,
+              d = this.getPreviewableMedias().length,
+              m = n.length + d > l ? Math.max(l - d, 0) : n.length,
+              p = n.length - m;
+            m === 0 ? p && this.trigger("max_upload_limit", p) : this.ignore(p);
+            var _ = n.slice(0, m).map(function (n) {
+              var l = t.$AttachMediaCollection$p_2(n);
+              (u != null &&
+                (l = l.then(function (e) {
+                  if (
+                    e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
+                    e.file.size > u
+                  )
+                    throw new (r("WAWebMediaFileTooLargeError"))(
+                      "document",
+                      u,
+                      e.file.size,
+                    );
+                  return e;
+                })),
+                c != null &&
+                  (l = l.then(function (e) {
+                    if (
+                      e.type === o("WAWebFileUtils").FILETYPE.VIDEO &&
+                      e.file.size > c
+                    )
+                      throw new (r("WAWebMediaFileTooLargeError"))(
+                        "video",
+                        c,
+                        e.file.size,
+                      );
+                    return e;
+                  })));
+              var s = new (o("WAWebAttachMediaModel").AttachMedia)({
+                id: e++,
+                file: l,
+                fileOrigin: a,
+                supportedTypes: i,
+              });
+              if (!(n instanceof Promise)) {
+                var d,
+                  m,
+                  p,
+                  _,
+                  f =
+                    (d = n.filename) != null
+                      ? d
+                      : (m = n.file) == null
+                        ? void 0
+                        : m.name,
+                  g =
+                    (p = n.mimetype) != null
+                      ? p
+                      : (_ = n.file) == null
+                        ? void 0
+                        : _.type;
+                (f != null || g != null) && s.set({ filename: f, mimetype: g });
+              }
+              return s;
+            });
+            this.add(_);
+            var f = this.getActive();
+            return (
+              this.unsetActive(),
+              _.forEach(function (e) {
+                t.listenTo(e, "change:previewable", function () {
+                  t.$AttachMediaCollection$p_3(_, f);
                 });
-                this.add(g);
-                var h = this.getActive();
-                return (
-                  this.unsetActive(),
-                  g.forEach(function (e) {
-                    m.listenTo(e, "change:previewable", function () {
-                      m.$AttachMediaCollection$p_3(g, h);
-                    });
-                  }),
-                  (e || (e = n("Promise"))).all(t).then(function () {
-                    m.$AttachMediaCollection$p_3(g, h);
-                  }),
-                  yield e.all(
-                    g.map(function (e) {
-                      return e.processPromise;
-                    }),
-                  ),
-                  s && s(),
-                  g.forEach(function (e) {
-                    return m.$AttachMediaCollection$p_4(e, a);
-                  }),
-                  this.$AttachMediaCollection$p_3(g, h)
-                );
-              },
+              }),
+              Promise.all(n).then(function () {
+                t.$AttachMediaCollection$p_3(_, f);
+              }),
+              await Promise.all(
+                _.map(function (e) {
+                  return e.processPromise;
+                }),
+              ),
+              s && s(),
+              _.forEach(function (e) {
+                return t.$AttachMediaCollection$p_4(e, a);
+              }),
+              this.$AttachMediaCollection$p_3(_, f)
             );
-            function a(e, n, r, o, a, i, l) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (i.$AttachMediaCollection$p_3 = function (t, n) {
+          }),
+          (a.$AttachMediaCollection$p_3 = function (t, n) {
             if (
               !this.getActive() &&
               !this.getModelsArray().some(function (e) {
@@ -298,39 +269,29 @@ __d(
                 e && this.setActive(e));
             }
           }),
-          (i.$AttachMediaCollection$p_4 = function (t, n) {
+          (a.$AttachMediaCollection$p_4 = function (t, n) {
             if (n != null) {
               var e = t.isGif ? "gif" : t.type;
               this.mediaPickerStatsLogger.logAdd(t.id, e, n);
             }
           }),
-          (i.$AttachMediaCollection$p_2 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = yield (e || (e = n("Promise"))).resolve(t);
-                return (
-                  r.filename || (r.filename = r.file.name),
-                  r.mimetype || (r.mimetype = r.file.type),
-                  r.type ||
-                    (r.type = o("WAWebFileUtils").typeFromMimetype(
-                      r.file.type,
-                    )),
-                  !r.type &&
-                    r.mimetype &&
-                    (r.type = o("WAWebFileUtils").typeFromMimetype(r.mimetype)),
-                  r
-                );
-              },
+          (a.$AttachMediaCollection$p_2 = async function (t) {
+            var e = await Promise.resolve(t);
+            return (
+              e.filename || (e.filename = e.file.name),
+              e.mimetype || (e.mimetype = e.file.type),
+              e.type ||
+                (e.type = o("WAWebFileUtils").typeFromMimetype(e.file.type)),
+              !e.type &&
+                e.mimetype &&
+                (e.type = o("WAWebFileUtils").typeFromMimetype(e.mimetype)),
+              e
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.ignore = function (t) {
+          }),
+          (a.ignore = function (t) {
             t > 0 && (this.ignored += t);
           }),
-          (i.uiProcessMsgs = function (t, n) {
+          (a.uiProcessMsgs = function (t, n) {
             var e = [],
               a,
               i = 0,
@@ -565,8 +526,8 @@ __d(
               { errorMsgs: T }
             );
           }),
-          (i.canSendMedia = function (t) {
-            var e = d(t);
+          (a.canSendMedia = function (t) {
+            var e = c(t);
             return e != null &&
               o("WAWebMimeTypes").isPdfDocument(e) &&
               t.state !== o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.ERROR &&
@@ -576,49 +537,41 @@ __d(
                   o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING ||
                   t.previewable;
           }),
-          (i.canSend = function () {
+          (a.canSend = function () {
             var e = this;
             return this.getModelsArray().every(function (t) {
               return e.canSendMedia(t);
             });
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    c.model = o("WAWebAttachMediaModel").AttachMedia;
-    function d(e) {
+    u.model = o("WAWebAttachMediaModel").AttachMedia;
+    function c(e) {
       if (e.mimetype != null && e.mimetype !== "") return e.mimetype;
       var t = e.file;
       return t instanceof File ? t.type : null;
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function d(e, t) {
+      var n = e.countWhere(function (e) {
+        return (
+          e.exception instanceof r("WAWebMediaFileTooLargeError") &&
+          e.exception.mediaType === o("WAWebFileUtils").FILETYPE.DOCUMENT
+        );
+      });
+      n !== 0 &&
+        o("WAWebImagineActionLogger").logImagineAction({
+          action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+            .MEDIA_SIZE_EXCEED_LIMIT,
+          mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
+            .DOCUMENT,
+          maxIndex: n,
+          eventContext: await o(
+            "WAWebGetMetaAiImagineEventContext",
+          ).getMetaAiImagineEventContext(t),
+        });
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.countWhere(function (e) {
-            return (
-              e.exception instanceof r("WAWebMediaFileTooLargeError") &&
-              e.exception.mediaType === o("WAWebFileUtils").FILETYPE.DOCUMENT
-            );
-          });
-          n !== 0 &&
-            o("WAWebImagineActionLogger").logImagineAction({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_SIZE_EXCEED_LIMIT,
-              mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-                .DOCUMENT,
-              maxIndex: n,
-              eventContext: yield o(
-                "WAWebGetMetaAiImagineEventContext",
-              ).getMetaAiImagineEventContext(t),
-            });
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.default = c;
+    l.default = u;
   },
   226,
 );

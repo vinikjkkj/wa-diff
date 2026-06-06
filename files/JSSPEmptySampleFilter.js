@@ -1,6 +1,6 @@
 __d(
   "JSSPEmptySampleFilter",
-  ["JSSPTraceBaseTransformer", "asyncToGeneratorRuntime"],
+  ["JSSPTraceBaseTransformer"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -8,22 +8,16 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.transform = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            return (
-              (e.samples = e.samples.filter(function (e) {
-                return e.stackId != null;
-              })),
-              e
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (n.transform = async function (t) {
+          return (
+            (t.samples = t.samples.filter(function (e) {
+              return e.stackId != null;
+            })),
+            t
+          );
+        }),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

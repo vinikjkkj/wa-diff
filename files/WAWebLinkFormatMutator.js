@@ -40,7 +40,7 @@ __d(
                   children: n,
                 })
               : u.jsx(r("WAWebLinkMutatorComponent.react"), {
-                  className: (e || (e = r("stylex")))(i),
+                  xstyle: i,
                   onClick: l,
                   href: d,
                   selectable: c,

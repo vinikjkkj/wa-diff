@@ -1,68 +1,51 @@
 __d(
   "WAWebDbUsageApiUtils",
-  ["Promise", "asyncToGeneratorRuntime"],
+  [],
   function (t, n, r, o, a, i) {
-    var e;
-    function l(e) {
+    function e(e) {
       return e != null && e !== 0 ? Math.round(e / 1e6).toString() : "0";
     }
-    function s(t) {
-      return new (e || (e = n("Promise")))(function (e, n) {
-        ((t.onsuccess = function (t) {
-          e(t.target.result);
+    function l(e) {
+      return new Promise(function (t, n) {
+        ((e.onsuccess = function (e) {
+          t(e.target.result);
         }),
-          (t.onerror = function (e) {
+          (e.onerror = function (e) {
             n(e.target.result);
           }));
       });
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function s(e) {
+      var t,
+        n = await l(e.open("__dbnames"));
+      if ((t = n.objectStoreNames) != null && t.length) {
+        var r = n.transaction(n.objectStoreNames, "readonly"),
+          o = r.objectStore(r.objectStoreNames[0]),
+          a = await l(o.getAll());
+        return a;
+      } else if (e.databases) return e.databases();
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = yield s(e.open("__dbnames"));
-          if ((t = n.objectStoreNames) != null && t.length) {
-            var r = n.transaction(n.objectStoreNames, "readonly"),
-              o = r.objectStore(r.objectStoreNames[0]),
-              a = yield s(o.getAll());
-            return a;
-          } else if (e.databases) return e.databases();
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(e, t) {
+      var n = await l(e.open(t));
+      return n;
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield s(e.open(t));
-          return n;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(t, r) {
-      return new (e || (e = n("Promise")))(function (e, n) {
-        var o = t.openCursor(null, "prev");
-        ((o.onsuccess = function (t) {
-          var n = t.target.result;
-          n && r(n.value) ? n.continue() : e();
+    function c(e, t) {
+      return new Promise(function (n, r) {
+        var o = e.openCursor(null, "prev");
+        ((o.onsuccess = function (e) {
+          var r = e.target.result;
+          r && t(r.value) ? r.continue() : n();
         }),
           (o.onerror = function (e) {
-            n(e.target.result);
+            r(e.target.result);
           }));
       });
     }
-    ((i.convertToMBToString = l),
-      (i.promisifyRequest = s),
-      (i.getAllDatabases = u),
-      (i.getDatabase = d),
-      (i.objectStoreIterator = p));
+    ((i.convertToMBToString = e),
+      (i.promisifyRequest = l),
+      (i.getAllDatabases = s),
+      (i.getDatabase = u),
+      (i.objectStoreIterator = c));
   },
   66,
 );

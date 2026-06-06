@@ -17,7 +17,6 @@ __d(
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,12 +59,12 @@ __d(
       p = null,
       _ = null,
       f = new (r("WAPromiseCache"))(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        async function () {
           try {
             var t,
-              n = yield o("WAWebQueryPrivacySettingsJob").getPrivacy();
+              n = await o("WAWebQueryPrivacySettingsJob").getPrivacy();
             o("WAWebUserPrefsGeneral").setUserPrivacySettings(n);
-            var r = yield o(
+            var r = await o(
               "WAWebSyncPrivacyDisallowedLists",
             ).syncPrivacyDisallowedLists([
               (t = o("WAWebSchemaPrivacyDisallowedList"))
@@ -88,7 +87,7 @@ __d(
               t
             );
           }
-        }),
+        },
         {
           maxCached: 1,
           maxAge: d,
@@ -137,27 +136,15 @@ __d(
         );
       });
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-            "WAWebQueryDisappearingModeJob",
-          ).queryDisappearingMode();
-          yield o(
-            "WAWebUpdateDisappearingModeForContact",
-          ).updateDisappearingModeForContact({
-            contactId: o(
-              "WAWebUserPrefsMeUser",
-            ).getMePnUserOrThrow_DO_NOT_USE(),
-            newDuration: e.duration,
-            newSettingTimestamp: e.t,
-          });
-        })),
-        b.apply(this, arguments)
-      );
+    async function C() {
+      var e = await o("WAWebQueryDisappearingModeJob").queryDisappearingMode();
+      await o(
+        "WAWebUpdateDisappearingModeForContact",
+      ).updateDisappearingModeForContact({
+        contactId: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        newDuration: e.duration,
+        newSettingTimestamp: e.t,
+      });
     }
     ((l.AccountSyncType = s),
       (l.getDevices = u),

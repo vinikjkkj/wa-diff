@@ -1,6 +1,10 @@
 __d(
   "WAWebBizBroadcastCampaignInsightsModel",
-  ["WAWebBaseModel", "WAWebModelUtils"],
+  [
+    "WAWebBaseModel",
+    "WAWebBizBroadcastCampaignInsightsCollection",
+    "WAWebModelUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -19,7 +23,14 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.getCollection = function () {
+          return r("WAWebBizBroadcastCampaignInsightsCollection");
+        }),
+        t
+      );
     })(o("WAWebBaseModel").BaseModel);
     e.Proxy = "bizBroadcastCampaignInsights";
     var s = o("WAWebBaseModel").defineModel(e);

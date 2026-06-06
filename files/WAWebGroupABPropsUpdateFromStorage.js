@@ -6,7 +6,6 @@ __d(
     "WAWebApiGroupAbPropConfig",
     "WAWebGroupABPropsCache",
     "WAWebGroupABPropsConfigs",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -45,52 +44,42 @@ __d(
         overriddenConfigValue: d,
       };
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield o(
-                "WAWebApiGroupAbPropConfig",
-              ).getAllGroupABPropConfigs(),
-              n = new Map();
-            for (var r of t) {
-              var a = u(r);
-              if (a != null) {
-                var i = n.get(r.groupJid);
-                (i == null && ((i = []), n.set(r.groupJid, i)), i.push(a));
-              }
-            }
-            for (var l of n) {
-              var s = l[0],
-                c = l[1];
-              o("WAWebGroupABPropsCache").bulkCreateOrReplaceGroupABPropConfigs(
-                s,
-                c,
-              );
-            }
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-abprops] cache update from storage failed: ",
-                    "",
-                  ])),
-                t,
-              )
-              .verbose()
-              .sendLogs(
-                "[group-abprops] Failed to update group ABProps cache from storage",
-              );
+    async function c() {
+      try {
+        var t = await o("WAWebApiGroupAbPropConfig").getAllGroupABPropConfigs(),
+          n = new Map();
+        for (var r of t) {
+          var a = u(r);
+          if (a != null) {
+            var i = n.get(r.groupJid);
+            (i == null && ((i = []), n.set(r.groupJid, i)), i.push(a));
           }
-        })),
-        d.apply(this, arguments)
-      );
+        }
+        for (var l of n) {
+          var s = l[0],
+            c = l[1];
+          o("WAWebGroupABPropsCache").bulkCreateOrReplaceGroupABPropConfigs(
+            s,
+            c,
+          );
+        }
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[group-abprops] cache update from storage failed: ",
+                "",
+              ])),
+            t,
+          )
+          .verbose()
+          .sendLogs(
+            "[group-abprops] Failed to update group ABProps cache from storage",
+          );
+      }
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = [];
       for (var r of t) {
         var a = u(r);
@@ -99,7 +88,7 @@ __d(
       o("WAWebGroupABPropsCache").bulkCreateOrReplaceGroupABPropConfigs(e, n);
     }
     ((l.updateGroupABPropsFromStorage = c),
-      (l.updateSingleGroupABPropsCache = m));
+      (l.updateSingleGroupABPropsCache = d));
   },
   98,
 );

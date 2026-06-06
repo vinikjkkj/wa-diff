@@ -6,10 +6,8 @@ __d(
     "ClientConsistencyEventEmitter",
     "FBLogger",
     "ODS",
-    "Promise",
     "SiteData",
     "XHRRequest",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "promiseDone",
@@ -17,38 +15,27 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = new Set();
-    function c(e, t, n, r) {
-      return d.apply(this, arguments);
+      s = new Set();
+    async function u(e, t, n, o) {
+      var a = await new Promise(function (a, i) {
+        new (r("XHRRequest"))(e + "/btmanifest/" + n + "/" + t + "/" + o)
+          .setMethod("GET")
+          .setResponseHandler(function (e) {
+            return a(e.toString());
+          })
+          .setErrorHandler(function (e) {
+            return i(e);
+          })
+          .send();
+      });
+      if (typeof a != "string")
+        throw r("FBLogger")(
+          "binary_transparency",
+          "bt_invalid_manifest_response",
+        ).mustfixThrow("Invalid response from BT manifest endpoint");
+      return a;
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, o, a) {
-            var i = yield new (s || (s = n("Promise")))(function (n, i) {
-              new (r("XHRRequest"))(e + "/btmanifest/" + o + "/" + t + "/" + a)
-                .setMethod("GET")
-                .setResponseHandler(function (e) {
-                  return n(e.toString());
-                })
-                .setErrorHandler(function (e) {
-                  return i(e);
-                })
-                .send();
-            });
-            if (typeof i != "string")
-              throw r("FBLogger")(
-                "binary_transparency",
-                "bt_invalid_manifest_response",
-              ).mustfixThrow("Invalid response from BT manifest endpoint");
-            return i;
-          },
-        )),
-        d.apply(this, arguments)
-      );
-    }
-    function m(t, n) {
+    function c(t, n) {
       (e || (e = o("ODS"))).bumpEntityKey(
         454,
         "obc.www.all",
@@ -60,7 +47,7 @@ __d(
           n,
       );
     }
-    function p(e, t, n) {
+    function d(e, t, n) {
       var o;
       if (n instanceof Error) o = n;
       else if (typeof n == "object") {
@@ -78,53 +65,45 @@ __d(
           e,
         );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !(
-              !o("SiteData").manifest_origin ||
-              o("SiteData").manifest_version_prefix == null ||
-              o("SiteData").manifest_base_uri == null
-            )
-          ) {
-            var n = e + "_" + t,
-              a = "" + o("SiteData").manifest_version_prefix + e;
-            if (!u.has(n)) {
-              (m(t, "start"), u.add(n));
-              try {
-                var i,
-                  l = document.createElement("script"),
-                  s = yield c(
-                    o("SiteData").manifest_base_uri,
-                    o("SiteData").manifest_origin,
-                    a,
-                    t,
-                  );
-                ((l.innerText = s),
-                  (l.type = "application/json"),
-                  l.setAttribute("name", "binary-transparency-manifest"),
-                  (l.dataset.manifestRev = a),
-                  (l.dataset.manifestType = t),
-                  (i = document.head) == null || i.appendChild(l),
-                  m(t, "complete"));
-              } catch (e) {
-                var d = r("getErrorSafe")(e);
-                (m(t, "failed"), p(a, t, d), u.delete(n));
-              }
-            }
+    async function m(e, t) {
+      if (
+        !(
+          !o("SiteData").manifest_origin ||
+          o("SiteData").manifest_version_prefix == null ||
+          o("SiteData").manifest_base_uri == null
+        )
+      ) {
+        var n = e + "_" + t,
+          a = "" + o("SiteData").manifest_version_prefix + e;
+        if (!s.has(n)) {
+          (c(t, "start"), s.add(n));
+          try {
+            var i,
+              l = document.createElement("script"),
+              m = await u(
+                o("SiteData").manifest_base_uri,
+                o("SiteData").manifest_origin,
+                a,
+                t,
+              );
+            ((l.innerText = m),
+              (l.type = "application/json"),
+              l.setAttribute("name", "binary-transparency-manifest"),
+              (l.dataset.manifestRev = a),
+              (l.dataset.manifestType = t),
+              (i = document.head) == null || i.appendChild(l),
+              c(t, "complete"));
+          } catch (e) {
+            var p = r("getErrorSafe")(e);
+            (c(t, "failed"), d(a, t, p), s.delete(n));
           }
-        })),
-        f.apply(this, arguments)
-      );
+        }
+      }
     }
-    function g() {
-      (r("promiseDone")(_(o("SiteData").client_revision, "main")),
+    function p() {
+      (r("promiseDone")(m(o("SiteData").client_revision, "main")),
         o("BootloaderEvents").onResourceInLongTailBTManifest(function (e) {
-          (r("promiseDone")(_(o("SiteData").client_revision, "longtail")),
+          (r("promiseDone")(m(o("SiteData").client_revision, "longtail")),
             e.hashes.forEach(function (t) {
               r("BtLongtailHashFalcoEvent").log(function () {
                 return {
@@ -141,12 +120,12 @@ __d(
         r("ClientConsistencyEventEmitter").addListener(
           "newRevision",
           function (e) {
-            (r("promiseDone")(_(e, "main")),
-              r("promiseDone")(_(e, "longtail")));
+            (r("promiseDone")(m(e, "main")),
+              r("promiseDone")(m(e, "longtail")));
           },
         ));
     }
-    l.init = g;
+    l.init = p;
   },
   98,
 );

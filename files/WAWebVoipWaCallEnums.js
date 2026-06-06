@@ -395,6 +395,7 @@ __d(
     function N(e) {
       return e === P ? $.Guest : $.Unknown;
     }
+    var M = e({ Gallery: 0, Speaker: 1, Pinning: 2 });
     ((l.CallState = s),
       (l.CallResult = u),
       (l.CallLogResult = c),
@@ -419,7 +420,8 @@ __d(
       (l.CallFailedReason = D),
       (l.ServerReminderType = x),
       (l.AccountKind = $),
-      (l.wireStringToAccountKind = N));
+      (l.wireStringToAccountKind = N),
+      (l.UiViewMode = M));
   },
   98,
 );

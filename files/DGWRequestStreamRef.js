@@ -6,7 +6,6 @@ __d(
     "DGWStream",
     "DGWStreamHandler",
     "InflightRequests",
-    "Promise",
     "RequestStreamCloseReason",
     "RequestStreamCommonRequestStreamCommonTypes",
     "RequestStreamE2EClientLoggerEvent",
@@ -18,32 +17,30 @@ __d(
     "RequestStreamState",
     "RequestStreamTransport",
     "StreamRetryState",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 4,
-      u = 0,
-      c = 1e3,
-      d = 2,
+    var e = 4,
+      s = 0,
+      u = 1e3,
+      c = 2,
+      d = 5e3,
       m = 5e3,
-      p = 5e3,
-      _ = "dgw_stream_send_ack_failure";
-    function f(e) {
+      p = "dgw_stream_send_ack_failure";
+    function _(e) {
       if (!e) {
-        var t = r("err")(_);
+        var t = r("err")(p);
         throw (t.stack, t);
       }
     }
-    function g(e, t) {
+    function f(e, t) {
       if (e == null || e.length === 0) return null;
       var n = JSON.parse(e);
       return ((n.auxId = t), new TextEncoder().encode(JSON.stringify(n)));
     }
-    function h(e) {
+    function g(e) {
       var t = {},
         n = e.delta;
       return (
@@ -93,10 +90,10 @@ __d(
         t
       );
     }
-    var y = (function () {
-      function t(e, t, n, a, i, l, u) {
+    var h = (function () {
+      function t(t, n, a, i, l, s, u) {
         var c = this,
-          d,
+          _,
           f,
           g;
         ((this.$5 = null),
@@ -110,55 +107,55 @@ __d(
           (this.$22 = null),
           (this.$23 = 0));
         var h = null;
-        (typeof t == "string"
-          ? (h = new TextEncoder().encode(t))
-          : typeof t == "object" && (h = t),
-          (this.$1 = { headers: e, body: h }),
-          (this.$2 = n),
+        (typeof n == "string"
+          ? (h = new TextEncoder().encode(n))
+          : typeof n == "object" && (h = n),
+          (this.$1 = { headers: t, body: h }),
+          (this.$2 = a),
           (this.$3 = u),
-          (this.$11 = s),
+          (this.$11 = e),
           (this.$8 = !1),
           (this.$13 = !1),
-          (this.$21 = l));
-        var y = a == null ? void 0 : a.serviceId;
-        (i != null &&
+          (this.$21 = s));
+        var y = i == null ? void 0 : i.serviceId;
+        (l != null &&
           (this.$24() ||
-            (i.dgwStreamGroupLoggingId = this.$21.getStreamGroupLoggingId(y)),
-          (i.dgwCountPriorStreamsInGroup =
+            (l.dgwStreamGroupLoggingId = this.$21.getStreamGroupLoggingId(y)),
+          (l.dgwCountPriorStreamsInGroup =
             this.$21.guessStreamGroupPriorStreamCount(y)),
-          (i.transport = "WEB_RS_STARGATE")),
+          (l.transport = "WEB_RS_STARGATE")),
           (this.$4 = o("RequestStreamE2ESampling").validateInstrumentationData(
             this.$3.e2e_logger_sampling_config,
-            e,
-            i,
-            a == null ? void 0 : a.requestLogContext,
-            a == null ? void 0 : a.upsampleMultiplier,
+            t,
+            l,
+            i == null ? void 0 : i.requestLogContext,
+            i == null ? void 0 : i.upsampleMultiplier,
           )),
           this.$24()
             ? (this.$6.disableFalcoLogging = !0)
             : (this.$5 = o("RequestStreamE2ELogger").createStreamLogger(
-                e,
+                t,
                 this.$4,
                 o("RequestStreamTransport").RequestStreamTransport
                   .WEB_RS_STARGATE,
                 this.$3.e2e_logger_config,
               )),
-          (a == null ? void 0 : a.deviceId) != null &&
-            (this.$6.deviceId = a.deviceId),
+          (i == null ? void 0 : i.deviceId) != null &&
+            (this.$6.deviceId = i.deviceId),
           this.$5 && (this.$6.loggingId = this.$5.getRequestId()),
-          a && a.overrideUrl != null && (this.$6.overrideUrl = a.overrideUrl),
+          i && i.overrideUrl != null && (this.$6.overrideUrl = i.overrideUrl),
           y != null && (this.$6.serviceId = y),
-          (a == null ? void 0 : a.authType) != null &&
-            (this.$6.authType = a.authType),
-          (a == null ? void 0 : a.authToken) != null &&
-            (this.$6.authToken = a.authToken),
+          (i == null ? void 0 : i.authType) != null &&
+            (this.$6.authType = i.authType),
+          (i == null ? void 0 : i.authToken) != null &&
+            (this.$6.authToken = i.authToken),
           (this.$7 = {
             flowStatus: o("RequestStreamCommonRequestStreamCommonTypes")
               .FlowStatus.Stopped,
             seenAccepted: !1,
           }),
           (this.$19 = new (o("InflightRequests").InflightAmends)(
-            m,
+            d,
             function (e, t) {
               var n;
               (n = c.$5) == null ||
@@ -170,7 +167,7 @@ __d(
                 );
             },
             function (e, t) {
-              if (t.message !== _) {
+              if (t.message !== p) {
                 var n;
                 (n = c.$5) == null ||
                   n.logE2EEvent(
@@ -183,18 +180,18 @@ __d(
             },
           )),
           (this.$20 = new (o("InflightRequests").InflightPings)(
-            p,
+            m,
             function (e, t) {},
             function (e, t) {},
           )),
-          (d = this.$5) == null ||
-            d.logE2EEvent(
+          (_ = this.$5) == null ||
+            _.logE2EEvent(
               r("RequestStreamE2EClientLoggerMessageType").REQUEST_STREAM,
               r("RequestStreamE2EClientLoggerEvent").RECEIVED,
               {
                 data_size:
                   (f =
-                    t == null || (g = t.length) == null
+                    n == null || (g = n.length) == null
                       ? void 0
                       : g.toString()) != null
                     ? f
@@ -204,59 +201,57 @@ __d(
               "0",
             ));
       }
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.setQoSMonitor = function (t) {
+        (n.setQoSMonitor = function (t) {
           this.$22 = t;
         }),
-        (a.getInstrumentationData = function () {
+        (n.getInstrumentationData = function () {
           return this.$4;
         }),
-        (a.getE2EClientLogger = function () {
+        (n.getE2EClientLogger = function () {
           return this.$5;
         }),
-        (a.amendWithAck = function (r) {
-          var t = this.$26(r, !0);
-          return t == null
-            ? (e || (e = n("Promise"))).resolve(!1)
-            : this.$19.getPromise(t) || (e || (e = n("Promise"))).resolve(!1);
+        (n.amendWithAck = function (t) {
+          var e = this.$26(t, !0);
+          return e == null
+            ? Promise.resolve(!1)
+            : this.$19.getPromise(e) || Promise.resolve(!1);
         }),
-        (a.ping = function () {
-          var t = this,
-            a = this.$10;
-          if (!this.$27() || a == null)
-            return (e || (e = n("Promise"))).reject(
-              r("err")("stream_not_started"),
-            );
-          var i = String(this.$17++),
-            l = Date.now(),
-            s = { ping: { ping_id: i, caller_timestamp_ms: String(l) } },
-            u = o("CompactSerializerPolyfill").serialize(
-              s,
+        (n.ping = function () {
+          var e = this,
+            t = this.$10;
+          if (!this.$27() || t == null)
+            return Promise.reject(r("err")("stream_not_started"));
+          var n = String(this.$17++),
+            a = Date.now(),
+            i = { ping: { ping_id: n, caller_timestamp_ms: String(a) } },
+            l = o("CompactSerializerPolyfill").serialize(
+              i,
               o(
                 "RequestStreamSingleChannelSingleChannelRequestStreamSerializers",
               ).serializePayload,
             ),
-            c = this.$20.add(i);
+            s = this.$20.add(n);
           return (
-            a
-              .send(u)
-              .then(function (e) {
-                e || t.$20.reject(i, r("err")("ping_send_failure"));
+            t
+              .send(l)
+              .then(function (t) {
+                t || e.$20.reject(n, r("err")("ping_send_failure"));
               })
-              .catch(function (e) {
-                t.$20.reject(
-                  i,
-                  e instanceof Error ? e : r("err")("ping_send_failure"),
+              .catch(function (t) {
+                e.$20.reject(
+                  n,
+                  t instanceof Error ? t : r("err")("ping_send_failure"),
                 );
               }),
-            c
+            s
           );
         }),
-        (a.amendWithoutAck = function (t) {
+        (n.amendWithoutAck = function (t) {
           this.$26(t, !1);
         }),
-        (a.cancel = function () {
+        (n.cancel = function () {
           var e, t;
           ((e = this.$5) == null ||
             e.logE2EEvent(
@@ -272,139 +267,139 @@ __d(
               !0,
             ));
         }),
-        (a.start = function (a) {
-          var t,
-            i = this;
-          (a === void 0 && (a = !1),
-            (t = this.$22) == null ||
-              t.processEvent({ type: "create_stream" }));
-          var l = String(this.$15++),
-            s = Date.now();
-          return this.$29(l)
+        (n.start = function (t) {
+          var e,
+            n = this;
+          (t === void 0 && (t = !1),
+            (e = this.$22) == null ||
+              e.processEvent({ type: "create_stream" }));
+          var a = String(this.$15++),
+            i = Date.now();
+          return this.$29(a)
             .then(function () {
               var e;
-              ((i.$13 = !1), (i.$23 = 0));
-              var t = (Date.now() - s).toString();
-              (e = i.$5) == null ||
+              ((n.$13 = !1), (n.$23 = 0));
+              var t = (Date.now() - i).toString();
+              (e = n.$5) == null ||
                 e.logE2EEvent(
                   r("RequestStreamE2EClientLoggerMessageType").REQUEST_STREAM,
                   r("RequestStreamE2EClientLoggerEvent").PUBACK,
                   { latency: t },
-                  l,
-                  String(i.$18),
+                  a,
+                  String(n.$18),
                 );
             })
-            .catch(function (t) {
-              if ((t.stack, !(t.message === _ && i.$9))) {
-                i.$13 = !1;
-                var s = o("DGWStream").toStreamError(t);
-                if (s !== o("DGWStream").StreamError.ESTABLISHMENT_ERROR) {
-                  var u,
-                    m =
-                      s != null
-                        ? o("DGWStream").StreamError.getName(s)
-                        : r("getErrorSafe")(t).message;
+            .catch(function (e) {
+              if ((e.stack, !(e.message === p && n.$9))) {
+                n.$13 = !1;
+                var i = o("DGWStream").toStreamError(e);
+                if (i !== o("DGWStream").StreamError.ESTABLISHMENT_ERROR) {
+                  var l,
+                    s =
+                      i != null
+                        ? o("DGWStream").StreamError.getName(i)
+                        : r("getErrorSafe")(e).message;
                   if (
-                    ((u = i.$5) == null ||
-                      u.logE2EEvent(
+                    ((l = n.$5) == null ||
+                      l.logE2EEvent(
                         r("RequestStreamE2EClientLoggerMessageType")
                           .REQUEST_STREAM,
                         r("RequestStreamE2EClientLoggerEvent").FAILURE,
-                        { reason: m },
-                        l,
-                        String(i.$18),
+                        { reason: s },
+                        a,
+                        String(n.$18),
                       ),
-                    i.$28(
-                      a
+                    n.$28(
+                      t
                         ? o("RequestStreamCloseReason").RequestStreamCloseReason
                             .ReestablishError
                         : o("RequestStreamCloseReason").RequestStreamCloseReason
                             .StartStreamFailure,
-                      m,
+                      s,
                       !0,
                     ),
-                    s === o("DGWStream").StreamError.UNAUTHENTICATED ||
-                      s === o("DGWStream").StreamError.UNAUTHORIZED)
+                    i === o("DGWStream").StreamError.UNAUTHENTICATED ||
+                      i === o("DGWStream").StreamError.UNAUTHORIZED)
                   )
                     return;
-                  throw t;
+                  throw e;
                 } else {
-                  var p, f, g;
-                  ((p = i.$5) == null ||
-                    p.logE2EEvent(
+                  var d, m, _;
+                  ((d = n.$5) == null ||
+                    d.logE2EEvent(
                       r("RequestStreamE2EClientLoggerMessageType")
                         .REQUEST_STREAM,
                       r("RequestStreamE2EClientLoggerEvent").FAILURE,
-                      { reason: (f = t.message) != null ? f : t },
-                      l,
-                      String(i.$18),
+                      { reason: (m = e.message) != null ? m : e },
+                      a,
+                      String(n.$18),
                     ),
-                    (g = i.$22) == null ||
-                      g.processEvent({ type: "error_retryable" }),
-                    i.$14.onRetry());
-                  var h = i.$3.get_web_rs_unlimited_retries()
-                    ? i.$14.getBackoffDelayMs()
-                    : c * Math.pow(d, i.$23);
-                  return new (e || (e = n("Promise")))(function (e) {
-                    return window.setTimeout(e, h);
+                    (_ = n.$22) == null ||
+                      _.processEvent({ type: "error_retryable" }),
+                    n.$14.onRetry());
+                  var f = n.$3.get_web_rs_unlimited_retries()
+                    ? n.$14.getBackoffDelayMs()
+                    : u * Math.pow(c, n.$23);
+                  return new Promise(function (e) {
+                    return window.setTimeout(e, f);
                   }).then(function () {
-                    return (i.$23++, i.$18++, i.start());
+                    return (n.$23++, n.$18++, n.start());
                   });
                 }
               }
             });
         }),
-        (a.getFlowStatus = function () {
+        (n.getFlowStatus = function () {
           return this.$7.flowStatus;
         }),
-        (a.shouldTerminateOrRetry = function (a, i, l, s) {
-          var t = this;
+        (n.shouldTerminateOrRetry = function (t, n, a, i) {
+          var e = this;
           if (!this.$13) {
-            var c = i;
+            var l = n;
             if (
               (this.$11 ||
-                (c =
+                (l =
                   "cannot retry for error: " +
-                  i +
+                  n +
                   " because of hit max retry limitation"),
-              a !==
+              t !==
                 o("RequestStreamCloseReason").RequestStreamCloseReason
                   .ClientError)
             ) {
-              var d;
-              (d = this.$5) == null ||
-                d.logE2EEvent(
+              var u;
+              (u = this.$5) == null ||
+                u.logE2EEvent(
                   r("RequestStreamE2EClientLoggerMessageType").REQUEST_STREAM,
                   r("RequestStreamE2EClientLoggerEvent").FAILURE,
-                  { reason: c },
+                  { reason: l },
                   null,
                   String(this.$18),
                 );
             }
-            var m = l && (this.$3.get_web_rs_unlimited_retries() || this.$11);
-            if ((this.$28(a, c, !m), m)) {
-              var p = this.$3.get_web_rs_unlimited_retries()
-                ? Math.max(s != null ? s : 0, this.$14.getBackoffDelayMs())
-                : s != null
-                  ? s
-                  : u;
+            var c = a && (this.$3.get_web_rs_unlimited_retries() || this.$11);
+            if ((this.$28(t, l, !c), c)) {
+              var d = this.$3.get_web_rs_unlimited_retries()
+                ? Math.max(i != null ? i : 0, this.$14.getBackoffDelayMs())
+                : i != null
+                  ? i
+                  : s;
               return (
                 (this.$13 = !0),
-                new (e || (e = n("Promise")))(function (e) {
-                  return window.setTimeout(e, p);
+                new Promise(function (e) {
+                  return window.setTimeout(e, d);
                 })
                   .then(function () {
-                    return t.$30();
+                    return e.$30();
                   })
                   .catch(function (e) {})
               );
             }
           }
         }),
-        (a.$31 = function () {
+        (n.$31 = function () {
           return this.$10 != null;
         }),
-        (a.$26 = function (t, n) {
+        (n.$26 = function (t, n) {
           var e,
             a = this,
             i = typeof t == "string" ? new TextEncoder().encode(t) : t,
@@ -416,7 +411,7 @@ __d(
               {},
               l,
             );
-          var s = g(this.$4, l),
+          var s = f(this.$4, l),
             u = { amend: { amendment: i, instrumentation_data: s } };
           n && u.amend && (u.amend.amendment_id = l);
           var c = o("CompactSerializerPolyfill").serialize(
@@ -427,14 +422,14 @@ __d(
             ),
             d = Date.now();
           if (this.$27() && this.$10 != null) {
-            var m, p, _;
+            var m, p, g;
             return (
               n && this.$19.add(l),
               this.$10
                 .send(c)
                 .then(function (e) {
                   var t;
-                  f(e);
+                  _(e);
                   var n = (Date.now() - d).toString();
                   (t = a.$5) == null ||
                     t.logE2EEvent(
@@ -462,9 +457,9 @@ __d(
                   {
                     data_size:
                       (p =
-                        t == null || (_ = t.length) == null
+                        t == null || (g = t.length) == null
                           ? void 0
-                          : _.toString()) != null
+                          : g.toString()) != null
                         ? p
                         : "0",
                   },
@@ -483,99 +478,93 @@ __d(
               );
           }
         }),
-        (a.$29 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this;
-            if (this.$8) {
-              var h = new Error("stream_already_canceled");
-              throw (h.stack, h);
-            } else {
-              var n,
-                a = this.$1;
-              try {
-                var i = this.$32();
-                this.$12 = i;
-                var l = a.headers.graphiql_sandbox,
-                  u = babelHelpers.extends({}, a.headers, this.$33());
-                l != null &&
-                  (u = babelHelpers.extends({}, u, {
-                    www_sandbox: l,
-                    distillery_sandbox: l + ":8086",
-                  }));
-                var c = o("DGWRequestStreamUtils").convertHeaders(
-                  u,
-                  a.body != null,
-                  this.$4,
-                  void 0,
-                  this.$3.get_webdriver_test_request_id(),
-                );
-                this.$10 = yield this.$21.establishStream(c, i, this.$6);
-              } catch (e) {
-                var d = o("DGWStream").toStreamError(e);
-                if (
-                  d === o("DGWStream").StreamError.ESTABLISHMENT_ERROR ||
-                  (d != null && !o("DGWStream").isRetryableError(d))
-                )
-                  throw e;
-                if (d != null && o("DGWStream").isRetryableError(d)) {
-                  this.$34(d);
-                  return;
-                }
+        (n.$29 = async function (n) {
+          var t = this;
+          if (this.$8) {
+            var h = new Error("stream_already_canceled");
+            throw (h.stack, h);
+          } else {
+            var a,
+              i = this.$1;
+            try {
+              var l = this.$32();
+              this.$12 = l;
+              var s = i.headers.graphiql_sandbox,
+                u = babelHelpers.extends({}, i.headers, this.$33());
+              s != null &&
+                (u = babelHelpers.extends({}, u, {
+                  www_sandbox: s,
+                  distillery_sandbox: s + ":8086",
+                }));
+              var c = o("DGWRequestStreamUtils").convertHeaders(
+                u,
+                i.body != null,
+                this.$4,
+                void 0,
+                this.$3.get_webdriver_test_request_id(),
+              );
+              this.$10 = await this.$21.establishStream(c, l, this.$6);
+            } catch (e) {
+              var d = o("DGWStream").toStreamError(e);
+              if (
+                d === o("DGWStream").StreamError.ESTABLISHMENT_ERROR ||
+                (d != null && !o("DGWStream").isRetryableError(d))
+              )
                 throw e;
-              }
-              if (this.$8) {
-                this.$28(
-                  o("RequestStreamCloseReason").RequestStreamCloseReason
-                    .UserIntention,
-                  "user cancel the stream",
-                  !0,
-                );
+              if (d != null && o("DGWStream").isRetryableError(d)) {
+                this.$34(d);
                 return;
               }
-              var m = new Uint8Array([]);
-              if (a.body != null) {
-                var p = { request_body: { body: a.body } };
-                m = o("CompactSerializerPolyfill").serialize(
-                  p,
-                  o(
-                    "RequestStreamSingleChannelSingleChannelRequestStreamSerializers",
-                  ).serializePayload,
-                );
-              }
-              if (!this.$10) {
-                var _ = new Error("dgwstream_is_null");
-                throw (_.stack, _);
-              }
-              var g = this.$10.send(m).then(function (e) {
-                (f(e),
-                  t.$8 &&
-                    t.$28(
-                      o("RequestStreamCloseReason").RequestStreamCloseReason
-                        .UserIntention,
-                      "user cancel the stream",
-                      !0,
-                    ));
-              });
-              return (
-                (n = this.$5) == null ||
-                  n.logE2EEvent(
-                    r("RequestStreamE2EClientLoggerMessageType").REQUEST_STREAM,
-                    r("RequestStreamE2EClientLoggerEvent").SENT,
-                    {},
-                    e,
-                    String(this.$18),
-                  ),
-                (this.$11 = s),
-                g
+              throw e;
+            }
+            if (this.$8) {
+              this.$28(
+                o("RequestStreamCloseReason").RequestStreamCloseReason
+                  .UserIntention,
+                "user cancel the stream",
+                !0,
+              );
+              return;
+            }
+            var m = new Uint8Array([]);
+            if (i.body != null) {
+              var p = { request_body: { body: i.body } };
+              m = o("CompactSerializerPolyfill").serialize(
+                p,
+                o(
+                  "RequestStreamSingleChannelSingleChannelRequestStreamSerializers",
+                ).serializePayload,
               );
             }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+            if (!this.$10) {
+              var f = new Error("dgwstream_is_null");
+              throw (f.stack, f);
+            }
+            var g = this.$10.send(m).then(function (e) {
+              (_(e),
+                t.$8 &&
+                  t.$28(
+                    o("RequestStreamCloseReason").RequestStreamCloseReason
+                      .UserIntention,
+                    "user cancel the stream",
+                    !0,
+                  ));
+            });
+            return (
+              (a = this.$5) == null ||
+                a.logE2EEvent(
+                  r("RequestStreamE2EClientLoggerMessageType").REQUEST_STREAM,
+                  r("RequestStreamE2EClientLoggerEvent").SENT,
+                  {},
+                  n,
+                  String(this.$18),
+                ),
+              (this.$11 = e),
+              g
+            );
           }
-          return t;
-        })()),
-        (a.$27 = function () {
+        }),
+        (n.$27 = function () {
           return (
             this.$7.flowStatus ===
               o("RequestStreamCommonRequestStreamCommonTypes").FlowStatus
@@ -585,7 +574,7 @@ __d(
                 .Accepted
           );
         }),
-        (a.$28 = function (t, n, r) {
+        (n.$28 = function (t, n, r) {
           var e;
           if (
             (this.$10 &&
@@ -624,17 +613,17 @@ __d(
               "terminate stream because " + t + " with msg : " + n,
             );
         }),
-        (a.$35 = function (t) {
+        (n.$35 = function (t) {
           var e = this.$7;
           return (
             (this.$7 = o("RequestStreamState").getNextState(e, t)),
             e !== this.$7
           );
         }),
-        (a.$30 = function () {
+        (n.$30 = function () {
           return (this.$11--, this.$18++, this.$14.onRetry(), this.start(!0));
         }),
-        (a.$36 = function (t) {
+        (n.$36 = function (t) {
           var e = this,
             n = o("CompactSerializerPolyfill").deserialize(
               t,
@@ -668,7 +657,7 @@ __d(
               a.logE2EEvent(
                 r("RequestStreamE2EClientLoggerMessageType").RESPONSE,
                 r("RequestStreamE2EClientLoggerEvent").RECEIVED,
-                h(n.response),
+                g(n.response),
                 s,
                 String(this.$18),
                 u,
@@ -729,7 +718,7 @@ __d(
                 i.logE2EEvent(
                   r("RequestStreamE2EClientLoggerMessageType").RESPONSE,
                   r("RequestStreamE2EClientLoggerEvent").SENT,
-                  h(n.response),
+                  g(n.response),
                   s,
                   String(this.$18),
                   u,
@@ -754,7 +743,7 @@ __d(
               );
           }
         }),
-        (a.$37 = function (t, n) {
+        (n.$37 = function (t, n) {
           var e = {
               ack: {
                 response_id: t,
@@ -792,10 +781,10 @@ __d(
               );
           }
         }),
-        (a.$24 = function () {
+        (n.$24 = function () {
           return this.$1.headers.method === "Falco";
         }),
-        (a.$32 = function () {
+        (n.$32 = function () {
           var e = this;
           return new (r("DGWStreamHandler"))(
             function (t) {
@@ -815,7 +804,7 @@ __d(
             },
           );
         }),
-        (a.$41 = function (t) {
+        (n.$41 = function (t) {
           var e;
           ((e = this.$5) == null ||
             e.logE2EEvent(
@@ -832,7 +821,7 @@ __d(
               !0,
             ));
         }),
-        (a.$38 = function (t) {
+        (n.$38 = function (t) {
           var e;
           ((e = this.$5) == null ||
             e.logE2EEvent(
@@ -849,7 +838,7 @@ __d(
               !0,
             ));
         }),
-        (a.$39 = function (t) {
+        (n.$39 = function (t) {
           try {
             this.$36(t);
           } catch (t) {
@@ -871,7 +860,7 @@ __d(
               ));
           }
         }),
-        (a.$34 = function (t) {
+        (n.$34 = function (t) {
           var e = "",
             n = o("DGWStream").isRetryableError(t);
           ((e = "StreamError: Received " + t),
@@ -882,23 +871,23 @@ __d(
               n,
             ));
         }),
-        (a.$40 = function (t, n) {
+        (n.$40 = function (t, n) {
           this.shouldTerminateOrRetry(
             o("RequestStreamCloseReason").RequestStreamCloseReason.ServerDrain,
             n,
             !0,
           );
         }),
-        (a.$33 = function () {
+        (n.$33 = function () {
           return this.$3.get_overrideHeaders();
         }),
-        (a.$25 = function () {
+        (n.$25 = function () {
           return { pending_amendments_size: this.$19.getSize().toString() };
         }),
         t
       );
     })();
-    l.default = y;
+    l.default = h;
   },
   98,
 );

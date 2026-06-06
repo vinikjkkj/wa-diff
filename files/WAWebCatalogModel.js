@@ -10,7 +10,6 @@ __d(
     "WAWebProductCollection",
     "WAWebProductModel",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -35,9 +34,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.initialize = function () {
+        (n.initialize = function () {
           (e.prototype.initialize.call(this),
             (this.productCollection = new (o(
               "WAWebProductCollection",
@@ -53,122 +52,97 @@ __d(
             this.triggerProductUpdate(),
             this.triggerMsgUpdate());
         }),
-        (a.triggerProductUpdate = function () {
+        (n.triggerProductUpdate = function () {
           (this._products &&
             this.productCollection.add(this._products, { merge: !0 }),
             (this._products = void 0));
         }),
-        (a.triggerMsgUpdate = function () {
+        (n.triggerMsgUpdate = function () {
           (this._msgs &&
             this.msgProductCollection.add(this._msgs, { merge: !0 }),
             (this._msgs = void 0));
         }),
-        (a.markProductCollectionOld = function () {
+        (n.markProductCollectionOld = function () {
           this.productCollection.forEach(function (e) {
             return e.markOld();
           });
         }),
-        (a.addProduct = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t,
-              n = this.id;
-            this.maybeUpdateLastUsedCountryCode(
-              (t = e.complianceInfo) == null ? void 0 : t.countryCodeOrigin,
-            );
-            var a = yield o("WAWebBizProductCatalogAction").addProduct(e);
-            a.catalogWid = n;
-            var i = this.productCollection.add(a, { merge: !0, at: 0 })[0];
-            return r("WANullthrows")(i);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.editProduct = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t,
-              n = yield o("WAWebBizProductCatalogAction").editProduct(e);
-            this.maybeUpdateLastUsedCountryCode(
-              (t = e.complianceInfo) == null ? void 0 : t.countryCodeOrigin,
-            );
-            var a = this.productCollection.add(n, { merge: !0 })[0];
-            return (
-              this.collections &&
-                this.collections.forEach(function (t) {
-                  t.productCollection.get(e.id) &&
-                    t.productCollection.add(n, { merge: !0 });
-                }),
-              r("WANullthrows")(a)
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.refreshProduct = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this.productCollection.get(e);
-            t && (t.stale = !0);
-            var n = yield o("WAWebBizProductCatalogAction").queryProduct(
+        (n.addProduct = async function (t) {
+          var e,
+            n = this.id;
+          this.maybeUpdateLastUsedCountryCode(
+            (e = t.complianceInfo) == null ? void 0 : e.countryCodeOrigin,
+          );
+          var a = await o("WAWebBizProductCatalogAction").addProduct(t);
+          a.catalogWid = n;
+          var i = this.productCollection.add(a, { merge: !0, at: 0 })[0];
+          return r("WANullthrows")(i);
+        }),
+        (n.editProduct = async function (t) {
+          var e,
+            n = await o("WAWebBizProductCatalogAction").editProduct(t);
+          this.maybeUpdateLastUsedCountryCode(
+            (e = t.complianceInfo) == null ? void 0 : e.countryCodeOrigin,
+          );
+          var a = this.productCollection.add(n, { merge: !0 })[0];
+          return (
+            this.collections &&
+              this.collections.forEach(function (e) {
+                e.productCollection.get(t.id) &&
+                  e.productCollection.add(n, { merge: !0 });
+              }),
+            r("WANullthrows")(a)
+          );
+        }),
+        (n.refreshProduct = async function (t) {
+          var e = this.productCollection.get(t);
+          e && (e.stale = !0);
+          var n = await o("WAWebBizProductCatalogAction").queryProduct(
+            this.id,
+            t,
+          );
+          if (n.data != null) {
+            var r = o("WAWebBizProductCatalogBridge").mapProductResponseToModel(
+              n.data,
               this.id,
-              e,
             );
-            if (n.data != null) {
-              var r = o(
-                "WAWebBizProductCatalogBridge",
-              ).mapProductResponseToModel(n.data, this.id);
-              (t && this.productCollection.add(r, { merge: !0 }),
-                this.collections &&
-                  this.collections.forEach(function (t) {
-                    t.productCollection.get(e) &&
-                      t.productCollection.add(r, { merge: !0 });
-                  }));
-            }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+            (e && this.productCollection.add(r, { merge: !0 }),
+              this.collections &&
+                this.collections.forEach(function (e) {
+                  e.productCollection.get(t) &&
+                    e.productCollection.add(r, { merge: !0 });
+                }));
           }
-          return t;
-        })()),
-        (a.maybeUpdateLastUsedCountryCode = function (t) {
+        }),
+        (n.maybeUpdateLastUsedCountryCode = function (t) {
           t != null && (this.lastUsedCountryCode = t);
         }),
-        (a.pullProduct = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              var n = yield o("WAWebBizProductCatalogAction").queryProduct(
-                this.id,
-                e,
-                void 0,
-                void 0,
-                void 0,
-                t,
-              );
-              if (
-                (n.error === "NOT_FOUND" && this.productCollection.remove(e),
-                n.data != null)
-              ) {
-                var r = new (o("WAWebProductModel").Product)(
-                  o("WAWebBizProductCatalogBridge").mapProductResponseToModel(
-                    n.data,
-                    this.id,
-                  ),
-                );
-                (r.variantInfo != null &&
-                  this.productCollection.get(r.id) == null &&
-                  (r.displayPriority = 1),
-                  this.updateProduct(r));
-              }
-            },
+        (n.pullProduct = async function (t, n) {
+          var e = await o("WAWebBizProductCatalogAction").queryProduct(
+            this.id,
+            t,
+            void 0,
+            void 0,
+            void 0,
+            n,
           );
-          function t(t, n) {
-            return e.apply(this, arguments);
+          if (
+            (e.error === "NOT_FOUND" && this.productCollection.remove(t),
+            e.data != null)
+          ) {
+            var r = new (o("WAWebProductModel").Product)(
+              o("WAWebBizProductCatalogBridge").mapProductResponseToModel(
+                e.data,
+                this.id,
+              ),
+            );
+            (r.variantInfo != null &&
+              this.productCollection.get(r.id) == null &&
+              (r.displayPriority = 1),
+              this.updateProduct(r));
           }
-          return t;
-        })()),
-        (a.updateProduct = function (t) {
+        }),
+        (n.updateProduct = function (t) {
           if (
             (this.productCollection.add(t, { merge: !1 }),
             t.variantInfo != null)
@@ -177,10 +151,10 @@ __d(
             e && e.set("variantInfo", t.variantInfo);
           }
         }),
-        (a.getCollection = function () {
+        (n.getCollection = function () {
           return o("WAWebCatalogCollection").CatalogCollection;
         }),
-        (a.getMostRecentlyApprovedProduct = function () {
+        (n.getMostRecentlyApprovedProduct = function () {
           return this.productCollection.findFirst(function (e) {
             return (
               !e.isHidden &&

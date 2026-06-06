@@ -34,55 +34,63 @@ __d(
         n = e.currentListState,
         r = e.customListTitle,
         a = e.entryPointConversionSource,
-        i = e.labelOperation,
-        l = e.labelTarget,
-        s = e.lastMessageDirection,
-        c = e.listId,
-        d = e.listIndex,
-        m = e.listsApplied,
-        p = e.listsRemoved,
-        _ = e.messageDepth,
-        f = e.predefinedId,
-        g = e.threadIdHmac,
-        h = e.updateEntryPoint,
-        y = { labelOperation: i };
+        i = e.extraAttributes,
+        l = e.labelOperation,
+        s = e.labelTarget,
+        c = e.lastMessageDirection,
+        d = e.listId,
+        m = e.listIndex,
+        p = e.listsApplied,
+        _ = e.listsRemoved,
+        f = e.messageDepth,
+        g = e.predefinedId,
+        h = e.smbListFeatureName,
+        y = e.smbListSurface,
+        C = e.threadIdHmac,
+        b = e.updateEntryPoint,
+        v = e.userActionTarget,
+        S = { labelOperation: l };
       if (
-        (h != null && (y.updateEntryPoint = h),
-        l != null && (y.labelTarget = l),
-        g != null && (y.threadIdHmac = g),
-        d != null && (y.listIndex = d),
-        n != null && (y.currentListState = n),
-        t != null && (y.bulkLabeling = t),
-        r != null && (y.customListTitle = r),
-        m != null && (y.listsApplied = m),
-        p != null && (y.listsRemoved = p),
-        a != null && (y.entryPointConversionSource = a),
-        _ != null && (y.messageDepth = _),
-        s != null && (y.lastMessageDirection = s),
-        c != null)
+        (b != null && (S.updateEntryPoint = b),
+        s != null && (S.labelTarget = s),
+        C != null && (S.threadIdHmac = C),
+        m != null && (S.listIndex = m),
+        n != null && (S.currentListState = n),
+        i != null && (S.extraAttributes = i),
+        t != null && (S.bulkLabeling = t),
+        r != null && (S.customListTitle = r),
+        p != null && (S.listsApplied = p),
+        _ != null && (S.listsRemoved = _),
+        a != null && (S.entryPointConversionSource = a),
+        f != null && (S.messageDepth = f),
+        c != null && (S.lastMessageDirection = c),
+        h != null && (S.smbListFeatureName = h),
+        y != null && (S.smbListSurface = y),
+        v != null && (S.userActionTarget = v),
+        d != null)
       ) {
-        y.listId = c;
-        var C = o("WAWebLabelCollection").LabelCollection.get(String(c));
-        if (C != null) {
-          var b = o("WAWebListsLogging").getListType(C.type);
+        S.listId = d;
+        var R = o("WAWebLabelCollection").LabelCollection.get(String(d));
+        if (R != null) {
+          var L = o("WAWebListsLogging").getListType(R.type);
           if (
-            (b != null && (y.listType = b),
-            C.predefinedId != null && (y.predefinedId = C.predefinedId),
-            d == null)
+            (L != null && (S.listType = L),
+            R.predefinedId != null && (S.predefinedId = R.predefinedId),
+            m == null)
           ) {
-            var v = o("WAWebLabelCollection").LabelCollection.getActiveLists(),
-              S = v.findIndex(function (e) {
-                return e.id === String(c);
+            var E = o("WAWebLabelCollection").LabelCollection.getActiveLists(),
+              k = E.findIndex(function (e) {
+                return e.id === String(d);
               });
-            S >= 0 && (y.listIndex = S);
+            k >= 0 && (S.listIndex = k);
           }
         }
       }
-      (f != null && y.predefinedId == null && (y.predefinedId = f),
-        y.predefinedId != null &&
-          y.predefinedId > 0 &&
-          (y.listType = o("WAWebWamEnumListType").LIST_TYPE.PREDEFINED),
-        u(y));
+      (g != null && S.predefinedId == null && (S.predefinedId = g),
+        S.predefinedId != null &&
+          S.predefinedId > 0 &&
+          (S.listType = o("WAWebWamEnumListType").LIST_TYPE.PREDEFINED),
+        u(S));
     }
     l.logSmbListEvent = c;
   },

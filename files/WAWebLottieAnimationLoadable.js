@@ -5,7 +5,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WDSSpinner.react",
-    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
   ],
@@ -23,17 +22,14 @@ __d(
         t
       );
     }
-    var c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebLottieAnimation.react",
-          )
-            .__setRef("WAWebLottieAnimationLoadable")
-            .load();
-          return e;
-        }),
-        "LottieAnimation",
-      ),
+    var c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebLottieAnimation.react",
+        )
+          .__setRef("WAWebLottieAnimationLoadable")
+          .load();
+        return e;
+      }, "LottieAnimation"),
       d = r("WAWebLoadable")({
         loader: c,
         loading: function () {

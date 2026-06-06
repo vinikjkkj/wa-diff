@@ -11,6 +11,7 @@ __d(
       THREAD_META: "thread_metadata",
       CLIENT_EXPIRATION: "client_expiration",
       OFFLINE_PRIORITY_COMPLETE: "priority_offline_complete",
+      RECOVERY_NONCE: "recovery_nonce",
     });
     i.INFO_TYPE = e;
   },

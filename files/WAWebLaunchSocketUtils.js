@@ -1,44 +1,22 @@
 __d(
   "WAWebLaunchSocketUtils",
-  [
-    "Promise",
-    "WAComms",
-    "WAGzip",
-    "WAWebCommsConfig",
-    "WAWebCommsHandleStanza",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAComms", "WAGzip", "WAWebCommsConfig", "WAWebCommsHandleStanza"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s() {
-      (o("WAComms").stopComms(), u());
+    function e() {
+      (o("WAComms").stopComms(), s());
     }
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function s() {
+      var e = o("WAWebCommsConfig").getCommsConfig(void 0);
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebCommsConfig").getCommsConfig(void 0);
-          return (
-            o("WAComms").startComms(
-              r("WAWebCommsHandleStanza"),
-              t,
-              function (t) {
-                return (e || (e = n("Promise"))).resolve(
-                  o("WAGzip").inflate(t),
-                );
-              },
-            ),
-            yield o("WAComms").waitForConnection(),
-            o("WAComms").startHandlingRequests()
-          );
-        })),
-        c.apply(this, arguments)
+        o("WAComms").startComms(r("WAWebCommsHandleStanza"), e, function (e) {
+          return Promise.resolve(o("WAGzip").inflate(e));
+        }),
+        await o("WAComms").waitForConnection(),
+        o("WAComms").startHandlingRequests()
       );
     }
-    ((l.refreshQR = s), (l.startCommsAndHandleRequests = u));
+    ((l.refreshQR = e), (l.startCommsAndHandleRequests = s));
   },
   98,
 );

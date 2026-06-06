@@ -1,28 +1,15 @@
 __d(
   "WAWebPollsProtobufConversion",
-  [
-    "WALongInt",
-    "WANullthrows",
-    "WAWebPollsCreateOptionLocalIdMap",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALongInt", "WANullthrows", "WAWebPollsCreateOptionLocalIdMap"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      var n = await o(
+          "WAWebPollsCreateOptionLocalIdMap",
+        ).createOptionLocalIdMap(t),
+        r = e.selectedOptionLocalIds.map(n.getHashForLocalId);
+      return { selectedOptions: r.length === 0 ? null : r };
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-              "WAWebPollsCreateOptionLocalIdMap",
-            ).createOptionLocalIdMap(t),
-            r = e.selectedOptionLocalIds.map(n.getHashForLocalId);
-          return { selectedOptions: r.length === 0 ? null : r };
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.ack,
         n = e.optionLocalIdMap,
         a = e.parentMsgKey,
@@ -43,7 +30,7 @@ __d(
         read: l,
       };
     }
-    ((l.protobufFromVote = e), (l.voteFromProtobuf = u));
+    ((l.protobufFromVote = e), (l.voteFromProtobuf = s));
   },
   98,
 );

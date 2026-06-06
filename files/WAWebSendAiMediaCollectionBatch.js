@@ -2,7 +2,6 @@ __d(
   "WAWebSendAiMediaCollectionBatch",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WAWebActionToast.react",
     "WAWebAttachMediaModel",
@@ -15,7 +14,6 @@ __d(
     "WAWebToastManager",
     "WAWebWamEnumImagineAction",
     "WAWebWamEnumImagineMediaType",
-    "asyncToGeneratorRuntime",
     "countWhere",
     "react",
   ],
@@ -23,142 +21,121 @@ __d(
     var e,
       u,
       c,
-      d,
-      m = d || (d = o("react"));
-    function p(e) {
-      return _.apply(this, arguments);
+      d = c || (c = o("react"));
+    async function m(t) {
+      var n = t.botPersonaId,
+        a = t.chat,
+        i = t.medias,
+        l = t.threadId;
+      if (i.length !== 0) {
+        p(a, i);
+        var s = await r("WAWebMsgKey").newId(),
+          c = await o(
+            "WAWebCreateAiMediaCollectionMsgData",
+          ).createAiMediaCollectionMsgData({
+            botPersonaId: n,
+            collectionId: s,
+            hasGlobalCaption: !1,
+            chat: a,
+            expectedMediaCount: i.length,
+            threadId: l,
+          });
+        try {
+          await o(
+            "WAWebSendAiMediaCollectionEnvelope",
+          ).sendAiMediaCollectionEnvelope(a, c);
+        } catch (n) {
+          (o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ai-media-collection] envelope send failed: ",
+                  "",
+                ])),
+              n,
+            )
+            .sendLogs("ai-media-collection-envelope-send-failed"),
+            _(t));
+          return;
+        }
+        var d = a.composeQuotedMsg;
+        ((a.composeQuotedMsg = null), a.setAttachMediaContents(null));
+        var m = c.botPersonaId,
+          f = c.botMetricsMetadata,
+          g = c.aiThreadInfo,
+          h = await Promise.allSettled(
+            i.map(function (e, t) {
+              var n = {
+                type: e.type,
+                caption: e.caption,
+                addEvenWhilePreparing:
+                  e.previewable &&
+                  e.state ===
+                    o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING,
+                botPersonaId: m,
+                threadId: l,
+                aiMediaCollectionInfo: { collectionId: s, uploadOrderIndex: t },
+                botMetricsMetadata: f,
+                aiThreadInfo: g,
+              };
+              return (
+                t === 0 && (n.quotedMsg = d),
+                e.sendToChat({ chat: a, options: n })
+              );
+            }),
+          ),
+          y = r("countWhere")(h, function (e) {
+            return e.status === "fulfilled";
+          });
+        y < i.length &&
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ai-media-collection] ",
+                  "/",
+                  " child send fail; may buffer",
+                ])),
+              i.length - y,
+              i.length,
+            )
+            .sendLogs("ai-media-collection-child-send-shortfall");
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.botPersonaId,
-            i = t.chat,
-            l = t.medias,
-            s = t.threadId;
-          if (l.length !== 0) {
-            f(i, l);
-            var d = yield r("WAWebMsgKey").newId(),
-              m = yield o(
-                "WAWebCreateAiMediaCollectionMsgData",
-              ).createAiMediaCollectionMsgData({
-                botPersonaId: a,
-                collectionId: d,
-                hasGlobalCaption: !1,
-                chat: i,
-                expectedMediaCount: l.length,
-                threadId: s,
-              });
-            try {
-              yield o(
-                "WAWebSendAiMediaCollectionEnvelope",
-              ).sendAiMediaCollectionEnvelope(i, m);
-            } catch (n) {
-              (o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ai-media-collection] envelope send failed: ",
-                      "",
-                    ])),
-                  n,
-                )
-                .sendLogs("ai-media-collection-envelope-send-failed"),
-                h(t));
-              return;
-            }
-            var p = i.composeQuotedMsg;
-            ((i.composeQuotedMsg = null), i.setAttachMediaContents(null));
-            var _ = m.botPersonaId,
-              g = m.botMetricsMetadata,
-              y = m.aiThreadInfo,
-              C = yield (c || (c = n("Promise"))).allSettled(
-                l.map(function (e, t) {
-                  var n = {
-                    type: e.type,
-                    caption: e.caption,
-                    addEvenWhilePreparing:
-                      e.previewable &&
-                      e.state ===
-                        o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
-                          .PROCESSING,
-                    botPersonaId: _,
-                    threadId: s,
-                    aiMediaCollectionInfo: {
-                      collectionId: d,
-                      uploadOrderIndex: t,
-                    },
-                    botMetricsMetadata: g,
-                    aiThreadInfo: y,
-                  };
-                  return (
-                    t === 0 && (n.quotedMsg = p),
-                    e.sendToChat({ chat: i, options: n })
-                  );
-                }),
-              ),
-              b = r("countWhere")(C, function (e) {
-                return e.status === "fulfilled";
-              });
-            b < l.length &&
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ai-media-collection] ",
-                      "/",
-                      " child send fail; may buffer",
-                    ])),
-                  l.length - b,
-                  l.length,
-                )
-                .sendLogs("ai-media-collection-child-send-shortfall");
-          }
-        })),
-        _.apply(this, arguments)
-      );
+    async function p(e, t) {
+      t.every(function (e) {
+        return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
+      }) &&
+        o("WAWebImagineActionLogger").logImagineAction({
+          action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+            .MEDIA_INPUT_SEND_CONFIRM,
+          mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
+            .DOCUMENT,
+          maxIndex: t.length,
+          isSent: !0,
+          eventContext: await o(
+            "WAWebGetMetaAiImagineEventContext",
+          ).getMetaAiImagineEventContext(e),
+        });
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.every(function (e) {
-            return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
-          }) &&
-            o("WAWebImagineActionLogger").logImagineAction({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_INPUT_SEND_CONFIRM,
-              mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-                .DOCUMENT,
-              maxIndex: t.length,
-              isSent: !0,
-              eventContext: yield o(
-                "WAWebGetMetaAiImagineEventContext",
-              ).getMetaAiImagineEventContext(e),
-            });
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function _(e) {
       var t = new (o("WAWebActionToast.react").ActionType)(
         s._(/*BTDS*/ "Couldn't send to Meta AI."),
         {
           actionText: s._(/*BTDS*/ "Try again."),
           actionHandler: function () {
-            return p(e);
+            return m(e);
           },
         },
       );
       o("WAWebToastManager").ToastManager.open(
-        m.jsx(o("WAWebActionToast.react").ActionToast, {
+        d.jsx(o("WAWebActionToast.react").ActionToast, {
           initialAction: t,
-          pendingAction: (c || (c = n("Promise"))).resolve(t),
+          pendingAction: Promise.resolve(t),
         }),
       );
     }
-    l.sendAiMediaCollectionBatch = p;
+    l.sendAiMediaCollectionBatch = m;
   },
   226,
 );

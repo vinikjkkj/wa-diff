@@ -1,7 +1,6 @@
 __d(
   "WAWebAgentSync",
   [
-    "Promise",
     "WASyncdConst",
     "WAWebAgentCollection",
     "WAWebAgentModelUtils",
@@ -9,12 +8,10 @@ __d(
     "WAWebSchemaAgent",
     "WAWebSyncdAction",
     "WAWebUnattributedMessageCollection",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      (e || (e = n("Promise"))).resolve().finally(function () {
+    function e() {
+      Promise.resolve().finally(function () {
         o("WAWebUnattributedMessageCollection")
           .UnattributedMessageCollection.getModelsArray()
           .forEach(function (e) {
@@ -34,8 +31,8 @@ __d(
           });
       });
     }
-    var u = (function (t) {
-        function r() {
+    var s = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -45,157 +42,113 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WASyncdConst").Actions.Agent;
           }),
-          (a.getValidatedContentSet = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.indexParts,
-                  n = t[1];
-                if (!n) return { result: "malformed_index" };
-                var r = e.value.agentAction;
-                return r
-                  ? {
-                      result: "ok",
-                      content: { operation: "set", agentId: n, agentAction: r },
-                    }
-                  : { result: "malformed_value" };
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getValidatedContentRemove = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.indexParts,
-                  n = t[1];
-                return n
-                  ? {
-                      result: "ok",
-                      content: { operation: "remove", agentId: n },
-                    }
-                  : { result: "malformed_index" };
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = this,
-                  a = [],
-                  i = [],
-                  l = yield (e || (e = n("Promise"))).all(
-                    t.map(function (e) {
-                      return r.withValidatedContent(
-                        e,
-                        (function () {
-                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* (e) {
-                              var t = e.agentId;
-                              e: {
-                                var n = e;
-                                if (
-                                  ((typeof n == "object" && n !== null) ||
-                                    typeof n == "function") &&
-                                  n.operation === "remove"
-                                ) {
-                                  return (
-                                    i.push(t),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Success,
-                                    }
-                                  );
-                                  break e;
-                                }
-                                if (
-                                  ((typeof n == "object" && n !== null) ||
-                                    typeof n == "function") &&
-                                  n.operation === "set" &&
-                                  "agentAction" in n
-                                ) {
-                                  var r,
-                                    l,
-                                    s,
-                                    u = n.agentAction,
-                                    c = o(
-                                      "WAWebAgentModelUtils",
-                                    ).getFormattedAgentName(
-                                      (r = u.name) != null ? r : "",
-                                      (l = u.deviceID) != null ? l : -1,
-                                    );
-                                  return (
-                                    a.push({
-                                      id: t,
-                                      name: c,
-                                      deviceId:
-                                        (s = u.deviceID) != null ? s : -1,
-                                      isDeleted: !!u.isDeleted,
-                                    }),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Success,
-                                    }
-                                  );
-                                  break e;
-                                }
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    n,
-                                );
-                              }
-                            },
+          (r.getValidatedContentSet = async function (t) {
+            var e = t.indexParts,
+              n = e[1];
+            if (!n) return { result: "malformed_index" };
+            var r = t.value.agentAction;
+            return r
+              ? {
+                  result: "ok",
+                  content: { operation: "set", agentId: n, agentAction: r },
+                }
+              : { result: "malformed_value" };
+          }),
+          (r.getValidatedContentRemove = async function (t) {
+            var e = t.indexParts,
+              n = e[1];
+            return n
+              ? { result: "ok", content: { operation: "remove", agentId: n } }
+              : { result: "malformed_index" };
+          }),
+          (r.applyMutations = async function (n) {
+            var t = this,
+              r = [],
+              a = [],
+              i = await Promise.all(
+                n.map(function (e) {
+                  return t.withValidatedContent(e, async function (e) {
+                    var t = e.agentId;
+                    e: {
+                      var n = e;
+                      if (
+                        ((typeof n == "object" && n !== null) ||
+                          typeof n == "function") &&
+                        n.operation === "remove"
+                      ) {
+                        return (
+                          a.push(t),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          }
+                        );
+                        break e;
+                      }
+                      if (
+                        ((typeof n == "object" && n !== null) ||
+                          typeof n == "function") &&
+                        n.operation === "set" &&
+                        "agentAction" in n
+                      ) {
+                        var i,
+                          l,
+                          s,
+                          u = n.agentAction,
+                          c = o("WAWebAgentModelUtils").getFormattedAgentName(
+                            (i = u.name) != null ? i : "",
+                            (l = u.deviceID) != null ? l : -1,
                           );
-                          return function (t) {
-                            return e.apply(this, arguments);
-                          };
-                        })(),
+                        return (
+                          r.push({
+                            id: t,
+                            name: c,
+                            deviceId: (s = u.deviceID) != null ? s : -1,
+                            isDeleted: !!u.isDeleted,
+                          }),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          }
+                        );
+                        break e;
+                      }
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          n,
                       );
-                    }),
-                  );
-                return (
-                  yield o("WAWebSchemaAgent")
-                    .getAgentTable()
-                    .bulkCreateOrMerge(a),
-                  o("WAWebAgentCollection").AgentCollection.add(
-                    a.map(function (e) {
-                      return babelHelpers.extends({}, e);
-                    }),
-                    { merge: !0 },
-                  ),
-                  yield o("WAWebSchemaAgent").getAgentTable().bulkRemove(i),
-                  o("WAWebAgentCollection").AgentCollection.remove(i),
-                  s(),
-                  l
-                );
-              },
+                    }
+                  });
+                }),
+              );
+            return (
+              await o("WAWebSchemaAgent").getAgentTable().bulkCreateOrMerge(r),
+              o("WAWebAgentCollection").AgentCollection.add(
+                r.map(function (e) {
+                  return babelHelpers.extends({}, e);
+                }),
+                { merge: !0 },
+              ),
+              await o("WAWebSchemaAgent").getAgentTable().bulkRemove(a),
+              o("WAWebAgentCollection").AgentCollection.remove(a),
+              e(),
+              i
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          r
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      c = new u();
-    l.default = c;
+      u = new s();
+    l.default = u;
   },
   98,
 );

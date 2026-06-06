@@ -12,7 +12,6 @@ __d(
     "WAWebRecentStickerModel",
     "WAWebSchemaRecentStickers",
     "WAWebStickerModel",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -29,7 +28,7 @@ __d(
       y,
       C = 32,
       b = (function (t) {
-        function a() {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
@@ -39,13 +38,13 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.remove = function (n, r) {
+          (a.remove = function (n, r) {
             return t.prototype.remove.call(this, n, r);
           }),
-          (i.add = function (n, r) {
+          (a.add = function (n, r) {
             var e = t.prototype.add.call(this, n, r),
               a = o("WAWebABProps").getABPropConfigValue(
                 "web_autodownload_stickers",
@@ -57,16 +56,16 @@ __d(
               }
             return e;
           }),
-          (i._enqueueStickerAutoDownload = function (t) {
+          (a._enqueueStickerAutoDownload = function (t) {
             o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
               t.sticker,
               o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes.MEDIA,
             );
           }),
-          (i.reset = function () {
+          (a.reset = function () {
             t.prototype.reset.call(this);
           }),
-          (i._comparator = function (t, n) {
+          (a._comparator = function (t, n) {
             return t.weight !== n.weight
               ? t.weight < n.weight
                 ? 1
@@ -75,7 +74,7 @@ __d(
                 ? 1
                 : -1;
           }),
-          (i._dbDataToModel = function (t) {
+          (a._dbDataToModel = function (t) {
             var e;
             return new (r("WAWebRecentStickerModel"))({
               id: t.id,
@@ -86,7 +85,7 @@ __d(
               isNewSticker: t.isNewSticker,
             });
           }),
-          (i._addSaveTask = function () {
+          (a._addSaveTask = function () {
             var e = this;
             (!this._idleTaskId ||
               !o("WAWebIdleTaskRunner").IdleCallbackTasks.isInQueue(
@@ -98,80 +97,74 @@ __d(
                 e._saveToDb();
               }));
           }),
-          (i._saveToDb = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t = this.toArray().map(function (e) {
-                var t = e.sticker.toDbData();
-                return {
-                  id: e.id,
-                  timestamp: e.timestamp,
-                  msgId: e.msgId,
-                  weight: e.weight,
-                  sticker: {
-                    id: t.id,
-                    index: t.index,
-                    width: t.width,
-                    height: t.height,
-                    size: t.size,
-                    mimetype: t.mimetype,
-                    filehash: t.filehash,
-                    directPath: t.directPath,
-                    mediaKey: t.mediaKey,
-                    mediaKeyTimestamp: t.mediaKeyTimestamp,
-                    encFilehash: t.encFilehash,
-                    deprecatedMms3Url: t.deprecatedMms3Url,
-                    isAvatar: t.isAvatar,
-                    type: "sticker",
-                  },
-                };
-              });
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Recent Stickers: need to save stickers in DB with length: ",
+          (a._saveToDb = async function () {
+            var t = this.toArray().map(function (e) {
+              var t = e.sticker.toDbData();
+              return {
+                id: e.id,
+                timestamp: e.timestamp,
+                msgId: e.msgId,
+                weight: e.weight,
+                sticker: {
+                  id: t.id,
+                  index: t.index,
+                  width: t.width,
+                  height: t.height,
+                  size: t.size,
+                  mimetype: t.mimetype,
+                  filehash: t.filehash,
+                  directPath: t.directPath,
+                  mediaKey: t.mediaKey,
+                  mediaKeyTimestamp: t.mediaKeyTimestamp,
+                  encFilehash: t.encFilehash,
+                  deprecatedMms3Url: t.deprecatedMms3Url,
+                  isAvatar: t.isAvatar,
+                  type: "sticker",
+                },
+              };
+            });
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Recent Stickers: need to save stickers in DB with length: ",
+                  "",
+                ])),
+              t.length,
+            );
+            try {
+              var n = o("WAWebSchemaRecentStickers").getRecentStickersTable(),
+                r = await n.count();
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Recent Stickers: before save, stickers in DB with length: ",
                     "",
                   ])),
-                t.length,
-              );
-              try {
-                var n = o("WAWebSchemaRecentStickers").getRecentStickersTable(),
-                  r = yield n.count();
-                (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Recent Stickers: before save, stickers in DB with length: ",
+                r,
+              ),
+                await n.clear(),
+                await n.bulkCreateOrReplace(t),
+                (r = await n.count()),
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "Recent Stickers: after save, stickers in DB with length: ",
                       "",
                     ])),
                   r,
-                ),
-                  yield n.clear(),
-                  yield n.bulkCreateOrReplace(t),
-                  (r = yield n.count()),
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "Recent Stickers: after save, stickers in DB with length: ",
-                        "",
-                      ])),
-                    r,
-                  ));
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "RecentStickerCollection attempt to save to database failed",
-                      ])),
-                  )
-                  .sendLogs(String(e));
-              }
-            });
-            function r() {
-              return t.apply(this, arguments);
+                ));
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "RecentStickerCollection attempt to save to database failed",
+                    ])),
+                )
+                .sendLogs(String(e));
             }
-            return r;
-          })()),
-          (i.addStickerWithMediaData = function (t) {
+          }),
+          (a.addStickerWithMediaData = function (t) {
             var e = t.encFilehash,
               n = t.id,
               r = t.mediaData,
@@ -185,7 +178,7 @@ __d(
               i,
             );
           }),
-          (i.addNewSticker = function (t, n, r) {
+          (a.addNewSticker = function (t, n, r) {
             t.id || (t.id = t.filehash);
             var e = this.get(t.id) == null;
             this.addStickersAndPersistToDB(
@@ -199,7 +192,7 @@ __d(
               e,
             );
           }),
-          (i.addStickersAndPersistToDB = function (t, n) {
+          (a.addStickersAndPersistToDB = function (t, n) {
             var e = this;
             if (
               (n === void 0 && (n = !1),
@@ -283,7 +276,7 @@ __d(
                     this._addSaveTask())));
             }
           }),
-          (i.replaceAndEnqueue = function (t, n) {
+          (a.replaceAndEnqueue = function (t, n) {
             if ((n === void 0 && (n = !1), this.length > 0)) {
               var e = this.map(function (e) {
                 return e.id;
@@ -296,7 +289,7 @@ __d(
             }
             this.addStickersAndPersistToDB(t, n);
           }),
-          (i.updateDirectPath = function (t, n) {
+          (a.updateDirectPath = function (t, n) {
             var e = this.get(t);
             e != null && e.sticker
               ? ((e.sticker.directPath = n),
@@ -309,7 +302,7 @@ __d(
                     ])),
                 );
           }),
-          (i.updateStickerMediaData = function (t, n) {
+          (a.updateStickerMediaData = function (t, n) {
             var e = this.get(t);
             n == null ||
               e == null ||
@@ -321,7 +314,7 @@ __d(
               this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
               this._addSaveTask());
           }),
-          (i.updateRecentStickerWithNewSticker = function (t, n) {
+          (a.updateRecentStickerWithNewSticker = function (t, n) {
             var e = this.get(t);
             e != null &&
               ((e.sticker = new (o("WAWebStickerModel").StickerModel)(
@@ -330,35 +323,26 @@ __d(
               this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
               this._addSaveTask());
           }),
-          (i.associateStickerWithMsg = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n,
-                  r = yield o(
-                    "WAWebMsgCollection",
-                  ).MsgCollection.getMessagesById([t]),
-                  a = r.messages,
-                  i =
-                    ((n = e.mediaObject) == null
-                      ? void 0
-                      : n.associatedMsgs()) || [];
-                e.mediaObject &&
-                  (i.length === 0 ||
-                    !a.some(function (e) {
-                      return i.includes(e);
-                    })) &&
-                  o("WAWebMediaStorage").associateMediaWithMsg(
-                    e.mediaObject,
-                    a[a.length - 1],
-                  );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.initializeFromCache = function (t) {
+          (a.associateStickerWithMsg = async function (t, n) {
+            var e,
+              r = await o("WAWebMsgCollection").MsgCollection.getMessagesById([
+                n,
+              ]),
+              a = r.messages,
+              i =
+                ((e = t.mediaObject) == null ? void 0 : e.associatedMsgs()) ||
+                [];
+            t.mediaObject &&
+              (i.length === 0 ||
+                !a.some(function (e) {
+                  return i.includes(e);
+                })) &&
+              o("WAWebMediaStorage").associateMediaWithMsg(
+                t.mediaObject,
+                a[a.length - 1],
+              );
+          }),
+          (a.initializeFromCache = function (t) {
             var e = this;
             this._hasInitializedFromCache = !0;
             var n = t.map(function (t) {
@@ -390,7 +374,7 @@ __d(
               }) && this._addSaveTask();
             }
           }),
-          (i.addAndSort = function (t) {
+          (a.addAndSort = function (t) {
             (this.add(t),
               this.sort(),
               this.length > C &&
@@ -405,7 +389,7 @@ __d(
                 ),
                 this.set(this.toArray().slice(0, C))));
           }),
-          (i.removeAndSave = function (t, n) {
+          (a.removeAndSave = function (t, n) {
             n === void 0 && (n = {});
             var e = this.remove(t, n);
             return (
@@ -421,7 +405,7 @@ __d(
               e
             );
           }),
-          (i.removeAllRecentAvatarStickers = function () {
+          (a.removeAllRecentAvatarStickers = function () {
             var e = this.filter(function (e) {
               return e.sticker.isAvatar === !0;
             });
@@ -443,7 +427,7 @@ __d(
                 ),
                 this.removeAndSave(e));
           }),
-          (i.adjustWeight = function (t) {
+          (a.adjustWeight = function (t) {
             var e = new Set(
               t.map(function (e) {
                 return e.id;
@@ -460,7 +444,7 @@ __d(
                   : (e.weight = Number((e.weight + 1).toFixed(2)));
               }));
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
     b.model = r("WAWebRecentStickerModel");

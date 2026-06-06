@@ -8,84 +8,68 @@ __d(
     "WAWebSchemaSyncActions",
     "WAWebSyncdActionUtils",
     "WAWebWamEnumMutationCountBucket",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e() {
+      var e = new Map(),
+        t = await o("WAWebSchemaSyncActions").getSyncActionsTable().all();
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = new Map(),
-            t = yield o("WAWebSchemaSyncActions").getSyncActionsTable().all();
-          return (
-            t.forEach(function (t) {
-              var n,
-                r =
-                  o("WAWebSyncdActionUtils").getMutationNameFromIndex(
-                    t.collection,
-                    t.index,
-                  ) || "no-mutation-name",
-                a =
-                  (n = e.get(r)) != null
-                    ? n
-                    : {
-                        action: r,
-                        applied: 0,
-                        invalid: 0,
-                        orphan: 0,
-                        unsupported: 0,
-                        failed: 0,
-                      };
-              e: {
-                if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Success ||
-                  t.actionState === o("WASyncdConst").SyncActionState.Skipped
-                ) {
-                  a.applied++;
-                  break e;
-                }
-                if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Malformed
-                ) {
-                  a.invalid++;
-                  break e;
-                }
-                if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Orphan
-                ) {
-                  a.orphan++;
-                  break e;
-                }
-                if (
-                  t.actionState ===
-                  o("WASyncdConst").SyncActionState.Unsupported
-                ) {
-                  a.unsupported++;
-                  break e;
-                }
-                if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Failed
-                ) {
-                  a.failed++;
-                  break e;
-                }
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    t.actionState,
-                );
-              }
-              e.set(r, a);
-            }),
-            e
-          );
-        })),
-        s.apply(this, arguments)
+        t.forEach(function (t) {
+          var n,
+            r =
+              o("WAWebSyncdActionUtils").getMutationNameFromIndex(
+                t.collection,
+                t.index,
+              ) || "no-mutation-name",
+            a =
+              (n = e.get(r)) != null
+                ? n
+                : {
+                    action: r,
+                    applied: 0,
+                    invalid: 0,
+                    orphan: 0,
+                    unsupported: 0,
+                    failed: 0,
+                  };
+          e: {
+            if (
+              t.actionState === o("WASyncdConst").SyncActionState.Success ||
+              t.actionState === o("WASyncdConst").SyncActionState.Skipped
+            ) {
+              a.applied++;
+              break e;
+            }
+            if (t.actionState === o("WASyncdConst").SyncActionState.Malformed) {
+              a.invalid++;
+              break e;
+            }
+            if (t.actionState === o("WASyncdConst").SyncActionState.Orphan) {
+              a.orphan++;
+              break e;
+            }
+            if (
+              t.actionState === o("WASyncdConst").SyncActionState.Unsupported
+            ) {
+              a.unsupported++;
+              break e;
+            }
+            if (t.actionState === o("WASyncdConst").SyncActionState.Failed) {
+              a.failed++;
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                t.actionState,
+            );
+          }
+          e.set(r, a);
+        }),
+        e
       );
     }
-    function u(e) {
+    function s(e) {
       if (e < 0) throw r("err")("cannot convert negative number to a bucket");
       return e === 0
         ? o("WAWebWamEnumMutationCountBucket").MUTATION_COUNT_BUCKET.ZERO
@@ -107,41 +91,25 @@ __d(
                     : o("WAWebWamEnumMutationCountBucket").MUTATION_COUNT_BUCKET
                         .GTE5K;
     }
-    function c() {
-      return d.apply(this, arguments);
+    async function u() {
+      var e = await o("WAWebSchemaSyncActions")
+        .getSyncActionsTable()
+        .get('["primary_version","session_start"]');
+      return e == null ? void 0 : e.timestamp;
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaSyncActions")
-            .getSyncActionsTable()
-            .get('["primary_version","session_start"]');
-          return e == null ? void 0 : e.timestamp;
-        })),
-        d.apply(this, arguments)
-      );
+    async function c() {
+      var e = await o("WAWebGetSyncKey").getAllSyncKeysInTransaction(),
+        t = await o("WAWebSchemaSyncActions").getSyncActionsTable().all(),
+        n = await u(),
+        r =
+          n == null
+            ? void 0
+            : Math.round(
+                (o("WATimeUtils").unixTimeMs() - n) / (1e3 * 3600 * 24),
+              );
+      return d(e, t, r);
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebGetSyncKey").getAllSyncKeysInTransaction(),
-            t = yield o("WAWebSchemaSyncActions").getSyncActionsTable().all(),
-            n = yield c(),
-            r =
-              n == null
-                ? void 0
-                : Math.round(
-                    (o("WATimeUtils").unixTimeMs() - n) / (1e3 * 3600 * 24),
-                  );
-          return _(e, t, r);
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n) {
+    function d(e, t, n) {
       var r = t.map(function (e) {
           return o("WABase64").encodeB64(e.keyId);
         }),
@@ -161,9 +129,9 @@ __d(
       };
     }
     ((l.generateActionStatCounts = e),
-      (l.convertToBucket = u),
-      (l.getKeyStats = m),
-      (l.getKeyStatsInternal = _));
+      (l.convertToBucket = s),
+      (l.getKeyStats = c),
+      (l.getKeyStatsInternal = d));
   },
   98,
 );

@@ -8,30 +8,29 @@ __d(
     "WAWebNewsletterGetMessagesQueryJob",
     "WAWebNewsletterValidationUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, r) {
+    function e(e, t, n) {
       return (
         o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(e),
         o("WAWebOrchestratorNonPersistedJob")
           .createNonPersistedJob(
             "getNewsletterMessages",
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var n = yield o(
+            async function () {
+              var r = await o(
                   "WAWebNewsletterGetMessagesQueryJob",
-                ).queryNewsletterMessagesByJid(e, t, r),
+                ).queryNewsletterMessagesByJid(e, t, n),
                 a = o("WAWebJidToWid").jidWithTypeToWid({
                   jidType: "newsletter",
                   newsletterJid: e,
                 }),
-                i = yield o(
+                i = await o(
                   "WAWebNewsletterBackendAddOnsUtils",
-                ).getMsgsAndAddOnsFromUpdates(n.messages, a, n.timestamp);
+                ).getMsgsAndAddOnsFromUpdates(r.messages, a, r.timestamp);
               return babelHelpers.extends({}, i, {
-                timestamp: o("WATimeUtils").castToUnixTime(n.timestamp),
+                timestamp: o("WATimeUtils").castToUnixTime(r.timestamp),
               });
-            }),
+            },
             { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
           )
           .waitUntilCompleted()

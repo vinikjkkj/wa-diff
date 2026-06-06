@@ -1,0 +1,23 @@
+__d(
+  "WAWebMessageHoverBarContext",
+  ["react"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = e || (e = o("react")),
+      u = e.createContext,
+      c = {
+        onHoverStart: function () {},
+        onHoverEnd: function () {},
+        onFocusStart: function () {},
+        onFocusEnd: function () {},
+        cancelDismiss: function () {},
+        isBridgeActiveForMsg: function () {
+          return !1;
+        },
+      },
+      d = u(c),
+      m = d;
+    l.default = m;
+  },
+  98,
+);

@@ -1,25 +1,22 @@
 __d(
   "WACryptoAesCbc",
   [
-    "Promise",
     "WABinary",
     "WACryptoDependencies",
     "WAPromiseDelays",
     "WATypedArraysCast",
     "WATypedArraysConcat",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 16,
-      u = 1024,
-      c = 16,
-      d = 1024 * 1024,
-      m = s * d,
-      p = (function () {
-        function e(e, t, n, r) {
+    var e = 16,
+      s = 1024,
+      u = 16,
+      c = 1024 * 1024,
+      d = e * c,
+      m = (function () {
+        function t(e, t, n, r) {
           ((this.$4 = null),
             (this.$6 = !1),
             (this.$1 = e),
@@ -33,58 +30,58 @@ __d(
               return { algo: a, key: e };
             });
         }
-        var t = e.prototype;
+        var n = t.prototype;
         return (
-          (t.append = function (t) {
-            var e = this;
+          (n.append = function (n) {
+            var t = this;
             this.$7("append");
-            var n,
-              r = this.$4;
-            if (r)
-              if ((r.writeByteArray(t), r.size() > u)) {
-                var a = r.size() % s;
-                ((n = r.readByteArrayView(r.size() - a)),
-                  r.size() || (this.$4 = null));
-              } else n = null;
-            else if (t.length > u) {
-              var i = t.length % s;
-              i
-                ? ((this.$4 = new (o("WABinary").Binary)(t)),
-                  (n = this.$4.readByteArrayView(t.length - i)))
-                : (n = t);
-            } else ((this.$4 = new (o("WABinary").Binary)(t)), (n = null));
-            var l = n;
+            var r,
+              a = this.$4;
+            if (a)
+              if ((a.writeByteArray(n), a.size() > s)) {
+                var i = a.size() % e;
+                ((r = a.readByteArrayView(a.size() - i)),
+                  a.size() || (this.$4 = null));
+              } else r = null;
+            else if (n.length > s) {
+              var l = n.length % e;
+              l
+                ? ((this.$4 = new (o("WABinary").Binary)(n)),
+                  (r = this.$4.readByteArrayView(n.length - l)))
+                : (r = n);
+            } else ((this.$4 = new (o("WABinary").Binary)(n)), (r = null));
+            var u = r;
             return (
-              l &&
+              u &&
                 (this.$5 = this.$5
-                  .then(function (t) {
-                    var n = t.algo,
-                      r = t.key;
-                    if (e.$2 === "encrypt")
+                  .then(function (n) {
+                    var r = n.algo,
+                      a = n.key;
+                    if (t.$2 === "encrypt")
                       return o("WACryptoDependencies")
                         .getCrypto()
-                        .subtle.encrypt(n, r, l)
-                        .then(function (t) {
+                        .subtle.encrypt(r, a, u)
+                        .then(function (n) {
                           return (
-                            e.$1.writeByteArray(
-                              new Uint8Array(t, 0, t.byteLength - s),
+                            t.$1.writeByteArray(
+                              new Uint8Array(n, 0, n.byteLength - e),
                             ),
-                            new Uint8Array(t, t.byteLength - 2 * s, s)
+                            new Uint8Array(n, n.byteLength - 2 * e, e)
                           );
                         });
-                    var a = l.slice(-s);
+                    var i = u.slice(-e);
                     return o("WACryptoDependencies")
                       .getCrypto()
-                      .subtle.decrypt(n, r, l)
-                      .then(function (t) {
-                        return (e.$1.writeBuffer(t), a);
+                      .subtle.decrypt(r, a, u)
+                      .then(function (e) {
+                        return (t.$1.writeBuffer(e), i);
                       });
                   })
-                  .then(function (t) {
-                    var n = { name: "AES-CBC", iv: t };
+                  .then(function (e) {
+                    var n = { name: "AES-CBC", iv: e };
                     return o("WACryptoDependencies")
                       .getCrypto()
-                      .subtle.importKey("raw", e.$3, "AES-CBC", !1, [e.$2])
+                      .subtle.importKey("raw", t.$3, "AES-CBC", !1, [t.$2])
                       .then(function (e) {
                         return { algo: n, key: e };
                       });
@@ -92,7 +89,7 @@ __d(
               this.$5.then(function () {})
             );
           }),
-          (t.finalize = function (t) {
+          (n.finalize = function (t) {
             var e = this;
             this.$7("finalize");
             var n;
@@ -121,20 +118,20 @@ __d(
                 });
             } else return this.$5.then(function () {});
           }),
-          (t.$7 = function (t) {
+          (n.$7 = function (t) {
             if (this.$6)
               throw r("err")("AesCbcStream." + t + " called after finalize");
           }),
-          e
+          t
         );
       })();
-    function _(e) {
+    function p(e) {
       return {
         name: "AES-CBC",
         iv: o("WATypedArraysCast").castTypedArrays(Uint8Array, e),
       };
     }
-    function f(e) {
+    function _(e) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.importKey(
@@ -145,134 +142,109 @@ __d(
           ["encrypt"],
         );
     }
-    function g(e) {
+    function f(e) {
       if (e) return o("WATypedArraysCast").castTypedArrays(Uint8Array, e);
-      var t = new Uint8Array(c);
+      var t = new Uint8Array(u);
       return (o("WACryptoDependencies").getCrypto().getRandomValues(t), t);
     }
-    function h(e) {
-      var t = e.byteLength,
-        n = s - (t % s);
-      return Number.isNaN(n) ? t : t + n;
+    function g(t) {
+      var n = t.byteLength,
+        r = e - (n % e);
+      return Number.isNaN(r) ? n : n + r;
     }
-    function y(t, r, a) {
-      var i = _(r);
-      return (e || (e = n("Promise")))
-        .resolve(
-          o("WACryptoDependencies")
-            .getCrypto()
-            .subtle.importKey(
-              "raw",
-              o("WATypedArraysCast").castTypedArrays(Uint8Array, t),
-              "AES-CBC",
-              !1,
-              ["decrypt"],
-            ),
-        )
-        .then(function (e) {
-          return o("WACryptoDependencies").getCrypto().subtle.decrypt(i, e, a);
-        });
-    }
-    function C(t, r) {
-      return (e || (e = n("Promise"))).resolve().then(function () {
-        var e = r.slice(0, c),
-          n = r.slice(c);
-        return y(t, e, n);
+    function h(e, t, n) {
+      var r = p(t);
+      return Promise.resolve(
+        o("WACryptoDependencies")
+          .getCrypto()
+          .subtle.importKey(
+            "raw",
+            o("WATypedArraysCast").castTypedArrays(Uint8Array, e),
+            "AES-CBC",
+            !1,
+            ["decrypt"],
+          ),
+      ).then(function (e) {
+        return o("WACryptoDependencies").getCrypto().subtle.decrypt(r, e, n);
       });
     }
-    function b(t, r, a) {
-      return (e || (e = n("Promise"))).resolve().then(function () {
-        var i = g(a),
-          l = _(i);
-        return (e || (e = n("Promise")))
-          .resolve(f(t))
+    function y(e, t) {
+      return Promise.resolve().then(function () {
+        var n = t.slice(0, u),
+          r = t.slice(u);
+        return h(e, n, r);
+      });
+    }
+    function C(e, t, n) {
+      return Promise.resolve().then(function () {
+        var r = f(n),
+          a = p(r);
+        return Promise.resolve(_(e))
           .then(function (e) {
             return o("WACryptoDependencies")
               .getCrypto()
-              .subtle.encrypt(l, e, r);
+              .subtle.encrypt(a, e, t);
           })
           .then(function (e) {
             return o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-              i,
+              r,
               new Uint8Array(e),
             ]).buffer;
           });
       });
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    async function b(t) {
+      var n = t.encKey,
+        a = t.plaintext,
+        i = t.optionalIv,
+        l = t.chunkSize,
+        s = l === void 0 ? d : l,
+        u = t.delayInBetween,
+        c = u === void 0 ? !1 : u,
+        m = t.yieldFn;
+      if (s % e !== 0)
+        throw r("err")(
+          "chunkSize must be a multiple of " + e + ", " + s + " received",
+        );
+      var p = await _(n),
+        h = new Uint8Array(a),
+        y = Math.ceil(h.byteLength / s),
+        C = f(i),
+        b = new Uint8Array(g(h) + C.byteLength);
+      b.set(C);
+      for (var S = 0, R = C, L; S < y; S++) {
+        var E = S === y - 1,
+          k = S * s;
+        L = h.subarray(k, k + s);
+        var I = await v(E, L, R, p),
+          T = I.encryptedChunk,
+          D = I.nextIv;
+        (b.set(T, C.byteLength + S * s),
+          (R = D),
+          c === !0 &&
+            (m != null ? await m() : await o("WAPromiseDelays").delayMs(0)));
+      }
+      return b.buffer;
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.encKey,
-            n = e.plaintext,
-            a = e.optionalIv,
-            i = e.chunkSize,
-            l = i === void 0 ? m : i,
-            u = e.delayInBetween,
-            c = u === void 0 ? !1 : u,
-            d = e.yieldFn;
-          if (l % s !== 0)
-            throw r("err")(
-              "chunkSize must be a multiple of " + s + ", " + l + " received",
-            );
-          var p = yield f(t),
-            _ = new Uint8Array(n),
-            y = Math.ceil(_.byteLength / l),
-            C = g(a),
-            b = new Uint8Array(h(_) + C.byteLength);
-          b.set(C);
-          for (var v = 0, S = C, L; v < y; v++) {
-            var E = v === y - 1,
-              k = v * l;
-            L = _.subarray(k, k + l);
-            var I = yield R(E, L, S, p),
-              T = I.encryptedChunk,
-              D = I.nextIv;
-            (b.set(T, C.byteLength + v * l),
-              (S = D),
-              c === !0 &&
-                (d != null
-                  ? yield d()
-                  : yield o("WAPromiseDelays").delayMs(0)));
-          }
-          return b.buffer;
-        })),
-        S.apply(this, arguments)
-      );
+    async function v(t, n, r, a) {
+      var i = await o("WACryptoDependencies")
+          .getCrypto()
+          .subtle.encrypt(p(r), a, n)
+          .then(function (n) {
+            return t ? new Uint8Array(n) : new Uint8Array(n).subarray(0, -e);
+          }),
+        l = i.slice(-e);
+      return { encryptedChunk: i, nextIv: l };
     }
-    function R(e, t, n, r) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o("WACryptoDependencies")
-                .getCrypto()
-                .subtle.encrypt(_(n), r, t)
-                .then(function (t) {
-                  return e
-                    ? new Uint8Array(t)
-                    : new Uint8Array(t).subarray(0, -s);
-                }),
-              i = a.slice(-s);
-            return { encryptedChunk: a, nextIv: i };
-          },
-        )),
-        L.apply(this, arguments)
-      );
-    }
-    ((l.AES_CBC_BLOCK_SIZE = s),
-      (l.AesCbcStream = p),
-      (l.importRawKey = f),
-      (l.getIv = g),
-      (l.aesCbcDecrypt = y),
-      (l.aesCbcDecryptSplit = C),
-      (l.aesCbcEncrypt = b),
-      (l.aesCbcEncryptWithChunking = v),
-      (l.aesCbcEncryptChunk = R));
+    ((l.AES_CBC_BLOCK_SIZE = e),
+      (l.AesCbcStream = m),
+      (l.importRawKey = _),
+      (l.getIv = f),
+      (l.aesCbcDecrypt = h),
+      (l.aesCbcDecryptSplit = y),
+      (l.aesCbcEncrypt = C),
+      (l.aesCbcEncryptWithChunking = b),
+      (l.aesCbcEncryptChunk = v));
   },
   98,
 );

@@ -5,7 +5,6 @@ __d(
     "WAResolvable",
     "WAWebAudioUtility",
     "WAWebVoipWorkletPreload",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -91,7 +90,242 @@ __d(
     var y = 8192,
       C = 8;
     function b() {
-      return "\nclass WAWebVoipSharedBufferCaptureProcessor extends AudioWorkletProcessor {\n  constructor(options) {\n    super();\n    this._isProcessing = false;\n    this._isInitialized = false;\n    this._overrunCount = 0;\n    this._overrunStartTime = 0;\n    this._totalFramesWritten = 0;\n    this._lastDiagnosticTime = 0;\n\n    // Shared buffer views (set after receiving SAB via postMessage)\n    this._atomicIndices = null;  // Uint32Array view for writePos/readPos\n    this._audioBuffer = null;    // Float32Array view for audio samples\n    this._bufferSize = 0;\n\n    // Resampling state: set when targetSampleRate differs from sampleRate\n    // (e.g., Firefox where AudioContext runs at 48kHz but VoIP needs 16kHz)\n    this._needsResampling = false;\n    this._resampleRatio = 1;\n    this._resampleBuffer = null;\n\n    // Pre-allocate mono-mix buffer for multi-channel input.\n    // AudioWorklet quantum is always 128 frames.\n    this._monoMixBuffer = new Float32Array(128);\n\n    this.port.onmessage = (event) => {\n      const data = event.data;\n      if (data.type === 'initSharedBuffer') {\n        // Receive SharedArrayBuffer from main thread\n        this._initSharedBuffer(\n          data.heapBuffer,\n          data.heapBufferOffset,\n          data.bufferSize,\n          data.targetSampleRate,\n        );\n      } else if (data.type === 'start') {\n        this._isProcessing = true;\n      } else if (data.type === 'stop') {\n        this._isProcessing = false;\n      }\n    };\n\n    this.port.postMessage({type: 'ready'});\n  }\n\n  _initSharedBuffer(heapBuffer, heapBufferOffset, bufferSize, targetSampleRate) {\n    // Create views into the WASM heap SharedArrayBuffer\n    // Header: [writePos uint32 at offset+0][readPos uint32 at offset+4]\n    this._atomicIndices = new Uint32Array(heapBuffer, heapBufferOffset, 2);\n    // Audio data starts after the 8-byte header\n    this._audioBuffer = new Float32Array(\n      heapBuffer,\n      heapBufferOffset + 8,\n      bufferSize,\n    );\n    this._bufferSize = bufferSize;\n    this._isInitialized = true;\n    this._overrunCount = 0;\n    this._totalFramesWritten = 0;\n    this._lastDiagnosticTime = currentTime;\n\n    // Configure resampling if AudioContext sample rate differs from target\n    // (sampleRate is a global in AudioWorkletGlobalScope)\n    if (targetSampleRate > 0 && targetSampleRate !== sampleRate) {\n      this._needsResampling = true;\n      this._resampleRatio = sampleRate / targetSampleRate;\n      // Pre-allocate the resampling output buffer. AudioWorklet quantum is\n      // always 128 frames, and the ratio is constant, so the output length\n      // is fixed for the entire capture session. Avoids allocating a new\n      // Float32Array on every process() call (every ~2.67ms at 48kHz).\n      const downsampledLength = Math.round(128 / this._resampleRatio);\n      this._resampleBuffer = new Float32Array(downsampledLength);\n      this.port.postMessage({\n        type: 'resamplingConfigured',\n        inputRate: sampleRate,\n        targetRate: targetSampleRate,\n        ratio: this._resampleRatio,\n      });\n    }\n\n    this.port.postMessage({type: 'sharedBufferReady'});\n  }\n\n  /**\n   * Downsample audio buffer using averaging algorithm.\n   * Same algorithm as maybeDownsampleBuffer in WAWebAudioUtility.\n   */\n  _downsample(buffer, ratio) {\n    const result = this._resampleBuffer;\n    const newLength = result.length;\n    let offsetResult = 0;\n    let offsetBuffer = 0;\n    while (offsetResult < newLength) {\n      const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);\n      let accum = 0;\n      let count = 0;\n      for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {\n        accum += buffer[i];\n        count++;\n      }\n      result[offsetResult] = count > 0 ? accum / count : 0;\n      offsetResult++;\n      offsetBuffer = nextOffsetBuffer;\n    }\n    return result;\n  }\n\n  process(inputs, outputs, parameters) {\n    if (!this._isProcessing || !this._isInitialized) {\n      return true;\n    }\n\n    if (inputs.length === 0 || inputs[0].length === 0) {\n      return true;\n    }\n\n    const input = inputs[0];\n    const channelCount = input.length;\n    const frameCount = input[0].length;\n\n    // Mono-mix input channels into a single buffer\n    // For mono input (most common), this is a simple copy\n    let monoData;\n    if (channelCount === 1) {\n      monoData = input[0];\n    } else {\n      // Use pre-allocated buffer for multi-channel mono-mixing\n      monoData = this._monoMixBuffer;\n      for (let i = 0; i < frameCount; i++) {\n        let sum = 0;\n        for (let ch = 0; ch < channelCount; ch++) {\n          sum += input[ch][i];\n        }\n        monoData[i] = sum / channelCount;\n      }\n    }\n\n    // Downsample if needed (e.g., Firefox: 48kHz \u2192 16kHz)\n    const outputData = this._needsResampling\n      ? this._downsample(monoData, this._resampleRatio)\n      : monoData;\n    const outputFrameCount = outputData.length;\n\n    // Read current positions atomically\n    const writePos = Atomics.load(this._atomicIndices, 0);\n    const readPos = Atomics.load(this._atomicIndices, 1);\n\n    // Calculate available space in ring buffer\n    const bufferSize = this._bufferSize;\n    const availableSpace = (readPos - writePos - 1 + bufferSize) % bufferSize;\n\n    if (availableSpace < outputFrameCount) {\n      // Buffer full \u2014 drop this chunk (overrun)\n      if (this._overrunCount === 0) {\n        this._overrunStartTime = currentTime;\n      }\n      this._overrunCount++;\n      this._maybeSendDiagnostics();\n      return true;\n    }\n\n    // Write audio data to ring buffer using bulk copy with wrap-around\n    const audioBuffer = this._audioBuffer;\n    const endPos = writePos + outputFrameCount;\n\n    if (endPos <= bufferSize) {\n      // No wrap-around: single bulk write\n      audioBuffer.set(outputData, writePos);\n    } else {\n      // Wrap-around: two bulk writes\n      const firstLen = bufferSize - writePos;\n      audioBuffer.set(outputData.subarray(0, firstLen), writePos);\n      audioBuffer.set(outputData.subarray(firstLen), 0);\n    }\n\n    // Update write position atomically (release written data to consumer)\n    const newWritePos = endPos % bufferSize;\n    Atomics.store(this._atomicIndices, 0, newWritePos);\n\n    this._totalFramesWritten += outputFrameCount;\n\n    // Detect end of overrun: first successful write after dropped frames\n    if (this._overrunCount > 0) {\n      const durationMs = (currentTime - this._overrunStartTime) * 1000;\n      this.port.postMessage({\n        type: 'overrunEnded',\n        droppedFrames: this._overrunCount,\n        durationMs: durationMs,\n      });\n      this._overrunCount = 0;\n    }\n\n    this._maybeSendDiagnostics();\n\n    return true;\n  }\n\n  _maybeSendDiagnostics() {\n    // Send diagnostics approximately every 5 seconds.\n    // AudioWorklet's currentTime is in seconds.\n    const now = currentTime;\n    if (now - this._lastDiagnosticTime >= 5.0) {\n      this._lastDiagnosticTime = now;\n      // Re-read atomic indices for the most current SAB state. Using a value\n      // captured earlier in process() would be stale by one just-written\n      // quantum (~2.7ms at 48k AudioContext, ~8ms at 16k native).\n      const writePos = Atomics.load(this._atomicIndices, 0);\n      const readPos = Atomics.load(this._atomicIndices, 1);\n      const bufferSize = this._bufferSize;\n      const bufferedSamples = (writePos - readPos + bufferSize) % bufferSize;\n      const availableSpace = bufferSize - 1 - bufferedSamples;\n      // Samples in the ring are at the post-resample (target) rate.\n      const effectiveRate = this._needsResampling\n        ? sampleRate / this._resampleRatio\n        : sampleRate;\n      const fillMs = (bufferedSamples * 1000) / effectiveRate;\n      this.port.postMessage({\n        type: 'diagnostics',\n        overrunCount: this._overrunCount,\n        totalFramesWritten: this._totalFramesWritten,\n        availableSpace: availableSpace,\n        bufferSize: this._bufferSize,\n        bufferedSamples: bufferedSamples,\n        fillMs: fillMs,\n        audioWorkletTime: now,\n      });\n    }\n  }\n}\n\nregisterProcessor(\n  'voip-shared-buffer-capture-processor',\n  WAWebVoipSharedBufferCaptureProcessor,\n);\n";
+      return `
+class WAWebVoipSharedBufferCaptureProcessor extends AudioWorkletProcessor {
+  constructor(options) {
+    super();
+    this._isProcessing = false;
+    this._isInitialized = false;
+    this._overrunCount = 0;
+    this._overrunStartTime = 0;
+    this._totalFramesWritten = 0;
+    this._lastDiagnosticTime = 0;
+
+    // Shared buffer views (set after receiving SAB via postMessage)
+    this._atomicIndices = null;  // Uint32Array view for writePos/readPos
+    this._audioBuffer = null;    // Float32Array view for audio samples
+    this._bufferSize = 0;
+
+    // Resampling state: set when targetSampleRate differs from sampleRate
+    // (e.g., Firefox where AudioContext runs at 48kHz but VoIP needs 16kHz)
+    this._needsResampling = false;
+    this._resampleRatio = 1;
+    this._resampleBuffer = null;
+
+    // Pre-allocate mono-mix buffer for multi-channel input.
+    // AudioWorklet quantum is always 128 frames.
+    this._monoMixBuffer = new Float32Array(128);
+
+    this.port.onmessage = (event) => {
+      const data = event.data;
+      if (data.type === 'initSharedBuffer') {
+        // Receive SharedArrayBuffer from main thread
+        this._initSharedBuffer(
+          data.heapBuffer,
+          data.heapBufferOffset,
+          data.bufferSize,
+          data.targetSampleRate,
+        );
+      } else if (data.type === 'start') {
+        this._isProcessing = true;
+      } else if (data.type === 'stop') {
+        this._isProcessing = false;
+      }
+    };
+
+    this.port.postMessage({type: 'ready'});
+  }
+
+  _initSharedBuffer(heapBuffer, heapBufferOffset, bufferSize, targetSampleRate) {
+    // Create views into the WASM heap SharedArrayBuffer
+    // Header: [writePos uint32 at offset+0][readPos uint32 at offset+4]
+    this._atomicIndices = new Uint32Array(heapBuffer, heapBufferOffset, 2);
+    // Audio data starts after the 8-byte header
+    this._audioBuffer = new Float32Array(
+      heapBuffer,
+      heapBufferOffset + 8,
+      bufferSize,
+    );
+    this._bufferSize = bufferSize;
+    this._isInitialized = true;
+    this._overrunCount = 0;
+    this._totalFramesWritten = 0;
+    this._lastDiagnosticTime = currentTime;
+
+    // Configure resampling if AudioContext sample rate differs from target
+    // (sampleRate is a global in AudioWorkletGlobalScope)
+    if (targetSampleRate > 0 && targetSampleRate !== sampleRate) {
+      this._needsResampling = true;
+      this._resampleRatio = sampleRate / targetSampleRate;
+      // Pre-allocate the resampling output buffer. AudioWorklet quantum is
+      // always 128 frames, and the ratio is constant, so the output length
+      // is fixed for the entire capture session. Avoids allocating a new
+      // Float32Array on every process() call (every ~2.67ms at 48kHz).
+      const downsampledLength = Math.round(128 / this._resampleRatio);
+      this._resampleBuffer = new Float32Array(downsampledLength);
+      this.port.postMessage({
+        type: 'resamplingConfigured',
+        inputRate: sampleRate,
+        targetRate: targetSampleRate,
+        ratio: this._resampleRatio,
+      });
+    }
+
+    this.port.postMessage({type: 'sharedBufferReady'});
+  }
+
+  /**
+   * Downsample audio buffer using averaging algorithm.
+   * Same algorithm as maybeDownsampleBuffer in WAWebAudioUtility.
+   */
+  _downsample(buffer, ratio) {
+    const result = this._resampleBuffer;
+    const newLength = result.length;
+    let offsetResult = 0;
+    let offsetBuffer = 0;
+    while (offsetResult < newLength) {
+      const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
+      let accum = 0;
+      let count = 0;
+      for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+        accum += buffer[i];
+        count++;
+      }
+      result[offsetResult] = count > 0 ? accum / count : 0;
+      offsetResult++;
+      offsetBuffer = nextOffsetBuffer;
+    }
+    return result;
+  }
+
+  process(inputs, outputs, parameters) {
+    if (!this._isProcessing || !this._isInitialized) {
+      return true;
+    }
+
+    if (inputs.length === 0 || inputs[0].length === 0) {
+      return true;
+    }
+
+    const input = inputs[0];
+    const channelCount = input.length;
+    const frameCount = input[0].length;
+
+    // Mono-mix input channels into a single buffer
+    // For mono input (most common), this is a simple copy
+    let monoData;
+    if (channelCount === 1) {
+      monoData = input[0];
+    } else {
+      // Use pre-allocated buffer for multi-channel mono-mixing
+      monoData = this._monoMixBuffer;
+      for (let i = 0; i < frameCount; i++) {
+        let sum = 0;
+        for (let ch = 0; ch < channelCount; ch++) {
+          sum += input[ch][i];
+        }
+        monoData[i] = sum / channelCount;
+      }
+    }
+
+    // Downsample if needed (e.g., Firefox: 48kHz \u2192 16kHz)
+    const outputData = this._needsResampling
+      ? this._downsample(monoData, this._resampleRatio)
+      : monoData;
+    const outputFrameCount = outputData.length;
+
+    // Read current positions atomically
+    const writePos = Atomics.load(this._atomicIndices, 0);
+    const readPos = Atomics.load(this._atomicIndices, 1);
+
+    // Calculate available space in ring buffer
+    const bufferSize = this._bufferSize;
+    const availableSpace = (readPos - writePos - 1 + bufferSize) % bufferSize;
+
+    if (availableSpace < outputFrameCount) {
+      // Buffer full \u2014 drop this chunk (overrun)
+      if (this._overrunCount === 0) {
+        this._overrunStartTime = currentTime;
+      }
+      this._overrunCount++;
+      this._maybeSendDiagnostics();
+      return true;
+    }
+
+    // Write audio data to ring buffer using bulk copy with wrap-around
+    const audioBuffer = this._audioBuffer;
+    const endPos = writePos + outputFrameCount;
+
+    if (endPos <= bufferSize) {
+      // No wrap-around: single bulk write
+      audioBuffer.set(outputData, writePos);
+    } else {
+      // Wrap-around: two bulk writes
+      const firstLen = bufferSize - writePos;
+      audioBuffer.set(outputData.subarray(0, firstLen), writePos);
+      audioBuffer.set(outputData.subarray(firstLen), 0);
+    }
+
+    // Update write position atomically (release written data to consumer)
+    const newWritePos = endPos % bufferSize;
+    Atomics.store(this._atomicIndices, 0, newWritePos);
+
+    this._totalFramesWritten += outputFrameCount;
+
+    // Detect end of overrun: first successful write after dropped frames
+    if (this._overrunCount > 0) {
+      const durationMs = (currentTime - this._overrunStartTime) * 1000;
+      this.port.postMessage({
+        type: 'overrunEnded',
+        droppedFrames: this._overrunCount,
+        durationMs: durationMs,
+      });
+      this._overrunCount = 0;
+    }
+
+    this._maybeSendDiagnostics();
+
+    return true;
+  }
+
+  _maybeSendDiagnostics() {
+    // Send diagnostics approximately every 5 seconds.
+    // AudioWorklet's currentTime is in seconds.
+    const now = currentTime;
+    if (now - this._lastDiagnosticTime >= 5.0) {
+      this._lastDiagnosticTime = now;
+      // Re-read atomic indices for the most current SAB state. Using a value
+      // captured earlier in process() would be stale by one just-written
+      // quantum (~2.7ms at 48k AudioContext, ~8ms at 16k native).
+      const writePos = Atomics.load(this._atomicIndices, 0);
+      const readPos = Atomics.load(this._atomicIndices, 1);
+      const bufferSize = this._bufferSize;
+      const bufferedSamples = (writePos - readPos + bufferSize) % bufferSize;
+      const availableSpace = bufferSize - 1 - bufferedSamples;
+      // Samples in the ring are at the post-resample (target) rate.
+      const effectiveRate = this._needsResampling
+        ? sampleRate / this._resampleRatio
+        : sampleRate;
+      const fillMs = (bufferedSamples * 1000) / effectiveRate;
+      this.port.postMessage({
+        type: 'diagnostics',
+        overrunCount: this._overrunCount,
+        totalFramesWritten: this._totalFramesWritten,
+        availableSpace: availableSpace,
+        bufferSize: this._bufferSize,
+        bufferedSamples: bufferedSamples,
+        fillMs: fillMs,
+        audioWorkletTime: now,
+      });
+    }
+  }
+}
+
+registerProcessor(
+  'voip-shared-buffer-capture-processor',
+  WAWebVoipSharedBufferCaptureProcessor,
+);
+`;
     }
     var v = (function () {
       function e() {
@@ -114,209 +348,191 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.startAudioCapture = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this,
-              n = e.audioContext,
-              a = e.framesPerChunk,
-              i = e.mediaStreamSource;
-            try {
-              var l = o("WAWebAudioUtility").getCachedWasmModule();
-              if (l == null)
-                throw r("err")(
-                  "voip: [AV:SharedBuffer:Capture] WASM module not initialized",
-                );
-              var s = y,
-                u = s * Float32Array.BYTES_PER_ELEMENT + C;
-              this.ringBufferPtr =
-                yield o("WAWebAudioUtility").mallocWasmBuffer(u);
-              var c = this.ringBufferPtr;
-              if (c == null)
-                throw r("err")(
-                  "voip: [AV:SharedBuffer:Capture] Failed to allocate ring buffer",
-                );
-              var p = l.GROWABLE_HEAP_U8();
-              if (
-                (p.fill(0, c, c + u),
-                this.workletPreloadPromise != null &&
-                  (yield this.workletPreloadPromise),
-                !this.isWorkletPreloaded)
-              ) {
-                var _ = b(),
-                  f = new Blob([_], { type: "application/javascript" }),
-                  g = URL.createObjectURL(f);
-                try {
-                  yield n.audioWorklet.addModule(g);
-                } finally {
-                  URL.revokeObjectURL(g);
-                }
-              }
-              this.audioWorkletNode = new AudioWorkletNode(
-                n,
-                "voip-shared-buffer-capture-processor",
-                { numberOfInputs: 1, numberOfOutputs: 0 },
+        (t.startAudioCapture = async function (t) {
+          var e = this,
+            n = t.audioContext,
+            a = t.framesPerChunk,
+            i = t.mediaStreamSource;
+          try {
+            var l = o("WAWebAudioUtility").getCachedWasmModule();
+            if (l == null)
+              throw r("err")(
+                "voip: [AV:SharedBuffer:Capture] WASM module not initialized",
               );
-              var v = this.audioWorkletNode;
-              (v != null &&
-                (v.port.onmessage = function (e) {
-                  var n = e.data;
-                  if (!(typeof n != "object" || n == null))
-                    if (n.type === "ready") {
-                      var r;
-                      ((t.isProcessorReady = !0),
-                        (r = t.processorReadyResolvable) == null || r.resolve(),
-                        (t.processorReadyResolvable = null));
-                    } else h(n, "Capture");
-                }),
-                yield this.waitForProcessorReady());
-              var S = l.GROWABLE_HEAP_F32(),
-                R = S.buffer;
-              (v != null &&
-                v.port.postMessage({
-                  type: "initSharedBuffer",
-                  heapBuffer: R,
-                  heapBufferOffset: c,
-                  bufferSize: s,
-                  targetSampleRate: e.sampleRate,
-                }),
-                (this.mediaStreamSource = i),
-                v != null && i.connect(v));
-              var L = window.performance.now(),
-                E = l.startAudioReaderThread(c, s, a),
-                k = window.performance.now() - L;
-              if (!E)
-                throw r("err")(
-                  "voip: [AV:SharedBuffer:Capture] Failed to start audio reader thread",
-                );
-              (v != null && v.port.postMessage({ type: "start" }),
-                o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:SharedBuffer:Capture] capture started, [AV:capture-skew] startAudioReaderThread took ",
-                      "ms",
-                    ])),
-                  k.toFixed(1),
-                ));
-            } catch (e) {
-              throw (
-                o("WALogger").ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:SharedBuffer:Capture] Failed to start capture: ",
-                      "",
-                    ])),
-                  e,
-                ),
-                yield this.stopAudioCapture(),
-                r("err")(
-                  "voip: [AV:SharedBuffer:Capture] Failed to start capture",
-                )
+            var s = y,
+              u = s * Float32Array.BYTES_PER_ELEMENT + C;
+            this.ringBufferPtr =
+              await o("WAWebAudioUtility").mallocWasmBuffer(u);
+            var c = this.ringBufferPtr;
+            if (c == null)
+              throw r("err")(
+                "voip: [AV:SharedBuffer:Capture] Failed to allocate ring buffer",
               );
-            }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.waitForProcessorReady = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this,
-              t = 5e3;
-            if (!this.isProcessorReady) {
-              this.processorReadyResolvable = new (o(
-                "WAResolvable",
-              ).Resolvable)();
-              var n = window.setTimeout(function () {
-                e.processorReadyResolvable != null &&
-                  (e.processorReadyResolvable.reject(
-                    r("err")(
-                      "voip: [AV:SharedBuffer:Capture] Processor failed to become ready within 5s",
-                    ),
-                  ),
-                  (e.processorReadyResolvable = null));
-              }, t);
+            var p = l.GROWABLE_HEAP_U8();
+            if (
+              (p.fill(0, c, c + u),
+              this.workletPreloadPromise != null &&
+                (await this.workletPreloadPromise),
+              !this.isWorkletPreloaded)
+            ) {
+              var _ = b(),
+                f = new Blob([_], { type: "application/javascript" }),
+                g = URL.createObjectURL(f);
               try {
-                var a;
-                yield (a = this.processorReadyResolvable) == null
-                  ? void 0
-                  : a.promise;
+                await n.audioWorklet.addModule(g);
               } finally {
-                window.clearTimeout(n);
+                URL.revokeObjectURL(g);
               }
             }
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.stopAudioCapture = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            try {
-              var e = o("WAWebAudioUtility").getCachedWasmModule();
-              if (e != null)
-                try {
-                  e.isAudioReaderThreadRunning() && e.stopAudioReaderThread();
-                } catch (e) {
-                  o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:SharedBuffer:Capture] reader stop err: ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }
-              if (
-                (this.audioWorkletNode != null &&
-                  this.audioWorkletNode.port.postMessage({ type: "stop" }),
-                this.mediaStreamSource != null)
-              ) {
-                try {
-                  this.mediaStreamSource.disconnect();
-                } catch (e) {}
-                this.mediaStreamSource = null;
-              }
-              this.audioWorkletNode != null &&
-                (this.audioWorkletNode.disconnect(),
-                (this.audioWorkletNode = null));
-              var t = this.ringBufferPtr;
-              if (t != null) {
-                try {
-                  yield o("WAWebAudioUtility").freeWasmBuffer(t);
-                } catch (e) {
-                  o("WALogger").WARN(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:SharedBuffer:Capture] Error freeing ring buffer: ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }
-                this.ringBufferPtr = null;
-              }
-              ((this.isProcessorReady = !1),
-                (this.processorReadyResolvable = null),
-                (this.isWorkletPreloaded = !1),
-                (this.workletPreloadPromise = null));
-            } catch (e) {
+            this.audioWorkletNode = new AudioWorkletNode(
+              n,
+              "voip-shared-buffer-capture-processor",
+              { numberOfInputs: 1, numberOfOutputs: 0 },
+            );
+            var v = this.audioWorkletNode;
+            (v != null &&
+              (v.port.onmessage = function (t) {
+                var n = t.data;
+                if (!(typeof n != "object" || n == null))
+                  if (n.type === "ready") {
+                    var r;
+                    ((e.isProcessorReady = !0),
+                      (r = e.processorReadyResolvable) == null || r.resolve(),
+                      (e.processorReadyResolvable = null));
+                  } else h(n, "Capture");
+              }),
+              await this.waitForProcessorReady());
+            var S = l.GROWABLE_HEAP_F32(),
+              R = S.buffer;
+            (v != null &&
+              v.port.postMessage({
+                type: "initSharedBuffer",
+                heapBuffer: R,
+                heapBufferOffset: c,
+                bufferSize: s,
+                targetSampleRate: t.sampleRate,
+              }),
+              (this.mediaStreamSource = i),
+              v != null && i.connect(v));
+            var L = window.performance.now(),
+              E = l.startAudioReaderThread(c, s, a),
+              k = window.performance.now() - L;
+            if (!E)
+              throw r("err")(
+                "voip: [AV:SharedBuffer:Capture] Failed to start audio reader thread",
+              );
+            (v != null && v.port.postMessage({ type: "start" }),
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:SharedBuffer:Capture] capture started, [AV:capture-skew] startAudioReaderThread took ",
+                    "ms",
+                  ])),
+                k.toFixed(1),
+              ));
+          } catch (e) {
+            throw (
               o("WALogger").ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:SharedBuffer:Capture] Cleanup error: ",
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:SharedBuffer:Capture] Failed to start capture: ",
                     "",
                   ])),
                 e,
-              );
-            }
-          });
-          function t() {
-            return e.apply(this, arguments);
+              ),
+              await this.stopAudioCapture(),
+              r("err")(
+                "voip: [AV:SharedBuffer:Capture] Failed to start capture",
+              )
+            );
           }
-          return t;
-        })()),
+        }),
+        (t.waitForProcessorReady = async function () {
+          var e = this,
+            t = 5e3;
+          if (!this.isProcessorReady) {
+            this.processorReadyResolvable = new (o(
+              "WAResolvable",
+            ).Resolvable)();
+            var n = window.setTimeout(function () {
+              e.processorReadyResolvable != null &&
+                (e.processorReadyResolvable.reject(
+                  r("err")(
+                    "voip: [AV:SharedBuffer:Capture] Processor failed to become ready within 5s",
+                  ),
+                ),
+                (e.processorReadyResolvable = null));
+            }, t);
+            try {
+              var a;
+              await ((a = this.processorReadyResolvable) == null
+                ? void 0
+                : a.promise);
+            } finally {
+              window.clearTimeout(n);
+            }
+          }
+        }),
+        (t.stopAudioCapture = async function () {
+          try {
+            var e = o("WAWebAudioUtility").getCachedWasmModule();
+            if (e != null)
+              try {
+                e.isAudioReaderThreadRunning() && e.stopAudioReaderThread();
+              } catch (e) {
+                o("WALogger").WARN(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Capture] reader stop err: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+            if (
+              (this.audioWorkletNode != null &&
+                this.audioWorkletNode.port.postMessage({ type: "stop" }),
+              this.mediaStreamSource != null)
+            ) {
+              try {
+                this.mediaStreamSource.disconnect();
+              } catch (e) {}
+              this.mediaStreamSource = null;
+            }
+            this.audioWorkletNode != null &&
+              (this.audioWorkletNode.disconnect(),
+              (this.audioWorkletNode = null));
+            var t = this.ringBufferPtr;
+            if (t != null) {
+              try {
+                await o("WAWebAudioUtility").freeWasmBuffer(t);
+              } catch (e) {
+                o("WALogger").WARN(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Capture] Error freeing ring buffer: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+              this.ringBufferPtr = null;
+            }
+            ((this.isProcessorReady = !1),
+              (this.processorReadyResolvable = null),
+              (this.isWorkletPreloaded = !1),
+              (this.workletPreloadPromise = null));
+          } catch (e) {
+            o("WALogger").ERROR(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV:SharedBuffer:Capture] Cleanup error: ",
+                  "",
+                ])),
+              e,
+            );
+          }
+        }),
         (t.reconnect = function (t) {
           if (this.mediaStreamSource != null)
             try {

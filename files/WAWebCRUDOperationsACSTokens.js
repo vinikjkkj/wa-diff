@@ -1,6 +1,6 @@
 __d(
   "WAWebCRUDOperationsACSTokens",
-  ["WAWebSchemaACSTokens", "asyncToGeneratorRuntime"],
+  ["WAWebSchemaACSTokens"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -30,36 +30,20 @@ __d(
         t.anyOf(["project"], [e])
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      t === void 0 && (t = o("WAWebSchemaACSTokens").getACSTokensTable());
+      var n = await c(e, t);
+      return n.length > 0 ? n[0] : null;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = o("WAWebSchemaACSTokens").getACSTokensTable());
-          var n = yield c(e, t);
-          return n.length > 0 ? n[0] : null;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       return o("WAWebSchemaACSTokens").getACSTokensTable().get(e);
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield c(e, t);
-          yield t.bulkRemove(
-            n.map(function (e) {
-              return e.tokenName;
-            }),
-          );
-        })),
-        f.apply(this, arguments)
+    async function p(e, t) {
+      var n = await c(e, t);
+      await t.bulkRemove(
+        n.map(function (e) {
+          return e.tokenName;
+        }),
       );
     }
     ((l.upsertACSToken = e),
@@ -67,8 +51,8 @@ __d(
       (l.storeACSTokensForProject = u),
       (l.getACSTokensByProject = c),
       (l.getACSTokenByProject = d),
-      (l.getACSTokenByName = p),
-      (l.deleteAllACSTokensByProject = _));
+      (l.getACSTokenByName = m),
+      (l.deleteAllACSTokensByProject = p));
   },
   98,
 );

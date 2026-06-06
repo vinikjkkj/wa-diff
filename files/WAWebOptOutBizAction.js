@@ -1,7 +1,6 @@
 __d(
   "WAWebOptOutBizAction",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendErrors",
     "WAWebGetNumbersForBrandIdsJob",
@@ -17,36 +16,35 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "filterNulls",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
+    var e;
+    function s(e, t, n, r) {
+      return c(o("WAWebStateUtils").unproxy(e), !0, t, n, r);
+    }
     function u(e, t, n, r) {
-      return d(o("WAWebStateUtils").unproxy(e), !0, t, n, r);
+      return c(o("WAWebStateUtils").unproxy(e), !1, t, n, r);
     }
-    function c(e, t, n, r) {
-      return d(o("WAWebStateUtils").unproxy(e), !1, t, n, r);
-    }
-    function d(t, r, a, i, l) {
-      var u = t.isContactOptedOut,
-        c = r && u,
-        d = !r && !u;
-      if (c || d) return (s || (s = n("Promise"))).resolve();
-      var p = t.id,
-        _,
-        f = p;
+    function c(t, n, r, a, i) {
+      var l = t.isContactOptedOut,
+        s = n && l,
+        u = !n && !l;
+      if (s || u) return Promise.resolve();
+      var c = t.id,
+        m,
+        _ = c;
       if (
         o(
           "WAWebMarketingMessagesUserFeedbackGatingUtils",
         ).isMMOptOutAlwaysUseLidInGraphQLEnabled()
       ) {
-        var h = o("WAWebWidToJid").widToUserJid(f);
-        _ = h;
+        var f = o("WAWebWidToJid").widToUserJid(_);
+        m = f;
         try {
-          var y = o("WAWebJidToWid").userJidToUserWid(h),
-            C = o("WAWebLidMigrationUtils").toUserLidOrThrow(y);
-          _ = o("WAWebWidToJid").widToUserJid(C);
+          var g = o("WAWebJidToWid").userJidToUserWid(f),
+            h = o("WAWebLidMigrationUtils").toUserLidOrThrow(g);
+          m = o("WAWebWidToJid").widToUserJid(h);
         } catch (t) {
           o("WALogger").LOG(
             e ||
@@ -56,170 +54,111 @@ __d(
           );
         }
       } else {
-        var b = r && p.isLid(),
-          v = t.phoneNumber;
-        ((f = b && v != null ? v : p),
-          (_ = o("WAWebWidToJid").widToUserJid(f)));
+        var y = n && c.isLid(),
+          C = t.phoneNumber;
+        ((_ = y && C != null ? C : c),
+          (m = o("WAWebWidToJid").widToUserJid(_)));
       }
-      var S = r
-          ? o("WAWebOptOutUserJob").optOutUser(_, a, i)
-          : o("WAWebOptOutUserJob").optInUser(_, a, i),
-        R = S.then(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e && e.errorCode != null)
-                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    e.errorCode,
-                    e.errorText,
-                  );
-                if (
-                  (yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(
-                    e.listDhash,
-                  ),
-                  e.listMatched === "true")
-                ) {
-                  if (
-                    e.listItemBizOptOutResponseMixin.bizOptOutIds.name ===
-                    "BizOptOutJid"
-                  ) {
-                    var t =
-                        e.listItemBizOptOutResponseMixin.bizOptOutIds.value
-                          .bizOptOutJid,
-                      r = e.listItemBizOptOutResponseMixin.action;
-                    yield g(
-                      o("WAWebJidToWid").userJidToUserWid(t),
-                      r === "block",
-                    );
-                  } else if (
-                    e.listItemBizOptOutResponseMixin.bizOptOutIds.name ===
-                    "BizOptOutBrandID"
-                  ) {
-                    var a =
-                        e.listItemBizOptOutResponseMixin.bizOptOutIds.value
-                          .bizOptOutBrandId,
-                      i = e.listItemBizOptOutResponseMixin.action;
-                    yield m([a], i === "block");
-                  }
-                } else {
-                  (yield o("WAWebUpdateOptOutListDbJob").clearOptOutListDbJob(),
-                    o("WAWebOptOutListCollection").OptOutListCollection.forEach(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            o(
-                              "WAWebOptOutListCollection",
-                            ).OptOutListCollection.remove(e);
-                          },
-                        );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ));
-                  var l = [];
-                  (e.listItem &&
-                    Array.isArray(e.listItem) &&
-                    e.listItem.forEach(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            if (e.bizOptOutIds.name === "BizOptOutJid") {
-                              var t = e.bizOptOutIds.value.bizOptOutJid,
-                                n = e.action;
-                              n === "block" &&
-                                (yield g(
-                                  o("WAWebJidToWid").userJidToUserWid(t),
-                                  !0,
-                                ));
-                            } else if (
-                              e.bizOptOutIds.name === "BizOptOutBrandID"
-                            ) {
-                              var r = e.action;
-                              r === "block" &&
-                                l.push(e.bizOptOutIds.value.bizOptOutBrandId);
-                            }
-                          },
-                        );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                    yield m(l, !0));
+      var b = n
+          ? o("WAWebOptOutUserJob").optOutUser(m, r, a)
+          : o("WAWebOptOutUserJob").optInUser(m, r, a),
+        v = b.then(async function (e) {
+          if (e && e.errorCode != null)
+            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              e.errorCode,
+              e.errorText,
+            );
+          if (
+            (await o("WAWebUserPrefsMultiDevice").setOptOutlistHash(
+              e.listDhash,
+            ),
+            e.listMatched === "true")
+          ) {
+            if (
+              e.listItemBizOptOutResponseMixin.bizOptOutIds.name ===
+              "BizOptOutJid"
+            ) {
+              var t =
+                  e.listItemBizOptOutResponseMixin.bizOptOutIds.value
+                    .bizOptOutJid,
+                n = e.listItemBizOptOutResponseMixin.action;
+              await p(o("WAWebJidToWid").userJidToUserWid(t), n === "block");
+            } else if (
+              e.listItemBizOptOutResponseMixin.bizOptOutIds.name ===
+              "BizOptOutBrandID"
+            ) {
+              var r =
+                  e.listItemBizOptOutResponseMixin.bizOptOutIds.value
+                    .bizOptOutBrandId,
+                a = e.listItemBizOptOutResponseMixin.action;
+              await d([r], a === "block");
+            }
+          } else {
+            (await o("WAWebUpdateOptOutListDbJob").clearOptOutListDbJob(),
+              o("WAWebOptOutListCollection").OptOutListCollection.forEach(
+                async function (e) {
+                  o("WAWebOptOutListCollection").OptOutListCollection.remove(e);
+                },
+              ));
+            var i = [];
+            (e.listItem &&
+              Array.isArray(e.listItem) &&
+              e.listItem.forEach(async function (e) {
+                if (e.bizOptOutIds.name === "BizOptOutJid") {
+                  var t = e.bizOptOutIds.value.bizOptOutJid,
+                    n = e.action;
+                  n === "block" &&
+                    (await p(o("WAWebJidToWid").userJidToUserWid(t), !0));
+                } else if (e.bizOptOutIds.name === "BizOptOutBrandID") {
+                  var r = e.action;
+                  r === "block" &&
+                    i.push(e.bizOptOutIds.value.bizOptOutBrandId);
                 }
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        );
-      return (o("WAWebOptOutBizToast").optOutBizToast(t, R, r, a, i, l), R);
-    }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e.length !== 0) {
-            var r = yield _(e);
-            yield (s || (s = n("Promise"))).allSettled(
-              r.map(function (e) {
-                return g(e, t);
               }),
-            );
+              await d(i, !0));
           }
-        })),
-        p.apply(this, arguments)
+        });
+      return (o("WAWebOptOutBizToast").optOutBizToast(t, v, n, r, a, i), v);
+    }
+    async function d(e, t) {
+      if (e.length !== 0) {
+        var n = await m(e);
+        await Promise.allSettled(
+          n.map(function (e) {
+            return p(e, t);
+          }),
+        );
+      }
+    }
+    async function m(e) {
+      var t = await o("WAWebGetNumbersForBrandIdsJob").getNumbersForBrandIdsJob(
+        e,
+      );
+      return t.type !== "success"
+        ? []
+        : o(
+              "WAWebMarketingMessagesUserFeedbackGatingUtils",
+            ).isMMOptOutAlwaysUseLidInGraphQLEnabled()
+          ? r("filterNulls")(
+              t.value.flatMap(function (e) {
+                return e.lids;
+              }),
+            )
+          : t.value
+              .flatMap(function (e) {
+                return e.phoneNumbers;
+              })
+              .map(function (e) {
+                return o("WAWebWidFactory").createUserWidOrThrow(e);
+              });
+    }
+    async function p(e, t) {
+      await o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+        "updateOptOutListModelInCollection",
+        { targetWid: e, isBlocked: t },
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebGetNumbersForBrandIdsJob",
-          ).getNumbersForBrandIdsJob(e);
-          return t.type !== "success"
-            ? []
-            : o(
-                  "WAWebMarketingMessagesUserFeedbackGatingUtils",
-                ).isMMOptOutAlwaysUseLidInGraphQLEnabled()
-              ? r("filterNulls")(
-                  t.value.flatMap(function (e) {
-                    return e.lids;
-                  }),
-                )
-              : t.value
-                  .flatMap(function (e) {
-                    return e.phoneNumbers;
-                  })
-                  .map(function (e) {
-                    return o("WAWebWidFactory").createUserWidOrThrow(e);
-                  });
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-            "updateOptOutListModelInCollection",
-            { targetWid: e, isBlocked: t },
-          );
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    ((l.optOutContact = u), (l.optInContact = c));
+    ((l.optOutContact = s), (l.optInContact = u));
   },
   98,
 );

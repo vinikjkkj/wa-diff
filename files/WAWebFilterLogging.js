@@ -15,7 +15,6 @@ __d(
     "WAWebWamEnumChatFilterTargetScreen",
     "WAWebWamEnumChatFilterTypes",
     "WAWebWamEnumChatSearchResultType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -193,63 +192,43 @@ __d(
       });
       t.commit();
     }
-    function f(e, t, n, r) {
-      return g.apply(this, arguments);
+    async function f(t, n, r, a) {
+      var i = {
+          actionType: o("WAWebWamEnumChatFilterActionTypes")
+            .CHAT_FILTER_ACTION_TYPES.SEARCH_ITEM_SELECTED,
+          filterType: e(n),
+          searchResultType: m(r),
+          targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
+            .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
+          sessionId: t,
+        },
+        l =
+          a != null
+            ? await o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
+            : null;
+      (s({ eventData: i, filter: n, threadId: l }),
+        new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
+          i,
+        ).commit());
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = {
-                actionType: o("WAWebWamEnumChatFilterActionTypes")
-                  .CHAT_FILTER_ACTION_TYPES.SEARCH_ITEM_SELECTED,
-                filterType: e(n),
-                searchResultType: m(r),
-                targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
-                  .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
-                sessionId: t,
-              },
-              l =
-                a != null
-                  ? yield o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
-                  : null;
-            (s({ eventData: i, filter: n, threadId: l }),
-              new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-                i,
-              ).commit());
-          },
-        )),
-        g.apply(this, arguments)
-      );
+    async function g(t, n, r, a) {
+      var i = {
+          actionType: o("WAWebWamEnumChatFilterActionTypes")
+            .CHAT_FILTER_ACTION_TYPES.SEARCH_MSG_SENT,
+          filterType: e(n),
+          searchResultType: m(r),
+          sessionId: t,
+        },
+        l =
+          a != null
+            ? await o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
+            : null;
+      (s({ eventData: i, filter: n, threadId: l }),
+        new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
+          i,
+        ).commit());
     }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = {
-                actionType: o("WAWebWamEnumChatFilterActionTypes")
-                  .CHAT_FILTER_ACTION_TYPES.SEARCH_MSG_SENT,
-                filterType: e(n),
-                searchResultType: m(r),
-                sessionId: t,
-              },
-              l =
-                a != null
-                  ? yield o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
-                  : null;
-            (s({ eventData: i, filter: n, threadId: l }),
-              new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-                i,
-              ).commit());
-          },
-        )),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
+    function h(e) {
       var t = {
         actionType: o("WAWebWamEnumChatFilterActionTypes")
           .CHAT_FILTER_ACTION_TYPES.FILTER_VIEWED,
@@ -268,8 +247,8 @@ __d(
       (l.logSearchFilterEvent = p),
       (l.logSearchWithFilterEvent = _),
       (l.logSearchItemSelectedFilterEvent = f),
-      (l.logSearchMsgSentFilterEvent = h),
-      (l.logLabelDropdownShownEvent = C));
+      (l.logSearchMsgSentFilterEvent = g),
+      (l.logLabelDropdownShownEvent = h));
   },
   98,
 );

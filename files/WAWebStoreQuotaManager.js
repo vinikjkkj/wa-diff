@@ -1,6 +1,6 @@
 __d(
   "WAWebStoreQuotaManager",
-  ["WAStorageEstimator", "WAWebABProps", "asyncToGeneratorRuntime"],
+  ["WAStorageEstimator", "WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     var e = 1073741824,
       s = new Map([
@@ -30,27 +30,19 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.getQuotaForStore = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n,
-                  r = yield o("WAStorageEstimator").estimateStorage();
-                if (!r.success) return 0;
-                var a = r.value.quota;
-                return Math.floor(
-                  (t = (n = this.$1.get(e)) == null ? void 0 : n.getQuota(a)) !=
-                    null
-                    ? t
-                    : 0,
-                );
-              },
+          (t.getQuotaForStore = async function (t) {
+            var e,
+              n,
+              r = await o("WAStorageEstimator").estimateStorage();
+            if (!r.success) return 0;
+            var a = r.value.quota;
+            return Math.floor(
+              (e = (n = this.$1.get(t)) == null ? void 0 : n.getQuota(a)) !=
+                null
+                ? e
+                : 0,
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           e
         );
       })(),

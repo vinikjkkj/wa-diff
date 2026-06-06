@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaStickers",
   [
-    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebDownloadManager",
@@ -15,7 +14,6 @@ __d(
     "WAWebRecentStickerCollectionMd",
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "err",
     "gkx",
   ],
@@ -26,9 +24,8 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 125;
-    function f(e) {
+      p = 125;
+    function _(e) {
       var t = {};
       return (
         o("WAWebMediaTypes").MAPPED_STICKER_PROPS.forEach(function (n) {
@@ -39,7 +36,7 @@ __d(
         t
       );
     }
-    function g(t) {
+    function f(t) {
       if (!t.filehash) {
         o("WALogger")
           .ERROR(
@@ -54,7 +51,7 @@ __d(
       var n = o("WAWebMediaStorage").getOrCreateMediaObject(t.filehash);
       return (o("WAWebMediaStorage").associateMediaWithSticker(n, t), n);
     }
-    function h(e) {
+    function g(e) {
       if (!e.filehash) {
         o("WALogger")
           .ERROR(
@@ -69,8 +66,8 @@ __d(
       var t = o("WAWebMediaStorage").getOrCreateMediaObject(e.filehash);
       return (o("WAWebMediaStorage").associateMediaWithStickerPack(t, e), t);
     }
-    function y(e, t, n, a) {
-      var i = f(e);
+    function h(e, t, n, a) {
+      var i = _(e);
       if ((e.mediaData.set(i), !!t)) {
         e.mediaObject = t;
         var l = e.deprecatedMms3Url,
@@ -112,158 +109,145 @@ __d(
         t.consolidate(i);
       }
     }
-    function C(e) {
-      y(
+    function y(e) {
+      h(
         e,
-        e.mediaObject || g(e),
+        e.mediaObject || f(e),
         o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER,
         !1,
       );
     }
-    function b(e) {
+    function C(e) {
       var t = e.mediaObject;
       t && o("WAWebMediaStorage").disassociateMediaFromSticker(t, e);
     }
-    function v(e) {
-      y(
+    function b(e) {
+      h(
         e,
-        e.mediaObject || h(e),
+        e.mediaObject || g(e),
         o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
         !0,
       );
     }
-    function S(e) {
+    function v(e) {
       var t = e.mediaObject;
       t && o("WAWebMediaStorage").disassociateMediaFromStickerPack(t, e);
     }
-    function R(e, t, n) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          if (
-            (a === void 0 && (a = !0),
-            e.isPlaceholder === !0 || e.isCreateButton === !0)
-          )
+    async function S(e, t, n) {
+      if (
+        (n === void 0 && (n = !0),
+        e.isPlaceholder === !0 || e.isCreateButton === !0)
+      )
+        return (
+          (e.mediaData.mediaStage =
+            o("WAWebMediaTypes").MediaDataStage.PREPARING),
+          Promise.resolve()
+        );
+      var a = e.mediaObject;
+      if (!a)
+        return Promise.reject(
+          r("err")(
+            "media-fault: downloadStickerOrStickerPackIcon sticker/stickerPack without mediaObject",
+          ),
+        );
+      var i =
+          t === "STICKER"
+            ? o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+                .STICKER_PANEL_STICKER
+            : o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+                .STICKER_PANEL_ICON,
+        l = !1;
+      await a
+        .getPendingProcess("fromDisk")
+        .then(function () {
+          if (!e.filehash || !e.mediaKey || !e.encFilehash)
             return (
-              (e.mediaData.mediaStage =
-                o("WAWebMediaTypes").MediaDataStage.PREPARING),
-              (p || (p = n("Promise"))).resolve()
+              (l = !0),
+              o("WAWebDownloadManager").downloadManager.rmr({
+                mediaObject: a,
+                signal: new AbortController().signal,
+                rmrReason: i,
+              })
             );
-          var i = e.mediaObject;
-          if (!i)
-            return (p || (p = n("Promise"))).reject(
-              r("err")(
-                "media-fault: downloadStickerOrStickerPackIcon sticker/stickerPack without mediaObject",
-              ),
-            );
-          var l =
-              t === "STICKER"
-                ? o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-                    .STICKER_PANEL_STICKER
-                : o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-                    .STICKER_PANEL_ICON,
-            s = !1;
-          yield i
-            .getPendingProcess("fromDisk")
-            .then(function () {
-              if (!e.filehash || !e.mediaKey || !e.encFilehash)
-                return (
-                  (s = !0),
-                  o("WAWebDownloadManager").downloadManager.rmr({
-                    mediaObject: i,
-                    signal: new AbortController().signal,
-                    rmrReason: l,
-                  })
+        })
+        .then(function () {
+          return o("WAWebMediaMmsV4Download").downloadMedia({
+            mimetype: e.mimetype,
+            mediaObject: e.mediaObject,
+            downloadEvenIfExpensive: !0,
+            mediaType: o("WAWebMmsMediaTypes").msgToMediaType({
+              type: e.type,
+              isGif: !1,
+              isNewsletter: !1,
+            }),
+            rmrReason: i,
+            downloadOrigin: o("WAWebWamEnumDownloadOriginType")
+              .DOWNLOAD_ORIGIN_TYPE.STICKER_PICKER,
+            shouldThrow: n,
+          });
+        })
+        .catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WAWebMiscErrors").RMRNotSupportedOnNewsletterMessagesError,
+            function (e) {
+              if (
+                e.mediaType !==
+                o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_STICKER
+              )
+                throw (
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "Unexpected RMR error for media type ",
+                          "",
+                        ])),
+                      e.mediaType,
+                    )
+                    .sendLogs("failed-to-download-sticker-rmr"),
+                  e
                 );
-            })
-            .then(function () {
-              return o("WAWebMediaMmsV4Download").downloadMedia({
-                mimetype: e.mimetype,
-                mediaObject: e.mediaObject,
-                downloadEvenIfExpensive: !0,
-                mediaType: o("WAWebMmsMediaTypes").msgToMediaType({
-                  type: e.type,
-                  isGif: !1,
-                  isNewsletter: !1,
-                }),
-                rmrReason: l,
-                downloadOrigin: o("WAWebWamEnumDownloadOriginType")
-                  .DOWNLOAD_ORIGIN_TYPE.STICKER_PICKER,
-                shouldThrow: a,
-              });
-            })
-            .catch(
-              o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").RMRNotSupportedOnNewsletterMessagesError,
-                function (e) {
-                  if (
-                    e.mediaType !==
-                    o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_STICKER
-                  )
-                    throw (
-                      o("WALogger")
-                        .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
-                              "Unexpected RMR error for media type ",
-                              "",
-                            ])),
-                          e.mediaType,
-                        )
-                        .sendLogs("failed-to-download-sticker-rmr"),
-                      e
-                    );
-                },
-              ),
-            );
-          var u = i.entries.getDownloadEntry(!0);
-          s &&
-            u instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
-            o(
-              "WAWebRecentStickerCollectionMd",
-            ).RecentStickerCollectionMd.updateStickerMediaData(e.filehash, u);
-        })),
-        L.apply(this, arguments)
-      );
+            },
+          ),
+        );
+      var s = a.entries.getDownloadEntry(!0);
+      l &&
+        s instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
+        o(
+          "WAWebRecentStickerCollectionMd",
+        ).RecentStickerCollectionMd.updateStickerMediaData(e.filehash, s);
     }
-    function E(e) {
+    function R(e) {
       o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose(["Prepping sticker"])),
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose(["Prepping sticker"])),
       );
       var t = e.mediaObject,
-        a = e.mediaData.toJSON();
+        n = e.mediaData.toJSON();
       return (
-        (a.fullWidth = _),
-        (a.fullHeight = _),
+        (n.fullWidth = p),
+        (n.fullHeight = p),
         t
-          ? new (o("WAWebMediaPrep").MediaPrep)(
-              a.type,
-              (p || (p = n("Promise"))).resolve(a),
-            )
+          ? new (o("WAWebMediaPrep").MediaPrep)(n.type, Promise.resolve(n))
           : (o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose(["id: ", ""])),
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose(["id: ", ""])),
                 e.id,
               )
               .sendLogs("media-fault: prepSticker sticker without mediaObject"),
             new (o("WAWebMediaPrep").MediaPrep)(
-              a.type,
-              (p || (p = n("Promise"))).reject(
-                r("err")("non initialized media"),
-              ),
+              n.type,
+              Promise.reject(r("err")("non initialized media")),
             ))
       );
     }
-    ((l.registerSticker = C),
-      (l.deregisterSticker = b),
-      (l.registerStickerPackIcon = v),
-      (l.deregisterStickerPackIcon = S),
-      (l.downloadStickerOrStickerPackIcon = R),
-      (l.prepSticker = E));
+    ((l.registerSticker = y),
+      (l.deregisterSticker = C),
+      (l.registerStickerPackIcon = b),
+      (l.deregisterStickerPackIcon = v),
+      (l.downloadStickerOrStickerPackIcon = S),
+      (l.prepSticker = R));
   },
   98,
 );

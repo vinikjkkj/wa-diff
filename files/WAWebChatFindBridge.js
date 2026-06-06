@@ -1,18 +1,10 @@
 __d(
   "WAWebChatFindBridge",
-  ["WAWebApiHydrateWidsUtil", "WAWebSchemaChat", "asyncToGeneratorRuntime"],
+  ["WAWebApiHydrateWidsUtil", "WAWebSchemaChat"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaChat").getChatTable().get(e, !1);
-          return t ? o("WAWebApiHydrateWidsUtil").hydrateWids(t) : null;
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      var t = await o("WAWebSchemaChat").getChatTable().get(e, !1);
+      return t ? o("WAWebApiHydrateWidsUtil").hydrateWids(t) : null;
     }
     l.findLocal = e;
   },

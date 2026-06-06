@@ -2,7 +2,6 @@ __d(
   "WAWebStatusContactAction",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WAWebActionToast.react",
     "WAWebChatCollection",
@@ -11,123 +10,100 @@ __d(
     "WAWebTextStatusCollection",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c,
-      d = c || (c = o("react"));
-    function m(e) {
-      return p.apply(this, arguments);
+      c = u || (u = o("react"));
+    async function d(e) {
+      var t,
+        n,
+        r =
+          (t = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
+            e,
+          )) == null
+            ? void 0
+            : t.tcToken,
+        a = { wid: e, tcToken: r },
+        i = await o("WAWebContactStatusBridge").getStatus(a);
+      if (i.stale === !0) {
+        var l = o("WAWebTextStatusCollection").TextStatusCollection.get(e);
+        if (l) return { id: e, status: l.status };
+      }
+      var s =
+        (n = i.status) != null
+          ? n
+          : o("WAWebTextStatusCollection").getDefaultTextStatus();
+      return { id: e, status: s };
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r =
-              (t = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
-                e,
-              )) == null
+    async function m(t, n, r, a) {
+      (r === void 0 && (r = o("WAWebActionToast.react").genId()),
+        a === void 0 && (a = !1));
+      var i = t.trim();
+      if (!i) return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
+      var l = o("WAWebContactStatusBridge").setMyStatus(i),
+        u = new (o("WAWebActionToast.react").ActionType)(
+          s._(/*BTDS*/ "Changing About\u2026"),
+        ),
+        d = o("WAWebUserPrefsMeUser").getMeUser(),
+        p = o("WAWebTextStatusCollection").TextStatusCollection.assertGet(
+          d,
+        ).status,
+        _ = l
+          .then(function (e) {
+            if (e.status === 200) {
+              var t = a
                 ? void 0
-                : t.tcToken,
-            a = { wid: e, tcToken: r },
-            i = yield o("WAWebContactStatusBridge").getStatus(a);
-          if (i.stale === !0) {
-            var l = o("WAWebTextStatusCollection").TextStatusCollection.get(e);
-            if (l) return { id: e, status: l.status };
-          }
-          var s =
-            (n = i.status) != null
-              ? n
-              : o("WAWebTextStatusCollection").getDefaultTextStatus();
-          return { id: e, status: s };
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            (a === void 0 && (a = o("WAWebActionToast.react").genId()),
-              i === void 0 && (i = !1));
-            var l = t.trim();
-            if (!l)
-              return (u || (u = n("Promise"))).reject(
-                new (o("WAWebMiscErrors").ActionError)(),
+                : {
+                    actionText: s._(/*BTDS*/ "Undo"),
+                    actionHandler: function () {
+                      return m(p, n, r, !0);
+                    },
+                  };
+              return new (o("WAWebActionToast.react").ActionType)(
+                s._(/*BTDS*/ "About changed"),
+                t,
               );
-            var c = o("WAWebContactStatusBridge").setMyStatus(l),
-              m = new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ "Changing About\u2026"),
+            } else if (e.status >= 400)
+              return new (o("WAWebActionToast.react").ActionType)(
+                s._(/*BTDS*/ "Couldn't change About."),
+              );
+          })
+          .catch(function (a) {
+            throw (
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "models:statusCollection:setMyStatus dropped",
+                  ])),
               ),
-              p = o("WAWebUserPrefsMeUser").getMeUser(),
-              f = o("WAWebTextStatusCollection").TextStatusCollection.assertGet(
-                p,
-              ).status,
-              g = c
-                .then(function (e) {
-                  if (e.status === 200) {
-                    var t = i
-                      ? void 0
-                      : {
-                          actionText: s._(/*BTDS*/ "Undo"),
-                          actionHandler: function () {
-                            return _(f, r, a, !0);
-                          },
-                        };
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "About changed"),
-                      t,
-                    );
-                  } else if (e.status >= 400)
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Couldn't change About."),
-                    );
-                })
-                .catch(function (n) {
-                  throw (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "models:statusCollection:setMyStatus dropped",
-                        ])),
-                    ),
-                    new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Couldn't change About."),
-                      {
-                        actionText: s._(/*BTDS*/ "Try again."),
-                        actionHandler: function () {
-                          return _(t, r, a);
-                        },
-                      },
-                    )
-                  );
-                });
-            o("WAWebToastManager").ToastManager.open(
-              d.jsx(o("WAWebActionToast.react").ActionToast, {
-                id: a,
-                initialAction: m,
-                pendingAction: g,
-                onDismiss: r,
-              }),
+              new (o("WAWebActionToast.react").ActionType)(
+                s._(/*BTDS*/ "Couldn't change About."),
+                {
+                  actionText: s._(/*BTDS*/ "Try again."),
+                  actionHandler: function () {
+                    return m(t, n, r);
+                  },
+                },
+              )
             );
-            var h = yield c;
-            h.status === 200 &&
-              (o("WAWebTextStatusCollection").TextStatusCollection.assertGet(
-                p,
-              ).status = t);
-          },
-        )),
-        f.apply(this, arguments)
+          });
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebActionToast.react").ActionToast, {
+          id: r,
+          initialAction: u,
+          pendingAction: _,
+          onDismiss: n,
+        }),
       );
+      var f = await l;
+      f.status === 200 &&
+        (o("WAWebTextStatusCollection").TextStatusCollection.assertGet(
+          d,
+        ).status = t);
     }
-    ((l.getStatus = m), (l.setMyStatus = _));
+    ((l.getStatus = d), (l.setMyStatus = m));
   },
   226,
 );

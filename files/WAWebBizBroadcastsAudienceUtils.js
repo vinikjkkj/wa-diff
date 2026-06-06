@@ -16,7 +16,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -53,10 +52,10 @@ __d(
         };
       });
     }
-    function m(e, t, a) {
-      var i = e.broadcastJid,
-        l = o("WAWebToast.react").genId(),
-        s =
+    function m(e, t, n) {
+      var a = e.broadcastJid,
+        i = o("WAWebToast.react").genId(),
+        l =
           t === "create"
             ? o(
                 "WAWebBizBroadcastsCreationStrings",
@@ -73,19 +72,19 @@ __d(
                 })();
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          id: l,
-          msg: s,
+          id: i,
+          msg: l,
           action: {
             actionText: r("WAWebFbtCommon")("Undo"),
             onAction: function () {
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                yield o("WAWebBroadcastListAction")
-                  .deleteBroadcastListAction(i)
+              (async function () {
+                await o("WAWebBroadcastListAction")
+                  .deleteBroadcastListAction(a)
                   .then(function () {
-                    return a();
+                    return n();
                   })
                   .finally(function () {
-                    return o("WAWebToastManager").ToastManager.close(l);
+                    return o("WAWebToastManager").ToastManager.close(i);
                   });
               })();
             },
@@ -93,25 +92,25 @@ __d(
         }),
       );
     }
-    function p(e, t, a, i) {
-      var l = o("WAWebToast.react").genId();
+    function p(e, t, n, a) {
+      var i = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          id: l,
+          id: i,
           msg: o(
             "WAWebBizBroadcastsCreationStrings",
           ).getAudienceUpdatedToastLabel(),
           action: {
             actionText: r("WAWebFbtCommon")("Undo"),
             onAction: function () {
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                yield o("WAWebBroadcastListAction")
-                  .editBroadcastListAction(e, a, t)
+              (async function () {
+                await o("WAWebBroadcastListAction")
+                  .editBroadcastListAction(e, n, t)
                   .then(function () {
-                    return i();
+                    return a();
                   })
                   .finally(function () {
-                    return o("WAWebToastManager").ToastManager.close(l);
+                    return o("WAWebToastManager").ToastManager.close(i);
                   });
               })();
             },

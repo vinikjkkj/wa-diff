@@ -1,10 +1,6 @@
 __d(
   "WAWebApiLocalStorage",
-  [
-    "WAWebSchemaLocalStorage",
-    "WAWebWorkerStorageUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebSchemaLocalStorage", "WAWebWorkerStorageUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebSchemaLocalStorage")
@@ -20,20 +16,10 @@ __d(
       });
       return o("WAWebWorkerStorageUtils")
         .getStorage()
-        .lock(
-          ["local_storage"],
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e[0];
-                (yield n.clear(), yield n.bulkCreateOrReplace(t));
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        );
+        .lock(["local_storage"], async function (e) {
+          var n = e[0];
+          (await n.clear(), await n.bulkCreateOrReplace(t));
+        });
     }
     function u() {
       return o("WAWebSchemaLocalStorage").getTable().clear();

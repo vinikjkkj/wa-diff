@@ -6,7 +6,6 @@ __d(
     "WAWebNewsletterDirectoryCategoryUtils",
     "WAWebNewsletterDirectoryFilterUtils",
     "WAWebNewsletterGatingUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -42,39 +41,31 @@ __d(
                     );
                   })();
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.categories,
-            n = e.countryCodes,
-            r = e.cursorToken,
-            a = e.limit,
-            i = e.view,
-            l = {
-              input: {
-                view: u(i),
-                filters: {
-                  country_codes: n,
-                  categories: t.map(
-                    o("WAWebNewsletterDirectoryCategoryUtils")
-                      .getCategoryValueFromEnum,
-                  ),
-                },
-                limit: a,
-                start_cursor: r,
-              },
-              fetch_status_metadata: o(
-                "WAWebNewsletterGatingUtils",
-              ).isNewsletterStatusReceiverEnabled(),
+    async function c(e) {
+      var t = e.categories,
+        n = e.countryCodes,
+        r = e.cursorToken,
+        a = e.limit,
+        i = e.view,
+        l = {
+          input: {
+            view: u(i),
+            filters: {
+              country_codes: n,
+              categories: t.map(
+                o("WAWebNewsletterDirectoryCategoryUtils")
+                  .getCategoryValueFromEnum,
+              ),
             },
-            c = yield o("WAWebMexClient").fetchQuery(s, l);
-          return c;
-        })),
-        d.apply(this, arguments)
-      );
+            limit: a,
+            start_cursor: r,
+          },
+          fetch_status_metadata: o(
+            "WAWebNewsletterGatingUtils",
+          ).isNewsletterStatusReceiverEnabled(),
+        },
+        c = await o("WAWebMexClient").fetchQuery(s, l);
+      return c;
     }
     l.mexFetchNewsletterDirectoryList = c;
   },

@@ -1,41 +1,27 @@
 __d(
   "WAWebDBBulkCanSetGroupEphemeralSetting",
-  [
-    "Promise",
-    "WAWebGroupUtils",
-    "WAWebGroupsParticipantsApi",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebGroupUtils", "WAWebGroupsParticipantsApi"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    async function e(e, t, n) {
+      var r = new Set();
+      if (n.length === 0) return r;
+      var o = await Promise.all([
+          e.anyOf(["id"], n, { shouldDecrypt: !1 }),
+          t.anyOf(["groupId"], n, { shouldDecrypt: !1 }),
+        ]),
+        a = o[0],
+        i = o[1],
+        l = new Map();
+      for (var u of a) l.set(u.id, u);
+      var c = new Map();
+      for (var d of i) c.set(d.groupId, d);
+      for (var m of n) {
+        var p = l.get(m);
+        p != null && s(p, c.get(m)) && r.add(m);
+      }
+      return r;
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, o) {
-          var a = new Set();
-          if (o.length === 0) return a;
-          var i = yield (e || (e = n("Promise"))).all([
-              t.anyOf(["id"], o, { shouldDecrypt: !1 }),
-              r.anyOf(["groupId"], o, { shouldDecrypt: !1 }),
-            ]),
-            l = i[0],
-            s = i[1],
-            u = new Map();
-          for (var d of l) u.set(d.id, d);
-          var m = new Map();
-          for (var p of s) m.set(p.groupId, p);
-          for (var _ of o) {
-            var f = u.get(_);
-            f != null && c(f, m.get(_)) && a.add(_);
-          }
-          return a;
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t) {
+    function s(e, t) {
       var n,
         r = !e.support;
       return e.suspended ||
@@ -52,7 +38,7 @@ __d(
             ? !1
             : r;
     }
-    l.bulkCanSetGroupEphemeralSetting = s;
+    l.bulkCanSetGroupEphemeralSetting = e;
   },
   98,
 );

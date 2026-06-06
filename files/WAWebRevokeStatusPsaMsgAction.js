@@ -1,44 +1,30 @@
 __d(
   "WAWebRevokeStatusPsaMsgAction",
-  [
-    "Promise",
-    "WALogger",
-    "WAWebDBMessageDelete",
-    "WAWebStatusCollection",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebDBMessageDelete", "WAWebStatusCollection"],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e;
+    async function s(t, n) {
+      n.length > 0 &&
+        (t.revokeMsgs(n),
+        await o("WAWebDBMessageDelete").removeMessagesFromHistory(n),
+        o("WALogger")
+          .LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "revokeStatusPSA completed",
+              ])),
+          )
+          .tags("revoke-status-psa"));
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          n.length > 0 &&
-            (t.revokeMsgs(n),
-            yield o("WAWebDBMessageDelete").removeMessagesFromHistory(n),
-            o("WALogger")
-              .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "revokeStatusPSA completed",
-                  ])),
-              )
-              .tags("revoke-status-psa"));
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
+    function u() {
       var e = o("WAWebStatusCollection").StatusCollection.getPSAStatus();
-      if (!e) return (s || (s = n("Promise"))).resolve();
+      if (!e) return Promise.resolve();
       var t = e.msgs.map(function (e) {
         return e.id.toString();
       });
-      return u(e, t);
+      return s(e, t);
     }
-    l.revokeAllStatusPSA = d;
+    l.revokeAllStatusPSA = u;
   },
   98,
 );

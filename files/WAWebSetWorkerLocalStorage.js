@@ -8,43 +8,34 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
+    async function e() {
+      var e = r("WANullthrows")(
+          o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
+        ),
+        t = o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow(),
+        n = [
+          {
+            key: "deviceJid",
+            value: o("WAWebWidToJid").widToDeviceJid(
+              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+            ),
+          },
+          { key: "lidDeviceJid", value: e.toString() },
+          { key: o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME, value: t },
+        ];
+      (r("WAWebEnvironment").isGuest &&
+        n.push({
+          key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
+          value: o("WAWebGuestCoreLocalStorage").getActiveGuestInviteCode(),
+        }),
+        await o("WAWebApiLocalStorage").updateLocalStorage(n));
     }
     function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WANullthrows")(
-              o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
-            ),
-            t = o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow(),
-            n = [
-              {
-                key: "deviceJid",
-                value: o("WAWebWidToJid").widToDeviceJid(
-                  o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-                ),
-              },
-              { key: "lidDeviceJid", value: e.toString() },
-              { key: o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME, value: t },
-            ];
-          (r("WAWebEnvironment").isGuest &&
-            n.push({
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
-              value: o("WAWebGuestCoreLocalStorage").getActiveGuestInviteCode(),
-            }),
-            yield o("WAWebApiLocalStorage").updateLocalStorage(n));
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u() {
       return o("WAWebApiLocalStorage").clearLocalStorage();
     }
-    ((l.setWorkerLocalStorage = e), (l.clearWorkerLocalStorage = u));
+    ((l.setWorkerLocalStorage = e), (l.clearWorkerLocalStorage = s));
   },
   98,
 );

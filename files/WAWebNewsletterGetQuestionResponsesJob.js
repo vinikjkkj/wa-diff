@@ -12,7 +12,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "err",
   ],
@@ -21,14 +20,14 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterQuestionResponses",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = yield o(
+          async function () {
+            var n = await o(
               "WAWebNewsletterGetQuestionResponsesQuery",
             ).getQuestionResponsesQuery(e);
             return n.questionResponsesQuestionResponse.map(function (e) {
               return s(e, t, n.from, n.questionResponsesServerId);
             });
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

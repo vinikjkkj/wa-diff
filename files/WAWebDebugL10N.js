@@ -1,23 +1,15 @@
 __d(
   "WAWebDebugL10N",
-  ["WAWebL10N", "WAWebL10NConstants", "asyncToGeneratorRuntime"],
+  ["WAWebL10N", "WAWebL10NConstants"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          (t === void 0 && (t = o("WAWebL10NConstants").L10N_PRIORITY.DEBUG),
-            n === void 0 && (n = !0),
-            yield r("WAWebL10N").setLocale(e, t, n));
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e, t, n) {
+      (t === void 0 && (t = o("WAWebL10NConstants").L10N_PRIORITY.DEBUG),
+        n === void 0 && (n = !0),
+        await r("WAWebL10N").setLocale(e, t, n));
     }
     e.doc =
       "Sets the locale for debug, saved, or phone priority. Defaults to debug priority.";
-    function u(e) {
+    function s(e) {
       var t =
           r("WAWebL10N").getLocale() === "fb_AR" ||
           r("WAWebL10N").getLocale() === "ar-XB",
@@ -34,10 +26,10 @@ __d(
             !0,
           );
     }
-    ((u.doc = "Toggles between RTL (the ar-XB pseudolocale) and LTR (English)"),
-      (u.paramsToExecute = []));
-    var c = { debugSetLocale: e, toggleRTL: u, l10n: r("WAWebL10N") };
-    l.default = c;
+    ((s.doc = "Toggles between RTL (the ar-XB pseudolocale) and LTR (English)"),
+      (s.paramsToExecute = []));
+    var u = { debugSetLocale: e, toggleRTL: s, l10n: r("WAWebL10N") };
+    l.default = u;
   },
   98,
 );

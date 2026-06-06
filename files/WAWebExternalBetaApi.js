@@ -1,7 +1,6 @@
 __d(
   "WAWebExternalBetaApi",
   [
-    "Promise",
     "WAComms",
     "WALogger",
     "WAWebAbPropsSyncJob",
@@ -9,69 +8,50 @@ __d(
     "WAWebStartBackend",
     "WAWebUserPrefsGeneral",
     "WAWebWamUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s;
+    async function u(e) {
+      var t = await o(
+        "WAWebUserPrefsGeneral",
+      ).getWhatsAppWebExternalBetaJoinedIdb();
+      t !== e &&
+        (await Promise.all([
+          o("WAWebUserPrefsGeneral").setWhatsAppWebExternalBetaDirtyBitIdb(!0),
+          o("WAWebUserPrefsGeneral").setWhatsAppWebExternalBetaJoinedIdb(e),
+        ]),
+        o("WAWebWamUtils").refreshBetaWamGlobals(),
+        await c(),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "changeOptInStatusForExternalWebBeta",
+          {},
+        ));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebUserPrefsGeneral",
-          ).getWhatsAppWebExternalBetaJoinedIdb();
-          t !== e &&
-            (yield (u || (u = n("Promise"))).all([
-              o("WAWebUserPrefsGeneral").setWhatsAppWebExternalBetaDirtyBitIdb(
-                !0,
-              ),
-              o("WAWebUserPrefsGeneral").setWhatsAppWebExternalBetaJoinedIdb(e),
-            ]),
-            o("WAWebWamUtils").refreshBetaWamGlobals(),
-            yield m(),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "changeOptInStatusForExternalWebBeta",
-              {},
-            ));
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    async function c() {
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "WAWebExternalBetaApi: Restarting backend",
+          ])),
+      ),
+        o("WAComms").stopComms(),
+        await o("WAWebStartBackend").startWebComms(),
+        await o("WAComms").startHandlingRequests(),
+        (await o(
+          "WAWebUserPrefsGeneral",
+        ).getWhatsAppWebExternalBetaDirtyBitIdb()) &&
           (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "WAWebExternalBetaApi: Restarting backend",
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[WAWebExternalBetaApi] syncing AB Props post opt-in change",
               ])),
           ),
-            o("WAComms").stopComms(),
-            yield o("WAWebStartBackend").startWebComms(),
-            yield o("WAComms").startHandlingRequests(),
-            (yield o(
-              "WAWebUserPrefsGeneral",
-            ).getWhatsAppWebExternalBetaDirtyBitIdb()) &&
-              (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAWebExternalBetaApi] syncing AB Props post opt-in change",
-                  ])),
-              ),
-              yield o("WAWebAbPropsSyncJob").syncABPropsTask(),
-              yield o(
-                "WAWebUserPrefsGeneral",
-              ).setWhatsAppWebExternalBetaDirtyBitIdb(!1)));
-        })),
-        p.apply(this, arguments)
-      );
+          await o("WAWebAbPropsSyncJob").syncABPropsTask(),
+          await o(
+            "WAWebUserPrefsGeneral",
+          ).setWhatsAppWebExternalBetaDirtyBitIdb(!1)));
     }
-    l.changeOptInStatusForExternalWebBeta = c;
+    l.changeOptInStatusForExternalWebBeta = u;
   },
   98,
 );

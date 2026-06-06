@@ -3,82 +3,68 @@ __d(
   [
     "Lexical",
     "LexicalComposerContext",
-    "Promise",
     "WAWebCopyPasteClipboard",
     "WAWebDataTransfer",
     "WAWebLexicalUtils",
-    "asyncToGeneratorRuntime",
     "cr:6842",
     "react-compiler-runtime",
     "useWAWebLexicalEvent",
     "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = o("Lexical").createCommand(),
-      u = /\r?\n|\r/g;
-    function c(t) {
+    var e = o("Lexical").createCommand(),
+      s = /\r?\n|\r/g;
+    function u(t) {
       var a = o("react-compiler-runtime").c(14),
         i = t.ignoreLineBreakOnPaste,
         l = t.onFiles,
-        c = t.onTextPaste,
-        p = t.pasteFromHTML,
-        _ = i === void 0 ? !1 : i,
-        f = p === void 0 ? !1 : p,
-        h = o("LexicalComposerContext").useLexicalComposerContext(),
-        y = h[0],
-        C;
-      a[0] !== y || a[1] !== l || a[2] !== c || a[3] !== f
-        ? ((C = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                if (
-                  (t.preventDefault(), t.stopPropagation(), !!t.clipboardData)
-                ) {
-                  var a = new (r("WAWebDataTransfer"))(t.clipboardData);
-                  if (g(a)) {
-                    l == null || l(a);
-                    return;
-                  }
-                  var i = yield (e || (e = n("Promise"))).all([
-                      a.getText([
-                        o("WAWebCopyPasteClipboard").APP_TEXT_MIMETYPE,
-                      ]),
-                      a.getText(["text/html"]),
-                      a.getText(["text/plain"]),
-                    ]),
-                    u = i[0],
-                    d = i[1],
-                    m = i[2],
-                    p;
-                  (u != null
-                    ? (p = u)
-                    : d != null && f && n("cr:6842")
-                      ? (p = n("cr:6842")(d))
-                      : m != null && (p = m),
-                    p != null &&
-                      (c == null ? void 0 : c(p)) !== !0 &&
-                      y.dispatchCommand(s, p));
-                }
-              },
-            );
-            return function (n) {
-              return t.apply(this, arguments);
-            };
-          })()),
-          (a[0] = y),
+        u = t.onTextPaste,
+        m = t.pasteFromHTML,
+        p = i === void 0 ? !1 : i,
+        _ = m === void 0 ? !1 : m,
+        g = o("LexicalComposerContext").useLexicalComposerContext(),
+        h = g[0],
+        y;
+      a[0] !== h || a[1] !== l || a[2] !== u || a[3] !== _
+        ? ((y = async function (a) {
+            if ((a.preventDefault(), a.stopPropagation(), !!a.clipboardData)) {
+              var t = new (r("WAWebDataTransfer"))(a.clipboardData);
+              if (f(t)) {
+                l == null || l(t);
+                return;
+              }
+              var i = await Promise.all([
+                  t.getText([o("WAWebCopyPasteClipboard").APP_TEXT_MIMETYPE]),
+                  t.getText(["text/html"]),
+                  t.getText(["text/plain"]),
+                ]),
+                s = i[0],
+                c = i[1],
+                d = i[2],
+                m;
+              (s != null
+                ? (m = s)
+                : c != null && _ && n("cr:6842")
+                  ? (m = n("cr:6842")(c))
+                  : d != null && (m = d),
+                m != null &&
+                  (u == null ? void 0 : u(m)) !== !0 &&
+                  h.dispatchCommand(e, m));
+            }
+          }),
+          (a[0] = h),
           (a[1] = l),
-          (a[2] = c),
-          (a[3] = f),
-          (a[4] = C))
-        : (C = a[4]);
-      var b = r("useWAWebStableCallback")(C),
-        v;
-      a[5] !== y || a[6] !== _
-        ? ((v = function (t) {
+          (a[2] = u),
+          (a[3] = _),
+          (a[4] = y))
+        : (y = a[4]);
+      var C = r("useWAWebStableCallback")(y),
+        b;
+      a[5] !== h || a[6] !== p
+        ? ((b = function (t) {
             var e;
-            (_ ? (e = [t.replace(u, "")]) : (e = t.split(u)),
-              y.update(function () {
+            (p ? (e = [t.replace(s, "")]) : (e = t.split(s)),
+              h.update(function () {
                 var t = o("WAWebLexicalUtils").$getRangeSelection();
                 t &&
                   (t.isCollapsed() || t.removeText(),
@@ -88,53 +74,53 @@ __d(
                   }));
               }));
           }),
-          (a[5] = y),
-          (a[6] = _),
-          (a[7] = v))
-        : (v = a[7]);
-      var S = r("useWAWebStableCallback")(v),
-        R;
-      (a[8] !== y
-        ? ((R = function (t) {
+          (a[5] = h),
+          (a[6] = p),
+          (a[7] = b))
+        : (b = a[7]);
+      var v = r("useWAWebStableCallback")(b),
+        S;
+      (a[8] !== h
+        ? ((S = function (t) {
             return t instanceof ClipboardEvent
-              ? (t.preventDefault(), t.stopPropagation(), d(t), m(y), !0)
+              ? (t.preventDefault(), t.stopPropagation(), c(t), d(h), !0)
               : !1;
           }),
-          (a[8] = y),
-          (a[9] = R))
-        : (R = a[9]),
+          (a[8] = h),
+          (a[9] = S))
+        : (S = a[9]),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          y,
+          h,
           o("Lexical").CUT_COMMAND,
+          S,
+        ));
+      var R;
+      (a[10] !== C
+        ? ((R = function (t) {
+            return (C(t), !0);
+          }),
+          (a[10] = C),
+          (a[11] = R))
+        : (R = a[11]),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(
+          h,
+          o("Lexical").PASTE_COMMAND,
           R,
         ));
       var L;
-      (a[10] !== b
-        ? ((L = function (t) {
-            return (b(t), !0);
-          }),
-          (a[10] = b),
-          (a[11] = L))
-        : (L = a[11]),
-        o("useWAWebLexicalEvent").useLexicalCommandListener(
-          y,
-          o("Lexical").PASTE_COMMAND,
-          L,
-        ));
-      var E;
       return (
-        a[12] !== S
-          ? ((E = function (t) {
-              return (S(t), !0);
+        a[12] !== v
+          ? ((L = function (t) {
+              return (v(t), !0);
             }),
-            (a[12] = S),
-            (a[13] = E))
-          : (E = a[13]),
-        o("useWAWebLexicalEvent").useLexicalCommandListener(y, s, E),
+            (a[12] = v),
+            (a[13] = L))
+          : (L = a[13]),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(h, e, L),
         null
       );
     }
-    function d(e) {
+    function c(e) {
       var t = e.clipboardData,
         n = e.currentTarget;
       if (!(!(n instanceof HTMLElement) || !t)) {
@@ -151,30 +137,30 @@ __d(
         } catch (e) {}
       }
     }
-    function m(e) {
+    function d(e) {
       e.update(function (e) {
         var t = o("WAWebLexicalUtils").$getRangeSelection();
         t && t.removeText();
       });
     }
-    var p = "urn:schemas-microsoft-com:office",
-      _ = "urn:schemas-microsoft-com:office:excel",
-      f = "<meta name=ProgId content=PowerPoint.Slide>";
-    function g(e) {
+    var m = "urn:schemas-microsoft-com:office",
+      p = "urn:schemas-microsoft-com:office:excel",
+      _ = "<meta name=ProgId content=PowerPoint.Slide>";
+    function f(e) {
       if (!e.hasFiles()) return !1;
       if (e.hasType("text/html")) {
         var t = e.getData("text/html");
         if (t) {
-          var n = t.includes(f);
+          var n = t.includes(_);
           if (n) return !1;
-          var r = t.includes(p),
-            o = t.includes(_);
+          var r = t.includes(m),
+            o = t.includes(p);
           if (r && !o) return !1;
         }
       }
       return !0;
     }
-    ((l.PASTE_TEXT_COMMAND = s), (l.ClipboardPlugin = c));
+    ((l.PASTE_TEXT_COMMAND = e), (l.ClipboardPlugin = u));
   },
   98,
 );

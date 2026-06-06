@@ -1,7 +1,6 @@
 __d(
   "WAWebLaunchSocket",
   [
-    "Promise",
     "WAComms",
     "WALogger",
     "WAWebABPropsUpdateFromStorage",
@@ -45,8 +44,8 @@ __d(
     "WAWebWamMemoryStat",
     "WAWebWamOfflineResumeReporter",
     "WAWebWorkerStorage",
-    "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "gkx",
     "requireDeferred",
   ],
@@ -138,10 +137,7 @@ __d(
             return o("WAWebSignalStorage").initialize();
           })
           .then(function () {
-            return (f || (f = n("Promise"))).all([
-              o("WAWebModelStorage").initialize(),
-              e,
-            ]);
+            return Promise.all([o("WAWebModelStorage").initialize(), e]);
           })
           .then(function () {
             return o("WAWebStatusStorage").initialize();
@@ -150,7 +146,7 @@ __d(
             return b();
           })
           .then(function () {
-            return (f || (f = n("Promise"))).all([
+            return Promise.all([
               o("WAWebUserPrefsGeneral").getLogoutReason(),
               o("WAWebWorkerStorage").initialize(),
               o("WAWebUserPrefsGeneral").setAppVersionBase(
@@ -184,94 +180,105 @@ __d(
                       "[socket] launchSocket for login",
                     ])),
                 ),
-                !o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated() && r("gkx")("10404")
-                  ? (o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-                    o("WAWebSocketLogoutJob").socketLogout(
-                      o("WAWebLogoutReasonConstants").LogoutReason
-                        .LidMigrationUnmigratedCompanion,
-                    ))
-                  : (o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(
-                      !0,
-                    ),
-                    o(
+                o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(!0),
+                o(
+                  "WAWebBackendEventBus",
+                ).BackendEventBus.triggerInitialLoadReady(),
+                o("WAWebWamMemoryStat").setCurrentMemoryScenario(
+                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
+                    .OFFLINE_RESUME,
+                ),
+                o("WAWebModelStorage")
+                  .initialize()
+                  .catch(function (e) {
+                    return o(
                       "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerInitialLoadReady(),
-                    o("WAWebWamMemoryStat").setCurrentMemoryScenario(
-                      o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
-                        .OFFLINE_RESUME,
-                    ),
-                    o("WAWebModelStorage")
-                      .initialize()
-                      .catch(function (e) {
-                        return o(
-                          "WAWebBackendEventBus",
-                        ).BackendEventBus.triggerStorageInitializationError(e);
-                      })
-                      .then(function () {
-                        return (f || (f = n("Promise"))).all([
-                          o(
-                            "WAWebABPropsUpdateFromStorage",
-                          ).updateABPropsFromStorage(),
-                          o(
-                            "WAWebEventSamplingCache",
-                          ).updateEventSamplingFromStorage(),
-                        ]);
-                      })
-                      .then(function () {
-                        (o(
-                          "WAWebBackendEventBus",
-                        ).BackendEventBus.triggerAbPropsLoaded(),
-                          o("WAWebInitFromStorage").restoreImportantMetaData());
-                      })
-                      .then(
-                        n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* () {
-                            var e = function () {
-                                return (
-                                  o(
-                                    "WAWebPageLoadLogging",
-                                  ).startPageLoadQplMeasure("lidCacheWarmup"),
-                                  o("WAWebApiContact")
-                                    .warmUpAllLidPnMappings()
-                                    .then(function (e) {
-                                      return o(
-                                        "WAWebPageLoadLogging",
-                                      ).endPageLoadQplMeasure("lidCacheWarmup");
-                                    })
-                                );
-                              },
-                              t = o(
-                                "WAWebBlocklistMigration",
-                              ).applyBlocklistV2Rules()
-                                ? (f || (f = n("Promise"))).resolve()
-                                : o("WAWebBackendApi").frontendSendAndReceive(
-                                    "restoreBlocklist",
-                                  );
-                            yield (f || (f = n("Promise"))).all([
-                              o("WAWebBackendApi").frontendSendAndReceive(
-                                "restoreOptOutList",
-                                {},
-                              ),
-                              e(),
-                              t,
-                            ]);
-                          },
-                        ),
-                      )
-                      .then(function () {
-                        (o(
-                          "WAWebPushNotificationsOfflineBbApi",
-                        ).setStartCommsT(),
-                          o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                            "launchSocket",
+                    ).BackendEventBus.triggerStorageInitializationError(e);
+                  })
+                  .then(function () {
+                    return Promise.all([
+                      o(
+                        "WAWebABPropsUpdateFromStorage",
+                      ).updateABPropsFromStorage(),
+                      o(
+                        "WAWebEventSamplingCache",
+                      ).updateEventSamplingFromStorage(),
+                    ]);
+                  })
+                  .then(function () {
+                    (o(
+                      "WAWebBackendEventBus",
+                    ).BackendEventBus.triggerAbPropsLoaded(),
+                      o("WAWebInitFromStorage").restoreImportantMetaData());
+                  })
+                  .then(async function () {
+                    var e = function () {
+                        return (
+                          o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                            "lidCacheWarmup",
                           ),
-                          o("WAWebStartBackend").startBackend());
-                      })))
+                          o("WAWebApiContact")
+                            .warmUpAllLidPnMappings()
+                            .then(function (e) {
+                              return o(
+                                "WAWebPageLoadLogging",
+                              ).endPageLoadQplMeasure("lidCacheWarmup");
+                            })
+                        );
+                      },
+                      t = o("WAWebBlocklistMigration").applyBlocklistV2Rules()
+                        ? Promise.resolve()
+                        : o("WAWebBackendApi").frontendSendAndReceive(
+                            "restoreBlocklist",
+                          );
+                    await Promise.all([
+                      o("WAWebBackendApi").frontendSendAndReceive(
+                        "restoreOptOutList",
+                        {},
+                      ),
+                      e(),
+                      t,
+                    ]);
+                  })
+                  .then(function () {
+                    (o("WAWebPushNotificationsOfflineBbApi").setStartCommsT(),
+                      o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                        "launchSocket",
+                      ),
+                      o("WAWebStartBackend")
+                        .startBackend()
+                        .finally(function () {
+                          if (
+                            !o(
+                              "WAWebLid1X1MigrationGating",
+                            ).Lid1X1MigrationUtils.isLidMigrated() &&
+                            r("gkx")("10404")
+                          )
+                            return (
+                              o(
+                                "WAWebCoreActionsODS",
+                              ).logPageLoadErrorForcedLogout(),
+                              o("WAWebSocketLogoutJob").socketLogout(
+                                o("WAWebLogoutReasonConstants").LogoutReason
+                                  .LidMigrationUnmigratedCompanion,
+                              )
+                            );
+                        })
+                        .catch(function (e) {
+                          o("WALogger")
+                            .ERROR(
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[socket] startBackend failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("launch-socket-start-backend-failed");
+                        }));
+                  }))
               : (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[socket] launchSocket for registration",
                     ])),
                 ),
@@ -285,54 +292,42 @@ __d(
                 o(
                   "WAWebWaitForInitialChatsSynced",
                 ).initWaitForInitialChatsSynced(),
-                (f || (f = n("Promise")))
-                  .all([
-                    o("WAWebRegistration").refreshNoiseCredentials(),
-                    o("WAWebRegistration").refreshSignalCredentials(),
-                  ])
-                  .then(function () {
-                    (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                      "launchSocket",
-                    ),
-                      o(
-                        "WAWebLaunchSocketUtils",
-                      ).startCommsAndHandleRequests());
-                  }));
+                Promise.all([
+                  o("WAWebRegistration").refreshNoiseCredentials(),
+                  o("WAWebRegistration").refreshSignalCredentials(),
+                ]).then(function () {
+                  (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                    "launchSocket",
+                  ),
+                    o("WAWebLaunchSocketUtils").startCommsAndHandleRequests());
+                }));
           })
       );
     }
     function C() {
       o("WALogger").LOG(
-        p ||
-          (p = babelHelpers.taggedTemplateLiteralLoose([
+        _ ||
+          (_ = babelHelpers.taggedTemplateLiteralLoose([
             "[storage] send schema versions to fts worker",
           ])),
       );
       var e = o("WAWebSchemaVersions").getSchemaVersions();
       o("WAWebInvocationInterface").get().setSchemaVersions(e);
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "[storage] send schema versions to fts worker",
-              ])),
-          );
-          var e = o("WAWebSchemaVersions").getSchemaVersions(),
-            t = yield o("WAWebCryptoEncKeyHelper").getSalt();
-          t != null &&
-            o("WAWebBackendWorkerInitState").recordInitDbInit({
-              versionsToSet: e,
-              salt: t,
-            });
-        })),
-        v.apply(this, arguments)
+    async function b() {
+      o("WALogger").LOG(
+        f ||
+          (f = babelHelpers.taggedTemplateLiteralLoose([
+            "[storage] send schema versions to fts worker",
+          ])),
       );
+      var e = o("WAWebSchemaVersions").getSchemaVersions(),
+        t = await o("WAWebCryptoEncKeyHelper").getSalt();
+      t != null &&
+        o("WAWebBackendWorkerInitState").recordInitDbInit({
+          versionsToSet: e,
+          salt: t,
+        });
     }
     l.launchSocket = y;
   },

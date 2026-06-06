@@ -2,7 +2,6 @@ __d(
   "WAWebSubgroupSuggestionsActionJob",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WASmaxGroupsSubGroupSuggestionsActionRPC",
     "WAWebBackendErrors",
@@ -11,186 +10,171 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = n("$InternalEnum").Mirrored(["APPROVE", "REJECT", "CANCEL"]);
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.action,
-            n = e.isLidAddressingMode,
-            r = e.parentGroupId,
-            a = e.subgroupSuggestions,
-            i = o("WAWebLidMigrationUtils").toAddressingModeFactory(n),
-            l = 0,
-            u = a.map(function (e) {
-              var t = e.creator,
-                n = i(t);
-              return (
-                n || l++,
-                babelHelpers.extends({}, e, { creator: n != null ? n : t })
-              );
+      u = n("$InternalEnum").Mirrored(["APPROVE", "REJECT", "CANCEL"]);
+    async function c(t) {
+      var n = t.action,
+        r = t.isLidAddressingMode,
+        a = t.parentGroupId,
+        i = t.subgroupSuggestions,
+        l = o("WAWebLidMigrationUtils").toAddressingModeFactory(r),
+        s = 0,
+        c = i.map(function (e) {
+          var t = e.creator,
+            n = l(t);
+          return (
+            n || s++,
+            babelHelpers.extends({}, e, { creator: n != null ? n : t })
+          );
+        });
+      s > 0 &&
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[subgroup-suggestions] Failed to normalise ",
+                " creator wids to ",
+                "",
+              ])),
+            s,
+            r ? "LID" : "PN",
+          )
+          .sendLogs("subgroup-suggestions-failed-to-normalise-wids");
+      var m = c.map(function (e) {
+          return {
+            subGroupSuggestionCreator: o("WAWebWidToJid").widToUserJid(
+              e.creator,
+            ),
+            subGroupSuggestionJid: o("WAWebWidToJid").widToGroupJid(e.id),
+          };
+        }),
+        p,
+        _,
+        f;
+      n === u.APPROVE
+        ? (p = { subGroupSuggestionArgs: m })
+        : n === u.REJECT
+          ? (_ = { subGroupSuggestionArgs: m })
+          : (f = {
+              subGroupSuggestionArgs: c.map(function (e) {
+                return {
+                  subGroupSuggestionJid: o("WAWebWidToJid").widToGroupJid(e.id),
+                };
+              }),
             });
-          l > 0 &&
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[subgroup-suggestions] Failed to normalise ",
-                    " creator wids to ",
-                    "",
-                  ])),
-                l,
-                n ? "LID" : "PN",
-              )
-              .sendLogs("subgroup-suggestions-failed-to-normalise-wids");
-          var d = u.map(function (e) {
-              return {
-                subGroupSuggestionCreator: o("WAWebWidToJid").widToUserJid(
-                  e.creator,
-                ),
-                subGroupSuggestionJid: o("WAWebWidToJid").widToGroupJid(e.id),
-              };
-            }),
-            m,
-            _,
-            f;
-          t === c.APPROVE
-            ? (m = { subGroupSuggestionArgs: d })
-            : t === c.REJECT
-              ? (_ = { subGroupSuggestionArgs: d })
-              : (f = {
-                  subGroupSuggestionArgs: u.map(function (e) {
+      var g = await o(
+        "WASmaxGroupsSubGroupSuggestionsActionRPC",
+      ).sendSubGroupSuggestionsActionRPC({
+        iqTo: o("WAWebWidToJid").widToGroupJid(a),
+        approveArgs: p,
+        rejectArgs: _,
+        cancelArgs: f,
+      });
+      e: {
+        var h = g;
+        if (
+          ((typeof h == "object" && h !== null) || typeof h == "function") &&
+          h.name === "SubGroupSuggestionsActionResponseSuccess" &&
+          "value" in h
+        ) {
+          var y,
+            C,
+            b = h.value,
+            v;
+          return (
+            n === u.APPROVE
+              ? (v = b.subGroupSuggestionsActionApprove)
+              : n === u.REJECT
+                ? (v = b.subGroupSuggestionsActionReject)
+                : (v = b.subGroupSuggestionsActionCancel),
+            (y =
+              (C = v) == null || (C = C.subGroupSuggestion) == null
+                ? void 0
+                : C.map(function (e) {
+                    var t;
+                    if (n === u.APPROVE) {
+                      var a;
+                      t =
+                        (a = e.subGroupSuggestionsApprovalErrors) == null
+                          ? void 0
+                          : a.value.error;
+                    } else {
+                      var i;
+                      t =
+                        (i =
+                          e.subGroupSuggestionsActionSubGroupSuggestionNotFoundMixin) ==
+                        null
+                          ? void 0
+                          : i.error;
+                    }
+                    var l = o("WAWebWidFactory").createWid(e.jid),
+                      s = r
+                        ? o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow()
+                        : o(
+                            "WAWebUserPrefsMeUser",
+                          ).getMeDevicePnOrThrow_DO_NOT_USE(),
+                      c =
+                        e.creator != null
+                          ? o("WAWebWidFactory").createWid(e.creator)
+                          : s;
                     return {
-                      subGroupSuggestionJid: o("WAWebWidToJid").widToGroupJid(
-                        e.id,
-                      ),
+                      id: o(
+                        "WAWebCommunitySubgroupSuggestionsUtils",
+                      ).getSubgroupSuggestionId(l, c),
+                      error: t,
                     };
-                  }),
-                });
-          var g = yield o(
-            "WASmaxGroupsSubGroupSuggestionsActionRPC",
-          ).sendSubGroupSuggestionsActionRPC({
-            iqTo: o("WAWebWidToJid").widToGroupJid(r),
-            approveArgs: m,
-            rejectArgs: _,
-            cancelArgs: f,
-          });
-          e: {
-            var h = g;
-            if (
-              ((typeof h == "object" && h !== null) ||
-                typeof h == "function") &&
-              h.name === "SubGroupSuggestionsActionResponseSuccess" &&
-              "value" in h
-            ) {
-              var y,
-                C,
-                b = h.value,
-                v;
-              return (
-                t === c.APPROVE
-                  ? (v = b.subGroupSuggestionsActionApprove)
-                  : t === c.REJECT
-                    ? (v = b.subGroupSuggestionsActionReject)
-                    : (v = b.subGroupSuggestionsActionCancel),
-                (y =
-                  (C = v) == null || (C = C.subGroupSuggestion) == null
-                    ? void 0
-                    : C.map(function (e) {
-                        var r;
-                        if (t === c.APPROVE) {
-                          var a;
-                          r =
-                            (a = e.subGroupSuggestionsApprovalErrors) == null
-                              ? void 0
-                              : a.value.error;
-                        } else {
-                          var i;
-                          r =
-                            (i =
-                              e.subGroupSuggestionsActionSubGroupSuggestionNotFoundMixin) ==
-                            null
-                              ? void 0
-                              : i.error;
-                        }
-                        var l = o("WAWebWidFactory").createWid(e.jid),
-                          s = n
-                            ? o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow()
-                            : o(
-                                "WAWebUserPrefsMeUser",
-                              ).getMeDevicePnOrThrow_DO_NOT_USE(),
-                          u =
-                            e.creator != null
-                              ? o("WAWebWidFactory").createWid(e.creator)
-                              : s;
-                        return {
-                          id: o(
-                            "WAWebCommunitySubgroupSuggestionsUtils",
-                          ).getSubgroupSuggestionId(l, u),
-                          error: r,
-                        };
-                      })) != null
-                  ? y
-                  : []
-              );
-              break e;
-            }
-            if (
-              ((typeof h == "object" && h !== null) ||
-                typeof h == "function") &&
-              h.name === "SubGroupSuggestionsActionResponseClientError" &&
-              "value" in h
-            ) {
-              var S = h.value,
-                R = S.errorSubGroupSuggestionsActionClientErrors;
-              return p(R.value);
-            }
-            if (
-              ((typeof h == "object" && h !== null) ||
-                typeof h == "function") &&
-              h.name === "SubGroupSuggestionsActionResponseServerError" &&
-              "value" in h
-            ) {
-              var L = h.value;
-              return p(L.errorServerErrors.value);
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                h,
-            );
-          }
-        })),
-        m.apply(this, arguments)
-      );
+                  })) != null
+              ? y
+              : []
+          );
+          break e;
+        }
+        if (
+          ((typeof h == "object" && h !== null) || typeof h == "function") &&
+          h.name === "SubGroupSuggestionsActionResponseClientError" &&
+          "value" in h
+        ) {
+          var S = h.value,
+            R = S.errorSubGroupSuggestionsActionClientErrors;
+          return d(R.value);
+        }
+        if (
+          ((typeof h == "object" && h !== null) || typeof h == "function") &&
+          h.name === "SubGroupSuggestionsActionResponseServerError" &&
+          "value" in h
+        ) {
+          var L = h.value;
+          return d(L.errorServerErrors.value);
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            h,
+        );
+      }
     }
-    function p(t) {
-      var r = t.code,
-        a = t.text;
+    function d(e) {
+      var t = e.code,
+        n = e.text;
       return (
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "subgroupSuggestionsAction failed: ",
               ":",
               "",
             ])),
-          r,
-          a,
+          t,
+          n,
         ),
-        (u || (u = n("Promise"))).reject(
-          new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(r), a),
+        Promise.reject(
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(t), n),
         )
       );
     }
-    ((l.SubgroupSuggestionAction = c), (l.sendSubgroupSuggestionsAction = d));
+    ((l.SubgroupSuggestionAction = u), (l.sendSubgroupSuggestionsAction = c));
   },
   98,
 );

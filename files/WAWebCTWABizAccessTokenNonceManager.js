@@ -13,28 +13,30 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("qpl")._(1029383287, "3456"),
-      u = 250,
-      c = 1e3,
-      d = null;
-    function m(e) {
-      if (d != null && e !== !0) return d.promise;
+      s,
+      u,
+      c = r("qpl")._(1029383287, "3456"),
+      d = 250,
+      m = 1e3,
+      p = null;
+    function _(e) {
+      if (p != null && e !== !0) return p.promise;
       var t = o(
           "WAWebBizGatingUtils",
         ).adAccountTokenNoncePushWaitTimeoutSeconds(),
         n = o("WAWebBizGatingUtils").adAccountTokenNonceMaxRetries();
-      (o("WAWebQplFlowWrapper").QPL.markerStart(s),
-        o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, {
+      (o("WAWebQplFlowWrapper").QPL.markerStart(c),
+        o("WAWebQplFlowWrapper").QPL.markerAnnotate(c, {
           int: { fetch_nonce_max_retries: n, fetch_nonce_timeout: t },
         }));
       var r = n,
         a = function (a) {
           return (
-            o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, {
+            o("WAWebQplFlowWrapper").QPL.markerAnnotate(c, {
               int: { fetch_nonce_retry: n - r },
             }),
             o("WAPromiseTimeout")
-              .promiseTimeout(p(), t * 1e3)
+              .promiseTimeout(f(), t * 1e3)
               .then(function (e) {
                 a(e);
               })
@@ -43,8 +45,8 @@ __d(
                 if ((r--, !t))
                   throw (
                     e instanceof o("WACustomError").TimeoutError &&
-                      (o("WAWebQplFlowWrapper").QPL.markerEnd(s, 105),
-                      (d = null)),
+                      (o("WAWebQplFlowWrapper").QPL.markerEnd(c, 105),
+                      (p = null)),
                     e
                   );
               })
@@ -53,13 +55,13 @@ __d(
         i = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           code: a,
           name: "fetchAdAccountNonce",
-          timer: { algo: { first: u, type: "exponential" }, max: c },
+          timer: { algo: { first: d, type: "exponential" }, max: m },
         });
       return (i.start(), i.promise());
     }
-    function p() {
-      o("WAWebQplFlowWrapper").QPL.markerPoint(s, "request_nonce_start");
-      var e = (d = new (o("WAResolvable").Resolvable)());
+    function f() {
+      o("WAWebQplFlowWrapper").QPL.markerPoint(c, "request_nonce_start");
+      var e = (p = new (o("WAResolvable").Resolvable)());
       return o("WASmaxBizAccessTokenRequestSilentNonceRPC")
         .sendRequestSilentNonceRPC({})
         .then(function (t) {
@@ -67,85 +69,115 @@ __d(
             case "RequestSilentNonceResponseError":
               return (
                 o("WAWebQplFlowWrapper").QPL.markerPoint(
-                  s,
+                  c,
                   "request_nonce_end",
                 ),
-                o("WAWebQplFlowWrapper").QPL.markerEnd(s, 3),
-                (d = null),
+                o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
+                (p = null),
                 { type: "error" }
               );
             case "RequestSilentNonceResponseRecoveryRequired":
               return (
-                o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, {
+                o("WAWebQplFlowWrapper").QPL.markerAnnotate(c, {
                   bool: { fetch_nonce_recovery_needed: !0 },
                 }),
                 o("WAWebQplFlowWrapper").QPL.markerPoint(
-                  s,
+                  c,
                   "request_nonce_end",
                 ),
-                o("WAWebQplFlowWrapper").QPL.markerEnd(s, 3),
-                (d = null),
+                o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
+                (p = null),
                 { emailMask: t.value.resultEmail, type: "recovery-required" }
               );
             default:
               return (
                 t.name,
                 o("WAWebQplFlowWrapper").QPL.markerPoint(
-                  s,
+                  c,
                   "request_nonce_end",
                 ),
-                o("WAWebQplFlowWrapper").QPL.markerPoint(s, "push_nonce_start"),
+                o("WAWebQplFlowWrapper").QPL.markerPoint(c, "push_nonce_start"),
                 e.promise
               );
           }
         })
         .catch(function (e) {
           throw (
-            o("WAWebQplFlowWrapper").QPL.markerPoint(s, "request_nonce_end"),
-            o("WAWebQplFlowWrapper").QPL.markerEnd(s, 3),
-            (d = null),
+            o("WAWebQplFlowWrapper").QPL.markerPoint(c, "request_nonce_end"),
+            o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
+            (p = null),
             e
           );
         });
     }
-    function _(t) {
-      d == null
+    function g() {
+      p != null &&
+        o("WALogger").WARN(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "Ad account email onboarding: awaitPushNonce overwriting in-flight cachedNonce",
+            ])),
+        );
+      var t = (p = new (o("WAResolvable").Resolvable)());
+      return o("WAPromiseTimeout")
+        .promiseTimeout(t.promise, v() * 1e3)
+        .then(function (e) {
+          return (p === t && (p = null), e);
+        })
+        .catch(function (e) {
+          if (e instanceof o("WACustomError").TimeoutError)
+            return (
+              p === t && (p = null),
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Ad account email onboarding: silent nonce push listen timed out",
+                  ])),
+              ),
+              { type: "error" }
+            );
+          throw e;
+        });
+    }
+    function h(e) {
+      p == null
         ? (o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "Received a biz token nonce without asking for it",
               ])),
           ),
-          (d = null),
-          o("WAWebQplFlowWrapper").QPL.markerStart(s),
-          o("WAWebQplFlowWrapper").QPL.markerPoint(s, "push_nonce_end"),
-          o("WAWebQplFlowWrapper").QPL.markerEnd(s, 216))
-        : (d.resolve({ nonce: t, type: "success" }),
-          o("WAWebQplFlowWrapper").QPL.markerPoint(s, "push_nonce_end"),
-          o("WAWebQplFlowWrapper").QPL.markerEnd(s, 2));
+          (p = null),
+          o("WAWebQplFlowWrapper").QPL.markerStart(c),
+          o("WAWebQplFlowWrapper").QPL.markerPoint(c, "push_nonce_end"),
+          o("WAWebQplFlowWrapper").QPL.markerEnd(c, 216))
+        : (p.resolve({ nonce: e, type: "success" }),
+          o("WAWebQplFlowWrapper").QPL.markerPoint(c, "push_nonce_end"),
+          o("WAWebQplFlowWrapper").QPL.markerEnd(c, 2));
     }
-    function f(e) {
-      (d == null && (d = new (o("WAResolvable").Resolvable)()),
-        d.resolve({ nonce: e, type: "success" }));
+    function y(e) {
+      (p == null && (p = new (o("WAResolvable").Resolvable)()),
+        p.resolve({ nonce: e, type: "success" }));
     }
-    function g() {
-      d = null;
+    function C() {
+      p = null;
     }
-    function h(e) {
+    function b(e) {
       return e;
     }
-    function y() {
+    function v() {
       return (
         o("WAWebBizGatingUtils").adAccountTokenNoncePushWaitTimeoutSeconds() *
         (o("WAWebBizGatingUtils").adAccountTokenNonceMaxRetries() + 1)
       );
     }
-    ((l.fetchNonce = m),
-      (l.setNonceFromPushNotification = _),
-      (l.setNonceFromRecoveryCode = f),
-      (l.markNonceAsUsed = g),
-      (l.castToNonce = h),
-      (l.getMaximumNonceFetchTimeoutSeconds = y));
+    ((l.fetchNonce = _),
+      (l.awaitPushNonce = g),
+      (l.setNonceFromPushNotification = h),
+      (l.setNonceFromRecoveryCode = y),
+      (l.markNonceAsUsed = C),
+      (l.castToNonce = b),
+      (l.getMaximumNonceFetchTimeoutSeconds = v));
   },
   98,
 );

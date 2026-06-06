@@ -1,19 +1,16 @@
 __d(
   "WAWebNewsletterMetadataJob",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WAWebNewsletterCreateJob",
     "WAWebNewsletterMetadataQueryJob",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaNewsletterMetadata",
     "WAWebSchemaProfilePicThumb",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["id"],
-      s;
-    function u() {
+    var e = ["id"];
+    function s() {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getAllNewslettersMetadata",
@@ -26,7 +23,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterMetadata",
@@ -39,7 +36,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function d(e) {
+    function c(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateNewsletterMetadata",
@@ -56,7 +53,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function m(e) {
+    function d(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteNewsletterMetadata",
@@ -69,7 +66,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function p(e) {
+    function m(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteNewsletterPicture",
@@ -82,7 +79,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function _(e, t, n) {
+    function p(e, t, n) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "editNewsletterMetadata",
@@ -101,40 +98,40 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function f(t, r, a, i) {
+    function _(t, n, r, a) {
       return (
-        i === void 0 && (i = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW),
+        a === void 0 && (a = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW),
         o("WAWebOrchestratorNonPersistedJob")
           .createNonPersistedJob(
             "updateNewsletterMessageDeliveryUpdates",
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var i = yield o("WAWebSchemaNewsletterMetadata")
+            async function () {
+              var a = await o("WAWebSchemaNewsletterMetadata")
                 .getNewsletterMetadataTable()
                 .get(t);
-              if (i == null) return (s || (s = n("Promise"))).resolve();
-              var l = i.messageDeliveryUpdates,
-                u = l === void 0 ? new Map() : l;
+              if (a == null) return Promise.resolve();
+              var i = a.messageDeliveryUpdates,
+                l = i === void 0 ? new Map() : i;
               return (
-                a.forEach(function (e) {
-                  u == null || u.delete(e);
+                r.forEach(function (e) {
+                  l == null || l.delete(e);
                 }),
-                r.forEach(function (t) {
+                n.forEach(function (t) {
                   var n = t.id,
                     r = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                  u == null || u.set(n, r);
+                  l == null || l.set(n, r);
                 }),
-                (i.messageDeliveryUpdates = u),
+                (a.messageDeliveryUpdates = l),
                 o("WAWebSchemaNewsletterMetadata")
                   .getNewsletterMetadataTable()
-                  .merge(t, i)
+                  .merge(t, a)
               );
-            }),
-            { priority: i },
+            },
+            { priority: a },
           )
           .waitUntilCompleted()
       );
     }
-    function g(e) {
+    function f(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "suspendNewsletter",
@@ -147,7 +144,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function h(e) {
+    function g(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "geosuspendNewsletter",
@@ -160,15 +157,15 @@ __d(
         )
         .waitUntilCompleted();
     }
-    ((l.getAllNewslettersMetadata = u),
-      (l.getNewsletterMetadata = c),
-      (l.updateNewsletterMetadata = d),
-      (l.deleteNewsletterMetadata = m),
-      (l.deleteNewsletterPicture = p),
-      (l.editNewsletterMetadata = _),
-      (l.updateNewsletterMessageDeliveryUpdates = f),
-      (l.suspendNewsletter = g),
-      (l.geosuspendNewsletter = h));
+    ((l.getAllNewslettersMetadata = s),
+      (l.getNewsletterMetadata = u),
+      (l.updateNewsletterMetadata = c),
+      (l.deleteNewsletterMetadata = d),
+      (l.deleteNewsletterPicture = m),
+      (l.editNewsletterMetadata = p),
+      (l.updateNewsletterMessageDeliveryUpdates = _),
+      (l.suspendNewsletter = f),
+      (l.geosuspendNewsletter = g));
   },
   98,
 );

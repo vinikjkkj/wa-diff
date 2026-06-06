@@ -2,8 +2,11 @@ __d(
   "WAWebBlockContactUtils",
   [
     "fbt",
+    "WAWebABProps",
+    "WAWebBlockBusinessDialogV2.react",
     "WAWebBlockBusinessPopup.react",
     "WAWebBlockContactAction",
+    "WAWebBlockContactDialogV2.react",
     "WAWebBlockContactPopup.react",
     "WAWebBlocklistUtils",
     "WAWebChatCollection",
@@ -16,6 +19,7 @@ __d(
     "WAWebSendSpamChatAction",
     "WAWebStateUtils",
     "WAWebWamChatPSALogger",
+    "WDSDialogBridge",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -49,27 +53,49 @@ __d(
             }),
             o("WAWebModalManager").ModalManager.close());
         },
-        s = u.jsx(r("WAWebBlockContactPopup.react"), {
-          contact: e.contact,
-          isReportPreChecked: o(
-            "WAWebBlocklistUtils",
-          ).isReportPreCheckedForOneToOneChats(t),
-          onCancel: o("WAWebModalManager").closeModalManager,
-          onBlock: i,
-          onReportSpamBlock: l,
-        });
-      (o("WAWebChatGetters").getIsPSA(e)
-        ? (s = u.jsx(r("WAWebPsaBlockContactPopup.react"), {
-            onCancel: o("WAWebModalManager").closeModalManager,
-            onBlock: i,
-          }))
-        : e.contact.isBusiness &&
-          (s = u.jsx(r("WAWebBlockBusinessPopup.react"), {
+        s =
+          o("WAWebABProps").getABPropConfigValue("wds_web_dialog") &&
+          !o("WAWebChatGetters").getIsPSA(e),
+        c;
+      (s && e.contact.isBusiness
+        ? (c = u.jsx(r("WAWebBlockBusinessDialogV2.react"), {
             chat: e,
             blockEntryPoint: t,
             withReport: !0,
-          })),
-        o("WAWebModalManager").ModalManager.open(s));
+          }))
+        : s
+          ? (c = u.jsx(r("WAWebBlockContactDialogV2.react"), {
+              contact: e.contact,
+              isReportPreChecked: o(
+                "WAWebBlocklistUtils",
+              ).isReportPreCheckedForOneToOneChats(t),
+              onCancel: o("WAWebModalManager").closeModalManager,
+              onBlock: i,
+              onReportSpamBlock: l,
+            }))
+          : o("WAWebChatGetters").getIsPSA(e)
+            ? (c = u.jsx(r("WAWebPsaBlockContactPopup.react"), {
+                onCancel: o("WAWebModalManager").closeModalManager,
+                onBlock: i,
+              }))
+            : e.contact.isBusiness
+              ? (c = u.jsx(r("WAWebBlockBusinessPopup.react"), {
+                  chat: e,
+                  blockEntryPoint: t,
+                  withReport: !0,
+                }))
+              : (c = u.jsx(r("WAWebBlockContactPopup.react"), {
+                  contact: e.contact,
+                  isReportPreChecked: o(
+                    "WAWebBlocklistUtils",
+                  ).isReportPreCheckedForOneToOneChats(t),
+                  onCancel: o("WAWebModalManager").closeModalManager,
+                  onBlock: i,
+                  onReportSpamBlock: l,
+                })),
+        s
+          ? o("WDSDialogBridge").openWDSDialog(c)
+          : o("WAWebModalManager").ModalManager.open(c));
     }
     function d(e, t) {
       var n = function () {

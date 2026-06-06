@@ -1,7 +1,6 @@
 __d(
   "WAWebGalaxyFlowWamLoggerUtils",
   [
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebApiContact",
@@ -22,12 +21,11 @@ __d(
     "WAWebWamEnumStructuredMessageClass",
     "WAWebWamMsgUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(e) {
+    var e;
+    function s(e) {
       return (
         o("WAWebABProps").getABPropConfigValue("flows_wa_web") &&
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
@@ -36,7 +34,7 @@ __d(
           r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW
       );
     }
-    function c(e) {
+    function u(e) {
       var t, n, r;
       return ((t = e.from) == null ? void 0 : t.isGroup()) === !0
         ? "group"
@@ -46,47 +44,39 @@ __d(
             ? "newsletter"
             : "individual";
     }
-    function d(e) {
+    function c(e) {
       var t;
       return (t = o("WAWebMsgGetters").getSender(e)) == null ? void 0 : t.user;
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new (o(
-            "WAWebStructuredMessageReceiveWamEvent",
-          ).StructuredMessageReceiveWamEvent)({
+    async function d(e) {
+      var t = new (o(
+        "WAWebStructuredMessageReceiveWamEvent",
+      ).StructuredMessageReceiveWamEvent)({
+        messageClass: o("WAWebWamEnumStructuredMessageClass")
+          .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+        messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
+        bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
+        messageClassAttributes: p(e),
+        businessOwnerJid: c(e),
+      });
+      (t.commit(),
+        o("WAWebABProps").getABPropConfigValue(
+          "payments_br_p2m_buyer_logging_phase_2",
+        ) &&
+          new (o(
+            "WAWebStructuredMessageBuyerReceiveWamEvent",
+          ).StructuredMessageBuyerReceiveWamEvent)({
             messageClass: o("WAWebWamEnumStructuredMessageClass")
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
             messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
-            bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-            messageClassAttributes: f(e),
-            businessOwnerJid: d(e),
-          });
-          (t.commit(),
-            o("WAWebABProps").getABPropConfigValue(
-              "payments_br_p2m_buyer_logging_phase_2",
-            ) &&
-              new (o(
-                "WAWebStructuredMessageBuyerReceiveWamEvent",
-              ).StructuredMessageBuyerReceiveWamEvent)({
-                messageClass: o("WAWebWamEnumStructuredMessageClass")
-                  .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-                messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
-                messageClassAttributes: JSON.stringify({
-                  cta: r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW,
-                  is_template: e.templateId != null ? 1 : 0,
-                  chat_type: c(e),
-                }),
-              }).commit());
-        })),
-        p.apply(this, arguments)
-      );
+            messageClassAttributes: JSON.stringify({
+              cta: r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW,
+              is_template: e.templateId != null ? 1 : 0,
+              chat_type: u(e),
+            }),
+          }).commit());
     }
-    function _(e) {
+    function m(e) {
       var t,
         n = [];
       return (
@@ -107,12 +97,12 @@ __d(
         n.length === 0 ? null : n[0]
       );
     }
-    function f(e) {
+    function p(e) {
       var t,
         n,
         a,
         i,
-        l = _(e);
+        l = m(e);
       return JSON.stringify({
         cta: r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW,
         flow_id: l == null || (t = l.data) == null ? void 0 : t.flowId,
@@ -129,7 +119,7 @@ __d(
         extension_status: l == null || (i = l.data) == null ? void 0 : i.mode,
       });
     }
-    function g(e) {
+    function _(e) {
       try {
         var t, n, r;
         if ((t = e.from) != null && t.isLid()) {
@@ -149,7 +139,7 @@ __d(
         return (l = (s = e.from) == null ? void 0 : s.user) != null ? l : "";
       }
     }
-    function h(e) {
+    function f(e) {
       var t;
       if (e.contact.id == null)
         return o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN;
@@ -165,47 +155,30 @@ __d(
             ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT
             : o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.SMB;
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield (s || (s = n("Promise"))).all(
-            t.map(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    u(t) &&
-                      (yield m(t).catch(function (t) {
-                        o("WALogger").WARN(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[WAM:GALAXY_FLOW] structured msg receive log err: ",
-                              "",
-                            ])),
-                          String(t),
-                        );
-                      }));
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-        })),
-        C.apply(this, arguments)
+    async function g(t) {
+      await Promise.all(
+        t.map(async function (t) {
+          s(t) &&
+            (await d(t).catch(function (t) {
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAM:GALAXY_FLOW] structured msg receive log err: ",
+                    "",
+                  ])),
+                String(t),
+              );
+            }));
+        }),
       );
     }
-    function b(e, t, n, a, i) {
+    function h(e, t, n, a, i) {
       var l;
       new (o(
         "WAWebExtensionsStructuredMessageInteractionWamEvent",
       ).ExtensionsStructuredMessageInteractionWamEvent)({
-        bizPlatform: h(t),
-        businessOwnerJid: g(n),
+        bizPlatform: f(t),
+        businessOwnerJid: _(n),
         flowEntryPoint: o("WAWebWamEnumFlowEntryPoint").FLOW_ENTRY_POINT
           .MESSAGE_CTA,
         messageClass: o("WAWebWamEnumStructuredMessageClass")
@@ -233,13 +206,13 @@ __d(
         ),
       }).commit();
     }
-    function v(e, t, n) {
+    function y(e, t, n) {
       var r;
       new (o(
         "WAWebExtensionScreenProgressWamEvent",
       ).ExtensionScreenProgressWamEvent)({
-        bizPlatform: h(t),
-        businessOwnerJid: (r = g(n)) != null ? r : "",
+        bizPlatform: f(t),
+        businessOwnerJid: (r = _(n)) != null ? r : "",
         extensionCategory: JSON.stringify(e == null ? void 0 : e.categories),
         extensionRestoredFromCache: e == null ? void 0 : e.isRestoredFromCache,
         extensionScreenLength: e == null ? void 0 : e.screenLength,
@@ -259,7 +232,7 @@ __d(
         isSuccessScreen: e.isSuccess === !0,
       }).commit();
     }
-    function S(e) {
+    function C(e) {
       var t = e.bizPlatform,
         n = e.businessOwnerJid,
         r = e.clickType,
@@ -281,12 +254,12 @@ __d(
         14: 1,
       }).commit();
     }
-    ((l.getFlowBusinessPhoneNumber = g),
-      (l.getFlowsMaybeBizPlatform = h),
-      (l.logStructuredMessageReceivedWAMEvent = y),
-      (l.logStructuredMessageInteractionWAMEvent = b),
-      (l.logExtensionScreenProgressWAMEvent = v),
-      (l.logFlowsScreenActionWAMEvent = S));
+    ((l.getFlowBusinessPhoneNumber = _),
+      (l.getFlowsMaybeBizPlatform = f),
+      (l.logStructuredMessageReceivedWAMEvent = g),
+      (l.logStructuredMessageInteractionWAMEvent = h),
+      (l.logExtensionScreenProgressWAMEvent = y),
+      (l.logFlowsScreenActionWAMEvent = C));
   },
   98,
 );

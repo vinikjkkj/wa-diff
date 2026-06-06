@@ -1,33 +1,19 @@
 __d(
   "WAWebCommunityActivityBridgeApi",
-  [
-    "Promise",
-    "WAWebCommunityActivityCollection",
-    "WAWebGroupMetadataCollection",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebCommunityActivityCollection", "WAWebGroupMetadataCollection"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = {
-        restoreCommunityActivity: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t = r("WAWebGroupMetadataCollection").filter(function (e) {
-                return e.isParentGroup;
-              }),
-              o = t.map(function (e) {
-                return r("WAWebCommunityActivityCollection").syncActivityFor(
-                  e.id,
-                );
-              });
-            yield (e || (e = n("Promise"))).all(o);
+    var e = {
+      restoreCommunityActivity: async function () {
+        var e = r("WAWebGroupMetadataCollection").filter(function (e) {
+            return e.isParentGroup;
+          }),
+          t = e.map(function (e) {
+            return r("WAWebCommunityActivityCollection").syncActivityFor(e.id);
           });
-          function o() {
-            return t.apply(this, arguments);
-          }
-          return o;
-        })(),
-      };
-    l.CommunityActivityBridgeApi = s;
+        await Promise.all(t);
+      },
+    };
+    l.CommunityActivityBridgeApi = e;
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebFtsClient",
   [
-    "Promise",
     "WALogger",
     "WANullthrows",
     "WAWebABProps",
@@ -10,7 +9,6 @@ __d(
     "WAWebFtsClientMessageIdResolver",
     "WAWebFtsGenRequestId",
     "WAWebFtsWorkerAdapter",
-    "asyncToGeneratorRuntime",
     "cr:1274",
     "err",
   ],
@@ -18,10 +16,9 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = (e = n("cr:1274")) != null ? e : {},
-      m = d.FtsSQLiteClient,
-      p = (function () {
+      c = (e = n("cr:1274")) != null ? e : {},
+      d = c.FtsSQLiteClient,
+      m = (function () {
         function e() {
           this.$2 = new Map();
         }
@@ -121,62 +118,46 @@ __d(
             return this.$6({ operation: "re-init" });
           }),
           (t.initExternalStorage = function () {
-            return (c || (c = n("Promise"))).resolve();
+            return Promise.resolve();
           }),
           (t.destroyExternalStorage = function () {
-            return (c || (c = n("Promise"))).resolve();
+            return Promise.resolve();
           }),
           (t.clearInitializationPromises = function () {
             return this.$6({ operation: "clear-init" });
           }),
-          (t.search = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.$6({
-                  operation: "find",
-                  query: e,
-                  queryOptions: t,
-                });
-                return this.$7(n);
-              },
+          (t.search = async function (t, n) {
+            var e = await this.$6({
+              operation: "find",
+              query: t,
+              queryOptions: n,
+            });
+            return this.$7(e);
+          }),
+          (t.$7 = async function (t) {
+            if (Array.isArray(t) || typeof t == "boolean")
+              return { canceled: !1, eof: !0, status: 404, messages: [] };
+            var e = await o("WAWebFtsClientMessageIdResolver").resolveMsgIds(
+                t.messages,
+              ),
+              n = e.resolved,
+              r = e.unresolved,
+              a = t.eof,
+              i = t.status;
+            return (
+              r.length > 0 && this.purge(r),
+              { canceled: !1, eof: a, status: i, messages: n }
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.$7 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (Array.isArray(e) || typeof e == "boolean")
-                  return { canceled: !1, eof: !0, status: 404, messages: [] };
-                var t = yield o(
-                    "WAWebFtsClientMessageIdResolver",
-                  ).resolveMsgIds(e.messages),
-                  n = t.resolved,
-                  r = t.unresolved,
-                  a = e.eof,
-                  i = e.status;
-                return (
-                  r.length > 0 && this.purge(r),
-                  { canceled: !1, eof: a, status: i, messages: n }
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           (t.$6 = function (t) {
             var e = this;
             this.initialize();
-            var o = r("WAWebFtsGenRequestId")();
-            return new (c || (c = n("Promise")))(function (n, r) {
-              var a = { command: t, reqId: o };
-              (e.$2.set(o, { resolve: n, reject: r, command: t }), e.$8(a));
+            var n = r("WAWebFtsGenRequestId")();
+            return new Promise(function (r, o) {
+              var a = { command: t, reqId: n };
+              (e.$2.set(n, { resolve: r, reject: o, command: t }), e.$8(a));
             }).finally(function () {
-              e.$5(o);
+              e.$5(n);
             });
           }),
           (t.$5 = function (t) {
@@ -188,8 +169,8 @@ __d(
           e
         );
       })(),
-      _ = m != null && r("WAWebEnvironment").isWindows ? new m() : new p();
-    l.ftsClient = _;
+      p = d != null && r("WAWebEnvironment").isWindows ? new d() : new m();
+    l.ftsClient = p;
   },
   98,
 );

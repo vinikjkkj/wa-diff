@@ -1,6 +1,6 @@
 __d(
   "QPLFlow",
-  ["QPLUserFlow", "Random", "asyncToGeneratorRuntime"],
+  ["QPLUserFlow", "Random"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 0,
@@ -141,23 +141,15 @@ __d(
           var t = new e(n, r);
           return (t.start(), t);
         }),
-        (e.wrapInSubspan = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, n, r) {
-              var o = e.start(t, n);
-              try {
-                var a = yield r();
-                return (o.end(), a);
-              } catch (e) {
-                throw (o.endFail(), e);
-              }
-            },
-          );
-          function r(e, n, r) {
-            return t.apply(this, arguments);
+        (e.wrapInSubspan = async function (n, r, o) {
+          var t = e.start(n, r);
+          try {
+            var a = await o();
+            return (t.end(), a);
+          } catch (e) {
+            throw (t.endFail(), e);
           }
-          return r;
-        })()),
+        }),
         e
       );
     })();

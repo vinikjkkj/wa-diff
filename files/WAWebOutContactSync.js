@@ -7,7 +7,6 @@ __d(
     "WAWebBackendApi",
     "WAWebDBOutContactDatabaseApi",
     "WAWebSyncdAction",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -15,7 +14,7 @@ __d(
       u,
       c,
       d = (function (t) {
-        function r() {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -25,136 +24,123 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 1;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WASyncdConst").Actions.OutContact;
           }),
-          (a.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = 0,
-                  r = [],
-                  a = [],
-                  i = [];
-                for (var l of t) {
-                  var d = l.indexParts[1];
-                  if (d == null) {
-                    (n++,
-                      i.push({
-                        actionState: o("WASyncdConst").SyncActionState.Skipped,
-                      }));
-                    continue;
-                  }
-                  var _ = o("WAJids").interpretAndValidateJid(d);
-                  if (_.jidType !== "phoneUser") {
-                    (o("WALogger").ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "OutContactSync: JID missing expected domain: ",
+          (r.applyMutations = async function (n) {
+            var t = 0,
+              r = [],
+              a = [],
+              i = [];
+            for (var l of n) {
+              var d = l.indexParts[1];
+              if (d == null) {
+                (t++,
+                  i.push({
+                    actionState: o("WASyncdConst").SyncActionState.Skipped,
+                  }));
+                continue;
+              }
+              var _ = o("WAJids").interpretAndValidateJid(d);
+              if (_.jidType !== "phoneUser") {
+                (o("WALogger").ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "OutContactSync: JID missing expected domain: ",
+                      "",
+                    ])),
+                  d,
+                ),
+                  t++,
+                  i.push({
+                    actionState: o("WASyncdConst").SyncActionState.Skipped,
+                  }));
+                continue;
+              }
+              var f = _.userJid;
+              if (l.operation === "set") {
+                var g,
+                  h = l.value.outContactAction;
+                if (h == null) {
+                  (t++,
+                    i.push({
+                      actionState: o("WASyncdConst").SyncActionState.Skipped,
+                    }));
+                  continue;
+                }
+                var y = m(h.fullName),
+                  C = (g = m(h.firstName)) != null ? g : p(y);
+                (r.push({ id: f, fullName: y, firstName: C }),
+                  o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "OutContactSync: set ",
+                        "",
+                      ])),
+                    d,
+                  ),
+                  i.push({
+                    actionState: o("WASyncdConst").SyncActionState.Success,
+                  }));
+              } else
+                l.operation === "remove"
+                  ? (a.push(f),
+                    o("WALogger").LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "OutContactSync: remove ",
                           "",
                         ])),
                       d,
                     ),
-                      n++,
-                      i.push({
-                        actionState: o("WASyncdConst").SyncActionState.Skipped,
-                      }));
-                    continue;
-                  }
-                  var f = _.userJid;
-                  if (l.operation === "set") {
-                    var g,
-                      h = l.value.outContactAction;
-                    if (h == null) {
-                      (n++,
-                        i.push({
-                          actionState:
-                            o("WASyncdConst").SyncActionState.Skipped,
-                        }));
-                      continue;
-                    }
-                    var y = m(h.fullName),
-                      C = (g = m(h.firstName)) != null ? g : p(y);
-                    (r.push({ id: f, fullName: y, firstName: C }),
-                      o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "OutContactSync: set ",
-                            "",
-                          ])),
-                        d,
-                      ),
-                      i.push({
-                        actionState: o("WASyncdConst").SyncActionState.Success,
-                      }));
-                  } else
-                    l.operation === "remove"
-                      ? (a.push(f),
-                        o("WALogger").LOG(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "OutContactSync: remove ",
-                              "",
-                            ])),
-                          d,
-                        ),
-                        i.push({
-                          actionState:
-                            o("WASyncdConst").SyncActionState.Success,
-                        }))
-                      : (n++,
-                        i.push({
-                          actionState:
-                            o("WASyncdConst").SyncActionState.Skipped,
-                        }));
-                }
-                return (
-                  r.length > 0 &&
-                    (yield o("WAWebDBOutContactDatabaseApi").putOutContactBatch(
-                      r,
-                    ),
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "bulkUpsertOutContacts",
-                      { contacts: r },
-                    )),
-                  a.length > 0 &&
-                    (yield o(
-                      "WAWebDBOutContactDatabaseApi",
-                    ).removeOutContactBatch(a),
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "bulkRemoveOutContacts",
-                      { ids: a },
-                    )),
-                  n > 0 &&
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "OutContactSync: ",
-                            " malformed mutations",
-                          ])),
-                        n,
-                      )
-                      .sendLogs(
-                        "OutContactSync: " +
-                          n +
-                          " malformed mutation(s) encountered",
-                      ),
-                  i
-                );
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
+                    i.push({
+                      actionState: o("WASyncdConst").SyncActionState.Success,
+                    }))
+                  : (t++,
+                    i.push({
+                      actionState: o("WASyncdConst").SyncActionState.Skipped,
+                    }));
             }
-            return r;
-          })()),
-          r
+            return (
+              r.length > 0 &&
+                (await o("WAWebDBOutContactDatabaseApi").putOutContactBatch(r),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "bulkUpsertOutContacts",
+                  { contacts: r },
+                )),
+              a.length > 0 &&
+                (await o("WAWebDBOutContactDatabaseApi").removeOutContactBatch(
+                  a,
+                ),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "bulkRemoveOutContacts",
+                  { ids: a },
+                )),
+              t > 0 &&
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "OutContactSync: ",
+                        " malformed mutations",
+                      ])),
+                    t,
+                  )
+                  .sendLogs(
+                    "OutContactSync: " +
+                      t +
+                      " malformed mutation(s) encountered",
+                  ),
+              i
+            );
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase);
     function m(e) {

@@ -1,37 +1,21 @@
 __d(
   "JSSPTraceBaseTransformer",
-  ["FBLogger", "asyncToGeneratorRuntime"],
+  ["FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
       function e() {}
       var t = e.prototype;
       return (
-        (t.transform = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              return (
-                r("FBLogger")("JSSelfProfiler").warn(
-                  "JSSP base transformer should be overridden.",
-                ),
-                e
-              );
-            },
+        (t.transform = async function (t, n, o) {
+          return (
+            r("FBLogger")("JSSelfProfiler").warn(
+              "JSSP base transformer should be overridden.",
+            ),
+            t
           );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.onProfilerAborts = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e) {},
-          );
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        }),
+        (t.onProfilerAborts = async function (t) {}),
         e
       );
     })();

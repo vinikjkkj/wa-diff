@@ -1,7 +1,6 @@
 __d(
   "WAWebLid1X1ThreadAccountMigrations",
   [
-    "Promise",
     "WAAsyncSleep",
     "WAJobOrchestratorTypes",
     "WALogger",
@@ -37,7 +36,6 @@ __d(
     "WAWebWamEnumStageFailureReasonEnum",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -67,167 +65,152 @@ __d(
       x,
       $,
       P,
-      N,
-      M;
-    function w() {
+      N;
+    function M() {
       var e = o("WAWebABProps").getABPropConfigValue(
           "lid_one_on_one_migration_enabled",
         ),
-        t = G().state;
+        t = q().state;
       if (
         e &&
         t ===
           o("WAWebLid1X1ThreadAccountMigrations.flow").LidThreadMigrationStatus
             .WAITING_PROP
       )
-        return V(
+        return B(
           o("WAWebLid1X1ThreadAccountMigrations.flow").LidThreadMigrationStatus
             .WAITING_MAPPINGS,
         );
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t;
+    async function w(t) {
+      try {
+        var n;
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[LID] setLidMigrationMappings: mappings size=",
+              " offline=",
+              "",
+            ])),
+          (n = t == null ? void 0 : t.byteLength) != null ? n : 0,
+          o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
+        );
+        var r = o("WATimeUtils").unixTime();
+        new (o(
+          "WAWebLid11MigrationLifecycleWamEvent",
+        ).Lid11MigrationLifecycleWamEvent)({
+          migrationStage: o("WAWebWamEnumMigrationStageEnum")
+            .MIGRATION_STAGE_ENUM.COMPANION_RECEIVED_PEER_MESSAGE,
+        }).commit();
+        var a = o("WATimeUtils").unixTime();
+        if (
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[LID] after sending WAM. is offline: ",
+                ". duration: ",
+                "",
+              ])),
+            o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
+            a - r,
+          ),
+          t == null)
+        )
+          return (
             o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[LID] setLidMigrationMappings: mappings size=",
-                  " offline=",
-                  "",
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[LID] peer mapping is null",
                 ])),
-              (t = e == null ? void 0 : e.byteLength) != null ? t : 0,
-              o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
-            );
-            var n = o("WATimeUtils").unixTime();
-            new (o(
+            ),
+            await new (o(
               "WAWebLid11MigrationLifecycleWamEvent",
             ).Lid11MigrationLifecycleWamEvent)({
               migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                .MIGRATION_STAGE_ENUM.COMPANION_RECEIVED_PEER_MESSAGE,
-            }).commit();
-            var r = o("WATimeUtils").unixTime();
-            if (
-              (o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[LID] after sending WAM. is offline: ",
-                    ". duration: ",
-                    "",
+                .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
+              stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
+                .STAGE_FAILURE_REASON_ENUM.MALFORMED_PEER_MESSAGE,
+            }).commitAndWaitForFlush(!0),
+            o("WALogger")
+              .ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[LID] setLidMigrationMappings: empty mappings",
                   ])),
-                o(
-                  "WAWebEventsWaitForOfflineDeliveryEnd",
-                ).isOfflineDeliveryEnd(),
-                r - n,
-              ),
-              e == null)
+              )
+              .sendLogs("lid-migration-empty-mappings"),
+            o("WAWebSocketLogoutJob").socketLogout(
+              o("WAWebLogoutReasonConstants").LogoutReason
+                .LidMigrationPeerMappingsMalformed,
             )
-              return (
-                o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[LID] peer mapping is null",
-                    ])),
-                ),
-                yield new (o(
-                  "WAWebLid11MigrationLifecycleWamEvent",
-                ).Lid11MigrationLifecycleWamEvent)({
-                  migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                    .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
-                  stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
-                    .STAGE_FAILURE_REASON_ENUM.MALFORMED_PEER_MESSAGE,
-                }).commitAndWaitForFlush(!0),
-                o("WALogger")
-                  .ERROR(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[LID] setLidMigrationMappings: empty mappings",
-                      ])),
-                  )
-                  .sendLogs("lid-migration-empty-mappings"),
-                o("WAWebSocketLogoutJob").socketLogout(
-                  o("WAWebLogoutReasonConstants").LogoutReason
-                    .LidMigrationPeerMappingsMalformed,
-                )
-              );
-            var a = o("WATimeUtils").unixTime();
-            (o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "[LID] before update state. is offline: ",
-                  "",
+          );
+        var i = o("WATimeUtils").unixTime();
+        (o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[LID] before update state. is offline: ",
+              "",
+            ])),
+          o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
+        ),
+          await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            "WALidThreadAccountMigrationStatus",
+            {
+              state: o("WAWebLid1X1ThreadAccountMigrations.flow")
+                .LidThreadMigrationStatus.READY,
+              ts: i,
+              lidMappingsFromPrimaryMigration: t,
+            },
+          ));
+        var l = o("WATimeUtils").unixTime(),
+          g = q().state;
+        (o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[LID] after updating state. Current state: ",
+              "",
+            ])),
+          g,
+        ),
+          o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[LID] before update cache. is offline: ",
+                ". duration: ",
+                "",
+              ])),
+            o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
+            l - a,
+          ),
+          await o(
+            "WAWebLid1x1MigrationPrimaryCache",
+          ).lidPnMigrationPrimaryCache.updateCacheIfEmpty(t, i),
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[LID] setLidMigrationMappings: saved mapping, offline=",
+                "",
+              ])),
+            o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
+          ),
+          U());
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[LID] setLidMigrationMappings: failed to save mappings",
                 ])),
-              o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
-            ),
-              yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                "WALidThreadAccountMigrationStatus",
-                {
-                  state: o("WAWebLid1X1ThreadAccountMigrations.flow")
-                    .LidThreadMigrationStatus.READY,
-                  ts: a,
-                  lidMappingsFromPrimaryMigration: e,
-                },
-              ));
-            var i = o("WATimeUtils").unixTime(),
-              l = G().state;
-            (o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "[LID] after updating state. Current state: ",
-                  "",
-                ])),
-              l,
-            ),
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[LID] before update cache. is offline: ",
-                    ". duration: ",
-                    "",
-                  ])),
-                o(
-                  "WAWebEventsWaitForOfflineDeliveryEnd",
-                ).isOfflineDeliveryEnd(),
-                i - r,
-              ),
-              yield o(
-                "WAWebLid1x1MigrationPrimaryCache",
-              ).lidPnMigrationPrimaryCache.updateCacheIfEmpty(e, a),
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "[LID] setLidMigrationMappings: saved mapping, offline=",
-                    "",
-                  ])),
-                o(
-                  "WAWebEventsWaitForOfflineDeliveryEnd",
-                ).isOfflineDeliveryEnd(),
-              ),
-              z());
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "[LID] setLidMigrationMappings: failed to save mappings",
-                    ])),
-                )
-                .catching(e)
-                .sendLogs("lid-migration-failed-to-save-mappings"),
-              e
-            );
-          }
-        })),
-        F.apply(this, arguments)
-      );
+            )
+            .catching(e)
+            .sendLogs("lid-migration-failed-to-save-mappings"),
+          e
+        );
+      }
     }
-    function O() {
-      var e = G().state;
+    function A() {
+      var e = q().state;
       return (
         e ===
           o("WAWebLid1X1ThreadAccountMigrations.flow").LidThreadMigrationStatus
@@ -237,465 +220,421 @@ __d(
             .IN_PROGRESS
       );
     }
-    function B() {
-      return W.apply(this, arguments);
-    }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          new (o(
-            "WAWebLid11MigrationLifecycleWamEvent",
-          ).Lid11MigrationLifecycleWamEvent)({
-            migrationStage: o("WAWebWamEnumMigrationStageEnum")
-              .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_STARTED,
-            mappingCount: o(
-              "WAWebLid1x1MigrationPrimaryCache",
-            ).lidPnMigrationPrimaryCache.getAllPnLidMappings().length,
-          }).commit();
-          try {
-            if (!O()) {
-              o("WALogger")
-                .ERROR(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "[LID] migrate1x1Chats: migration is not ready",
-                    ])),
-                )
-                .sendLogs("lid-migration-not-ready");
-              return;
-            }
-            if (
-              !o("WAWebABProps").getABPropConfigValue(
-                "lid_one_on_one_migration_compatible",
-              )
-            )
-              return (
-                yield new (o(
-                  "WAWebLid11MigrationLifecycleWamEvent",
-                ).Lid11MigrationLifecycleWamEvent)({
-                  migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                    .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
-                  stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
-                    .STAGE_FAILURE_REASON_ENUM.COMPANION_UNSUPPORTED_VERSION,
-                }).commitAndWaitForFlush(!0),
-                o("WAWebSocketLogoutJob").socketLogout(
-                  o("WAWebLogoutReasonConstants").LogoutReason
-                    .LidMigrationCompanionIncompatibleKillswitch,
-                )
-              );
-            (o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lid] 1x1ThreadMigration started",
+    async function F() {
+      new (o(
+        "WAWebLid11MigrationLifecycleWamEvent",
+      ).Lid11MigrationLifecycleWamEvent)({
+        migrationStage: o("WAWebWamEnumMigrationStageEnum").MIGRATION_STAGE_ENUM
+          .COMPANION_LOCAL_MIGRATION_STARTED,
+        mappingCount: o(
+          "WAWebLid1x1MigrationPrimaryCache",
+        ).lidPnMigrationPrimaryCache.getAllPnLidMappings().length,
+      }).commit();
+      try {
+        if (!A()) {
+          o("WALogger")
+            .ERROR(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "[LID] migrate1x1Chats: migration is not ready",
                 ])),
-            ),
-              V(
-                o("WAWebLid1X1ThreadAccountMigrations.flow")
-                  .LidThreadMigrationStatus.IN_PROGRESS,
-              ));
-            var e = G(),
-              t = r("WANullthrows")(
-                e == null ? void 0 : e.lidMappingsFromPrimaryMigration,
-                "got empty mappings while in lid thread migration",
-              ),
-              a = r("WANullthrows")(
-                e == null ? void 0 : e.ts,
-                "received empty sync timestamp while in lid thread migration",
-              );
-            yield o(
-              "WAWebLid1x1MigrationPrimaryCache",
-            ).lidPnMigrationPrimaryCache.updateCacheIfEmpty(t, a);
-            var i = [],
-              l = 0,
-              s = 0;
-            o("WAWebCurrentUser").isEmployee() &&
-              o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lid] 1x1ThreadMigration Primary Mappings: ",
-                    "",
-                  ])),
-                o("WAWebLid1x1MigrationPrimaryCache")
-                  .lidPnMigrationPrimaryCache.getAllPnLidMappings()
-                  .map(function (e) {
-                    var t, n;
-                    return (
-                      e.primaryProvidedPn.toString() +
-                      ":" +
-                      e.primaryProvidedLid.toString() +
-                      ":" +
-                      ((t =
-                        (n = e.primaryProvidedLatestLid) == null
-                          ? void 0
-                          : n.toString()) != null
-                        ? t
-                        : "")
-                    );
-                  })
-                  .join(", "),
-              );
-            var u = null;
-            if (
-              (yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  ["chat", "message", "user-prefs"],
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = e[0],
-                          c = e[1],
-                          d = (yield t.all()).filter(function (e) {
-                            var t = e.id,
-                              n = o("WAWebWidFactory").createWid(t);
-                            return n.isRegularUser();
-                          }),
-                          m = [],
-                          p = [],
-                          _ = new Set(
-                            d.map(function (e) {
-                              var t = e.id;
-                              return o("WAWebWidFactory").asUserWidOrThrow(
-                                o("WAWebWidFactory").createWid(t),
-                              );
-                            }),
-                          ),
-                          f = 0,
-                          g = d.map(
-                            (function () {
-                              var e = n(
-                                "asyncToGeneratorRuntime",
-                              ).asyncToGenerator(function* (e) {
-                                var t;
-                                if (u == null) {
-                                  var n = o("WAWebWidFactory").createWid(e.id),
-                                    d = e.lidOriginType,
-                                    g = o("WAWebLid1x1MigrationPrimaryCache")
-                                      .lidPnMigrationPrimaryCache.getAllPnLidMappings()
-                                      .some(function (e) {
-                                        var t = e.primaryProvidedLatestLid;
-                                        return r("WAWebWid").equals(t, n);
-                                      }),
-                                    h =
-                                      d ===
-                                        o("WAWebUsernameTypes").LidOriginType
-                                          .PNH_CTWA && g;
-                                  if (n.isLid()) {
-                                    i.push({
-                                      id: e.id,
-                                      accountLid: n.toString(),
-                                      lidOriginType: h
-                                        ? o("WAWebUsernameTypes").LidOriginType
-                                            .GENERAL
-                                        : d,
-                                    });
-                                    return;
-                                  }
-                                  var y = o("WAWebApiContact").getCurrentLid(
-                                    o("WAWebWidFactory").asUserWidOrThrow(n),
-                                  );
-                                  y == null && s++;
-                                  var C = y != null ? _.has(y) : !1,
-                                    b = o(
-                                      "WAWebLid1x1MigrationPrimaryCache",
-                                    ).lidPnMigrationPrimaryCache.getLidForPn(n);
-                                  r("WAWebWid").equals(y, b) || l++;
-                                  var v = o("WALongInt").maybeNumber(
-                                    o(
-                                      "WAWebLid1x1MigrationPrimaryCache",
-                                    ).lidPnMigrationPrimaryCache.getPrimaryMigrationTsSec(),
-                                  );
-                                  v == null && f++;
-                                  var S = yield q({
-                                    mostRecentMsgTs: (t = e.t) != null ? t : 0,
-                                    isThreadExistsWithChatJid: C,
-                                    primarySyncTs: v != null ? v : a,
-                                    primaryProvidedLid: b,
-                                    latestLocalLid: y,
-                                    chat: e,
-                                    MessageTable: c,
-                                  });
-                                  if (S.deleteChat) {
-                                    (m.push(e.id),
-                                      p.push.apply(p, S.messagesToDelete));
-                                    return;
-                                  }
-                                  if (S.logoutReason != null) {
-                                    u = S.logoutReason;
-                                    return;
-                                  }
-                                  i.push({
-                                    id: e.id,
-                                    accountLid: S.threadLid.toString(),
-                                    lidOriginType: e.lidOriginType,
-                                  });
-                                }
-                              });
-                              return function (t) {
-                                return e.apply(this, arguments);
-                              };
-                            })(),
-                          );
-                        (yield (M || (M = n("Promise"))).all(g),
-                          f > 0 &&
-                            o("WALogger")
-                              .ERROR(
-                                k ||
-                                  (k = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[LID] migrate1x1Chats: primaryMigrationTsSec overflow ",
-                                    "",
-                                  ])),
-                                f,
-                              )
-                              .sendLogs("lid-migration-primary-ts-too-large"),
-                          u == null &&
-                            (o(
-                              "WAWebDBChatValidation",
-                            ).validateAccountLidInChatRows(
-                              i,
-                              "lid1X1ThreadAccountMigration",
-                            ),
-                            yield t.bulkCreateOrMerge(i),
-                            yield t.bulkRemove(m),
-                            yield c.bulkRemove(p),
-                            m.length > 0 &&
-                              o("WALogger")
-                                .LOG(
-                                  I ||
-                                    (I =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "",
-                                        " chats deleted on migration instead of logging out",
-                                      ])),
-                                  m.length,
-                                )
-                                .sendLogs("lid-migration-chats-deleted", {
-                                  sampling: 0,
-                                }),
-                            V(
-                              o("WAWebLid1X1ThreadAccountMigrations.flow")
-                                .LidThreadMigrationStatus.COMPLETE,
-                            ),
-                            o(
-                              "WAWebLid1X1MigrationGating",
-                            ).Lid1X1MigrationUtils.setIsLidMigrated(
-                              !0,
-                              o("WAWebUserPrefsTypes").LidMigrationSource.PEER,
-                              !1,
-                            ),
-                            o("WALogger").LOG(
-                              T ||
-                                (T = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[Lid] 1x1ThreadMigration completed successfully",
-                                ])),
-                            )));
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              u)
             )
-              return (
-                yield new (o(
-                  "WAWebLid11MigrationLifecycleWamEvent",
-                ).Lid11MigrationLifecycleWamEvent)({
-                  migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                    .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
-                  stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
-                    .STAGE_FAILURE_REASON_ENUM
-                    .INITIATED_LOGOUT_BASED_ON_MAPPING,
-                }).commitAndWaitForFlush(!0),
-                o("WALogger")
-                  .ERROR(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
-                        "[LID] Failed to migrate 1x1 chats with reason: ",
-                        ". Logging out",
-                      ])),
-                    u,
-                  )
-                  .sendLogs("lid-migration-failed"),
-                yield o("WAAsyncSleep").asyncSleep(5e3),
-                o("WAWebSocketLogoutJob").socketLogout(u)
-              );
-            yield o(
-              "WAWebLid1x1MigrationPrimaryCache",
-            ).lidPnMigrationPrimaryCache.learnMappingsInBulk();
-            var c = r("sumBy")(
-              o(
-                "WAWebLid1x1MigrationPrimaryCache",
-              ).lidPnMigrationPrimaryCache.getAllPnLidMappings(),
-              function (e) {
-                return e.primaryProvidedLatestLid != null ? 1 : 0;
-              },
-            );
-            new (o(
+            .sendLogs("lid-migration-not-ready");
+          return;
+        }
+        if (
+          !o("WAWebABProps").getABPropConfigValue(
+            "lid_one_on_one_migration_compatible",
+          )
+        )
+          return (
+            await new (o(
               "WAWebLid11MigrationLifecycleWamEvent",
             ).Lid11MigrationLifecycleWamEvent)({
               migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_ENDED,
-              mappingCount: o(
-                "WAWebLid1x1MigrationPrimaryCache",
-              ).lidPnMigrationPrimaryCache.getAllPnLidMappings().length,
-              migratedThreadCount: i.length,
-              companionHasADifferentMappingCount: l,
-              chatNotInMappingCount: s,
-              latestMappingCount: c,
-            }).commit();
-          } catch (e) {
-            return (
-              yield new (o(
-                "WAWebLid11MigrationLifecycleWamEvent",
-              ).Lid11MigrationLifecycleWamEvent)({
-                migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                  .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
-                stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
-                  .STAGE_FAILURE_REASON_ENUM.INTERNAL_ERROR,
-              }).commitAndWaitForFlush(!0),
-              o("WALogger")
-                .ERROR(
-                  x ||
-                    (x = babelHelpers.taggedTemplateLiteralLoose([
-                      "[LID] Failed to migrate 1x1 chats",
-                    ])),
-                )
-                .catching(e)
-                .sendLogs("lid-thread-migration"),
-              o("WAWebSocketLogoutJob").socketLogout(
-                o("WAWebLogoutReasonConstants").LogoutReason
-                  .LidMigrationOneOnOneThreadMigrationInternalError,
-              )
-            );
-          }
-        })),
-        W.apply(this, arguments)
-      );
-    }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.MessageTable,
-            n = e.chat,
-            r = e.isThreadExistsWithChatJid,
-            a = e.latestLocalLid,
-            i = e.mostRecentMsgTs,
-            l = e.primaryProvidedLid,
-            s = e.primarySyncTs;
-          if (l == null) {
-            if (a == null) {
-              if (n) {
-                try {
-                  if (n.originalLid != null)
-                    return {
-                      threadLid: o("WAWebWidFactory").createUserLidOrThrow(
-                        n.originalLid,
-                      ),
-                    };
-                } catch (e) {
+                .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
+              stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
+                .STAGE_FAILURE_REASON_ENUM.COMPANION_UNSUPPORTED_VERSION,
+            }).commitAndWaitForFlush(!0),
+            o("WAWebSocketLogoutJob").socketLogout(
+              o("WAWebLogoutReasonConstants").LogoutReason
+                .LidMigrationCompanionIncompatibleKillswitch,
+            )
+          );
+        (o("WALogger").LOG(
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
+              "[Lid] 1x1ThreadMigration started",
+            ])),
+        ),
+          B(
+            o("WAWebLid1X1ThreadAccountMigrations.flow")
+              .LidThreadMigrationStatus.IN_PROGRESS,
+          ));
+        var e = q(),
+          t = r("WANullthrows")(
+            e == null ? void 0 : e.lidMappingsFromPrimaryMigration,
+            "got empty mappings while in lid thread migration",
+          ),
+          n = r("WANullthrows")(
+            e == null ? void 0 : e.ts,
+            "received empty sync timestamp while in lid thread migration",
+          );
+        await o(
+          "WAWebLid1x1MigrationPrimaryCache",
+        ).lidPnMigrationPrimaryCache.updateCacheIfEmpty(t, n);
+        var a = [],
+          i = 0,
+          l = 0;
+        o("WAWebCurrentUser").isEmployee() &&
+          o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "[Lid] 1x1ThreadMigration Primary Mappings: ",
+                "",
+              ])),
+            o("WAWebLid1x1MigrationPrimaryCache")
+              .lidPnMigrationPrimaryCache.getAllPnLidMappings()
+              .map(function (e) {
+                var t, n;
+                return (
+                  e.primaryProvidedPn.toString() +
+                  ":" +
+                  e.primaryProvidedLid.toString() +
+                  ":" +
+                  ((t =
+                    (n = e.primaryProvidedLatestLid) == null
+                      ? void 0
+                      : n.toString()) != null
+                    ? t
+                    : "")
+                );
+              })
+              .join(", "),
+          );
+        var s = null;
+        if (
+          (await o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["chat", "message", "user-prefs"], async function (e) {
+              var t = e[0],
+                u = e[1],
+                c = (await t.all()).filter(function (e) {
+                  var t = e.id,
+                    n = o("WAWebWidFactory").createWid(t);
+                  return n.isRegularUser();
+                }),
+                d = [],
+                m = [],
+                p = new Set(
+                  c.map(function (e) {
+                    var t = e.id;
+                    return o("WAWebWidFactory").asUserWidOrThrow(
+                      o("WAWebWidFactory").createWid(t),
+                    );
+                  }),
+                ),
+                _ = 0,
+                f = c.map(async function (e) {
+                  var t;
+                  if (s == null) {
+                    var c = o("WAWebWidFactory").createWid(e.id),
+                      f = e.lidOriginType,
+                      g = o("WAWebLid1x1MigrationPrimaryCache")
+                        .lidPnMigrationPrimaryCache.getAllPnLidMappings()
+                        .some(function (e) {
+                          var t = e.primaryProvidedLatestLid;
+                          return r("WAWebWid").equals(t, c);
+                        }),
+                      h =
+                        f === o("WAWebUsernameTypes").LidOriginType.PNH_CTWA &&
+                        g;
+                    if (c.isLid()) {
+                      a.push({
+                        id: e.id,
+                        accountLid: c.toString(),
+                        lidOriginType: h
+                          ? o("WAWebUsernameTypes").LidOriginType.GENERAL
+                          : f,
+                      });
+                      return;
+                    }
+                    var y = o("WAWebApiContact").getCurrentLid(
+                      o("WAWebWidFactory").asUserWidOrThrow(c),
+                    );
+                    y == null && l++;
+                    var C = y != null ? p.has(y) : !1,
+                      b = o(
+                        "WAWebLid1x1MigrationPrimaryCache",
+                      ).lidPnMigrationPrimaryCache.getLidForPn(c);
+                    r("WAWebWid").equals(y, b) || i++;
+                    var v = o("WALongInt").maybeNumber(
+                      o(
+                        "WAWebLid1x1MigrationPrimaryCache",
+                      ).lidPnMigrationPrimaryCache.getPrimaryMigrationTsSec(),
+                    );
+                    v == null && _++;
+                    var S = await O({
+                      mostRecentMsgTs: (t = e.t) != null ? t : 0,
+                      isThreadExistsWithChatJid: C,
+                      primarySyncTs: v != null ? v : n,
+                      primaryProvidedLid: b,
+                      latestLocalLid: y,
+                      chat: e,
+                      MessageTable: u,
+                    });
+                    if (S.deleteChat) {
+                      (d.push(e.id), m.push.apply(m, S.messagesToDelete));
+                      return;
+                    }
+                    if (S.logoutReason != null) {
+                      s = S.logoutReason;
+                      return;
+                    }
+                    a.push({
+                      id: e.id,
+                      accountLid: S.threadLid.toString(),
+                      lidOriginType: e.lidOriginType,
+                    });
+                  }
+                });
+              (await Promise.all(f),
+                _ > 0 &&
                   o("WALogger")
                     .ERROR(
-                      $ ||
-                        ($ = babelHelpers.taggedTemplateLiteralLoose([
-                          "getResolvedThreadAccountLid: failed to get lid for ",
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "[LID] migrate1x1Chats: primaryMigrationTsSec overflow ",
                           "",
                         ])),
-                      n.id,
+                      _,
                     )
-                    .catching(e)
-                    .sendLogs(
-                      "createChat-lid-offline-resume-workaround-failed-migration",
-                    );
-                }
-                var u = yield j(n, t);
-                if (u.result)
-                  return (
-                    o("WALogger").LOG(
-                      P ||
-                        (P = babelHelpers.taggedTemplateLiteralLoose([
-                          "[LID] chat can be deleted, deleting chat ",
-                          "",
-                        ])),
-                      n.id,
-                    ),
-                    {
-                      deleteChat: !0,
-                      messagesToDelete: u.messages.map(function (e) {
-                        return e.id;
-                      }),
-                    }
-                  );
-                Y(n, s, r, u.messages, u.reason);
-              }
-              return {
-                logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
-                  .LidMigrationNoLidAvailiable,
-              };
-            }
-            return r
-              ? {
-                  logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
-                    .LidMigrationSplitThreadMismatch,
-                }
-              : { threadLid: a };
-          }
-          var c = o("WAWebABProps").getABPropConfigValue(
-            "lid_one_on_one_migration_log_out_on_mismatch",
-          );
-          return c
-            ? a == null || a.equals(l)
-              ? (a == null &&
-                  o("WALogger").WARN(
-                    N ||
-                      (N = babelHelpers.taggedTemplateLiteralLoose([
-                        "[LID] getResolvedThreadAccountLid: latestLocalLid is null",
-                      ])),
+                    .sendLogs("lid-migration-primary-ts-too-large"),
+                s == null &&
+                  (o("WAWebDBChatValidation").validateAccountLidInChatRows(
+                    a,
+                    "lid1X1ThreadAccountMigration",
                   ),
-                { threadLid: l })
-              : i >= s
-                ? {
-                    logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
-                      .LidMigrationPrimaryMappingsObsolete,
-                  }
-                : { threadLid: l }
-            : { threadLid: l };
-        })),
-        U.apply(this, arguments)
-      );
+                  await t.bulkCreateOrMerge(a),
+                  await t.bulkRemove(d),
+                  await u.bulkRemove(m),
+                  d.length > 0 &&
+                    o("WALogger")
+                      .LOG(
+                        b ||
+                          (b = babelHelpers.taggedTemplateLiteralLoose([
+                            "",
+                            " chats deleted on migration instead of logging out",
+                          ])),
+                        d.length,
+                      )
+                      .sendLogs("lid-migration-chats-deleted", { sampling: 0 }),
+                  B(
+                    o("WAWebLid1X1ThreadAccountMigrations.flow")
+                      .LidThreadMigrationStatus.COMPLETE,
+                  ),
+                  o(
+                    "WAWebLid1X1MigrationGating",
+                  ).Lid1X1MigrationUtils.setIsLidMigrated(
+                    !0,
+                    o("WAWebUserPrefsTypes").LidMigrationSource.PEER,
+                    !1,
+                  ),
+                  o("WALogger").LOG(
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                        "[Lid] 1x1ThreadMigration completed successfully",
+                      ])),
+                  )));
+            }),
+          s)
+        )
+          return (
+            await new (o(
+              "WAWebLid11MigrationLifecycleWamEvent",
+            ).Lid11MigrationLifecycleWamEvent)({
+              migrationStage: o("WAWebWamEnumMigrationStageEnum")
+                .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
+              stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
+                .STAGE_FAILURE_REASON_ENUM.INITIATED_LOGOUT_BASED_ON_MAPPING,
+            }).commitAndWaitForFlush(!0),
+            o("WALogger")
+              .ERROR(
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                    "[LID] Failed to migrate 1x1 chats with reason: ",
+                    ". Logging out",
+                  ])),
+                s,
+              )
+              .sendLogs("lid-migration-failed"),
+            await o("WAAsyncSleep").asyncSleep(5e3),
+            o("WAWebSocketLogoutJob").socketLogout(s)
+          );
+        await o(
+          "WAWebLid1x1MigrationPrimaryCache",
+        ).lidPnMigrationPrimaryCache.learnMappingsInBulk();
+        var u = r("sumBy")(
+          o(
+            "WAWebLid1x1MigrationPrimaryCache",
+          ).lidPnMigrationPrimaryCache.getAllPnLidMappings(),
+          function (e) {
+            return e.primaryProvidedLatestLid != null ? 1 : 0;
+          },
+        );
+        new (o(
+          "WAWebLid11MigrationLifecycleWamEvent",
+        ).Lid11MigrationLifecycleWamEvent)({
+          migrationStage: o("WAWebWamEnumMigrationStageEnum")
+            .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_ENDED,
+          mappingCount: o(
+            "WAWebLid1x1MigrationPrimaryCache",
+          ).lidPnMigrationPrimaryCache.getAllPnLidMappings().length,
+          migratedThreadCount: a.length,
+          companionHasADifferentMappingCount: i,
+          chatNotInMappingCount: l,
+          latestMappingCount: u,
+        }).commit();
+      } catch (e) {
+        return (
+          await new (o(
+            "WAWebLid11MigrationLifecycleWamEvent",
+          ).Lid11MigrationLifecycleWamEvent)({
+            migrationStage: o("WAWebWamEnumMigrationStageEnum")
+              .MIGRATION_STAGE_ENUM.COMPANION_LOCAL_MIGRATION_FAILED,
+            stageFailureReason: o("WAWebWamEnumStageFailureReasonEnum")
+              .STAGE_FAILURE_REASON_ENUM.INTERNAL_ERROR,
+          }).commitAndWaitForFlush(!0),
+          o("WALogger")
+            .ERROR(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[LID] Failed to migrate 1x1 chats",
+                ])),
+            )
+            .catching(e)
+            .sendLogs("lid-thread-migration"),
+          o("WAWebSocketLogoutJob").socketLogout(
+            o("WAWebLogoutReasonConstants").LogoutReason
+              .LidMigrationOneOnOneThreadMigrationInternalError,
+          )
+        );
+      }
     }
-    function V(t) {
+    async function O(e) {
+      var t = e.MessageTable,
+        n = e.chat,
+        r = e.isThreadExistsWithChatJid,
+        a = e.latestLocalLid,
+        i = e.mostRecentMsgTs,
+        l = e.primaryProvidedLid,
+        s = e.primarySyncTs;
+      if (l == null) {
+        if (a == null) {
+          if (n) {
+            try {
+              if (n.originalLid != null)
+                return {
+                  threadLid: o("WAWebWidFactory").createUserLidOrThrow(
+                    n.originalLid,
+                  ),
+                };
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "getResolvedThreadAccountLid: failed to get lid for ",
+                      "",
+                    ])),
+                  n.id,
+                )
+                .catching(e)
+                .sendLogs(
+                  "createChat-lid-offline-resume-workaround-failed-migration",
+                );
+            }
+            var u = await V(n, t);
+            if (u.result)
+              return (
+                o("WALogger").LOG(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "[LID] chat can be deleted, deleting chat ",
+                      "",
+                    ])),
+                  n.id,
+                ),
+                {
+                  deleteChat: !0,
+                  messagesToDelete: u.messages.map(function (e) {
+                    return e.id;
+                  }),
+                }
+              );
+            z(n, s, r, u.messages, u.reason);
+          }
+          return {
+            logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
+              .LidMigrationNoLidAvailiable,
+          };
+        }
+        return r
+          ? {
+              logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
+                .LidMigrationSplitThreadMismatch,
+            }
+          : { threadLid: a };
+      }
+      var c = o("WAWebABProps").getABPropConfigValue(
+        "lid_one_on_one_migration_log_out_on_mismatch",
+      );
+      return c
+        ? a == null || a.equals(l)
+          ? (a == null &&
+              o("WALogger").WARN(
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                    "[LID] getResolvedThreadAccountLid: latestLocalLid is null",
+                  ])),
+              ),
+            { threadLid: l })
+          : i >= s
+            ? {
+                logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
+                  .LidMigrationPrimaryMappingsObsolete,
+              }
+            : { threadLid: l }
+        : { threadLid: l };
+    }
+    function B(e) {
       o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
+        I ||
+          (I = babelHelpers.taggedTemplateLiteralLoose([
             "[LID] setLidThreadMigrationProgress: ",
             "",
           ])),
-        t,
+        e,
       );
-      var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+      var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
           "WALidThreadAccountMigrationStatus",
         ),
-        r = babelHelpers.extends({}, n, {
-          state: t,
+        n = babelHelpers.extends({}, t, {
+          state: e,
           ts: o("WATimeUtils").unixTime(),
         });
       o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         "WALidThreadAccountMigrationStatus",
-        r,
+        n,
       );
     }
-    function H(e, t) {
+    function W(e, t) {
       return e == null ? "unknown" : t < e ? "true" : "false";
     }
-    function G() {
+    function q() {
       o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
+        T ||
+          (T = babelHelpers.taggedTemplateLiteralLoose([
             "[LID] getLidThreadMigrationStatus, isWorker: ",
             "",
           ])),
@@ -712,8 +651,8 @@ __d(
         };
         return (
           o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            D ||
+              (D = babelHelpers.taggedTemplateLiteralLoose([
                 "[LID] no migration status, will use default",
               ])),
           ),
@@ -721,8 +660,8 @@ __d(
             .userPrefsIdb.set("WALidThreadAccountMigrationStatus", t)
             .then(function () {
               return o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                x ||
+                  (x = babelHelpers.taggedTemplateLiteralLoose([
                     "[LID] default migration status saved",
                   ])),
               );
@@ -732,11 +671,11 @@ __d(
       }
       return e;
     }
-    function z() {
-      if (!O()) {
+    function U() {
+      if (!A()) {
         o("WALogger").WARN(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
+          $ ||
+            ($ = babelHelpers.taggedTemplateLiteralLoose([
               "[LID] scheduleLid1x1ThreadAccountMigrationJob: not ready",
             ])),
         );
@@ -745,128 +684,119 @@ __d(
       o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "scheduleLid1x1ThreadAccountMigration",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             (o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "[LID] refreshing the page to start 1x1 lid thread migration",
                 ])),
             ),
               o("WAWebOfflineResumeUtils").refreshWindow());
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT },
         )
         .fireAndForget();
     }
-    function j(e, t) {
-      return K.apply(this, arguments);
-    }
-    function K() {
+    async function V(e, t) {
+      var n = o("WAWebWidFactory").createWid(e.id),
+        r = await t.between(
+          ["internalId"],
+          o("WAWebDBMessageUtils").beginningOfChat(n),
+          o("WAWebDBMessageUtils").endOfChat(n),
+          { lowerInclusive: !0, upperInclusive: !0, shouldDecrypt: !1 },
+        ),
+        a = !1;
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebWidFactory").createWid(e.id),
-            r = yield t.between(
-              ["internalId"],
-              o("WAWebDBMessageUtils").beginningOfChat(n),
-              o("WAWebDBMessageUtils").endOfChat(n),
-              { lowerInclusive: !0, upperInclusive: !0, shouldDecrypt: !1 },
-            ),
-            a = !1;
-          return (
-            (te(r) || ne(r)) &&
-              H(
-                o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
-                J(r).oldestMessageTs,
-              ) === "false" &&
-              (a = !0),
-            !a && e.createdLocally !== !0
-              ? { result: !1, messages: r, reason: "not created locally" }
-              : (e.ephemeralDuration != null ||
-                    e.ephemeralSettingTimestamp != null) &&
-                  !re(e, r)
-                ? { result: !1, messages: r, reason: "ephemeral_duration" }
-                : e.isLocked
+        (X(r) || Y(r)) &&
+          W(
+            o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
+            j(r).oldestMessageTs,
+          ) === "false" &&
+          (a = !0),
+        !a && e.createdLocally !== !0
+          ? { result: !1, messages: r, reason: "not created locally" }
+          : (e.ephemeralDuration != null ||
+                e.ephemeralSettingTimestamp != null) &&
+              !J(e, r)
+            ? { result: !1, messages: r, reason: "ephemeral_duration" }
+            : e.isLocked
+              ? {
+                  result: !1,
+                  messages: r,
+                  reason: "locked: " + String(e.isLocked),
+                }
+              : e.archive
+                ? {
+                    result: !1,
+                    messages: r,
+                    reason: "archived: " + String(e.archive),
+                  }
+                : e.muteExpiration
                   ? {
                       result: !1,
                       messages: r,
-                      reason: "locked: " + String(e.isLocked),
+                      reason: "mute_expiration: " + String(e.muteExpiration),
                     }
-                  : e.archive
-                    ? {
-                        result: !1,
-                        messages: r,
-                        reason: "archived: " + String(e.archive),
-                      }
-                    : e.muteExpiration
-                      ? {
-                          result: !1,
-                          messages: r,
-                          reason:
-                            "mute_expiration: " + String(e.muteExpiration),
-                        }
-                      : r.every(X) || ee(r) || a
-                        ? { result: !0, messages: r }
-                        : { result: !1, messages: r, reason: "has messages" }
-          );
-        })),
-        K.apply(this, arguments)
+                  : r.every(G) || Q(r) || a
+                    ? { result: !0, messages: r }
+                    : { result: !1, messages: r, reason: "has messages" }
       );
     }
-    function Q(e) {
+    function H(e) {
       var t = o("WAWebDBMessageSerialization").messageFromDbRow(e);
       return o("WAWebMsgGetters").getIsDisappearingModeSystemMessage(t);
     }
-    function X(e) {
+    function G(e) {
       var t = o("WAWebDBMessageSerialization").messageFromDbRow(e);
       return (
         o("WAWebMsgGetters").getIsDisappearingModeSystemMessage(t) ||
         o("WAWebMsgGetters").getIsInitialE2ENotification(t)
       );
     }
-    function Y(e, t, n, r, a) {
+    function z(e, t, n, r, a) {
       var i = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
-        l = J(r),
+        l = j(r),
         s = l.count,
         u = l.newestMessageTs,
         c = l.oldestMessageTs,
-        d = H(i, c),
+        d = W(i, c),
         m = e.t,
-        _ = Z(m),
-        f = Z(t),
-        g = Z(i),
-        h = e.createdLocally === !0,
-        y = Z(c),
-        C = Z(u),
-        b = {
+        p = K(m),
+        _ = K(t),
+        f = K(i),
+        g = e.createdLocally === !0,
+        h = K(c),
+        y = K(u),
+        C = {
           reason: a,
           messagesCount: s,
           fromHistSync: d,
-          primarySyncT: f,
-          pairingT: g,
-          oldestMessageT: y,
-          newestMessageT: C,
-          chatT: _,
+          primarySyncT: _,
+          pairingT: f,
+          oldestMessageT: h,
+          newestMessageT: y,
+          chatT: p,
           threadExist: n,
         };
       r.length <= 4 &&
-        (b.messages = r.map(function (e) {
+        (C.messages = r.map(function (e) {
           return { type: e.type, subtype: e.subtype, ack: e.ack };
         }));
-      var v = oe(h, r, a);
+      var b = Z(g, r, a);
       o("WALogger")
         .ERROR(
-          p ||
-            (p = babelHelpers.taggedTemplateLiteralLoose([
+          N ||
+            (N = babelHelpers.taggedTemplateLiteralLoose([
               "[LID] no lid available for chat ",
               ", ",
               "",
             ])),
           e.id,
-          JSON.stringify(b),
+          JSON.stringify(C),
         )
-        .sendLogs(v);
+        .sendLogs(b);
     }
-    function J(e) {
+    function j(e) {
       var t = Math.min.apply(
           Math,
           e.map(function (e) {
@@ -882,36 +812,36 @@ __d(
         r = e.length;
       return { oldestMessageTs: t, newestMessageTs: n, count: r };
     }
-    function Z(e) {
+    function K(e) {
       return e == null
         ? null
         : o("WATimeUtils").toHttpHeaderDate(o("WATimeUtils").castToUnixTime(e));
     }
-    function ee(e) {
+    function Q(e) {
       return (
         e.every(function (e) {
-          return X(e) || e.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG;
+          return G(e) || e.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG;
         }) &&
         e.some(function (e) {
           return e.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG;
         })
       );
     }
-    function te(e) {
+    function X(e) {
       return (
         e.every(function (e) {
-          return X(e) || e.broadcast;
+          return G(e) || e.broadcast;
         }) &&
         e.some(function (e) {
           return e.broadcast;
         })
       );
     }
-    function ne(e) {
+    function Y(e) {
       return (
         e.every(function (e) {
           return (
-            X(e) ||
+            G(e) ||
             e.subtype ===
               o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard
           );
@@ -924,19 +854,19 @@ __d(
         })
       );
     }
-    function re(e, t) {
+    function J(e, t) {
       return !!(
         e.disappearingModeTrigger ===
           o("WAWebEphemeralityTypes").DisappearingModeTrigger.AccountSettings &&
-        t.some(Q)
+        t.some(H)
       );
     }
-    function oe(e, t, n) {
-      return te(t)
+    function Z(e, t, n) {
+      return X(t)
         ? "lid-migration-no-lid-available-broadcast-chat"
-        : ee(t)
+        : Q(t)
           ? "lid-migration-no-lid-available-call-chat"
-          : ne(t)
+          : Y(t)
             ? "lid-migration-no-lid-available-contact-info-chat"
             : e
               ? n === "has messages"
@@ -944,12 +874,12 @@ __d(
                 : "lid-migration-no-lid-available-created-locally"
               : "lid-migration-no-lid-available";
     }
-    ((l.checkIfMigrationEnabled = w),
-      (l.setLidMigrationMappings = A),
-      (l.shouldMigrateNow = O),
-      (l.migrate1x1Chats = B),
-      (l.getResolvedThreadAccountLid = q),
-      (l.getLidThreadMigrationStatus = G));
+    ((l.checkIfMigrationEnabled = M),
+      (l.setLidMigrationMappings = w),
+      (l.shouldMigrateNow = A),
+      (l.migrate1x1Chats = F),
+      (l.getResolvedThreadAccountLid = O),
+      (l.getLidThreadMigrationStatus = q));
   },
   98,
 );

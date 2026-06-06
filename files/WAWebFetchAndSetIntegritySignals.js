@@ -1,7 +1,6 @@
 __d(
   "WAWebFetchAndSetIntegritySignals",
   [
-    "Promise",
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
@@ -9,7 +8,6 @@ __d(
     "WAWebDBUpdateChatTable",
     "WAWebMexFetchIntegritySignals",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isEmptyObject",
   ],
@@ -20,9 +18,8 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 600;
-    function f(t) {
+      p = 600;
+    function _(t) {
       try {
         return (
           o("WALogger").LOG(
@@ -38,48 +35,39 @@ __d(
               o("WAWebMexFetchIntegritySignals").fetchIntegritySignals(
                 o("WAWebWidFactory").asUserWidOrThrow(t),
               ),
-              _,
+              p,
             )
             .then(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    if (e != null) {
-                      var n = e.isNewAccount,
-                        a = e.isSuspicious;
-                      o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[FMX] integrity signals for ",
-                            ": isNewAccount=",
-                            ", isSuspicious=",
-                            "",
-                          ])),
-                        t.toLogString(),
-                        String(n),
-                        String(a),
-                      );
-                      var i = {},
-                        l = {};
-                      (n != null &&
-                        ((i.isSenderNewAccount = n),
-                        (l.isSenderNewAccount = n)),
-                        a != null &&
-                          ((i.isSenderSuspicious = a),
-                          (l.isSenderSuspicious = a)),
-                        r("isEmptyObject")(i) ||
-                          (yield o("WAWebBackendApi").frontendSendAndReceive(
-                            "chatCollectionUpdate",
-                            { updates: [babelHelpers.extends({ id: t }, i)] },
-                          ),
-                          o("WAWebDBUpdateChatTable").updateChatTable(t, l)));
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+              async function (e) {
+                if (e != null) {
+                  var n = e.isNewAccount,
+                    a = e.isSuspicious;
+                  o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[FMX] integrity signals for ",
+                        ": isNewAccount=",
+                        ", isSuspicious=",
+                        "",
+                      ])),
+                    t.toLogString(),
+                    String(n),
+                    String(a),
+                  );
+                  var i = {},
+                    l = {};
+                  (n != null &&
+                    ((i.isSenderNewAccount = n), (l.isSenderNewAccount = n)),
+                    a != null &&
+                      ((i.isSenderSuspicious = a), (l.isSenderSuspicious = a)),
+                    r("isEmptyObject")(i) ||
+                      (await o("WAWebBackendApi").frontendSendAndReceive(
+                        "chatCollectionUpdate",
+                        { updates: [babelHelpers.extends({ id: t }, i)] },
+                      ),
+                      o("WAWebDBUpdateChatTable").updateChatTable(t, l)));
+                }
+              },
               function (e) {
                 e instanceof o("WACustomError").TimeoutError
                   ? o("WALogger")
@@ -132,11 +120,11 @@ __d(
             )
             .catching(r("getErrorSafe")(e))
             .sendLogs("fmx-integrity-signals-init-failed"),
-          (p || (p = n("Promise"))).resolve()
+          Promise.resolve()
         );
       }
     }
-    l.fetchAndSetIntegritySignals = f;
+    l.fetchAndSetIntegritySignals = _;
   },
   98,
 );

@@ -1,21 +1,15 @@
 __d(
   "RSTMainThreadDataInWorker",
-  [
-    "Promise",
-    "RSTBackgroundInfo",
-    "RSTTracesManagerInWorker",
-    "asyncToGeneratorRuntime",
-  ],
+  ["RSTBackgroundInfo", "RSTTracesManagerInWorker"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (function () {
-        function t() {
+    var e = (function () {
+        function e() {
           ((this.$1 = new Map()), (this.$2 = new Set()));
         }
-        var r = t.prototype;
+        var t = e.prototype;
         return (
-          (r.getDataEntry = function (t) {
+          (t.getDataEntry = function (t) {
             if (this.$2.has(t)) return null;
             var e = this.$1.get(t);
             if (e != null) return e;
@@ -38,32 +32,24 @@ __d(
             };
             return (this.$1.set(t, n), n);
           }),
-          (r.deleteDataEntry = function (t) {
+          (t.deleteDataEntry = function (t) {
             (this.$1.delete(t), this.$2.add(t));
           }),
-          (r.iterateOverAllEntries = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                try {
-                  yield (e || (e = n("Promise"))).all(
-                    Array.from(this.$1.values()).map(function (e) {
-                      return t(e);
-                    }),
-                  );
-                } catch (e) {}
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          t
+          (t.iterateOverAllEntries = async function (t) {
+            try {
+              await Promise.all(
+                Array.from(this.$1.values()).map(function (e) {
+                  return t(e);
+                }),
+              );
+            } catch (e) {}
+          }),
+          e
         );
       })(),
-      u = new s(),
-      c = u;
-    l.default = c;
+      s = new e(),
+      u = s;
+    l.default = u;
   },
   98,
 );

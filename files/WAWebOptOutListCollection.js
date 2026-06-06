@@ -1,7 +1,6 @@
 __d(
   "WAWebOptOutListCollection",
   [
-    "Promise",
     "WAWebBaseCollection",
     "WAWebContactCollection",
     "WAWebLid1X1MigrationGating",
@@ -9,84 +8,68 @@ __d(
     "WAWebOptOutListModel",
     "WAWebUpdateOptOutListDbJob",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = function (t) {
+    var e = function (t) {
         return o(
           "WAWebLid1X1MigrationGating",
         ).Lid1X1MigrationUtils.isLidMigrated()
           ? o("WAWebLidMigrationUtils").toLid(t)
           : null;
       },
-      u = (function (t) {
-        function a() {
-          var r;
+      s = (function (t) {
+        function n() {
+          var n;
           return (
-            (r = t.call(this) || this),
-            (r.updateOptOutListInCollectionAndDb = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var r = t.isBlocked,
-                    a = t.targetWid,
-                    i = o("WAWebWidFactory").asUserWidOrThrow(a);
-                  if (r) {
-                    (yield o(
-                      "WAWebUpdateOptOutListDbJob",
-                    ).updateOptOutListDbJob(i, r),
-                      c.add({ id: i }));
-                    return;
-                  }
-                  var l = [o("WAWebLidMigrationUtils").toPn(i), s(i), i].filter(
-                    Boolean,
-                  );
-                  yield (e || (e = n("Promise"))).all(
-                    l.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            (yield o(
-                              "WAWebUpdateOptOutListDbJob",
-                            ).updateOptOutListDbJob(e, r),
-                              c.remove(e));
-                          },
-                        );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                  );
-                },
+            (n = t.call(this) || this),
+            (n.updateOptOutListInCollectionAndDb = async function (t) {
+              var n = t.isBlocked,
+                r = t.targetWid,
+                a = o("WAWebWidFactory").asUserWidOrThrow(r);
+              if (n) {
+                (await o("WAWebUpdateOptOutListDbJob").updateOptOutListDbJob(
+                  a,
+                  n,
+                ),
+                  u.add({ id: a }));
+                return;
+              }
+              var i = [o("WAWebLidMigrationUtils").toPn(a), e(a), a].filter(
+                Boolean,
               );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })()),
-            r.listenTo(r, "add", function (e) {
-              r.$OptOutListCollectionImpl$p_1(e.id, !0);
+              await Promise.all(
+                i.map(async function (e) {
+                  (await o("WAWebUpdateOptOutListDbJob").updateOptOutListDbJob(
+                    e,
+                    n,
+                  ),
+                    u.remove(e));
+                }),
+              );
             }),
-            r.listenTo(r, "remove", function (e) {
-              r.$OptOutListCollectionImpl$p_1(e.id, !1);
+            n.listenTo(n, "add", function (e) {
+              n.$OptOutListCollectionImpl$p_1(e.id, !0);
             }),
-            r
+            n.listenTo(n, "remove", function (e) {
+              n.$OptOutListCollectionImpl$p_1(e.id, !1);
+            }),
+            n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.$OptOutListCollectionImpl$p_1 = function (t, n) {
-            var e = o("WAWebWidFactory").asUserWidOrThrow(t);
-            for (var r of [o("WAWebLidMigrationUtils").toPn(e), s(e)])
-              if (r) {
-                var a = o("WAWebContactCollection").ContactCollection.get(r);
-                a &&
-                  (a.set("isContactOptedOut", n),
-                  n && a.set("isEverOptedOutOfMarketingMessages", n));
+          (a.$OptOutListCollectionImpl$p_1 = function (n, r) {
+            var t = o("WAWebWidFactory").asUserWidOrThrow(n);
+            for (var a of [o("WAWebLidMigrationUtils").toPn(t), e(t)])
+              if (a) {
+                var i = o("WAWebContactCollection").ContactCollection.get(a);
+                i &&
+                  (i.set("isContactOptedOut", r),
+                  r && i.set("isEverOptedOutOfMarketingMessages", r));
               }
           }),
-          (i.replaceAllWith = function (t) {
+          (a.replaceAllWith = function (t) {
             var e = this,
               n = new Map(
                 t.map(function (e) {
@@ -103,12 +86,12 @@ __d(
                 return e.add(t);
               }));
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    u.model = r("WAWebOptOutListModel");
-    var c = new u();
-    l.OptOutListCollection = c;
+    s.model = r("WAWebOptOutListModel");
+    var u = new s();
+    l.OptOutListCollection = u;
   },
   98,
 );

@@ -1,22 +1,14 @@
 __d(
   "WAWebDebugFavorites",
-  ["WAWebFavoritesSync", "asyncToGeneratorRuntime"],
+  ["WAWebFavoritesSync"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebFavoritesSync").applyMutations(e);
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      await r("WAWebFavoritesSync").applyMutations(e);
     }
     e.doc =
       "Apply favorites mutations to the DB. This is used for testing purposes only.";
-    var u = { applyFavoritesMutations: e };
-    l.default = u;
+    var s = { applyFavoritesMutations: e };
+    l.default = s;
   },
   98,
 );

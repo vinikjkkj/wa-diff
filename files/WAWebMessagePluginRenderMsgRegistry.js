@@ -103,6 +103,7 @@ __d(
       { type: "protocol", subtype: "ephemeral_setting", renderMsg: null },
       { type: "protocol", subtype: "ephemeral_sync_response", renderMsg: null },
       { type: "protocol", subtype: "event_edit_decrypted", renderMsg: null },
+      { type: "protocol", subtype: "hatch_metadata_sync", renderMsg: null },
       {
         type: "protocol",
         subtype: "history_sync_notification",

@@ -123,6 +123,12 @@ __d(
         "smb-labels-detail": o("WAWebWamEnumTsSurface").TS_SURFACE
           .SMB_LABEL_DETAIL,
         "smb-labels-edit": o("WAWebWamEnumTsSurface").TS_SURFACE.SMB_LABEL_EDIT,
+        "smb-lists-manage": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .SMB_LISTS_MANAGE,
+        "smb-lists-create": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .SMB_LISTS_CREATE,
+        "smb-lists-picker": o("WAWebWamEnumTsSurface").TS_SURFACE
+          .SMB_LISTS_PICKER,
         "contact-creation": o("WAWebWamEnumTsSurface").TS_SURFACE
           .CONTACT_CREATION,
         "new-group-contact-creation": o("WAWebWamEnumTsSurface").TS_SURFACE

@@ -8,7 +8,6 @@ __d(
     "WAWebNewsletterDeleteChatJob",
     "WAWebNewsletterMetadataJob",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -16,17 +15,17 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteNewsletter",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             try {
               return (
-                yield o("WAWebMexDeleteNewsletterJob").mexDeleteNewsletter(t),
-                yield o("WAWebNewsletterMetadataJob").deleteNewsletterMetadata(
+                await o("WAWebMexDeleteNewsletterJob").mexDeleteNewsletter(t),
+                await o("WAWebNewsletterMetadataJob").deleteNewsletterMetadata(
                   t.toString(),
                 ),
-                yield o("WAWebNewsletterDeleteChatJob").deleteNewsletterChat(
+                await o("WAWebNewsletterDeleteChatJob").deleteNewsletterChat(
                   o("WAWebJidToWid").newsletterJidToWid(t),
                 ),
-                yield o("WAWebNewsletterMetadataJob").deleteNewsletterPicture(
+                await o("WAWebNewsletterMetadataJob").deleteNewsletterPicture(
                   t.toString(),
                 ),
                 !0
@@ -45,7 +44,7 @@ __d(
                 t
               );
             }
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

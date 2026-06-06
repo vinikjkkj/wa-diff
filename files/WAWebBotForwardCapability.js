@@ -66,9 +66,27 @@ __d(
     function m(t) {
       return e(t).state !== "hidden";
     }
+    function p(e) {
+      if (
+        !o("WAWebBotGating").isHatchVideoUploadEnabled() &&
+        e.some(function (e) {
+          return e.type === o("WAWebMsgType").MSG_TYPE.VIDEO;
+        })
+      )
+        return !1;
+      var t = o("WAWebBotGating").getHatchDocumentUploadSizeLimitBytes();
+      return !e.some(function (e) {
+        return (
+          e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
+          e.size != null &&
+          e.size > t
+        );
+      });
+    }
     ((l.getForwardToMetaAiEligibility = e),
       (l.canForwardMsgToMetaAi = d),
-      (l.isMetaAiForwardRowVisibleForMsgs = m));
+      (l.isMetaAiForwardRowVisibleForMsgs = m),
+      (l.canForwardSelectionToHatch = p));
   },
   226,
 );

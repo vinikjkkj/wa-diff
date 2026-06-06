@@ -6,7 +6,6 @@ __d(
     "WAWebABProps",
     "WAWebEmoji",
     "WAWebRecentEmojiCollection",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "justknobx",
     "once",
@@ -18,56 +17,56 @@ __d(
         "WAWebEmojiSearch",
       ),
       u = [
-        "\uD83D\uDE02",
-        "\uD83E\uDD23",
+        "\u{1F602}",
+        "\u{1F923}",
         "\u2764",
-        "\uD83E\uDD7A",
-        "\uD83E\uDD70",
-        "\uD83D\uDE18",
-        "\uD83D\uDE2D",
-        "\uD83D\uDE0D",
-        "\uD83D\uDE01",
-        "\uD83D\uDE4F",
-        "\uD83D\uDE05",
-        "\uD83D\uDE06",
-        "\uD83D\uDE0A",
-        "\uD83D\uDE42",
-        "\uD83D\uDE14",
-        "\uD83E\uDD73",
-        "\uD83D\uDE12",
+        "\u{1F97A}",
+        "\u{1F970}",
+        "\u{1F618}",
+        "\u{1F62D}",
+        "\u{1F60D}",
+        "\u{1F601}",
+        "\u{1F64F}",
+        "\u{1F605}",
+        "\u{1F606}",
+        "\u{1F60A}",
+        "\u{1F642}",
+        "\u{1F614}",
+        "\u{1F973}",
+        "\u{1F612}",
         "\u263A",
-        "\uD83C\uDF82",
-        "\uD83D\uDC4D",
-        "\uD83D\uDC96",
-        "\uD83D\uDE22",
-        "\uD83D\uDE44",
-        "\uD83D\uDE0F",
-        "\uD83D\uDE0E",
-        "\uD83D\uDC8B",
-        "\uD83D\uDE1E",
-        "\uD83D\uDE09",
-        "\uD83D\uDC4F",
-        "\uD83D\uDE43",
-        "\uD83D\uDE21",
-        "\uD83D\uDE00",
-        "\uD83D\uDE04",
-        "\uD83D\uDE07",
-        "\uD83E\uDD29",
-        "\uD83D\uDE0C",
-        "\uD83E\uDD14",
-        "\uD83C\uDF39",
-        "\uD83D\uDE0B",
-        "\uD83D\uDC97",
-        "\uD83E\uDD17",
-        "\uD83D\uDC95",
-        "\uD83D\uDC94",
-        "\uD83D\uDE1A",
+        "\u{1F382}",
+        "\u{1F44D}",
+        "\u{1F496}",
+        "\u{1F622}",
+        "\u{1F644}",
+        "\u{1F60F}",
+        "\u{1F60E}",
+        "\u{1F48B}",
+        "\u{1F61E}",
+        "\u{1F609}",
+        "\u{1F44F}",
+        "\u{1F643}",
+        "\u{1F621}",
+        "\u{1F600}",
+        "\u{1F604}",
+        "\u{1F607}",
+        "\u{1F929}",
+        "\u{1F60C}",
+        "\u{1F914}",
+        "\u{1F339}",
+        "\u{1F60B}",
+        "\u{1F497}",
+        "\u{1F917}",
+        "\u{1F495}",
+        "\u{1F494}",
+        "\u{1F61A}",
         "\u2639",
-        "\uD83D\uDE03",
-        "\uD83C\uDF89",
-        "\uD83D\uDD25",
-        "\uD83E\uDD74",
-        "\uD83D\uDE33",
+        "\u{1F603}",
+        "\u{1F389}",
+        "\u{1F525}",
+        "\u{1F974}",
+        "\u{1F633}",
       ],
       c = [
         "SMILEYS_PEOPLE",
@@ -236,7 +235,7 @@ __d(
               return e.value;
             }),
         ),
-        _ = x(
+        _ = D(
           C(
             o("WAWebRecentEmojiCollection").RecentEmojiCollection.map(
               function (e) {
@@ -246,9 +245,9 @@ __d(
           ),
           m,
         ),
-        f = x(C(u), m),
-        g = x($(_, f), p);
-      return $(g, k(p), _, f, k(m));
+        f = D(C(u), m),
+        g = D(x(_, f), p);
+      return x(g, k(p), _, f, k(m));
     }
     var E = r("once")(function () {
       var e = new Map(),
@@ -269,47 +268,39 @@ __d(
         return a - i;
       });
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
+    async function I(e) {
+      if (e.length === 0) return T([], "shortKeyword");
+      var t = e[0];
+      e.length > 1 && (t = babelHelpers.extends({}, t, e[1]));
+      var n = await s.load(),
+        o = new n(),
+        a;
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return D([], "shortKeyword");
-          var t = e[0];
-          e.length > 1 && (t = babelHelpers.extends({}, t, e[1]));
-          var n = yield s.load(),
-            o = new n(),
-            a;
-          return (
-            r("justknobx")._("2148")
-              ? (a = Object.entries(t).flatMap(function (e) {
-                  var t = e[0],
-                    n = e[1],
-                    r = t.toLowerCase(),
-                    a = Array.from(o.tokenize(r));
-                  return a.map(function (e) {
-                    return {
-                      value: n,
-                      keyword: e,
-                      shortKeyword: e.substring(0, 5),
-                    };
-                  });
-                }))
-              : (a = Object.entries(t).flatMap(function (e) {
-                  var t = e[0],
-                    n = e[1],
-                    r = t.toLowerCase(),
-                    o = r.substring(0, 5);
-                  return { value: n, keyword: r, shortKeyword: o };
-                })),
-            D(a, "shortKeyword")
-          );
-        })),
-        T.apply(this, arguments)
+        r("justknobx")._("2148")
+          ? (a = Object.entries(t).flatMap(function (e) {
+              var t = e[0],
+                n = e[1],
+                r = t.toLowerCase(),
+                a = Array.from(o.tokenize(r));
+              return a.map(function (e) {
+                return {
+                  value: n,
+                  keyword: e,
+                  shortKeyword: e.substring(0, 5),
+                };
+              });
+            }))
+          : (a = Object.entries(t).flatMap(function (e) {
+              var t = e[0],
+                n = e[1],
+                r = t.toLowerCase(),
+                o = r.substring(0, 5);
+              return { value: n, keyword: r, shortKeyword: o };
+            })),
+        T(a, "shortKeyword")
       );
     }
-    function D(e, t) {
+    function T(e, t) {
       var n = r("WATrie").fromForwardsStrings(
         e.map(function (e) {
           return e[t];
@@ -322,7 +313,7 @@ __d(
         },
       };
     }
-    function x() {
+    function D() {
       for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
         t[n] = arguments[n];
       return t.length === 0
@@ -335,7 +326,7 @@ __d(
               });
             }, t[0]);
     }
-    function $() {
+    function x() {
       for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
         t[n] = arguments[n];
       return Array.from(new Set(t.flat(1)));

@@ -8,7 +8,6 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebParseSubscriptionNotification",
     "WAWebSubscriptions",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,39 +33,31 @@ __d(
         type: "digital_commerce_subscription",
       });
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(t) {
+      var n = s.parse(t);
+      if (n.error)
+        throw (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          n.error
+        );
+      var r = n.success;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = s.parse(t);
-          if (n.error)
-            throw (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                n.error.toString(),
-              ),
-              n.error
-            );
-          var r = n.success;
-          return (
-            yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-              r.subscriptions,
-              r.featureFlags,
-              "update",
-            ),
-            u(r.stanzaId, r.from)
-          );
-        })),
-        d.apply(this, arguments)
+        await o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
+          r.subscriptions,
+          r.featureFlags,
+          "update",
+        ),
+        u(r.stanzaId, r.from)
       );
     }
-    function m(e) {
+    function d(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -81,7 +72,7 @@ __d(
         .waitUntilCompleted({ node: e });
     }
     ((l.handleDigitalCommerceSubscriptionNotification = c),
-      (l.handleDigitalCommerceSubscriptionNotificationJob = m));
+      (l.handleDigitalCommerceSubscriptionNotificationJob = d));
   },
   98,
 );

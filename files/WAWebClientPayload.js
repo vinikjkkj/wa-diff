@@ -19,7 +19,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipGatingUtils",
     "WAWebWamPlatform",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "gkx",
     "justknobx",
@@ -31,228 +30,185 @@ __d(
     function c() {
       u++;
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function d(t) {
+      var n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+        r = babelHelpers.extends(
+          {},
+          await p(t),
+          {
+            username: parseInt(n.user, 10),
+            device: n.device != null ? n.device : 0,
+            lc: o("WAWebUserPrefsGeneral").getLoginCounter(),
+            connectAttemptCount: u,
+            lidDbMigrated: o(
+              "WAWebLid1X1MigrationGating",
+            ).Lid1X1MigrationUtils.isLidMigrated(),
+          },
+          s,
+        );
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-            r = babelHelpers.extends(
-              {},
-              yield f(t),
-              {
-                username: parseInt(n.user, 10),
-                device: n.device != null ? n.device : 0,
-                lc: o("WAWebUserPrefsGeneral").getLoginCounter(),
-                connectAttemptCount: u,
-                lidDbMigrated: o(
-                  "WAWebLid1X1MigrationGating",
-                ).Lid1X1MigrationUtils.isLidMigrated(),
-              },
-              s,
-            );
-          return (
-            o("WALogger")
-              .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[comms] getClientPayloadForLogin: connectAttemptCount=",
-                    "",
-                  ])),
-                u,
-              )
-              .tags("launch-socket-chat"),
-            o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, r)
-              .readByteArrayView()
-          );
-        })),
-        m.apply(this, arguments)
+        o("WALogger")
+          .LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[comms] getClientPayloadForLogin: connectAttemptCount=",
+                "",
+              ])),
+            u,
+          )
+          .tags("launch-socket-chat"),
+        o("encodeProtobuf")
+          .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, r)
+          .readByteArrayView()
       );
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    async function m(e, t, n) {
+      var r = _(),
+        a = await f(),
+        i = babelHelpers.extends({}, await p(n), {
+          devicePairingData: {
+            buildHash: r,
+            deviceProps: a,
+            eRegid: o("WAByteArray").intToBytes(4, e.registrationId),
+            eKeytype: o("WAByteArray").intToBytes(1, 5),
+            eIdent: e.identityKeyPair.pubKey,
+            eSkeyId: o("WAByteArray").intToBytes(3, t.keyId),
+            eSkeyVal: t.keyPair.pubKey,
+            eSkeySig: t.signature,
+          },
+        });
+      return o("encodeProtobuf")
+        .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, i)
+        .readByteArrayView();
+    }
+    async function p(e) {
+      var t, n;
+      return {
+        passive: (t = e == null ? void 0 : e.passive) != null ? t : !1,
+        pull: (n = e == null ? void 0 : e.pull) != null ? n : !1,
+        connectType: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectType
+          .WIFI_UNKNOWN,
+        connectReason: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
+          .USER_ACTIVATED,
+        userAgent: await h(),
+        webInfo: { webSubPlatform: C() },
+      };
     }
     function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = h(),
-            a = yield y(),
-            i = babelHelpers.extends({}, yield f(n), {
-              devicePairingData: {
-                buildHash: r,
-                deviceProps: a,
-                eRegid: o("WAByteArray").intToBytes(4, e.registrationId),
-                eKeytype: o("WAByteArray").intToBytes(1, 5),
-                eIdent: e.identityKeyPair.pubKey,
-                eSkeyId: o("WAByteArray").intToBytes(3, t.keyId),
-                eSkeyVal: t.keyPair.pubKey,
-                eSkeySig: t.signature,
-              },
-            });
-          return o("encodeProtobuf")
-            .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, i)
-            .readByteArrayView();
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
-          return {
-            passive: (t = e == null ? void 0 : e.passive) != null ? t : !1,
-            pull: (n = e == null ? void 0 : e.pull) != null ? n : !1,
-            connectType: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectType
-              .WIFI_UNKNOWN,
-            connectReason: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
-              .USER_ACTIVATED,
-            userAgent: yield v(),
-            webInfo: { webSubPlatform: L() },
-          };
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h() {
       var e = o("WABase64").decodeB64(
           o("WAMd5").md5(o("WAWebBuildConstants").VERSION_BASE),
         ),
         t = new Uint8Array(e);
       return t;
     }
-    function y() {
-      return C.apply(this, arguments);
+    async function f() {
+      var e = r("WAWebBrowserInfo")(),
+        t;
+      if (e.version && e.version !== "") {
+        var n = e.version.split(".");
+        n.length > 0 &&
+          e.version &&
+          /^[0-9\.]+$/.test(e.version) &&
+          (t = {
+            primary: parseInt(n[0], 10),
+            secondary: n.length > 1 ? parseInt(n[1], 10) : void 0,
+            tertiary: n.length > 2 ? parseInt(n[2], 10) : void 0,
+          });
+      }
+      var a = {
+          inlineInitialPayloadInE2EeMsg: !0,
+          supportBotUserAgentChatHistory: !0,
+          supportCagReactionsAndPolls: !0,
+          supportRecentSyncChunkMessageCountTuning: !0,
+          supportHostedGroupMsg: !0,
+          supportBizHostedMsg: !0,
+          supportFbidBotChatHistory: !0,
+          supportMessageAssociation: !0,
+          supportCallLogHistory: o(
+            "WAWebVoipGatingUtils",
+          ).isGroupCallingEnabled(),
+          supportGroupHistory: r("gkx")("15338"),
+          thumbnailSyncDaysLimit: r("justknobx")._("4736"),
+          supportManusHistory: r("justknobx")._("2304"),
+          supportHatchHistory: r("justknobx")._("2997"),
+          supportedBotChannelFbids: [],
+        },
+        i = o("WAWebClientFeatureFlags").isFeatureEnabled(
+          "debug_1_year_history_sync",
+        );
+      if (i) a = babelHelpers.extends({}, a, { fullSyncDaysLimit: 365 });
+      else {
+        var l = await o(
+          "WAWebSyncdMdSyncFieldstatMeta",
+        ).MdSyncFieldStatsMeta.getStorageEstimation();
+        l.mdStorageQuotaBytes !==
+          o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
+          (a = babelHelpers.extends({}, a, {
+            storageQuotaMb: Math.trunc(l.mdStorageQuotaBytes / 1024 / 1024),
+          }));
+      }
+      var s = r("WAWebEnvironment").isWindows && !r("justknobx")._("1836");
+      s && ((a.onDemandReady = !0), (a.completeOnDemandReady = !0));
+      var u = r("WAWebEnvironment").isWindows
+          ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.UWP
+          : y(e.name),
+        c = {
+          os: e.os,
+          version: t,
+          platformType: u,
+          requireFullSync: i,
+          historySyncConfig: a,
+        },
+        d = o("encodeProtobuf")
+          .encodeProtobuf(o("WAWebProtobufsCompanionReg.pb").DevicePropsSpec, c)
+          .readByteArrayView();
+      return d;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WAWebBrowserInfo")(),
-            t;
-          if (e.version && e.version !== "") {
-            var n = e.version.split(".");
-            n.length > 0 &&
-              e.version &&
-              /^[0-9\.]+$/.test(e.version) &&
-              (t = {
-                primary: parseInt(n[0], 10),
-                secondary: n.length > 1 ? parseInt(n[1], 10) : void 0,
-                tertiary: n.length > 2 ? parseInt(n[2], 10) : void 0,
-              });
-          }
-          var a = {
-              inlineInitialPayloadInE2EeMsg: !0,
-              supportBotUserAgentChatHistory: !0,
-              supportCagReactionsAndPolls: !0,
-              supportRecentSyncChunkMessageCountTuning: !0,
-              supportHostedGroupMsg: !0,
-              supportBizHostedMsg: !0,
-              supportFbidBotChatHistory: !0,
-              supportMessageAssociation: !0,
-              supportCallLogHistory: o(
-                "WAWebVoipGatingUtils",
-              ).isGroupCallingEnabled(),
-              supportGroupHistory: r("gkx")("15338"),
-              thumbnailSyncDaysLimit: r("justknobx")._("4736"),
-              supportManusHistory: r("justknobx")._("2304"),
-              supportHatchHistory: r("justknobx")._("2997"),
-              supportedBotChannelFbids: [],
-            },
-            i = o("WAWebClientFeatureFlags").isFeatureEnabled(
-              "debug_1_year_history_sync",
-            );
-          if (i) a = babelHelpers.extends({}, a, { fullSyncDaysLimit: 365 });
-          else {
-            var l = yield o(
-              "WAWebSyncdMdSyncFieldstatMeta",
-            ).MdSyncFieldStatsMeta.getStorageEstimation();
-            l.mdStorageQuotaBytes !==
-              o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
-              (a = babelHelpers.extends({}, a, {
-                storageQuotaMb: Math.trunc(l.mdStorageQuotaBytes / 1024 / 1024),
-              }));
-          }
-          var s = r("WAWebEnvironment").isWindows && !r("justknobx")._("1836");
-          s && ((a.onDemandReady = !0), (a.completeOnDemandReady = !0));
-          var u = r("WAWebEnvironment").isWindows
-              ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.UWP
-              : R(e.name),
-            c = {
-              os: e.os,
-              version: t,
-              platformType: u,
-              requireFullSync: i,
-              historySyncConfig: a,
-            },
-            d = o("encodeProtobuf")
-              .encodeProtobuf(
-                o("WAWebProtobufsCompanionReg.pb").DevicePropsSpec,
-                c,
-              )
-              .readByteArrayView();
-          return d;
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
+    function g(e) {
       s = e;
     }
-    function v() {
-      return S.apply(this, arguments);
+    async function h() {
+      var e = await o("WAWebBackendApi").frontendSendAndReceive(
+          "getDeviceInfo",
+          void 0,
+        ),
+        t = {
+          appVersion: {
+            primary: Number(o("WAWebBuildConstants").VERSION_PRIMARY),
+            secondary: Number(o("WAWebBuildConstants").VERSION_SECONDARY),
+            tertiary: Number(o("WAWebBuildConstants").VERSION_TERTIARY),
+          },
+          platform: o("WAWebProtobufsWa6.pb").ClientPayload$UserAgent$Platform
+            .WEB,
+          releaseChannel: await o(
+            "WAWebClientPayloadReleaseChannel",
+          ).getReleaseChannel(),
+          mcc: e.mcc,
+          mnc: e.mnc,
+          osVersion: e.osVersion,
+          manufacturer: e.manufacturer,
+          device: e.device,
+          osBuildNumber: e.osBuild,
+          localeLanguageIso6391: e.lg,
+          localeCountryIso31661Alpha2: e.lc,
+        };
+      if (r("WAWebEnvironment").isWindows) {
+        var n;
+        ((t.appVersion = {
+          primary: Number((n = o("WAWebBuildConstants")).VERSION_PRIMARY),
+          secondary: Number(n.VERSION_SECONDARY),
+          tertiary: Number(n.VERSION_TERTIARY),
+          quaternary: Number(n.WINDOWS_BUILD),
+        }),
+          (o("WAWebBuildConstants").WINDOWS_BUILD == null
+            ? void 0
+            : o("WAWebBuildConstants").WINDOWS_BUILD.length) === 6 &&
+            ((t.mcc = o("WAWebBuildConstants").WINDOWS_BUILD.substr(0, 3)),
+            (t.mnc = o("WAWebBuildConstants").WINDOWS_BUILD.substr(3, 3))));
+      }
+      return t;
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebBackendApi").frontendSendAndReceive(
-              "getDeviceInfo",
-              void 0,
-            ),
-            t = {
-              appVersion: {
-                primary: Number(o("WAWebBuildConstants").VERSION_PRIMARY),
-                secondary: Number(o("WAWebBuildConstants").VERSION_SECONDARY),
-                tertiary: Number(o("WAWebBuildConstants").VERSION_TERTIARY),
-              },
-              platform: o("WAWebProtobufsWa6.pb")
-                .ClientPayload$UserAgent$Platform.WEB,
-              releaseChannel: yield o(
-                "WAWebClientPayloadReleaseChannel",
-              ).getReleaseChannel(),
-              mcc: e.mcc,
-              mnc: e.mnc,
-              osVersion: e.osVersion,
-              manufacturer: e.manufacturer,
-              device: e.device,
-              osBuildNumber: e.osBuild,
-              localeLanguageIso6391: e.lg,
-              localeCountryIso31661Alpha2: e.lc,
-            };
-          if (r("WAWebEnvironment").isWindows) {
-            var n;
-            ((t.appVersion = {
-              primary: Number((n = o("WAWebBuildConstants")).VERSION_PRIMARY),
-              secondary: Number(n.VERSION_SECONDARY),
-              tertiary: Number(n.VERSION_TERTIARY),
-              quaternary: Number(n.WINDOWS_BUILD),
-            }),
-              (o("WAWebBuildConstants").WINDOWS_BUILD == null
-                ? void 0
-                : o("WAWebBuildConstants").WINDOWS_BUILD.length) === 6 &&
-                ((t.mcc = o("WAWebBuildConstants").WINDOWS_BUILD.substr(0, 3)),
-                (t.mnc = o("WAWebBuildConstants").WINDOWS_BUILD.substr(3, 3))));
-          }
-          return t;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function y(e) {
       return e === "Chrome"
         ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.CHROME
         : e === "Firefox"
@@ -289,7 +245,7 @@ __d(
                               : o("WAWebProtobufsCompanionReg.pb")
                                   .DeviceProps$PlatformType.UNKNOWN;
     }
-    function L() {
+    function C() {
       return (function (e) {
         if (e === "WEB" || e === "PWA")
           return o("WAWebProtobufsWa6.pb").ClientPayload$WebInfo$WebSubPlatform
@@ -311,8 +267,8 @@ __d(
     }
     ((l.incrementSuccessfulLoginCounter = c),
       (l.getClientPayloadForLogin = d),
-      (l.getClientPayloadForRegistration = p),
-      (l.setClientPayloadOverride = b));
+      (l.getClientPayloadForRegistration = m),
+      (l.setClientPayloadOverride = g));
   },
   98,
 );

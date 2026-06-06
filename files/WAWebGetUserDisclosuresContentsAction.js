@@ -1,20 +1,12 @@
 __d(
   "WAWebGetUserDisclosuresContentsAction",
-  ["WAWebGetUserDisclosuresContentsJob", "asyncToGeneratorRuntime"],
+  ["WAWebGetUserDisclosuresContentsJob"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebGetUserDisclosuresContentsJob",
-          ).getDisclosuresContentsJob(e);
-          return t;
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      var t = await o(
+        "WAWebGetUserDisclosuresContentsJob",
+      ).getDisclosuresContentsJob(e);
+      return t;
     }
     l.getDisclosuresContentAction = e;
   },

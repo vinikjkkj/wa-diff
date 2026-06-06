@@ -347,6 +347,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "hatch_metadata_sync",
+          generateProtobuf: null,
+        },
+        {
+          type: "protocol",
           subtype: "history_sync_notification",
           generateProtobuf: r(
             "WAWebGenerateProtocolHistorySyncNotificationMessageProto",

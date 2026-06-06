@@ -6,63 +6,49 @@ __d(
     "WAWebLogoutReason",
     "WAWebLogoutReasonConstants",
     "WAWebPonyfillsUrlSearchParams",
-    "WAWebURLUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = [
-        "post_logout",
-        "logout_reason",
-        "logout_message_header",
-        "logout_message_subtext",
-      ];
+    var e, s;
     function u(t, n, a) {
-      var i;
       t === void 0 && (t = !1);
-      var l = new (r("WAWebPonyfillsUrlSearchParams"))();
+      var i = new (r("WAWebPonyfillsUrlSearchParams"))();
       if (
         (t &&
           r("WAWebBrowserInfo")().name !== "Firefox" &&
-          l.set("post_logout", "1"),
+          i.set("post_logout", "1"),
         n)
       ) {
-        var u = o("WAWebLogoutReason").getErrorCodeFromLogoutReason(n);
+        var l = o("WAWebLogoutReason").getErrorCodeFromLogoutReason(n);
         if (
-          (u && l.set("logout_reason", u),
+          (l && i.set("logout_reason", l),
           n === o("WAWebLogoutReasonConstants").LogoutReason.AccountLocked &&
             a != null)
         ) {
-          var c = a.logoutMessageHeader,
-            d = a.logoutMessageSubtext;
-          (c != null && l.set("logout_message_header", c),
-            d != null && l.set("logout_message_subtext", d));
+          var u = a.logoutMessageHeader,
+            c = a.logoutMessageSubtext;
+          (u != null && i.set("logout_message_header", u),
+            c != null && i.set("logout_message_subtext", c));
         }
       }
-      var m = new (r("WAWebPonyfillsUrlSearchParams"))(
-        (i = window.location.search) != null ? i : "",
-      );
-      for (var p of s) m.delete(p);
-      var _ = m.toString(),
-        f = r("WAWebURLUtils").buildLoginUrlWithNext(
-          window.location.pathname,
-          _ === "" ? "" : "?" + _,
-        ),
-        g = l.toString(),
-        h = f.split("?"),
-        y = h[1],
-        C = y ? "&" : "?",
-        b = g === "" ? f : "" + f + C + g;
-      (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "[reload] reloadAfterLogout: ",
-            "",
-          ])),
-        b,
-      ),
-        (window.location.href = b));
+      var d = i.toString();
+      d == null || d === ""
+        ? (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[reload] reloadAfterLogout: no params",
+              ])),
+          ),
+          window.location.reload())
+        : (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[reload] reloadAfterLogout: with params",
+              ])),
+          ),
+          (window.location.href =
+            window.location.pathname + "?" + i.toString()));
     }
-    ((l.POST_LOGOUT_URL_MARKERS = s), (l.reloadAfterLogout = u));
+    l.default = u;
   },
   98,
 );

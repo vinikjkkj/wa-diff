@@ -1,7 +1,6 @@
 __d(
   "WAWebBroadcastCampaignSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebBackendApi",
@@ -12,13 +11,11 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = (function (t) {
-        function r() {
+      s = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -28,156 +25,133 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 1;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WASyncdConst").Actions.BusinessBroadcastCampaign;
           }),
-          (a.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = this;
-                if (
-                  !o(
-                    "WAWebBusinessBroadcastsGatingUtils",
-                  ).isBizBroadcastSendWebEnabledNoExposure()
-                )
-                  return t.map(function () {
-                    return {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    };
-                  });
-                var a = 0,
-                  i = new Set(),
-                  l = [],
-                  u = [],
-                  c = yield (s || (s = n("Promise"))).all(
-                    t.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              var t = e.indexParts,
-                                n = t[1];
-                              if (!n) return r.malformedActionIndex();
-                              e: {
-                                var s = e;
-                                if (
-                                  ((typeof s == "object" && s !== null) ||
-                                    typeof s == "function") &&
-                                  s.operation === "set" &&
-                                  "value" in s &&
-                                  "timestamp" in s
-                                ) {
-                                  var c = s.value,
-                                    d = s.timestamp,
-                                    m = c.businessBroadcastCampaignAction;
-                                  if (
-                                    !m ||
-                                    m.broadcastJid == null ||
-                                    m.deviceId == null ||
-                                    m.status == null
-                                  )
-                                    return (
-                                      a++,
-                                      o(
-                                        "WAWebSyncdIndexUtils",
-                                      ).malformedActionValue(r.collectionName)
-                                    );
-                                  yield o(
-                                    "WAWebBizBroadcastCampaignStorageUtils",
-                                  ).upsertCampaignStorage(n, m, d);
-                                  var p = m.broadcastJid;
-                                  return (
-                                    p != null && i.add(p),
-                                    l.push(n),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Success,
-                                    }
-                                  );
-                                  break e;
-                                }
-                                if (
-                                  ((typeof s == "object" && s !== null) ||
-                                    typeof s == "function") &&
-                                  s.operation === "remove"
-                                ) {
-                                  var _ = yield o(
-                                    "WAWebSchemaBusinessBroadcastCampaign",
-                                  )
-                                    .getBusinessBroadcastCampaignTable()
-                                    .get(n);
-                                  return (
-                                    (_ == null ? void 0 : _.broadcastJid) !=
-                                      null && i.add(_.broadcastJid),
-                                    yield o(
-                                      "WAWebBizBroadcastCampaignStorageUtils",
-                                    ).removeCampaignStorage(n),
-                                    u.push(n),
-                                    {
-                                      actionState:
-                                        o("WASyncdConst").SyncActionState
-                                          .Success,
-                                    }
-                                  );
-                                  break e;
-                                }
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    s,
-                                );
-                              }
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
-                              };
-                            }
-                          },
+          (r.applyMutations = async function (n) {
+            var t = this;
+            if (
+              !o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastSendWebEnabledNoExposure()
+            )
+              return n.map(function () {
+                return {
+                  actionState: o("WASyncdConst").SyncActionState.Unsupported,
+                };
+              });
+            var r = 0,
+              a = new Set(),
+              i = [],
+              l = [],
+              s = await Promise.all(
+                n.map(async function (e) {
+                  try {
+                    var n = e.indexParts,
+                      s = n[1];
+                    if (!s) return t.malformedActionIndex();
+                    e: {
+                      var u = e;
+                      if (
+                        ((typeof u == "object" && u !== null) ||
+                          typeof u == "function") &&
+                        u.operation === "set" &&
+                        "value" in u &&
+                        "timestamp" in u
+                      ) {
+                        var c = u.value,
+                          d = u.timestamp,
+                          m = c.businessBroadcastCampaignAction;
+                        if (
+                          !m ||
+                          m.broadcastJid == null ||
+                          m.deviceId == null ||
+                          m.status == null
+                        )
+                          return (
+                            r++,
+                            o("WAWebSyncdIndexUtils").malformedActionValue(
+                              t.collectionName,
+                            )
+                          );
+                        await o(
+                          "WAWebBizBroadcastCampaignStorageUtils",
+                        ).upsertCampaignStorage(s, m, d);
+                        var p = m.broadcastJid;
+                        return (
+                          p != null && a.add(p),
+                          i.push(s),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          }
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                  );
-                return (
-                  a > 0 &&
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "broadcast campaign sync: ",
-                          " malformed mutations",
-                        ])),
-                      a,
-                    ),
-                  i.size > 0 &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "refreshBroadcastCampaignState",
-                      { broadcastJids: Array.from(i) },
-                    ),
-                  (l.length > 0 || u.length > 0) &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "syncBroadcastCampaignsToCollection",
-                      { upsertedCampaignIds: l, removedCampaignIds: u },
-                    ),
-                  c
-                );
-              },
+                        break e;
+                      }
+                      if (
+                        ((typeof u == "object" && u !== null) ||
+                          typeof u == "function") &&
+                        u.operation === "remove"
+                      ) {
+                        var _ = await o("WAWebSchemaBusinessBroadcastCampaign")
+                          .getBusinessBroadcastCampaignTable()
+                          .get(s);
+                        return (
+                          (_ == null ? void 0 : _.broadcastJid) != null &&
+                            a.add(_.broadcastJid),
+                          await o(
+                            "WAWebBizBroadcastCampaignStorageUtils",
+                          ).removeCampaignStorage(s),
+                          l.push(s),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          }
+                        );
+                        break e;
+                      }
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          u,
+                      );
+                    }
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              r > 0 &&
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "broadcast campaign sync: ",
+                      " malformed mutations",
+                    ])),
+                  r,
+                ),
+              a.size > 0 &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "refreshBroadcastCampaignState",
+                  { broadcastJids: Array.from(a) },
+                ),
+              (i.length > 0 || l.length > 0) &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "syncBroadcastCampaignsToCollection",
+                  { upsertedCampaignIds: i, removedCampaignIds: l },
+                ),
+              s
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.getCampaignMutation = function (t, n, r) {
+          }),
+          (r.getCampaignMutation = function (t, n, r) {
             var e = { businessBroadcastCampaignAction: n };
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               action: this.getAction(),
@@ -190,7 +164,7 @@ __d(
               timestamp: r,
             });
           }),
-          (a.getDeleteCampaignMutation = function (t, n) {
+          (r.getDeleteCampaignMutation = function (t, n) {
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               action: this.getAction(),
               indexArgs: [t],
@@ -202,11 +176,11 @@ __d(
               timestamp: n,
             });
           }),
-          r
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      c = new u();
-    l.default = c;
+      u = new s();
+    l.default = u;
   },
   98,
 );

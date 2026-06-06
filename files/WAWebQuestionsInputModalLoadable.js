@@ -6,24 +6,20 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingModal.react",
     "WAWebModal.react",
-    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebQuestionsInputModal.react",
-          )
-            .__setRef("WAWebQuestionsInputModalLoadable")
-            .load();
-          return e.QuestionsInputModal;
-        }),
-        "QuestionsInputModal",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebQuestionsInputModal.react",
+        )
+          .__setRef("WAWebQuestionsInputModalLoadable")
+          .load();
+        return e.QuestionsInputModal;
+      }, "QuestionsInputModal"),
       d = r("react-loadable")({
         loader: c,
         loading: function (t) {

@@ -1,7 +1,6 @@
 __d(
   "WAWebMsgInfoCollection",
   [
-    "Promise",
     "WALogger",
     "WAWebApiMessageInfoStore",
     "WAWebBaseCollection",
@@ -13,12 +12,11 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebStaleBaseCollection",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t, n) {
+    var e, s, u;
+    function c(t, n) {
       var a = n.delivery,
         i = n.deliveryPrivacyMode,
         l = n.deliveryRemaining,
@@ -71,119 +69,102 @@ __d(
       }
       return m;
     }
-    var m = (function (e) {
+    var d = (function (e) {
       function t() {
-        for (var t, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
-          a[i] = arguments[i];
+        for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+          r[a] = arguments[a];
         return (
-          (t = e.call.apply(e, [this].concat(a)) || this),
-          (t.findImpl = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("WAWebMsgCollection").MsgCollection.get(e);
-                if (t) {
-                  if (!o("WAWebMsgGetters").getIsSentByMe(t))
-                    return (c || (c = n("Promise"))).reject(
-                      new (o("WAWebBaseCollection").CollectionSilentQueryError)(
-                        "message not sent by me",
-                      ),
-                    );
-                } else
-                  return (c || (c = n("Promise"))).reject(
+          (t = e.call.apply(e, [this].concat(r)) || this),
+          (t.findImpl = async function (e) {
+            var t = o("WAWebMsgCollection").MsgCollection.get(e);
+            if (t) {
+              if (!o("WAWebMsgGetters").getIsSentByMe(t))
+                return Promise.reject(
+                  new (o("WAWebBaseCollection").CollectionSilentQueryError)(
+                    "message not sent by me",
+                  ),
+                );
+            } else
+              return Promise.reject(
+                new (o("WAWebBaseCollection").CollectionSilentQueryError)(
+                  "No message found for id: " + e.toString(),
+                ),
+              );
+            var n;
+            try {
+              n = await o("WAWebApiMessageInfoStore").queryMsgInfo(e);
+            } catch (e) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "queryMsgInfo: failed to find msg info in storage",
+                      ])),
+                  )
+                  .verbose()
+                  .sendLogs("queryMsgInfo failed"),
+                e
+              );
+            }
+            var r = c(e, n);
+            return babelHelpers.extends({}, r, {
+              usePlayReceipt:
+                t.type === o("WAWebMsgType").MSG_TYPE.PTT || t.isViewOnce,
+            });
+          }),
+          (t.findManyAndUpdate = async function (e) {
+            var t = new Map(),
+              n = [];
+            e.forEach(function (e) {
+              var t = o("WAWebMsgCollection").MsgCollection.get(e);
+              t && o("WAWebMsgGetters").getIsSentByMe(t) && n.push(t);
+            });
+            var r;
+            try {
+              r = await o("WAWebApiMessageInfoStore").queryMsgInfos(e);
+            } catch (e) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "queryMsgInfos: failed to find msg info in storage",
+                      ])),
+                  )
+                  .verbose()
+                  .sendLogs("queryMsgInfos failed"),
+                e
+              );
+            }
+            return (
+              n.forEach(function (e) {
+                var n = e.id,
+                  a = r.get(n.toString());
+                if (!a)
+                  return Promise.reject(
                     new (o("WAWebBaseCollection").CollectionSilentQueryError)(
-                      "No message found for id: " + e.toString(),
+                      "query returned no msg info for msg " + n.toString(),
                     ),
                   );
-                var r;
-                try {
-                  r = yield o("WAWebApiMessageInfoStore").queryMsgInfo(e);
-                } catch (e) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "queryMsgInfo: failed to find msg info in storage",
-                          ])),
-                      )
-                      .verbose()
-                      .sendLogs("queryMsgInfo failed"),
-                    e
-                  );
-                }
-                var a = d(e, r);
-                return babelHelpers.extends({}, a, {
-                  usePlayReceipt:
-                    t.type === o("WAWebMsgType").MSG_TYPE.PTT || t.isViewOnce,
-                });
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (t.findManyAndUpdate = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = new Map(),
-                  r = [];
-                e.forEach(function (e) {
-                  var t = o("WAWebMsgCollection").MsgCollection.get(e);
-                  t && o("WAWebMsgGetters").getIsSentByMe(t) && r.push(t);
-                });
-                var a;
-                try {
-                  a = yield o("WAWebApiMessageInfoStore").queryMsgInfos(e);
-                } catch (e) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "queryMsgInfos: failed to find msg info in storage",
-                          ])),
-                      )
-                      .verbose()
-                      .sendLogs("queryMsgInfos failed"),
-                    e
-                  );
-                }
-                return (
-                  r.forEach(function (e) {
-                    var r = e.id,
-                      i = a.get(r.toString());
-                    if (!i)
-                      return (c || (c = n("Promise"))).reject(
-                        new (o(
-                          "WAWebBaseCollection",
-                        ).CollectionSilentQueryError)(
-                          "query returned no msg info for msg " + r.toString(),
-                        ),
-                      );
-                    var l = babelHelpers.extends({}, d(r, i), {
-                        usePlayReceipt:
-                          e.type === o("WAWebMsgType").MSG_TYPE.PTT ||
-                          e.isViewOnce,
-                      }),
-                      s = p.gaddUp(l);
-                    t.set(r.toString(), s);
+                var i = babelHelpers.extends({}, c(n, a), {
+                    usePlayReceipt:
+                      e.type === o("WAWebMsgType").MSG_TYPE.PTT || e.isViewOnce,
                   }),
-                  t
-                );
-              },
+                  l = m.gaddUp(i);
+                t.set(n.toString(), l);
+              }),
+              t
             );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()),
+          }),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.updateInfo = function (t, n, a, i, l, s) {
+        (n.updateInfo = function (t, n, a, i, l, s) {
           var e = new (r("WAWebMsgKey"))({
               from: n,
               to: a,
@@ -197,9 +178,9 @@ __d(
         t
       );
     })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    m.model = o("WAWebMsgInfoModel").MsgInfo;
-    var p = new m();
-    l.MsgInfoCollection = p;
+    d.model = o("WAWebMsgInfoModel").MsgInfo;
+    var m = new d();
+    l.MsgInfoCollection = m;
   },
   98,
 );

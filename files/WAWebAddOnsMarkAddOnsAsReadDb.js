@@ -1,71 +1,37 @@
 __d(
   "WAWebAddOnsMarkAddOnsAsReadDb",
-  [
-    "Promise",
-    "WANullthrows",
-    "WAWebDBAddOnProviders",
-    "WAWebDBMarkAsReadForTable",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WANullthrows", "WAWebDBAddOnProviders", "WAWebDBMarkAsReadForTable"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield (e || (e = n("Promise"))).allSettled(
-            Array.from(t.entries(), function (e) {
-              var t = e[0],
-                n = e[1],
-                a = r("WANullthrows")(
-                  o("WAWebDBAddOnProviders").getProviderForAddOnType(t),
-                );
-              return a.markAsRead == null ? void 0 : a.markAsRead(n);
-            }),
-          );
-          for (var i of a) if (i.status === "rejected") throw i.reason;
-        })),
-        u.apply(this, arguments)
+    async function e(e) {
+      var t = await Promise.allSettled(
+        Array.from(e.entries(), function (e) {
+          var t = e[0],
+            n = e[1],
+            a = r("WANullthrows")(
+              o("WAWebDBAddOnProviders").getProviderForAddOnType(t),
+            );
+          return a.markAsRead == null ? void 0 : a.markAsRead(n);
+        }),
       );
+      for (var n of t) if (n.status === "rejected") throw n.reason;
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function s(e) {
+      var t = new Map(),
+        n = o("WAWebDBAddOnProviders").addOnProviders.map(async function (n) {
+          var r = await (n.markAsRead == null ? void 0 : n.markAsRead(e));
+          t.set(n.type, r != null ? r : []);
+        }),
+        r = [],
+        a = o("WAWebDBMarkAsReadForTable")
+          .markAsReadForTable("message-orphans", e.map(String))
+          .then(function (e) {
+            r.push.apply(r, e);
+          }),
+        i = await Promise.allSettled([].concat(n, [a]));
+      for (var l of i) if (l.status === "rejected") throw l.reason;
+      return { updatedAddOns: t, updatedOrphans: r };
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = new Map(),
-            a = o("WAWebDBAddOnProviders").addOnProviders.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = yield e.markAsRead == null
-                      ? void 0
-                      : e.markAsRead(t);
-                    r.set(e.type, n != null ? n : []);
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-            i = [],
-            l = o("WAWebDBMarkAsReadForTable")
-              .markAsReadForTable("message-orphans", t.map(String))
-              .then(function (e) {
-                i.push.apply(i, e);
-              }),
-            s = yield (e || (e = n("Promise"))).allSettled([].concat(a, [l]));
-          for (var u of s) if (u.status === "rejected") throw u.reason;
-          return { updatedAddOns: r, updatedOrphans: i };
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    ((l.markAddOnsAsReadDb = s), (l.markUnclassifiedAddOnsAsReadDb = c));
+    ((l.markAddOnsAsReadDb = e), (l.markUnclassifiedAddOnsAsReadDb = s));
   },
   98,
 );

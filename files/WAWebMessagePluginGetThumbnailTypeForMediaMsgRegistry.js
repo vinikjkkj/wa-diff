@@ -276,6 +276,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "hatch_metadata_sync",
+        getThumbnailTypeForMediaMsg: null,
+      },
+      {
+        type: "protocol",
         subtype: "history_sync_notification",
         getThumbnailTypeForMediaMsg: null,
       },

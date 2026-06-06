@@ -12,7 +12,6 @@ __d(
     "WAWebRichTextField.react",
     "WAWebText.react",
     "WAWebText_DONOTUSE.react",
-    "asyncToGeneratorRuntime",
     "react",
     "useWAWebUnmountSignal",
   ],
@@ -44,88 +43,83 @@ __d(
         },
       };
     function g(t) {
-      var a,
-        i,
-        l = t.catalogId,
-        u = t.existingPostcode,
-        d = t.onCancel,
-        g = t.onSuccess,
-        h = r("useWAWebUnmountSignal")(),
-        y = p({ state: _.NOT_STARTED }),
-        C = y[0],
-        b = y[1],
-        v = p(u),
-        S = v[0],
-        R = v[1],
-        L = u === S,
-        E = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (typeof S == "string") {
-              b({ state: _.IN_PROGRESS });
-              try {
-                var t = yield o("WAWebBizVerifyPostcodeAction").verifyPostcode(
-                  l,
-                  S,
-                );
-                (h.aborted || b({ state: _.COMPLETED, data: t }),
-                  (t == null ? void 0 : t.resultCode) === "success" && g());
-              } catch (t) {
-                if (
-                  (o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[direct-connection] Updating postcode failed ",
-                          "",
-                        ])),
-                      t,
-                    )
-                    .verbose()
-                    .sendLogs("[direct-connection] Updating postcode failed"),
-                  h.aborted)
-                )
-                  return;
-                b({ state: _.FAILED });
-              }
+      var n,
+        a,
+        i = t.catalogId,
+        l = t.existingPostcode,
+        u = t.onCancel,
+        d = t.onSuccess,
+        g = r("useWAWebUnmountSignal")(),
+        h = p({ state: _.NOT_STARTED }),
+        y = h[0],
+        C = h[1],
+        b = p(l),
+        v = b[0],
+        S = b[1],
+        R = l === v,
+        L = async function () {
+          if (typeof v == "string") {
+            C({ state: _.IN_PROGRESS });
+            try {
+              var t = await o("WAWebBizVerifyPostcodeAction").verifyPostcode(
+                i,
+                v,
+              );
+              (g.aborted || C({ state: _.COMPLETED, data: t }),
+                (t == null ? void 0 : t.resultCode) === "success" && d());
+            } catch (t) {
+              if (
+                (o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[direct-connection] Updating postcode failed ",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .verbose()
+                  .sendLogs("[direct-connection] Updating postcode failed"),
+                g.aborted)
+              )
+                return;
+              C({ state: _.FAILED });
             }
-          });
-          return function () {
-            return t.apply(this, arguments);
-          };
-        })(),
-        k = m(function () {
-          return b({ state: _.NOT_STARTED });
+          }
+        },
+        E = m(function () {
+          return C({ state: _.NOT_STARTED });
         }, []),
-        I =
-          ((a = C.data) == null ? void 0 : a.resultCode) ===
+        k =
+          ((n = y.data) == null ? void 0 : n.resultCode) ===
           "unserviceable_location",
-        T = function (t) {
-          (k(), R(t));
+        I = function (t) {
+          (E(), S(t));
         },
-        D = null,
-        x = s._(/*BTDS*/ "Enter a valid Pincode.");
-      (((i = C.data) == null ? void 0 : i.resultCode) === "invalid_postcode" ||
-        typeof S != "string" ||
-        S.length === 0 ||
-        S.search("^[0-9]{6}$") !== 0) &&
-        (D = x);
-      var $ = C.state === _.IN_PROGRESS,
-        P = $ || D != null || L,
+        T = null,
+        D = s._(/*BTDS*/ "Enter a valid Pincode.");
+      (((a = y.data) == null ? void 0 : a.resultCode) === "invalid_postcode" ||
+        typeof v != "string" ||
+        v.length === 0 ||
+        v.search("^[0-9]{6}$") !== 0) &&
+        (T = D);
+      var x = y.state === _.IN_PROGRESS,
+        $ = x || T != null || R,
+        P = function () {
+          $ || (k ? E() : L());
+        },
         N = function () {
-          P || (I ? k() : E());
-        },
-        M = function () {
-          N();
+          P();
         };
       return c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        onOK: N,
-        title: I ? null : s._(/*BTDS*/ "Change Pincode"),
-        okDisabled: P,
-        okSpinner: $,
-        okText: I ? r("WAWebFbtCommon")("OK") : s._(/*BTDS*/ "Continue"),
-        onCancel: I ? null : d,
-        cancelDisabled: $,
-        children: I
+        onOK: P,
+        title: k ? null : s._(/*BTDS*/ "Change Pincode"),
+        okDisabled: $,
+        okSpinner: x,
+        okText: k ? r("WAWebFbtCommon")("OK") : s._(/*BTDS*/ "Continue"),
+        onCancel: k ? null : u,
+        cancelDisabled: x,
+        children: k
           ? c.jsx(o("WAWebText_DONOTUSE.react").Text, {
               as: "p",
               testid: "catalog_postcode_change_modal__unservicable-alert",
@@ -146,16 +140,16 @@ __d(
                   testid: "catalog_postcode_change_modal__input",
                   onChange: function (t) {
                     var e = t.text;
-                    return T(e);
+                    return I(e);
                   },
-                  value: S,
+                  value: v,
                   managed: !0,
-                  editable: !$,
+                  editable: !x,
                   managedError: !0,
                   selectOnMount: !0,
                   focusOnMount: !0,
-                  error: D,
-                  onEnter: M,
+                  error: T,
+                  onEnter: N,
                 }),
                 c.jsxs(o("WAWebText.react").WAWebTextMuted, {
                   as: "p",

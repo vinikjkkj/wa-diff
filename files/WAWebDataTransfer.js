@@ -1,10 +1,9 @@
 __d(
   "WAWebDataTransfer",
-  ["Promise", "asyncToGeneratorRuntime"],
+  [],
   function (t, n, r, o, a, i) {
-    var e,
-      l = /\r\n/g,
-      s = (function () {
+    var e = /\r\n/g,
+      l = (function () {
         function t(e) {
           var t = this;
           ((this.hasText = function () {
@@ -22,9 +21,9 @@ __d(
                   }))
               : (this.types = []));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.getItems = function () {
+          (n.getItems = function () {
             var e = this;
             if (this.data.items)
               return Array.prototype.slice.call(this.data.items);
@@ -37,7 +36,7 @@ __d(
               };
             });
           }),
-          (r.$1 = function () {
+          (n.$1 = function () {
             return Array.prototype.slice
               .call(this.data.files)
               .map(function (e) {
@@ -45,56 +44,46 @@ __d(
                 return t;
               });
           }),
-          (r.getText = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$2(e);
-                return t ? t.replace(l, "\n") : null;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.getText = async function (n) {
+            var t = await this.$2(n);
+            return t
+              ? t.replace(
+                  e,
+                  `
+`,
+                )
+              : null;
+          }),
+          (n.$2 = async function (t) {
+            var e = t || [];
+            e.length === 0 && e.push("text/plain");
+            var n = this.data;
+            if (n.getData) {
+              var r;
+              return (
+                e.some(function (e) {
+                  var t = n.getData(e);
+                  if (t) return ((r = n.getData(e)), !0);
+                }),
+                Promise.resolve(r)
+              );
             }
-            return t;
-          })()),
-          (r.$2 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = t || [];
-                r.length === 0 && r.push("text/plain");
-                var o = this.data;
-                if (o.getData) {
-                  var a;
-                  return (
-                    r.some(function (e) {
-                      var t = o.getData(e);
-                      if (t) return ((a = o.getData(e)), !0);
-                    }),
-                    (e || (e = n("Promise"))).resolve(a)
-                  );
-                }
-                var i = u(this.data.items, r);
-                if (i.length) {
-                  var l = (e || (e = n("Promise"))).all(
-                      i.map(function (t) {
-                        return new (e || (e = n("Promise")))(function (e) {
-                          return t.getAsString(e);
-                        });
-                      }),
-                    ),
-                    s = yield l;
-                  return s.find(function (e) {
-                    return e.length;
-                  });
-                }
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
+            var o = s(this.data.items, e);
+            if (o.length) {
+              var a = Promise.all(
+                  o.map(function (e) {
+                    return new Promise(function (t) {
+                      return e.getAsString(t);
+                    });
+                  }),
+                ),
+                i = await a;
+              return i.find(function (e) {
+                return e.length;
+              });
             }
-            return r;
-          })()),
-          (r.getFiles = function () {
+          }),
+          (n.getFiles = function () {
             return this.data.items
               ? Array.prototype.slice
                   .call(this.data.items)
@@ -110,10 +99,10 @@ __d(
                   })
               : Array.prototype.slice.call(this.data.files || []);
           }),
-          (r.getData = function (t) {
+          (n.getData = function (t) {
             return this.data.getData(t);
           }),
-          (r.hasFiles = function () {
+          (n.hasFiles = function () {
             return this.data.items
               ? Array.prototype.slice.call(this.data.items).some(function (e) {
                   var t = e.kind;
@@ -124,7 +113,7 @@ __d(
           t
         );
       })();
-    function u(e, t) {
+    function s(e, t) {
       var n = Array.from(e);
       return t.reduce(function (e, t) {
         var r = n.find(function (e) {
@@ -133,7 +122,7 @@ __d(
         return (r && e.push(r), e);
       }, []);
     }
-    i.default = s;
+    i.default = l;
   },
   66,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebGalaxyFlowsUtils",
   [
-    "Promise",
     "WABase64",
     "WAFlowsExpiredCacheCleaner",
     "WAWebABProps",
@@ -11,58 +10,40 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
     "WAWebStateUtils",
-    "asyncToGeneratorRuntime",
     "tryParseJSONMixed",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = "navigate";
-    function u() {
-      return c.apply(this, arguments);
+    var e = "navigate";
+    async function s() {
+      if (o("WAWebABProps").getABPropConfigValue("flows_wa_web"))
+        try {
+          await o("WAFlowsExpiredCacheCleaner").clearExpiredCachedStates();
+        } catch (e) {}
     }
-    function c() {
+    function u(t) {
+      return t === e;
+    }
+    async function c(e, t) {
+      if (t != null && t.aborted) {
+        var n = new Error("Request aborted");
+        throw (n.stack, n);
+      }
+      o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
+        o("WAWebGalaxyFlowQPLLoggerUtils").WaeScreenNavigationQPLPoints
+          .FETCHING_FLOW_JSON_START,
+      );
+      var r = await window.fetch("/flows/json/" + e, { signal: t }),
+        a = await r.json();
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebABProps").getABPropConfigValue("flows_wa_web"))
-            try {
-              yield o("WAFlowsExpiredCacheCleaner").clearExpiredCachedStates();
-            } catch (e) {}
-        })),
-        c.apply(this, arguments)
+        (t != null && t.aborted) ||
+          o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
+            o("WAWebGalaxyFlowQPLLoggerUtils").WaeScreenNavigationQPLPoints
+              .FETCHING_FLOW_JSON_END,
+          ),
+        a
       );
     }
     function d(e) {
-      return e === s;
-    }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t != null && t.aborted) {
-            var n = new Error("Request aborted");
-            throw (n.stack, n);
-          }
-          o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
-            o("WAWebGalaxyFlowQPLLoggerUtils").WaeScreenNavigationQPLPoints
-              .FETCHING_FLOW_JSON_START,
-          );
-          var r = yield window.fetch("/flows/json/" + e, { signal: t }),
-            a = yield r.json();
-          return (
-            (t != null && t.aborted) ||
-              o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
-                o("WAWebGalaxyFlowQPLLoggerUtils").WaeScreenNavigationQPLPoints
-                  .FETCHING_FLOW_JSON_END,
-              ),
-            a
-          );
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return (
         (t.type = o("WAWebMsgType").MSG_TYPE.UNKNOWN),
@@ -72,7 +53,7 @@ __d(
         t
       );
     }
-    function f(e) {
+    function m(e) {
       var t;
       return (
         ((t = e.nativeFlowResponseMessage) == null ? void 0 : t.name) ===
@@ -80,7 +61,7 @@ __d(
         o("WAWebABProps").getABPropConfigValue("flows_wa_web")
       );
     }
-    function g(e) {
+    function p(e) {
       if (
         e.nativeFlowResponseMessage != null &&
         e.nativeFlowResponseMessage.paramsJson != null
@@ -100,45 +81,29 @@ __d(
       }
       return !1;
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function _(e) {
+      var t = g();
+      return f(e.id, t).then(function (e) {
+        var t = e.flowQPLMessageId,
+          n = e.flowWAMMessageId;
+        return { flowQPLMessageId: t, flowWAMMessageId: n };
+      });
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = v();
-          return C(e.id, t).then(function (e) {
-            var t = e.flowQPLMessageId,
-              n = e.flowWAMMessageId;
-            return { flowQPLMessageId: t, flowWAMMessageId: n };
-          });
-        })),
-        y.apply(this, arguments)
-      );
+    async function f(e, t) {
+      var n = new TextEncoder(),
+        r = n.encode(e + t + "_qpl"),
+        a = n.encode(e + t + "_wam"),
+        i = await Promise.all([
+          crypto.subtle.digest({ name: "SHA-256" }, r),
+          crypto.subtle.digest({ name: "SHA-256" }, a),
+        ]),
+        l = i[0],
+        s = i[1],
+        u = o("WABase64").encodeB64(l),
+        c = o("WABase64").encodeB64(s);
+      return { flowQPLMessageId: u, flowWAMMessageId: c };
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = new TextEncoder(),
-            i = a.encode(t + r + "_qpl"),
-            l = a.encode(t + r + "_wam"),
-            s = yield (e || (e = n("Promise"))).all([
-              crypto.subtle.digest({ name: "SHA-256" }, i),
-              crypto.subtle.digest({ name: "SHA-256" }, l),
-            ]),
-            u = s[0],
-            c = s[1],
-            d = o("WABase64").encodeB64(u),
-            m = o("WABase64").encodeB64(c);
-          return { flowQPLMessageId: d, flowWAMMessageId: m };
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
+    function g() {
       var e = new Uint8Array(16);
       return (
         crypto.getRandomValues(e),
@@ -147,62 +112,41 @@ __d(
         }).join("")
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
+    async function h(e) {
+      if (!o("WAWebABProps").getABPropConfigValue("flows_wa_web")) return e;
+      var t = e.filter(function (e) {
+        return (
+          e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+          e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+          e.nativeFlowName ===
+            r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW
+        );
+      });
+      if (t.length === 0) return e;
+      var n = new Map();
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!o("WAWebABProps").getABPropConfigValue("flows_wa_web")) return t;
-          var a = t.filter(function (e) {
-            return (
-              e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              e.interactiveType ===
-                r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-              e.nativeFlowName ===
-                r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW
-            );
-          });
-          if (a.length === 0) return t;
-          var i = new Map();
-          return (
-            yield (e || (e = n("Promise"))).all(
-              a.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        var t = yield h(e.id),
-                          n = t.flowQPLMessageId,
-                          r = t.flowWAMMessageId;
-                        i.set(e.id.id, {
-                          flowWAMMessageId: r,
-                          flowQPLMessageId: n,
-                        });
-                      } catch (e) {}
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            t.map(function (e) {
-              var t = i.get(e.id.id);
-              return t != null
-                ? babelHelpers.extends({}, e, {
-                    galaxyFlowWAMMessageId: t.flowWAMMessageId,
-                    galaxyFlowQPLMessageId: t.flowQPLMessageId,
-                  })
-                : e;
-            })
-          );
-        })),
-        R.apply(this, arguments)
+        await Promise.all(
+          t.map(async function (e) {
+            try {
+              var t = await _(e.id),
+                r = t.flowQPLMessageId,
+                o = t.flowWAMMessageId;
+              n.set(e.id.id, { flowWAMMessageId: o, flowQPLMessageId: r });
+            } catch (e) {}
+          }),
+        ),
+        e.map(function (e) {
+          var t = n.get(e.id.id);
+          return t != null
+            ? babelHelpers.extends({}, e, {
+                galaxyFlowWAMMessageId: t.flowWAMMessageId,
+                galaxyFlowQPLMessageId: t.flowQPLMessageId,
+              })
+            : e;
+        })
       );
     }
-    function L(e, t) {
+    function y(e, t) {
       var n,
         r,
         o,
@@ -219,15 +163,15 @@ __d(
         ? r
         : null;
     }
-    ((l.clearGalaxyFlowsCache = u),
-      (l.isFlowInitWithoutDataChannel = d),
-      (l.fetchFlowJSON = m),
-      (l.getInvalidatedFlowMessageFromHistorySync = _),
-      (l.isResponseFlowSupported = f),
-      (l.isFlexibleCheckoutForm = g),
-      (l.computeMessageIds = h),
-      (l.maybeAddGalaxyFlowMessageIds = S),
-      (l.getFlowDataFromFetchedData = L));
+    ((l.clearGalaxyFlowsCache = s),
+      (l.isFlowInitWithoutDataChannel = u),
+      (l.fetchFlowJSON = c),
+      (l.getInvalidatedFlowMessageFromHistorySync = d),
+      (l.isResponseFlowSupported = m),
+      (l.isFlexibleCheckoutForm = p),
+      (l.computeMessageIds = _),
+      (l.maybeAddGalaxyFlowMessageIds = h),
+      (l.getFlowDataFromFetchedData = y));
   },
   98,
 );

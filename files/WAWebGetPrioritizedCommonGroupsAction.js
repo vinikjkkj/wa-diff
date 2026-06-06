@@ -4,27 +4,16 @@ __d(
     "WAWebFindCommonGroupsContactAction",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumHighlightGroupType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = await o("WAWebFindCommonGroupsContactAction").findCommonGroups(e);
+      if (t != null) {
+        var n = Array.from(t.getModelsArray());
+        return { commonGroups: t, priority: s(n) };
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebFindCommonGroupsContactAction",
-          ).findCommonGroups(e);
-          if (t != null) {
-            var n = Array.from(t.getModelsArray());
-            return { commonGroups: t, priority: u(n) };
-          }
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       if (e.length) {
         var t,
           n = o("WAWebWamEnumHighlightGroupType").HIGHLIGHT_GROUP_TYPE.UNKNOWN,
@@ -114,7 +103,7 @@ __d(
         return { group: t, wamEnum: n };
       }
     }
-    ((l.getPrioritizedCommonGroups = e), (l.prioritizeGroups = u));
+    ((l.getPrioritizedCommonGroups = e), (l.prioritizeGroups = s));
   },
   98,
 );

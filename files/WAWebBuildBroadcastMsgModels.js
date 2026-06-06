@@ -5,7 +5,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModelUtils",
     "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -42,48 +41,38 @@ __d(
         ),
       };
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.mediaKey,
-            n = e.mediaKeyTimestamp;
-          if (t != null && n != null) {
-            var r = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(e),
-              a = {
-                deprecatedMms3Url: e.deprecatedMms3Url,
-                directPath: e.directPath,
-                encFilehash: e.encFilehash,
-                filehash: e.filehash,
-                mediaKey: t,
-                mediaKeyTimestamp: n,
-                size: e.size,
-              },
-              i = [babelHelpers.extends({ id: e.id.toString() }, a)],
-              l = [];
-            if (r != null)
-              for (var s of r) {
-                i.push(babelHelpers.extends({ id: s.toString() }, a));
-                var u = o("WAWebMsgCollection").MsgCollection.get(s);
-                u != null && l.push(u);
-              }
-            yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkCreateOrMerge(i);
-            for (var c of l)
-              ((c.deprecatedMms3Url = e.deprecatedMms3Url),
-                (c.directPath = e.directPath),
-                (c.encFilehash = e.encFilehash),
-                (c.filehash = e.filehash),
-                (c.mediaKey = t),
-                (c.mediaKeyTimestamp = n),
-                (c.size = e.size));
+    async function u(e) {
+      var t = e.mediaKey,
+        n = e.mediaKeyTimestamp;
+      if (t != null && n != null) {
+        var r = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(e),
+          a = {
+            deprecatedMms3Url: e.deprecatedMms3Url,
+            directPath: e.directPath,
+            encFilehash: e.encFilehash,
+            filehash: e.filehash,
+            mediaKey: t,
+            mediaKeyTimestamp: n,
+            size: e.size,
+          },
+          i = [babelHelpers.extends({ id: e.id.toString() }, a)],
+          l = [];
+        if (r != null)
+          for (var s of r) {
+            i.push(babelHelpers.extends({ id: s.toString() }, a));
+            var u = o("WAWebMsgCollection").MsgCollection.get(s);
+            u != null && l.push(u);
           }
-        })),
-        c.apply(this, arguments)
-      );
+        await o("WAWebSchemaMessage").getMessageTable().bulkCreateOrMerge(i);
+        for (var c of l)
+          ((c.deprecatedMms3Url = e.deprecatedMms3Url),
+            (c.directPath = e.directPath),
+            (c.encFilehash = e.encFilehash),
+            (c.filehash = e.filehash),
+            (c.mediaKey = t),
+            (c.mediaKeyTimestamp = n),
+            (c.size = e.size));
+      }
     }
     ((l.buildBroadcastMsgModelsFromMsgData = e),
       (l.bulkBroadcastMessagesToBulkUpdateInput = s),

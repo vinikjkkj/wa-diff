@@ -10,6 +10,7 @@ __d(
       TO_CHARACTER: 5,
       TO_UGC: 6,
       STATUS: 7,
+      AR_SURFACE: 8,
     });
     i.IMAGINE_ACTION_THREAD_TYPE = e;
   },

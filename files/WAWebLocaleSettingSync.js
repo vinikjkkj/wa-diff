@@ -1,7 +1,6 @@
 __d(
   "WAWebLocaleSettingSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebBackendApi",
@@ -9,7 +8,6 @@ __d(
     "WAWebL10NConstants",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,9 +15,8 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function (t) {
-        function a() {
+      m = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -29,16 +26,16 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 3;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.LocaleSetting;
           }),
-          (i.applyMutations = function (a) {
+          (a.applyMutations = function (n) {
             var t = this;
             o("WALogger").LOG(
               e ||
@@ -46,74 +43,64 @@ __d(
                   "locale setting sync: start",
                 ])),
             );
-            var i = 0,
+            var a = 0,
+              i = 0,
               l = 0,
-              p = 0,
-              _ = [],
-              f = (m || (m = n("Promise"))).all(
-                a.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        try {
-                          if (r("WAWebEnvironment").isWindows)
-                            return {
-                              actionState:
-                                o("WASyncdConst").SyncActionState.Skipped,
-                            };
-                          if (e.operation === "set") {
-                            var n = e.value,
-                              a = n.localeSetting;
-                            if (!a)
-                              return (
-                                i++,
-                                o("WAWebSyncdIndexUtils").malformedActionValue(
-                                  t.collectionName,
-                                )
-                              );
-                            var s = a.locale;
-                            return s == null
-                              ? (l++,
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Skipped,
-                                })
-                              : (yield o(
-                                  "WAWebBackendApi",
-                                ).frontendSendAndReceive("setLocale", {
-                                  locale: s,
-                                  priority:
-                                    o("WAWebL10NConstants").L10N_PRIORITY.PHONE,
-                                  reload: !1,
-                                }),
-                                _.length < 3 && _.push(s),
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
-                                });
-                          }
-                          return (
-                            p++,
-                            {
-                              actionState:
-                                o("WASyncdConst").SyncActionState.Unsupported,
-                            }
-                          );
-                        } catch (e) {
-                          return {
+              m = [],
+              p = Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (r("WAWebEnvironment").isWindows)
+                      return {
+                        actionState: o("WASyncdConst").SyncActionState.Skipped,
+                      };
+                    if (e.operation === "set") {
+                      var n = e.value,
+                        s = n.localeSetting;
+                      if (!s)
+                        return (
+                          a++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
+                        );
+                      var u = s.locale;
+                      return u == null
+                        ? (i++,
+                          {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Failed,
-                          };
-                        }
-                      },
+                              o("WASyncdConst").SyncActionState.Skipped,
+                          })
+                        : (await o("WAWebBackendApi").frontendSendAndReceive(
+                            "setLocale",
+                            {
+                              locale: u,
+                              priority:
+                                o("WAWebL10NConstants").L10N_PRIORITY.PHONE,
+                              reload: !1,
+                            },
+                          ),
+                          m.length < 3 && m.push(u),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          });
+                    }
+                    return (
+                      l++,
+                      {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      }
                     );
-                    return function (t) {
-                      return e.apply(this, arguments);
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
                     };
-                  })(),
-                ),
+                  }
+                }),
               );
-            return f.then(function (e) {
+            return p.then(function (e) {
               return (
                 o("WALogger").LOG(
                   s ||
@@ -121,44 +108,44 @@ __d(
                       "locale setting sync: handled ",
                       " mutations",
                     ])),
-                  a.length,
+                  n.length,
                 ),
-                i > 0 &&
+                a > 0 &&
                   o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "locale setting sync: ",
                         " malformed mutations",
                       ])),
-                    i,
+                    a,
                   ),
-                l > 0 &&
+                i > 0 &&
                   o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
                         "locale setting sync: ",
                         " null locale mutations",
                       ])),
-                    l,
+                    i,
                   ),
-                p > 0 &&
+                l > 0 &&
                   o("WALogger").WARN(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "locale setting sync: ",
                         " unsupported operations",
                       ])),
-                    p,
+                    l,
                   ),
                 e
               );
             });
           }),
-          a
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      _ = new p();
-    l.default = _;
+      p = new m();
+    l.default = p;
   },
   98,
 );

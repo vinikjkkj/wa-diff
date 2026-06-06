@@ -1,11 +1,9 @@
 __d(
   "WAWebWindowsHybridBridgeMediaTranscoder",
   [
-    "Promise",
     "WALogger",
     "WAWebODS",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -27,8 +25,7 @@ __d(
       v,
       S,
       R,
-      L,
-      E = (function () {
+      L = (function () {
         function t(t, n) {
           var r = this;
           ((this.$3 = new Map()),
@@ -56,336 +53,267 @@ __d(
             this.$1.addEventListener("onProgressChangedEvent", this.$6),
             this.$1.subscribe(null));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.requestSharedBufferForTranscoding = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var a = this;
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[requestSharedBufferForTranscoding] Starting shared buffer request for requestId=",
-                      ", bufferSize=",
-                      "",
-                    ])),
-                  e,
-                  t,
-                );
-                var i = 2 * 1024 * 1024 * 1024;
-                if (t >= i) {
-                  var l =
-                    "Buffer size " +
-                    t +
-                    " exceeds maximum allowed size of " +
-                    i +
-                    " bytes (2GB)";
-                  throw (
-                    o("WALogger").ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[requestSharedBufferForTranscoding] ",
-                          "",
-                        ])),
-                      l,
-                    ),
-                    r("err")(l)
-                  );
-                }
-                try {
-                  var _ = new (L || (L = n("Promise")))(
-                      (function () {
-                        var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (n, i) {
-                            a.$3.set(e, n);
-                            try {
-                              r("WAWebODS").incr(
-                                "web.hybrid.bridge.media_transcoder.send.try_request_shared_buffer_for_transcoding_async",
-                              );
-                              var l = yield o(
-                                "WAWebWindowsHybridBridgeTrace",
-                              ).traceBridgeCall(
-                                {
-                                  bridge: "mediaTranscodeBridge",
-                                  method:
-                                    "tryRequestSharedBufferForTranscodingAsync",
-                                  type: "async",
-                                },
-                                function () {
-                                  return a.$1.tryRequestSharedBufferForTranscodingAsync(
-                                    e,
-                                    t,
-                                  );
-                                },
-                              );
-                              l
-                                ? o("WALogger").LOG(
-                                    d ||
-                                      (d =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[requestSharedBufferForTranscoding] Shared buffer creation initiated successfully, waiting for buffer",
-                                          ],
-                                        )),
-                                  )
-                                : (a.$3.delete(e),
-                                  o("WALogger").ERROR(
-                                    c ||
-                                      (c =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[requestSharedBufferForTranscoding] Failed to create shared buffer for requestId=",
-                                            ", bufferSize=",
-                                            "",
-                                          ],
-                                        )),
-                                    e,
-                                    t,
-                                  ),
-                                  i(
-                                    r("err")(
-                                      "Failed to create shared buffer for transcoding",
-                                    ),
-                                  ));
-                            } catch (t) {
-                              (a.$3.delete(e),
-                                o("WALogger")
-                                  .ERROR(
-                                    m ||
-                                      (m =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[requestSharedBufferForTranscoding] Error during shared buffer request",
-                                          ],
-                                        )),
-                                  )
-                                  .catching(r("getErrorSafe")(t)),
-                                i(t));
-                            }
-                          },
-                        );
-                        return function (e, t) {
-                          return i.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                    f = yield _;
-                  return [f.additionalData.BufferId, f.buffer];
-                } catch (e) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "[requestSharedBufferForTranscoding] Error awaiting shared buffer response",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e)),
-                    e
-                  );
-                }
-              },
+          (n.requestSharedBufferForTranscoding = async function (t, n) {
+            var e = this;
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[requestSharedBufferForTranscoding] Starting shared buffer request for requestId=",
+                  ", bufferSize=",
+                  "",
+                ])),
+              t,
+              n,
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.performVideoTranscodingFromSharedBuffer = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, a) {
-                var i = this;
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[performVideoTranscodingFromSharedBuffer] Starting video transcoding from sourceBufferId=",
-                      " to resultBufferId=",
-                      " with maxResultSize=",
+            var a = 2 * 1024 * 1024 * 1024;
+            if (n >= a) {
+              var i =
+                "Buffer size " +
+                n +
+                " exceeds maximum allowed size of " +
+                a +
+                " bytes (2GB)";
+              throw (
+                o("WALogger").ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[requestSharedBufferForTranscoding] ",
                       "",
                     ])),
-                  e,
-                  t,
-                  a,
-                );
-                var l = yield new (L || (L = n("Promise")))(
-                  (function () {
-                    var l = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (n, l) {
-                        i.$3.set(t, n);
-                        try {
-                          r("WAWebODS").incr(
-                            "web.hybrid.bridge.media_transcoder.send.perform_video_transcoding_from_shared_buffer",
-                          );
-                          var s = yield o(
-                            "WAWebWindowsHybridBridgeTrace",
-                          ).traceBridgeCall(
-                            {
-                              bridge: "mediaTranscodeBridge",
-                              method: "performVideoTranscodingFromSharedBuffer",
-                              type: "sync",
-                            },
-                            function () {
-                              return i.$1.performVideoTranscodingFromSharedBuffer(
-                                e,
-                                t,
-                                a,
-                              );
-                            },
-                          );
-                          s
-                            ? o("WALogger").LOG(
-                                g ||
-                                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[performVideoTranscodingFromSharedBuffer] Video transcoding initiated successfully, waiting for result buffer",
-                                  ])),
-                              )
-                            : (i.$3.delete(t),
-                              o("WALogger").ERROR(
-                                f ||
-                                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[performVideoTranscodingFromSharedBuffer] Video transcoding failed for sourceBufferId=",
-                                    ", resultBufferId=",
-                                    " with maxResultSize=",
-                                    "",
-                                  ])),
-                                e,
-                                t,
-                                a,
-                              ),
-                              l(r("err")("Video transcoding failed")));
-                        } catch (e) {
-                          (i.$3.delete(t),
-                            o("WALogger")
-                              .ERROR(
-                                h ||
-                                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[performVideoTranscodingFromSharedBuffer] Error during video transcoding",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e)),
-                            l(e));
-                        }
+                  i,
+                ),
+                r("err")(i)
+              );
+            }
+            try {
+              var l = new Promise(async function (a, i) {
+                  e.$3.set(t, a);
+                  try {
+                    r("WAWebODS").incr(
+                      "web.hybrid.bridge.media_transcoder.send.try_request_shared_buffer_for_transcoding_async",
+                    );
+                    var l = await o(
+                      "WAWebWindowsHybridBridgeTrace",
+                    ).traceBridgeCall(
+                      {
+                        bridge: "mediaTranscodeBridge",
+                        method: "tryRequestSharedBufferForTranscodingAsync",
+                        type: "async",
+                      },
+                      function () {
+                        return e.$1.tryRequestSharedBufferForTranscodingAsync(
+                          t,
+                          n,
+                        );
                       },
                     );
-                    return function (e, t) {
-                      return l.apply(this, arguments);
-                    };
-                  })(),
-                );
-                return [l.additionalData.BufferId, l.buffer];
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
+                    l
+                      ? o("WALogger").LOG(
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                              "[requestSharedBufferForTranscoding] Shared buffer creation initiated successfully, waiting for buffer",
+                            ])),
+                        )
+                      : (e.$3.delete(t),
+                        o("WALogger").ERROR(
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                              "[requestSharedBufferForTranscoding] Failed to create shared buffer for requestId=",
+                              ", bufferSize=",
+                              "",
+                            ])),
+                          t,
+                          n,
+                        ),
+                        i(
+                          r("err")(
+                            "Failed to create shared buffer for transcoding",
+                          ),
+                        ));
+                  } catch (n) {
+                    (e.$3.delete(t),
+                      o("WALogger")
+                        .ERROR(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "[requestSharedBufferForTranscoding] Error during shared buffer request",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(n)),
+                      i(n));
+                  }
+                }),
+                _ = await l;
+              return [_.additionalData.BufferId, _.buffer];
+            } catch (e) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "[requestSharedBufferForTranscoding] Error awaiting shared buffer response",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e)),
+                e
+              );
             }
-            return t;
-          })()),
-          (a.getVideoPreviewFrameFromSharedBuffer = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var a = this,
-                  i,
-                  l,
-                  s,
-                  u;
-                o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[getVideoPreviewFrameFromSharedBuffer] Starting video preview frame extraction from sourceBufferId=",
-                      " to resultBufferId=",
-                      "",
-                    ])),
-                  e,
-                  t,
-                );
-                var c = yield new (L || (L = n("Promise")))(
-                    (function () {
-                      var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (n, i) {
-                          a.$3.set(t, n);
-                          try {
-                            r("WAWebODS").incr(
-                              "web.hybrid.bridge.media_transcoder.send.get_video_preview_frame_from_shared_buffer",
-                            );
-                            var l = yield o(
-                              "WAWebWindowsHybridBridgeTrace",
-                            ).traceBridgeCall(
-                              {
-                                bridge: "mediaTranscodeBridge",
-                                method: "getVideoPreviewFrameFromSharedBuffer",
-                                type: "sync",
-                              },
-                              function () {
-                                return a.$1.getVideoPreviewFrameFromSharedBuffer(
-                                  e,
-                                  t,
-                                );
-                              },
-                            );
-                            l
-                              ? o("WALogger").LOG(
-                                  b ||
-                                    (b =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[getVideoPreviewFrameFromSharedBuffer] Video preview frame extraction initiated successfully, waiting for result buffer",
-                                      ])),
-                                )
-                              : (a.$3.delete(t),
-                                o("WALogger").ERROR(
-                                  C ||
-                                    (C =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[getVideoPreviewFrameFromSharedBuffer] Video preview frame extraction failed for sourceBufferId=",
-                                        ", resultBufferId=",
-                                        "",
-                                      ])),
-                                  e,
-                                  t,
-                                ),
-                                i(
-                                  r("err")(
-                                    "Video preview frame extraction failed",
-                                  ),
-                                ));
-                          } catch (e) {
-                            (a.$3.delete(t),
-                              o("WALogger")
-                                .ERROR(
-                                  v ||
-                                    (v =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[getVideoPreviewFrameFromSharedBuffer] Error during video preview frame extraction",
-                                      ])),
-                                )
-                                .catching(r("getErrorSafe")(e)),
-                              i(e));
-                          }
-                        },
-                      );
-                      return function (e, t) {
-                        return i.apply(this, arguments);
-                      };
-                    })(),
-                  ),
-                  d =
-                    (i = (l = c.additionalData) == null ? void 0 : l.Width) !=
-                    null
-                      ? i
-                      : 0,
-                  m =
-                    (s = (u = c.additionalData) == null ? void 0 : u.Height) !=
-                    null
-                      ? s
-                      : 0;
-                return [c.additionalData.BufferId, c.buffer, d, m];
-              },
+          }),
+          (n.performVideoTranscodingFromSharedBuffer = async function (
+            t,
+            n,
+            a,
+          ) {
+            var e = this;
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[performVideoTranscodingFromSharedBuffer] Starting video transcoding from sourceBufferId=",
+                  " to resultBufferId=",
+                  " with maxResultSize=",
+                  "",
+                ])),
+              t,
+              n,
+              a,
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.releaseSharedBuffer = function (t) {
+            var i = await new Promise(async function (i, l) {
+              e.$3.set(n, i);
+              try {
+                r("WAWebODS").incr(
+                  "web.hybrid.bridge.media_transcoder.send.perform_video_transcoding_from_shared_buffer",
+                );
+                var s = await o(
+                  "WAWebWindowsHybridBridgeTrace",
+                ).traceBridgeCall(
+                  {
+                    bridge: "mediaTranscodeBridge",
+                    method: "performVideoTranscodingFromSharedBuffer",
+                    type: "sync",
+                  },
+                  function () {
+                    return e.$1.performVideoTranscodingFromSharedBuffer(
+                      t,
+                      n,
+                      a,
+                    );
+                  },
+                );
+                s
+                  ? o("WALogger").LOG(
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                          "[performVideoTranscodingFromSharedBuffer] Video transcoding initiated successfully, waiting for result buffer",
+                        ])),
+                    )
+                  : (e.$3.delete(n),
+                    o("WALogger").ERROR(
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                          "[performVideoTranscodingFromSharedBuffer] Video transcoding failed for sourceBufferId=",
+                          ", resultBufferId=",
+                          " with maxResultSize=",
+                          "",
+                        ])),
+                      t,
+                      n,
+                      a,
+                    ),
+                    l(r("err")("Video transcoding failed")));
+              } catch (t) {
+                (e.$3.delete(n),
+                  o("WALogger")
+                    .ERROR(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "[performVideoTranscodingFromSharedBuffer] Error during video transcoding",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t)),
+                  l(t));
+              }
+            });
+            return [i.additionalData.BufferId, i.buffer];
+          }),
+          (n.getVideoPreviewFrameFromSharedBuffer = async function (t, n) {
+            var e = this,
+              a,
+              i,
+              l,
+              s;
+            o("WALogger").LOG(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "[getVideoPreviewFrameFromSharedBuffer] Starting video preview frame extraction from sourceBufferId=",
+                  " to resultBufferId=",
+                  "",
+                ])),
+              t,
+              n,
+            );
+            var u = await new Promise(async function (a, i) {
+                e.$3.set(n, a);
+                try {
+                  r("WAWebODS").incr(
+                    "web.hybrid.bridge.media_transcoder.send.get_video_preview_frame_from_shared_buffer",
+                  );
+                  var l = await o(
+                    "WAWebWindowsHybridBridgeTrace",
+                  ).traceBridgeCall(
+                    {
+                      bridge: "mediaTranscodeBridge",
+                      method: "getVideoPreviewFrameFromSharedBuffer",
+                      type: "sync",
+                    },
+                    function () {
+                      return e.$1.getVideoPreviewFrameFromSharedBuffer(t, n);
+                    },
+                  );
+                  l
+                    ? o("WALogger").LOG(
+                        b ||
+                          (b = babelHelpers.taggedTemplateLiteralLoose([
+                            "[getVideoPreviewFrameFromSharedBuffer] Video preview frame extraction initiated successfully, waiting for result buffer",
+                          ])),
+                      )
+                    : (e.$3.delete(n),
+                      o("WALogger").ERROR(
+                        C ||
+                          (C = babelHelpers.taggedTemplateLiteralLoose([
+                            "[getVideoPreviewFrameFromSharedBuffer] Video preview frame extraction failed for sourceBufferId=",
+                            ", resultBufferId=",
+                            "",
+                          ])),
+                        t,
+                        n,
+                      ),
+                      i(r("err")("Video preview frame extraction failed")));
+                } catch (t) {
+                  (e.$3.delete(n),
+                    o("WALogger")
+                      .ERROR(
+                        v ||
+                          (v = babelHelpers.taggedTemplateLiteralLoose([
+                            "[getVideoPreviewFrameFromSharedBuffer] Error during video preview frame extraction",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(t)),
+                    i(t));
+                }
+              }),
+              c =
+                (a = (i = u.additionalData) == null ? void 0 : i.Width) != null
+                  ? a
+                  : 0,
+              d =
+                (l = (s = u.additionalData) == null ? void 0 : s.Height) != null
+                  ? l
+                  : 0;
+            return [u.additionalData.BufferId, u.buffer, c, d];
+          }),
+          (n.releaseSharedBuffer = function (t) {
             var e = this;
             (o("WALogger").LOG(
               S ||
@@ -409,13 +337,13 @@ __d(
                 },
               ));
           }),
-          (a.setProgressCallback = function (t, n) {
+          (n.setProgressCallback = function (t, n) {
             this.$4.set(t, n);
           }),
-          (a.clearProgressCallback = function (t) {
+          (n.clearProgressCallback = function (t) {
             this.$4.delete(t);
           }),
-          (a.$5 = function (t) {
+          (n.$5 = function (t) {
             if (
               t.additionalData &&
               t.additionalData.Source === "MediaTranscodingService"
@@ -446,7 +374,7 @@ __d(
           t
         );
       })();
-    l.WindowsHybridBridgeMediaTranscoder = E;
+    l.WindowsHybridBridgeMediaTranscoder = L;
   },
   98,
 );

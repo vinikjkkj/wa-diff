@@ -10,45 +10,32 @@ __d(
     "WAWebCreateAiThreadTitleForMessage",
     "WAWebThreadMsgUtils",
     "WAWebThreadUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t,
+        n = e.to;
+      if (!o("WAWebBotUtils").isMetaAiBot(n)) return c(e);
+      var a = await o("WAWebBotDeviceCapabilities").primaryHasAiThreadSupport();
+      if (!a || !o("WAWebBotBaseGating").isAiChatThreadsInfraEnabled())
+        return c(e);
+      if (s(e)) return u(e);
+      var i = e.quotedMsg;
+      if (s(i)) return u(r("WANullthrows")(i, "quotedMsg"));
+      var l = o("WAWebAiThreadCreationUtils").getHistoricalMetaAiThreadId(),
+        d = { aiThreadType: o("WAWebAiThreadTypeUtils").AiThreadType.Default },
+        m = (t = e == null ? void 0 : e.threadIds) != null ? t : [];
+      return [[].concat(m, [l]), d];
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.to;
-          if (!o("WAWebBotUtils").isMetaAiBot(n)) return d(e);
-          var a = yield o(
-            "WAWebBotDeviceCapabilities",
-          ).primaryHasAiThreadSupport();
-          if (!a || !o("WAWebBotBaseGating").isAiChatThreadsInfraEnabled())
-            return d(e);
-          if (u(e)) return c(e);
-          var i = e.quotedMsg;
-          if (u(i)) return c(r("WANullthrows")(i, "quotedMsg"));
-          var l = o("WAWebAiThreadCreationUtils").getHistoricalMetaAiThreadId(),
-            s = {
-              aiThreadType: o("WAWebAiThreadTypeUtils").AiThreadType.Default,
-            },
-            m = (t = e == null ? void 0 : e.threadIds) != null ? t : [];
-          return [[].concat(m, [l]), s];
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       return (e == null ? void 0 : e.threadIds) == null
         ? !1
         : e.threadIds.some(function (e) {
             return e.type === o("WAWebThreadUtils").ThreadType.AiThread;
           });
     }
-    function c(e) {
+    function u(e) {
       var t,
         n,
         r = (t = e == null ? void 0 : e.threadIds) != null ? t : [],
@@ -73,7 +60,7 @@ __d(
         );
       return [r, c];
     }
-    function d(e) {
+    function c(e) {
       var t;
       return [
         (t = e.threadIds) == null

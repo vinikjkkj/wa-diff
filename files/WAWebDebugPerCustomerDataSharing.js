@@ -9,45 +9,28 @@ __d(
     "WAWebMsgType",
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y;
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebCtwaPerCustomerDataSharingSync").applyMutations(e);
-        })),
-        b.apply(this, arguments)
-      );
+    async function C(e) {
+      await r("WAWebCtwaPerCustomerDataSharingSync").applyMutations(e);
     }
     C.doc =
       "Apply per-customer data sharing mutations to the DB. This is used for testing syncd mutations only.";
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebWidFactory").createUserLidOrThrow(e);
-          return r(
-            "WAWebCtwaPerCustomerDataSharingSync",
-          ).sendPerCustomerDataSharingUpdate(
-            n,
-            t,
-            o("WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint")
-              .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT.SYNCD_MUTATION,
-          );
-        })),
-        S.apply(this, arguments)
+    async function b(e, t) {
+      var n = o("WAWebWidFactory").createUserLidOrThrow(e);
+      return r(
+        "WAWebCtwaPerCustomerDataSharingSync",
+      ).sendPerCustomerDataSharingUpdate(
+        n,
+        t,
+        o("WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint")
+          .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT.SYNCD_MUTATION,
       );
     }
-    v.doc =
+    b.doc =
       "Send per-customer data sharing mutation to primary device through syncd. This will sync the setting to your Android/iOS device.";
-    function R() {
+    function v() {
       if (
         (o("WALogger").LOG(
           e ||
@@ -90,9 +73,9 @@ __d(
           );
         }));
     }
-    R.doc =
+    v.doc =
       "Inspect the current state of DataSharing3pdLidCollection. Shows total count and details of all records.";
-    function L(e) {
+    function S(e) {
       var t = o(
           "WAWebDataSharing3pdLidCollection",
         ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
@@ -136,9 +119,9 @@ __d(
         t
       );
     }
-    L.doc =
+    S.doc =
       "Check data sharing status for a specific customer LID. Returns whether sharing is enabled and shows model details if it exists.";
-    function E() {
+    function R() {
       var e = o("WAWebDataSharing3pdLidCollection").DataSharing3pdLidCollection
         .length;
       o("WALogger").LOG(
@@ -175,59 +158,54 @@ __d(
             .length,
         ));
     }
-    E.doc =
+    R.doc =
       "Clear all records from DataSharing3pdLidCollection. Useful for testing initialization and syncing.";
-    var k = (function () {
-      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-        try {
-          var n = o("WAWebContactSystemMsg").genNotificationMsg(e, {
-            type: "notification_template",
-            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-            subtype: t
-              ? "biz_per_customer_3pd_data_share_opt_in"
-              : "biz_per_customer_3pd_data_share_opt_out",
-            templateParams: [],
-          });
-          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-            chatId: e,
-            newMsg: n,
-            handleSingleMsgOrigin: "createChat",
-            preserveOrder: !1,
-          });
-        } catch (e) {
-          o("WALogger").ERROR(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
-                "error:debug:dfsRenderPerCustomerDataSharingSystemMessage",
-              ])),
-          );
-        }
-      });
-      return function (n, r) {
-        return e.apply(this, arguments);
-      };
-    })();
-    ((k.doc =
+    var L = async function (t, n) {
+      try {
+        var e = o("WAWebContactSystemMsg").genNotificationMsg(t, {
+          type: "notification_template",
+          kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+          subtype: n
+            ? "biz_per_customer_3pd_data_share_opt_in"
+            : "biz_per_customer_3pd_data_share_opt_out",
+          templateParams: [],
+        });
+        await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+          chatId: t,
+          newMsg: e,
+          handleSingleMsgOrigin: "createChat",
+          preserveOrder: !1,
+        });
+      } catch (e) {
+        o("WALogger").ERROR(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "error:debug:dfsRenderPerCustomerDataSharingSystemMessage",
+            ])),
+        );
+      }
+    };
+    ((L.doc =
       "Creates and renders a system message of type biz_per_customer_3pd_data_share_opt_in or biz_per_customer_3pd_data_share_opt_out in the current chat."),
-      (k.paramsToExecute = []));
-    function I(e) {
+      (L.paramsToExecute = []));
+    function E(e) {
       if (e.endsWith("@lid"))
         return { lid: e, pn: e.replace(/@lid$/, "") + "@s.whatsapp.net" };
       var t = e.replace(/@(?:s\.whatsapp\.net|c\.us)$/, "");
       return { lid: t + "@lid", pn: t + "@s.whatsapp.net" };
     }
-    I.doc =
+    E.doc =
       "Derive a LID and PN pair from a serialized WID string. Handles both LID-based (@lid) and PN-based (@s.whatsapp.net, @c.us) WIDs.";
-    var T = {
+    var k = {
       applyPerCustomerDataSharingMutations: C,
-      sendPerCustomerDataSharingMutation: v,
-      inspectPerCustomerDataSharingCollection: R,
-      checkPerCustomerDataSharingStatus: L,
-      clearPerCustomerDataSharingCollection: E,
-      renderPerCustomerDataSharingSystemMessage: k,
-      deriveLidPnFromSerializedWid: I,
+      sendPerCustomerDataSharingMutation: b,
+      inspectPerCustomerDataSharingCollection: v,
+      checkPerCustomerDataSharingStatus: S,
+      clearPerCustomerDataSharingCollection: R,
+      renderPerCustomerDataSharingSystemMessage: L,
+      deriveLidPnFromSerializedWid: E,
     };
-    l.default = T;
+    l.default = k;
   },
   98,
 );

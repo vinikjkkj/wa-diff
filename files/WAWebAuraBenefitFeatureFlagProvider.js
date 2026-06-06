@@ -63,10 +63,9 @@ __d(
           return { id: t, isActive: r, limit: this.$3(t, r) };
         }),
         (t.$3 = function (t, n) {
-          return t === o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS
-            ? n
-              ? o("WAWebPinChatLimits").MAX_PINNED_CHATS_PREMIUM
-              : o("WAWebPinChatLimits").MAX_PINNED_CHATS
+          return t === o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS &&
+            n
+            ? o("WAWebPinChatLimits").MAX_PINNED_CHATS_PREMIUM
             : null;
         }),
         e

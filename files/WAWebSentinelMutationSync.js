@@ -1,7 +1,6 @@
 __d(
   "WAWebSentinelMutationSync",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WATagsLogger",
@@ -12,7 +11,6 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
     "WAWebSyncdKeyManagement",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,10 +19,9 @@ __d(
       u,
       c,
       d,
-      m,
-      p = o("WATagsLogger").TAGS(["syncd", "SentinelMutationSync"]),
-      _ = (function (t) {
-        function r() {
+      m = o("WATagsLogger").TAGS(["syncd", "SentinelMutationSync"]),
+      p = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -34,144 +31,128 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 3;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WASyncdConst").Actions.Sentinel;
           }),
-          (a.applyMutations = function (r) {
+          (r.applyMutations = function (n) {
             var t = this;
-            p.LOG(
+            m.LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "applying mutations...",
                 ])),
             );
-            var a = 0,
-              i = 0,
-              l = (m || (m = n("Promise"))).all(
-                r.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        try {
-                          if (e.operation === "set") {
-                            var n,
-                              r =
-                                (n = e.value.keyExpiration) == null
-                                  ? void 0
-                                  : n.expiredKeyEpoch;
-                            return r == null
-                              ? (a++,
-                                o("WAWebSyncdIndexUtils").malformedActionValue(
-                                  t.collectionName,
-                                ))
-                              : (yield o(
-                                  "WAWebGetSyncKey",
-                                ).expireSyncKeyInTransaction(r),
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
-                                });
-                          }
-                          return (
-                            i++,
-                            {
-                              actionState:
-                                o("WASyncdConst").SyncActionState.Unsupported,
-                            }
-                          );
-                        } catch (e) {
-                          return {
+            var r = 0,
+              a = 0,
+              i = Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n,
+                        i =
+                          (n = e.value.keyExpiration) == null
+                            ? void 0
+                            : n.expiredKeyEpoch;
+                      return i == null
+                        ? (r++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          ))
+                        : (await o(
+                            "WAWebGetSyncKey",
+                          ).expireSyncKeyInTransaction(i),
+                          {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Failed,
-                          };
-                        }
-                      },
+                              o("WASyncdConst").SyncActionState.Success,
+                          });
+                    }
+                    return (
+                      a++,
+                      {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      }
                     );
-                    return function (t) {
-                      return e.apply(this, arguments);
+                  } catch (e) {
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Failed,
                     };
-                  })(),
-                ),
+                  }
+                }),
               );
-            return l.then(function (e) {
+            return i.then(function (e) {
               return (
-                a > 0 &&
+                r > 0 &&
                   o("WALogger").ERROR(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
                         "sentinel mutation sync: ",
                         " malformed mutations",
                       ])),
-                    a,
+                    r,
                   ),
-                i > 0 &&
+                a > 0 &&
                   o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "sentinel mutation sync: ",
                         " operations not supported",
                       ])),
-                    i,
+                    a,
                   ),
                 e
               );
             });
           }),
-          (a.getSentinelMutations = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              p.LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "preparing mutations...",
-                  ])),
+          (r.getSentinelMutations = async function () {
+            var e = this;
+            m.LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "preparing mutations...",
+                ])),
+            );
+            var t = o("WATimeUtils").unixTimeMs(),
+              n = Array.from(o("WASyncdConst").CollectionName.members()),
+              r = await o("WAWebSyncdKeyManagement").getNewestKeyPair();
+            if (r == null)
+              return (
+                o("WALogger").ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "sentinel mutation sync: no key pairs",
+                    ])),
+                ),
+                []
               );
-              var t = o("WATimeUtils").unixTimeMs(),
-                n = Array.from(o("WASyncdConst").CollectionName.members()),
-                r = yield o("WAWebSyncdKeyManagement").getNewestKeyPair();
-              if (r == null)
-                return (
-                  o("WALogger").ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "sentinel mutation sync: no key pairs",
-                      ])),
-                  ),
-                  []
-                );
-              var a = r.keyEpoch,
-                i = { keyExpiration: { expiredKeyEpoch: a } };
-              return n.map(function (n) {
-                return o("WAWebSyncdActionUtils").buildPendingMutation({
-                  collection: n,
-                  indexArgs: [n],
-                  operation: o("WAWebProtobufsServerSync.pb")
-                    .SyncdMutation$SyncdOperation.SET,
-                  version: e.getVersion(),
-                  value: i,
-                  timestamp: t,
-                  action: e.getAction(),
-                });
+            var a = r.keyEpoch,
+              i = { keyExpiration: { expiredKeyEpoch: a } };
+            return n.map(function (n) {
+              return o("WAWebSyncdActionUtils").buildPendingMutation({
+                collection: n,
+                indexArgs: [n],
+                operation: o("WAWebProtobufsServerSync.pb")
+                  .SyncdMutation$SyncdOperation.SET,
+                version: e.getVersion(),
+                value: i,
+                timestamp: t,
+                action: e.getAction(),
               });
             });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          r
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      f = new _();
-    Object.freeze(f);
-    var g = f;
-    l.default = g;
+      _ = new p();
+    Object.freeze(_);
+    var f = _;
+    l.default = f;
   },
   98,
 );

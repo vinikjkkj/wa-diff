@@ -4,24 +4,20 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebMidDrawerEmptyState.react",
-          )
-            .__setRef("WAWebMidDrawerEmptyStateLoadable")
-            .load();
-          return e.MidDrawerEmptyState;
-        }),
-        "MidDrawerEmptyState",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebMidDrawerEmptyState.react",
+        )
+          .__setRef("WAWebMidDrawerEmptyStateLoadable")
+          .load();
+        return e.MidDrawerEmptyState;
+      }, "MidDrawerEmptyState"),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

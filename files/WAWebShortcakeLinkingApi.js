@@ -9,7 +9,6 @@ __d(
     "WAWebShortcakeLinkingAlgorithm",
     "WAWebShortcakeLinkingHandoffProof",
     "WAWebShortcakeLinkingIq",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
     "err",
@@ -88,48 +87,40 @@ __d(
     function P() {
       I.skipHandoffUx = !0;
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
+    async function N(t, n) {
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "Shortcake: initializing",
+          ])),
+      ),
+        I.clear());
+      var r = await o(
+        "WAWebShortcakeLinkingAlgorithm",
+      ).generateCompanionEphemeralKeypair(t, n);
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "Shortcake: initializing",
-              ])),
-          ),
-            I.clear());
-          var n = yield o(
-            "WAWebShortcakeLinkingAlgorithm",
-          ).generateCompanionEphemeralKeypair(e, t);
-          return (
-            (I.keypair = n.keypair),
-            (I.companionNonce = n.companionNonce),
-            (I.deviceType = t),
-            (I.ref = e),
-            (I.prologuePayloadBytes = n.prologuePayloadBytes),
-            (I.stage = L.Initialized),
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "Shortcake: initialized, prologue payload ready",
-                ])),
-            ),
-            n.prologuePayloadBytes
-          );
-        })),
-        M.apply(this, arguments)
+        (I.keypair = r.keypair),
+        (I.companionNonce = r.companionNonce),
+        (I.deviceType = n),
+        (I.ref = t),
+        (I.prologuePayloadBytes = r.prologuePayloadBytes),
+        (I.stage = L.Initialized),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "Shortcake: initialized, prologue payload ready",
+            ])),
+        ),
+        r.prologuePayloadBytes
       );
     }
-    function w() {
+    function M() {
       (I.stage === L.Initialized || s(0, 152465, String(I.stage)),
         (I.stage = L.WaitingForPrimaryIdentity),
         (I.timeoutId = self.setTimeout(function () {
           (o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "Shortcake: timed out waiting for PrimaryEphemeralIdentity",
               ])),
           ),
@@ -140,214 +131,198 @@ __d(
         }, E)),
         o("WAWebBackendApi").frontendFireAndForget("shortcakePrologueSent", {}),
         o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
               "Shortcake: prologue sent, awaiting PrimaryEphemeralIdentity",
             ])),
         ));
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WALogger").LOG(
+    async function w(e) {
+      (o("WALogger").LOG(
+        m ||
+          (m = babelHelpers.taggedTemplateLiteralLoose([
+            "Shortcake: received PrimaryEphemeralIdentity",
+          ])),
+      ),
+        I.stage === L.WaitingForPrimaryIdentity ||
+          s(0, 152467, String(I.stage)));
+      var t = I.companionNonce,
+        n = I.keypair,
+        a = I.deviceType,
+        i = I.ref;
+      if (t == null || n == null || a == null || i == null)
+        throw r("err")(
+          "Shortcake: missing state for handlePrimaryEphemeralIdentity",
+        );
+      var l = o("decodeProtobuf").decodeProtobuf(
+          o("WAWebProtobufsCompanionReg.pb").PrimaryEphemeralIdentitySpec,
+          e,
+        ),
+        u = l.publicKey;
+      if (u == null || u.byteLength !== 32)
+        throw r("err")(
+          "Shortcake: PrimaryEphemeralIdentity.publicKey must be 32 bytes",
+        );
+      (I.timeoutId != null &&
+        (self.clearTimeout(I.timeoutId), (I.timeoutId = null)),
+        (I.stage = L.WaitingForVerificationCodeConfirmation));
+      var c = I.epoch;
+      try {
+        (await o("WAWebShortcakeLinkingIq").sendCompanionNonce(t),
+          o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
-                "Shortcake: received PrimaryEphemeralIdentity",
+                "Shortcake: CompanionNonce sent",
               ])),
-          ),
-            I.stage === L.WaitingForPrimaryIdentity ||
-              s(0, 152467, String(I.stage)));
-          var t = I.companionNonce,
-            n = I.keypair,
-            a = I.deviceType,
-            i = I.ref;
-          if (t == null || n == null || a == null || i == null)
-            throw r("err")(
-              "Shortcake: missing state for handlePrimaryEphemeralIdentity",
-            );
-          var l = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsCompanionReg.pb").PrimaryEphemeralIdentitySpec,
-              e,
+          ));
+        var d = await o(
+            "WAWebShortcakeLinkingAlgorithm",
+          ).deriveVerificationCode(t, l),
+          y = await o("WAWebShortcakeLinkingAlgorithm").deriveEncryptionKey(
+            n.privKey,
+            u,
+            a,
+            i,
+          );
+        if (I.epoch !== c)
+          throw (
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "Shortcake: cancelled in handlePrimaryEphemeralIdentity",
+                ])),
             ),
-            u = l.publicKey;
-          if (u == null || u.byteLength !== 32)
-            throw r("err")(
-              "Shortcake: PrimaryEphemeralIdentity.publicKey must be 32 bytes",
-            );
-          (I.timeoutId != null &&
-            (self.clearTimeout(I.timeoutId), (I.timeoutId = null)),
-            (I.stage = L.WaitingForVerificationCodeConfirmation));
-          var c = I.epoch;
-          try {
-            (yield o("WAWebShortcakeLinkingIq").sendCompanionNonce(t),
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "Shortcake: CompanionNonce sent",
-                  ])),
-              ));
-            var d = yield o(
-                "WAWebShortcakeLinkingAlgorithm",
-              ).deriveVerificationCode(t, l),
-              m = yield o("WAWebShortcakeLinkingAlgorithm").deriveEncryptionKey(
-                n.privKey,
-                u,
-                a,
-                i,
-              );
-            if (I.epoch !== c)
-              throw (
-                o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake: cancelled in handlePrimaryEphemeralIdentity",
-                    ])),
-                ),
-                r("err")("Shortcake: cancelled")
-              );
-            return (
-              (I.encryptionKey = m),
-              (I.verificationCode = d),
-              (I.timeoutId = self.setTimeout(function () {
-                (o("WALogger").WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake: timeout awaiting verification code",
-                    ])),
-                ),
-                  I.clear(),
-                  o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
-                    reason: "timeout",
-                  }));
-              }, E)),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "shortcakeVerificationCodeReady",
-                { verificationCode: d, skipHandoffUx: I.skipHandoffUx },
-              ),
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "Shortcake: verification code ready, awaiting user",
-                  ])),
-              ),
-              d
-            );
-          } catch (e) {
-            throw (
-              I.epoch === c &&
-                (I.clear(),
-                o("WALogger").ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake: handlePrimaryEphemeralIdentity failed",
-                    ])),
-                ),
-                o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
-                  reason: "server_error",
-                })),
-              e
-            );
-          }
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
-                "Shortcake: user confirmed verification code",
+            r("err")("Shortcake: cancelled")
+          );
+        return (
+          (I.encryptionKey = y),
+          (I.verificationCode = d),
+          (I.timeoutId = self.setTimeout(function () {
+            (o("WALogger").WARN(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "Shortcake: timeout awaiting verification code",
+                ])),
+            ),
+              I.clear(),
+              o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
+                reason: "timeout",
+              }));
+          }, E)),
+          o("WAWebBackendApi").frontendFireAndForget(
+            "shortcakeVerificationCodeReady",
+            { verificationCode: d, skipHandoffUx: I.skipHandoffUx },
+          ),
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "Shortcake: verification code ready, awaiting user",
               ])),
           ),
-            I.stage === L.WaitingForVerificationCodeConfirmation ||
-              s(0, 152466, String(I.stage)));
-          var t = I.encryptionKey;
-          if (t == null) throw r("err")("Shortcake: missing encryption key");
-          (I.timeoutId != null &&
-            (self.clearTimeout(I.timeoutId), (I.timeoutId = null)),
-            (I.stage = L.WaitingForPairingCompletion));
-          var n = I.epoch;
-          try {
-            var a = yield o(
-                "WAWebShortcakeLinkingAlgorithm",
-              ).encryptPairingRequest(e, t),
-              i = a.encryptedPayload,
-              l = a.iv,
-              u = o("encodeProtobuf")
-                .encodeProtobuf(
-                  o("WAWebProtobufsCompanionReg.pb")
-                    .EncryptedPairingRequestSpec,
-                  { encryptedPayload: i, iv: l },
-                )
-                .readBuffer();
-            if (
-              (yield o("WAWebShortcakeLinkingIq").sendEncryptedPairingRequest(
-                new Uint8Array(u),
-              ),
-              I.epoch !== n)
-            )
-              throw (
-                o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake: cancelled in confirmVerificationCode",
-                    ])),
-                ),
-                r("err")("Shortcake: cancelled")
-              );
-            ((I.keypair = null),
-              (I.companionNonce = null),
-              (I.encryptionKey = null),
-              (I.timeoutId = self.setTimeout(function () {
-                (o("WALogger").WARN(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake: timed out waiting for pairing completion",
-                    ])),
-                ),
-                  I.clear(),
-                  o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
-                    reason: "timeout",
-                  }));
-              }, E)),
-              o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "Shortcake: EncryptedPairingRequest sent, awaiting pairing",
-                  ])),
-              ));
-          } catch (e) {
-            throw (
-              I.epoch === n &&
-                (I.clear(),
-                o("WALogger").ERROR(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "Shortcake: confirmVerificationCode failed",
-                    ])),
-                ),
-                o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
-                  reason: "server_error",
-                })),
-              e
-            );
-          }
-        })),
-        B.apply(this, arguments)
-      );
+          d
+        );
+      } catch (e) {
+        throw (
+          I.epoch === c &&
+            (I.clear(),
+            o("WALogger").ERROR(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "Shortcake: handlePrimaryEphemeralIdentity failed",
+                ])),
+            ),
+            o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
+              reason: "server_error",
+            })),
+          e
+        );
+      }
     }
-    function W() {
+    async function A(e) {
       (o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose([
+        y ||
+          (y = babelHelpers.taggedTemplateLiteralLoose([
+            "Shortcake: user confirmed verification code",
+          ])),
+      ),
+        I.stage === L.WaitingForVerificationCodeConfirmation ||
+          s(0, 152466, String(I.stage)));
+      var t = I.encryptionKey;
+      if (t == null) throw r("err")("Shortcake: missing encryption key");
+      (I.timeoutId != null &&
+        (self.clearTimeout(I.timeoutId), (I.timeoutId = null)),
+        (I.stage = L.WaitingForPairingCompletion));
+      var n = I.epoch;
+      try {
+        var a = await o("WAWebShortcakeLinkingAlgorithm").encryptPairingRequest(
+            e,
+            t,
+          ),
+          i = a.encryptedPayload,
+          l = a.iv,
+          u = o("encodeProtobuf")
+            .encodeProtobuf(
+              o("WAWebProtobufsCompanionReg.pb").EncryptedPairingRequestSpec,
+              { encryptedPayload: i, iv: l },
+            )
+            .readBuffer();
+        if (
+          (await o("WAWebShortcakeLinkingIq").sendEncryptedPairingRequest(
+            new Uint8Array(u),
+          ),
+          I.epoch !== n)
+        )
+          throw (
+            o("WALogger").LOG(
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
+                  "Shortcake: cancelled in confirmVerificationCode",
+                ])),
+            ),
+            r("err")("Shortcake: cancelled")
+          );
+        ((I.keypair = null),
+          (I.companionNonce = null),
+          (I.encryptionKey = null),
+          (I.timeoutId = self.setTimeout(function () {
+            (o("WALogger").WARN(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "Shortcake: timed out waiting for pairing completion",
+                ])),
+            ),
+              I.clear(),
+              o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
+                reason: "timeout",
+              }));
+          }, E)),
+          o("WALogger").LOG(
+            v ||
+              (v = babelHelpers.taggedTemplateLiteralLoose([
+                "Shortcake: EncryptedPairingRequest sent, awaiting pairing",
+              ])),
+          ));
+      } catch (e) {
+        throw (
+          I.epoch === n &&
+            (I.clear(),
+            o("WALogger").ERROR(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "Shortcake: confirmVerificationCode failed",
+                ])),
+            ),
+            o("WAWebBackendApi").frontendFireAndForget("shortcakeError", {
+              reason: "server_error",
+            })),
+          e
+        );
+      }
+    }
+    function F() {
+      (o("WALogger").LOG(
+        R ||
+          (R = babelHelpers.taggedTemplateLiteralLoose([
             "Shortcake: cancelling",
           ])),
       ),
@@ -361,10 +336,10 @@ __d(
       (l.shouldSkipHandoffUx = $),
       (l.setSkipHandoffUx = P),
       (l.initializeShortcakeLinking = N),
-      (l.markPrologueSent = w),
-      (l.handlePrimaryEphemeralIdentity = A),
-      (l.confirmVerificationCode = O),
-      (l.cancelShortcakeLinking = W));
+      (l.markPrologueSent = M),
+      (l.handlePrimaryEphemeralIdentity = w),
+      (l.confirmVerificationCode = A),
+      (l.cancelShortcakeLinking = F));
   },
   98,
 );

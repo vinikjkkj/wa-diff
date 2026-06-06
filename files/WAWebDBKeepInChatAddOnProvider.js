@@ -7,7 +7,6 @@ __d(
     "WAWebMessageAddOnType",
     "WAWebMsgDataFromModel",
     "WAWebMsgType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -25,37 +24,27 @@ __d(
         canRenderInUi: function () {
           return !0;
         },
-        processOrphansForNewMsg: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, n) {
-              var r = n.map(function (e) {
-                  return e.parsedMsgPayload;
-                }),
-                a = o("WAWebEphemeralKeepInChatUtils").runKeepInChatTieBreaker(
-                  r,
-                );
-              if (
-                (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "keepInChatAddOnProvider: found orphan",
-                    ])),
-                ),
-                a != null)
-              ) {
-                var i = o("WAWebMsgDataFromModel").msgDataFromMsgModel(a);
-                yield o("WAWebBackendApi").frontendSendAndReceive(
-                  "processKeepInChatMessage",
-                  { keepInChatMessage: i, allowNotification: !1 },
-                );
-              }
-            },
-          );
-          function r(e, n) {
-            return t.apply(this, arguments);
+        processOrphansForNewMsg: async function (n, r) {
+          var t = r.map(function (e) {
+              return e.parsedMsgPayload;
+            }),
+            a = o("WAWebEphemeralKeepInChatUtils").runKeepInChatTieBreaker(t);
+          if (
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "keepInChatAddOnProvider: found orphan",
+                ])),
+            ),
+            a != null)
+          ) {
+            var i = o("WAWebMsgDataFromModel").msgDataFromMsgModel(a);
+            await o("WAWebBackendApi").frontendSendAndReceive(
+              "processKeepInChatMessage",
+              { keepInChatMessage: i, allowNotification: !1 },
+            );
           }
-          return r;
-        })(),
+        },
       };
     l.keepInChatAddOnProvider = s;
   },

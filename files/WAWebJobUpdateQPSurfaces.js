@@ -1,18 +1,16 @@
 __d(
   "WAWebJobUpdateQPSurfaces",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebCTWAConstants",
     "WAWebJobLoadQuickPromotions",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
+    var e, s;
+    function u(e) {
       var t,
         n,
         r,
@@ -30,7 +28,7 @@ __d(
           (a = i == null ? void 0 : i.dismissClickCount) != null ? a : 0,
       };
     }
-    function d(e, t) {
+    function c(e, t) {
       var n,
         r,
         o,
@@ -38,7 +36,7 @@ __d(
         i,
         l = e.tracking,
         s = (n = t.qpConfigPacing) == null ? void 0 : n.userInfo,
-        u = c(t),
+        c = u(t),
         d =
           l.dismisses -
           ((r = s == null ? void 0 : s.dismissClickCount) != null ? r : 0),
@@ -51,145 +49,109 @@ __d(
         _ =
           l.impressions -
           ((i = s == null ? void 0 : s.impressionCount) != null ? i : 0);
-      (d > 0 && (u.dismisses += d),
-        m > 0 && (u.primaryClicks += m),
-        p > 0 && (u.secondaryClicks += p),
-        _ > 0 && (u.impressions += _));
+      (d > 0 && (c.dismisses += d),
+        m > 0 && (c.primaryClicks += m),
+        p > 0 && (c.secondaryClicks += p),
+        _ > 0 && (c.impressions += _));
       var f = l.lastDismissTs,
         g = l.lastImpressionTs,
         h = l.lastPrimaryClickTs,
         y = l.lastSecondaryClickTs;
       return (
-        g != null && (u.lastImpressionTs = g),
-        h != null && (u.lastPrimaryClickTs = h),
-        y != null && (u.lastSecondaryClickTs = y),
-        f != null && (u.lastDismissTs = f),
-        u
+        g != null && (c.lastImpressionTs = g),
+        h != null && (c.lastPrimaryClickTs = h),
+        y != null && (c.lastSecondaryClickTs = y),
+        f != null && (c.lastDismissTs = f),
+        c
       );
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          if (t.length === 0)
-            return (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "updateQPSurfaces: no surfaces",
-                  ])),
-              ),
-              (u || (u = n("Promise"))).resolve()
-            );
-          var i = t.map(function (e) {
-              return e.id;
-            }),
-            l = new Set(i);
-          if (l.size !== i.length)
-            return (
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "updateQPSurfaces: found duplicated surface",
-                  ])),
-              ),
-              (u || (u = n("Promise"))).resolve()
-            );
-          var m = new Map();
-          (t.forEach(function (e) {
-            o("WAWebCTWAConstants").KNOWN_QP_SURFACES.has(e.id) &&
-              e.promotions.forEach(function (t) {
-                m.set(t.id, { promotion: t, surfaceId: e.id });
-              });
-          }),
-            yield o("WAWebOrchestratorNonPersistedJob")
-              .createNonPersistedJob("updateQPSurfaces", function () {
-                return o("WAWebModelStorageUtils")
-                  .getStorage()
-                  .lock(
-                    ["quick-promotions"],
-                    (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          var t = e[0],
-                            o = yield t.anyOf(["surfaceId"], i),
-                            l = a == null ? void 0 : a.locale,
-                            s = o.map(function (e) {
-                              var n = e.id,
-                                o = m.get(n);
-                              if (o == null) return t.remove(n);
-                              var a = d(e, o.promotion),
-                                i = { data: o.promotion, ts: r, tracking: a };
-                              return (
-                                l != null && (i.locale = l),
-                                m.delete(n),
-                                t.merge(n, i)
-                              );
-                            });
-                          yield (u || (u = n("Promise"))).all(s);
-                          var p = Array.from(m.values()),
-                            _ = p.map(function (e) {
-                              var t = e.promotion,
-                                n = e.surfaceId,
-                                o = {
-                                  id: t.id,
-                                  surfaceId: n,
-                                  data: t,
-                                  ts: r,
-                                  tracking: c(t),
-                                };
-                              return (
-                                l != null &&
-                                  (o = babelHelpers.extends({}, o, {
-                                    locale: l,
-                                  })),
-                                o
-                              );
-                            });
-                          yield t.bulkCreate(_);
-                        },
-                      );
-                      return function (t) {
-                        return e.apply(this, arguments);
+    async function d(t, n, r) {
+      if (t.length === 0)
+        return (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "updateQPSurfaces: no surfaces",
+              ])),
+          ),
+          Promise.resolve()
+        );
+      var a = t.map(function (e) {
+          return e.id;
+        }),
+        i = new Set(a);
+      if (i.size !== a.length)
+        return (
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "updateQPSurfaces: found duplicated surface",
+              ])),
+          ),
+          Promise.resolve()
+        );
+      var l = new Map();
+      (t.forEach(function (e) {
+        o("WAWebCTWAConstants").KNOWN_QP_SURFACES.has(e.id) &&
+          e.promotions.forEach(function (t) {
+            l.set(t.id, { promotion: t, surfaceId: e.id });
+          });
+      }),
+        await o("WAWebOrchestratorNonPersistedJob")
+          .createNonPersistedJob("updateQPSurfaces", function () {
+            return o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(["quick-promotions"], async function (e) {
+                var t = e[0],
+                  o = await t.anyOf(["surfaceId"], a),
+                  i = r == null ? void 0 : r.locale,
+                  s = o.map(function (e) {
+                    var r = e.id,
+                      o = l.get(r);
+                    if (o == null) return t.remove(r);
+                    var a = c(e, o.promotion),
+                      s = { data: o.promotion, ts: n, tracking: a };
+                    return (
+                      i != null && (s.locale = i),
+                      l.delete(r),
+                      t.merge(r, s)
+                    );
+                  });
+                await Promise.all(s);
+                var d = Array.from(l.values()),
+                  m = d.map(function (e) {
+                    var t = e.promotion,
+                      r = e.surfaceId,
+                      o = {
+                        id: t.id,
+                        surfaceId: r,
+                        data: t,
+                        ts: n,
+                        tracking: u(t),
                       };
-                    })(),
-                  );
-              })
-              .waitUntilCompleted(),
-            yield o("WAWebJobLoadQuickPromotions").loadQuickPromotions(
-              "fetch-success",
-            ));
-        })),
-        p.apply(this, arguments)
-      );
+                    return (
+                      i != null &&
+                        (o = babelHelpers.extends({}, o, { locale: i })),
+                      o
+                    );
+                  });
+                await t.bulkCreate(m);
+              });
+          })
+          .waitUntilCompleted(),
+        await o("WAWebJobLoadQuickPromotions").loadQuickPromotions(
+          "fetch-success",
+        ));
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    async function m(e, t) {
+      return d(e, t);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return m(e, t);
-        })),
-        f.apply(this, arguments)
-      );
+    async function p(e, t) {
+      var n = o("WATimeUtils").unixTime();
+      return d(e, n, { locale: t });
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WATimeUtils").unixTime();
-          return m(e, n, { locale: t });
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    ((l.updateQPSurfacesFromNotification = _),
-      (l.updateQPSurfacesFromGraphQLFetch = g));
+    ((l.updateQPSurfacesFromNotification = m),
+      (l.updateQPSurfacesFromGraphQLFetch = p));
   },
   98,
 );

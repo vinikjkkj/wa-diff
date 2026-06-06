@@ -1,35 +1,27 @@
 __d(
   "WAWebTableRowCountsLogger",
-  ["WAAsyncSleep", "WAWebModelStorageUtils", "asyncToGeneratorRuntime"],
+  ["WAAsyncSleep", "WAWebModelStorageUtils"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
+    async function e() {
+      var e = o("WAWebModelStorageUtils").getStorage().getExistingTables(),
+        t = [],
+        n = async function (n) {
+          (t.push(
+            await o("WAWebModelStorageUtils")
+              .getStorage()
+              .table(n)
+              .count()
+              .then(function (e) {
+                return [n, e];
+              }),
+          ),
+            await o("WAAsyncSleep").asyncSleep(1e3));
+        };
+      for (var r of e.keys()) await n(r);
+      for (var a of t);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebModelStorageUtils").getStorage().getExistingTables(),
-            t = [],
-            n = function* (n) {
-              (t.push(
-                yield o("WAWebModelStorageUtils")
-                  .getStorage()
-                  .table(n)
-                  .count()
-                  .then(function (e) {
-                    return [n, e];
-                  }),
-              ),
-                yield o("WAAsyncSleep").asyncSleep(1e3));
-            };
-          for (var r of e.keys()) yield* n(r);
-          for (var a of t);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    var u = { logStorageTableRowCounts: e };
-    l.default = u;
+    var s = { logStorageTableRowCounts: e };
+    l.default = s;
   },
   98,
 );

@@ -1,16 +1,9 @@
 __d(
   "WAWebApiSubgroupSuggestionStore",
-  [
-    "Promise",
-    "WABatcher",
-    "WAWebSchemaSubgroupSuggestionV2",
-    "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WABatcher", "WAWebSchemaSubgroupSuggestionV2", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 3e3;
-    function u(e) {
+    var e = 3e3;
+    function s(e) {
       return o("WAWebSchemaSubgroupSuggestionV2")
         .getSubgroupSuggestionTable()
         .equals(["parentGroupId"], e.toString())
@@ -39,7 +32,7 @@ __d(
           });
         });
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = t.map(function (t) {
         var n = t.desc,
           r = t.hiddenSubgroup,
@@ -65,53 +58,39 @@ __d(
         .getSubgroupSuggestionTable()
         .bulkCreateOrReplace(n);
     }
-    function d(t, r, a, i) {
-      var l = (function () {
-        var l = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var l = yield (e || (e = n("Promise"))).all(
-              r.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = yield o("WAWebSchemaSubgroupSuggestionV2")
-                        .getSubgroupSuggestionTable()
-                        .get([t.toString(), e.toString(), a.toString()]);
-                      return n;
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            s = l.filter(Boolean),
-            u = s.map(function (e) {
-              return babelHelpers.extends({}, e, {
-                owner: i,
-                parentGroupId: o("WAWebWidFactory").createWid(e.parentGroupId),
-                id: o("WAWebWidFactory").createWid(e.id),
-              });
-            });
-          (yield m(
-            s.map(function (e) {
-              var n = e.id;
-              return {
-                parentGroupId: t,
-                id: o("WAWebWidFactory").createWid(n),
-                owner: a,
-              };
+    function c(e, t, n, r) {
+      var a = async function () {
+        var a = await Promise.all(
+            t.map(async function (t) {
+              var r = await o("WAWebSchemaSubgroupSuggestionV2")
+                .getSubgroupSuggestionTable()
+                .get([e.toString(), t.toString(), n.toString()]);
+              return r;
             }),
           ),
-            yield c(t, u));
-        });
-        return function () {
-          return l.apply(this, arguments);
-        };
-      })();
-      return l();
+          i = a.filter(Boolean),
+          l = i.map(function (e) {
+            return babelHelpers.extends({}, e, {
+              owner: r,
+              parentGroupId: o("WAWebWidFactory").createWid(e.parentGroupId),
+              id: o("WAWebWidFactory").createWid(e.id),
+            });
+          });
+        (await d(
+          i.map(function (t) {
+            var r = t.id;
+            return {
+              parentGroupId: e,
+              id: o("WAWebWidFactory").createWid(r),
+              owner: n,
+            };
+          }),
+        ),
+          await u(e, l));
+      };
+      return a();
     }
-    function m(e) {
+    function d(e) {
       return o("WAWebSchemaSubgroupSuggestionV2")
         .getSubgroupSuggestionTable()
         .bulkRemove(
@@ -123,36 +102,28 @@ __d(
           }),
         );
     }
-    function p(e) {
+    function m(e) {
       return o("WAWebSchemaSubgroupSuggestionV2")
         .getSubgroupSuggestionTable()
         .bulkRemoveByIndex(["parentGroupId"], [e.toString()]);
     }
-    var _ = o("WABatcher").batch(
-      { delayMs: s },
-      (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.reduce(function (e, t) {
-            return (e.push.apply(e, t.suggestionsRowKeys), e);
-          }, []);
-          return (yield m(t), []);
-        });
-        return function (t) {
-          return e.apply(this, arguments);
-        };
-      })(),
-    );
-    function f(e) {
+    var p = o("WABatcher").batch({ delayMs: e }, async function (e) {
+      var t = e.reduce(function (e, t) {
+        return (e.push.apply(e, t.suggestionsRowKeys), e);
+      }, []);
+      return (await d(t), []);
+    });
+    function _(e) {
       var t = e.isOffline,
         n = e.subgroupSuggestions;
-      return t === !0 ? _({ suggestionsRowKeys: n }) : m(n);
+      return t === !0 ? p({ suggestionsRowKeys: n }) : d(n);
     }
-    ((l.getSubgroupSuggestions = u),
-      (l.addSubgroupSuggestions = c),
-      (l.updateOwnerInSubgroupSuggestions = d),
-      (l.removeSubgroupSuggestions = m),
-      (l.removeAllSubgroupSuggestions = p),
-      (l.removeSubgroupSuggestionsWithOfflineOption = f));
+    ((l.getSubgroupSuggestions = s),
+      (l.addSubgroupSuggestions = u),
+      (l.updateOwnerInSubgroupSuggestions = c),
+      (l.removeSubgroupSuggestions = d),
+      (l.removeAllSubgroupSuggestions = m),
+      (l.removeSubgroupSuggestionsWithOfflineOption = _));
   },
   98,
 );

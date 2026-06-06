@@ -7,7 +7,6 @@ __d(
     "WANullthrows",
     "WAWap",
     "WAWebMexLogging",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -75,55 +74,47 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i = (a = n.metadata) == null ? void 0 : a.mexPerfTracker,
-            l = i instanceof o("WAWebMexLogging").MexPerfTracker ? i : null;
-          l != null && (l.setQueryId(e.id), l.setOperationName(e.name));
-          var d = { variables: t },
-            m = yield _(d, r("WANullthrows")(e.id), l);
-          if (!m.success)
-            throw (
-              l != null &&
-                (l.setHasData(!1),
-                l.setErrors([
-                  o("WAWebMexLogging").createLoggingTransportError(
-                    m.errorCode,
-                    m.errorText,
-                  ),
-                ])),
-              new s(m.errorCode, m.errorText)
-            );
-          var f = {};
-          try {
-            f = JSON.parse(m.result);
-          } catch (e) {
-            var g = r("getErrorSafe")(e);
-            throw (
-              l != null &&
-                (l.setHasData(!1),
-                l.setErrors([
-                  o("WAWebMexLogging").createLoggingClientError(472, g.message),
-                ])),
-              new u(g)
-            );
-          }
-          var h = f;
+    async function d(e, t, n) {
+      var a,
+        i = (a = n.metadata) == null ? void 0 : a.mexPerfTracker,
+        l = i instanceof o("WAWebMexLogging").MexPerfTracker ? i : null;
+      l != null && (l.setQueryId(e.id), l.setOperationName(e.name));
+      var d = { variables: t },
+        _ = await p(d, r("WANullthrows")(e.id), l);
+      if (!_.success)
+        throw (
           l != null &&
-            (l.setHasData(h.data != null), l.setExtensionErrors(h.errors));
-          var y = p(h.errors);
-          if (y != null) throw new c(y);
-          return f;
-        })),
-        m.apply(this, arguments)
-      );
+            (l.setHasData(!1),
+            l.setErrors([
+              o("WAWebMexLogging").createLoggingTransportError(
+                _.errorCode,
+                _.errorText,
+              ),
+            ])),
+          new s(_.errorCode, _.errorText)
+        );
+      var f = {};
+      try {
+        f = JSON.parse(_.result);
+      } catch (e) {
+        var g = r("getErrorSafe")(e);
+        throw (
+          l != null &&
+            (l.setHasData(!1),
+            l.setErrors([
+              o("WAWebMexLogging").createLoggingClientError(472, g.message),
+            ])),
+          new u(g)
+        );
+      }
+      var h = f;
+      l != null &&
+        (l.setHasData(h.data != null), l.setExtensionErrors(h.errors));
+      var y = m(h.errors);
+      if (y != null) throw new c(y);
+      return f;
     }
-    function p(e) {
+    function m(e) {
       var t;
       if (e == null || e.length === 0) return null;
       var n =
@@ -144,35 +135,27 @@ __d(
       }
       return n;
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          try {
-            return yield e(t, n);
-          } catch (e) {
-            var i = r("getErrorSafe")(e);
-            throw (
-              a != null &&
-                (a.setHasData(!1),
-                a.setErrors([
-                  o("WAWebMexLogging").createLoggingClientError(471, i.message),
-                ])),
-              new s(500, i.message)
-            );
-          }
-        })),
-        f.apply(this, arguments)
-      );
+    async function p(t, n, a) {
+      try {
+        return await e(t, n);
+      } catch (e) {
+        var i = r("getErrorSafe")(e);
+        throw (
+          a != null &&
+            (a.setHasData(!1),
+            a.setErrors([
+              o("WAWebMexLogging").createLoggingClientError(471, i.message),
+            ])),
+          new s(500, i.message)
+        );
+      }
     }
     ((l.sendMexIq = e),
       (l.MexIqError = s),
       (l.MexPayloadParsingError = u),
       (l.MexFatalExtensionError = c),
       (l.fetchFunc = d),
-      (l.parseFatalExtensionError = p));
+      (l.parseFatalExtensionError = m));
   },
   98,
 );

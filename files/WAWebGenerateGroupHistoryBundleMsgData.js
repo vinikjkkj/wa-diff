@@ -1,7 +1,6 @@
 __d(
   "WAWebGenerateGroupHistoryBundleMsgData",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WAMediaCalculateFilehash",
@@ -30,28 +29,27 @@ __d(
     "WAWebWamEnumUploadOriginType",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(t) {
-      var a = t.chatId,
-        i = t.historyReceivers,
-        l = t.nonHistoryReceivers,
-        m = t.selectedMessageCount,
-        _ = t.targetStartMessageTime;
+    var e, s, u, c;
+    function d(t) {
+      var n = t.chatId,
+        a = t.historyReceivers,
+        i = t.nonHistoryReceivers,
+        l = t.selectedMessageCount,
+        d = t.targetStartMessageTime;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "generateGroupHistoryBundleMsgData",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             var t,
-              f = o("WAWebWidFactory").asGroupWidOrThrow(
-                o("WAWebJidToWid").groupJidToWid(a),
+              p = o("WAWebWidFactory").asGroupWidOrThrow(
+                o("WAWebJidToWid").groupJidToWid(n),
               );
-            if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(f))
-              return (d || (d = n("Promise"))).reject(
+            if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(p))
+              return Promise.reject(
                 r("err")("[group-history] Group history sender is not enabled"),
               );
             o("WALogger").LOG(
@@ -61,95 +59,95 @@ __d(
                   " receivers=",
                   "",
                 ])),
+              n,
               a,
-              i,
             );
-            var g = yield o(
+            var _ = await o(
               "WAWebRetrieveMessagesForBundle",
-            ).retrieveMessagesForBundle(f, m, _);
+            ).retrieveMessagesForBundle(p, l, d);
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[group-history] Retrieved ",
                   " messages",
                 ])),
-              g.length,
+              _.length,
             );
-            var h = _ != null ? _ : o("WATimeUtils").unixTime(),
-              y = o(
+            var f = d != null ? d : o("WATimeUtils").unixTime(),
+              g = o(
                 "WAWebGroupHistoryGating",
-              ).getGroupHistoryMessagesTimeLimitSecs(f),
-              C = h - y,
-              b = new Set(
-                g.map(function (e) {
+              ).getGroupHistoryMessagesTimeLimitSecs(p),
+              h = f - g,
+              y = new Set(
+                _.map(function (e) {
                   return e.id;
                 }),
               ),
-              v = yield o(
+              C = await o(
                 "WAWebRetrieveOutOfWindowPinsForBundle",
-              ).retrieveOutOfWindowPinsForBundle(f, C, b, _),
-              S = g.map(function (e) {
+              ).retrieveOutOfWindowPinsForBundle(p, h, y, d),
+              b = _.map(function (e) {
                 return o("WAWebDBMessageSerialization").messageFromDbRow(e);
               }),
-              R =
-                v.length > 0
-                  ? v.map(function (e) {
+              v =
+                C.length > 0
+                  ? C.map(function (e) {
                       return o("WAWebDBMessageSerialization").messageFromDbRow(
                         e,
                       );
                     })
                   : void 0,
-              L = yield o(
+              S = await o(
                 "WAWebSerializeGroupHistoryMessages",
-              ).serializeGroupHistoryMessages(S, R),
-              E = L.compressedBundle,
-              k = L.encodedBytes;
+              ).serializeGroupHistoryMessages(b, v),
+              R = S.compressedBundle,
+              L = S.encodedBytes;
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[group-history] Serialized messages ",
                   " bytes",
                 ])),
-              E.byteLength,
+              R.byteLength,
             );
-            var I = self.crypto.getRandomValues(new Uint8Array(32)),
-              T = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-              D = new (r("WAWebMsgKey"))({
+            var E = self.crypto.getRandomValues(new Uint8Array(32)),
+              k = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              I = new (r("WAWebMsgKey"))({
                 fromMe: !0,
-                remote: f,
-                id: yield r("WAWebMsgKey").newId(),
-                participant: T,
+                remote: p,
+                id: await r("WAWebMsgKey").newId(),
+                participant: k,
               }),
-              x = null;
+              T = null;
             if (
               o(
                 "WAWebGroupHistoryGating",
-              ).isGroupHistorySenderReportingTokenEnabled(f)
+              ).isGroupHistorySenderReportingTokenEnabled(p)
             ) {
-              var $ = p(S, R),
-                P = o(
+              var D = m(b, v),
+                x = o(
                   "WAWebMessagingGatingUtils",
                 ).getSenderReportingTokenVersion();
-              ((x = yield o(
+              ((T = await o(
                 "WAWebGroupHistoryReportingTokenGenerator",
               ).genGroupHistoryReportingTokens(
-                k,
-                I,
-                o("WAWebWidToJid").widToUserJid(T),
-                a,
-                P,
-                $,
+                L,
+                E,
+                o("WAWebWidToJid").widToUserJid(k),
+                n,
+                x,
+                D,
               )),
-                x != null &&
-                  (yield o(
+                T != null &&
+                  (await o(
                     "WAWebGroupHistoryReportingTokenDBUtils",
-                  ).storeGroupHistoryReportingTokenInfos(D.toString(), x, !0)));
+                  ).storeGroupHistoryReportingTokenInfos(I.toString(), T, !0)));
             }
-            var N = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
+            var $ = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
                 entryPoint: "GroupHistoryBundle",
               }),
-              M = yield r("WAWebUploadManager").encryptAndUpload({
-                blob: E,
+              P = await r("WAWebUploadManager").encryptAndUpload({
+                blob: R,
                 signal: new AbortController().signal,
                 type: o("WAWebMmsMediaTypes").MEDIA_TYPES.GROUP_HISTORY,
                 userUploadAttemptCount: 0,
@@ -157,7 +155,7 @@ __d(
                 uploadOrigin: o("WAWebWamEnumUploadOriginType")
                   .UPLOAD_ORIGIN_TYPE.CHAT_GROUP,
                 isViewOnce: !1,
-                uploadQpl: N,
+                uploadQpl: $,
               });
             o("WALogger").LOG(
               c ||
@@ -165,25 +163,25 @@ __d(
                   "[group-history] Uploaded history bundle to ",
                   "",
                 ])),
-              M.url,
+              P.url,
             );
-            var w = yield o("WAMediaCalculateFilehash").calculateFilehash(E),
-              A = (t = g.at(-1)) == null ? void 0 : t.t,
-              F =
-                v.length > 0
+            var N = await o("WAMediaCalculateFilehash").calculateFilehash(R),
+              M = (t = _.at(-1)) == null ? void 0 : t.t,
+              w =
+                C.length > 0
                   ? Math.min.apply(
                       Math,
-                      v.map(function (e) {
+                      C.map(function (e) {
                         var t;
                         return (t = e.t) != null ? t : 1 / 0;
                       }),
                     )
                   : void 0,
-              O = F != null && A != null ? Math.min(A, F) : F != null ? F : A,
-              B = babelHelpers.extends(
-                { id: D },
+              A = w != null && M != null ? Math.min(M, w) : w != null ? w : M,
+              F = babelHelpers.extends(
+                { id: I },
                 o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-                  D,
+                  I,
                   o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
                 ),
                 {
@@ -196,32 +194,32 @@ __d(
                   isNewMsg: !0,
                   local: !0,
                   ack: o("WAWebAck").ACK.CLOCK,
-                  messageSecret: I,
-                  filehash: w,
-                  encFilehash: M.encFilehash,
-                  mediaKey: M.mediaKey,
-                  mediaKeyTimestamp: M.mediaKeyTimestamp,
-                  directPath: M.directPath,
-                  size: E.byteLength,
+                  messageSecret: E,
+                  filehash: N,
+                  encFilehash: P.encFilehash,
+                  mediaKey: P.mediaKey,
+                  mediaKeyTimestamp: P.mediaKeyTimestamp,
+                  directPath: P.directPath,
+                  size: R.byteLength,
                   mimetype: "application/protobuf",
                   groupHistoryBundleMetadata: {
-                    messageCount: g.length,
-                    historyReceivers: i,
-                    nonHistoryReceivers: l,
-                    oldestMessageTimestampInWindow: A,
-                    oldestMessageTimestampInBundle: O,
+                    messageCount: _.length,
+                    historyReceivers: a,
+                    nonHistoryReceivers: i,
+                    oldestMessageTimestampInWindow: M,
+                    oldestMessageTimestampInBundle: A,
                     processState: o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.NONE,
                   },
                 },
               );
-            return B;
-          }),
+            return F;
+          },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = new Map();
       for (var r of [].concat(e, t != null ? t : []))
         r.type === "revoked" &&
@@ -229,7 +227,7 @@ __d(
           n.set(r.id.id, r.protocolMessageKey.id);
       return n;
     }
-    l.generateGroupHistoryBundleMsgData = m;
+    l.generateGroupHistoryBundleMsgData = d;
   },
   98,
 );

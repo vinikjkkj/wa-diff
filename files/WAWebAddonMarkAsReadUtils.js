@@ -5,45 +5,36 @@ __d(
     "WAWebAddonConstants",
     "WAWebAddonSelectUtils",
     "WAWebAddonUpdateDataUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.map(function (e) {
-            return e.read != null
-              ? babelHelpers.extends({}, e, { read: !0 })
-              : e;
-          });
-          try {
-            var r = o("WAWebAddonSelectUtils").getAddonTableMode(t[0]);
-            yield o("WAWebAddonUpdateDataUtils").updateAddonsInTableMode(
-              {
-                processMode: o("WAWebAddonConstants").AddonProcessMode
-                  .MarkAsRead,
-                tableMode: r,
-              },
-              { add: n },
-            );
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "processMarkAsRead update failed ",
-                    "",
-                  ])),
-                t,
-              )
-              .tags("addons", "messaging")
-              .sendLogs("processMarkAsRead");
-          }
+      s = async function (n) {
+        var t = n.map(function (e) {
+          return e.read != null ? babelHelpers.extends({}, e, { read: !0 }) : e;
         });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
+        try {
+          var r = o("WAWebAddonSelectUtils").getAddonTableMode(n[0]);
+          await o("WAWebAddonUpdateDataUtils").updateAddonsInTableMode(
+            {
+              processMode: o("WAWebAddonConstants").AddonProcessMode.MarkAsRead,
+              tableMode: r,
+            },
+            { add: t },
+          );
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "processMarkAsRead update failed ",
+                  "",
+                ])),
+              t,
+            )
+            .tags("addons", "messaging")
+            .sendLogs("processMarkAsRead");
+        }
+      };
     l.processMarkAsRead = s;
   },
   98,

@@ -1,12 +1,10 @@
 __d(
   "WAWebSyncdAction",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -14,145 +12,109 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c = (function () {
+      u = (function () {
         function t() {}
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.malformedActionIndex = function () {
+          (n.malformedActionIndex = function () {
             var e = this.asSyncdActionHandler();
             return o("WAWebSyncdIndexUtils").malformedActionIndex(
               e.collectionName,
               e.getAction(),
             );
           }),
-          (a.resolveConflicts = function (t, r) {
-            var e = r.timestamp;
+          (n.resolveConflicts = function (t, n) {
+            var e = n.timestamp;
             return e >= t.timestamp
-              ? (u || (u = n("Promise"))).resolve(
+              ? Promise.resolve(
                   o("WASyncdConst").ConflictResolutionState
                     .ApplyRemoteAndDropLocal,
                 )
-              : (u || (u = n("Promise"))).resolve(
+              : Promise.resolve(
                   o("WASyncdConst").ConflictResolutionState.SkipRemote,
                 );
           }),
-          (a.dropMutationDueToCrossIndexConflict = function (t, r) {
-            return (u || (u = n("Promise"))).resolve(!1);
+          (n.dropMutationDueToCrossIndexConflict = function (t, n) {
+            return Promise.resolve(!1);
           }),
-          (a.getValidatedContent = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                switch (e.operation) {
-                  case "remove":
-                    return this.getValidatedContentRemove(e);
-                  case "set":
-                    return this.getValidatedContentSet(e);
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.getValidatedContent = async function (t) {
+            switch (t.operation) {
+              case "remove":
+                return this.getValidatedContentRemove(t);
+              case "set":
+                return this.getValidatedContentSet(t);
             }
-            return t;
-          })()),
-          (a.getValidatedContentSet = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                throw r("err")(
-                  "You must implement getValidatedContent on your handler before using `withValidatedContent`",
+          }),
+          (n.getValidatedContentSet = async function (t) {
+            throw r("err")(
+              "You must implement getValidatedContent on your handler before using `withValidatedContent`",
+            );
+          }),
+          (n.getValidatedContentRemove = async function (t) {
+            return { result: "unsupported" };
+          }),
+          (n.withValidatedContent = async function (n, r) {
+            var t = await this.getValidatedContent(n),
+              a = this.asSyncdActionHandler();
+            switch (t.result) {
+              case "malformed_index":
+                return this.malformedActionIndex();
+              case "malformed_value":
+                return o("WAWebSyncdIndexUtils").malformedActionValue(
+                  a.collectionName,
                 );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+              case "unsupported":
+                return {
+                  actionState: o("WASyncdConst").SyncActionState.Unsupported,
+                };
+              case "ok":
+                return r(t.content).catch(function (t) {
+                  var n = t instanceof Error ? t.message : String(t);
+                  return (
+                    o("WALogger").ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd] withValidatedContent err: ",
+                          ": ",
+                          "",
+                        ])),
+                      a.getAction(),
+                      n,
+                    ),
+                    { actionState: o("WASyncdConst").SyncActionState.Failed }
+                  );
+                });
             }
-            return t;
-          })()),
-          (a.getValidatedContentRemove = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return { result: "unsupported" };
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.withValidatedContent = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n) {
-                var r = yield this.getValidatedContent(t),
-                  a = this.asSyncdActionHandler();
-                switch (r.result) {
-                  case "malformed_index":
-                    return this.malformedActionIndex();
-                  case "malformed_value":
-                    return o("WAWebSyncdIndexUtils").malformedActionValue(
-                      a.collectionName,
-                    );
-                  case "unsupported":
-                    return {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    };
-                  case "ok":
-                    return n(r.content).catch(function (t) {
-                      var n = t instanceof Error ? t.message : String(t);
-                      return (
-                        o("WALogger").ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[syncd] withValidatedContent err: ",
-                              ": ",
-                              "",
-                            ])),
-                          a.getAction(),
-                          n,
-                        ),
-                        {
-                          actionState: o("WASyncdConst").SyncActionState.Failed,
-                        }
-                      );
-                    });
-                }
-              },
-            );
-            function r(e, n) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.asSyncdActionHandler = function () {
+          }),
+          (n.asSyncdActionHandler = function () {
             if (this.isSyncdAction()) return this;
             throw r("err")("Invalid cast to SyncdAction");
           }),
-          (a.isLidMutation = function (t) {
+          (n.isLidMutation = function (t) {
             return !1;
           }),
-          (a.isSyncdAction = function () {
+          (n.isSyncdAction = function () {
             return !0;
           }),
-          (a.isAccountSyncdAction = function () {
+          (n.isAccountSyncdAction = function () {
             return !1;
           }),
-          (a.isChatSyncdAction = function () {
+          (n.isChatSyncdAction = function () {
             return !1;
           }),
-          (a.isChatOrContactSyncdAction = function () {
+          (n.isChatOrContactSyncdAction = function () {
             return !1;
           }),
-          (a.isChatMessageRangeSyncdAction = function () {
+          (n.isChatMessageRangeSyncdAction = function () {
             return !1;
           }),
-          (a.isMessageSyncdAction = function () {
+          (n.isMessageSyncdAction = function () {
             return !1;
           }),
           t
         );
       })(),
-      d = (function (e) {
+      c = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -168,8 +130,8 @@ __d(
           }),
           t
         );
-      })(c),
-      m = (function (e) {
+      })(u),
+      d = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -208,8 +170,8 @@ __d(
           }),
           t
         );
-      })(c),
-      p = (function (e) {
+      })(u),
+      m = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -225,8 +187,8 @@ __d(
           }),
           t
         );
-      })(m),
-      _ = (function (e) {
+      })(d),
+      p = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -242,8 +204,8 @@ __d(
           }),
           t
         );
-      })(m),
-      f = (function (e) {
+      })(d),
+      _ = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -259,12 +221,12 @@ __d(
           }),
           t
         );
-      })(m);
-    ((l.AccountSyncdActionBase = d),
-      (l.ChatSyncdActionBase = m),
-      (l.ChatOrContactSyncdActionBase = p),
-      (l.MessageSyncdActionBase = _),
-      (l.ChatMessageRangeSyncdActionBase = f));
+      })(d);
+    ((l.AccountSyncdActionBase = c),
+      (l.ChatSyncdActionBase = d),
+      (l.ChatOrContactSyncdActionBase = m),
+      (l.MessageSyncdActionBase = p),
+      (l.ChatMessageRangeSyncdActionBase = _));
   },
   98,
 );

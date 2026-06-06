@@ -9,7 +9,6 @@ __d(
     "WDSIconIcGroup.react",
     "WDSIconIcInfo.react",
     "WDSIconIcSettings.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -89,7 +88,7 @@ __d(
             var e = t.chat;
             o("WAWebCmd").Cmd.communityAddNewGroup(
               e.id,
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {}),
+              async function () {},
               void 0,
             );
           },

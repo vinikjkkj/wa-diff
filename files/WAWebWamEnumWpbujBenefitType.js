@@ -10,6 +10,7 @@ __d(
       STICKERS: 5,
       LISTS: 6,
       NOT_APPLICABLE: 7,
+      CLOUD_STORAGE: 8,
     });
     i.WPBUJ_BENEFIT_TYPE = e;
   },

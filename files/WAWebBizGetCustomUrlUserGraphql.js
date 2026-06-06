@@ -4,51 +4,42 @@ __d(
     "WAWebBizGetCustomUrlUserGraphqlQuery.graphql",
     "WAWebGraphQLServerError",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return o("WAWebRelayClient")
-            .fetchQuery(
-              e !== void 0
-                ? e
-                : (e = n("WAWebBizGetCustomUrlUserGraphqlQuery.graphql")),
-              { data: { custom_url: { path: t } } },
-            )
-            .then(u)
-            .catch(function (e) {
-              if (
-                e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-              ) {
-                var t, n, r, a;
-                return {
-                  type: "graphql-error",
-                  errorCode:
-                    (t = (n = e.source) == null ? void 0 : n.errors[0].code) !=
-                    null
-                      ? t
-                      : 0,
-                  errorText:
-                    (r =
-                      (a = e.source) == null ? void 0 : a.errors[0].message) !=
-                    null
-                      ? r
-                      : "",
-                };
-              }
+      s = async function (r) {
+        return o("WAWebRelayClient")
+          .fetchQuery(
+            e !== void 0
+              ? e
+              : (e = n("WAWebBizGetCustomUrlUserGraphqlQuery.graphql")),
+            { data: { custom_url: { path: r } } },
+          )
+          .then(u)
+          .catch(function (e) {
+            if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+              var t, n, r, a;
               return {
                 type: "graphql-error",
-                errorCode: 0,
-                errorText: "unknown error",
+                errorCode:
+                  (t = (n = e.source) == null ? void 0 : n.errors[0].code) !=
+                  null
+                    ? t
+                    : 0,
+                errorText:
+                  (r = (a = e.source) == null ? void 0 : a.errors[0].message) !=
+                  null
+                    ? r
+                    : "",
               };
-            });
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
+            }
+            return {
+              type: "graphql-error",
+              errorCode: 0,
+              errorText: "unknown error",
+            };
+          });
+      };
     function u(e) {
       var t, n;
       if (

@@ -1,7 +1,6 @@
 __d(
   "WAWebHistorySyncHandleStatusMessages",
   [
-    "Promise",
     "WAAckLevel",
     "WAJids",
     "WALogger",
@@ -23,218 +22,178 @@ __d(
     "WAWebReportingTokenConstants",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n, r, o) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, d) {
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync] start processing status",
-                ])),
-            ),
-              (i.mdBootstrapMessagesCount = t.statusV3Messages.length),
-              o(
-                "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric({
-                chunkDownloadFinishTimestamp: d,
-                historySyncDownloadMetric: i,
-                isSuccess: !0,
-                startTs: a.historySyncStepStartedTs,
-              }),
-              t.statusV3Messages.sort(function (e, t) {
-                var n = e.messageTimestamp,
-                  r = t.messageTimestamp;
-                return (
-                  o("WATimeUtils").castToUnixTime(parseInt(n, 10)) -
-                  o("WATimeUtils").castToUnixTime(parseInt(r, 10))
-                );
-              }));
-            var m = [];
-            (yield (c || (c = n("Promise"))).all(
-              t.statusV3Messages.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t,
-                        a = null,
-                        i = [];
-                      e.key.fromMe === !0
-                        ? ((a = o("WAWebUserPrefsMeUser").getMeUser()),
-                          (i = e.userReceipt.filter(function (e) {
-                            return (
-                              e.readTimestamp != null && e.readTimestamp !== 0
-                            );
-                          })))
-                        : (a = o("WAWebWidFactory").createWid(
-                            r("WANullthrows")(
-                              e.participant,
-                              "HistorySync:handleStatusMessages: missing participant",
-                            ),
-                          ));
-                      var l = {
-                        type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
-                          .OTHER_STATUS,
-                        externalId: r("WANullthrows")(
-                          e.key.id,
-                          "HistorySync:handleStatusMessages: missing key.id",
-                        ),
-                        ts: o("WATimeUtils").castToUnixTime(
-                          parseInt(e.messageTimestamp, 10),
-                        ),
-                        edit: -1,
-                        isHsm: !1,
-                        count: null,
-                        chat: o("WAWebWidFactory").createWid(
-                          o("WAJids").STATUS_JID,
-                        ),
-                        author: r("WANullthrows")(
-                          a,
-                          "HistorySync:handleStatusMessages: missing author",
-                        ),
-                        pushname: null,
-                        isDirect: !1,
-                      };
-                      if (e.message == null)
-                        return (
-                          o("WALogger")
-                            .ERROR(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[history sync] missing message",
-                                ])),
-                            )
-                            .sendLogs("history-sync-missing-status-msg"),
-                          (c || (c = n("Promise"))).resolve()
-                        );
-                      var u = o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                        d = yield o("WAWebMsgProcessingApiUtils").parseMessage({
-                          info: l,
-                          ciphertextType: u,
-                          msgProtobuf: r("WANullthrows")(
-                            e.message,
-                            "HistorySync:handleStatusMessages: missing message",
-                          ),
-                          hsmInfo: null,
-                        }),
-                        p = d.renderableMsgs && d.renderableMsgs;
-                      if (!p || p.length !== 1)
-                        return (c || (c = n("Promise"))).resolve();
-                      var _ = p[0].id,
-                        f = p[0].author,
-                        g = babelHelpers.extends({}, p[0], {
-                          author:
-                            f &&
-                            o("WAWebLidStatusMigrationUtils").matWidConvert(f),
-                          id: new (r("WAWebMsgKey"))({
-                            fromMe: _.fromMe,
-                            remote: _.remote,
-                            id: _.id,
-                            participant:
-                              _.participant == null
-                                ? void 0
-                                : o(
-                                    "WAWebLidStatusMigrationUtils",
-                                  ).matWidConvert(_.participant),
-                          }),
-                        });
-                      if (e.participant === "0@s.whatsapp.net")
-                        return (c || (c = n("Promise"))).resolve();
-                      var h = e.ignore === !0;
-                      if (
-                        (h &&
-                          (g = babelHelpers.extends({}, g, {
-                            invis: !0,
-                            ack: o("WAAckLevel").ACK.READ,
-                          })),
-                        yield o(
-                          "WAWebHandleSingleMsgWorkerCompatible",
-                        ).handleSingleMsg({
-                          chatId: g.id.remote,
-                          newMsg: g,
-                          handleSingleMsgOrigin: "historyStatusMessages",
-                        }),
-                        i.forEach(function (e) {
-                          var t,
-                            n = o("WALongInt").numberOrThrowIfTooLarge(
-                              (t = e.readTimestamp) != null ? t : 0,
-                            ),
-                            r = o("WAWebWidFactory").createWid(e.userJid);
-                          o(
-                            "WAWebMessageReceiptBatcher",
-                          ).receiptBatcher.acceptOtherReceipt({
-                            ts: n,
-                            ack: o("WAAckLevel").ACK.READ,
-                            receiverId: r,
-                            msgKeys: [g.id.toString()],
-                          });
-                        }),
-                        o(
-                          "WAWebMessagingGatingUtils",
-                        ).isReportingTagSyncingEnabled() &&
-                          ((t = e.reportingTokenInfo) == null
-                            ? void 0
-                            : t.reportingTag) != null)
-                      ) {
-                        var y;
-                        g = babelHelpers.extends({}, g, {
-                          reportingTokenInfo: {
-                            reportingTag: new Uint8Array(
-                              (y = e.reportingTokenInfo) == null
-                                ? void 0
-                                : y.reportingTag,
-                            ),
-                            version: o("WAWebReportingTokenConstants")
-                              .REPORTING_TOKEN_VERSION.HISTORY_SYNC,
-                          },
-                        });
-                      }
-                      return (m.push(g), !0);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-              yield o(
-                "WAWebApiHistorySyncNotification",
-              ).updateCurrentlyProcessed(a.msgKey, a.syncType, a.chunkOrder),
-              o(
-                "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDataAppliedMetric({
-                historySyncDataAppliedMetric: l,
-                startTs: a.historySyncStepStartedTs,
-                isSuccess: !0,
-              }),
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] storing Status complete, ",
-                    "",
-                  ])),
-                o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
-                  a,
-                  t.statusV3Messages.length,
+    var e, s, u;
+    async function c(t, n, a, i, l) {
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[history sync] start processing status",
+          ])),
+      ),
+        (a.mdBootstrapMessagesCount = t.statusV3Messages.length),
+        o("WAWebHistorySyncNotificationUtils").commitHistoryDownloadedMetric({
+          chunkDownloadFinishTimestamp: l,
+          historySyncDownloadMetric: a,
+          isSuccess: !0,
+          startTs: n.historySyncStepStartedTs,
+        }),
+        t.statusV3Messages.sort(function (e, t) {
+          var n = e.messageTimestamp,
+            r = t.messageTimestamp;
+          return (
+            o("WATimeUtils").castToUnixTime(parseInt(n, 10)) -
+            o("WATimeUtils").castToUnixTime(parseInt(r, 10))
+          );
+        }));
+      var c = [];
+      (await Promise.all(
+        t.statusV3Messages.map(async function (e) {
+          var t,
+            n = null,
+            a = [];
+          e.key.fromMe === !0
+            ? ((n = o("WAWebUserPrefsMeUser").getMeUser()),
+              (a = e.userReceipt.filter(function (e) {
+                return e.readTimestamp != null && e.readTimestamp !== 0;
+              })))
+            : (n = o("WAWebWidFactory").createWid(
+                r("WANullthrows")(
+                  e.participant,
+                  "HistorySync:handleStatusMessages: missing participant",
                 ),
-              ),
-              o("WAWebDBReportingTokenUtils").handleHistorySyncedReportingInfo(
-                m,
               ));
-          },
-        )),
-        m.apply(this, arguments)
-      );
+          var i = {
+            type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS,
+            externalId: r("WANullthrows")(
+              e.key.id,
+              "HistorySync:handleStatusMessages: missing key.id",
+            ),
+            ts: o("WATimeUtils").castToUnixTime(
+              parseInt(e.messageTimestamp, 10),
+            ),
+            edit: -1,
+            isHsm: !1,
+            count: null,
+            chat: o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
+            author: r("WANullthrows")(
+              n,
+              "HistorySync:handleStatusMessages: missing author",
+            ),
+            pushname: null,
+            isDirect: !1,
+          };
+          if (e.message == null)
+            return (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync] missing message",
+                    ])),
+                )
+                .sendLogs("history-sync-missing-status-msg"),
+              Promise.resolve()
+            );
+          var l = o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+            u = await o("WAWebMsgProcessingApiUtils").parseMessage({
+              info: i,
+              ciphertextType: l,
+              msgProtobuf: r("WANullthrows")(
+                e.message,
+                "HistorySync:handleStatusMessages: missing message",
+              ),
+              hsmInfo: null,
+            }),
+            d = u.renderableMsgs && u.renderableMsgs;
+          if (!d || d.length !== 1) return Promise.resolve();
+          var m = d[0].id,
+            p = d[0].author,
+            _ = babelHelpers.extends({}, d[0], {
+              author: p && o("WAWebLidStatusMigrationUtils").matWidConvert(p),
+              id: new (r("WAWebMsgKey"))({
+                fromMe: m.fromMe,
+                remote: m.remote,
+                id: m.id,
+                participant:
+                  m.participant == null
+                    ? void 0
+                    : o("WAWebLidStatusMigrationUtils").matWidConvert(
+                        m.participant,
+                      ),
+              }),
+            });
+          if (e.participant === "0@s.whatsapp.net") return Promise.resolve();
+          var f = e.ignore === !0;
+          if (
+            (f &&
+              (_ = babelHelpers.extends({}, _, {
+                invis: !0,
+                ack: o("WAAckLevel").ACK.READ,
+              })),
+            await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+              chatId: _.id.remote,
+              newMsg: _,
+              handleSingleMsgOrigin: "historyStatusMessages",
+            }),
+            a.forEach(function (e) {
+              var t,
+                n = o("WALongInt").numberOrThrowIfTooLarge(
+                  (t = e.readTimestamp) != null ? t : 0,
+                ),
+                r = o("WAWebWidFactory").createWid(e.userJid);
+              o("WAWebMessageReceiptBatcher").receiptBatcher.acceptOtherReceipt(
+                {
+                  ts: n,
+                  ack: o("WAAckLevel").ACK.READ,
+                  receiverId: r,
+                  msgKeys: [_.id.toString()],
+                },
+              );
+            }),
+            o("WAWebMessagingGatingUtils").isReportingTagSyncingEnabled() &&
+              ((t = e.reportingTokenInfo) == null ? void 0 : t.reportingTag) !=
+                null)
+          ) {
+            var g;
+            _ = babelHelpers.extends({}, _, {
+              reportingTokenInfo: {
+                reportingTag: new Uint8Array(
+                  (g = e.reportingTokenInfo) == null ? void 0 : g.reportingTag,
+                ),
+                version: o("WAWebReportingTokenConstants")
+                  .REPORTING_TOKEN_VERSION.HISTORY_SYNC,
+              },
+            });
+          }
+          return (c.push(_), !0);
+        }),
+      ),
+        await o("WAWebApiHistorySyncNotification").updateCurrentlyProcessed(
+          n.msgKey,
+          n.syncType,
+          n.chunkOrder,
+        ),
+        o("WAWebHistorySyncNotificationUtils").commitHistoryDataAppliedMetric({
+          historySyncDataAppliedMetric: i,
+          startTs: n.historySyncStepStartedTs,
+          isSuccess: !0,
+        }),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[history sync] storing Status complete, ",
+              "",
+            ])),
+          o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
+            n,
+            t.statusV3Messages.length,
+          ),
+        ),
+        o("WAWebDBReportingTokenUtils").handleHistorySyncedReportingInfo(c));
     }
-    l.handleStatusMessages = d;
+    l.handleStatusMessages = c;
   },
   98,
 );

@@ -7,7 +7,6 @@ __d(
     "WAWebMexFetchNewsletterPollVotersJobQuery.graphql",
     "WAWebPollOptionHashUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,42 +17,34 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchNewsletterPollVotersJobQuery.graphql"));
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      var t = e.limit,
+        n = e.newsletterId,
+        a = e.serverId,
+        i = e.voteHash,
+        l = {
+          input: {
+            limit: t,
+            server_id: a.toString(10),
+            newsletter_id: n,
+            vote_hash: i,
+          },
+        },
+        s = await o("WAWebMexClient").fetchQuery(u, l),
+        c = s.voter_list,
+        m = new Map();
+      return (c == null ? void 0 : c.votes) == null
+        ? m
+        : c.votes.reduce(function (e, t) {
+            return t.vote_hash == null
+              ? e
+              : e.set(
+                  o("WAWebPollOptionHashUtils").base64ToHex(t.vote_hash),
+                  r("compactMap")(t.voter_list.edges, d),
+                );
+          }, m);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.limit,
-            n = e.newsletterId,
-            a = e.serverId,
-            i = e.voteHash,
-            l = {
-              input: {
-                limit: t,
-                server_id: a.toString(10),
-                newsletter_id: n,
-                vote_hash: i,
-              },
-            },
-            s = yield o("WAWebMexClient").fetchQuery(u, l),
-            c = s.voter_list,
-            d = new Map();
-          return (c == null ? void 0 : c.votes) == null
-            ? d
-            : c.votes.reduce(function (e, t) {
-                return t.vote_hash == null
-                  ? e
-                  : e.set(
-                      o("WAWebPollOptionHashUtils").base64ToHex(t.vote_hash),
-                      r("compactMap")(t.voter_list.edges, m),
-                    );
-              }, d);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
+    function d(e) {
       var t = e.action_time,
         n = e.node,
         r = n == null ? void 0 : n.id;

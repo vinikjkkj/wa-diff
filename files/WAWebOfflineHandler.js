@@ -11,7 +11,6 @@ __d(
     "WAWebOfflineResumeUtils",
     "WAWebPageLoadLogging",
     "WAWebQplFlowWrapper",
-    "asyncToGeneratorRuntime",
     "qpl",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -48,9 +47,9 @@ __d(
             (this.$9 = !1),
             (this.$10 = 0));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.initState = function (n) {
+          (n.initState = function (n) {
             (this.offlineResumeManager != null &&
               o("WALogger").ERROR(
                 e ||
@@ -64,7 +63,7 @@ __d(
               }),
               (this.$1 = n.getNonblockingStageManager));
           }),
-          (r.processOfflinePreviewIb = function (t) {
+          (n.processOfflinePreviewIb = function (t) {
             if (
               (o("WAWebPageLoadLogging").addPageLoadQplPoint(
                 "offline_preview_received",
@@ -113,15 +112,15 @@ __d(
             ((this.$2 = !0),
               this.offlineResumeManager.processOfflinePreview(t));
           }),
-          (r.processMessageDecryptResult = function (t) {
+          (n.processMessageDecryptResult = function (t) {
             (this.offlineResumeManager.processDecryptResult(t),
               (this.$3 -= 1),
               this.$13());
           }),
-          (r.addOfflinePendingMessage = function () {
+          (n.addOfflinePendingMessage = function () {
             this.isResumeFromRestartComplete() || (this.$3 += 1);
           }),
-          (r.newOfflineStanza = function (t, n, r) {
+          (n.newOfflineStanza = function (t, n, r) {
             var e = this;
             return (
               (this.$4 = !1),
@@ -140,34 +139,34 @@ __d(
               this.offlineResumeManager.newOfflineStanza(t, n, r)
             );
           }),
-          (r.offlineStanzaReceivedAfterComplete = function () {
+          (n.offlineStanzaReceivedAfterComplete = function () {
             return this.offlineResumeManager.offlineStanzaReceivedAfterComplete();
           }),
-          (r.getOfflineDeliveryProgress = function () {
+          (n.getOfflineDeliveryProgress = function () {
             return this.offlineResumeManager.getOfflineDeliveryProgress();
           }),
-          (r.getOfflineMessageCount = function () {
+          (n.getOfflineMessageCount = function () {
             return Math.max(
               this.offlineResumeManager.offlineMessagePreviewCounter,
               0,
             );
           }),
-          (r.isResumeOnSocketDisconnectInProgress = function () {
+          (n.isResumeOnSocketDisconnectInProgress = function () {
             return this.offlineResumeManager.isResumeOnSocketDisconnectInProgress();
           }),
-          (r.isResumeFromRestartComplete = function () {
+          (n.isResumeFromRestartComplete = function () {
             return this.offlineResumeManager.isResumeFromRestartComplete();
           }),
-          (r.isResumeComplete = function () {
+          (n.isResumeComplete = function () {
             return this.offlineResumeManager.isResumeComplete();
           }),
-          (r.getHasMessagesToDownload = function () {
+          (n.getHasMessagesToDownload = function () {
             return this.offlineResumeManager.getHasMessagesToDownload();
           }),
-          (r.getFinishedDownloading = function () {
+          (n.getFinishedDownloading = function () {
             return this.getOfflineDeliveryProgress() === 100;
           }),
-          (r.processOfflineIb = function (t) {
+          (n.processOfflineIb = function (t) {
             return (
               o("WAWebPageLoadLogging").addPageLoadQplPoint("offline_received"),
               o("WAWebQplFlowWrapper").QPL.markerPoint(y, "OfflineIbReceived"),
@@ -180,25 +179,25 @@ __d(
                 })
             );
           }),
-          (r.shouldUseOfflineResumeScreen = function () {
+          (n.shouldUseOfflineResumeScreen = function () {
             return this.offlineResumeManager.shouldUseOfflineResumeScreen();
           }),
-          (r.getResumeUIProgressBarType = function () {
+          (n.getResumeUIProgressBarType = function () {
             return this.offlineResumeManager.getResumeUIProgressBarType();
           }),
-          (r.hasReceivedOfflinePreviewIb = function () {
+          (n.hasReceivedOfflinePreviewIb = function () {
             return this.$2;
           }),
-          (r.hasInitOfflineResumeManager = function () {
+          (n.hasInitOfflineResumeManager = function () {
             return this.offlineResumeManager != null;
           }),
-          (r.getResumeType = function () {
+          (n.getResumeType = function () {
             return this.offlineResumeManager.resumeType;
           }),
-          (r.$12 = function () {
+          (n.$12 = function () {
             ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0));
           }),
-          (r.$14 = function (t, n) {
+          (n.$14 = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = n === !0 || this.$10 === 0;
@@ -223,111 +222,93 @@ __d(
                     e.$15();
                   }, S)));
           }),
-          (r.$15 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                e === void 0 && (e = !1);
-                var t = Date.now() - this.$10,
-                  n =
-                    e ||
-                    (!this.isResumeComplete() &&
-                      this.$3 <= C &&
-                      t >= S &&
-                      this.$4 === !1 &&
-                      this.$5 === !0);
-                if (
-                  !(
-                    (this.isResumeComplete() || this.$4 || this.$5) &&
-                    (this.isResumeComplete() ||
-                      o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: skipDebouncing: ",
-                            ", prevPending: ",
-                            ", currentPending: ",
-                            ", complete: ",
-                            "",
-                          ])),
-                        n,
-                        this.$4,
-                        this.$5,
-                        this.isResumeComplete(),
-                      ),
-                    n === !1)
-                  ) &&
-                  this.$3 <= C
-                ) {
-                  (o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: start request next batch",
-                      ])),
-                  ),
-                    (this.$5 = !0),
-                    yield o(
-                      "WAWebEventsWaitForReadyForOffline",
-                    ).waitForOfflineProcessReady());
-                  var r = C;
-                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$14(r, n));
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$13 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if ((e === void 0 && (e = !1), this.$9)) return this.$15(e);
-                if (this.isResumeComplete() || this.$4 || this.$5) {
-                  this.isResumeComplete() ||
-                    o("WALogger").LOG(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "[offline-resume][adaptive] _maybeRequestMoreStanza: skip, prevPending: ",
-                          ", currentPending: ",
-                          ", complete: ",
-                          "",
-                        ])),
-                      this.$4,
-                      this.$5,
-                      this.isResumeComplete(),
-                    );
-                  return;
-                }
-                this.$3 <= C &&
-                  (o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][adaptive] _maybeRequestMoreStanza: start request next batch",
-                      ])),
-                  ),
-                  (this.$5 = !0),
-                  yield o(
-                    "WAWebEventsWaitForReadyForOffline",
-                  ).waitForOfflineProcessReady(),
-                  o("WASmaxOfflineBatchRPC").sendBatchRPC({
-                    offlineBatchCount: C,
-                  }),
-                  (this.$5 = !1),
-                  (this.$4 = !0),
+          (n.$15 = async function (t) {
+            t === void 0 && (t = !1);
+            var e = Date.now() - this.$10,
+              n =
+                t ||
+                (!this.isResumeComplete() &&
+                  this.$3 <= C &&
+                  e >= S &&
+                  this.$4 === !1 &&
+                  this.$5 === !0);
+            if (
+              !(
+                (this.isResumeComplete() || this.$4 || this.$5) &&
+                (this.isResumeComplete() ||
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][adaptive] _maybeRequestMoreStanza: request next batch, pending message ",
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: skipDebouncing: ",
+                        ", prevPending: ",
+                        ", currentPending: ",
+                        ", complete: ",
                         "",
                       ])),
-                    this.$3,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                    n,
+                    this.$4,
+                    this.$5,
+                    this.isResumeComplete(),
+                  ),
+                n === !1)
+              ) &&
+              this.$3 <= C
+            ) {
+              (o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: start request next batch",
+                  ])),
+              ),
+                (this.$5 = !0),
+                await o(
+                  "WAWebEventsWaitForReadyForOffline",
+                ).waitForOfflineProcessReady());
+              var r = C;
+              ((r = L(this.$8, this.$7)), (this.$7 = r), this.$14(r, n));
             }
-            return t;
-          })()),
+          }),
+          (n.$13 = async function (t) {
+            if ((t === void 0 && (t = !1), this.$9)) return this.$15(t);
+            if (this.isResumeComplete() || this.$4 || this.$5) {
+              this.isResumeComplete() ||
+                o("WALogger").LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[offline-resume][adaptive] _maybeRequestMoreStanza: skip, prevPending: ",
+                      ", currentPending: ",
+                      ", complete: ",
+                      "",
+                    ])),
+                  this.$4,
+                  this.$5,
+                  this.isResumeComplete(),
+                );
+              return;
+            }
+            this.$3 <= C &&
+              (o("WALogger").LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume][adaptive] _maybeRequestMoreStanza: start request next batch",
+                  ])),
+              ),
+              (this.$5 = !0),
+              await o(
+                "WAWebEventsWaitForReadyForOffline",
+              ).waitForOfflineProcessReady(),
+              o("WASmaxOfflineBatchRPC").sendBatchRPC({ offlineBatchCount: C }),
+              (this.$5 = !1),
+              (this.$4 = !0),
+              o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume][adaptive] _maybeRequestMoreStanza: request next batch, pending message ",
+                    "",
+                  ])),
+                this.$3,
+              ));
+          }),
           t
         );
       })();

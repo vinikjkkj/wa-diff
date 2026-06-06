@@ -5,7 +5,6 @@ __d(
     "WAWebSettingsChangeWamEvent",
     "WAWebSettingsSync",
     "WAWebWamEnumSettingType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -63,31 +62,23 @@ __d(
         shouldPlaySoundForCallNotification:
           s.SETTING_TYPE.SHOULD_PLAY_SOUND_FOR_CALL_NOTIFICATION,
       };
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          (a === void 0 && (a = "app"),
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[settings-sync] Bridge: Sending mutation for ",
-                  "",
-                ])),
-              t,
-            ));
-          var i = u[t];
-          (i != null &&
-            new (o("WAWebSettingsChangeWamEvent").SettingsChangeWamEvent)({
-              currentSettingValue: String(n),
-              settingType: i,
-            }).commit(),
-            yield r("WAWebSettingsSync").sendMutation(t, n, a));
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(t, n, a) {
+      (a === void 0 && (a = "app"),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[settings-sync] Bridge: Sending mutation for ",
+              "",
+            ])),
+          t,
+        ));
+      var i = u[t];
+      (i != null &&
+        new (o("WAWebSettingsChangeWamEvent").SettingsChangeWamEvent)({
+          currentSettingValue: String(n),
+          settingType: i,
+        }).commit(),
+        await r("WAWebSettingsSync").sendMutation(t, n, a));
     }
     l.sendSettingChange = c;
   },

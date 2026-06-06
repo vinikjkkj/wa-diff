@@ -1,24 +1,19 @@
 __d(
   "WAWebKmpHKDF",
-  [
-    "WACryptoHkdf",
-    "WAWebKmpBridgeResultWrappers",
-    "WAWebKmpKotlinUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WACryptoHkdf", "WAWebKmpBridgeResultWrappers", "WAWebKmpKotlinUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-      deriveSecrets: function (t, r, a) {
+      deriveSecrets: function (t, n, r) {
         return o("WAWebKmpBridgeResultWrappers").wrapUnexpectedKmpSuccess(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o("WACryptoHkdf").extractAndExpand(
+          async function () {
+            var e = await o("WACryptoHkdf").extractAndExpand(
               o("WAWebKmpKotlinUtils").asUint8Array(t).buffer,
-              o("WAWebKmpKotlinUtils").asUint8Array(r).buffer,
-              a,
+              o("WAWebKmpKotlinUtils").asUint8Array(n).buffer,
+              r,
             );
             return o("WAWebKmpKotlinUtils").asKmpByteArray(e);
-          }),
+          },
         );
       },
     };

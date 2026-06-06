@@ -1,7 +1,6 @@
 __d(
   "WAWebBizAISettingsNudgeAction",
   [
-    "Promise",
     "WALogger",
     "WASyncdConst",
     "WATimeUtils",
@@ -9,51 +8,41 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdActionUtils",
     "WAWebSyncdCoreApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = 1500,
-      d = 1,
-      m = new Map();
-    function p(e, t) {
-      return _.apply(this, arguments);
+      u = 1500,
+      c = 1,
+      d = new Map();
+    async function m(e, t) {
+      var n = o("WATimeUtils").unixTimeMs(),
+        r = o("WAWebSyncdActionUtils").buildPendingMutation({
+          collection: o("WASyncdConst").CollectionName.RegularHigh,
+          indexArgs: [String(e)],
+          value: {
+            bizAiSettingsNudgeAction: {
+              category: e,
+              version: t,
+              updatedAtMs: n,
+            },
+          },
+          version: c,
+          operation: o("WAWebProtobufsServerSync.pb")
+            .SyncdMutation$SyncdOperation.SET,
+          timestamp: n,
+          action: o("WASyncdConst").Actions.BizAiSettingsNudge,
+        });
+      await o("WAWebSyncdCoreApi").lockForSync([], [r], function () {
+        return Promise.resolve();
+      });
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = o("WATimeUtils").unixTimeMs(),
-            a = o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: o("WASyncdConst").CollectionName.RegularHigh,
-              indexArgs: [String(e)],
-              value: {
-                bizAiSettingsNudgeAction: {
-                  category: e,
-                  version: t,
-                  updatedAtMs: r,
-                },
-              },
-              version: d,
-              operation: o("WAWebProtobufsServerSync.pb")
-                .SyncdMutation$SyncdOperation.SET,
-              timestamp: r,
-              action: o("WASyncdConst").Actions.BizAiSettingsNudge,
-            });
-          yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
-            return (u || (u = n("Promise"))).resolve();
-          });
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(t) {
-      var n = m.get(t);
+    function p(t) {
+      var n = d.get(t);
       n != null && window.clearTimeout(n);
       var r = window.setTimeout(function () {
-        m.delete(t);
+        d.delete(t);
         var n = o(
           "WAWebBizAISettingsVersionCollection",
         ).BizAISettingsVersionCollection.incrementVersion(t);
@@ -67,7 +56,7 @@ __d(
           String(t),
           n,
         ),
-          p(t, n).catch(function () {
+          m(t, n).catch(function () {
             o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -77,10 +66,10 @@ __d(
               String(t),
             );
           }));
-      }, c);
-      m.set(t, r);
+      }, u);
+      d.set(t, r);
     }
-    l.sendSettingsNudge = f;
+    l.sendSettingsNudge = p;
   },
   98,
 );

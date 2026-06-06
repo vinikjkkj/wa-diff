@@ -20,7 +20,7 @@ __d(
         ads_lpm_ant_toss_kr: { params: { recurring_enabled: e } },
         ads_lpm_ant_truemoney_th: { params: { recurring_enabled: e } },
         ads_lpm_razorpay_upi: { params: { recurring_enabled: e } },
-        altpay_ml_pill_prediction: { params: { enable_altpay_ml_pills_v2: e } },
+        altpay_ml_pill_prediction: { params: { enable_altpay_ml_pills_v3: e } },
         ama_user_fq: { params: { enabled: e } },
         ama4a_trusted_device_key_registration: {
           params: { trusted_device_key_registration_enabled: e },
@@ -305,7 +305,7 @@ __d(
           params: { dummy_param: e },
         },
         pill_amount_selection_v1_logging: { params: { dummy_param_v2: e } },
-        pill_ml_prediction: { params: { enable_ml_results_v5: e } },
+        pill_ml_prediction: { params: { enable_ml_results_v6: e } },
         rn_payment_settings_enable_pills: {
           params: { enable_pills_v3: e },
           type: "PAYMENT_ACCOUNT",

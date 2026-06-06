@@ -11,7 +11,6 @@ __d(
     "WAWebText.react",
     "WAWebUISpacing",
     "WAWebUnlinkSubgroupsAction",
-    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -160,60 +159,55 @@ __d(
     }
     function p(e) {
       var t,
-        a = e.iAmCommunityAdmin,
-        i = a === void 0 ? !0 : a,
-        l = e.parentId,
-        u = e.removedSubgroupTitle,
-        d = e.removedSubgroupWid,
-        p = e.setLoading,
-        _ =
-          (t = o("WAWebChatCollection").ChatCollection.get(l)) == null
+        n = e.iAmCommunityAdmin,
+        a = n === void 0 ? !0 : n,
+        i = e.parentId,
+        l = e.removedSubgroupTitle,
+        u = e.removedSubgroupWid,
+        d = e.setLoading,
+        p =
+          (t = o("WAWebChatCollection").ChatCollection.get(i)) == null
             ? void 0
             : t.formattedTitle,
-        f,
-        g = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            (e === void 0 && (e = !1),
-              o("WAWebModalManager").ModalManager.close(),
-              p(!0),
-              yield r("WAWebUnlinkSubgroupsAction")(l, [d], e),
-              p(!1));
-          });
-          return function (n) {
-            return e.apply(this, arguments);
-          };
-        })();
-      if (i) {
-        ((f = s._(
+        _,
+        f = async function (t) {
+          (t === void 0 && (t = !1),
+            o("WAWebModalManager").ModalManager.close(),
+            d(!0),
+            await r("WAWebUnlinkSubgroupsAction")(i, [u], t),
+            d(!1));
+        };
+      if (a) {
+        ((_ = s._(
           /*BTDS*/ 'You can remove the "{group_title}" group from the community. You can also remove the group and its members who aren\'t part of other groups.',
           [
             s._param(
               "group_title",
-              c.jsx(o("WAWebEmojiText.react").EmojiText, { text: u }),
+              c.jsx(o("WAWebEmojiText.react").EmojiText, { text: l }),
             ),
           ],
         )),
           o("WAWebModalManager").ModalManager.open(
             c.jsx(m, {
-              removeDisclaimer: f,
-              handleRemove: g,
+              removeDisclaimer: _,
+              handleRemove: f,
               removeParticipantOption: !0,
             }),
           ));
         return;
       }
-      ((f =
-        _ != null
+      ((_ =
+        p != null
           ? s._(
               /*BTDS*/ '"{group_title}" will no longer be a part of this community "{community_title}." Anyone in this group will still be able to find it from their chats to send messages and make calls.',
               [
                 s._param(
                   "group_title",
-                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: u }),
+                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: l }),
                 ),
                 s._param(
                   "community_title",
-                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: _ }),
+                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: p }),
                 ),
               ],
             )
@@ -222,12 +216,12 @@ __d(
               [
                 s._param(
                   "group_title",
-                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: u }),
+                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: l }),
                 ),
               ],
             )),
         o("WAWebModalManager").ModalManager.open(
-          c.jsx(m, { removeDisclaimer: f, handleRemove: g }),
+          c.jsx(m, { removeDisclaimer: _, handleRemove: f }),
         ));
     }
     l.handleRemoveSubgroup = p;

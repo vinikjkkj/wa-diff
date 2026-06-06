@@ -7,7 +7,6 @@ __d(
     "WAWebMediaPrep",
     "WAWebMsgType",
     "WAWebWamEnumMediaPickerOriginType",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,181 +35,149 @@ __d(
               ? "document"
               : null;
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    async function g(t, n, a) {
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[broadcast:media] processing recipientCnt=",
+            "",
+          ])),
+        n,
+      );
+      var i = new (r("WAWebAttachMediaCollection"))({
+          chatParticipantCount: n,
+        }),
+        l = [{ file: t }];
+      await i.processAttachments(
+        l,
+        o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+          .BUSINESS_FLOWS,
+        _,
+        1,
+      );
+      var u = i.getActive();
+      if (u == null) throw r("err")("Failed to process media for sending");
+      (u.processPromise != null && (await u.processPromise),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[broadcast:media] media processed type=",
+              "",
+            ])),
+          u.type,
+        ));
+      var c = {
+          caption: a != null && a.trim() !== "" ? a.trim() : void 0,
+          type: u.type,
+        },
+        d = await o("WAWebMediaPrep").getMediaPropsNew(u.mediaPrep, c);
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (d.isCaptionByUser =
+          c.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT && !!c.caption),
+        { freshMedia: u, mediaProps: d }
+      );
+    }
+    async function h(e, t, n, r) {
+      var a = await g(e, t, r),
+        i = a.freshMedia,
+        l = a.mediaProps,
+        s = await o("WAWebBroadcastMsgDataUtils").addBroadcastFieldsToMediaMsg(
+          n,
+          l,
+        );
+      return (
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[broadcast:media] msg data prepared",
+            ])),
+        ),
+        { freshMedia: { type: i.type }, mediaMsgData: s }
+      );
+    }
+    function y(e) {
+      return async function (t) {
+        var n;
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[broadcast:media] uploading msgId=",
+              "",
+            ])),
+          t.id.toString(),
+        );
+        var a = { isMediaCryptoExpectedForChat: !0, type: e },
+          i = await o("WAWebMediaPrep").uploadMediaWithPrep(t, a),
+          l = i.body,
+          s = i.mediaResult.mediaEntry;
+        if (!s) throw r("err")("Media upload failed: entry was not created");
+        var u = t.mediaObject,
+          p = u == null ? void 0 : u.entries.getUploadEntry(!0),
+          _ =
+            (n = s.getEncfilehash()) != null
+              ? n
+              : p == null
+                ? void 0
+                : p.getEncfilehash();
+        return (
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:media] processing recipientCnt=",
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[broadcast:media] encFilehash entry=",
+                " upload=",
                 "",
               ])),
-            t,
-          );
-          var a = new (r("WAWebAttachMediaCollection"))({
-              chatParticipantCount: t,
-            }),
-            i = [{ file: e }];
-          yield a.processAttachments(
-            i,
-            o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
-              .BUSINESS_FLOWS,
+            s.getEncfilehash(),
+            p == null ? void 0 : p.getEncfilehash(),
+          ),
+          t.set({
+            body: l,
+            deprecatedMms3Url: s.deprecatedMms3Url,
+            directPath: s.directPath,
+            encFilehash: _,
+            filehash: u == null ? void 0 : u.filehash,
+            firstFrameSidecar: s.firstFrameSidecar,
+            mediaKey: s.getMediaKey(),
+            mediaKeyTimestamp: s.getMediaKeyTimestamp(),
+            size: u == null ? void 0 : u.size,
+            streamingSidecar: s.sidecar,
+          }),
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[broadcast:media] uploaded msgId=",
+                " hash=",
+                "",
+              ])),
+            t.id.toString(),
             _,
-            1,
-          );
-          var l = a.getActive();
-          if (l == null) throw r("err")("Failed to process media for sending");
-          (l.processPromise != null && (yield l.processPromise),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:media] media processed type=",
-                  "",
-                ])),
-              l.type,
-            ));
-          var s = {
-              caption: n != null && n.trim() !== "" ? n.trim() : void 0,
-              type: l.type,
-            },
-            u = yield o("WAWebMediaPrep").getMediaPropsNew(l.mediaPrep, s);
-          return (
-            (u.isCaptionByUser =
-              s.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT && !!s.caption),
-            { freshMedia: l, mediaProps: u }
-          );
-        })),
-        h.apply(this, arguments)
-      );
+          ),
+          t
+        );
+      };
     }
-    function y(e, t, n, r) {
-      return C.apply(this, arguments);
-    }
-    function C() {
+    async function C(e, t, n, r, a) {
+      var i = await g(e, t, r),
+        l = i.freshMedia,
+        s = i.mediaProps,
+        u = await o(
+          "WAWebBroadcastMsgDataUtils",
+        ).addBroadcastInteractiveFieldsToMediaMsg(n, s, a);
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield g(e, t, r),
-              i = a.freshMedia,
-              l = a.mediaProps,
-              s = yield o(
-                "WAWebBroadcastMsgDataUtils",
-              ).addBroadcastFieldsToMediaMsg(n, l);
-            return (
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:media] msg data prepared",
-                  ])),
-              ),
-              { freshMedia: { type: i.type }, mediaMsgData: s }
-            );
-          },
-        )),
-        C.apply(this, arguments)
-      );
-    }
-    function b(t) {
-      return (function () {
-        var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-          var a;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:media] uploading msgId=",
-                "",
-              ])),
-            n.id.toString(),
-          );
-          var i = { isMediaCryptoExpectedForChat: !0, type: t },
-            l = yield o("WAWebMediaPrep").uploadMediaWithPrep(n, i),
-            c = l.body,
-            d = l.mediaResult.mediaEntry;
-          if (!d) throw r("err")("Media upload failed: entry was not created");
-          var m = n.mediaObject,
-            p = m == null ? void 0 : m.entries.getUploadEntry(!0),
-            _ =
-              (a = d.getEncfilehash()) != null
-                ? a
-                : p == null
-                  ? void 0
-                  : p.getEncfilehash();
-          return (
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:media] encFilehash entry=",
-                  " upload=",
-                  "",
-                ])),
-              d.getEncfilehash(),
-              p == null ? void 0 : p.getEncfilehash(),
-            ),
-            n.set({
-              body: c,
-              deprecatedMms3Url: d.deprecatedMms3Url,
-              directPath: d.directPath,
-              encFilehash: _,
-              filehash: m == null ? void 0 : m.filehash,
-              firstFrameSidecar: d.firstFrameSidecar,
-              mediaKey: d.getMediaKey(),
-              mediaKeyTimestamp: d.getMediaKeyTimestamp(),
-              size: m == null ? void 0 : m.size,
-              streamingSidecar: d.sidecar,
-            }),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:media] uploaded msgId=",
-                  " hash=",
-                  "",
-                ])),
-              n.id.toString(),
-              _,
-            ),
-            n
-          );
-        });
-        return function (e) {
-          return a.apply(this, arguments);
-        };
-      })();
-    }
-    function v(e, t, n, r, o) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = yield g(e, t, r),
-              l = i.freshMedia,
-              s = i.mediaProps,
-              u = yield o(
-                "WAWebBroadcastMsgDataUtils",
-              ).addBroadcastInteractiveFieldsToMediaMsg(n, s, a);
-            return (
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:media] interactive msg data prepared +CTA",
-                  ])),
-              ),
-              { freshMedia: { type: l.type }, mediaMsgData: u }
-            );
-          },
-        )),
-        S.apply(this, arguments)
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[broadcast:media] interactive msg data prepared +CTA",
+            ])),
+        ),
+        { freshMedia: { type: l.type }, mediaMsgData: u }
       );
     }
     ((l.SUPPORTED_MEDIA_TYPES = _),
       (l.getAttachmentType = f),
-      (l.processMediaForBroadcast = y),
-      (l.createBroadcastMediaUploadCallback = b),
-      (l.processMediaWithCTAForBroadcast = v));
+      (l.processMediaForBroadcast = h),
+      (l.createBroadcastMediaUploadCallback = y),
+      (l.processMediaWithCTAForBroadcast = C));
   },
   98,
 );

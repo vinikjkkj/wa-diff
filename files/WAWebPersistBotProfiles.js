@@ -1,44 +1,32 @@
 __d(
   "WAWebPersistBotProfiles",
-  [
-    "WAWebBotProfileCollection",
-    "WAWebSchemaBotProfile",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebBotProfileCollection", "WAWebSchemaBotProfile"],
   function (t, n, r, o, a, i, l) {
     var e = ["commands", "id", "prompts"];
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          (yield o("WAWebSchemaBotProfile")
-            .getBotProfileTable()
-            .bulkCreateOrMerge(
-              t.map(function (t) {
-                var n = t.commands,
-                  r = t.id,
-                  o = t.prompts,
-                  a = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                return babelHelpers.extends(
-                  {
-                    id: r.toString(),
-                    prompts: JSON.stringify(o),
-                    commands: JSON.stringify(n),
-                  },
-                  a,
-                );
-              }),
-            ),
-            t.forEach(function (e) {
-              return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
-                babelHelpers.extends({ id: e.id }, e),
-              );
-            }));
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t) {
+      (await o("WAWebSchemaBotProfile")
+        .getBotProfileTable()
+        .bulkCreateOrMerge(
+          t.map(function (t) {
+            var n = t.commands,
+              r = t.id,
+              o = t.prompts,
+              a = babelHelpers.objectWithoutPropertiesLoose(t, e);
+            return babelHelpers.extends(
+              {
+                id: r.toString(),
+                prompts: JSON.stringify(o),
+                commands: JSON.stringify(n),
+              },
+              a,
+            );
+          }),
+        ),
+        t.forEach(function (e) {
+          return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
+            babelHelpers.extends({ id: e.id }, e),
+          );
+        }));
     }
     l.persistBotProfiles = s;
   },

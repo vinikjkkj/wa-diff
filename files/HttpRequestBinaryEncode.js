@@ -1,6 +1,6 @@
 __d(
   "HttpRequestBinaryEncode",
-  ["QuicIntCodec", "asyncToGeneratorRuntime"],
+  ["QuicIntCodec"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -53,65 +53,45 @@ __d(
       }
       return { length: r, steps: [r].concat(a) };
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(e, t) {
+      var n = new TextEncoder(),
+        r = 0,
+        a = [];
+      (a.push(0), r++);
+      var i = s(e, n),
+        l = i.length,
+        c = i.steps;
+      ((r += l), a.push.apply(a, c));
+      var d = u(e, n, t),
+        m = d.length,
+        p = d.steps;
+      ((r += o("QuicIntCodec").getByteLength(m) + m), a.push.apply(a, p));
+      var _ = new Uint8Array(await e.arrayBuffer()),
+        f = _.byteLength;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new TextEncoder(),
-            r = 0,
-            a = [];
-          (a.push(0), r++);
-          var i = s(e, n),
-            l = i.length,
-            c = i.steps;
-          ((r += l), a.push.apply(a, c));
-          var d = u(e, n, t),
-            m = d.length,
-            p = d.steps;
-          ((r += o("QuicIntCodec").getByteLength(m) + m), a.push.apply(a, p));
-          var _ = new Uint8Array(yield e.arrayBuffer()),
-            f = _.byteLength;
-          return (
-            (r += o("QuicIntCodec").getByteLength(f) + f),
-            a.push(_),
-            a.push(0),
-            r++,
-            { length: r, steps: a }
-          );
-        })),
-        d.apply(this, arguments)
+        (r += o("QuicIntCodec").getByteLength(f) + f),
+        a.push(_),
+        a.push(0),
+        r++,
+        { length: r, steps: a }
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function d(e, t) {
+      t === void 0 && (t = !1);
+      var n = await c(e, t),
+        r = n.length,
+        a = n.steps,
+        i = new Uint8Array(r),
+        l = 0;
+      for (var s of a)
+        typeof s == "number"
+          ? (l = o("QuicIntCodec").encodeWithExistingBuffer(s, i, l))
+          : ((l = o("QuicIntCodec").encodeWithExistingBuffer(s.length, i, l)),
+            i.set(s, l),
+            (l += s.length));
+      return i;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = !1);
-          var n = yield c(e, t),
-            r = n.length,
-            a = n.steps,
-            i = new Uint8Array(r),
-            l = 0;
-          for (var s of a)
-            typeof s == "number"
-              ? (l = o("QuicIntCodec").encodeWithExistingBuffer(s, i, l))
-              : ((l = o("QuicIntCodec").encodeWithExistingBuffer(
-                  s.length,
-                  i,
-                  l,
-                )),
-                i.set(s, l),
-                (l += s.length));
-          return i;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.binaryEncodeRequest = m;
+    l.binaryEncodeRequest = d;
   },
   98,
 );

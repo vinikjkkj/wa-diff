@@ -1,7 +1,6 @@
 __d(
   "WAWebCryptoEncryptMedia",
   [
-    "Promise",
     "WAArrayBuffersConcat",
     "WACommonTaskScheduler",
     "WACryptoAesCbc",
@@ -20,7 +19,6 @@ __d(
     "WAWebMmsPerformanceExperimentSwitch",
     "WAWebPREGatingUtils",
     "WAWebWebpParseWebp",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,204 +27,191 @@ __d(
       u,
       c,
       d,
-      m,
-      p = 10;
-    function _(e) {
+      m = 10;
+    function p(e) {
       var t = e.ivCiphertext,
-        r = e.macKey,
-        a = e.signature,
-        i = o("WAArrayBuffersConcat").concatArrayBuffers(t, a);
+        n = e.macKey,
+        r = e.signature,
+        a = o("WAArrayBuffersConcat").concatArrayBuffers(t, r);
       return {
         sidecar: o(
           "WAWebCryptoCalculateStreamingSidecar",
-        ).calculateStreamingSidecar(i, r),
-        firstFrameSidecar: (m || (m = n("Promise"))).resolve(),
+        ).calculateStreamingSidecar(a, n),
+        firstFrameSidecar: Promise.resolve(),
       };
     }
-    function f(e) {
+    function _(e) {
       var t = e.ivCiphertext,
-        a = e.macKey,
-        i = e.plaintext,
-        l = e.signature,
-        s = o("WAWebWebpParseWebp").parseWebp(i),
-        u = s.firstFrameLength;
+        n = e.macKey,
+        a = e.plaintext,
+        i = e.signature,
+        l = o("WAWebWebpParseWebp").parseWebp(a),
+        s = l.firstFrameLength;
       return {
-        sidecar: (m || (m = n("Promise"))).resolve(),
+        sidecar: Promise.resolve(),
         firstFrameSidecar:
-          u != null
+          s != null
             ? r("WAWebCryptoCalculateFirstFrameSidecar")(
-                u,
-                o("WAArrayBuffersConcat").concatArrayBuffers(t, l),
-                a,
+                s,
+                o("WAArrayBuffersConcat").concatArrayBuffers(t, i),
+                n,
               )
-            : (m || (m = n("Promise"))).resolve(),
+            : Promise.resolve(),
       };
     }
-    var g = new Map([
-      [o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO, _],
-      [o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO, _],
-      [o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER, f],
+    var f = new Map([
+      [o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO, p],
+      [o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO, p],
+      [o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER, _],
     ]);
-    function h(e, t, n) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i,
-            l,
-            s = a.encKey,
-            u = a.iv,
-            _ = a.macKey,
-            f = o("WAWebPREGatingUtils").shouldUseWorkerForFileSizeBytes(
-              e.byteLength,
-            ),
-            h = _,
-            y = o("WAWebMmsPerformanceExperimentSwitch").shouldEncryptInChunks(
-              e.byteLength,
-            )
-              ? yield o("WACryptoAesCbc").aesCbcEncryptWithChunking({
-                  encKey: s,
-                  plaintext: e,
-                  optionalIv: u,
-                  delayInBetween: o("WAWebABProps").getABPropConfigValue(
-                    "web_anr_media_chunk_enc_delay_enabled",
-                  ),
-                  yieldFn: o("WAWebABProps").getABPropConfigValue(
-                    "wmi_worker_scheduler_web",
-                  )
-                    ? function () {
-                        return r("WACommonTaskScheduler").yield();
-                      }
-                    : void 0,
-                })
-              : yield o("WACryptoAesCbc").aesCbcEncrypt(s, e, u),
-            C;
-          if (f) {
-            var b = yield o("WAWebMediaWorkerProxy").hmacSha256InWorker(
-                h,
-                y,
-                p,
+    async function g(t, n, a) {
+      var i,
+        l,
+        u = a.encKey,
+        c = a.iv,
+        d = a.macKey,
+        p = o("WAWebPREGatingUtils").shouldUseWorkerForFileSizeBytes(
+          t.byteLength,
+        ),
+        _ = d,
+        g = o("WAWebMmsPerformanceExperimentSwitch").shouldEncryptInChunks(
+          t.byteLength,
+        )
+          ? await o("WACryptoAesCbc").aesCbcEncryptWithChunking({
+              encKey: u,
+              plaintext: t,
+              optionalIv: c,
+              delayInBetween: o("WAWebABProps").getABPropConfigValue(
+                "web_anr_media_chunk_enc_delay_enabled",
               ),
-              v = b.result,
-              S = b.transferredBuffer,
-              R = b.transferredKeyBuffer;
-            ((h = R),
-              (y = S),
-              v.success
-                ? (C = v.value.hmac)
-                : o("WALogger")
-                    .WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "hmacSha256InWorker: size:",
-                          ", failed: ",
-                          "",
-                        ])),
-                      y.byteLength,
-                      v.error,
-                    )
-                    .sendLogs("worker-hmac-sha256-failed"));
-          }
-          C == null && (C = yield o("WACryptoHmac").hmacSha256(h, y, p));
-          var L =
-              (i =
-                (l = g.get(t)) == null
-                  ? void 0
-                  : l({
-                      plaintext: e,
-                      ivCiphertext: y,
-                      signature: C,
-                      macKey: h,
-                    })) != null
-                ? i
-                : {},
-            E = L.sidecar,
-            k = E === void 0 ? (m || (m = n("Promise"))).resolve() : E,
-            I = L.firstFrameSidecar,
-            T = I === void 0 ? (m || (m = n("Promise"))).resolve() : I,
-            D = new Uint8Array(y).subarray(u.byteLength),
-            x = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-              D,
-              new Uint8Array(C),
-            ]).buffer,
-            $;
-          f
-            ? ($ = o("WAWebMediaWorkerProxy")
-                .calculateFilehashInWorker(x)
-                .then(function (e) {
-                  var t = e.result,
-                    n = e.transferredBuffer;
-                  return (
-                    (x = n),
-                    t.success
-                      ? t.value.filehash
-                      : (o("WALogger")
-                          .WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "calculateFilehashInWorker: size:",
-                                " failed: ",
-                                "",
-                              ])),
-                            x.byteLength,
-                            t.error,
-                          )
-                          .sendLogs("worker-calculate-filehash-error"),
-                        o("WAMediaCalculateFilehash").calculateFilehash(x))
-                  );
-                }))
-            : ($ = o("WAMediaCalculateFilehash").calculateFilehash(x));
-          var P = yield o("WAPromiseProps").promiseProps({
-            hash: $,
-            sidecar: k,
-            firstFrameSidecar: T,
-          });
-          return babelHelpers.extends({ ciphertextHmac: x }, P);
-        })),
-        y.apply(this, arguments)
-      );
+              yieldFn: o("WAWebABProps").getABPropConfigValue(
+                "wmi_worker_scheduler_web",
+              )
+                ? function () {
+                    return r("WACommonTaskScheduler").yield();
+                  }
+                : void 0,
+            })
+          : await o("WACryptoAesCbc").aesCbcEncrypt(u, t, c),
+        h;
+      if (p) {
+        var y = await o("WAWebMediaWorkerProxy").hmacSha256InWorker(_, g, m),
+          C = y.result,
+          b = y.transferredBuffer,
+          v = y.transferredKeyBuffer;
+        ((_ = v),
+          (g = b),
+          C.success
+            ? (h = C.value.hmac)
+            : o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "hmacSha256InWorker: size:",
+                      ", failed: ",
+                      "",
+                    ])),
+                  g.byteLength,
+                  C.error,
+                )
+                .sendLogs("worker-hmac-sha256-failed"));
+      }
+      h == null && (h = await o("WACryptoHmac").hmacSha256(_, g, m));
+      var S =
+          (i =
+            (l = f.get(n)) == null
+              ? void 0
+              : l({
+                  plaintext: t,
+                  ivCiphertext: g,
+                  signature: h,
+                  macKey: _,
+                })) != null
+            ? i
+            : {},
+        R = S.sidecar,
+        L = R === void 0 ? Promise.resolve() : R,
+        E = S.firstFrameSidecar,
+        k = E === void 0 ? Promise.resolve() : E,
+        I = new Uint8Array(g).subarray(c.byteLength),
+        T = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+          I,
+          new Uint8Array(h),
+        ]).buffer,
+        D;
+      p
+        ? (D = o("WAWebMediaWorkerProxy")
+            .calculateFilehashInWorker(T)
+            .then(function (e) {
+              var t = e.result,
+                n = e.transferredBuffer;
+              return (
+                (T = n),
+                t.success
+                  ? t.value.filehash
+                  : (o("WALogger")
+                      .WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "calculateFilehashInWorker: size:",
+                            " failed: ",
+                            "",
+                          ])),
+                        T.byteLength,
+                        t.error,
+                      )
+                      .sendLogs("worker-calculate-filehash-error"),
+                    o("WAMediaCalculateFilehash").calculateFilehash(T))
+              );
+            }))
+        : (D = o("WAMediaCalculateFilehash").calculateFilehash(T));
+      var x = await o("WAPromiseProps").promiseProps({
+        hash: D,
+        sidecar: L,
+        firstFrameSidecar: k,
+      });
+      return babelHelpers.extends({ ciphertextHmac: T }, x);
     }
-    function C(t) {
-      var a = t.mediaKey,
-        i = t.plaintext,
-        l = t.type;
-      return new (m || (m = n("Promise")))(function (t, n) {
-        var c = { mediaKey: a.slice(0, 10), type: l };
+    function h(e) {
+      var t = e.mediaKey,
+        n = e.plaintext,
+        a = e.type;
+      return new Promise(function (e, i) {
+        var l = { mediaKey: t.slice(0, 10), type: a };
         if (
           (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "encryptMedia: start",
               ])),
           ),
-          !l)
+          !a)
         )
           throw new (o("WAWebMiscErrors").MediaEncryptionError)(
             'encryptMedia: missing "type"',
           );
-        if (!a)
+        if (!t)
           throw new (o("WAWebMiscErrors").MediaEncryptionError)(
             'encryptMedia: missing "mediaKey"',
           );
-        r("WAWebCryptoCreateMediaKeys")(l, a)
+        r("WAWebCryptoCreateMediaKeys")(a, t)
           .then(function (e) {
-            return h(i, l, e);
+            return g(n, a, e);
           })
-          .then(function (e) {
+          .then(function (t) {
             (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "encryptMedia: success",
                 ])),
             ),
-              t(e));
+              e(t));
           })
           .catch(function (e) {
             throw (
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "encryptMedia: error",
                   ])),
               ),
@@ -240,10 +225,10 @@ __d(
                   )
             );
           })
-          .catch(n);
+          .catch(i);
       });
     }
-    l.default = C;
+    l.default = h;
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastCampaignModel",
   [
     "WAWebBaseModel",
+    "WAWebBizBroadcastCampaignCollection",
     "WAWebBizBroadcastCampaignInsightsCollection",
     "WAWebModelUtils",
   ],
@@ -44,6 +45,9 @@ __d(
               "insights",
               r("WAWebBizBroadcastCampaignInsightsCollection").gadd(this.id),
             ));
+        }),
+        (n.getCollection = function () {
+          return r("WAWebBizBroadcastCampaignCollection");
         }),
         t
       );

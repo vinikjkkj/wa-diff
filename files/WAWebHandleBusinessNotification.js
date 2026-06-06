@@ -25,7 +25,6 @@ __d(
     "WAWebParseSubscriptionNotification",
     "WAWebProductTypes.flow",
     "WAWebSubscriptions",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -220,132 +219,124 @@ __d(
             type: "business",
           });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(t) {
+      var n = s.parse(t);
+      if (n.error)
+        throw (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          n.error
+        );
+      var r = n.success;
+      switch (r.type) {
+        case "verified_name_hash": {
+          var a = await o(
+            "WAWebHandleBusinessNameChange",
+          ).handleVerifiedBusinessNameNotificationHash(r);
+          return c(r.stanzaId, r.from, !a);
+        }
+        case "verified_name_jid":
+          return (
+            await o(
+              "WAWebHandleBusinessNameChange",
+            ).handleVerifiedBusinessNameNotificationContact(r),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "remove_hash": {
+          var i = await o(
+            "WAWebHandleBusinessRemoval",
+          ).handleBusinessRemovalNotificationHash(r);
+          return c(r.stanzaId, r.from, !i);
+        }
+        case "remove_jid":
+          return (
+            await o(
+              "WAWebHandleBusinessRemoval",
+            ).handleBusinessRemovalNotificationContact(r),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "profile":
+          return (
+            await o("WAWebHandleBusinessProfile").handleBusinessProfile(r),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "profile_hash": {
+          var l = await o(
+            "WAWebHandleBusinessProfile",
+          ).handleBusinessProfileHash(r);
+          return c(r.stanzaId, r.from, !l);
+        }
+        case "product":
+          return (
+            await o(
+              "WAWebHandleBusinessProductCatalogNotification",
+            ).handleProductNotification(r.productsIds),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "collection":
+          return (
+            await o(
+              "WAWebHandleBusinessProductCatalogNotification",
+            ).handleCollectionNotification(r),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "subscriptions":
+          return (
+            await o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
+              r.subscriptions,
+              r.featureFlags,
+              "update",
+            ),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "ctwa_suggestion":
+          return (
+            await o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
+              r.suggestion,
+            ),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "privacy":
+          return (
+            o(
+              "WAWebHandlePrivacySettingsNotification",
+            ).handleSmbDataSharingSettingNotification(
+              r.privacy.smbDataSharingSetting,
+            ),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "wa_ad_account_nonce":
+          return (
+            o(
+              "WAWebCTWABizAccessTokenNonceManager",
+            ).setNonceFromPushNotification(r.nonce),
+            c(r.stanzaId, r.from, !1)
+          );
+        case "mm_campaign":
+          return (
+            o(
+              "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
+            ).marketingCampaignNotificationEmitter.emit({
+              adCreativeId: r.adCreativeId,
+              adGroupId: r.adGroupId,
+              adId: r.adId,
+              status: r.status,
+              timestamp: r.ts,
+              backgroundSendHandling: !1,
+            }),
+            c(r.stanzaId, r.from, !1)
+          );
+        default:
+          return (r.type, c(r.stanzaId, r.from, !1));
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = s.parse(t);
-          if (n.error)
-            throw (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                n.error.toString(),
-              ),
-              n.error
-            );
-          var r = n.success;
-          switch (r.type) {
-            case "verified_name_hash": {
-              var a = yield o(
-                "WAWebHandleBusinessNameChange",
-              ).handleVerifiedBusinessNameNotificationHash(r);
-              return c(r.stanzaId, r.from, !a);
-            }
-            case "verified_name_jid":
-              return (
-                yield o(
-                  "WAWebHandleBusinessNameChange",
-                ).handleVerifiedBusinessNameNotificationContact(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "remove_hash": {
-              var i = yield o(
-                "WAWebHandleBusinessRemoval",
-              ).handleBusinessRemovalNotificationHash(r);
-              return c(r.stanzaId, r.from, !i);
-            }
-            case "remove_jid":
-              return (
-                yield o(
-                  "WAWebHandleBusinessRemoval",
-                ).handleBusinessRemovalNotificationContact(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "profile":
-              return (
-                yield o("WAWebHandleBusinessProfile").handleBusinessProfile(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "profile_hash": {
-              var l = yield o(
-                "WAWebHandleBusinessProfile",
-              ).handleBusinessProfileHash(r);
-              return c(r.stanzaId, r.from, !l);
-            }
-            case "product":
-              return (
-                yield o(
-                  "WAWebHandleBusinessProductCatalogNotification",
-                ).handleProductNotification(r.productsIds),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "collection":
-              return (
-                yield o(
-                  "WAWebHandleBusinessProductCatalogNotification",
-                ).handleCollectionNotification(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "subscriptions":
-              return (
-                yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-                  r.subscriptions,
-                  r.featureFlags,
-                  "update",
-                ),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "ctwa_suggestion":
-              return (
-                yield o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
-                  r.suggestion,
-                ),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "privacy":
-              return (
-                o(
-                  "WAWebHandlePrivacySettingsNotification",
-                ).handleSmbDataSharingSettingNotification(
-                  r.privacy.smbDataSharingSetting,
-                ),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "wa_ad_account_nonce":
-              return (
-                o(
-                  "WAWebCTWABizAccessTokenNonceManager",
-                ).setNonceFromPushNotification(r.nonce),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "mm_campaign":
-              return (
-                o(
-                  "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
-                ).marketingCampaignNotificationEmitter.emit({
-                  adCreativeId: r.adCreativeId,
-                  adGroupId: r.adGroupId,
-                  adId: r.adId,
-                  status: r.status,
-                  timestamp: r.ts,
-                  backgroundSendHandling: !1,
-                }),
-                c(r.stanzaId, r.from, !1)
-              );
-            default:
-              return (r.type, c(r.stanzaId, r.from, !1));
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -359,7 +350,7 @@ __d(
         )
         .waitUntilCompleted({ node: e });
     }
-    ((l.handleBusinessNotification = d), (l.handleBusinessNotificationJob = p));
+    ((l.handleBusinessNotification = d), (l.handleBusinessNotificationJob = m));
   },
   98,
 );

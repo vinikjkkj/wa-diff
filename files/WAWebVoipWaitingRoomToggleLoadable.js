@@ -1,39 +1,24 @@
 __d(
   "WAWebVoipWaitingRoomToggleLoadable",
-  [
-    "JSResourceForInteraction",
-    "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSResourceForInteraction", "WAWebLazyLoadedRetriable"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("WAWebLazyLoadedRetriable")(
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        var e = yield r("JSResourceForInteraction")(
-          "WAWebVoipWaitingRoomToggleJob",
-        )
-          .__setRef("WAWebVoipWaitingRoomToggleLoadable")
-          .load();
-        return e.toggleWaitingRoomForCallLink;
-      }),
-      "WAWebVoipWaitingRoomToggle",
-    );
-    function s(e) {
-      return u.apply(this, arguments);
+    var e = r("WAWebLazyLoadedRetriable")(async function () {
+      var e = await r("JSResourceForInteraction")(
+        "WAWebVoipWaitingRoomToggleJob",
+      )
+        .__setRef("WAWebVoipWaitingRoomToggleLoadable")
+        .load();
+      return e.toggleWaitingRoomForCallLink;
+    }, "WAWebVoipWaitingRoomToggle");
+    async function s(t) {
+      var n = await e();
+      return n(t);
     }
     function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield e();
-          return n(t);
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c() {
       e();
     }
-    ((l.toggleWaitingRoomLoadable = s), (l.preloadWaitingRoomToggle = c));
+    ((l.toggleWaitingRoomLoadable = s), (l.preloadWaitingRoomToggle = u));
   },
   98,
 );
