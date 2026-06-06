@@ -18,6 +18,7 @@ __d(
     "RSTSessionID",
     "RSTUtils",
     "RSTUtilsMainThread",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -144,133 +145,160 @@ __d(
               r("RSTConfig").INCIDENT_PROPOSED_PROCESSOR_OWNERSHIP_EXPIRE_MS
             );
           }),
-          (t.$8 = async function (t, n) {
-            if (t != null) {
-              var e = t.incidentID;
-              if (
-                o("RSTIncidentLoggingMainThread").getLoggedIncidentIDs().has(e)
-              ) {
-                n.add(e);
-                return;
-              }
-              var a = t.sessionID === o("RSTSessionID").getSessionID();
-              if (a) {
-                ((t.hasRecovered = !0),
-                  o("RSTEventsMessageQueue").notify(
-                    o("RSTEvents").RSTEvent.RECOVERABLE_UNRESPONSIVENESS,
-                    { unresponsiveEventRecord: t },
-                  ),
-                  n.add(e));
-                return;
-              }
-              var i = Date.now() - t.lastHeartBeatTimeStamp;
-              if (
-                !(
-                  i < r("RSTConfig").WAIT_MS_FOR_OTHER_SESSION_BEFORE_PROCESSING
-                )
-              ) {
-                if (i > r("RSTConfig").OBSOLETE_PENDING_INCIDENT_THRESHOLD_MS) {
-                  if (o("RSTUtilsMainThread").shouldSkipProcessingIncident(e))
-                    return;
-                  (o("RSTUtils").debugLogImportant(
-                    "pending incident " + e + " cleaned",
-                  ),
-                    n.add(e));
-                  return;
-                }
-                var l = t.remoteLoggerSessionID == null || this.$7(t);
-                if (l) {
-                  await r("RSTIndexedDBSafe").updateIncidentInDB(function (t) {
-                    return t.incidentID !== e
-                      ? !1
-                      : (o("RSTUtils").debugLogImportant(
-                          "propose as logger for incident " + t.incidentID,
-                        ),
-                        (t.remoteLoggerSessionID =
-                          o("RSTSessionID").getSessionID()),
-                        (t.remoteLoggerProposeTime = Date.now()),
-                        !0);
-                  });
-                  return;
-                }
-                if (
-                  t.remoteLoggerSessionID ===
-                    o("RSTSessionID").getSessionID() &&
-                  !this.$7(t)
-                )
+          (t.$8 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                if (e != null) {
+                  var n = e.incidentID;
                   if (
-                    (o("RSTUtils").debugLogImportant(
-                      "act as logger for incident " + e,
-                    ),
-                    t.hasRecovered)
-                  )
-                    (o("RSTEventsMessageQueue").notify(
-                      o("RSTEvents").RSTEvent.RECOVERABLE_UNRESPONSIVENESS,
-                      { unresponsiveEventRecord: t },
-                    ),
-                      n.add(e));
-                  else {
-                    if (
-                      t.incidentType !==
-                        r("RSTConstants").incidentType.unexpectedExit &&
-                      t.unrecoverLastsForMs <
-                        r("RSTConfig").UNRECOVER_LASTS_THRESHOLD_MS
-                    )
-                      return;
-                    (!r("RSTConfig").ONE_UNRECOVERABLE_INCIDENT_PER_SESSION ||
-                    !this.$2.has(t.sessionID)
-                      ? (await o(
-                          "RSTMarkFirstUnrecoverableMainThread",
-                        ).markFirstUnrecoverableIncident(t),
-                        o("RSTEventsMessageQueue").notify(
-                          o("RSTEvents").RSTEvent.CRASH_INCIDENT,
-                          { unresponsiveEventRecord: t },
-                        ),
-                        this.$2.add(t.sessionID))
-                      : o("RSTUtils").debugLogImportant(
-                          "skip logging unrecoverable incident " +
-                            e +
-                            " " +
-                            ("from session " +
-                              t.sessionID +
-                              " since it has been logged"),
-                        ),
-                      n.add(e));
+                    o("RSTIncidentLoggingMainThread")
+                      .getLoggedIncidentIDs()
+                      .has(n)
+                  ) {
+                    t.add(n);
+                    return;
                   }
-              }
-            }
-          }),
-          (t.logAndDeleteUnresponsiveEvents = async function () {
-            try {
-              o("RSTEventsMessageQueue").notify(
-                o("RSTEvents").RSTEvent.CHECKING_INDEXDB_FOR_EVENTS,
-                {},
-              );
-              var e = await r("RSTIndexedDBSafe").readEventsFromDB(),
-                t = new Set();
-              for (var n of e)
-                try {
-                  (await o("RSTUtils").scheduleYield(), await this.$8(n, t));
-                } catch (e) {
-                  var a,
-                    i = r("getErrorSafe")(e);
-                  r("FBLogger")("responsive-tracker")
-                    .catching(i)
-                    .warn(
-                      (a = i.message) != null
-                        ? a
-                        : "Failed to process incident",
-                    );
+                  var a = e.sessionID === o("RSTSessionID").getSessionID();
+                  if (a) {
+                    ((e.hasRecovered = !0),
+                      o("RSTEventsMessageQueue").notify(
+                        o("RSTEvents").RSTEvent.RECOVERABLE_UNRESPONSIVENESS,
+                        { unresponsiveEventRecord: e },
+                      ),
+                      t.add(n));
+                    return;
+                  }
+                  var i = Date.now() - e.lastHeartBeatTimeStamp;
+                  if (
+                    !(
+                      i <
+                      r("RSTConfig").WAIT_MS_FOR_OTHER_SESSION_BEFORE_PROCESSING
+                    )
+                  ) {
+                    if (
+                      i > r("RSTConfig").OBSOLETE_PENDING_INCIDENT_THRESHOLD_MS
+                    ) {
+                      if (
+                        o("RSTUtilsMainThread").shouldSkipProcessingIncident(n)
+                      )
+                        return;
+                      (o("RSTUtils").debugLogImportant(
+                        "pending incident " + n + " cleaned",
+                      ),
+                        t.add(n));
+                      return;
+                    }
+                    var l = e.remoteLoggerSessionID == null || this.$7(e);
+                    if (l) {
+                      yield r("RSTIndexedDBSafe").updateIncidentInDB(
+                        function (e) {
+                          return e.incidentID !== n
+                            ? !1
+                            : (o("RSTUtils").debugLogImportant(
+                                "propose as logger for incident " +
+                                  e.incidentID,
+                              ),
+                              (e.remoteLoggerSessionID =
+                                o("RSTSessionID").getSessionID()),
+                              (e.remoteLoggerProposeTime = Date.now()),
+                              !0);
+                        },
+                      );
+                      return;
+                    }
+                    if (
+                      e.remoteLoggerSessionID ===
+                        o("RSTSessionID").getSessionID() &&
+                      !this.$7(e)
+                    )
+                      if (
+                        (o("RSTUtils").debugLogImportant(
+                          "act as logger for incident " + n,
+                        ),
+                        e.hasRecovered)
+                      )
+                        (o("RSTEventsMessageQueue").notify(
+                          o("RSTEvents").RSTEvent.RECOVERABLE_UNRESPONSIVENESS,
+                          { unresponsiveEventRecord: e },
+                        ),
+                          t.add(n));
+                      else {
+                        if (
+                          e.incidentType !==
+                            r("RSTConstants").incidentType.unexpectedExit &&
+                          e.unrecoverLastsForMs <
+                            r("RSTConfig").UNRECOVER_LASTS_THRESHOLD_MS
+                        )
+                          return;
+                        (!r("RSTConfig")
+                          .ONE_UNRECOVERABLE_INCIDENT_PER_SESSION ||
+                        !this.$2.has(e.sessionID)
+                          ? (yield o(
+                              "RSTMarkFirstUnrecoverableMainThread",
+                            ).markFirstUnrecoverableIncident(e),
+                            o("RSTEventsMessageQueue").notify(
+                              o("RSTEvents").RSTEvent.CRASH_INCIDENT,
+                              { unresponsiveEventRecord: e },
+                            ),
+                            this.$2.add(e.sessionID))
+                          : o("RSTUtils").debugLogImportant(
+                              "skip logging unrecoverable incident " +
+                                n +
+                                " " +
+                                ("from session " +
+                                  e.sessionID +
+                                  " since it has been logged"),
+                            ),
+                          t.add(n));
+                      }
+                  }
                 }
-              await r("RSTIndexedDBSafe").clearIncidentFromDB(t);
-            } catch (e) {
-              var l,
-                s = r("getErrorSafe")(e);
-              r("FBLogger")("responsive-tracker")
-                .catching(s)
-                .warn((l = s.message) != null ? l : "Failed to log incidents");
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
             }
-          }),
+            return t;
+          })()),
+          (t.logAndDeleteUnresponsiveEvents = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              try {
+                o("RSTEventsMessageQueue").notify(
+                  o("RSTEvents").RSTEvent.CHECKING_INDEXDB_FOR_EVENTS,
+                  {},
+                );
+                var e = yield r("RSTIndexedDBSafe").readEventsFromDB(),
+                  t = new Set();
+                for (var n of e)
+                  try {
+                    (yield o("RSTUtils").scheduleYield(), yield this.$8(n, t));
+                  } catch (e) {
+                    var a,
+                      i = r("getErrorSafe")(e);
+                    r("FBLogger")("responsive-tracker")
+                      .catching(i)
+                      .warn(
+                        (a = i.message) != null
+                          ? a
+                          : "Failed to process incident",
+                      );
+                  }
+                yield r("RSTIndexedDBSafe").clearIncidentFromDB(t);
+              } catch (e) {
+                var l,
+                  s = r("getErrorSafe")(e);
+                r("FBLogger")("responsive-tracker")
+                  .catching(s)
+                  .warn(
+                    (l = s.message) != null ? l : "Failed to log incidents",
+                  );
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           e
         );
       })(),

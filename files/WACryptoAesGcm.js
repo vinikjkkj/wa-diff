@@ -1,34 +1,54 @@
 __d(
   "WACryptoAesGcm",
-  ["WABinary", "WACryptoDependencies"],
+  ["WABinary", "WACryptoDependencies", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e, t, n, r, a) {
-      a === void 0 && (a = 16);
-      var i = { name: "AES-GCM", iv: c(t), tagLength: a * 8 };
+    function e(e, t, n, r, o) {
+      return s.apply(this, arguments);
+    }
+    function s() {
       return (
-        r != null && (i.additionalData = c(r)),
-        o("WACryptoDependencies")
-          .getCrypto()
-          .subtle.encrypt(i, await u(e), n)
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            a === void 0 && (a = 16);
+            var i = { name: "AES-GCM", iv: m(t), tagLength: a * 8 };
+            return (
+              r != null && (i.additionalData = m(r)),
+              o("WACryptoDependencies")
+                .getCrypto()
+                .subtle.encrypt(i, yield d(e), n)
+            );
+          },
+        )),
+        s.apply(this, arguments)
       );
     }
-    async function s(e, t, n, r, a) {
-      a === void 0 && (a = 16);
-      var i = { name: "AES-GCM", iv: c(t), tagLength: a * 8 };
+    function u(e, t, n, r, o) {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        r != null && (i.additionalData = c(r)),
-        o("WACryptoDependencies")
-          .getCrypto()
-          .subtle.decrypt(i, await u(e), n)
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            a === void 0 && (a = 16);
+            var i = { name: "AES-GCM", iv: m(t), tagLength: a * 8 };
+            return (
+              r != null && (i.additionalData = m(r)),
+              o("WACryptoDependencies")
+                .getCrypto()
+                .subtle.decrypt(i, yield d(e), n)
+            );
+          },
+        )),
+        c.apply(this, arguments)
       );
     }
-    function u(e) {
+    function d(e) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.importKey("raw", e, "AES-GCM", !1, ["encrypt", "decrypt"]);
     }
-    function c(e) {
+    function m(e) {
       if (e instanceof Uint8Array) return e;
       if (typeof e == "string") {
         var t = new (o("WABinary").Binary)();
@@ -36,7 +56,7 @@ __d(
       }
       return new Uint8Array(e);
     }
-    ((l.gcmEncrypt = e), (l.gcmDecrypt = s));
+    ((l.gcmEncrypt = e), (l.gcmDecrypt = u));
   },
   98,
 );

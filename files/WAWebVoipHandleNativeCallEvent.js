@@ -1,6 +1,7 @@
 __d(
   "WAWebVoipHandleNativeCallEvent",
   [
+    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebBackendApi",
@@ -27,6 +28,7 @@ __d(
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebTransportConnectionManager",
     "WAWebVoipWindowMetrics",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -61,8 +63,9 @@ __d(
       N,
       M,
       w,
-      A;
-    function F(e) {
+      A,
+      F;
+    function O(e) {
       return e === o("WAWebVoipWaCallEnums").CallState.None
         ? "None"
         : e === o("WAWebVoipWaCallEnums").CallState.Calling
@@ -110,9 +113,9 @@ __d(
                                         );
                                       })();
     }
-    var O = null,
-      B = null;
-    function W() {
+    var B = null,
+      W = null;
+    function q() {
       return {
         initStarted: !1,
         callIsActive: !1,
@@ -120,38 +123,38 @@ __d(
         cachedRelayListData: null,
       };
     }
-    var q = W(),
-      U = 90,
-      V = null,
+    var U = q(),
+      V = 90,
       H = null,
-      G = 60,
-      z = null,
-      j = null;
-    function K() {
-      ((B = null), o("WAWebVoipWasmHeapMonitor").stopWasmHeapMonitor());
+      G = null,
+      z = 60,
+      j = null,
+      K = null;
+    function Q() {
+      ((W = null), o("WAWebVoipWasmHeapMonitor").stopWasmHeapMonitor());
     }
-    function Q(t, n) {
+    function X(t, n) {
       if (
         t === o("WAWebVoipWaCallEnums").CallState.None ||
         t === o("WAWebVoipWaCallEnums").CallState.CallActiveElseWhere
       ) {
-        K();
+        Q();
         return;
       }
       if (
         !(
-          B != null || t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding
+          W != null || t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding
         )
       ) {
         var a = n.callId;
-        ((B = a),
+        ((W = a),
           o("WAWebBackendApi")
             .frontendSendAndReceive("initializeVoipWasm")
             .then(function (e) {
-              B === a && o("WAWebVoipWasmHeapMonitor").startWasmHeapMonitor(e);
+              W === a && o("WAWebVoipWasmHeapMonitor").startWasmHeapMonitor(e);
             })
             .catch(function (t) {
-              (B === a && (B = null),
+              (W === a && (W = null),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -163,11 +166,11 @@ __d(
             }));
       }
     }
-    function X() {
-      V != null &&
-        (window.clearTimeout(V),
-        (V = null),
+    function Y() {
+      H != null &&
+        (window.clearTimeout(H),
         (H = null),
+        (G = null),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -175,556 +178,568 @@ __d(
             ])),
         ));
     }
-    async function Y(e, t, n) {
-      if (e.type === "web") {
-        var a =
-          o("WAWebVoipCallStateUtils").isCallTerminal(t) ||
-          o("WAWebVoipCallStateUtils").isCallActive(t);
-        if (a) {
-          X();
-          return;
-        }
-        var i = o("WAWebVoipCallStateUtils").isCallOutgoing(t),
-          l = n.isCaller === !0,
-          s = n.isGroupCall === !0;
-        if (i && l && !s) {
-          if (V != null) return;
-          var g = n.callId;
-          if (g == null) {
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: caller timeout not set, callId is null",
-                ])),
-            );
-            return;
-          }
-          H = g;
-          var h = U;
-          try {
-            var y = await e.getVoipParam("options.caller_timeout");
-            if (y != null && y !== "") {
-              var C = parseInt(y, 10);
-              !isNaN(C) && C > 0 && (h = C);
+    function J(e, t, n) {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          if (e.type === "web") {
+            var i =
+              o("WAWebVoipCallStateUtils").isCallTerminal(t) ||
+              o("WAWebVoipCallStateUtils").isCallActive(t);
+            if (i) {
+              Y();
+              return;
             }
-          } catch (e) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: failed to get caller timeout param, using default: ",
-                  "",
-                ])),
-              e,
-            );
-          }
-          if (H !== g) {
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: caller timeout skipped, state changed",
-                ])),
-            );
-            return;
-          }
-          (o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: setting caller timeout for outgoing call: ",
-                "s",
-              ])),
-            h,
-          ),
-            (V = window.setTimeout(function () {
-              if (H !== g) {
+            var l = o("WAWebVoipCallStateUtils").isCallOutgoing(t),
+              s = a.isCaller === !0,
+              u = a.isGroupCall === !0;
+            if (l && s && !u) {
+              if (H != null) return;
+              var c = a.callId;
+              if (c == null) {
                 o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: caller timeout fired but call ID changed, ignoring",
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: caller timeout not set, callId is null",
+                    ])),
+                );
+                return;
+              }
+              G = c;
+              var d = V;
+              try {
+                var m = yield e.getVoipParam("options.caller_timeout");
+                if (m != null && m !== "") {
+                  var p = parseInt(m, 10);
+                  !isNaN(p) && p > 0 && (d = p);
+                }
+              } catch (e) {
+                o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: failed to get caller timeout param, using default: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+              if (G !== c) {
+                o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: caller timeout skipped, state changed",
                     ])),
                 );
                 return;
               }
               (o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: caller timeout fired, ending call",
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: setting caller timeout for outgoing call: ",
+                    "s",
                   ])),
+                d,
               ),
-                (V = null),
-                (H = null),
-                Promise.resolve(
-                  e.endCall(
-                    o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
-                    !0,
-                  ),
-                ).catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: failed to end call on caller timeout",
+                (H = window.setTimeout(function () {
+                  if (G !== c) {
+                    o("WALogger").LOG(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: caller timeout fired but call ID changed, ignoring",
                         ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }));
-            }, h * 1e3)));
-        }
-      }
+                    );
+                    return;
+                  }
+                  (o("WALogger").LOG(
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: caller timeout fired, ending call",
+                      ])),
+                  ),
+                    (H = null),
+                    (G = null),
+                    (F || (F = n("Promise")))
+                      .resolve(
+                        e.endCall(
+                          o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
+                          !0,
+                        ),
+                      )
+                      .catch(function (e) {
+                        o("WALogger")
+                          .ERROR(
+                            v ||
+                              (v = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: failed to end call on caller timeout",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(e));
+                      }));
+                }, d * 1e3)));
+            }
+          }
+        })),
+        Z.apply(this, arguments)
+      );
     }
-    function J() {
-      z != null &&
-        (window.clearTimeout(z),
-        (z = null),
+    function ee() {
+      j != null &&
+        (window.clearTimeout(j),
         (j = null),
+        (K = null),
         o("WALogger").LOG(
-          g ||
-            (g = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "voip: callee ringing timeout cleared",
             ])),
         ));
     }
-    function Z(e, t, n) {
+    function te(e, t, a) {
       if (e.type === "web") {
-        var a =
+        var i =
           o("WAWebVoipCallStateUtils").isCallTerminal(t) ||
           o("WAWebVoipCallStateUtils").isCallActive(t) ||
           o("WAWebVoipCallStateUtils").isCallConnecting(t);
-        if (a) {
-          J();
+        if (i) {
+          ee();
           return;
         }
         if (
           t === o("WAWebVoipWaCallEnums").CallState.ReceivedCall &&
-          n.isCaller !== !0
+          a.isCaller !== !0
         ) {
-          if (z != null) return;
-          var i = n.callId;
-          if (i == null) {
+          if (j != null) return;
+          var l = a.callId;
+          if (l == null) {
             o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: callee ringing timeout not set, callId is null",
                 ])),
             );
             return;
           }
-          j = i;
-          var l = G;
+          K = l;
+          var s = z;
           (o("WALogger").LOG(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: callee ringing timeout set: ",
                 " (",
                 "s)",
               ])),
-            i,
             l,
+            s,
           ),
-            (z = window.setTimeout(function () {
-              if (j !== i) {
+            (j = window.setTimeout(function () {
+              if (K !== l) {
                 o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: callee ringing timeout fired, callId changed",
                     ])),
                 );
                 return;
               }
               (o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: callee ringing timeout fired: ",
                     "",
                   ])),
-                i,
+                l,
               ),
-                (z = null),
                 (j = null),
-                Promise.resolve(
-                  e.endCall(
-                    o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
-                    !0,
-                  ),
-                ).catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: failed to end call on callee ringing timeout",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }),
+                (K = null),
+                (F || (F = n("Promise")))
+                  .resolve(
+                    e.endCall(
+                      o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
+                      !0,
+                    ),
+                  )
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: failed to end call on callee ringing timeout",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e));
+                  }),
                 o("WAWebBackendApi").frontendFireAndForget("setCallState", {
                   callState: o("WAWebVoipWaCallEnums").CallState.None,
-                  callInfo: n,
+                  callInfo: a,
                 }));
-            }, l * 1e3)));
+            }, s * 1e3)));
         }
       }
     }
-    async function ee(e, t) {
-      await (e === o("WAWebVoipWaCallEnums").CallEvent.CallStateChanged
-        ? ne(t)
-        : e === o("WAWebVoipWaCallEnums").CallEvent.SyncDevices
-          ? o(
-              "WAWebVoipHandleNativeCallEventCallLogHandlers",
-            ).handleSyncDevices(t)
-          : e === o("WAWebVoipWaCallEnums").CallEvent.CallEnding
-            ? o(
-                "WAWebVoipHandleNativeCallEventCallLogHandlers",
-              ).handleCallEnding(t)
-            : e ===
-                o("WAWebVoipWaCallEnums").CallEvent.RejectedDecryptionFailure
+    function ne(e, t) {
+      return re.apply(this, arguments);
+    }
+    function re() {
+      return (
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield e === o("WAWebVoipWaCallEnums").CallEvent.CallStateChanged
+            ? ie(t)
+            : e === o("WAWebVoipWaCallEnums").CallEvent.SyncDevices
               ? o(
                   "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                ).handleRejectedDecryptionFailure(t)
-              : e === o("WAWebVoipWaCallEnums").CallEvent.UpdateJoinableCallLog
+                ).handleSyncDevices(t)
+              : e === o("WAWebVoipWaCallEnums").CallEvent.CallEnding
                 ? o(
                     "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                  ).handleUpdateJoinableCallLog(t)
-                : e === o("WAWebVoipWaCallEnums").CallEvent.CallMissed
+                  ).handleCallEnding(t)
+                : e ===
+                    o("WAWebVoipWaCallEnums").CallEvent
+                      .RejectedDecryptionFailure
                   ? o(
                       "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                    ).handleCallMissed(t)
-                  : e === o("WAWebVoipWaCallEnums").CallEvent.Update1to1CallLog
+                    ).handleRejectedDecryptionFailure(t)
+                  : e ===
+                      o("WAWebVoipWaCallEnums").CallEvent.UpdateJoinableCallLog
                     ? o(
                         "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                      ).handleUpdate1to1CallLog(t)
-                    : e === o("WAWebVoipWaCallEnums").CallEvent.RelayListUpdate
-                      ? re(t)
+                      ).handleUpdateJoinableCallLog(t)
+                    : e === o("WAWebVoipWaCallEnums").CallEvent.CallMissed
+                      ? o(
+                          "WAWebVoipHandleNativeCallEventCallLogHandlers",
+                        ).handleCallMissed(t)
                       : e ===
-                          o("WAWebVoipWaCallEnums").CallEvent.FieldstatsReady
+                          o("WAWebVoipWaCallEnums").CallEvent.Update1to1CallLog
                         ? o(
-                            "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
-                          ).handleFieldstatsReady(t)
+                            "WAWebVoipHandleNativeCallEventCallLogHandlers",
+                          ).handleUpdate1to1CallLog(t)
                         : e ===
-                              o("WAWebVoipWaCallEnums").CallEvent
-                                .GroupInfoChanged ||
-                            e ===
-                              o("WAWebVoipWaCallEnums").CallEvent
-                                .GroupParticipantLeft
-                          ? o(
-                              "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                            ).handleGroupInfoChanged(t)
+                            o("WAWebVoipWaCallEnums").CallEvent.RelayListUpdate
+                          ? se(t)
                           : e ===
-                                o("WAWebVoipWaCallEnums").CallEvent
-                                  .SelfVideoStateChanged ||
-                              e ===
-                                o("WAWebVoipWaCallEnums").CallEvent
-                                  .PeerVideoStateChanged ||
-                              e ===
-                                o("WAWebVoipWaCallEnums").CallEvent
-                                  .VideoStateChanged
+                              o("WAWebVoipWaCallEnums").CallEvent
+                                .FieldstatsReady
                             ? o(
-                                "WAWebVoipHandleNativeCallEventMediaHandlers",
-                              ).handleVideoStateChanged(t)
+                                "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+                              ).handleFieldstatsReady(t)
                             : e ===
-                                o("WAWebVoipWaCallEnums").CallEvent
-                                  .PeerVideoPermissionChanged
-                              ? o(
-                                  "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                ).handlePeerVideoPermissionChanged(t)
-                              : e ===
                                   o("WAWebVoipWaCallEnums").CallEvent
-                                    .CallRejectReceived
+                                    .GroupInfoChanged ||
+                                e ===
+                                  o("WAWebVoipWaCallEnums").CallEvent
+                                    .GroupParticipantLeft
+                              ? o(
+                                  "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                ).handleGroupInfoChanged(t)
+                              : e ===
+                                    o("WAWebVoipWaCallEnums").CallEvent
+                                      .SelfVideoStateChanged ||
+                                  e ===
+                                    o("WAWebVoipWaCallEnums").CallEvent
+                                      .PeerVideoStateChanged ||
+                                  e ===
+                                    o("WAWebVoipWaCallEnums").CallEvent
+                                      .VideoStateChanged
                                 ? o(
-                                    "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                  ).handleCallRejectReceived(t)
+                                    "WAWebVoipHandleNativeCallEventMediaHandlers",
+                                  ).handleVideoStateChanged(t)
                                 : e ===
                                     o("WAWebVoipWaCallEnums").CallEvent
-                                      .CallFatal
+                                      .PeerVideoPermissionChanged
                                   ? o(
-                                      "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                    ).handleCallFatal(t)
+                                      "WAWebVoipHandleNativeCallEventMediaHandlers",
+                                    ).handlePeerVideoPermissionChanged(t)
                                   : e ===
                                       o("WAWebVoipWaCallEnums").CallEvent
-                                        .RTCPByeReceived
+                                        .CallRejectReceived
                                     ? o(
                                         "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                      ).handleRTCPByeReceived(t)
+                                      ).handleCallRejectReceived(t)
                                     : e ===
                                         o("WAWebVoipWaCallEnums").CallEvent
-                                          .RelayBindsFailed
+                                          .CallFatal
                                       ? o(
                                           "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                        ).handleRelayBindsFailed(t)
+                                        ).handleCallFatal(t)
                                       : e ===
                                           o("WAWebVoipWaCallEnums").CallEvent
-                                            .MuteStateChanged
+                                            .RTCPByeReceived
                                         ? o(
-                                            "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                          ).handleMuteStateChanged()
+                                            "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                          ).handleRTCPByeReceived(t)
                                         : e ===
                                             o("WAWebVoipWaCallEnums").CallEvent
-                                              .ReactionStateChanged
+                                              .RelayBindsFailed
                                           ? o(
-                                              "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                            ).handleReactionStateChanged(t)
+                                              "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                            ).handleRelayBindsFailed(t)
                                           : e ===
                                               o("WAWebVoipWaCallEnums")
-                                                .CallEvent.RaiseHandStateChanged
+                                                .CallEvent.MuteStateChanged
                                             ? o(
                                                 "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                              ).handleRaiseHandStateChanged(t)
+                                              ).handleMuteStateChanged()
                                             : e ===
                                                 o("WAWebVoipWaCallEnums")
                                                   .CallEvent
-                                                  .SpeakerStatusChanged
+                                                  .ReactionStateChanged
                                               ? o(
                                                   "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                                ).handleSpeakerStatusChanged(t)
+                                                ).handleReactionStateChanged(t)
                                               : e ===
                                                   o("WAWebVoipWaCallEnums")
                                                     .CallEvent
-                                                    .AudioDriverRestart
+                                                    .RaiseHandStateChanged
                                                 ? o(
                                                     "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                                  ).handleAudioDriverRestart(t)
+                                                  ).handleRaiseHandStateChanged(
+                                                    t,
+                                                  )
                                                 : e ===
                                                     o("WAWebVoipWaCallEnums")
-                                                      .CallEvent.ScreenShare
+                                                      .CallEvent
+                                                      .SpeakerStatusChanged
                                                   ? o(
                                                       "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                                    ).handleScreenShareStateChanged(
+                                                    ).handleSpeakerStatusChanged(
                                                       t,
                                                     )
                                                   : e ===
                                                       o("WAWebVoipWaCallEnums")
                                                         .CallEvent
-                                                        .RxTrafficStateForPeerChanged
+                                                        .AudioDriverRestart
                                                     ? o(
-                                                        "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                      ).handleRxTrafficStateForPeerChanged(
+                                                        "WAWebVoipHandleNativeCallEventMediaHandlers",
+                                                      ).handleAudioDriverRestart(
                                                         t,
                                                       )
                                                     : e ===
                                                         o(
                                                           "WAWebVoipWaCallEnums",
-                                                        ).CallEvent
-                                                          .NetHealthStatusChangedV2
+                                                        ).CallEvent.ScreenShare
                                                       ? o(
-                                                          "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                        ).handleNetHealthStatusChanged(
+                                                          "WAWebVoipHandleNativeCallEventMediaHandlers",
+                                                        ).handleScreenShareStateChanged(
                                                           t,
                                                         )
                                                       : e ===
                                                           o(
                                                             "WAWebVoipWaCallEnums",
                                                           ).CallEvent
-                                                            .CallLinkStateChanged
+                                                            .RxTrafficStateForPeerChanged
                                                         ? o(
                                                             "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                          ).handleCallLinkStateChanged(
+                                                          ).handleRxTrafficStateForPeerChanged(
                                                             t,
                                                           )
                                                         : e ===
                                                             o(
                                                               "WAWebVoipWaCallEnums",
                                                             ).CallEvent
-                                                              .CallOfferNacked
+                                                              .NetHealthStatusChangedV2
                                                           ? o(
                                                               "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                            ).handleCallOfferNacked(
+                                                            ).handleNetHealthStatusChanged(
                                                               t,
                                                             )
                                                           : e ===
-                                                                o(
-                                                                  "WAWebVoipWaCallEnums",
-                                                                ).CallEvent
-                                                                  .LinkQueryNacked ||
-                                                              e ===
-                                                                o(
-                                                                  "WAWebVoipWaCallEnums",
-                                                                ).CallEvent
-                                                                  .LinkJoinNacked
+                                                              o(
+                                                                "WAWebVoipWaCallEnums",
+                                                              ).CallEvent
+                                                                .CallLinkStateChanged
                                                             ? o(
                                                                 "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                              ).handleCallLinkNacked(
+                                                              ).handleCallLinkStateChanged(
                                                                 t,
                                                               )
                                                             : e ===
                                                                 o(
                                                                   "WAWebVoipWaCallEnums",
                                                                 ).CallEvent
-                                                                  .LobbyNacked
+                                                                  .CallOfferNacked
                                                               ? o(
                                                                   "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                ).handleLobbyNacked()
+                                                                ).handleCallOfferNacked(
+                                                                  t,
+                                                                )
                                                               : e ===
-                                                                  o(
-                                                                    "WAWebVoipWaCallEnums",
-                                                                  ).CallEvent
-                                                                    .LobbyTimeout
+                                                                    o(
+                                                                      "WAWebVoipWaCallEnums",
+                                                                    ).CallEvent
+                                                                      .LinkQueryNacked ||
+                                                                  e ===
+                                                                    o(
+                                                                      "WAWebVoipWaCallEnums",
+                                                                    ).CallEvent
+                                                                      .LinkJoinNacked
                                                                 ? o(
                                                                     "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                  ).handleLobbyTimeout()
+                                                                  ).handleCallLinkNacked(
+                                                                    t,
+                                                                  )
                                                                 : e ===
                                                                     o(
                                                                       "WAWebVoipWaCallEnums",
                                                                     ).CallEvent
-                                                                      .MuteRequestFailed
+                                                                      .LobbyNacked
                                                                   ? o(
-                                                                      "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                                                                    ).handleMuteRequestFailed()
+                                                                      "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                                                    ).handleLobbyNacked()
                                                                   : e ===
                                                                       o(
                                                                         "WAWebVoipWaCallEnums",
                                                                       )
                                                                         .CallEvent
-                                                                        .MutedByOthers
+                                                                        .LobbyTimeout
                                                                     ? o(
-                                                                        "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                                                                      ).handleMutedByOthers(
-                                                                        t,
-                                                                      )
+                                                                        "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                                                      ).handleLobbyTimeout()
                                                                     : e ===
                                                                         o(
                                                                           "WAWebVoipWaCallEnums",
                                                                         )
                                                                           .CallEvent
-                                                                          .WaitingRoomDenied
-                                                                      ? void o(
-                                                                          "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                        ).handleWaitingRoomDenied()
+                                                                          .MuteRequestFailed
+                                                                      ? o(
+                                                                          "WAWebVoipHandleNativeCallEventCallLogHandlers",
+                                                                        ).handleMuteRequestFailed()
                                                                       : e ===
                                                                           o(
                                                                             "WAWebVoipWaCallEnums",
                                                                           )
                                                                             .CallEvent
-                                                                            .WaitingRoomStateChanged
-                                                                        ? void o(
-                                                                            "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                          ).handleWaitingRoomStateChanged()
+                                                                            .MutedByOthers
+                                                                        ? o(
+                                                                            "WAWebVoipHandleNativeCallEventCallLogHandlers",
+                                                                          ).handleMutedByOthers(
+                                                                            t,
+                                                                          )
                                                                         : e ===
                                                                             o(
                                                                               "WAWebVoipWaCallEnums",
                                                                             )
                                                                               .CallEvent
-                                                                              .CallGridRankingChanged
-                                                                          ? o(
+                                                                              .WaitingRoomDenied
+                                                                          ? void o(
                                                                               "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                            ).handleCallGridRankingChanged()
+                                                                            ).handleWaitingRoomDenied()
                                                                           : e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .CallAutoConnect ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .BotReconfigureSuccess ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .AudioDeviceReady ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .BotEarlyConnect ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .MicrophoneDeviceReady ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .SpeakerDeviceReady ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .WearableAttributionStateChanged ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .RxTranscriptMsg ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .RemoveFailed ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .E2EEStatusChanged ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .WaitingRoomToggleAcked ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .WaitingRoomAdmitAcked ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .WaitingRoomDenyAcked ||
-                                                                              e ===
-                                                                                o(
-                                                                                  "WAWebVoipWaCallEnums",
-                                                                                )
-                                                                                  .CallEvent
-                                                                                  .LinkQueryAcked
-                                                                            ? o(
-                                                                                "WAWebVoipHandleNativeCallEventCallLogHandlers",
-                                                                              ).handleNoOpEvent(
-                                                                                e,
+                                                                              o(
+                                                                                "WAWebVoipWaCallEnums",
                                                                               )
+                                                                                .CallEvent
+                                                                                .WaitingRoomStateChanged
+                                                                            ? void o(
+                                                                                "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                                                              ).handleWaitingRoomStateChanged()
                                                                             : e ===
                                                                                 o(
                                                                                   "WAWebVoipWaCallEnums",
                                                                                 )
                                                                                   .CallEvent
-                                                                                  .EncodeTargetFpsChanged
+                                                                                  .CallGridRankingChanged
                                                                               ? o(
-                                                                                  "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                                                                ).handleEncodeTargetFpsChanged(
-                                                                                  t,
-                                                                                )
+                                                                                  "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                                                                ).handleCallGridRankingChanged()
                                                                               : e ===
-                                                                                  o(
-                                                                                    "WAWebVoipWaCallEnums",
-                                                                                  )
-                                                                                    .CallEvent
-                                                                                    .EncodeParamsChanged
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .CallAutoConnect ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .BotReconfigureSuccess ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .AudioDeviceReady ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .BotEarlyConnect ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .MicrophoneDeviceReady ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .SpeakerDeviceReady ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .WearableAttributionStateChanged ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .RxTranscriptMsg ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .RemoveFailed ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .E2EEStatusChanged ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .WaitingRoomToggleAcked ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .WaitingRoomAdmitAcked ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .WaitingRoomDenyAcked ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
+                                                                                      .LinkQueryAcked
                                                                                 ? o(
-                                                                                    "WAWebVoipHandleNativeCallEventMediaHandlers",
-                                                                                  ).handleEncodeParamsChanged(
-                                                                                    t,
+                                                                                    "WAWebVoipHandleNativeCallEventCallLogHandlers",
+                                                                                  ).handleNoOpEvent(
+                                                                                    e,
                                                                                   )
                                                                                 : e ===
                                                                                     o(
                                                                                       "WAWebVoipWaCallEnums",
                                                                                     )
                                                                                       .CallEvent
-                                                                                      .P2PTransportUpdate
+                                                                                      .EncodeTargetFpsChanged
                                                                                   ? o(
-                                                                                      "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                                    ).handleP2PTransportUpdate(
+                                                                                      "WAWebVoipHandleNativeCallEventMediaHandlers",
+                                                                                    ).handleEncodeTargetFpsChanged(
                                                                                       t,
                                                                                     )
                                                                                   : e ===
@@ -732,10 +747,10 @@ __d(
                                                                                         "WAWebVoipWaCallEnums",
                                                                                       )
                                                                                         .CallEvent
-                                                                                        .HandleGroupCallReminder
+                                                                                        .EncodeParamsChanged
                                                                                     ? o(
-                                                                                        "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-                                                                                      ).handleGroupCallReminder(
+                                                                                        "WAWebVoipHandleNativeCallEventMediaHandlers",
+                                                                                      ).handleEncodeParamsChanged(
                                                                                         t,
                                                                                       )
                                                                                     : e ===
@@ -743,381 +758,454 @@ __d(
                                                                                           "WAWebVoipWaCallEnums",
                                                                                         )
                                                                                           .CallEvent
-                                                                                          .LidCallerDisplayInfo
-                                                                                      ? te(
+                                                                                          .P2PTransportUpdate
+                                                                                      ? o(
+                                                                                          "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                                                                        ).handleP2PTransportUpdate(
                                                                                           t,
                                                                                         )
-                                                                                      : null);
+                                                                                      : e ===
+                                                                                          o(
+                                                                                            "WAWebVoipWaCallEnums",
+                                                                                          )
+                                                                                            .CallEvent
+                                                                                            .HandleGroupCallReminder
+                                                                                        ? o(
+                                                                                            "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+                                                                                          ).handleGroupCallReminder(
+                                                                                            t,
+                                                                                          )
+                                                                                        : e ===
+                                                                                            o(
+                                                                                              "WAWebVoipWaCallEnums",
+                                                                                            )
+                                                                                              .CallEvent
+                                                                                              .LidCallerDisplayInfo
+                                                                                          ? oe(
+                                                                                              t,
+                                                                                            )
+                                                                                          : null;
+        })),
+        re.apply(this, arguments)
+      );
     }
-    async function te(e) {
-      (o("WALogger").LOG(
-        S ||
-          (S = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: LidCallerDisplayInfo",
-          ])),
-      ),
-        await o("WAWebVoipHandleLidCallerDisplayInfo")
-          .handleWAWebVoipLidCallerDisplayInfo(e)
-          .catch(function (e) {
-            o("WALogger")
-              .WARN(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [LidCallerDisplayInfo] unhandled error",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("voip-lid-caller-display-info-failed");
-          }));
+    function oe(e) {
+      return ae.apply(this, arguments);
     }
-    async function ne(e) {
-      var t,
-        n = r("nullthrows")(
-          await o("WAWebVoipStackInterface").getVoipStackInterface(),
-        ),
-        a = n.parsers.parseCallStateChangedData(e),
-        i =
-          (t = a.CallState) != null
-            ? t
-            : o("WAWebVoipWaCallEnums").CallState.None,
-        l = a.call_info;
-      (Y(n, i, l).catch(function (e) {
-        o("WALogger")
-          .ERROR(
-            L ||
-              (L = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: handleCallerTimeout failed",
+    function ae() {
+      return (
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (o("WALogger").LOG(
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: LidCallerDisplayInfo",
               ])),
-          )
-          .catching(r("getErrorSafe")(e));
-      }),
-        Z(n, i, l));
-      var s = o(
-        "WAWebVoipThreadPoolManagerRegistry",
-      ).getVoipThreadPoolManager();
-      (s == null || s.onCallStateChanged(i),
-        n.type === "web" && Q(i, l),
-        o("WAWebVoipCallStateUtils").isCallTerminal(i) ||
-          (o("WAWebBackendApi").frontendFireAndForget("startAnrTracking", {}),
-          o("WAWebBackendApi").frontendFireAndForget(
-            "startActivityTracking",
-            {},
           ),
-          o("WAWebBackendApi").frontendFireAndForget(
-            "startUiActivityTracking",
-            {},
-          )));
-      var u = F(i);
-      if (
-        (o("WAWebBackendApi").frontendFireAndForget(
-          "trackVoipCallStateChange",
-          { stateName: u },
-        ),
-        i === o("WAWebVoipWaCallEnums").CallState.CallActive)
-      ) {
-        var c = a.call_info.callId;
-        O = c;
-        var d = o("WAWebABProps").getABPropConfigValue(
-            "web_voip_dynamic_thread_preallocate_count",
-          ),
-          m = o("WAWebVoipGatingUtils").isWebKitBrowser(),
-          p =
-            d > 0 && !m
-              ? d
-              : "disabled(webkit=" + String(m) + ", count=" + d + ")",
-          _ = o("WAWebABProps").getABPropConfigValue(
-            "enable_web_voip_proxy_and_sctp_workers",
-          ),
-          f = o("WAWebABProps").getABPropConfigValue(
-            "enable_web_voip_platform_av_sync",
-          ),
-          g = o("WAWebABProps").getABPropConfigValue(
-            "enable_web_voip_dynamic_fps_throttle",
-          ),
-          h = o("WAWebABProps").getABPropConfigValue(
-            "web_calling_perf_optimizations_bitmask",
-          ),
-          y = o("WAWebABProps").getABPropConfigValue(
-            "web_voip_audio_capture_impl",
-          ),
-          C = o("WAWebABProps").getABPropConfigValue(
-            "web_voip_audio_playback_impl",
-          );
-        (o("WALogger").LOG(
-          E ||
-            (E = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [CallActive] proxySctp=",
-              " avSync=",
-              " dynFps=",
-              " perfBits=",
-              "",
-            ])),
-          _,
-          f,
-          g,
-          h,
-        ),
-          o("WALogger").LOG(
-            k ||
-              (k = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [CallActive] abprops audioCap=",
-                " audioPlay=",
-                " dynPool=",
-                "",
-              ])),
-            y,
-            C,
-            p,
-          ),
-          o("WAWebVoipCrashRecovery").markCallActive(c),
-          o("WAWebVoipCrashRecovery").registerGracefulExitHandler(c),
-          o("WAWebVoipFocusTracker").startVoipFocusTracking(),
-          o("WAWebBackendApi")
-            .frontendSendAndReceive("initializeVoipWasm")
-            .then(function (e) {
-              O === c && o("WAWebVoipPersistentFS").startPeriodicVoipSync(e);
-            })
-            .catch(function (e) {
-              o("WALogger")
-                .ERROR(
-                  I ||
-                    (I = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [IDBFS] Failed to start periodic sync",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e));
-            }),
-          o("WAWebVoipBrowserMetrics").startBrowserMetrics(),
-          o("WAWebVoipWindowMetrics").startWindowMetrics(),
-          o("WAWebVoipBatteryDiagnostics").startBatteryDiagnostics(),
-          (q.callIsActive = !0));
-        var b = l.linkToken != null && l.linkToken !== "";
-        (b &&
-          l.videoEnabled &&
-          n.type === "web" &&
-          n.broadcastVideoState().catch(function (e) {
+            yield o("WAWebVoipHandleLidCallerDisplayInfo")
+              .handleWAWebVoipLidCallerDisplayInfo(e)
+              .catch(function (e) {
+                o("WALogger")
+                  .WARN(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [LidCallerDisplayInfo] unhandled error",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("voip-lid-caller-display-info-failed");
+              }));
+        })),
+        ae.apply(this, arguments)
+      );
+    }
+    function ie(e) {
+      return le.apply(this, arguments);
+    }
+    function le() {
+      return (
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = r("nullthrows")(
+              yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+            ),
+            a = n.parsers.parseCallStateChangedData(e),
+            i =
+              (t = a.CallState) != null
+                ? t
+                : o("WAWebVoipWaCallEnums").CallState.None,
+            l = a.call_info;
+          (J(n, i, l).catch(function (e) {
             o("WALogger")
-              .WARN(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [CallActive] broadcastVideoState for call link failed",
+              .ERROR(
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: handleCallerTimeout failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e));
           }),
-          oe().catch(function (e) {
-            o("WALogger")
-              .WARN(
-                D ||
-                  (D = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: initP2PConnectionIfEnabled failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e));
-          }));
-      }
-      o("WAWebBackendApi").frontendFireAndForget("setCallState", {
-        callState: i,
-        callInfo: a.call_info,
-      });
-      var v = o("WAWebVoipCallStateUtils").isCallTerminal(i);
-      if (
-        (v &&
-          a.call_info.callDuration === 0 &&
-          o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
-            .sendStoredFieldstats()
-            .catch(function (e) {
-              o("WALogger")
-                .WARN(
-                  x ||
-                    (x = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: sendStoredFieldstats failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e));
-            }),
-        i === o("WAWebVoipWaCallEnums").CallState.CallStateEnding &&
-          (o("WAWebVoipErrorLogUpload").captureWamCallResult(e),
-          o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
-          (q.callIsActive = !1)),
-        i === o("WAWebVoipWaCallEnums").CallState.None)
-      ) {
-        o("WAWebVoipErrorLogUpload").captureWamCallResult(e);
-        var S = O != null ? O : "unknown";
-        ((O = null),
-          o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
-          o("WAWebVoipCrashRecovery").clearExitMarkers(S),
-          o("WAWebVoipCrashRecovery").unregisterGracefulExitHandler(),
-          o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),
-          o("WAWebVoipBrowserMetrics").stopBrowserMetrics(),
-          o("WAWebVoipWindowMetrics").stopWindowMetrics(),
-          o("WAWebVoipGatingUtils").isWebTransportEnabled() ||
-            o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
-          o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
-          (q = W()),
-          o("WAWebBackendApi").frontendFireAndForget(
-            "cleanupPrewarmedCamera",
-            {},
-          ),
-          o("WAWebBackendApi").frontendFireAndForget("disableAVSync", {}),
-          o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
-            .cleanupFieldstatsAfterNormalEnd()
-            .catch(function (e) {
-              o("WALogger")
-                .WARN(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: cleanupFieldstatsAfterNormalEnd failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e));
-            })
-            .finally(function () {
-              o(
-                "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
-              ).syncVoipPersistentFSWithIdleCallback();
-            }),
-          o(
-            "WAWebVoipHandleNativeCallEventMediaHandlers",
-          ).resetWebCodecsEncoderState(),
-          o(
-            "WAWebVoipHandleNativeCallEventCallLinkHandlers",
-          ).resetCallLinkHandlerState(),
-          o("WAWebVoipErrorLogUpload").maybeUploadErrorLogs());
-      }
-    }
-    async function re(e) {
-      var t = r("nullthrows")(
-          await o("WAWebVoipStackInterface").getVoipStackInterface(),
-        ),
-        n = t.parsers.parseRelayListUpdateData(e),
-        a = n.relays.some(function (e) {
-          return e.addresses.some(function (e) {
-            return e.port === 3478 || e.port_v6 === 3478;
-          });
-        });
-      (a && o("WAWebCoreActionsODS").logCallRelayPort3478(),
-        o("WAWebVoipGatingUtils").isWebTransportEnabled()
-          ? o("WAWebVoipWebTransportConnectionManager").handleRelayListUpdate(n)
-          : await o("WAWebVoipSctpConnectionManager").handleRelayListUpdate(n),
-        (q.cachedRelayListData = n),
-        (q.relayListReceived = !0),
-        oe().catch(function (e) {
-          o("WALogger")
-            .WARN(
-              P ||
-                (P = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: initP2PConnectionIfEnabled failed",
+            te(n, i, l));
+          var s = o(
+            "WAWebVoipThreadPoolManagerRegistry",
+          ).getVoipThreadPoolManager();
+          (s == null || s.onCallStateChanged(i),
+            n.type === "web" && X(i, l),
+            o("WAWebVoipCallStateUtils").isCallTerminal(i) ||
+              (o("WAWebBackendApi").frontendFireAndForget(
+                "startAnrTracking",
+                {},
+              ),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "startActivityTracking",
+                {},
+              ),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "startUiActivityTracking",
+                {},
+              )));
+          var u = O(i);
+          if (
+            (o("WAWebBackendApi").frontendFireAndForget(
+              "trackVoipCallStateChange",
+              { stateName: u },
+            ),
+            i === o("WAWebVoipWaCallEnums").CallState.CallActive)
+          ) {
+            var c = a.call_info.callId;
+            B = c;
+            var d = o("WAWebABProps").getABPropConfigValue(
+                "web_voip_dynamic_thread_preallocate_count",
+              ),
+              m = o("WAWebVoipGatingUtils").isWebKitBrowser(),
+              p =
+                d > 0 && !m
+                  ? d
+                  : "disabled(webkit=" + String(m) + ", count=" + d + ")",
+              _ = o("WAWebABProps").getABPropConfigValue(
+                "enable_web_voip_proxy_and_sctp_workers",
+              ),
+              f = o("WAWebABProps").getABPropConfigValue(
+                "enable_web_voip_platform_av_sync",
+              ),
+              g = o("WAWebABProps").getABPropConfigValue(
+                "enable_web_voip_dynamic_fps_throttle",
+              ),
+              h = o("WAWebABProps").getABPropConfigValue(
+                "web_calling_perf_optimizations_bitmask",
+              ),
+              y = o("WAWebABProps").getABPropConfigValue(
+                "web_voip_audio_capture_impl",
+              ),
+              C = o("WAWebABProps").getABPropConfigValue(
+                "web_voip_audio_playback_impl",
+              );
+            (o("WALogger").LOG(
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [CallActive] proxySctp=",
+                  " avSync=",
+                  " dynFps=",
+                  " perfBits=",
+                  "",
                 ])),
-            )
-            .catching(r("getErrorSafe")(e));
-        }));
-    }
-    async function oe() {
-      if (
-        !(
-          q.initStarted ||
-          !q.callIsActive ||
-          !q.relayListReceived ||
-          !o("WAWebVoipP2PConnectionManager").isP2PEnabled()
-        )
-      ) {
-        q.initStarted = !0;
-        try {
-          await ae();
-        } catch (e) {
-          throw ((q.initStarted = !1), e);
-        }
-      }
-    }
-    async function ae() {
-      var e = r("nullthrows")(
-        await o("WAWebVoipStackInterface").getVoipStackInterface(),
+              _,
+              f,
+              g,
+              h,
+            ),
+              o("WALogger").LOG(
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [CallActive] abprops audioCap=",
+                    " audioPlay=",
+                    " dynPool=",
+                    "",
+                  ])),
+                y,
+                C,
+                p,
+              ),
+              o("WAWebVoipCrashRecovery").markCallActive(c),
+              o("WAWebVoipCrashRecovery").registerGracefulExitHandler(c),
+              o("WAWebVoipFocusTracker").startVoipFocusTracking(),
+              o("WAWebBackendApi")
+                .frontendSendAndReceive("initializeVoipWasm")
+                .then(function (e) {
+                  B === c &&
+                    o("WAWebVoipPersistentFS").startPeriodicVoipSync(e);
+                })
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      I ||
+                        (I = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [IDBFS] Failed to start periodic sync",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e));
+                }),
+              o("WAWebVoipBrowserMetrics").startBrowserMetrics(),
+              o("WAWebVoipWindowMetrics").startWindowMetrics(),
+              o("WAWebVoipBatteryDiagnostics").startBatteryDiagnostics(),
+              (U.callIsActive = !0));
+            var b = l.linkToken != null && l.linkToken !== "";
+            (b &&
+              l.videoEnabled &&
+              n.type === "web" &&
+              n.broadcastVideoState().catch(function (e) {
+                o("WALogger")
+                  .WARN(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [CallActive] broadcastVideoState for call link failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
+              }),
+              ce().catch(function (e) {
+                o("WALogger")
+                  .WARN(
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: initP2PConnectionIfEnabled failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
+              }));
+          }
+          o("WAWebBackendApi").frontendFireAndForget("setCallState", {
+            callState: i,
+            callInfo: a.call_info,
+          });
+          var v = o("WAWebVoipCallStateUtils").isCallTerminal(i);
+          if (
+            (v &&
+              a.call_info.callDuration === 0 &&
+              o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
+                .sendStoredFieldstats()
+                .catch(function (e) {
+                  o("WALogger")
+                    .WARN(
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: sendStoredFieldstats failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e));
+                }),
+            i === o("WAWebVoipWaCallEnums").CallState.CallStateEnding &&
+              (o("WAWebVoipErrorLogUpload").captureWamCallResult(e),
+              o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
+              (U.callIsActive = !1)),
+            i === o("WAWebVoipWaCallEnums").CallState.None)
+          ) {
+            o("WAWebVoipErrorLogUpload").captureWamCallResult(e);
+            var S = B != null ? B : "unknown";
+            ((B = null),
+              o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
+              o("WAWebVoipCrashRecovery").clearExitMarkers(S),
+              o("WAWebVoipCrashRecovery").unregisterGracefulExitHandler(),
+              o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),
+              o("WAWebVoipBrowserMetrics").stopBrowserMetrics(),
+              o("WAWebVoipWindowMetrics").stopWindowMetrics(),
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() ||
+                o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
+              o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
+              (U = q()),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "cleanupPrewarmedCamera",
+                {},
+              ),
+              o("WAWebBackendApi").frontendFireAndForget("disableAVSync", {}),
+              o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
+                .cleanupFieldstatsAfterNormalEnd()
+                .catch(function (e) {
+                  o("WALogger")
+                    .WARN(
+                      $ ||
+                        ($ = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: cleanupFieldstatsAfterNormalEnd failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e));
+                })
+                .finally(function () {
+                  o(
+                    "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+                  ).syncVoipPersistentFSWithIdleCallback();
+                }),
+              o(
+                "WAWebVoipHandleNativeCallEventMediaHandlers",
+              ).resetWebCodecsEncoderState(),
+              o(
+                "WAWebVoipHandleNativeCallEventCallLinkHandlers",
+              ).resetCallLinkHandlerState(),
+              o("WAWebVoipErrorLogUpload").maybeUploadErrorLogs());
+          }
+        })),
+        le.apply(this, arguments)
       );
-      if (e.type === "web") {
-        o("WAWebBackendApi").frontendFireAndForget("trackVoipActivity", {
-          activity: "get_call_info",
-          details: "p2p_init",
-        });
-        var t = await e.getCallInfo();
-        if (t === "") {
-          (o("WALogger").LOG(
-            N ||
-              (N = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: initP2PConnectionIfEnabled: Failed to get call info",
-              ])),
-          ),
-            (q.initStarted = !1));
-          return;
-        }
-        var n = e.parsers.parseCallInfo(t);
-        if (n.isGroupCall) {
-          q.initStarted = !1;
-          return;
-        }
-        var a = n.callId,
-          i = n.isCaller;
-        if (!q.callIsActive) {
-          q.initStarted = !1;
-          return;
-        }
-        o("WALogger").LOG(
-          M ||
-            (M = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: initP2PConnectionIfEnabled: callId=",
-              ", isCaller=",
-              "",
-            ])),
-          a,
-          String(i),
-        );
-        var l = function (n, i, l, s, u) {
-            e.sendWebP2PTransport(a, n, i, l, s, u).catch(function (e) {
+    }
+    function se(e) {
+      return ue.apply(this, arguments);
+    }
+    function ue() {
+      return (
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("nullthrows")(
+              yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+            ),
+            n = t.parsers.parseRelayListUpdateData(e),
+            a = n.relays.some(function (e) {
+              return e.addresses.some(function (e) {
+                return e.port === 3478 || e.port_v6 === 3478;
+              });
+            });
+          (a && o("WAWebCoreActionsODS").logCallRelayPort3478(),
+            o("WAWebVoipGatingUtils").isWebTransportEnabled()
+              ? o(
+                  "WAWebVoipWebTransportConnectionManager",
+                ).handleRelayListUpdate(n)
+              : yield o("WAWebVoipSctpConnectionManager").handleRelayListUpdate(
+                  n,
+                ),
+            (U.cachedRelayListData = n),
+            (U.relayListReceived = !0),
+            ce().catch(function (e) {
               o("WALogger")
-                .ERROR(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: sendWebP2PTransport failed",
+                .WARN(
+                  P ||
+                    (P = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: initP2PConnectionIfEnabled failed",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e));
-            });
-          },
-          s = 10,
-          u = new Set();
-        if (q.cachedRelayListData == null) {
-          o("WALogger").ERROR(
-            A ||
-              (A = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: initP2PConnectionIfEnabled: cachedRelayListData null",
-              ])),
-          );
-          return;
-        }
-        var c = q.cachedRelayListData;
-        for (var d of c.relays) {
-          if (u.size >= s) break;
-          for (var m of d.addresses) {
-            if (u.size >= s) break;
-            (m.ipv4 != null &&
-              m.port != null &&
-              u.add("stun:" + m.ipv4 + ":" + m.port),
-              u.size < s &&
-                m.ipv6 != null &&
-                m.port_v6 != null &&
-                u.add("stun:[" + m.ipv6 + "]:" + m.port_v6));
+            }));
+        })),
+        ue.apply(this, arguments)
+      );
+    }
+    function ce() {
+      return de.apply(this, arguments);
+    }
+    function de() {
+      return (
+        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (
+            !(
+              U.initStarted ||
+              !U.callIsActive ||
+              !U.relayListReceived ||
+              !o("WAWebVoipP2PConnectionManager").isP2PEnabled()
+            )
+          ) {
+            U.initStarted = !0;
+            try {
+              yield me();
+            } catch (e) {
+              throw ((U.initStarted = !1), e);
+            }
           }
-        }
-        var p = Array.from(u, function (e) {
-          return { urls: e };
-        });
-        await o("WAWebVoipP2PConnectionManager").initP2PConnection(i, p, l);
-      }
+        })),
+        de.apply(this, arguments)
+      );
+    }
+    function me() {
+      return pe.apply(this, arguments);
+    }
+    function pe() {
+      return (
+        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = r("nullthrows")(
+            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+          );
+          if (e.type === "web") {
+            o("WAWebBackendApi").frontendFireAndForget("trackVoipActivity", {
+              activity: "get_call_info",
+              details: "p2p_init",
+            });
+            var t = yield e.getCallInfo();
+            if (t === "") {
+              (o("WALogger").LOG(
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: initP2PConnectionIfEnabled: Failed to get call info",
+                  ])),
+              ),
+                (U.initStarted = !1));
+              return;
+            }
+            var n = e.parsers.parseCallInfo(t);
+            if (n.isGroupCall) {
+              U.initStarted = !1;
+              return;
+            }
+            var a = n.callId,
+              i = n.isCaller;
+            if (!U.callIsActive) {
+              U.initStarted = !1;
+              return;
+            }
+            o("WALogger").LOG(
+              M ||
+                (M = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: initP2PConnectionIfEnabled: callId=",
+                  ", isCaller=",
+                  "",
+                ])),
+              a,
+              String(i),
+            );
+            var l = function (n, i, l, s, u) {
+                e.sendWebP2PTransport(a, n, i, l, s, u).catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      w ||
+                        (w = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: sendWebP2PTransport failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e));
+                });
+              },
+              s = 10,
+              u = new Set();
+            if (U.cachedRelayListData == null) {
+              o("WALogger").ERROR(
+                A ||
+                  (A = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: initP2PConnectionIfEnabled: cachedRelayListData null",
+                  ])),
+              );
+              return;
+            }
+            var c = U.cachedRelayListData;
+            for (var d of c.relays) {
+              if (u.size >= s) break;
+              for (var m of d.addresses) {
+                if (u.size >= s) break;
+                (m.ipv4 != null &&
+                  m.port != null &&
+                  u.add("stun:" + m.ipv4 + ":" + m.port),
+                  u.size < s &&
+                    m.ipv6 != null &&
+                    m.port_v6 != null &&
+                    u.add("stun:[" + m.ipv6 + "]:" + m.port_v6));
+              }
+            }
+            var p = Array.from(u, function (e) {
+              return { urls: e };
+            });
+            yield o("WAWebVoipP2PConnectionManager").initP2PConnection(i, p, l);
+          }
+        })),
+        pe.apply(this, arguments)
+      );
     }
     ((l.sendStoredFieldstats = o(
       "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     ).sendStoredFieldstats),
-      (l.handleWAWebVoipNativeCallEvent = ee));
+      (l.handleWAWebVoipNativeCallEvent = ne));
   },
   98,
 );

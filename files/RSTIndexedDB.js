@@ -2,63 +2,65 @@ __d(
   "RSTIndexedDB",
   [
     "FBLogger",
+    "Promise",
     "RSTConfig",
     "RSTCrypt",
     "RSTEvents",
     "RSTEventsMessageQueue",
     "RSTUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
+    var e, s;
     try {
-      e = self.indexedDB;
+      s = self.indexedDB;
     } catch (e) {}
-    var s = (function () {
+    var u = (function () {
       function t() {}
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.initDB = function () {
+        (a.initDB = function () {
           var t = this;
-          return new Promise(function (n, o) {
-            if (e == null)
-              return o("IndexedDB is not supported in this browser");
-            if (t.$1 != null) return n(t.$1);
-            var a = e.open(
+          return new (e || (e = n("Promise")))(function (e, n) {
+            if (s == null)
+              return n("IndexedDB is not supported in this browser");
+            if (t.$1 != null) return e(t.$1);
+            var o = s.open(
               r("RSTConfig").INDEX_DB_NAME,
               r("RSTConfig").INDEX_DB_VERSION,
             );
-            ((a.onupgradeneeded = function (e) {
+            ((o.onupgradeneeded = function (e) {
               ((t.$1 = e.target.result),
                 t.$2(),
                 t.$3(),
                 t.$4(r("RSTConfig").INDEX_DB_TABLE_NAME, !0));
             }),
-              (a.onsuccess = function (e) {
-                ((t.$1 = e.target.result), t.$3(), n(e.target.result));
+              (o.onsuccess = function (n) {
+                ((t.$1 = n.target.result), t.$3(), e(n.target.result));
               }),
-              (a.onblocked = function () {
-                o("Database open blocked by another tab");
+              (o.onblocked = function () {
+                n("Database open blocked by another tab");
               }),
-              (a.onerror = function (e) {
+              (o.onerror = function (e) {
                 t.closeDBConnection();
-                var n = a.error || e.target.error;
-                o(
+                var r = o.error || e.target.error;
+                n(
                   "Database error: " +
-                    ((n == null ? void 0 : n.message) ||
-                      String(n) ||
+                    ((r == null ? void 0 : r.message) ||
+                      String(r) ||
                       "Unknown error"),
                 );
               }));
           });
         }),
-        (n.$2 = function () {
+        (a.$2 = function () {
           var e = this.$1;
           if (e != null)
             for (var t of r("RSTConfig").PAST_INDEX_DB_TABLE_NAMES)
               e.objectStoreNames.contains(t) && e.deleteObjectStore(t);
         }),
-        (n.$3 = function () {
+        (a.$3 = function () {
           var e = this;
           this.$1 == null ||
             this.$1.onversionchange != null ||
@@ -66,7 +68,7 @@ __d(
               e.closeDBConnection();
             });
         }),
-        (n.$4 = function (t, n) {
+        (a.$4 = function (t, n) {
           n === void 0 && (n = !1);
           var e = this.$1;
           if (!(e == null || e.objectStoreNames.contains(t))) {
@@ -77,12 +79,12 @@ __d(
             e.createObjectStore(t, { autoIncrement: !0 });
           }
         }),
-        (n.$5 = function (t) {
+        (a.$5 = function (t) {
           return r("RSTConfig").ENCRYPT_DB
             ? r("RSTCrypt").encrypt(JSON.stringify(t))
             : t;
         }),
-        (n.$6 = function (t) {
+        (a.$6 = function (t) {
           if (t == null) return null;
           var e = !1,
             n = null;
@@ -97,7 +99,7 @@ __d(
           var a = n;
           return ((a.hasDecryptionError = e), a);
         }),
-        (n.$7 = function (t) {
+        (a.$7 = function (t) {
           (t === void 0 && (t = null),
             this.closeDBConnection(),
             o("RSTUtils").debugLogImportant(
@@ -114,27 +116,33 @@ __d(
                 .warn("Failed to clear object store after IndexedDB error");
             }));
         }),
-        (n.$8 = async function (t) {
-          var e = [],
-            n = 50;
-          try {
-            for (var r = 0; r < t.length; r += n) {
-              var o = t.slice(r, r + n);
-              for (var a of o) {
-                var i = this.$6(a);
-                i != null && e.push(i);
+        (a.$8 = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            var r = [],
+              o = 50;
+            try {
+              for (var a = 0; a < t.length; a += o) {
+                var i = t.slice(a, a + o);
+                for (var l of i) {
+                  var s = this.$6(l);
+                  s != null && r.push(s);
+                }
+                a + o < t.length &&
+                  (yield new (e || (e = n("Promise")))(function (e) {
+                    return window.setTimeout(e, 0);
+                  }));
               }
-              r + n < t.length &&
-                (await new Promise(function (e) {
-                  return window.setTimeout(e, 0);
-                }));
+            } catch (e) {
+              this.$7(e);
             }
-          } catch (e) {
-            this.$7(e);
+            return r;
+          });
+          function r(e) {
+            return t.apply(this, arguments);
           }
-          return e;
-        }),
-        (n.$9 = function (t, n, r) {
+          return r;
+        })()),
+        (a.$9 = function (t, n, r) {
           var e = this;
           t.onerror = function (t) {
             var a, i;
@@ -149,7 +157,7 @@ __d(
             (o("RSTUtils").debugLogImportant(s), n(s));
           };
         }),
-        (n.$10 = function (t, n, r) {
+        (a.$10 = function (t, n, r) {
           var e = this;
           t.onerror = function (t) {
             var a, i;
@@ -164,7 +172,7 @@ __d(
             (o("RSTUtils").debugLogImportant(s), n(s));
           };
         }),
-        (n.closeDBConnection = function () {
+        (a.closeDBConnection = function () {
           var e = this.$1;
           if (e != null) {
             try {
@@ -173,226 +181,271 @@ __d(
             this.$1 = null;
           }
         }),
-        (n.persistLog = async function (t) {
-          (await this.initDB(), await this.persistEventToDB(t));
-        }),
-        (n.persistEventToDB = async function (t) {
-          var e = this;
-          await this.initDB();
-          var n = Date.now(),
-            a = babelHelpers.extends({ loggingTime: n }, t);
-          return (
-            o("RSTEventsMessageQueue").notify(
-              o("RSTEvents").RSTEvent.LOGGING_UNRESPONSIVENESS_TO_INDEXDB,
-              { unresponsiveEventRecord: a },
-            ),
-            new Promise(function (t, n) {
-              if (e.$1 == null) {
+        (a.persistLog = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            (yield this.initDB(), yield this.persistEventToDB(e));
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.persistEventToDB = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            var a = this;
+            yield this.initDB();
+            var i = Date.now(),
+              l = babelHelpers.extends({ loggingTime: i }, t);
+            return (
+              o("RSTEventsMessageQueue").notify(
+                o("RSTEvents").RSTEvent.LOGGING_UNRESPONSIVENESS_TO_INDEXDB,
+                { unresponsiveEventRecord: l },
+              ),
+              new (e || (e = n("Promise")))(function (e, t) {
+                if (a.$1 == null) {
+                  t("indexed db instance is not initialized yet");
+                  return;
+                }
+                var n = a.$1.transaction(
+                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
+                    "readwrite",
+                  ),
+                  o = n.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                  i = o.add(a.$5(l));
+                ((i.onsuccess = function () {
+                  e();
+                }),
+                  a.$9(i, t, "persistEventToDB"),
+                  a.$10(n, t, "persistEventToDB"));
+              })
+            );
+          });
+          function a(e) {
+            return t.apply(this, arguments);
+          }
+          return a;
+        })()),
+        (a.readEventsFromDB = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = this;
+            yield this.initDB();
+            var o = yield new (e || (e = n("Promise")))(function (e, n) {
+              if (t.$1 == null) {
                 n("indexed db instance is not initialized yet");
                 return;
               }
-              var o = e.$1.transaction(
+              var o = t.$1.transaction(
                   [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                  "readwrite",
+                  "readonly",
                 ),
-                i = o.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                l = i.add(e.$5(a));
-              ((l.onsuccess = function () {
-                t();
+                a = o.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                i = a.getAll();
+              ((i.onsuccess = function () {
+                e(i.result);
               }),
-                e.$9(l, n, "persistEventToDB"),
-                e.$10(o, n, "persistEventToDB"));
-            })
-          );
-        }),
-        (n.readEventsFromDB = async function () {
-          var e = this;
-          await this.initDB();
-          var t = await new Promise(function (t, n) {
-            if (e.$1 == null) {
-              n("indexed db instance is not initialized yet");
-              return;
-            }
-            var o = e.$1.transaction(
-                [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                "readonly",
-              ),
-              a = o.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-              i = a.getAll();
-            ((i.onsuccess = function () {
-              t(i.result);
-            }),
-              e.$9(i, n, "readEventsFromDB"),
-              e.$10(o, n, "readEventsFromDB"));
+                t.$9(i, n, "readEventsFromDB"),
+                t.$10(o, n, "readEventsFromDB"));
+            });
+            return this.$8(o);
           });
-          return this.$8(t);
-        }),
-        (n.updateIncidentInDB = async function (t) {
-          var e = this;
-          return (
-            await this.initDB(),
-            new Promise(function (n, a) {
-              if (e.$1 == null) {
-                a("IndexedDB instance is not initialized yet");
-                return;
-              }
-              var i = e.$1.transaction(
-                  [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                  "readwrite",
-                ),
-                l = i.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                s = l.openCursor();
-              ((s.onsuccess = function (r) {
-                var a = r.target.result;
-                if (a == null) {
-                  (o("RSTUtils").debugLog(
-                    "Finished clearing incidents from indexDB",
-                  ),
-                    n());
+          function o() {
+            return t.apply(this, arguments);
+          }
+          return o;
+        })()),
+        (a.updateIncidentInDB = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            var a = this;
+            return (
+              yield this.initDB(),
+              new (e || (e = n("Promise")))(function (e, n) {
+                if (a.$1 == null) {
+                  n("IndexedDB instance is not initialized yet");
                   return;
                 }
-                try {
-                  var i = e.$6(a.value);
-                  if (i == null) {
-                    var l;
+                var i = a.$1.transaction(
+                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
+                    "readwrite",
+                  ),
+                  l = i.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                  s = l.openCursor();
+                ((s.onsuccess = function (n) {
+                  var r = n.target.result;
+                  if (r == null) {
                     (o("RSTUtils").debugLog(
-                      "Unable to parse, deleting incident " +
-                        (((l = i == null ? void 0 : i.incidentID) != null
-                          ? l
-                          : "") +
-                          " from indexDB"),
+                      "Finished clearing incidents from indexDB",
                     ),
-                      a.delete());
-                  } else {
-                    var s = t(i);
-                    if (s) {
-                      var u;
-                      (o("RSTUtils").debugLog(
-                        "Update incident " +
-                          ((u = a.value) == null ? void 0 : u.incidentID) +
-                          " in indexDB",
-                      ),
-                        a.update(e.$5(i)));
-                    }
+                      e());
+                    return;
                   }
-                } catch (e) {
-                  a.delete();
-                }
-                a.continue();
-              }),
-                e.$9(s, a, "updateIncidentInDB"),
-                e.$10(i, a, "updateIncidentInDB"));
-            })
-          );
-        }),
-        (n.clearIncidentFromDB = async function (t) {
-          var e = this;
-          return (
-            await this.initDB(),
-            new Promise(function (n, a) {
-              if (e.$1 == null) {
-                a("indexed db instance is not initialized yet");
-                return;
-              }
-              var i = e.$1.transaction(
-                  [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                  "readwrite",
-                ),
-                l = i.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                s = l.openCursor();
-              ((s.onsuccess = function (r) {
-                var a = r.target.result;
-                if (a) {
                   try {
-                    var i = e.$6(a.value);
-                    if (i == null || t.has(i == null ? void 0 : i.incidentID)) {
+                    var i = a.$6(r.value);
+                    if (i == null) {
                       var l;
                       (o("RSTUtils").debugLog(
-                        "Deleting incident " +
-                          ((l = i == null ? void 0 : i.incidentID) != null
+                        "Unable to parse, deleting incident " +
+                          (((l = i == null ? void 0 : i.incidentID) != null
                             ? l
                             : "") +
-                          " from indexDB",
+                            " from indexDB"),
                       ),
-                        a.delete());
+                        r.delete());
+                    } else {
+                      var s = t(i);
+                      if (s) {
+                        var u;
+                        (o("RSTUtils").debugLog(
+                          "Update incident " +
+                            ((u = r.value) == null ? void 0 : u.incidentID) +
+                            " in indexDB",
+                        ),
+                          r.update(a.$5(i)));
+                      }
                     }
                   } catch (e) {
-                    a.delete();
+                    r.delete();
                   }
-                  a.continue();
-                } else
-                  (o("RSTUtils").debugLog(
-                    "Finished clearing incidents from indexDB",
-                  ),
-                    n());
-              }),
-                e.$9(s, a, "clearIncidentFromDB"),
-                e.$10(i, a, "clearIncidentFromDB"));
-            })
-          );
-        }),
-        (n.clearObjectStore = async function (t) {
-          var e = this;
-          return (
-            t === void 0 && (t = r("RSTConfig").INDEX_DB_TABLE_NAME),
-            await this.initDB(),
-            o("RSTUtils").debugLogImportant("clearing object store:", t),
-            new Promise(function (n, r) {
-              try {
-                var o = e.$1;
-                if (o == null) {
-                  r("indexed db instance is not initialized yet");
-                  return;
-                }
-                if (!o.objectStoreNames.contains(t)) {
-                  n();
-                  return;
-                }
-                var a = o.transaction([t], "readwrite"),
-                  i = a.objectStore(t),
-                  l = i.clear();
-                ((l.onsuccess = function () {
-                  n();
+                  r.continue();
                 }),
-                  (l.onerror = function (t) {
-                    (e.closeDBConnection(),
-                      r("Error clearing the store: " + t.target.errorCode));
+                  a.$9(s, n, "updateIncidentInDB"),
+                  a.$10(i, n, "updateIncidentInDB"));
+              })
+            );
+          });
+          function a(e) {
+            return t.apply(this, arguments);
+          }
+          return a;
+        })()),
+        (a.clearIncidentFromDB = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            var a = this;
+            return (
+              yield this.initDB(),
+              new (e || (e = n("Promise")))(function (e, n) {
+                if (a.$1 == null) {
+                  n("indexed db instance is not initialized yet");
+                  return;
+                }
+                var i = a.$1.transaction(
+                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
+                    "readwrite",
+                  ),
+                  l = i.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                  s = l.openCursor();
+                ((s.onsuccess = function (n) {
+                  var r = n.target.result;
+                  if (r) {
+                    try {
+                      var i = a.$6(r.value);
+                      if (
+                        i == null ||
+                        t.has(i == null ? void 0 : i.incidentID)
+                      ) {
+                        var l;
+                        (o("RSTUtils").debugLog(
+                          "Deleting incident " +
+                            ((l = i == null ? void 0 : i.incidentID) != null
+                              ? l
+                              : "") +
+                            " from indexDB",
+                        ),
+                          r.delete());
+                      }
+                    } catch (e) {
+                      r.delete();
+                    }
+                    r.continue();
+                  } else
+                    (o("RSTUtils").debugLog(
+                      "Finished clearing incidents from indexDB",
+                    ),
+                      e());
+                }),
+                  a.$9(s, n, "clearIncidentFromDB"),
+                  a.$10(i, n, "clearIncidentFromDB"));
+              })
+            );
+          });
+          function a(e) {
+            return t.apply(this, arguments);
+          }
+          return a;
+        })()),
+        (a.clearObjectStore = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            var a = this;
+            return (
+              t === void 0 && (t = r("RSTConfig").INDEX_DB_TABLE_NAME),
+              yield this.initDB(),
+              o("RSTUtils").debugLogImportant("clearing object store:", t),
+              new (e || (e = n("Promise")))(function (e, n) {
+                try {
+                  var r = a.$1;
+                  if (r == null) {
+                    n("indexed db instance is not initialized yet");
+                    return;
+                  }
+                  if (!r.objectStoreNames.contains(t)) {
+                    e();
+                    return;
+                  }
+                  var o = r.transaction([t], "readwrite"),
+                    i = o.objectStore(t),
+                    l = i.clear();
+                  ((l.onsuccess = function () {
+                    e();
                   }),
-                  e.$9(l, r, "clearObjectStore"),
-                  e.$10(a, r, "clearObjectStore"));
-              } catch (e) {
-                n();
-              }
-            })
-          );
-        }),
-        (n.deleteEventFromDB = async function (t) {
-          var e = this;
-          return (
-            await this.initDB(),
-            new Promise(function (n, o) {
-              if (e.$1 == null) {
-                o("indexed db instance is not initialized yet");
-                return;
-              }
-              var a = e.$1.transaction(
-                  [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                  "readwrite",
-                ),
-                i = a.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                l = i.delete(t);
-              ((l.onsuccess = function () {
-                n();
-              }),
-                e.$9(l, o, "deleteEventFromDB"),
-                e.$10(a, o, "deleteEventFromDB"));
-            })
-          );
-        }),
+                    (l.onerror = function (e) {
+                      (a.closeDBConnection(),
+                        n("Error clearing the store: " + e.target.errorCode));
+                    }),
+                    a.$9(l, n, "clearObjectStore"),
+                    a.$10(o, n, "clearObjectStore"));
+                } catch (t) {
+                  e();
+                }
+              })
+            );
+          });
+          function a(e) {
+            return t.apply(this, arguments);
+          }
+          return a;
+        })()),
+        (a.deleteEventFromDB = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            var o = this;
+            return (
+              yield this.initDB(),
+              new (e || (e = n("Promise")))(function (e, n) {
+                if (o.$1 == null) {
+                  n("indexed db instance is not initialized yet");
+                  return;
+                }
+                var a = o.$1.transaction(
+                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
+                    "readwrite",
+                  ),
+                  i = a.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                  l = i.delete(t);
+                ((l.onsuccess = function () {
+                  e();
+                }),
+                  o.$9(l, n, "deleteEventFromDB"),
+                  o.$10(a, n, "deleteEventFromDB"));
+              })
+            );
+          });
+          function o(e) {
+            return t.apply(this, arguments);
+          }
+          return o;
+        })()),
         t
       );
     })();
-    l.RSTIndexedDB = s;
+    l.RSTIndexedDB = u;
   },
   98,
 );

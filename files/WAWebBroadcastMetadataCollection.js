@@ -13,6 +13,7 @@ __d(
     "WAWebListItemParentType",
     "WAWebStaleBaseCollection",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
   ],
@@ -21,7 +22,7 @@ __d(
       s,
       u = 5e3,
       c = (function (t) {
-        function n() {
+        function a() {
           var e;
           return (
             (e = t.call(this) || this),
@@ -31,36 +32,43 @@ __d(
               },
               u,
             )),
-            (e.findImpl = async function (e) {
-              var t = o("WAWebWidFactory").createWid(
-                  o("WAWebBaseModel").idTypeToString(e),
-                ),
-                n = await o(
-                  "WAWebBroadcastDatabaseJob",
-                ).getBroadcastMetadataJob(t);
-              if (n == null)
-                return {
-                  audienceExpression: o("WAWebAudienceExpressionTypes")
-                    .DEFAULT_AUDIENCE_EXPRESSION,
-                  id: t,
-                  recipients: [],
-                };
-              var a =
-                n.recipients != null
-                  ? r("compactMap")(n.recipients, function (e) {
-                      try {
-                        return { id: o("WAWebWidFactory").createWid(e) };
-                      } catch (e) {
-                        return null;
-                      }
-                    })
-                  : [];
-              return {
-                audienceExpression: n.audienceExpression,
-                id: o("WAWebWidFactory").createWid(n.id),
-                recipients: a,
+            (e.findImpl = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = o("WAWebWidFactory").createWid(
+                      o("WAWebBaseModel").idTypeToString(e),
+                    ),
+                    n = yield o(
+                      "WAWebBroadcastDatabaseJob",
+                    ).getBroadcastMetadataJob(t);
+                  if (n == null)
+                    return {
+                      audienceExpression: o("WAWebAudienceExpressionTypes")
+                        .DEFAULT_AUDIENCE_EXPRESSION,
+                      id: t,
+                      recipients: [],
+                    };
+                  var a =
+                    n.recipients != null
+                      ? r("compactMap")(n.recipients, function (e) {
+                          try {
+                            return { id: o("WAWebWidFactory").createWid(e) };
+                          } catch (e) {
+                            return null;
+                          }
+                        })
+                      : [];
+                  return {
+                    audienceExpression: n.audienceExpression,
+                    id: o("WAWebWidFactory").createWid(n.id),
+                    recipients: a,
+                  };
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
               };
-            }),
+            })()),
             o("WAWebLabelCollection").LabelCollection.forEach(function (t) {
               e.$BroadcastMetadataCollection$p_3(t);
             }),
@@ -86,16 +94,16 @@ __d(
             e
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.$BroadcastMetadataCollection$p_3 = function (t) {
+          (i.$BroadcastMetadataCollection$p_3 = function (t) {
             var e = this;
             this.listenTo(t.labelItemCollection, "add remove", function (t) {
               e.$BroadcastMetadataCollection$p_4(t);
             });
           }),
-          (a.$BroadcastMetadataCollection$p_4 = function (n) {
+          (i.$BroadcastMetadataCollection$p_4 = function (n) {
             var t = this;
             if (
               n.parentType ===
@@ -138,7 +146,7 @@ __d(
               });
             }
           }),
-          (a.$BroadcastMetadataCollection$p_2 = function () {
+          (i.$BroadcastMetadataCollection$p_2 = function () {
             var e = this;
             o("WAWebABProps").getABPropConfigValue(
               "m2_audience_dynamic_rules",
@@ -182,7 +190,7 @@ __d(
                     });
               });
           }),
-          n
+          a
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     c.model = r("WAWebBroadcastMetadataModel");

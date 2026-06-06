@@ -6,6 +6,7 @@ __d(
     "WAWebTextStatusCollection",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -20,17 +21,23 @@ __d(
               ? e
               : o("WAWebTextStatusCollection").getDefaultTextStatus();
         },
-        refreshTextStatus: async function (t) {
-          var e = t.contactId,
-            n = o("WAWebWidFactory").createWid(e),
-            r = o("WAWebTextStatusCollection").TextStatusCollection.get(n);
-          if (r != null) {
-            var a = await o("WAWebStatusContactAction").getStatus(
-              o("WAWebWidFactory").asUserWidOrThrow(n),
-            );
-            r.set({ status: a.status });
+        refreshTextStatus: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.contactId,
+              n = o("WAWebWidFactory").createWid(t),
+              r = o("WAWebTextStatusCollection").TextStatusCollection.get(n);
+            if (r != null) {
+              var a = yield o("WAWebStatusContactAction").getStatus(
+                o("WAWebWidFactory").asUserWidOrThrow(n),
+              );
+              r.set({ status: a.status });
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-        },
+          return t;
+        })(),
         updateTextStatuses: function (n) {
           var t = n.content,
             r = n.ids;

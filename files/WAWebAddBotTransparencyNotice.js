@@ -1,18 +1,29 @@
 __d(
   "WAWebAddBotTransparencyNotice",
-  ["WAWebBotSystemMsg", "WAWebHandleSingleMsgWorkerCompatible"],
+  [
+    "WAWebBotSystemMsg",
+    "WAWebHandleSingleMsgWorkerCompatible",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e, t) {
-      var n = o("WAWebBotSystemMsg").genBotSessionTransparencyNoticeSystemMsg(
-        e,
-        t,
+    function e(e, t) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o(
+            "WAWebBotSystemMsg",
+          ).genBotSessionTransparencyNoticeSystemMsg(e, t);
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+            chatId: e,
+            newMsg: n,
+            handleSingleMsgOrigin: "limitSharing",
+          });
+        })),
+        s.apply(this, arguments)
       );
-      await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-        chatId: e,
-        newMsg: n,
-        handleSingleMsgOrigin: "limitSharing",
-      });
     }
     l.addBotSessionTransparencyNotice = e;
   },

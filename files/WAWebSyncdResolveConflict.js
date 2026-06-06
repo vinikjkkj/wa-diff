@@ -1,88 +1,125 @@
 __d(
   "WAWebSyncdResolveConflict",
-  ["WASyncdConst", "WAWebGetPendingMutation", "compactMap"],
+  [
+    "Promise",
+    "WASyncdConst",
+    "WAWebGetPendingMutation",
+    "asyncToGeneratorRuntime",
+    "compactMap",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e, t) {
-      var n = await Promise.all(
-          e.map(async function (e) {
-            var n = t.get(e.index);
-            if (n) {
-              var r = e.actionHandler;
-              return {
-                remoteMutationIndex: e.index,
-                conflictResolutionState: await r.resolveConflicts(n, e),
-              };
-            }
-          }),
-        ),
-        r = new Map();
+    var e;
+    function s(e, t) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        n.forEach(function (e) {
-          e && r.set(e.remoteMutationIndex, e.conflictResolutionState);
-        }),
-        r
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var o = yield (e || (e = n("Promise"))).all(
+              t.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = r.get(e.index);
+                      if (t) {
+                        var n = e.actionHandler;
+                        return {
+                          remoteMutationIndex: e.index,
+                          conflictResolutionState: yield n.resolveConflicts(
+                            t,
+                            e,
+                          ),
+                        };
+                      }
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            ),
+            a = new Map();
+          return (
+            o.forEach(function (e) {
+              e && a.set(e.remoteMutationIndex, e.conflictResolutionState);
+            }),
+            a
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
-    async function s(t, n) {
-      var a = [],
-        i = [],
-        l = await o(
-          "WAWebGetPendingMutation",
-        ).getSyncPendingMutationsByCollectionInTransaction(t),
-        s = new Map(
-          l.map(function (e) {
-            return [e.index, e];
-          }),
-        ),
-        u = await e(n, s);
-      n.forEach(function (e) {
-        var t = u.get(e.index);
-        if (t)
-          e: {
-            if (t === o("WASyncdConst").ConflictResolutionState.SkipRemote)
-              break e;
-            if (
-              t ===
-              o("WASyncdConst").ConflictResolutionState.ApplyRemoteAndDropLocal
-            ) {
-              (a.push(e),
-                (i = i.concat(
-                  l.filter(function (t) {
-                    return t.index === e.index;
-                  }),
-                )));
-              break e;
-            }
-            if (
-              t ===
-              o("WASyncdConst").ConflictResolutionState.SkipRemoteAndDropLocal
-            ) {
-              i = i.concat(
-                l.filter(function (t) {
-                  return t.index === e.index;
-                }),
-              );
-              break e;
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                t,
-            );
-          }
-        else a.push(e);
-      });
-      for (var c = [], d = 0; d < a.length; d++) {
-        var m = a[d].actionHandler,
-          p = await m.dropMutationDueToCrossIndexConflict(a[d], s);
-        p || c.push(a[d]);
-      }
-      var _ = r("compactMap")(i, function (e) {
-        return e.id;
-      });
-      return { remoteMutationsToApply: c, pendingSetMutationsToDrop: _ };
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    l.resolveConflict = s;
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = [],
+            a = [],
+            i = yield o(
+              "WAWebGetPendingMutation",
+            ).getSyncPendingMutationsByCollectionInTransaction(e),
+            l = new Map(
+              i.map(function (e) {
+                return [e.index, e];
+              }),
+            ),
+            u = yield s(t, l);
+          t.forEach(function (e) {
+            var t = u.get(e.index);
+            if (t)
+              e: {
+                if (t === o("WASyncdConst").ConflictResolutionState.SkipRemote)
+                  break e;
+                if (
+                  t ===
+                  o("WASyncdConst").ConflictResolutionState
+                    .ApplyRemoteAndDropLocal
+                ) {
+                  (n.push(e),
+                    (a = a.concat(
+                      i.filter(function (t) {
+                        return t.index === e.index;
+                      }),
+                    )));
+                  break e;
+                }
+                if (
+                  t ===
+                  o("WASyncdConst").ConflictResolutionState
+                    .SkipRemoteAndDropLocal
+                ) {
+                  a = a.concat(
+                    i.filter(function (t) {
+                      return t.index === e.index;
+                    }),
+                  );
+                  break e;
+                }
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t,
+                );
+              }
+            else n.push(e);
+          });
+          for (var c = [], d = 0; d < n.length; d++) {
+            var m = n[d].actionHandler,
+              p = yield m.dropMutationDueToCrossIndexConflict(n[d], l);
+            p || c.push(n[d]);
+          }
+          var _ = r("compactMap")(a, function (e) {
+            return e.id;
+          });
+          return { remoteMutationsToApply: c, pendingSetMutationsToDrop: _ };
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    l.resolveConflict = c;
   },
   98,
 );

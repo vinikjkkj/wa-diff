@@ -7,15 +7,24 @@ __d(
     "WAWebLabelCollection",
     "WAWebLabelSync",
     "WAWebSchemaLabel",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    async function u(e) {
-      await r("WAWebLabelSync").applyMutations(e);
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield r("WAWebLabelSync").applyMutations(e);
+        })),
+        c.apply(this, arguments)
+      );
     }
     u.doc =
       "Apply lists mutations to the DB. This is used for testing purposes only.";
-    function c(t) {
+    function d(t) {
       var n,
         r = (n = window.chat) != null ? n : t;
       if (r == null) {
@@ -35,9 +44,9 @@ __d(
         o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(i, [r]);
       }
     }
-    c.doc =
+    d.doc =
       "Unassign all lists from a provided chat or currently open chat. This is used for testing purposes only.";
-    function d(e) {
+    function m(e) {
       if (e == null || e.length === 0) {
         o("WALogger").ERROR(
           s ||
@@ -64,17 +73,17 @@ __d(
         a.length !== 0 &&
           o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(r, a));
     }
-    d.doc =
+    m.doc =
       "Unassign a list from all chats. This is used for testing purposes only.";
-    function m() {
+    function p() {
       o("WAWebChatCollection").ChatCollection.forEach(function (e) {
-        e.labels == null || e.labels.length === 0 || c(e);
+        e.labels == null || e.labels.length === 0 || d(e);
       });
     }
-    m.doc =
+    p.doc =
       "Clear all custom lists from all chats. This is used for testing purposes only.";
-    function p() {
-      (m(),
+    function _() {
+      (p(),
         o("WAWebLabelCollection").LabelCollection.forEach(function (e) {
           e.type === o("WAWebSchemaLabel").ListType.CUSTOM &&
             o("WAWebBizLabelEditingAction").labelDeleteAction(
@@ -84,146 +93,154 @@ __d(
             );
         }));
     }
-    p.doc =
+    _.doc =
       "Clear all custom lists from all chats and delete all custom lists. This is used for testing purposes only.";
-    var _ = [
-      "\u{1F600}",
-      "\u{1F601}",
-      "\u{1F602}",
-      "\u{1F923}",
-      "\u{1F603}",
-      "\u{1F604}",
-      "\u{1F605}",
-      "\u{1F606}",
-      "\u{1F609}",
-      "\u{1F60A}",
-      "\u{1F60B}",
-      "\u{1F60E}",
-      "\u{1F60D}",
-      "\u{1F970}",
-      "\u{1F618}",
-      "\u{1F617}",
-      "\u{1F619}",
-      "\u{1F61A}",
-      "\u{1F642}",
-      "\u{1F917}",
-      "\u{1F929}",
-      "\u{1F973}",
-      "\u{1F60F}",
-      "\u{1F60C}",
-      "\u{1F61B}",
-      "\u{1F61C}",
-      "\u{1F92A}",
-      "\u{1F61D}",
-      "\u{1F911}",
-      "\u{1F920}",
-      "\u{1F984}",
-      "\u{1F436}",
-      "\u{1F431}",
-      "\u{1F42D}",
-      "\u{1F439}",
-      "\u{1F430}",
-      "\u{1F98A}",
-      "\u{1F43B}",
-      "\u{1F43C}",
-      "\u{1F428}",
-      "\u{1F31F}",
+    var f = [
+      "\uD83D\uDE00",
+      "\uD83D\uDE01",
+      "\uD83D\uDE02",
+      "\uD83E\uDD23",
+      "\uD83D\uDE03",
+      "\uD83D\uDE04",
+      "\uD83D\uDE05",
+      "\uD83D\uDE06",
+      "\uD83D\uDE09",
+      "\uD83D\uDE0A",
+      "\uD83D\uDE0B",
+      "\uD83D\uDE0E",
+      "\uD83D\uDE0D",
+      "\uD83E\uDD70",
+      "\uD83D\uDE18",
+      "\uD83D\uDE17",
+      "\uD83D\uDE19",
+      "\uD83D\uDE1A",
+      "\uD83D\uDE42",
+      "\uD83E\uDD17",
+      "\uD83E\uDD29",
+      "\uD83E\uDD73",
+      "\uD83D\uDE0F",
+      "\uD83D\uDE0C",
+      "\uD83D\uDE1B",
+      "\uD83D\uDE1C",
+      "\uD83E\uDD2A",
+      "\uD83D\uDE1D",
+      "\uD83E\uDD11",
+      "\uD83E\uDD20",
+      "\uD83E\uDD84",
+      "\uD83D\uDC36",
+      "\uD83D\uDC31",
+      "\uD83D\uDC2D",
+      "\uD83D\uDC39",
+      "\uD83D\uDC30",
+      "\uD83E\uDD8A",
+      "\uD83D\uDC3B",
+      "\uD83D\uDC3C",
+      "\uD83D\uDC28",
+      "\uD83C\uDF1F",
       "\u2B50",
-      "\u{1F308}",
-      "\u{1F525}",
-      "\u{1F4A7}",
-      "\u{1F338}",
-      "\u{1F33A}",
-      "\u{1F33B}",
-      "\u{1F340}",
-      "\u{1F3AF}",
-      "\u{1F3A8}",
-      "\u{1F3AD}",
-      "\u{1F3AA}",
-      "\u{1F3AC}",
-      "\u{1F3A4}",
-      "\u{1F3A7}",
-      "\u{1F3B8}",
-      "\u{1F3B9}",
-      "\u{1F3BA}",
-      "\u{1F3BB}",
+      "\uD83C\uDF08",
+      "\uD83D\uDD25",
+      "\uD83D\uDCA7",
+      "\uD83C\uDF38",
+      "\uD83C\uDF3A",
+      "\uD83C\uDF3B",
+      "\uD83C\uDF40",
+      "\uD83C\uDFAF",
+      "\uD83C\uDFA8",
+      "\uD83C\uDFAD",
+      "\uD83C\uDFAA",
+      "\uD83C\uDFAC",
+      "\uD83C\uDFA4",
+      "\uD83C\uDFA7",
+      "\uD83C\uDFB8",
+      "\uD83C\uDFB9",
+      "\uD83C\uDFBA",
+      "\uD83C\uDFBB",
     ];
-    function f() {
-      return _[Math.floor(Math.random() * _.length)];
+    function g() {
+      return f[Math.floor(Math.random() * f.length)];
     }
-    async function g(e) {
-      var t = e != null ? e : {},
-        n = t.allCapitalSingleLetter,
-        r = n === void 0 ? !1 : n,
-        a = t.allEmoji,
-        i = a === void 0 ? !1 : a,
-        l = t.allNumbers,
-        s = l === void 0 ? !1 : l,
-        u = t.allSmallSingleLetter,
-        c = u === void 0 ? !1 : u,
-        d = t.count,
-        m = d === void 0 ? 18 : d;
-      if (i)
-        for (
-          var p = [].concat(_).sort(function () {
-              return Math.random() - 0.5;
-            }),
-            g = 0;
-          g < m;
-          g++
-        ) {
-          var h = p[g % p.length];
-          await o("WAWebBizLabelEditingAction").labelAddAction(h, g % 20);
-        }
-      else if (s)
-        for (var y = 0; y < m; y++)
-          await o("WAWebBizLabelEditingAction").labelAddAction(
-            String(y % 10),
-            y % 20,
-          );
-      else if (c)
-        for (var C = 0; C < m; C++) {
-          var b = String.fromCharCode(97 + (C % 26));
-          await o("WAWebBizLabelEditingAction").labelAddAction(b, C % 20);
-        }
-      else if (r)
-        for (var v = 0; v < m; v++) {
-          var S = String.fromCharCode(65 + (v % 26));
-          await o("WAWebBizLabelEditingAction").labelAddAction(S, v % 20);
-        }
-      else
-        for (var R = 0; R < m; R++)
-          await (function (e) {
-            if (e === 0)
-              return o("WAWebBizLabelEditingAction").labelAddAction("5", 0);
-            if (e === 1)
-              return o("WAWebBizLabelEditingAction").labelAddAction("a", 1);
-            if (e === 2)
-              return o("WAWebBizLabelEditingAction").labelAddAction("A", 2);
-            if (e === 3)
-              return o("WAWebBizLabelEditingAction").labelAddAction(f(), 3);
-            if (e === 4)
-              return o("WAWebBizLabelEditingAction").labelAddAction(
-                "Superlongsinglenamewordwithoutanyspacesorbreaks",
-                4,
-              );
-            if (e === 5)
-              return o("WAWebBizLabelEditingAction").labelAddAction(
-                "This is a long name with multiple words that will be truncated",
-                5,
-              );
-            {
-              var t = e;
-              return o("WAWebBizLabelEditingAction").labelAddAction(
-                "List " + t,
-                t % 20,
-              );
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e != null ? e : {},
+            n = t.allCapitalSingleLetter,
+            r = n === void 0 ? !1 : n,
+            a = t.allEmoji,
+            i = a === void 0 ? !1 : a,
+            l = t.allNumbers,
+            s = l === void 0 ? !1 : l,
+            u = t.allSmallSingleLetter,
+            c = u === void 0 ? !1 : u,
+            d = t.count,
+            m = d === void 0 ? 18 : d;
+          if (i)
+            for (
+              var p = [].concat(f).sort(function () {
+                  return Math.random() - 0.5;
+                }),
+                _ = 0;
+              _ < m;
+              _++
+            ) {
+              var h = p[_ % p.length];
+              yield o("WAWebBizLabelEditingAction").labelAddAction(h, _ % 20);
             }
-          })(R);
+          else if (s)
+            for (var y = 0; y < m; y++)
+              yield o("WAWebBizLabelEditingAction").labelAddAction(
+                String(y % 10),
+                y % 20,
+              );
+          else if (c)
+            for (var C = 0; C < m; C++) {
+              var b = String.fromCharCode(97 + (C % 26));
+              yield o("WAWebBizLabelEditingAction").labelAddAction(b, C % 20);
+            }
+          else if (r)
+            for (var v = 0; v < m; v++) {
+              var S = String.fromCharCode(65 + (v % 26));
+              yield o("WAWebBizLabelEditingAction").labelAddAction(S, v % 20);
+            }
+          else
+            for (var R = 0; R < m; R++)
+              yield (function (e) {
+                if (e === 0)
+                  return o("WAWebBizLabelEditingAction").labelAddAction("5", 0);
+                if (e === 1)
+                  return o("WAWebBizLabelEditingAction").labelAddAction("a", 1);
+                if (e === 2)
+                  return o("WAWebBizLabelEditingAction").labelAddAction("A", 2);
+                if (e === 3)
+                  return o("WAWebBizLabelEditingAction").labelAddAction(g(), 3);
+                if (e === 4)
+                  return o("WAWebBizLabelEditingAction").labelAddAction(
+                    "Superlongsinglenamewordwithoutanyspacesorbreaks",
+                    4,
+                  );
+                if (e === 5)
+                  return o("WAWebBizLabelEditingAction").labelAddAction(
+                    "This is a long name with multiple words that will be truncated",
+                    5,
+                  );
+                {
+                  var t = e;
+                  return o("WAWebBizLabelEditingAction").labelAddAction(
+                    "List " + t,
+                    t % 20,
+                  );
+                }
+              })(R);
+        })),
+        y.apply(this, arguments)
+      );
     }
-    g.doc =
+    h.doc =
       'Creates multiple custom labels with various naming patterns. Options: count (default 18), allEmoji, allNumbers, allSmallSingleLetter, allCapitalSingleLetter. Default mixed mode: one digit, one small letter, one capital, one emoji, one long word, one long sentence, rest are "List X".';
-    function h() {
+    function C() {
       if (
         o("WAWebLabelCollection").LabelCollection.length !== 0 &&
         o("WAWebChatCollection").ChatCollection.length !== 0
@@ -239,9 +256,9 @@ __d(
         o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(e, t);
       }
     }
-    h.doc =
+    C.doc =
       "Assign all existing lists to all chats. This is used for testing purposes only.";
-    function y(e) {
+    function b(e) {
       if (
         o("WAWebLabelCollection").LabelCollection.length !== 0 &&
         o("WAWebChatCollection").ChatCollection.length !== 0
@@ -274,19 +291,19 @@ __d(
         });
       }
     }
-    y.doc =
+    b.doc =
       "Randomly assign lists to random chats. For each chat with Math.random() > 0.5, assigns lists where Math.random() > 0.5. Optional count param limits max lists per chat. This is used for testing purposes only.";
-    var C = {
+    var v = {
       applyListsMutations: u,
-      listsUnAssignListFromAllChats: d,
-      listsUnAssignAllListsFromChat: c,
-      listsUnAssignAllListsFromAllChats: m,
-      listsUnAssignAllListsAndDeleteAllCustomLists: p,
-      listsPopulateCustomLists: g,
-      listsAssignAllListsToAllChats: h,
-      listsAssignRandomListsToRandomChats: y,
+      listsUnAssignListFromAllChats: m,
+      listsUnAssignAllListsFromChat: d,
+      listsUnAssignAllListsFromAllChats: p,
+      listsUnAssignAllListsAndDeleteAllCustomLists: _,
+      listsPopulateCustomLists: h,
+      listsAssignAllListsToAllChats: C,
+      listsAssignRandomListsToRandomChats: b,
     };
-    l.default = C;
+    l.default = v;
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebGroupsPrivacyTokenUtils",
-  ["WAWebSchemaChat", "WAWebTrustedContactsUtils"],
+  ["WAWebSchemaChat", "WAWebTrustedContactsUtils", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -27,16 +27,24 @@ __d(
         r
       );
     }
-    async function u(e) {
-      var t = await o("WAWebSchemaChat")
-        .getChatTable()
-        .bulkGet(
-          e.map(function (e) {
-            return e.toString();
-          }),
-          !0,
-        );
-      return s(t, e);
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSchemaChat")
+            .getChatTable()
+            .bulkGet(
+              e.map(function (e) {
+                return e.toString();
+              }),
+              !0,
+            );
+          return s(t, e);
+        })),
+        c.apply(this, arguments)
+      );
     }
     ((l.getPermissionTokenMap = s), (l.getPermissionTokenMapForChatIds = u));
   },

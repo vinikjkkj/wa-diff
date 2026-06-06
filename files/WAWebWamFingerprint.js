@@ -5,17 +5,26 @@ __d(
     "WAFPUtils",
     "WAWebBrowserFeatures",
     "WAWebDeviceFeatures",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e() {
-      return babelHelpers.extends(
-        {
-          webdriver: self.navigator.webdriver,
-          browserEngine: o("WAFPUtils").DETECTED_BROWSER_ENGINE,
-        },
-        await r("WAWebBrowserFeatures")(),
-        r("WAExternalInjectedSources")(),
-        r("WAWebDeviceFeatures")(),
+    function e() {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return babelHelpers.extends(
+            {
+              webdriver: self.navigator.webdriver,
+              browserEngine: o("WAFPUtils").DETECTED_BROWSER_ENGINE,
+            },
+            yield r("WAWebBrowserFeatures")(),
+            r("WAExternalInjectedSources")(),
+            r("WAWebDeviceFeatures")(),
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
     l.default = e;

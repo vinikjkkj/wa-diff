@@ -1,6 +1,7 @@
 __d(
   "WAWebExecApiCmdHelpers",
   [
+    "Promise",
     "WANullthrows",
     "WAWebContactUtils",
     "WAWebDeepLinkOpenWamEvent",
@@ -20,12 +21,14 @@ __d(
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumDeepLinkOpenFrom",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react"));
-    function u(e, t) {
+      s,
+      u = s || (s = o("react"));
+    function c(e, t) {
       var n = function (r) {
         var n = r.chat;
         self.setTimeout(function () {
@@ -34,7 +37,7 @@ __d(
           ),
             t && o("WAWebUpdateUtmAction").addUtmToChat(n.id, t),
             o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-              s.jsx(
+              u.jsx(
                 o("WAWebProductDetailsFlowLoadable").ProductDetailsFlowLoadable,
                 { chat: n, catalogOwnerJid: e },
               ),
@@ -54,7 +57,7 @@ __d(
         }, 100);
       };
       o("WAWebModalManager").ModalManager.open(
-        s.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+        u.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
           target: { wid: o("WAWebWidFactory").createWid(e) },
           onSuccess: n,
           msgText: null,
@@ -62,7 +65,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       var r = o("WAWebProductCatalogContext").buildProductCatalogContext(
           new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
           o("WAWebContactUtils").getMaybeBizPlatformForLogging(e),
@@ -75,7 +78,7 @@ __d(
             (o("WAWebUtilsLogQplEvents").qplStartProductView("Deeplink"),
               n && o("WAWebUpdateUtmAction").addUtmToChat(a.id, n),
               o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                s.jsx(
+                u.jsx(
                   o("WAWebProductDetailsFlowLoadable")
                     .ProductDetailsFlowLoadable,
                   {
@@ -93,7 +96,7 @@ __d(
           }, 100);
         };
       o("WAWebModalManager").ModalManager.open(
-        s.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+        u.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
           target: { wid: o("WAWebWidFactory").createWid(e) },
           onSuccess: a,
           msgText: null,
@@ -101,7 +104,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function d(e) {
+    function m(e) {
       var t = e.customUrl,
         n = e.invalidUsernameKey,
         a = e.phone,
@@ -124,7 +127,7 @@ __d(
             ? { username: r("WANullthrows")(l), usernameKey: s }
             : { username: r("WANullthrows")(l), invalidUsernameKey: n };
     }
-    function m(e) {
+    function p(e) {
       var t = e.campaign,
         n = e.deepLinkSessionId,
         r = e.deepLinkType,
@@ -141,7 +144,7 @@ __d(
         campaign: t != null ? t : void 0,
       }).commit();
     }
-    function p(e) {
+    function _(e) {
       var t = e.chatId,
         n = e.deepLinkType,
         a = e.isExternal,
@@ -154,7 +157,7 @@ __d(
           partnerToken: i,
         }).finally(r("WAWebNoop"));
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = e.headers.get("content-disposition");
       if (n != null) {
         var r = /filename[^;=\n]*=(([\'\"]).*?\2|[^;\n]*)/,
@@ -163,24 +166,33 @@ __d(
       }
       return t;
     }
-    function f(e) {
-      return Promise.all(
-        e.map(async function (e, t) {
-          var n = await window.fetch(e),
-            r = await n.blob(),
-            a = n.headers.get("Content-Type") || r.type,
-            i = _(n, t.toString() + "." + a);
-          return o("WAWebFileUtils").createFile([r], i, { type: a });
-        }),
+    function g(t) {
+      return (e || (e = n("Promise"))).all(
+        t.map(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var n = yield window.fetch(e),
+                  r = yield n.blob(),
+                  a = n.headers.get("Content-Type") || r.type,
+                  i = f(n, t.toString() + "." + a);
+                return o("WAWebFileUtils").createFile([r], i, { type: a });
+              },
+            );
+            return function (t, n) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        ),
       );
     }
-    ((l.openChatAndCatalog = u),
-      (l.openChatAndProduct = c),
-      (l.getOpenChatFlowProps = d),
-      (l.submitDeepLinkOpenWamEvent = m),
-      (l.externalCtxAuthoriseWAChatIfEnabled = p),
-      (l.getFileNameFromResponse = _),
-      (l.downloadAttachments = f));
+    ((l.openChatAndCatalog = c),
+      (l.openChatAndProduct = d),
+      (l.getOpenChatFlowProps = m),
+      (l.submitDeepLinkOpenWamEvent = p),
+      (l.externalCtxAuthoriseWAChatIfEnabled = _),
+      (l.getFileNameFromResponse = f),
+      (l.downloadAttachments = g));
   },
   98,
 );

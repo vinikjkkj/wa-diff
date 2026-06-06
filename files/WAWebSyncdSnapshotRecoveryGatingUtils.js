@@ -6,6 +6,7 @@ __d(
     "WAWebSyncdError",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebWamEnumRecoveryStatusEnum",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -19,13 +20,21 @@ __d(
     function s() {
       return e();
     }
-    async function u(e) {
-      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-        "WAPrimaryDeviceSupportsSyncdRecovery",
-        e,
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            "WAPrimaryDeviceSupportsSyncdRecovery",
+            e,
+          );
+        })),
+        c.apply(this, arguments)
       );
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       if (!(n instanceof o("WAWebSyncdError").SyncdFatalError))
         return {
           shouldPerformRecovery: !1,
@@ -57,7 +66,7 @@ __d(
     }
     ((l.syncdSnapshotRecoveryEnabled = s),
       (l.updatePrimaryDeviceSupportsSyncdRecovery = u),
-      (l.shouldPreformSnapshotRecovery = c));
+      (l.shouldPreformSnapshotRecovery = d));
   },
   98,
 );

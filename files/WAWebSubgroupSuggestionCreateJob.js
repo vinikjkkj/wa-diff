@@ -1,204 +1,234 @@
 __d(
   "WAWebSubgroupSuggestionCreateJob",
   [
+    "Promise",
     "WALogger",
     "WASmaxGroupsCreateSubGroupSuggestionRPC",
     "WAWebBackendErrors",
     "WAWebCoreActionsODS",
     "WAWebWidFactory",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    async function u(t, n) {
-      function r(t) {
-        var n = t.code,
-          r = t.text;
-        return (
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "createExistingGroupSubgroupSuggestion failed: ",
-                ":",
-                "",
-              ])),
-            n,
-            r,
-          ),
-          Promise.reject(
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(n), r),
-          )
-        );
-      }
-      var a = await o(
-        "WASmaxGroupsCreateSubGroupSuggestionRPC",
-      ).sendCreateSubGroupSuggestionRPC({
-        iqTo: o("WAWebWidToJid").widToGroupJid(t),
-        suggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroupArgs:
-          {
-            createSubGroupSuggestionSuggestionForExistingGroups: {
-              groupArgs: n.map(function (e) {
-                return {
-                  groupJid: o("WAWebWidToJid").widToGroupJid(e),
-                  hasHiddenGroup: !1,
-                };
-              }),
-            },
-          },
-      });
-      return (function (e) {
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.name ===
-            "CreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess" &&
-          "value" in e
-        ) {
-          var t = e.value;
-          return t.subGroupSuggestionGroup.map(function (e) {
-            var t;
-            return {
-              groupJid: e.jid,
-              error:
-                (t =
-                  e.subGroupNotAuthorizedOrNotExistOrConflictOrSuggestionNotAllowedOrResourceLimitOrBadRequestOrNotAcceptableOrServerErrorMixinGroup) ==
-                null
-                  ? void 0
-                  : t.value.error,
-            };
-          });
-        }
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.name === "CreateSubGroupSuggestionResponseClientError" &&
-          "value" in e
-        ) {
-          var n = e.value;
-          return r(n.errorCreateSubGroupSuggestionErrors.value);
-        }
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.name ===
-            "CreateSubGroupSuggestionResponseNewGroupSuggestionSuccess" &&
-          "value" in e
-        )
-          return r({
-            code: 500,
-            text: "Received invalid new group success response for create existing group subgroup suggestion",
-          });
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.name === "CreateSubGroupSuggestionResponseServerError" &&
-          "value" in e
-        ) {
-          var o = e.value;
-          return r(o.errorServerErrors.value);
-        }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            e,
-        );
-      })(a);
+    var e, s, u;
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    async function c(e) {
-      var t = e.announce,
-        n = e.description,
-        r = e.memberAddMode,
-        a = e.memberShareGroupHistoryMode,
-        i = e.membershipApprovalMode,
-        l = e.parentGroupId,
-        u = e.restrict,
-        c = e.subject;
-      function d(e) {
-        var t = e.code,
-          n = e.text;
-        return (
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "createNewGroupSubgroupSuggestion failed: ",
-                ":",
-                "",
-              ])),
-            t,
-            n,
-          ),
-          Promise.reject(
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(t), n),
-          )
-        );
-      }
-      var m = await o(
-        "WASmaxGroupsCreateSubGroupSuggestionRPC",
-      ).sendCreateSubGroupSuggestionRPC({
-        iqTo: o("WAWebWidToJid").widToGroupJid(l),
-        suggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroupArgs:
-          {
-            createSubGroupSuggestionSuggestionForNewGroup: {
-              subjectElementValue: c,
-              hasAnnouncement: !t,
-              hasLocked: !u,
-              hasHiddenGroup: !1,
-              membershipApprovalModeArgs: {
-                membershipApprovalModesArgs:
-                  i === !1
-                    ? { isGroupJoinMembershipApprovalModeDisabled: !0 }
-                    : { isGroupJoinMembershipApprovalModeEnabled: !0 },
-              },
-              groupMemberAddModeMixinArgs: {
-                memberAddModesArgs:
-                  r === !1
-                    ? { isAdminAddMode: !0 }
-                    : { isAllMembersAddMode: !0 },
-              },
-              groupMemberShareGroupHistoryModeMixinArgs: {
-                memberShareGroupHistoryModesArgs:
-                  a === !0
-                    ? { isAllMembersShareMode: !0 }
-                    : { isAdminShareMode: !0 },
-              },
-              descriptionArgs: n != null ? { bodyElementValue: n } : void 0,
-            },
-          },
-      });
-      switch (m.name) {
-        case "CreateSubGroupSuggestionResponseNewGroupSuggestionSuccess": {
-          var p,
-            _ =
-              (p = m.value.subGroupSuggestionDescription) != null && p.error
-                ? void 0
-                : n;
-          return (
-            o("WAWebCoreActionsODS").logGroupCreate(),
-            {
-              id: o("WAWebWidFactory").createWid(m.value.subGroupSuggestionJid),
-              owner: o("WAWebWidFactory").createWid(
-                m.value.subGroupSuggestionCreator,
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          function a(t) {
+            var r = t.code,
+              a = t.text;
+            return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "createExistingGroupSubgroupSuggestion failed: ",
+                    ":",
+                    "",
+                  ])),
+                r,
+                a,
               ),
-              t: m.value.subGroupSuggestionCreation,
-              parentGroupId: l,
-              subject: c,
-              desc: _,
-              isExistingGroup: !1,
-              participantCount: void 0,
-              hiddenSubgroup: void 0,
-            }
-          );
-        }
-        case "CreateSubGroupSuggestionResponseClientError": {
-          var f = m.value.errorCreateSubGroupSuggestionErrors;
-          return d(f.value);
-        }
-        case "CreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess":
-          return d({
-            code: 500,
-            text: "Received invalid existing group success response for create new subgroup suggestion",
+              (u || (u = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(r),
+                  a,
+                ),
+              )
+            );
+          }
+          var i = yield o(
+            "WASmaxGroupsCreateSubGroupSuggestionRPC",
+          ).sendCreateSubGroupSuggestionRPC({
+            iqTo: o("WAWebWidToJid").widToGroupJid(t),
+            suggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroupArgs:
+              {
+                createSubGroupSuggestionSuggestionForExistingGroups: {
+                  groupArgs: r.map(function (e) {
+                    return {
+                      groupJid: o("WAWebWidToJid").widToGroupJid(e),
+                      hasHiddenGroup: !1,
+                    };
+                  }),
+                },
+              },
           });
-        default:
-          return (m.name, d(m.value.errorServerErrors.value));
-      }
+          return (function (e) {
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.name ===
+                "CreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess" &&
+              "value" in e
+            ) {
+              var t = e.value;
+              return t.subGroupSuggestionGroup.map(function (e) {
+                var t;
+                return {
+                  groupJid: e.jid,
+                  error:
+                    (t =
+                      e.subGroupNotAuthorizedOrNotExistOrConflictOrSuggestionNotAllowedOrResourceLimitOrBadRequestOrNotAcceptableOrServerErrorMixinGroup) ==
+                    null
+                      ? void 0
+                      : t.value.error,
+                };
+              });
+            }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.name === "CreateSubGroupSuggestionResponseClientError" &&
+              "value" in e
+            ) {
+              var n = e.value;
+              return a(n.errorCreateSubGroupSuggestionErrors.value);
+            }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.name ===
+                "CreateSubGroupSuggestionResponseNewGroupSuggestionSuccess" &&
+              "value" in e
+            )
+              return a({
+                code: 500,
+                text: "Received invalid new group success response for create existing group subgroup suggestion",
+              });
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.name === "CreateSubGroupSuggestionResponseServerError" &&
+              "value" in e
+            ) {
+              var r = e.value;
+              return a(r.errorServerErrors.value);
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          })(i);
+        })),
+        d.apply(this, arguments)
+      );
     }
-    ((l.createExistingGroupSubgroupSuggestion = u),
-      (l.createNewGroupSubgroupSuggestion = c));
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.announce,
+            r = e.description,
+            a = e.memberAddMode,
+            i = e.memberShareGroupHistoryMode,
+            l = e.membershipApprovalMode,
+            c = e.parentGroupId,
+            d = e.restrict,
+            m = e.subject;
+          function p(e) {
+            var t = e.code,
+              r = e.text;
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "createNewGroupSubgroupSuggestion failed: ",
+                    ":",
+                    "",
+                  ])),
+                t,
+                r,
+              ),
+              (u || (u = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(t),
+                  r,
+                ),
+              )
+            );
+          }
+          var _ = yield o(
+            "WASmaxGroupsCreateSubGroupSuggestionRPC",
+          ).sendCreateSubGroupSuggestionRPC({
+            iqTo: o("WAWebWidToJid").widToGroupJid(c),
+            suggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroupArgs:
+              {
+                createSubGroupSuggestionSuggestionForNewGroup: {
+                  subjectElementValue: m,
+                  hasAnnouncement: !t,
+                  hasLocked: !d,
+                  hasHiddenGroup: !1,
+                  membershipApprovalModeArgs: {
+                    membershipApprovalModesArgs:
+                      l === !1
+                        ? { isGroupJoinMembershipApprovalModeDisabled: !0 }
+                        : { isGroupJoinMembershipApprovalModeEnabled: !0 },
+                  },
+                  groupMemberAddModeMixinArgs: {
+                    memberAddModesArgs:
+                      a === !1
+                        ? { isAdminAddMode: !0 }
+                        : { isAllMembersAddMode: !0 },
+                  },
+                  groupMemberShareGroupHistoryModeMixinArgs: {
+                    memberShareGroupHistoryModesArgs:
+                      i === !0
+                        ? { isAllMembersShareMode: !0 }
+                        : { isAdminShareMode: !0 },
+                  },
+                  descriptionArgs: r != null ? { bodyElementValue: r } : void 0,
+                },
+              },
+          });
+          switch (_.name) {
+            case "CreateSubGroupSuggestionResponseNewGroupSuggestionSuccess": {
+              var f,
+                g =
+                  (f = _.value.subGroupSuggestionDescription) != null && f.error
+                    ? void 0
+                    : r;
+              return (
+                o("WAWebCoreActionsODS").logGroupCreate(),
+                {
+                  id: o("WAWebWidFactory").createWid(
+                    _.value.subGroupSuggestionJid,
+                  ),
+                  owner: o("WAWebWidFactory").createWid(
+                    _.value.subGroupSuggestionCreator,
+                  ),
+                  t: _.value.subGroupSuggestionCreation,
+                  parentGroupId: c,
+                  subject: m,
+                  desc: g,
+                  isExistingGroup: !1,
+                  participantCount: void 0,
+                  hiddenSubgroup: void 0,
+                }
+              );
+            }
+            case "CreateSubGroupSuggestionResponseClientError": {
+              var h = _.value.errorCreateSubGroupSuggestionErrors;
+              return p(h.value);
+            }
+            case "CreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess":
+              return p({
+                code: 500,
+                text: "Received invalid existing group success response for create new subgroup suggestion",
+              });
+            default:
+              return (_.name, p(_.value.errorServerErrors.value));
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    ((l.createExistingGroupSubgroupSuggestion = c),
+      (l.createNewGroupSubgroupSuggestion = m));
   },
   98,
 );

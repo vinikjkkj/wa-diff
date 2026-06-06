@@ -1,6 +1,7 @@
 __d(
   "WAWebProductImageModel",
   [
+    "Promise",
     "WABackoffDelay",
     "WALogger",
     "WAPromiseBackoffs",
@@ -13,25 +14,27 @@ __d(
     "WAWebMediaStore",
     "WAWebMediaTypes",
     "WAWebMiscErrors",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = "https://static.whatsapp.net",
-      c = 1e3,
-      d = 900 * 1e3,
-      m = 10,
-      p = o("WAPromiseBackoffs").createTimer({
+      u,
+      c = "https://static.whatsapp.net",
+      d = 1e3,
+      m = 900 * 1e3,
+      p = 10,
+      _ = o("WAPromiseBackoffs").createTimer({
         algo: { type: "fibonacci", first: 0, second: 1 },
         jitter: 0.25,
-        max: d,
+        max: m,
       });
-    function _(e) {
-      var t = "_productimage_" + (e.includes(u) ? e : new URL(e).pathname);
+    function f(e) {
+      var t = "_productimage_" + (e.includes(c) ? e : new URL(e).pathname);
       return t;
     }
-    var f = (function (t) {
-      function n() {
+    var g = (function (t) {
+      function a() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
         return (
@@ -48,10 +51,10 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(n, t);
-      var a = n.prototype;
+      babelHelpers.inheritsLoose(a, t);
+      var i = a.prototype;
       return (
-        (a.initialize = function () {
+        (i.initialize = function () {
           var e = this;
           (t.prototype.initialize.call(this),
             this.listenTo(
@@ -63,31 +66,31 @@ __d(
             ),
             this.triggerImageUpdate());
         }),
-        (a._processAndUpdateMediaData = function (n) {
+        (i._processAndUpdateMediaData = function (a) {
           var t = this,
-            a = {},
-            i = r("WAWebMediaOpaqueData").createFromData(n, "image/jpeg");
+            i = {},
+            l = r("WAWebMediaOpaqueData").createFromData(a, "image/jpeg");
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "_processAndUpdateMediaData: before prepRawMedia",
               ])),
           );
-          var l = o("WAWebMedia").prepRawMedia(i, {});
-          l.waitForPrep()
+          var s = o("WAWebMedia").prepRawMedia(l, {});
+          s.waitForPrep()
             .then(function (e) {
               return (
-                (a = babelHelpers.extends({}, a, {
+                (i = babelHelpers.extends({}, i, {
                   mediaBlob: e.mediaBlob,
                   type: e.type,
                   mimetype: e.mimetype,
                   fullWidth: e.fullWidth,
                   fullHeight: e.fullHeight,
                 })),
-                Promise.all([
+                (u || (u = n("Promise"))).all([
                   typeof e.preview == "string"
                     ? r("WAWebMediaOpaqueData").createFromBase64Jpeg(e.preview)
-                    : Promise.resolve(null),
+                    : (u || (u = n("Promise"))).resolve(null),
                   r("WAWebMediaOpaqueData").createFromData(e.mediaBlob),
                   o("WAWebCryptoCalculateFilehash").calculateFilehashFromBlob(
                     e.mediaBlob,
@@ -98,79 +101,102 @@ __d(
             .then(function (e) {
               var n = e[0],
                 r = e[1],
-                i = e[2];
-              ((a = babelHelpers.extends({}, a, {
+                a = e[2];
+              ((i = babelHelpers.extends({}, i, {
                 preview: n,
                 mediaBlob: r,
                 renderableUrl: r.url(),
                 mediaStage: o("WAWebMediaTypes").MediaDataStage.RESOLVED,
-                filehash: i,
+                filehash: a,
               })),
-                i !== t.mediaData.filehash && t.mediaData.set(a));
+                a !== t.mediaData.filehash && t.mediaData.set(i));
             });
         }),
-        (a.triggerImageUpdate = async function () {
-          var e = this;
-          if (!(!this.fetchedFromServer || !this.mediaUrl)) {
-            this.mediaData ||
-              this.addChild(
-                "mediaData",
-                new (r("WAWebMediaData"))({
-                  mediaStage: o("WAWebMediaTypes").MediaDataStage.PREPARING,
-                }),
-              );
-            var t = _(this.mediaUrl),
-              n = await o("WAWebMediaStore").LruMediaStore.get(t);
-            if (n) return this._processAndUpdateMediaData(n);
-            var a = {
-              delay: function (t) {
-                var e = t.taskDuration,
-                  n = c * p();
-                return Math.max(n - e, 0);
-              },
-              signal: new AbortController().signal,
-              retries: m,
-            };
-            try {
-              var i = await o("WABackoffDelay").backoff(a, async function (t) {
-                  var n = await o("WAWebMediaDataUtils").fetchMedia(e.mediaUrl);
-                  return !n || !(n.status >= 200 && n.status < 300)
-                    ? t(new (o("WAWebMiscErrors").CatalogImageDownloadError)())
-                    : n;
-                }),
-                l = i.result;
-              (o("WAWebMediaStore").LruMediaStore.put(t, l),
-                this._processAndUpdateMediaData(l));
-            } catch (e) {
-              (o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Failed to fetch ",
-                    "",
-                  ])),
-                this.mediaUrl,
-              ),
-                this.mediaData.set({
-                  mediaStage: o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING,
-                }));
+        (i.triggerImageUpdate = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = this;
+            if (!(!this.fetchedFromServer || !this.mediaUrl)) {
+              this.mediaData ||
+                this.addChild(
+                  "mediaData",
+                  new (r("WAWebMediaData"))({
+                    mediaStage: o("WAWebMediaTypes").MediaDataStage.PREPARING,
+                  }),
+                );
+              var t = f(this.mediaUrl),
+                a = yield o("WAWebMediaStore").LruMediaStore.get(t);
+              if (a) return this._processAndUpdateMediaData(a);
+              var i = {
+                delay: function (t) {
+                  var e = t.taskDuration,
+                    n = d * _();
+                  return Math.max(n - e, 0);
+                },
+                signal: new AbortController().signal,
+                retries: p,
+              };
+              try {
+                var l = yield o("WABackoffDelay").backoff(
+                    i,
+                    (function () {
+                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (t) {
+                          var n = yield o("WAWebMediaDataUtils").fetchMedia(
+                            e.mediaUrl,
+                          );
+                          return !n || !(n.status >= 200 && n.status < 300)
+                            ? t(
+                                new (o(
+                                  "WAWebMiscErrors",
+                                ).CatalogImageDownloadError)(),
+                              )
+                            : n;
+                        },
+                      );
+                      return function (e) {
+                        return t.apply(this, arguments);
+                      };
+                    })(),
+                  ),
+                  u = l.result;
+                (o("WAWebMediaStore").LruMediaStore.put(t, u),
+                  this._processAndUpdateMediaData(u));
+              } catch (e) {
+                (o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to fetch ",
+                      "",
+                    ])),
+                  this.mediaUrl,
+                ),
+                  this.mediaData.set({
+                    mediaStage:
+                      o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING,
+                  }));
+              }
             }
+          });
+          function t() {
+            return e.apply(this, arguments);
           }
-        }),
-        (a.markOld = function () {
+          return t;
+        })()),
+        (i.markOld = function () {
           this.old = !0;
         }),
-        (a.evictFromCache = function () {
+        (i.evictFromCache = function () {
           if (this.mediaUrl) {
-            var e = _(this.mediaUrl);
+            var e = f(this.mediaUrl);
             o("WAWebMediaStore").LruMediaStore.del(e);
           }
         }),
-        n
+        a
       );
     })(o("WAWebBaseModel").BaseModel);
-    f.Proxy = "productImage";
-    var g = o("WAWebBaseModel").defineModel(f);
-    ((l.STATIC_WHATSAPP_IMAGE_URI = u), (l.ProductImage = g));
+    g.Proxy = "productImage";
+    var h = o("WAWebBaseModel").defineModel(g);
+    ((l.STATIC_WHATSAPP_IMAGE_URI = c), (l.ProductImage = h));
   },
   98,
 );

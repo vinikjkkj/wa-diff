@@ -7,52 +7,82 @@ __d(
     "WAWebHandleForMessageRangeEnums",
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      if (
-        t === o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN
-      ) {
-        var n = await o(
-            "WAWebUserPrefsMultiDevice",
-          ).getArchiveV2EnabledSetting(),
-          r = await o("WAWebUserPrefsMultiDevice").getUnarchiveChatsSetting();
-        ((!n || r) &&
-          o("WAWebChatDbUpdatesApi").setArchive([
-            { id: e.chatId, archive: !1 },
-          ]),
-          await o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-            e.chatId,
-            e.action,
-          ));
-      }
+    function e(e, t) {
+      return s.apply(this, arguments);
     }
-    async function s(e, t) {
-      (t ===
-        o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN ||
-        e.remainingMessages === 0) &&
-        (await o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-          e.chatId,
-          e.action,
-        ));
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            t ===
+            o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN
+          ) {
+            var n = yield o(
+                "WAWebUserPrefsMultiDevice",
+              ).getArchiveV2EnabledSetting(),
+              r = yield o(
+                "WAWebUserPrefsMultiDevice",
+              ).getUnarchiveChatsSetting();
+            ((!n || r) &&
+              o("WAWebChatDbUpdatesApi").setArchive([
+                { id: e.chatId, archive: !1 },
+              ]),
+              yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
+                e.chatId,
+                e.action,
+              ));
+          }
+        })),
+        s.apply(this, arguments)
+      );
     }
-    async function u(e, t, n) {
-      t === o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN
-        ? await o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-            e.chatId,
-            e.action,
-          )
-        : e.remainingMessages === 0 &&
-          (o("WAWebBackendApi").frontendFireAndForget("updateChatReadStatus", {
-            id: o("WAWebWidFactory").createWid(e.chatId),
-            read: n,
-          }),
-          await o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-            e.chatId,
-            e.action,
-          ));
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function c(e, t) {
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (t ===
+            o("WAWebHandleForMessageRangeEnums").RangeContain
+              .DOES_NOT_CONTAIN ||
+            e.remainingMessages === 0) &&
+            (yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
+              e.chatId,
+              e.action,
+            ));
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t, n) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          t ===
+          o("WAWebHandleForMessageRangeEnums").RangeContain.DOES_NOT_CONTAIN
+            ? yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
+                e.chatId,
+                e.action,
+              )
+            : e.remainingMessages === 0 &&
+              (o("WAWebBackendApi").frontendFireAndForget(
+                "updateChatReadStatus",
+                { id: o("WAWebWidFactory").createWid(e.chatId), read: n },
+              ),
+              yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
+                e.chatId,
+                e.action,
+              ));
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
       return t ===
         o("WAWebHandleForMessageRangeEnums").RangeContain
           .CONTAINS_BY_TIMESTAMP ||
@@ -71,7 +101,7 @@ __d(
               );
             })();
     }
-    function d(e, t) {
+    function _(e, t) {
       switch (t) {
         case o("WAWebHandleForMessageRangeEnums").RangeContain
           .CONTAINS_BY_TIMESTAMP:
@@ -84,10 +114,10 @@ __d(
       }
     }
     ((l.handleForArchive = e),
-      (l.handleForUnarchive = s),
-      (l.handleForMarkAsReadUnread = u),
-      (l.handleForClearChat = c),
-      (l.handleForDeleteChat = d));
+      (l.handleForUnarchive = u),
+      (l.handleForMarkAsReadUnread = d),
+      (l.handleForClearChat = p),
+      (l.handleForDeleteChat = _));
   },
   98,
 );

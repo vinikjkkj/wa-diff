@@ -10,15 +10,16 @@ __d(
     "WAWebDeviceListPk",
     "WAWebHandleAdvDeviceNotificationUtils",
     "WAWebProtobufsAdv.pb",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c = 99;
-    function d(t, n, r, a, i, l, d, m, _) {
+    function d(t, n, r, a, i, l, d, m, p) {
       if ((l == null ? void 0 : l.timestamp) != null && r < l.timestamp)
         return null;
-      var f = p(t, n, a, i, _);
+      var f = _(t, n, a, i, p);
       if (!f) return null;
       var g = f.rawId,
         h = o("WALongInt").numberOrThrowIfTooLarge(f.timestamp),
@@ -118,10 +119,20 @@ __d(
           : { update: D, clearRecord: C }
       );
     }
-    async function m(e, t, n, r, o, a, i, l, s) {
-      return d(e, t, n, r, o, a, i, l, s);
+    function m(e, t, n, r, o, a, i, l, s) {
+      return p.apply(this, arguments);
     }
-    function p(e, t, n, r, a) {
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, o, a, i, l, s) {
+            return d(e, t, n, r, o, a, i, l, s);
+          },
+        )),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t, n, r, a) {
       return t != null &&
         t.some(function (e) {
           return !!e.isHosted;

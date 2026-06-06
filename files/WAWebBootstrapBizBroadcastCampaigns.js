@@ -1,16 +1,22 @@
 __d(
   "WAWebBootstrapBizBroadcastCampaigns",
-  ["WALogger", "WAWebBizBroadcastCampaignInitFromStorage"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebBizBroadcastCampaignInitFromStorage",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = null,
-      m = !1;
-    function p() {
-      return d != null
-        ? (m
+      d,
+      m = null,
+      p = !1;
+    function _() {
+      return m != null
+        ? (p
             ? o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -23,37 +29,45 @@ __d(
                     "[bb:bootstrap] already in progress, joining existing task",
                   ])),
               ),
-          d)
-        : ((d = _()), d);
+          m)
+        : ((m = f()), m);
     }
-    async function _() {
-      o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose([
-            "[bb:bootstrap] start",
-          ])),
-      );
-      try {
-        (await Promise.all([
-          o(
-            "WAWebBizBroadcastCampaignInitFromStorage",
-          ).restoreBizBroadcastCampaigns(),
-          o(
-            "WAWebBizBroadcastCampaignInitFromStorage",
-          ).restoreBizBroadcastCampaignInsights(),
-        ]),
-          (m = !0),
+    function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[bb:bootstrap] done",
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[bb:bootstrap] start",
               ])),
-          ));
-      } catch (e) {
-        throw ((d = null), e);
-      }
+          );
+          try {
+            (yield (d || (d = n("Promise"))).all([
+              o(
+                "WAWebBizBroadcastCampaignInitFromStorage",
+              ).restoreBizBroadcastCampaigns(),
+              o(
+                "WAWebBizBroadcastCampaignInitFromStorage",
+              ).restoreBizBroadcastCampaignInsights(),
+            ]),
+              (p = !0),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bb:bootstrap] done",
+                  ])),
+              ));
+          } catch (e) {
+            throw ((m = null), e);
+          }
+        })),
+        g.apply(this, arguments)
+      );
     }
-    l.bootstrapBizBroadcastCampaigns = p;
+    l.bootstrapBizBroadcastCampaigns = _;
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebContactProfilePicThumbBridge",
   [
+    "Promise",
     "WABase64",
     "WALogger",
     "WAWebBackendErrors",
@@ -15,48 +16,67 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    async function p(e) {
-      var t = r("WAWebSendProfilePictureJob")(e, null).then(function () {
-          return { status: 200 };
-        }),
-        n = await t;
+    var e, s, u, c, d, m, p;
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
-          e,
-          o("WAWebProfilePicConstants").ProfilePicCommand.Remove,
-        ),
-        n
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("WAWebSendProfilePictureJob")(e, null).then(function () {
+              return { status: 200 };
+            }),
+            n = yield t;
+          return (
+            o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
+              e,
+              o("WAWebProfilePicConstants").ProfilePicCommand.Remove,
+            ),
+            n
+          );
+        })),
+        f.apply(this, arguments)
       );
     }
-    async function _(e, t, n) {
-      var a = r("WAWebURLUtils").parseDataURL(n).data,
-        i = o("WABase64").decodeB64(a),
-        l = r("WAWebSendProfilePictureJob")(e, i).then(async function () {
-          var t = await o("WAWebGetProfilePicJob").getProfilePic(e, {
-            preview: !1,
-          });
-          return {
-            tag: t.tag,
-            eurl: t.eurl,
-            fullDirectPath: t.directPath,
-            filehash: t.filehash,
-            status: 200,
-          };
-        }),
-        s = await l;
+    function g(e, t, n) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
-          e,
-          o("WAWebProfilePicConstants").ProfilePicCommand.Set,
-        ),
-        s
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          var i = r("WAWebURLUtils").parseDataURL(a).data,
+            l = o("WABase64").decodeB64(i),
+            s = r("WAWebSendProfilePictureJob")(e, l).then(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield o("WAWebGetProfilePicJob").getProfilePic(e, {
+                  preview: !1,
+                });
+                return {
+                  tag: t.tag,
+                  eurl: t.eurl,
+                  fullDirectPath: t.directPath,
+                  filehash: t.filehash,
+                  status: 200,
+                };
+              }),
+            ),
+            u = yield s;
+          return (
+            o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
+              e,
+              o("WAWebProfilePicConstants").ProfilePicCommand.Set,
+            ),
+            u
+          );
+        })),
+        h.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function y(e, t) {
       var n, r, o, a, i, l;
       return {
         id: e.toString(),
@@ -72,228 +92,273 @@ __d(
         timestamp: Date.now(),
       };
     }
-    async function g(e, t) {
-      var n = f(e, t);
-      await o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(n);
-    }
-    async function h(t, n) {
-      var a = Promise.all([
-        o("WAWebGetProfilePicJob").getProfilePic(
-          t,
-          babelHelpers.extends({}, n, { preview: !1 }),
-        ),
-        o("WAWebGetProfilePicJob").getProfilePic(
-          t,
-          babelHelpers.extends({}, n, { preview: !0 }),
-        ),
-      ]).then(function (e) {
-        var t,
-          n = e[0],
-          r = e[1],
-          o = {
-            eurl: n.eurl,
-            tag: n.tag,
-            previewEurl: r.eurl,
-            previewDirectPath: r.directPath,
-            fullDirectPath: n.directPath,
-          },
-          a = (t = r.filehash) != null ? t : n.filehash;
-        return (a != null && (o.filehash = a), o);
-      });
-      try {
-        var i = await a;
-        (g(t, i).catch(function (t) {
-          o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "persistProfilePicToDB failed with error ",
-                "",
-              ])),
-            r("getErrorSafe")(t).message,
-          );
-        }),
-          C(t, i.eurl));
-      } catch (e) {
-        (C(t),
-          y(t, r("getErrorSafe")(e)).catch(function (e) {
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[profilePicFind] persistProfilePicToDB failed: ",
-                  "",
-                ])),
-              r("getErrorSafe")(e).message,
-            );
-          }));
-      }
-      return a;
-    }
-    async function y(e, t) {
-      if (t instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-        var n = t.status;
-        n === 500 || n === 501 || n === 503
-          ? o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "profilePicFind failed with serverCode: ",
-                  "",
-                ])),
-              n,
-            )
-          : n === 404
-            ? await g(e)
-            : n === 401 && !e.isGroup() && (await g(e));
-      }
-    }
     function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = y(e, t);
+          yield o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(n);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = (p || (p = n("Promise")))
+            .all([
+              o("WAWebGetProfilePicJob").getProfilePic(
+                e,
+                babelHelpers.extends({}, t, { preview: !1 }),
+              ),
+              o("WAWebGetProfilePicJob").getProfilePic(
+                e,
+                babelHelpers.extends({}, t, { preview: !0 }),
+              ),
+            ])
+            .then(function (e) {
+              var t,
+                n = e[0],
+                r = e[1],
+                o = {
+                  eurl: n.eurl,
+                  tag: n.tag,
+                  previewEurl: r.eurl,
+                  previewDirectPath: r.directPath,
+                  fullDirectPath: n.directPath,
+                },
+                a = (t = r.filehash) != null ? t : n.filehash;
+              return (a != null && (o.filehash = a), o);
+            });
+          try {
+            var i = yield a;
+            (C(e, i).catch(function (e) {
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "persistProfilePicToDB failed with error ",
+                    "",
+                  ])),
+                r("getErrorSafe")(e).message,
+              );
+            }),
+              E(e, i.eurl));
+          } catch (t) {
+            (E(e),
+              R(e, r("getErrorSafe")(t)).catch(function (e) {
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[profilePicFind] persistProfilePicToDB failed: ",
+                      "",
+                    ])),
+                  r("getErrorSafe")(e).message,
+                );
+              }));
+          }
+          return a;
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
+            var n = t.status;
+            n === 500 || n === 501 || n === 503
+              ? o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "profilePicFind failed with serverCode: ",
+                      "",
+                    ])),
+                  n,
+                )
+              : n === 404
+                ? yield C(e)
+                : n === 401 && !e.isGroup() && (yield C(e));
+          }
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t) {
       e.equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser()) &&
         o("WAWebUserPrefsMultiDevice").setCachedProfilePicEURL(
           t != null ? t : "",
         );
     }
-    function b(e) {
-      return Promise.all(
-        e.map(async function (e) {
-          try {
-            var t = await h(e.id, {
-              tcToken: e.tcToken,
-              commonGid: e.commonGid,
-            });
-            return {
-              id: e.id,
-              eurl: t.eurl,
-              tag: t.tag,
-              previewEurl: t.previewEurl,
-              previewDirectPath: t.previewDirectPath,
-              fullDirectPath: t.fullDirectPath,
-              filehash: t.filehash,
-              stale: !1,
-              eurlStale: !1,
-              timestamp: Date.now(),
-            };
-          } catch (t) {
-            if (t instanceof o("WAWebBackendErrors").ServerStatusCodeError)
-              switch (t.status) {
-                case 401:
-                case 404:
+    function k(t) {
+      return (p || (p = n("Promise"))).all(
+        t.map(
+          (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                try {
+                  var n = yield v(t.id, {
+                    tcToken: t.tcToken,
+                    commonGid: t.commonGid,
+                  });
                   return {
-                    tag: "",
-                    id: e.id,
+                    id: t.id,
+                    eurl: n.eurl,
+                    tag: n.tag,
+                    previewEurl: n.previewEurl,
+                    previewDirectPath: n.previewDirectPath,
+                    fullDirectPath: n.fullDirectPath,
+                    filehash: n.filehash,
                     stale: !1,
                     eurlStale: !1,
                     timestamp: Date.now(),
                   };
-                default:
-                  return (
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "ProfilePicThumb:resyncPictures error - ",
-                          ", ",
-                          "",
-                        ])),
-                      t.status,
-                      t.message,
-                    ),
-                    {
-                      id: e.id,
-                      stale: !1,
-                      eurlStale: !1,
-                      timestamp: Date.now(),
+                } catch (n) {
+                  if (
+                    n instanceof o("WAWebBackendErrors").ServerStatusCodeError
+                  )
+                    switch (n.status) {
+                      case 401:
+                      case 404:
+                        return {
+                          tag: "",
+                          id: t.id,
+                          stale: !1,
+                          eurlStale: !1,
+                          timestamp: Date.now(),
+                        };
+                      default:
+                        return (
+                          o("WALogger").WARN(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "ProfilePicThumb:resyncPictures error - ",
+                                ", ",
+                                "",
+                              ])),
+                            n.status,
+                            n.message,
+                          ),
+                          {
+                            id: t.id,
+                            stale: !1,
+                            eurlStale: !1,
+                            timestamp: Date.now(),
+                          }
+                        );
                     }
-                  );
-              }
-            throw t;
-          }
-        }),
+                  throw n;
+                }
+              },
+            );
+            return function (e) {
+              return t.apply(this, arguments);
+            };
+          })(),
+        ),
       );
     }
-    async function v(e) {
-      var t = e.commonGid,
-        n = e.id,
-        a = e.newsletterRole,
-        i = e.parentGroupId,
-        l = e.tcToken;
-      try {
-        if (n.isNewsletter()) {
-          var s = await o(
-            "WAWebFetchNewsletterProfilePic",
-          ).fetchNewsletterProfilePic(
-            o("WAWebWidFactory").asNewsletterWidOrThrow(n),
-            a,
-          );
-          return (
-            g(n, s).catch(function (e) {
-              o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "persistProfilePicToDB failed with error ",
-                    "",
-                  ])),
-                r("getErrorSafe")(e).message,
-              );
-            }),
-            s
-          );
-        }
-        if (i != null) {
-          var u = await o(
-            "WAWebFetchCommunityProfilePic",
-          ).fetchCommunityProfilePic(n, i);
-          return (
-            g(n, u).catch(function (e) {
-              o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "persistProfilePicToDB failed with error ",
-                    "",
-                  ])),
-                r("getErrorSafe")(e).message,
-              );
-            }),
-            u
-          );
-        }
-        var c = await h(n, { tcToken: l, commonGid: t }),
-          p = babelHelpers.extends({}, c, {
-            id: n,
-            timestamp: Date.now(),
-            eurlStale: !1,
-            stale: !1,
-          });
-        return p;
-      } catch (e) {
-        if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-          var _ = { id: n };
-          switch (e.status) {
-            case 401:
-            case 404:
-              ((_.tag = ""),
-                (_.timestamp = Date.now()),
-                (_.eurlStale = !1),
-                (_.stale = !1));
-              break;
-            case 423:
-              _.stale = !0;
-              break;
-            case 429:
-              _.stale = !0;
-              break;
-            default:
-              _.eurlStale = !1;
-              break;
-          }
-          return Promise.resolve(_);
-        }
-        throw e;
-      }
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    ((l.requestDeletePicture = p),
-      (l.sendSetPicture = _),
-      (l.mapProfilePictureToProfilePicThumbRowType = f),
-      (l.persistProfilePicToDB = g),
-      (l.profilePicResync = b),
-      (l.requestProfilePicFromServer = v));
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.commonGid,
+            a = e.id,
+            i = e.newsletterRole,
+            l = e.parentGroupId,
+            s = e.tcToken;
+          try {
+            if (a.isNewsletter()) {
+              var u = yield o(
+                "WAWebFetchNewsletterProfilePic",
+              ).fetchNewsletterProfilePic(
+                o("WAWebWidFactory").asNewsletterWidOrThrow(a),
+                i,
+              );
+              return (
+                C(a, u).catch(function (e) {
+                  o("WALogger").WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "persistProfilePicToDB failed with error ",
+                        "",
+                      ])),
+                    r("getErrorSafe")(e).message,
+                  );
+                }),
+                u
+              );
+            }
+            if (l != null) {
+              var c = yield o(
+                "WAWebFetchCommunityProfilePic",
+              ).fetchCommunityProfilePic(a, l);
+              return (
+                C(a, c).catch(function (e) {
+                  o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "persistProfilePicToDB failed with error ",
+                        "",
+                      ])),
+                    r("getErrorSafe")(e).message,
+                  );
+                }),
+                c
+              );
+            }
+            var _ = yield v(a, { tcToken: s, commonGid: t }),
+              f = babelHelpers.extends({}, _, {
+                id: a,
+                timestamp: Date.now(),
+                eurlStale: !1,
+                stale: !1,
+              });
+            return f;
+          } catch (e) {
+            if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
+              var g = { id: a };
+              switch (e.status) {
+                case 401:
+                case 404:
+                  ((g.tag = ""),
+                    (g.timestamp = Date.now()),
+                    (g.eurlStale = !1),
+                    (g.stale = !1));
+                  break;
+                case 423:
+                  g.stale = !0;
+                  break;
+                case 429:
+                  g.stale = !0;
+                  break;
+                default:
+                  g.eurlStale = !1;
+                  break;
+              }
+              return (p || (p = n("Promise"))).resolve(g);
+            }
+            throw e;
+          }
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    ((l.requestDeletePicture = _),
+      (l.sendSetPicture = g),
+      (l.mapProfilePictureToProfilePicThumbRowType = y),
+      (l.persistProfilePicToDB = C),
+      (l.profilePicResync = k),
+      (l.requestProfilePicFromServer = I));
   },
   98,
 );

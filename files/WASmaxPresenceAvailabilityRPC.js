@@ -1,12 +1,24 @@
 __d(
   "WASmaxPresenceAvailabilityRPC",
-  ["WAComms", "WASmaxOutPresenceAvailabilityRequest"],
+  [
+    "WAComms",
+    "WASmaxOutPresenceAvailabilityRequest",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = o("WASmaxOutPresenceAvailabilityRequest").makeAvailabilityRequest(
-        e,
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o(
+            "WASmaxOutPresenceAvailabilityRequest",
+          ).makeAvailabilityRequest(e);
+          yield o("WAComms").castSmaxStanza(t);
+        })),
+        s.apply(this, arguments)
       );
-      await o("WAComms").castSmaxStanza(t);
     }
     l.sendAvailabilityRPC = e;
   },

@@ -4,6 +4,7 @@ __d(
     "WAWebAIHatchIdentityStore",
     "WAWebCanonicalHatchIdentityGetQuery.graphql",
     "WAWebRelayClient",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,25 +27,34 @@ __d(
       }
       return n ? t : null;
     }
-    async function c() {
-      var e,
-        t,
-        n,
-        r = await o("WAWebRelayClient").fetchQuery(
-          s,
-          {},
-          { environmentType: "whatsapp_web" },
-        ),
-        a =
-          r == null || (e = r.wa_genai_hatch_channel_metadata) == null
-            ? void 0
-            : e.identity,
-        i = a == null ? void 0 : a.avatar;
-      return {
-        name: (t = a == null ? void 0 : a.name) != null ? t : null,
-        avatarUrl: (n = i == null ? void 0 : i.image_url) != null ? n : null,
-        videoVariants: u(i == null ? void 0 : i.video_variants),
-      };
+    function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t,
+            n,
+            r = yield o("WAWebRelayClient").fetchQuery(
+              s,
+              {},
+              { environmentType: "whatsapp_web" },
+            ),
+            a =
+              r == null || (e = r.wa_genai_hatch_channel_metadata) == null
+                ? void 0
+                : e.identity,
+            i = a == null ? void 0 : a.avatar;
+          return {
+            name: (t = a == null ? void 0 : a.name) != null ? t : null,
+            avatarUrl:
+              (n = i == null ? void 0 : i.image_url) != null ? n : null,
+            videoVariants: u(i == null ? void 0 : i.video_variants),
+          };
+        })),
+        d.apply(this, arguments)
+      );
     }
     l.fetchHatchIdentityGet = c;
   },

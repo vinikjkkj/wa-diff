@@ -7,6 +7,7 @@ __d(
     "WAWebHandleAdvDeviceNotificationApi",
     "WAWebHandleAdvKeyIndexResultApi",
     "WAWebHandleAdvOmittedResultApi",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e;
@@ -50,10 +51,20 @@ __d(
         l,
       );
     }
-    async function c(e, t, n, r, o, a) {
-      return u(e, t, n, r, o, a);
+    function c(e, t, n, r, o, a) {
+      return d.apply(this, arguments);
     }
-    function d(e, t, n, r, a, i) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, o, a) {
+            return u(e, t, n, r, o, a);
+          },
+        )),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t, n, r, a, i) {
       var l = n.deviceList,
         u = n.keyIndex;
       (l != null || s(0, 75739, t), u != null || s(0, 75740, t));
@@ -79,7 +90,7 @@ __d(
     }
     ((l.handleADVSyncResultSync = u),
       (l.handleADVSyncResult = c),
-      (l.handleDeviceNotification = d));
+      (l.handleDeviceNotification = m));
   },
   98,
 );

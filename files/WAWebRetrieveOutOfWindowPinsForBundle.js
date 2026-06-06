@@ -8,6 +8,7 @@ __d(
     "WAWebMsgType",
     "WAWebPinMsgConstants",
     "WAWebPinMsgGatingUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,51 +23,76 @@ __d(
         s.MSG_TYPE.DOCUMENT,
         s.MSG_TYPE.STICKER,
       ]);
-    async function c(t, n, a, i) {
-      if (!o("WAWebGroupHistoryGating").isOutOfWindowPinSenderEnabled(t))
-        return [];
-      var l = t.toString(),
-        s = [];
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        await o("WAWebModelStorageUtils")
-          .getStorage()
-          .lock(["pinned-messages", "message"], async function (e) {
-            var t = e[0],
-              c = e[1],
-              d = await t.anyOf(["chatId"], [l]),
-              m = d
-                .filter(function (e) {
-                  return e.pinType === o("WAWebPinMsgConstants").PIN_STATE.PIN;
-                })
-                .sort(function (e, t) {
-                  return t.senderTimestampMs - e.senderTimestampMs;
-                })
-                .slice(0, o("WAWebPinMsgGatingUtils").getMaxPins())
-                .map(function (e) {
-                  return e.parentMsgKey;
-                })
-                .filter(function (e) {
-                  return !a.has(e);
-                }),
-              p = await c.bulkGet(m);
-            p.forEach(function (e) {
-              e != null &&
-                (e.t == null ||
-                  e.t >= n ||
-                  (i != null && e.t >= i) ||
-                  (r("WAWebGroupHistorySupportedMessageTypesUtil")(e.type) &&
-                    (u.has(e.type) || s.push(e))));
-            });
-          }),
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[group-history] Retrieved ",
-              " out-of-window pinned messages",
-            ])),
-          s.length,
-        ),
-        s
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l) {
+            if (!o("WAWebGroupHistoryGating").isOutOfWindowPinSenderEnabled(t))
+              return [];
+            var s = t.toString(),
+              c = [];
+            return (
+              yield o("WAWebModelStorageUtils")
+                .getStorage()
+                .lock(
+                  ["pinned-messages", "message"],
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var t = e[0],
+                          n = e[1],
+                          d = yield t.anyOf(["chatId"], [s]),
+                          m = d
+                            .filter(function (e) {
+                              return (
+                                e.pinType ===
+                                o("WAWebPinMsgConstants").PIN_STATE.PIN
+                              );
+                            })
+                            .sort(function (e, t) {
+                              return t.senderTimestampMs - e.senderTimestampMs;
+                            })
+                            .slice(0, o("WAWebPinMsgGatingUtils").getMaxPins())
+                            .map(function (e) {
+                              return e.parentMsgKey;
+                            })
+                            .filter(function (e) {
+                              return !i.has(e);
+                            }),
+                          p = yield n.bulkGet(m);
+                        p.forEach(function (e) {
+                          e != null &&
+                            (e.t == null ||
+                              e.t >= a ||
+                              (l != null && e.t >= l) ||
+                              (r("WAWebGroupHistorySupportedMessageTypesUtil")(
+                                e.type,
+                              ) &&
+                                (u.has(e.type) || c.push(e))));
+                        });
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                ),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] Retrieved ",
+                    " out-of-window pinned messages",
+                  ])),
+                c.length,
+              ),
+              c
+            );
+          },
+        )),
+        d.apply(this, arguments)
       );
     }
     l.retrieveOutOfWindowPinsForBundle = c;

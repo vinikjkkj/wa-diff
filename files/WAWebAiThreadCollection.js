@@ -9,6 +9,7 @@ __d(
     "WAWebThreadMetadataJob",
     "WAWebThreadsGating",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,56 +25,62 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.initializeAiThreads = async function (t) {
-          if (!this.isInitialized) {
-            var e = await o("WAWebThreadMetadataJob").getAllAiThreadsFromChatId(
-              o("WAWebWidToJid").widToChatJid(t),
-            );
-            if (e != null)
-              for (var n of e) {
-                var a,
-                  i = new (r("WAWebAiThreadModel"))({
-                    id: n.threadId,
-                    title: n.aiThreadInfo.title,
-                    aiThreadType: n.aiThreadInfo.aiThreadType,
-                    creationTimestamp: n.creationTimestamp,
-                    lastMessageTimestamp: n.lastMessageTimestamp,
-                    unreadCount: (a = n.unreadCount) != null ? a : 0,
-                    botModeSelection: n.botModeSelection,
-                    botModeOverride: n.botModeOverride,
-                    lastReceivedKey:
-                      n.lastReceivedKey != null
-                        ? r("WAWebMsgKey").fromString(n.lastReceivedKey)
-                        : null,
-                    unreadEditTimestampMs: n.unreadEditTimestampMs,
-                    pinThreadTimestamp: n.pinThreadTimestamp,
+        (a.initializeAiThreads = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            if (!this.isInitialized) {
+              var t = yield o(
+                "WAWebThreadMetadataJob",
+              ).getAllAiThreadsFromChatId(o("WAWebWidToJid").widToChatJid(e));
+              if (t != null)
+                for (var n of t) {
+                  var a,
+                    i = new (r("WAWebAiThreadModel"))({
+                      id: n.threadId,
+                      title: n.aiThreadInfo.title,
+                      aiThreadType: n.aiThreadInfo.aiThreadType,
+                      creationTimestamp: n.creationTimestamp,
+                      lastMessageTimestamp: n.lastMessageTimestamp,
+                      unreadCount: (a = n.unreadCount) != null ? a : 0,
+                      botModeSelection: n.botModeSelection,
+                      botModeOverride: n.botModeOverride,
+                      lastReceivedKey:
+                        n.lastReceivedKey != null
+                          ? r("WAWebMsgKey").fromString(n.lastReceivedKey)
+                          : null,
+                      unreadEditTimestampMs: n.unreadEditTimestampMs,
+                      pinThreadTimestamp: n.pinThreadTimestamp,
+                    });
+                  this.add(i);
+                }
+              if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
+                var l = o("WAWebChatCollection").ChatCollection.get(e);
+                l &&
+                  this.forEach(function (e) {
+                    e.seedFromChat(l);
                   });
-                this.add(i);
               }
-            if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
-              var l = o("WAWebChatCollection").ChatCollection.get(t);
-              l &&
-                this.forEach(function (e) {
-                  e.seedFromChat(l);
-                });
+              this.isInitialized = !0;
             }
-            this.isInitialized = !0;
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-        }),
-        (n.getFirstActivated = function () {
+          return t;
+        })()),
+        (a.getFirstActivated = function () {
           return this.findFirst(function (e) {
             return e.isPending !== !0;
           });
         }),
-        (n.removeThreads = function (t) {
+        (a.removeThreads = function (t) {
           for (var e of t) {
             var n = this.get(e);
             n && (this.remove(n), n.delete());
           }
         }),
-        (n.clear = function () {
+        (a.clear = function () {
           var e = this.map(function (e) {
             return e.id;
           });

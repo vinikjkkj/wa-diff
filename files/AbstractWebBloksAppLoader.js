@@ -6,6 +6,7 @@ __d(
     "WebBloksErrors",
     "WebBloksServerData",
     "WebBloksUtils",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,28 +15,58 @@ __d(
       function e() {}
       var t = e.prototype;
       return (
-        (t.fetchAppByUrl = async function (t) {
-          return (
-            r("WebBloksAppLoaderConsoleDebugger").onStart(t),
-            o("WebBloksUtils").normaliseBloksPayload(
-              await this.$1(t, this.makePostRequest(t, { type: "app" })),
-            )
+        (t.fetchAppByUrl = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            return (
+              r("WebBloksAppLoaderConsoleDebugger").onStart(e),
+              o("WebBloksUtils").normaliseBloksPayload(
+                yield this.$1(e, this.makePostRequest(e, { type: "app" })),
+              )
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.fetchApp = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return o("WebBloksUtils").normaliseBloksPayload(
+                yield this.$2(e, t, "app"),
+              );
+            },
           );
-        }),
-        (t.fetchApp = async function (t, n) {
-          return o("WebBloksUtils").normaliseBloksPayload(
-            await this.$2(t, n, "app"),
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.fetchAction = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return o("WebBloksUtils").normaliseBloksPayload(
+                yield this.$2(e, t, "action"),
+              );
+            },
           );
-        }),
-        (t.fetchAction = async function (t, n) {
-          return o("WebBloksUtils").normaliseBloksPayload(
-            await this.$2(t, n, "action"),
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.fetchComponentQuery = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield this.$2(e, t, "app");
+              return { components: n.components };
+            },
           );
-        }),
-        (t.fetchComponentQuery = async function (t, n) {
-          var e = await this.$2(t, n, "app");
-          return { components: e.components };
-        }),
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (t.$2 = function (t, n, o) {
           r("WebBloksAppLoaderConsoleDebugger").onStart(t, n);
           var e = this.getAsyncFetchData(t, n, o);
@@ -44,30 +75,40 @@ __d(
             this.makePostRequest(this.getAsyncFetchURI(t, n, o), e),
           );
         }),
-        (t.$1 = async function (t, n) {
-          try {
-            var e,
-              a = await n;
-            (r("WebBloksAppLoaderConsoleDebugger").onSuccess(t, a),
-              r("ClientAjaxIdsUpdater")(a));
-            var i = (e = a.payload) != null ? e : a;
-            return (
-              o("WebBloksServerData").handleWebBloksServerData(i.server_data),
-              i
-            );
-          } catch (e) {
-            var l = r("getErrorSafe")(e);
-            throw (
-              r("WebBloksAppLoaderConsoleDebugger").onError(t, l),
-              l instanceof o("WebBloksErrors").WebBloksError
-                ? l
-                : new (o("WebBloksErrors").WebBloksError)(
-                    "Fetch failed: " + l.message,
-                    l,
-                  )
-            );
+        (t.$1 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              try {
+                var n,
+                  a = yield t;
+                (r("WebBloksAppLoaderConsoleDebugger").onSuccess(e, a),
+                  r("ClientAjaxIdsUpdater")(a));
+                var i = (n = a.payload) != null ? n : a;
+                return (
+                  o("WebBloksServerData").handleWebBloksServerData(
+                    i.server_data,
+                  ),
+                  i
+                );
+              } catch (t) {
+                var l = r("getErrorSafe")(t);
+                throw (
+                  r("WebBloksAppLoaderConsoleDebugger").onError(e, l),
+                  l instanceof o("WebBloksErrors").WebBloksError
+                    ? l
+                    : new (o("WebBloksErrors").WebBloksError)(
+                        "Fetch failed: " + l.message,
+                        l,
+                      )
+                );
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
           }
-        }),
+          return t;
+        })()),
         (t.makePostRequest = function (t, n) {
           throw new (o("WebBloksErrors").WebBloksError)("Abstract");
         }),

@@ -1,6 +1,7 @@
 __d(
   "WAWebOrderCollection",
   [
+    "Promise",
     "WAWebBizOrderAction",
     "WAWebBizOrderGetFriendlyRandomIdAction",
     "WAWebCurrencyUtils",
@@ -10,73 +11,83 @@ __d(
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = (function (e) {
-      function t(t, n) {
-        var r;
-        return (
-          (r = e.call(this) || this),
-          (r.width = 80),
-          (r.height = 80),
-          t != null && (r.width = t),
-          n != null && (r.height = n),
-          r
-        );
-      }
-      babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
-      return (
-        (n.addOrder = function () {
-          var t = r("WAWebBizOrderGetFriendlyRandomIdAction")(),
-            n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+    var e,
+      s = (function (t) {
+        function a(e, n) {
+          var r;
           return (
-            e.prototype.add.call(this, {
-              id: t,
-              fetchedFromServer: !1,
-              sellerJid: o("WAWebE2EProtoUtils").encodeJid(n),
-              createdAt: Math.round(new Date().getTime() / 1e3),
-              currency: o("WAWebCurrencyUtils").currencyForCountryShortcode(
-                o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n.user),
-              ),
-              products: [],
-              tax: null,
-              subtotal: null,
-              total: null,
-            }),
-            this.assertGet(t)
+            (r = t.call(this) || this),
+            (r.width = 80),
+            (r.height = 80),
+            e != null && (r.width = e),
+            n != null && (r.height = n),
+            r
           );
-        }),
-        (n.findOrder = function (t, n, r) {
-          var e = this.get(t);
-          return e != null
-            ? Promise.resolve(e)
-            : this.$OrderCollectionImpl$p_1(t, n, r);
-        }),
-        (n.$OrderCollectionImpl$p_1 = async function (n, r, a) {
-          var t = await o("WAWebBizOrderAction").queryOrder(
-            o("WAWebWidFactory").createWid(r),
-            n,
-            this.width,
-            this.height,
-            a,
-          );
-          e.prototype.add.call(
-            this,
-            babelHelpers.extends(
-              { id: n, fetchedFromServer: !0, sellerJid: r },
-              t,
-            ),
-          );
-          var i = this.get(n);
-          if (i != null) return Promise.resolve(i);
-        }),
-        t
-      );
-    })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    e.model = r("WAWebOrderModel");
-    var s = new e();
-    l.OrderCollection = s;
+        }
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
+        return (
+          (i.addOrder = function () {
+            var e = r("WAWebBizOrderGetFriendlyRandomIdAction")(),
+              n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+            return (
+              t.prototype.add.call(this, {
+                id: e,
+                fetchedFromServer: !1,
+                sellerJid: o("WAWebE2EProtoUtils").encodeJid(n),
+                createdAt: Math.round(new Date().getTime() / 1e3),
+                currency: o("WAWebCurrencyUtils").currencyForCountryShortcode(
+                  o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n.user),
+                ),
+                products: [],
+                tax: null,
+                subtotal: null,
+                total: null,
+              }),
+              this.assertGet(e)
+            );
+          }),
+          (i.findOrder = function (r, o, a) {
+            var t = this.get(r);
+            return t != null
+              ? (e || (e = n("Promise"))).resolve(t)
+              : this.$OrderCollectionImpl$p_1(r, o, a);
+          }),
+          (i.$OrderCollectionImpl$p_1 = (function () {
+            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (r, a, i) {
+                var l = yield o("WAWebBizOrderAction").queryOrder(
+                  o("WAWebWidFactory").createWid(a),
+                  r,
+                  this.width,
+                  this.height,
+                  i,
+                );
+                t.prototype.add.call(
+                  this,
+                  babelHelpers.extends(
+                    { id: r, fetchedFromServer: !0, sellerJid: a },
+                    l,
+                  ),
+                );
+                var s = this.get(r);
+                if (s != null) return (e || (e = n("Promise"))).resolve(s);
+              },
+            );
+            function a(e, t, n) {
+              return r.apply(this, arguments);
+            }
+            return a;
+          })()),
+          a
+        );
+      })(o("WAWebStaleBaseCollection").StaleBaseCollection);
+    s.model = r("WAWebOrderModel");
+    var u = new s();
+    l.OrderCollection = u;
   },
   98,
 );

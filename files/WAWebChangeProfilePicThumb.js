@@ -1,34 +1,56 @@
 __d(
   "WAWebChangeProfilePicThumb",
   [
+    "Promise",
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebContactProfilePicThumbBridge",
     "WAWebProfilePicConstants",
     "WAWebWorkerSafeBackendApi",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      var n = [s(e, t)];
-      if (e.isUser()) {
-        var r = o("WAWebApiContact").getAlternateUserWid(e);
-        r && n.push(s(r, t));
-      }
-      await Promise.all(n);
+    var e;
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    async function s(e, t) {
-      if (t === o("WAWebProfilePicConstants").ProfilePicCommand.Remove)
-        (await o("WAWebContactProfilePicThumbBridge").persistProfilePicToDB(e),
-          o("WAWebBackendApi").frontendFireAndForget("removeProfilePicThumb", {
-            wid: e,
-          }));
-      else
-        return o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-          "setProfilePicThumb",
-          { wid: e },
-        );
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a = [c(t, r)];
+          if (t.isUser()) {
+            var i = o("WAWebApiContact").getAlternateUserWid(t);
+            i && a.push(c(i, r));
+          }
+          yield (e || (e = n("Promise"))).all(a);
+        })),
+        u.apply(this, arguments)
+      );
     }
-    l.changeProfilePicThumb = e;
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t === o("WAWebProfilePicConstants").ProfilePicCommand.Remove)
+            (yield o("WAWebContactProfilePicThumbBridge").persistProfilePicToDB(
+              e,
+            ),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "removeProfilePicThumb",
+                { wid: e },
+              ));
+          else
+            return o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
+              "setProfilePicThumb",
+              { wid: e },
+            );
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    l.changeProfilePicThumb = s;
   },
   98,
 );

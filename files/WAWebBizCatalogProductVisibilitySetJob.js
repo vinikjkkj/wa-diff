@@ -6,6 +6,7 @@ __d(
     "WAWebBizCatalogManagementUpdateProductVisibility",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,29 +16,49 @@ __d(
           JSON.stringify(e),
       );
     }
-    async function s(t, n) {
-      var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      if (a == null)
-        throw r("err")("updateProductVisibilityGraphQL: meUser is null");
-      var i = await o(
-        "WAWebBizCatalogManagementUpdateProductVisibility",
-      ).updateProductVisibility({
-        jid: a.toJid(),
-        products: [{ product_id: t, is_hidden: n }],
-      });
-      if (i.type === "success") return i.result === !0 ? void 0 : e(i);
-      if (i.type === "graphql-error")
-        o("WAWebMaybeThrowCatalogErrors").maybeThrowLocalErrorForCatalogQuery(
-          i.error,
-        );
-      else return (i.type, e(i));
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    async function u(e, t) {
-      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
-        throw new (o("WAWebBackendErrors").E451)();
-      return s(e, t);
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (a == null)
+            throw r("err")("updateProductVisibilityGraphQL: meUser is null");
+          var i = yield o(
+            "WAWebBizCatalogManagementUpdateProductVisibility",
+          ).updateProductVisibility({
+            jid: a.toJid(),
+            products: [{ product_id: t, is_hidden: n }],
+          });
+          if (i.type === "success") return i.result === !0 ? void 0 : e(i);
+          if (i.type === "graphql-error")
+            o(
+              "WAWebMaybeThrowCatalogErrors",
+            ).maybeThrowLocalErrorForCatalogQuery(i.error);
+          else return (i.type, e(i));
+        })),
+        u.apply(this, arguments)
+      );
     }
-    l.default = u;
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
+            throw new (o("WAWebBackendErrors").E451)();
+          return s(e, t);
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    l.default = c;
   },
   98,
 );

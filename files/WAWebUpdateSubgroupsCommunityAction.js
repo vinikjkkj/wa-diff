@@ -7,6 +7,7 @@ __d(
     "WAWebGroupQueryBridge",
     "WAWebGroupUnjoinedSubgroupJob",
     "WAWebUnjoinedSubgroupMetadataCollection",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -176,9 +177,17 @@ __d(
       });
       r("WAWebUnjoinedSubgroupMetadataCollection").add(t, { merge: !0 });
     }
-    async function S(e) {
-      (await o("WAWebApiUnjoinedSubgroupMetadataStore").updateSizeInDB(e),
-        v(e));
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield o("WAWebApiUnjoinedSubgroupMetadataStore").updateSizeInDB(e),
+            v(e));
+        })),
+        R.apply(this, arguments)
+      );
     }
     ((l.updateJoinedSubgroups = e),
       (l.updateUnjoinedSubgroups = s),

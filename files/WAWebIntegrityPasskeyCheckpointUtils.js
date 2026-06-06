@@ -8,6 +8,7 @@ __d(
     "WAWebModalManager",
     "WAWebSocketModel",
     "WAWebUserPrefsIndexedDBStorage",
+    "asyncToGeneratorRuntime",
     "err",
     "react",
   ],
@@ -20,85 +21,99 @@ __d(
       m,
       p,
       _ = p || (p = o("react")),
-      f = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebPasskeyCheckpoint.react",
-        )
-          .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
-          .load();
-        return e;
-      }, "WAWebPasskeyCheckpoint"),
-      g = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebMexIntegrityChallengeResponse",
-        )
-          .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
-          .load();
-        return e.mexSubmitPasskeyChallengeResponse;
-      }, "WAWebMexIntegrityChallengeResponse");
-    async function h(t) {
-      o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "[integrity-challenge] passkey assertion completed",
-          ])),
+      f = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebPasskeyCheckpoint.react",
+          )
+            .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
+            .load();
+          return e;
+        }),
+        "WAWebPasskeyCheckpoint",
+      ),
+      g = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebMexIntegrityChallengeResponse",
+          )
+            .__setRef("WAWebIntegrityPasskeyCheckpointUtils")
+            .load();
+          return e.mexSubmitPasskeyChallengeResponse;
+        }),
+        "WAWebMexIntegrityChallengeResponse",
       );
-      var n = await g(),
-        a = await n(t);
-      if (a.success)
-        (o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[integrity-challenge] challenge response accepted by server",
-            ])),
-        ),
-          o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
-            o("WAWebIntegrityChallengeUtils").INTEGRITY_CHALLENGE_IDB_KEY,
-          ),
-          o("WAWebModalManager").ModalManager.close());
-      else
-        throw (
-          o("WALogger")
-            .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[integrity-challenge] server rejected challenge response",
-                ])),
-            )
-            .sendLogs("integrity-challenge-response-rejected"),
-          r("err")("Server rejected challenge response")
-        );
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function y(e) {
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[integrity-challenge] passkey assertion completed",
+              ])),
+          );
+          var t = yield g(),
+            n = yield t(e);
+          if (n.success)
+            (o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[integrity-challenge] challenge response accepted by server",
+                ])),
+            ),
+              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
+                o("WAWebIntegrityChallengeUtils").INTEGRITY_CHALLENGE_IDB_KEY,
+              ),
+              o("WAWebModalManager").ModalManager.close());
+          else
+            throw (
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[integrity-challenge] server rejected challenge response",
+                    ])),
+                )
+                .sendLogs("integrity-challenge-response-rejected"),
+              r("err")("Server rejected challenge response")
+            );
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(t) {
       o("WALogger")
         .ERROR(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
               "[integrity-challenge] passkey assertion failed: ",
               "",
             ])),
-          e,
+          t,
         )
         .sendLogs("integrity-challenge-passkey-error");
     }
-    function C() {
+    function b() {
       (o("WALogger").LOG(
-        d ||
-          (d = babelHelpers.taggedTemplateLiteralLoose([
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
             "[integrity-challenge] user initiated logout from checkpoint",
           ])),
       ),
         o("WAWebModalManager").ModalManager.close(),
         o("WAWebSocketModel").Socket.logout());
     }
-    function b(e) {
+    function v(e) {
       f()
         .then(function (t) {
           o("WAWebModalManager").ModalManager.open(
             _.jsx(t, {
-              onLogout: C,
+              onLogout: b,
               onPasskeyComplete: h,
-              onPasskeyError: y,
+              onPasskeyError: C,
               passkeyChallenge: e,
             }),
             { blockClose: !0 },
@@ -107,15 +122,15 @@ __d(
         .catch(function (e) {
           o("WALogger")
             .ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[integrity-challenge] failed to load checkpoint modal",
                 ])),
             )
             .sendLogs("integrity-challenge-modal-load-failed");
         });
     }
-    l.openPasskeyCheckpoint = b;
+    l.openPasskeyCheckpoint = v;
   },
   98,
 );

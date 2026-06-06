@@ -12,6 +12,7 @@ __d(
     "WAWebStreamModel",
     "WAWebUpdater",
     "WAWebUserPrefsAppStateSync",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -21,78 +22,88 @@ __d(
       d,
       m,
       p = 5 * o("WATimeUtils").MINUTE_MILLISECONDS;
-    async function _(t) {
-      if (o("WAWebCanonicalUtils").getCanonicalReloadPending() == null) {
-        if (!o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled()) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[canonical] canonical recovery reload disabled",
-              ])),
-          );
-          return;
-        }
-        (o("WAWebCanonicalUtils").setCanonicalReloadPending(t),
-          r("WAWebODS").incr("web.app.canonical.recovery.reload_scheduled"),
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[canonical] scheduling reload after canonical ",
-                "",
-              ])),
-            t,
-          ),
-          g());
-      }
+    function _(e) {
+      return f.apply(this, arguments);
     }
     function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (o("WAWebCanonicalUtils").getCanonicalReloadPending() == null) {
+            if (
+              !o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled()
+            ) {
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[canonical] canonical recovery reload disabled",
+                  ])),
+              );
+              return;
+            }
+            (o("WAWebCanonicalUtils").setCanonicalReloadPending(e),
+              r("WAWebODS").incr("web.app.canonical.recovery.reload_scheduled"),
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[canonical] scheduling reload after canonical ",
+                    "",
+                  ])),
+                e,
+              ),
+              h());
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g() {
       return (
         r("WAWebCallCollection").activeCall != null ||
         !o("WAWebUserPrefsAppStateSync").getAllCriticalDataSynced()
       );
     }
-    function g() {
-      if (!f()) {
-        h();
+    function h() {
+      if (!g()) {
+        y();
         return;
       }
       (o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose([
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
             "[canonical] reload deferred: call/sync pending",
           ])),
       ),
         r("WAWebODS").incr("web.app.canonical.recovery.reload_deferred"));
-      var e = function () {
-          f() || (t(), h());
+      var t = function () {
+          g() || (n(), y());
         },
-        t = function () {
-          (r("WAWebCallCollection").off("change:activeCall", e),
-            o("WAWebCmd").Cmd.off("on_critical_sync_done_from_bridge", e));
+        n = function () {
+          (r("WAWebCallCollection").off("change:activeCall", t),
+            o("WAWebCmd").Cmd.off("on_critical_sync_done_from_bridge", t));
         };
-      (r("WAWebCallCollection").on("change:activeCall", e),
-        o("WAWebCmd").Cmd.on("on_critical_sync_done_from_bridge", e));
+      (r("WAWebCallCollection").on("change:activeCall", t),
+        o("WAWebCmd").Cmd.on("on_critical_sync_done_from_bridge", t));
     }
-    function h() {
+    function y() {
       o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose([
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
             "[canonical] waiting for stream idle transition before reload",
           ])),
       );
       var e = function () {
-        o("WAWebStreamModel").Stream.couldForce && (n(), y("idle", "recovery"));
+        o("WAWebStreamModel").Stream.couldForce && (n(), C("idle", "recovery"));
       };
       o("WAWebStreamModel").Stream.on("change:couldForce", e);
       var t = self.setTimeout(function () {
-        (n(), f() ? g() : y("timeout", "recovery"));
+        (n(), g() ? h() : C("timeout", "recovery"));
       }, p);
       function n() {
         (o("WAWebStreamModel").Stream.off("change:couldForce", e),
           self.clearTimeout(t));
       }
     }
-    function y(e, t) {
+    function C(e, t) {
       if (
         r("WAWebBrokerGlobalAppState").isLogoutInProgress ||
         o("WAWebCanonicalUtils").getCanonicalReloadPending() == null
@@ -101,8 +112,8 @@ __d(
         return;
       }
       (o("WALogger").LOG(
-        d ||
-          (d = babelHelpers.taggedTemplateLiteralLoose([
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
             "[canonical] reload after canonical ",
             " trigger=",
             "",
@@ -118,8 +129,8 @@ __d(
               "web.app.canonical.recovery.reload_trigger_timeout",
             ),
         o("WALogger").LOG(
-          m ||
-            (m = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "[reload][canonical] restarting app after canonical recovery",
             ])),
         ),

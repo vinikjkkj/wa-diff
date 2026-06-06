@@ -9,6 +9,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebOptOutBizAction",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -50,27 +51,32 @@ __d(
       h = function () {
         return s._(/*BTDS*/ "Try again.");
       };
-    function y(t, n, a, i, l, s) {
-      s === void 0 && (s = o("WAWebActionToast.react").genId());
-      var u = o("WAWebFrontendContactGetters").getFormattedName(t),
-        y = a
-          ? new (o("WAWebActionToast.react").ActionType)(d(u))
-          : new (o("WAWebActionToast.react").ActionType)(m(u)),
-        C = async function () {
-          a
-            ? await o("WAWebOptOutBizAction").optInContact(t, i, l, s)
-            : await o("WAWebOptOutBizAction").optOutContact(t, i, l, s);
-        },
-        b = n
+    function y(t, a, i, l, s, u) {
+      u === void 0 && (u = o("WAWebActionToast.react").genId());
+      var y = o("WAWebFrontendContactGetters").getFormattedName(t),
+        C = i
+          ? new (o("WAWebActionToast.react").ActionType)(d(y))
+          : new (o("WAWebActionToast.react").ActionType)(m(y)),
+        b = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            i
+              ? yield o("WAWebOptOutBizAction").optInContact(t, l, s, u)
+              : yield o("WAWebOptOutBizAction").optOutContact(t, l, s, u);
+          });
+          return function () {
+            return e.apply(this, arguments);
+          };
+        })(),
+        v = a
           .then(function () {
-            var e = a ? p(u) : _(u);
+            var e = i ? p(y) : _(y);
             return new (o("WAWebActionToast.react").ActionType)(e, {
               actionText: r("WAWebFbtCommon")("Undo"),
-              actionHandler: C,
+              actionHandler: b,
             });
           })
           .catch(function (t) {
-            var n = a ? f(u) : g(u);
+            var n = i ? f(y) : g(y);
             throw t instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
               t.statusCode >= 400
               ? new (o("WAWebActionToast.react").ActionType)(n)
@@ -82,14 +88,14 @@ __d(
                 ),
                 new (o("WAWebActionToast.react").ActionType)(n, {
                   actionText: h(),
-                  actionHandler: C,
+                  actionHandler: b,
                 }));
           });
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebActionToast.react").ActionToast, {
-          id: s,
-          initialAction: y,
-          pendingAction: b,
+          id: u,
+          initialAction: C,
+          pendingAction: v,
         }),
       );
     }

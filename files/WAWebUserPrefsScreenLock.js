@@ -9,11 +9,12 @@ __d(
     "WAWebPermanentStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
       var e;
-      S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS);
+      T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS);
       var t = parseInt(
         (e = r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
@@ -26,7 +27,7 @@ __d(
     }
     function s() {
       return (
-        S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
+        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
         )
@@ -35,7 +36,7 @@ __d(
     function u() {
       var e;
       return (
-        S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
+        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
         (e = r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
         )) != null
@@ -57,7 +58,7 @@ __d(
     }
     function m() {
       return (
-        S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV),
+        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV),
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV,
         )
@@ -72,84 +73,132 @@ __d(
     }
     function _() {
       return (
-        S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT, !1),
+        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT, !1),
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT,
         )
       );
     }
-    async function f(e) {
-      var t = v(),
-        n = await C(String(e), t);
-      return r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS,
-        n + "_" + t,
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = I(),
+            n = yield R(String(e), t);
+          return r("WAWebUserPrefsStore").setUser(
+            o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS,
+            n + "_" + t,
+          );
+        })),
+        g.apply(this, arguments)
       );
     }
-    async function g() {
-      S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS);
-      var e = r("WAWebUserPrefsStore").getUser(
-        o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS,
+    function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS);
+          var e = r("WAWebUserPrefsStore").getUser(
+            o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS,
+          );
+          if (e == null) return null;
+          if (typeof e == "number") return parseInt(e, 10);
+          var t = e.split("_"),
+            n = t[0],
+            a = t[1];
+          if (n == null || a == null) return null;
+          var i = yield E(n, a);
+          return parseInt(i, 10);
+        })),
+        y.apply(this, arguments)
       );
-      if (e == null) return null;
-      if (typeof e == "number") return parseInt(e, 10);
-      var t = e.split("_"),
-        n = t[0],
-        a = t[1];
-      if (n == null || a == null) return null;
-      var i = await b(n, a);
-      return parseInt(i, 10);
     }
-    async function h() {
-      S(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT);
-      var e = r("WAWebUserPrefsStore").getUser(
-        o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT,
+    function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT);
+          var e = r("WAWebUserPrefsStore").getUser(
+            o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT,
+          );
+          if (e == null) return 0;
+          if (typeof e == "number") return parseInt(e, 10);
+          var t = e.split("_"),
+            n = t[0],
+            a = t[1],
+            i = yield E(n, a);
+          return parseInt(i, 10);
+        })),
+        b.apply(this, arguments)
       );
-      if (e == null) return 0;
-      if (typeof e == "number") return parseInt(e, 10);
-      var t = e.split("_"),
-        n = t[0],
-        a = t[1],
-        i = await b(n, a);
-      return parseInt(i, 10);
     }
-    async function y(e, t) {
-      var n = v(),
-        a = await C(String(e), n);
-      t.aborted ||
-        r("WAWebUserPrefsStore").setUser(
-          o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT,
-          a + "_" + n,
-        );
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    async function C(e, t) {
-      var n = new Uint8Array(o("WABase64").decodeB64(t)),
-        r = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
-        a = await self.crypto.subtle.encrypt(
-          { iv: n, name: "AES-CBC" },
-          r.key,
-          o("WAArrayBufferUtils").stringToArrayBuffer(e),
-        );
-      return o("WABase64").encodeB64(a);
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = I(),
+            a = yield R(String(e), n);
+          t.aborted ||
+            r("WAWebUserPrefsStore").setUser(
+              o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT,
+              a + "_" + n,
+            );
+        })),
+        S.apply(this, arguments)
+      );
     }
-    async function b(e, t) {
-      var n = new Uint8Array(o("WABase64").decodeB64(t));
-      await o("WAWebDbEncryptionKey").DbEncKeyStore.waitForInit();
-      var r = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
-        a = await self.crypto.subtle.decrypt(
-          { iv: n, name: "AES-CBC" },
-          r.key,
-          o("WABase64").decodeB64(e),
-        );
-      return o("WAWebDirectConnectionX509").arrayBufferToString(a);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new Uint8Array(o("WABase64").decodeB64(t)),
+            r = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
+            a = yield self.crypto.subtle.encrypt(
+              { iv: n, name: "AES-CBC" },
+              r.key,
+              o("WAArrayBufferUtils").stringToArrayBuffer(e),
+            );
+          return o("WABase64").encodeB64(a);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new Uint8Array(o("WABase64").decodeB64(t));
+          yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForInit();
+          var r = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
+            a = yield self.crypto.subtle.decrypt(
+              { iv: n, name: "AES-CBC" },
+              r.key,
+              o("WABase64").decodeB64(e),
+            );
+          return o("WAWebDirectConnectionX509").arrayBufferToString(a);
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I() {
       var e = new Uint8Array(16);
       self.crypto.getRandomValues(e);
       var t = new (o("WABinary").Binary)(e).readByteArrayView(16);
       return o("WABase64").encodeB64(t);
     }
-    function S(e, t) {
+    function T(e, t) {
       var n = r("WAWebUserPrefsStore").get(e);
       if (n != null) {
         var o = t != null ? { shouldWriteToIdb: t } : null;
@@ -166,9 +215,9 @@ __d(
       (l.setScreenLockSalt = p),
       (l.getScreenLockSalt = _),
       (l.setScreenLockIterations = f),
-      (l.getScreenLockIterations = g),
-      (l.getScreenUnlockTryCount = h),
-      (l.setScreenUnlockTryCount = y));
+      (l.getScreenLockIterations = h),
+      (l.getScreenUnlockTryCount = C),
+      (l.setScreenUnlockTryCount = v));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "FBLogger",
     "JSResource",
     "VultureJSGating",
+    "asyncToGeneratorRuntime",
     "clearTimeout",
     "objectEntries",
     "requireDeferred",
@@ -53,14 +54,23 @@ __d(
       r("JSResource")("VultureJSSampleRatesLoader")
         .__setRef("vulture")
         .load()
-        .then(async function (e) {
-          var t = await e.loadSampleRates();
-          for (var n of r("objectEntries")(t)) {
-            var o = n[0],
-              a = n[1];
-            _.set(o, a);
-          }
-        })
+        .then(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield e.loadSampleRates();
+                for (var n of r("objectEntries")(t)) {
+                  var o = n[0],
+                    a = n[1];
+                  _.set(o, a);
+                }
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
         .catch(function (e) {
           r("FBLogger")("vulture_js", "sample_rate_load_timeout")
             .catching(e)

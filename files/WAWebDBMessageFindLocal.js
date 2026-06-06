@@ -1,6 +1,7 @@
 __d(
   "WAWebDBMessageFindLocal",
   [
+    "Promise",
     "WACommonTaskScheduler",
     "WAFilteredCatch",
     "WALogger",
@@ -21,14 +22,16 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMultiDevice",
+    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = 20,
-      d = (function (e) {
+      c,
+      d = 20,
+      m = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -41,30 +44,16 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function m(e) {
-      var t = e.anchor,
-        n = e.count,
-        r = e.threadId;
-      return M(t, n, r)
-        .then(function (e) {
-          return { messages: e, status: 200 };
-        })
-        .catch(
-          o("WAFilteredCatch").filteredCatch(d, function () {
-            return { messages: [], status: 404 };
-          }),
-        );
-    }
     function p(e) {
       var t = e.anchor,
         n = e.count,
         r = e.threadId;
-      return w({ anchor: t, count: n, threadId: r })
+      return z(t, n, r)
         .then(function (e) {
           return { messages: e, status: 200 };
         })
         .catch(
-          o("WAFilteredCatch").filteredCatch(d, function () {
+          o("WAFilteredCatch").filteredCatch(m, function () {
             return { messages: [], status: 404 };
           }),
         );
@@ -72,12 +61,26 @@ __d(
     function _(e) {
       var t = e.anchor,
         n = e.count,
+        r = e.threadId;
+      return K({ anchor: t, count: n, threadId: r })
+        .then(function (e) {
+          return { messages: e, status: 200 };
+        })
+        .catch(
+          o("WAFilteredCatch").filteredCatch(m, function () {
+            return { messages: [], status: 404 };
+          }),
+        );
+    }
+    function f(e) {
+      var t = e.anchor,
+        n = e.count,
         r = e.direction,
         o = e.threadId;
       return r === "before"
-        ? m({ anchor: t, count: n, threadId: o })
+        ? p({ anchor: t, count: n, threadId: o })
         : r === "after"
-          ? p({ anchor: t, count: n, threadId: o })
+          ? _({ anchor: t, count: n, threadId: o })
           : (function () {
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -85,25 +88,33 @@ __d(
               );
             })();
     }
-    async function f(e) {
-      return o("WAWebSchemaMessage")
-        .getMessageTable()
-        .equals(["vcardWAids"], e.toString())
-        .then(function (e) {
-          return e.map(function (e) {
-            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-          });
-        });
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g(t, n, r, a, i) {
-      var l =
-        i == null
-          ? Promise.resolve(void 0)
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebSchemaMessage")
+            .getMessageTable()
+            .equals(["vcardWAids"], e.toString())
+            .then(function (e) {
+              return e.map(function (e) {
+                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+              });
+            });
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(t, r, a, i, l) {
+      var s =
+        l == null
+          ? (c || (c = n("Promise"))).resolve(void 0)
           : o("WAWebSchemaMessage")
               .getMessageTable()
-              .equals(["id"], i.toString());
-      return l.then(function (l) {
-        if (i && l != null && l.length === 0)
+              .equals(["id"], l.toString());
+      return s.then(function (n) {
+        if (l && n != null && n.length === 0)
           throw (
             o("WALogger").WARN(
               e ||
@@ -111,16 +122,16 @@ __d(
                   "Anchor message ",
                   " does not exist in message table",
                 ])),
-              i && i.toString(),
+              l && l.toString(),
             ),
-            new d()
+            new m()
           );
-        var s = l == null ? void 0 : l[0],
+        var s = n == null ? void 0 : n[0],
           u,
           c,
-          m = !1;
+          d = !1;
         return (
-          r === "before"
+          a === "before"
             ? ((u = o("WAWebDBMessageUtils").beginningOfChat(t)),
               (c =
                 s == null
@@ -131,7 +142,7 @@ __d(
                         s.internalId || "",
                       ),
                     )),
-              (m = !0))
+              (d = !0))
             : ((u =
                 s == null
                   ? o("WAWebDBMessageUtils").beginningOfChat(t)
@@ -144,16 +155,16 @@ __d(
               (c = o("WAWebDBMessageUtils").endOfChat(t))),
           o("WAWebSchemaMessage")
             .getMessageTable()
-            .between(["internalId", a], [u, 0], [c, 1 / 0], {
+            .between(["internalId", i], [u, 0], [c, 1 / 0], {
               lowerInclusive: !1,
               upperInclusive: !1,
-              limit: n,
-              reverse: m,
+              limit: r,
+              reverse: d,
             })
         );
       });
     }
-    function h(e) {
+    function C(e) {
       var t = e.anchor,
         n = e.chat,
         r = e.count;
@@ -163,107 +174,153 @@ __d(
             r,
             t,
           )
-        : y(r, t);
+        : b(r, t);
     }
-    async function y(e, t) {
-      var n = await C(t, function (e) {
-          return e == null ? void 0 : e.isStarred;
-        }),
-        r = n[0],
-        a = n[1],
-        i = 0;
-      return o("WAWebSchemaMessage")
-        .getMessageTable()
-        .between(["isStarred"], i, a, {
-          lowerInclusive: !1,
-          upperInclusive: !1,
-          reverse: !0,
-          limit: e,
-        })
-        .then(function (e) {
-          return e.map(function (e) {
-            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-          });
-        });
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    async function C(e, t, n, r) {
-      (n === void 0 && (n = "before"), r === void 0 && (r = -1 / 0));
-      var a = null;
-      e != null &&
-        (a = await o("WAWebSchemaMessage").getMessageTable().get(e.toString()));
-      var i = a == null ? void 0 : t(a);
-      return n === "before"
-        ? [r, i != null ? i : 1 / 0]
-        : [i != null ? i : r, 1 / 0];
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield S(t, function (e) {
+              return e == null ? void 0 : e.isStarred;
+            }),
+            r = n[0],
+            a = n[1],
+            i = 0;
+          return o("WAWebSchemaMessage")
+            .getMessageTable()
+            .between(["isStarred"], i, a, {
+              lowerInclusive: !1,
+              upperInclusive: !1,
+              reverse: !0,
+              limit: e,
+            })
+            .then(function (e) {
+              return e.map(function (e) {
+                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+              });
+            });
+        })),
+        v.apply(this, arguments)
+      );
     }
-    function b(e) {
+    function S(e, t, n, r) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            (n === void 0 && (n = "before"), r === void 0 && (r = -1 / 0));
+            var a = null;
+            e != null &&
+              (a = yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .get(e.toString()));
+            var i = a == null ? void 0 : t(a);
+            return n === "before"
+              ? [r, i != null ? i : 1 / 0]
+              : [i != null ? i : r, 1 / 0];
+          },
+        )),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
       var t;
       if (e.label != null)
-        return Promise.resolve({
+        return (c || (c = n("Promise"))).resolve({
           messages: [],
           eof: !0,
           canceled: !1,
           status: 200,
         });
-      var n = {
+      var r = {
         remote: (t = e.remote) == null ? void 0 : t.toString(),
         page: e.page,
         limit: e.count,
       };
-      return o("WAWebFtsClient").ftsClient.search(e.searchTerm, n);
+      return o("WAWebFtsClient").ftsClient.search(e.searchTerm, r);
     }
-    function v(e) {
+    function E(e) {
       var t = e.anchor,
         n = e.count;
-      return S(n, t);
+      return k(n, t);
     }
-    async function S(e, t) {
-      var n = await C(t, function (e) {
-          return e == null ? void 0 : e.isCallLogMsg;
-        }),
-        r = n[0],
-        a = n[1],
-        i = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .between(["isCallLogMsg"], r, a, {
-            lowerInclusive: !1,
-            upperInclusive: !0,
-            reverse: !0,
-            limit: e,
-          });
-      return E(i);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    async function R() {
-      var e = await o("WAWebSchemaMessage")
-        .getMessageTable()
-        .equals(
-          ["callOutcome"],
-          o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing,
-        );
-      return E(e);
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield S(t, function (e) {
+              return e == null ? void 0 : e.isCallLogMsg;
+            }),
+            r = n[0],
+            a = n[1],
+            i = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .between(["isCallLogMsg"], r, a, {
+                lowerInclusive: !1,
+                upperInclusive: !0,
+                reverse: !0,
+                limit: e,
+              });
+          return $(i);
+        })),
+        I.apply(this, arguments)
+      );
     }
-    var L = 100;
-    async function E(e) {
-      var t = [],
-        n = o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web");
-      if (n)
-        for (var a = 0; a < e.length; a++)
-          (t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[a])),
-            await r("WACommonTaskScheduler").yield());
-      else
-        for (
-          var i = r("justknobx")._("3116") || L, l = 0;
-          l < e.length;
-          l += i
-        ) {
-          for (var s = Math.min(l + i, e.length), u = l; u < s; u++)
-            t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[u]));
-          s < e.length &&
-            (await o("WAWebReleaseToEventLoop").releaseToEventLoop());
-        }
-      return t;
+    function T() {
+      return D.apply(this, arguments);
     }
-    function k() {
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebSchemaMessage")
+            .getMessageTable()
+            .equals(
+              ["callOutcome"],
+              o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing,
+            );
+          return $(e);
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    var x = 100;
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = [],
+            n = o("WAWebABProps").getABPropConfigValue(
+              "wmi_worker_scheduler_web",
+            );
+          if (n)
+            for (var a = 0; a < e.length; a++)
+              (t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[a])),
+                yield r("WACommonTaskScheduler").yield());
+          else
+            for (
+              var i = r("justknobx")._("3116") || x, l = 0;
+              l < e.length;
+              l += i
+            ) {
+              for (var s = Math.min(l + i, e.length), u = l; u < s; u++)
+                t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[u]));
+              s < e.length &&
+                (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+            }
+          return t;
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N() {
       var e,
         t =
           (e = o("WAWebUserPrefsMultiDevice").getPairingTimestamp()) != null
@@ -275,139 +332,182 @@ __d(
           o("WAWebMediaHubGating").getMaxDaysInMediaHub()
       );
     }
-    async function I(e, t, n, r, a) {
-      n === void 0 && (n = "before");
-      var i = n === "before",
-        l = await C(
-          t,
-          function (e) {
-            return e == null ? void 0 : e.t;
-          },
-          n,
-          r,
-        ),
-        s = l[0],
-        u = l[1],
-        c = function (t) {
-          return [
-            [t, s],
-            [t, u],
-          ];
-        },
-        d = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .inAnyRange(
-            ["typeFlag", "t"],
-            a.map(function (e) {
-              return c(e);
-            }),
-            { reverse: i, limit: e },
-          );
-      return d;
+    function M(e, t, n, r, o) {
+      return w.apply(this, arguments);
     }
-    function T(e) {
+    function w() {
+      return (
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            n === void 0 && (n = "before");
+            var i = n === "before",
+              l = yield S(
+                t,
+                function (e) {
+                  return e == null ? void 0 : e.t;
+                },
+                n,
+                r,
+              ),
+              s = l[0],
+              u = l[1],
+              c = function (t) {
+                return [
+                  [t, s],
+                  [t, u],
+                ];
+              },
+              d = yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .inAnyRange(
+                  ["typeFlag", "t"],
+                  a.map(function (e) {
+                    return c(e);
+                  }),
+                  { reverse: i, limit: e },
+                );
+            return d;
+          },
+        )),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e) {
       var t = e.anchor,
-        n = e.chat,
-        r = e.count,
-        a = e.direction,
-        i = e.mediaType;
-      return i === "allMedia"
-        ? D(r, t, a)
-        : i === "allLinks"
-          ? x(r, t, a)
-          : i === "allDocs"
-            ? $({ chat: n, count: r, direction: a, msgKey: t })
-            : i === "url"
-              ? n != null
-                ? g(n, r, a, "hasLink", t).then(function (e) {
+        r = e.chat,
+        a = e.count,
+        i = e.direction,
+        l = e.mediaType;
+      return l === "allMedia"
+        ? F(a, t, i)
+        : l === "allLinks"
+          ? B(a, t, i)
+          : l === "allDocs"
+            ? q({ chat: r, count: a, direction: i, msgKey: t })
+            : l === "url"
+              ? r != null
+                ? y(r, a, i, "hasLink", t).then(function (e) {
                     return e.map(function (e) {
                       return o("WAWebDBMessageSerialization").messageFromDbRow(
                         e,
                       );
                     });
                   })
-                : Promise.resolve([])
-              : i === "document"
-                ? n != null
-                  ? g(n, r, a, "isDocMsg", t).then(function (e) {
+                : (c || (c = n("Promise"))).resolve([])
+              : l === "document"
+                ? r != null
+                  ? y(r, a, i, "isDocMsg", t).then(function (e) {
                       return e.map(function (e) {
                         return o(
                           "WAWebDBMessageSerialization",
                         ).messageFromDbRow(e);
                       });
                     })
-                  : Promise.resolve([])
-                : Promise.all(
-                    ["isMediaMsg", "isDocMsg", "hasLink", "isCarouselMsg"].map(
-                      function (e) {
-                        return n != null
-                          ? g(n, r, a, e, t).then(function (e) {
+                  : (c || (c = n("Promise"))).resolve([])
+                : (c || (c = n("Promise")))
+                    .all(
+                      [
+                        "isMediaMsg",
+                        "isDocMsg",
+                        "hasLink",
+                        "isCarouselMsg",
+                      ].map(function (e) {
+                        return r != null
+                          ? y(r, a, i, e, t).then(function (e) {
                               return e.map(function (e) {
                                 return o(
                                   "WAWebDBMessageSerialization",
                                 ).messageFromDbRow(e);
                               });
                             })
-                          : Promise.resolve([]);
-                      },
-                    ),
-                  ).then(function (e) {
-                    var t = e[0],
-                      n = e[1],
-                      r = e[2],
-                      o = e[3],
-                      a = [t, r, n, o].flat();
-                    return {
-                      docCount: n.length,
-                      linkCount: r.length,
-                      mediaCount: t.length,
-                      messages: a,
-                    };
-                  });
+                          : (c || (c = n("Promise"))).resolve([]);
+                      }),
+                    )
+                    .then(function (e) {
+                      var t = e[0],
+                        n = e[1],
+                        r = e[2],
+                        o = e[3],
+                        a = [t, r, n, o].flat();
+                      return {
+                        docCount: n.length,
+                        linkCount: r.length,
+                        mediaCount: t.length,
+                        messages: a,
+                      };
+                    });
     }
-    async function D(e, t, n, r) {
-      r === void 0 && (r = k());
-      var a = await I(e, t, n, r, [
-        o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG,
-        o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG |
-          o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
-      ]);
-      return a.map(function (e) {
-        return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-      });
+    function F(e, t, n, r) {
+      return O.apply(this, arguments);
     }
-    async function x(e, t, n, r) {
-      var a,
-        i = await I(e, t, n, r, [
-          (a = o("WAWebMsgType")).MESSAGE_TYPE_FLAGS.HAS_LINK,
-          a.MESSAGE_TYPE_FLAGS.MEDIA_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
-          a.MESSAGE_TYPE_FLAGS.DOC_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
-        ]);
-      return i.map(function (e) {
-        return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-      });
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            r === void 0 && (r = N());
+            var a = yield M(e, t, n, r, [
+              o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG,
+              o("WAWebMsgType").MESSAGE_TYPE_FLAGS.MEDIA_MSG |
+                o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
+            ]);
+            return a.map(function (e) {
+              return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+            });
+          },
+        )),
+        O.apply(this, arguments)
+      );
     }
-    async function $(e) {
-      var t = e.chat,
-        n = e.count,
-        r = e.direction,
-        a = e.msgKey;
-      if (t != null)
-        return g(t, n, r, "isDocMsg", a).then(function (e) {
-          return e.map(function (e) {
+    function B(e, t, n, r) {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a,
+              i = yield M(e, t, n, r, [
+                (a = o("WAWebMsgType")).MESSAGE_TYPE_FLAGS.HAS_LINK,
+                a.MESSAGE_TYPE_FLAGS.MEDIA_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
+                a.MESSAGE_TYPE_FLAGS.DOC_MSG | a.MESSAGE_TYPE_FLAGS.HAS_LINK,
+              ]);
+            return i.map(function (e) {
+              return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+            });
+          },
+        )),
+        W.apply(this, arguments)
+      );
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.count,
+            r = e.direction,
+            a = e.msgKey;
+          if (t != null)
+            return y(t, n, r, "isDocMsg", a).then(function (e) {
+              return e.map(function (e) {
+                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+              });
+            });
+          var i = yield M(n, a, r, void 0, [
+            o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG,
+            o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG |
+              o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
+          ]);
+          return i.map(function (e) {
             return o("WAWebDBMessageSerialization").messageFromDbRow(e);
           });
-        });
-      var i = await I(n, a, r, void 0, [
-        o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG,
-        o("WAWebMsgType").MESSAGE_TYPE_FLAGS.DOC_MSG |
-          o("WAWebMsgType").MESSAGE_TYPE_FLAGS.HAS_LINK,
-      ]);
-      return i.map(function (e) {
-        return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-      });
+        })),
+        U.apply(this, arguments)
+      );
     }
-    function P(e) {
+    function V(e) {
       var t = e.anchor,
         n = e.chat,
         r = e.count,
@@ -415,94 +515,52 @@ __d(
       return n != null &&
         a.doesLocalSchemaIncludeVersion(a.versions.version(152))
         ? o("WAWebDBGetEventMessagesForChat").getEventMessagesForChat(n, r, t)
-        : N(r, t);
+        : H(r, t);
     }
-    async function N(e, t) {
-      var n = await C(t, function (e) {
-          return e == null ? void 0 : e.isEventMsg;
-        }),
-        r = n[0],
-        a = n[1],
-        i = 0;
-      return o("WAWebSchemaMessage")
-        .getMessageTable()
-        .between(["isEventMsg"], i, a, {
-          lowerInclusive: !1,
-          upperInclusive: !1,
-          reverse: !0,
-          limit: e,
-        })
-        .then(function (e) {
-          return e.map(function (e) {
-            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-          });
-        });
+    function H(e, t) {
+      return G.apply(this, arguments);
     }
-    async function M(e, t, n) {
-      if ((t === void 0 && (t = c), !e.remote)) return Promise.resolve([]);
-      var a = e.remote.toString(),
-        i = void 0;
-      if (e instanceof r("WAWebMsgKey")) {
-        var l = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .equals(["id"], e.toString());
-        if (l.length === 0)
-          throw (
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "Anchor message ",
-                  " does not exist in message table",
-                ])),
-              e.toString(),
-            ),
-            new d()
-          );
-        i = l[0];
-      }
-      var u, m, p;
-      if (n != null)
-        ((u = o("WAWebFetchMessagesInThread").beginningOfThread(n)),
-          (m =
-            i != null
-              ? o("WAWebDBMessageUtils").craftInternalThreadId(
-                  o("WAWebDBMessageUtils").getInChatMsgId(i.internalId || ""),
-                  n,
-                )
-              : o("WAWebFetchMessagesInThread").endOfThread(n)),
-          (p = ["internalThreadIDs"]));
-      else if (
-        ((u = o("WAWebDBMessageUtils").beginningOfChat(e.remote)),
-        (m = o("WAWebDBMessageUtils").endOfChat(e.remote)),
-        i)
-      ) {
-        var _ = o("WAWebDBMessageUtils").getInChatMsgId(i.internalId || "");
-        m = o("WAWebDBMessageUtils").craftInternalId(a, _);
-      }
-      var f = { lowerInclusive: !0, upperInclusive: !1 },
-        g = await o("WAWebDBMessageStoreUtils").queryChatVisibleMessageHelper({
-          lowerBound: u,
-          upperBound: m,
-          options: babelHelpers.extends({}, f, { reverse: !0 }),
-          count: t,
-          index: p,
-        });
-      return g.reverse().map(function (e) {
-        return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-      });
+    function G() {
+      return (
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield S(t, function (e) {
+              return e == null ? void 0 : e.isEventMsg;
+            }),
+            r = n[0],
+            a = n[1],
+            i = 0;
+          return o("WAWebSchemaMessage")
+            .getMessageTable()
+            .between(["isEventMsg"], i, a, {
+              lowerInclusive: !1,
+              upperInclusive: !1,
+              reverse: !0,
+              limit: e,
+            })
+            .then(function (e) {
+              return e.map(function (e) {
+                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+              });
+            });
+        })),
+        G.apply(this, arguments)
+      );
     }
-    function w(e) {
-      var t = e.anchor,
-        n = e.count,
-        a = n === void 0 ? c : n,
-        i = e.threadId;
-      if (t instanceof r("WAWebMsgKey")) {
-        var l = t.remote.toString();
-        return o("WAWebSchemaMessage")
-          .getMessageTable()
-          .equals(["id"], t.toString())
-          .then(function (e) {
-            if (e.length === 0)
+    function z(e, t, n) {
+      return j.apply(this, arguments);
+    }
+    function j() {
+      return (
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          if ((t === void 0 && (t = d), !e.remote))
+            return (c || (c = n("Promise"))).resolve([]);
+          var i = e.remote.toString(),
+            l = void 0;
+          if (e instanceof r("WAWebMsgKey")) {
+            var s = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .equals(["id"], e.toString());
+            if (s.length === 0)
               throw (
                 o("WALogger").WARN(
                   u ||
@@ -510,33 +568,96 @@ __d(
                       "Anchor message ",
                       " does not exist in message table",
                     ])),
+                  e.toString(),
+                ),
+                new m()
+              );
+            l = s[0];
+          }
+          var p, _, f;
+          if (a != null)
+            ((p = o("WAWebFetchMessagesInThread").beginningOfThread(a)),
+              (_ =
+                l != null
+                  ? o("WAWebDBMessageUtils").craftInternalThreadId(
+                      o("WAWebDBMessageUtils").getInChatMsgId(
+                        l.internalId || "",
+                      ),
+                      a,
+                    )
+                  : o("WAWebFetchMessagesInThread").endOfThread(a)),
+              (f = ["internalThreadIDs"]));
+          else if (
+            ((p = o("WAWebDBMessageUtils").beginningOfChat(e.remote)),
+            (_ = o("WAWebDBMessageUtils").endOfChat(e.remote)),
+            l)
+          ) {
+            var g = o("WAWebDBMessageUtils").getInChatMsgId(l.internalId || "");
+            _ = o("WAWebDBMessageUtils").craftInternalId(i, g);
+          }
+          var h = { lowerInclusive: !0, upperInclusive: !1 },
+            y = yield o(
+              "WAWebDBMessageStoreUtils",
+            ).queryChatVisibleMessageHelper({
+              lowerBound: p,
+              upperBound: _,
+              options: babelHelpers.extends({}, h, { reverse: !0 }),
+              count: t,
+              index: f,
+            });
+          return y.reverse().map(function (e) {
+            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          });
+        })),
+        j.apply(this, arguments)
+      );
+    }
+    function K(e) {
+      var t = e.anchor,
+        a = e.count,
+        i = a === void 0 ? d : a,
+        l = e.threadId;
+      if (t instanceof r("WAWebMsgKey")) {
+        var u = t.remote.toString();
+        return o("WAWebSchemaMessage")
+          .getMessageTable()
+          .equals(["id"], t.toString())
+          .then(function (e) {
+            if (e.length === 0)
+              throw (
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "Anchor message ",
+                      " does not exist in message table",
+                    ])),
                   t.toString(),
                 ),
-                new d()
+                new m()
               );
             var n = e[0],
               r = o("WAWebDBMessageUtils").getInChatMsgId(n.internalId || ""),
-              s,
+              a,
               c,
-              m;
-            if (i != null)
-              ((s = o("WAWebDBMessageUtils").craftInternalThreadId(r, i)),
-                (c = o("WAWebFetchMessagesInThread").endOfThread(i)),
-                (m = ["internalThreadIDs"]));
+              d;
+            if (l != null)
+              ((a = o("WAWebDBMessageUtils").craftInternalThreadId(r, l)),
+                (c = o("WAWebFetchMessagesInThread").endOfThread(l)),
+                (d = ["internalThreadIDs"]));
             else {
-              var p = r + a;
-              ((s = o("WAWebDBMessageUtils").craftInternalId(l, r)),
-                (c = o("WAWebDBMessageUtils").craftInternalId(l, p)),
+              var p = r + i;
+              ((a = o("WAWebDBMessageUtils").craftInternalId(u, r)),
+                (c = o("WAWebDBMessageUtils").craftInternalId(u, p)),
                 (c = o("WAWebDBMessageUtils").endOfChat(t.remote)));
             }
             var _ = { lowerInclusive: !1, upperInclusive: !0 };
             return o("WAWebDBMessageStoreUtils")
               .queryChatVisibleMessageHelper({
-                lowerBound: s,
+                lowerBound: a,
                 upperBound: c,
                 options: _,
-                count: a,
-                index: m,
+                count: i,
+                index: d,
               })
               .then(function (e) {
                 return e.map(function (e) {
@@ -545,23 +666,23 @@ __d(
               });
           });
       }
-      return Promise.resolve([]);
+      return (c || (c = n("Promise"))).resolve([]);
     }
-    ((l.msgFindBefore = m),
-      (l.msgFindAfter = p),
-      (l.msgFindByDirection = _),
-      (l.queryVcard = f),
-      (l.queryMessageType = g),
-      (l.msgFindStarred = h),
-      (l.msgFindSearch = b),
-      (l.msgFindCallLog = v),
-      (l.getVoipOngoingCallLogMessages = R),
-      (l.getMediaAvailableMsgBoundary = k),
-      (l.msgFindMedia = T),
-      (l.getAllMediaMessages = D),
-      (l.getAllLinksMessages = x),
-      (l.getAllDocsMessages = $),
-      (l.msgFindEvents = P));
+    ((l.msgFindBefore = p),
+      (l.msgFindAfter = _),
+      (l.msgFindByDirection = f),
+      (l.queryVcard = g),
+      (l.queryMessageType = y),
+      (l.msgFindStarred = C),
+      (l.msgFindSearch = L),
+      (l.msgFindCallLog = E),
+      (l.getVoipOngoingCallLogMessages = T),
+      (l.getMediaAvailableMsgBoundary = N),
+      (l.msgFindMedia = A),
+      (l.getAllMediaMessages = F),
+      (l.getAllLinksMessages = B),
+      (l.getAllDocsMessages = q),
+      (l.msgFindEvents = V));
   },
   98,
 );

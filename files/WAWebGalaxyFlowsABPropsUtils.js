@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebABPropsCache",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -30,29 +31,37 @@ __d(
       }
       return { type: n.type, value: r !== void 0 ? String(r) : n.defaultValue };
     }
-    async function c(e) {
-      if (e == null || typeof e != "object")
-        return (
-          o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAWebGalaxyFlowsABPropsUtils] Invalid payload provided: ",
-                "",
-              ])),
-            e,
-          ),
-          o("WAFlowsWebNativeBridgeClientABPropsContext.react")
-            .abPropsFallBackDataForWeb
-        );
-      var t = Object.entries(e);
-      if (t.length === 0) return {};
-      var n = {};
-      for (var r of t) {
-        var a = r[0],
-          i = r[1];
-        n[a] = u(a, i);
-      }
-      return n;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e == null || typeof e != "object")
+            return (
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAWebGalaxyFlowsABPropsUtils] Invalid payload provided: ",
+                    "",
+                  ])),
+                e,
+              ),
+              o("WAFlowsWebNativeBridgeClientABPropsContext.react")
+                .abPropsFallBackDataForWeb
+            );
+          var t = Object.entries(e);
+          if (t.length === 0) return {};
+          var n = {};
+          for (var r of t) {
+            var a = r[0],
+              i = r[1];
+            n[a] = u(a, i);
+          }
+          return n;
+        })),
+        d.apply(this, arguments)
+      );
     }
     l.getActualABPropData = c;
   },

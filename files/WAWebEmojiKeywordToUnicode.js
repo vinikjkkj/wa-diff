@@ -9,6 +9,7 @@ __d(
     "WAWebL10N",
     "WAWebNoop",
     "WAWebStreamModel",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -35,17 +36,26 @@ __d(
         t = r("WAWebL10N").getNormalizedLocale();
       if ((t !== "en" && e.push(t), !r("WAArraysShallowEqual")(m, e))) {
         m = e;
-        var n = o("WAWebEmojiDownloadSuggestions")
+        var a = o("WAWebEmojiDownloadSuggestions")
           .downloadEmojiSuggestions()
-          .then(async function (e) {
-            d === n &&
-              (u = await o("WAWebEmojiSearch").emojiLocaleDictsToTrie(e));
-          })
+          .then(
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  d === a &&
+                    (u = yield o("WAWebEmojiSearch").emojiLocaleDictsToTrie(e));
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          )
           .catch(r("WAWebNoop"))
           .finally(function () {
-            d === n && (d = null);
+            d === a && (d = null);
           });
-        d = n;
+        d = a;
       }
     }
     var _ = !1;

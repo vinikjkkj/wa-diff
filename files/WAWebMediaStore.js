@@ -12,6 +12,7 @@ __d(
     "WAWebPromiseQueue",
     "WAWebSerializeError",
     "WAWebStoreQuotaManager",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "once",
   ],
@@ -22,49 +23,43 @@ __d(
       c = (function () {
         function t() {
           var t = this;
-          ((this.$1 = r("once")(async function () {
-            try {
-              var t = await d();
-              if (t != null) return (await t.open(), t);
-            } catch (t) {
-              if (r("getErrorSafe")(t).name === "SecurityError")
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose(
-                      [
-                        `
-            There was a security error attempting to open the media storage.             This likely indicates a permissions error. Falling back to fake             (no-op) storage.
-          `,
-                      ],
-                      [
-                        `
-            There was a security error attempting to open the media storage. \\
-            This likely indicates a permissions error. Falling back to fake \\
-            (no-op) storage.
-          `,
-                      ],
-                    )),
-                );
-              else {
-                if (t instanceof o("WAWebMiscErrors").DbOnLogoutAbort) throw t;
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        `
-            Failed to initialize media store! Falling back to fake (no-op) storage. Error:
-            `,
-                        `
-          `,
-                      ])),
-                    r("WAWebSerializeError")(t),
-                  )
-                  .verbose()
-                  .sendLogs("Failed to initialize media store");
+          ((this.$1 = r("once")(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              try {
+                var t = yield d();
+                if (t != null) return (yield t.open(), t);
+              } catch (t) {
+                if (r("getErrorSafe")(t).name === "SecurityError")
+                  o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose(
+                        [
+                          "\n            There was a security error attempting to open the media storage.             This likely indicates a permissions error. Falling back to fake             (no-op) storage.\n          ",
+                        ],
+                        [
+                          "\n            There was a security error attempting to open the media storage. \\\n            This likely indicates a permissions error. Falling back to fake \\\n            (no-op) storage.\n          ",
+                        ],
+                      )),
+                  );
+                else {
+                  if (t instanceof o("WAWebMiscErrors").DbOnLogoutAbort)
+                    throw t;
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "\n            Failed to initialize media store! Falling back to fake (no-op) storage. Error:\n            ",
+                          "\n          ",
+                        ])),
+                      r("WAWebSerializeError")(t),
+                    )
+                    .verbose()
+                    .sendLogs("Failed to initialize media store");
+                }
               }
-            }
-            return new (r("WAWebMediaStoreDummyImpl"))();
-          })),
+              return new (r("WAWebMediaStoreDummyImpl"))();
+            }),
+          )),
             (this.$3 = new (o("WAWebPromiseQueue").PromiseQueue)()),
             (this.$2 = r("WAMemoizeConcurrent")(
               function (e) {
@@ -80,66 +75,144 @@ __d(
               },
             )));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.setMaxSize = async function (t) {
-            var e = await this.$1();
-            return e.setMaxSize(t);
-          }),
-          (n.get = async function (t) {
-            var e = await this.$1();
-            return e.get(t);
-          }),
-          (n.has = function (t) {
+          (a.setMaxSize = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.$1();
+                return t.setMaxSize(e);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.get = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.$1();
+                return t.get(e);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.has = function (t) {
             return this.$2({ key: t, signal: u.signal });
           }),
-          (n.queryByIndex = async function (t, n) {
-            var e = await this.$1();
-            return e.queryByIndex(t, n);
-          }),
-          (n.getAll = async function () {
-            var e = await this.$1();
-            return e.getAll();
-          }),
-          (n.put = async function (t, n) {
-            var e = await this.$1();
-            return e.put(t, n);
-          }),
-          (n.del = async function (t) {
-            var e = await this.$1();
-            await e.del(t);
-          }),
-          (n.count = async function () {
-            var e = await this.$1();
-            return e.count();
-          }),
-          (n.clear = async function () {
-            var e = await this.$1();
-            await e.clear();
-          }),
-          (n.open = async function () {
-            var e = await this.$1();
-            await e.open();
-          }),
-          (n.close = async function () {
-            var e = await this.$1();
-            await e.close();
-          }),
+          (a.queryByIndex = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var n = yield this.$1();
+                return n.queryByIndex(e, t);
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.getAll = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$1();
+              return e.getAll();
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.put = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                var n = yield this.$1();
+                return n.put(e, t);
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.del = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield this.$1();
+                yield t.del(e);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.count = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$1();
+              return e.count();
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.clear = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$1();
+              yield e.clear();
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.open = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$1();
+              yield e.open();
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.close = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$1();
+              yield e.close();
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })();
-    async function d() {
-      var e = m();
-      if (e == null) return null;
-      var t = await o(
-        "WAWebStoreQuotaManager",
-      ).storeQuotaManager.getQuotaForStore("lru-media-store");
-      return new (r("WAWebMediaStoreLruImpl"))({
-        maxSize: t,
-        arrayBufferStore: e,
-      });
+    function d() {
+      return m.apply(this, arguments);
     }
     function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = p();
+          if (e == null) return null;
+          var t = yield o(
+            "WAWebStoreQuotaManager",
+          ).storeQuotaManager.getQuotaForStore("lru-media-store");
+          return new (r("WAWebMediaStoreLruImpl"))({
+            maxSize: t,
+            arrayBufferStore: e,
+          });
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
       if (r("WAWebIndexedDB") != null) {
         var e = new (r("WAWebMediaArrayBufferIdbStore"))("media_lru_buffer");
         return "caches" in self
@@ -150,8 +223,8 @@ __d(
       }
       return null;
     }
-    var p = new c();
-    ((l.MediaStore = c), (l.LruMediaStore = p));
+    var _ = new c();
+    ((l.MediaStore = c), (l.LruMediaStore = _));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebLoggerImpl",
   [
+    "Promise",
     "WALogger",
     "WAMemoizeConditionally",
     "WAOnceWithReset",
@@ -15,6 +16,7 @@ __d(
     "WAWebNoop",
     "WAWebNormalizeStack",
     "WAWebWAWCStorage",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
   ],
@@ -25,47 +27,48 @@ __d(
       c,
       d,
       m,
-      p = "trace",
-      _ = 6048e5,
-      f = 864e5 * 30,
-      g = 15e4,
-      h = 1024,
-      y = 500,
-      C;
-    r("gkx")("26258") ? (C = 5e3) : (C = 15e4);
-    var b = C,
-      v = "LTSXOo+_*-=.<^!#?".split("");
-    function S() {
-      return v[Math.round(Math.random() * (v.length - 1))];
+      p,
+      _ = "trace",
+      f = 6048e5,
+      g = 864e5 * 30,
+      h = 15e4,
+      y = 1024,
+      C = 500,
+      b;
+    r("gkx")("26258") ? (b = 5e3) : (b = 15e4);
+    var v = b,
+      S = "LTSXOo+_*-=.<^!#?".split("");
+    function R() {
+      return S[Math.round(Math.random() * (S.length - 1))];
     }
-    var R = S() + S() + S() + S(),
-      L = {};
-    ((L[(L.ALL = 0)] = "all"),
-      (L[(L.INFO = 1)] = "info"),
-      (L[(L.LOG = 2)] = "log"),
-      (L[(L.WARN = 3)] = "warn"),
-      (L[(L.ERROR = 4)] = "error"),
-      (L[(L.OFF = 5)] = "off"));
-    var E = (function () {
-      function t(t, n, a) {
-        var i = this;
-        (a === void 0 && (a = void 0),
+    var L = R() + R() + R() + R(),
+      E = {};
+    ((E[(E.ALL = 0)] = "all"),
+      (E[(E.INFO = 1)] = "info"),
+      (E[(E.LOG = 2)] = "log"),
+      (E[(E.WARN = 3)] = "warn"),
+      (E[(E.ERROR = 4)] = "error"),
+      (E[(E.OFF = 5)] = "off"));
+    var k = (function () {
+      function t(t, a, i) {
+        var l = this;
+        (i === void 0 && (i = void 0),
           (this.localCursor = 0),
           (this.writeFrom = 0),
           (this.pending = void 0),
           (this.timer = new (o("WAShiftTimer").ShiftTimer)(function () {
-            return i.$1();
+            return l.$1();
           })),
           (this.runningTimestamp = 0),
           (this.isTakeOver = !1),
           (this.shouldSkipLoggingForProdLowEndDevice = !1),
           (this.$2 = !1),
-          (this.$3 = new Array(y)),
+          (this.$3 = new Array(C)),
           (this.$4 = 0),
           (this.$5 = 0),
           (this.$6 = !1),
           (this.maybeUpdateLogCapacityFromABProp = r("WAOnceWithReset")(
-            async function () {
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (r("gkx")("26258")) {
                 var t = o("WAWebABProps").getABPropConfigValue(
                   "web_log_capacity_override",
@@ -75,11 +78,11 @@ __d(
                     o("WAWebABProps").getABPropConfigValue(
                       "enable_web_log_download",
                     ) &&
-                    (t = g),
+                    (t = h),
                   !(t === 0 || t == null))
                 ) {
                   if (
-                    ((i.$6 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
+                    ((l.$6 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
                   ) {
                     o("WALogger").LOG(
                       e ||
@@ -90,13 +93,13 @@ __d(
                     return;
                   }
                   try {
-                    var n = await o("WAStorageEstimator").estimateStorage();
+                    var n = yield o("WAStorageEstimator").estimateStorage();
                     if (n.success) {
                       var a = n.value,
-                        l = a.quota,
+                        i = a.quota,
                         m = a.usage,
-                        p = (l - m) / (1024 * 1024);
-                      if (p < h) {
+                        p = (i - m) / (1024 * 1024);
+                      if (p < y) {
                         o("WALogger").LOG(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -127,11 +130,11 @@ __d(
                     );
                     return;
                   }
-                  var _ = Math.min(t, g);
-                  if (_ > i.logCapacityInDatabase) {
+                  var _ = Math.min(t, h);
+                  if (_ > l.logCapacityInDatabase) {
                     var f = Date.now();
-                    i.$8(_);
-                    var y = Date.now() - f;
+                    l.$8(_);
+                    var g = Date.now() - f;
                     o("WALogger").LOG(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -140,18 +143,18 @@ __d(
                           "ms)",
                         ])),
                       _,
-                      y,
+                      g,
                     );
                   }
                 }
               }
-            },
+            }),
           )),
           (this.log = r("WAMemoizeConditionally")(
             function (e, t, n, o, a) {
               return (
                 t === void 0 && (t = !1),
-                function (l) {
+                function (i) {
                   for (
                     var s = arguments.length,
                       u = new Array(s > 1 ? s - 1 : 0),
@@ -160,8 +163,8 @@ __d(
                     c++
                   )
                     u[c - 1] = arguments[c];
-                  var d = r("WAWebLoggerFormatMessage")(l, u, !t);
-                  return (i.logImpl(e, d, n, o, a), d);
+                  var d = r("WAWebLoggerFormatMessage")(i, u, !t);
+                  return (l.logImpl(e, d, n, o, a), d);
                 }
               );
             },
@@ -170,14 +173,14 @@ __d(
             },
           )),
           (this.logsDBProvider = t),
-          (this.logCapacityInDatabase = n),
-          (this.logs = new Array(n)),
+          (this.logCapacityInDatabase = a),
+          (this.logs = new Array(a)),
           (this.microStep = 1 / this.logCapacityInDatabase),
-          (this.processTag = a));
+          (this.processTag = i));
       }
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.setSkipLoggingForProdLowEndDevice = function () {
+        (a.setSkipLoggingForProdLowEndDevice = function () {
           var e =
             (r("gkx")("26258") || r("gkx")("17565")) &&
             o("WAWebLowEndDeviceApi").shouldReduceLogsForLowEndDevice();
@@ -190,7 +193,7 @@ __d(
             ),
             (this.shouldSkipLoggingForProdLowEndDevice = e));
         }),
-        (n.$8 = function (t) {
+        (a.$8 = function (t) {
           if (!(t <= this.logCapacityInDatabase)) {
             this.$2 = !0;
             try {
@@ -217,16 +220,16 @@ __d(
             }
           }
         }),
-        (n.$9 = function (t) {
+        (a.$9 = function (t) {
           t.e === !0 &&
             ((this.$3[this.$4] = t),
-            (this.$4 = (this.$4 + 1) % y),
-            this.$5 < y && this.$5++);
+            (this.$4 = (this.$4 + 1) % C),
+            this.$5 < C && this.$5++);
         }),
-        (n.logImpl = function (t, n, a, i, l) {
+        (a.logImpl = function (t, n, a, i, l) {
           if (
             !this.$2 &&
-            !(t <= L.LOG && this.shouldSkipLoggingForProdLowEndDevice)
+            !(t <= E.LOG && this.shouldSkipLoggingForProdLowEndDevice)
           ) {
             var e = Date.now(),
               s = r("WAWeb-moment")(e)
@@ -234,26 +237,15 @@ __d(
                 .format("YYYY-MM-DD HH:mm:ss.SSS:");
             if (!r("gkx")("26258"))
               try {
-                t === L.ERROR && this.$7 && this.$7(n);
+                t === E.ERROR && this.$7 && this.$7(n);
               } catch (e) {}
             var u = "";
             a &&
-              (l != null && l.includes(p)
-                ? (u =
-                    `
-` +
-                    a.stack
-                      .split(
-                        `
-`,
-                      )
-                      .slice(3).join(`
-`))
-                : (u =
-                    `
-` + o("WAWebNormalizeStack").normalizeStack(a, !0)));
+              (l != null && l.includes(_)
+                ? (u = "\n" + a.stack.split("\n").slice(3).join("\n"))
+                : (u = "\n" + o("WAWebNormalizeStack").normalizeStack(a, !0)));
             var c = [
-                k(t),
+                I(t),
                 i === !0 && !o("WAWebLoggerUtils").isWaitingForUpload()
                   ? "sendlogs"
                   : null,
@@ -264,13 +256,13 @@ __d(
                   return "[" + e + "]";
                 })
                 .join(""),
-              d = R + " " + s + (c ? c + " " : "") + n + u;
+              d = L + " " + s + (c ? c + " " : "") + n + u;
             if (this.$6) {
               var m = this.logs[this.localCursor];
               m != null && this.$9(m);
             }
-            var _ = t === L.ERROR;
-            ((this.logs[this.localCursor] = _
+            var p = t === E.ERROR;
+            ((this.logs[this.localCursor] = p
               ? { m: d, t: e, e: !0 }
               : { m: d, t: e }),
               (this.localCursor =
@@ -280,38 +272,42 @@ __d(
               !this.isTakeOver && this.timer.debounceAndCap(250, 1e3));
           }
         }),
-        (n.$1 = function () {
+        (a.$1 = function () {
           var e = this;
           this.pending ||
             this.logs[this.writeFrom] == null ||
             this.isTakeOver ||
             (this.pending = this.logsDBProvider()
               .then(function (t) {
-                return t.transaction("rw", t.logs, async function () {
-                  var n,
-                    r = await t.logs.orderBy("count").last();
-                  r || (r = await t.logs.orderBy("timestamp").last());
-                  for (
-                    var o = r ? r.line + 1 : 0,
-                      a = (n = r) != null && n.count ? r.count + 1 : o;
-                    e.logs[e.writeFrom] != null;
-                  ) {
-                    var i = e.logs[e.writeFrom];
-                    ((e.logs[e.writeFrom] = void 0),
-                      (e.writeFrom =
-                        (e.writeFrom + 1) % e.logCapacityInDatabase),
-                      (e.runningTimestamp =
-                        i.t <= e.runningTimestamp
-                          ? e.runningTimestamp + e.microStep
-                          : i.t),
-                      t.logs.put({
-                        line: o++ % e.logCapacityInDatabase,
-                        log: i.m,
-                        timestamp: e.runningTimestamp,
-                        count: a++,
-                      }));
-                  }
-                });
+                return t.transaction(
+                  "rw",
+                  t.logs,
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    var n,
+                      r = yield t.logs.orderBy("count").last();
+                    r || (r = yield t.logs.orderBy("timestamp").last());
+                    for (
+                      var o = r ? r.line + 1 : 0,
+                        a = (n = r) != null && n.count ? r.count + 1 : o;
+                      e.logs[e.writeFrom] != null;
+                    ) {
+                      var i = e.logs[e.writeFrom];
+                      ((e.logs[e.writeFrom] = void 0),
+                        (e.writeFrom =
+                          (e.writeFrom + 1) % e.logCapacityInDatabase),
+                        (e.runningTimestamp =
+                          i.t <= e.runningTimestamp
+                            ? e.runningTimestamp + e.microStep
+                            : i.t),
+                        t.logs.put({
+                          line: o++ % e.logCapacityInDatabase,
+                          log: i.m,
+                          timestamp: e.runningTimestamp,
+                          count: a++,
+                        }));
+                    }
+                  }),
+                );
               })
               .then(function () {
                 e.logs[e.writeFrom] != null && e.timer.debounceAndCap(250, 1e3);
@@ -325,42 +321,43 @@ __d(
                 e.pending = void 0;
               }));
         }),
-        (n.getLogs = function (t, n) {
+        (a.getLogs = function (t, a) {
           var e = this;
-          (t === void 0 && (t = !1), n === void 0 && (n = Date.now() - _));
-          var a = Math.max(n, Date.now() - f),
-            i = [];
+          (t === void 0 && (t = !1), a === void 0 && (a = Date.now() - f));
+          var i = Math.max(a, Date.now() - g),
+            l = [];
           return (
-            this.pending && i.push(this.pending),
+            this.pending && l.push(this.pending),
             this.timer.isScheduled() &&
-              (this.timer.forceRunNow(), this.pending && i.push(this.pending)),
-            Promise.all(i)
+              (this.timer.forceRunNow(), this.pending && l.push(this.pending)),
+            (p || (p = n("Promise")))
+              .all(l)
               .then(function () {
                 return e.logsDBProvider();
               })
               .then(function (e) {
                 return o("WAWebLoggerOptimizer").getTimeboxedAndTrimmedLogs(
                   e,
-                  a,
+                  i,
                   t,
                 );
               })
               .then(function (t) {
                 var n = [];
                 if (e.$5 > 0) {
-                  var r = e.$5 === y;
+                  var r = e.$5 === C;
                   if (r) {
                     var o = e.$3.slice(e.$4).filter(Boolean),
-                      i = e.$3.slice(0, e.$4).filter(Boolean);
-                    n = [].concat(o, i).filter(function (e) {
-                      return e.t >= a;
+                      a = e.$3.slice(0, e.$4).filter(Boolean);
+                    n = [].concat(o, a).filter(function (e) {
+                      return e.t >= i;
                     });
                   } else
                     n = e.$3
                       .slice(0, e.$5)
                       .filter(Boolean)
                       .filter(function (e) {
-                        return e.t >= a;
+                        return e.t >= i;
                       });
                 }
                 if (n.length === 0)
@@ -387,12 +384,21 @@ __d(
               })
           );
         }),
-        (n.clearLogs = function () {
+        (a.clearLogs = function () {
           var e = this;
           return this.logsDBProvider()
-            .then(async function (e) {
-              await e.logs.clear();
-            })
+            .then(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    yield e.logs.clear();
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            )
             .catch(r("WAWebNoop"))
             .finally(function () {
               ((e.localCursor = 0),
@@ -400,7 +406,7 @@ __d(
                 (e.logs = new Array(e.logCapacityInDatabase)));
             });
         }),
-        (n.logUncaughtError = function (t, n) {
+        (a.logUncaughtError = function (t, n) {
           var e = t instanceof Error && t.stack ? t : void 0,
             o;
           if (
@@ -409,27 +415,27 @@ __d(
               : (o = n
                   ? "unhandled-rejection: " + String(t)
                   : "Error: " + String(t)),
-            this.logImpl(L.ERROR, o, e, !0, ["uncaught"]),
+            this.logImpl(E.ERROR, o, e, !0, ["uncaught"]),
             r("gkx")("26258") || e != null,
             n != null)
           ) {
             var a = String(n);
-            (this.logImpl(L.WARN, a), r("gkx")("26258"));
+            (this.logImpl(E.WARN, a), r("gkx")("26258"));
           }
           return o;
         }),
-        (n.onTakeOver = function () {
+        (a.onTakeOver = function () {
           this.isTakeOver = !0;
         }),
-        (n.registerErrorNotificationListener = function (t) {
+        (a.registerErrorNotificationListener = function (t) {
           this.$7 = t;
         }),
         t
       );
     })();
-    function k(e) {
+    function I(e) {
       return e === 1 || e === 2 || e === 3 || e === 4
-        ? L[e]
+        ? E[e]
         : (function () {
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -437,11 +443,11 @@ __d(
             );
           })();
     }
-    var I = new E(function () {
+    var T = new k(function () {
         return r("WAWebWAWCStorage").idb();
-      }, b),
-      T = I.log;
-    ((l.STACK_TRACE_TAG = p), (l.LoggerImpl = E), (l.Logger = I), (l.log = T));
+      }, v),
+      D = T.log;
+    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = k), (l.Logger = T), (l.log = D));
   },
   98,
 );

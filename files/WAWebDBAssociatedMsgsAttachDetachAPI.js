@@ -10,60 +10,78 @@ __d(
     "WAWebMessageAssociationGatingUtils",
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = n("$InternalEnum").Mirrored(["Attach", "Detach"]);
-    async function u(e) {
-      var t = await c(
-          e.map(function (e) {
-            return e.id;
-          }),
-        ),
-        n = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .bulkGet(
-            t.map(function (e) {
-              return e.msgKey.toString();
-            }),
-            !1,
-          ),
-        a = m(n.filter(Boolean), s.Attach).filter(Boolean);
-      await o("WAWebSchemaMessage")
-        .getMessageTable()
-        .bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(a);
-      var i = new Map();
-      (a.forEach(function (e) {
-        var t = r("nullthrows")(e.viewMode);
-        i.set(e.id, t);
-      }),
-        o("WAWebBackendApi").frontendFireAndForget("updateViewModeForMsgs", {
-          msgIdsViewModeMap: i,
-        }));
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    async function c(t) {
-      if (
-        !o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled()
-      )
-        return [];
-      var n = await o(
-        "WAWebDBGetAssociatedMsgsByParentMsgKey",
-      ).bulkGetMessagesByParentMsgKey(t);
+    function c() {
       return (
-        n.length &&
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[viewModeUpdate] found associated msgs",
-              ])),
-          ),
-        n
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield d(
+              e.map(function (e) {
+                return e.id;
+              }),
+            ),
+            n = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .bulkGet(
+                t.map(function (e) {
+                  return e.msgKey.toString();
+                }),
+                !1,
+              ),
+            a = _(n.filter(Boolean), s.Attach).filter(Boolean);
+          yield o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(a);
+          var i = new Map();
+          (a.forEach(function (e) {
+            var t = r("nullthrows")(e.viewMode);
+            i.set(e.id, t);
+          }),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateViewModeForMsgs",
+              { msgIdsViewModeMap: i },
+            ));
+        })),
+        c.apply(this, arguments)
       );
     }
-    function d(e, t) {
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (
+            !o(
+              "WAWebMessageAssociationGatingUtils",
+            ).isMessageAssociationInfraEnabled()
+          )
+            return [];
+          var n = yield o(
+            "WAWebDBGetAssociatedMsgsByParentMsgKey",
+          ).bulkGetMessagesByParentMsgKey(t);
+          return (
+            n.length &&
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[viewModeUpdate] found associated msgs",
+                  ])),
+              ),
+            n
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
       var n = [];
       return (
         e.map(function (e) {
@@ -83,7 +101,7 @@ __d(
         n
       );
     }
-    function m(e, t) {
+    function _(e, t) {
       return o(
         "WAWebMessageAssociationGatingUtils",
       ).isMessageAssociationInfraEnabled()
@@ -103,7 +121,7 @@ __d(
           })
         : [];
     }
-    function p(e) {
+    function f(e) {
       return o(
         "WAWebMessageAssociationGatingUtils",
       ).isMessageAssociationInfraEnabled()
@@ -124,9 +142,9 @@ __d(
     }
     ((l.ViewModeUpdateType = s),
       (l.processOrphansFromAssociationsTableForNewMsg = u),
-      (l.getAssociatedMsgsByParentMsgKeyFromAssociationTable = c),
-      (l.getValidAssociatedMsgs = d),
-      (l.getDetachedForeverAssociatedMsgs = p));
+      (l.getAssociatedMsgsByParentMsgKeyFromAssociationTable = d),
+      (l.getValidAssociatedMsgs = p),
+      (l.getDetachedForeverAssociatedMsgs = f));
   },
   98,
 );

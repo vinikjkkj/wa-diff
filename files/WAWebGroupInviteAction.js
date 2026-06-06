@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupInviteAction",
   [
+    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
@@ -11,45 +12,54 @@ __d(
     "WAWebMexFetchGroupInviteCodeJob",
     "WAWebNoop",
     "WAWebStateUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return m(o("WAWebStateUtils").unproxy(e));
-    }
+    var e, s, u;
     function c(e) {
-      return p(o("WAWebStateUtils").unproxy(e));
+      return _(o("WAWebStateUtils").unproxy(e));
     }
-    async function d(e, t, n) {
-      var r = await o("WAWebGroupInviteJob").joinGroupViaInvite(e, t),
-        a = r.gid,
-        i =
-          n.hasCapi === !0
-            ? {
-                actualActors: o("WAWebHandleMsgTypes.flow").ActualActorsEnumType
-                  .Capi,
-                hostStorage: o("WAWebHandleMsgTypes.flow").HostStorageEnumType
-                  .Facebook,
-                privacyModeTs: 0,
-              }
-            : void 0;
-      return o("WAWebFindChatAction")
-        .findOrCreateLatestChat(a, "queryGroupInviteCode", {
-          isGroupJoin: !0,
-          nextPrivacyMode: i,
-        })
-        .then(function (e) {
-          var t = e.chat;
-          return t;
-        });
+    function d(e) {
+      return f(o("WAWebStateUtils").unproxy(e));
     }
-    function m(t) {
+    function m(e, t, n) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield o("WAWebGroupInviteJob").joinGroupViaInvite(e, t),
+            a = r.gid,
+            i =
+              n.hasCapi === !0
+                ? {
+                    actualActors: o("WAWebHandleMsgTypes.flow")
+                      .ActualActorsEnumType.Capi,
+                    hostStorage: o("WAWebHandleMsgTypes.flow")
+                      .HostStorageEnumType.Facebook,
+                    privacyModeTs: 0,
+                  }
+                : void 0;
+          return o("WAWebFindChatAction")
+            .findOrCreateLatestChat(a, "queryGroupInviteCode", {
+              isGroupJoin: !0,
+              nextPrivacyMode: i,
+            })
+            .then(function (e) {
+              var t = e.chat;
+              return t;
+            });
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(t) {
       if (t.groupInviteCodePromise) return t.groupInviteCodePromise;
-      var n = t.participants.iAmAdmin(),
-        a = t.memberLinkMode;
+      var a = t.participants.iAmAdmin(),
+        i = t.memberLinkMode;
       if (
-        !n &&
-        a !== o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
+        !a &&
+        i !== o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
       ) {
         o("WALogger")
           .ERROR(
@@ -59,19 +69,19 @@ __d(
               ])),
           )
           .sendLogs("query-group-invite-code-user-not-admin");
-        var i = 401;
-        return Promise.reject(
-          new (o("WAWebBackendErrors").ServerStatusCodeError)(i),
+        var l = 401;
+        return (u || (u = n("Promise"))).reject(
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(l),
         );
       }
-      var l = o("WAWebMexFetchGroupInviteCodeJob")
+      var s = o("WAWebMexFetchGroupInviteCodeJob")
         .fetchMexGroupInviteCode(t.id)
         .then(function (e) {
           return { code: e };
         });
       return (
-        (t.groupInviteCodePromise = l.then(r("WAWebNoop"))),
-        l
+        (t.groupInviteCodePromise = s.then(r("WAWebNoop"))),
+        s
           .then(function (e) {
             t.inviteCode = e.code;
           })
@@ -80,7 +90,7 @@ __d(
           })
       );
     }
-    function p(e) {
+    function f(e) {
       return e.revokeGroupInvitePromise
         ? e.revokeGroupInvitePromise
         : (e.revokeGroupInvitePromise = o("WAWebGroupInviteJob")
@@ -108,9 +118,9 @@ __d(
               e.revokeGroupInvitePromise = null;
             }));
     }
-    ((l.queryGroupInviteCode = u),
-      (l.revokeGroupInvite = c),
-      (l.joinGroupViaInvite = d));
+    ((l.queryGroupInviteCode = c),
+      (l.revokeGroupInvite = d),
+      (l.joinGroupViaInvite = m));
   },
   98,
 );

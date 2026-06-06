@@ -7,13 +7,22 @@ __d(
     "WAWebMexUsersGetCountryCode",
     "WAWebModelStorageUtils",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = await o("WAWebApiContact").getContactRecord(e);
-      return t == null ? void 0 : t.username;
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    function s(e) {
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebApiContact").getContactRecord(e);
+          return t == null ? void 0 : t.username;
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    function u(e) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["contact"], function () {
@@ -39,34 +48,50 @@ __d(
           );
         });
     }
-    async function u(e) {
-      var t = await o("WAWebApiContact").getContactRecord(e);
-      if ((t == null ? void 0 : t.usernameCountryCode) != null)
-        return t.usernameCountryCode;
-      var n = o("WAWebWidFactory").asUserWidOrThrow(e),
-        r = o("WAWebCountryCodeUtils").getCountryCodeFromPn(n);
-      return r != null
-        ? r
-        : o("WAWebMexUsersGetCountryCode").getMexUserCountryCode(n);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    async function c(e) {
-      var t = await o("WAWebApiContact").bulkGetContactRecord(e);
-      return t.reduce(function (e, t) {
-        return (
-          t != null &&
-            e.set(t.id, {
-              username: t.username,
-              usernameCountryCode: t.usernameCountryCode,
-              usernameSoftDeleted: t.usernameSoftDeleted,
-            }),
-          e
-        );
-      }, new Map());
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebApiContact").getContactRecord(e);
+          if ((t == null ? void 0 : t.usernameCountryCode) != null)
+            return t.usernameCountryCode;
+          var n = o("WAWebWidFactory").asUserWidOrThrow(e),
+            r = o("WAWebCountryCodeUtils").getCountryCodeFromPn(n);
+          return r != null
+            ? r
+            : o("WAWebMexUsersGetCountryCode").getMexUserCountryCode(n);
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebApiContact").bulkGetContactRecord(e);
+          return t.reduce(function (e, t) {
+            return (
+              t != null &&
+                e.set(t.id, {
+                  username: t.username,
+                  usernameCountryCode: t.usernameCountryCode,
+                  usernameSoftDeleted: t.usernameSoftDeleted,
+                }),
+              e
+            );
+          }, new Map());
+        })),
+        p.apply(this, arguments)
+      );
     }
     ((l.getContactUsername = e),
-      (l.bulkUpdateUsernamesInDb = s),
-      (l.getOrFetchContactUsernameCountryCode = u),
-      (l.bulkGetContactToUsernameInfoMap = c));
+      (l.bulkUpdateUsernamesInDb = u),
+      (l.getOrFetchContactUsernameCountryCode = c),
+      (l.bulkGetContactToUsernameInfoMap = m));
   },
   98,
 );

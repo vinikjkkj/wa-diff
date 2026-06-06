@@ -5,6 +5,7 @@ __d(
     "WAWebAuraGating",
     "WAWebAuraRingtoneDownloader",
     "WAWebAuraRingtonePrefs",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,10 +31,18 @@ __d(
           o("WAWebAuraRingtonePrefs").resetToDefaultRingtone());
       }
     }
-    async function c() {
-      r("WAWebAuraGating").isRingtonesBenefitActive()
-        ? await o("WAWebAuraRingtoneDownloader").downloadPremiumRingtones()
-        : u();
+    function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("WAWebAuraGating").isRingtonesBenefitActive()
+            ? yield o("WAWebAuraRingtoneDownloader").downloadPremiumRingtones()
+            : u();
+        })),
+        d.apply(this, arguments)
+      );
     }
     ((l.checkAndRevertPremiumRingtones = u), (l.initSubscriptionCheck = c));
   },

@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupHistorySerializationUtils",
   [
+    "Promise",
     "WAWebDBGetReactions",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebEventResponseDBSerialization",
@@ -13,11 +14,13 @@ __d(
     "WAWebPollsVotesSchema",
     "WAWebProtobufMsgKeyUtils",
     "WAWebProtobufsWeb.pb",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e;
+    function s(e) {
       return e.reduce(function (e, t) {
         var n,
           r = t.parentMsgKey;
@@ -30,75 +33,83 @@ __d(
         );
       }, new Map());
     }
-    async function s(t) {
-      var n = o("WAWebDBGetReactions").getAllReactionsFromParentMsgs(
-          t
-            .filter(function (e) {
-              return e.hasReaction;
-            })
-            .map(function (e) {
-              return e.id.toString();
-            }),
-        ),
-        r = p(
-          t
-            .filter(function (e) {
-              return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
-            })
-            .map(function (e) {
-              return e.id.toString();
-            }),
-        ),
-        a = _(
-          t.map(function (e) {
-            return e.id.toString();
-          }),
-        ),
-        i = f(
-          t
-            .filter(function (e) {
-              return e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION;
-            })
-            .map(function (e) {
-              return e.id.toString();
-            }),
-        ),
-        l = await Promise.allSettled([n, r, a, i]),
-        s = l[0],
-        u = l[1],
-        c = l[2],
-        m = l[3],
-        g = s.status === "fulfilled" ? e(s.value) : new Map(),
-        h = u.status === "fulfilled" ? e(u.value) : new Map(),
-        y =
-          c.status === "fulfilled"
-            ? new Map(
-                c.value.map(function (e) {
-                  return [e.parentMsgKey, e];
-                }),
-              )
-            : new Map(),
-        C = m.status === "fulfilled" ? e(m.value) : new Map(),
-        b = t.filter(function (e) {
-          return e.kicKey != null;
-        }),
-        v =
-          b.length > 0
-            ? new Map(
-                b.map(function (e) {
-                  return [e.id.toString(), d(e)];
-                }),
-              )
-            : new Map();
-      return {
-        reactions: g,
-        pollVotes: h,
-        pinInChat: y,
-        eventResponses: C,
-        keepInChat: v,
-      };
-    }
     function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = o("WAWebDBGetReactions").getAllReactionsFromParentMsgs(
+              t
+                .filter(function (e) {
+                  return e.hasReaction;
+                })
+                .map(function (e) {
+                  return e.id.toString();
+                }),
+            ),
+            a = f(
+              t
+                .filter(function (e) {
+                  return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
+                })
+                .map(function (e) {
+                  return e.id.toString();
+                }),
+            ),
+            i = g(
+              t.map(function (e) {
+                return e.id.toString();
+              }),
+            ),
+            l = h(
+              t
+                .filter(function (e) {
+                  return e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION;
+                })
+                .map(function (e) {
+                  return e.id.toString();
+                }),
+            ),
+            u = yield (e || (e = n("Promise"))).allSettled([r, a, i, l]),
+            c = u[0],
+            d = u[1],
+            m = u[2],
+            _ = u[3],
+            y = c.status === "fulfilled" ? s(c.value) : new Map(),
+            C = d.status === "fulfilled" ? s(d.value) : new Map(),
+            b =
+              m.status === "fulfilled"
+                ? new Map(
+                    m.value.map(function (e) {
+                      return [e.parentMsgKey, e];
+                    }),
+                  )
+                : new Map(),
+            v = _.status === "fulfilled" ? s(_.value) : new Map(),
+            S = t.filter(function (e) {
+              return e.kicKey != null;
+            }),
+            R =
+              S.length > 0
+                ? new Map(
+                    S.map(function (e) {
+                      return [e.id.toString(), p(e)];
+                    }),
+                  )
+                : new Map();
+          return {
+            reactions: y,
+            pollVotes: C,
+            pinInChat: b,
+            eventResponses: v,
+            keepInChat: R,
+          };
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
       return {
         key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(
           r("WAWebMsgKey").fromString(e.msgKey),
@@ -108,7 +119,7 @@ __d(
         unread: !1,
       };
     }
-    function c(e) {
+    function m(e) {
       return {
         type: o("WAWebProtobufsWeb.pb").PinInChat$Type.cast(e.pinType),
         key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(
@@ -121,7 +132,7 @@ __d(
         },
       };
     }
-    function d(e) {
+    function p(e) {
       return {
         keepType: o("WAWebEphemeralKeepInChatUtils").kicStateToKeepType(
           e.kicState,
@@ -133,7 +144,7 @@ __d(
         serverTimestampMs: e.t != null ? e.t * 1e3 : null,
       };
     }
-    function m(e) {
+    function _(e) {
       return {
         eventResponseMessageKey: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(
           r("WAWebMsgKey").fromString(e.msgKey),
@@ -148,61 +159,77 @@ __d(
         unread: !1,
       };
     }
-    function p(e) {
+    function f(e) {
       return o("WAWebPollsVotesSchema").getTable().anyOf(["parentMsgKey"], e);
     }
-    function _(e) {
+    function g(e) {
       return o("WAWebPinInChatSchema").getTable().anyOf(["parentMsgKey"], e);
     }
-    function f(e) {
+    function h(e) {
       return o("WAWebEventResponsesSchema")
         .getTable()
         .anyOf(["parentMsgKey"], e);
     }
-    async function g(e, t) {
-      if (!e || !t.pollOptions) return null;
-      var n = await o(
-          "WAWebPollsCreateOptionLocalIdMap",
-        ).createOptionLocalIdMap(t.pollOptions),
-        a = e.map(function (e) {
-          var t = Array.from(new Uint8Array(e.selectedOptionLocalIds)),
-            a = t.map(n.getHashForLocalId);
-          return {
-            pollUpdateMessageKey: o(
-              "WAWebProtobufMsgKeyUtils",
-            ).msgKeyToProtobuf(r("WAWebMsgKey").fromString(e.msgKey)),
-            senderTimestampMs: e.senderTimestampMs,
-            unread: !1,
-            vote: { selectedOptions: a.length === 0 ? null : a },
-          };
-        });
-      return a;
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    async function h(e) {
-      var t,
-        n,
-        r,
-        a = e.eventResponses,
-        i = e.keepInChat,
-        l = e.msgData,
-        s = e.pinInChat,
-        d = e.pollVotes,
-        p = e.reactions,
-        _ = l.id.toString(),
-        f = await g(d.get(_), l),
-        h = s.get(_);
-      return o(
-        "WAWebMessagePluginGenerateWebMessageInfo",
-      ).generateWebMessageInfo(l, {
-        reactions:
-          (t = (n = p.get(_)) == null ? void 0 : n.map(u)) != null ? t : [],
-        pollUpdates: f,
-        pinInChat: h ? c(h) : void 0,
-        eventResponses: (r = a.get(_)) == null ? void 0 : r.map(m),
-        keepInChat: i.get(_),
-      });
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!e || !t.pollOptions) return null;
+          var n = yield o(
+              "WAWebPollsCreateOptionLocalIdMap",
+            ).createOptionLocalIdMap(t.pollOptions),
+            a = e.map(function (e) {
+              var t = Array.from(new Uint8Array(e.selectedOptionLocalIds)),
+                a = t.map(n.getHashForLocalId);
+              return {
+                pollUpdateMessageKey: o(
+                  "WAWebProtobufMsgKeyUtils",
+                ).msgKeyToProtobuf(r("WAWebMsgKey").fromString(e.msgKey)),
+                senderTimestampMs: e.senderTimestampMs,
+                unread: !1,
+                vote: { selectedOptions: a.length === 0 ? null : a },
+              };
+            });
+          return a;
+        })),
+        C.apply(this, arguments)
+      );
     }
-    ((l.getAddonsDBRowFromParentMsgs = s), (l.serializeSingleMessage = h));
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r,
+            a = e.eventResponses,
+            i = e.keepInChat,
+            l = e.msgData,
+            s = e.pinInChat,
+            u = e.pollVotes,
+            c = e.reactions,
+            p = l.id.toString(),
+            f = yield y(u.get(p), l),
+            g = s.get(p);
+          return o(
+            "WAWebMessagePluginGenerateWebMessageInfo",
+          ).generateWebMessageInfo(l, {
+            reactions:
+              (t = (n = c.get(p)) == null ? void 0 : n.map(d)) != null ? t : [],
+            pollUpdates: f,
+            pinInChat: g ? m(g) : void 0,
+            eventResponses: (r = a.get(p)) == null ? void 0 : r.map(_),
+            keepInChat: i.get(p),
+          });
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    ((l.getAddonsDBRowFromParentMsgs = u), (l.serializeSingleMessage = b));
   },
   98,
 );

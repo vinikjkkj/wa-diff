@@ -12,6 +12,7 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
     "WAWebUprPaymentKeySyncGating",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -19,7 +20,7 @@ __d(
       u,
       c,
       d = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -29,119 +30,140 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.CustomPaymentMethods;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this;
-            if (o("WAWebMobilePlatforms").isSMB() !== !0)
-              return (
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[CustomPaymentMethodsSync] op not supported, not SMB",
-                    ])),
-                ),
-                n.map(function () {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Unsupported,
-                  };
-                })
-              );
-            var r =
-              o("WAWebABProps").getABPropConfigValue(
-                "payments_br_pix_phase_1_seller_sync_enabled",
-              ) === !0;
-            if (
-              !r &&
-              !o(
-                "WAWebUprPaymentKeySyncGating",
-              ).isCustomPaymentMethodsSyncEnabled()
-            )
-              return (
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[CustomPaymentMethodsSync] op not supported, ABProp fail",
-                    ])),
-                ),
-                n.map(function () {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Unsupported,
-                  };
-                })
-              );
-            var a = 0,
-              i = 0,
-              l = n.map(function (e) {
-                var n;
-                if (e.operation !== "set")
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = this;
+                if (o("WAWebMobilePlatforms").isSMB() !== !0)
                   return (
-                    a++,
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    }
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[CustomPaymentMethodsSync] op not supported, not SMB",
+                        ])),
+                    ),
+                    t.map(function () {
+                      return {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      };
+                    })
                   );
                 var r =
-                  (n = e.value.customPaymentMethodsAction) == null
-                    ? void 0
-                    : n.customPaymentMethods;
-                return r == null
-                  ? (i++,
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      t.collectionName,
-                    ))
-                  : (o("WAWebBackendApi").frontendFireAndForget(
-                      "setCustomPaymentMethods",
-                      { customPaymentMethods: r },
+                  o("WAWebABProps").getABPropConfigValue(
+                    "payments_br_pix_phase_1_seller_sync_enabled",
+                  ) === !0;
+                if (
+                  !r &&
+                  !o(
+                    "WAWebUprPaymentKeySyncGating",
+                  ).isCustomPaymentMethodsSyncEnabled()
+                )
+                  return (
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[CustomPaymentMethodsSync] op not supported, ABProp fail",
+                        ])),
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Success });
-              });
-            return (
-              a > 0 &&
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Custom Payment Methods sync: ",
-                      " operations not supported",
-                    ])),
-                  a,
-                ),
-              i > 0 &&
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "Custom Payment Methods sync: ",
-                      " malformed mutations",
-                    ])),
-                  i,
-                ),
-              l
+                    t.map(function () {
+                      return {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      };
+                    })
+                  );
+                var a = 0,
+                  i = 0,
+                  l = t.map(function (e) {
+                    var t;
+                    if (e.operation !== "set")
+                      return (
+                        a++,
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    var r =
+                      (t = e.value.customPaymentMethodsAction) == null
+                        ? void 0
+                        : t.customPaymentMethods;
+                    return r == null
+                      ? (i++,
+                        o("WAWebSyncdIndexUtils").malformedActionValue(
+                          n.collectionName,
+                        ))
+                      : (o("WAWebBackendApi").frontendFireAndForget(
+                          "setCustomPaymentMethods",
+                          { customPaymentMethods: r },
+                        ),
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Success,
+                        });
+                  });
+                return (
+                  a > 0 &&
+                    o("WALogger").WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Custom Payment Methods sync: ",
+                          " operations not supported",
+                        ])),
+                      a,
+                    ),
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "Custom Payment Methods sync: ",
+                          " malformed mutations",
+                        ])),
+                      i,
+                    ),
+                  l
+                );
+              },
             );
-          }),
-          (r.getCustomPaymentMethodSetMutation = async function (t) {
-            var e = o("WATimeUtils").unixTimeMs(),
-              n = { customPaymentMethodsAction: t },
-              r = o("WAWebSyncdActionUtils").buildPendingMutation({
-                collection: this.collectionName,
-                indexArgs: [],
-                value: n,
-                version: this.getVersion(),
-                operation: o("WAWebProtobufsServerSync.pb")
-                  .SyncdMutation$SyncdOperation.SET,
-                timestamp: e,
-                action: this.getAction(),
-              });
+            function r(e) {
+              return t.apply(this, arguments);
+            }
             return r;
-          }),
-          n
+          })()),
+          (a.getCustomPaymentMethodSetMutation = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = o("WATimeUtils").unixTimeMs(),
+                  n = { customPaymentMethodsAction: e },
+                  r = o("WAWebSyncdActionUtils").buildPendingMutation({
+                    collection: this.collectionName,
+                    indexArgs: [],
+                    value: n,
+                    version: this.getVersion(),
+                    operation: o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.SET,
+                    timestamp: t,
+                    action: this.getAction(),
+                  });
+                return r;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       m = new d();

@@ -2,6 +2,7 @@ __d(
   "WAWebDebugFlipper",
   [
     "JSResourceForInteraction",
+    "Promise",
     "ReconnectingWebSocket",
     "WAComms",
     "WALogger",
@@ -13,6 +14,7 @@ __d(
     "WAWebNoop",
     "WAWebSignalKeyApi",
     "WAWebSignalStoreApi",
+    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -22,199 +24,225 @@ __d(
       u,
       c,
       d,
-      m = "WhatsApp Web";
-    async function p() {
-      var t = await r("JSResourceForInteraction")("js-flipper")
-          .__setRef("WAWebDebugFlipper")
-          .load(),
-        n = t.flipperClient,
-        a = !0;
-      n.start(m, {
-        websocketFactory: function (t) {
-          var e = new (r("ReconnectingWebSocket"))(t, void 0, {
-            reconnectInterval: 2e3,
-            timeoutInterval: 1e4,
-            automaticOpen: !1,
-          });
-          return (a && (e.open(!1), (a = !1)), e);
-        },
-        onError: r("WAWebNoop"),
-        reconnectTimeout: 1e4,
-      });
-      var i = await Promise.all([
-          o("WAComms").getComms(),
-          r("WASmaxMocksWasm")({
-            instantiateWasm: function (n, a) {
-              return (
-                WebAssembly.instantiateStreaming(
-                  self.fetch(
-                    o("WAWebBuildConstants").WEB_PUBLIC_PATH +
-                      "smax-mocks/smax_mocks_wasm.wasm",
-                  ),
-                  n,
-                )
-                  .then(function (e) {
-                    a(e.instance);
-                  })
-                  .catch(function (t) {
-                    o("WALogger").ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[smax] ",
-                          "",
-                        ])),
-                      r("getErrorSafe")(t),
-                    );
-                  }),
-                {}
-              );
+      m,
+      p = "WhatsApp Web";
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")("js-flipper")
+              .__setRef("WAWebDebugFlipper")
+              .load(),
+            t = e.flipperClient,
+            a = !0;
+          t.start(p, {
+            websocketFactory: function (t) {
+              var e = new (r("ReconnectingWebSocket"))(t, void 0, {
+                reconnectInterval: 2e3,
+                timeoutInterval: 1e4,
+                automaticOpen: !1,
+              });
+              return (a && (e.open(!1), (a = !1)), e);
             },
-          }),
-        ]),
-        l = i[0],
-        s = i[1];
-      if (l == null) throw r("err")("[smax] Failed to get comms");
-      n.addPlugin(new f(l, s));
+            onError: r("WAWebNoop"),
+            reconnectTimeout: 1e4,
+          });
+          var i = yield (m || (m = n("Promise"))).all([
+              o("WAComms").getComms(),
+              r("WASmaxMocksWasm")({
+                instantiateWasm: function (t, n) {
+                  return (
+                    WebAssembly.instantiateStreaming(
+                      self.fetch(
+                        o("WAWebBuildConstants").WEB_PUBLIC_PATH +
+                          "smax-mocks/smax_mocks_wasm.wasm",
+                      ),
+                      t,
+                    )
+                      .then(function (e) {
+                        n(e.instance);
+                      })
+                      .catch(function (e) {
+                        o("WALogger").ERROR(
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                              "[smax] ",
+                              "",
+                            ])),
+                          r("getErrorSafe")(e),
+                        );
+                      }),
+                    {}
+                  );
+                },
+              }),
+            ]),
+            l = i[0],
+            s = i[1];
+          if (l == null) throw r("err")("[smax] Failed to get comms");
+          t.addPlugin(new y(l, s));
+        })),
+        f.apply(this, arguments)
+      );
     }
-    async function _() {
-      var e = await r("JSResourceForInteraction")("js-flipper")
-          .__setRef("WAWebDebugFlipper")
-          .load(),
-        t = e.flipperClient;
-      t.stop();
+    function g() {
+      return h.apply(this, arguments);
     }
-    var f = (function () {
-        function e(e, t) {
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")("js-flipper")
+              .__setRef("WAWebDebugFlipper")
+              .load(),
+            t = e.flipperClient;
+          t.stop();
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    var y = (function () {
+        function t(e, t) {
           ((this.backend = null),
             (this.loggerId = null),
             (this.comms = e),
             (this.wasmModule = t));
         }
-        var t = e.prototype;
+        var a = t.prototype;
         return (
-          (t.getId = function () {
+          (a.getId = function () {
             return "wa-smax";
           }),
-          (t.onConnect = async function (t) {
-            var e = this,
-              n = new (o("WASmaxMockRunnerBackend").SmaxMockRunnerBackend)(
-                this.wasmModule,
-                function (e, n) {
-                  try {
-                    t.send(e, JSON.parse(n));
-                  } catch (e) {
-                    o("WALogger").ERROR(
+          (a.onConnect = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var a = this,
+                  i = new (o("WASmaxMockRunnerBackend").SmaxMockRunnerBackend)(
+                    this.wasmModule,
+                    function (n, r) {
+                      try {
+                        t.send(n, JSON.parse(r));
+                      } catch (t) {
+                        o("WALogger").ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[smax] ",
+                              "",
+                            ])),
+                          t,
+                        );
+                      }
+                    },
+                  ),
+                  l = o("WASmaxMockRunner").SmaxAutomaticMockRunner.fromRunner(
+                    i.wasmModule,
+                    i.runnerPointer,
+                  );
+                l.addSyncdKey(new Uint8Array(32));
+                var d = yield (m || (m = n("Promise"))).all([
+                    o(
+                      "WAWebSignalStoreApi",
+                    ).waSignalStore.getRegistrationInfo(),
+                    o("WAWebSignalStoreApi").waSignalStore.getOrGenSinglePreKey(
+                      o("WAWebSignalKeyApi").generatePreKeyPair,
+                    ),
+                    o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
+                  ]),
+                  p = d[0],
+                  _ = d[1],
+                  f = d[2];
+                (p != null && f != null
+                  ? (yield o(
+                      "WAWebSignalStoreApi",
+                    ).waSignalStore.markKeyAsUploaded(_.keyId),
+                    l.processPreKeyBundle("alice", {
+                      registrationId: p.registrationId,
+                      identity: new Uint8Array(p.identityKeyPair.pubKey),
+                      preKeys: [
+                        {
+                          id: _.keyId,
+                          data: new Uint8Array(_.keyPair.pubKey),
+                          signature: null,
+                        },
+                      ],
+                      signedPreKey: {
+                        id: f.keyId,
+                        data: new Uint8Array(f.keyPair.pubKey),
+                        signature: new Uint8Array(f.signature),
+                      },
+                      privateIdentity: null,
+                    }))
+                  : (o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[smax] ",
-                          "",
+                          "[smax] no signal keys - pre-pairing mode (plaintext only)",
                         ])),
-                      e,
-                    );
-                  }
-                },
-              ),
-              a = o("WASmaxMockRunner").SmaxAutomaticMockRunner.fromRunner(
-                n.wasmModule,
-                n.runnerPointer,
-              );
-            a.addSyncdKey(new Uint8Array(32));
-            var i = await Promise.all([
-                o("WAWebSignalStoreApi").waSignalStore.getRegistrationInfo(),
-                o("WAWebSignalStoreApi").waSignalStore.getOrGenSinglePreKey(
-                  o("WAWebSignalKeyApi").generatePreKeyPair,
-                ),
-                o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
-              ]),
-              l = i[0],
-              m = i[1],
-              p = i[2];
-            (l != null && p != null
-              ? (await o("WAWebSignalStoreApi").waSignalStore.markKeyAsUploaded(
-                  m.keyId,
-                ),
-                a.processPreKeyBundle("alice", {
-                  registrationId: l.registrationId,
-                  identity: new Uint8Array(l.identityKeyPair.pubKey),
-                  preKeys: [
-                    {
-                      id: m.keyId,
-                      data: new Uint8Array(m.keyPair.pubKey),
-                      signature: null,
-                    },
-                  ],
-                  signedPreKey: {
-                    id: p.keyId,
-                    data: new Uint8Array(p.keyPair.pubKey),
-                    signature: new Uint8Array(p.signature),
-                  },
-                  privateIdentity: null,
-                }))
-              : (o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[smax] no signal keys - pre-pairing mode (plaintext only)",
-                    ])),
-                ),
-                t.send("log", {
-                  message:
-                    "Signal keys not available. Running in pre-pairing mode: plaintext stanza injection works, but encrypted message mocks require pairing first.",
-                })),
-              a.subscribe(function (t) {
-                if (t.type === "Injection") {
-                  var n = o("WAWap").decodeStanzaDebug(t.data),
-                    a = Promise.resolve(
-                      e.comms.handleStanza(
-                        n,
-                        e.comms.socketId,
-                        t.data.byteLength,
-                      ),
-                    );
-                  a.then(function (t) {
-                    if (!(t === "CLOSE_SOCKET" || t === "NO_ACK"))
-                      return e.comms.castStanza(t);
-                  }).catch(function (e) {
-                    o("WALogger").ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[smax] ",
-                          "",
-                        ])),
-                      r("getErrorSafe")(e),
-                    );
-                  });
-                }
-              }),
-              t.receive("rpc", function (e) {
-                return n.handleRpc(e);
-              }),
-              (this.backend = n),
-              (this.comms.config.handlers.onBeforeCastStanzaForE2E = function (
-                e,
-              ) {
-                try {
-                  var n = o("WAWap").encodeStanza(e);
-                  return (a.match(n), []);
-                } catch (e) {
-                  var i = r("getErrorSafe")(e);
-                  (o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[smax] ",
-                        "",
-                      ])),
-                    i,
-                  ),
-                    t.send("log", { message: i.message }));
-                }
-              }),
-              (this.loggerId = o("WASmaxMockRunner")
-                .getSmaxLogEmitter(this.wasmModule)
-                .subscribe(function (e) {
-                  t.send("log", { message: e });
-                })));
-          }),
-          (t.onDisconnect = function () {
+                    ),
+                    t.send("log", {
+                      message:
+                        "Signal keys not available. Running in pre-pairing mode: plaintext stanza injection works, but encrypted message mocks require pairing first.",
+                    })),
+                  l.subscribe(function (e) {
+                    if (e.type === "Injection") {
+                      var t = o("WAWap").decodeStanzaDebug(e.data),
+                        i = (m || (m = n("Promise"))).resolve(
+                          a.comms.handleStanza(
+                            t,
+                            a.comms.socketId,
+                            e.data.byteLength,
+                          ),
+                        );
+                      i.then(function (e) {
+                        if (!(e === "CLOSE_SOCKET" || e === "NO_ACK"))
+                          return a.comms.castStanza(e);
+                      }).catch(function (e) {
+                        o("WALogger").ERROR(
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                              "[smax] ",
+                              "",
+                            ])),
+                          r("getErrorSafe")(e),
+                        );
+                      });
+                    }
+                  }),
+                  t.receive("rpc", function (e) {
+                    return i.handleRpc(e);
+                  }),
+                  (this.backend = i),
+                  (this.comms.config.handlers.onBeforeCastStanzaForE2E =
+                    function (e) {
+                      try {
+                        var n = o("WAWap").encodeStanza(e);
+                        return (l.match(n), []);
+                      } catch (e) {
+                        var a = r("getErrorSafe")(e);
+                        (o("WALogger").WARN(
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                              "[smax] ",
+                              "",
+                            ])),
+                          a,
+                        ),
+                          t.send("log", { message: a.message }));
+                      }
+                    }),
+                  (this.loggerId = o("WASmaxMockRunner")
+                    .getSmaxLogEmitter(this.wasmModule)
+                    .subscribe(function (e) {
+                      t.send("log", { message: e });
+                    })));
+              },
+            );
+            function a(e) {
+              return t.apply(this, arguments);
+            }
+            return a;
+          })()),
+          (a.onDisconnect = function () {
             this.backend != null &&
               (this.backend.cleanup(), (this.backend = null));
             var e = this.loggerId;
@@ -226,11 +254,11 @@ __d(
               this.comms != null &&
                 (this.comms.config.handlers.onBeforeCastStanzaForE2E = void 0));
           }),
-          e
+          t
         );
       })(),
-      g = { enableFlipperConnection: p, disableFlipperConnection: _ };
-    l.default = g;
+      C = { enableFlipperConnection: _, disableFlipperConnection: g };
+    l.default = C;
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeMediaTranscoder.v2577",
-  ["WALogger", "err"],
+  ["Promise", "WALogger", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -10,7 +10,8 @@ __d(
       m,
       p,
       _,
-      f = (function () {
+      f,
+      g = (function () {
         function t(t, n) {
           var r = this;
           ((this.$3 = new Map()),
@@ -35,9 +36,9 @@ __d(
             this.$1.addEventListener("onProgressChangedEvent", this.$5),
             this.$1.subscribe(null));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.requestSharedBufferForTranscoding = function (t, n) {
+          (a.requestSharedBufferForTranscoding = function (t, r) {
             var e = this;
             return (
               o("WALogger").LOG(
@@ -48,14 +49,14 @@ __d(
                     "",
                   ])),
                 t,
-                n,
+                r,
               ),
-              new Promise(function (r) {
-                (e.$3.set(t, r), e.$1.requestSharedBufferForTranscoding(t, n));
+              new (f || (f = n("Promise")))(function (n) {
+                (e.$3.set(t, n), e.$1.requestSharedBufferForTranscoding(t, r));
               })
             );
           }),
-          (n.performVideoTranscodingFromSharedBuffer = function (t, n, a) {
+          (a.performVideoTranscodingFromSharedBuffer = function (t, a, i) {
             var e = this;
             return (
               o("WALogger").LOG(
@@ -67,54 +68,64 @@ __d(
                     "",
                   ])),
                 t,
-                n,
                 a,
+                i,
               ),
-              new Promise(async function (i, l) {
-                e.$3.set(n, i);
-                try {
-                  var s = await e.$1.performVideoTranscodingFromSharedBuffer(
-                    t,
-                    n,
-                    a,
+              new (f || (f = n("Promise")))(
+                (function () {
+                  var l = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (n, l) {
+                      e.$3.set(a, n);
+                      try {
+                        var s =
+                          yield e.$1.performVideoTranscodingFromSharedBuffer(
+                            t,
+                            a,
+                            i,
+                          );
+                        s
+                          ? o("WALogger").LOG(
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[performVideoTranscodingFromSharedBuffer] Video transcoding initiated successfully, waiting for result buffer",
+                                ])),
+                            )
+                          : (e.$3.delete(a),
+                            o("WALogger").ERROR(
+                              c ||
+                                (c = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[performVideoTranscodingFromSharedBuffer] Video transcoding failed for sourceBufferId=",
+                                  ", resultBufferId=",
+                                  " with maxResultSize=",
+                                  "",
+                                ])),
+                              t,
+                              a,
+                              i,
+                            ),
+                            l(r("err")("Video transcoding failed")));
+                      } catch (t) {
+                        (e.$3.delete(a),
+                          o("WALogger").ERROR(
+                            m ||
+                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                                "[performVideoTranscodingFromSharedBuffer] Error during video transcoding: ",
+                                "",
+                              ])),
+                            String(t),
+                          ),
+                          l(t));
+                      }
+                    },
                   );
-                  s
-                    ? o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[performVideoTranscodingFromSharedBuffer] Video transcoding initiated successfully, waiting for result buffer",
-                          ])),
-                      )
-                    : (e.$3.delete(n),
-                      o("WALogger").ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[performVideoTranscodingFromSharedBuffer] Video transcoding failed for sourceBufferId=",
-                            ", resultBufferId=",
-                            " with maxResultSize=",
-                            "",
-                          ])),
-                        t,
-                        n,
-                        a,
-                      ),
-                      l(r("err")("Video transcoding failed")));
-                } catch (t) {
-                  (e.$3.delete(n),
-                    o("WALogger").ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[performVideoTranscodingFromSharedBuffer] Error during video transcoding: ",
-                          "",
-                        ])),
-                      String(t),
-                    ),
-                    l(t));
-                }
-              })
+                  return function (e, t) {
+                    return l.apply(this, arguments);
+                  };
+                })(),
+              )
             );
           }),
-          (n.releaseSharedBuffer = function (t) {
+          (a.releaseSharedBuffer = function (t) {
             (o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -125,7 +136,7 @@ __d(
             ),
               this.$1.releaseSharedBuffer(t));
           }),
-          (n.$4 = function (t) {
+          (a.$4 = function (t) {
             if (
               t.additionalData &&
               t.additionalData.Source === "MediaTranscodingService"
@@ -154,7 +165,7 @@ __d(
           t
         );
       })();
-    l.WindowsHybridBridgeMediaTranscoder_v2577 = f;
+    l.WindowsHybridBridgeMediaTranscoder_v2577 = g;
   },
   98,
 );

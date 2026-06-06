@@ -7,6 +7,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -56,12 +57,20 @@ __d(
         getCacheTtlMs: o("WAWebNewsletterGatingUtils")
           .getNewsletterSubscriberListCacheRefreshMs,
       });
-    async function p(e) {
-      var t = { view: d.LIMITED, newsletterJid: e },
-        n = { view: d.FULL, newsletterJid: e };
-      (await m.remove(t), await m.remove(n));
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    var _ = new (o("WAWebTimedCache").TimedMapCache)({
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = { view: d.LIMITED, newsletterJid: e },
+            n = { view: d.FULL, newsletterJid: e };
+          (yield m.remove(t), yield m.remove(n));
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    var f = new (o("WAWebTimedCache").TimedMapCache)({
         mapLoad: function () {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").KEYS
@@ -78,7 +87,7 @@ __d(
         getCacheTtlMs: o("WAWebNewsletterGatingUtils")
           .getNewsletterDirectoryPageRefreshInterval,
       }),
-      f = new (o("WAWebTimedCache").TimedMapCache)({
+      g = new (o("WAWebTimedCache").TimedMapCache)({
         mapLoad: function () {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").KEYS
@@ -102,8 +111,8 @@ __d(
       (l.ValidCachedNewsletterSubscriberKeys = d),
       (l.NewsletterSubscribersCache = m),
       (l.flushCachedNewsletterSubscribers = p),
-      (l.NewsletterDirectoryPageCache = _),
-      (l.NewsletterDirectoryCategoriesPreviewCache = f));
+      (l.NewsletterDirectoryPageCache = f),
+      (l.NewsletterDirectoryCategoriesPreviewCache = g));
   },
   98,
 );

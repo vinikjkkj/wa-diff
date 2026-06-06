@@ -1,32 +1,40 @@
 __d(
   "WAWebApiPrivacyDisallowedList",
-  ["WALogger", "WAWebSchemaPrivacyDisallowedList"],
+  ["WALogger", "WAWebSchemaPrivacyDisallowedList", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e;
-    async function s() {
-      try {
-        var t = await o("WAWebSchemaPrivacyDisallowedList")
-          .getPrivacyDisallowedListTable()
-          .all();
-        return u(t);
-      } catch (t) {
-        return (
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[privacy_settings_drawer] get disallowed lists failed",
-                ])),
-            )
-            .verbose()
-            .sendLogs(
-              "privacy_settings_drawer: get all privacy disallowed lists failed",
-            ),
-          { about: null, groupadd: null, last: null, profile: null }
-        );
-      }
+    function s() {
+      return u.apply(this, arguments);
     }
-    function u(e) {
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var t = yield o("WAWebSchemaPrivacyDisallowedList")
+              .getPrivacyDisallowedListTable()
+              .all();
+            return c(t);
+          } catch (t) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[privacy_settings_drawer] get disallowed lists failed",
+                    ])),
+                )
+                .verbose()
+                .sendLogs(
+                  "privacy_settings_drawer: get all privacy disallowed lists failed",
+                ),
+              { about: null, groupadd: null, last: null, profile: null }
+            );
+          }
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e) {
       var t = { about: null, groupadd: null, last: null, profile: null };
       return (
         e.forEach(function (e) {
@@ -72,7 +80,7 @@ __d(
         t
       );
     }
-    ((l.queryDisallowedLists = s), (l.disallowedRowsToLists = u));
+    ((l.queryDisallowedLists = s), (l.disallowedRowsToLists = c));
   },
   98,
 );

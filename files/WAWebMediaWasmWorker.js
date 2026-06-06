@@ -2,6 +2,7 @@ __d(
   "WAWebMediaWasmWorker",
   [
     "HandleTranscodeToMp4Request",
+    "Promise",
     "VideoTranscodeToMp4",
     "VideoTranscodeUtils",
     "WACryptoHmac",
@@ -15,305 +16,381 @@ __d(
     "WAResultOrError",
     "WorkerMessagePort",
     "WorkerSelf",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new (o("WorkerMessagePort").WorkerSyncedMessagePort)(
-      self,
-      "WAWebMediaWasmWorker",
-    );
+    var e,
+      s = new (o("WorkerMessagePort").WorkerSyncedMessagePort)(
+        self,
+        "WAWebMediaWasmWorker",
+      );
     self.onerror = function (e) {
       var t = "Uncaught error in WAWebMediaWasmWorker: " + e.toString();
-      s("error", t);
+      u("error", t);
     };
-    async function s(t, n) {
-      var r = await e.fullyConnected;
-      r.postMessage({ type: "log", logType: t, message: n });
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    async function u(t) {
-      var n = await e.fullyConnected;
-      n.postMessage(babelHelpers.extends({ type: "qpl" }, t));
-    }
-    async function c(t) {
-      var n = t.buffer,
-        r = t.output,
-        o = t.requestId,
-        a = await e.fullyConnected;
-      a.postMessage(
-        {
-          type: "calculateFilehashResponse",
-          output: r,
-          transferredBuffer: n,
-          requestId: o,
-        },
-        [n],
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield s.fullyConnected;
+          n.postMessage({ type: "log", logType: e, message: t });
+        })),
+        c.apply(this, arguments)
       );
     }
-    async function d(t) {
-      var n = t.buffer,
-        r = t.keyBuffer,
-        o = t.output,
-        a = t.requestId,
-        i = await e.fullyConnected;
-      i.postMessage(
-        {
-          type: "calculateHmacSha256Response",
-          output: o,
-          transferredKeyBuffer: r,
-          transferredBuffer: n,
-          requestId: a,
-        },
-        [r, n],
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield s.fullyConnected;
+          t.postMessage(babelHelpers.extends({ type: "qpl" }, e));
+        })),
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.buffer,
+            n = e.output,
+            r = e.requestId,
+            o = yield s.fullyConnected;
+          o.postMessage(
+            {
+              type: "calculateFilehashResponse",
+              output: n,
+              transferredBuffer: t,
+              requestId: r,
+            },
+            [t],
+          );
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.buffer,
+            n = e.keyBuffer,
+            r = e.output,
+            o = e.requestId,
+            a = yield s.fullyConnected;
+          a.postMessage(
+            {
+              type: "calculateHmacSha256Response",
+              output: r,
+              transferredKeyBuffer: n,
+              transferredBuffer: t,
+              requestId: o,
+            },
+            [n, t],
+          );
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
       return o("WAKaleidoscopeMp4RepairMux").mp4RepairMux({ input: e });
     }
-    async function p(t) {
-      var n = t.output,
-        r = t.requestId,
-        o = await e.fullyConnected;
-      o.postMessage(
-        { output: n, requestId: r, type: "transcodeToMp4Response" },
-        n.success ? [n.value] : void 0,
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.output,
+            n = e.requestId,
+            r = yield s.fullyConnected;
+          r.postMessage(
+            { output: t, requestId: n, type: "transcodeToMp4Response" },
+            t.success ? [t.value] : void 0,
+          );
+        })),
+        C.apply(this, arguments)
       );
     }
-    async function _(t) {
-      var n = t.operation,
-        r = t.output,
-        o = t.requestId,
-        a = await e.fullyConnected;
-      a.postMessage(
-        {
-          type: "mediaOperationResponse",
-          operation: n,
-          output: r,
-          requestId: o,
-        },
-        r.success ? [r.value] : void 0,
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.operation,
+            n = e.output,
+            r = e.requestId,
+            o = yield s.fullyConnected;
+          o.postMessage(
+            {
+              type: "mediaOperationResponse",
+              operation: t,
+              output: n,
+              requestId: r,
+            },
+            n.success ? [n.value] : void 0,
+          );
+        })),
+        v.apply(this, arguments)
       );
     }
-    async function f(t) {
-      var n = t.input,
-        r = t.output,
-        o = t.requestId,
-        a = await e.fullyConnected;
-      a.postMessage(
-        {
-          type: "kaleidoscopeClassifyResponse",
-          output: r,
-          transferredBuffer: n,
-          requestId: o,
-        },
-        [n],
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.input,
+            n = e.output,
+            r = e.requestId,
+            o = yield s.fullyConnected;
+          o.postMessage(
+            {
+              type: "kaleidoscopeClassifyResponse",
+              output: n,
+              transferredBuffer: t,
+              requestId: r,
+            },
+            [t],
+          );
+        })),
+        R.apply(this, arguments)
       );
     }
-    (o("WorkerSelf").init(e),
-      o("WAMediaWasmWorkerMainThreadBridge").initBridgePort(e),
-      e.addMessageListener("calculateFilehashRequest", function (e) {
-        return Promise.resolve()
-          .then(async function () {
-            var t = await o("WACryptoSha256").sha256Base64(e.buffer);
-            return c({
-              output: o("WAResultOrError").makeResult(t),
-              buffer: e.buffer,
-              requestId: e.requestId,
-            });
-          })
-          .catch(function (t) {
+    (o("WorkerSelf").init(s),
+      o("WAMediaWasmWorkerMainThreadBridge").initBridgePort(s),
+      s.addMessageListener("calculateFilehashRequest", function (t) {
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o("WACryptoSha256").sha256Base64(t.buffer);
+              return p({
+                output: o("WAResultOrError").makeResult(e),
+                buffer: t.buffer,
+                requestId: t.requestId,
+              });
+            }),
+          )
+          .catch(function (e) {
             var n =
               "calculateFilehash has runtime-error " +
-              o("WAErrorMessage").maybeGetMessageFromError(t);
-            return c({
+              o("WAErrorMessage").maybeGetMessageFromError(e);
+            return p({
               output: o("WAResultOrError").makeError({
                 errorMessage: n,
                 errorType: "runtime-error",
               }),
-              buffer: e.buffer,
-              requestId: e.requestId,
+              buffer: t.buffer,
+              requestId: t.requestId,
             });
           });
       }),
-      e.addMessageListener("calculateHmacSha256Request", function (e) {
-        return Promise.resolve()
-          .then(async function () {
-            var t = await o("WACryptoHmac").hmacSha256(
-              e.keyBuffer,
-              e.buffer,
-              e.length,
-            );
-            return d({
-              output: o("WAResultOrError").makeResult(t),
-              keyBuffer: e.keyBuffer,
-              buffer: e.buffer,
-              requestId: e.requestId,
-            });
-          })
-          .catch(function (t) {
+      s.addMessageListener("calculateHmacSha256Request", function (t) {
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o("WACryptoHmac").hmacSha256(
+                t.keyBuffer,
+                t.buffer,
+                t.length,
+              );
+              return f({
+                output: o("WAResultOrError").makeResult(e),
+                keyBuffer: t.keyBuffer,
+                buffer: t.buffer,
+                requestId: t.requestId,
+              });
+            }),
+          )
+          .catch(function (e) {
             var n =
               "calculateHmacSha256 has runtime-error " +
-              o("WAErrorMessage").maybeGetMessageFromError(t);
-            return d({
+              o("WAErrorMessage").maybeGetMessageFromError(e);
+            return f({
               output: o("WAResultOrError").makeError({
                 errorMessage: n,
                 errorType: "runtime-error",
               }),
-              keyBuffer: e.keyBuffer,
-              buffer: e.buffer,
-              requestId: e.requestId,
+              keyBuffer: t.keyBuffer,
+              buffer: t.buffer,
+              requestId: t.requestId,
             });
           });
       }),
-      e.addMessageListener("transcodeToMp4Request", function (e) {
-        var t = e.input,
-          n = e.mimeType,
-          r = e.qplData,
-          a = e.supportsHevc,
-          i = o("WAMediaWasmWorkerQplProxy").continueQplMediaWasmWorkeQplFlow(
-            r.event,
-            r.instanceKey,
+      s.addMessageListener("transcodeToMp4Request", function (t) {
+        var r = t.input,
+          a = t.mimeType,
+          i = t.qplData,
+          l = t.supportsHevc,
+          s = o("WAMediaWasmWorkerQplProxy").continueQplMediaWasmWorkeQplFlow(
+            i.event,
+            i.instanceKey,
           );
-        return Promise.resolve()
-          .then(async function () {
-            var r = await o(
-              "HandleTranscodeToMp4Request",
-            ).handleTranscodeToMp4Request({
-              input: t,
-              runMp4RepairMux: m,
-              transcodeToMp4Module: {
-                getOptionalMetadata: o("VideoTranscodeToMp4")
-                  .getOptionalMetadata,
-                transcode: o("VideoTranscodeToMp4").transcode,
-              },
-              qplFlow: i,
-              mimeType: n,
-              supportsHevc: a,
-            });
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
+                "HandleTranscodeToMp4Request",
+              ).handleTranscodeToMp4Request({
+                input: r,
+                runMp4RepairMux: h,
+                transcodeToMp4Module: {
+                  getOptionalMetadata: o("VideoTranscodeToMp4")
+                    .getOptionalMetadata,
+                  transcode: o("VideoTranscodeToMp4").transcode,
+                },
+                qplFlow: s,
+                mimeType: a,
+                supportsHevc: l,
+              });
+              return (
+                o("VideoTranscodeUtils").annotateTranscodeReponse({
+                  maybeTranscodeResponse: e.success
+                    ? e.value.transcodeResponse
+                    : e.error.transcodeResponse,
+                  eventFlow: s,
+                }),
+                y({
+                  output: e.success
+                    ? o("WAResultOrError").makeResult(e.value.buffer)
+                    : o("WAResultOrError").makeError(e.error.error),
+                  requestId: t.requestId,
+                })
+              );
+            }),
+          )
+          .catch(function (e) {
             return (
-              o("VideoTranscodeUtils").annotateTranscodeReponse({
-                maybeTranscodeResponse: r.success
-                  ? r.value.transcodeResponse
-                  : r.error.transcodeResponse,
-                eventFlow: i,
-              }),
-              p({
-                output: r.success
-                  ? o("WAResultOrError").makeResult(r.value.buffer)
-                  : o("WAResultOrError").makeError(r.error.error),
-                requestId: e.requestId,
-              })
-            );
-          })
-          .catch(function (t) {
-            return (
-              i.addPoint("handle_transcode_runtime_error"),
-              p({
+              s.addPoint("handle_transcode_runtime_error"),
+              y({
                 output: o("WAResultOrError").makeError({
                   errorType: "runtime-error",
                   errorMessage:
                     "operation: transcodeToMp4 has runtime-error " +
-                    o("WAErrorMessage").maybeGetMessageFromError(t),
+                    o("WAErrorMessage").maybeGetMessageFromError(e),
                 }),
-                requestId: e.requestId,
+                requestId: t.requestId,
               })
             );
           });
       }),
-      e.addMessageListener("mediaOperationRequest", function (e) {
-        return Promise.resolve()
-          .then(async function () {
-            var t = e.input,
-              n = e.operation,
-              r = e.requestId,
-              a = await m(t);
-            if (a.success === !1) {
-              s("error", a.error);
-              var i = o("WAResultOrError").makeError({
-                errorType: a.error,
-                errorMessage: "mp4RepairMux failed",
-              });
-              return _({ output: i, operation: n, requestId: r });
-            }
-            var l = o("WAResultOrError").makeResult(a.value);
-            return _({ output: l, operation: n, requestId: r });
-          })
-          .catch(function (t) {
+      s.addMessageListener("mediaOperationRequest", function (t) {
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = t.input,
+                n = t.operation,
+                r = t.requestId,
+                a = yield h(e);
+              if (a.success === !1) {
+                u("error", a.error);
+                var i = o("WAResultOrError").makeError({
+                  errorType: a.error,
+                  errorMessage: "mp4RepairMux failed",
+                });
+                return b({ output: i, operation: n, requestId: r });
+              }
+              var l = o("WAResultOrError").makeResult(a.value);
+              return b({ output: l, operation: n, requestId: r });
+            }),
+          )
+          .catch(function (e) {
             var n =
               "operation: " +
-              e.operation +
+              t.operation +
               " has runtime-error " +
-              o("WAErrorMessage").maybeGetMessageFromError(t);
-            return _({
+              o("WAErrorMessage").maybeGetMessageFromError(e);
+            return b({
               output: o("WAResultOrError").makeError({
                 errorType: "runtime-error",
                 errorMessage: n,
               }),
-              operation: e.operation,
-              requestId: e.requestId,
+              operation: t.operation,
+              requestId: t.requestId,
             });
           });
       }),
-      e.addMessageListener("prewarm", function (e) {
-        return Promise.resolve()
-          .then(async function () {
-            switch (e.operation) {
-              case "mp4RepairMux":
-              case "kaleidoscopeClassify":
-                await o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm();
-                break;
-              default:
-                e.operation;
-            }
-          })
-          .catch(function (t) {
-            s(
+      s.addMessageListener("prewarm", function (t) {
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              switch (t.operation) {
+                case "mp4RepairMux":
+                case "kaleidoscopeClassify":
+                  yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm();
+                  break;
+                default:
+                  t.operation;
+              }
+            }),
+          )
+          .catch(function (e) {
+            u(
               "dev",
               "failed to prewarm operation: " +
-                e.operation +
+                t.operation +
                 ", error: " +
-                r("getErrorSafe")(t).message,
+                r("getErrorSafe")(e).message,
             );
           });
       }),
-      e.addMessageListener("kaleidoscopeClassifyRequest", function (e) {
-        return Promise.resolve()
-          .then(async function () {
-            var t = e.input,
-              n = e.mediaType,
-              r = e.rawMimeType,
-              a = e.requestId,
-              i = await o(
-                "WAKaleidoscopeClassify",
-              ).kaleidoscopeClassifyByMediaType(t, n, r);
-            return f({
-              output: i.success
-                ? o("WAResultOrError").makeResult({
-                    mimetype: i.value.mimetype,
-                    extension: i.value.extension,
-                    score: i.value.score,
-                  })
-                : i,
-              input: t,
-              requestId: a,
-            });
-          })
-          .catch(function (t) {
+      s.addMessageListener("kaleidoscopeClassifyRequest", function (t) {
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = t.input,
+                n = t.mediaType,
+                r = t.rawMimeType,
+                a = t.requestId,
+                i = yield o(
+                  "WAKaleidoscopeClassify",
+                ).kaleidoscopeClassifyByMediaType(e, n, r);
+              return S({
+                output: i.success
+                  ? o("WAResultOrError").makeResult({
+                      mimetype: i.value.mimetype,
+                      extension: i.value.extension,
+                      score: i.value.score,
+                    })
+                  : i,
+                input: e,
+                requestId: a,
+              });
+            }),
+          )
+          .catch(function (e) {
             return (
-              s(
+              u(
                 "error",
                 "kaleidoscopeClassify has runtime-error " +
-                  o("WAErrorMessage").maybeGetMessageFromError(t),
+                  o("WAErrorMessage").maybeGetMessageFromError(e),
               ),
-              f({
+              S({
                 output: o("WAResultOrError").makeError("wasm-runtime-error"),
-                input: e.input,
-                requestId: e.requestId,
+                input: t.input,
+                requestId: t.requestId,
               })
             );
           });
       }));
-    function g() {}
-    ((l.default = g), (l.sendLogToMainThread = s), (l.sendQplToMainThread = u));
+    function L() {}
+    ((l.default = L), (l.sendLogToMainThread = u), (l.sendQplToMainThread = d));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebAddonCommentMsgProcessor",
   [
+    "Promise",
     "WAWebAddonConstants",
     "WAWebAddonCreateMsgProcessor",
     "WAWebApiLatestChatBulkUpdates",
@@ -12,93 +13,149 @@ __d(
     "WAWebLastAddOnDBSerialization",
     "WAWebMsgType",
     "WAWebShouldUpdateLastAddOnPreview",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = o(
+    var e,
+      s = o(
         "WAWebAddonCreateMsgProcessor",
       ).createAddonMessageProcessorDualEncryptedWithMessageTraits({
         isEnabled: o("WAWebBoolFunc").returnTrue,
         convert: {
-          fromHistorySyncMsg: function (t) {
-            var e = o(
+          fromHistorySyncMsg: function (r) {
+            var t = o(
               "WAWebCommentParseWebMsgInfoComment",
-            ).parseWebMsgInfoComment(t);
-            return Promise.resolve(e);
+            ).parseWebMsgInfoComment(r);
+            return (e || (e = n("Promise"))).resolve(t);
           },
-          toDualEncryptedMsgData: async function (t, n) {
-            return t.kind === o("WAWebMsgType").MsgKind.CommentEncrypted
-              ? t
-              : o("WAWebCommentUtils").commentMsgDataToEncCommentMsgData(t, n);
-          },
-          toDualDecryptedMsgData: async function (t, n) {
-            return t.kind === o("WAWebMsgType").MsgKind.CommentDecrypted
-              ? t
-              : o("WAWebCommentUtils").encCommentMsgDataToCommentMsgData(t, n);
-          },
+          toDualEncryptedMsgData: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return e.kind === o("WAWebMsgType").MsgKind.CommentEncrypted
+                  ? e
+                  : o("WAWebCommentUtils").commentMsgDataToEncCommentMsgData(
+                      e,
+                      t,
+                    );
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+          toDualDecryptedMsgData: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return e.kind === o("WAWebMsgType").MsgKind.CommentDecrypted
+                  ? e
+                  : o("WAWebCommentUtils").encCommentMsgDataToCommentMsgData(
+                      e,
+                      t,
+                    );
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
         },
-        updateCollection: async function (t) {
-          await o("WAWebBackendApi").frontendSendAndReceive(
-            "upsertCommentModelCollection",
-            { comments: t.add, commentsToRemove: t.remove },
-          );
-        },
-        beforeUpsert: async function (n, r) {
-          var t = r.parents,
-            a = [];
-          for (var i of n)
-            if (i.kind === o("WAWebMsgType").MsgKind.CommentEncrypted) {
-              var l = await e.convert.toDualDecryptedMsgData(
-                i,
-                t.getForAddon(i),
-              );
-              a.push(l);
-            } else a.push(i);
-          return a;
-        },
-        afterUpsert: async function (t, n) {
-          var e = n.existingPlaceholderKeys,
-            r = n.parents,
-            a = n.processMode;
-          if (
-            a !== o("WAWebAddonConstants").AddonProcessMode.SendRetry &&
-            (await o(
-              "WAWebShouldUpdateLastAddOnPreview",
-            ).filterAndUpdateChatPreviews(
-              t.map(function (e) {
-                return o(
-                  "WAWebLastAddOnDBSerialization",
-                ).lastAddOnPreviewCandidateFromCommentRowType(
-                  o(
-                    "WAWebDBCommentMessageSerialization",
-                  ).dbRowFromCommentMessage(e),
-                );
-              }),
-            ),
-            a !== o("WAWebAddonConstants").AddonProcessMode.HistorySync)
-          ) {
-            var i =
-              e.size > 0
-                ? t.filter(function (t) {
-                    return !e.has(t.id.toString());
-                  })
-                : t;
-            await o("WAWebCommentUtils").updateReplyCount(i, r, []);
-            var l = await o("WAWebCommentUtils").genChatIdToLastTimestamp(t);
-            (await o("WAWebApiLatestChatBulkUpdates").latestChatBulkUpdates(l),
-              o("WAWebBackendApi").frontendFireAndForget("updateChatToLatest", {
-                chatIdToLatestUpdates: l,
-              }));
+        updateCollection: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "upsertCommentModelCollection",
+              { comments: e.add, commentsToRemove: e.remove },
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-        },
-        manageNotifications: async function (t) {
-          o("WAWebBackendApi").frontendFireAndForget(
-            "handleCommentNotification",
-            { comments: t.add, revokes: t.remove },
+          return t;
+        })(),
+        beforeUpsert: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = t.parents,
+                r = [];
+              for (var a of e)
+                if (a.kind === o("WAWebMsgType").MsgKind.CommentEncrypted) {
+                  var i = yield s.convert.toDualDecryptedMsgData(
+                    a,
+                    n.getForAddon(a),
+                  );
+                  r.push(i);
+                } else r.push(a);
+              return r;
+            },
           );
-        },
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        afterUpsert: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = t.existingPlaceholderKeys,
+                r = t.parents,
+                a = t.processMode;
+              if (
+                a !== o("WAWebAddonConstants").AddonProcessMode.SendRetry &&
+                (yield o(
+                  "WAWebShouldUpdateLastAddOnPreview",
+                ).filterAndUpdateChatPreviews(
+                  e.map(function (e) {
+                    return o(
+                      "WAWebLastAddOnDBSerialization",
+                    ).lastAddOnPreviewCandidateFromCommentRowType(
+                      o(
+                        "WAWebDBCommentMessageSerialization",
+                      ).dbRowFromCommentMessage(e),
+                    );
+                  }),
+                ),
+                a !== o("WAWebAddonConstants").AddonProcessMode.HistorySync)
+              ) {
+                var i =
+                  n.size > 0
+                    ? e.filter(function (e) {
+                        return !n.has(e.id.toString());
+                      })
+                    : e;
+                yield o("WAWebCommentUtils").updateReplyCount(i, r, []);
+                var l =
+                  yield o("WAWebCommentUtils").genChatIdToLastTimestamp(e);
+                (yield o("WAWebApiLatestChatBulkUpdates").latestChatBulkUpdates(
+                  l,
+                ),
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "updateChatToLatest",
+                    { chatIdToLatestUpdates: l },
+                  ));
+              }
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        manageNotifications: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            o("WAWebBackendApi").frontendFireAndForget(
+              "handleCommentNotification",
+              { comments: e.add, revokes: e.remove },
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       }),
-      s = e;
-    l.default = s;
+      u = s;
+    l.default = u;
   },
   98,
 );

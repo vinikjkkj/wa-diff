@@ -1,6 +1,7 @@
 __d(
   "WAWebDBCommunity",
   [
+    "Promise",
     "WABatcher",
     "WAWebDBCommunityTypes",
     "WAWebGroupsParticipantsApi",
@@ -8,195 +9,253 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaUnjoinedSubgroupMetadata",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = new Map(),
-        n = new Map();
-      (e.forEach(function (e) {
-        switch (
-          (e.subgroups.forEach(function (e) {
-            n.set(String(e.id), null);
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = new Map(),
+            a = new Map();
+          (t.forEach(function (e) {
+            switch (
+              (e.subgroups.forEach(function (e) {
+                a.set(String(e.id), null);
+              }),
+              e.action)
+            ) {
+              case o("WAWebDBCommunityTypes").CommunityLinkOperation
+                .SiblingGroupLink:
+              case o("WAWebDBCommunityTypes").CommunityLinkOperation
+                .SiblingGroupUnlink:
+                r.set(String(e.chatId), null);
+                break;
+              default:
+                return;
+            }
           }),
-          e.action)
-        ) {
-          case o("WAWebDBCommunityTypes").CommunityLinkOperation
-            .SiblingGroupLink:
-          case o("WAWebDBCommunityTypes").CommunityLinkOperation
-            .SiblingGroupUnlink:
-            t.set(String(e.chatId), null);
-            break;
-          default:
-            return;
-        }
-      }),
-        (
-          await o("WAWebSchemaGroupMetadata")
-            .getGroupMetadataTable()
-            .bulkGet(Array.from(t.keys()))
-        ).forEach(function (e) {
-          e && e.parentGroup != null && t.set(e.id, String(e.parentGroup));
-        }),
-        (
-          await o("WAWebSchemaChat")
-            .getChatTable()
-            .bulkGet(Array.from(n.keys()))
-        ).forEach(function (e) {
-          e && n.set(e.id, e);
-        }));
-      var r = new Map(),
-        a = new Map(),
-        i = new Set(),
-        l = function (t) {
-          var e = t.link,
-            o = t.parentGroupId,
-            l = t.subgroups;
-          l.forEach(function (t) {
-            var l = String(t.id),
-              s = n.get(l);
-            if (s != null && !s.isReadOnly)
-              r.set(l, { id: l, parentGroup: e ? o : void 0 });
-            else if (e) {
-              var u;
-              i.delete(l);
-              var c = {
-                  id: l,
-                  subject: t.subject,
-                  subjectTime: (u = t.subjectTime) != null ? u : 0,
-                  parentGroup: o,
-                },
-                d = a.get(l);
-              (d &&
-                d.subjectTime > c.subjectTime &&
-                ((c.subject = d.subject), (c.subjectTime = d.subjectTime)),
-                a.set(l, c));
-            } else (a.delete(l), i.add(l));
-          });
-        };
-      (e.forEach(function (e) {
-        var n = null,
-          r = !1;
-        switch (e.action) {
-          case o("WAWebDBCommunityTypes").CommunityLinkOperation
-            .SiblingGroupLink:
-            ((n = t.get(String(e.chatId))), (r = !0));
-            break;
-          case o("WAWebDBCommunityTypes").CommunityLinkOperation
-            .SiblingGroupUnlink:
-            ((n = t.get(String(e.chatId))), (r = !1));
-            break;
-          case o("WAWebDBCommunityTypes").CommunityLinkOperation.SubGroupLink:
-            ((n = String(e.chatId)), (r = !0));
-            break;
-          case o("WAWebDBCommunityTypes").CommunityLinkOperation.SubGroupUnlink:
-            ((n = String(e.chatId)), (r = !1));
-        }
-        n != null && l({ link: r, parentGroupId: n, subgroups: e.subgroups });
-      }),
-        await Promise.all([
-          o("WAWebSchemaGroupMetadata")
-            .getGroupMetadataTable()
-            .bulkCreateOrMerge(Array.from(r.values())),
-          o("WAWebSchemaUnjoinedSubgroupMetadata")
-            .getUnjoinedSubgroupMetadataTable()
-            .bulkRemove(Array.from(i)),
-          o("WAWebSchemaUnjoinedSubgroupMetadata")
-            .getUnjoinedSubgroupMetadataTable()
-            .bulkGet(Array.from(a.keys()))
-            .then(function (e) {
-              return (
-                e.forEach(function (e) {
-                  if (e) {
-                    var t = a.get(e.id);
-                    t &&
-                      e.subjectTime != null &&
-                      e.subjectTime > t.subjectTime &&
-                      ((t.subjectTime = e.subjectTime),
-                      (t.subject = e.subject));
-                  }
-                }),
-                o("WAWebSchemaUnjoinedSubgroupMetadata")
-                  .getUnjoinedSubgroupMetadataTable()
-                  .bulkCreateOrMerge(
-                    Array.from(a.values()).map(function (e) {
-                      return babelHelpers.extends({}, e);
-                    }),
-                  )
-              );
+            (yield o("WAWebSchemaGroupMetadata")
+              .getGroupMetadataTable()
+              .bulkGet(Array.from(r.keys()))).forEach(function (e) {
+              e && e.parentGroup != null && r.set(e.id, String(e.parentGroup));
             }),
-        ]));
+            (yield o("WAWebSchemaChat")
+              .getChatTable()
+              .bulkGet(Array.from(a.keys()))).forEach(function (e) {
+              e && a.set(e.id, e);
+            }));
+          var i = new Map(),
+            l = new Map(),
+            s = new Set(),
+            u = function (t) {
+              var e = t.link,
+                n = t.parentGroupId,
+                r = t.subgroups;
+              r.forEach(function (t) {
+                var r = String(t.id),
+                  o = a.get(r);
+                if (o != null && !o.isReadOnly)
+                  i.set(r, { id: r, parentGroup: e ? n : void 0 });
+                else if (e) {
+                  var u;
+                  s.delete(r);
+                  var c = {
+                      id: r,
+                      subject: t.subject,
+                      subjectTime: (u = t.subjectTime) != null ? u : 0,
+                      parentGroup: n,
+                    },
+                    d = l.get(r);
+                  (d &&
+                    d.subjectTime > c.subjectTime &&
+                    ((c.subject = d.subject), (c.subjectTime = d.subjectTime)),
+                    l.set(r, c));
+                } else (l.delete(r), s.add(r));
+              });
+            };
+          (t.forEach(function (e) {
+            var t = null,
+              n = !1;
+            switch (e.action) {
+              case o("WAWebDBCommunityTypes").CommunityLinkOperation
+                .SiblingGroupLink:
+                ((t = r.get(String(e.chatId))), (n = !0));
+                break;
+              case o("WAWebDBCommunityTypes").CommunityLinkOperation
+                .SiblingGroupUnlink:
+                ((t = r.get(String(e.chatId))), (n = !1));
+                break;
+              case o("WAWebDBCommunityTypes").CommunityLinkOperation
+                .SubGroupLink:
+                ((t = String(e.chatId)), (n = !0));
+                break;
+              case o("WAWebDBCommunityTypes").CommunityLinkOperation
+                .SubGroupUnlink:
+                ((t = String(e.chatId)), (n = !1));
+            }
+            t != null &&
+              u({ link: n, parentGroupId: t, subgroups: e.subgroups });
+          }),
+            yield (e || (e = n("Promise"))).all([
+              o("WAWebSchemaGroupMetadata")
+                .getGroupMetadataTable()
+                .bulkCreateOrMerge(Array.from(i.values())),
+              o("WAWebSchemaUnjoinedSubgroupMetadata")
+                .getUnjoinedSubgroupMetadataTable()
+                .bulkRemove(Array.from(s)),
+              o("WAWebSchemaUnjoinedSubgroupMetadata")
+                .getUnjoinedSubgroupMetadataTable()
+                .bulkGet(Array.from(l.keys()))
+                .then(function (e) {
+                  return (
+                    e.forEach(function (e) {
+                      if (e) {
+                        var t = l.get(e.id);
+                        t &&
+                          e.subjectTime != null &&
+                          e.subjectTime > t.subjectTime &&
+                          ((t.subjectTime = e.subjectTime),
+                          (t.subject = e.subject));
+                      }
+                    }),
+                    o("WAWebSchemaUnjoinedSubgroupMetadata")
+                      .getUnjoinedSubgroupMetadataTable()
+                      .bulkCreateOrMerge(
+                        Array.from(l.values()).map(function (e) {
+                          return babelHelpers.extends({}, e);
+                        }),
+                      )
+                  );
+                }),
+            ]));
+        })),
+        u.apply(this, arguments)
+      );
     }
-    var s = (function () {
+    var c = (function () {
       var t = 5e3;
-      return o("WABatcher").batch({ delayMs: t }, async function (t) {
-        return (await e(t), Promise.resolve(t.map(function (e) {})));
-      });
+      return o("WABatcher").batch(
+        { delayMs: t },
+        (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            return (
+              yield s(t),
+              (e || (e = n("Promise"))).resolve(t.map(function (e) {}))
+            );
+          });
+          return function (e) {
+            return t.apply(this, arguments);
+          };
+        })(),
+      );
     })();
-    function u(t, n, r, o) {
-      o === void 0 && (o = !1);
-      var a = { chatId: t, subgroups: n, action: r };
-      return o ? s(a) : e([a]);
+    function d(e, t, n, r) {
+      r === void 0 && (r = !1);
+      var o = { chatId: e, subgroups: t, action: n };
+      return r ? c(o) : s([o]);
     }
-    function c(e) {
+    function m(e) {
       return o("WAWebSchemaGroupMetadata")
         .getGroupMetadataTable()
         .equals(["parentGroup"], e.toString());
     }
-    async function d(e) {
-      return (await c(e)).find(function (e) {
-        return e.defaultSubgroup === !0;
-      });
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    async function m(e) {
-      var t = await d(e);
-      return t == null ? null : o("WAWebWidFactory").createWid(t.id);
-    }
-    async function p(e) {
-      var t = await c(e),
-        n = (
-          await o("WAWebGroupsParticipantsApi").bulkCheckMyMembership(
-            t.map(function (e) {
-              var t = e.id;
-              return o("WAWebWidFactory").createWid(t);
-            }),
-          )
-        ).map(function (e, n) {
-          return [t[n], e];
-        });
-      return n
-        .filter(function (e) {
-          var t = e[1];
-          return t;
-        })
-        .map(function (e) {
-          var t = e[0];
-          return t;
-        });
-    }
-    async function _(e) {
-      return (await p(e)).map(function (e) {
-        var t = e.id;
-        return o("WAWebWidFactory").createWid(t);
-      });
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (yield m(e)).find(function (e) {
+            return e.defaultSubgroup === !0;
+          });
+        })),
+        _.apply(this, arguments)
+      );
     }
     function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield p(e);
+          return t == null ? null : o("WAWebWidFactory").createWid(t.id);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(e),
+            n = (yield o("WAWebGroupsParticipantsApi").bulkCheckMyMembership(
+              t.map(function (e) {
+                var t = e.id;
+                return o("WAWebWidFactory").createWid(t);
+              }),
+            )).map(function (e, n) {
+              return [t[n], e];
+            });
+          return n
+            .filter(function (e) {
+              var t = e[1];
+              return t;
+            })
+            .map(function (e) {
+              var t = e[0];
+              return t;
+            });
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (yield h(e)).map(function (e) {
+            var t = e.id;
+            return o("WAWebWidFactory").createWid(t);
+          });
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
       return o("WAWebSchemaUnjoinedSubgroupMetadata")
         .getUnjoinedSubgroupMetadataTable()
         .equals(["parentGroup"], e.toString());
     }
-    async function g(e) {
-      var t = e.parentGroup;
-      if (t == null) return !1;
-      var n = o("WAWebWidFactory").createWid(e.id),
-        r = await _(o("WAWebWidFactory").createWid(t));
-      return r.length === 1 && r[0].equals(n);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    ((l.persistCommunityLink = u),
-      (l.getDefaultSubgroup = m),
-      (l.getJoinedSubgroupsMetadata = p),
-      (l.getJoinedSubgroups = _),
-      (l.getUnjoinedSubgroupsMetadata = f),
-      (l.isLastJoinedSubgroup = g));
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.parentGroup;
+          if (t == null) return !1;
+          var n = o("WAWebWidFactory").createWid(e.id),
+            r = yield C(o("WAWebWidFactory").createWid(t));
+          return r.length === 1 && r[0].equals(n);
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    ((l.persistCommunityLink = d),
+      (l.getDefaultSubgroup = f),
+      (l.getJoinedSubgroupsMetadata = h),
+      (l.getJoinedSubgroups = C),
+      (l.getUnjoinedSubgroupsMetadata = v),
+      (l.isLastJoinedSubgroup = S));
   },
   98,
 );

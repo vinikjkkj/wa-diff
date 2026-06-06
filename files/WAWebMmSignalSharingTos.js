@@ -6,6 +6,7 @@ __d(
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebTos",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,36 +18,44 @@ __d(
         ? e
         : "";
     }
-    async function u(e) {
-      if (
-        o(
-          "WAWebMmSignalSharingGatingUtils",
-        ).isMmSignalSharingDisclosureEnabled() &&
-        (o("WAWebTos").TosManager.setState(
-          s(),
-          "ACCEPTED",
-          o("WATimeUtils").unixTime(),
-        ),
-        o(
-          "WAWebMmSignalSharingGatingUtils",
-        ).isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens())
-      ) {
-        var t = o("WAWebContactSystemMsg").genMmSignalSharingSystemMsg(e);
-        await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-          chatId: e,
-          newMsg: t,
-          handleSingleMsgOrigin: "mmSignalSharing",
-        });
-      }
+    function u(e) {
+      return c.apply(this, arguments);
     }
     function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o(
+              "WAWebMmSignalSharingGatingUtils",
+            ).isMmSignalSharingDisclosureEnabled() &&
+            (o("WAWebTos").TosManager.setState(
+              s(),
+              "ACCEPTED",
+              o("WATimeUtils").unixTime(),
+            ),
+            o(
+              "WAWebMmSignalSharingGatingUtils",
+            ).isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens())
+          ) {
+            var t = o("WAWebContactSystemMsg").genMmSignalSharingSystemMsg(e);
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+              chatId: e,
+              newMsg: t,
+              handleSingleMsgOrigin: "mmSignalSharing",
+            });
+          }
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d() {
       return o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingDisclosureEnabled()
         ? o("WAWebTos").TosManager.getState(s()) === "ACCEPTED"
         : !1;
     }
-    function d() {
+    function m() {
       return o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingDisclosureEnabled()
@@ -54,17 +63,25 @@ __d(
             "ACCEPTED"
         : !1;
     }
-    async function m() {
-      o(
-        "WAWebMmSignalSharingGatingUtils",
-      ).isMmSignalSharingDisclosureEnabled() &&
-        (await o("WAWebTos").TosManager.run({ singleRun: !0 }));
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o(
+            "WAWebMmSignalSharingGatingUtils",
+          ).isMmSignalSharingDisclosureEnabled() &&
+            (yield o("WAWebTos").TosManager.run({ singleRun: !0 }));
+        })),
+        _.apply(this, arguments)
+      );
     }
     ((l.getMmSignalSharingDisclosureTosId = s),
       (l.acceptMmSignalSharingDisclosureTos = u),
-      (l.isMmSignalSharingDisclosureTosAccepted = c),
-      (l.is2021TosAccepted = d),
-      (l.refreshTos = m));
+      (l.isMmSignalSharingDisclosureTosAccepted = d),
+      (l.is2021TosAccepted = m),
+      (l.refreshTos = p));
   },
   98,
 );

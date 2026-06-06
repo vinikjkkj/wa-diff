@@ -1,45 +1,58 @@
 __d(
   "WAWebStatsUploadJob",
-  ["WALogger", "WASmaxStatsSendBufferRPC"],
+  [
+    "Promise",
+    "WALogger",
+    "WASmaxStatsSendBufferRPC",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    async function c(t, n) {
-      o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "fieldStatsUpload:sendSendBufferRPC start",
-          ])),
-      );
-      var r = await o("WASmaxStatsSendBufferRPC").sendSendBufferRPC({
-        addT: n,
-        addElementValue: t,
-      });
-      o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
-            "fieldStatsUpload:sendSendBufferRPC end",
-          ])),
-      );
-      var a;
-      if (r.name === "SendBufferResponseSuccess")
-        return (
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "fieldStatsUpload:sendSendBufferRPC SendBufferResponseSuccess",
-              ])),
-          ),
-          Promise.resolve()
-        );
-      r.name === "SendBufferResponseErrorNoRetry"
-        ? (a = r.value.errorSendBufferNoRetryError.value)
-        : (r.name, (a = r.value.errorIQErrorServiceUnavailableMixin));
-      var i = a,
-        l = i.code,
-        c = i.text;
-      return { errorCode: parseInt(l, 10), errorText: c };
+    var e, s, u, c;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    l.default = c;
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "fieldStatsUpload:sendSendBufferRPC start",
+              ])),
+          );
+          var a = yield o("WASmaxStatsSendBufferRPC").sendSendBufferRPC({
+            addT: r,
+            addElementValue: t,
+          });
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "fieldStatsUpload:sendSendBufferRPC end",
+              ])),
+          );
+          var i;
+          if (a.name === "SendBufferResponseSuccess")
+            return (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "fieldStatsUpload:sendSendBufferRPC SendBufferResponseSuccess",
+                  ])),
+              ),
+              (c || (c = n("Promise"))).resolve()
+            );
+          a.name === "SendBufferResponseErrorNoRetry"
+            ? (i = a.value.errorSendBufferNoRetryError.value)
+            : (a.name, (i = a.value.errorIQErrorServiceUnavailableMixin));
+          var l = i,
+            d = l.code,
+            m = l.text;
+          return { errorCode: parseInt(d, 10), errorText: m };
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    l.default = d;
   },
   98,
 );

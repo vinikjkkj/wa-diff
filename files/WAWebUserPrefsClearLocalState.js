@@ -1,16 +1,19 @@
 __d(
   "WAWebUserPrefsClearLocalState",
   [
+    "Promise",
     "WAWebLoggerImpl",
     "WAWebPermanentStorage",
     "WAWebTemporaryStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "WAWebUserPrefsTypes",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e;
+    function s() {
       var e = r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").KEYS.PRESERVED_USER_KEYS,
           { storage: r("WAWebPermanentStorage") },
@@ -30,26 +33,34 @@ __d(
         !0,
       );
     }
-    function s() {
+    function u() {
       return r("WAWebUserPrefsStore").getKeys(
         r("WAWebTemporaryStorage"),
         o("WAWebUserPrefsTypes").TS_PRESERVE_KEYS,
         !0,
       );
     }
-    function u() {
-      r("WAWebTemporaryStorage").clear(s());
+    function c() {
+      r("WAWebTemporaryStorage").clear(u());
     }
-    async function c() {
-      var t = e(),
-        n = [
-          r("WAWebTemporaryStorage").clear(s()),
-          r("WAWebPermanentStorage").clear(t),
-        ];
-      (r("gkx")("26258") && n.push(o("WAWebLoggerImpl").Logger.clearLogs()),
-        await Promise.all(n));
+    function d() {
+      return m.apply(this, arguments);
     }
-    ((l.clearAllTemporaryStorageData = u), (l.clearAllLocalState = c));
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = s(),
+            a = [
+              r("WAWebTemporaryStorage").clear(u()),
+              r("WAWebPermanentStorage").clear(t),
+            ];
+          (r("gkx")("26258") && a.push(o("WAWebLoggerImpl").Logger.clearLogs()),
+            yield (e || (e = n("Promise"))).all(a));
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    ((l.clearAllTemporaryStorageData = c), (l.clearAllLocalState = d));
   },
   98,
 );

@@ -9,6 +9,7 @@ __d(
     "WAWebThreadUtils",
     "WAWebThreadsMetadataIdUtils",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +18,7 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "reconcileForBot",
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var n,
               a = o("WAWebWidToJid").widToChatJid(t),
               i = o(
@@ -26,7 +27,7 @@ __d(
                 a,
                 o("WAWebThreadUtils").ThreadType.AiThread,
               ),
-              l = await o("WAWebSchemaThreadsMetadata")
+              l = yield o("WAWebSchemaThreadsMetadata")
                 .getThreadsMetadataTable()
                 .startsWithAnyOf(["internalId"], [i]),
               u = r("sumBy")(l, function (e) {
@@ -34,7 +35,7 @@ __d(
                 return (t = e.unreadCount) != null ? t : 0;
               }),
               c = t.toString(),
-              d = await o("WAWebSchemaChat").getChatTable().bulkGet([c]),
+              d = yield o("WAWebSchemaChat").getChatTable().bulkGet([c]),
               m = d[0];
             if (m == null) return null;
             var p = (n = m.unreadCount) != null ? n : 0;
@@ -49,7 +50,7 @@ __d(
                   p,
                   u,
                 ),
-                await o("WAWebSchemaChat")
+                yield o("WAWebSchemaChat")
                   .getChatTable()
                   .bulkCreateOrMerge([{ id: c, unreadCount: u }]),
                 { unreadCount: u })
@@ -64,7 +65,7 @@ __d(
                   u,
                 ),
                 null);
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

@@ -1,6 +1,7 @@
 __d(
   "WAWebBusinessProfileBridgeApi",
   [
+    "Promise",
     "WALogger",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizCoexGatingUtils",
@@ -12,26 +13,34 @@ __d(
     "WAWebJidToWid",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = {
-        refreshCatalogProducts: async function (t) {
-          var e = t.productIds,
-            n = o("WAWebCatalogCollection").CatalogCollection.get(
-              o("WAWebUserPrefsMeUser")
-                .getMePnUserOrThrow_DO_NOT_USE()
-                .toString(),
-            );
-          if (n) {
-            var r = e.map(function (e) {
-              return n.refreshProduct(e);
-            });
-            await Promise.all(r);
+      u,
+      c = {
+        refreshCatalogProducts: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.productIds,
+              r = o("WAWebCatalogCollection").CatalogCollection.get(
+                o("WAWebUserPrefsMeUser")
+                  .getMePnUserOrThrow_DO_NOT_USE()
+                  .toString(),
+              );
+            if (r) {
+              var a = t.map(function (e) {
+                return r.refreshProduct(e);
+              });
+              yield (u || (u = n("Promise"))).all(a);
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-        },
+          return t;
+        })(),
         updateCatalogCollectionReviewStatuses: function (t) {
           var e = t.notification,
             n = o("WAWebCatalogCollection").CatalogCollection.get(
@@ -45,41 +54,47 @@ __d(
               a && a.set(e.reviewStatuses[r]);
             }
         },
-        updateBusinessProfile: async function (t) {
-          var e,
-            n = t.wid,
-            r = o("WAWebJidToWid").userJidToUserWid(n),
-            a = o(
-              "WAWebBusinessProfileCollection",
-            ).BusinessProfileCollection.getValid(r),
-            i =
-              a == null || (e = a.profileOptions) == null
-                ? void 0
-                : e.commerceExperience,
-            l = !!a,
-            s = await o(
-              "WAWebBusinessProfileCollection",
-            ).BusinessProfileCollection.update(r),
-            u = Array.isArray(s) ? s : [s];
-          for (var d of u) {
-            if (l) {
-              var m,
-                p =
-                  d == null || (m = d.profileOptions) == null
-                    ? void 0
-                    : m.commerceExperience;
-              if (p !== i) {
-                var _ = o("WAWebCatalogCollection").CatalogCollection.get(r);
-                _ &&
-                  o(
-                    "WAWebBizCatalogGatingUtils",
-                  ).isCatalogVariantsViewingEnabled() &&
-                  o("WAWebCatalogCollection").CatalogCollection.remove(_.id);
+        updateBusinessProfile: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t,
+              n = e.wid,
+              r = o("WAWebJidToWid").userJidToUserWid(n),
+              a = o(
+                "WAWebBusinessProfileCollection",
+              ).BusinessProfileCollection.getValid(r),
+              i =
+                a == null || (t = a.profileOptions) == null
+                  ? void 0
+                  : t.commerceExperience,
+              l = !!a,
+              s = yield o(
+                "WAWebBusinessProfileCollection",
+              ).BusinessProfileCollection.update(r),
+              u = Array.isArray(s) ? s : [s];
+            for (var c of u) {
+              if (l) {
+                var m,
+                  p =
+                    c == null || (m = c.profileOptions) == null
+                      ? void 0
+                      : m.commerceExperience;
+                if (p !== i) {
+                  var _ = o("WAWebCatalogCollection").CatalogCollection.get(r);
+                  _ &&
+                    o(
+                      "WAWebBizCatalogGatingUtils",
+                    ).isCatalogVariantsViewingEnabled() &&
+                    o("WAWebCatalogCollection").CatalogCollection.remove(_.id);
+                }
               }
+              (l || (c.stale = !0), d(r, c));
             }
-            (l || (d.stale = !0), c(r, d));
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-        },
+          return t;
+        })(),
         restoreVerifiedBusinessContacts: function (t) {
           var e = t.entries;
           for (var n of e) {
@@ -102,7 +117,7 @@ __d(
             );
         },
       };
-    function c(t, n) {
+    function d(t, n) {
       if (
         !(
           o(
@@ -157,7 +172,7 @@ __d(
         }
       }
     }
-    l.BusinessProfileBridgeApi = u;
+    l.BusinessProfileBridgeApi = c;
   },
   98,
 );

@@ -13,6 +13,7 @@ __d(
     "RSTUtils",
     "RSTWeakRefList",
     "RSTWorkerUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,15 +25,15 @@ __d(
         function t() {
           this.$1 = null;
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.init = function (t) {
+          (a.init = function (t) {
             ((this.$1 = t),
               this.startReceivingCommandFromMainThread(),
               this.startMonitoringMainThread(),
               r("RSTIndexedDBSafe").maybeClearObsoleteIncidents());
           }),
-          (n.startReceivingCommandFromMainThread = function () {
+          (a.startReceivingCommandFromMainThread = function () {
             var e;
             (e = this.$1) == null ||
               e.addMessageListener(r("RSTConfig").MESSAGE_TYPE, function (e) {
@@ -68,119 +69,160 @@ __d(
                 }
               });
           }),
-          (n.$2 = function () {
+          (a.$2 = function () {
             var e = this;
-            self.setInterval(async function () {
-              (o("RSTUtils").debugLog("RST web worker heart beat checking..."),
-                await r("RSTMainThreadDataInWorker").iterateOverAllEntries(
-                  async function (t) {
-                    await e.$3(t.mainThreadSessionID);
-                  },
-                ));
-            }, r("RSTConfig").HEART_BEAT_INTERVAL_MS);
+            self.setInterval(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                (o("RSTUtils").debugLog(
+                  "RST web worker heart beat checking...",
+                ),
+                  yield r("RSTMainThreadDataInWorker").iterateOverAllEntries(
+                    (function () {
+                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (t) {
+                          yield e.$3(t.mainThreadSessionID);
+                        },
+                      );
+                      return function (e) {
+                        return t.apply(this, arguments);
+                      };
+                    })(),
+                  ));
+              }),
+              r("RSTConfig").HEART_BEAT_INTERVAL_MS,
+            );
           }),
-          (n.$3 = async function (n) {
-            var t = r("RSTMainThreadDataInWorker").getDataEntry(n);
-            if (t != null && t.heartBeatCheckOn !== !1) {
-              var a = t.incidentsNotRecovered,
-                i = t.lastEventMetadata,
-                l = t.lastHeartBeatTimeStamp,
-                u = t.loggedFreezeTimeStamp,
-                c = t.tracesManager,
-                d = Date.now();
-              if (l < 0) {
-                performance.now() >=
-                  r("RSTConfig").FIRST_HEART_BEAT_THRESHOLD_MS &&
-                  o("RSTEventsMessageQueue").notify(
-                    o("RSTEvents").RSTEvent.NO_HEART_BEAT_SINCE_ORIGIN,
-                    {},
-                  );
-                return;
-              }
-              if (!u.has(l)) {
-                var m = d - l - r("RSTBlockingTime").getBlockingTime(l, d);
-                if (m > r("RSTConfig").FREEZE_THRESHOLD_MS) {
-                  if (s.getSize() > e) return;
-                  var p = o("RSTIncidentID").getUniqueIncidentID(n);
-                  a.add(p);
-                  var _ = c.getCurrentTraces(),
-                    f = c.getLastTraceWithPolicySet(),
-                    g = {
-                      incidentID: p,
-                      detectTime: Date.now(),
-                      lastHeartBeatTimeStamp: l,
-                      message: "unresponsive",
-                      sessionID: n,
-                      lastHeartBeatMetadata: i,
-                      traces: _,
-                      lastTrace: f,
-                      hasRecovered: !1,
-                      unrecoverLastsForMs: d - l,
-                      incidentType: r("RSTConstants").incidentType.unresponsive,
-                    };
-                  (u.add(l),
-                    s.add(g),
-                    o("RSTUtils").debugLog(
-                      "incident to indexedDB: " + g.incidentID,
-                    ),
-                    await r("RSTIndexedDBSafe").persistLog(g));
-                }
-              }
-            }
-          }),
-          (n.$4 = function () {
-            var e = this;
-            self.setInterval(async function () {
-              await r("RSTMainThreadDataInWorker").iterateOverAllEntries(
-                async function (t) {
-                  await e.$5(t.mainThreadSessionID);
-                },
-              );
-            }, r("RSTConfig").WEB_WORKER_UPDATE_INCIDENTS_INTERVAL_MS);
-          }),
-          (n.$5 = async function (t) {
-            var e = r("RSTMainThreadDataInWorker").getDataEntry(t);
-            if (e != null) {
-              var n = e.backgroundInfoManager,
-                a = e.incidentsNotRecovered,
-                i = e.incidentsRecovered;
-              if (!(a.size === 0 && i.size === 0)) {
-                var l = Date.now();
-                await r("RSTIndexedDBSafe").updateIncidentInDB(function (e) {
-                  if (
-                    e.incidentType ===
-                    r("RSTConstants").incidentType.unexpectedExit
-                  )
-                    return !1;
-                  if (i.has(e.incidentID))
-                    return (
-                      o("RSTUtils").debugLog(
-                        "Update as recovered: " + e.incidentID,
-                      ),
-                      (e.hasRecovered = !0),
-                      i.delete(e.incidentID),
-                      !0
-                    );
-                  if (a.has(e.incidentID)) {
-                    var t = e.lastHeartBeatTimeStamp,
-                      s =
-                        l -
-                        t -
-                        n.getBackgroundTime(t, l) -
-                        r("RSTBlockingTime").getBlockingTime(t, l);
-                    o("RSTUtils").debugLog(
-                      "Update unrecovered duration for " +
-                        (e.incidentID + ": " + s + "ms"),
-                    );
-                    var u = e.unrecoverLastsForMs;
-                    return ((e.unrecoverLastsForMs = s), u !== s);
+          (a.$3 = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = r("RSTMainThreadDataInWorker").getDataEntry(t);
+                if (n != null && n.heartBeatCheckOn !== !1) {
+                  var a = n.incidentsNotRecovered,
+                    i = n.lastEventMetadata,
+                    l = n.lastHeartBeatTimeStamp,
+                    u = n.loggedFreezeTimeStamp,
+                    c = n.tracesManager,
+                    d = Date.now();
+                  if (l < 0) {
+                    performance.now() >=
+                      r("RSTConfig").FIRST_HEART_BEAT_THRESHOLD_MS &&
+                      o("RSTEventsMessageQueue").notify(
+                        o("RSTEvents").RSTEvent.NO_HEART_BEAT_SINCE_ORIGIN,
+                        {},
+                      );
+                    return;
                   }
-                  return !1;
-                });
-              }
+                  if (!u.has(l)) {
+                    var m = d - l - r("RSTBlockingTime").getBlockingTime(l, d);
+                    if (m > r("RSTConfig").FREEZE_THRESHOLD_MS) {
+                      if (s.getSize() > e) return;
+                      var p = o("RSTIncidentID").getUniqueIncidentID(t);
+                      a.add(p);
+                      var _ = c.getCurrentTraces(),
+                        f = c.getLastTraceWithPolicySet(),
+                        g = {
+                          incidentID: p,
+                          detectTime: Date.now(),
+                          lastHeartBeatTimeStamp: l,
+                          message: "unresponsive",
+                          sessionID: t,
+                          lastHeartBeatMetadata: i,
+                          traces: _,
+                          lastTrace: f,
+                          hasRecovered: !1,
+                          unrecoverLastsForMs: d - l,
+                          incidentType:
+                            r("RSTConstants").incidentType.unresponsive,
+                        };
+                      (u.add(l),
+                        s.add(g),
+                        o("RSTUtils").debugLog(
+                          "incident to indexedDB: " + g.incidentID,
+                        ),
+                        yield r("RSTIndexedDBSafe").persistLog(g));
+                    }
+                  }
+                }
+              },
+            );
+            function a(e) {
+              return t.apply(this, arguments);
             }
+            return a;
+          })()),
+          (a.$4 = function () {
+            var e = this;
+            self.setInterval(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                yield r("RSTMainThreadDataInWorker").iterateOverAllEntries(
+                  (function () {
+                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (t) {
+                        yield e.$5(t.mainThreadSessionID);
+                      },
+                    );
+                    return function (e) {
+                      return t.apply(this, arguments);
+                    };
+                  })(),
+                );
+              }),
+              r("RSTConfig").WEB_WORKER_UPDATE_INCIDENTS_INTERVAL_MS,
+            );
           }),
-          (n.startMonitoringMainThread = function () {
+          (a.$5 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = r("RSTMainThreadDataInWorker").getDataEntry(e);
+                if (t != null) {
+                  var n = t.backgroundInfoManager,
+                    a = t.incidentsNotRecovered,
+                    i = t.incidentsRecovered;
+                  if (!(a.size === 0 && i.size === 0)) {
+                    var l = Date.now();
+                    yield r("RSTIndexedDBSafe").updateIncidentInDB(
+                      function (e) {
+                        if (
+                          e.incidentType ===
+                          r("RSTConstants").incidentType.unexpectedExit
+                        )
+                          return !1;
+                        if (i.has(e.incidentID))
+                          return (
+                            o("RSTUtils").debugLog(
+                              "Update as recovered: " + e.incidentID,
+                            ),
+                            (e.hasRecovered = !0),
+                            i.delete(e.incidentID),
+                            !0
+                          );
+                        if (a.has(e.incidentID)) {
+                          var t = e.lastHeartBeatTimeStamp,
+                            s =
+                              l -
+                              t -
+                              n.getBackgroundTime(t, l) -
+                              r("RSTBlockingTime").getBlockingTime(t, l);
+                          o("RSTUtils").debugLog(
+                            "Update unrecovered duration for " +
+                              (e.incidentID + ": " + s + "ms"),
+                          );
+                          var u = e.unrecoverLastsForMs;
+                          return ((e.unrecoverLastsForMs = s), u !== s);
+                        }
+                        return !1;
+                      },
+                    );
+                  }
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.startMonitoringMainThread = function () {
             (this.$2(), this.$4());
           }),
           t

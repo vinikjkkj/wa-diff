@@ -1,21 +1,34 @@
 __d(
   "WASendPassiveModeProtocol",
-  ["WALogger", "WASmaxPassiveModeActiveIQRPC", "WASmaxPassiveModePassiveIQRPC"],
+  [
+    "WALogger",
+    "WASmaxPassiveModeActiveIQRPC",
+    "WASmaxPassiveModePassiveIQRPC",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    async function s(t) {
-      (t === "active"
-        ? await o("WASmaxPassiveModeActiveIQRPC").sendActiveIQRPC()
-        : await o("WASmaxPassiveModePassiveIQRPC").sendPassiveIQRPC(),
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "sendPassiveModeIq: passive mode set to '",
-              "'",
-            ])),
-          t,
-        ));
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          (t === "active"
+            ? yield o("WASmaxPassiveModeActiveIQRPC").sendActiveIQRPC()
+            : yield o("WASmaxPassiveModePassiveIQRPC").sendPassiveIQRPC(),
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "sendPassiveModeIq: passive mode set to '",
+                  "'",
+                ])),
+              t,
+            ));
+        })),
+        u.apply(this, arguments)
+      );
     }
     l.sendPassiveModeProtocol = s;
   },

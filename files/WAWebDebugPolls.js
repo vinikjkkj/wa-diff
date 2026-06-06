@@ -22,6 +22,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "err",
     "filterNulls",
   ],
@@ -73,7 +74,7 @@ __d(
             id: g,
             msgKey: new (r("WAWebMsgKey"))({ fromMe: !0, remote: d, id: g }),
             parentMsgKey: p,
-            selectedOptionLocalIds: [b(0, s.length - 1)],
+            selectedOptionLocalIds: [L(0, s.length - 1)],
             senderTimestampMs: Date.now(),
             sender: c,
           }),
@@ -87,7 +88,7 @@ __d(
               id: e,
               msgKey: new (r("WAWebMsgKey"))({ fromMe: !1, remote: d, id: e }),
               parentMsgKey: p,
-              selectedOptionLocalIds: [b(0, s.length - 1)],
+              selectedOptionLocalIds: [L(0, s.length - 1)],
               senderTimestampMs: Date.now(),
               sender: c,
             }),
@@ -131,165 +132,201 @@ __d(
     ((_.doc =
       "Add a fake poll message locally with results constantly updating. (Used for debugging view.)"),
       (_.paramsToExecute = []));
-    async function f(e) {
-      var t = new (r("WAWebMsgKey"))({
-          id: "key",
-          remote: o("WAWebWidFactory").createWid("23456@c.us"),
-          fromMe: !0,
-        }),
-        n = babelHelpers.extends(
-          {
-            id: new (r("WAWebMsgKey"))({
-              id: await r("WAWebMsgKey").newId(),
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = new (r("WAWebMsgKey"))({
+              id: "key",
               remote: o("WAWebWidFactory").createWid("23456@c.us"),
               fromMe: !0,
             }),
-            t: o("WATimeUtils").unixTime(),
-            type: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
-            subtype: "poll_vote",
-            addonEncrypted: !0,
-            encPollVote: {
-              encIv: new ArrayBuffer(8),
-              encPayload: new ArrayBuffer(8),
+            n = babelHelpers.extends(
+              {
+                id: new (r("WAWebMsgKey"))({
+                  id: yield r("WAWebMsgKey").newId(),
+                  remote: o("WAWebWidFactory").createWid("23456@c.us"),
+                  fromMe: !0,
+                }),
+                t: o("WATimeUtils").unixTime(),
+                type: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
+                subtype: "poll_vote",
+                addonEncrypted: !0,
+                encPollVote: {
+                  encIv: new ArrayBuffer(8),
+                  encPayload: new ArrayBuffer(8),
+                },
+                senderTimestampMs: o("WATimeUtils").unixTimeMs(),
+                pollUpdateParentKey: t,
+              },
+              e,
+            );
+          yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
+            [n],
+            function (e) {
+              return e.pollUpdateParentKey;
             },
-            senderTimestampMs: o("WATimeUtils").unixTimeMs(),
-            pollUpdateParentKey: t,
-          },
-          e,
-        );
-      await o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
-        [n],
-        function (e) {
-          return e.pollUpdateParentKey;
-        },
+          );
+        })),
+        g.apply(this, arguments)
       );
     }
-    var g = new WeakMap();
-    async function h(t) {
-      var n = o("WAWebChatCollection").ChatCollection.getActive();
-      if (n == null) {
-        o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "You must have a chat active to use this command.",
-            ])),
-        );
-        return;
-      }
-      var a = g.get(n);
-      if (a == null) {
-        var i = {
-          name: "What should we have for dinner?",
-          options: [{ name: "Pizza" }, { name: "Tacos" }, { name: "Sushi" }],
-          selectableOptionsCount: 0,
-          contentType: "TEXT",
-          pollType: "POLL",
-        };
-        ((a = await o(
-          "WAWebPollsSendPollCreationMsgAction",
-        ).createPollCreationMsgData({ poll: i, chat: n })),
-          g.set(n, a));
-      }
-      var l = r("WANullthrows")(a.pollOptions),
-        s =
-          t != null
-            ? t
-            : r("filterNulls")(
-                Array.from(l.keys(), function (e) {
-                  return e === 0 || Math.random() > 5 ? e : null;
-                }),
+    var h = new WeakMap();
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = o("WAWebChatCollection").ChatCollection.getActive();
+          if (n == null) {
+            o("WALogger").ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "You must have a chat active to use this command.",
+                ])),
+            );
+            return;
+          }
+          var a = h.get(n);
+          if (a == null) {
+            var i = {
+              name: "What should we have for dinner?",
+              options: [
+                { name: "Pizza" },
+                { name: "Tacos" },
+                { name: "Sushi" },
+              ],
+              selectableOptionsCount: 0,
+              contentType: "TEXT",
+              pollType: "POLL",
+            };
+            ((a = yield o(
+              "WAWebPollsSendPollCreationMsgAction",
+            ).createPollCreationMsgData({ poll: i, chat: n })),
+              h.set(n, a));
+          }
+          var l = r("WANullthrows")(a.pollOptions),
+            s =
+              t != null
+                ? t
+                : r("filterNulls")(
+                    Array.from(l.keys(), function (e) {
+                      return e === 0 || Math.random() > 5 ? e : null;
+                    }),
+                  ),
+            u = r("WANullthrows")(
+              o("WAWebFrontendMsgGetters").getAsPollCreation(
+                new (o("WAWebMsgModel").Msg)(a),
               ),
-        u = r("WANullthrows")(
-          o("WAWebFrontendMsgGetters").getAsPollCreation(
-            new (o("WAWebMsgModel").Msg)(a),
-          ),
-        );
-      await o("WAWebPollsSendVoteMsgAction").sendVote(u, new Set(s));
+            );
+          yield o("WAWebPollsSendVoteMsgAction").sendVote(u, new Set(s));
+        })),
+        C.apply(this, arguments)
+      );
     }
-    h.doc =
+    y.doc =
       "Send a poll vote before sending the corresponding poll. After calling this, you can send the poll by calling `sendPollForOrphanPollVotes()`. The vote will be for random options, but always include the first (Pizza).";
-    async function y() {
-      var e = o("WAWebChatCollection").ChatCollection.getActive();
-      if (e == null) {
-        o("WALogger").ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "You must have a chat active to use this command.",
-            ])),
-        );
-        return;
-      }
-      var t = g.get(e);
-      if (t == null) {
-        o("WALogger").ERROR(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "No early votes. Call Debug.sendOrphanPollVote() first",
-            ])),
-        );
-        return;
-      }
-      (g.delete(e),
-        await o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, t));
+    function b() {
+      return v.apply(this, arguments);
     }
-    y.doc = "Send the poll for all queued orphan votes.";
-    async function C() {
-      var e,
-        t =
-          (e = o("WAWebChatCollection").ChatCollection.getActive()) != null
-            ? e
-            : r("WAWebNewsletterCollection").getActive();
-      if (t == null) {
-        o("WALogger").ERROR(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "You must have a chat active to use this command.",
-            ])),
-        );
-        return;
-      }
-      await o(
-        "WAWebPollsSendPollResultSnapshotMsgAction",
-      ).sendPollResultSnapshotMsg({
-        pollResultSnapshot: {
-          name: "Test Poll",
-          pollVotesSnapshot: {
-            pollVotes: [
-              {
-                option: { name: "Option 1", localId: 0 },
-                optionVoteCount: b(1, 100),
-              },
-              {
-                option: { name: "Option 2", localId: 1 },
-                optionVoteCount: b(100, 1e3),
-              },
-              {
-                option: { name: "Option 3", localId: 2 },
-                optionVoteCount: b(1e4, 1e6),
-              },
-            ],
-          },
-        },
-        chat: t,
-        pollType: o("WAWebPollCreationUtils").PollType.POLL,
-      });
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebChatCollection").ChatCollection.getActive();
+          if (e == null) {
+            o("WALogger").ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "You must have a chat active to use this command.",
+                ])),
+            );
+            return;
+          }
+          var t = h.get(e);
+          if (t == null) {
+            o("WALogger").ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "No early votes. Call Debug.sendOrphanPollVote() first",
+                ])),
+            );
+            return;
+          }
+          (h.delete(e),
+            yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, t));
+        })),
+        v.apply(this, arguments)
+      );
     }
-    C.doc = "Send a poll result snapshot message";
-    function b(e, t) {
+    b.doc = "Send the poll for all queued orphan votes.";
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t =
+              (e = o("WAWebChatCollection").ChatCollection.getActive()) != null
+                ? e
+                : r("WAWebNewsletterCollection").getActive();
+          if (t == null) {
+            o("WALogger").ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "You must have a chat active to use this command.",
+                ])),
+            );
+            return;
+          }
+          yield o(
+            "WAWebPollsSendPollResultSnapshotMsgAction",
+          ).sendPollResultSnapshotMsg({
+            pollResultSnapshot: {
+              name: "Test Poll",
+              pollVotesSnapshot: {
+                pollVotes: [
+                  {
+                    option: { name: "Option 1", localId: 0 },
+                    optionVoteCount: L(1, 100),
+                  },
+                  {
+                    option: { name: "Option 2", localId: 1 },
+                    optionVoteCount: L(100, 1e3),
+                  },
+                  {
+                    option: { name: "Option 3", localId: 2 },
+                    optionVoteCount: L(1e4, 1e6),
+                  },
+                ],
+              },
+            },
+            chat: t,
+            pollType: o("WAWebPollCreationUtils").PollType.POLL,
+          });
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    S.doc = "Send a poll result snapshot message";
+    function L(e, t) {
       return Math.floor(Math.random() * (t - e + 1) + e);
     }
-    var v = {
+    var E = {
       addFakePollHelper: d,
       addFakePoll: m,
       addFakePollMaxLength: p,
       addFakePollWithAutoUpdates: _,
       storePollVoteOrphanRecord: f,
-      sendOrphanPollVote: h,
-      sendPollForOrphanPollVotes: y,
-      sendPollResultSnapshot: C,
+      sendOrphanPollVote: y,
+      sendPollForOrphanPollVotes: b,
+      sendPollResultSnapshot: S,
       PollVoteCollection: o("WAWebPollsPollVoteCollection").PollVoteCollection,
     };
-    l.default = v;
+    l.default = E;
   },
   98,
 );

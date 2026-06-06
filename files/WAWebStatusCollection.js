@@ -1,6 +1,7 @@
 __d(
   "WAWebStatusCollection",
   [
+    "Promise",
     "WAJids",
     "WALogger",
     "WATimeUtils",
@@ -25,27 +26,29 @@ __d(
     "WAWebWebcStatusSessionWamEvent",
     "WAWebWebcStatusSyncWamEvent",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "sumOfArray",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 86400;
-    function c(e, t, n) {
+      u,
+      c = 86400;
+    function d(e, t, n) {
       var r = e.isUnreadMessage(t) && (n == null || e.isUnreadMessage(n));
       r && e.set({ unreadCount: Math.max(0, e.unreadCount - 1) });
       var o = [];
       (t != null && o.push(t), n != null && o.push(n), e.revokeMsgs(o));
     }
-    var d = (function (t) {
-      function n() {
-        for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
-          r[a] = arguments[a];
+    var m = (function (t) {
+      function a() {
+        for (var e, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
+          a[i] = arguments[i];
         return (
-          (e = t.call.apply(t, [this].concat(r)) || this),
+          (e = t.call.apply(t, [this].concat(a)) || this),
           (e.findImpl = function (e) {
-            return Promise.resolve({ id: e });
+            return (u || (u = n("Promise"))).resolve({ id: e });
           }),
           (e.findQueryImpl = function () {
             return o("WAWebContactStatusBridge").queryStatusAll();
@@ -54,36 +57,44 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(n, t);
-      var a = n.prototype;
+      babelHelpers.inheritsLoose(a, t);
+      var i = a.prototype;
       return (
-        (a.findQuery = async function (n, r) {
-          var e = this,
-            o = await t.prototype.findQuery.call(this, n, r),
-            a = o || [];
-          return (
-            await Promise.all(
-              a.map(function (t) {
-                if (t) {
-                  var n = 0;
-                  return (
-                    t.msgs.forEach(function (e) {
-                      n < t.statusMsgs.length &&
-                      t.statusMsgs[n].id.toString() === e.id.toString()
-                        ? ++n
-                        : e.delete();
-                    }),
-                    t.statusMsgs.length > 0
-                      ? e.addStatusMessages(t.id, t.statusMsgs)
-                      : Promise.resolve()
-                  );
-                }
-              }),
-            ),
-            a
+        (i.findQuery = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, r) {
+              var o = this,
+                a = yield t.prototype.findQuery.call(this, e, r),
+                i = a || [];
+              return (
+                yield (u || (u = n("Promise"))).all(
+                  i.map(function (e) {
+                    if (e) {
+                      var t = 0;
+                      return (
+                        e.msgs.forEach(function (n) {
+                          t < e.statusMsgs.length &&
+                          e.statusMsgs[t].id.toString() === n.id.toString()
+                            ? ++t
+                            : n.delete();
+                        }),
+                        e.statusMsgs.length > 0
+                          ? o.addStatusMessages(e.id, e.statusMsgs)
+                          : (u || (u = n("Promise"))).resolve()
+                      );
+                    }
+                  }),
+                ),
+                i
+              );
+            },
           );
-        }),
-        (a.set = function (n, r) {
+          function r(t, n) {
+            return e.apply(this, arguments);
+          }
+          return r;
+        })()),
+        (i.set = function (n, r) {
           if ((r == null ? void 0 : r.remove) !== !1) {
             var e = this.getSyntheticStatusesToPreserve(n);
             if (e.length > 0)
@@ -91,7 +102,7 @@ __d(
           }
           return t.prototype.set.call(this, n, r);
         }),
-        (a.getSyntheticStatusesToPreserve = function (t) {
+        (i.getSyntheticStatusesToPreserve = function (t) {
           var e = this,
             n = new Set();
           return (
@@ -107,7 +118,7 @@ __d(
             })
           );
         }),
-        (a.hasActiveNewsletterStatusMetadata = function (t) {
+        (i.hasActiveNewsletterStatusMetadata = function (t) {
           var e,
             n =
               r("WAWebNewsletterMetadataCollection") == null
@@ -117,9 +128,9 @@ __d(
               n == null || (e = n.statusMetadata) == null
                 ? void 0
                 : e.lastStatusSentTime;
-          return a != null && o("WATimeUtils").unixTime() - a <= u;
+          return a != null && o("WATimeUtils").unixTime() - a <= c;
         }),
-        (a.sync = function () {
+        (i.sync = function () {
           var t = this,
             n = window.performance.now();
           return this.findQuery({}, { set: this.hasSynced() })
@@ -154,7 +165,7 @@ __d(
               );
             });
         }),
-        (a.logMetrics = function (t) {
+        (i.logMetrics = function (t) {
           var e;
           t.type === "sync"
             ? (e = new (o(
@@ -207,10 +218,10 @@ __d(
             (e.webcStatusMutedRowCount = s.length),
             e.commit());
         }),
-        (a.hasSynced = function () {
+        (i.hasSynced = function () {
           return !0;
         }),
-        (a.getStatusModel = function (t, n) {
+        (i.getStatusModel = function (t, n) {
           var e = this.get(t);
           if (e == null && n) {
             var r =
@@ -223,7 +234,7 @@ __d(
           }
           return e;
         }),
-        (a.handleUpdate = function (t, n) {
+        (i.handleUpdate = function (t, n) {
           var e,
             a = (e = o("WAWebMsgGetters").getSender(t)) != null ? e : t.from;
           if (
@@ -246,21 +257,21 @@ __d(
                 (l.isSyntheticFromMetadata = !1));
               var u = l.totalCount === l.msgs.length;
               if (i) {
-                var d = t.protocolMessageKey,
+                var c = t.protocolMessageKey,
                   m =
-                    d != null
-                      ? o("WAWebLidMigrationUtils").getAlternateMsgKey(d)
+                    c != null
+                      ? o("WAWebLidMigrationUtils").getAlternateMsgKey(c)
                       : null,
                   p = !1;
                 if (
-                  (d != null &&
-                    (p = l.containsMessage(d) || l.containsMessage(m)),
+                  (c != null &&
+                    (p = l.containsMessage(c) || l.containsMessage(m)),
                   p !== !0)
                 )
                   return !0;
-                var _ = d == null ? void 0 : d.toString(),
+                var _ = c == null ? void 0 : c.toString(),
                   f = m == null ? void 0 : m.toString();
-                if (l.id.isNewsletter()) c(l, _, f);
+                if (l.id.isNewsletter()) d(l, _, f);
                 else {
                   var g = { totalCount: l.totalCount - 1 };
                   (l != null &&
@@ -310,44 +321,56 @@ __d(
           }
           return !1;
         }),
-        (a.addStatusMessages = function (t, n) {
-          return Promise.all([
-            this.$StatusCollectionImpl$p_1(
-              o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-              n.filter(function (e) {
-                return e.id.remote.isStatus();
-              }),
-            ),
-            this.$StatusCollectionImpl$p_1(
-              t,
-              n.filter(function (e) {
-                return (
-                  !e.id.remote.isStatus() && o("WAWebMsgGetters").getIsStatus(e)
+        (i.addStatusMessages = function (t, r) {
+          return (u || (u = n("Promise")))
+            .all([
+              this.$StatusCollectionImpl$p_1(
+                o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
+                r.filter(function (e) {
+                  return e.id.remote.isStatus();
+                }),
+              ),
+              this.$StatusCollectionImpl$p_1(
+                t,
+                r.filter(function (e) {
+                  return (
+                    !e.id.remote.isStatus() &&
+                    o("WAWebMsgGetters").getIsStatus(e)
+                  );
+                }),
+              ),
+            ])
+            .then(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = e[0],
+                      n = e[1];
+                    return (
+                      yield o(
+                        "WAWebCrosspostingMsgHydration",
+                      ).hydrateCrosspostingInfoBulk(t),
+                      t.concat(n)
+                    );
+                  },
                 );
-              }),
-            ),
-          ]).then(async function (e) {
-            var t = e[0],
-              n = e[1];
-            return (
-              await o(
-                "WAWebCrosspostingMsgHydration",
-              ).hydrateCrosspostingInfoBulk(t),
-              t.concat(n)
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
             );
-          });
         }),
-        (a.$StatusCollectionImpl$p_1 = function (t, n) {
-          return n.length === 0
-            ? Promise.resolve([])
+        (i.$StatusCollectionImpl$p_1 = function (t, r) {
+          return r.length === 0
+            ? (u || (u = n("Promise"))).resolve([])
             : o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
                 t,
-                n,
+                r,
                 { add: "after", isHistory: !0 },
                 "addStatusMessages",
               );
         }),
-        (a.getValidStatus = function () {
+        (i.getValidStatus = function () {
           return this.filter(function (e) {
             if (
               e.isSyntheticFromMetadata === !0 ||
@@ -391,7 +414,7 @@ __d(
             return !1;
           });
         }),
-        (a.getUnexpired = function (t) {
+        (i.getUnexpired = function (t) {
           var e = t.containsAnyUnreadStatus,
             n = this.getValidStatus();
           return e
@@ -402,28 +425,28 @@ __d(
                 return e.unreadCount === 0;
               });
         }),
-        (a.getMyStatus = function () {
+        (i.getMyStatus = function () {
           var e = this.filter(function (e) {
             return o("WAWebContactGetters").getIsMe(e.contact);
           });
-          if (e.length !== 0 && !(o("WATimeUtils").unixTime() - e[0].t > u))
+          if (e.length !== 0 && !(o("WATimeUtils").unixTime() - e[0].t > c))
             return e[0];
         }),
-        (a.getPSAStatus = function () {
+        (i.getPSAStatus = function () {
           var e = this.filter(function (e) {
             return o("WAWebContactGetters").getIsPSA(e.contact);
           });
           if (e.length !== 0) return e[0];
         }),
-        n
+        a
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    ((d.model = r("WAWebStatusModel")),
-      (d.comparator = function (e, t) {
+    ((m.model = r("WAWebStatusModel")),
+      (m.comparator = function (e, t) {
         return t.t - e.t;
       }));
-    var m = new d();
-    l.StatusCollection = m;
+    var p = new m();
+    l.StatusCollection = p;
   },
   98,
 );

@@ -8,6 +8,7 @@ __d(
     "WAWebAccountLinkingCryptoUtils",
     "WAWebCrossposting.flow",
     "WAWebDirectConnectionX509",
+    "asyncToGeneratorRuntime",
     "err",
     "sumBy",
   ],
@@ -33,88 +34,126 @@ __d(
       for (var a of e) (n.set(a, o), (o += a.length));
       return n;
     }
-    async function c(e, t) {
-      var n = await o("WAWebDirectConnectionX509").extractCertificates(
-        e.purposePublicIKEncCertificate,
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebDirectConnectionX509").extractCertificates(
+            e.purposePublicIKEncCertificate,
+          );
+          (o("WAWebAccountLinkingCryptoUtils").validateCertificateChain(n),
+            yield _(
+              e.purposePublicIK,
+              e.purposePublicEK,
+              new Uint8Array(t.publicKey),
+              new Uint8Array(t.privateKey),
+              o("WAWebCrossposting.flow").SHARED_KEY_LENGTH,
+              e.purposeDummyCipherText,
+              e.purposeDummyNonce,
+            ));
+        })),
+        d.apply(this, arguments)
       );
-      (o("WAWebAccountLinkingCryptoUtils").validateCertificateChain(n),
-        await m(
-          e.purposePublicIK,
-          e.purposePublicEK,
-          new Uint8Array(t.publicKey),
-          new Uint8Array(t.privateKey),
-          o("WAWebCrossposting.flow").SHARED_KEY_LENGTH,
-          e.purposeDummyCipherText,
-          e.purposeDummyNonce,
-        ));
     }
-    async function d(e, t, n, a, i, l) {
-      var u = p(t, a),
-        c = p(e, a),
-        d = u.length + c.length + t.length + n.length,
-        m = new Uint8Array(d),
-        _ = 0;
-      (m.set(u, _),
-        (_ += u.length),
-        m.set(c, _),
-        (_ += c.length),
-        m.set(t, _),
-        (_ += t.length),
-        m.set(n, _));
-      var f = s(o("WAWebCrossposting.flow").HKDF_INFO),
-        g = new Uint8Array(await o("WACryptoHkdf").extractAndExpand(m, f, i));
-      if (l === o("WAWebCrossposting.flow").SharedKey.ClientKey)
-        return g.slice(0, i / 2);
-      if (l === o("WAWebCrossposting.flow").SharedKey.ServerKey)
-        return g.slice(i / 2, i);
-      throw r("err")("Invalid key type");
+    function m(e, t, n, r, o, a) {
+      return p.apply(this, arguments);
     }
-    async function m(e, t, n, a, i, l, u) {
-      var c = await d(
-          e,
-          t,
-          n,
-          a,
-          i,
-          o("WAWebCrossposting.flow").SharedKey.ServerKey,
-        ),
-        m = o("WACryptoPrimitives").secretbox.open(l, u, c),
-        p = s(o("WABase64").encodeB64UrlSafe(n));
-      return m != null && r("WATypedArraysEqual")(p, m);
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i, l) {
+            var u = g(t, a),
+              c = g(e, a),
+              d = u.length + c.length + t.length + n.length,
+              m = new Uint8Array(d),
+              p = 0;
+            (m.set(u, p),
+              (p += u.length),
+              m.set(c, p),
+              (p += c.length),
+              m.set(t, p),
+              (p += t.length),
+              m.set(n, p));
+            var _ = s(o("WAWebCrossposting.flow").HKDF_INFO),
+              f = new Uint8Array(
+                yield o("WACryptoHkdf").extractAndExpand(m, _, i),
+              );
+            if (l === o("WAWebCrossposting.flow").SharedKey.ClientKey)
+              return f.slice(0, i / 2);
+            if (l === o("WAWebCrossposting.flow").SharedKey.ServerKey)
+              return f.slice(i / 2, i);
+            throw r("err")("Invalid key type");
+          },
+        )),
+        p.apply(this, arguments)
+      );
     }
-    function p(e, t) {
+    function _(e, t, n, r, o, a, i) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i, l, u) {
+            var c = yield m(
+                e,
+                t,
+                n,
+                a,
+                i,
+                o("WAWebCrossposting.flow").SharedKey.ServerKey,
+              ),
+              d = o("WACryptoPrimitives").secretbox.open(l, u, c),
+              p = s(o("WABase64").encodeB64UrlSafe(n));
+            return d != null && r("WATypedArraysEqual")(p, d);
+          },
+        )),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
       return o("WACryptoPrimitives").scalarMult(t, e);
     }
-    async function _(t) {
-      var n = t.clientPrivateKey,
-        r = t.clientPublicKey,
-        a = t.nonce,
-        i = t.outputLength,
-        l = t.plaintext,
-        s = t.serverPublicEK,
-        c = t.serverPublicIK,
-        m = await d(
-          c,
-          s,
-          r,
-          n,
-          i,
-          o("WAWebCrossposting.flow").SharedKey.ClientKey,
-        ),
-        p = o("WACryptoPrimitives").secretbox(l, a, m),
-        _ = 16,
-        f = p.slice(0, _),
-        g = p.slice(_),
-        h = u([g, f]),
-        y = e(
-          o("WAWebCrossposting.flow").PurposeEncryptionVersionBytesLength,
-          o("WAWebCrossposting.flow").PurposeEncryptionVersion.V1,
-        );
-      return u([y, r, a, h]);
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.clientPrivateKey,
+            r = t.clientPublicKey,
+            a = t.nonce,
+            i = t.outputLength,
+            l = t.plaintext,
+            s = t.serverPublicEK,
+            c = t.serverPublicIK,
+            d = yield m(
+              c,
+              s,
+              r,
+              n,
+              i,
+              o("WAWebCrossposting.flow").SharedKey.ClientKey,
+            ),
+            p = o("WACryptoPrimitives").secretbox(l, a, d),
+            _ = 16,
+            f = p.slice(0, _),
+            g = p.slice(_),
+            h = u([g, f]),
+            y = e(
+              o("WAWebCrossposting.flow").PurposeEncryptionVersionBytesLength,
+              o("WAWebCrossposting.flow").PurposeEncryptionVersion.V1,
+            );
+          return u([y, r, a, h]);
+        })),
+        y.apply(this, arguments)
+      );
     }
     ((l.combineUint8Arrays = u),
       (l.validatePurposeEncryptionParams = c),
-      (l.forwardSecrecyEncrypt = _));
+      (l.forwardSecrecyEncrypt = h));
   },
   98,
 );

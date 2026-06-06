@@ -1,12 +1,14 @@
 __d(
   "WAWebNetworkStatus",
   [
+    "Promise",
     "WALogger",
     "WAMemoizeConcurrent",
     "WAWebBaseModel",
     "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebNetworkGetResponseIfOnline",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,21 +20,22 @@ __d(
       m,
       p,
       _,
-      f = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
-      g = !1,
-      h = (function (t) {
-        function n() {
-          for (var n, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
-            i[l] = arguments[l];
+      f,
+      g = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
+      h = !1,
+      y = (function (t) {
+        function a() {
+          for (var a, i = arguments.length, l = new Array(i), _ = 0; _ < i; _++)
+            l[_] = arguments[_];
           return (
-            (n = t.call.apply(t, [this].concat(i)) || this),
-            (n.online = o("WAWebBaseModel").session(!0)),
-            (n.simulatedOfflineConditions = o("WAWebBaseModel").session(!1)),
-            (n.waitIfOffline = r("WAMemoizeConcurrent")(
+            (a = t.call.apply(t, [this].concat(l)) || this),
+            (a.online = o("WAWebBaseModel").session(!0)),
+            (a.simulatedOfflineConditions = o("WAWebBaseModel").session(!1)),
+            (a.waitIfOffline = r("WAMemoizeConcurrent")(
               function () {
                 return "all";
               },
-              async function () {
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 var t = this;
                 if (!this.online) {
                   if (
@@ -53,7 +56,7 @@ __d(
                         "waitIfOffline: Waiting...",
                       ])),
                   ),
-                    await new Promise(function (e) {
+                    yield new (f || (f = n("Promise")))(function (e) {
                       t.listenToOnce(t, "change:online", function () {
                         (o("WALogger").LOG(
                           u ||
@@ -65,13 +68,13 @@ __d(
                       });
                     }));
                 }
-              },
+              }),
             )),
-            (n.checkOnline = r("WAMemoizeConcurrent")(
+            (a.checkOnline = r("WAMemoizeConcurrent")(
               function () {
                 return "all";
               },
-              async function () {
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 if (
                   (o("WALogger").LOG(
                     c ||
@@ -79,7 +82,7 @@ __d(
                         "NetworkStatus:checkOnline checking",
                       ])),
                   ),
-                  (g || r("gkx")("26256")) && this.simulatedOfflineConditions)
+                  (h || r("gkx")("26256")) && this.simulatedOfflineConditions)
                 ) {
                   o("WALogger").LOG(
                     d ||
@@ -90,8 +93,8 @@ __d(
                   return;
                 }
                 try {
-                  var e = await r("WAWebNetworkGetResponseIfOnline")(
-                    f,
+                  var e = yield r("WAWebNetworkGetResponseIfOnline")(
+                    g,
                     "GET",
                     null,
                     void 0,
@@ -115,20 +118,20 @@ __d(
                     String(e),
                   );
                 }
-              },
+              }),
             )),
-            babelHelpers.assertThisInitialized(n) ||
-              babelHelpers.assertThisInitialized(n)
+            babelHelpers.assertThisInitialized(a) ||
+              babelHelpers.assertThisInitialized(a)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.initialize = function () {
+          (i.initialize = function () {
             (this.listenTo(this, "change:online", this.$NetworkStatus$p_1),
               this.$NetworkStatus$p_1());
           }),
-          (a.$NetworkStatus$p_1 = function () {
+          (i.$NetworkStatus$p_1 = function () {
             var e = this.online;
             o("WALogger")
               .LOG(
@@ -141,16 +144,16 @@ __d(
               )
               .tags("comms");
           }),
-          (a.simulateNetworkStatus = function (t) {
-            (g || r("gkx")("26256")) &&
+          (i.simulateNetworkStatus = function (t) {
+            (h || r("gkx")("26256")) &&
               ((this.online = t), (this.simulatedOfflineConditions = !t));
           }),
-          n
+          a
         );
       })(o("WAWebBaseModel").BaseModel),
-      y = o("WAWebBaseModel").defineModel(h),
-      C = new y();
-    l.default = C;
+      C = o("WAWebBaseModel").defineModel(y),
+      b = new C();
+    l.default = b;
   },
   98,
 );

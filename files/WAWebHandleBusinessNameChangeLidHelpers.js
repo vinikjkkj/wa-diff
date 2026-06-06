@@ -1,12 +1,15 @@
 __d(
   "WAWebHandleBusinessNameChangeLidHelpers",
   [
+    "Promise",
     "WAWebHandleBusinessRemoval",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e;
+    function s(e) {
       return e
         .map(function (e) {
           var t = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(e.id);
@@ -18,27 +21,39 @@ __d(
           return e.concat(t);
         }, []);
     }
-    async function s(e) {
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(["contact", "verified-business-name"], function (t) {
-          var n = t[0],
-            r = t[1],
-            a = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(e);
-          return Promise.all(
-            [].concat(
-              a.map(
-                o("WAWebHandleBusinessRemoval").removeBusinessPropsFromContact,
-              ),
-              a.map(function (e) {
-                return o("WAWebHandleBusinessRemoval").removeVerifiedName(r, e);
-              }),
-            ),
-          );
-        });
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    ((l.getVerifiedNamesToUpdateLidAware = e),
-      (l.removeVerifiedNameFromTableLidAware = s));
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["contact", "verified-business-name"], function (r) {
+              var a = r[0],
+                i = r[1],
+                l = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t);
+              return (e || (e = n("Promise"))).all(
+                [].concat(
+                  l.map(
+                    o("WAWebHandleBusinessRemoval")
+                      .removeBusinessPropsFromContact,
+                  ),
+                  l.map(function (e) {
+                    return o("WAWebHandleBusinessRemoval").removeVerifiedName(
+                      i,
+                      e,
+                    );
+                  }),
+                ),
+              );
+            });
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    ((l.getVerifiedNamesToUpdateLidAware = s),
+      (l.removeVerifiedNameFromTableLidAware = u));
   },
   98,
 );

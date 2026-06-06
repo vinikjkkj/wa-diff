@@ -1,6 +1,7 @@
 __d(
   "WAWebNoteSync",
   [
+    "Promise",
     "WAJids",
     "WALogger",
     "WALongInt",
@@ -17,6 +18,7 @@ __d(
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -27,8 +29,9 @@ __d(
       m,
       p,
       _,
-      f = (function (t) {
-        function n() {
+      f,
+      g = (function (t) {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -38,254 +41,303 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.NoteEdit;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this,
-              r = 0,
-              a = 0,
-              i = 0,
-              l = 0,
-              f = 0,
-              g = 0,
-              h = 0,
-              y = 0,
-              C = [],
-              b = [],
-              v = await Promise.all(
-                n.map(async function (e) {
-                  if (e.operation !== "set")
-                    return (
-                      r++,
-                      {
-                        actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
-                      }
-                    );
-                  try {
-                    var n = e.indexParts,
-                      s = e.value,
-                      u = n[1];
-                    if (!u) return t.malformedActionIndex();
-                    var c = s.noteEditAction;
-                    if (!c)
-                      return (
-                        a++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          t.collectionName,
-                        )
-                      );
-                    if (c.deleted === !0)
-                      return (
-                        await o("WAWebSchemaNote").getNoteTable().remove(u),
-                        C.push(u),
-                        {
-                          actionState:
-                            o("WASyncdConst").SyncActionState.Success,
-                        }
-                      );
-                    var d = c.chatJid,
-                      m = c.createdAt,
-                      p = c.type,
-                      _ = c.unstructuredContent;
-                    if (p == null)
-                      return (
-                        i++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          t.collectionName,
-                        )
-                      );
-                    if (d == null)
-                      return (
-                        l++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          t.collectionName,
-                        )
-                      );
-                    var v = o("WAJids").validateChatJid(d);
-                    if (v == null)
-                      return (
-                        f++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          t.collectionName,
-                        )
-                      );
-                    m == null && g++;
-                    var S = o("WALongInt").maybeNumber(m);
-                    (m != null && S == null && h++, _ == null && y++);
-                    var R = await o(
-                      "WAWebSyncdGetChat",
-                    ).resolveChatForMutationIndex(
-                      o("WAWebWidFactory").createWid(d),
-                    );
-                    if (!R.success)
-                      return {
-                        actionState: o("WASyncdConst").SyncActionState.Orphan,
-                        orphanModel: R.orphanModel,
-                      };
-                    var L = o("WAWebWidToJid").widToChatJid(
-                        o("WAWebWidFactory").createWid(R.chat.id),
-                      ),
-                      E = await t.resolveNoteId(v, L, u),
-                      k = {
-                        id: E,
-                        type:
-                          p ===
-                          o("WAWebProtobufSyncAction.pb")
-                            .SyncActionValue$NoteEditAction$NoteType
-                            .UNSTRUCTURED
-                            ? "unstructured"
-                            : "structured",
-                        chatJid: L,
-                        content: _ != null ? _ : "",
-                        modifiedAt: Math.floor(e.timestamp / 1e3),
-                        createdAt: Math.floor((S != null ? S : 0) / 1e3),
-                      };
-                    return (
-                      await o("WAWebDBNoteDatabaseApi").addOrEditNote(k),
-                      b.push(k),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
-                    );
-                  } catch (e) {
-                    return {
-                      actionState: o("WASyncdConst").SyncActionState.Failed,
-                    };
-                  }
-                }),
-              );
-            return (
-              C.length > 0 &&
-                o("WAWebBackendApi").frontendFireAndForget("removeNotes", {
-                  noteIds: C,
-                }),
-              b.length > 0 &&
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "upsertNotesFromSyncd",
-                  { noteRecords: b },
-                ),
-              r > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "note sync: ",
-                      " operations not supported",
-                    ])),
-                  r,
-                ),
-              a > 0 &&
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "note sync: ",
-                      " malformed mutations",
-                    ])),
-                  a,
-                ),
-              i > 0 &&
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "noteEditAction.type is empty for ",
-                      " mutations",
-                    ])),
-                  i,
-                ),
-              l > 0 &&
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "noteEditAction.chatJid is empty for ",
-                      " mutations",
-                    ])),
-                  l,
-                ),
-              f > 0 &&
-                o("WALogger").WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "noteEditAction.chatJid invalid for ",
-                      " mutations",
-                    ])),
-                  f,
-                ),
-              g > 0 &&
-                o("WALogger").WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "noteEditAction.createdAt is empty for ",
-                      " mutations",
-                    ])),
-                  g,
-                ),
-              h > 0 &&
-                o("WALogger").WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "noteEditAction.createdAt non-safe int for ",
-                      " mutations",
-                    ])),
-                  h,
-                ),
-              y > 0 &&
-                o("WALogger").WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "noteEditAction.unstructuredContent is empty for ",
-                      " mutations",
-                    ])),
-                  y,
-                ),
-              v
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var r = this,
+                  a = 0,
+                  i = 0,
+                  l = 0,
+                  g = 0,
+                  h = 0,
+                  y = 0,
+                  C = 0,
+                  b = 0,
+                  v = [],
+                  S = [],
+                  R = yield (f || (f = n("Promise"))).all(
+                    t.map(
+                      (function () {
+                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (e) {
+                            if (e.operation !== "set")
+                              return (
+                                a++,
+                                {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState
+                                      .Unsupported,
+                                }
+                              );
+                            try {
+                              var t = e.indexParts,
+                                n = e.value,
+                                s = t[1];
+                              if (!s) return r.malformedActionIndex();
+                              var u = n.noteEditAction;
+                              if (!u)
+                                return (
+                                  i++,
+                                  o(
+                                    "WAWebSyncdIndexUtils",
+                                  ).malformedActionValue(r.collectionName)
+                                );
+                              if (u.deleted === !0)
+                                return (
+                                  yield o("WAWebSchemaNote")
+                                    .getNoteTable()
+                                    .remove(s),
+                                  v.push(s),
+                                  {
+                                    actionState:
+                                      o("WASyncdConst").SyncActionState.Success,
+                                  }
+                                );
+                              var c = u.chatJid,
+                                d = u.createdAt,
+                                m = u.type,
+                                p = u.unstructuredContent;
+                              if (m == null)
+                                return (
+                                  l++,
+                                  o(
+                                    "WAWebSyncdIndexUtils",
+                                  ).malformedActionValue(r.collectionName)
+                                );
+                              if (c == null)
+                                return (
+                                  g++,
+                                  o(
+                                    "WAWebSyncdIndexUtils",
+                                  ).malformedActionValue(r.collectionName)
+                                );
+                              var _ = o("WAJids").validateChatJid(c);
+                              if (_ == null)
+                                return (
+                                  h++,
+                                  o(
+                                    "WAWebSyncdIndexUtils",
+                                  ).malformedActionValue(r.collectionName)
+                                );
+                              d == null && y++;
+                              var f = o("WALongInt").maybeNumber(d);
+                              (d != null && f == null && C++, p == null && b++);
+                              var R = yield o(
+                                "WAWebSyncdGetChat",
+                              ).resolveChatForMutationIndex(
+                                o("WAWebWidFactory").createWid(c),
+                              );
+                              if (!R.success)
+                                return {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState.Orphan,
+                                  orphanModel: R.orphanModel,
+                                };
+                              var L = o("WAWebWidToJid").widToChatJid(
+                                  o("WAWebWidFactory").createWid(R.chat.id),
+                                ),
+                                E = yield r.resolveNoteId(_, L, s),
+                                k = {
+                                  id: E,
+                                  type:
+                                    m ===
+                                    o("WAWebProtobufSyncAction.pb")
+                                      .SyncActionValue$NoteEditAction$NoteType
+                                      .UNSTRUCTURED
+                                      ? "unstructured"
+                                      : "structured",
+                                  chatJid: L,
+                                  content: p != null ? p : "",
+                                  modifiedAt: Math.floor(e.timestamp / 1e3),
+                                  createdAt: Math.floor(
+                                    (f != null ? f : 0) / 1e3,
+                                  ),
+                                };
+                              return (
+                                yield o("WAWebDBNoteDatabaseApi").addOrEditNote(
+                                  k,
+                                ),
+                                S.push(k),
+                                {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState.Success,
+                                }
+                              );
+                            } catch (e) {
+                              return {
+                                actionState:
+                                  o("WASyncdConst").SyncActionState.Failed,
+                              };
+                            }
+                          },
+                        );
+                        return function (t) {
+                          return e.apply(this, arguments);
+                        };
+                      })(),
+                    ),
+                  );
+                return (
+                  v.length > 0 &&
+                    o("WAWebBackendApi").frontendFireAndForget("removeNotes", {
+                      noteIds: v,
+                    }),
+                  S.length > 0 &&
+                    o("WAWebBackendApi").frontendFireAndForget(
+                      "upsertNotesFromSyncd",
+                      { noteRecords: S },
+                    ),
+                  a > 0 &&
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "note sync: ",
+                          " operations not supported",
+                        ])),
+                      a,
+                    ),
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "note sync: ",
+                          " malformed mutations",
+                        ])),
+                      i,
+                    ),
+                  l > 0 &&
+                    o("WALogger").WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "noteEditAction.type is empty for ",
+                          " mutations",
+                        ])),
+                      l,
+                    ),
+                  g > 0 &&
+                    o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "noteEditAction.chatJid is empty for ",
+                          " mutations",
+                        ])),
+                      g,
+                    ),
+                  h > 0 &&
+                    o("WALogger").WARN(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "noteEditAction.chatJid invalid for ",
+                          " mutations",
+                        ])),
+                      h,
+                    ),
+                  y > 0 &&
+                    o("WALogger").WARN(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "noteEditAction.createdAt is empty for ",
+                          " mutations",
+                        ])),
+                      y,
+                    ),
+                  C > 0 &&
+                    o("WALogger").WARN(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "noteEditAction.createdAt non-safe int for ",
+                          " mutations",
+                        ])),
+                      C,
+                    ),
+                  b > 0 &&
+                    o("WALogger").WARN(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "noteEditAction.unstructuredContent is empty for ",
+                          " mutations",
+                        ])),
+                      b,
+                    ),
+                  R
+                );
+              },
             );
-          }),
-          (r.resolveNoteId = async function (t, n, r) {
-            return n === t ? r : o("WAWebNotesIdUtils").generateNoteId(n);
-          }),
-          (r.getNoteMutation = async function (t) {
-            var e = await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
-                o("WAWebWidFactory").createWid(t.chatJid),
-                o("WASyncdConst").Actions.NoteEdit,
-              ),
-              n = o("WAWebWidToJid").widToChatJid(
-                o("WAWebWidFactory").createWid(e),
-              ),
-              r = await this.resolveNoteId(t.chatJid, n, String(t.id)),
-              a = {
-                noteEditAction: {
-                  type:
-                    t.type === "unstructured"
-                      ? o("WAWebProtobufSyncAction.pb")
-                          .SyncActionValue$NoteEditAction$NoteType.UNSTRUCTURED
-                      : o("WAWebProtobufSyncAction.pb")
-                          .SyncActionValue$NoteEditAction$NoteType.STRUCTURED,
-                  chatJid: n,
-                  unstructuredContent: t.content,
-                  createdAt: t.createdAt * 1e3,
-                },
-              };
-            return o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: this.collectionName,
-              indexArgs: [r],
-              value: a,
-              version: this.getVersion(),
-              operation: o("WAWebProtobufsServerSync.pb")
-                .SyncdMutation$SyncdOperation.SET,
-              timestamp: t.modifiedAt * 1e3,
-              action: this.getAction(),
-            });
-          }),
-          n
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.resolveNoteId = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                return t === e ? n : o("WAWebNotesIdUtils").generateNoteId(t);
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.getNoteMutation = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o(
+                    "WAWebSyncdGetChat",
+                  ).getChatJidMutationIndexForChat(
+                    o("WAWebWidFactory").createWid(e.chatJid),
+                    o("WASyncdConst").Actions.NoteEdit,
+                  ),
+                  n = o("WAWebWidToJid").widToChatJid(
+                    o("WAWebWidFactory").createWid(t),
+                  ),
+                  r = yield this.resolveNoteId(e.chatJid, n, String(e.id)),
+                  a = {
+                    noteEditAction: {
+                      type:
+                        e.type === "unstructured"
+                          ? o("WAWebProtobufSyncAction.pb")
+                              .SyncActionValue$NoteEditAction$NoteType
+                              .UNSTRUCTURED
+                          : o("WAWebProtobufSyncAction.pb")
+                              .SyncActionValue$NoteEditAction$NoteType
+                              .STRUCTURED,
+                      chatJid: n,
+                      unstructuredContent: e.content,
+                      createdAt: e.createdAt * 1e3,
+                    },
+                  };
+                return o("WAWebSyncdActionUtils").buildPendingMutation({
+                  collection: this.collectionName,
+                  indexArgs: [r],
+                  value: a,
+                  version: this.getVersion(),
+                  operation: o("WAWebProtobufsServerSync.pb")
+                    .SyncdMutation$SyncdOperation.SET,
+                  timestamp: e.modifiedAt * 1e3,
+                  action: this.getAction(),
+                });
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      g = new f();
-    l.default = g;
+      h = new g();
+    l.default = h;
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "WAWebPremiumMessageSchema",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -20,86 +21,96 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.getVersion = function () {
+          (r.getVersion = function () {
             return 7;
           }),
-          (n.getAction = function () {
+          (r.getAction = function () {
             return o("WASyncdConst").Actions.MarketingMessage;
           }),
-          (n.applyMutations = async function (t) {
-            var e = this,
-              n = [],
-              r = 0,
-              a = 0,
-              i = 0,
-              l = t.map(function (t) {
-                try {
-                  var l = t.indexParts,
-                    s = l[1];
-                  if (!s) return e.malformedActionIndex();
-                  if (t.operation === "set") {
-                    var u = t.value.marketingMessageAction;
-                    if (!u)
+          (r.applyMutations = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  n = [],
+                  r = 0,
+                  a = 0,
+                  i = 0,
+                  l = e.map(function (e) {
+                    try {
+                      var l = e.indexParts,
+                        s = l[1];
+                      if (!s) return t.malformedActionIndex();
+                      if (e.operation === "set") {
+                        var u = e.value.marketingMessageAction;
+                        if (!u)
+                          return (
+                            r++,
+                            o("WAWebSyncdIndexUtils").malformedActionValue(
+                              t.collectionName,
+                            )
+                          );
+                        var c = u.isDeleted,
+                          d = u.mediaId,
+                          m = u.message,
+                          p = u.name,
+                          _ = u.type;
+                        return _ == null
+                          ? (a++,
+                            o("WAWebSyncdIndexUtils").malformedActionValue(
+                              t.collectionName,
+                            ))
+                          : (n.push({
+                              id: s,
+                              name: p,
+                              type: _,
+                              isDeleted: c,
+                              message: m,
+                              mediaId: d,
+                              sentMessageIds: new Set(),
+                            }),
+                            {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Success,
+                            });
+                      }
                       return (
-                        r++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          e.collectionName,
-                        )
-                      );
-                    var c = u.isDeleted,
-                      d = u.mediaId,
-                      m = u.message,
-                      p = u.name,
-                      _ = u.type;
-                    return _ == null
-                      ? (a++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          e.collectionName,
-                        ))
-                      : (n.push({
-                          id: s,
-                          name: p,
-                          type: _,
-                          isDeleted: c,
-                          message: m,
-                          mediaId: d,
-                          sentMessageIds: new Set(),
-                        }),
+                        i++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Success,
-                        });
-                  }
-                  return (
-                    i++,
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    } catch (e) {
+                      return {
+                        actionState: o("WASyncdConst").SyncActionState.Failed,
+                      };
                     }
-                  );
-                } catch (e) {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Failed,
-                  };
-                }
-              });
-            return (
-              r > 0,
-              a > 0,
-              i > 0,
-              await o("WAWebPremiumMessageSchema")
-                .getPremiumMessageTable()
-                .bulkCreateOrMerge(n),
-              o("WAWebPremiumMessageCollection").PremiumMessageCollection.add(
-                n.map(function (e) {
-                  return babelHelpers.extends({}, e);
-                }),
-              ),
-              l
+                  });
+                return (
+                  r > 0,
+                  a > 0,
+                  i > 0,
+                  yield o("WAWebPremiumMessageSchema")
+                    .getPremiumMessageTable()
+                    .bulkCreateOrMerge(n),
+                  o(
+                    "WAWebPremiumMessageCollection",
+                  ).PremiumMessageCollection.add(
+                    n.map(function (e) {
+                      return babelHelpers.extends({}, e);
+                    }),
+                  ),
+                  l
+                );
+              },
             );
-          }),
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),

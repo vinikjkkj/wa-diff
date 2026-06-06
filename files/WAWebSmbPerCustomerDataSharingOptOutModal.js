@@ -20,6 +20,7 @@ __d(
     "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
     "WAWebWdsSmbPictoArrowsTransferIcon.react",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
   ],
@@ -182,38 +183,44 @@ __d(
     };
     function v(e) {
       var t = e.accountLid,
-        n = e.entryPoint,
-        a = m(!1),
-        i = a[0],
-        l = a[1];
-      g(n);
-      var c = async function () {
-          l(!0);
-          try {
-            var e = o("WAWebWidFactory").createUserLidOrThrow(t);
-            (await r(
-              "WAWebCtwaPerCustomerDataSharingSync",
-            ).sendPerCustomerDataSharingUpdate(e, !1, n),
-              f({
-                action: o("WAWebWamEnumSmbPerCustomerDataSharingControlAction")
-                  .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
-                  .CONSENT_SCREEN_CONFIRM,
-                actionOptInStatus: !1,
-                entryPoint: n,
-              }));
-          } catch (e) {
-            h();
-          } finally {
-            (l(!1), o("WAWebModalManager").ModalManager.close());
-          }
-        },
-        d = function () {
+        a = e.entryPoint,
+        i = m(!1),
+        l = i[0],
+        c = i[1];
+      g(a);
+      var d = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            c(!0);
+            try {
+              var e = o("WAWebWidFactory").createUserLidOrThrow(t);
+              (yield r(
+                "WAWebCtwaPerCustomerDataSharingSync",
+              ).sendPerCustomerDataSharingUpdate(e, !1, a),
+                f({
+                  action: o(
+                    "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
+                  ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
+                    .CONSENT_SCREEN_CONFIRM,
+                  actionOptInStatus: !1,
+                  entryPoint: a,
+                }));
+            } catch (e) {
+              h();
+            } finally {
+              (c(!1), o("WAWebModalManager").ModalManager.close());
+            }
+          });
+          return function () {
+            return e.apply(this, arguments);
+          };
+        })(),
+        p = function () {
           (f({
             action: o("WAWebWamEnumSmbPerCustomerDataSharingControlAction")
               .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
               .CONSENT_SCREEN_CANCEL,
             actionOptInStatus: _,
-            entryPoint: n,
+            entryPoint: a,
           }),
             o("WAWebModalManager").ModalManager.close());
         };
@@ -221,14 +228,14 @@ __d(
         testid: "ctwa-business-per-customer-data-sharing-opt-out-modal",
         buttonsDirection: "horizontal",
         type: o("WAWebModal.react").ModalTheme.DataSharing,
-        onOK: c,
-        okDisabled: i,
-        cancelDisabled: i,
+        onOK: d,
+        okDisabled: l,
+        cancelDisabled: l,
         okText: s._(/*BTDS*/ "Stop sharing"),
-        onCancel: d,
-        onOverlayClick: d,
+        onCancel: p,
+        onOverlayClick: p,
         cancelText: s._(/*BTDS*/ "Continue sharing"),
-        children: i ? u.jsx(b, {}) : u.jsx(C, {}),
+        children: l ? u.jsx(b, {}) : u.jsx(C, {}),
       });
     }
     ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));

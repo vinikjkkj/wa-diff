@@ -1,14 +1,21 @@
 __d(
   "NativeSchedulerTickStrategy",
-  ["IntervalTickStrategy", "TaskSchedulerPriority", "WAPromiseDelays"],
+  [
+    "IntervalTickStrategy",
+    "Promise",
+    "TaskSchedulerPriority",
+    "WAPromiseDelays",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = (function () {
-        function e() {}
-        var t = e.prototype;
+    var e,
+      s = (function () {
+        function t() {}
+        var r = t.prototype;
         return (
-          (t.tick = function (t) {
-            switch (t) {
+          (r.tick = function (r) {
+            switch (r) {
               case o("TaskSchedulerPriority").BLOCKING_PRIORITY:
                 return globalThis.scheduler.postTask(function () {}, {
                   priority: "user-blocking",
@@ -18,11 +25,11 @@ __d(
                   priority: "user-visible",
                 });
               case o("TaskSchedulerPriority").BACKGROUND_PRIORITY:
-                return new Promise(function (e) {
+                return new (e || (e = n("Promise")))(function (e) {
                   globalThis.scheduler.postTask(
-                    async function () {
-                      (await o("WAPromiseDelays").delayMs(100), e());
-                    },
+                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                      (yield o("WAPromiseDelays").delayMs(100), e());
+                    }),
                     { priority: "background" },
                   );
                 });
@@ -32,21 +39,21 @@ __d(
                 });
             }
           }),
-          e
+          t
         );
       })(),
-      s = null;
-    function u() {
-      var t;
-      return s != null
-        ? s
-        : typeof ((t = globalThis.scheduler) == null ? void 0 : t.postTask) !=
+      u = null;
+    function c() {
+      var e;
+      return u != null
+        ? u
+        : typeof ((e = globalThis.scheduler) == null ? void 0 : e.postTask) !=
             "function"
-          ? ((s = new (r("IntervalTickStrategy"))()), s)
-          : ((s = new e()), s);
+          ? ((u = new (r("IntervalTickStrategy"))()), u)
+          : ((u = new s()), u);
     }
-    ((l.NativeSchedulerTickStrategy = e),
-      (l.makeNativeSchedulerTickStrategy = u));
+    ((l.NativeSchedulerTickStrategy = s),
+      (l.makeNativeSchedulerTickStrategy = c));
   },
   98,
 );

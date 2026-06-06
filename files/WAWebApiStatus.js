@@ -1,6 +1,7 @@
 __d(
   "WAWebApiStatus",
   [
+    "Promise",
     "WAArrayUtils",
     "WAJids",
     "WALogger",
@@ -18,112 +19,128 @@ __d(
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "countWhere",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d() {
+    var e, s, u, c, d;
+    function m() {
       return o("WAWebDbEncryptionKey")
         .DbEncKeyStore.waitForFinalDbMsgEncKey()
         .then(function () {
-          var t = [m(), p(), _()];
-          return Promise.all(t).then(async function (t) {
-            var n = t.flat(1),
-              a = [],
-              i = [],
-              l = r("justknobx")._("4912"),
-              u = 0,
-              c = 0;
-            (n.forEach(function (e) {
-              e.author
-                ? e.viewMode === o("WAWebViewMode.flow").ViewModeType.HIDDEN &&
-                  l
-                  ? c++
-                  : o("WATimeUtils").happenedWithin(
-                        o("WATimeUtils").castToUnixTime(e.t),
-                        o("WATimeUtils").DAY_SECONDS,
-                      ) && e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED
-                    ? e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-                      i.push(
-                        o("WAWebDBMessageSerialization").messageFromDbRow(e),
-                      )
-                    : a.push(e.id)
-                : u++;
-            }),
-              u > 0 &&
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " status messages have null author",
-                    ])),
-                  u,
-                ),
-              c > 0 &&
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " status messages have hidden viewMode",
-                    ])),
-                  c,
-                ),
-              await o("WAWebSchemaMessage").getMessageTable().bulkRemove(a));
-            var d = i.map(function (e) {
-                return babelHelpers.extends({}, e, {
-                  id: new (r("WAWebMsgKey"))({
-                    id: e.id.id,
-                    remote: e.id.remote,
-                    fromMe: e.id.fromMe,
-                    participant:
-                      e.id.participant == null
-                        ? void 0
-                        : o("WAWebLidStatusMigrationUtils").matWidConvert(
-                            e.id.participant,
-                          ),
+          var t = [p(), _(), f()];
+          return (d || (d = n("Promise"))).all(t).then(
+            (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (t) {
+                  var n = t.flat(1),
+                    a = [],
+                    i = [],
+                    l = r("justknobx")._("4912"),
+                    u = 0,
+                    c = 0;
+                  (n.forEach(function (e) {
+                    e.author
+                      ? e.viewMode ===
+                          o("WAWebViewMode.flow").ViewModeType.HIDDEN && l
+                        ? c++
+                        : o("WATimeUtils").happenedWithin(
+                              o("WATimeUtils").castToUnixTime(e.t),
+                              o("WATimeUtils").DAY_SECONDS,
+                            ) && e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED
+                          ? e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+                            i.push(
+                              o("WAWebDBMessageSerialization").messageFromDbRow(
+                                e,
+                              ),
+                            )
+                          : a.push(e.id)
+                      : u++;
                   }),
-                  from: o("WAWebLidStatusMigrationUtils").matWidConvert(e.from),
-                  author:
-                    e.author == null
-                      ? void 0
-                      : o("WAWebLidStatusMigrationUtils").matWidConvert(
-                          e.author,
+                    u > 0 &&
+                      o("WALogger").WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "",
+                            " status messages have null author",
+                          ])),
+                        u,
+                      ),
+                    c > 0 &&
+                      o("WALogger").WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "",
+                            " status messages have hidden viewMode",
+                          ])),
+                        c,
+                      ),
+                    yield o("WAWebSchemaMessage")
+                      .getMessageTable()
+                      .bulkRemove(a));
+                  var d = i.map(function (e) {
+                      return babelHelpers.extends({}, e, {
+                        id: new (r("WAWebMsgKey"))({
+                          id: e.id.id,
+                          remote: e.id.remote,
+                          fromMe: e.id.fromMe,
+                          participant:
+                            e.id.participant == null
+                              ? void 0
+                              : o("WAWebLidStatusMigrationUtils").matWidConvert(
+                                  e.id.participant,
+                                ),
+                        }),
+                        from: o("WAWebLidStatusMigrationUtils").matWidConvert(
+                          e.from,
                         ),
-                });
-              }),
-              m = o("WAArrayUtils").groupBy(d, function (e) {
-                var t, n;
-                return e.from.isStatus() && e.author != null
-                  ? e.author.toString()
-                  : (t =
-                        (n = o("WAWebMsgGetters").getSender(e)) == null
-                          ? void 0
-                          : n.toString()) != null
-                    ? t
-                    : e.from.toString();
-              }),
-              p = [];
-            for (var _ of m) {
-              var f = _[0],
-                g = _[1],
-                h = r("countWhere")(g, function (e) {
-                  return e.ack < o("WAWebAck").ACK.READ;
-                }),
-                y = g[g.length - 1].t;
-              p.push({
-                id: o("WAWebWidFactory").createWid(f),
-                unreadCount: h,
-                totalCount: g.length,
-                t: y,
-                statusMsgs: g,
-              });
-            }
-            return p;
-          });
+                        author:
+                          e.author == null
+                            ? void 0
+                            : o("WAWebLidStatusMigrationUtils").matWidConvert(
+                                e.author,
+                              ),
+                      });
+                    }),
+                    m = o("WAArrayUtils").groupBy(d, function (e) {
+                      var t, n;
+                      return e.from.isStatus() && e.author != null
+                        ? e.author.toString()
+                        : (t =
+                              (n = o("WAWebMsgGetters").getSender(e)) == null
+                                ? void 0
+                                : n.toString()) != null
+                          ? t
+                          : e.from.toString();
+                    }),
+                    p = [];
+                  for (var _ of m) {
+                    var f = _[0],
+                      g = _[1],
+                      h = r("countWhere")(g, function (e) {
+                        return e.ack < o("WAWebAck").ACK.READ;
+                      }),
+                      y = g[g.length - 1].t;
+                    p.push({
+                      id: o("WAWebWidFactory").createWid(f),
+                      unreadCount: h,
+                      totalCount: g.length,
+                      t: y,
+                      statusMsgs: g,
+                    });
+                  }
+                  return p;
+                },
+              );
+              return function (e) {
+                return t.apply(this, arguments);
+              };
+            })(),
+          );
         });
     }
-    function m() {
+    function p() {
       var e = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID);
       return o("WAWebDBMessageStoreUtils").queryChatMessageHelper(
         o("WAWebDBMessageUtils").beginningOfChat(e),
@@ -131,7 +148,7 @@ __d(
         { lowerInclusive: !1, upperInclusive: !1 },
       );
     }
-    function p() {
+    function _() {
       try {
         if (r("justknobx")._("550"))
           return o("WAWebDBMessageStoreUtils").queryGroupStatusMsgsHelper();
@@ -147,9 +164,9 @@ __d(
           )
           .sendLogs("query-group-status");
       }
-      return Promise.resolve([]);
+      return (d || (d = n("Promise"))).resolve([]);
     }
-    function _() {
+    function f() {
       try {
         if (o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled())
           return o(
@@ -167,9 +184,9 @@ __d(
           )
           .sendLogs("query-newsletter-status");
       }
-      return Promise.resolve([]);
+      return (d || (d = n("Promise"))).resolve([]);
     }
-    l.getAllStatuses = d;
+    l.getAllStatuses = m;
   },
   98,
 );

@@ -4,20 +4,24 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingConfirmPopup.react",
+    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebSupportAIInfoNux.react",
-        )
-          .__setRef("WAWebSupportAIInfoNuxLoadable")
-          .load();
-        return e;
-      }, "SupportAIInfoChatNux"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebSupportAIInfoNux.react",
+          )
+            .__setRef("WAWebSupportAIInfoNuxLoadable")
+            .load();
+          return e;
+        }),
+        "SupportAIInfoChatNux",
+      ),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

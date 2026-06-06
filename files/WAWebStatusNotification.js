@@ -18,6 +18,7 @@ __d(
     "WAWebStatusCollection",
     "WAWebStatusNotificationUtils",
     "WAWebWamEnumNotificationTypeEnum",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -40,9 +41,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.shouldMute = function (t) {
+        (a.shouldMute = function (t) {
           var e, n;
           return o("WAWebNotificationHelpers").appIsActive()
             ? r("WAWebNotificationMuteReason").AppState
@@ -56,7 +57,7 @@ __d(
                 ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                 : null;
         }),
-        (n.shouldPlaySound = function () {
+        (a.shouldPlaySound = function () {
           if (!e.prototype.shouldPlaySound.call(this)) return !1;
           var t = o("WAWebABProps").getABPropConfigValue(
             "wa_web_enable_granular_notifications",
@@ -67,7 +68,7 @@ __d(
               ).MuteCollection.getGlobalStatusSoundsEnabled()
             : e.prototype.shouldPlaySound.call(this);
         }),
-        (n.shouldShowBanner = function () {
+        (a.shouldShowBanner = function () {
           if (!e.prototype.shouldShowBanner.call(this)) return !1;
           var t = o("WAWebABProps").getABPropConfigValue(
             "wa_web_enable_granular_notifications",
@@ -78,7 +79,7 @@ __d(
               ).MuteCollection.getGlobalStatusNotificationsEnabled()
             : e.prototype.shouldShowBanner.call(this);
         }),
-        (n.getBannerOptions = function () {
+        (a.getBannerOptions = function () {
           var e = this,
             t = s._(/*BTDS*/ "Mentioned you privately in a status").toString(),
             n = this.status
@@ -106,23 +107,35 @@ __d(
             onClick: i,
           };
         }),
-        (n.buildKey = function () {
+        (a.buildKey = function () {
           return "status-msg:" + this.msg.id.toString();
         }),
-        (n.getIcon = async function () {
-          return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-            r("WANullthrows")(o("WAWebMsgGetters").getSender(this.msg)),
-            this.abortController.signal,
-            o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-          );
-        }),
-        (n.getNotificationDeliveryWamEventData = async function () {
-          return {
-            uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
-              .NOTIFICATION_TYPE_ENUM.STATUS_MENTION,
-            triggeredByOfflineMessage: this.msg.isOffline === !0,
-          };
-        }),
+        (a.getIcon = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+              r("WANullthrows")(o("WAWebMsgGetters").getSender(this.msg)),
+              this.abortController.signal,
+              o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.getNotificationDeliveryWamEventData = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return {
+              uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
+                .NOTIFICATION_TYPE_ENUM.STATUS_MENTION,
+              triggeredByOfflineMessage: this.msg.isOffline === !0,
+            };
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);

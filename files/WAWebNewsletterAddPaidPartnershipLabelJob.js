@@ -6,27 +6,28 @@ __d(
     "WAWebMexNewsletterAddPaidPartnershipLabelJob",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(t, n, r, a) {
+    function s(t, r, a, i) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "addPaidPartnershipLabel",
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var i = await o(
+              var n = yield o(
                 "WAWebMexNewsletterAddPaidPartnershipLabelJob",
-              ).mexNewsletterAddPaidPartnershipLabelJob(t, n, a);
+              ).mexNewsletterAddPaidPartnershipLabelJob(t, r, i);
               return (
-                i === !0 &&
-                  (await o("WAWebSchemaMessage")
+                n === !0 &&
+                  (yield o("WAWebSchemaMessage")
                     .getMessageTable()
                     .bulkCreateOrMerge([
-                      { id: r, hasPaidPartnershipLabel: !0 },
+                      { id: a, hasPaidPartnershipLabel: !0 },
                     ])),
-                i
+                n
               );
             } catch (t) {
               return (
@@ -42,7 +43,7 @@ __d(
                 !1
               );
             }
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

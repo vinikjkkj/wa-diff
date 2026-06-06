@@ -13,16 +13,27 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _;
-    async function f(e) {
-      return o("WAWebRuntimeEnvironmentUtils").isWorker()
-        ? (await o("WAWebApiChatCommon").getChatRecord(e)) != null
-        : o("WAWebBackendApi").frontendSendAndReceive("hasChat", { chatId: e });
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    var g = new Map();
-    function h(e) {
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebRuntimeEnvironmentUtils").isWorker()
+            ? (yield o("WAWebApiChatCommon").getChatRecord(e)) != null
+            : o("WAWebBackendApi").frontendSendAndReceive("hasChat", {
+                chatId: e,
+              });
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    var h = new Map();
+    function y(e) {
       var t = e.chatOriginType,
         n = e.destinationChat,
         r = e.initialProps,
@@ -44,174 +55,182 @@ __d(
         i,
       );
     }
-    async function y(t) {
-      var n,
-        r = t.destinationChat,
-        a = r.chatId,
-        i = a.toString();
-      if (
-        (o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "checkChatExistsOrCreate called with chatWid=",
-              ", accountLid=",
-              "",
-            ])),
-          a.toLogString(),
-          (n = r.accountLid) == null ? void 0 : n.toLogString(),
-        ),
-        o("WAWebCurrentUser").isEmployee())
-      ) {
-        var l, y;
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "checkChatExistsOrCreate: first message id: ",
-              "",
-            ])),
-          (l =
-            (y = t.options.firstIncomingMsg) == null
-              ? void 0
-              : y.id.toString()) != null
-            ? l
-            : "not-passed",
-        );
-      }
-      var C = g.get(i);
-      C != null && (await C);
-      var b = (async function () {
-        var e = await f(a);
-        if (e !== !0) {
-          var n, r;
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r,
+            a = t.destinationChat,
+            i = a.chatId,
+            l = i.toString();
           if (
-            a.isLid() &&
-            !o(
-              "WAWebLid1X1MigrationGating",
-            ).Lid1X1MigrationUtils.isLidMigrated() &&
-            (t == null || (n = t.initialProps) == null
-              ? void 0
-              : n.lidOriginType) !==
-              o("WAWebUsernameTypes").LidOriginType.PNH_CTWA &&
-            ((r = t.msgMeta) == null ? void 0 : r.origin) !== "ctwa"
-          ) {
-            var l, s;
             (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "checkChatExistsOrCreate: chat origin: ",
-                  ". lid origin ",
-                  ", ",
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "checkChatExistsOrCreate called with chatWid=",
+                  ", accountLid=",
                   "",
                 ])),
-              t.chatOriginType,
-              (l = t.msgMeta) == null ? void 0 : l.origin,
-              t == null || (s = t.initialProps) == null
-                ? void 0
-                : s.lidOriginType,
+              i.toLogString(),
+              (r = a.accountLid) == null ? void 0 : r.toLogString(),
             ),
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "checkChatExistsOrCreate: Lid chat not migrated ",
+            o("WAWebCurrentUser").isEmployee())
+          ) {
+            var g, C;
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "checkChatExistsOrCreate: first message id: ",
+                  "",
+                ])),
+              (g =
+                (C = t.options.firstIncomingMsg) == null
+                  ? void 0
+                  : C.id.toString()) != null
+                ? g
+                : "not-passed",
+            );
+          }
+          var b = h.get(l);
+          b != null && (yield b);
+          var v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield f(i);
+            if (e !== !0) {
+              var n, r;
+              if (
+                i.isLid() &&
+                !o(
+                  "WAWebLid1X1MigrationGating",
+                ).Lid1X1MigrationUtils.isLidMigrated() &&
+                (t == null || (n = t.initialProps) == null
+                  ? void 0
+                  : n.lidOriginType) !==
+                  o("WAWebUsernameTypes").LidOriginType.PNH_CTWA &&
+                ((r = t.msgMeta) == null ? void 0 : r.origin) !== "ctwa"
+              ) {
+                var a, s;
+                (o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "checkChatExistsOrCreate: chat origin: ",
+                      ". lid origin ",
                       ", ",
                       "",
                     ])),
-                  a.toLogString(),
                   t.chatOriginType,
-                )
-                .sendLogs(
-                  "checkChatExistsOrCreate: asked to create Lid chat but is not migrated",
-                ));
-          }
-          try {
-            var y;
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "checkChatExistsOrCreate: creating chat ",
-                  ", ",
-                  "",
-                ])),
-              a.toLogString(),
-              t == null || (y = t.initialProps) == null
-                ? void 0
-                : y.lidOriginType,
-            ),
-              await h(t));
-          } catch (e) {
-            if (
-              !o("WAWebRuntimeEnvironmentUtils").isWorker() &&
-              e instanceof o("WAWebApiChat").CreateChatDuplicateError
-            ) {
-              var C = await o("WAWebApiChatCommon").getChatRecord(a);
-              if (C != null) {
-                await o("WAWebBackendApi").frontendFireAndForget(
-                  "chatCollectionGadd",
-                  {
-                    chat: babelHelpers.extends(
-                      {},
-                      o("WAWebApiHydrateWidsUtil").hydrateWids(C),
-                      { id: a },
-                    ),
-                  },
-                );
-                var b = await f(a);
-                return (
-                  b ||
-                    o("WALogger")
+                  (a = t.msgMeta) == null ? void 0 : a.origin,
+                  t == null || (s = t.initialProps) == null
+                    ? void 0
+                    : s.lidOriginType,
+                ),
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "checkChatExistsOrCreate: Lid chat not migrated ",
+                          ", ",
+                          "",
+                        ])),
+                      i.toLogString(),
+                      t.chatOriginType,
+                    )
+                    .sendLogs(
+                      "checkChatExistsOrCreate: asked to create Lid chat but is not migrated",
+                    ));
+              }
+              try {
+                var g;
+                (o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "checkChatExistsOrCreate: creating chat ",
+                      ", ",
+                      "",
+                    ])),
+                  i.toLogString(),
+                  t == null || (g = t.initialProps) == null
+                    ? void 0
+                    : g.lidOriginType,
+                ),
+                  yield y(t));
+              } catch (e) {
+                if (
+                  !o("WAWebRuntimeEnvironmentUtils").isWorker() &&
+                  e instanceof o("WAWebApiChat").CreateChatDuplicateError
+                ) {
+                  var C = yield o("WAWebApiChatCommon").getChatRecord(i);
+                  if (C != null) {
+                    yield o("WAWebBackendApi").frontendFireAndForget(
+                      "chatCollectionGadd",
+                      {
+                        chat: babelHelpers.extends(
+                          {},
+                          o("WAWebApiHydrateWidsUtil").hydrateWids(C),
+                          { id: i },
+                        ),
+                      },
+                    );
+                    var b = yield f(i);
+                    return (
+                      b ||
+                        o("WALogger")
+                          .ERROR(
+                            m ||
+                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                                "checkChatExistsOrCreate for ",
+                                ", unable to restore chat from DB",
+                              ])),
+                            i.toLogString(),
+                          )
+                          .tags("messaging")
+                          .sendLogs(
+                            "checkChatExistsOrCreate failed to restore chat",
+                            { sampling: 0.01 },
+                          ),
+                      b
+                    );
+                  }
+                }
+                e instanceof Error
+                  ? o("WALogger")
                       .ERROR(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "checkChatExistsOrCreate for ",
-                            ", unable to restore chat from DB",
+                            ", failed",
                           ])),
-                        a.toLogString(),
+                        i.toLogString(),
+                      )
+                      .catching(e)
+                      .tags("messaging")
+                      .sendLogs("checkChatExistsOrCreate failed", {
+                        sampling: 0.01,
+                      })
+                  : o("WALogger")
+                      .ERROR(
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            "checkChatExistsOrCreate for ",
+                            ", failed",
+                          ])),
+                        i.toLogString(),
                       )
                       .tags("messaging")
-                      .sendLogs(
-                        "checkChatExistsOrCreate failed to restore chat",
-                        { sampling: 0.01 },
-                      ),
-                  b
-                );
+                      .sendLogs("checkChatExistsOrCreate failed", {
+                        sampling: 0.01,
+                      });
               }
             }
-            e instanceof Error
-              ? o("WALogger")
-                  .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "checkChatExistsOrCreate for ",
-                        ", failed",
-                      ])),
-                    a.toLogString(),
-                  )
-                  .catching(e)
-                  .tags("messaging")
-                  .sendLogs("checkChatExistsOrCreate failed", {
-                    sampling: 0.01,
-                  })
-              : o("WALogger")
-                  .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "checkChatExistsOrCreate for ",
-                        ", failed",
-                      ])),
-                    a.toLogString(),
-                  )
-                  .tags("messaging")
-                  .sendLogs("checkChatExistsOrCreate failed", {
-                    sampling: 0.01,
-                  });
-          }
-        }
-        return (g.delete(i), e);
-      })();
-      return (g.set(i, b), b);
+            return (h.delete(l), e);
+          })();
+          return (h.set(l, v), v);
+        })),
+        b.apply(this, arguments)
+      );
     }
-    ((l.doesChatExist = f), (l.checkChatExistsOrCreate = y));
+    ((l.doesChatExist = f), (l.checkChatExistsOrCreate = C));
   },
   98,
 );

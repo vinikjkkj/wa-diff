@@ -5,6 +5,7 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebProtobufsE2E.pb",
     "WAWebScheduledMsgConstants",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,67 +19,91 @@ __d(
     function d() {
       return r("WAWebPonyfillsCryptoRandomUUID")();
     }
-    async function m(e) {
-      return self.crypto.subtle.importKey(
-        "raw",
-        e,
-        { name: "AES-GCM", length: 256 },
-        !1,
-        ["encrypt", "decrypt"],
-      );
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    async function p(t, n) {
-      var a = new Uint8Array(
-        o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_IV_BYTES,
-      );
-      self.crypto.getRandomValues(a);
-      try {
-        var i = await m(n),
-          l = await self.crypto.subtle.encrypt(
-            { name: "AES-GCM", iv: a },
-            i,
-            t,
-          );
-        return { encIv: a.buffer, encPayload: l };
-      } catch (t) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg] Failed to encrypt with RevealKey",
-                ])),
-            )
-            .catching(r("getErrorSafe")(t)),
-          t
-        );
-      }
-    }
-    async function _(e, t, n) {
-      try {
-        var a = await m(n),
-          i = new Uint8Array(t),
-          l = await self.crypto.subtle.decrypt(
-            { name: "AES-GCM", iv: i },
-            a,
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return self.crypto.subtle.importKey(
+            "raw",
             e,
+            { name: "AES-GCM", length: 256 },
+            !1,
+            ["encrypt", "decrypt"],
           );
-        return l;
-      } catch (e) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg] Failed to decrypt with RevealKey",
-                ])),
-            )
-            .catching(r("getErrorSafe")(e)),
-          e
-        );
-      }
+        })),
+        p.apply(this, arguments)
+      );
     }
-    function f(e, t, n) {
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new Uint8Array(
+            o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_IV_BYTES,
+          );
+          self.crypto.getRandomValues(n);
+          try {
+            var a = yield m(t),
+              i = yield self.crypto.subtle.encrypt(
+                { name: "AES-GCM", iv: n },
+                a,
+                e,
+              );
+            return { encIv: n.buffer, encPayload: i };
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[scheduled_msg] Failed to encrypt with RevealKey",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e)),
+              e
+            );
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t, n) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          try {
+            var a = yield m(n),
+              i = new Uint8Array(t),
+              l = yield self.crypto.subtle.decrypt(
+                { name: "AES-GCM", iv: i },
+                a,
+                e,
+              );
+            return l;
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[scheduled_msg] Failed to decrypt with RevealKey",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e)),
+              e
+            );
+          }
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e, t, n) {
       return {
         conditionalRevealMessage: {
           conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
@@ -96,37 +121,37 @@ __d(
         },
       };
     }
-    function g(e) {
-      var t = e.conditionalRevealMessageType,
-        n = e.encIv,
-        r = e.encPayload,
-        a = e.revealKeyId;
-      return r == null || n == null || a == null
+    function C(t) {
+      var n = t.conditionalRevealMessageType,
+        r = t.encIv,
+        a = t.encPayload,
+        i = t.revealKeyId;
+      return a == null || r == null || i == null
         ? (o("WALogger").ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
                 "[scheduled_msg] ConditionalRevealMessage missing fields",
               ])),
           ),
           null)
         : {
             conditionalRevealMessageType:
-              t != null
-                ? t
+              n != null
+                ? n
                 : o("WAWebProtobufsE2E.pb")
                     .Message$ConditionalRevealMessage$ConditionalRevealMessageType
                     .UNKNOWN,
-            encIv: n,
-            encPayload: r,
-            revealKeyId: a,
+            encIv: r,
+            encPayload: a,
+            revealKeyId: i,
           };
     }
     ((l.generateRevealKey = c),
       (l.generateRevealKeyId = d),
-      (l.encryptWithRevealKey = p),
-      (l.decryptWithRevealKey = _),
-      (l.buildConditionalRevealMessage = f),
-      (l.parseConditionalRevealMessage = g));
+      (l.encryptWithRevealKey = _),
+      (l.decryptWithRevealKey = g),
+      (l.buildConditionalRevealMessage = y),
+      (l.parseConditionalRevealMessage = C));
   },
   98,
 );

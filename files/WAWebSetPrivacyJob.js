@@ -12,6 +12,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebQueryPrivacyDisallowedListUtil",
     "WAWebUsernameTypes",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,40 +34,48 @@ __d(
         });
       }),
       u = n("$InternalEnum")({ Add: "add", Remove: "remove" });
-    async function c(e) {
-      var t = d(e),
-        n = await o("WADeprecatedSendIq").deprecatedSendIq(
-          o("WAWap").wap(
-            "iq",
-            {
-              to: o("WAWap").S_WHATSAPP_NET,
-              type: "set",
-              xmlns: "privacy",
-              id: o("WAWap").generateId(),
-            },
-            t,
-          ),
-          s,
-        );
-      if (n.success === !0) return n.result;
-      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-        n.errorCode,
-        n.errorText,
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = m(e),
+            n = yield o("WADeprecatedSendIq").deprecatedSendIq(
+              o("WAWap").wap(
+                "iq",
+                {
+                  to: o("WAWap").S_WHATSAPP_NET,
+                  type: "set",
+                  xmlns: "privacy",
+                  id: o("WAWap").generateId(),
+                },
+                t,
+              ),
+              s,
+            );
+          if (n.success === !0) return n.result;
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+            n.errorCode,
+            n.errorText,
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    function d(t) {
+    function m(t) {
       var n = t.dhash,
         r = t.name,
         a = t.users,
         i = t.value;
-      if (a == null) return m(r, i);
+      if (a == null) return p(r, i);
       if (
         o(
           "WAWebQueryPrivacyDisallowedListUtil",
         ).isPrivacyDisallowedListTypeLidMigrated()
       )
         try {
-          return p({ dhash: n, name: r, users: a, value: i });
+          return _({ dhash: n, name: r, users: a, value: i });
         } catch (t) {
           return (
             o("WALogger")
@@ -79,12 +88,12 @@ __d(
                 t,
               )
               .sendLogs("create-lid-privacy-node-failed"),
-            _(r, i, a, n)
+            f(r, i, a, n)
           );
         }
-      return _(r, i, a, n);
+      return f(r, i, a, n);
     }
-    function m(e, t) {
+    function p(e, t) {
       var n;
       return (n = o("WAWap")).wap(
         "privacy",
@@ -95,14 +104,14 @@ __d(
         }),
       );
     }
-    function p(e) {
+    function _(e) {
       var t,
         n = e.dhash,
         r = e.name,
         a = e.users,
         i = e.value,
         l = a.map(function (e) {
-          return f(e);
+          return g(e);
         });
       return (t = o("WAWap")).wap(
         "privacy",
@@ -118,7 +127,7 @@ __d(
         ),
       );
     }
-    function _(e, t, n, r) {
+    function f(e, t, n, r) {
       var a,
         i = n.map(function (e) {
           var t = e.action,
@@ -142,7 +151,7 @@ __d(
         ),
       );
     }
-    function f(e) {
+    function g(e) {
       var t = e.action,
         n = e.username,
         a = e.wid,

@@ -15,6 +15,7 @@ __d(
     "WAWebMaybeClearChatAiThreads",
     "WAWebStateUtils",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -27,7 +28,7 @@ __d(
         o("WAWebChatFlowTypes").ChatKindType.Community,
       ];
     function m(e, t) {
-      return (t === void 0 && (t = !0), g(o("WAWebStateUtils").unproxy(e), t));
+      return (t === void 0 && (t = !0), h(o("WAWebStateUtils").unproxy(e), t));
     }
     var p = Object.freeze({
       Community: function () {
@@ -65,16 +66,24 @@ __d(
       else t = p.Chat();
       return new (o("WAWebActionToast.react").ActionType)(t);
     }
-    async function f(e) {
-      var t = await r("JSResourceForInteraction")(
-          "WAWebBizRemoveDirectConnectionKeysBridge",
-        )
-          .__setRef("WAWebDeleteChatAction")
-          .load(),
-        n = t.removeDirectConnectionKeys;
-      await n(e);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function g(t, n) {
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield r("JSResourceForInteraction")(
+              "WAWebBizRemoveDirectConnectionKeysBridge",
+            )
+              .__setRef("WAWebDeleteChatAction")
+              .load(),
+            n = t.removeDirectConnectionKeys;
+          yield n(e);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(t, r) {
       if (
         (o(
           "WAWebBizCoexUtils",
@@ -82,73 +91,84 @@ __d(
         t.promises.sendDelete)
       )
         return t.promises.sendDelete;
-      var r = t.getLastMsgKeyForAction(),
-        a = r ? t.msgs.get(r) : void 0,
-        i = (t.promises.sendDelete = o(
+      var a = t.getLastMsgKeyForAction(),
+        i = a ? t.msgs.get(a) : void 0,
+        l = (t.promises.sendDelete = o(
           "WAWebChatDeleteBridge",
         ).sendConversationDelete(t.id, t.tcToken, t.tcTokenTimestamp)),
-        l = o("WAWebFrontendChatGetters").getKind(t),
-        u = i
-          .then(async function (e) {
-            if (e.status === 200) {
-              if (
-                (o("WAWebLabelCollection").LabelCollection.removeAllLabelsMD(t),
-                l === o("WAWebChatFlowTypes").ChatKindType.Chat &&
-                  (await f(t.id)),
-                l != null)
-              )
-                switch (
-                  (d.includes(l) &&
-                    (await o(
-                      "WAWebBizChatAssignmentAction",
-                    ).removeChatAssignmentsForChat(t.id)),
-                  o("WAWebMaybeClearChatAiThreads").maybeClearAiThreadsForChat(
-                    t,
-                  ),
-                  l)
-                ) {
-                  case o("WAWebChatFlowTypes").ChatKindType.Community:
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Community deleted"),
-                    );
-                  case o("WAWebChatFlowTypes").ChatKindType.Group:
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Group deleted"),
-                    );
-                  case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Broadcast audience deleted"),
-                    );
-                  case o("WAWebChatFlowTypes").ChatKindType.Chat:
-                    return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Chat deleted"),
-                    );
-                  case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
-                    return;
-                }
-            } else if (e.status >= 400 && l != null)
-              switch (l) {
-                case o("WAWebChatFlowTypes").ChatKindType.Community:
-                  return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't delete community."),
-                  );
-                case o("WAWebChatFlowTypes").ChatKindType.Group:
-                  return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't delete group."),
-                  );
-                case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
-                  return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't delete broadcast list."),
-                  );
-                case o("WAWebChatFlowTypes").ChatKindType.Chat:
-                  return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't delete chat."),
-                  );
-                case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
-                  return;
-              }
-          })
-          .catch(function (r) {
+        u = o("WAWebFrontendChatGetters").getKind(t),
+        m = l
+          .then(
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  if (e.status === 200) {
+                    if (
+                      (o(
+                        "WAWebLabelCollection",
+                      ).LabelCollection.removeAllLabelsMD(t),
+                      u === o("WAWebChatFlowTypes").ChatKindType.Chat &&
+                        (yield f(t.id)),
+                      u != null)
+                    )
+                      switch (
+                        (d.includes(u) &&
+                          (yield o(
+                            "WAWebBizChatAssignmentAction",
+                          ).removeChatAssignmentsForChat(t.id)),
+                        o(
+                          "WAWebMaybeClearChatAiThreads",
+                        ).maybeClearAiThreadsForChat(t),
+                        u)
+                      ) {
+                        case o("WAWebChatFlowTypes").ChatKindType.Community:
+                          return new (o("WAWebActionToast.react").ActionType)(
+                            s._(/*BTDS*/ "Community deleted"),
+                          );
+                        case o("WAWebChatFlowTypes").ChatKindType.Group:
+                          return new (o("WAWebActionToast.react").ActionType)(
+                            s._(/*BTDS*/ "Group deleted"),
+                          );
+                        case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
+                          return new (o("WAWebActionToast.react").ActionType)(
+                            s._(/*BTDS*/ "Broadcast audience deleted"),
+                          );
+                        case o("WAWebChatFlowTypes").ChatKindType.Chat:
+                          return new (o("WAWebActionToast.react").ActionType)(
+                            s._(/*BTDS*/ "Chat deleted"),
+                          );
+                        case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
+                          return;
+                      }
+                  } else if (e.status >= 400 && u != null)
+                    switch (u) {
+                      case o("WAWebChatFlowTypes").ChatKindType.Community:
+                        return new (o("WAWebActionToast.react").ActionType)(
+                          s._(/*BTDS*/ "Couldn't delete community."),
+                        );
+                      case o("WAWebChatFlowTypes").ChatKindType.Group:
+                        return new (o("WAWebActionToast.react").ActionType)(
+                          s._(/*BTDS*/ "Couldn't delete group."),
+                        );
+                      case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
+                        return new (o("WAWebActionToast.react").ActionType)(
+                          s._(/*BTDS*/ "Couldn't delete broadcast list."),
+                        );
+                      case o("WAWebChatFlowTypes").ChatKindType.Chat:
+                        return new (o("WAWebActionToast.react").ActionType)(
+                          s._(/*BTDS*/ "Couldn't delete chat."),
+                        );
+                      case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
+                        return;
+                    }
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+          )
+          .catch(function (n) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -156,8 +176,8 @@ __d(
                 ])),
             );
             var a = "";
-            if (l != null)
-              switch (l) {
+            if (u != null)
+              switch (u) {
                 case o("WAWebChatFlowTypes").ChatKindType.Community:
                   a = s._(/*BTDS*/ "Couldn't delete community.");
                   break;
@@ -177,25 +197,25 @@ __d(
             return new (o("WAWebActionToast.react").ActionType)(a, {
               actionText: s._(/*BTDS*/ "Try again."),
               actionHandler: function () {
-                return g(t, n);
+                return h(t, r);
               },
             });
           });
       return (
-        n &&
+        r &&
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebActionToast.react").ActionToast, {
-              initialAction: _(l),
-              pendingAction: u,
+              initialAction: _(u),
+              pendingAction: m,
             }),
           ),
-        i
+        l
           .then(function (e) {
             if (e.status === 200) {
               var n = t.getLastMsgKeyForAction();
-              ((r && r.equals(n)) || r === n
+              ((a && a.equals(n)) || a === n
                 ? t.delete()
-                : t.deleteMsgsBeforeMsgInclusive(a),
+                : t.deleteMsgsBeforeMsgInclusive(i),
                 o("WAWebFrontendChatGetters").getKind(t) ===
                   o("WAWebChatFlowTypes").ChatKindType.Community &&
                   o("WAWebContactCollection").ContactCollection.remove(

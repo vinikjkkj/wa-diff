@@ -1,6 +1,11 @@
 __d(
   "WAWebVoipHandleLidCallerDisplayInfo",
-  ["WAPromiseEach", "WAWebVoipLidUtils", "WAWebWidFactory"],
+  [
+    "WAPromiseEach",
+    "WAWebVoipLidUtils",
+    "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -29,28 +34,56 @@ __d(
         r
       );
     }
-    async function u(e) {
-      await o("WAPromiseEach").promiseEach(e, async function (t, n) {
-        var r = n === e.length - 1,
-          a = t.displayName,
-          i = t.lid,
-          l = t.pn,
-          s = t.username;
-        await o("WAWebVoipLidUtils").attemptPersistLidMappingAndUserAttributes({
-          jid: i,
-          phoneNumber: l,
-          username: s,
-          pushName: a,
-          flushImmediately: r,
-        });
-      });
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    async function c(e) {
-      var t = s(e);
-      await u(t);
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAPromiseEach").promiseEach(
+            e,
+            (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (t, n) {
+                  var r = n === e.length - 1,
+                    a = t.displayName,
+                    i = t.lid,
+                    l = t.pn,
+                    s = t.username;
+                  yield o(
+                    "WAWebVoipLidUtils",
+                  ).attemptPersistLidMappingAndUserAttributes({
+                    jid: i,
+                    phoneNumber: l,
+                    username: s,
+                    pushName: a,
+                    flushImmediately: r,
+                  });
+                },
+              );
+              return function (e, n) {
+                return t.apply(this, arguments);
+              };
+            })(),
+          );
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = s(e);
+          yield u(t);
+        })),
+        m.apply(this, arguments)
+      );
     }
     ((l.parseWAWebVoipLidCallerDisplayInfoPayload = s),
-      (l.handleWAWebVoipLidCallerDisplayInfo = c));
+      (l.handleWAWebVoipLidCallerDisplayInfo = d));
   },
   98,
 );

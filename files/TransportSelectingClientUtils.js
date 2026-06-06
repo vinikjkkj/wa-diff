@@ -5,6 +5,7 @@ __d(
     "DGWEnvUtil",
     "MQTTRequestStreamUtils",
     "TransportSelectingClientCCResolver",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -64,15 +65,25 @@ __d(
         return n;
       }
     }
-    async function d(e) {
-      var t = c(e);
-      if (t != null) {
-        var n = await r("TransportSelectingClientCCResolver").getCCGroupName(t);
-        return u(n) && r("DGWEnvUtil").isDGWEnvCompatible();
-      }
-      return !1;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function m(e, t) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = c(e);
+          if (t != null) {
+            var n = yield r(
+              "TransportSelectingClientCCResolver",
+            ).getCCGroupName(t);
+            return u(n) && r("DGWEnvUtil").isDGWEnvCompatible();
+          }
+          return !1;
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
       var n = c(t);
       return e != null && e === "SKY" && n != null
         ? n
@@ -85,7 +96,7 @@ __d(
       (l.isDGWAllowedSKYTopic = u),
       (l.getTopicPrefix = c),
       (l.isDGWSupportedSKYTopic = d),
-      (l.getMethodContextForCC = m));
+      (l.getMethodContextForCC = p));
   },
   98,
 );

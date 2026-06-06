@@ -7,6 +7,7 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebSendOrderChatAction",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -29,22 +30,30 @@ __d(
           ? n
           : "";
     }
-    async function s(t, n, a) {
-      var i = await o("WAWebBizOrderAction").createOrder(
-        n.id,
-        t.cartItemCollection.toArray(),
-      );
+    function s(e, t, n) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        await r("WAWebSendOrderChatAction")(
-          n,
-          i,
-          t.itemCount,
-          e(t),
-          t.message,
-          a == null ? void 0 : a.getCatalogType(),
-        ),
-        r("WAWebBizSyncCartAction")(t),
-        i.id
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = yield o("WAWebBizOrderAction").createOrder(
+            n.id,
+            t.cartItemCollection.toArray(),
+          );
+          return (
+            yield r("WAWebSendOrderChatAction")(
+              n,
+              i,
+              t.itemCount,
+              e(t),
+              t.message,
+              a == null ? void 0 : a.getCatalogType(),
+            ),
+            r("WAWebBizSyncCartAction")(t),
+            i.id
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
     l.default = s;

@@ -4,20 +4,24 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
+    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebBizMerchantDetailsDrawer.react",
-        )
-          .__setRef("WAWebMerchantDetailsDrawerLoadable")
-          .load();
-        return e;
-      }, "MerchantDetails"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebBizMerchantDetailsDrawer.react",
+          )
+            .__setRef("WAWebMerchantDetailsDrawerLoadable")
+            .load();
+          return e;
+        }),
+        "MerchantDetails",
+      ),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

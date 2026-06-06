@@ -1,15 +1,17 @@
 __d(
   "WAWebSendStatusMuteAction",
   [
+    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebContactCollection",
     "WAWebLidMigrationUtils",
     "WAWebStatusSetAndSyncMute",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
+    var e, s;
+    function u(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e),
         r = {
           id: e,
@@ -20,7 +22,7 @@ __d(
         };
       o("WAWebContactCollection").ContactCollection.add(r, { merge: !0 });
     }
-    function u(e, t) {
+    function c(e, t) {
       var n = e,
         r = null;
       if (t) {
@@ -32,30 +34,38 @@ __d(
       }
       return { contactToApply: n, altContactToApply: r };
     }
-    async function c(t, n) {
-      var r = u(t, n),
-        a = r.altContactToApply,
-        i = r.contactToApply,
-        l = [o("WAWebStatusSetAndSyncMute").setAndSyncStatusMute(i, n)];
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        a != null &&
-          l.push(o("WAWebStatusSetAndSyncMute").setAndSyncStatusMute(a, n)),
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "setStatusMute: contactToApply: ",
-              ", altContactToApply: ",
-              "",
-            ])),
-          i.toLogString(),
-          a == null ? void 0 : a.toLogString(),
-        ),
-        Promise.all(l).then(function () {
-          (s(i, n), a != null && s(a, n));
-        })
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a = c(t, r),
+            i = a.altContactToApply,
+            l = a.contactToApply,
+            d = [o("WAWebStatusSetAndSyncMute").setAndSyncStatusMute(l, r)];
+          return (
+            i != null &&
+              d.push(o("WAWebStatusSetAndSyncMute").setAndSyncStatusMute(i, r)),
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "setStatusMute: contactToApply: ",
+                  ", altContactToApply: ",
+                  "",
+                ])),
+              l.toLogString(),
+              i == null ? void 0 : i.toLogString(),
+            ),
+            (s || (s = n("Promise"))).all(d).then(function () {
+              (u(l, r), i != null && u(i, r));
+            })
+          );
+        })),
+        m.apply(this, arguments)
       );
     }
-    l.setStatusMute = c;
+    l.setStatusMute = d;
   },
   98,
 );

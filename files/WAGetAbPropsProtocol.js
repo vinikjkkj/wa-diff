@@ -1,49 +1,62 @@
 __d(
   "WAGetAbPropsProtocol",
-  ["WALogger", "WAResultOrError", "WASmaxAbPropsGetExperimentConfigRPC"],
+  [
+    "WALogger",
+    "WAResultOrError",
+    "WASmaxAbPropsGetExperimentConfigRPC",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    async function s(t) {
-      var n = await o(
-        "WASmaxAbPropsGetExperimentConfigRPC",
-      ).sendGetExperimentConfigRPC(t);
-      if (n.name === "GetExperimentConfigResponseSuccess") {
-        var r = n.value,
-          a = r.erid,
-          i = r.propsAbKey,
-          l = r.propsDeltaUpdate,
-          s = r.propsHash,
-          c = r.propsProp,
-          d = r.propsRefresh,
-          m = r.propsRefreshId,
-          p = u(c),
-          _ = p.newProps,
-          f = p.samplingConfigs;
-        return o("WAResultOrError").makeResult({
-          abKey: i,
-          hash: s,
-          refresh: d,
-          refreshId: m,
-          props: _,
-          samplingConfigs: f,
-          erid: a == null ? void 0 : a.elementValue,
-          isDeltaUpdate: l === "true",
-        });
-      }
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "getAbPropsProtocol failed ",
-              "",
-            ])),
-          n.value,
-        ),
-        o("WAResultOrError").makeError()
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = yield o(
+            "WASmaxAbPropsGetExperimentConfigRPC",
+          ).sendGetExperimentConfigRPC(t);
+          if (n.name === "GetExperimentConfigResponseSuccess") {
+            var r = n.value,
+              a = r.erid,
+              i = r.propsAbKey,
+              l = r.propsDeltaUpdate,
+              s = r.propsHash,
+              u = r.propsProp,
+              d = r.propsRefresh,
+              m = r.propsRefreshId,
+              p = c(u),
+              _ = p.newProps,
+              f = p.samplingConfigs;
+            return o("WAResultOrError").makeResult({
+              abKey: i,
+              hash: s,
+              refresh: d,
+              refreshId: m,
+              props: _,
+              samplingConfigs: f,
+              erid: a == null ? void 0 : a.elementValue,
+              isDeltaUpdate: l === "true",
+            });
+          }
+          return (
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "getAbPropsProtocol failed ",
+                  "",
+                ])),
+              n.value,
+            ),
+            o("WAResultOrError").makeError()
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
-    function u(e) {
+    function c(e) {
       var t = [],
         n = [];
       return (

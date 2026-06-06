@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsUsername",
     "WAWebUsernameTypes",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -20,8 +21,8 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "setUsernameQueryJob",
-          async function () {
-            var n = await o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var n = yield o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
               input: e,
               reserved:
                 o("WAWebUserPrefsUsername").getUsernameState() === "RESERVED",
@@ -31,7 +32,7 @@ __d(
             if (n) {
               var r = o("WAWebUserPrefsMeUser").getMeUser();
               return (
-                await m([
+                yield p([
                   e != null
                     ? {
                         userId: r,
@@ -43,7 +44,7 @@ __d(
               );
             }
             return !1;
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
@@ -66,95 +67,122 @@ __d(
               ? { userId: t, usernameCountryCode: r }
               : null;
     }
-    async function d(t) {
-      var n = [],
-        r = new Map(),
-        a = t.map(function (e) {
-          var t = e.userId;
-          return t;
-        }),
-        i = await o(
-          "WAWebApiContactUsernameFields",
-        ).bulkGetContactToUsernameInfoMap(a),
-        l = 0,
-        s = [];
-      for (var u of t) {
-        var c = u.userId,
-          d = u.username,
-          m = u.usernameCountryCode,
-          p = i.get(c.toJid()),
-          _ = !c.isLid() || o("WAWebApiContact").getPhoneNumber(c),
-          f =
-            (d != null &&
-              ((p == null ? void 0 : p.username) !== d ||
-                (p == null ? void 0 : p.usernameSoftDeleted) === !0)) ||
-            (u.deleteUsername === !0 &&
-              ((_ && (p == null ? void 0 : p.username) != null) ||
-                (!_ && (p == null ? void 0 : p.username) !== d))),
-          g = m != null && (p == null ? void 0 : p.usernameCountryCode) !== m,
-          h = f || g,
-          y = !!(_ || (p == null ? void 0 : p.username) != null),
-          C = { wasUpdated: !!h, wasPreviouslyKnown: y };
-        if (h && f) {
-          var b;
-          C.oldUsername =
-            (b = p == null ? void 0 : p.username) != null ? b : void 0;
-        }
-        if ((r.set(c.toString(), C), !!h)) {
-          (l++, s.length < 3 && s.push(c.toLogString()));
-          var v = c.toJid(),
-            S = { id: v };
-          (d != null
-            ? (S.username = d)
-            : u.deleteUsername === !0 &&
-              (_ == null && u.forceDelete !== !0
-                ? (S.usernameSoftDeleted = !0)
-                : (S.username = void 0),
-              u.displayNameLID != null &&
-                (S.displayNameLID = u.displayNameLID)),
-            m != null && (S.usernameCountryCode = m),
-            n.push(S));
-        }
-      }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        l > 0 &&
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[username] updated ",
-                " usernames in db + collection => ",
-                "",
-              ])),
-            l,
-            s,
-          ),
-        n.length === 0 ||
-          (await o("WAWebApiContactUsernameFields").bulkUpdateUsernamesInDb(n),
-          await o("WAWebBackendApi").frontendSendAndReceive(
-            "bulkUpdateUsernames",
-            { usernameUpdates: n },
-          )),
-        r
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = [],
+            r = new Map(),
+            a = t.map(function (e) {
+              var t = e.userId;
+              return t;
+            }),
+            i = yield o(
+              "WAWebApiContactUsernameFields",
+            ).bulkGetContactToUsernameInfoMap(a),
+            l = 0,
+            s = [];
+          for (var u of t) {
+            var c = u.userId,
+              d = u.username,
+              m = u.usernameCountryCode,
+              p = i.get(c.toJid()),
+              _ = !c.isLid() || o("WAWebApiContact").getPhoneNumber(c),
+              f =
+                (d != null &&
+                  ((p == null ? void 0 : p.username) !== d ||
+                    (p == null ? void 0 : p.usernameSoftDeleted) === !0)) ||
+                (u.deleteUsername === !0 &&
+                  ((_ && (p == null ? void 0 : p.username) != null) ||
+                    (!_ && (p == null ? void 0 : p.username) !== d))),
+              g =
+                m != null && (p == null ? void 0 : p.usernameCountryCode) !== m,
+              h = f || g,
+              y = !!(_ || (p == null ? void 0 : p.username) != null),
+              C = { wasUpdated: !!h, wasPreviouslyKnown: y };
+            if (h && f) {
+              var b;
+              C.oldUsername =
+                (b = p == null ? void 0 : p.username) != null ? b : void 0;
+            }
+            if ((r.set(c.toString(), C), !!h)) {
+              (l++, s.length < 3 && s.push(c.toLogString()));
+              var v = c.toJid(),
+                S = { id: v };
+              (d != null
+                ? (S.username = d)
+                : u.deleteUsername === !0 &&
+                  (_ == null && u.forceDelete !== !0
+                    ? (S.usernameSoftDeleted = !0)
+                    : (S.username = void 0),
+                  u.displayNameLID != null &&
+                    (S.displayNameLID = u.displayNameLID)),
+                m != null && (S.usernameCountryCode = m),
+                n.push(S));
+            }
+          }
+          return (
+            l > 0 &&
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[username] updated ",
+                    " usernames in db + collection => ",
+                    "",
+                  ])),
+                l,
+                s,
+              ),
+            n.length === 0 ||
+              (yield o("WAWebApiContactUsernameFields").bulkUpdateUsernamesInDb(
+                n,
+              ),
+              yield o("WAWebBackendApi").frontendSendAndReceive(
+                "bulkUpdateUsernames",
+                { usernameUpdates: n },
+              )),
+            r
+          );
+        })),
+        m.apply(this, arguments)
       );
     }
-    async function m(e) {
-      return s.enqueue(function () {
-        return d(e);
-      });
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    async function p(e) {
-      return m(
-        e.map(function (e) {
-          var t = e.displayNameLID,
-            n = e.userId;
-          return { userId: n, displayNameLID: t, deleteUsername: !0 };
-        }),
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return s.enqueue(function () {
+            return d(e);
+          });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return p(
+            e.map(function (e) {
+              var t = e.displayNameLID,
+                n = e.userId;
+              return { userId: n, displayNameLID: t, deleteUsername: !0 };
+            }),
+          );
+        })),
+        g.apply(this, arguments)
       );
     }
     ((l.setUsernameQueryJob = u),
       (l.maybeCreateSetUsernameInfoJobArg = c),
-      (l.setUsernamesJob = m),
-      (l.deleteUsernamesJob = p));
+      (l.setUsernamesJob = p),
+      (l.deleteUsernamesJob = f));
   },
   98,
 );

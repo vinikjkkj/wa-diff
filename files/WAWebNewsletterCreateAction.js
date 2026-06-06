@@ -7,13 +7,14 @@ __d(
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterQueues",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
       return o("WAWebNewsletterQueues").newsletterCreationQueue.enqueue(
-        async function () {
-          var n = await o("WAWebNewsletterCreateJob").createNewsletter(t);
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var n = yield o("WAWebNewsletterCreateJob").createNewsletter(t);
           if (n == null)
             return (
               o("WALogger")
@@ -33,7 +34,7 @@ __d(
             s = i.metadata,
             u = i.pic;
           return (
-            await o(
+            yield o(
               "WAWebNewsletterBridgeApi",
             ).NewsletterBridgeApi.joinNewsletter({
               newsletter: l,
@@ -45,7 +46,7 @@ __d(
               o("WAWebWidFactory").createWid(l.id.toString()),
             )
           );
-        },
+        }),
       );
     }
     l.createNewsletterAction = s;

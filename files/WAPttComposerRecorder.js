@@ -1,6 +1,10 @@
 __d(
   "WAPttComposerRecorder",
-  ["WAPttComposerOpusRecorder", "WAPttComposerWaveformRecorder"],
+  [
+    "WAPttComposerOpusRecorder",
+    "WAPttComposerWaveformRecorder",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -26,20 +30,32 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.start = async function () {
-          var e = await this._opusRecorder.start();
-          return e ? (this._waveformRecorder.start(), !0) : !1;
-        }),
+        (t.start = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield this._opusRecorder.start();
+            return e ? (this._waveformRecorder.start(), !0) : !1;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (t.stop = function () {
           (this._opusRecorder.stop(), this._waveformRecorder.stop());
         }),
         (t.pause = function () {
           (this._opusRecorder.pause(), this._waveformRecorder.pause());
         }),
-        (t.resume = async function () {
-          var e = await this._opusRecorder.resume();
-          return e ? (this._waveformRecorder.resume(), !0) : !1;
-        }),
+        (t.resume = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield this._opusRecorder.resume();
+            return e ? (this._waveformRecorder.resume(), !0) : !1;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (t.getDuration = function () {
           return this._opusRecorder.getDuration();
         }),

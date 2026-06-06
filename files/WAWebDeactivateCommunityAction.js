@@ -18,6 +18,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebToast.react",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -36,102 +37,110 @@ __d(
           o("WAWebNavBarTypes").NavBarItems.Communities,
         ));
     }
-    async function m(t) {
-      if (!r("WAWebNetworkStatus").online) {
-        o("WAWebToastManager").ToastManager.open(
-          c.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(
-              /*BTDS*/ "Community was not deactivated. Check your connection and try again.",
-            ),
-          }),
-        );
-        return;
-      }
-      var n = t.id,
-        a = o("WAWebGroupCommunityJob").sendDeactivateCommunity({
-          parentGroupId: n,
-        }),
-        i = (async function () {
-          try {
-            return (
-              await a,
-              new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ '"{community-name}" was deactivated', [
-                  s._param("community-name", t.formattedTitle),
-                ]),
-              )
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (!r("WAWebNetworkStatus").online) {
+            o("WAWebToastManager").ToastManager.open(
+              c.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(
+                  /*BTDS*/ "Community was not deactivated. Check your connection and try again.",
+                ),
+              }),
             );
-          } catch (t) {
+            return;
+          }
+          var a = t.id,
+            i = o("WAWebGroupCommunityJob").sendDeactivateCommunity({
+              parentGroupId: a,
+            }),
+            l = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              try {
+                return (
+                  yield i,
+                  new (o("WAWebActionToast.react").ActionType)(
+                    s._(/*BTDS*/ '"{community-name}" was deactivated', [
+                      s._param("community-name", t.formattedTitle),
+                    ]),
+                  )
+                );
+              } catch (t) {
+                o("WAFilteredCatch").filteredCatch(
+                  o("WAWebBackendErrors").ServerStatusCodeError,
+                  function (t) {
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "Community deactivation failed",
+                          ])),
+                      )
+                      .sendLogs("community-deactivation-failed");
+                  },
+                )(t);
+              }
+            })(),
+            u = new (o("WAWebActionToast.react").ActionType)(
+              s._(/*BTDS*/ "Deactivating community ..."),
+            );
+          o("WAWebToastManager").ToastManager.open(
+            c.jsx(o("WAWebActionToast.react").ActionToast, {
+              initialAction: u,
+              pendingAction: l,
+            }),
+          );
+          try {
+            (yield i, d());
+          } catch (e) {
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
-              function (t) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "Community deactivation failed",
-                      ])),
-                  )
-                  .sendLogs("community-deactivation-failed");
+              function (e) {
+                e.status === 401
+                  ? o("WAWebModalManager").ModalManager.open(
+                      c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                        tsNavigationData: {
+                          surface: "unknown",
+                          viewName: "deactivate-community",
+                        },
+                        onOK: o("WAWebModalManager").closeModalManager,
+                        children: s._(
+                          /*BTDS*/ "Community could not be deactivated. You did not create this community, so you cannot deactivate it.",
+                        ),
+                      }),
+                    )
+                  : e.status === 404
+                    ? (d(),
+                      o("WAWebToastManager").ToastManager.open(
+                        c.jsx(o("WAWebToast.react").Toast, {
+                          msg: s._(/*BTDS*/ "This community no longer exists"),
+                        }),
+                      ))
+                    : e.status === 500 &&
+                      o("WAWebModalManager").ModalManager.open(
+                        c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                          tsNavigationData: {
+                            surface: "unknown",
+                            viewName: "deactivate-community",
+                          },
+                          okText: r("WAWebFbtCommon")("Try again"),
+                          onOK: function () {
+                            (o("WAWebModalManager").ModalManager.close(), m(t));
+                          },
+                          onCancel: o("WAWebModalManager").closeModalManager,
+                          children: s._(
+                            /*BTDS*/ "Something went wrong. Please try again.",
+                          ),
+                        }),
+                      );
               },
-            )(t);
+            )(e);
           }
-        })(),
-        l = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Deactivating community ..."),
-        );
-      o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebActionToast.react").ActionToast, {
-          initialAction: l,
-          pendingAction: i,
-        }),
+        })),
+        p.apply(this, arguments)
       );
-      try {
-        (await a, d());
-      } catch (e) {
-        o("WAFilteredCatch").filteredCatch(
-          o("WAWebBackendErrors").ServerStatusCodeError,
-          function (e) {
-            e.status === 401
-              ? o("WAWebModalManager").ModalManager.open(
-                  c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                    tsNavigationData: {
-                      surface: "unknown",
-                      viewName: "deactivate-community",
-                    },
-                    onOK: o("WAWebModalManager").closeModalManager,
-                    children: s._(
-                      /*BTDS*/ "Community could not be deactivated. You did not create this community, so you cannot deactivate it.",
-                    ),
-                  }),
-                )
-              : e.status === 404
-                ? (d(),
-                  o("WAWebToastManager").ToastManager.open(
-                    c.jsx(o("WAWebToast.react").Toast, {
-                      msg: s._(/*BTDS*/ "This community no longer exists"),
-                    }),
-                  ))
-                : e.status === 500 &&
-                  o("WAWebModalManager").ModalManager.open(
-                    c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                      tsNavigationData: {
-                        surface: "unknown",
-                        viewName: "deactivate-community",
-                      },
-                      okText: r("WAWebFbtCommon")("Try again"),
-                      onOK: function () {
-                        (o("WAWebModalManager").ModalManager.close(), m(t));
-                      },
-                      onCancel: o("WAWebModalManager").closeModalManager,
-                      children: s._(
-                        /*BTDS*/ "Something went wrong. Please try again.",
-                      ),
-                    }),
-                  );
-          },
-        )(e);
-      }
     }
     l.default = m;
   },

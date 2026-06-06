@@ -8,14 +8,20 @@ __d(
     "WAWebMexUpdateNewsletterJob",
     "WAWebNewsletterQueryUtils",
     "WAWebNewsletterRpcUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e = async function () {
-        return o(
-          "WAWebMexFetchAllNewslettersMetadataJob",
-        ).handleMexGetAllNewsletters();
-      };
+      var e = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o(
+            "WAWebMexFetchAllNewslettersMetadataJob",
+          ).handleMexGetAllNewsletters();
+        });
+        return function () {
+          return e.apply(this, arguments);
+        };
+      })();
       return o("WAWebNewsletterRpcUtils").runWithBackoff(e);
     }
     function s(e, t) {
@@ -46,13 +52,21 @@ __d(
         return c(r);
       });
     }
-    async function c(e) {
-      return o("WAWebMexNewsletterUtils").handleMexGetNewsletter(e);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function d(e, t, n) {
-      return p(e, t, n);
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebMexNewsletterUtils").handleMexGetNewsletter(e);
+        })),
+        d.apply(this, arguments)
+      );
     }
-    function m(e) {
+    function m(e, t, n) {
+      return _(e, t, n);
+    }
+    function p(e) {
       return {
         idJid: e,
         newsletterUserSettingsMetadataMixin: [],
@@ -69,42 +83,50 @@ __d(
         newsletterStateMetadataMixin: null,
       };
     }
-    async function p(e, t, n) {
-      var r = t.editDescription,
-        a = t.editName,
-        i = t.editPicture,
-        l = t.editReactionCodesSetting,
-        s = n.description,
-        u = n.name,
-        c = n.picture,
-        d = n.reactionCodesSetting,
-        m;
-      c != null && (m = o("WABase64").encodeB64(c));
-      var p = _(i, m),
-        f = _(a, u),
-        g = _(r, s),
-        h = l === !0 ? d : null,
-        y = await o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
-          return o("WAWebMexUpdateNewsletterJob").mexUpdateNewsletter(
-            e,
-            f,
-            g,
-            p,
-            h,
+    function _(e, t, n) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = t.editDescription,
+            a = t.editName,
+            i = t.editPicture,
+            l = t.editReactionCodesSetting,
+            s = n.description,
+            u = n.name,
+            c = n.picture,
+            d = n.reactionCodesSetting,
+            m;
+          c != null && (m = o("WABase64").encodeB64(c));
+          var p = g(i, m),
+            _ = g(a, u),
+            f = g(r, s),
+            h = l === !0 ? d : null,
+            y = yield o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
+              return o("WAWebMexUpdateNewsletterJob").mexUpdateNewsletter(
+                e,
+                _,
+                f,
+                p,
+                h,
+              );
+            });
+          return o("WAWebMexNewsletterParseUtils").parseMexNewsletterResponse(
+            y.xwa2_newsletter_update,
           );
-        });
-      return o("WAWebMexNewsletterParseUtils").parseMexNewsletterResponse(
-        y.xwa2_newsletter_update,
+        })),
+        f.apply(this, arguments)
       );
     }
-    function _(e, t) {
+    function g(e, t) {
       if (e === !0) return t != null ? t : "";
     }
     ((l.queryAllNewslettersMetadata = e),
       (l.queryNewsletterMetadataByInviteCode = s),
       (l.queryNewsletterMetadataByJid = u),
-      (l.editNewsletterMetadataQuery = d),
-      (l.emptyNewsletterMetadataType = m));
+      (l.editNewsletterMetadataQuery = m),
+      (l.emptyNewsletterMetadataType = p));
   },
   98,
 );

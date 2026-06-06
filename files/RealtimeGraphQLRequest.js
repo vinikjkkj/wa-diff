@@ -4,6 +4,7 @@ __d(
     "invariant",
     "RequestStreamCommonRequestStreamCommonTypes",
     "TransportSelectingClientSingleton",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -77,36 +78,42 @@ __d(
             this
           );
         }),
-        (t.send = async function () {
-          this.$3 != null || s(0, 33593);
-          var e = { onData: r("nullthrows")(this.$3) };
-          (this.$4 != null &&
-            (e = babelHelpers.extends({}, e, { onTermination: this.$4 })),
-            (e = babelHelpers.extends({}, e, { onFlowStatus: this.$13 })),
-            this.$8 != null &&
-              (e = babelHelpers.extends({}, e, {
-                onRetryUpdateRequestBody: this.$8,
-              })));
-          var t = await r("TransportSelectingClientSingleton").requestStream(
-            this.$1,
-            this.$2,
-            e,
-            this.$11,
-            this.$12,
-          );
-          return {
-            cancel: function () {
-              t.cancel();
-            },
-            amendExperimental: function (n) {
-              try {
-                return (t.amendWithoutAck(JSON.stringify(n)), !0);
-              } catch (e) {
-                return !1;
-              }
-            },
-          };
-        }),
+        (t.send = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            this.$3 != null || s(0, 33593);
+            var e = { onData: r("nullthrows")(this.$3) };
+            (this.$4 != null &&
+              (e = babelHelpers.extends({}, e, { onTermination: this.$4 })),
+              (e = babelHelpers.extends({}, e, { onFlowStatus: this.$13 })),
+              this.$8 != null &&
+                (e = babelHelpers.extends({}, e, {
+                  onRetryUpdateRequestBody: this.$8,
+                })));
+            var t = yield r("TransportSelectingClientSingleton").requestStream(
+              this.$1,
+              this.$2,
+              e,
+              this.$11,
+              this.$12,
+            );
+            return {
+              cancel: function () {
+                t.cancel();
+              },
+              amendExperimental: function (n) {
+                try {
+                  return (t.amendWithoutAck(JSON.stringify(n)), !0);
+                } catch (e) {
+                  return !1;
+                }
+              },
+            };
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();

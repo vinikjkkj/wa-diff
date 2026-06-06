@@ -8,67 +8,76 @@ __d(
     "WAWebMexFetchNewsletterJob",
     "WAWebMexNewsletterParseUtils",
     "WAWebNewsletterGatingUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t,
-        n,
-        r,
-        a,
-        i,
-        l =
-          (t = e.queryPayloadsArgs.jidQueryIQPayload) == null
-            ? void 0
-            : t.anyJid,
-        u =
-          (n = e.queryPayloadsArgs.inviteQueryIQPayload) == null
-            ? void 0
-            : n.anyKey,
-        c =
-          (r =
-            (a = e.queryPayloadsArgs.jidQueryIQPayload) == null
-              ? void 0
-              : a.anyViewRole) != null
-            ? r
-            : (i = e.queryPayloadsArgs.inviteQueryIQPayload) == null
-              ? void 0
-              : i.anyViewRole,
-        d = l != null ? l : u;
-      if (d != null) {
-        var f;
-        if (
-          (_(e)
-            ? (f = await o(
-                "WAWebMexFetchNewsletterDehydratedJob",
-              ).mexGetNewsletterDehydrated(d, s(c), {
-                fetchWamoSub: o(
-                  "WAWebNewsletterGatingUtils",
-                ).isWamoSubExperienceEnabled(),
-              }))
-            : (f = await o("WAWebMexFetchNewsletterJob").mexGetNewsletter(
-                d,
-                s(c),
-                {
-                  fetchViewerMetadata: m(e),
-                  fetchCreationTime: p("hasNewsletterCreationTimeField", e),
-                  fetchWamoSub: o(
-                    "WAWebNewsletterGatingUtils",
-                  ).isWamoSubExperienceEnabled(),
-                  fetchStatusMetadata: o(
-                    "WAWebNewsletterGatingUtils",
-                  ).isNewsletterStatusReceiverEnabled(),
-                },
-              )),
-          f == null)
-        )
-          return;
-        var g = o("WAWebMexNewsletterParseUtils").parseMexNewsletterResponse(
-          f.xwa2_newsletter,
-        );
-        return g;
-      }
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    function s(e) {
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r,
+            a,
+            i,
+            l =
+              (t = e.queryPayloadsArgs.jidQueryIQPayload) == null
+                ? void 0
+                : t.anyJid,
+            s =
+              (n = e.queryPayloadsArgs.inviteQueryIQPayload) == null
+                ? void 0
+                : n.anyKey,
+            c =
+              (r =
+                (a = e.queryPayloadsArgs.jidQueryIQPayload) == null
+                  ? void 0
+                  : a.anyViewRole) != null
+                ? r
+                : (i = e.queryPayloadsArgs.inviteQueryIQPayload) == null
+                  ? void 0
+                  : i.anyViewRole,
+            d = l != null ? l : s;
+          if (d != null) {
+            var m;
+            if (
+              (f(e)
+                ? (m = yield o(
+                    "WAWebMexFetchNewsletterDehydratedJob",
+                  ).mexGetNewsletterDehydrated(d, u(c), {
+                    fetchWamoSub: o(
+                      "WAWebNewsletterGatingUtils",
+                    ).isWamoSubExperienceEnabled(),
+                  }))
+                : (m = yield o("WAWebMexFetchNewsletterJob").mexGetNewsletter(
+                    d,
+                    u(c),
+                    {
+                      fetchViewerMetadata: p(e),
+                      fetchCreationTime: _("hasNewsletterCreationTimeField", e),
+                      fetchWamoSub: o(
+                        "WAWebNewsletterGatingUtils",
+                      ).isWamoSubExperienceEnabled(),
+                      fetchStatusMetadata: o(
+                        "WAWebNewsletterGatingUtils",
+                      ).isNewsletterStatusReceiverEnabled(),
+                    },
+                  )),
+              m == null)
+            )
+              return;
+            var g = o(
+              "WAWebMexNewsletterParseUtils",
+            ).parseMexNewsletterResponse(m.xwa2_newsletter);
+            return g;
+          }
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    function u(e) {
       return e == null
         ? "GUEST"
         : e === "admin"
@@ -79,7 +88,7 @@ __d(
               ? "SUBSCRIBER"
               : "GUEST";
     }
-    function u(e) {
+    function c(e) {
       switch (e) {
         case "OWNER":
           return o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner;
@@ -92,7 +101,7 @@ __d(
           return o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Guest;
       }
     }
-    function c(e) {
+    function d(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").NewsletterReactionCodesSetting.All:
           return "ALL";
@@ -107,7 +116,7 @@ __d(
           return "BLOCKLIST";
       }
     }
-    function d(e) {
+    function m(e) {
       if (e != null && e.id != null) {
         var t, n, r, a;
         return (
@@ -127,7 +136,7 @@ __d(
         "unexpected_mex_mutation_response",
       );
     }
-    function m(e) {
+    function p(e) {
       var t,
         n,
         r,
@@ -161,7 +170,7 @@ __d(
           i === !0)
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n,
         r,
         o,
@@ -179,7 +188,7 @@ __d(
           : o.value) === !0
       );
     }
-    function _(e) {
+    function f(e) {
       var t = e.queryPayloadsArgs.jidQueryIQPayload;
       if (t != null) {
         var n = t.allNewsletterMetadataIQRequestPayloadArgs;
@@ -202,9 +211,9 @@ __d(
       return !1;
     }
     ((l.handleMexGetNewsletter = e),
-      (l.mapRoleToMembership = u),
-      (l.mapReactionCodesSettingToMexInput = c),
-      (l.convertMutationResponse = d));
+      (l.mapRoleToMembership = c),
+      (l.mapReactionCodesSettingToMexInput = d),
+      (l.convertMutationResponse = m));
   },
   98,
 );

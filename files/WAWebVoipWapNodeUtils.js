@@ -1,9 +1,17 @@
 __d(
   "WAWebVoipWapNodeUtils",
-  ["WAParsableWapNode", "WAWap", "compactMap", "err"],
+  [
+    "Promise",
+    "WAParsableWapNode",
+    "WAWap",
+    "asyncToGeneratorRuntime",
+    "compactMap",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
+    var e;
+    function s(e, t) {
       return (
         e.content == null ||
           e.content instanceof Uint8Array ||
@@ -13,12 +21,12 @@ __d(
         e
       );
     }
-    function s(e, t) {
+    function u(e, t) {
       e.content == null ||
         e.content instanceof Uint8Array ||
         (e.content = [].concat(e.content, [t]));
     }
-    function u(e, t) {
+    function c(e, t) {
       t == null ||
         e.content == null ||
         e.content instanceof Uint8Array ||
@@ -26,7 +34,7 @@ __d(
           return e instanceof o("WAWap").WapNode && e.tag === t.tag ? t : e;
         }));
     }
-    function c(e, t) {
+    function d(e, t) {
       return (
         e.content == null ||
           e.content instanceof Uint8Array ||
@@ -34,15 +42,25 @@ __d(
         e
       );
     }
-    async function d(e, t) {
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        e.content == null ||
-          e.content instanceof Uint8Array ||
-          (e.content = (await Promise.all(e.content.map(t))).filter(Boolean)),
-        e
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          return (
+            t.content == null ||
+              t.content instanceof Uint8Array ||
+              (t.content = (yield (e || (e = n("Promise"))).all(
+                t.content.map(r),
+              )).filter(Boolean)),
+            t
+          );
+        })),
+        p.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function _(e, t) {
       if (e.content == null || e.content instanceof Uint8Array)
         throw r("err")(
           "getChild: Expected child nodes in stanza with tag: " + e.tag,
@@ -59,16 +77,16 @@ __d(
         );
       return n;
     }
-    function p(e) {
+    function f(e) {
       return new (o("WAParsableWapNode").ParsableWapNode)(e.tag, e);
     }
-    ((l.filterVoipWapNodeChildren = e),
-      (l.appendVoipWapChildInPlace = s),
-      (l.replaceVoipWapChild = u),
-      (l.mapVoipWapChildren = c),
-      (l.mapVoipWapChildrenAsync = d),
-      (l.getVoipWapChild = m),
-      (l.toVoipParsableWapNode = p));
+    ((l.filterVoipWapNodeChildren = s),
+      (l.appendVoipWapChildInPlace = u),
+      (l.replaceVoipWapChild = c),
+      (l.mapVoipWapChildren = d),
+      (l.mapVoipWapChildrenAsync = m),
+      (l.getVoipWapChild = _),
+      (l.toVoipParsableWapNode = f));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupQueryGroupJob",
   [
+    "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WAWebApiChat",
@@ -27,21 +28,22 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t, n) {
+    var e, s, u, c, d;
+    function m(t, a) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "queryGroup",
-          async function () {
-            var a,
-              i,
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var i,
               l,
-              u = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
-            if ((u == null ? void 0 : u.terminated) === !0)
+              u,
+              c = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
+            if ((c == null ? void 0 : c.terminated) === !0)
               return (
                 o("WALogger").LOG(
                   e ||
@@ -53,32 +55,32 @@ __d(
                 ),
                 { status: "terminated_local" }
               );
-            var c = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-              d = { groupId: t.toString(), queryContext: n };
+            var m = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
+              _ = { groupId: t.toString(), queryContext: a };
             if (
-              (u == null ? void 0 : u.hasIncompleteParticipantInformation) ===
+              (c == null ? void 0 : c.hasIncompleteParticipantInformation) ===
                 !0 &&
-              c
+              m
             )
-              d.queryContext = "missing_participant_identification";
-            else if (n === "enter_group_info") {
-              var p = await o(
+              _.queryContext = "missing_participant_identification";
+            else if (a === "enter_group_info") {
+              var f = yield o(
                 "WAWebDBGroupParticipant",
               ).computeGroupParticipantsHash(t);
-              p != null && (d.participantsPhash = p);
+              f != null && (_.participantsPhash = f);
             }
-            var _ = null;
+            var g = null;
             try {
-              _ = o(
+              g = o(
                 "WAWebBotGroupGatingUtils",
               ).isOpenGroupBotParticipantAddEnabled()
-                ? await o(
+                ? yield o(
                     "WAWebMexFetchGroupInfoIncludBotsJob",
-                  ).mexGetGroupInfoIncludBots(d)
-                : await o("WAWebMexFetchGroupInfoJob").mexGetGroupInfo(d);
+                  ).mexGetGroupInfoIncludBots(_)
+                : yield o("WAWebMexFetchGroupInfoJob").mexGetGroupInfo(_);
             } catch (e) {
               if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-                if ((await m(t, e), e.statusCode === 404))
+                if ((yield p(t, e), e.statusCode === 404))
                   return { status: "terminated" };
                 if (e.statusCode === 403) return { status: "not_member" };
               }
@@ -94,26 +96,26 @@ __d(
                 e
               );
             }
-            var f = (a = _) == null ? void 0 : a.groupInfo;
-            if (f == null)
+            var h = (i = g) == null ? void 0 : i.groupInfo;
+            if (h == null)
               throw r("err")(
                 "groupQueryJob: group " +
                   t.toString() +
                   " returned empty response",
               );
-            var g = ((i = _) == null ? void 0 : i.participantPhashMatch) === !0,
-              h = f,
-              y = h.creatorPn,
-              C = h.creatorUsername,
-              b = h.descOwner,
-              v = h.descOwnerUsername,
-              S = h.owner,
-              R = h.participants,
-              L = h.subjectOwner,
-              E = h.subjectOwnerPn,
-              k = h.subjectOwnerUsername,
-              I =
-                (l = R.map(function (e) {
+            var y = ((l = g) == null ? void 0 : l.participantPhashMatch) === !0,
+              C = h,
+              b = C.creatorPn,
+              v = C.creatorUsername,
+              S = C.descOwner,
+              R = C.descOwnerUsername,
+              L = C.owner,
+              E = C.participants,
+              k = C.subjectOwner,
+              I = C.subjectOwnerPn,
+              T = C.subjectOwnerUsername,
+              D =
+                (u = E.map(function (e) {
                   return {
                     id: o("WAWebWidFactory").asUserWidOrThrow(e.id),
                     lid: e.lid
@@ -125,99 +127,99 @@ __d(
                       : null,
                   };
                 })) != null
-                  ? l
+                  ? u
                   : [];
-            (S &&
-              y &&
-              I.push({
-                id: o("WAWebWidFactory").asUserWidOrThrow(S),
-                lid: o("WAWebWidFactory").asUserWidOrThrow(S),
-                phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(y),
-              }),
-              L &&
-                E &&
-                I.push({
-                  id: o("WAWebWidFactory").asUserWidOrThrow(L),
-                  lid: o("WAWebWidFactory").asUserWidOrThrow(L),
-                  phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(E),
-                }));
-            var T = [];
-            (S &&
-              C != null &&
-              T.push({
-                userId: o("WAWebWidFactory").asUserWidOrThrow(S),
-                username: o("WAWebUsernameTypes").asUsername(C),
-              }),
-              L &&
-                k != null &&
-                T.push({
-                  userId: o("WAWebWidFactory").asUserWidOrThrow(L),
-                  username: o("WAWebUsernameTypes").asUsername(k),
-                }),
+            (L &&
               b &&
-                v != null &&
-                T.push({
-                  userId: o("WAWebWidFactory").asUserWidOrThrow(b),
-                  username: o("WAWebUsernameTypes").asUsername(v),
+              D.push({
+                id: o("WAWebWidFactory").asUserWidOrThrow(L),
+                lid: o("WAWebWidFactory").asUserWidOrThrow(L),
+                phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(b),
+              }),
+              k &&
+                I &&
+                D.push({
+                  id: o("WAWebWidFactory").asUserWidOrThrow(k),
+                  lid: o("WAWebWidFactory").asUserWidOrThrow(k),
+                  phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(I),
+                }));
+            var x = [];
+            (L &&
+              v != null &&
+              x.push({
+                userId: o("WAWebWidFactory").asUserWidOrThrow(L),
+                username: o("WAWebUsernameTypes").asUsername(v),
+              }),
+              k &&
+                T != null &&
+                x.push({
+                  userId: o("WAWebWidFactory").asUserWidOrThrow(k),
+                  username: o("WAWebUsernameTypes").asUsername(T),
                 }),
-              R.forEach(function (e) {
+              S &&
+                R != null &&
+                x.push({
+                  userId: o("WAWebWidFactory").asUserWidOrThrow(S),
+                  username: o("WAWebUsernameTypes").asUsername(R),
+                }),
+              E.forEach(function (e) {
                 var t = e.id,
                   n = e.username;
                 n != null &&
-                  T.push({
+                  x.push({
                     userId: o("WAWebWidFactory").asUserWidOrThrow(t),
                     username: o("WAWebUsernameTypes").asUsername(n),
                   });
               }));
-            var D = !1;
+            var $ = !1;
             (o(
               "WAWebBotGroupGatingUtils",
             ).isOpenGroupBotParticipantAddEnabled() ||
               o(
                 "WAWebBotGroupGatingUtils",
               ).isTEEGroupBotParticipantAddEnabled()) &&
-              ((D = await o(
+              (($ = yield o(
                 "WAWebBotGroupBackendUtils",
               ).addGroupChangedToOpenBotGroupSystemMsgIfRequired({
-                currentIsOpenBotGroupState: f.isOpenBotGroup,
+                currentIsOpenBotGroupState: h.isOpenBotGroup,
                 groupWid: t,
-                prevIsOpenBotGroupState: u == null ? void 0 : u.isOpenBotGroup,
+                prevIsOpenBotGroupState: c == null ? void 0 : c.isOpenBotGroup,
               })),
-              (D =
-                (await o(
+              ($ =
+                (yield o(
                   "WAWebBotGroupBackendUtils",
                 ).addGroupChangedToTeeBotGroupSystemMsgIfRequired({
-                  currentIsTeeBotGroupState: f.isTeeBotGroup,
+                  currentIsTeeBotGroupState: h.isTeeBotGroup,
                   groupWid: t,
-                  prevIsTeeBotGroupState: u == null ? void 0 : u.isTeeBotGroup,
-                })) || D));
-            var x = await o("WAWebApiChat").injectAdditionalEphemeralInfoFromDB(
-                [f],
+                  prevIsTeeBotGroupState: c == null ? void 0 : c.isTeeBotGroup,
+                })) || $));
+            var P = yield o("WAWebApiChat").injectAdditionalEphemeralInfoFromDB(
+                [h],
               ),
-              $ = x[0],
-              P = await Promise.all([
-                g === !0
+              N = P[0],
+              M = yield (d || (d = n("Promise"))).all([
+                y === !0
                   ? o("WAWebDBGroupParticipant").getGroupParticipant({
                       groupWid: t,
                     })
                   : null,
                 o("WAWebDBGroupsGroupMetadata").updateGroupMetadataTable({
-                  groupInfos: [$],
+                  groupInfos: [N],
                 }),
-                g !== !0 &&
+                y !== !0 &&
                   o("WAWebGroupsParticipantsApi").updateParticipants({
-                    group: f.id,
-                    participants: R,
-                    groupInfo: f,
+                    group: h.id,
+                    participants: E,
+                    groupInfo: h,
                   }),
                 o(
                   "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-                ).createOrReplaceDisplayNamesAndLidPnMappings(I, !0),
-                c &&
-                  T.length > 0 &&
-                  o("WAWebSetUsernameJob").setUsernamesJob(T),
+                ).createOrReplaceDisplayNamesAndLidPnMappings(D, !0),
+                m &&
+                  x.length > 0 &&
+                  o("WAWebSetUsernameJob").setUsernamesJob(x),
               ]),
-              N = P[0];
+              w = M[0];
             return (
               (o(
                 "WAWebBotGroupGatingUtils",
@@ -225,159 +227,167 @@ __d(
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isTEEGroupBotParticipantAddEnabled()) &&
-                ((D =
-                  (await o(
+                (($ =
+                  (yield o(
                     "WAWebBotGroupBackendUtils",
                   ).addBotGroupChangedToE2EEFSystemMsgIfRequired({
-                    currentIsOpenBotGroupState: f.isOpenBotGroup,
-                    currentIsTeeBotGroupState: f.isTeeBotGroup,
+                    currentIsOpenBotGroupState: h.isOpenBotGroup,
+                    currentIsTeeBotGroupState: h.isTeeBotGroup,
                     groupWid: t,
                     prevIsOpenBotGroupState:
-                      u == null ? void 0 : u.isOpenBotGroup,
+                      c == null ? void 0 : c.isOpenBotGroup,
                     prevIsTeeBotGroupState:
-                      u == null ? void 0 : u.isTeeBotGroup,
-                  })) || D),
-                D &&
-                  f.isOpenBotGroup != null &&
+                      c == null ? void 0 : c.isTeeBotGroup,
+                  })) || $),
+                $ &&
+                  h.isOpenBotGroup != null &&
                   o("WAWebBackendApi").frontendFireAndForget(
                     "updateGroupMetadataModelForAiGroupState",
-                    { group: f.id, isOpenBotGroup: f.isOpenBotGroup },
+                    { group: h.id, isOpenBotGroup: h.isOpenBotGroup },
                   )),
-              N != null &&
-                (f = babelHelpers.extends({}, f, {
-                  participants: N.participants,
+              w != null &&
+                (h = babelHelpers.extends({}, h, {
+                  participants: w.participants,
                 })),
               o("WAWebApiParticipantStore").clearAdminshipCache(
-                f.id.toString(),
+                h.id.toString(),
               ),
               o(
                 "WAWebLimitSharingModelUtils",
               ).genLimitSharingSystemMessageOnPersistedChat({
                 chatWID: t,
-                sharingLimited: $.limitSharingEnabled,
+                sharingLimited: N.limitSharingEnabled,
               }),
-              { status: "success", groupInfo: f }
+              { status: "success", groupInfo: h }
             );
-          },
+          }),
           r("WAWebEnvironment").isWindows
             ? { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH }
             : null,
         )
         .waitUntilCompleted();
     }
-    async function m(e, t) {
-      o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose([
-            "queryGroupJob: group ",
-            " returned error ",
-            "",
-          ])),
-        e,
-        t.statusCode,
-      );
-      var n = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-      if (n == null) {
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "queryGroupJob: group ",
-              " does not exist locally",
-            ])),
-          e,
-        );
-        return;
-      }
-      e: {
-        if (t.statusCode === 403) {
-          var a =
-              n != null &&
-              (await o("WAWebDBCommunity").isLastJoinedSubgroup(n)),
-            i = await o("WAWebSchemaParticipant")
-              .getParticipantTable()
-              .get(e.toString());
-          if ((i == null ? void 0 : i.participants) != null) {
-            var l = i.participants.find(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(
-                o("WAWebWidFactory").createWid(e),
-              );
-            });
-            if (l != null) {
-              var s = o("WAWebWidFactory").createUserWidOrThrow(l),
-                d = o("WAWebLidMigrationUtils").toLid(s),
-                m = !!(n != null && n.defaultSubgroup),
-                p = m
-                  ? o("WAWebDBGroupParticipant").removeParticipantInfoCAG(
-                      i,
-                      [{ id: s, lid: d, isAdmin: !1, isSuperAdmin: !1 }],
-                      Date.now(),
-                      null,
-                      null,
-                    )
-                  : o("WAWebDBGroupParticipant").removeParticipantInfo(
-                      i,
-                      [{ id: s, isAdmin: !1, isSuperAdmin: !1 }],
-                      Date.now(),
-                      null,
-                      null,
-                    );
-              await o("WAWebSchemaParticipant")
-                .getParticipantTable()
-                .createOrReplace(p);
-            }
-          }
-          if (
-            n != null &&
-            n.defaultSubgroup === !0 &&
-            !r("isStringNullOrEmpty")(n.parentGroup)
-          ) {
-            var _ = o("WAWebWidFactory").createWid(n.parentGroup),
-              f = await o("WAWebSchemaParticipant")
-                .getParticipantTable()
-                .get(_.toString());
-            if ((f == null ? void 0 : f.participants) != null) {
-              var g = f.participants.find(function (e) {
-                return o("WAWebUserPrefsMeUser").isMeAccount(
-                  o("WAWebWidFactory").createWid(e),
-                );
-              });
-              if (g != null) {
-                var h = o("WAWebWidFactory").createUserWidOrThrow(g),
-                  y = o("WAWebLidMigrationUtils").toLid(h),
-                  C = o("WAWebDBGroupParticipant").removeParticipantInfoCAG(
-                    f,
-                    [{ id: h, lid: y, isAdmin: !1, isSuperAdmin: !1 }],
-                    Date.now(),
-                    null,
-                    null,
-                  );
-                await o("WAWebSchemaParticipant")
-                  .getParticipantTable()
-                  .createOrReplace(C);
-              }
-            }
-          }
-          await Promise.all(
-            await o(
-              "WAWebUpdateDbForCommunityAction",
-            ).databaseUpdatesForSelfRemovedFromGroup(
-              e,
-              n == null ? void 0 : n.parentGroup,
-              a,
-            ),
-          );
-          break e;
-        }
-        if (t.statusCode === 404) {
-          await o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(e, {
-            terminated: !0,
-          });
-          break e;
-        }
-        throw t;
-      }
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    ((l.queryGroupJob = d), (l.handleGroupInfoError = m));
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "queryGroupJob: group ",
+                " returned error ",
+                "",
+              ])),
+            e,
+            t.statusCode,
+          );
+          var a = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
+          if (a == null) {
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "queryGroupJob: group ",
+                  " does not exist locally",
+                ])),
+              e,
+            );
+            return;
+          }
+          e: {
+            if (t.statusCode === 403) {
+              var i =
+                  a != null &&
+                  (yield o("WAWebDBCommunity").isLastJoinedSubgroup(a)),
+                l = yield o("WAWebSchemaParticipant")
+                  .getParticipantTable()
+                  .get(e.toString());
+              if ((l == null ? void 0 : l.participants) != null) {
+                var s = l.participants.find(function (e) {
+                  return o("WAWebUserPrefsMeUser").isMeAccount(
+                    o("WAWebWidFactory").createWid(e),
+                  );
+                });
+                if (s != null) {
+                  var m = o("WAWebWidFactory").createUserWidOrThrow(s),
+                    p = o("WAWebLidMigrationUtils").toLid(m),
+                    _ = !!(a != null && a.defaultSubgroup),
+                    f = _
+                      ? o("WAWebDBGroupParticipant").removeParticipantInfoCAG(
+                          l,
+                          [{ id: m, lid: p, isAdmin: !1, isSuperAdmin: !1 }],
+                          Date.now(),
+                          null,
+                          null,
+                        )
+                      : o("WAWebDBGroupParticipant").removeParticipantInfo(
+                          l,
+                          [{ id: m, isAdmin: !1, isSuperAdmin: !1 }],
+                          Date.now(),
+                          null,
+                          null,
+                        );
+                  yield o("WAWebSchemaParticipant")
+                    .getParticipantTable()
+                    .createOrReplace(f);
+                }
+              }
+              if (
+                a != null &&
+                a.defaultSubgroup === !0 &&
+                !r("isStringNullOrEmpty")(a.parentGroup)
+              ) {
+                var g = o("WAWebWidFactory").createWid(a.parentGroup),
+                  h = yield o("WAWebSchemaParticipant")
+                    .getParticipantTable()
+                    .get(g.toString());
+                if ((h == null ? void 0 : h.participants) != null) {
+                  var y = h.participants.find(function (e) {
+                    return o("WAWebUserPrefsMeUser").isMeAccount(
+                      o("WAWebWidFactory").createWid(e),
+                    );
+                  });
+                  if (y != null) {
+                    var C = o("WAWebWidFactory").createUserWidOrThrow(y),
+                      b = o("WAWebLidMigrationUtils").toLid(C),
+                      v = o("WAWebDBGroupParticipant").removeParticipantInfoCAG(
+                        h,
+                        [{ id: C, lid: b, isAdmin: !1, isSuperAdmin: !1 }],
+                        Date.now(),
+                        null,
+                        null,
+                      );
+                    yield o("WAWebSchemaParticipant")
+                      .getParticipantTable()
+                      .createOrReplace(v);
+                  }
+                }
+              }
+              yield (d || (d = n("Promise"))).all(
+                yield o(
+                  "WAWebUpdateDbForCommunityAction",
+                ).databaseUpdatesForSelfRemovedFromGroup(
+                  e,
+                  a == null ? void 0 : a.parentGroup,
+                  i,
+                ),
+              );
+              break e;
+            }
+            if (t.statusCode === 404) {
+              yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(e, {
+                terminated: !0,
+              });
+              break e;
+            }
+            throw t;
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.queryGroupJob = m), (l.handleGroupInfoError = p));
   },
   98,
 );

@@ -1,26 +1,48 @@
 __d(
   "WAWebHandleBusinessProfile",
-  ["WAWebApiContact", "WAWebBackendApi", "WAWebWidFactory", "WAWebWidToJid"],
+  [
+    "WAWebApiContact",
+    "WAWebBackendApi",
+    "WAWebWidFactory",
+    "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = e.from,
-        n = o("WAWebWidFactory").createWidFromWidLike(t.toString());
-      await u(n);
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    async function s(e) {
-      var t = e.hash,
-        n = await o("WAWebApiContact").getContactRecordByHash(t);
-      if (n == null) return !1;
-      var r = o("WAWebWidFactory").createWid(n.id);
-      return (await u(r), !0);
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = o("WAWebWidFactory").createWidFromWidLike(t.toString());
+          yield d(n);
+        })),
+        s.apply(this, arguments)
+      );
     }
     function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.hash,
+            n = yield o("WAWebApiContact").getContactRecordByHash(t);
+          if (n == null) return !1;
+          var r = o("WAWebWidFactory").createWid(n.id);
+          return (yield d(r), !0);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
       return o("WAWebBackendApi").frontendSendAndReceive(
         "updateBusinessProfile",
         { wid: o("WAWebWidToJid").widToUserJid(e) },
       );
     }
-    ((l.handleBusinessProfile = e), (l.handleBusinessProfileHash = s));
+    ((l.handleBusinessProfile = e), (l.handleBusinessProfileHash = u));
   },
   98,
 );

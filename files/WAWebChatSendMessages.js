@@ -2,6 +2,7 @@ __d(
   "WAWebChatSendMessages",
   [
     "fbt",
+    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WATimeUtils",
@@ -36,6 +37,7 @@ __d(
     "WAWebStateUtils",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -43,17 +45,18 @@ __d(
       u,
       c,
       d,
-      m = d || (d = o("react"));
-    function p(t) {
-      var n = o("WAWebStateUtils").unproxy(t);
-      if (n.promises.sendDismissChangeNumber)
-        return n.promises.sendDismissChangeNumber;
-      var r = Promise.resolve({ status: 200 });
-      n.promises.sendDismissChangeNumber = r;
-      var a = new (o("WAWebActionToast.react").ActionType)(
+      m,
+      p = m || (m = o("react"));
+    function _(t) {
+      var r = o("WAWebStateUtils").unproxy(t);
+      if (r.promises.sendDismissChangeNumber)
+        return r.promises.sendDismissChangeNumber;
+      var a = (d || (d = n("Promise"))).resolve({ status: 200 });
+      r.promises.sendDismissChangeNumber = a;
+      var i = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Dismissing change number notification."),
         ),
-        i = r
+        l = a
           .then(function (e) {
             if (e.status === 200)
               return new (o("WAWebActionToast.react").ActionType)(
@@ -77,7 +80,7 @@ __d(
                 {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return p(n);
+                    return _(r);
                   },
                 },
               )
@@ -85,29 +88,29 @@ __d(
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          m.jsx(o("WAWebActionToast.react").ActionToast, {
-            initialAction: a,
-            pendingAction: i,
+          p.jsx(o("WAWebActionToast.react").ActionToast, {
+            initialAction: i,
+            pendingAction: l,
           }),
         ),
-        r
+        a
           .then(function (e) {
             if (e.status === 200)
               return o("WAWebDBUpdateChatTable")
-                .updateChatTable(n.id, {
+                .updateChatTable(r.id, {
                   changeNumberNewJid: void 0,
                   changeNumberOldJid: void 0,
                 })
                 .then(function () {
-                  n.changeNumberOldJid = n.changeNumberNewJid = void 0;
+                  r.changeNumberOldJid = r.changeNumberNewJid = void 0;
                 });
           })
           .finally(function () {
-            n.promises.sendDismissChangeNumber = null;
+            r.promises.sendDismissChangeNumber = null;
           })
       );
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r = o("WAWebStateUtils").unproxy(e);
       return r.promises.sendStarMsgs
         ? r.promises.sendStarMsgs
@@ -151,218 +154,292 @@ __d(
               r.promises.sendStarMsgs = null;
             }));
     }
-    function f(e, t, n) {
-      var r = o("WAWebStateUtils").unproxy(e);
-      if (r.promises.sendRevokeMsgs) return r.promises.sendRevokeMsgs;
-      var a,
-        i = [];
+    function g(e, t, r) {
+      var a = o("WAWebStateUtils").unproxy(e);
+      if (a.promises.sendRevokeMsgs) return a.promises.sendRevokeMsgs;
+      var i,
+        l = [];
       return (
         t.type === "addon"
-          ? (a = t.list.map(async function (e) {
-              var t =
-                o("WAWebMsgActionCapability").canSenderRevokeMsg(e) ||
-                o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(e)
-                  ? o("WAWebCmd").Revoke.Sender
-                  : o("WAWebCmd").Revoke.Admin;
-              return o("WAWebRevokeMsgAction").sendRevoke(
-                { type: "addon", data: e },
-                t,
-                n,
-              );
-            }))
-          : (a = t.list.map(async function (e) {
-              var t =
-                o("WAWebMsgActionCapability").canSenderRevokeMsg(e) ||
-                o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(e)
-                  ? o("WAWebCmd").Revoke.Sender
-                  : o("WAWebCmd").Revoke.Admin;
-              try {
-                await g(e, t);
-              } catch (e) {
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sendRevokeMsgs] bot plugin revoke failed",
-                    ])),
+          ? (i = t.list.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t =
+                      o("WAWebMsgActionCapability").canSenderRevokeMsg(e) ||
+                      o(
+                        "WAWebMsgActionCapability",
+                      ).canBotResponseBeRevokeByInvoker(e)
+                        ? o("WAWebCmd").Revoke.Sender
+                        : o("WAWebCmd").Revoke.Admin;
+                    return o("WAWebRevokeMsgAction").sendRevoke(
+                      { type: "addon", data: e },
+                      t,
+                      r,
+                    );
+                  },
                 );
-              }
-              return (
-                (i = await o(
-                  "WAWebAssociatedMessagesRevokeUtils",
-                ).getAssociatedChildMessageRevokePromises(e, function (e) {
-                  return o("WAWebRevokeMsgAction").sendAssociatedChildMsgRevoke(
-                    e,
-                    t,
-                    n,
-                  );
-                })),
-                o("WAWebRevokeMsgAction").sendRevoke(
-                  { type: "message", data: e },
-                  t,
-                  n,
-                )
-              );
-            })),
-        (r.promises.sendRevokeMsgs = Promise.all([].concat(a, i)).finally(
-          function () {
-            r.promises.sendRevokeMsgs = null;
-          },
-        ))
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ))
+          : (i = t.list.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t =
+                      o("WAWebMsgActionCapability").canSenderRevokeMsg(e) ||
+                      o(
+                        "WAWebMsgActionCapability",
+                      ).canBotResponseBeRevokeByInvoker(e)
+                        ? o("WAWebCmd").Revoke.Sender
+                        : o("WAWebCmd").Revoke.Admin;
+                    try {
+                      yield h(e, t);
+                    } catch (e) {
+                      o("WALogger").ERROR(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "[sendRevokeMsgs] bot plugin revoke failed",
+                          ])),
+                      );
+                    }
+                    return (
+                      (l = yield o(
+                        "WAWebAssociatedMessagesRevokeUtils",
+                      ).getAssociatedChildMessageRevokePromises(
+                        e,
+                        function (e) {
+                          return o(
+                            "WAWebRevokeMsgAction",
+                          ).sendAssociatedChildMsgRevoke(e, t, r);
+                        },
+                      )),
+                      o("WAWebRevokeMsgAction").sendRevoke(
+                        { type: "message", data: e },
+                        t,
+                        r,
+                      )
+                    );
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            )),
+        (a.promises.sendRevokeMsgs = (d || (d = n("Promise")))
+          .all([].concat(i, l))
+          .finally(function () {
+            a.promises.sendRevokeMsgs = null;
+          }))
       );
     }
-    async function g(e, t) {
-      var n,
-        a =
-          o("WAWebMsgGetters").getBotPluginSearchUrl(e) != null ||
-          o("WAWebMsgGetters").getBotPluginMaybeParent(e);
-      if (a) {
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "[bot revoke] handling sendAssociatedBotPluginRevoke",
-            ])),
-        );
-        var i = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .get(e.id.toString());
-        if (
-          !(i == null || i.internalId == null || i.botResponseTargetId == null)
-        ) {
-          var l = await o("WAWebDBStoreRevokeMsgs").findAssociatedPluginMsgs({
-            internalId: i.internalId,
-            targetId: i.botResponseTargetId,
-          });
-          l == null ||
-            (n = l.pluginLinkMsgIds) == null ||
-            n.forEach(async function (e) {
-              var n = o("WAWebMsgCollection").MsgCollection.get(
-                r("WAWebMsgKey").fromString(e),
-              );
-              if (n != null) {
-                var a;
-                n =
-                  (a = await o(
-                    "WAWebMsgCollection",
-                  ).MsgCollection.getMessagesById([e])) == null ||
-                  (a = a.messages) == null
-                    ? void 0
-                    : a[0];
-              }
-              n != null &&
-                o("WAWebRevokeMsgAction").sendAssociatedBotPluginRevoke(n, t);
-            });
-        }
-      }
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    async function h(e) {
-      var t,
-        n = e.chat_,
-        r = e.clearMedia,
-        a = e.record,
-        i = o("WAWebStateUtils").unproxy(n);
-      if (i.promises.sendDeleteMsgs) return i.promises.sendDeleteMsgs;
-      if (a.type === "addon") {
-        var l = a.list;
-        i.promises.sendDeleteMsgs = o("WAWebAddonDeleteAddons")
-          .sendDeleteAddonsForMe(l, r)
-          .then(async function () {
-            return l.length;
-          })
-          .finally(function () {
-            i.promises.sendDeleteMsgs = null;
-          });
-      }
-      if (a.type === "message") {
-        var s = a.list,
-          u = [];
-        (o(
-          "WAWebMessageAssociationGatingUtils",
-        ).isMessageAssociationInfraEnabled() &&
-          (u = await o(
-            "WAWebAssociatedMessagesRevokeUtils",
-          ).getHydratedAssociatedChildMessageModelsFromParentMsgs(s)),
-          (i.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
-            .sendDeleteMsgs([].concat(s, u), r, i.id)
-            .then(function () {
-              return (
-                s.forEach(function (e) {
-                  (e.delete(),
-                    o("WAWebAllMediaCollection").AllMediaCollection.remove(e));
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a,
+            i =
+              o("WAWebMsgGetters").getBotPluginSearchUrl(e) != null ||
+              o("WAWebMsgGetters").getBotPluginMaybeParent(e);
+          if (i) {
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bot revoke] handling sendAssociatedBotPluginRevoke",
+                ])),
+            );
+            var l = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .get(e.id.toString());
+            if (
+              !(
+                l == null ||
+                l.internalId == null ||
+                l.botResponseTargetId == null
+              )
+            ) {
+              var s = yield o(
+                "WAWebDBStoreRevokeMsgs",
+              ).findAssociatedPluginMsgs({
+                internalId: l.internalId,
+                targetId: l.botResponseTargetId,
+              });
+              s == null ||
+                (a = s.pluginLinkMsgIds) == null ||
+                a.forEach(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var n = o("WAWebMsgCollection").MsgCollection.get(
+                          r("WAWebMsgKey").fromString(e),
+                        );
+                        if (n != null) {
+                          var a;
+                          n =
+                            (a = yield o(
+                              "WAWebMsgCollection",
+                            ).MsgCollection.getMessagesById([e])) == null ||
+                            (a = a.messages) == null
+                              ? void 0
+                              : a[0];
+                        }
+                        n != null &&
+                          o(
+                            "WAWebRevokeMsgAction",
+                          ).sendAssociatedBotPluginRevoke(n, t);
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                );
+            }
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            r = e.chat_,
+            a = e.clearMedia,
+            i = e.record,
+            l = o("WAWebStateUtils").unproxy(r);
+          if (l.promises.sendDeleteMsgs) return l.promises.sendDeleteMsgs;
+          if (i.type === "addon") {
+            var s = i.list;
+            l.promises.sendDeleteMsgs = o("WAWebAddonDeleteAddons")
+              .sendDeleteAddonsForMe(s, a)
+              .then(
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  return s.length;
                 }),
-                s.length
-              );
-            })
-            .catch(
-              o("WAFilteredCatch").filteredCatch(
-                o("WAWebBackendErrors").ServerStatusCodeError,
-                function () {
-                  var e = 0;
+              )
+              .finally(function () {
+                l.promises.sendDeleteMsgs = null;
+              });
+          }
+          if (i.type === "message") {
+            var u = i.list,
+              c = [];
+            (o(
+              "WAWebMessageAssociationGatingUtils",
+            ).isMessageAssociationInfraEnabled() &&
+              (c = yield o(
+                "WAWebAssociatedMessagesRevokeUtils",
+              ).getHydratedAssociatedChildMessageModelsFromParentMsgs(u)),
+              (l.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
+                .sendDeleteMsgs([].concat(u, c), a, l.id)
+                .then(function () {
                   return (
-                    s.forEach(function (t) {
-                      (t.ack === o("WAWebAck").ACK.FAILED ||
-                        o("WAWebKeepInChatMsgUtils").isExpired(t)) &&
-                        (t.delete(), e++);
-                    }),
                     u.forEach(function (e) {
-                      (e.ack === o("WAWebAck").ACK.FAILED ||
-                        o("WAWebKeepInChatMsgUtils").isExpired(e)) &&
-                        e.delete();
+                      (e.delete(),
+                        o("WAWebAllMediaCollection").AllMediaCollection.remove(
+                          e,
+                        ));
                     }),
-                    e
+                    u.length
                   );
+                })
+                .catch(
+                  o("WAFilteredCatch").filteredCatch(
+                    o("WAWebBackendErrors").ServerStatusCodeError,
+                    function () {
+                      var e = 0;
+                      return (
+                        u.forEach(function (t) {
+                          (t.ack === o("WAWebAck").ACK.FAILED ||
+                            o("WAWebKeepInChatMsgUtils").isExpired(t)) &&
+                            (t.delete(), e++);
+                        }),
+                        c.forEach(function (e) {
+                          (e.ack === o("WAWebAck").ACK.FAILED ||
+                            o("WAWebKeepInChatMsgUtils").isExpired(e)) &&
+                            e.delete();
+                        }),
+                        e
+                      );
+                    },
+                  ),
+                )
+                .finally(function () {
+                  l.promises.sendDeleteMsgs = null;
+                })));
+          }
+          return (t = l.promises.sendDeleteMsgs) != null
+            ? t
+            : (d || (d = n("Promise"))).resolve(0);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t, n, r, o, a, i) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i, l, s) {
+            var u,
+              c = o("WAWebStateUtils").unproxy(e),
+              d =
+                ((u = r("WAWebGroupMetadataCollection").get(t)) == null
+                  ? void 0
+                  : u.isLidAddressingMode) === !0,
+              m = d
+                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+                : o("WAWebUserPrefsMeUser").getMeUser(),
+              p = c.id,
+              _ = new (r("WAWebMsgKey"))({
+                id: yield r("WAWebMsgKey").newId(),
+                from: m,
+                to: p,
+                participant: void 0,
+                selfDir: "out",
+              }),
+              f = babelHelpers.extends(
+                {
+                  id: _,
+                  from: m,
+                  to: p,
+                  ack: o("WAWebAck").ACK.CLOCK,
+                  local: !0,
+                  t: o("WATimeUtils").unixTime(),
+                  type: "groups_v4_invite",
+                  isNewMsg: !0,
+                  inviteGrpJpegThum: s,
+                  inviteCode: a,
+                  inviteCodeExp: i,
+                  inviteGrp: t,
+                  inviteGrpName: n,
+                  comment: l,
                 },
-              ),
-            )
-            .finally(function () {
-              i.promises.sendDeleteMsgs = null;
-            })));
-      }
-      return (t = i.promises.sendDeleteMsgs) != null ? t : Promise.resolve(0);
-    }
-    async function y(e, t, n, a, i, l, s) {
-      var u,
-        c = o("WAWebStateUtils").unproxy(e),
-        d =
-          ((u = r("WAWebGroupMetadataCollection").get(t)) == null
-            ? void 0
-            : u.isLidAddressingMode) === !0,
-        m = d
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMeUser(),
-        p = c.id,
-        _ = new (r("WAWebMsgKey"))({
-          id: await r("WAWebMsgKey").newId(),
-          from: m,
-          to: p,
-          participant: void 0,
-          selfDir: "out",
-        }),
-        f = babelHelpers.extends(
-          {
-            id: _,
-            from: m,
-            to: p,
-            ack: o("WAWebAck").ACK.CLOCK,
-            local: !0,
-            t: o("WATimeUtils").unixTime(),
-            type: "groups_v4_invite",
-            isNewMsg: !0,
-            inviteGrpJpegThum: s,
-            inviteCode: a,
-            inviteCodeExp: i,
-            inviteGrp: t,
-            inviteGrpName: n,
-            comment: l,
+                o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
+                  c,
+                ),
+              );
+            return o("WAWebSendMsgChatAction").addAndSendMsgToChat(c, f)[1];
           },
-          o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(c),
-        );
-      return o("WAWebSendMsgChatAction").addAndSendMsgToChat(c, f)[1];
+        )),
+        S.apply(this, arguments)
+      );
     }
-    ((l.sendDismissChangeNumber = p),
-      (l.sendStarMsgs = _),
-      (l.sendRevokeMsgs = f),
-      (l.sendDeleteMsgs = h),
-      (l.sendGroupInviteMessage = y));
+    ((l.sendDismissChangeNumber = _),
+      (l.sendStarMsgs = f),
+      (l.sendRevokeMsgs = g),
+      (l.sendDeleteMsgs = C),
+      (l.sendGroupInviteMessage = v));
   },
   226,
 );

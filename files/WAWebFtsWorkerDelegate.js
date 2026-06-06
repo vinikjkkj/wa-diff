@@ -1,6 +1,7 @@
 __d(
   "WAWebFtsWorkerDelegate",
   [
+    "Promise",
     "WAFtsQuickSwitchOrchestrator",
     "WAFtsSQLiteIndexer",
     "WAFtsSQLiteTableAdapter",
@@ -20,6 +21,7 @@ __d(
     "WAWebModelStorageInitialize",
     "WAWebNormalizeStack",
     "WAWebSchemaVersions",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,232 +36,270 @@ __d(
       f,
       g,
       h,
-      y = o("WAWebFtsWorkerContext").getFtsWorkerContext(),
-      C = (function () {
+      y,
+      C = o("WAWebFtsWorkerContext").getFtsWorkerContext(),
+      b = (function () {
         function t() {
           ((this.$4 = !1), this.$10());
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.$10 = function () {
+          (a.$10 = function () {
             ((this.$1 = !1), (this.$2 = !1), (this.$5 = []));
           }),
-          (n.$11 = async function (n) {
-            if (
-              (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[fts][delegate] start perform init",
-                  ])),
-              ),
-              !(this.$1 || this.$2))
-            ) {
-              (await o("WAWebSchemaVersions").waitUntilSchemaVersionsReady(),
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[fts][delegate] schema versions ready",
-                    ])),
-                ),
-                (this.$2 = !0));
-              try {
-                var t = new (o("WASemaphore").Semaphore)();
-                ((this.$6 = new (r("WAWebFtsManifestWriter"))(t)),
-                  (this.$7 = new (r("WAWebFtsManifestReader"))(t)),
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[fts][delegate] before db initialization",
+          (a.$11 = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                if (
+                  (o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fts][delegate] start perform init",
                       ])),
                   ),
-                  await Promise.all([
-                    o("WAWebModelStorageInitialize").initializeWithoutGKs(),
-                    o("WAWebFtsStorage").initialize(),
-                    o(
-                      "WAWebDbEncryptionKey",
-                    ).DbEncKeyStore.waitForFinalFtsHmacKey(),
-                  ]),
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[fts][delegate] after db initialization",
-                      ])),
-                  ),
-                  await this.$6.setLatestVersion(
-                    o("WAWebFtsVersionsInformation").LATEST_INDEXER_VERSION,
-                    o("WAWebFtsVersionsInformation").LATEST_TOKENIZER_VERSION,
-                  ),
-                  r("WAWebEnvironment").isWindows
-                    ? (this.$3 = new (r("WAFtsSQLiteIndexer"))({
-                        messageSource: new (r("WAWebFtsV3MessageSource"))(n),
-                        tableAdapter: new (r("WAFtsSQLiteTableAdapter"))(y),
-                      }))
-                    : (this.$3 = new (r("WAFtsQuickSwitchOrchestrator"))(
-                        this.$7,
-                        this.$6,
-                        o("WAWebFtsVersionsInformation").createVersionsInfo(n),
-                      )),
-                  (this.$8 = new (r("WAWebFtsPurgeRangeManager"))(this.$3)),
-                  o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[fts][delegate] inited",
-                      ])),
-                  ),
-                  (this.$1 = !0),
-                  (this.$2 = !1));
-              } catch (e) {
-                var a = r("getErrorSafe")(e),
-                  i = !this.$9;
-                (o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[fts][delegate] error while initializing: ",
-                        "",
-                      ])),
-                    o("WAWebNormalizeStack").normalizeStack(a),
-                  )
-                  .sendLogs(
-                    i
-                      ? "[fts][delegate] error while initializing"
-                      : "[fts][delegate] error while re-initializing after database deletion attempt",
-                  ),
-                  i &&
-                    a.name === "UpgradeError" &&
-                    a.message ===
-                      "Dexie specification of currently installed DB version is missing" &&
-                    ((this.$9 = !0),
+                  !(this.$1 || this.$2))
+                ) {
+                  (yield o(
+                    "WAWebSchemaVersions",
+                  ).waitUntilSchemaVersionsReady(),
                     o("WALogger").LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "[fts][delegate] deleting db (missing version), re-init",
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[fts][delegate] schema versions ready",
                         ])),
                     ),
-                    await r("WAWeb-dexie").delete(
-                      o("WAWebFtsStorageConsts").DATABASE_NAME,
-                    ),
-                    await this.$12(),
-                    await this.$13()));
-              } finally {
-                this.$2 = !1;
-              }
-              this.$14();
+                    (this.$2 = !0));
+                  try {
+                    var a = new (o("WASemaphore").Semaphore)();
+                    ((this.$6 = new (r("WAWebFtsManifestWriter"))(a)),
+                      (this.$7 = new (r("WAWebFtsManifestReader"))(a)),
+                      o("WALogger").LOG(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "[fts][delegate] before db initialization",
+                          ])),
+                      ),
+                      yield (y || (y = n("Promise"))).all([
+                        o("WAWebModelStorageInitialize").initializeWithoutGKs(),
+                        o("WAWebFtsStorage").initialize(),
+                        o(
+                          "WAWebDbEncryptionKey",
+                        ).DbEncKeyStore.waitForFinalFtsHmacKey(),
+                      ]),
+                      o("WALogger").LOG(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[fts][delegate] after db initialization",
+                          ])),
+                      ),
+                      yield this.$6.setLatestVersion(
+                        o("WAWebFtsVersionsInformation").LATEST_INDEXER_VERSION,
+                        o("WAWebFtsVersionsInformation")
+                          .LATEST_TOKENIZER_VERSION,
+                      ),
+                      r("WAWebEnvironment").isWindows
+                        ? (this.$3 = new (r("WAFtsSQLiteIndexer"))({
+                            messageSource: new (r("WAWebFtsV3MessageSource"))(
+                              t,
+                            ),
+                            tableAdapter: new (r("WAFtsSQLiteTableAdapter"))(C),
+                          }))
+                        : (this.$3 = new (r("WAFtsQuickSwitchOrchestrator"))(
+                            this.$7,
+                            this.$6,
+                            o("WAWebFtsVersionsInformation").createVersionsInfo(
+                              t,
+                            ),
+                          )),
+                      (this.$8 = new (r("WAWebFtsPurgeRangeManager"))(this.$3)),
+                      o("WALogger").LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[fts][delegate] inited",
+                          ])),
+                      ),
+                      (this.$1 = !0),
+                      (this.$2 = !1));
+                  } catch (e) {
+                    var i = r("getErrorSafe")(e),
+                      l = !this.$9;
+                    (o("WALogger")
+                      .ERROR(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "[fts][delegate] error while initializing: ",
+                            "",
+                          ])),
+                        o("WAWebNormalizeStack").normalizeStack(i),
+                      )
+                      .sendLogs(
+                        l
+                          ? "[fts][delegate] error while initializing"
+                          : "[fts][delegate] error while re-initializing after database deletion attempt",
+                      ),
+                      l &&
+                        i.name === "UpgradeError" &&
+                        i.message ===
+                          "Dexie specification of currently installed DB version is missing" &&
+                        ((this.$9 = !0),
+                        o("WALogger").LOG(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "[fts][delegate] deleting db (missing version), re-init",
+                            ])),
+                        ),
+                        yield r("WAWeb-dexie").delete(
+                          o("WAWebFtsStorageConsts").DATABASE_NAME,
+                        ),
+                        yield this.$12(),
+                        yield this.$13()));
+                  } finally {
+                    this.$2 = !1;
+                  }
+                  this.$14();
+                }
+              },
+            );
+            function a(e) {
+              return t.apply(this, arguments);
             }
-          }),
-          (n.$13 = async function () {
-            return (this.$10(), await this.$11(this.$4), !0);
-          }),
-          (n.$12 = function () {
+            return a;
+          })()),
+          (a.$13 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return (this.$10(), yield this.$11(this.$4), !0);
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$12 = function () {
             return (
               (this.$1 = !1),
               (this.$2 = !1),
               o("WAWebFtsStorage").clearInitializePromise(),
-              Promise.resolve(!0)
+              (y || (y = n("Promise"))).resolve(!0)
             );
           }),
-          (n.$15 = function () {
+          (a.$15 = function () {
             return (
               (this.$1 = !1),
               (this.$2 = !1),
               o("WAWebFtsStorage").clearInitializePromise(),
               o("WAWebModelStorageInitialize").clearInitializePromise(),
-              Promise.resolve(!0)
+              (y || (y = n("Promise"))).resolve(!0)
             );
           }),
-          (n.$16 = async function (t) {
-            return (
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[fts][delegate] start indexer",
-                  ])),
-              ),
-              (this.$4 = t),
-              await this.$11(t),
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[fts][delegate] init indexing ops",
-                  ])),
-              ),
-              r("WAWebEnvironment").isWindows || this.$3.full(),
-              this.$3.incremental(),
-              this.$8.drainQueue(),
-              Promise.resolve(!0)
+          (a.$16 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return (
+                  o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fts][delegate] start indexer",
+                      ])),
+                  ),
+                  (this.$4 = e),
+                  yield this.$11(e),
+                  o("WALogger").LOG(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fts][delegate] init indexing ops",
+                      ])),
+                  ),
+                  r("WAWebEnvironment").isWindows || this.$3.full(),
+                  this.$3.incremental(),
+                  this.$8.drainQueue(),
+                  (y || (y = n("Promise"))).resolve(!0)
+                );
+              },
             );
-          }),
-          (n.enqueue = async function (t) {
-            (this.$17(t) ? await this.$18(t) : this.$5.push(t), this.$14());
-          }),
-          (n.$17 = function (t) {
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.enqueue = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                (this.$17(e) ? yield this.$18(e) : this.$5.push(e), this.$14());
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$17 = function (t) {
             return (
               t.command.operation === "re-init" ||
               t.command.operation === "clear-init" ||
               t.command.operation === "start-indexer"
             );
           }),
-          (n.$14 = function () {
+          (a.$14 = function () {
             if (this.$1)
               for (; this.$5.length; ) {
                 var e = this.$5.shift();
                 this.$18(e);
               }
           }),
-          (n.$18 = function (t) {
+          (a.$18 = function (t) {
             var e = this,
-              n,
-              a = t.command,
-              i = t.reqId;
+              a,
+              i = t.command,
+              l = t.reqId;
             try {
-              switch (a.operation) {
+              switch (i.operation) {
                 case "start-indexer":
-                  n = this.$16(a.isMentionSearchEnabled);
+                  a = this.$16(i.isMentionSearchEnabled);
                   break;
                 case "re-init":
-                  n = this.$13();
+                  a = this.$13();
                   break;
                 case "clear-init":
-                  n = this.$15();
+                  a = this.$15();
                   break;
                 case "run":
-                  n = this.$3.full();
+                  a = this.$3.full();
                   break;
                 case "consume":
-                  n = this.$3.incremental();
+                  a = this.$3.incremental();
                   break;
                 case "find": {
-                  var l = a.query;
-                  n = this.$3.search(l, a.queryOptions);
+                  var s = i.query;
+                  a = this.$3.search(s, i.queryOptions);
                   break;
                 }
                 case "purge": {
-                  var s = a.ids;
-                  n = this.$3.purge(s);
+                  var u = i.ids;
+                  a = this.$3.purge(u);
                   break;
                 }
                 case "purge-range": {
-                  var u = a.chatId,
-                    c = a.endRowId,
-                    d = a.startRowId,
-                    m = a.tsOfLastMessage;
-                  n = this.$8.enqueue({
-                    chatId: u,
-                    tsOfLastMessage: m,
-                    startRowId: d,
-                    endRowId: c,
+                  var c = i.chatId,
+                    d = i.endRowId,
+                    m = i.startRowId,
+                    p = i.tsOfLastMessage;
+                  a = this.$8.enqueue({
+                    chatId: c,
+                    tsOfLastMessage: p,
+                    startRowId: m,
+                    endRowId: d,
                   });
                   break;
                 }
               }
-              if (n != null)
-                return n
+              if (a != null)
+                return a
                   .then(function (t) {
-                    e.$19({ reqId: i, result: t, error: !1 });
+                    e.$19({ reqId: l, result: t, error: !1 });
                   })
                   .catch(function (t) {
                     var n = r("getErrorSafe")(t);
-                    (e.$19({ reqId: i, result: !1, error: !0 }),
+                    (e.$19({ reqId: l, result: !1, error: !0 }),
                       o("WALogger")
                         .ERROR(
                           g ||
@@ -268,17 +308,17 @@ __d(
                               ", ",
                               "",
                             ])),
-                          a.operation,
+                          i.operation,
                           o("WAWebNormalizeStack").normalizeStack(n),
                         )
                         .tags("non-sad")
                         .sendLogs(
                           "[fts][delegate] error while performing work " +
-                            a.operation,
+                            i.operation,
                         ));
                   });
             } catch (e) {
-              var p = r("getErrorSafe")(e);
+              var _ = r("getErrorSafe")(e);
               (o("WALogger")
                 .ERROR(
                   h ||
@@ -286,23 +326,23 @@ __d(
                       "[fts][delegate] error while scheduling work ",
                       "",
                     ])),
-                  a.operation,
+                  i.operation,
                 )
                 .sendLogs("[fts][delegate] error while scheduling work"),
-                this.$19({ reqId: i, result: !1, error: !0 }));
+                this.$19({ reqId: l, result: !1, error: !0 }));
             }
-            return Promise.resolve();
+            return (y || (y = n("Promise"))).resolve();
           }),
-          (n.$19 = function (t) {
+          (a.$19 = function (t) {
             var e = t.error,
               n = t.reqId,
               r = t.result;
-            y.postMessage({ reqId: n, result: r, error: e });
+            C.postMessage({ reqId: n, result: r, error: e });
           }),
           t
         );
       })();
-    l.default = C;
+    l.default = b;
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebStatusModel",
   [
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
@@ -23,19 +24,21 @@ __d(
     "WAWebStatusPSAUtils",
     "WAWebSuperChatMsgs",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = [
+      u,
+      c = [
         o("WAWebCommonMsgUtils").EventType.DEFAULT,
         o("WAWebCommonMsgUtils").EventType.AMBIENT,
       ],
-      c = 3600 * 24,
-      d = 1e3,
-      m = (function (t) {
-        function n() {
+      d = 3600 * 24,
+      m = 1e3,
+      p = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -60,10 +63,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.initialize = function () {
+          (i.initialize = function () {
             var e = this;
             (t.prototype.initialize.call(this),
               this.addChild(
@@ -93,19 +96,19 @@ __d(
                 ).isStatusPrivateMentionsReceiveEnabled() &&
                   !o("WAWebMsgGetters").getIsSentByMe(e) &&
                   o("WAWebMsgGetters").getStatusMentioned(e) &&
-                  u.includes(o("WAWebFrontendMsgGetters").getEventType(e)) &&
+                  c.includes(o("WAWebFrontendMsgGetters").getEventType(e)) &&
                   o("WAWebNotificationBackend").showStatusNotification(e);
               }));
           }),
-          (a.isExpired = function () {
+          (i.isExpired = function () {
             return this.id.isPSA()
               ? o("WAWebStatusPSAUtils").isExpiredStatusPSA(
                   this.msgs.toArray(),
-                  c,
+                  d,
                 )
-              : o("WATimeUtils").unixTime() - this.t > c;
+              : o("WATimeUtils").unixTime() - this.t > d;
           }),
-          (a.setupStatusExpiration = function () {
+          (i.setupStatusExpiration = function () {
             var e = this,
               t = this.msgs.at(0);
             if (
@@ -113,27 +116,27 @@ __d(
               !(typeof this.expireTs == "number" && this.expireTs <= t.t)
             ) {
               var n = 1,
-                a = t.t + c + n;
+                a = t.t + d + n;
               a < o("WATimeUtils").unixTime()
                 ? self.setTimeout(function () {
                     e.expireMsg();
                   })
                 : ((this.expireTimer = r("WAWebAlarm").setGlobalTimeout(
                     this.expireMsg.bind(this),
-                    a * d,
+                    a * m,
                     this.expireTimer,
                   )),
                   (this.expireTs = t.t));
             }
           }),
-          (a.$Status$p_1 = function (t) {
+          (i.$Status$p_1 = function (t) {
             var e = this.msgs;
             (this.unreadCount > this.totalCount - 1 && this.unreadCount--,
               this.totalCount--,
               e.remove(t),
               t.delete());
           }),
-          (a.expireMsg = function () {
+          (i.expireMsg = function () {
             if (this.id.isPSA()) {
               this.expirePSAMsg();
               return;
@@ -144,7 +147,7 @@ __d(
             for (var e = this.msgs; e.length > 0; ) {
               var t = e.at(0);
               if (!t) break;
-              var n = t.t + c > o("WATimeUtils").unixTime();
+              var n = t.t + d > o("WATimeUtils").unixTime();
               if (n) break;
               this.$Status$p_1(t);
             }
@@ -156,7 +159,7 @@ __d(
               (this.expireTimer = void 0),
               this.totalCount !== 0 && this.setupStatusExpiration());
           }),
-          (a.expirePSAMsg = function () {
+          (i.expirePSAMsg = function () {
             var e = this,
               t = o("WAWebStatusPSAUtils").getPSACampaigns(this.msgs.toArray());
             (o("WAWebAppTracker").AppTracker.start(
@@ -165,7 +168,7 @@ __d(
               this.msgs.forEach(function (n) {
                 var r = n.campaignId;
                 if (r != null) {
-                  var a = o("WAWebStatusPSAUtils").isCampaignExpired(t[r], c);
+                  var a = o("WAWebStatusPSAUtils").isCampaignExpired(t[r], d);
                   a && e.$Status$p_1(n);
                 }
               }),
@@ -177,7 +180,7 @@ __d(
               (this.expireTimer = void 0),
               this.totalCount !== 0 && this.setupStatusExpiration());
           }),
-          (a.isUnreadMessage = function (t) {
+          (i.isUnreadMessage = function (t) {
             if (t == null) return !1;
             var e = o("WAWebMsgModelUtils").getReadMsgKeys(this.msgs.toArray()),
               n =
@@ -186,7 +189,7 @@ __d(
                 }) == null;
             return n && this.readKeys[t] !== !0;
           }),
-          (a.revokeMsgs = function (t) {
+          (i.revokeMsgs = function (t) {
             var e = this,
               n = new Set(t),
               r = this.msgs.filter(function (e) {
@@ -198,7 +201,7 @@ __d(
               this.totalCount === 0 &&
                 ((this.expireTs = void 0), (this.expireTimer = void 0)));
           }),
-          (a.delete = function () {
+          (i.delete = function () {
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -217,7 +220,7 @@ __d(
                 this,
               ));
           }),
-          (a.onEmptyMRM = function () {
+          (i.onEmptyMRM = function () {
             var e = this;
             if (
               (o("WALogger").LOG(
@@ -242,43 +245,55 @@ __d(
                   e.msgs.length || e.delete();
                 });
           }),
-          (a.loadMore = function (t) {
+          (i.loadMore = function (t) {
             return (
               t === void 0 && (t = o("WAWebCollectionConstants").PAGE_SIZE),
               this.msgs.msgLoadState.noEarlierMsgs
-                ? Promise.resolve()
+                ? (u || (u = n("Promise"))).resolve()
                 : this.msgs.msgLoadState.isLoadingEarlierMsgs
                   ? this.msgs.loadEarlierPromise
                   : ((this.msgs.msgLoadState.noEarlierMsgs = !0),
-                    Promise.resolve())
+                    (u || (u = n("Promise"))).resolve())
             );
           }),
-          (a.handleReadStatus = function (t) {
+          (i.handleReadStatus = function (t) {
             var e = t.toString();
             this.readKeys[e] ||
               ((this.readKeys[e] = !0),
               this.unreadCount > 0 && this.unreadCount--);
           }),
-          (a.sendReadStatus = async function (t, n, r) {
-            var e = await o("WAWebContactStatusBridge").sendReadStatus(t, n, r);
-            e && this.handleReadStatus(t.id);
-          }),
-          (a.getCollection = function () {
+          (i.sendReadStatus = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                var r = yield o("WAWebContactStatusBridge").sendReadStatus(
+                  e,
+                  t,
+                  n,
+                );
+                r && this.handleReadStatus(e.id);
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getCollection = function () {
             return o("WAWebStatusCollection").StatusCollection;
           }),
-          (a.containsMessage = function (t) {
+          (i.containsMessage = function (t) {
             return t == null
               ? !1
               : this.msgs.toArray().some(function (e) {
                   return e.id.toString() === t.toString();
                 });
           }),
-          n
+          a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((m.Proxy = "status"), (m.idClass = r("WAWebWid")));
-    var p = o("WAWebBaseModel").defineModel(m);
-    l.default = p;
+    ((p.Proxy = "status"), (p.idClass = r("WAWebWid")));
+    var _ = o("WAWebBaseModel").defineModel(p);
+    l.default = _;
   },
   98,
 );

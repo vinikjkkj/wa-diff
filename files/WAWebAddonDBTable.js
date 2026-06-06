@@ -10,6 +10,7 @@ __d(
     "WAWebAddonReactionTableMode",
     "WAWebAddonSelectUtils",
     "WAWebAddonUnifiedAddonsTableMode",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = function (t) {
@@ -33,47 +34,133 @@ __d(
         }
       },
       s = {
-        bulkUpsert: async function (n, r) {
-          if (r.length !== 0) return e(n).bulkUpsert(r);
-        },
-        bulkGetByParentAndSender: async function (n, r) {
-          return r.length === 0 ? [] : e(n).bulkGetByParentAndSender(r);
-        },
-        bulkGetByMsgKey: async function (n, r, o) {
-          return e(n).bulkGetByMsgKey(r, o);
-        },
-        bulkGetByParentMsgKey: async function (n, r) {
-          return e(n).bulkGetByParentMsgKey(r);
-        },
-        bulkGetByChatWid: async function (n, r) {
-          return e(n).bulkGetByChatWid(r);
-        },
-        bulkRemoveByMsgKey: async function (n, r) {
-          if (r.length !== 0) return e(n).bulkRemoveByMsgKey(r);
-        },
-        updateAck: async function (n, r, o) {
-          return e(n).updateAck(r, o);
-        },
-        getByMsgKey: async function (n, r) {
-          return e(n).getByMsgKey(r);
-        },
-        getTableSize: async function (n) {
-          return e(n).getTableSize();
-        },
+        bulkUpsert: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              if (n.length !== 0) return e(t).bulkUpsert(n);
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        bulkGetByParentAndSender: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              return n.length === 0 ? [] : e(t).bulkGetByParentAndSender(n);
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        bulkGetByMsgKey: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n, r) {
+              return e(t).bulkGetByMsgKey(n, r);
+            },
+          );
+          function r(e, n, r) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        bulkGetByParentMsgKey: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              return e(t).bulkGetByParentMsgKey(n);
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        bulkGetByChatWid: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              return e(t).bulkGetByChatWid(n);
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        bulkRemoveByMsgKey: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              if (n.length !== 0) return e(t).bulkRemoveByMsgKey(n);
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        updateAck: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n, r) {
+              return e(t).updateAck(n, r);
+            },
+          );
+          function r(e, n, r) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        getByMsgKey: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n) {
+              return e(t).getByMsgKey(n);
+            },
+          );
+          function r(e, n) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
+        getTableSize: (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            return e(t).getTableSize();
+          });
+          function r(e) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })(),
       },
       u = {
-        bulkGetByParentAndSender: async function (t, n) {
-          return s.bulkGetByParentAndSender(
-            o("WAWebAddonSelectUtils").getTableModeByMsgType(t),
-            n,
+        bulkGetByParentAndSender: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return s.bulkGetByParentAndSender(
+                o("WAWebAddonSelectUtils").getTableModeByMsgType(e),
+                t,
+              );
+            },
           );
-        },
-        getByMsgKey: async function (t, n) {
-          return s.getByMsgKey(
-            o("WAWebAddonSelectUtils").getTableModeByMsgType(t),
-            n,
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        getByMsgKey: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return s.getByMsgKey(
+                o("WAWebAddonSelectUtils").getTableModeByMsgType(e),
+                t,
+              );
+            },
           );
-        },
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       };
     ((l.addonInternalDBTable = s), (l.addonDBTable = u));
   },

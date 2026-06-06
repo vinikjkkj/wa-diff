@@ -1,6 +1,7 @@
 __d(
   "WAWebLocaleSettingSync",
   [
+    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebBackendApi",
@@ -8,6 +9,7 @@ __d(
     "WAWebL10NConstants",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -15,8 +17,9 @@ __d(
       u,
       c,
       d,
-      m = (function (t) {
-        function n() {
+      m,
+      p = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -26,16 +29,16 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.getVersion = function () {
+          (i.getVersion = function () {
             return 3;
           }),
-          (a.getAction = function () {
+          (i.getAction = function () {
             return o("WASyncdConst").Actions.LocaleSetting;
           }),
-          (a.applyMutations = function (n) {
+          (i.applyMutations = function (a) {
             var t = this;
             o("WALogger").LOG(
               e ||
@@ -43,64 +46,74 @@ __d(
                   "locale setting sync: start",
                 ])),
             );
-            var a = 0,
-              i = 0,
+            var i = 0,
               l = 0,
-              m = [],
-              p = Promise.all(
-                n.map(async function (e) {
-                  try {
-                    if (r("WAWebEnvironment").isWindows)
-                      return {
-                        actionState: o("WASyncdConst").SyncActionState.Skipped,
-                      };
-                    if (e.operation === "set") {
-                      var n = e.value,
-                        s = n.localeSetting;
-                      if (!s)
-                        return (
-                          a++,
-                          o("WAWebSyncdIndexUtils").malformedActionValue(
-                            t.collectionName,
-                          )
-                        );
-                      var u = s.locale;
-                      return u == null
-                        ? (i++,
-                          {
-                            actionState:
-                              o("WASyncdConst").SyncActionState.Skipped,
-                          })
-                        : (await o("WAWebBackendApi").frontendSendAndReceive(
-                            "setLocale",
+              p = 0,
+              _ = [],
+              f = (m || (m = n("Promise"))).all(
+                a.map(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        try {
+                          if (r("WAWebEnvironment").isWindows)
+                            return {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Skipped,
+                            };
+                          if (e.operation === "set") {
+                            var n = e.value,
+                              a = n.localeSetting;
+                            if (!a)
+                              return (
+                                i++,
+                                o("WAWebSyncdIndexUtils").malformedActionValue(
+                                  t.collectionName,
+                                )
+                              );
+                            var s = a.locale;
+                            return s == null
+                              ? (l++,
+                                {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState.Skipped,
+                                })
+                              : (yield o(
+                                  "WAWebBackendApi",
+                                ).frontendSendAndReceive("setLocale", {
+                                  locale: s,
+                                  priority:
+                                    o("WAWebL10NConstants").L10N_PRIORITY.PHONE,
+                                  reload: !1,
+                                }),
+                                _.length < 3 && _.push(s),
+                                {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState.Success,
+                                });
+                          }
+                          return (
+                            p++,
                             {
-                              locale: u,
-                              priority:
-                                o("WAWebL10NConstants").L10N_PRIORITY.PHONE,
-                              reload: !1,
-                            },
-                          ),
-                          m.length < 3 && m.push(u),
-                          {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Unsupported,
+                            }
+                          );
+                        } catch (e) {
+                          return {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Success,
-                          });
-                    }
-                    return (
-                      l++,
-                      {
-                        actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
-                      }
+                              o("WASyncdConst").SyncActionState.Failed,
+                          };
+                        }
+                      },
                     );
-                  } catch (e) {
-                    return {
-                      actionState: o("WASyncdConst").SyncActionState.Failed,
+                    return function (t) {
+                      return e.apply(this, arguments);
                     };
-                  }
-                }),
+                  })(),
+                ),
               );
-            return p.then(function (e) {
+            return f.then(function (e) {
               return (
                 o("WALogger").LOG(
                   s ||
@@ -108,44 +121,44 @@ __d(
                       "locale setting sync: handled ",
                       " mutations",
                     ])),
-                  n.length,
+                  a.length,
                 ),
-                a > 0 &&
+                i > 0 &&
                   o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "locale setting sync: ",
                         " malformed mutations",
                       ])),
-                    a,
+                    i,
                   ),
-                i > 0 &&
+                l > 0 &&
                   o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
                         "locale setting sync: ",
                         " null locale mutations",
                       ])),
-                    i,
+                    l,
                   ),
-                l > 0 &&
+                p > 0 &&
                   o("WALogger").WARN(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "locale setting sync: ",
                         " unsupported operations",
                       ])),
-                    l,
+                    p,
                   ),
                 e
               );
             });
           }),
-          n
+          a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      p = new m();
-    l.default = p;
+      _ = new p();
+    l.default = _;
   },
   98,
 );

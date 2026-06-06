@@ -4,17 +4,21 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")("WAWebWWAITray.react")
-          .__setRef("WAWebWWAITrayLoadable")
-          .load();
-        return e;
-      }, "WWAITray"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")("WAWebWWAITray.react")
+            .__setRef("WAWebWWAITrayLoadable")
+            .load();
+          return e;
+        }),
+        "WWAITray",
+      ),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function () {

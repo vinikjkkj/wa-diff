@@ -1,6 +1,7 @@
 __d(
   "WAWebHandleIdentityChange",
   [
+    "Promise",
     "WADeprecatedWapParser",
     "WAJids",
     "WALogger",
@@ -23,6 +24,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,7 +33,8 @@ __d(
       u,
       c,
       d,
-      m = new (r("WADeprecatedWapParser"))("identityChange", function (e) {
+      m,
+      p = new (r("WADeprecatedWapParser"))("identityChange", function (e) {
         return (
           e.assertTag("notification"),
           e.assertAttr("type", "encrypt"),
@@ -49,9 +52,9 @@ __d(
           }
         );
       });
-    function p(t) {
-      var n = m.parse(t);
-      if (n.error)
+    function _(t) {
+      var a = p.parse(t);
+      if (a.error)
         return (
           o("WALogger").ERROR(
             e ||
@@ -59,22 +62,22 @@ __d(
                 "Parsing Error: ",
                 "",
               ])),
-            n.error.toString(),
+            a.error.toString(),
           ),
-          Promise.reject(n.error)
+          (m || (m = n("Promise"))).reject(a.error)
         );
-      var a = n.success,
-        i = a.displayName,
-        l = a.lid,
-        p = a.offline,
-        _ = a.stanzaId,
-        f = a.wid,
-        g = o("WAWap").wap("ack", {
-          to: o("WAWebCommsWapMd").DEVICE_JID(f),
-          id: o("WAWap").CUSTOM_STRING(_),
+      var i = a.success,
+        l = i.displayName,
+        _ = i.lid,
+        f = i.offline,
+        g = i.stanzaId,
+        h = i.wid,
+        y = o("WAWap").wap("ack", {
+          to: o("WAWebCommsWapMd").DEVICE_JID(h),
+          id: o("WAWap").CUSTOM_STRING(g),
           class: "notification",
         });
-      if (f.device != null && f.device !== o("WAJids").DEFAULT_DEVICE_ID)
+      if (h.device != null && h.device !== o("WAJids").DEFAULT_DEVICE_ID)
         return (
           o("WALogger").LOG(
             s ||
@@ -82,102 +85,108 @@ __d(
                 "handleNewIdentity: ignore identity change from companion device",
               ])),
           ),
-          Promise.resolve(g)
+          (m || (m = n("Promise"))).resolve(y)
         );
-      if (o("WAWebUserPrefsMeUser").isMePrimary(f))
+      if (o("WAWebUserPrefsMeUser").isMePrimary(h))
         return (
           o("WAWebBackendApi").frontendFireAndForget(
             "handleSelfPrimaryIdentityChange",
             {},
           ),
-          Promise.resolve(g)
+          (m || (m = n("Promise"))).resolve(y)
         );
-      var h =
-        !r("isStringNullOrEmpty")(p) &&
+      var C =
+        !r("isStringNullOrEmpty")(f) &&
         !o(
           "WAWebOfflineHandler",
         ).OfflineMessageHandler.isResumeFromRestartComplete();
       return o("WAWebMessageQueue").onMessageQueue({
-        chatWid: f,
-        isOffline: h,
+        chatWid: h,
+        isOffline: C,
         msgCategory: null,
-        action: async function () {
-          var e = l ? o("WAWebWidFactory").asUserLidOrThrow(l) : null;
-          await o(
-            "WAWebIdentityChangeApiWorkerCompatible",
-          ).clearDeviceRecordForIdentityChange({
-            wid: f,
-            stanzaLid: e,
-            offline: h,
-          });
-          var t = await o("WAWebSignalProtocolStore")
-            .getSignalProtocolStore()
-            .loadIdentityKey(
-              o("WAWebSignalCommonUtils").createSignalAddress(f).toString(),
-            );
-          if (!r("isStringNullOrEmpty")(t)) {
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleE2eIdentityChange: ",
-                  " has old identity, establishing new session",
-                ])),
-              f.toString(),
-            );
-            var n = o("WAWebWidFactory").asUserWidOrThrow(f);
-            (await o("WAWebSignal").Session.deleteRemoteInfo(f),
-              o("WAWebSecurityCodeApi")
-                .addSecurityCodeChangedNotifications({
-                  user: n,
-                  stanzaLid: e,
-                  offline: h,
-                })
-                .catch(function (e) {
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "handleE2eIdentityChange: addSecurityCodeChangedNotifications failed with: ",
-                        "",
-                      ])),
-                    String(e),
-                  );
-                }),
-              o(
-                "WAWebSendTcTokenWhenDeviceIdentityChange",
-              ).sendTcTokenWhenDeviceIdentityChange(n),
-              r("WAWebUserPrefsStatus").markStatusSenderKeyRotate([f]),
-              o(
-                "WAWebBroadcastSenderKeyManager",
-              ).markBroadcastSenderKeyRotateForUser(f),
-              h ||
-                o("WAWebManageE2ESessionsJob")
-                  .ensureE2ESessions(
-                    [f],
-                    !0,
-                    o("WAWebSessionScope").SessionScope.DEFAULT,
-                  )
+        action: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = _ ? o("WAWebWidFactory").asUserLidOrThrow(_) : null;
+            yield o(
+              "WAWebIdentityChangeApiWorkerCompatible",
+            ).clearDeviceRecordForIdentityChange({
+              wid: h,
+              stanzaLid: e,
+              offline: C,
+            });
+            var t = yield o("WAWebSignalProtocolStore")
+              .getSignalProtocolStore()
+              .loadIdentityKey(
+                o("WAWebSignalCommonUtils").createSignalAddress(h).toString(),
+              );
+            if (!r("isStringNullOrEmpty")(t)) {
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleE2eIdentityChange: ",
+                    " has old identity, establishing new session",
+                  ])),
+                h.toString(),
+              );
+              var n = o("WAWebWidFactory").asUserWidOrThrow(h);
+              (yield o("WAWebSignal").Session.deleteRemoteInfo(h),
+                o("WAWebSecurityCodeApi")
+                  .addSecurityCodeChangedNotifications({
+                    user: n,
+                    stanzaLid: e,
+                    offline: C,
+                  })
                   .catch(function (e) {
                     o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "handleE2eIdentityChange: ensureE2ESessions failed with: ",
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "handleE2eIdentityChange: addSecurityCodeChangedNotifications failed with: ",
                           "",
                         ])),
                       String(e),
                     );
                   }),
-              await o(
-                "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-              ).createOrReplaceDisplayNamesAndLidPnMappings(
-                [{ id: n, lid: e, displayName: i }],
-                !p,
-              ));
+                o(
+                  "WAWebSendTcTokenWhenDeviceIdentityChange",
+                ).sendTcTokenWhenDeviceIdentityChange(n),
+                r("WAWebUserPrefsStatus").markStatusSenderKeyRotate([h]),
+                o(
+                  "WAWebBroadcastSenderKeyManager",
+                ).markBroadcastSenderKeyRotateForUser(h),
+                C ||
+                  o("WAWebManageE2ESessionsJob")
+                    .ensureE2ESessions(
+                      [h],
+                      !0,
+                      o("WAWebSessionScope").SessionScope.DEFAULT,
+                    )
+                    .catch(function (e) {
+                      o("WALogger").WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleE2eIdentityChange: ensureE2ESessions failed with: ",
+                            "",
+                          ])),
+                        String(e),
+                      );
+                    }),
+                yield o(
+                  "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
+                ).createOrReplaceDisplayNamesAndLidPnMappings(
+                  [{ id: n, lid: e, displayName: l }],
+                  !f,
+                ));
+            }
+            return y;
+          });
+          function t() {
+            return e.apply(this, arguments);
           }
-          return g;
-        },
+          return t;
+        })(),
       });
     }
-    l.handleE2eIdentityChange = p;
+    l.handleE2eIdentityChange = _;
   },
   98,
 );

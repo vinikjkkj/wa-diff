@@ -8,6 +8,7 @@ __d(
     "WAWebAddonDBTable",
     "WAWebQplFlowWrapper",
     "WAWebSchemaMessage",
+    "asyncToGeneratorRuntime",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,120 +41,187 @@ __d(
                     : 1e6;
     }
     var p = { date: 0, values: new Map() };
-    async function _(e) {
-      var t = p,
-        n = new Date().setHours(0, 0, 0, 0);
-      if (t.date === n) {
-        var r = t.values.get(e);
-        if (r == null) {
-          var a = m(
-            await o("WAWebAddonDBTable").addonInternalDBTable.getTableSize(e),
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = p,
+            n = new Date().setHours(0, 0, 0, 0);
+          if (t.date === n) {
+            var r = t.values.get(e);
+            if (r == null) {
+              var a = m(
+                yield o("WAWebAddonDBTable").addonInternalDBTable.getTableSize(
+                  e,
+                ),
+              );
+              return (t.values.set(e, a), a);
+            }
+            return r;
+          }
+          ((t.date = n), t.values.clear());
+          var i = m(
+            yield o("WAWebAddonDBTable").addonInternalDBTable.getTableSize(e),
           );
-          return (t.values.set(e, a), a);
-        }
-        return r;
-      }
-      ((t.date = n), t.values.clear());
-      var i = m(
-        await o("WAWebAddonDBTable").addonInternalDBTable.getTableSize(e),
+          return (t.values.set(e, i), i);
+        })),
+        f.apply(this, arguments)
       );
-      return (t.values.set(e, i), i);
     }
-    async function f() {
-      var e = "messages",
-        t = p,
-        n = new Date().setHours(0, 0, 0, 0);
-      if (t.date === n) {
-        var r = t.values.get(e);
-        if (r == null) {
-          var a = m(await o("WAWebSchemaMessage").getMessageTable().count());
-          return (t.values.set(e, a), a);
-        }
-        return r;
-      }
-      ((t.date = n), t.values.clear());
-      var i = m(await o("WAWebSchemaMessage").getMessageTable().count());
-      return (t.values.set(e, i), i);
+    function g() {
+      return h.apply(this, arguments);
     }
-    async function g(e) {
-      return {
-        string: {
-          request_type: c.getName(e.type),
-          table_mode: o("WAWebAddonConstants").AddonTableMode.getName(e.mode),
-        },
-        int: { request_size: e.size, table_size: await _(e.mode) },
-      };
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = "messages",
+            t = p,
+            n = new Date().setHours(0, 0, 0, 0);
+          if (t.date === n) {
+            var r = t.values.get(e);
+            if (r == null) {
+              var a = m(
+                yield o("WAWebSchemaMessage").getMessageTable().count(),
+              );
+              return (t.values.set(e, a), a);
+            }
+            return r;
+          }
+          ((t.date = n), t.values.clear());
+          var i = m(yield o("WAWebSchemaMessage").getMessageTable().count());
+          return (t.values.set(e, i), i);
+        })),
+        h.apply(this, arguments)
+      );
     }
-    async function h(e) {
-      return {
-        string: { request_type: c.getName(e.type), table_mode: "messages" },
-        int: { request_size: e.size, table_size: await f() },
-      };
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return {
+            string: {
+              request_type: c.getName(e.type),
+              table_mode: o("WAWebAddonConstants").AddonTableMode.getName(
+                e.mode,
+              ),
+            },
+            int: { request_size: e.size, table_size: yield _(e.mode) },
+          };
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return {
+            string: { request_type: c.getName(e.type), table_mode: "messages" },
+            int: { request_size: e.size, table_size: yield g() },
+          };
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "addon_infra_enable_perf_logging",
       );
     }
-    function C(e) {
+    function R(e) {
       var t = Math.random();
       return t <= e / 100;
     }
-    function b(e, t) {
+    function L(e, t) {
       switch (e) {
         case d.Incoming:
           return t === o("WAWebAddonConstants").AddonTableMode.Reaction
-            ? C(3)
-            : C(10);
+            ? R(3)
+            : R(10);
         case d.Outgoing:
-          return C(25);
+          return R(25);
         case d.UI:
-          return C(1);
+          return R(1);
       }
     }
-    async function v(t, n, a) {
-      if (y() && b(t, n)) {
-        var i = await a(),
-          l;
-        switch (t) {
-          case d.Incoming:
-            l = s;
-            break;
-          case d.Outgoing:
-            l = u;
-            break;
-          case d.UI:
-            l = e;
-            break;
-        }
-        var c = o("WAWebQplFlowWrapper").QPL.markerStart(r("WANullthrows")(l), {
-          annotations: i,
-        });
-        return {
-          success: function () {
-            return c.end(2);
-          },
-          fail: function () {
-            return c.end(3);
-          },
-        };
-      }
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    async function S(e, t) {
-      return v(e, t.mode, function () {
-        return g(t);
-      });
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          if (S() && L(t, n)) {
+            var i = yield a(),
+              l;
+            switch (t) {
+              case d.Incoming:
+                l = s;
+                break;
+              case d.Outgoing:
+                l = u;
+                break;
+              case d.UI:
+                l = e;
+                break;
+            }
+            var c = o("WAWebQplFlowWrapper").QPL.markerStart(
+              r("WANullthrows")(l),
+              { annotations: i },
+            );
+            return {
+              success: function () {
+                return c.end(2);
+              },
+              fail: function () {
+                return c.end(3);
+              },
+            };
+          }
+        })),
+        k.apply(this, arguments)
+      );
     }
-    async function R(e, t) {
-      return v(e, o("WAWebAddonConstants").AddonTableMode.None, function () {
-        return h(t);
-      });
+    function I(e, t) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return E(e, t.mode, function () {
+            return y(t);
+          });
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e, t) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return E(
+            e,
+            o("WAWebAddonConstants").AddonTableMode.None,
+            function () {
+              return b(t);
+            },
+          );
+        })),
+        x.apply(this, arguments)
+      );
     }
     ((l.AnnotationRequestType = c),
       (l.AddonQplMarkerType = d),
       (l.getCachedTableSize = _),
-      (l.createAddonQplMarker = S),
-      (l.createMessagesQplMarker = R));
+      (l.createAddonQplMarker = I),
+      (l.createMessagesQplMarker = D));
   },
   98,
 );

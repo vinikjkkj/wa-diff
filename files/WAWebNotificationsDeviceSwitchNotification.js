@@ -6,6 +6,7 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -16,27 +17,33 @@ __d(
         return ((n = e.call(this) || this), (n.wid = o), (n.otpCode = r), n);
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.shouldMute = function (t) {
+        (a.shouldMute = function (t) {
           return o("WAWebNotificationHelpers").appIsActive()
             ? r("WAWebNotificationMuteReason").AppState
             : null;
         }),
-        (n.buildKey = function () {
+        (a.buildKey = function () {
           return "registration:" + this.wid.toString();
         }),
-        (n.getChatKind = function () {
+        (a.getChatKind = function () {
           return null;
         }),
-        (n.getIcon = async function () {
-          return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-            this.wid,
-            this.abortController.signal,
-            o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-          );
-        }),
-        (n.getBannerOptions = function () {
+        (a.getIcon = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+              this.wid,
+              this.abortController.signal,
+              o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.getBannerOptions = function () {
           var e = s
               ._(
                 /*BTDS*/ "Do not share it with anyone. Your code is {otpCode}.",

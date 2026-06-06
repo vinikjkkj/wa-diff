@@ -9,6 +9,7 @@ __d(
     "WAWebWamEnumCompanionInviteActionType",
     "WAWebWamEnumCompanionInviteMethodType",
     "WAWebWamEnumCompanionInviteOriginType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -31,7 +32,7 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          p(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
               .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
@@ -60,7 +61,7 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          p(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
               .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
@@ -72,22 +73,30 @@ __d(
         ),
       ).commit();
     }
-    async function c(e, t, n, r) {
-      var a = await o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
-        e,
-        t,
-        n,
-      );
-      t.forEach(function (e, t) {
-        var o = a[t];
-        d({
-          entryPoint: n,
-          inviteCodeError: o != null ? o.toString() : void 0,
-          sessionId: r,
-        });
-      });
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
     }
-    function d(e) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield o(
+              "WAWebOutContactInviteUtils",
+            ).storeMultiGroupInviteSms(e, t, n);
+            t.forEach(function (e, t) {
+              var o = a[t];
+              m({
+                entryPoint: n,
+                inviteCodeError: o != null ? o.toString() : void 0,
+                sessionId: r,
+              });
+            });
+          },
+        )),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
       var t,
         n = e.entryPoint,
         r = e.inviteCodeError,
@@ -97,7 +106,7 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          m(),
+          p(),
           {
             companionInviteMethod: o("WAWebWamEnumCompanionInviteMethodType")
               .COMPANION_INVITE_METHOD_TYPE.NATIVE_SMS,
@@ -120,7 +129,7 @@ __d(
         ),
       ).commit();
     }
-    function m() {
+    function p() {
       var e = o("WAWebContactCollection").ContactCollection.length,
         t = e + o("WAWebOutContactCollection").OutContactCollection.length;
       return {
@@ -132,7 +141,7 @@ __d(
       (l.logOneToOneInviteContact = s),
       (l.logOutContactImpression = u),
       (l.logMultiGroupInviteContacts = c),
-      (l.logGroupInviteContact = d));
+      (l.logGroupInviteContact = m));
   },
   98,
 );

@@ -1,28 +1,41 @@
 __d(
   "WAWebRunInBatches",
-  [],
+  ["Promise", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i) {
-    async function e(e, t, n) {
-      for (
-        var r,
-          o,
-          a = (r = n == null ? void 0 : n.batchSize) != null ? r : 1e3,
-          i = (o = n == null ? void 0 : n.delayMs) != null ? o : 0,
-          l = 0;
-        l < e.length;
-        l += a
-      ) {
-        var s;
-        if (n != null && (s = n.abortController) != null && s.signal.aborted)
-          return;
-        var u = e.slice(l, l + a);
-        (await t(u),
-          await new Promise(function (e) {
-            return self.setTimeout(e, i);
-          }));
-      }
+    var e;
+    function l(e, t, n) {
+      return s.apply(this, arguments);
     }
-    i.runInBatches = e;
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, o) {
+          for (
+            var a,
+              i,
+              l = (a = o == null ? void 0 : o.batchSize) != null ? a : 1e3,
+              s = (i = o == null ? void 0 : o.delayMs) != null ? i : 0,
+              u = 0;
+            u < t.length;
+            u += l
+          ) {
+            var c;
+            if (
+              o != null &&
+              (c = o.abortController) != null &&
+              c.signal.aborted
+            )
+              return;
+            var d = t.slice(u, u + l);
+            (yield r(d),
+              yield new (e || (e = n("Promise")))(function (e) {
+                return self.setTimeout(e, s);
+              }));
+          }
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    i.runInBatches = l;
   },
   66,
 );

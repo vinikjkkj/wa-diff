@@ -1,6 +1,7 @@
 __d(
   "WAWebStatusPrivacySettingSync",
   [
+    "Promise",
     "WALogger",
     "WASyncdConst",
     "WAWebBackendEventBus",
@@ -14,12 +15,14 @@ __d(
     "WAWebUserPrefsStatus",
     "WAWebUserPrefsStatusType",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = (function (t) {
-        function n() {
+      u,
+      c = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -29,191 +32,207 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.getVersion = function () {
+          (i.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (i.getAction = function () {
             return o("WASyncdConst").Actions.StatusPrivacy;
           }),
-          (a.applyMutations = async function (n) {
-            if (n.length !== 1)
-              return (
-                o("WALogger").ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd] unexpected mutation count ",
-                      " for status privacy sync",
-                    ])),
-                  n.length,
-                ),
-                n.map(function () {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Malformed,
-                  };
-                })
-              );
-            var t = n[n.length - 1];
-            if (t.operation === "set")
-              try {
-                var a = t.value,
-                  i = a.statusPrivacy;
-                if (!i)
-                  return [
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      this.collectionName,
+          (i.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                if (t.length !== 1)
+                  return (
+                    o("WALogger").ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd] unexpected mutation count ",
+                          " for status privacy sync",
+                        ])),
+                      t.length,
                     ),
-                  ];
-                var l = i.mode,
-                  u = i.shareToFB,
-                  c = i.shareToIG,
-                  d = i.userJid;
-                if (l == null)
-                  return [
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      this.collectionName,
-                    ),
-                  ];
-                var m = [],
-                  p,
-                  _ = [],
-                  f = [];
-                e: {
-                  if (
-                    l ===
-                    o("WAWebProtobufSyncAction.pb")
-                      .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
-                      .CONTACTS
-                  ) {
-                    ((p = o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-                      .Contact),
-                      (m = r(
-                        "WAWebUserPrefsStatus",
-                      ).calculateStatusPrivacyUpdateEntries({ setting: p })));
-                    break e;
-                  }
-                  if (
-                    l ===
-                    o("WAWebProtobufSyncAction.pb")
-                      .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
-                      .ALLOW_LIST
-                  ) {
-                    ((p = o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-                      .AllowList),
-                      (_ = d
-                        .map(o("WAWebWidFactory").createWid)
-                        .filter(function (e) {
-                          return e.isUser();
-                        })),
-                      (m = r(
-                        "WAWebUserPrefsStatus",
-                      ).calculateStatusPrivacyUpdateEntries({
-                        setting: p,
-                        allowList: _,
-                      })));
-                    break e;
-                  }
-                  if (
-                    l ===
-                    o("WAWebProtobufSyncAction.pb")
-                      .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
-                      .DENY_LIST
-                  ) {
-                    ((p = o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-                      .DenyList),
-                      (f = d
-                        .map(o("WAWebWidFactory").createWid)
-                        .filter(function (e) {
-                          return e.isUser();
-                        })),
-                      (m = r(
-                        "WAWebUserPrefsStatus",
-                      ).calculateStatusPrivacyUpdateEntries({
-                        setting: p,
-                        denyList: f,
-                      })));
-                    break e;
-                  }
-                  if (
-                    l ===
-                      o("WAWebProtobufSyncAction.pb")
-                        .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
-                        .CLOSE_FRIENDS ||
-                    l ===
-                      o("WAWebProtobufSyncAction.pb")
-                        .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
-                        .CUSTOM_LIST
-                  )
-                    break e;
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      l,
+                    t.map(function () {
+                      return {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Malformed,
+                      };
+                    })
                   );
-                }
-                var g = [];
-                if (
-                  o(
-                    "WAWebCrosspostingBackendGatingUtils",
-                  ).crosspostSettingsSyncReceiverEnabled()
-                ) {
-                  var h = [];
-                  (u != null &&
-                    h.push(r("WAWebUserPrefsStatus").persistShareToFB(u)),
-                    c != null &&
-                      h.push(r("WAWebUserPrefsStatus").persistShareToIG(c)),
-                    h.length > 0 &&
-                      g.push(
-                        Promise.all(h).then(function () {
-                          o(
-                            "WAWebBackendEventBus",
-                          ).BackendEventBus.triggerUpdateCrosspostAutoShareSettings(
-                            { shareToFB: u, shareToIG: c },
-                          );
-                        }),
-                      ));
-                }
-                return (
-                  m.length > 0 &&
-                    g.push(
-                      o("WAWebUserPrefsIndexedDBStorage")
-                        .userPrefsIdb.bulkSetItemsToIndexedDB(m)
-                        .then(function () {
-                          o(
-                            "WAWebBackendEventBus",
-                          ).BackendEventBus.triggerUpdateStatusPrivacySettings({
-                            setting: p,
-                            allowList: _,
-                            denyList: f,
-                          });
-                        }),
-                    ),
-                  await Promise.all(g),
-                  [{ actionState: o("WASyncdConst").SyncActionState.Success }]
-                );
-              } catch (e) {
-                return (
-                  o("WALogger").ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[syncd] status privacy IDB write failed ",
-                        "",
-                      ])),
-                    e,
-                  ),
-                  n.map(function () {
-                    return {
-                      actionState: o("WASyncdConst").SyncActionState.Failed,
-                    };
-                  })
-                );
-              }
-            return [
-              { actionState: o("WASyncdConst").SyncActionState.Unsupported },
-            ];
-          }),
-          (a.getStatusPrivacySettingMutation = function (t, n, r, a, i) {
+                var a = t[t.length - 1];
+                if (a.operation === "set")
+                  try {
+                    var i = a.value,
+                      l = i.statusPrivacy;
+                    if (!l)
+                      return [
+                        o("WAWebSyncdIndexUtils").malformedActionValue(
+                          this.collectionName,
+                        ),
+                      ];
+                    var c = l.mode,
+                      d = l.shareToFB,
+                      m = l.shareToIG,
+                      p = l.userJid;
+                    if (c == null)
+                      return [
+                        o("WAWebSyncdIndexUtils").malformedActionValue(
+                          this.collectionName,
+                        ),
+                      ];
+                    var _ = [],
+                      f,
+                      g = [],
+                      h = [];
+                    e: {
+                      if (
+                        c ===
+                        o("WAWebProtobufSyncAction.pb")
+                          .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
+                          .CONTACTS
+                      ) {
+                        ((f = o("WAWebUserPrefsStatusType")
+                          .StatusPrivacySettingType.Contact),
+                          (_ = r(
+                            "WAWebUserPrefsStatus",
+                          ).calculateStatusPrivacyUpdateEntries({
+                            setting: f,
+                          })));
+                        break e;
+                      }
+                      if (
+                        c ===
+                        o("WAWebProtobufSyncAction.pb")
+                          .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
+                          .ALLOW_LIST
+                      ) {
+                        ((f = o("WAWebUserPrefsStatusType")
+                          .StatusPrivacySettingType.AllowList),
+                          (g = p
+                            .map(o("WAWebWidFactory").createWid)
+                            .filter(function (e) {
+                              return e.isUser();
+                            })),
+                          (_ = r(
+                            "WAWebUserPrefsStatus",
+                          ).calculateStatusPrivacyUpdateEntries({
+                            setting: f,
+                            allowList: g,
+                          })));
+                        break e;
+                      }
+                      if (
+                        c ===
+                        o("WAWebProtobufSyncAction.pb")
+                          .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
+                          .DENY_LIST
+                      ) {
+                        ((f = o("WAWebUserPrefsStatusType")
+                          .StatusPrivacySettingType.DenyList),
+                          (h = p
+                            .map(o("WAWebWidFactory").createWid)
+                            .filter(function (e) {
+                              return e.isUser();
+                            })),
+                          (_ = r(
+                            "WAWebUserPrefsStatus",
+                          ).calculateStatusPrivacyUpdateEntries({
+                            setting: f,
+                            denyList: h,
+                          })));
+                        break e;
+                      }
+                      if (
+                        c ===
+                          o("WAWebProtobufSyncAction.pb")
+                            .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
+                            .CLOSE_FRIENDS ||
+                        c ===
+                          o("WAWebProtobufSyncAction.pb")
+                            .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
+                            .CUSTOM_LIST
+                      )
+                        break e;
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          c,
+                      );
+                    }
+                    var y = [];
+                    if (
+                      o(
+                        "WAWebCrosspostingBackendGatingUtils",
+                      ).crosspostSettingsSyncReceiverEnabled()
+                    ) {
+                      var C = [];
+                      (d != null &&
+                        C.push(r("WAWebUserPrefsStatus").persistShareToFB(d)),
+                        m != null &&
+                          C.push(r("WAWebUserPrefsStatus").persistShareToIG(m)),
+                        C.length > 0 &&
+                          y.push(
+                            (u || (u = n("Promise"))).all(C).then(function () {
+                              o(
+                                "WAWebBackendEventBus",
+                              ).BackendEventBus.triggerUpdateCrosspostAutoShareSettings(
+                                { shareToFB: d, shareToIG: m },
+                              );
+                            }),
+                          ));
+                    }
+                    return (
+                      _.length > 0 &&
+                        y.push(
+                          o("WAWebUserPrefsIndexedDBStorage")
+                            .userPrefsIdb.bulkSetItemsToIndexedDB(_)
+                            .then(function () {
+                              o(
+                                "WAWebBackendEventBus",
+                              ).BackendEventBus.triggerUpdateStatusPrivacySettings(
+                                { setting: f, allowList: g, denyList: h },
+                              );
+                            }),
+                        ),
+                      yield (u || (u = n("Promise"))).all(y),
+                      [
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Success,
+                        },
+                      ]
+                    );
+                  } catch (e) {
+                    return (
+                      o("WALogger").ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[syncd] status privacy IDB write failed ",
+                            "",
+                          ])),
+                        e,
+                      ),
+                      t.map(function () {
+                        return {
+                          actionState: o("WASyncdConst").SyncActionState.Failed,
+                        };
+                      })
+                    );
+                  }
+                return [
+                  {
+                    actionState: o("WASyncdConst").SyncActionState.Unsupported,
+                  },
+                ];
+              },
+            );
+            function a(e) {
+              return t.apply(this, arguments);
+            }
+            return a;
+          })()),
+          (i.getStatusPrivacySettingMutation = function (t, n, r, a, i) {
             var e;
             switch (t) {
               case o("WAWebUserPrefsStatusType").StatusPrivacySettingType
@@ -256,11 +275,11 @@ __d(
               },
             });
           }),
-          n
+          a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      c = new u();
-    l.default = c;
+      d = new c();
+    l.default = d;
   },
   98,
 );

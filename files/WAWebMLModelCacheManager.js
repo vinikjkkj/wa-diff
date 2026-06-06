@@ -1,6 +1,6 @@
 __d(
   "WAWebMLModelCacheManager",
-  ["WAResultOrError"],
+  ["WAResultOrError", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -12,12 +12,20 @@ __d(
         (t.isReady = function () {
           return this.$1.isReady();
         }),
-        (t.storeModel = async function (t, n, r) {
-          return this.isReady()
-            ? (await this.$1.write(t, n, r),
-              o("WAResultOrError").makeResult(void 0))
-            : o("WAResultOrError").makeError("Cache not ready");
-        }),
+        (t.storeModel = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              return this.isReady()
+                ? (yield this.$1.write(e, t, n),
+                  o("WAResultOrError").makeResult(void 0))
+                : o("WAResultOrError").makeError("Cache not ready");
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (t.getModel = function (t, n) {
           if (!this.isReady())
             return o("WAResultOrError").makeError("Cache not ready");
@@ -28,20 +36,34 @@ __d(
           }
           return o("WAResultOrError").makeError("read failed");
         }),
-        (t.deleteModel = async function (t, n) {
-          return this.isReady()
-            ? (await this.$1.delete(t, n),
-              o("WAResultOrError").makeResult(void 0))
-            : o("WAResultOrError").makeError("Cache not ready");
-        }),
-        (t.deleteMultipleModels = async function (t) {
-          return this.isReady()
-            ? t.length === 0
-              ? o("WAResultOrError").makeResult(0)
-              : (await this.$1.deleteMultiple(t),
-                o("WAResultOrError").makeResult(t.length))
-            : o("WAResultOrError").makeError("Cache not ready");
-        }),
+        (t.deleteModel = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return this.isReady()
+                ? (yield this.$1.delete(e, t),
+                  o("WAResultOrError").makeResult(void 0))
+                : o("WAResultOrError").makeError("Cache not ready");
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.deleteMultipleModels = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            return this.isReady()
+              ? e.length === 0
+                ? o("WAResultOrError").makeResult(0)
+                : (yield this.$1.deleteMultiple(e),
+                  o("WAResultOrError").makeResult(e.length))
+              : o("WAResultOrError").makeError("Cache not ready");
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (t.listAllModels = function () {
           if (!this.isReady())
             return o("WAResultOrError").makeError("Cache not ready");
@@ -66,18 +88,24 @@ __d(
         (t.getModelFilePath = function (t, n) {
           return this.isReady() ? this.$1.getFilePath(t, n) : null;
         }),
-        (t.clearAllModels = async function () {
-          if (!this.isReady())
-            return o("WAResultOrError").makeError("Cache not ready");
-          var e = this.$1.list(),
-            t = e.map(function (e) {
-              return { modelName: e.modelName, version: e.version };
-            });
-          return (
-            await this.$1.deleteMultiple(t),
-            o("WAResultOrError").makeResult(e.length)
-          );
-        }),
+        (t.clearAllModels = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (!this.isReady())
+              return o("WAResultOrError").makeError("Cache not ready");
+            var e = this.$1.list(),
+              t = e.map(function (e) {
+                return { modelName: e.modelName, version: e.version };
+              });
+            return (
+              yield this.$1.deleteMultiple(t),
+              o("WAResultOrError").makeResult(e.length)
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();

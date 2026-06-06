@@ -11,6 +11,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebMdLinkDeviceCompanionWamEvent",
     "WAWebWamEnumMdLinkDeviceCompanionStage",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = null,
@@ -36,38 +37,62 @@ __d(
       } catch (e) {}
       return null;
     }
-    async function f(t, n, r) {
-      (p(),
-        (e = new (o(
-          "WAWebMdLinkDeviceCompanionWamEvent",
-        ).MdLinkDeviceCompanionWamEvent)()));
-      var a = await h(t, n);
-      return ((s = { regStartTime: r, sessionId: a }), a);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    async function g(t) {
-      var n;
-      if (!e) {
-        var r = _();
-        if (r == null) return;
-        ((s = r),
-          (e = new (o(
-            "WAWebMdLinkDeviceCompanionWamEvent",
-          ).MdLinkDeviceCompanionWamEvent)()));
-      }
-      (await ((n = c) == null ? void 0 : n.promise),
-        (c = new (o("WAResolvable").Resolvable)()),
-        (u = t),
-        await y(),
-        m());
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          (p(),
+            (e = new (o(
+              "WAWebMdLinkDeviceCompanionWamEvent",
+            ).MdLinkDeviceCompanionWamEvent)()));
+          var a = yield C(t, n);
+          return ((s = { regStartTime: r, sessionId: a }), a);
+        })),
+        g.apply(this, arguments)
+      );
     }
-    async function h(e, t) {
-      var n = new (o("WABinary").Binary)();
-      (n.writeBuffer(e), n.write(95), n.writeBuffer(t));
-      var r = n.readByteArrayView(),
-        a = await o("WACryptoSha256").sha256(r);
-      return o("WABase64").encodeB64(a);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function y(t) {
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n;
+          if (!e) {
+            var r = _();
+            if (r == null) return;
+            ((s = r),
+              (e = new (o(
+                "WAWebMdLinkDeviceCompanionWamEvent",
+              ).MdLinkDeviceCompanionWamEvent)()));
+          }
+          (yield (n = c) == null ? void 0 : n.promise,
+            (c = new (o("WAResolvable").Resolvable)()),
+            (u = t),
+            yield v(),
+            m());
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new (o("WABinary").Binary)();
+          (n.writeBuffer(e), n.write(95), n.writeBuffer(t));
+          var r = n.readByteArrayView(),
+            a = yield o("WACryptoSha256").sha256(r);
+          return o("WABase64").encodeB64(a);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(t) {
       var n;
       if (!(!e || !s)) {
         var r = s,
@@ -101,8 +126,8 @@ __d(
       }
     }
     ((l.initDeviceLinkEvent = f),
-      (l.setDeviceLinkPairStage = g),
-      (l.commitDeviceLinkEvent = y));
+      (l.setDeviceLinkPairStage = h),
+      (l.commitDeviceLinkEvent = v));
   },
   98,
 );

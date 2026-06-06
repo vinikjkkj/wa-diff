@@ -6,6 +6,7 @@ __d(
     "WAWebMexFetchNewsletterAdminInfoJob",
     "WAWebNewsletterModelUtils",
     "WAWebOrchestratorNonPersistedJob",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -13,9 +14,9 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterAdminInfo",
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var n = await o(
+              var n = yield o(
                   "WAWebMexFetchNewsletterAdminInfoJob",
                 ).mexFetchNewsletterAdminInfo(t),
                 r = n.adminCount,
@@ -46,7 +47,7 @@ __d(
                 }
               );
             }
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();

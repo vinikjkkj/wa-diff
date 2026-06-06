@@ -1,6 +1,7 @@
 __d(
   "WAWebMessageProcessorCache",
   [
+    "Promise",
     "WALogger",
     "WANullthrows",
     "WAShiftTimer",
@@ -19,6 +20,7 @@ __d(
     "WAWebStoreMsgs",
     "WAWebWamEnumMismatchOriginType",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "cr:13546",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,22 +35,23 @@ __d(
       f,
       g,
       h,
-      y = (e = n("cr:13546")) != null ? e : {},
-      C = y.handleAddressingModeMismatch;
-    function b() {
+      y,
+      C = (e = n("cr:13546")) != null ? e : {},
+      b = C.handleAddressingModeMismatch;
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_message_processing_cache_size",
       );
     }
-    function v() {
-      return S() > 0;
-    }
     function S() {
+      return R() > 0;
+    }
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_offline_message_processor_timeout_seconds",
       );
     }
-    var R = (function () {
+    var L = (function () {
         function e() {
           var e = this;
           ((this.$1 = []),
@@ -70,10 +73,10 @@ __d(
         var t = e.prototype;
         return (
           (t.size = function () {
-            return Promise.resolve(this.$1.length);
+            return (y || (y = n("Promise"))).resolve(this.$1.length);
           }),
           (t.checkpointQueueSize = function () {
-            return Promise.resolve(this.$3.size());
+            return (y || (y = n("Promise"))).resolve(this.$3.size());
           }),
           (t.checkpointQueueWait = function () {
             return this.$3.wait();
@@ -114,11 +117,11 @@ __d(
                 this.$4,
                 a,
               ),
-              this.$1.length >= b()
+              this.$1.length >= v()
                 ? (this.createSnapshot(), r)
-                : (v() &&
+                : (S() &&
                     !this.$5.isScheduled() &&
-                    this.$5.onOrBefore(S() * 1e3),
+                    this.$5.onOrBefore(R() * 1e3),
                   r)
             );
           }),
@@ -128,70 +131,79 @@ __d(
               ((this.$2 = []), this.$9(e));
             }
           }),
-          (t.handleChangedAddressingMode = async function (t) {
-            var e = new Map();
-            t.forEach(function (t) {
-              var n = t.msg;
-              if (n != null && n.id.remote.isGroup()) {
-                var r;
-                ((n == null ? void 0 : n.groupAddressingMode) === "pn"
-                  ? (r = o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE
-                      .pn)
-                  : (n == null ? void 0 : n.groupAddressingMode) === "lid" &&
-                    (r = o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE
-                      .lid),
-                  r != null && e.set(n.id.remote.toString(), r));
-              }
-            });
-            var n = Array.from(e.keys(), o("WAWebWidFactory").createWid),
-              a = await o(
-                "WAWebGetGroupAddressingMode",
-              ).bulkGetGroupAddressingMode(n),
-              i = [];
-            for (var l of e.entries()) {
-              var s = l[0],
-                u = l[1];
-              a.get(s) !== u && i.push(o("WAWebWidFactory").createWid(s));
+          (t.handleChangedAddressingMode = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = new Map();
+                e.forEach(function (e) {
+                  var n = e.msg;
+                  if (n != null && n.id.remote.isGroup()) {
+                    var r;
+                    ((n == null ? void 0 : n.groupAddressingMode) === "pn"
+                      ? (r = o("WAWebHandleMsgCommon")
+                          .STANZA_MSG_ADDRESSING_MODE.pn)
+                      : (n == null ? void 0 : n.groupAddressingMode) ===
+                          "lid" &&
+                        (r = o("WAWebHandleMsgCommon")
+                          .STANZA_MSG_ADDRESSING_MODE.lid),
+                      r != null && t.set(n.id.remote.toString(), r));
+                  }
+                });
+                var a = Array.from(t.keys(), o("WAWebWidFactory").createWid),
+                  i = yield o(
+                    "WAWebGetGroupAddressingMode",
+                  ).bulkGetGroupAddressingMode(a),
+                  l = [];
+                for (var s of t.entries()) {
+                  var u = s[0],
+                    c = s[1];
+                  i.get(u) !== c && l.push(o("WAWebWidFactory").createWid(u));
+                }
+                (this.$7 ||
+                  (yield o(
+                    "WAWebGroupDatabaseJob",
+                  ).bulkMarkGroupParticipantStaleJob(l)),
+                  yield (y || (y = n("Promise"))).all(
+                    l.map(function (e) {
+                      return b == null
+                        ? void 0
+                        : b(e, {
+                            localAddressingMode: r("WANullthrows")(
+                              i.get(e.toString()),
+                              "missing local addressing mode for group",
+                            ),
+                            serverAddressingMode: r("WANullthrows")(
+                              t.get(e.toString()),
+                              "missing server addressing mode for group",
+                            ),
+                            mismatchOrigin: o("WAWebWamEnumMismatchOriginType")
+                              .MISMATCH_ORIGIN_TYPE.INCOMING_GROUP_MESSAGE,
+                          });
+                    }),
+                  ));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            (this.$7 ||
-              (await o(
-                "WAWebGroupDatabaseJob",
-              ).bulkMarkGroupParticipantStaleJob(i)),
-              await Promise.all(
-                i.map(function (t) {
-                  return C == null
-                    ? void 0
-                    : C(t, {
-                        localAddressingMode: r("WANullthrows")(
-                          a.get(t.toString()),
-                          "missing local addressing mode for group",
-                        ),
-                        serverAddressingMode: r("WANullthrows")(
-                          e.get(t.toString()),
-                          "missing server addressing mode for group",
-                        ),
-                        mismatchOrigin: o("WAWebWamEnumMismatchOriginType")
-                          .MISMATCH_ORIGIN_TYPE.INCOMING_GROUP_MESSAGE,
-                      });
-                }),
-              ));
-          }),
+            return t;
+          })()),
           (t.$8 = function () {
             var e = this,
               t = this.$4;
             if (!this.$6.has(t)) {
-              var n,
-                o = function (t) {};
+              var o,
+                a = function (t) {};
               this.$6.set(t, {
-                promise: new Promise(function (e, t) {
-                  ((n = e), (o = t));
+                promise: new (y || (y = n("Promise")))(function (e, t) {
+                  ((o = e), (a = t));
                 }),
-                markCheckpointDone: function (a) {
-                  if ((e.$6.delete(t), a != null)) {
-                    o(a);
+                markCheckpointDone: function (r) {
+                  if ((e.$6.delete(t), r != null)) {
+                    a(r);
                     return;
                   }
-                  n();
+                  o();
                 },
               });
             }
@@ -207,33 +219,41 @@ __d(
               o("WAWebStoreMsgs").storeMsgs(e)
             );
           }),
-          (t.$9 = async function (t) {
-            var e = t
-              .filter(function (e) {
-                return (
-                  e.type ===
-                  o("WAWebHandleMessageTypes.flow").MsgAdditionalInfoType
-                    .ReportingInfo
-                );
-              })
-              .map(function (e) {
-                return e.data;
-              });
-            o("WAWebDBReportingTokenUtils").handleAddReportingInfos(e);
-          }),
+          (t.$9 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e
+                  .filter(function (e) {
+                    return (
+                      e.type ===
+                      o("WAWebHandleMessageTypes.flow").MsgAdditionalInfoType
+                        .ReportingInfo
+                    );
+                  })
+                  .map(function (e) {
+                    return e.data;
+                  });
+                o("WAWebDBReportingTokenUtils").handleAddReportingInfos(t);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (t.createSnapshot = function () {
             var e,
               t,
-              n = this,
-              r = this.$1,
-              a = this.$2;
+              r = this,
+              a = this.$1,
+              i = this.$2;
             ((this.$1 = []),
               (this.$2 = []),
               this.$5.isScheduled() && this.$5.cancel());
-            var i = this.$4,
-              l = i + r.length;
+            var l = this.$4,
+              s = l + a.length;
             if (
-              ((this.$4 = l),
+              ((this.$4 = s),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -242,15 +262,15 @@ __d(
                     ": ",
                     " messages/receipts",
                   ])),
-                i,
                 l,
-                r.length,
+                s,
+                a.length,
               ),
-              r.length !== 0)
+              a.length !== 0)
             ) {
-              var s =
+              var u =
                   (e =
-                    (t = this.$6.get(i)) == null
+                    (t = this.$6.get(l)) == null
                       ? void 0
                       : t.markCheckpointDone) != null
                     ? e
@@ -264,129 +284,148 @@ __d(
                           )
                           .sendLogs("message-cache-missing-doneFn");
                       },
-                u =
+                C =
                   !this.$7 &&
                   o("WAWebABProps").getABPropConfigValue(
                     "web_anr_throttle_signal_snapshot_enabled",
                   ),
-                y = u
+                b = C
                   ? o("WAWebSignalProtocolStore")
                       .getSignalProtocolStore()
                       .generateSnapshotThrottled()
                   : o("WAWebSignalProtocolStore")
                       .getSignalProtocolStore()
                       .generateSnapshot();
-              (this.$3.enqueue(async function () {
-                try {
-                  (await Promise.all([
-                    n.$10(r),
-                    o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
-                  ]),
-                    o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[message-cache] createSnapshot ",
-                          "-",
-                          ": messages added to table",
-                        ])),
-                      i,
-                      l,
-                    ));
-                  var e = await y;
-                  (e != null &&
-                    (await o("WAWebSignalStorageUtils")
-                      .getStorage()
-                      .lock(
-                        [
-                          "session-store",
-                          "identity-store",
-                          "prekey-store",
-                          "senderkey-store",
-                        ],
-                        async function () {
-                          var t;
-                          await Promise.all([
-                            (t = o(
-                              "WAWebSignalStoreApi",
-                            )).waSignalStore.bulkPutSession(e.sessionUpdate),
-                            t.waSignalStore.bulkPutIdentityKeyWithRowId(
-                              e.identityUpdate,
-                            ),
-                            t.waSignalStore.bulkPutSenderKey(e.senderKeyUpdate),
-                            t.waSignalStore.bulkRemovePreKey(e.preKeyRemove),
-                            t.waSignalStore.bulkRemoveSession(e.sessionRemove),
-                            t.waSignalStore.bulkRemoveIdentity(
-                              e.identityRemove,
-                            ),
-                          ]);
-                        },
+              (this.$3.enqueue(
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  try {
+                    (yield (y || (y = n("Promise"))).all([
+                      r.$10(a),
+                      o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
+                    ]),
+                      o("WALogger").LOG(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "[message-cache] createSnapshot ",
+                            "-",
+                            ": messages added to table",
+                          ])),
+                        l,
+                        s,
+                      ));
+                    var e = yield b;
+                    (e != null &&
+                      (yield o("WAWebSignalStorageUtils")
+                        .getStorage()
+                        .lock(
+                          [
+                            "session-store",
+                            "identity-store",
+                            "prekey-store",
+                            "senderkey-store",
+                          ],
+                          n("asyncToGeneratorRuntime").asyncToGenerator(
+                            function* () {
+                              yield (y || (y = n("Promise"))).all([
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkPutSession(e.sessionUpdate),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkPutIdentityKeyWithRowId(
+                                  e.identityUpdate,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkPutSenderKey(
+                                  e.senderKeyUpdate,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkRemovePreKey(
+                                  e.preKeyRemove,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkRemoveSession(
+                                  e.sessionRemove,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkRemoveIdentity(
+                                  e.identityRemove,
+                                ),
+                              ]);
+                            },
+                          ),
+                        ),
+                      o("WALogger").LOG(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "[message-cache] createSnapshot ",
+                            "-",
+                            ": signal stores updated",
+                          ])),
+                        l,
+                        s,
+                      )),
+                      yield o(
+                        "WAWebSendOfflineDeliveryReceiptJob",
+                      ).sendAggregateOfflineReceipts(a),
+                      o("WALogger").LOG(
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            "[message-cache] createSnapshot ",
+                            "-",
+                            ": aggregated receipts sent",
+                          ])),
+                        l,
+                        s,
                       ),
-                    o("WALogger").LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      yield r.$9(i),
+                      o("WALogger").LOG(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                            "[message-cache] createSnapshot ",
+                            "-",
+                            ": additional info processed",
+                          ])),
+                        l,
+                        s,
+                      ));
+                  } catch (e) {
+                    (o("WALogger").WARN(
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
                           "[message-cache] createSnapshot ",
                           "-",
-                          ": signal stores updated",
+                          ": failed: ",
+                          "",
                         ])),
-                      i,
                       l,
-                    )),
-                    await o(
-                      "WAWebSendOfflineDeliveryReceiptJob",
-                    ).sendAggregateOfflineReceipts(r),
-                    o("WALogger").LOG(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "[message-cache] createSnapshot ",
-                          "-",
-                          ": aggregated receipts sent",
-                        ])),
-                      i,
-                      l,
+                      s,
+                      e,
                     ),
-                    await n.$9(a),
-                    o("WALogger").LOG(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "[message-cache] createSnapshot ",
-                          "-",
-                          ": additional info processed",
-                        ])),
-                      i,
-                      l,
-                    ));
-                } catch (e) {
-                  (o("WALogger").WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[message-cache] createSnapshot ",
-                        "-",
-                        ": failed: ",
-                        "",
+                      u(e));
+                    return;
+                  }
+                  (o("WALogger").LOG(
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                        "[message-cache] before markCheckpointDone",
                       ])),
-                    i,
-                    l,
-                    e,
                   ),
-                    s(e));
-                  return;
-                }
-                (o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[message-cache] before markCheckpointDone",
-                    ])),
-                ),
-                  s());
-              }),
-                this.handleChangedAddressingMode(r));
+                    u());
+                }),
+              ),
+                this.handleChangedAddressingMode(a));
             }
           }),
           e
         );
       })(),
-      L = new R();
-    l.messageProcessorCache = L;
+      E = new L();
+    l.messageProcessorCache = E;
   },
   98,
 );

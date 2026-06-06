@@ -1,6 +1,7 @@
 __d(
   "WAWebCryptoImageStreamer",
   [
+    "Promise",
     "WAAlignChunkLengthsToMultipleOfAesBlockSize",
     "WAArrayBufferUtils",
     "WAArrayBuffersConcat",
@@ -15,6 +16,7 @@ __d(
     "WAWebIdentityFunction",
     "WAWebMediaInMemoryBlobCache",
     "WAWebPromiseQueue",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "sumBy",
   ],
@@ -26,7 +28,8 @@ __d(
       d,
       m,
       p,
-      _ = (function (e) {
+      _,
+      f = (function (e) {
         function t(t) {
           var n;
           return (
@@ -38,11 +41,11 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      f = 10,
-      g = 16,
-      h = new Uint8Array([2, 2]),
-      y = new Uint8Array([255, 217]),
-      C = (function () {
+      g = 10,
+      h = 16,
+      y = new Uint8Array([2, 2]),
+      C = new Uint8Array([255, 217]),
+      b = (function () {
         function t(e) {
           var t;
           ((this._alignedScanLengths = []),
@@ -68,268 +71,332 @@ __d(
             (this._onProgressiveUpdate = l),
             (this._debugString = r));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.setCryptoKeys = function (t) {
+          (a.setCryptoKeys = function (t) {
             ((this._cryptoKeys = t), (this._nextChunkIV = t.iv));
           }),
-          (n._validateSidecar = async function (t, n, a) {
-            n === 0 && (this._nextChunkIV = a.iv);
-            var e = a.macKey,
-              i = this._scansSideCar.slice(n * f, n * f + f),
-              l = r("WANullthrows")(this._nextChunkIV);
-            this._nextChunkIV = t.slice(0 - g);
-            var s = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-                new Uint8Array(l),
-                new Uint8Array(t),
-              ]),
-              u = await o("WACryptoHmac").hmacSha256(e, s, f);
-            if (!o("WACryptoUtils").arrayBuffersEqual(u, i)) throw new _(n);
-          }),
-          (n._cleanupCipherTextAndIV = async function (t, n, r) {
-            var e = t,
-              a = n === 0,
-              i = e.byteLength % g === 0,
-              l = !i,
-              s;
-            if (a) s = r.iv;
-            else {
-              var u = this._increasingScanLengths[n - 1];
-              s = this._downloadedBytes.slice(u - g, u);
+          (a._validateSidecar = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                t === 0 && (this._nextChunkIV = n.iv);
+                var a = n.macKey,
+                  i = this._scansSideCar.slice(t * g, t * g + g),
+                  l = r("WANullthrows")(this._nextChunkIV);
+                this._nextChunkIV = e.slice(0 - h);
+                var s = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+                    new Uint8Array(l),
+                    new Uint8Array(e),
+                  ]),
+                  u = yield o("WACryptoHmac").hmacSha256(a, s, g);
+                if (!o("WACryptoUtils").arrayBuffersEqual(u, i)) throw new f(t);
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
             }
-            if ((l && (e = e.slice(0, e.byteLength - f)), i)) {
-              var c = await b(e, r);
-              return {
-                cipherText: o("WATypedArraysConcat").concatTypedArrays(
-                  Uint8Array,
-                  [new Uint8Array(e), new Uint8Array(c)],
-                ),
-                iv: s,
-              };
+            return t;
+          })()),
+          (a._cleanupCipherTextAndIV = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                var r = e,
+                  a = t === 0,
+                  i = r.byteLength % h === 0,
+                  l = !i,
+                  s;
+                if (a) s = n.iv;
+                else {
+                  var u = this._increasingScanLengths[t - 1];
+                  s = this._downloadedBytes.slice(u - h, u);
+                }
+                if ((l && (r = r.slice(0, r.byteLength - g)), i)) {
+                  var c = yield v(r, n);
+                  return {
+                    cipherText: o("WATypedArraysConcat").concatTypedArrays(
+                      Uint8Array,
+                      [new Uint8Array(r), new Uint8Array(c)],
+                    ),
+                    iv: s,
+                  };
+                }
+                return { cipherText: r, iv: s };
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
             }
-            return { cipherText: e, iv: s };
-          }),
-          (n._getLastFullyLoadedChunkIndex = function (t) {
+            return t;
+          })()),
+          (a._getLastFullyLoadedChunkIndex = function (t) {
             for (var e = 0, n = 0; n < this._alignedScanLengths.length; n++)
               if (((e += this._alignedScanLengths[n]), t < e)) return n;
             return this._alignedScanLengths.length;
           }),
-          (n._handleChunk = async function (n, r, a) {
-            await this._validateSidecar(n, r, a);
-            var t = await this._cleanupCipherTextAndIV(n, r, a),
-              i = t.cipherText,
-              l = t.iv,
-              s = await o("WACryptoAesCbc").aesCbcDecrypt(a.encKey, l, i),
-              u = await o("WACrypto").removeEncryptedPadding(s, h.buffer);
-            return (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "ImageStreamer: [",
-                    "] Successfully decrypted chunk ",
-                    " of ",
-                    " total",
-                  ])),
-                this._debugString,
-                r + 1,
-                this._scanLengths.length,
-              ),
-              u
-            );
-          }),
-          (n._generateBlobFromFullyLoadedChunks = async function (t) {
-            var e,
-              n = await Promise.all(this._decryptedChunks.slice(0, t)),
-              a = r("sumBy")(
-                this._scanLengths.slice(0, t),
-                o("WAWebIdentityFunction").identityFunction,
-              ),
-              i = o("WATypedArraysConcat")
-                .concatTypedArrays(
-                  Uint8Array,
-                  n.map(function (e) {
-                    return new Uint8Array(e);
-                  }),
-                )
-                .slice(0, a),
-              l = o("WACryptoUtils").arrayBuffersEqual(
-                y.buffer,
-                i.slice(-y.length).buffer,
-              )
-                ? i
-                : o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-                    i,
-                    y,
-                  ]),
-              u = [l],
-              c =
-                this._mimetype != null
-                  ? new Blob(u, { type: this._mimetype })
-                  : new Blob(u),
-              d = v(this._filehash, t);
-            return (
-              o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(d, c),
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ImageStreamer] progressive img ",
-                    "/",
-                    " chunks",
-                  ])),
-                t,
-                this._scanLengths.length,
-              ),
-              (e = this._onProgressiveUpdate) == null || e.call(this, t),
-              (this._lastDecryptedChunk = t),
-              l.buffer
-            );
-          }),
-          (n._decryptFullyLoadedChunks = async function (t, n, r) {
-            for (var e = 0; e < n; e++)
-              if (!this._decryptedChunks[e]) {
-                var o = e === 0 ? 0 : this._increasingScanLengths[e - 1],
-                  a = t.slice(o, o + this._alignedScanLengths[e]);
-                (await Promise.all(this._decryptedChunks),
-                  this._decryptedChunks[e] ||
-                    (this._decryptedChunks[e] = this._handleChunk(a, e, r)));
-              }
-          }),
-          (n.handleProgress = function (t, n) {
-            var e = this;
-            return this._promiseQueue.enqueue(async function () {
-              if (!e._alignedScanLengths.length) {
-                e._alignedScanLengths = o(
-                  "WAAlignChunkLengthsToMultipleOfAesBlockSize",
-                ).alignChunkLengthsToMultipleOfAesBlockSize(e._scanLengths, t);
-                for (var a = 0; a < e._alignedScanLengths.length; a++) {
-                  var i = e._alignedScanLengths[a],
-                    l = a === 0 ? i : e._increasingScanLengths[a - 1] + i;
-                  e._increasingScanLengths.push(l);
-                }
-              }
-              var s =
-                  typeof n == "string"
-                    ? n.length
-                    : n.byteLength + e._downloadedBytes.byteLength,
-                f = e._getLastFullyLoadedChunkIndex(s),
-                g = e._cryptoKeys;
-              if (f <= e._lastDecryptedChunk || g == null)
+          (a._handleChunk = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t, n, r) {
+                yield this._validateSidecar(t, n, r);
+                var a = yield this._cleanupCipherTextAndIV(t, n, r),
+                  i = a.cipherText,
+                  l = a.iv,
+                  s = yield o("WACryptoAesCbc").aesCbcDecrypt(r.encKey, l, i),
+                  u = yield o("WACrypto").removeEncryptedPadding(s, y.buffer);
                 return (
-                  (e._downloadedBytes = o(
-                    "WAArrayBuffersConcat",
-                  ).concatArrayBuffers(
-                    e._downloadedBytes,
-                    typeof n == "string"
-                      ? await o("WAArrayBufferUtils").largeStringToArrayBuffer(
-                          n.slice(e._downloadedBytes.byteLength),
-                        )
-                      : n,
-                  )),
-                  null
-                );
-              try {
-                var h =
-                  typeof n == "string"
-                    ? await o("WAArrayBufferUtils").largeStringToArrayBuffer(
-                        n.slice(e._downloadedBytes.byteLength),
-                      )
-                    : n;
-                return (
-                  (e._downloadedBytes = o(
-                    "WAArrayBuffersConcat",
-                  ).concatArrayBuffers(e._downloadedBytes, h)),
-                  await e._decryptFullyLoadedChunks(e._downloadedBytes, f, g),
-                  await e._generateBlobFromFullyLoadedChunks(f)
-                );
-              } catch (t) {
-                var y = r("getErrorSafe")(t);
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "ImageStreamer:handleProgress error: ",
-                        "",
+                  o("WALogger").LOG(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "ImageStreamer: [",
+                        "] Successfully decrypted chunk ",
+                        " of ",
+                        " total",
                       ])),
-                    y.message,
+                    this._debugString,
+                    n + 1,
+                    this._scanLengths.length,
+                  ),
+                  u
+                );
+              },
+            );
+            function r(e, n, r) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a._generateBlobFromFullyLoadedChunks = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  a = yield (_ || (_ = n("Promise"))).all(
+                    this._decryptedChunks.slice(0, e),
+                  ),
+                  i = r("sumBy")(
+                    this._scanLengths.slice(0, e),
+                    o("WAWebIdentityFunction").identityFunction,
+                  ),
+                  l = o("WATypedArraysConcat")
+                    .concatTypedArrays(
+                      Uint8Array,
+                      a.map(function (e) {
+                        return new Uint8Array(e);
+                      }),
+                    )
+                    .slice(0, i),
+                  u = o("WACryptoUtils").arrayBuffersEqual(
+                    C.buffer,
+                    l.slice(-C.length).buffer,
                   )
-                  .catching(y);
-                var C =
-                  y.message +
-                  ", [" +
-                  e._debugString +
-                  "]" +
-                  ("scanLengths length: " +
-                    e._scanLengths.length +
-                    ", scansSidecar byteLength: " +
-                    e._scansSideCar.byteLength +
-                    ".");
-                t instanceof _
-                  ? (o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "ImageStreamer:chunk validation error: ",
-                          "",
-                        ])),
-                      C,
-                    ),
-                    o("WALogger")
-                      .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "ImageStreamer:chunk validation error",
-                          ])),
-                      )
-                      .tags("non-sad")
-                      .sendLogs("ImageStreamer:chunk validation error", {
-                        sampling: 0.01,
-                      }))
-                  : (o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                    ? l
+                    : o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+                        l,
+                        C,
+                      ]),
+                  c = [u],
+                  d =
+                    this._mimetype != null
+                      ? new Blob(c, { type: this._mimetype })
+                      : new Blob(c),
+                  m = R(this._filehash, e);
+                return (
+                  o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
+                    m,
+                    d,
+                  ),
+                  o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[ImageStreamer] progressive img ",
+                        "/",
+                        " chunks",
+                      ])),
+                    e,
+                    this._scanLengths.length,
+                  ),
+                  (t = this._onProgressiveUpdate) == null || t.call(this, e),
+                  (this._lastDecryptedChunk = e),
+                  u.buffer
+                );
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a._decryptFullyLoadedChunks = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, r) {
+                for (var o = 0; o < t; o++)
+                  if (!this._decryptedChunks[o]) {
+                    var a = o === 0 ? 0 : this._increasingScanLengths[o - 1],
+                      i = e.slice(a, a + this._alignedScanLengths[o]);
+                    (yield (_ || (_ = n("Promise"))).all(this._decryptedChunks),
+                      this._decryptedChunks[o] ||
+                        (this._decryptedChunks[o] = this._handleChunk(
+                          i,
+                          o,
+                          r,
+                        )));
+                  }
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.handleProgress = function (t, a) {
+            var e = this;
+            return this._promiseQueue.enqueue(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                if (!e._alignedScanLengths.length) {
+                  e._alignedScanLengths = o(
+                    "WAAlignChunkLengthsToMultipleOfAesBlockSize",
+                  ).alignChunkLengthsToMultipleOfAesBlockSize(
+                    e._scanLengths,
+                    t,
+                  );
+                  for (var n = 0; n < e._alignedScanLengths.length; n++) {
+                    var i = e._alignedScanLengths[n],
+                      l = n === 0 ? i : e._increasingScanLengths[n - 1] + i;
+                    e._increasingScanLengths.push(l);
+                  }
+                }
+                var s =
+                    typeof a == "string"
+                      ? a.length
+                      : a.byteLength + e._downloadedBytes.byteLength,
+                  _ = e._getLastFullyLoadedChunkIndex(s),
+                  g = e._cryptoKeys;
+                if (_ <= e._lastDecryptedChunk || g == null)
+                  return (
+                    (e._downloadedBytes = o(
+                      "WAArrayBuffersConcat",
+                    ).concatArrayBuffers(
+                      e._downloadedBytes,
+                      typeof a == "string"
+                        ? yield o(
+                            "WAArrayBufferUtils",
+                          ).largeStringToArrayBuffer(
+                            a.slice(e._downloadedBytes.byteLength),
+                          )
+                        : a,
+                    )),
+                    null
+                  );
+                try {
+                  var h =
+                    typeof a == "string"
+                      ? yield o("WAArrayBufferUtils").largeStringToArrayBuffer(
+                          a.slice(e._downloadedBytes.byteLength),
+                        )
+                      : a;
+                  return (
+                    (e._downloadedBytes = o(
+                      "WAArrayBuffersConcat",
+                    ).concatArrayBuffers(e._downloadedBytes, h)),
+                    yield e._decryptFullyLoadedChunks(e._downloadedBytes, _, g),
+                    yield e._generateBlobFromFullyLoadedChunks(_)
+                  );
+                } catch (t) {
+                  var y = r("getErrorSafe")(t);
+                  o("WALogger")
+                    .WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "ImageStreamer:handleProgress error: ",
                           "",
                         ])),
-                      C,
-                    ),
-                    o("WALogger")
-                      .ERROR(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "ImageStreamer:handleProgress error",
+                      y.message,
+                    )
+                    .catching(y);
+                  var C =
+                    y.message +
+                    ", [" +
+                    e._debugString +
+                    "]" +
+                    ("scanLengths length: " +
+                      e._scanLengths.length +
+                      ", scansSidecar byteLength: " +
+                      e._scansSideCar.byteLength +
+                      ".");
+                  t instanceof f
+                    ? (o("WALogger").LOG(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "ImageStreamer:chunk validation error: ",
+                            "",
                           ])),
-                      )
-                      .sendLogs("ImageStreamer:handleProgress error"));
-              }
-            });
+                        C,
+                      ),
+                      o("WALogger")
+                        .ERROR(
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                              "ImageStreamer:chunk validation error",
+                            ])),
+                        )
+                        .tags("non-sad")
+                        .sendLogs("ImageStreamer:chunk validation error", {
+                          sampling: 0.01,
+                        }))
+                    : (o("WALogger").LOG(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "ImageStreamer:handleProgress error: ",
+                            "",
+                          ])),
+                        C,
+                      ),
+                      o("WALogger")
+                        .ERROR(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "ImageStreamer:handleProgress error",
+                            ])),
+                        )
+                        .sendLogs("ImageStreamer:handleProgress error"));
+                }
+              }),
+            );
           }),
           t
         );
       })();
-    async function b(e, t) {
-      var n = t.encKey,
-        r = await o("WACryptoAesCbc").aesCbcEncrypt(
-          n,
-          h,
-          new Uint8Array(e.slice(0 - g)),
-        );
-      return r.slice(0 - g);
-    }
     function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.encKey,
+            r = yield o("WACryptoAesCbc").aesCbcEncrypt(
+              n,
+              y,
+              new Uint8Array(e.slice(0 - h)),
+            );
+          return r.slice(0 - h);
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t) {
       return e + "-progressive-" + t;
     }
-    function S(e, t) {
+    function L(e, t) {
       if (t != null && Number.isInteger(t))
         for (var n = t; n > 0; )
           (o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.delete(
-            v(e, n),
+            R(e, n),
           ),
             n--);
       o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.delete(e);
     }
-    ((l.EOI_TAG = y),
-      (l.ImageStreamer = C),
-      (l.getProgressiveMediaCacheKey = v),
-      (l.deleteFromInMemoryMediaBlobCache = S));
+    ((l.EOI_TAG = C),
+      (l.ImageStreamer = b),
+      (l.getProgressiveMediaCacheKey = R),
+      (l.deleteFromInMemoryMediaBlobCache = L));
   },
   98,
 );

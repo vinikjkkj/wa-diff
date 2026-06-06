@@ -14,6 +14,7 @@ __d(
     "WAWebWamEnumKicErrorCodeType",
     "WAWebWamEnumKicRequestTypeType",
     "WAWebWamEnumResponseType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -30,41 +31,51 @@ __d(
       }
       return t;
     }
-    async function s(t) {
-      var n = o("WAWebChatCollection").ChatCollection.get(t.id.remote),
-        r = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
-          response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
-          requestSendTime: t.t,
-          chatEphemeralityDuration:
-            (n && o("WAWebChatEphemerality").getEphemeralSetting(n)) || 0,
-        }),
-        a;
-      (n &&
-        (a = await o("WAWebChatThreadLogging").getChatThreadID(n.id.toJid())),
-        a != null && r.set({ threadId: a }));
-      var i = e(t.keepType);
-      i && r.set({ kicRequestType: i });
-      var l = await o("WAWebDBMsgUtils").getMsgByMsgKey(t.keptMessageKey);
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        l &&
-          r.set({
-            kicMessageEphemeralityDuration:
-              (l == null ? void 0 : l.ephemeralDuration) || 0,
-          }),
-        r
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = o("WAWebChatCollection").ChatCollection.get(t.id.remote),
+            r = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
+              response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
+              requestSendTime: t.t,
+              chatEphemeralityDuration:
+                (n && o("WAWebChatEphemerality").getEphemeralSetting(n)) || 0,
+            }),
+            a;
+          (n &&
+            (a = yield o("WAWebChatThreadLogging").getChatThreadID(
+              n.id.toJid(),
+            )),
+            a != null && r.set({ threadId: a }));
+          var i = e(t.keepType);
+          i && r.set({ kicRequestType: i });
+          var l = yield o("WAWebDBMsgUtils").getMsgByMsgKey(t.keptMessageKey);
+          return (
+            l &&
+              r.set({
+                kicMessageEphemeralityDuration:
+                  (l == null ? void 0 : l.ephemeralDuration) || 0,
+              }),
+            r
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
-    function u(e) {
+    function c(e) {
       return e === o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL
         ? o("WAWebWamEnumKicActionType").KIC_ACTION_TYPE.KEEP_MESSAGE
         : o("WAWebWamEnumKicActionType").KIC_ACTION_TYPE.UNKEEP_MESSAGE;
     }
-    function c(e, t) {
+    function d(e, t) {
       var n,
         r,
         a = e != null ? o("WAWebFrontendMsgGetters").getChat(e) : null,
         i = new (o("WAWebKeepInChatErrorsWamEvent").KeepInChatErrorsWamEvent)({
-          kicAction: u(t),
+          kicAction: c(t),
           isAGroup: a != null && o("WAWebChatGetters").getIsGroup(a),
           isAdmin:
             a != null &&
@@ -83,26 +94,42 @@ __d(
         });
       return i;
     }
-    async function d(e) {
-      var t = await s(e);
-      (t.set({
-        kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
-          .OLDER_REQUEST,
-      }),
-        t.commit());
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    async function m(e) {
-      var t = await s(e);
-      (t.set({
-        kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
-          .TIE_BREAK_IGNORED,
-      }),
-        t.commit());
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield s(e);
+          (t.set({
+            kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
+              .OLDER_REQUEST,
+          }),
+            t.commit());
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield s(e);
+          (t.set({
+            kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
+              .TIE_BREAK_IGNORED,
+          }),
+            t.commit());
+        })),
+        f.apply(this, arguments)
+      );
     }
     ((l.parseKeepTypeToMetric = e),
-      (l.getBaseErrorLog = c),
-      (l.logOlderRequestKic = d),
-      (l.logTieBreakIgnoredKic = m));
+      (l.getBaseErrorLog = d),
+      (l.logOlderRequestKic = m),
+      (l.logTieBreakIgnoredKic = _));
   },
   98,
 );

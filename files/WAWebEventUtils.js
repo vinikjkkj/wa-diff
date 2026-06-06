@@ -13,6 +13,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebVoipOngoingCallCollection",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -117,97 +118,125 @@ __d(
           .Message$EventResponseMessage$EventResponseType.UNKNOWN;
       }
     }
-    async function R() {
-      try {
-        var t = o("WATimeUtils").unixTime(),
-          n = o("WAWebABProps").getABPropConfigValue(
-            "schedule_call_show_upcoming_banner_time_interval_mins",
-          ),
-          r = n * 60,
-          a = o("WAWebMsgCollection").MsgCollection.getModelsArray(),
-          i = o(
-            "WAWebVoipOngoingCallCollection",
-          ).WAWebVoipOngoingCallCollection.getModelsArray(),
-          l = a
-            .filter(function (e) {
-              if (!v(e, t)) return !1;
-              var n = o("WAWebFrontendMsgGetters").getAsEventCreation(e);
-              if (n == null || n.eventJoinLink == null) return !1;
-              if (n.eventStartTime != null) {
-                var a = n.eventStartTime - t;
-                if (a > r) return !1;
-              }
-              var l = n.eventJoinLink,
-                s = i.some(function (e) {
-                  if (!o("WAWebMsgGetters").getIsCallLink(e)) return !1;
-                  var t = o("WAWebMsgGetters").getCallLinkToken(e);
-                  return t == null ? !1 : l.includes(t);
-                });
-              if (s) return !1;
-              var u = S(e);
-              return (
-                u !==
-                o("WAWebProtobufsE2E.pb")
-                  .Message$EventResponseMessage$EventResponseType.NOT_GOING
-              );
-            })
-            .sort(function (e, t) {
-              var n,
-                r,
-                a = o("WAWebFrontendMsgGetters").getAsEventCreation(e),
-                i = o("WAWebFrontendMsgGetters").getAsEventCreation(t),
-                l = (n = a == null ? void 0 : a.eventStartTime) != null ? n : 0,
-                s = (r = i == null ? void 0 : i.eventStartTime) != null ? r : 0;
-              return l - s;
-            });
-        return l;
-      } catch (t) {
-        return (
-          o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "Failed to fetch upcoming events: ",
-                "",
-              ])),
-            String(t),
-          ),
-          []
-        );
-      }
+    function R() {
+      return L.apply(this, arguments);
     }
-    async function L() {
-      try {
-        var e = o("WATimeUtils").unixTime(),
-          t = o("WAWebMsgCollection").MsgCollection.getModelsArray(),
-          n = t
-            .filter(function (t) {
-              if (!v(t, e)) return !1;
-              var n = o("WAWebFrontendMsgGetters").getAsEventCreation(t);
-              return !(n == null || n.eventJoinLink == null);
-            })
-            .sort(function (e, t) {
-              var n,
-                r,
-                a = o("WAWebFrontendMsgGetters").getAsEventCreation(e),
-                i = o("WAWebFrontendMsgGetters").getAsEventCreation(t),
-                l = (n = a == null ? void 0 : a.eventStartTime) != null ? n : 0,
-                s = (r = i == null ? void 0 : i.eventStartTime) != null ? r : 0;
-              return l - s;
-            });
-        return n;
-      } catch (e) {
-        return (
-          o("WALogger").WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "Failed to fetch upcoming events: ",
-                "",
-              ])),
-            String(e),
-          ),
-          []
-        );
-      }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var t = o("WATimeUtils").unixTime(),
+              n = o("WAWebABProps").getABPropConfigValue(
+                "schedule_call_show_upcoming_banner_time_interval_mins",
+              ),
+              r = n * 60,
+              a = o("WAWebMsgCollection").MsgCollection.getModelsArray(),
+              i = o(
+                "WAWebVoipOngoingCallCollection",
+              ).WAWebVoipOngoingCallCollection.getModelsArray(),
+              l = a
+                .filter(function (e) {
+                  if (!v(e, t)) return !1;
+                  var n = o("WAWebFrontendMsgGetters").getAsEventCreation(e);
+                  if (n == null || n.eventJoinLink == null) return !1;
+                  if (n.eventStartTime != null) {
+                    var a = n.eventStartTime - t;
+                    if (a > r) return !1;
+                  }
+                  var l = n.eventJoinLink,
+                    s = i.some(function (e) {
+                      if (!o("WAWebMsgGetters").getIsCallLink(e)) return !1;
+                      var t = o("WAWebMsgGetters").getCallLinkToken(e);
+                      return t == null ? !1 : l.includes(t);
+                    });
+                  if (s) return !1;
+                  var u = S(e);
+                  return (
+                    u !==
+                    o("WAWebProtobufsE2E.pb")
+                      .Message$EventResponseMessage$EventResponseType.NOT_GOING
+                  );
+                })
+                .sort(function (e, t) {
+                  var n,
+                    r,
+                    a = o("WAWebFrontendMsgGetters").getAsEventCreation(e),
+                    i = o("WAWebFrontendMsgGetters").getAsEventCreation(t),
+                    l =
+                      (n = a == null ? void 0 : a.eventStartTime) != null
+                        ? n
+                        : 0,
+                    s =
+                      (r = i == null ? void 0 : i.eventStartTime) != null
+                        ? r
+                        : 0;
+                  return l - s;
+                });
+            return l;
+          } catch (t) {
+            return (
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to fetch upcoming events: ",
+                    "",
+                  ])),
+                String(t),
+              ),
+              []
+            );
+          }
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var e = o("WATimeUtils").unixTime(),
+              t = o("WAWebMsgCollection").MsgCollection.getModelsArray(),
+              n = t
+                .filter(function (t) {
+                  if (!v(t, e)) return !1;
+                  var n = o("WAWebFrontendMsgGetters").getAsEventCreation(t);
+                  return !(n == null || n.eventJoinLink == null);
+                })
+                .sort(function (e, t) {
+                  var n,
+                    r,
+                    a = o("WAWebFrontendMsgGetters").getAsEventCreation(e),
+                    i = o("WAWebFrontendMsgGetters").getAsEventCreation(t),
+                    l =
+                      (n = a == null ? void 0 : a.eventStartTime) != null
+                        ? n
+                        : 0,
+                    s =
+                      (r = i == null ? void 0 : i.eventStartTime) != null
+                        ? r
+                        : 0;
+                  return l - s;
+                });
+            return n;
+          } catch (e) {
+            return (
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to fetch upcoming events: ",
+                    "",
+                  ])),
+                String(e),
+              ),
+              []
+            );
+          }
+        })),
+        k.apply(this, arguments)
+      );
     }
     ((l.eventTimeToUnixTime = u),
       (l.shouldShowEventAsPassed = c),
@@ -219,7 +248,7 @@ __d(
       (l.getEventCallLinkType = g),
       (l.isEventVideoCallLink = h),
       (l.getUpcomingEventsForCallsTab = R),
-      (l.getUpcomingEvents = L));
+      (l.getUpcomingEvents = E));
   },
   98,
 );

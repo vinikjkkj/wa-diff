@@ -7,6 +7,7 @@ __d(
     "WAWebEnvironment",
     "WAWebPromiseQueue",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,25 +18,27 @@ __d(
         pushname: t,
       });
     }
-    function c(t, n, a) {
-      a === void 0 && (a = !1);
-      var i = o("WAWebWidFactory").asUserWidOrThrow(t);
-      return s.enqueue(async function () {
-        var t = void 0;
-        ((!a || r("WAWebEnvironment").isGuest) && (t = await u(i, n)),
-          (t === !0 || t === void 0) &&
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "updatePushName: set pushname for ",
-                  "",
-                ])),
-              i.toLogString(),
-            ),
-            o("WAWebDBBulkPersistContact").persistContactUpdateBatched(i, {
-              pushname: n,
-            })));
-      });
+    function c(t, a, i) {
+      i === void 0 && (i = !1);
+      var l = o("WAWebWidFactory").asUserWidOrThrow(t);
+      return s.enqueue(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = void 0;
+          ((!i || r("WAWebEnvironment").isGuest) && (t = yield u(l, a)),
+            (t === !0 || t === void 0) &&
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "updatePushName: set pushname for ",
+                    "",
+                  ])),
+                l.toLogString(),
+              ),
+              o("WAWebDBBulkPersistContact").persistContactUpdateBatched(l, {
+                pushname: a,
+              })));
+        }),
+      );
     }
     l.updatePushname = c;
   },

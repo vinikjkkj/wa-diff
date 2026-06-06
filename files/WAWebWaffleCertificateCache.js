@@ -5,79 +5,110 @@ __d(
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingSchema",
     "WAWebModelStorageUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 3600;
-    async function s() {
-      try {
-        var e = await o("WAWebAccountLinkingSchema")
-            .getTable()
-            .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
-          t = e == null ? void 0 : e.certEncryptionPem,
-          n = e == null ? void 0 : e.certTtlSeconds,
-          r = e == null ? void 0 : e.certFetchTimestamp;
-        if (t != null && n != null && r != null) {
-          var a,
-            i,
-            l = o("WATimeUtils").unixTime(),
-            s = l - r;
-          return s >= n
-            ? null
-            : {
-                encryptionPem: t,
-                passwordPem:
-                  (a = e == null ? void 0 : e.certPasswordPem) != null
-                    ? a
-                    : null,
-                passwordKeyId:
-                  (i = e == null ? void 0 : e.certPasswordKeyId) != null
-                    ? i
-                    : null,
-                ttlSeconds: n,
-                fetchTimestampSeconds: r,
-              };
-        }
-      } catch (e) {}
-      return null;
+    function s() {
+      return u.apply(this, arguments);
     }
-    async function u(t, n, r, a) {
-      var i = a != null ? a : e;
-      if (!(i <= 0)) {
-        var l = Math.floor(Date.now() / 1e3);
-        try {
-          await o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(["account-linking"], async function (e) {
-              var a = e[0],
-                s = await a.get(
-                  o("WAWebAccountLinkingConstants").AccountLinkKey,
-                ),
-                u = {
-                  certEncryptionPem: t,
-                  certPasswordPem: n != null ? n : void 0,
-                  certPasswordKeyId: r != null ? r : void 0,
-                  certTtlSeconds: i,
-                  certFetchTimestamp: l,
-                },
-                c =
-                  s != null
-                    ? babelHelpers.extends({}, s, u)
-                    : babelHelpers.extends(
-                        {
-                          accountLinkKey: o("WAWebAccountLinkingConstants")
-                            .AccountLinkKey,
-                          linkState: o("WAWebAccountLinkingConstants")
-                            .AccountLinkState.Unknown,
-                          linkTimestamp: 0,
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var e = yield o("WAWebAccountLinkingSchema")
+                .getTable()
+                .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
+              t = e == null ? void 0 : e.certEncryptionPem,
+              n = e == null ? void 0 : e.certTtlSeconds,
+              r = e == null ? void 0 : e.certFetchTimestamp;
+            if (t != null && n != null && r != null) {
+              var a,
+                i,
+                l = o("WATimeUtils").unixTime(),
+                s = l - r;
+              return s >= n
+                ? null
+                : {
+                    encryptionPem: t,
+                    passwordPem:
+                      (a = e == null ? void 0 : e.certPasswordPem) != null
+                        ? a
+                        : null,
+                    passwordKeyId:
+                      (i = e == null ? void 0 : e.certPasswordKeyId) != null
+                        ? i
+                        : null,
+                    ttlSeconds: n,
+                    fetchTimestampSeconds: r,
+                  };
+            }
+          } catch (e) {}
+          return null;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e, t, n, r) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, r, a, i) {
+            var l = i != null ? i : e;
+            if (!(l <= 0)) {
+              var s = Math.floor(Date.now() / 1e3);
+              try {
+                yield o("WAWebModelStorageUtils")
+                  .getStorage()
+                  .lock(
+                    ["account-linking"],
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          var n = e[0],
+                            i = yield n.get(
+                              o("WAWebAccountLinkingConstants").AccountLinkKey,
+                            ),
+                            u = {
+                              certEncryptionPem: t,
+                              certPasswordPem: r != null ? r : void 0,
+                              certPasswordKeyId: a != null ? a : void 0,
+                              certTtlSeconds: l,
+                              certFetchTimestamp: s,
+                            },
+                            c =
+                              i != null
+                                ? babelHelpers.extends({}, i, u)
+                                : babelHelpers.extends(
+                                    {
+                                      accountLinkKey: o(
+                                        "WAWebAccountLinkingConstants",
+                                      ).AccountLinkKey,
+                                      linkState: o(
+                                        "WAWebAccountLinkingConstants",
+                                      ).AccountLinkState.Unknown,
+                                      linkTimestamp: 0,
+                                    },
+                                    u,
+                                  );
+                          yield n.createOrReplace(c);
                         },
-                        u,
                       );
-              await a.createOrReplace(c);
-            });
-        } catch (e) {}
-      }
+                      return function (t) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  );
+              } catch (e) {}
+            }
+          },
+        )),
+        d.apply(this, arguments)
+      );
     }
-    ((l.loadCertFromIDB = s), (l.saveCertToIDB = u));
+    ((l.loadCertFromIDB = s), (l.saveCertToIDB = c));
   },
   98,
 );

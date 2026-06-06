@@ -10,6 +10,7 @@ __d(
     "WAWebTabs.react",
     "WAWebUISpacing",
     "WAWebUtilsLogQplEvents",
+    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -168,29 +169,29 @@ __d(
     }
     function g(e) {
       var t = o("react-compiler-runtime").c(25),
-        n = e.businessHours,
-        a = n.days,
-        i = n.note,
-        l = n.timezone,
-        u = d(
+        a = e.businessHours,
+        i = a.days,
+        l = a.note,
+        u = a.timezone,
+        m = d(
           e.businessHours.mode ||
             o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.SPECIFIC_HOURS,
         ),
-        m = u[0],
-        _ = u[1],
-        g;
-      t[0] !== a
-        ? ((g = function () {
+        _ = m[0],
+        g = m[1],
+        y;
+      t[0] !== i
+        ? ((y = function () {
             var e = {};
-            for (var t of a) {
+            for (var t of i) {
               var n = t.closed,
                 r = t.dayKey,
-                i = t.dayName,
+                a = t.dayName,
                 l = t.hours;
               e[r] = {
                 closed: n,
                 dayKey: r,
-                dayName: i,
+                dayName: a,
                 hours: l || [
                   o("WAWebBusinessHoursUtils").getDefaultHoursPair(),
                 ],
@@ -198,89 +199,94 @@ __d(
             }
             return e;
           }),
-          (t[0] = a),
-          (t[1] = g))
-        : (g = t[1]);
-      var y = d(g),
-        C = y[0],
-        b = y[1],
-        v;
-      t[2] !== a ? ((v = a.map(h)), (t[2] = a), (t[3] = v)) : (v = t[3]);
-      var S = v,
-        R,
-        L;
+          (t[0] = i),
+          (t[1] = y))
+        : (y = t[1]);
+      var C = d(y),
+        b = C[0],
+        v = C[1],
+        S;
+      t[2] !== i ? ((S = i.map(h)), (t[2] = i), (t[3] = S)) : (S = t[3]);
+      var R = S,
+        L,
+        E;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = s._(/*BTDS*/ "Edit business hours")),
-          (L = { type: o("WAWebModal.react").ModalTheme.BusinessHours }),
-          (t[4] = R),
-          (t[5] = L))
-        : ((R = t[4]), (L = t[5]));
-      var E;
-      t[6] !== C || t[7] !== m
-        ? ((E = o("WAWebBusinessHoursUtils").isValidBusinessHours(m, C)),
-          (t[6] = C),
-          (t[7] = m),
-          (t[8] = E))
-        : (E = t[8]);
+        ? ((L = s._(/*BTDS*/ "Edit business hours")),
+          (E = { type: o("WAWebModal.react").ModalTheme.BusinessHours }),
+          (t[4] = L),
+          (t[5] = E))
+        : ((L = t[4]), (E = t[5]));
       var k;
-      t[9] !== i || t[10] !== e || t[11] !== C || t[12] !== m || t[13] !== l
-        ? ((k = async function () {
-            (o("WAWebUtilsLogQplEvents").qplStartProfileSave("bizHours"),
-              await e.saveBusinessProfile(
-                o("WAWebBusinessHoursUtils").convertToRawBusinessProfile({
-                  dayValues: C,
-                  mode: m,
-                  note: i,
-                  timezone: l,
-                }),
-              ));
-          }),
-          (t[9] = i),
-          (t[10] = e),
-          (t[11] = C),
-          (t[12] = m),
-          (t[13] = l),
-          (t[14] = k))
-        : (k = t[14]);
+      t[6] !== b || t[7] !== _
+        ? ((k = o("WAWebBusinessHoursUtils").isValidBusinessHours(_, b)),
+          (t[6] = b),
+          (t[7] = _),
+          (t[8] = k))
+        : (k = t[8]);
       var I;
-      t[15] !== S || t[16] !== C || t[17] !== m
-        ? ((I = c.jsx(f, {
-            selectedMode: m,
-            onModeChange: _,
-            days: C,
-            onDayValuesChange: b,
-            daysOrder: S,
-          })),
-          (t[15] = S),
-          (t[16] = C),
-          (t[17] = m),
-          (t[18] = I))
-        : (I = t[18]);
+      t[9] !== l || t[10] !== e || t[11] !== b || t[12] !== _ || t[13] !== u
+        ? ((I = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (o("WAWebUtilsLogQplEvents").qplStartProfileSave("bizHours"),
+                yield e.saveBusinessProfile(
+                  o("WAWebBusinessHoursUtils").convertToRawBusinessProfile({
+                    dayValues: b,
+                    mode: _,
+                    note: l,
+                    timezone: u,
+                  }),
+                ));
+            });
+            return function () {
+              return t.apply(this, arguments);
+            };
+          })()),
+          (t[9] = l),
+          (t[10] = e),
+          (t[11] = b),
+          (t[12] = _),
+          (t[13] = u),
+          (t[14] = I))
+        : (I = t[14]);
       var T;
+      t[15] !== R || t[16] !== b || t[17] !== _
+        ? ((T = c.jsx(f, {
+            selectedMode: _,
+            onModeChange: g,
+            days: b,
+            onDayValuesChange: v,
+            daysOrder: R,
+          })),
+          (t[15] = R),
+          (t[16] = b),
+          (t[17] = _),
+          (t[18] = T))
+        : (T = t[18]);
+      var D;
       return (
         t[19] !== e.afterSave ||
         t[20] !== e.onCancel ||
-        t[21] !== E ||
-        t[22] !== k ||
-        t[23] !== I
-          ? ((T = c.jsx(r("WAWebSavePopup.react"), {
-              title: R,
-              modalConfig: L,
-              isValid: E,
-              doSave: k,
+        t[21] !== k ||
+        t[22] !== I ||
+        t[23] !== T
+          ? ((D = c.jsx(r("WAWebSavePopup.react"), {
+              title: L,
+              modalConfig: E,
+              isValid: k,
+              doSave: I,
               afterSave: e.afterSave,
               onCancel: e.onCancel,
               tsNavigationData: p,
-              children: I,
+              children: T,
             })),
             (t[19] = e.afterSave),
             (t[20] = e.onCancel),
-            (t[21] = E),
-            (t[22] = k),
-            (t[23] = I),
-            (t[24] = T))
-          : (T = t[24]),
-        T
+            (t[21] = k),
+            (t[22] = I),
+            (t[23] = T),
+            (t[24] = D))
+          : (D = t[24]),
+        D
       );
     }
     function h(e) {

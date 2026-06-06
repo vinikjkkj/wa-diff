@@ -7,6 +7,7 @@ __d(
     "WAWebFetchMetaAISearchTypeAheadSuggestions",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebUserPrefsBot",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,13 +16,13 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getMetaAISearchNullStateSuggestions",
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var n =
-              await o("WAWebUserPrefsBot").MetaAINullStateSuggestionsCache.get(
+              yield o("WAWebUserPrefsBot").MetaAINullStateSuggestionsCache.get(
                 t,
               );
             if (n != null) return n;
-            var r = await o(
+            var r = yield o(
               "WAWebFetchMetaAISearchNullStateSuggestions",
             ).fetchMetaAISearchNullStateSuggestions(t);
             return r.type === "success"
@@ -39,42 +40,49 @@ __d(
                     ),
                 r.value)
               : [];
-          },
+          }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    async function c(e) {
-      return o("WAWebOrchestratorNonPersistedJob")
-        .createNonPersistedJob(
-          "getMetaAISearchTypeAheadSuggestions",
-          async function () {
-            var t =
-              await o("WAWebUserPrefsBot").MetaAITypeAheadSuggestionsCache.get(
-                e,
-              );
-            if (t != null) return t;
-            var n = await o(
-              "WAWebFetchMetaAISearchTypeAheadSuggestions",
-            ).fetchMetaAISearchTypeAheadSuggestions(e);
-            return n.type === "success"
-              ? (n.value.length > 0
-                  ? o("WAWebUserPrefsBot").MetaAITypeAheadSuggestionsCache.set(
-                      e,
-                      n.value,
-                    )
-                  : o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[getMetaAISearchTypeAheadSuggestions] empty results",
-                        ])),
-                    ),
-                n.value)
-              : [];
-          },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
-        )
-        .waitUntilCompleted();
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebOrchestratorNonPersistedJob")
+            .createNonPersistedJob(
+              "getMetaAISearchTypeAheadSuggestions",
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t =
+                  yield o(
+                    "WAWebUserPrefsBot",
+                  ).MetaAITypeAheadSuggestionsCache.get(e);
+                if (t != null) return t;
+                var n = yield o(
+                  "WAWebFetchMetaAISearchTypeAheadSuggestions",
+                ).fetchMetaAISearchTypeAheadSuggestions(e);
+                return n.type === "success"
+                  ? (n.value.length > 0
+                      ? o(
+                          "WAWebUserPrefsBot",
+                        ).MetaAITypeAheadSuggestionsCache.set(e, n.value)
+                      : o("WALogger").WARN(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[getMetaAISearchTypeAheadSuggestions] empty results",
+                            ])),
+                        ),
+                    n.value)
+                  : [];
+              }),
+              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+            )
+            .waitUntilCompleted();
+        })),
+        d.apply(this, arguments)
+      );
     }
     ((l.getMetaAISearchNullStateSuggestions = u),
       (l.getMetaAISearchTypeAheadSuggestions = c));

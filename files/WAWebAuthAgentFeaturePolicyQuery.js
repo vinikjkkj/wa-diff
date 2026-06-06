@@ -6,6 +6,7 @@ __d(
     "WAWebFeatureControlFeature",
     "WAWebFetchAdAccountToken",
     "WAWebRelayClient",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,39 +14,56 @@ __d(
     var e,
       s =
         e !== void 0 ? e : (e = n("WAWebAuthAgentFeaturePolicyQuery.graphql"));
-    async function u() {
-      var e = await o("WAWebFetchAdAccountToken").fetchToken();
-      return e.type !== "success"
-        ? { type: "error", error: r("err")("fetchToken failed: " + e.type) }
-        : o("WAWebRelayClient")
-            .fetchQuery(
-              s,
-              {},
-              { environmentType: "facebook", accessToken: e.token },
-            )
-            .then(async function (e) {
-              var t,
-                n =
-                  e == null
-                    ? void 0
-                    : e.whatsapp_authorized_agent_feature_policy;
-              if (n == null)
-                return (
-                  await o("WAWebFeatureControlCache").clearPolicy(),
-                  { type: "not_authorized_agent" }
-                );
-              var r = (t = n.disabled_features) != null ? t : [],
-                a = d(r);
-              return (
-                await o("WAWebFeatureControlCache").setPolicy(a),
-                { type: "success", policy: a }
-              );
-            })
-            .catch(function (e) {
-              return { type: "error", error: e };
-            });
+    function u() {
+      return c.apply(this, arguments);
     }
-    var c = new Set([
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebFetchAdAccountToken").fetchToken();
+          return e.type !== "success"
+            ? { type: "error", error: r("err")("fetchToken failed: " + e.type) }
+            : o("WAWebRelayClient")
+                .fetchQuery(
+                  s,
+                  {},
+                  { environmentType: "facebook", accessToken: e.token },
+                )
+                .then(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var t,
+                          n =
+                            e == null
+                              ? void 0
+                              : e.whatsapp_authorized_agent_feature_policy;
+                        if (n == null)
+                          return (
+                            yield o("WAWebFeatureControlCache").clearPolicy(),
+                            { type: "not_authorized_agent" }
+                          );
+                        var r = (t = n.disabled_features) != null ? t : [],
+                          a = m(r);
+                        return (
+                          yield o("WAWebFeatureControlCache").setPolicy(a),
+                          { type: "success", policy: a }
+                        );
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                )
+                .catch(function (e) {
+                  return { type: "error", error: e };
+                });
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    var d = new Set([
       "BUSINESS_PROFILE_NAME",
       "BUSINESS_PROFILE_DISPLAY_NAME",
       "BUSINESS_PROFILE_COVER_PHOTO",
@@ -54,12 +72,12 @@ __d(
       "BUSINESS_PROFILE_WEBSITE",
       "BUSINESS_PROFILE_CATEGORY",
     ]);
-    function d(e) {
+    function m(e) {
       var t = new Set(e),
         n = {};
       for (var r of o("WAWebFeatureControlFeature").ALL_FEATURES)
         t.has(r)
-          ? (n[r] = c.has(r) ? "LOCKED" : "DISABLED")
+          ? (n[r] = d.has(r) ? "LOCKED" : "DISABLED")
           : (n[r] = "ENABLED");
       return { entries: n };
     }

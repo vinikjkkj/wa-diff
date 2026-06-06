@@ -5,6 +5,7 @@ __d(
     "WAWebApiChatCommon",
     "WAWebLid1X1MigrationGating",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -29,56 +30,82 @@ __d(
             !1)
           : !0;
     }
-    async function d(e) {
-      var t = o("WAWebWidFactory").asUserWidOrThrow(e),
-        n = await o("WAWebApiChatCommon").getChatRecord(t),
-        r = n == null ? void 0 : n.accountLid;
-      return r == null ? null : o("WAWebWidFactory").createUserLidOrThrow(r);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    async function m(e, t) {
-      if (!c(e, t)) return e;
-      var n = await d(e);
-      return n == null
-        ? (o("WALogger")
-            .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[pnless-stanza] getStanzaToFromChatId: no lid ",
-                  " receiptType=",
-                  "",
-                ])),
-              e.toLogString(),
-              t,
-            )
-            .sendLogs("pnless-no-lid"),
-          e)
-        : n;
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebWidFactory").asUserWidOrThrow(e),
+            n = yield o("WAWebApiChatCommon").getChatRecord(t),
+            r = n == null ? void 0 : n.accountLid;
+          return r == null
+            ? null
+            : o("WAWebWidFactory").createUserLidOrThrow(r);
+        })),
+        m.apply(this, arguments)
+      );
     }
-    async function p(e) {
-      var t = e.data.to;
-      if (c(t)) {
-        var n = await d(t);
-        if (n == null) {
-          o("WALogger")
-            .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[pnless-stanza] maybeReplaceWidWithAccountLid: no lid ",
-                  "",
-                ])),
-              t.toLogString(),
-            )
-            .tags("pnless-stanzas")
-            .sendLogs("pnless-no-lid-in-send");
-          return;
-        }
-        e.type === "message"
-          ? (e.data.to = n)
-          : e.type === "addon" &&
-            (e.data = babelHelpers.extends({}, e.data, { to: n }));
-      }
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    ((l.getStanzaToFromChatId = m), (l.maybeReplaceWidWithAccountLid = p));
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!c(e, t)) return e;
+          var n = yield d(e);
+          return n == null
+            ? (o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[pnless-stanza] getStanzaToFromChatId: no lid ",
+                      " receiptType=",
+                      "",
+                    ])),
+                  e.toLogString(),
+                  t,
+                )
+                .sendLogs("pnless-no-lid"),
+              e)
+            : n;
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.data.to;
+          if (c(t)) {
+            var n = yield d(t);
+            if (n == null) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[pnless-stanza] maybeReplaceWidWithAccountLid: no lid ",
+                      "",
+                    ])),
+                  t.toLogString(),
+                )
+                .tags("pnless-stanzas")
+                .sendLogs("pnless-no-lid-in-send");
+              return;
+            }
+            e.type === "message"
+              ? (e.data.to = n)
+              : e.type === "addon" &&
+                (e.data = babelHelpers.extends({}, e.data, { to: n }));
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    ((l.getStanzaToFromChatId = p), (l.maybeReplaceWidWithAccountLid = f));
   },
   98,
 );

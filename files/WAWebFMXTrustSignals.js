@@ -8,44 +8,61 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebUserPrefsMeUser",
     "WDSText.react",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
-    async function c(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeUser(),
-        n = await o(
-          "WAWebApiContactUsernameFields",
-        ).getOrFetchContactUsernameCountryCode(t),
-        r = await o(
-          "WAWebApiContactUsernameFields",
-        ).getOrFetchContactUsernameCountryCode(e.id);
-      return n !== r;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    async function d(e) {
-      if (await c(e)) {
-        var t = await o(
-          "WAWebApiContactUsernameFields",
-        ).getOrFetchContactUsernameCountryCode(e.id);
-        if (t != null) {
-          var n = await o("WAWebCountriesUtils").getCountryNameFromCountryCode(
-            t,
-          );
-          if (n != null)
-            return s._(/*BTDS*/ "Phone number from {country}", [
-              s._param("country", n),
-            ]);
-        }
-      }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebUserPrefsMeUser").getMeUser(),
+            n = yield o(
+              "WAWebApiContactUsernameFields",
+            ).getOrFetchContactUsernameCountryCode(t),
+            r = yield o(
+              "WAWebApiContactUsernameFields",
+            ).getOrFetchContactUsernameCountryCode(e.id);
+          return n !== r;
+        })),
+        d.apply(this, arguments)
+      );
     }
     function m(e) {
-      return !o("WAWebFrontendContactGetters").getIsMyContact(e);
+      return p.apply(this, arguments);
     }
-    function p(e) {
-      if (m(e)) return s._(/*BTDS*/ "Not a contact");
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (yield c(e)) {
+            var t = yield o(
+              "WAWebApiContactUsernameFields",
+            ).getOrFetchContactUsernameCountryCode(e.id);
+            if (t != null) {
+              var n = yield o(
+                "WAWebCountriesUtils",
+              ).getCountryNameFromCountryCode(t);
+              if (n != null)
+                return s._(/*BTDS*/ "Phone number from {country}", [
+                  s._param("country", n),
+                ]);
+            }
+          }
+        })),
+        p.apply(this, arguments)
+      );
     }
     function _(e) {
+      return !o("WAWebFrontendContactGetters").getIsMyContact(e);
+    }
+    function f(e) {
+      if (_(e)) return s._(/*BTDS*/ "Not a contact");
+    }
+    function g(e) {
       if (
         e.isSenderNewAccount === !0 &&
         o("WAWebFMXGatingUtils").isExpandFmxAccountAgeUiEnabled()
@@ -61,10 +78,10 @@ __d(
       }
     }
     ((l.shouldShowCountryCodeTrustSignal = c),
-      (l.getCountryCodeTrustSignal = d),
-      (l.shouldShowContactTrustSignal = m),
-      (l.getContactTrustSignal = p),
-      (l.getNewAccountTrustSignal = _));
+      (l.getCountryCodeTrustSignal = m),
+      (l.shouldShowContactTrustSignal = _),
+      (l.getContactTrustSignal = f),
+      (l.getNewAccountTrustSignal = g));
   },
   226,
 );

@@ -8,6 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 7776e3,
@@ -60,92 +61,110 @@ __d(
       var i = {};
       return (r != null && (i.lid = r), a != null && (i.pn = a), i);
     }
-    async function h(e, t) {
-      var n;
-      try {
-        n = o("WAWebWidFactory").createWid(e);
-      } catch (e) {
-        return null;
-      }
-      var a = g(n);
-      if (a == null) return null;
-      for (
-        var i = await o("WAWebDBMsgUtils").getMsgsByChatId(n),
-          l = [],
-          c = 0,
-          p = i.length - 1;
-        p >= 0;
-        p--
-      ) {
-        var h,
-          y,
-          C = i[p];
-        if (!(C.type != null && m.has(C.type))) {
-          var b = C.t;
-          if (!(b == null || b < t)) {
-            if (l.length >= s) break;
-            var v = void 0;
-            try {
-              v = o("WAWebDBMessageSerialization").messageFromDbRow(C);
-            } catch (e) {
-              continue;
-            }
-            var S = (h = v.body) != null ? h : null;
-            if (S != null) {
-              var R = d.encode(S).length;
-              if (c + R > u) break;
-              c += R;
-            }
-            var L = void 0;
-            try {
-              L = r("WAWebMsgKey").fromString(C.id);
-            } catch (e) {
-              continue;
-            }
-            l.push({
-              author: f(L.fromMe, v.bizBotType),
-              message_type: _((y = C.type) != null ? y : "chat"),
-              text: S,
-              timestamp: b,
-            });
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          try {
+            n = o("WAWebWidFactory").createWid(e);
+          } catch (e) {
+            return null;
           }
-        }
-      }
-      return l.length === 0
-        ? null
-        : (l.reverse(),
-          { thread: { consumer_uid: a, messages: l }, textBytes: c });
-    }
-    async function y() {
-      var t = await o("WAWebApiChat").getAllChatsDeserialized(),
-        n = Math.floor(Date.now() / 1e3) - e,
-        r = t
-          .filter(function (e) {
-            if (e.t != null && e.t < n) return !1;
-            try {
-              var t = o("WAWebWidFactory").createWid(e.id);
-              return g(t) != null;
-            } catch (e) {
-              return !1;
+          var a = g(n);
+          if (a == null) return null;
+          for (
+            var i = yield o("WAWebDBMsgUtils").getMsgsByChatId(n),
+              l = [],
+              c = 0,
+              p = i.length - 1;
+            p >= 0;
+            p--
+          ) {
+            var h,
+              y,
+              C = i[p];
+            if (!(C.type != null && m.has(C.type))) {
+              var b = C.t;
+              if (!(b == null || b < t)) {
+                if (l.length >= s) break;
+                var v = void 0;
+                try {
+                  v = o("WAWebDBMessageSerialization").messageFromDbRow(C);
+                } catch (e) {
+                  continue;
+                }
+                var S = (h = v.body) != null ? h : null;
+                if (S != null) {
+                  var R = d.encode(S).length;
+                  if (c + R > u) break;
+                  c += R;
+                }
+                var L = void 0;
+                try {
+                  L = r("WAWebMsgKey").fromString(C.id);
+                } catch (e) {
+                  continue;
+                }
+                l.push({
+                  author: f(L.fromMe, v.bizBotType),
+                  message_type: _((y = C.type) != null ? y : "chat"),
+                  text: S,
+                  timestamp: b,
+                });
+              }
             }
-          })
-          .sort(function (e, t) {
-            var n, r;
-            return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
-          }),
-        a = [],
-        i = 0;
-      for (var l of r) {
-        if (i >= c) break;
-        var s = await h(l.id, n);
-        if (s != null) {
-          if (i + s.textBytes > c) break;
-          (a.push(s.thread), (i += s.textBytes));
-        }
-      }
-      return a.length === 0 ? null : { threads: a };
+          }
+          return l.length === 0
+            ? null
+            : (l.reverse(),
+              { thread: { consumer_uid: a, messages: l }, textBytes: c });
+        })),
+        y.apply(this, arguments)
+      );
     }
-    l.buildUploadRequest = y;
+    function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield o("WAWebApiChat").getAllChatsDeserialized(),
+            n = Math.floor(Date.now() / 1e3) - e,
+            r = t
+              .filter(function (e) {
+                if (e.t != null && e.t < n) return !1;
+                try {
+                  var t = o("WAWebWidFactory").createWid(e.id);
+                  return g(t) != null;
+                } catch (e) {
+                  return !1;
+                }
+              })
+              .sort(function (e, t) {
+                var n, r;
+                return (
+                  ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0)
+                );
+              }),
+            a = [],
+            i = 0;
+          for (var l of r) {
+            if (i >= c) break;
+            var s = yield h(l.id, n);
+            if (s != null) {
+              if (i + s.textBytes > c) break;
+              (a.push(s.thread), (i += s.textBytes));
+            }
+          }
+          return a.length === 0 ? null : { threads: a };
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    l.buildUploadRequest = C;
   },
   98,
 );

@@ -18,6 +18,7 @@ __d(
     "WAWebWindowsNotificationToneOption",
     "WAWebWindowsShowNotificationBannerOption",
     "WAWebWindowsUserPrefsNotifications",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -163,7 +164,7 @@ __d(
             ])),
         );
         try {
-          var $ = N(i, v);
+          var $ = M(i, v);
           (x.showMessageNotification(
             v,
             R,
@@ -278,44 +279,53 @@ __d(
         n
       );
     }
-    async function $() {
-      var e;
-      o("WALogger").LOG(
-        v ||
-          (v = babelHelpers.taggedTemplateLiteralLoose([
-            "[IsNotificationsEnabledInSystem] checking status",
-          ])),
-      );
-      var t =
-        (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) == null
-          ? void 0
-          : e.systemIntegrationsBridge;
-      if (t != null) {
-        o("WALogger").LOG(
-          S ||
-            (S = babelHelpers.taggedTemplateLiteralLoose([
-              "[IsNotificationsEnabledInSystem] using HybridBridge",
-            ])),
-        );
-        var n = await t.isNotificationEnabledInSystem();
-        return (
-          o("WALogger").LOG(
-            R ||
-              (R = babelHelpers.taggedTemplateLiteralLoose([
-                "IsNotificationsEnabledInSystem: Result from hybrid bridge: ",
-                "",
-              ])),
-            n,
-          ),
-          n
-        );
-      }
-      return !1;
+    function $() {
+      return P.apply(this, arguments);
     }
     function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
+          o("WALogger").LOG(
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
+                "[IsNotificationsEnabledInSystem] checking status",
+              ])),
+          );
+          var t =
+            (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) ==
+            null
+              ? void 0
+              : e.systemIntegrationsBridge;
+          if (t != null) {
+            o("WALogger").LOG(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[IsNotificationsEnabledInSystem] using HybridBridge",
+                ])),
+            );
+            var n = yield t.isNotificationEnabledInSystem();
+            return (
+              o("WALogger").LOG(
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                    "IsNotificationsEnabledInSystem: Result from hybrid bridge: ",
+                    "",
+                  ])),
+                n,
+              ),
+              n
+            );
+          }
+          return !1;
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N() {
       window.open("ms-settings:notifications");
     }
-    function N(e, t) {
+    function M(e, t) {
       var n = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -335,8 +345,8 @@ __d(
         ).NotificationToneOption.cast(e.toneId);
         if (r != null) return r;
         o("WALogger").LOG(
-          L ||
-            (L = babelHelpers.taggedTemplateLiteralLoose([
+          v ||
+            (v = babelHelpers.taggedTemplateLiteralLoose([
               "selectNotificationTone: Invalid toneId: ",
               "",
             ])),
@@ -362,7 +372,7 @@ __d(
       (l.isReplyable = D),
       (l.getContextMenuItems = x),
       (l.IsNotificationsEnabledInSystem = $),
-      (l.OpenSystemNotificationsSettings = P));
+      (l.OpenSystemNotificationsSettings = N));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WAWebAddonDBTable",
     "WAWebAddonInfraError",
     "WAWebMsgType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -23,17 +24,24 @@ __d(
         a.kind === o("WAWebMsgType").MsgKind.PlaceholderAddon && r.push(a.id);
       return r.length === 0 ? null : r;
     }
-    async function s(e, t) {
-      var n = await o("WAWebAddonDBTable").addonInternalDBTable.bulkGetByMsgKey(
-          e,
-          t,
-        ),
-        r = new Set();
-      for (var a of n)
-        a != null &&
-          a.kind === o("WAWebMsgType").MsgKind.PlaceholderAddon &&
-          r.add(a.id.toString());
-      return r;
+    function s(e, t) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+              "WAWebAddonDBTable",
+            ).addonInternalDBTable.bulkGetByMsgKey(e, t),
+            r = new Set();
+          for (var a of n)
+            a != null &&
+              a.kind === o("WAWebMsgType").MsgKind.PlaceholderAddon &&
+              r.add(a.id.toString());
+          return r;
+        })),
+        u.apply(this, arguments)
+      );
     }
     ((l.getIncomingPlaceholderKeys = e), (l.getPlaceholderMsgKeys = s));
   },

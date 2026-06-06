@@ -5,19 +5,23 @@ __d(
     "WAWebLazyLoadLoading.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebBizBroadcastTosModal.react",
-        )
-          .__setRef("WAWebBizBroadcastTosModalLoadable")
-          .load();
-        return e;
-      }, "BizBroadcastTosModal"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebBizBroadcastTosModal.react",
+          )
+            .__setRef("WAWebBizBroadcastTosModalLoadable")
+            .load();
+          return e;
+        }),
+        "BizBroadcastTosModal",
+      ),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

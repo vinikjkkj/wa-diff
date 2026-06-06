@@ -1,38 +1,47 @@
 __d(
   "DGWWebSocketTransport",
-  [],
+  ["Promise", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = new Set(["gateway.internalfb.com"]),
-      l = new Set();
-    function s(e) {
+    var e,
+      l = new Set(["gateway.internalfb.com"]),
+      s = new Set();
+    function u(e) {
       try {
         return new URL(e).hostname;
       } catch (e) {
         return null;
       }
     }
-    async function u(t) {
-      var n = s(t);
-      if (n == null || !e.has(n) || l.has(n)) return !1;
-      l.add(n);
-      var r = t.replace(/^wss:/i, "https:");
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        await new Promise(function (e) {
-          var t = new XMLHttpRequest();
-          t.onloadend = function () {
-            return e();
-          };
-          try {
-            (t.open("GET", r), (t.withCredentials = !0), t.send());
-          } catch (t) {
-            e();
-          }
-        }),
-        !0
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = u(t);
+          if (r == null || !l.has(r) || s.has(r)) return !1;
+          s.add(r);
+          var o = t.replace(/^wss:/i, "https:");
+          return (
+            yield new (e || (e = n("Promise")))(function (e) {
+              var t = new XMLHttpRequest();
+              t.onloadend = function () {
+                return e();
+              };
+              try {
+                (t.open("GET", o), (t.withCredentials = !0), t.send());
+              } catch (t) {
+                e();
+              }
+            }),
+            !0
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    function c(e) {
+    function m(e) {
       var t = new WebSocket(e);
       return (
         (t.binaryType = "arraybuffer"),
@@ -42,7 +51,7 @@ __d(
         t
       );
     }
-    ((i.primeInternalCertOnce = u), (i.getWebSocketConnection = c));
+    ((i.primeInternalCertOnce = c), (i.getWebSocketConnection = m));
   },
   66,
 );

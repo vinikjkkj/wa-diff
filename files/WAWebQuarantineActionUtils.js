@@ -8,6 +8,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,31 +29,39 @@ __d(
       QuarantineWithoutText: c,
       QuarantineWithText: d,
     };
-    async function p(e) {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        r("WAWebWid").isUser(e) &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
-        !(
-          r("WAWebWid").isPSA(e) ||
-          r("WAWebWid").isIAS(e) ||
-          r("WAWebWid").isOfficialBizAccount(e) ||
-          r("WAWebWid").isSupportAccount(e) ||
-          r("WAWebWid").isCAPISupportAccount(e) ||
-          r("WAWebWid").isAiHub(e) ||
-          o("WAWebBotUtils").isMetaAiBot(e)
-        ) &&
-        !(await o("WAWebApiContact").isAddressBookContact(e.toJid()))
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (
+            r("WAWebWid").isUser(e) &&
+            !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+            !(
+              r("WAWebWid").isPSA(e) ||
+              r("WAWebWid").isIAS(e) ||
+              r("WAWebWid").isOfficialBizAccount(e) ||
+              r("WAWebWid").isSupportAccount(e) ||
+              r("WAWebWid").isCAPISupportAccount(e) ||
+              r("WAWebWid").isAiHub(e) ||
+              o("WAWebBotUtils").isMetaAiBot(e)
+            ) &&
+            !(yield o("WAWebApiContact").isAddressBookContact(e.toJid()))
+          );
+        })),
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e) {
       return e.type === "QuarantineWithText" ? e.text : null;
     }
-    function f(e) {
+    function g(e) {
       return r("isStringNullOrEmpty")(e)
         ? m.QuarantineWithoutText
         : m.QuarantineWithText(e);
     }
-    function g(e) {
+    function h(e) {
       return e == null
         ? !1
         : e.jpegThumbnail != null ||
@@ -60,24 +69,24 @@ __d(
             e.mediaKey != null ||
             e.thumbnailSha256 != null;
     }
-    function h(t, n) {
+    function y(t, n) {
       return (
         n === void 0 && (n = 0),
-        t == null ? !0 : n > e ? !1 : y(t.hydratedHsm, n + 1)
+        t == null ? !0 : n > e ? !1 : C(t.hydratedHsm, n + 1)
       );
     }
-    function y(t, n) {
+    function C(t, n) {
       if ((n === void 0 && (n = 0), t == null)) return !0;
       if (n > e) return !1;
       var r = n + 1;
       return !(
-        !v(t.interactiveMessageTemplate, r) ||
-        !C(t.fourRowTemplate, r) ||
-        !b(t.hydratedFourRowTemplate, r) ||
-        !b(t.hydratedTemplate, r)
+        !S(t.interactiveMessageTemplate, r) ||
+        !b(t.fourRowTemplate, r) ||
+        !v(t.hydratedFourRowTemplate, r) ||
+        !v(t.hydratedTemplate, r)
       );
     }
-    function C(t, n) {
+    function b(t, n) {
       if ((n === void 0 && (n = 0), t == null)) return !0;
       if (
         n > e ||
@@ -89,18 +98,18 @@ __d(
         return !1;
       var r = n + 1;
       if (
-        !h(t.highlyStructuredMessage, r) ||
-        !h(t.content, r) ||
-        !h(t.footer, r)
+        !y(t.highlyStructuredMessage, r) ||
+        !y(t.content, r) ||
+        !y(t.footer, r)
       )
         return !1;
       var o = t.buttons;
       if (o != null) {
-        for (var a of o) if (!S(a, r)) return !1;
+        for (var a of o) if (!R(a, r)) return !1;
       }
       return !0;
     }
-    function b(t, n) {
+    function v(t, n) {
       return (
         n === void 0 && (n = 0),
         t == null
@@ -114,7 +123,7 @@ __d(
             )
       );
     }
-    function v(t, n) {
+    function S(t, n) {
       var r;
       if ((n === void 0 && (n = 0), t == null)) return !0;
       if (n > e) return !1;
@@ -133,24 +142,24 @@ __d(
         return !1;
       var a = (r = t.carouselMessage) == null ? void 0 : r.cards;
       if (a != null) {
-        for (var i of a) if (!v(i, n + 1)) return !1;
+        for (var i of a) if (!S(i, n + 1)) return !1;
       }
       return !0;
     }
-    function S(t, n) {
+    function R(t, n) {
       var r, o, a, i, l;
       if ((n === void 0 && (n = 0), t == null)) return !0;
       if (n > e) return !1;
       var s = n + 1;
       return !(
-        !h((r = t.quickReplyButton) == null ? void 0 : r.displayText, s) ||
-        !h((o = t.urlButton) == null ? void 0 : o.displayText, s) ||
-        !h((a = t.urlButton) == null ? void 0 : a.url, s) ||
-        !h((i = t.callButton) == null ? void 0 : i.displayText, s) ||
-        !h((l = t.callButton) == null ? void 0 : l.phoneNumber, s)
+        !y((r = t.quickReplyButton) == null ? void 0 : r.displayText, s) ||
+        !y((o = t.urlButton) == null ? void 0 : o.displayText, s) ||
+        !y((a = t.urlButton) == null ? void 0 : a.url, s) ||
+        !y((i = t.callButton) == null ? void 0 : i.displayText, s) ||
+        !y((l = t.callButton) == null ? void 0 : l.phoneNumber, s)
       );
     }
-    function R(e) {
+    function L(e) {
       return (
         e.conversation == null &&
         e.extendedTextMessage == null &&
@@ -180,34 +189,34 @@ __d(
         e.liveLocationMessage == null
       );
     }
-    function L(e) {
-      if (R(e)) return m.NoQuarantine;
+    function E(e) {
+      if (L(e)) return m.NoQuarantine;
       var t = e.extendedTextMessage;
       return t != null
-        ? g(t)
-          ? f(t.text)
+        ? h(t)
+          ? g(t.text)
           : m.NoQuarantine
         : e.imageMessage != null
-          ? f(e.imageMessage.caption)
+          ? g(e.imageMessage.caption)
           : e.videoMessage != null
-            ? f(e.videoMessage.caption)
+            ? g(e.videoMessage.caption)
             : e.documentMessage != null
-              ? f(e.documentMessage.caption)
-              : E(e)
+              ? g(e.documentMessage.caption)
+              : k(e)
                 ? m.NoQuarantine
                 : e.highlyStructuredMessage != null ||
                     e.templateMessage != null ||
                     e.interactiveMessage != null
-                  ? h(e.highlyStructuredMessage) &&
-                    y(e.templateMessage) &&
-                    v(e.interactiveMessage)
+                  ? y(e.highlyStructuredMessage) &&
+                    C(e.templateMessage) &&
+                    S(e.interactiveMessage)
                     ? m.NoQuarantine
                     : m.QuarantineWithoutText
                   : e.callLogMesssage != null
                     ? m.NoQuarantine
                     : m.QuarantineWithoutText;
     }
-    function E(e) {
+    function k(e) {
       return (
         e.conversation != null ||
         e.protocolMessage != null ||
@@ -219,7 +228,7 @@ __d(
         e.albumMessage != null
       );
     }
-    function k(e) {
+    function I(e) {
       switch (e.type) {
         case "NoQuarantine":
           return 0;
@@ -231,24 +240,34 @@ __d(
           return 0;
       }
     }
-    async function I(e, t) {
-      if (
-        e == null ||
-        !o("WAWebABProps").getABPropConfigValue("defense_mode_quarantine") ||
-        !s() ||
-        !(await p(t))
-      )
-        return m.NoQuarantine;
-      var n = L(e),
-        r = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(e);
-      if ((r == null ? void 0 : r.message) == null) return n;
-      var a = r.message,
-        i = L(a);
-      return k(i) > k(n) ? i : n;
+    function T(e, t) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            e == null ||
+            !o("WAWebABProps").getABPropConfigValue(
+              "defense_mode_quarantine",
+            ) ||
+            !s() ||
+            !(yield p(t))
+          )
+            return m.NoQuarantine;
+          var n = E(e),
+            r = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(e);
+          if ((r == null ? void 0 : r.message) == null) return n;
+          var a = r.message,
+            i = E(a);
+          return I(i) > I(n) ? i : n;
+        })),
+        D.apply(this, arguments)
+      );
     }
     ((l.QuarantineAction = m),
-      (l.maybeGetQuarantineText = _),
-      (l.getQuarantineAction = I));
+      (l.maybeGetQuarantineText = f),
+      (l.getQuarantineAction = T));
   },
   98,
 );

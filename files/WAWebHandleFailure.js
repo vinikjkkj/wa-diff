@@ -1,6 +1,7 @@
 __d(
   "WAWebHandleFailure",
   [
+    "Promise",
     "WAComms",
     "WADeprecatedWapParser",
     "WALogger",
@@ -17,6 +18,7 @@ __d(
     "WAWebUpdaterPlatforms",
     "WAWebUpdaterVersion",
     "WAWebWamPlatform",
+    "asyncToGeneratorRuntime",
     "err",
     "gkx",
     "justknobx",
@@ -30,7 +32,8 @@ __d(
       m,
       p,
       _,
-      f = new (r("WADeprecatedWapParser"))("failureParser", function (e) {
+      f,
+      g = new (r("WADeprecatedWapParser"))("failureParser", function (e) {
         return (
           e.assertTag("failure"),
           {
@@ -46,178 +49,202 @@ __d(
           }
         );
       });
-    async function g(t) {
-      r("gkx")("26256") &&
-        (o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
-          "received failure stanza, " + t.toString(),
-        ),
-        r("WAWebLocalStorage") == null ||
-          r("WAWebLocalStorage").removeItem(
-            o("WAWebE2ETestPairingConstants").PAIRING_ATTEMPT_ONGOING_KEY,
-          ));
-      var n = f.parse(t);
-      if (n.error)
-        return (
-          o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "",
-                " parsing ",
-                "",
-              ])),
-            n.error.toString(),
-            t.toString(),
-          ),
-          Promise.reject(n.error)
-        );
-      switch (n.success.reason) {
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_LOCKED: {
-          (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "received failure stanza, reason: ",
-                ", logging out",
-              ])),
-            n.success.reason,
-          ),
-            o("WAWebCoreActionsODS").isPageLoadComplete() ||
-              o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout());
-          var a = n.success,
-            i = a.logoutMessageHeader,
-            l = a.logoutMessageLocale,
-            g = a.logoutMessageSubtext,
-            h = null,
-            y = await o("WAWebBackendApi").frontendSendAndReceive(
-              "getNormalizedLocale",
-              void 0,
-            );
-          (l === y &&
-            (i != null || g != null) &&
-            (h = { logoutMessageHeader: i, logoutMessageSubtext: g }),
-            r("justknobx")._("4751") && o("WAComms").stopComms(),
-            await o("WAWebSocketModel").Socket.clearCredentialsAndStoredData(
-              o("WAWebLogoutReasonConstants").LogoutReason.AccountLocked,
-              h,
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          r("gkx")("26256") &&
+            (o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
+              "received failure stanza, " + t.toString(),
             ),
-            o("WAWebBackendEventBus").BackendEventBus.triggerLogout());
-          break;
-        }
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_NOT_AUTHORIZED:
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_BANNED:
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "received failure stanza, reason: ",
-                ", logging out",
-              ])),
-            n.success.reason,
-          ),
-            o("WAWebCoreActionsODS").isPageLoadComplete() ||
-              o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-            r("justknobx")._("4751") && o("WAComms").stopComms(),
-            await o("WAWebSocketModel").Socket.clearCredentialsAndStoredData(),
-            o("WAWebBackendEventBus").BackendEventBus.triggerLogout());
-          break;
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_CLIENT_TOO_OLD:
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_BAD_USER_AGENT: {
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "Client outdated/bad user agent, updating app",
-              ])),
-          );
-          var C = o("WAWebUpdaterVersion").SANITIZED_VERSION_STR,
-            b = o("WAWebUpdaterPlatforms").PLATFORMS[
-              o("WAWebWamPlatform").getWamPlatform()
-            ];
-          (b === "web"
-            ? o("WAWebUpdater").Updater.update({
-                belowHard: 0,
-                belowSoft: !1,
-                serverVersion: C,
-              })
-            : o("WAWebUpdater").Updater.update({ belowHard: 0, belowSoft: !1 }),
-            o("WAComms").stopComms());
-          break;
-        }
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_TEMP_BANNED: {
-          var v = n.success,
-            S = v.code,
-            R = v.expire,
-            L = v.message,
-            E = v.url;
-          if (S != null && R != null)
-            o("WAWebBackendEventBus").BackendEventBus.triggerTemporaryBan({
-              banned: !0,
-              code: S,
-              message: L,
-              url: E,
-              expire: R,
-            });
-          else
-            throw (
+            r("WAWebLocalStorage") == null ||
+              r("WAWebLocalStorage").removeItem(
+                o("WAWebE2ETestPairingConstants").PAIRING_ATTEMPT_ONGOING_KEY,
+              ));
+          var a = g.parse(t);
+          if (a.error)
+            return (
               o("WALogger").ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "Incorrect temporary ban data ",
-                    " ",
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    " parsing ",
                     "",
                   ])),
-                S,
-                R,
+                a.error.toString(),
+                t.toString(),
               ),
-              r("err")("handleFailure: wrong temp ban data")
+              (f || (f = n("Promise"))).reject(a.error)
             );
-          break;
-        }
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_GENERIC_FAILURE:
-        case o("WAWebFailureErrorCodes").FAILURE_REASON
-          .REASON_INTERNAL_SERVER_ERROR:
-        case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_EXPERIMENTAL:
-          o("WALogger").WARN(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "handleFailure: got failure code ",
-                "",
-              ])),
-            n.success.reason,
-          );
-          break;
-        case o("WAWebFailureErrorCodes").FAILURE_REASON
-          .REASON_SERVICE_UNAVAILABLE:
-          (o("WALogger").WARN(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "handleFailure: got failure code ",
-                "",
-              ])),
-            n.success.reason,
-          ),
-            o(
-              "WAWebBackendEventBus",
-            ).BackendEventBus.triggerServiceUnavailable(),
-            o("WAWebCoreActionsODS").isPageLoadComplete() ||
-              o("WAWebCoreActionsODS").logPageLoadErrorServiceUnavailable());
-          break;
-        default:
-          return (
-            o("WALogger").WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "failure reason ",
-                  " not implemented yet",
-                ])),
-              n.success.reason,
-            ),
-            Promise.reject(
-              r("err")(
-                "failure reason " + n.success.reason + " not implemented yet",
+          switch (a.success.reason) {
+            case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_LOCKED: {
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "received failure stanza, reason: ",
+                    ", logging out",
+                  ])),
+                a.success.reason,
               ),
-            )
-          );
-      }
+                o("WAWebCoreActionsODS").isPageLoadComplete() ||
+                  o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout());
+              var i = a.success,
+                l = i.logoutMessageHeader,
+                h = i.logoutMessageLocale,
+                y = i.logoutMessageSubtext,
+                C = null,
+                b = yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "getNormalizedLocale",
+                  void 0,
+                );
+              (h === b &&
+                (l != null || y != null) &&
+                (C = { logoutMessageHeader: l, logoutMessageSubtext: y }),
+                r("justknobx")._("4751") && o("WAComms").stopComms(),
+                yield o(
+                  "WAWebSocketModel",
+                ).Socket.clearCredentialsAndStoredData(
+                  o("WAWebLogoutReasonConstants").LogoutReason.AccountLocked,
+                  C,
+                ),
+                o("WAWebBackendEventBus").BackendEventBus.triggerLogout());
+              break;
+            }
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_NOT_AUTHORIZED:
+            case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_BANNED:
+              (o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "received failure stanza, reason: ",
+                    ", logging out",
+                  ])),
+                a.success.reason,
+              ),
+                o("WAWebCoreActionsODS").isPageLoadComplete() ||
+                  o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
+                r("justknobx")._("4751") && o("WAComms").stopComms(),
+                yield o(
+                  "WAWebSocketModel",
+                ).Socket.clearCredentialsAndStoredData(),
+                o("WAWebBackendEventBus").BackendEventBus.triggerLogout());
+              break;
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_CLIENT_TOO_OLD:
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_BAD_USER_AGENT: {
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "Client outdated/bad user agent, updating app",
+                  ])),
+              );
+              var v = o("WAWebUpdaterVersion").SANITIZED_VERSION_STR,
+                S = o("WAWebUpdaterPlatforms").PLATFORMS[
+                  o("WAWebWamPlatform").getWamPlatform()
+                ];
+              (S === "web"
+                ? o("WAWebUpdater").Updater.update({
+                    belowHard: 0,
+                    belowSoft: !1,
+                    serverVersion: v,
+                  })
+                : o("WAWebUpdater").Updater.update({
+                    belowHard: 0,
+                    belowSoft: !1,
+                  }),
+                o("WAComms").stopComms());
+              break;
+            }
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_TEMP_BANNED: {
+              var R = a.success,
+                L = R.code,
+                E = R.expire,
+                k = R.message,
+                I = R.url;
+              if (L != null && E != null)
+                o("WAWebBackendEventBus").BackendEventBus.triggerTemporaryBan({
+                  banned: !0,
+                  code: L,
+                  message: k,
+                  url: I,
+                  expire: E,
+                });
+              else
+                throw (
+                  o("WALogger").ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "Incorrect temporary ban data ",
+                        " ",
+                        "",
+                      ])),
+                    L,
+                    E,
+                  ),
+                  r("err")("handleFailure: wrong temp ban data")
+                );
+              break;
+            }
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_GENERIC_FAILURE:
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_INTERNAL_SERVER_ERROR:
+            case o("WAWebFailureErrorCodes").FAILURE_REASON.REASON_EXPERIMENTAL:
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleFailure: got failure code ",
+                    "",
+                  ])),
+                a.success.reason,
+              );
+              break;
+            case o("WAWebFailureErrorCodes").FAILURE_REASON
+              .REASON_SERVICE_UNAVAILABLE:
+              (o("WALogger").WARN(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleFailure: got failure code ",
+                    "",
+                  ])),
+                a.success.reason,
+              ),
+                o(
+                  "WAWebBackendEventBus",
+                ).BackendEventBus.triggerServiceUnavailable(),
+                o("WAWebCoreActionsODS").isPageLoadComplete() ||
+                  o(
+                    "WAWebCoreActionsODS",
+                  ).logPageLoadErrorServiceUnavailable());
+              break;
+            default:
+              return (
+                o("WALogger").WARN(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "failure reason ",
+                      " not implemented yet",
+                    ])),
+                  a.success.reason,
+                ),
+                (f || (f = n("Promise"))).reject(
+                  r("err")(
+                    "failure reason " +
+                      a.success.reason +
+                      " not implemented yet",
+                  ),
+                )
+              );
+          }
+        })),
+        y.apply(this, arguments)
+      );
     }
-    l.default = g;
+    l.default = h;
   },
   98,
 );

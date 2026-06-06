@@ -1,51 +1,66 @@
 __d(
   "WAWebGetClientPayloadForRegistration",
-  ["WALogger", "WAWebClientPayload", "WAWebSignalStoreApi", "err"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebClientPayload",
+    "WAWebSignalStoreApi",
+    "asyncToGeneratorRuntime",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    async function u(t) {
-      var n = self.performance.now(),
-        a = await Promise.all([
-          o("WAWebSignalStoreApi").waSignalStore.getRegistrationInfo(),
-          o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
-        ]),
-        i = a[0],
-        l = a[1];
-      if (
-        (o("WALogger")
-          .LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[comms] getClientPayloadForRegistration signalInfo ",
-                "ms",
-              ])),
-            Math.ceil(self.performance.now() - n),
-          )
-          .tags("launch-socket-chat"),
-        !l || !i)
-      )
-        throw r("err")("Invalid signal credentials");
-      var u = self.performance.now(),
-        c = await o("WAWebClientPayload").getClientPayloadForRegistration(
-          i,
-          l,
-          t,
-        );
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        o("WALogger")
-          .LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[comms] getClientPayloadForRegistration payload ",
-                "ms",
-              ])),
-            Math.ceil(self.performance.now() - u),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = self.performance.now(),
+            i = yield (u || (u = n("Promise"))).all([
+              o("WAWebSignalStoreApi").waSignalStore.getRegistrationInfo(),
+              o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
+            ]),
+            l = i[0],
+            c = i[1];
+          if (
+            (o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[comms] getClientPayloadForRegistration signalInfo ",
+                    "ms",
+                  ])),
+                Math.ceil(self.performance.now() - a),
+              )
+              .tags("launch-socket-chat"),
+            !c || !l)
           )
-          .tags("launch-socket-chat"),
-        c
+            throw r("err")("Invalid signal credentials");
+          var d = self.performance.now(),
+            m = yield o("WAWebClientPayload").getClientPayloadForRegistration(
+              l,
+              c,
+              t,
+            );
+          return (
+            o("WALogger")
+              .LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[comms] getClientPayloadForRegistration payload ",
+                    "ms",
+                  ])),
+                Math.ceil(self.performance.now() - d),
+              )
+              .tags("launch-socket-chat"),
+            m
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    l.getClientPayloadForRegistration = u;
+    l.getClientPayloadForRegistration = c;
   },
   98,
 );

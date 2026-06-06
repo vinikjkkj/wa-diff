@@ -1,6 +1,6 @@
 __d(
   "WAWebTeeInterceptClient",
-  ["err"],
+  ["asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
         function e() {}
@@ -17,9 +17,15 @@ __d(
             }
             return t;
           })()),
-          (t.preconnect = async function () {
-            throw r("err")("TeeInterceptClient is not implemented.");
-          }),
+          (t.preconnect = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              throw r("err")("TeeInterceptClient is not implemented.");
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (t.disconnect = function () {}),
           e
         );

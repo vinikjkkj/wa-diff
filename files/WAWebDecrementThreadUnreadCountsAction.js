@@ -5,6 +5,7 @@ __d(
     "WAWebThreadId",
     "WAWebThreadMetadataBulkJob",
     "WAWebThreadMsgUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,24 +23,32 @@ __d(
         }
       return t;
     }
-    async function s(e, t) {
-      if (e.size !== 0) {
-        var n = await o(
-          "WAWebThreadMetadataBulkJob",
-        ).bulkIncrementThreadUnreadCount(
-          Array.from(e, function (e) {
-            var t = e[0],
-              n = e[1];
-            return { threadId: r("WAWebThreadId").from(t), delta: -n };
-          }),
-        );
-        for (var a of n) {
-          var i = a.threadId,
-            l = a.unreadCount,
-            s = t.get(i);
-          s != null && s.set({ unreadCount: l });
-        }
-      }
+    function s(e, t) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e.size !== 0) {
+            var n = yield o(
+              "WAWebThreadMetadataBulkJob",
+            ).bulkIncrementThreadUnreadCount(
+              Array.from(e, function (e) {
+                var t = e[0],
+                  n = e[1];
+                return { threadId: r("WAWebThreadId").from(t), delta: -n };
+              }),
+            );
+            for (var a of n) {
+              var i = a.threadId,
+                l = a.unreadCount,
+                s = t.get(i);
+              s != null && s.set({ unreadCount: l });
+            }
+          }
+        })),
+        u.apply(this, arguments)
+      );
     }
     ((l.getThreadUnreadDeltasFromMessages = e),
       (l.decrementThreadUnreadCountsAction = s));

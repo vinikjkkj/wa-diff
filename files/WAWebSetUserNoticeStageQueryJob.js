@@ -1,6 +1,7 @@
 __d(
   "WAWebSetUserNoticeStageQueryJob",
   [
+    "Promise",
     "WAComms",
     "WASmaxInUserNoticeSetResponseClientError",
     "WASmaxInUserNoticeSetResponseServerError",
@@ -9,52 +10,68 @@ __d(
     "WATimeUtils",
     "WAWebBackendErrors",
     "WAWebTos",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
-      0: "UNKNOWN",
-      1: "UNKNOWN",
-      2: "UNKNOWN",
-      3: "UNKNOWN",
-      4: "UNKNOWN",
-      5: "ACCEPTED",
-    };
-    async function s(t, n) {
-      var r = { stageMixinArgs: { noticeId: t, noticeStage: n } },
-        a = o("WASmaxOutUserNoticeSetRequest").makeSetRequest(r),
-        i = await o("WAComms").sendSmaxStanza(a),
-        l = await o(
-          "WASmaxInUserNoticeSetResponseSuccess",
-        ).parseSetResponseSuccess(i, a);
-      if (l.success) {
-        var s = o("WATimeUtils").unixTime(),
-          u = e[n];
-        return (
-          o("WAWebTos").TosManager.setState(t.toString(), u, s),
-          Promise.resolve(!0)
-        );
-      }
-      var c = await o(
-        "WASmaxInUserNoticeSetResponseClientError",
-      ).parseSetResponseClientError(i, a);
-      if (c.success) {
-        var d = c.value.errorIQErrorBadRequestMixin,
-          m = d.code,
-          p = d.text;
-        throw new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(m), p);
-      }
-      var _ = await o(
-        "WASmaxInUserNoticeSetResponseServerError",
-      ).parseSetResponseServerError(i, a);
-      if (_.success) {
-        var f = _.value.errorIQErrorInternalServerErrorMixin,
-          g = f.code,
-          h = f.text;
-        throw new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(g), h);
-      }
-      return Promise.resolve(!1);
+    var e,
+      s = {
+        0: "UNKNOWN",
+        1: "UNKNOWN",
+        2: "UNKNOWN",
+        3: "UNKNOWN",
+        4: "UNKNOWN",
+        5: "ACCEPTED",
+      };
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    l.SetUserNoticeStageQueryJob = s;
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var a = { stageMixinArgs: { noticeId: t, noticeStage: r } },
+            i = o("WASmaxOutUserNoticeSetRequest").makeSetRequest(a),
+            l = yield o("WAComms").sendSmaxStanza(i),
+            u = yield o(
+              "WASmaxInUserNoticeSetResponseSuccess",
+            ).parseSetResponseSuccess(l, i);
+          if (u.success) {
+            var c = o("WATimeUtils").unixTime(),
+              d = s[r];
+            return (
+              o("WAWebTos").TosManager.setState(t.toString(), d, c),
+              (e || (e = n("Promise"))).resolve(!0)
+            );
+          }
+          var m = yield o(
+            "WASmaxInUserNoticeSetResponseClientError",
+          ).parseSetResponseClientError(l, i);
+          if (m.success) {
+            var p = m.value.errorIQErrorBadRequestMixin,
+              _ = p.code,
+              f = p.text;
+            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              Number(_),
+              f,
+            );
+          }
+          var g = yield o(
+            "WASmaxInUserNoticeSetResponseServerError",
+          ).parseSetResponseServerError(l, i);
+          if (g.success) {
+            var h = g.value.errorIQErrorInternalServerErrorMixin,
+              y = h.code,
+              C = h.text;
+            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+              Number(y),
+              C,
+            );
+          }
+          return (e || (e = n("Promise"))).resolve(!1);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    l.SetUserNoticeStageQueryJob = u;
   },
   98,
 );

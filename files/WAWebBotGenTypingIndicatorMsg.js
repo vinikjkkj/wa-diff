@@ -7,6 +7,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "bot_typing_placeholder";
@@ -32,30 +33,38 @@ __d(
         t.type === o("WAWebMsgType").MSG_TYPE.CHAT
       );
     }
-    async function d(e) {
-      var t;
-      if (o("WAWebBotBaseGating").isBotEnabled()) {
-        var n = e.id;
-        if (
-          !(
-            n instanceof r("WAWebWid") &&
-            !n.isBot() &&
-            !((t = e.contact.businessProfile) != null && t.isBizBot3p)
-          )
-        ) {
-          var a = new (r("WAWebMsgKey"))({
-            fromMe: !1,
-            remote: n,
-            id: r("WAWebMsgKey").newId_DEPRECATED(),
-          });
-          o("WAWebBackendApi").frontendFireAndForget(
-            "addInitialBotTypingIndicatorToChat",
-            { chatId: n, msgKey: a },
-          );
-        }
-      }
+    function d(e) {
+      return m.apply(this, arguments);
     }
     function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          if (o("WAWebBotBaseGating").isBotEnabled()) {
+            var n = e.id;
+            if (
+              !(
+                n instanceof r("WAWebWid") &&
+                !n.isBot() &&
+                !((t = e.contact.businessProfile) != null && t.isBizBot3p)
+              )
+            ) {
+              var a = new (r("WAWebMsgKey"))({
+                fromMe: !1,
+                remote: n,
+                id: r("WAWebMsgKey").newId_DEPRECATED(),
+              });
+              o("WAWebBackendApi").frontendFireAndForget(
+                "addInitialBotTypingIndicatorToChat",
+                { chatId: n, msgKey: a },
+              );
+            }
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "bonsai_ti_timeout_duration_ms",
       );
@@ -64,7 +73,7 @@ __d(
     ((l.BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE = e),
       (l.showBotTypingIndicator = s),
       (l.maybeGenBotTypingIndicatorMessage = u),
-      (l.getBotTypingIndicatorTimeout = m));
+      (l.getBotTypingIndicatorTimeout = p));
   },
   98,
 );

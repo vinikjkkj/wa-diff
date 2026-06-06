@@ -17,6 +17,7 @@ __d(
     "WAWebViewModeUtils",
     "WAWebWid",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -139,78 +140,89 @@ __d(
         ? o("WAWebCommonMsgUtils").EventType.AMBIENT
         : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
     }
-    async function c(t, n) {
-      var a,
-        i = t.id,
-        l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        u = t.id.isLid() ? s : l,
-        c = void 0;
-      if (o("WAWebChatGetters").getIsGroup(t)) {
-        var d;
-        if (
-          ((u =
-            ((d = t.groupMetadata) == null ? void 0 : d.isLidAddressingMode) ===
-            !0
-              ? s
-              : l),
-          (c = o("WAWebWidFactory").asUserWidOrThrow(u)),
-          o("WAWebCurrentUser").isEmployee())
-        ) {
-          var m;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "genOutgoingMsgData: generating key for group ",
-                ", has metadata: ",
-                `,
-          isLidAddressingMode: `,
-                ", participant: ",
-                "",
-              ])),
-            i.toString(),
-            t.groupMetadata != null,
-            (m = t.groupMetadata) == null ? void 0 : m.isLidAddressingMode,
-            c,
-          );
-        }
-      } else t.id.isStatus() && (c = l);
-      var p = new (r("WAWebMsgKey"))({
-          from: u,
-          to: i,
-          id: await r("WAWebMsgKey").newId(),
-          participant: c,
-          selfDir: "out",
-        }),
-        _ = (a = t.contact.businessProfile) == null ? void 0 : a.automatedType,
-        f;
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        _ &&
-          (f =
-            _ === o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P
-              ? o("WAWebBotTypes").BizBotType.BIZ_1P
-              : _ === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P
-                ? o("WAWebBotTypes").BizBotType.BIZ_3P
-                : _ === o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN
-                  ? null
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          _,
-                      );
-                    })()),
-        {
-          id: p,
-          from: u,
-          to: i,
-          type: n,
-          t: o("WATimeUtils").unixTime(),
-          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          isNewMsg: !0,
-          local: !0,
-          ack: o("WAWebAck").ACK.CLOCK,
-          bizBotType: f,
-        }
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a,
+            i = t.id,
+            l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            u = t.id.isLid() ? s : l,
+            c = void 0;
+          if (o("WAWebChatGetters").getIsGroup(t)) {
+            var d;
+            if (
+              ((u =
+                ((d = t.groupMetadata) == null
+                  ? void 0
+                  : d.isLidAddressingMode) === !0
+                  ? s
+                  : l),
+              (c = o("WAWebWidFactory").asUserWidOrThrow(u)),
+              o("WAWebCurrentUser").isEmployee())
+            ) {
+              var m;
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "genOutgoingMsgData: generating key for group ",
+                    ", has metadata: ",
+                    ",\n          isLidAddressingMode: ",
+                    ", participant: ",
+                    "",
+                  ])),
+                i.toString(),
+                t.groupMetadata != null,
+                (m = t.groupMetadata) == null ? void 0 : m.isLidAddressingMode,
+                c,
+              );
+            }
+          } else t.id.isStatus() && (c = l);
+          var p = new (r("WAWebMsgKey"))({
+              from: u,
+              to: i,
+              id: yield r("WAWebMsgKey").newId(),
+              participant: c,
+              selfDir: "out",
+            }),
+            _ =
+              (a = t.contact.businessProfile) == null
+                ? void 0
+                : a.automatedType,
+            f;
+          return (
+            _ &&
+              (f =
+                _ === o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P
+                  ? o("WAWebBotTypes").BizBotType.BIZ_1P
+                  : _ === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P
+                    ? o("WAWebBotTypes").BizBotType.BIZ_3P
+                    : _ === o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN
+                      ? null
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              _,
+                          );
+                        })()),
+            {
+              id: p,
+              from: u,
+              to: i,
+              type: n,
+              t: o("WATimeUtils").unixTime(),
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              isNewMsg: !0,
+              local: !0,
+              ack: o("WAWebAck").ACK.CLOCK,
+              bizBotType: f,
+            }
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
     ((l.eventTypeFromMsgType = s), (l.genOutgoingMsgData = c));

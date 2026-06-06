@@ -1,11 +1,17 @@
 __d(
   "WAWebMerchantPaymentPartnerSync",
-  ["WALogger", "WASyncdConst", "WAWebMobilePlatforms", "WAWebSyncdAction"],
+  [
+    "WALogger",
+    "WASyncdConst",
+    "WAWebMobilePlatforms",
+    "WAWebSyncdAction",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -15,41 +21,51 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.MerchantPaymentPartner;
           }),
-          (r.applyMutations = async function (n) {
-            return o("WAWebMobilePlatforms").isSMB() !== !0
-              ? (o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MerchantPaymentPartner] unsupported: not SMB",
-                    ])),
-                ),
-                n.map(function () {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Unsupported,
-                  };
-                }))
-              : (o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MerchantPaymentPartner] unsupported: ABProp failed",
-                    ])),
-                ),
-                n.map(function () {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Unsupported,
-                  };
-                }));
-          }),
-          n
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                return o("WAWebMobilePlatforms").isSMB() !== !0
+                  ? (o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[MerchantPaymentPartner] unsupported: not SMB",
+                        ])),
+                    ),
+                    t.map(function () {
+                      return {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      };
+                    }))
+                  : (o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[MerchantPaymentPartner] unsupported: ABProp failed",
+                        ])),
+                    ),
+                    t.map(function () {
+                      return {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      };
+                    }));
+              },
+            );
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       c = new u();

@@ -23,13 +23,14 @@ __d(
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWidFactory",
     "WAWebWidFormat",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c,
       d = (function (t) {
-        function n(n) {
+        function a(n) {
           var a,
             i = n.keepInChatMessage,
             l = n.onClick,
@@ -69,17 +70,17 @@ __d(
             a
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.shouldPlaySound = function () {
+          (i.shouldPlaySound = function () {
             if (!t.prototype.shouldPlaySound.call(this)) return !1;
             var e = o("WAWebFrontendMsgGetters").getChat(
               this.keepInChatMessage,
             );
             return o("WAWebNotificationHelpers").shouldPlaySoundGranular(e);
           }),
-          (a.shouldShowBanner = function () {
+          (i.shouldShowBanner = function () {
             if (!t.prototype.shouldShowBanner.call(this)) return !1;
             var e = o("WAWebFrontendMsgGetters").getChat(
               this.keepInChatMessage,
@@ -88,7 +89,7 @@ __d(
               "WAWebNotificationHelpers",
             ).shouldEnableNotificationGranular(e);
           }),
-          (a.shouldMute = function (t) {
+          (i.shouldMute = function (t) {
             var e;
             if (o("WAWebNotificationHelpers").shouldMuteDueToAppState(t))
               return r("WAWebNotificationMuteReason").AppState;
@@ -130,43 +131,65 @@ __d(
                       ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                       : null;
           }),
-          (a.buildKey = function () {
+          (i.buildKey = function () {
             return "kic:" + this.parentMessage.id.toString();
           }),
-          (a.matchesChat = function (t) {
+          (i.matchesChat = function (t) {
             return o("WAWebFrontendMsgGetters")
               .getChat(this.parentMessage)
               .equals(t);
           }),
-          (a.getChatKind = function () {
+          (i.getChatKind = function () {
             return o("WAWebFrontendChatGetters").getKind(
               o("WAWebFrontendMsgGetters").getChat(this.parentMessage),
             );
           }),
-          (a.performLogging = async function (n) {
-            (await t.prototype.performLogging.call(this, n),
-              o("WAWebNotificationsDailyUtils").incrementNotificationDailyCount(
-                o("WAWebNotificationsDailyUtils").NotificationDailyCountKind
-                  .KIC_NOTIFICATION,
-                r("WANullthrows")(this.getChatKind()),
-              ));
-          }),
-          (a.getNotificationDeliveryWamEventData = async function () {
-            return {
-              uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
-                .NOTIFICATION_TYPE_ENUM.KEEP_IN_CHAT,
-              triggeredByOfflineMessage:
-                this.keepInChatMessage.isOffline === !0,
-            };
-          }),
-          (a.getIcon = async function () {
-            var e = o("WAWebFrontendMsgGetters").getChat(this.parentMessage);
-            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-              e,
-              this.abortController.signal,
+          (i.performLogging = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                (yield t.prototype.performLogging.call(this, e),
+                  o(
+                    "WAWebNotificationsDailyUtils",
+                  ).incrementNotificationDailyCount(
+                    o("WAWebNotificationsDailyUtils").NotificationDailyCountKind
+                      .KIC_NOTIFICATION,
+                    r("WANullthrows")(this.getChatKind()),
+                  ));
+              },
             );
-          }),
-          (a.getBannerOptions = function () {
+            function a(t) {
+              return e.apply(this, arguments);
+            }
+            return a;
+          })()),
+          (i.getNotificationDeliveryWamEventData = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return {
+                uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
+                  .NOTIFICATION_TYPE_ENUM.KEEP_IN_CHAT,
+                triggeredByOfflineMessage:
+                  this.keepInChatMessage.isOffline === !0,
+              };
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getIcon = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = o("WAWebFrontendMsgGetters").getChat(this.parentMessage);
+              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+                e,
+                this.abortController.signal,
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getBannerOptions = function () {
             var e = o("WAWebFrontendMsgGetters").getChat(this.parentMessage),
               t = o("WAWebGetNotificationStrings").getNotificationBody(
                 babelHelpers.extends(
@@ -187,7 +210,7 @@ __d(
               onClick: this.$WAKeepInChatNotification$p_2,
             };
           }),
-          (a.afterBannerShown = function (t) {
+          (i.afterBannerShown = function (t) {
             var e = this;
             (this.parentMessage.set("kicNotified", !0),
               this.parentMessage.on(
@@ -207,7 +230,7 @@ __d(
                   ));
               }));
           }),
-          n
+          a
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     function m(e, t) {

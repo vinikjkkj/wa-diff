@@ -1,6 +1,7 @@
 __d(
   "WAWebDBThreadMetadataBulkHelper",
   [
+    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebMsgGetters",
@@ -9,88 +10,109 @@ __d(
     "WAWebThreadId",
     "WAWebThreadMetadataBulkJob",
     "WAWebThreadUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c;
-    async function d(t) {
-      if (t.length === 0) {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[persistNewMessagesThreadMetadataInBulk] no msgs",
-            ])),
-        );
-        return;
-      }
-      var n = t.flatMap(
-        o("WAWebThreadCommonModelUtils").getThreadDetailUpdatesFromMessage,
-      );
-      if (n.length === 0) {
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[persistNewMessagesThreadMetadataInBulk] no updates",
-            ])),
-        );
-        return;
-      }
-      await o("WAWebThreadMetadataBulkJob").bulkCreateOrUpdateThreadsMetadata(
-        n,
-      );
-      var r = n.filter(function (e) {
-        return e.threadId.type === o("WAWebThreadUtils").ThreadType.AiThread;
-      });
-      r.length > 0 &&
-        (await o("WAWebBackendApi").frontendSendAndReceive(
-          "updateChatAiThreads",
-          { aiThreads: r },
-        ));
-      var a = n.filter(function (e) {
-        return (
-          e.threadId.type === o("WAWebThreadUtils").ThreadType.ViewAllReplies
-        );
-      });
-      a.length > 0 &&
-        (await o("WAWebBackendApi").frontendSendAndReceive(
-          "updateChatViewRepliesThreads",
-          { viewRepliesThreads: a },
-        ));
-      var i = m(t);
-      if (i.length > 0) {
-        var l = await o(
-          "WAWebThreadMetadataBulkJob",
-        ).bulkIncrementThreadUnreadCount(i);
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[persistNewMessagesThreadMetadataInBulk] unread++ ",
-              "",
-            ])),
-          i.length,
-        );
-        var d = p(l, n);
-        await Promise.all(
-          Array.from(d.values()).map(async function (e) {
-            var t = e.chatId,
-              n = e.unreadCounts;
-            return await o("WAWebBackendApi").frontendSendAndReceive(
-              "updateAiThreadUnreadCounts",
-              { chatId: t, unreadCounts: n },
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t.length === 0) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[persistNewMessagesThreadMetadataInBulk] no msgs",
+                ])),
             );
-          }),
-        );
-      }
-      o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose([
-            "[persistNewMessagesThreadMetadataInBulk] done ",
-            " msgs",
-          ])),
-        t.length,
+            return;
+          }
+          var r = t.flatMap(
+            o("WAWebThreadCommonModelUtils").getThreadDetailUpdatesFromMessage,
+          );
+          if (r.length === 0) {
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[persistNewMessagesThreadMetadataInBulk] no updates",
+                ])),
+            );
+            return;
+          }
+          yield o(
+            "WAWebThreadMetadataBulkJob",
+          ).bulkCreateOrUpdateThreadsMetadata(r);
+          var a = r.filter(function (e) {
+            return (
+              e.threadId.type === o("WAWebThreadUtils").ThreadType.AiThread
+            );
+          });
+          a.length > 0 &&
+            (yield o("WAWebBackendApi").frontendSendAndReceive(
+              "updateChatAiThreads",
+              { aiThreads: a },
+            ));
+          var i = r.filter(function (e) {
+            return (
+              e.threadId.type ===
+              o("WAWebThreadUtils").ThreadType.ViewAllReplies
+            );
+          });
+          i.length > 0 &&
+            (yield o("WAWebBackendApi").frontendSendAndReceive(
+              "updateChatViewRepliesThreads",
+              { viewRepliesThreads: i },
+            ));
+          var l = _(t);
+          if (l.length > 0) {
+            var m = yield o(
+              "WAWebThreadMetadataBulkJob",
+            ).bulkIncrementThreadUnreadCount(l);
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[persistNewMessagesThreadMetadataInBulk] unread++ ",
+                  "",
+                ])),
+              l.length,
+            );
+            var p = f(m, r);
+            yield (d || (d = n("Promise"))).all(
+              Array.from(p.values()).map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e.chatId,
+                        n = e.unreadCounts;
+                      return yield o("WAWebBackendApi").frontendSendAndReceive(
+                        "updateAiThreadUnreadCounts",
+                        { chatId: t, unreadCounts: n },
+                      );
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            );
+          }
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[persistNewMessagesThreadMetadataInBulk] done ",
+                " msgs",
+              ])),
+            t.length,
+          );
+        })),
+        p.apply(this, arguments)
       );
     }
-    function m(e) {
+    function _(e) {
       var t = new Map();
       for (var n of e) {
         var a = r("WAWebMsgKey").from(n.id),
@@ -116,7 +138,7 @@ __d(
         };
       });
     }
-    function p(e, t) {
+    function f(e, t) {
       var n = new Map();
       for (var r of t)
         r.threadId.type === o("WAWebThreadUtils").ThreadType.AiThread &&
@@ -140,7 +162,7 @@ __d(
       }
       return a;
     }
-    l.persistNewMessagesThreadMetadataInBulk = d;
+    l.persistNewMessagesThreadMetadataInBulk = m;
   },
   98,
 );

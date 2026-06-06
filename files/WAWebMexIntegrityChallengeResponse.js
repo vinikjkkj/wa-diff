@@ -1,6 +1,10 @@
 __d(
   "WAWebMexIntegrityChallengeResponse",
-  ["WAWebMexClient", "WAWebMexIntegrityChallengeResponseMutation.graphql"],
+  [
+    "WAWebMexClient",
+    "WAWebMexIntegrityChallengeResponseMutation.graphql",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = "PASSKEY",
@@ -8,18 +12,26 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexIntegrityChallengeResponseMutation.graphql"));
-    async function c(e) {
-      var t = {
-          input: {
-            challenge_type: s,
-            passkey_response: {
-              signed_challenge: btoa(JSON.stringify(e)),
-              prf_available: e.prf_output != null,
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = {
+              input: {
+                challenge_type: s,
+                passkey_response: {
+                  signed_challenge: btoa(JSON.stringify(e)),
+                  prf_available: e.prf_output != null,
+                },
+              },
             },
-          },
-        },
-        n = await o("WAWebMexClient").fetchQuery(u, t);
-      return n.xwa2_submit_integrity_challenge_response;
+            n = yield o("WAWebMexClient").fetchQuery(u, t);
+          return n.xwa2_submit_integrity_challenge_response;
+        })),
+        d.apply(this, arguments)
+      );
     }
     l.mexSubmitPasskeyChallengeResponse = c;
   },

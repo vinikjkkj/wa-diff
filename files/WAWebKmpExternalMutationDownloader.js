@@ -6,6 +6,7 @@ __d(
     "WAWebKmpKotlinUtils",
     "WAWebKmpSyncdCollectionNameUtils",
     "WAWebSyncdNetCallbacksApi",
+    "asyncToGeneratorRuntime",
     "wa-kmp-syncd-engine-api",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,13 +26,13 @@ __d(
       };
     }
     var c = {
-      downloadSnapshot: function (n, r) {
+      downloadSnapshot: function (r, a) {
         return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t = o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(
-                n,
+                r,
               ),
-              a = u(r);
+              n = u(a);
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -40,24 +41,24 @@ __d(
                 ])),
               t,
             );
-            var i = await o("WAWebSyncdNetCallbacksApi").downloadSyncBlob(
-              a,
+            var i = yield o("WAWebSyncdNetCallbacksApi").downloadSyncBlob(
+              n,
               "snapshot",
               t,
             );
             return new (o("wa-kmp-syncd-engine-api").KmpSyncdSnapshot)(
               o("WAWebKmpKotlinUtils").asKmpByteArray(i),
             );
-          },
+          }),
         );
       },
-      downloadMutations: function (t, n) {
+      downloadMutations: function (t, r) {
         return o("WAWebKmpBridgeResultWrappers").wrapInterfaceKmpSuccess(
-          async function () {
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = o("WAWebKmpSyncdCollectionNameUtils").asWebCollectionName(
                 t,
               ),
-              r = u(n);
+              n = u(r);
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -66,8 +67,8 @@ __d(
                 ])),
               e,
             );
-            var a = await o("WAWebSyncdNetCallbacksApi").downloadSyncBlob(
-              r,
+            var a = yield o("WAWebSyncdNetCallbacksApi").downloadSyncBlob(
+              n,
               "patch",
               e,
             );
@@ -76,7 +77,7 @@ __d(
             ).KmpServerSyncMutations.fromRawBytes(
               o("WAWebKmpKotlinUtils").asKmpByteArray(a),
             );
-          },
+          }),
         );
       },
     };

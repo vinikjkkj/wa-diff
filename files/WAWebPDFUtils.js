@@ -13,6 +13,7 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebMiscErrors",
     "WAWebPDFWorkerSrc",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -46,27 +47,27 @@ __d(
       return e.destroy();
     }
     function c(e, t) {
-      var n = document.createElement("canvas");
+      var a = document.createElement("canvas");
       return e
         .getPage(t)
         .then(function (e) {
           var t = e.getViewport({ scale: 1 }),
-            r = n.getContext("2d");
-          ((n.height = t.height), (n.width = t.width));
-          var o = { canvasContext: r, viewport: t };
-          return e.render(o).promise;
+            n = a.getContext("2d");
+          ((a.height = t.height), (a.width = t.width));
+          var r = { canvasContext: n, viewport: t };
+          return e.render(r).promise;
         })
         .then(function () {
           var e;
           return o("WAPromiseProps").promiseProps({
-            blob: o("WAWebCanvasUtils").canvasToBlob(n),
+            blob: o("WAWebCanvasUtils").canvasToBlob(a),
             thumbnail: (e = o("WAWebImageUtils")).rotateAndResize(
-              n,
+              a,
               o("WAWebMediaConstants").DOC_THUMB_MAX_EDGE,
               e.DATA_URL | e.CANVAS | e.BLOB,
             ),
             microThumbnail: o("WAWebCanvasUtils").generateMicroThumb(
-              n,
+              a,
               o("WAWebABProps").getABPropConfigValue(
                 "web_pdf_thumbnail_size_in_bytes",
               ),
@@ -77,30 +78,38 @@ __d(
         .then(function (e) {
           return e;
         })
-        .then(async function (t) {
-          var n = t.blob,
-            a = t.microThumbnail,
-            i = t.thumbnail,
-            l = i.images,
-            s = l.blob,
-            u = l.canvas,
-            c = l.dataUrl;
-          if (u == null || s == null || c == null)
-            throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
-          return {
-            url: URL.createObjectURL(n),
-            thumbUrl: c,
-            width: u.width,
-            height: u.height,
-            fullPreviewData: await r("WAWebMediaOpaqueData").createFromData(
-              s,
-              "image/jpeg",
-            ),
-            fullPreviewSize: { width: u.width, height: u.height },
-            pdfPages: e.numPages,
-            microThumbnail: a,
-          };
-        });
+        .then(
+          (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = t.blob,
+                  a = t.microThumbnail,
+                  i = t.thumbnail,
+                  l = i.images,
+                  s = l.blob,
+                  u = l.canvas,
+                  c = l.dataUrl;
+                if (u == null || s == null || c == null)
+                  throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+                return {
+                  url: URL.createObjectURL(n),
+                  thumbUrl: c,
+                  width: u.width,
+                  height: u.height,
+                  fullPreviewData: yield r(
+                    "WAWebMediaOpaqueData",
+                  ).createFromData(s, "image/jpeg"),
+                  fullPreviewSize: { width: u.width, height: u.height },
+                  pdfPages: e.numPages,
+                  microThumbnail: a,
+                };
+              },
+            );
+            return function (e) {
+              return t.apply(this, arguments);
+            };
+          })(),
+        );
     }
     ((l.fileToPdf = s), (l.releasePdf = u), (l.pdfToImg = c));
   },

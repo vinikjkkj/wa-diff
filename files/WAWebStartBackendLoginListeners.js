@@ -5,6 +5,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebCoreActionsODS",
     "WAWebJestE2ELogUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -17,7 +18,7 @@ __d(
     }
     function u() {
       o("WAWebBackendEventBus").BackendEventBus.onStorageInitializationError(
-        async function () {
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -25,7 +26,7 @@ __d(
               ])),
           ),
             s());
-        },
+        }),
       );
     }
     ((l.handleStorageInitError = s), (l.setupStartBackendLoginListeners = u));

@@ -2,6 +2,7 @@ __d(
   "WAWebManageActions",
   [
     "fbt",
+    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
@@ -19,6 +20,7 @@ __d(
     "WAWebQplFlowWrapper",
     "WAWebToast.react",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "qpl",
     "react",
@@ -27,54 +29,67 @@ __d(
     var e,
       u,
       c,
-      d = c || (c = o("react")),
-      m = r("qpl")._(774774122, "3441"),
-      p = r("qpl")._(774778628, "3442"),
-      _ = r("qpl")._(774777483, "3443"),
-      f = r("qpl")._(774776895, "3444");
-    async function g(e, t, n) {
-      try {
-        return (
-          await o("WAWebBizProductCatalogAction").deleteProducts([
-            t.id.toString(),
-          ]),
-          o("WAWebProductCatalogLogEvents").logDeleteProductSuccess(t, 1, n),
-          e.productCollection.evictImagesFromCache(t.id.toString()),
-          e.productCollection.remove(t.id.toString()),
-          e.collections &&
-            e.collections.forEach(function (e) {
-              return e.productCollection.remove(t.id.toString());
-            }),
-          !0
-        );
-      } catch (e) {
-        if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError)
-          return (
-            o("WAWebProductCatalogLogEvents").logDeleteProductFailed(
-              t,
-              1,
-              n,
-              e.statusCode,
-            ),
-            o("WAWebToastManager").ToastManager.open(
-              d.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(/*BTDS*/ "Failed to delete product"),
-                id: o("WAWebToast.react").genId(
-                  "catalog_delete_product_failed",
-                ),
-              }),
-            ),
-            !1
-          );
-        throw e;
-      }
+      d,
+      m = d || (d = o("react")),
+      p = r("qpl")._(774774122, "3441"),
+      _ = r("qpl")._(774778628, "3442"),
+      f = r("qpl")._(774777483, "3443"),
+      g = r("qpl")._(774776895, "3444");
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h(e, t, n, a) {
+    function y() {
       return (
-        o("WAWebProductCatalogLogEvents").logDeleteProductClick(t, 1, n),
-        new Promise(function (i, l) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          try {
+            return (
+              yield o("WAWebBizProductCatalogAction").deleteProducts([
+                t.id.toString(),
+              ]),
+              o("WAWebProductCatalogLogEvents").logDeleteProductSuccess(
+                t,
+                1,
+                n,
+              ),
+              e.productCollection.evictImagesFromCache(t.id.toString()),
+              e.productCollection.remove(t.id.toString()),
+              e.collections &&
+                e.collections.forEach(function (e) {
+                  return e.productCollection.remove(t.id.toString());
+                }),
+              !0
+            );
+          } catch (e) {
+            if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError)
+              return (
+                o("WAWebProductCatalogLogEvents").logDeleteProductFailed(
+                  t,
+                  1,
+                  n,
+                  e.statusCode,
+                ),
+                o("WAWebToastManager").ToastManager.open(
+                  m.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(/*BTDS*/ "Failed to delete product"),
+                    id: o("WAWebToast.react").genId(
+                      "catalog_delete_product_failed",
+                    ),
+                  }),
+                ),
+                !1
+              );
+            throw e;
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, a, i) {
+      return (
+        o("WAWebProductCatalogLogEvents").logDeleteProductClick(t, 1, a),
+        new (c || (c = n("Promise")))(function (n, l) {
           o("WAWebModalManager").ModalManager.open(
-            d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+            m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               tsNavigationData: {
                 surface: "unknown",
                 viewName: "manage-catalog",
@@ -85,21 +100,21 @@ __d(
               cancelText: s._(/*BTDS*/ "Cancel"),
               onOK: function () {
                 (o("WAWebModalManager").ModalManager.close(),
-                  o("WAWebQplFlowWrapper").QPL.markerStart(m, {
-                    annotations: { string: { EntryPoint: a } },
+                  o("WAWebQplFlowWrapper").QPL.markerStart(p, {
+                    annotations: { string: { EntryPoint: i } },
                   }),
-                  g(e, t, n)
+                  h(e, t, a)
                     .then(function (e) {
-                      (o("WAWebQplFlowWrapper").QPL.markerEnd(m, 2), i(e));
+                      (o("WAWebQplFlowWrapper").QPL.markerEnd(p, 2), n(e));
                     })
                     .catch(function (e) {
-                      (o("WAWebQplFlowWrapper").QPL.markerEnd(m, 3), l(e));
+                      (o("WAWebQplFlowWrapper").QPL.markerEnd(p, 3), l(e));
                     }));
               },
               onCancel: function () {
-                (o("WAWebModalManager").ModalManager.close(), i(!1));
+                (o("WAWebModalManager").ModalManager.close(), n(!1));
               },
-              children: d.jsx("div", {
+              children: m.jsx("div", {
                 children: s._(
                   /*BTDS*/ "Are you sure you want to delete this item from your catalog?",
                 ),
@@ -109,35 +124,43 @@ __d(
         })
       );
     }
-    async function y(e, t) {
-      (await o("WAWebBizProductCatalogBridge").productVisibilitySet(
-        t.id.toString(),
-        !t.isHidden,
-      ),
-        (t.isHidden = !t.isHidden));
-      var n = [e.productCollection].concat(
-        (e.collections || []).map(function (e) {
-          return e.productCollection;
-        }),
-      );
-      n.forEach(function (e) {
-        var n = e.get(t.id);
-        n && (n.isHidden = t.isHidden);
-      });
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function C(e, t, n, a) {
-      var i = t.id.toString(),
-        l = !t.isHidden;
+    function v() {
       return (
-        l
-          ? o("WAWebProductCatalogLogEvents").logCatalogProductHideClick(i, n)
-          : o("WAWebProductCatalogLogEvents").logCatalogProductShowClick(i, n),
-        new Promise(function (u, c) {
-          var m = t.isHidden
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (yield o("WAWebBizProductCatalogBridge").productVisibilitySet(
+            t.id.toString(),
+            !t.isHidden,
+          ),
+            (t.isHidden = !t.isHidden));
+          var n = [e.productCollection].concat(
+            (e.collections || []).map(function (e) {
+              return e.productCollection;
+            }),
+          );
+          n.forEach(function (e) {
+            var n = e.get(t.id);
+            n && (n.isHidden = t.isHidden);
+          });
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e, t, a, i) {
+      var l = t.id.toString(),
+        u = !t.isHidden;
+      return (
+        u
+          ? o("WAWebProductCatalogLogEvents").logCatalogProductHideClick(l, a)
+          : o("WAWebProductCatalogLogEvents").logCatalogProductShowClick(l, a),
+        new (c || (c = n("Promise")))(function (n, c) {
+          var d = t.isHidden
             ? s._(/*BTDS*/ "Show item in your catalog?")
             : s._(/*BTDS*/ "Hide item in your catalog?");
           o("WAWebModalManager").ModalManager.open(
-            d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+            m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               tsNavigationData: {
                 surface: "unknown",
                 viewName: "manage-catalog",
@@ -145,72 +168,80 @@ __d(
               okText: r("WAWebFbtCommon")("OK"),
               cancelText: s._(/*BTDS*/ "Cancel"),
               onOK: function () {
-                (o("WAWebQplFlowWrapper").QPL.markerStart(p, {
-                  annotations: { string: { EntryPoint: a } },
+                (o("WAWebQplFlowWrapper").QPL.markerStart(_, {
+                  annotations: { string: { EntryPoint: i } },
                 }),
                   o("WAWebModalManager").ModalManager.close(),
-                  y(e, t)
+                  b(e, t)
                     .then(function () {
-                      (o("WAWebQplFlowWrapper").QPL.markerEnd(p, 2),
-                        l
+                      (o("WAWebQplFlowWrapper").QPL.markerEnd(_, 2),
+                        u
                           ? o(
                               "WAWebProductCatalogLogEvents",
-                            ).logCatalogProductHideSuccess(i, n)
+                            ).logCatalogProductHideSuccess(l, a)
                           : o(
                               "WAWebProductCatalogLogEvents",
-                            ).logCatalogProductShowSuccess(i, n),
-                        u(!0));
+                            ).logCatalogProductShowSuccess(l, a),
+                        n(!0));
                     })
                     .catch(function (e) {
-                      (o("WAWebQplFlowWrapper").QPL.markerEnd(p, 3),
-                        l
+                      (o("WAWebQplFlowWrapper").QPL.markerEnd(_, 3),
+                        u
                           ? o(
                               "WAWebProductCatalogLogEvents",
-                            ).logCatalogProductHideFailed(i, n)
+                            ).logCatalogProductHideFailed(l, a)
                           : o(
                               "WAWebProductCatalogLogEvents",
-                            ).logCatalogProductShowFailed(i, n),
+                            ).logCatalogProductShowFailed(l, a),
                         c(e));
                     }));
               },
               onCancel: function () {
                 (o("WAWebModalManager").ModalManager.close(),
-                  l
+                  u
                     ? o(
                         "WAWebProductCatalogLogEvents",
-                      ).logCatalogProductHideCancelled(i, n)
+                      ).logCatalogProductHideCancelled(l, a)
                     : o(
                         "WAWebProductCatalogLogEvents",
-                      ).logCatalogProductShowCancelled(i, n),
-                  u(!1));
+                      ).logCatalogProductShowCancelled(l, a),
+                  n(!1));
               },
-              children: d.jsx("div", { children: m }),
+              children: m.jsx("div", { children: d }),
             }),
           );
         })
       );
     }
-    async function b(e, t, n) {
-      (await o("WAWebProductCollectionsJob").deleteCollection(
-        t.id.toString(),
-        n.session.sessionId.toString(),
-      ),
-        e.collections.remove(t.id.toString()),
-        o("WAWebProductCollectionLogEvents").logCollectionDeleted({
-          catalogContext: n,
-          collectionId: t.id,
-        }));
+    function R(e, t, n) {
+      return L.apply(this, arguments);
     }
-    function v(t, n, a) {
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          (yield o("WAWebProductCollectionsJob").deleteCollection(
+            t.id.toString(),
+            n.session.sessionId.toString(),
+          ),
+            e.collections.remove(t.id.toString()),
+            o("WAWebProductCollectionLogEvents").logCollectionDeleted({
+              catalogContext: n,
+              collectionId: t.id,
+            }));
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(t, n, a) {
       o("WAWebModalManager").ModalManager.open(
-        d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           tsNavigationData: { surface: "unknown", viewName: "manage-catalog" },
           title: s._(/*BTDS*/ "Delete collection"),
           okText: r("WAWebFbtCommon")("OK"),
           cancelText: s._(/*BTDS*/ "Cancel"),
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(),
-              b(t, n, a).catch(function (t) {
+              R(t, n, a).catch(function (t) {
                 return o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
                   function (t) {
@@ -227,7 +258,7 @@ __d(
                         .verbose()
                         .sendLogs("Deleteing collection failed"),
                       o("WAWebToastManager").ToastManager.open(
-                        d.jsx(o("WAWebToast.react").Toast, {
+                        m.jsx(o("WAWebToast.react").Toast, {
                           msg: s._(/*BTDS*/ "Failed to delete collection"),
                           id: o("WAWebToast.react").genId(
                             "catalog_delete_product_failed",
@@ -241,7 +272,7 @@ __d(
               }));
           },
           onCancel: o("WAWebModalManager").closeModalManager,
-          children: d.jsx("div", {
+          children: m.jsx("div", {
             children: s._(
               /*BTDS*/ "When you delete this collection, items in the collection will not be deleted.",
             ),
@@ -249,10 +280,10 @@ __d(
         }),
       );
     }
-    function S(e, t, n, r, a, i) {
+    function k(e, t, n, r, a, i) {
       var l;
       return (
-        o("WAWebQplFlowWrapper").QPL.markerPoint(_, "datasource_start"),
+        o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_start"),
         t
           ? (l = o("WAWebProductCollectionsJob")
               .editCollection(
@@ -270,7 +301,7 @@ __d(
               )
               .then(function (i) {
                 return (
-                  o("WAWebQplFlowWrapper").QPL.markerPoint(_, "datasource_end"),
+                  o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_end"),
                   (t.name = n),
                   (t.reviewStatus = i.reviewStatus),
                   e.collections.replaceId(t.id, i.id),
@@ -292,7 +323,7 @@ __d(
               )
               .then(function (t) {
                 return (
-                  o("WAWebQplFlowWrapper").QPL.markerPoint(_, "datasource_end"),
+                  o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_end"),
                   o("WAWebProductCollectionLogEvents").logCollectionCreated({
                     catalogContext: i,
                     productCount: r.length,
@@ -305,7 +336,7 @@ __d(
         l.catch(function (e) {
           var t = function (t) {
               o("WAWebToastManager").ToastManager.open(
-                d.jsx(o("WAWebToast.react").Toast, {
+                m.jsx(o("WAWebToast.react").Toast, {
                   msg: t,
                   id: o("WAWebToast.react").genId(
                     "catalog_save_collection_failed",
@@ -347,20 +378,28 @@ __d(
         })
       );
     }
-    async function R(e, t) {
-      (o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_start"),
-        await o("WAWebProductCollectionsJob").appealCollection(
-          e.id.toString(),
-          t,
-        ),
-        e.set({
-          canAppeal: !1,
-          reviewStatus: o("WAWebProductCollection").PRODUCT_REVIEW_STATUS
-            .PENDING,
-        }),
-        o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_end"));
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    var L = {
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (o("WAWebQplFlowWrapper").QPL.markerPoint(g, "datasource_start"),
+            yield o("WAWebProductCollectionsJob").appealCollection(
+              e.id.toString(),
+              t,
+            ),
+            e.set({
+              canAppeal: !1,
+              reviewStatus: o("WAWebProductCollection").PRODUCT_REVIEW_STATUS
+                .PENDING,
+            }),
+            o("WAWebQplFlowWrapper").QPL.markerPoint(g, "datasource_end"));
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    var D = {
         OUT_OF_SYNC: {
           getTitle: function () {
             return s._(/*BTDS*/ "Changes cannot be saved");
@@ -397,56 +436,65 @@ __d(
           },
         },
       },
-      E = function (t) {
+      x = function (t) {
         return t instanceof o("WAWebHttpErrors").HttpNetworkError
-          ? L.HTTP_NETWORK_ERROR
+          ? D.HTTP_NETWORK_ERROR
           : t instanceof o("WAWebBackendErrors").CollectionReorderError
-            ? L.OUT_OF_SYNC
-            : L.SERVER_ERROR;
+            ? D.OUT_OF_SYNC
+            : D.SERVER_ERROR;
       };
-    async function k(e, t) {
-      try {
-        var n = await o("WAWebProductCollectionsJob").reorderCollection(e);
-        return (
-          n &&
-            o("WAWebProductCollectionLogEvents").logCollectionReorder({
-              catalogContext: t,
-              movesCount: e.length,
-            }),
-          n
-        );
-      } catch (e) {
-        var a = r("getErrorSafe")(e),
-          i = a instanceof o("WAWebHttpErrors").HttpNetworkError,
-          l = E(a),
-          s = l.getDescription,
-          u = l.getOkText,
-          c = l.getTitle;
-        return new Promise(function (e, t) {
-          o("WAWebModalManager").ModalManager.open(
-            d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: {
-                surface: "unknown",
-                viewName: "manage-catalog",
-              },
-              title: c(),
-              okText: u(),
-              onOK: function () {
-                (o("WAWebModalManager").ModalManager.close(), i ? t(a) : e(!1));
-              },
-              children: d.jsx("div", { children: s() }),
-            }),
-            { blockClose: !0 },
-          );
-        });
-      }
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    ((l.handleProductDelete = h),
-      (l.handleProductVisibilityChange = C),
-      (l.handleCollectionDelete = v),
-      (l.handleCollectionSave = S),
-      (l.handleCollectionAppeal = R),
-      (l.handleCollectionReorder = k));
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var a = yield o("WAWebProductCollectionsJob").reorderCollection(e);
+            return (
+              a &&
+                o("WAWebProductCollectionLogEvents").logCollectionReorder({
+                  catalogContext: t,
+                  movesCount: e.length,
+                }),
+              a
+            );
+          } catch (e) {
+            var i = r("getErrorSafe")(e),
+              l = i instanceof o("WAWebHttpErrors").HttpNetworkError,
+              s = x(i),
+              u = s.getDescription,
+              d = s.getOkText,
+              p = s.getTitle;
+            return new (c || (c = n("Promise")))(function (e, t) {
+              o("WAWebModalManager").ModalManager.open(
+                m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                  tsNavigationData: {
+                    surface: "unknown",
+                    viewName: "manage-catalog",
+                  },
+                  title: p(),
+                  okText: d(),
+                  onOK: function () {
+                    (o("WAWebModalManager").ModalManager.close(),
+                      l ? t(i) : e(!1));
+                  },
+                  children: m.jsx("div", { children: u() }),
+                }),
+                { blockClose: !0 },
+              );
+            });
+          }
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    ((l.handleProductDelete = C),
+      (l.handleProductVisibilityChange = S),
+      (l.handleCollectionDelete = E),
+      (l.handleCollectionSave = k),
+      (l.handleCollectionAppeal = I),
+      (l.handleCollectionReorder = $));
   },
   226,
 );

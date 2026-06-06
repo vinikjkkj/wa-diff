@@ -12,97 +12,115 @@ __d(
     "WAWebKmpSyncdServiceLocator",
     "WAWebRunInTransaction",
     "WAWebSyncdRequestBuilderUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u, c;
-    async function d(t, n) {
-      try {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "kmp: buildOutgoingRequestWithKmp starts",
-            ])),
-        );
-        var r = await o("WAWebKmpSyncdServiceLocator").getOutgoingProcessor(),
-          a = o("WAWebKmpKotlinUtils").asMap(
-            o("WAWebKmpSyncdResultUtils").kmpResultGetOrThrow(
-              await r.getMutationsByCollectionReadyToSync(),
-            ),
-          ),
-          i = await o(
-            "WAWebGetPendingMutation",
-          ).getSyncdCollectionsWithPendingMutationsInTransaction(),
-          l = m(t, a, i),
-          d = l.collectionsToRefetch,
-          f = l.collectionWithPendingMutationsIds,
-          g = l.compactedIds,
-          h = l.mutationsToSync;
-        g.length > 0 &&
-          (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: kmp: removing ",
-                " compacted pending mutations",
-              ])),
-            g.length,
-          ),
-          await o("WAWebRunInTransaction").runInTransaction(
-            { PendingMutationStore: !0 },
-            async function (e) {
-              var t = e.PendingMutationStore;
-              await t.bulkRemove(g);
-            },
-          ));
-        var y = o("WAWebKmpKotlinUtils").asArray(
-            o("WAWebKmpSyncdResultUtils").kmpResultGetOrThrow(
-              await r.processOutgoingMutations(
-                o("WAWebKmpKotlinUtils").asKtMap(h),
-                !1,
-              ),
-            ),
-          ),
-          C = p(y, d),
-          b = C.collectionNodes,
-          v = C.collectionToLtHash,
-          S = C.collectionWithEncryptedMutations,
-          R = C.localCollectionVersions,
-          L = C.wamBundles,
-          E = C.wamSummaries;
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "kmp: buildOutgoingRequestWithKmp ends",
-            ])),
-        );
-        var k = o("WAWap").generateId();
-        return {
-          syncIqNode: _(b, k),
-          collectionWithEncryptedMutations: S,
-          localCollectionVersions: R,
-          collectionsToRefetch: Array.from(d),
-          collectionWithPendingMutationsIds: f,
-          kmpOutgoingContext: {
-            iqId: k,
-            collectionToMutations: h,
-            collectionToLtHash: v,
-            wamBundles: L,
-            wamSummaries: E,
-          },
-        };
-      } catch (e) {
-        throw (
-          o("WALogger").ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: error when preparing outgoing syncd request",
-              ])),
-          ),
-          e
-        );
-      }
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function m(e, t, n) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          try {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "kmp: buildOutgoingRequestWithKmp starts",
+                ])),
+            );
+            var a = yield o(
+                "WAWebKmpSyncdServiceLocator",
+              ).getOutgoingProcessor(),
+              i = o("WAWebKmpKotlinUtils").asMap(
+                o("WAWebKmpSyncdResultUtils").kmpResultGetOrThrow(
+                  yield a.getMutationsByCollectionReadyToSync(),
+                ),
+              ),
+              l = yield o(
+                "WAWebGetPendingMutation",
+              ).getSyncdCollectionsWithPendingMutationsInTransaction(),
+              d = p(t, i, l),
+              m = d.collectionsToRefetch,
+              g = d.collectionWithPendingMutationsIds,
+              h = d.compactedIds,
+              y = d.mutationsToSync;
+            h.length > 0 &&
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: kmp: removing ",
+                    " compacted pending mutations",
+                  ])),
+                h.length,
+              ),
+              yield o("WAWebRunInTransaction").runInTransaction(
+                { PendingMutationStore: !0 },
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e.PendingMutationStore;
+                      yield t.bulkRemove(h);
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ));
+            var C = o("WAWebKmpKotlinUtils").asArray(
+                o("WAWebKmpSyncdResultUtils").kmpResultGetOrThrow(
+                  yield a.processOutgoingMutations(
+                    o("WAWebKmpKotlinUtils").asKtMap(y),
+                    !1,
+                  ),
+                ),
+              ),
+              b = _(C, m),
+              v = b.collectionNodes,
+              S = b.collectionToLtHash,
+              R = b.collectionWithEncryptedMutations,
+              L = b.localCollectionVersions,
+              E = b.wamBundles,
+              k = b.wamSummaries;
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "kmp: buildOutgoingRequestWithKmp ends",
+                ])),
+            );
+            var I = o("WAWap").generateId();
+            return {
+              syncIqNode: f(v, I),
+              collectionWithEncryptedMutations: R,
+              localCollectionVersions: L,
+              collectionsToRefetch: Array.from(m),
+              collectionWithPendingMutationsIds: g,
+              kmpOutgoingContext: {
+                iqId: I,
+                collectionToMutations: y,
+                collectionToLtHash: S,
+                wamBundles: E,
+                wamSummaries: k,
+              },
+            };
+          } catch (e) {
+            throw (
+              o("WALogger").ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: error when preparing outgoing syncd request",
+                  ])),
+              ),
+              e
+            );
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t, n) {
       var r = new Map(),
         a = new Set(),
         i = new Map(),
@@ -141,7 +159,7 @@ __d(
         }
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = new Map(),
         r = new Map(),
         a = new Map(),
@@ -189,7 +207,7 @@ __d(
         wamSummaries: l,
       };
     }
-    function _(e, t) {
+    function f(e, t) {
       return o("WAWap").wap(
         "iq",
         {
@@ -198,10 +216,10 @@ __d(
           type: "set",
           xmlns: "w:sync:app:state",
         },
-        o("WAWap").wap("sync", null, e.map(f)),
+        o("WAWap").wap("sync", null, e.map(g)),
       );
     }
-    function f(e) {
+    function g(e) {
       var t = e.collection,
         n = e.patchBlob,
         r = e.version;
@@ -214,10 +232,10 @@ __d(
             r != null ? r : o("WASyncdConst").DEFAULT_COLLECTION_VERSION,
           ),
         },
-        g(n),
+        h(n),
       );
     }
-    function g(e) {
+    function h(e) {
       return e ? o("WAWap").wap("patch", null, e) : null;
     }
     l.buildOutgoingRequestWithKmp = d;

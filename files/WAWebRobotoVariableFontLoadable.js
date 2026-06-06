@@ -6,18 +6,24 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebRobotoFontMode",
     "WAWebUA",
+    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useEffect,
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")("WDSLoadRobotoVariableFont")
-          .__setRef("WAWebRobotoVariableFontLoadable")
-          .load();
-        return e;
-      }, "WDSLoadRobotoVariableFont");
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WDSLoadRobotoVariableFont",
+          )
+            .__setRef("WAWebRobotoVariableFontLoadable")
+            .load();
+          return e;
+        }),
+        "WDSLoadRobotoVariableFont",
+      );
     function c() {
       var e = o("WAWebRobotoFontMode").getWDSRobotoMode();
       return e === 3 ||

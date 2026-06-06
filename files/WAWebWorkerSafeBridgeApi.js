@@ -2,6 +2,7 @@ __d(
   "WAWebWorkerSafeBridgeApi",
   [
     "JSResourceForInteraction",
+    "Promise",
     "WALogger",
     "WATaskScheduler",
     "WAWebBackendApi",
@@ -36,45 +37,56 @@ __d(
     "WAWebTosCountryGating",
     "WAWebTosGating",
     "WAWebUpdateMsgBizPrivacyStatusAction",
+    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      throw new TypeError('"' + e + '" is read-only');
-    }
-    var u = r("JSResourceForInteraction")("WAWebOptOutSyncJob").__setRef(
+    var e,
+      s,
+      u = r("JSResourceForInteraction")("WAWebOptOutSyncJob").__setRef(
         "WAWebWorkerSafeBridgeApi",
       ),
       c = r("JSResourceForInteraction")("WAWebChannelsForwardCounter").__setRef(
         "WAWebWorkerSafeBridgeApi",
       ),
       d = {
-        setProfilePicThumb: async function (t) {
-          var e = t.wid;
-          return o("WAWebBackendApi").frontendSendAndReceive(
-            "setProfilePicThumb",
-            { wid: e },
-          );
-        },
+        setProfilePicThumb: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.wid;
+            return o("WAWebBackendApi").frontendSendAndReceive(
+              "setProfilePicThumb",
+              { wid: t },
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         getPrivacyMode: function (t) {
           var e = t.id;
           return o(
             "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
           ).getPrivacyModeFromModel(e);
         },
-        updateBizPrivacyStatus: async function (t) {
-          var e = t.msgIds,
-            n = t.privacyMode,
-            a = r("compactMap")(e, function (e) {
-              return o("WAWebMsgCollection").MsgCollection.get(e);
-            });
-          await Promise.all(
-            a.map(function (e) {
-              return r("WAWebUpdateMsgBizPrivacyStatusAction")(e, n);
-            }),
-          );
-        },
+        updateBizPrivacyStatus: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.msgIds,
+              a = e.privacyMode,
+              i = r("compactMap")(t, function (e) {
+                return o("WAWebMsgCollection").MsgCollection.get(e);
+              });
+            yield (s || (s = n("Promise"))).all(
+              i.map(function (e) {
+                return r("WAWebUpdateMsgBizPrivacyStatusAction")(e, a);
+              }),
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         getChatPrivacyInfoOnNewMsg: function (t) {
           var e = t.chatId,
             n = o("WAWebChatCollection").ChatCollection.get(e);
@@ -215,36 +227,42 @@ __d(
         },
         processLastMsgs: function (t) {
           var e = t.chatId,
-            n = t.chatMsgsCollection,
-            r = t.meta,
-            a = t.msgObjs,
-            i = t.preserveOrder,
-            l = t.processMessagesOrigin,
-            s = o("WAWebChatCollection").ChatCollection.get(e);
-          return s && s.msgs.length === 0 && !s.pendingInitialLoading
+            r = t.chatMsgsCollection,
+            a = t.meta,
+            i = t.msgObjs,
+            l = t.preserveOrder,
+            u = t.processMessagesOrigin,
+            c = o("WAWebChatCollection").ChatCollection.get(e);
+          return c && c.msgs.length === 0 && !c.pendingInitialLoading
             ? o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
                 e,
+                i,
                 a,
+                u,
                 r,
                 l,
-                n,
-                i,
               )
-            : Promise.resolve([]);
+            : (s || (s = n("Promise"))).resolve([]);
         },
         loadQuickPromotions: function (t) {
           var e = t.trigger;
           return o("WAWebJobLoadQuickPromotions").loadQuickPromotions(e);
         },
-        prefetchBBEligibilityAndReloadQPs: async function () {
-          var e = await r("JSResourceForInteraction")(
-              "WAWebBizBroadcastEligibilityPrefetch",
-            )
-              .__setRef("WAWebWorkerSafeBridgeApi")
-              .load(),
-            t = e.prefetchEligibilityAndReloadQPs;
-          return t();
-        },
+        prefetchBBEligibilityAndReloadQPs: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield r("JSResourceForInteraction")(
+                "WAWebBizBroadcastEligibilityPrefetch",
+              )
+                .__setRef("WAWebWorkerSafeBridgeApi")
+                .load(),
+              t = e.prefetchEligibilityAndReloadQPs;
+            return t();
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         fetchQuickPromotionsNow: function () {
           o("WAWebFetchQuickPromotions")
             .fetchQuickPromotions()
@@ -305,11 +323,17 @@ __d(
             "WAWebResendGroupMsgMainThreadOnly",
           ).resendGroupMsgMainThreadOnly(a, l, i, n, r, s, u, e, c);
         },
-        updateOptOutList: async function () {
-          var e = await u.load(),
-            t = e.updateOptOutList;
-          return t();
-        },
+        updateOptOutList: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield u.load(),
+              t = e.updateOptOutList;
+            return t();
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         updateOptOutListCollection: function (t) {
           var e = t.wids;
           o("WAWebBackendApi").frontendFireAndForget(
@@ -332,14 +356,20 @@ __d(
         checkOrphanFavoriteStickers: function () {
           return o("WAWebSyncdOrphan").checkOrphanFavoriteStickers();
         },
-        incrementForwardCounterAPI: async function (t) {
-          var e = t.newsletterId,
-            n = t.retriesRemaining,
-            r = t.serverId,
-            o = await c.load(),
-            a = o.incrementForwardCounter;
-          return a(e, n, r);
-        },
+        incrementForwardCounterAPI: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.newsletterId,
+              n = e.retriesRemaining,
+              r = e.serverId,
+              o = yield c.load(),
+              a = o.incrementForwardCounter;
+            return a(t, n, r);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       };
     l.WorkerSafeBridgeApi = d;
   },

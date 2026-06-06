@@ -1,64 +1,77 @@
 __d(
   "WAWebApiChatBulkGetByHistory",
   [
+    "Promise",
     "WAWebHistorySyncLidChatGating",
     "WAWebSchemaChat",
     "WAWebWid",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = new Array(e.length).fill(null);
-      if (!o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()) {
-        var n = e.map(function (e) {
-          return r("WAWebWid").isWid(e)
-            ? o("WAWebWidFactory").createWid(e).toString()
-            : e;
-        });
-        return o("WAWebSchemaChat").getChatTable().bulkGet(n, !1);
-      }
-      for (var a = [], i = [], l = new Map(), s = 0; s < e.length; s++)
-        if (r("WAWebWid").isWid(e[s])) {
-          var u = o("WAWebWidFactory").createWid(e[s]);
-          u.isRegularUserPn() ? (a.push(s), l.set(s, u.toString())) : i.push(s);
-        }
-      var c = await Promise.all([
-          a.length > 0
-            ? o("WAWebSchemaChat")
-                .getChatTable()
-                .anyOf(
-                  ["historyChatId"],
-                  a.map(function (t) {
-                    var n;
-                    return (n = l.get(t)) != null ? n : e[t];
-                  }),
-                  { shouldDecrypt: !1 },
-                )
-            : Promise.resolve([]),
-          i.length > 0
-            ? o("WAWebSchemaChat")
-                .getChatTable()
-                .bulkGet(
-                  i.map(function (t) {
-                    return e[t];
-                  }),
-                  !1,
-                )
-            : Promise.resolve([]),
-        ]),
-        d = c[0],
-        m = c[1],
-        p = new Map();
-      for (var _ of d) _.historyChatId != null && p.set(_.historyChatId, _);
-      for (var f of a) {
-        var g, h;
-        t[f] =
-          (g = p.get((h = l.get(f)) != null ? h : e[f])) != null ? g : null;
-      }
-      for (var y = 0; y < i.length; y++) t[i[y]] = m[y];
-      return t;
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    l.bulkGetChatsMaybeByHistory = e;
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = new Array(t.length).fill(null);
+          if (!o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()) {
+            var i = t.map(function (e) {
+              return r("WAWebWid").isWid(e)
+                ? o("WAWebWidFactory").createWid(e).toString()
+                : e;
+            });
+            return o("WAWebSchemaChat").getChatTable().bulkGet(i, !1);
+          }
+          for (var l = [], s = [], u = new Map(), c = 0; c < t.length; c++)
+            if (r("WAWebWid").isWid(t[c])) {
+              var d = o("WAWebWidFactory").createWid(t[c]);
+              d.isRegularUserPn()
+                ? (l.push(c), u.set(c, d.toString()))
+                : s.push(c);
+            }
+          var m = yield (e || (e = n("Promise"))).all([
+              l.length > 0
+                ? o("WAWebSchemaChat")
+                    .getChatTable()
+                    .anyOf(
+                      ["historyChatId"],
+                      l.map(function (e) {
+                        var n;
+                        return (n = u.get(e)) != null ? n : t[e];
+                      }),
+                      { shouldDecrypt: !1 },
+                    )
+                : (e || (e = n("Promise"))).resolve([]),
+              s.length > 0
+                ? o("WAWebSchemaChat")
+                    .getChatTable()
+                    .bulkGet(
+                      s.map(function (e) {
+                        return t[e];
+                      }),
+                      !1,
+                    )
+                : (e || (e = n("Promise"))).resolve([]),
+            ]),
+            p = m[0],
+            _ = m[1],
+            f = new Map();
+          for (var g of p) g.historyChatId != null && f.set(g.historyChatId, g);
+          for (var h of l) {
+            var y, C;
+            a[h] =
+              (y = f.get((C = u.get(h)) != null ? C : t[h])) != null ? y : null;
+          }
+          for (var b = 0; b < s.length; b++) a[s[b]] = _[b];
+          return a;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    l.bulkGetChatsMaybeByHistory = s;
   },
   98,
 );

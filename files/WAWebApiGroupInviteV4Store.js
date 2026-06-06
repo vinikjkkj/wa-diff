@@ -1,6 +1,11 @@
 __d(
   "WAWebApiGroupInviteV4Store",
-  ["WATimeUtils", "WAWebSchemaGroupInviteV4", "WAWebUserPrefsMeUser"],
+  [
+    "WATimeUtils",
+    "WAWebSchemaGroupInviteV4",
+    "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       return o("WAWebSchemaGroupInviteV4")
@@ -12,27 +17,37 @@ __d(
         .getGroupInviteV4Table()
         .bulkCreateOrMerge(e);
     }
-    async function u(e, t, n, r) {
-      var a = await o("WAWebSchemaGroupInviteV4")
-        .getGroupInviteV4Table()
-        .equals(["from", "to", "groupId"], [e, t, n])
-        .then(function (e) {
-          return e.filter(function (e) {
-            return !e.expired && e.expiration <= r;
-          });
-        });
+    function u(e, t, n, r) {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        await o("WAWebSchemaGroupInviteV4")
-          .getGroupInviteV4Table()
-          .bulkCreateOrReplace(
-            a.map(function (e) {
-              return babelHelpers.extends({}, e, { expired: !0 });
-            }),
-          ),
-        a
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield o("WAWebSchemaGroupInviteV4")
+              .getGroupInviteV4Table()
+              .equals(["from", "to", "groupId"], [e, t, n])
+              .then(function (e) {
+                return e.filter(function (e) {
+                  return !e.expired && e.expiration <= r;
+                });
+              });
+            return (
+              yield o("WAWebSchemaGroupInviteV4")
+                .getGroupInviteV4Table()
+                .bulkCreateOrReplace(
+                  a.map(function (e) {
+                    return babelHelpers.extends({}, e, { expired: !0 });
+                  }),
+                ),
+              a
+            );
+          },
+        )),
+        c.apply(this, arguments)
       );
     }
-    function c(e, t) {
+    function d(e, t) {
       var n = o("WAWebUserPrefsMeUser")
           .getMePnUserOrThrow_DO_NOT_USE()
           .toString(),
@@ -55,7 +70,7 @@ __d(
     ((l.persistGroupInviteV4Msg = e),
       (l.persistGroupInviteV4Msgs = s),
       (l.revokeGroupInvites = u),
-      (l.getPendingParticipants = c));
+      (l.getPendingParticipants = d));
   },
   98,
 );

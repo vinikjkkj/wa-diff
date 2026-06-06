@@ -1,13 +1,16 @@
 __d(
   "WAWebMessageEditAddonMessageProcessor",
   [
+    "Promise",
     "WAWebAddonCreateMsgProcessor",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebMessageEditGatingUtils",
     "WAWebProcessEncryptedMessageEditMsgs",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = o("WAWebAddonCreateMsgProcessor").createAddonMsgProcessor({
+    var e,
+      s = o("WAWebAddonCreateMsgProcessor").createAddonMsgProcessor({
         isEnabled: function () {
           return o(
             "WAWebMessageEditGatingUtils",
@@ -15,31 +18,62 @@ __d(
         },
         convert: {
           fromHistorySyncMsg: function () {
-            return Promise.resolve([]);
+            return (e || (e = n("Promise"))).resolve([]);
           },
         },
-        updateCollection: async function () {},
-        beforeUpsert: async function (t, n) {
-          var e = n.parents,
-            r = await o(
-              "WAWebProcessEncryptedMessageEditMsgs",
-            ).processEncryptedMessageEditMsgs(t, e),
-            a = r.filter(function (e) {
-              return e.isLatest;
-            });
-          return (
-            await o("WAWebDBProcessEditProtocolMsgs").updateMessageEditsLocally(
-              r,
-              a,
-            ),
-            []
+        updateCollection: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {},
           );
-        },
-        afterUpsert: async function () {},
-        manageNotifications: async function () {},
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        beforeUpsert: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = t.parents,
+                r = yield o(
+                  "WAWebProcessEncryptedMessageEditMsgs",
+                ).processEncryptedMessageEditMsgs(e, n),
+                a = r.filter(function (e) {
+                  return e.isLatest;
+                });
+              return (
+                yield o(
+                  "WAWebDBProcessEditProtocolMsgs",
+                ).updateMessageEditsLocally(r, a),
+                []
+              );
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        afterUpsert: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {},
+          );
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        manageNotifications: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {},
+          );
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
       }),
-      s = e;
-    l.default = s;
+      u = s;
+    l.default = u;
   },
   98,
 );

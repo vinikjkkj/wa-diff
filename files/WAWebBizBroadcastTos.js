@@ -12,6 +12,7 @@ __d(
     "WAWebSetUserDisclosureStageJob",
     "WAWebTos",
     "WAWebUserPrefsStore",
+    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -59,50 +60,72 @@ __d(
         r("WAWebUserPrefsStore").setUser(u, !0),
         p.trigger("change"));
     }
-    async function h() {
-      await o("WAExponentialBackoff").exponentialBackoff(c, async function (t) {
-        try {
-          var n = o("WATimeUtils").unixTime();
-          await o("WAPromiseTimeout").promiseTimeout(
-            o("WAComms").waitForConnection(),
-            3e4,
-            "waitForConnection timed out",
-          );
-          var a = await o(
-            "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
-          ).sendGetDisclosureStageByIdsRPC({
-            getDisclosureStageByIdArgs: [
-              {
-                getDisclosureStageByIdId: Number(s),
-                getDisclosureStageByIdT: n,
-              },
-            ],
-          });
-          if (a.name === "GetDisclosureStageByIdsResponseClientSuccess") {
-            var i = a.value.notice.find(function (e) {
-              return e.id === Number(s);
-            });
-            i != null &&
-              (i.stage === o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN ||
-                i.stage === o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
-              g();
-          }
-        } catch (n) {
-          return (
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[biz-broadcast-tos] sync error",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(n)),
-            t(n instanceof Error ? n : r("err")(String(n)))
-          );
-        }
-      });
+    function h() {
+      return y.apply(this, arguments);
     }
     function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAExponentialBackoff").exponentialBackoff(
+            c,
+            (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (t) {
+                  try {
+                    var n = o("WATimeUtils").unixTime();
+                    yield o("WAPromiseTimeout").promiseTimeout(
+                      o("WAComms").waitForConnection(),
+                      3e4,
+                      "waitForConnection timed out",
+                    );
+                    var a = yield o(
+                      "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
+                    ).sendGetDisclosureStageByIdsRPC({
+                      getDisclosureStageByIdArgs: [
+                        {
+                          getDisclosureStageByIdId: Number(s),
+                          getDisclosureStageByIdT: n,
+                        },
+                      ],
+                    });
+                    if (
+                      a.name === "GetDisclosureStageByIdsResponseClientSuccess"
+                    ) {
+                      var i = a.value.notice.find(function (e) {
+                        return e.id === Number(s);
+                      });
+                      i != null &&
+                        (i.stage ===
+                          o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN ||
+                          i.stage ===
+                            o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
+                        g();
+                    }
+                  } catch (n) {
+                    return (
+                      o("WALogger")
+                        .WARN(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[biz-broadcast-tos] sync error",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(n)),
+                      t(n instanceof Error ? n : r("err")(String(n)))
+                    );
+                  }
+                },
+              );
+              return function (e) {
+                return t.apply(this, arguments);
+              };
+            })(),
+          );
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C() {
       var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return {
         isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(u) === !0,
@@ -111,18 +134,26 @@ __d(
         tosManagerState: o("WAWebTos").TosManager.getState(_()),
       };
     }
-    async function C() {
-      (g(),
-        await o("WAWebSetUserDisclosureStageJob").setUserDisclosureStage(
-          Number(s),
-          o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN,
-        ));
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (g(),
+            yield o("WAWebSetUserDisclosureStageJob").setUserDisclosureStage(
+              Number(s),
+              o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN,
+            ));
+        })),
+        v.apply(this, arguments)
+      );
     }
     ((l.bizBroadcastTosEmitter = p),
       (l.getBizBroadcastTosId = _),
       (l.isBizBroadcastTosAccepted = f),
-      (l.getBizBroadcastTosDebugInfo = y),
-      (l.acceptBizBroadcastTos = C));
+      (l.getBizBroadcastTosDebugInfo = C),
+      (l.acceptBizBroadcastTos = b));
   },
   98,
 );

@@ -11,6 +11,7 @@ __d(
     "WAWebDefinePersistedJob",
     "WAWebGraphQLVerifyPostcodeJob",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))("productResponse", function (e) {
@@ -29,37 +30,56 @@ __d(
       }),
       s = o("WAWebDefinePersistedJob")
         .defineWebPersistedJob()
-        .finalStep("sendStanza", async function (t) {
-          var n = t.businessJid,
-            a = t.directConnectionEncryptedInfo,
-            i = o("WAWebWidFactory").createWid(n);
-          if (
-            o("WAWebBizCatalogGatingUtils").isGraphQLForVerifyPostcodeEnabled()
-          )
-            return o("WAWebGraphQLVerifyPostcodeJob").verifyPostcode(i, a);
-          var l = o("WAWap").wap(
-              "iq",
-              {
-                id: o("WAWap").generateId(),
-                xmlns: "w:biz:catalog",
-                type: "get",
-                to: o("WAWap").S_WHATSAPP_NET,
-                smax_id: o("WAWap").SMAX_ID(
-                  r("WAWapDeprecatedSmaxID").CatalogVerifyPostcode,
-                ),
+        .finalStep(
+          "sendStanza",
+          (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = t.businessJid,
+                  a = t.directConnectionEncryptedInfo,
+                  i = o("WAWebWidFactory").createWid(n);
+                if (
+                  o(
+                    "WAWebBizCatalogGatingUtils",
+                  ).isGraphQLForVerifyPostcodeEnabled()
+                )
+                  return o("WAWebGraphQLVerifyPostcodeJob").verifyPostcode(
+                    i,
+                    a,
+                  );
+                var l = o("WAWap").wap(
+                    "iq",
+                    {
+                      id: o("WAWap").generateId(),
+                      xmlns: "w:biz:catalog",
+                      type: "get",
+                      to: o("WAWap").S_WHATSAPP_NET,
+                      smax_id: o("WAWap").SMAX_ID(
+                        r("WAWapDeprecatedSmaxID").CatalogVerifyPostcode,
+                      ),
+                    },
+                    o("WAWap").wap(
+                      "verify_postcode",
+                      { biz_jid: o("WAWebCommsWapMd").USER_JID(i) },
+                      o("WAWap").wap(
+                        "direct_connection_encrypted_info",
+                        null,
+                        a,
+                      ),
+                    ),
+                  ),
+                  s = yield o("WADeprecatedSendIq").deprecatedSendIq(l, e);
+                if (s.success) return s.result;
+                throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  s.errorCode,
+                );
               },
-              o("WAWap").wap(
-                "verify_postcode",
-                { biz_jid: o("WAWebCommsWapMd").USER_JID(i) },
-                o("WAWap").wap("direct_connection_encrypted_info", null, a),
-              ),
-            ),
-            s = await o("WADeprecatedSendIq").deprecatedSendIq(l, e);
-          if (s.success) return s.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            s.errorCode,
-          );
-        })
+            );
+            return function (e) {
+              return t.apply(this, arguments);
+            };
+          })(),
+        )
         .end();
     l.VerifyPostcode = s;
   },

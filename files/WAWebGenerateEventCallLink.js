@@ -1,18 +1,26 @@
 __d(
   "WAWebGenerateEventCallLink",
-  ["WAWebVoipCreateCallLink"],
+  ["WAWebVoipCreateCallLink", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t, n) {
-      try {
-        var r = await o("WAWebVoipCreateCallLink").createCallLink({
-          callType: t === "voice" ? "audio" : "video",
-          eventStartTime: e,
-          requireApproval: n,
-        });
-        return r;
-      } catch (e) {
-        return;
-      }
+    function e(e, t, n) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          try {
+            var r = yield o("WAWebVoipCreateCallLink").createCallLink({
+              callType: t === "voice" ? "audio" : "video",
+              eventStartTime: e,
+              requireApproval: n,
+            });
+            return r;
+          } catch (e) {
+            return;
+          }
+        })),
+        s.apply(this, arguments)
+      );
     }
     l.createEventCallLink = e;
   },

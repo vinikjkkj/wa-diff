@@ -14,6 +14,7 @@ __d(
     "WAWebModalManager",
     "WAWebWamEnumGroupBulkRemovalEntryPoint",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -55,49 +56,45 @@ __d(
       if (i) {
         var u = l.format(o),
           c = s.format(a);
-        return (
-          `
-` +
-          u +
-          " - " +
-          c
-        );
+        return "\n" + u + " - " + c;
       }
       var d = l.format(o),
         m = l.format(a);
+      return "\n" + d + " - " + m;
+    }
+    function m(e, t, n) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        `
-` +
-        d +
-        " - " +
-        m
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r =
+              n != null
+                ? o("WATimeUtils").castToUnixTime(
+                    n - o("WAWebGroupLinkJoinUtils").JOIN_FLOOD_WINDOW_SECS,
+                  )
+                : void 0,
+            a =
+              n != null
+                ? o("WATimeUtils").castToUnixTime(
+                    n + o("WAWebGroupLinkJoinUtils").JOIN_FLOOD_COOLDOWN_SECS,
+                  )
+                : void 0,
+            i = yield o("WAWebGroupLinkJoinUtils").getParticipantsJoinedViaLink(
+              e.id.toString(),
+              r,
+              a,
+            ),
+            l = t.participants;
+          return i.filter(function (e) {
+            var t = o("WAWebWidFactory").createWid(e);
+            return l.get(t) != null;
+          });
+        })),
+        p.apply(this, arguments)
       );
     }
-    async function m(e, t, n) {
-      var r =
-          n != null
-            ? o("WATimeUtils").castToUnixTime(
-                n - o("WAWebGroupLinkJoinUtils").JOIN_FLOOD_WINDOW_SECS,
-              )
-            : void 0,
-        a =
-          n != null
-            ? o("WATimeUtils").castToUnixTime(
-                n + o("WAWebGroupLinkJoinUtils").JOIN_FLOOD_COOLDOWN_SECS,
-              )
-            : void 0,
-        i = await o("WAWebGroupLinkJoinUtils").getParticipantsJoinedViaLink(
-          e.id.toString(),
-          r,
-          a,
-        ),
-        l = t.participants;
-      return i.filter(function (e) {
-        var t = o("WAWebWidFactory").createWid(e);
-        return l.get(t) != null;
-      });
-    }
-    function p(e, t) {
+    function _(e, t) {
       (o("WAWebModalManager").closeModalManager(),
         o("WAWebDrawerManager").DrawerManager.openDrawerRight(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
@@ -121,7 +118,7 @@ __d(
       (l.calculateTimeRange = c),
       (l.formatJoinTimeRange = d),
       (l.fetchRemainingParticipants = m),
-      (l.openGroupPermissionsDrawer = p));
+      (l.openGroupPermissionsDrawer = _));
   },
   98,
 );

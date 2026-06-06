@@ -2,6 +2,7 @@ __d(
   "WAWebVoipScreenShareHelpers",
   [
     "fbt",
+    "Promise",
     "WALogger",
     "WAWebCallCollection",
     "WAWebVoipActivityTracker",
@@ -10,6 +11,7 @@ __d(
     "WAWebVoipVideoDesktopCapture",
     "WDSIconIcScreenShare.react",
     "WDSIconIcStopScreenShare.react",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
     "react-compiler-runtime",
@@ -20,8 +22,9 @@ __d(
       u,
       c,
       d,
-      m = d || (d = o("react"));
-    function p(e, t) {
+      m,
+      p = m || (m = o("react"));
+    function _(e, t) {
       return (function (e) {
         if (
           (((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -43,14 +46,14 @@ __d(
         );
       })({ isSelfScreenSharing: e, isAnyPeerScreenSharing: t });
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.isAnyPeerScreenSharing,
         r = e.isSelfScreenSharing,
         a;
       return (
         t[0] !== n || t[1] !== r
-          ? ((a = f({ isSelfScreenSharing: r, isAnyPeerScreenSharing: n })),
+          ? ((a = g({ isSelfScreenSharing: r, isAnyPeerScreenSharing: n })),
             (t[0] = n),
             (t[1] = r),
             (t[2] = a))
@@ -58,139 +61,172 @@ __d(
         a
       );
     }
-    function f(e) {
+    function g(e) {
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !0
       )
-        return m.jsx(r("WDSIconIcScreenShare.react"), { directional: !0 });
+        return p.jsx(r("WDSIconIcScreenShare.react"), { directional: !0 });
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !1 &&
         e.isSelfScreenSharing === !1
       )
-        return m.jsx(r("WDSIconIcScreenShare.react"), { directional: !0 });
+        return p.jsx(r("WDSIconIcScreenShare.react"), { directional: !0 });
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !1 &&
         e.isSelfScreenSharing === !0
       )
-        return m.jsx(r("WDSIconIcStopScreenShare.react"), { directional: !0 });
+        return p.jsx(r("WDSIconIcStopScreenShare.react"), { directional: !0 });
       throw Error(
         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
           e,
       );
     }
-    function g(e) {
+    function h(e) {
       return e
         ? s._(/*BTDS*/ "Stop sharing screen")
         : s._(/*BTDS*/ "Share screen");
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    async function h(t) {
-      var n,
-        a = t.closeModal,
-        i = t.isSelfScreenSharing,
-        l = t.isVideoCall,
-        u = t.isVideoMuted,
-        c = t.onVideoMuteToggle,
-        d = t.openModal;
-      if (!l) {
-        d(
-          m.jsx(
-            o("WAWebVoipScreenShareConfirmPopup.react")
-              .WAWebVoipScreenShareConfirmPopup,
-            { closeModal: a },
-          ),
-        );
-        return;
-      }
-      if (i) {
-        await C();
-        return;
-      }
-      if (
-        ((n = r("WAWebCallCollection").activeCall) == null ||
-          n.setSelfScreenShareRejected(!1),
-        u)
-      ) {
-        d(
-          m.jsx(
-            o("WAWebVoipScreenShareConfirmPopup.react")
-              .WAWebVoipScreenShareConfirmPopup,
-            {
-              closeModal: a,
-              message: s._(/*BTDS*/ "Turn on your video to share your screen."),
-              okText: s._(/*BTDS*/ "Turn on"),
-              onOK: async function () {
-                try {
-                  (await Promise.resolve(c()), await y());
-                } catch (t) {
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[voip] screen share: start failed after video enable",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(t));
-                }
-              },
-            },
-          ),
-        );
-        return;
-      }
-      await y();
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    async function y() {
-      o("WAWebVoipActivityTracker").trackUiActivity(
-        o("WAWebVoipActivityTracker").VoipUiActivity.USER_START_SCREEN_SHARE,
-      );
-      var e = await o(
-        "WAWebVoipVideoDesktopCapture",
-      ).WAWebVoipVideoDesktopCapture.preflightAcquireDesktopStream();
-      if (e != null)
-        try {
-          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
-          if ((t == null ? void 0 : t.type) === "web")
-            await t.startScreenShare();
-          else {
-            var n;
-            o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] screen share: op not available for ",
-                  "",
-                ])),
-              (n = t == null ? void 0 : t.type) != null ? n : "null",
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a,
+            i = t.closeModal,
+            l = t.isSelfScreenSharing,
+            u = t.isVideoCall,
+            c = t.isVideoMuted,
+            m = t.onVideoMuteToggle,
+            _ = t.openModal;
+          if (!u) {
+            _(
+              p.jsx(
+                o("WAWebVoipScreenShareConfirmPopup.react")
+                  .WAWebVoipScreenShareConfirmPopup,
+                { closeModal: i },
+              ),
             );
+            return;
           }
-        } catch (e) {
-          (o("WALogger")
-            .ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: UI: screen share: screen share operation failed",
-                ])),
-            )
-            .catching(r("getErrorSafe")(e)),
-            await o(
-              "WAWebVoipVideoDesktopCapture",
-            ).WAWebVoipVideoDesktopCapture.stopCapture(!0));
-        }
-    }
-    async function C() {
-      o("WAWebVoipActivityTracker").trackUiActivity(
-        o("WAWebVoipActivityTracker").VoipUiActivity.USER_STOP_SCREEN_SHARE,
+          if (l) {
+            yield S();
+            return;
+          }
+          if (
+            ((a = r("WAWebCallCollection").activeCall) == null ||
+              a.setSelfScreenShareRejected(!1),
+            c)
+          ) {
+            _(
+              p.jsx(
+                o("WAWebVoipScreenShareConfirmPopup.react")
+                  .WAWebVoipScreenShareConfirmPopup,
+                {
+                  closeModal: i,
+                  message: s._(
+                    /*BTDS*/ "Turn on your video to share your screen.",
+                  ),
+                  okText: s._(/*BTDS*/ "Turn on"),
+                  onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      try {
+                        (yield (d || (d = n("Promise"))).resolve(m()),
+                          yield b());
+                      } catch (t) {
+                        o("WALogger")
+                          .ERROR(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "[voip] screen share: start failed after video enable",
+                              ])),
+                          )
+                          .catching(r("getErrorSafe")(t));
+                      }
+                    },
+                  ),
+                },
+              ),
+            );
+            return;
+          }
+          yield b();
+        })),
+        C.apply(this, arguments)
       );
-      var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
-      (e == null ? void 0 : e.type) === "web" && (await e.stopScreenShare());
     }
-    ((l.getScreenShareIcon = p),
-      (l.ScreenShareIcon = _),
-      (l.getScreenShareLabel = g),
-      (l.handlePressScreenShare = h));
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebVoipActivityTracker").trackUiActivity(
+            o("WAWebVoipActivityTracker").VoipUiActivity
+              .USER_START_SCREEN_SHARE,
+          );
+          var e = yield o(
+            "WAWebVoipVideoDesktopCapture",
+          ).WAWebVoipVideoDesktopCapture.preflightAcquireDesktopStream();
+          if (e != null)
+            try {
+              var t = yield o(
+                "WAWebVoipStackInterface",
+              ).getVoipStackInterface();
+              if ((t == null ? void 0 : t.type) === "web")
+                yield t.startScreenShare();
+              else {
+                var n;
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] screen share: op not available for ",
+                      "",
+                    ])),
+                  (n = t == null ? void 0 : t.type) != null ? n : "null",
+                );
+              }
+            } catch (e) {
+              (o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: UI: screen share: screen share operation failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e)),
+                yield o(
+                  "WAWebVoipVideoDesktopCapture",
+                ).WAWebVoipVideoDesktopCapture.stopCapture(!0));
+            }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebVoipActivityTracker").trackUiActivity(
+            o("WAWebVoipActivityTracker").VoipUiActivity.USER_STOP_SCREEN_SHARE,
+          );
+          var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          (e == null ? void 0 : e.type) === "web" &&
+            (yield e.stopScreenShare());
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    ((l.getScreenShareIcon = _),
+      (l.ScreenShareIcon = f),
+      (l.getScreenShareLabel = h),
+      (l.handlePressScreenShare = y));
   },
   226,
 );

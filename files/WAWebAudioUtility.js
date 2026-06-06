@@ -1,35 +1,67 @@
 __d(
   "WAWebAudioUtility",
-  ["WAWebBackendApi", "WAWebIdentityFunction", "err"],
+  [
+    "WAWebBackendApi",
+    "WAWebIdentityFunction",
+    "asyncToGeneratorRuntime",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = { kMicrophone: 0, kInternalAudio: 1 },
       s = null,
       u = null;
-    async function c() {
-      s == null &&
-        (s = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"));
-      var e = await s;
-      return ((u = e), e);
+    function c() {
+      return d.apply(this, arguments);
     }
     function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          s == null &&
+            (s =
+              o("WAWebBackendApi").frontendSendAndReceive(
+                "initializeVoipWasm",
+              ));
+          var e = yield s;
+          return ((u = e), e);
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m() {
       return u;
     }
-    async function m(e) {
-      var t = await c();
-      return t._malloc(e);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    async function p(e) {
-      var t = await c();
-      t._free(e);
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield c();
+          return t._malloc(e);
+        })),
+        _.apply(this, arguments)
+      );
     }
-    function _(e, t) {
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield c();
+          t._free(e);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t) {
       var n = u;
       if (!n) throw r("err")("WASM module not initialized");
       var o = Math.floor(e / 4);
       (n.GROWABLE_HEAP_F32().set(t, o), n.onAudioDataFromJs(e, t.length));
     }
-    function f(e, t) {
+    function y(e, t) {
       var n = u;
       if (!n) throw r("err")("WASM module not initialized");
       n.requestAudioDataFromWasmVoip(e, t);
@@ -38,7 +70,7 @@ __d(
         i = n.GROWABLE_HEAP_F32();
       return i.subarray(o, o + a);
     }
-    function g(e, t, n) {
+    function C(e, t, n) {
       if (
         (n === void 0 && (n = o("WAWebIdentityFunction").identityFunction),
         t.length === 0)
@@ -52,7 +84,7 @@ __d(
         for (var s = 0; s < t.length; s++) a[i++] = n(t[s][l]);
       return a;
     }
-    function h(e, t, n) {
+    function b(e, t, n) {
       if (n === t) return e;
       for (
         var r = t / n,
@@ -73,13 +105,13 @@ __d(
       return a;
     }
     ((l.AudioCaptureDevType = e),
-      (l.getCachedWasmModule = d),
-      (l.mallocWasmBuffer = m),
-      (l.freeWasmBuffer = p),
-      (l.sendAudioToWasm = _),
-      (l.requestAudioFromWasm = f),
-      (l.interleaveTypedArrays = g),
-      (l.maybeDownsampleBuffer = h));
+      (l.getCachedWasmModule = m),
+      (l.mallocWasmBuffer = p),
+      (l.freeWasmBuffer = f),
+      (l.sendAudioToWasm = h),
+      (l.requestAudioFromWasm = y),
+      (l.interleaveTypedArrays = C),
+      (l.maybeDownsampleBuffer = b));
   },
   98,
 );

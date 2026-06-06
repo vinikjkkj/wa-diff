@@ -11,6 +11,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebRelayClient",
     "WAWebSubscriptionSource",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,120 +19,146 @@ __d(
       u,
       c = { type: "error" },
       d = e !== void 0 ? e : (e = n("WAWebFetchSubscriptionsQuery.graphql"));
-    async function m() {
-      var e = await p();
-      return e.type === "success"
-        ? (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "fetchSubscriptions: success",
-              ])),
-          ),
-          e)
-        : (e.type,
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                'fetchSubscriptions: failed as "',
-                '"',
-              ])),
-            e.type,
-          ),
-          e);
+    function m() {
+      return p.apply(this, arguments);
     }
-    async function p() {
-      try {
-        await r("WAWebNetworkStatus").waitIfOffline();
-        var e = await o("WAPromiseTimeout").promiseTimeout(
-          o("WAWebFetchAdAccountToken").fetchToken(),
-          o(
-            "WAWebFetchAdAccountToken",
-          ).getMaximumAdAccountFetchTimeoutSeconds() * 1e3,
-        );
-        if (e.type === "success") {
-          var t = await _(e.token);
-          return (
-            t.type !== "success" && t.type === "auth-failure"
-              ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
-              : t.type,
-            t
-          );
-        }
-        return (e.type, e);
-      } catch (e) {
-        return e instanceof o("WACustomError").TimeoutError
-          ? { type: "timeout" }
-          : { type: "error" };
-      }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield _();
+          return e.type === "success"
+            ? (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "fetchSubscriptions: success",
+                  ])),
+              ),
+              e)
+            : (e.type,
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    'fetchSubscriptions: failed as "',
+                    '"',
+                  ])),
+                e.type,
+              ),
+              e);
+        })),
+        p.apply(this, arguments)
+      );
     }
-    async function _(e) {
-      var t, n;
-      await r("WAWebNetworkStatus").waitIfOffline();
-      var a = await o("WAWebRelayClient")
-          .fetchQuery(
-            d,
-            { data: { platform: "UNKNOWN" } },
-            { environmentType: "facebook", accessToken: e },
-          )
-          .catch(function (e) {
-            if (o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e))
-              return { type: "auth-failure" };
-            if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError)
-              return { type: "graphql-error", error: e };
-          }),
-        i =
-          a == null || (t = a.xwa_get_subscriptions) == null
-            ? void 0
-            : t.subscriptions,
-        l =
-          a == null || (n = a.xwa_get_subscriptions) == null
-            ? void 0
-            : n.feature_flags;
-      return i == null || l == null
-        ? c
-        : {
-            type: "success",
-            subscriptions: i.map(function (e) {
-              var t, n, r, a, i, s, u, c;
-              return {
-                expirationDate: (t = e.end_time) != null ? t : null,
-                id: (n = e.id) != null ? n : "",
-                status: f(e.status),
-                creationTime: (r = e.creation_time) != null ? r : null,
-                newMessageCappingEnabled:
-                  (a =
-                    (i = l.find(function (e) {
-                      return (
-                        o("WAWebFeatureFlagName").FeatureFlagName.cast(
-                          e.name,
-                        ) ===
-                        o("WAWebFeatureFlagName").FeatureFlagName
-                          .NEW_CHATS_LIMIT
-                      );
-                    })) == null
-                      ? void 0
-                      : i.enabled) != null
-                    ? a
-                    : !1,
-                tier: (s = e.tier) != null ? s : null,
-                source: g(e.source),
-                isPlatformChanged:
-                  (u = e.is_platform_changed) != null ? u : null,
-                startTime: (c = e.start_time) != null ? c : null,
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            yield r("WAWebNetworkStatus").waitIfOffline();
+            var e = yield o("WAPromiseTimeout").promiseTimeout(
+              o("WAWebFetchAdAccountToken").fetchToken(),
+              o(
+                "WAWebFetchAdAccountToken",
+              ).getMaximumAdAccountFetchTimeoutSeconds() * 1e3,
+            );
+            if (e.type === "success") {
+              var t = yield g(e.token);
+              return (
+                t.type !== "success" && t.type === "auth-failure"
+                  ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
+                  : t.type,
+                t
+              );
+            }
+            return (e.type, e);
+          } catch (e) {
+            return e instanceof o("WACustomError").TimeoutError
+              ? { type: "timeout" }
+              : { type: "error" };
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, n;
+          yield r("WAWebNetworkStatus").waitIfOffline();
+          var a = yield o("WAWebRelayClient")
+              .fetchQuery(
+                d,
+                { data: { platform: "UNKNOWN" } },
+                { environmentType: "facebook", accessToken: e },
+              )
+              .catch(function (e) {
+                if (o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e))
+                  return { type: "auth-failure" };
+                if (
+                  e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+                )
+                  return { type: "graphql-error", error: e };
+              }),
+            i =
+              a == null || (t = a.xwa_get_subscriptions) == null
+                ? void 0
+                : t.subscriptions,
+            l =
+              a == null || (n = a.xwa_get_subscriptions) == null
+                ? void 0
+                : n.feature_flags;
+          return i == null || l == null
+            ? c
+            : {
+                type: "success",
+                subscriptions: i.map(function (e) {
+                  var t, n, r, a, i, s, u, c;
+                  return {
+                    expirationDate: (t = e.end_time) != null ? t : null,
+                    id: (n = e.id) != null ? n : "",
+                    status: y(e.status),
+                    creationTime: (r = e.creation_time) != null ? r : null,
+                    newMessageCappingEnabled:
+                      (a =
+                        (i = l.find(function (e) {
+                          return (
+                            o("WAWebFeatureFlagName").FeatureFlagName.cast(
+                              e.name,
+                            ) ===
+                            o("WAWebFeatureFlagName").FeatureFlagName
+                              .NEW_CHATS_LIMIT
+                          );
+                        })) == null
+                          ? void 0
+                          : i.enabled) != null
+                        ? a
+                        : !1,
+                    tier: (s = e.tier) != null ? s : null,
+                    source: C(e.source),
+                    isPlatformChanged:
+                      (u = e.is_platform_changed) != null ? u : null,
+                    startTime: (c = e.start_time) != null ? c : null,
+                  };
+                }),
+                featureFlags: l.map(function (e) {
+                  var t, n, r, o;
+                  return {
+                    name: (t = e.name) != null ? t : "",
+                    enabled: (n = e.enabled) != null ? n : !1,
+                    expirationTime: (r = e.expiration_time) != null ? r : null,
+                    limit: (o = e.limit) != null ? o : null,
+                  };
+                }),
               };
-            }),
-            featureFlags: l.map(function (e) {
-              var t, n, r, o;
-              return {
-                name: (t = e.name) != null ? t : "",
-                enabled: (n = e.enabled) != null ? n : !1,
-                expirationTime: (r = e.expiration_time) != null ? r : null,
-                limit: (o = e.limit) != null ? o : null,
-              };
-            }),
-          };
+        })),
+        h.apply(this, arguments)
+      );
     }
-    function f(e) {
+    function y(e) {
       return e == null
         ? null
         : (function (e) {
@@ -152,7 +179,7 @@ __d(
                           : null;
           })(e);
     }
-    function g(e) {
+    function C(e) {
       return e == null
         ? null
         : (function (e) {

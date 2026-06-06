@@ -11,6 +11,7 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsMultiDevice",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,7 +19,7 @@ __d(
       u,
       c,
       d = (function (t) {
-        function n() {
+        function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -28,120 +29,134 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getVersion = function () {
+          (a.getVersion = function () {
             return 7;
           }),
-          (r.getAction = function () {
+          (a.getAction = function () {
             return o("WASyncdConst").Actions.AvatarUpdated;
           }),
-          (r.applyMutations = async function (n) {
-            var t = this;
-            if (!o("WAWebAvatarGatingUtils").avatarsOnWebEnabled())
-              return (
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: avatar updated sync: mutation not supported",
-                    ])),
-                ),
-                n.map(function () {
-                  return {
-                    actionState: o("WASyncdConst").SyncActionState.Unsupported,
-                  };
-                })
-              );
-            var r = 0,
-              a = 0,
-              i = 0,
-              l = n.map(function (e) {
-                var n;
-                if (e.operation !== "set")
+          (a.applyMutations = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n = this;
+                if (!o("WAWebAvatarGatingUtils").avatarsOnWebEnabled())
                   return (
-                    r++,
-                    {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "syncd: avatar updated sync: mutation not supported",
+                        ])),
+                    ),
+                    t.map(function () {
+                      return {
+                        actionState:
+                          o("WASyncdConst").SyncActionState.Unsupported,
+                      };
+                    })
+                  );
+                var r = 0,
+                  a = 0,
+                  i = 0,
+                  l = t.map(function (e) {
+                    var t;
+                    if (e.operation !== "set")
+                      return (
+                        r++,
+                        {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        }
+                      );
+                    var l =
+                      (t = e.value.avatarUpdatedAction) == null
+                        ? void 0
+                        : t.eventType;
+                    if (l == null)
+                      return (
+                        a++,
+                        o("WAWebSyncdIndexUtils").malformedActionValue(
+                          n.collectionName,
+                        )
+                      );
+                    var s = o(
+                      "WAWebUserPrefsMultiDevice",
+                    ).getPairingTimestamp();
+                    if (s != null) {
+                      var u = o("WATimeUtils").castMilliSecondsToUnixTime(
+                        e.timestamp,
+                      );
+                      if (u <= o("WATimeUtils").castToUnixTime(s))
+                        return (
+                          i++,
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Skipped,
+                          }
+                        );
                     }
-                  );
-                var l =
-                  (n = e.value.avatarUpdatedAction) == null
-                    ? void 0
-                    : n.eventType;
-                if (l == null)
-                  return (
-                    a++,
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      t.collectionName,
-                    )
-                  );
-                var s = o("WAWebUserPrefsMultiDevice").getPairingTimestamp();
-                if (s != null) {
-                  var u = o("WATimeUtils").castMilliSecondsToUnixTime(
-                    e.timestamp,
-                  );
-                  if (u <= o("WATimeUtils").castToUnixTime(s))
+                    switch (l) {
+                      case o("WAWebProtobufSyncAction.pb")
+                        .SyncActionValue$AvatarUpdatedAction$AvatarEventType
+                        .CREATED:
+                      case o("WAWebProtobufSyncAction.pb")
+                        .SyncActionValue$AvatarUpdatedAction$AvatarEventType
+                        .UPDATED:
+                        o("WAWebHasAvatar").saveHasAvatarOnTempStorage(!0);
+                        break;
+                      case o("WAWebProtobufSyncAction.pb")
+                        .SyncActionValue$AvatarUpdatedAction$AvatarEventType
+                        .DELETED:
+                        o("WAWebHasAvatar").saveHasAvatarOnTempStorage(!1);
+                        break;
+                    }
                     return (
-                      i++,
-                      { actionState: o("WASyncdConst").SyncActionState.Skipped }
+                      o(
+                        "WAWebRecentStickerCollectionMd",
+                      ).RecentStickerCollectionMd.removeAllRecentAvatarStickers(),
+                      { actionState: o("WASyncdConst").SyncActionState.Success }
                     );
-                }
-                switch (l) {
-                  case o("WAWebProtobufSyncAction.pb")
-                    .SyncActionValue$AvatarUpdatedAction$AvatarEventType
-                    .CREATED:
-                  case o("WAWebProtobufSyncAction.pb")
-                    .SyncActionValue$AvatarUpdatedAction$AvatarEventType
-                    .UPDATED:
-                    o("WAWebHasAvatar").saveHasAvatarOnTempStorage(!0);
-                    break;
-                  case o("WAWebProtobufSyncAction.pb")
-                    .SyncActionValue$AvatarUpdatedAction$AvatarEventType
-                    .DELETED:
-                    o("WAWebHasAvatar").saveHasAvatarOnTempStorage(!1);
-                    break;
-                }
+                  });
                 return (
-                  o(
-                    "WAWebRecentStickerCollectionMd",
-                  ).RecentStickerCollectionMd.removeAllRecentAvatarStickers(),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
+                  r > 0 &&
+                    o("WALogger").WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "syncd: avatar updated sync: ",
+                          " operations not supported",
+                        ])),
+                      r,
+                    ),
+                  a > 0 &&
+                    o("WALogger").WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd] avatarUpdatedSync: ",
+                          " mutations missing event",
+                        ])),
+                      a,
+                    ),
+                  i > 0 &&
+                    o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd] avatarUpdatedSync: ",
+                          " events before pairing, skipped",
+                        ])),
+                      i,
+                    ),
+                  l
                 );
-              });
-            return (
-              r > 0 &&
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: avatar updated sync: ",
-                      " operations not supported",
-                    ])),
-                  r,
-                ),
-              a > 0 &&
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd] avatarUpdatedSync: ",
-                      " mutations missing event",
-                    ])),
-                  a,
-                ),
-              i > 0 &&
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd] avatarUpdatedSync: ",
-                      " events before pairing, skipped",
-                    ])),
-                  i,
-                ),
-              l
+              },
             );
-          }),
-          n
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       m = new d();

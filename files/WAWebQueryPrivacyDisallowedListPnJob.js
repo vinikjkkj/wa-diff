@@ -5,6 +5,7 @@ __d(
     "WADeprecatedWapParser",
     "WAWap",
     "WAWebJidToWid",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,28 +21,36 @@ __d(
         return { status: "mismatch", users: r, dhash: n.attrString("dhash") };
       },
     );
-    async function s(t) {
-      var n,
-        a = (n = o("WAWap")).wap(
-          "iq",
-          {
-            to: n.S_WHATSAPP_NET,
-            type: "get",
-            id: n.generateId(),
-            xmlns: "privacy",
-          },
-          n.wap(
-            "privacy",
-            null,
-            n.wap("list", {
-              name: n.CUSTOM_STRING(t),
-              value: n.CUSTOM_STRING("contact_blacklist"),
-            }),
-          ),
-        ),
-        i = await o("WADeprecatedSendIq").deprecatedSendIq(a, e);
-      if (i.success) return i.result;
-      throw r("err")("invalid response");
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            a = (n = o("WAWap")).wap(
+              "iq",
+              {
+                to: n.S_WHATSAPP_NET,
+                type: "get",
+                id: n.generateId(),
+                xmlns: "privacy",
+              },
+              n.wap(
+                "privacy",
+                null,
+                n.wap("list", {
+                  name: n.CUSTOM_STRING(t),
+                  value: n.CUSTOM_STRING("contact_blacklist"),
+                }),
+              ),
+            ),
+            i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, e);
+          if (i.success) return i.result;
+          throw r("err")("invalid response");
+        })),
+        u.apply(this, arguments)
+      );
     }
     l.queryPrivacyDisallowedListPn = s;
   },

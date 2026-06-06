@@ -1,6 +1,7 @@
 __d(
   "WAWebMessagePostprocessRenderable",
   [
+    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebBizUpdateVerifiedInfoAction",
@@ -9,51 +10,69 @@ __d(
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebUserPrefsMeUser",
     "WAWebWorkerSafeBackendApi",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    async function u(e) {
-      var t = e.isOffline,
-        n = e.latestPrivacyMode,
-        r = e.messageOverwriteOption,
-        a = e.msgInfo,
-        i = e.msgs,
-        l = e.shouldQueryContactInfo,
-        s = o(
-          "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-        ).msgProcessReporter.startMarker(
-          o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
-            .msgProcessReporter.stage.PostProcessing,
-        );
-      (await Promise.all(
-        i.map(async function (e) {
-          (await o("WAWebBackendApi").frontendSendAndReceive(
-            "updateMessageUI",
-            {
-              chatId: e.id.remote,
-              msg: e,
-              messageOverwriteOption: r,
-              preserveOrder: !0,
-              isOffline: t,
-            },
-          ),
-            o(
-              "WAWebMessagePostProcessBatcher",
-            ).messagePostProcessBatcher.acceptMessage(e),
-            t ||
-              o(
-                "WAWebMessagePostProcessBatcher",
-              ).messagePostProcessBatcher.runActiveBatches());
-        }),
-      ),
-        (l || n != null) && c(e),
-        await o("WAWebBackendApi").frontendSendAndReceive(
-          "updateUnattributedMessages",
-          { messageInfo: a, messages: i },
-        ),
-        s == null || s());
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c(t) {
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.isOffline,
+            r = e.latestPrivacyMode,
+            a = e.messageOverwriteOption,
+            i = e.msgInfo,
+            l = e.msgs,
+            s = e.shouldQueryContactInfo,
+            c = o(
+              "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+            ).msgProcessReporter.startMarker(
+              o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
+                .msgProcessReporter.stage.PostProcessing,
+            );
+          (yield (u || (u = n("Promise"))).all(
+            l.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    (yield o("WAWebBackendApi").frontendSendAndReceive(
+                      "updateMessageUI",
+                      {
+                        chatId: e.id.remote,
+                        msg: e,
+                        messageOverwriteOption: a,
+                        preserveOrder: !0,
+                        isOffline: t,
+                      },
+                    ),
+                      o(
+                        "WAWebMessagePostProcessBatcher",
+                      ).messagePostProcessBatcher.acceptMessage(e),
+                      t ||
+                        o(
+                          "WAWebMessagePostProcessBatcher",
+                        ).messagePostProcessBatcher.runActiveBatches());
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          ),
+            (s || r != null) && m(e),
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "updateUnattributedMessages",
+              { messageInfo: i, messages: l },
+            ),
+            c == null || c());
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(t) {
       var n = t.latestPrivacyMode,
         r = t.msgInfo,
         a = t.msgs,
@@ -93,7 +112,7 @@ __d(
               );
             }));
     }
-    l.postprocessRenderableMessages = u;
+    l.postprocessRenderableMessages = c;
   },
   98,
 );

@@ -13,6 +13,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebWamEnumNotificationTypeEnum",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -26,9 +27,9 @@ __d(
         return (a != null && (n.parentMsg = a), n);
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.shouldMute = function (t) {
+        (a.shouldMute = function (t) {
           return this.parentMsg == null
             ? r("WAWebNotificationMuteReason").ParentMsgMissing
             : o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
@@ -45,7 +46,7 @@ __d(
                     ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                     : null;
         }),
-        (n.shouldPlaySound = function () {
+        (a.shouldPlaySound = function () {
           if (!e.prototype.shouldPlaySound.call(this)) return !1;
           var t = o("WAWebFrontendMsgGetters").getChat(this.commentMsg);
           return (
@@ -53,14 +54,14 @@ __d(
             !o("WAWebNotificationHelpers").shouldSquelch(t, !1)
           );
         }),
-        (n.shouldShowBanner = function () {
+        (a.shouldShowBanner = function () {
           if (!e.prototype.shouldShowBanner.call(this)) return !1;
           var t = o("WAWebFrontendMsgGetters").getChat(this.commentMsg);
           return o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
             t,
           );
         }),
-        (n.getBannerOptions = function () {
+        (a.getBannerOptions = function () {
           var e = o("WAWebFrontendMsgGetters").getChat(this.commentMsg);
           return {
             wid: e.id,
@@ -70,23 +71,35 @@ __d(
             ),
           };
         }),
-        (n.buildKey = function () {
+        (a.buildKey = function () {
           return "comment:" + this.commentMsg.id.toString();
         }),
-        (n.getIcon = async function () {
-          var e = o("WAWebFrontendMsgGetters").getChat(this.commentMsg);
-          return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-            e,
-            this.abortController.signal,
-          );
-        }),
-        (n.getNotificationDeliveryWamEventData = async function () {
-          return {
-            uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
-              .NOTIFICATION_TYPE_ENUM.OTHER,
-            triggeredByOfflineMessage: this.commentMsg.isOffline === !0,
-          };
-        }),
+        (a.getIcon = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = o("WAWebFrontendMsgGetters").getChat(this.commentMsg);
+            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+              e,
+              this.abortController.signal,
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.getNotificationDeliveryWamEventData = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return {
+              uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
+                .NOTIFICATION_TYPE_ENUM.OTHER,
+              triggeredByOfflineMessage: this.commentMsg.isOffline === !0,
+            };
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);

@@ -6,6 +6,7 @@ __d(
     "WAWebBackendApi",
     "WAWebODS",
     "WAWebWindowsHybridBridgeTrace",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -83,9 +84,9 @@ __d(
             (i = this.$1) == null || i.addEventListener("pingEvent", this.ping),
             this.$1.subscribe(null));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.startHangsMonitor = function () {
+          (a.startHangsMonitor = function () {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.debug.send.start_hangs_monitor",
@@ -101,7 +102,7 @@ __d(
                 },
               ));
           }),
-          (n.saveNativeLogs = function () {
+          (a.saveNativeLogs = function () {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.debug.send.save_native_logs",
@@ -117,7 +118,7 @@ __d(
                 },
               ));
           }),
-          (n.sendAdminLogs = function () {
+          (a.sendAdminLogs = function () {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.debug.send.send_admin_requested_logs",
@@ -133,30 +134,36 @@ __d(
                 },
               ));
           }),
-          (n.requestNativeLogs = async function () {
-            var e = this;
-            return (
-              r("WAWebODS").incr(
-                "web.hybrid.bridge.debug.send.request_native_logs",
-              ),
-              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                {
-                  bridge: "debugFeatures",
-                  method: "requestNativeLogs",
-                  type: "sync",
-                },
-                function () {
-                  return e.$1.requestNativeLogs();
-                },
-              )
-            );
-          }),
-          (n.saveJSLogs = function () {
+          (a.requestNativeLogs = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this;
+              return (
+                r("WAWebODS").incr(
+                  "web.hybrid.bridge.debug.send.request_native_logs",
+                ),
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                  {
+                    bridge: "debugFeatures",
+                    method: "requestNativeLogs",
+                    type: "sync",
+                  },
+                  function () {
+                    return e.$1.requestNativeLogs();
+                  },
+                )
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.saveJSLogs = function () {
             o("WAWebBackendApi").frontendFireAndForget(
               "createDownloadDataForMdWebLogs",
             );
           }),
-          (n.limitStringSize = function (t, n) {
+          (a.limitStringSize = function (t, n) {
             var e = new Blob([t], { type: "text/plain" });
             if (e.size > n) {
               var r = e.size - n;
@@ -164,25 +171,35 @@ __d(
             }
             return t;
           }),
-          (n.requestWebLogString = async function (t) {
-            var e = this,
-              n =
-                await o("WAWebBackendApi").frontendSendAndReceive("getWebLogs"),
-              a = this.limitStringSize(n, 30 * u);
-            (r("WAWebODS").incr(
-              "web.hybrid.bridge.debug.send.send_web_log_string",
-            ),
-              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                {
-                  bridge: "debugFeatures",
-                  method: "sendWebLogString",
-                  type: "sync",
-                },
-                function () {
-                  return e.$1.sendWebLogString(t.toString(), a);
-                },
-              ));
-          }),
+          (a.requestWebLogString = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  n =
+                    yield o("WAWebBackendApi").frontendSendAndReceive(
+                      "getWebLogs",
+                    ),
+                  a = this.limitStringSize(n, 30 * u);
+                (r("WAWebODS").incr(
+                  "web.hybrid.bridge.debug.send.send_web_log_string",
+                ),
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    {
+                      bridge: "debugFeatures",
+                      method: "sendWebLogString",
+                      type: "sync",
+                    },
+                    function () {
+                      return t.$1.sendWebLogString(e.toString(), a);
+                    },
+                  ));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })();

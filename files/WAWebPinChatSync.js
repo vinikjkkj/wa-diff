@@ -2,6 +2,7 @@ __d(
   "WAWebPinChatSync",
   [
     "$InternalEnum",
+    "Promise",
     "WALogger",
     "WALongInt",
     "WANullthrows",
@@ -24,18 +25,19 @@ __d(
     "WAWebWamEnumMdFeatureCode",
     "WAWebWid",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "compactMap",
     "decodeProtobuf",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return e === m.Chat
+    var e, s, u, c, d;
+    function m(e) {
+      return e === p.Chat
         ? function (e) {
             return !r("WAWebWid").isNewsletter(e);
           }
-        : e === m.Newsletter
+        : e === p.Newsletter
           ? function (e) {
               return r("WAWebWid").isNewsletter(e);
             }
@@ -46,9 +48,9 @@ __d(
               );
             })();
     }
-    var m = n("$InternalEnum").Mirrored(["Chat", "Newsletter"]),
-      p = (function (t) {
-        function n() {
+    var p = n("$InternalEnum").Mirrored(["Chat", "Newsletter"]),
+      _ = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -59,322 +61,429 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.getVersion = function () {
+          (i.getVersion = function () {
             return 5;
           }),
-          (a.getAction = function () {
+          (i.getAction = function () {
             return o("WASyncdConst").Actions.Pin;
           }),
-          (a.applyMutations = async function (t) {
-            r(
-              "WAWebAndroidUnsupportedActionsSync",
-            ).updatePrimaryAllowsAllMutationsFlag("other mutation");
-            for (var e = [], n = 0; n < t.length; n++)
-              e.push(await this.applyMutation(t[n]));
-            return e;
-          }),
-          (a.applyMutation = async function (n) {
-            if (n.operation === "remove")
-              return (
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: pin_chat_sync: REMOVE not supported",
-                    ])),
-                ),
-                Promise.resolve({
-                  actionState: o("WASyncdConst").SyncActionState.Unsupported,
-                })
-              );
-            var t = n.indexParts,
-              a = n.timestamp,
-              i = n.value,
-              l = t[1];
-            try {
-              if (!l)
-                return (
-                  o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: pin_chat_sync: missing chatJid in index",
-                      ])),
-                  ),
-                  this.malformedActionIndex()
-                );
-              if (!r("WAWebWid").isWid(l)) return this.malformedActionIndex();
-              var d = i.pinAction;
-              if (d == null)
-                return (
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: pin_chat_sync: missing pinAction",
-                      ])),
-                  ),
-                  o("WAWebSyncdIndexUtils").malformedActionValue(
-                    this.collectionName,
-                  )
-                );
-              var m = d.pinned;
-              if (m == null)
-                return (
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: pin_chat_sync: missing pinned field",
-                      ])),
-                  ),
-                  o("WAWebSyncdIndexUtils").malformedActionValue(
-                    this.collectionName,
-                  )
-                );
-              var p = await o("WAWebSyncdGetChat").resolveChatForMutationIndex(
-                o("WAWebWidFactory").createWid(l),
-              );
-              if (!p.success)
-                return {
-                  actionState: o("WASyncdConst").SyncActionState.Orphan,
-                  orphanModel: p.orphanModel,
-                };
-              var _ = p.chat.id,
-                f = p.chat.id,
-                g = o("WAWebWidFactory").createWid(f);
-              if (!m)
-                return (
-                  await this.applyUpdates([
-                    { wid: g, pinned: !1, timestamp: a },
-                  ]),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
-                );
-              var h = g.isNewsletter()
-                ? await this.getLocalNewsletterPins()
-                : await this.getLocalChatPins();
-              if (
-                h.some(function (e) {
-                  return e.chatId.toString() === g.toString();
-                })
-              )
-                return (
-                  await this.applyUpdates([
-                    { wid: g, pinned: m, timestamp: a },
-                  ]),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
-                );
-              if (h.length < o("WAWebChatPinBridge").getPinLimit(g))
-                return (
-                  await this.applyUpdates([
-                    { wid: g, pinned: m, timestamp: a },
-                  ]),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
-                );
-              r("gkx")("26258") ||
-                new (o(
-                  "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
-                ).MdSyncdDogfoodingFeatureUsageWamEvent)({
-                  mdSyncdDogfoodingFeature: o("WAWebWamEnumMdFeatureCode")
-                    .MD_FEATURE_CODE.UNPIN_4TH_CHAT_MUTATION,
-                }).commit();
-              var y = h.reduce(function (e, t) {
-                  return t.timestamp < e.timestamp ? t : e;
-                }),
-                C = [],
-                b = y.timestamp < a ? y.chatId : g;
-              return (
-                b === y.chatId &&
-                  C.push(
-                    { wid: y.chatId, pinned: !1, timestamp: a },
-                    { wid: g, pinned: !0, timestamp: a },
-                  ),
-                await Promise.all([
-                  this.applyUpdates(C),
-                  this.createPendingUnpin(b, a),
-                ]),
-                Promise.resolve({
-                  actionState: o("WASyncdConst").SyncActionState.Success,
-                })
-              );
-            } catch (e) {
-              return { actionState: o("WASyncdConst").SyncActionState.Failed };
+          (i.applyMutations = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                r(
+                  "WAWebAndroidUnsupportedActionsSync",
+                ).updatePrimaryAllowsAllMutationsFlag("other mutation");
+                for (var t = [], n = 0; n < e.length; n++)
+                  t.push(yield this.applyMutation(e[n]));
+                return t;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-          }),
-          (a.applyUpdates = async function (t) {
-            if (t.length !== 0) {
-              var e = t.map(function (e) {
-                var t = e.pinned,
-                  n = e.timestamp,
-                  r = e.wid,
-                  o = { id: r.toString(), pin: t ? n : 0 };
-                return (t && (o.archive = !1), o);
-              });
-              (await Promise.all(
-                e.map(function (e) {
-                  return o("WAWebSchemaChat").getChatTable().merge(e.id, e);
-                }),
-              ),
-                await Promise.all(
-                  t.map(async function (e) {
-                    var t = await o("WAWebChatGetExistingBridge").getExisting(
-                      e.wid,
-                    );
-                    t != null &&
-                      ((t.pin = e.pinned ? e.timestamp : 0),
-                      e.pinned && (t.archive = !1));
-                  }),
-                ));
-            }
-          }),
-          (a.createPendingUnpin = async function (t, n) {
-            await o("WAWebSyncdDb").appendPendingMutationsRows([
-              await this.getPinMutation(n, !1, t),
-            ]);
-          }),
-          (a.getLocalChatPins = async function () {
-            return this.$PinChatSyncImpl$p_1(m.Chat);
-          }),
-          (a.getLocalNewsletterPins = async function () {
-            return this.$PinChatSyncImpl$p_1(m.Newsletter);
-          }),
-          (a.$PinChatSyncImpl$p_1 = async function (t) {
-            var e = o("WAWebSchemaChat")
-                .getChatTable()
-                .all()
-                .then(function (e) {
-                  return e
-                    .filter(function (e) {
-                      return e.pin != null && e.pin > 0;
+            return t;
+          })()),
+          (i.applyMutation = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                if (t.operation === "remove")
+                  return (
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "syncd: pin_chat_sync: REMOVE not supported",
+                        ])),
+                    ),
+                    (d || (d = n("Promise"))).resolve({
+                      actionState:
+                        o("WASyncdConst").SyncActionState.Unsupported,
                     })
-                    .map(function (e) {
-                      return [e.id, r("WANullthrows")(e.pin)];
-                    });
-                }),
-              n = o("WAWebSyncdDb")
-                .getSyncActionsRows(["action"], [o("WASyncdConst").Actions.Pin])
-                .then(function (e) {
-                  var t = e.filter(function (e) {
+                  );
+                var a = t.indexParts,
+                  i = t.timestamp,
+                  l = t.value,
+                  m = a[1];
+                try {
+                  if (!m)
                     return (
-                      e.actionState === o("WASyncdConst").SyncActionState.Orphan
+                      o("WALogger").WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "syncd: pin_chat_sync: missing chatJid in index",
+                          ])),
+                      ),
+                      this.malformedActionIndex()
+                    );
+                  if (!r("WAWebWid").isWid(m))
+                    return this.malformedActionIndex();
+                  var p = l.pinAction;
+                  if (p == null)
+                    return (
+                      o("WALogger").WARN(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "syncd: pin_chat_sync: missing pinAction",
+                          ])),
+                      ),
+                      o("WAWebSyncdIndexUtils").malformedActionValue(
+                        this.collectionName,
+                      )
+                    );
+                  var _ = p.pinned;
+                  if (_ == null)
+                    return (
+                      o("WALogger").WARN(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "syncd: pin_chat_sync: missing pinned field",
+                          ])),
+                      ),
+                      o("WAWebSyncdIndexUtils").malformedActionValue(
+                        this.collectionName,
+                      )
+                    );
+                  var f = yield o(
+                    "WAWebSyncdGetChat",
+                  ).resolveChatForMutationIndex(
+                    o("WAWebWidFactory").createWid(m),
+                  );
+                  if (!f.success)
+                    return {
+                      actionState: o("WASyncdConst").SyncActionState.Orphan,
+                      orphanModel: f.orphanModel,
+                    };
+                  var g = f.chat.id,
+                    h = f.chat.id,
+                    y = o("WAWebWidFactory").createWid(h);
+                  if (!_)
+                    return (
+                      yield this.applyUpdates([
+                        { wid: y, pinned: !1, timestamp: i },
+                      ]),
+                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                    );
+                  var C = y.isNewsletter()
+                    ? yield this.getLocalNewsletterPins()
+                    : yield this.getLocalChatPins();
+                  if (
+                    C.some(function (e) {
+                      return e.chatId.toString() === y.toString();
+                    })
+                  )
+                    return (
+                      yield this.applyUpdates([
+                        { wid: y, pinned: _, timestamp: i },
+                      ]),
+                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                    );
+                  if (C.length < o("WAWebChatPinBridge").getPinLimit(y))
+                    return (
+                      yield this.applyUpdates([
+                        { wid: y, pinned: _, timestamp: i },
+                      ]),
+                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                    );
+                  r("gkx")("26258") ||
+                    new (o(
+                      "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
+                    ).MdSyncdDogfoodingFeatureUsageWamEvent)({
+                      mdSyncdDogfoodingFeature: o("WAWebWamEnumMdFeatureCode")
+                        .MD_FEATURE_CODE.UNPIN_4TH_CHAT_MUTATION,
+                    }).commit();
+                  var b = C.reduce(function (e, t) {
+                      return t.timestamp < e.timestamp ? t : e;
+                    }),
+                    v = [],
+                    S = b.timestamp < i ? b.chatId : y;
+                  return (
+                    S === b.chatId &&
+                      v.push(
+                        { wid: b.chatId, pinned: !1, timestamp: i },
+                        { wid: y, pinned: !0, timestamp: i },
+                      ),
+                    yield (d || (d = n("Promise"))).all([
+                      this.applyUpdates(v),
+                      this.createPendingUnpin(S, i),
+                    ]),
+                    d.resolve({
+                      actionState: o("WASyncdConst").SyncActionState.Success,
+                    })
+                  );
+                } catch (e) {
+                  return {
+                    actionState: o("WASyncdConst").SyncActionState.Failed,
+                  };
+                }
+              },
+            );
+            function a(e) {
+              return t.apply(this, arguments);
+            }
+            return a;
+          })()),
+          (i.applyUpdates = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                if (e.length !== 0) {
+                  var t = e.map(function (e) {
+                    var t = e.pinned,
+                      n = e.timestamp,
+                      r = e.wid,
+                      o = { id: r.toString(), pin: t ? n : 0 };
+                    return (t && (o.archive = !1), o);
+                  });
+                  (yield (d || (d = n("Promise"))).all(
+                    t.map(function (e) {
+                      return o("WAWebSchemaChat").getChatTable().merge(e.id, e);
+                    }),
+                  ),
+                    yield d.all(
+                      e.map(
+                        (function () {
+                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                            function* (e) {
+                              var t = yield o(
+                                "WAWebChatGetExistingBridge",
+                              ).getExisting(e.wid);
+                              t != null &&
+                                ((t.pin = e.pinned ? e.timestamp : 0),
+                                e.pinned && (t.archive = !1));
+                            },
+                          );
+                          return function (t) {
+                            return e.apply(this, arguments);
+                          };
+                        })(),
+                      ),
+                    ));
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.createPendingUnpin = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                yield o("WAWebSyncdDb").appendPendingMutationsRows([
+                  yield this.getPinMutation(t, !1, e),
+                ]);
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getLocalChatPins = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return this.$PinChatSyncImpl$p_1(p.Chat);
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getLocalNewsletterPins = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return this.$PinChatSyncImpl$p_1(p.Newsletter);
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$PinChatSyncImpl$p_1 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = o("WAWebSchemaChat")
+                    .getChatTable()
+                    .all()
+                    .then(function (e) {
+                      return e
+                        .filter(function (e) {
+                          return e.pin != null && e.pin > 0;
+                        })
+                        .map(function (e) {
+                          return [e.id, r("WANullthrows")(e.pin)];
+                        });
+                    }),
+                  a = o("WAWebSyncdDb")
+                    .getSyncActionsRows(
+                      ["action"],
+                      [o("WASyncdConst").Actions.Pin],
+                    )
+                    .then(function (e) {
+                      var t = e.filter(function (e) {
+                        return (
+                          e.actionState ===
+                          o("WASyncdConst").SyncActionState.Orphan
+                        );
+                      });
+                      return r("compactMap")(t, function (e) {
+                        var t,
+                          n = JSON.parse(e.index);
+                        if (n.length < 2) return null;
+                        var r = n[1],
+                          a = o("decodeProtobuf").decodeProtobuf(
+                            o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                            e.binarySyncData,
+                          ).value;
+                        return (a == null ? void 0 : a.pinAction) == null ||
+                          (a == null ? void 0 : a.pinAction.pinned) !== !0
+                          ? null
+                          : [
+                              r,
+                              o("WALongInt").numberOrThrowIfTooLarge(
+                                (t = a.timestamp) != null ? t : 0,
+                              ),
+                            ];
+                      });
+                    }),
+                  i = yield (d || (d = n("Promise"))).all([t, a]),
+                  l = i[0],
+                  s = i[1],
+                  u = m(e);
+                return []
+                  .concat(l, s)
+                  .filter(function (e) {
+                    var t = e[0];
+                    return u(t);
+                  })
+                  .map(function (e) {
+                    var t = e[0],
+                      n = e[1];
+                    return {
+                      chatId: o("WAWebWidFactory").createWid(t),
+                      timestamp: n,
+                    };
+                  });
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.unpinAllChats = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return this.$PinChatSyncImpl$p_2(yield this.getLocalChatPins());
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.unpinAllNewsletters = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return this.$PinChatSyncImpl$p_2(
+                yield this.getLocalNewsletterPins(),
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$PinChatSyncImpl$p_2 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this,
+                  r = o("WATimeUtils").unixTimeMs(),
+                  a = yield (d || (d = n("Promise"))).all(
+                    e.map(function (e) {
+                      var n = e.chatId;
+                      return t.getPinMutation(r, !1, n);
+                    }),
+                  );
+                return o("WAWebSyncdCoreApi")
+                  .lockForSync(["chat"], a, function () {
+                    return (d || (d = n("Promise"))).resolve();
+                  })
+                  .then(function () {
+                    return t.applyUpdates(
+                      e.map(function (e) {
+                        var t = e.chatId;
+                        return { wid: t, pinned: !1, timestamp: r };
+                      }),
                     );
                   });
-                  return r("compactMap")(t, function (e) {
-                    var t,
-                      n = JSON.parse(e.index);
-                    if (n.length < 2) return null;
-                    var r = n[1],
-                      a = o("decodeProtobuf").decodeProtobuf(
-                        o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                        e.binarySyncData,
-                      ).value;
-                    return (a == null ? void 0 : a.pinAction) == null ||
-                      (a == null ? void 0 : a.pinAction.pinned) !== !0
-                      ? null
-                      : [
-                          r,
-                          o("WALongInt").numberOrThrowIfTooLarge(
-                            (t = a.timestamp) != null ? t : 0,
-                          ),
-                        ];
-                  });
-                }),
-              a = await Promise.all([e, n]),
-              i = a[0],
-              l = a[1],
-              s = d(t);
-            return []
-              .concat(i, l)
-              .filter(function (e) {
-                var t = e[0];
-                return s(t);
-              })
-              .map(function (e) {
-                var t = e[0],
-                  n = e[1];
-                return {
-                  chatId: o("WAWebWidFactory").createWid(t),
-                  timestamp: n,
-                };
-              });
-          }),
-          (a.unpinAllChats = async function () {
-            return this.$PinChatSyncImpl$p_2(await this.getLocalChatPins());
-          }),
-          (a.unpinAllNewsletters = async function () {
-            return this.$PinChatSyncImpl$p_2(
-              await this.getLocalNewsletterPins(),
+              },
             );
-          }),
-          (a.$PinChatSyncImpl$p_2 = async function (t) {
-            var e = this,
-              n = o("WATimeUtils").unixTimeMs(),
-              r = await Promise.all(
-                t.map(function (t) {
-                  var r = t.chatId;
-                  return e.getPinMutation(n, !1, r);
-                }),
-              );
-            return o("WAWebSyncdCoreApi")
-              .lockForSync(["chat"], r, function () {
-                return Promise.resolve();
-              })
-              .then(function () {
-                return e.applyUpdates(
-                  t.map(function (e) {
-                    var t = e.chatId;
-                    return { wid: t, pinned: !1, timestamp: n };
-                  }),
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getMutationsForPin = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                r("gkx")("26258") ||
+                  new (o(
+                    "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
+                  ).MdSyncdDogfoodingFeatureUsageWamEvent)({
+                    mdSyncdDogfoodingFeature: o("WAWebWamEnumMdFeatureCode")
+                      .MD_FEATURE_CODE.PIN_MUTATION,
+                  }).commit();
+                var a = [yield this.getPinMutation(e, t, n)];
+                return (
+                  t &&
+                    a.push(
+                      yield r("WAWebArchiveChatSync").getArchiveChatMutation(
+                        e,
+                        !1,
+                        n,
+                      ),
+                    ),
+                  a
                 );
-              });
-          }),
-          (a.getMutationsForPin = async function (t, n, a) {
-            r("gkx")("26258") ||
-              new (o(
-                "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
-              ).MdSyncdDogfoodingFeatureUsageWamEvent)({
-                mdSyncdDogfoodingFeature: o("WAWebWamEnumMdFeatureCode")
-                  .MD_FEATURE_CODE.PIN_MUTATION,
-              }).commit();
-            var e = [await this.getPinMutation(t, n, a)];
-            return (
-              n &&
-                e.push(
-                  await r("WAWebArchiveChatSync").getArchiveChatMutation(
-                    t,
-                    !1,
-                    a,
-                  ),
-                ),
-              e
+              },
             );
-          }),
-          (a.getPinMutation = async function (t, n, r) {
-            o("WAWebSyncdGetChat").warnIfPnMutationWithForcedLid(
-              o("WAWebSyncdGetChat").PnMutationCaller.GetPinMutation,
-              r,
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getPinMutation = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                o("WAWebSyncdGetChat").warnIfPnMutationWithForcedLid(
+                  o("WAWebSyncdGetChat").PnMutationCaller.GetPinMutation,
+                  n,
+                );
+                var r = { pinAction: { pinned: t } };
+                return o("WAWebSyncdActionUtils").buildPendingMutation({
+                  collection: this.collectionName,
+                  indexArgs: [
+                    yield o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
+                      n,
+                      o("WASyncdConst").Actions.Pin,
+                    ),
+                  ],
+                  value: r,
+                  version: this.getVersion(),
+                  operation: o("WAWebProtobufsServerSync.pb")
+                    .SyncdMutation$SyncdOperation.SET,
+                  timestamp: e,
+                  action: this.getAction(),
+                });
+              },
             );
-            var e = { pinAction: { pinned: n } };
-            return o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: this.collectionName,
-              indexArgs: [
-                await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
-                  r,
-                  o("WASyncdConst").Actions.Pin,
-                ),
-              ],
-              value: e,
-              version: this.getVersion(),
-              operation: o("WAWebProtobufsServerSync.pb")
-                .SyncdMutation$SyncdOperation.SET,
-              timestamp: t,
-              action: this.getAction(),
-            });
-          }),
-          n
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          a
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase),
-      _ = new p();
-    l.PinChatSync = _;
+      f = new _();
+    l.PinChatSync = f;
   },
   98,
 );

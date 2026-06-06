@@ -8,74 +8,96 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgType",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    async function s(t) {
-      if (t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE) {
-        var n = t.groupHistoryBundleMetadata;
-        if (n != null) {
-          var r = t.id.remote,
-            a;
-          try {
-            a = o("WAWebWidToJid").widToGroupJid(r);
-          } catch (e) {
-            return;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE) {
+            var r = t.groupHistoryBundleMetadata;
+            if (r != null) {
+              var a = t.id.remote,
+                i;
+              try {
+                i = o("WAWebWidToJid").widToGroupJid(a);
+              } catch (e) {
+                return;
+              }
+              var l = r.historyReceivers;
+              l.length !== 0 &&
+                (o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history][M2] notice rcvd, ",
+                      " receivers",
+                    ])),
+                  l.length,
+                ),
+                yield o("WAWebModelStorageUtils")
+                  .getStorage()
+                  .lock(
+                    ["group-history-participant"],
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          var t,
+                            n = e[0],
+                            r = yield n.get(i),
+                            a =
+                              (t =
+                                r == null
+                                  ? void 0
+                                  : r.participantMetadataMap) != null
+                                ? t
+                                : new Map();
+                          for (var s of l) {
+                            var u,
+                              c = o("WAWebLidMigrationUtils").toUserLid(s);
+                            if (c != null) {
+                              var d = o("WAWebWidToJid").userLidtoLidUserJid(c),
+                                m = a.get(d);
+                              a.set(d, {
+                                joinTime:
+                                  (u = m == null ? void 0 : m.joinTime) != null
+                                    ? u
+                                    : null,
+                                groupHistorySentState: o(
+                                  "WAWebGroupHistoryPostJoinTypes.flow",
+                                ).GroupHistorySentState.NOTICE_SENT,
+                              });
+                            }
+                          }
+                          yield n.createOrMerge(i, {
+                            chatId: i,
+                            participantMetadataMap: a,
+                          });
+                        },
+                      );
+                      return function (t) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  ),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateParticipantsGroupHistorySentState",
+                  {
+                    group: a,
+                    receiverIds: l,
+                    state: o("WAWebGroupHistoryPostJoinTypes.flow")
+                      .GroupHistorySentState.NOTICE_SENT,
+                  },
+                ));
+            }
           }
-          var i = n.historyReceivers;
-          i.length !== 0 &&
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[group-history][M2] notice rcvd, ",
-                  " receivers",
-                ])),
-              i.length,
-            ),
-            await o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(["group-history-participant"], async function (e) {
-                var t,
-                  n = e[0],
-                  r = await n.get(a),
-                  l =
-                    (t = r == null ? void 0 : r.participantMetadataMap) != null
-                      ? t
-                      : new Map();
-                for (var s of i) {
-                  var u,
-                    c = o("WAWebLidMigrationUtils").toUserLid(s);
-                  if (c != null) {
-                    var d = o("WAWebWidToJid").userLidtoLidUserJid(c),
-                      m = l.get(d);
-                    l.set(d, {
-                      joinTime:
-                        (u = m == null ? void 0 : m.joinTime) != null
-                          ? u
-                          : null,
-                      groupHistorySentState: o(
-                        "WAWebGroupHistoryPostJoinTypes.flow",
-                      ).GroupHistorySentState.NOTICE_SENT,
-                    });
-                  }
-                }
-                await n.createOrMerge(a, {
-                  chatId: a,
-                  participantMetadataMap: l,
-                });
-              }),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateParticipantsGroupHistorySentState",
-              {
-                group: r,
-                receiverIds: i,
-                state: o("WAWebGroupHistoryPostJoinTypes.flow")
-                  .GroupHistorySentState.NOTICE_SENT,
-              },
-            ));
-        }
-      }
+        })),
+        u.apply(this, arguments)
+      );
     }
     l.maybeHandleGroupHistoryNotice = s;
   },

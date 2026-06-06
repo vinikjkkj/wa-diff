@@ -1,6 +1,13 @@
 __d(
   "WAWebVoipSctpStatsInstrumentation",
-  ["WALogger", "WAWebABProps", "WAWebNoop", "WAWebVoipStatsTracker"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebABProps",
+    "WAWebNoop",
+    "WAWebVoipStatsTracker",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,23 +18,24 @@ __d(
       m,
       p,
       _,
-      f = new Map();
-    function g() {
+      f,
+      g = new Map();
+    function h() {
       var e = [],
-        t = Array.from(f.values());
+        t = Array.from(g.values());
       for (var n of t) e.push.apply(e, n.getConnections());
       return e;
     }
-    function h() {
-      var e = Array.from(f.values());
+    function y() {
+      var e = Array.from(g.values());
       for (var t of e) {
         var n = t.getDcThread == null ? void 0 : t.getDcThread();
         if (n != null && n.isActive()) return n;
       }
       return null;
     }
-    function y(t, n, a) {
-      (f.has(t) &&
+    function C(t, n, a) {
+      (g.has(t) &&
         o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -36,22 +44,22 @@ __d(
             ])),
           t,
         ),
-        f.set(t, { getConnections: n, getDcThread: a }),
+        g.set(t, { getConnections: n, getDcThread: a }),
         o("WAWebABProps").getABPropConfigValue(
           "voip_enable_webrtc_stats_polling",
         ) &&
-          (R ||
+          (L ||
             (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SctpStats] WebRTC stats poll start (",
                   "ms)",
                 ])),
-              v,
+              S,
             ),
-            (R = !0),
-            E()),
-          I.isPolling() ||
+            (L = !0),
+            I()),
+          D.isPolling() ||
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -60,166 +68,206 @@ __d(
                 ])),
               o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
             ),
-            T().catch(r("WAWebNoop")),
-            I.startPolling({
+            x().catch(r("WAWebNoop")),
+            D.startPolling({
               intervalMs: o("WAWebVoipStatsTracker").DEFAULT_POLL_INTERVAL_MS,
               onInterval: function () {
-                T().catch(r("WAWebNoop"));
+                x().catch(r("WAWebNoop"));
               },
             }))));
     }
-    function C(e) {
-      (f.delete(e), f.size === 0 && D());
-    }
     function b(e) {
-      (k.delete(e), I.remove(e));
+      (g.delete(e), g.size === 0 && P());
     }
-    var v = 1e3,
-      S = null,
-      R = !1;
-    async function L() {
-      var e = g(),
-        t = h();
-      await Promise.all(
-        e.map(async function (e) {
-          var n = e.connectionId,
-            r = e.peerConnection;
-          try {
-            var a = await r.getStats();
-            a.forEach(function (e) {
-              if (e.type === "candidate-pair" && e.nominated === !0) {
-                var n = e,
-                  r = n.currentRoundTripTime;
-                if (r != null && t != null && t.isActive()) {
-                  var o,
-                    i,
-                    l = n.remoteCandidateId,
-                    s = l != null ? a.get(l) : null,
-                    u = (o = s == null ? void 0 : s.address) != null ? o : "",
-                    c = (i = s == null ? void 0 : s.port) != null ? i : 0;
-                  if (u !== "" && c > 0) {
-                    var d = Math.round(r * 1e3);
-                    t.updateIceRtt(d, u, c);
-                  }
-                }
-              }
-            });
-          } catch (e) {
-            o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpStats] getStats failed for ",
-                  ": ",
+    function v(e) {
+      (T.delete(e), D.remove(e));
+    }
+    var S = 1e3,
+      R = null,
+      L = !1;
+    function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = h(),
+            t = y();
+          yield (f || (f = n("Promise"))).all(
+            e.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var n = e.connectionId,
+                      r = e.peerConnection;
+                    try {
+                      var a = yield r.getStats();
+                      a.forEach(function (e) {
+                        if (e.type === "candidate-pair" && e.nominated === !0) {
+                          var n = e,
+                            r = n.currentRoundTripTime;
+                          if (r != null && t != null && t.isActive()) {
+                            var o,
+                              i,
+                              l = n.remoteCandidateId,
+                              s = l != null ? a.get(l) : null,
+                              u =
+                                (o = s == null ? void 0 : s.address) != null
+                                  ? o
+                                  : "",
+                              c =
+                                (i = s == null ? void 0 : s.port) != null
+                                  ? i
+                                  : 0;
+                            if (u !== "" && c > 0) {
+                              var d = Math.round(r * 1e3);
+                              t.updateIceRtt(d, u, c);
+                            }
+                          }
+                        }
+                      });
+                    } catch (e) {
+                      o("WALogger").WARN(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [SctpStats] getStats failed for ",
+                            ": ",
+                            "",
+                          ])),
+                        n,
+                        e,
+                      );
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I() {
+      L &&
+        (R != null && window.clearTimeout(R),
+        (R = window.setTimeout(function () {
+          ((R = null), E().then(I));
+        }, S)));
+    }
+    var T = new Map(),
+      D = new (o("WAWebVoipStatsTracker").VoipStatsTracker)();
+    function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t = h(),
+            r = [];
+          yield (f || (f = n("Promise"))).all(
+            t.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = e.connectionId,
+                      n = e.peerConnection;
+                    try {
+                      var o = null,
+                        a = "N/A",
+                        i = 0;
+                      ((yield n.getStats()).forEach(function (e) {
+                        if (e.type === "candidate-pair" && e.nominated === !0) {
+                          var t;
+                          ((o =
+                            typeof e.currentRoundTripTime == "number"
+                              ? e.currentRoundTripTime
+                              : null),
+                            (i = (t = e.bytesSent) != null ? t : 0));
+                        } else if (e.type === "transport") {
+                          var n;
+                          a = String((n = e.dtlsState) != null ? n : "N/A");
+                        }
+                      }),
+                        r.push({ id: t, rtt: o, dtls: a, sent: i }));
+                    } catch (e) {}
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+          var a = null,
+            i = 0;
+          for (var l of r) {
+            var s,
+              u = l.sent - ((s = T.get(l.id)) != null ? s : 0);
+            u > i && ((i = u), (a = l));
+          }
+          for (var c of r) T.set(c.id, c.sent);
+          if (a != null) {
+            var d = a.rtt != null ? Math.round(a.rtt * 1e3) : null;
+            d != null && D.record(a.id, d);
+            var m = (e = D.formatStats(a.id)) != null ? e : "N/A";
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SctpStats] ",
+                  " rtt=",
+                  "ms (",
+                  "), dtls=",
                   "",
                 ])),
-              n,
-              e,
+              a.id,
+              d != null ? String(d) : "N/A",
+              m,
+              a.dtls,
             );
           }
-        }),
+        })),
+        $.apply(this, arguments)
       );
     }
-    function E() {
-      R &&
-        (S != null && window.clearTimeout(S),
-        (S = window.setTimeout(function () {
-          ((S = null), L().then(E));
-        }, v)));
-    }
-    var k = new Map(),
-      I = new (o("WAWebVoipStatsTracker").VoipStatsTracker)();
-    async function T() {
-      var e,
-        t = g(),
-        n = [];
-      await Promise.all(
-        t.map(async function (e) {
-          var t = e.connectionId,
-            r = e.peerConnection;
-          try {
-            var o = null,
-              a = "N/A",
-              i = 0;
-            ((await r.getStats()).forEach(function (e) {
-              if (e.type === "candidate-pair" && e.nominated === !0) {
-                var t;
-                ((o =
-                  typeof e.currentRoundTripTime == "number"
-                    ? e.currentRoundTripTime
-                    : null),
-                  (i = (t = e.bytesSent) != null ? t : 0));
-              } else if (e.type === "transport") {
-                var n;
-                a = String((n = e.dtlsState) != null ? n : "N/A");
-              }
-            }),
-              n.push({ id: t, rtt: o, dtls: a, sent: i }));
-          } catch (e) {}
-        }),
-      );
-      var r = null,
-        a = 0;
-      for (var i of n) {
-        var l,
-          s = i.sent - ((l = k.get(i.id)) != null ? l : 0);
-        s > a && ((a = s), (r = i));
-      }
-      for (var u of n) k.set(u.id, u.sent);
-      if (r != null) {
-        var c = r.rtt != null ? Math.round(r.rtt * 1e3) : null;
-        c != null && I.record(r.id, c);
-        var m = (e = I.formatStats(r.id)) != null ? e : "N/A";
-        o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [SctpStats] ",
-              " rtt=",
-              "ms (",
-              "), dtls=",
-              "",
-            ])),
-          r.id,
-          c != null ? String(c) : "N/A",
-          m,
-          r.dtls,
-        );
-      }
-    }
-    function D() {
+    function P() {
       if (
-        (R &&
-          ((R = !1),
-          S != null && (window.clearTimeout(S), (S = null)),
+        (L &&
+          ((L = !1),
+          R != null && (window.clearTimeout(R), (R = null)),
           o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SctpStats] Stopped WebRTC stats polling",
               ])),
           )),
-        I.isPolling())
+        D.isPolling())
       ) {
-        var e = I.stopPolling();
+        var e = D.stopPolling();
         (e != null &&
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SctpStats] Call RTT summary: ",
                 "",
               ])),
             e,
           ),
-          k.clear(),
+          T.clear(),
           o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SctpStats] Stopped RTT polling",
               ])),
           ));
       }
     }
-    ((l.addConnectionSource = y),
-      (l.removeConnectionSource = C),
-      (l.removeConnectionFromRttStats = b));
+    ((l.addConnectionSource = C),
+      (l.removeConnectionSource = b),
+      (l.removeConnectionFromRttStats = v));
   },
   98,
 );

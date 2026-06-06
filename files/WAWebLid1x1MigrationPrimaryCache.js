@@ -1,16 +1,19 @@
 __d(
   "WAWebLid1x1MigrationPrimaryCache",
   [
+    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebDBCreateLidPnMappings",
     "WAWebLid1x1MigrationMsgParser",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function () {
+      s,
+      u = (function () {
         function t() {
           ((this.$1 = 0),
             (this.$2 = new Map()),
@@ -33,35 +36,44 @@ __d(
                 .sendLogs(String(t));
             }));
         }
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.getPrimaryMigrationTsSec = function () {
+          (r.getPrimaryMigrationTsSec = function () {
             return this.$4;
           }),
-          (n.getLidForPn = function (t) {
+          (r.getLidForPn = function (t) {
             return this.$2.get(t);
           }),
-          (n.updateCacheIfEmpty = function (t, n) {
+          (r.updateCacheIfEmpty = function (t, r) {
             return this.$2.size !== 0
-              ? Promise.resolve()
-              : (this.clear(), (this.$1 = n), this.$5(t));
+              ? (s || (s = n("Promise"))).resolve()
+              : (this.clear(), (this.$1 = r), this.$5(t));
           }),
-          (n.$5 = async function (t) {
-            var e = this;
-            await o("WAWebLid1x1MigrationMsgParser")
-              .parseLidMigrationMappingSyncMsg(t)
-              .then(function (t) {
-                var n;
-                ((e.$4 = t == null ? void 0 : t.primaryMigrationTsSec),
-                  t == null ||
-                    (n = t.mappings) == null ||
-                    n.forEach(function (t) {
-                      (e.$2.set(t.pnUser, t.assignedLid),
-                        t.latestLid != null && e.$3.set(t.pnUser, t.latestLid));
-                    }));
-              });
-          }),
-          (n.getAllPnLidMappings = function () {
+          (r.$5 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
+                yield o("WAWebLid1x1MigrationMsgParser")
+                  .parseLidMigrationMappingSyncMsg(e)
+                  .then(function (e) {
+                    var n;
+                    ((t.$4 = e == null ? void 0 : e.primaryMigrationTsSec),
+                      e == null ||
+                        (n = e.mappings) == null ||
+                        n.forEach(function (e) {
+                          (t.$2.set(e.pnUser, e.assignedLid),
+                            e.latestLid != null &&
+                              t.$3.set(e.pnUser, e.latestLid));
+                        }));
+                  });
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getAllPnLidMappings = function () {
             var e = this;
             return Array.from(this.$2.entries(), function (t) {
               var n = t[0],
@@ -74,7 +86,7 @@ __d(
               };
             });
           }),
-          (n.$6 = function (t, n, r) {
+          (r.$6 = function (t, n, r) {
             var e = o("WAWebApiContact").lidPnCache.getCurrentLid(
                 o("WAWebWidFactory").asUserWidOrThrow(t),
               ),
@@ -100,43 +112,49 @@ __d(
               return { mappings: l, learningSource: i };
             }
           }),
-          (n.learnMappingsInBulk = async function () {
-            var e = this,
-              t = this.getAllPnLidMappings(),
-              n = [],
-              r = [];
-            (t.forEach(function (t) {
-              var o = t.primaryProvidedLatestLid,
-                a = t.primaryProvidedLid,
-                i = t.primaryProvidedPn,
-                l = e.$6(i, a, o);
-              if (l != null) {
-                var s = l.learningSource,
-                  u = l.mappings;
-                s === "migration-sync-latest"
-                  ? r.push.apply(r, u)
-                  : n.push.apply(n, u);
-              }
-            }),
-              await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: n,
-                flushImmediately: !0,
-                learningSource: "migration-sync-old",
+          (r.learnMappingsInBulk = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this,
+                t = this.getAllPnLidMappings(),
+                n = [],
+                r = [];
+              (t.forEach(function (t) {
+                var o = t.primaryProvidedLatestLid,
+                  a = t.primaryProvidedLid,
+                  i = t.primaryProvidedPn,
+                  l = e.$6(i, a, o);
+                if (l != null) {
+                  var s = l.learningSource,
+                    u = l.mappings;
+                  s === "migration-sync-latest"
+                    ? r.push.apply(r, u)
+                    : n.push.apply(n, u);
+                }
               }),
-              await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: r,
-                flushImmediately: !0,
-                learningSource: "migration-sync-latest",
-              }));
-          }),
-          (n.clear = function () {
+                yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                  mappings: n,
+                  flushImmediately: !0,
+                  learningSource: "migration-sync-old",
+                }),
+                yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                  mappings: r,
+                  flushImmediately: !0,
+                  learningSource: "migration-sync-latest",
+                }));
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.clear = function () {
             ((this.$1 = 0), this.$2.clear(), this.$3.clear());
           }),
           t
         );
       })(),
-      u = new s();
-    l.lidPnMigrationPrimaryCache = u;
+      c = new u();
+    l.lidPnMigrationPrimaryCache = c;
   },
   98,
 );

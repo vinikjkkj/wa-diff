@@ -7,57 +7,90 @@ __d(
     "WAWebProtobufSyncAction.pb",
     "WAWebSyncdDb",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e() {
-      var e,
-        t =
-          '["' +
-          o("WASyncdConst").Actions.DeviceCapabilities +
-          '","' +
-          o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
-          ':0@s.whatsapp.net"]',
-        n = await o("WAWebSyncdDb").getSyncAction(t);
-      return (n == null ? void 0 : n.binarySyncData) == null
-        ? null
-        : (e = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-              n.binarySyncData,
-            ).value) == null || (e = e.deviceCapabilities) == null
-          ? void 0
-          : e.businessBroadcast;
+    function e() {
+      return s.apply(this, arguments);
     }
-    async function s() {
-      var t = await e();
-      return !!(t != null && t.importListEnabled);
-    }
-    async function u() {
-      var t = await e();
+    function s() {
       return (
-        !!(t != null && t.companionSupportEnabled) &&
-        !!(t != null && t.campaignSyncEnabled)
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e,
+            t =
+              '["' +
+              o("WASyncdConst").Actions.DeviceCapabilities +
+              '","' +
+              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
+              ':0@s.whatsapp.net"]',
+            n = yield o("WAWebSyncdDb").getSyncAction(t);
+          return (n == null ? void 0 : n.binarySyncData) == null
+            ? null
+            : (e = o("decodeProtobuf").decodeProtobuf(
+                  o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                  n.binarySyncData,
+                ).value) == null || (e = e.deviceCapabilities) == null
+              ? void 0
+              : e.businessBroadcast;
+        })),
+        s.apply(this, arguments)
       );
     }
-    async function c() {
-      if (o("WAWebMobilePlatforms").isSMB()) {
-        var t = await e(),
-          n =
-            !!(t != null && t.companionSupportEnabled) &&
-            !!(t != null && t.campaignSyncEnabled);
-        (o(
-          "WAWebBizBroadcastDeviceCapabilityCommon",
-        ).saveBizBroadcastCapabilityToStorage(n),
-          o(
-            "WAWebBizBroadcastDeviceCapabilityCommon",
-          ).saveBizBroadcastRecipientLimitToStorage(
-            t == null ? void 0 : t.recipientLimit,
-          ));
-      }
+    function u() {
+      return c.apply(this, arguments);
     }
-    ((l.getPrimarySupportsBusinessBroadcastListImport = s),
-      (l.getPrimarySupportsBusinessBroadcastCompanionAndCampaignSync = u),
-      (l.bootstrapBizBroadcastPrimaryCapability = c));
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield e();
+          return !!(t != null && t.importListEnabled);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield e();
+          return (
+            !!(t != null && t.companionSupportEnabled) &&
+            !!(t != null && t.campaignSyncEnabled)
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (o("WAWebMobilePlatforms").isSMB()) {
+            var t = yield e(),
+              n =
+                !!(t != null && t.companionSupportEnabled) &&
+                !!(t != null && t.campaignSyncEnabled);
+            (o(
+              "WAWebBizBroadcastDeviceCapabilityCommon",
+            ).saveBizBroadcastCapabilityToStorage(n),
+              o(
+                "WAWebBizBroadcastDeviceCapabilityCommon",
+              ).saveBizBroadcastRecipientLimitToStorage(
+                t == null ? void 0 : t.recipientLimit,
+              ));
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.getPrimarySupportsBusinessBroadcastListImport = u),
+      (l.getPrimarySupportsBusinessBroadcastCompanionAndCampaignSync = d),
+      (l.bootstrapBizBroadcastPrimaryCapability = p));
   },
   98,
 );

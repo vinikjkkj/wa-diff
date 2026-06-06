@@ -11,6 +11,7 @@ __d(
     "WAWebLoadingDrawer.react",
     "WAWebNewsletterGatingUtils",
     "WAWebResponsesListShimmer.react",
+    "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
     "react-loadable",
@@ -18,14 +19,17 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebResponsesListDrawer.react",
-        )
-          .__setRef("WAWebResponsesListDrawerLoadable")
-          .load();
-        return e.ResponsesListDrawer;
-      }, "ResponsesListDrawer"),
+      c = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebResponsesListDrawer.react",
+          )
+            .__setRef("WAWebResponsesListDrawerLoadable")
+            .load();
+          return e.ResponsesListDrawer;
+        }),
+        "ResponsesListDrawer",
+      ),
       d = function () {
         return s._(/*BTDS*/ "Responses list");
       };

@@ -9,13 +9,14 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebParticipantListUtils",
     "WAWebVoipPopoutWindowState",
+    "asyncToGeneratorRuntime",
     "bx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = r("bx").getURL(r("bx")("9555")),
       u = (function (t) {
-        function n(e) {
+        function a(e) {
           var n,
             r = e.callId,
             o = e.linkToken,
@@ -30,31 +31,37 @@ __d(
             n
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.shouldMute = function (t) {
+          (i.shouldMute = function (t) {
             return o("WAWebNotificationHelpers").appIsActive() || c()
               ? r("WAWebNotificationMuteReason").AppState
               : null;
           }),
-          (a.buildKey = function () {
+          (i.buildKey = function () {
             return "waiting-room:" + this.callId;
           }),
-          (a.getChatKind = function () {
+          (i.getChatKind = function () {
             return o("WAWebChatFlowTypes").ChatKindType.Group;
           }),
-          (a.getIcon = async function () {
-            var t = this.waitingRoomUserWids[0];
-            return t != null
-              ? o("WAWebNotificationIconUtils").getNotificationIconByWid(
-                  t,
-                  this.abortController.signal,
-                  o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-                )
-              : e;
-          }),
-          (a.getBannerOptions = function () {
+          (i.getIcon = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t = this.waitingRoomUserWids[0];
+              return t != null
+                ? o("WAWebNotificationIconUtils").getNotificationIconByWid(
+                    t,
+                    this.abortController.signal,
+                    o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
+                  )
+                : e;
+            });
+            function r() {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (i.getBannerOptions = function () {
             var e,
               t = this.$WAWaitingRoomNotification$p_1(),
               n = s
@@ -73,7 +80,7 @@ __d(
               tag: "waiting-room:" + this.callId,
             };
           }),
-          (a.$WAWaitingRoomNotification$p_1 = function () {
+          (i.$WAWaitingRoomNotification$p_1 = function () {
             return this.waitingRoomUserWids.length === 0
               ? s._(/*BTDS*/ "Someone").toString()
               : o(
@@ -83,7 +90,7 @@ __d(
                   !0,
                 );
           }),
-          n
+          a
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     function c() {

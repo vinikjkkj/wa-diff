@@ -18,6 +18,7 @@ __d(
     "WAWebWamEnumLabelOperations",
     "WAWebWamEnumLabelTargets",
     "WAWebWamLabelEventReporter",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,20 +32,28 @@ __d(
         t == null ? void 0 : t,
       );
     }
-    async function d(e) {
-      var t = e.length;
-      o("WAWebListsLabelGatingUtils").isSMBEnhancedLoggingEnabled()
-        ? e.forEach(function (e) {
-            var n = e.id.toJid(),
-              r = o("WAWebChatThreadLogging").getChatThreadIDHMAC(n),
-              a = function (n) {
-                return c(t, n);
-              };
-            r.then(a);
-          })
-        : c(t);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function m(e) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.length;
+          o("WAWebListsLabelGatingUtils").isSMBEnhancedLoggingEnabled()
+            ? e.forEach(function (e) {
+                var n = e.id.toJid(),
+                  r = o("WAWebChatThreadLogging").getChatThreadIDHMAC(n),
+                  a = function (n) {
+                    return c(t, n);
+                  };
+                r.then(a);
+              })
+            : c(t);
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
       e: return e.type === o("WAWebSchemaLabel").ListType.FAVORITES
         ? o("WAWebFavoritesUtils").getFavoriteChats()
         : e.type === o("WAWebSchemaLabel").ListType.UNREAD
@@ -93,7 +102,7 @@ __d(
                   return (n != null && e.push(n), e);
                 }, []);
     }
-    var p = function (t, n) {
+    var _ = function (t, n) {
         var e = new Set(t),
           r = new Set(n),
           o = [];
@@ -102,7 +111,7 @@ __d(
         for (var l of e) r.has(l) || i.push(l);
         return { removedItems: i, addedItems: o };
       },
-      _ = function (t, n, r) {
+      f = function (t, n, r) {
         var e = s._(/*BTDS*/ "Delete this list?"),
           a = s._(
             /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
@@ -128,7 +137,7 @@ __d(
           }),
         );
       },
-      f = function (t, n) {
+      g = function (t, n) {
         o("WAWebModalManager").ModalManager.open(
           u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
             testid: "disable-list-confirm-popup",
@@ -150,7 +159,7 @@ __d(
           }),
         );
       };
-    function g(e) {
+    function h(e) {
       o("WAWebModalManager").ModalManager.openAlert(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: function () {
@@ -162,11 +171,11 @@ __d(
       );
     }
     ((l.logLabelOperationEventsForModels = d),
-      (l.getAllChatsInList = m),
-      (l.getTwoArraysDifference = p),
-      (l.openListDeleteConfirmPopup = _),
-      (l.openListDisableConfirmPopup = f),
-      (l.showMaxListsModal = g));
+      (l.getAllChatsInList = p),
+      (l.getTwoArraysDifference = _),
+      (l.openListDeleteConfirmPopup = f),
+      (l.openListDisableConfirmPopup = g),
+      (l.showMaxListsModal = h));
   },
   226,
 );

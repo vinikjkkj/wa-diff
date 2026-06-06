@@ -20,77 +20,118 @@ __d(
     "WAWebWamEnumOtpEventSource",
     "WAWebWamEnumOtpEventType",
     "WAWebWamEnumOtpProductType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
-        var t = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
-          ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
-          otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
-            .CHAT_CTA,
-          otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE.CLICK,
-        });
-        (await d(t, e), t.commit());
-      }
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    async function s(e) {
-      var t;
-      if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
-        var n = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
-            ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
-            otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
-              .OTP_MESSAGE,
-            otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
-              .MESSAGE_RECEIVED,
-          }),
-          r =
-            (t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
-              ? void 0
-              : t.getDeviceId();
-        (r != null && (n.waDeviceId = r), await d(n, e), n.commit());
-      }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
+            var t = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
+              ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
+              otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
+                .CHAT_CTA,
+              otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE.CLICK,
+            });
+            (yield f(t, e), t.commit());
+          }
+        })),
+        s.apply(this, arguments)
+      );
     }
-    async function u(e) {
-      var t = o("WAWebDBMessageSerialization").messageFromDbRow(e);
-      if (o("WAWebMsgGetters").getIsAuthenticationMessage(t)) {
-        var n = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
-          ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
-          otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
-            .OTP_MESSAGE,
-          otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
-            .MESSAGE_READ,
-        });
-        (await d(n, t), n.commit());
-      }
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    async function c(e) {
-      if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
-        var t = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
-          ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
-          otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
-            .OTP_MESSAGE,
-          otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
-            .MESSAGE_DELETED,
-        });
-        (await d(t, e), t.commit());
-      }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
+            var n = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
+                ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
+                otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
+                  .OTP_MESSAGE,
+                otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
+                  .MESSAGE_RECEIVED,
+              }),
+              r =
+                (t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
+                  ? void 0
+                  : t.getDeviceId();
+            (r != null && (n.waDeviceId = r), yield f(n, e), n.commit());
+          }
+        })),
+        c.apply(this, arguments)
+      );
     }
-    async function d(e, t) {
-      ((e.otpSessionId = await f(t)),
-        (e.receiverCountryCode = String(
-          o(
-            "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
-          ).getCountryCodeIso(
-            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
-          ),
-        )),
-        m(e, t));
-      var n = t.templateId;
-      n != null && (e.templateId = n);
-      var r = g(t);
-      (r != null && (e.otpProductType = r), p(e), _(e, t));
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function m(e, t) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          if (o("WAWebMsgGetters").getIsAuthenticationMessage(t)) {
+            var n = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
+              ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
+              otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
+                .OTP_MESSAGE,
+              otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
+                .MESSAGE_READ,
+            });
+            (yield f(n, t), n.commit());
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
+            var t = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
+              ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
+              otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
+                .OTP_MESSAGE,
+              otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
+                .MESSAGE_DELETED,
+            });
+            (yield f(t, e), t.commit());
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          ((e.otpSessionId = yield b(t)),
+            (e.receiverCountryCode = String(
+              o(
+                "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
+              ).getCountryCodeIso(
+                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
+              ),
+            )),
+            h(e, t));
+          var n = t.templateId;
+          n != null && (e.templateId = n);
+          var r = v(t);
+          (r != null && (e.otpProductType = r), y(e), C(e, t));
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t) {
       var n = t.from.user;
       if (n != null) {
         var r = o(
@@ -100,7 +141,7 @@ __d(
         e.businessLidOrJid = a ? a.toString() : n;
       }
     }
-    function p(e) {
+    function y(e) {
       ((e.isKeepChatsArchivedEnabled = o(
         "WAWebSettingsGetters",
       ).getShowArchiveV2(r("WAWebSettingsModel"))),
@@ -108,7 +149,7 @@ __d(
           "WAWebUserPrefsNotifications",
         ).getGlobalNotifications()));
     }
-    function _(e, t) {
+    function C(e, t) {
       var n = o("WAWebFrontendMsgGetters").getMaybeChat(t);
       n != null &&
         ((e.chatsFolderType = n.archive
@@ -118,10 +159,10 @@ __d(
           n.mute,
         )));
     }
-    function f(e) {
+    function b(e) {
       return o("WACryptoSha256").sha256Str(e.id.id);
     }
-    function g(e) {
+    function v(e) {
       var t = e.hydratedButtons;
       if (t == null || t.length === 0) return null;
       var n = o("WAWebABProps").getABPropConfigValue(
@@ -160,9 +201,9 @@ __d(
       return null;
     }
     ((l.logOTPButtonClick = e),
-      (l.logOTPMessageReceived = s),
-      (l.logOTPMessageRead = u),
-      (l.logOTPMessageDeleted = c));
+      (l.logOTPMessageReceived = u),
+      (l.logOTPMessageRead = d),
+      (l.logOTPMessageDeleted = p));
   },
   98,
 );

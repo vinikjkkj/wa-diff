@@ -1,6 +1,7 @@
 __d(
   "WAWebOpenLastActiveChatAction",
   [
+    "Promise",
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebChatCollection",
@@ -8,31 +9,38 @@ __d(
     "WAWebCmd",
     "WAWebDrawerManager",
     "WAWebSideNavButtonsActivityModel",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = async function () {
-      var e = o("WAWebSideNavButtonsActivityModel").getLastActiveChat();
-      try {
-        var t =
-          e != null ? o("WAWebChatCollection").ChatCollection.get(e) : null;
-        return (
-          o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
-          t != null && !t.isLocked
-            ? o("WAWebBotUtils").isMetaAiBot(t.id) &&
-              o("WAWebBotGating").isAiChatThreadsEnabled()
-              ? !1
-              : o("WAWebCmd").Cmd.openChatFromUnread({
-                  chat: t,
-                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                    .ChatsTab,
-                })
-            : Promise.resolve(!1)
-        );
-      } catch (e) {
-        return Promise.resolve(!1);
-      }
-    };
-    l.openLastActiveChatIfNotLocked = e;
+    var e,
+      s = (function () {
+        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = o("WAWebSideNavButtonsActivityModel").getLastActiveChat();
+          try {
+            var r =
+              t != null ? o("WAWebChatCollection").ChatCollection.get(t) : null;
+            return (
+              o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
+              r != null && !r.isLocked
+                ? o("WAWebBotUtils").isMetaAiBot(r.id) &&
+                  o("WAWebBotGating").isAiChatThreadsEnabled()
+                  ? !1
+                  : o("WAWebCmd").Cmd.openChatFromUnread({
+                      chat: r,
+                      chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                        .ChatsTab,
+                    })
+                : (e || (e = n("Promise"))).resolve(!1)
+            );
+          } catch (t) {
+            return (e || (e = n("Promise"))).resolve(!1);
+          }
+        });
+        return function () {
+          return t.apply(this, arguments);
+        };
+      })();
+    l.openLastActiveChatIfNotLocked = s;
   },
   98,
 );

@@ -5,19 +5,25 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebNewsletterSuspendInformDetailedScreenDrawer.react",
-        )
-          .__setRef("WAWebNewsletterSuspendInformDetailedScreenDrawerLoadable")
-          .load();
-        return e.NewsletterSuspendInformDetailedScreen;
-      }, "NewsletterSuspendInformDetailedScreen"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebNewsletterSuspendInformDetailedScreenDrawer.react",
+          )
+            .__setRef(
+              "WAWebNewsletterSuspendInformDetailedScreenDrawerLoadable",
+            )
+            .load();
+          return e.NewsletterSuspendInformDetailedScreen;
+        }),
+        "NewsletterSuspendInformDetailedScreen",
+      ),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

@@ -5,20 +5,24 @@ __d(
     "WAWebLazyLoadLoading.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(async function () {
-        var e = await r("JSResourceForInteraction")(
-          "WAWebReachoutTimelockRestrictedComposeBar.react",
-        )
-          .__setRef("WAWebReachoutTimelockRestrictedComposeBarLoadable")
-          .load();
-        return e.ReachoutTimelockComposeBar;
-      }, "ReachoutTimelockComposeBar"),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield r("JSResourceForInteraction")(
+            "WAWebReachoutTimelockRestrictedComposeBar.react",
+          )
+            .__setRef("WAWebReachoutTimelockRestrictedComposeBarLoadable")
+            .load();
+          return e.ReachoutTimelockComposeBar;
+        }),
+        "ReachoutTimelockComposeBar",
+      ),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

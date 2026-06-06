@@ -7,6 +7,7 @@ __d(
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileTypes",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -14,43 +15,59 @@ __d(
       return s._(/*BTDS*/ "Connected catalog. View with WhatsApp mobile app.");
     }
     function u() {
-      if (!_()) return !1;
+      if (!g()) return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
       );
-      return f(e);
+      return h(e);
     }
-    async function c(e) {
-      return _() ? m(e) : !1;
+    function c(e) {
+      return d.apply(this, arguments);
     }
     function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return g() ? p(e) : !1;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m() {
       if (
         o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled() ||
-        _()
+        g()
       )
         return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
       );
-      return f(e);
-    }
-    async function m(e) {
-      var t = await o(
-        "WAWebBusinessProfileCollection",
-      ).BusinessProfileCollection.fetchBizProfile(e);
-      return f(t);
+      return h(e);
     }
     function p(e) {
-      return f(e);
+      return _.apply(this, arguments);
     }
     function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebBusinessProfileCollection",
+          ).BusinessProfileCollection.fetchBizProfile(e);
+          return h(t);
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return h(e);
+    }
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "meta_catalog_linking_m2_enabled",
       );
     }
-    function f(e) {
+    function h(e) {
       var t;
-      return g()
+      return y()
         ? !0
         : o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled()
           ? !1
@@ -59,7 +76,7 @@ __d(
               : t.commerceExperience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes.META_CATALOG;
     }
-    function g() {
+    function y() {
       var e = window.location.search,
         t = new URLSearchParams(e);
       return t.get("force_disable_catalog") === "1";
@@ -67,10 +84,10 @@ __d(
     ((l.getDisabledMetaLinkedCatalogTooltipText = e),
       (l.shouldShowMetaLinkedDisabledCatalogTooltipForSelf = u),
       (l.shouldShowMetaLinkedDisabledCatalogTooltip = c),
-      (l.shouldDisableCatalogDueToMetaLinkingForSelf = d),
-      (l.shouldDisableCatalogDueToMetaLinking = m),
-      (l.shouldDisableCatalogDueToMetaLinkingForProfile = p),
-      (l.linkedCatalogDisabledTooltipEnabled = _));
+      (l.shouldDisableCatalogDueToMetaLinkingForSelf = m),
+      (l.shouldDisableCatalogDueToMetaLinking = p),
+      (l.shouldDisableCatalogDueToMetaLinkingForProfile = f),
+      (l.linkedCatalogDisabledTooltipEnabled = g));
   },
   226,
 );
