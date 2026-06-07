@@ -280,7 +280,9 @@ __d(
         S.apply(this, arguments)
       );
     }
-    ((l.genBotMsgSecretFromMsgSecret = d), (l.decryptMsmsgBotMessage = p));
+    ((l.genBotMsgSecretFromMsgSecret = d),
+      (l.decryptMsmsgBotMessage = p),
+      (l.genBotDecryptionKey = v));
   },
   98,
 );
