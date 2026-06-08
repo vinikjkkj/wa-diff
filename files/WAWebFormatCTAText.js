@@ -104,28 +104,53 @@ __d(
       }
     }
     function m(e, t, n) {
-      if (
-        e == null ||
-        t == null ||
-        e.length !== 1 ||
-        e[0] == null ||
-        o("WAWebUserPrefsMeUser").isMeAccount(e[0])
-      )
-        return null;
+      if (e == null || t == null) return null;
       var r = t.groupMetadata;
       if (r == null) return null;
-      var a = r.participants.get(e[0]);
-      if (a == null) return null;
-      var i = o(
+      if (e.length > 1) {
+        var a = o(
+          "WAWebGroupHistoryPostJoinEligibility",
+        ).groupContextFromMetadata(r);
+        if (
+          !o(
+            "WAWebGroupHistoryPostJoinEligibility",
+          ).isPostJoinHistoryGroupEligible(a)
+        )
+          return null;
+        var i = e.some(function (e) {
+          if (e == null || o("WAWebUserPrefsMeUser").isMeAccount(e)) return !1;
+          var t = r.participants.get(e);
+          return (
+            t != null &&
+            o(
+              "WAWebGroupHistoryPostJoinEligibility",
+            ).isEligibleForPostJoinHistory(t, a, n)
+          );
+        });
+        return i ? p() : _();
+      }
+      if (e.length !== 1 || e[0] == null) return null;
+      var l = e[0];
+      if (o("WAWebUserPrefsMeUser").isMeAccount(l)) return null;
+      var s = r.participants.get(l);
+      if (s == null) return null;
+      var u = o(
         "WAWebGroupHistoryPostJoinEligibility",
       ).isEligibleForPostJoinHistory(
-        a,
+        s,
         o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(r),
         n,
       );
-      return i ? s._(/*BTDS*/ "Send message history") : null;
+      return u ? p() : _();
     }
-    l.default = c;
+    function p() {
+      return s._(/*BTDS*/ "Send message history");
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _() {
+      return s._(/*BTDS*/ "View member actions");
+    }
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

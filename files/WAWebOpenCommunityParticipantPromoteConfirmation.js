@@ -15,37 +15,42 @@ __d(
       c,
       d,
       m = d || (d = o("react"));
-    function p(t, n, r) {
-      var a, i, l;
+    function p(t) {
+      var n,
+        r,
+        a,
+        i = t.announcementGroupParticipants,
+        l = t.parentChat,
+        c = t.participant;
       if (
-        ((a = t.groupMetadata) == null || (a = a.participants.get(n.id)) == null
+        ((n = l.groupMetadata) == null || (n = n.participants.get(c.id)) == null
           ? void 0
-          : a.isAdmin) === !0
+          : n.isAdmin) === !0
       ) {
         o("WAWebModalManager").ModalManager.close();
         return;
       }
-      var c = o("WAWebABProps").getABPropConfigValue(
+      var d = o("WAWebABProps").getABPropConfigValue(
           "parent_group_admins_limit",
         ),
-        d =
-          (i =
-            (l = t.groupMetadata) == null
+        _ =
+          (r =
+            (a = l.groupMetadata) == null
               ? void 0
-              : l.participants.getAdmins().length) != null
-            ? i
+              : a.participants.getAdmins().length) != null
+            ? r
             : 0;
-      if (d + 1 > c) {
+      if (_ + 1 > d) {
         (o("WAWebModalManager").ModalManager.close(),
           o("WAWebModalManager").ModalManager.open(
             m.jsx(
               o("WAWebCommunityPromoteDemotePopups.react")
                 .CommunityAdminLimitPopup,
-              { parentGroupAdminsLimit: c },
+              { parentGroupAdminsLimit: d },
             ),
           ));
         return;
-      } else if (!(r != null && r.get(n.id))) {
+      } else if (!(i != null && i.get(c.id))) {
         (o("WAWebModalManager").ModalManager.close(),
           o("WAWebModalManager").ModalManager.open(
             m.jsx(
@@ -56,9 +61,9 @@ __d(
           ));
         return;
       }
-      (n.contact.pendingAction++,
+      (c.contact.pendingAction++,
         o("WAWebModifyParticipantsGroupAction")
-          .promoteCommunityParticipants(t, [n])
+          .promoteCommunityParticipants(l, [c])
           .then(function (t) {
             if (t != null && t.participants) {
               var n = t.participants[0];
@@ -78,7 +83,7 @@ __d(
                       m.jsx(
                         o("WAWebCommunityPromoteDemotePopups.react")
                           .CommunityAdminLimitPopup,
-                        { parentGroupAdminsLimit: c },
+                        { parentGroupAdminsLimit: d },
                       ),
                     )
                   : n.code === "403" &&
@@ -112,14 +117,18 @@ __d(
                     .CommunityAdminPromoteErrorPopup,
                   {
                     onParticipantPromote: function () {
-                      return p(t, n, r);
+                      return p({
+                        announcementGroupParticipants: i,
+                        parentChat: l,
+                        participant: c,
+                      });
                     },
                   },
                 ),
               ));
           })
           .finally(function () {
-            n.contact.pendingAction--;
+            c.contact.pendingAction--;
           }),
         o("WAWebModalManager").ModalManager.close());
     }
@@ -142,7 +151,11 @@ __d(
             .CommunityAdminPromotePopup,
           {
             onParticipantPromote: function () {
-              return p(e, t, n);
+              return p({
+                announcementGroupParticipants: n,
+                parentChat: e,
+                participant: t,
+              });
             },
             contact: r,
           },

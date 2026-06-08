@@ -238,8 +238,6 @@ __d(
             (e.isAssignedToMe = o("WAWebBaseModel").session(!1)),
             (e.assignedAgent = o("WAWebBaseModel").session()),
             (e.unreadEditTimestampMs = o("WAWebBaseModel").prop()),
-            (e.celebrationAnimationLastPlayed = o("WAWebBaseModel").prop(0)),
-            (e.animationCandidateData = o("WAWebBaseModel").prop()),
             (e.draftMessage = o("WAWebBaseModel").prop()),
             (e.draftMessageSortTs = o("WAWebBaseModel").session()),
             (e.ephemeralDisplayedExemptions = o("WAWebBaseModel").prop()),
@@ -1460,13 +1458,6 @@ __d(
             }
             return !1;
           }),
-          (i.setCelebrationAnimationLastPlayed = function () {
-            this.animationCandidateData &&
-              this.celebrationAnimationLastPlayed <
-                this.animationCandidateData.msgTimestampSeconds &&
-              (this.celebrationAnimationLastPlayed =
-                this.animationCandidateData.msgTimestampSeconds);
-          }),
           (i.setChatWallpaper = function (t) {
             return (
               (this.wallpaper = t),
@@ -1545,9 +1536,6 @@ __d(
           (i.setForceDismissAiAgentBlockingBar = function (t) {
             this.forceDismissAiAgentBlockBar = t;
           }),
-          (i.setAnimationCandidateData = function (t) {
-            this.animationCandidateData = t;
-          }),
           (i.$ChatImpl$p_8 = function () {
             var e = this,
               t = this.groupMetadata;
@@ -1608,13 +1596,6 @@ __d(
                 )),
               t
             );
-          }),
-          (i.unstarAll = function () {
-            var e = this.getAllMsgs();
-            (e.forEach(function (e) {
-              e && (e.star = !1);
-            }),
-              o("WAWebStarredMsgCollection").removeStarredMsgs(e));
           }),
           (i.$ChatImpl$p_7 = function () {
             var e,

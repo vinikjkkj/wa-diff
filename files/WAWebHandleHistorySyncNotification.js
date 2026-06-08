@@ -360,12 +360,7 @@ __d(
                       I.chunkOrder,
                     );
                     var A = I.chunkOrder != null && I.chunkOrder <= v;
-                    if (
-                      o(
-                        "WAWebSyncGatingUtils",
-                      ).isRecentSyncDownloadOptimizationEnabled() &&
-                      A
-                    ) {
+                    if (A) {
                       var F = yield o(
                           "WAWebHistorySyncNotificationUtils",
                         ).getHistorySyncMetrics(I, !0),

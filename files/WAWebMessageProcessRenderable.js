@@ -336,7 +336,7 @@ __d(
                 if (
                   (o(
                     "WAWebGroupHistoryGating",
-                  ).isGroupHistoryPostJoinSenderEnabled() &&
+                  ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled() &&
                     v.forEach(function (e) {
                       return void o(
                         "WAWebGroupHistoryNoticeHandler",

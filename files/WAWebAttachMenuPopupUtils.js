@@ -1,11 +1,16 @@
 __d(
   "WAWebAttachMenuPopupUtils",
-  ["WAWebAttachMenuPopupItemPhotos.react", "WAWebBotGating", "WAWebBotUtils"],
+  [
+    "WAWebAttachMenuPopupItemPhotos.react",
+    "WAWebBotGating",
+    "WAWebBotUtils",
+    "WAWebHatchGating",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebBotUtils").isBotChannelFBID(e)
         ? o("WAWebBotUtils").isHatchBot(e) &&
-          !o("WAWebBotGating").isHatchVideoUploadEnabled()
+          !o("WAWebHatchGating").isHatchVideoUploadEnabled()
           ? o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType.PHOTOS
           : o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
               .PHOTOS_AND_VIDEOS

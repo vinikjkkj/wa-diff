@@ -3,6 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCommonAdEntryPointsTypes",
     "WAWebCommonAdsTypes",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -56,7 +57,7 @@ __d(
       if (typeof i != "number" || typeof a != "string") return null;
       var l = !o("WATimeUtils").isInFuture(
         o("WATimeUtils").futureUnixTime(
-          o("WAWebBizGatingUtils").adEntryPointsConfigurationFetchThreshold() /
+          o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchThreshold() /
             1e3,
           o("WATimeUtils").castToUnixTime(i),
         ),

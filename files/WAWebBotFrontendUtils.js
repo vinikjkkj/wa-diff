@@ -21,7 +21,6 @@ __d(
     "WAWebResolveThreadForEntryPoint",
     "WAWebRichResponseMsgUtils",
     "WAWebSendTextMsgChatAction",
-    "WAWebThreadsGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -212,9 +211,8 @@ __d(
       );
     }
     function I(e) {
-      var t = o("WAWebAiThreadCreationUtils").createAiThreadId(e.id);
-      if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
-        var n = new (r("WAWebAiThreadModel"))({
+      var t = o("WAWebAiThreadCreationUtils").createAiThreadId(e.id),
+        n = new (r("WAWebAiThreadModel"))({
           id: t,
           title: void 0,
           aiThreadType: o("WAWebAiThreadTypeUtils").AiThreadType.Default,
@@ -222,13 +220,14 @@ __d(
           unreadCount: 0,
           isPending: !0,
         });
-        (e.aiThreads == null &&
+      return (
+        e.aiThreads == null &&
           (e.aiThreads = new (o(
             "WAWebAiThreadCollection",
           ).AiThreadCollection)()),
-          e.aiThreads.add([n]));
-      }
-      return t;
+        e.aiThreads.add([n]),
+        t
+      );
     }
     function T(e, t) {
       var n = I(e);
@@ -242,10 +241,7 @@ __d(
       );
     }
     function D(e, t) {
-      if (
-        o("WAWebThreadsGating").isThreadLoadingInfraEnabled() &&
-        !(e.aiThreads != null && e.aiThreads.get(t) != null)
-      ) {
+      if (!(e.aiThreads != null && e.aiThreads.get(t) != null)) {
         var n = new (r("WAWebAiThreadModel"))({
           id: t,
           title: void 0,

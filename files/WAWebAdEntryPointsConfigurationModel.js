@@ -2,8 +2,8 @@ __d(
   "WAWebAdEntryPointsConfigurationModel",
   [
     "WALogger",
-    "WAWebBizGatingUtils",
     "WAWebBusinessAdCreationUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebEventEmitter",
     "WAWebFetchAdEntryPointsConfiguration",
     "WAWebL10N",
@@ -33,7 +33,7 @@ __d(
         return;
       }
       d == null &&
-        o("WAWebBizGatingUtils").adEntryPointsConfigurationFetchM1Enabled() &&
+        o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchM1Enabled() &&
         (d = r("WAWebL10N").on("locale_change", function () {
           (o("WALogger").LOG(
             s ||
@@ -54,14 +54,14 @@ __d(
     }
     function f(e, t) {
       var n = o(
-          "WAWebBizGatingUtils",
+          "WAWebCTWAGatingUtils",
         ).isInLongTermHoldoutFallbackWhenAdEntryPointsConfigurationMissing(),
         r = g(e, t);
       return n || r;
     }
     function g(e, t) {
       if (
-        !o("WAWebBizGatingUtils").adEntryPointsConfigurationFetchEnabled() ||
+        !o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchEnabled() ||
         u == null
       )
         return !1;
@@ -71,7 +71,7 @@ __d(
     }
     function h(e) {
       if (
-        !o("WAWebBizGatingUtils").adEntryPointsConfigurationFetchM1Enabled() ||
+        !o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchM1Enabled() ||
         u == null ||
         u === "failed-to-load-recovery-required"
       )

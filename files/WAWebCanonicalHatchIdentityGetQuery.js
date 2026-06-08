@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAIHatchIdentityStore",
     "WAWebCanonicalHatchIdentityGetQuery.graphql",
+    "WAWebHatchGating",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
   ],
@@ -38,7 +39,10 @@ __d(
             n,
             r = yield o("WAWebRelayClient").fetchQuery(
               s,
-              {},
+              {
+                includeVideoVariants:
+                  o("WAWebHatchGating").isHatchVideoAvatarEnabled(),
+              },
               { environmentType: "whatsapp_web" },
             ),
             a =

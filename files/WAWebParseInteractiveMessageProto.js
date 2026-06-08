@@ -6,6 +6,7 @@ __d(
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
     "WAWebHandleMsgError",
+    "WAWebHsmGatingUtils",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -21,103 +22,107 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebABProps").getABPropConfigValue(
-      "enable_product_carousel_message",
-    );
-    function s(e) {
+        "enable_product_carousel_message",
+      ),
+      s = "im_a2ui";
+    function u(e) {
       var t,
         n,
         a = e.baseMessage,
         i = e.bizInfo,
         l = e.bizSource,
-        s = e.messageProtobuf,
-        d = e.msgContext,
-        _ = s.interactiveMessage;
-      if (_ != null) {
-        var f = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(_);
-        if (!f || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(f))
-          return p(a, _);
-        var g = _.body,
-          h = _.footer,
-          y = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(f),
-          C = {
+        u = e.messageProtobuf,
+        m = e.msgContext,
+        f = u.interactiveMessage;
+      if (f != null) {
+        var g = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(f);
+        if (!g || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(g))
+          return _(a, f);
+        var h = f.body,
+          y = f.footer,
+          C = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(g),
+          b = {
             type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
             kind: o("WAWebMsgType").MsgKind.Interactive,
             caption:
               (t = o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-                g == null ? void 0 : g.text,
+                h == null ? void 0 : h.text,
               )) != null
                 ? t
                 : "",
-            interactiveType: f,
-            interactivePayload: _[y],
+            interactiveType: g,
+            interactivePayload: f[C],
             pmCampaignId: i == null ? void 0 : i.campaignId,
             bizSource: l,
           };
         if (
-          !o("WAWebE2EProtoUtils").isSupportedInteractiveMessageVersion(f, _[y])
+          !o("WAWebE2EProtoUtils").isSupportedInteractiveMessageVersion(g, f[C])
         )
-          return p(a, _);
-        var b = null,
-          v = _.carouselMessage;
-        if (v != null && ((b = c(a, v, d, i, l)), b == null)) return p(a, _);
-        if (f === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
-          var S = r("WAWebInteractiveMessagesNativeFlowName").cast(
+          return _(a, f);
+        var v = p(f),
+          S =
+            (v == null ? void 0 : v.type) === s &&
+            o("WAWebHsmGatingUtils").isBloksWidgetEnabled(),
+          R = null,
+          L = f.carouselMessage;
+        if (L != null && ((R = d(a, L, m, i, l)), R == null)) return _(a, f);
+        if (g === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
+          var E = r("WAWebInteractiveMessagesNativeFlowName").cast(
             o("WAWebE2EProtoUtils").getBizNativeFlowName({
-              interactiveMessage: _,
+              interactiveMessage: f,
             }),
           );
           if (
-            ((C = babelHelpers.extends({}, C, { nativeFlowName: S })),
-            d === "relay" || d === "history")
+            ((b = babelHelpers.extends({}, b, { nativeFlowName: E })),
+            !S && (m === "relay" || m === "history"))
           ) {
-            var R,
-              L,
-              E =
-                (a == null || (R = a.id) == null ? void 0 : R.remote) != null &&
+            var k,
+              I,
+              T =
+                (a == null || (k = a.id) == null ? void 0 : k.remote) != null &&
                 o("WAWebBotUtils").isAnyMetaAiBot(a.id.remote),
-              k =
-                E ||
+              D =
+                T ||
                 o("WAWebE2EProtoUtils").isValidNativeFlowName({
-                  name: S,
+                  name: E,
                   bizInfo: i,
-                  msgContext: d,
+                  msgContext: m,
                 });
             if (
-              !k ||
+              !D ||
               !o("WAWebNativeFlowValidation").isValidNativeFlowMessage(
-                C,
+                b,
                 l,
-                a == null || (L = a.id) == null ? void 0 : L.fromMe,
+                a == null || (I = a.id) == null ? void 0 : I.fromMe,
                 a,
               )
             )
-              return p(a, _);
+              return _(a, f);
           }
         }
-        var I = _.header != null ? u(_.header, a, d) : void 0,
-          T = m(_);
+        var x = f.header != null ? c(f.header, a, m) : void 0;
         return {
           msgData: babelHelpers.extends(
             {},
             a,
-            (n = I == null ? void 0 : I.headerMessage) != null ? n : {},
-            C,
+            (n = x == null ? void 0 : x.headerMessage) != null ? n : {},
+            b,
             {
-              interactiveHeader: I == null ? void 0 : I.interactiveHeader,
-              footer: h
+              interactiveHeader: x == null ? void 0 : x.interactiveHeader,
+              footer: y
                 ? o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-                    h.text,
+                    y.text,
                   )
                 : a.footer,
-              carouselCardsParsed: b != null ? b : void 0,
-              bloksWidget: T,
+              carouselCardsParsed: R != null ? R : void 0,
+              bloksWidget: v,
             },
           ),
-          contextInfo: _.contextInfo,
+          contextInfo: f.contextInfo,
         };
       }
     }
-    function u(t, n, a) {
+    function c(t, n, a) {
       var i = function () {
           if (t.imageMessage) {
             var i,
@@ -211,16 +216,16 @@ __d(
         },
       };
     }
-    function c(e, t, n, o, a) {
+    function d(e, t, n, o, a) {
       var i = t.cards.map(function (t) {
-          return d(t, e, n, o, a);
+          return m(t, e, n, o, a);
         }),
         l = r("filterNulls")(i);
       return l.length === 0 ? null : l;
     }
-    function d(t, n, a, i, l) {
+    function m(t, n, a, i, l) {
       var s,
-        c = t.body,
+        u = t.body,
         d = t.header,
         m = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(t);
       if (!m || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(m))
@@ -230,7 +235,7 @@ __d(
           kind: o("WAWebMsgType").MsgKind.Interactive,
           caption:
             (s = o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-              c == null ? void 0 : c.text,
+              u == null ? void 0 : u.text,
             )) != null
               ? s
               : "",
@@ -239,7 +244,7 @@ __d(
           pmCampaignId: i == null ? void 0 : i.campaignId,
           bizSource: l,
         }),
-        _ = d != null ? u(d, n, a) : void 0,
+        _ = d != null ? c(d, n, a) : void 0,
         f = _ == null ? void 0 : _.headerMessage;
       if (_ == null || f == null) return null;
       var g = babelHelpers.extends({}, _.interactiveHeader, {
@@ -280,27 +285,29 @@ __d(
           bloksWidget: null,
         });
     }
-    function m(e) {
+    function p(e) {
       var t;
       if (e.bloksWidget != null) {
-        var n, r, o;
+        var n, r, o, a;
         return {
           uuid: (n = e.bloksWidget.uuid) != null ? n : null,
           data: (r = e.bloksWidget.data) != null ? r : null,
           type: (o = e.bloksWidget.type) != null ? o : null,
+          fallback: (a = e.bloksWidget.fallback) != null ? a : null,
         };
       }
       if (((t = e.header) == null ? void 0 : t.bloksWidget) != null) {
-        var a, i, l;
+        var i, l, s, u;
         return {
-          uuid: (a = e.header.bloksWidget.uuid) != null ? a : null,
-          data: (i = e.header.bloksWidget.data) != null ? i : null,
-          type: (l = e.header.bloksWidget.type) != null ? l : null,
+          uuid: (i = e.header.bloksWidget.uuid) != null ? i : null,
+          data: (l = e.header.bloksWidget.data) != null ? l : null,
+          type: (s = e.header.bloksWidget.type) != null ? s : null,
+          fallback: (u = e.header.bloksWidget.fallback) != null ? u : null,
         };
       }
       return null;
     }
-    function p(e, t) {
+    function _(e, t) {
       return {
         msgData: babelHelpers.extends({}, e, {
           type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
@@ -310,7 +317,7 @@ __d(
         contextInfo: t.contextInfo,
       };
     }
-    l.default = s;
+    l.default = u;
   },
   98,
 );

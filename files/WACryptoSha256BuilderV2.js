@@ -181,11 +181,7 @@ __d(
       var r = new DataView(n.buffer, n.byteOffset + n.length - 8, 8);
       return (r.setBigUint64(0, t, !1), n);
     }
-    ((l.Sha256BuilderV2 = c),
-      (l.sigma0 = d),
-      (l.sigma1 = m),
-      (l.rotateRight = p),
-      (l.shiftRight = _));
+    l.Sha256BuilderV2 = c;
   },
   98,
 );

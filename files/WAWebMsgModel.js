@@ -425,6 +425,7 @@ __d(
             (e.interactiveHeader = o("WAWebBaseModel").prop()),
             (e.interactiveType = o("WAWebBaseModel").prop()),
             (e.interactivePayload = o("WAWebBaseModel").prop()),
+            (e.bloksWidget = o("WAWebBaseModel").prop()),
             (e.nativeFlowInteractiveMsg = o("WAWebBaseModel").prop()),
             (e.carouselCardsParsed = o("WAWebBaseModel").prop()),
             (e.carouselCards = o("WAWebBaseModel").session()),

@@ -1,11 +1,11 @@
 __d(
   "WAWebHatchCommandMetadataUtils",
-  ["WAWebBotGating", "WAWebBotUtils", "WAWebHatchCommandCache"],
+  ["WAWebBotUtils", "WAWebHatchCommandCache", "WAWebHatchGating"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       if (
-        !o("WAWebBotGating").isHatchCommandsEnabled() ||
+        !o("WAWebHatchGating").isHatchCommandsEnabled() ||
         !o("WAWebBotUtils").isHatchBot(t)
       )
         return null;

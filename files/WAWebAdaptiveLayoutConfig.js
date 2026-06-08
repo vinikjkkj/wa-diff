@@ -7,19 +7,15 @@ __d(
       s = 380,
       u = 1210,
       c = 700,
-      d = u - 1,
-      m = c - 1,
-      p = 600,
-      _ = 320;
+      d = 600,
+      m = 320;
     ((i.NAVBAR_WIDTH = e),
       (i.MIN_CHATLIST_WIDTH = l),
       (i.HYBRID_CHATLIST_MAX_WIDTH_PX = s),
       (i.WIDE_BREAKPOINT_PX = u),
       (i.MID_BREAKPOINT_PX = c),
-      (i.WIDE_BREAKPOINT_MAX_PX = d),
-      (i.MID_BREAKPOINT_MAX_PX = m),
-      (i.MIN_CONVERSATION_WIDTH = p),
-      (i.MIN_RIGHT_DRAWER_WIDTH = _));
+      (i.MIN_CONVERSATION_WIDTH = d),
+      (i.MIN_RIGHT_DRAWER_WIDTH = m));
   },
   66,
 );

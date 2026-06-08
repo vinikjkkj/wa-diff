@@ -43,6 +43,18 @@ __d(
               (e || (e = n("Promise"))).resolve(t)
             );
           },
+          3.2: function (a) {
+            var t = new (r("WAFtsV3Indexer"))(
+              a,
+              r("WANullthrows")(o),
+              new (r("WAWebFtsV3IndexTableAdapter"))(),
+              6,
+            );
+            return (
+              t.setSignaller(new (r("WAWebFtsV3Signaller"))()),
+              (e || (e = n("Promise"))).resolve(t)
+            );
+          },
         },
         tokenizers: {
           1: function () {
@@ -53,7 +65,7 @@ __d(
         },
       };
     }
-    var u = "3.1",
+    var u = "3.2",
       c = "1";
     ((l.createVersionsInfo = s),
       (l.LATEST_INDEXER_VERSION = u),

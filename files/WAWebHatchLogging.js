@@ -1,14 +1,14 @@
 __d(
   "WAWebHatchLogging",
   [
-    "WAWebBotFrontendGating",
+    "WAWebHatchFrontendGating",
     "WAWebHatchUserJourneyWamEvent",
     "WAWebWamEnumHatchActionType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      if (o("WAWebBotFrontendGating").isHatchIntegrationEnabled()) {
+      if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var t = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({
@@ -22,7 +22,7 @@ __d(
       }
     }
     function s(e) {
-      if (o("WAWebBotFrontendGating").isHatchIntegrationEnabled()) {
+      if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var t = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({

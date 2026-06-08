@@ -39,7 +39,7 @@ __d(
         ? !0
         : r("WAWebEnvironment").isWindows
           ? o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-              .extendedHistorySyncOnDemand && _()
+              .extendedHistorySyncOnDemand && p()
           : o("WAWebABProps").getABPropConfigValue("history_sync_on_demand");
     }
     function u() {
@@ -60,19 +60,14 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_recent_sync_chunk_download_optimization",
-      );
-    }
-    function _() {
-      return o("WAWebABProps").getABPropConfigValue(
         "history_sync_on_demand_companion",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
         .completeHistorySyncOnDemand;
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "history_sync_on_demand_time_boundary_days_desktops",
       );
@@ -82,10 +77,9 @@ __d(
       (l.isWebLinkPreviewNseSupportEnabled = c),
       (l.isMessagePlaceholderResendNseSupportEnabled = d),
       (l.getRecentSyncMessageProcessingBreakIteration = m),
-      (l.isRecentSyncDownloadOptimizationEnabled = p),
-      (l.isOnDemandExtendedHistorySyncForHybridEnabled = _),
-      (l.isHistorySyncOnDemandCompleteCompanionEnabled = f),
-      (l.getHistorySyncOnDemandTimeBoundaryDaysForDesktops = g));
+      (l.isOnDemandExtendedHistorySyncForHybridEnabled = p),
+      (l.isHistorySyncOnDemandCompleteCompanionEnabled = _),
+      (l.getHistorySyncOnDemandTimeBoundaryDaysForDesktops = f));
   },
   98,
 );

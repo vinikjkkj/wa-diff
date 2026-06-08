@@ -1122,7 +1122,6 @@ __d(
       (l.manuallySetMedia = D),
       (l.downloadMedia = N),
       (l.getContentsOfLottieJSONFile = w),
-      (l.getContentsOfSecondaryLottieJSONFile = A),
       (l.extractBothLottieJSON = W),
       (l.checkExistence = U));
   },

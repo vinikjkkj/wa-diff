@@ -32,6 +32,18 @@ __d(
           : !1;
     }
     function d(e) {
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_setting_decouple_enabled",
+      )
+        ? !0
+        : e != null
+          ? o("WAWebGroupABProps").getGroupABPropConfigValue(
+              o("WAWebWidToJid").widToGroupJid(e),
+              "group_history_setting_decouple_enabled_group_level",
+            )
+          : !1;
+    }
+    function m(e) {
       if (o("WAWebABProps").getABPropConfigValue("rt_ghs_sender_enabled"))
         return !0;
       if (e != null)
@@ -45,10 +57,10 @@ __d(
         }
       return !1;
     }
-    function m() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue("rt_ghs_receiver_enabled");
     }
-    function p(e) {
+    function _(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "group_history_out_of_window_pin_sender",
@@ -66,22 +78,22 @@ __d(
         }
       return !1;
     }
-    function _() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_out_of_window_pins_receiver",
       );
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_after_join",
       );
     }
-    var g = 1209600;
-    function h(e) {
+    var h = 1209600;
+    function y(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "group_history_messages_time_limit_secs",
       );
-      if (t !== g || e == null) return t;
+      if (t !== h || e == null) return t;
       try {
         return o("WAWebGroupABProps").getGroupABPropConfigValue(
           o("WAWebWidToJid").widToGroupJid(e),
@@ -91,10 +103,13 @@ __d(
         return t;
       }
     }
-    function y() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
     }
-    function C() {
+    function b() {
+      return g() || C();
+    }
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_receiver_dedup",
       );
@@ -103,14 +118,16 @@ __d(
       (l.isGroupHistorySenderEnabled = s),
       (l.isGroupHistorySettingsEnabled = u),
       (l.isGroupHistorySettingsToggleUIEnabled = c),
-      (l.isGroupHistorySenderReportingTokenEnabled = d),
-      (l.isGroupHistoryReceiverReportingTokenEnabled = m),
-      (l.isOutOfWindowPinSenderEnabled = p),
-      (l.isOutOfWindowPinsReceiverEnabled = _),
-      (l.isGroupHistoryPostJoinSenderEnabled = f),
-      (l.getGroupHistoryMessagesTimeLimitSecs = h),
-      (l.isGroupHistoryPostJoinInternalTesterEnabled = y),
-      (l.isGroupHistoryReceiverDedupEnabled = C));
+      (l.isGroupHistorySettingsDecoupleEnabled = d),
+      (l.isGroupHistorySenderReportingTokenEnabled = m),
+      (l.isGroupHistoryReceiverReportingTokenEnabled = p),
+      (l.isOutOfWindowPinSenderEnabled = _),
+      (l.isOutOfWindowPinsReceiverEnabled = f),
+      (l.isGroupHistoryPostJoinSenderEnabled = g),
+      (l.getGroupHistoryMessagesTimeLimitSecs = y),
+      (l.isGroupHistoryPostJoinInternalTesterEnabled = C),
+      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = b),
+      (l.isGroupHistoryReceiverDedupEnabled = v));
   },
   98,
 );

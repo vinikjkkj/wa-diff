@@ -261,16 +261,17 @@ __d(
               "companion-contact-client-error-save-syncd-send-contact-update",
               function () {
                 var t;
-                return o("WAWebContactEditSync").sendContactUpdate(
-                  E,
-                  L,
-                  a || l,
-                  e.syncToAddressbook,
-                  (t = e.lid) != null
-                    ? t
-                    : o("WAWebLidMigrationUtils").toUserLid(E),
-                  e.username,
-                );
+                return o("WAWebContactEditSync").sendContactUpdate({
+                  contactId: E,
+                  fullName: L,
+                  lid:
+                    (t = e.lid) != null
+                      ? t
+                      : o("WAWebLidMigrationUtils").toUserLid(E),
+                  shortName: a || l,
+                  syncToAddressbook: e.syncToAddressbook,
+                  username: e.username,
+                });
               },
             );
           } else {

@@ -18,17 +18,13 @@ __d(
           n(e);
         } catch (e) {}
     }
-    function f(e) {
-      var t;
-      return (e === void 0 && (e = 0), (t = d.get(e)) != null ? t : null);
-    }
-    function g() {
+    function f() {
       return new Map(d);
     }
-    function h() {
+    function g() {
       return m;
     }
-    function y(e) {
+    function h(e) {
       (o("WALogger").LOG(
         s ||
           (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -39,7 +35,7 @@ __d(
       ),
         (m = e));
     }
-    function C(e) {
+    function y(e) {
       return (
         p.add(e),
         function () {
@@ -47,12 +43,12 @@ __d(
         }
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (typeof window.VideoEncoder != "function") return !1;
           try {
             var e = yield window.VideoEncoder.isConfigSupported({
@@ -79,21 +75,20 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S() {
+    function v() {
       (d.clear(), p.clear());
     }
     ((l.WEBCODECS_H264_CODEC = c),
       (l.updateWebCodecsEncodeParams = _),
-      (l.getWebCodecsEncodeParams = f),
-      (l.getAllWebCodecsEncodeParams = g),
-      (l.isWebCodecsEncoderEnabled = h),
-      (l.setWebCodecsEncoderEnabled = y),
-      (l.subscribeToEncodeParamsChanges = C),
-      (l.checkEncoderSupport = b),
-      (l.resetWebCodecsEncoderState = S));
+      (l.getAllWebCodecsEncodeParams = f),
+      (l.isWebCodecsEncoderEnabled = g),
+      (l.setWebCodecsEncoderEnabled = h),
+      (l.subscribeToEncodeParamsChanges = y),
+      (l.checkEncoderSupport = C),
+      (l.resetWebCodecsEncoderState = v));
   },
   98,
 );

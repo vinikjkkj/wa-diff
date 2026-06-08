@@ -163,7 +163,10 @@ __d(
             s._param("max_count", n),
           ]);
     }
-    function T(e, t) {
+    function T(e) {
+      return typeof e == "function" ? e() : e;
+    }
+    function D(e, t) {
       var n, r;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
@@ -177,7 +180,7 @@ __d(
           ? r
           : 0;
     }
-    function D() {
+    function x() {
       var e = o("WAWebLabelCollection").LabelCollection.toArray(),
         t = new Map(),
         n = 0,
@@ -232,7 +235,7 @@ __d(
         t
       );
     }
-    function x(e) {
+    function $(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -249,7 +252,7 @@ __d(
             return null;
         }
     }
-    function $(e) {
+    function P(e) {
       var t;
       return (
         e.label != null &&
@@ -271,10 +274,11 @@ __d(
       (l.isListFlowMaxListsCountReached = E),
       (l.getReachMaxLabelCountTextForBizLabelDrawer = k),
       (l.getReachMaxLabelCountText = I),
-      (l.getUnreadChatsCountForFilter = T),
-      (l.getListsUnreadChatCountMap = D),
-      (l.getListTypeFromFilter = x),
-      (l.getManageListInfo = $));
+      (l.resolvePillLabel = T),
+      (l.getUnreadChatsCountForFilter = D),
+      (l.getListsUnreadChatCountMap = x),
+      (l.getListTypeFromFilter = $),
+      (l.getManageListInfo = P));
   },
   226,
 );

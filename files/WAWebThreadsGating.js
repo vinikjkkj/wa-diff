@@ -1,6 +1,6 @@
 __d(
   "WAWebThreadsGating",
-  ["WAWebABProps", "WAWebChatGetters", "justknobx"],
+  ["WAWebABProps", "WAWebChatGetters"],
   function (t, n, r, o, a, i, l) {
     var e = Object.freeze({
       DISABLED: 0,
@@ -17,44 +17,36 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("hide_auto_quotes_on_web");
     }
     function c() {
-      return (
-        r("justknobx")._("3927") &&
-        o("WAWebABProps").getABPropConfigValue(
-          "web_thread_loading_infra_enabled",
-        )
-      );
-    }
-    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_follow_up_reply_icon",
       );
     }
-    function m(e) {
+    function d(e) {
       return !o("WAWebChatGetters").getIsUser(e) &&
         !o("WAWebChatGetters").getIsGroup(e)
         ? !1
         : !o("WAWebChatGetters").getIsBot(e);
     }
-    function p(t) {
-      if (!m(t)) return !1;
+    function m(t) {
+      if (!d(t)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
       return n === e.LABEL_ONLY || n === e.LABEL_AND_CONTEXT_MENU;
     }
-    function _(t) {
-      if (!m(t)) return !1;
+    function p(t) {
+      if (!d(t)) return !1;
       var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
       return n === e.LABEL_AND_CONTEXT_MENU || n === e.CONTEXT_MENU_ONLY;
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "view_replies_is_composer_enabled",
       );
     }
-    function g() {
+    function f() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -65,13 +57,12 @@ __d(
     ((l.ViewRepliesEntryPoint = e),
       (l.isViewRepliesInfraEnabled = s),
       (l.shouldHideAutoQuote = u),
-      (l.isThreadLoadingInfraEnabled = c),
-      (l.isFollowUpReplyEnabled = d),
-      (l.isViewRepliesSupportedChat = m),
-      (l.isViewRepliesEntryPointEnabled = p),
-      (l.isViewRepliesContextMenuEnabled = _),
-      (l.isViewRepliesComposerEnabled = f),
-      (l.isViewRepliesThreadIdEnabled = g));
+      (l.isFollowUpReplyEnabled = c),
+      (l.isViewRepliesSupportedChat = d),
+      (l.isViewRepliesEntryPointEnabled = m),
+      (l.isViewRepliesContextMenuEnabled = p),
+      (l.isViewRepliesComposerEnabled = _),
+      (l.isViewRepliesThreadIdEnabled = f));
   },
   98,
 );

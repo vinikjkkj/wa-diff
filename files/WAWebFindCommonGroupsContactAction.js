@@ -56,40 +56,22 @@ __d(
                 ),
               ].filter(Boolean),
             )
-              .then(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = r("compactMap")(e, function (e) {
-                          return o("WAWebChatCollection").ChatCollection.get(e);
-                        }).filter(function (e) {
-                          return e.isParentGroup !== !0 && !e.isLocked;
-                        }),
-                        u = yield (s || (s = n("Promise"))).all(
-                          t.map(function (e) {
-                            return o(
-                              "WAWebGroupsParticipantsApi",
-                            ).checkMyMembership(e.id);
-                          }),
-                        ),
-                        c = t.filter(function (e, t) {
-                          return u[t];
-                        });
-                      return (
-                        i
-                          ? (i.set(c), (i.stale = !1))
-                          : (a.commonGroups = new (r(
-                              "WAWebCommonGroupsCollection",
-                            ))(c, l)),
-                        a.commonGroups
-                      );
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              )
+              .then(function (e) {
+                var t = r("compactMap")(e, function (e) {
+                  return o("WAWebChatCollection").ChatCollection.get(e);
+                }).filter(function (e) {
+                  return e.isParentGroup !== !0 && !e.isLocked;
+                });
+                return (
+                  i
+                    ? (i.set(t), (i.stale = !1))
+                    : (a.commonGroups = new (r("WAWebCommonGroupsCollection"))(
+                        t,
+                        l,
+                      )),
+                  a.commonGroups
+                );
+              })
               .catch(
                 o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
@@ -130,20 +112,30 @@ __d(
                   return e.toString();
                 }),
               ),
-            n = t.map(function (e) {
+            n = new Map(
+              t.map(function (e) {
+                return [
+                  e.groupId,
+                  o(
+                    "WAWebGroupsParticipantsApi",
+                  ).checkMyMembershipForParticipantRecord(e),
+                ];
+              }),
+            ),
+            r = t.map(function (e) {
               return e.groupId;
             }),
-            r = yield o("WAWebSchemaGroupMetadata")
+            a = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
-              .anyOf(["id"], n),
-            a = r
+              .anyOf(["id"], r),
+            i = a
               .filter(function (e) {
-                return e.defaultSubgroup !== !0;
+                return e.defaultSubgroup !== !0 && n.get(e.id) === !0;
               })
               .map(function (e) {
                 return o("WAWebWidFactory").createWid(e.id);
               });
-          return a;
+          return i;
         })),
         f.apply(this, arguments)
       );

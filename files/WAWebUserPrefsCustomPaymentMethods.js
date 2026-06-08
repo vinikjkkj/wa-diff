@@ -22,20 +22,7 @@ __d(
         ? e
         : null;
     }
-    function d() {
-      var e,
-        t,
-        n =
-          (e =
-            (t = u()) == null || (t = t.methods) == null ? void 0 : t.clabe) !=
-          null
-            ? e
-            : [];
-      return n.filter(
-        o("WAWebPaymentMethodTypeRegistry").isStoredClabeEntryValid,
-      );
-    }
-    function m(t) {
+    function d(t) {
       var n = {},
         a = u(),
         i = o("WAWebPaymentMethodPIX").newPaymentMethodTypeErrors(),
@@ -101,10 +88,10 @@ __d(
         n,
       );
     }
-    function p() {
+    function m() {
       return o("WAWebPaymentMethodPIX").isStoredPIXValid(u());
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = o("WAWebPaymentMethodTypeRegistry").PaymentMethodTypeRegistry.get(
         e,
       );
@@ -122,10 +109,9 @@ __d(
       }
     }
     ((l.getPIX = c),
-      (l.getClabeKeys = d),
-      (l.setCustomPaymentMethods = m),
-      (l.isPIXValid = p),
-      (l.removeCustomPaymentMethod = _),
+      (l.setCustomPaymentMethods = d),
+      (l.isPIXValid = m),
+      (l.removeCustomPaymentMethod = p),
       (l.isStringFieldValid = o(
         "WAWebUserPrefsValidators",
       ).isStringFieldValid));

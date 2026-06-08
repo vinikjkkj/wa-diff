@@ -11,16 +11,15 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = ["event"],
-      u,
-      c = u || (u = o("react"));
-    function d(e) {
+      s,
+      u = s || (s = o("react"));
+    function c(e) {
       var t = e.rowIndex,
         n = e.rowSection,
         r = e.status;
       r.isSyntheticFromMetadata !== !0 &&
         o("WAWebModalManager").ModalManager.openMedia(
-          c.jsx(o("WAWebStatusQuotedFlowLoadable").StatusQuotedFlowLoadable, {
+          u.jsx(o("WAWebStatusQuotedFlowLoadable").StatusQuotedFlowLoadable, {
             status: r,
             onClose: function () {
               return o("WAWebModalManager").ModalManager.closeMedia();
@@ -31,15 +30,8 @@ __d(
           { transition: "status-modal" },
         );
     }
-    function m(e) {
-      var t = e.event,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, s);
-      (t == null || t.stopPropagation == null || t.stopPropagation(),
-        t == null || t.preventDefault == null || t.preventDefault(),
-        d(n));
-    }
-    var p = new Set();
-    function _(t) {
+    var d = new Set();
+    function m(t) {
       var n = t.event,
         a = t.newsletterJid,
         i = t.rowIndex,
@@ -48,10 +40,10 @@ __d(
       (n == null || n.stopPropagation == null || n.stopPropagation(),
         n == null || n.preventDefault == null || n.preventDefault());
       var u = s.toString();
-      if (!p.has(u)) {
-        p.add(u);
-        var c = o("WAWebStatusCollection").StatusCollection.get(s);
-        (c != null && (c.isLoading = !0),
+      if (!d.has(u)) {
+        d.add(u);
+        var m = o("WAWebStatusCollection").StatusCollection.get(s);
+        (m != null && (m.isLoading = !0),
           r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
             .__setRef("WAWebOpenStatusQuotedFlow")
             .load()
@@ -63,7 +55,7 @@ __d(
               e != null &&
                 !e.isSyntheticFromMetadata &&
                 e.totalCount > 0 &&
-                d({ status: e, rowSection: l, rowIndex: i });
+                c({ status: e, rowSection: l, rowIndex: i });
             })
             .catch(function (t) {
               o("WALogger")
@@ -80,15 +72,13 @@ __d(
                 .sendLogs("newsletter-status-fetch-open-failed");
             })
             .finally(function () {
-              p.delete(u);
+              d.delete(u);
               var e = o("WAWebStatusCollection").StatusCollection.get(s);
               e != null && (e.isLoading = !1);
             }));
       }
     }
-    ((l.openStatusQuotedFlow = d),
-      (l.openStatusQuotedFlowFromEvent = m),
-      (l.fetchAndOpenNewsletterStatus = _));
+    l.fetchAndOpenNewsletterStatus = m;
   },
   98,
 );

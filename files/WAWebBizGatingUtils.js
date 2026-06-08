@@ -1,11 +1,6 @@
 __d(
   "WAWebBizGatingUtils",
-  [
-    "WAWebABProps",
-    "WAWebBizNativeAdsGatingUtils",
-    "WAWebMobilePlatforms",
-    "justknobx",
-  ],
+  ["WAWebABProps", "WAWebMobilePlatforms", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_fmx_agm_enabled");
@@ -69,74 +64,27 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "kill_switch_ctwa_ml_entry_point_config",
+          "ctwa_ad_account_token_storage_kill_switch_web",
         ) === !1
       );
     }
     function S() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_entry_point_config_fetch_threshhold",
+        "ctwa_ad_account_nonce_push_wait_timeout_web",
       );
     }
     function R() {
-      return (
-        v() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_long_term_holdout_content_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "ctwa_ad_account_nonce_retries_max_web",
       );
     }
     function L() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_long_term_holdout_client_side_check",
-        )
-      );
-    }
-    function E(e) {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        (e == null ? void 0 : e.hasCreatedAd) === !0 &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_ctwa_web_entrypoint_manage_ads_home_header_dropdown_enabled",
-        ) &&
-        !o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled()
-      );
-    }
-    function k() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_ctwa_web_fetch_linked_accounts_enabled",
-        )
-      );
-    }
-    function I() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_ad_account_token_storage_kill_switch_web",
-        ) === !1
-      );
-    }
-    function T() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_ad_account_nonce_push_wait_timeout_web",
-      );
-    }
-    function D() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_ad_account_nonce_retries_max_web",
-      );
-    }
-    function x() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("smb_labels_ctwa_data_sharing")
       );
     }
-    function $() {
+    function E() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -144,65 +92,65 @@ __d(
         )
       );
     }
-    function P() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_download_3pd_signals",
       );
     }
-    function N(t) {
+    function I(t) {
       var n = c(),
         r = e();
       return t != null && (n || (r && t.sourceApp !== "whatsapp"));
     }
-    function M() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_opt_out_counter_optimization_enabled",
       );
     }
-    function w() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_title_change",
       );
     }
-    function A() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_additional_logging",
       );
     }
-    function F() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
       );
     }
-    function O() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_suppress_message_with_external_ad_reply_consumer_db_level_enabled",
       );
     }
-    function B() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "per_customer_data_sharing_controls_eligible",
       );
     }
-    function W() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen",
       );
     }
-    function q() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
     }
-    function U() {
+    function A() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_tos_filtering_enabled",
       );
     }
-    function V() {
+    function F() {
       return o("WAWebABProps").getABPropConfigValue(
         "cci_compliance_ctwa_learn_more_hyperlink",
       );
     }
-    function H() {
+    function O() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_on_thread_entry",
       );
@@ -221,30 +169,24 @@ __d(
       (l.isUpdatedConsumerDisclosureUiEuUkEnabled = y),
       (l.smbDataSharingConsentEnabled = C),
       (l.smbDataSharingOptInCoolOffSeconds = b),
-      (l.adEntryPointsConfigurationFetchEnabled = v),
-      (l.adEntryPointsConfigurationFetchThreshold = S),
-      (l.adEntryPointsConfigurationFetchM1Enabled = R),
-      (l.isInLongTermHoldoutFallbackWhenAdEntryPointsConfigurationMissing = L),
-      (l.shouldShowManageAdsDropdown = E),
-      (l.shouldFetchLinkedAccounts = k),
-      (l.adAccountTokenStoringEnabled = I),
-      (l.adAccountTokenNoncePushWaitTimeoutSeconds = T),
-      (l.adAccountTokenNonceMaxRetries = D),
-      (l.isSMBLabelsDataSharingEnabledForChats = x),
-      (l.is3pdImportantLabelSignalsEnabled = $),
-      (l.isDownload3PDSignalsEnabled = P),
-      (l.shouldGenerateAGMMsgs = N),
-      (l.isCTWA3pdOptOutCounterOptimizationEnabled = M),
-      (l.isCTWA3pdDataSharingTitleChangeEnabled = w),
-      (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = A),
-      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = F),
-      (l.suppressMessageWithExternalAdReplyConsumerEnabled = O),
-      (l.isPerCustomerDataSharingControlsEnabled = B),
-      (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = W),
-      (l.showCTWACCICompliantUI = q),
-      (l.isCTWATosFilteringEnabled = U),
-      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = V),
-      (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = H));
+      (l.adAccountTokenStoringEnabled = v),
+      (l.adAccountTokenNoncePushWaitTimeoutSeconds = S),
+      (l.adAccountTokenNonceMaxRetries = R),
+      (l.isSMBLabelsDataSharingEnabledForChats = L),
+      (l.is3pdImportantLabelSignalsEnabled = E),
+      (l.isDownload3PDSignalsEnabled = k),
+      (l.shouldGenerateAGMMsgs = I),
+      (l.isCTWA3pdOptOutCounterOptimizationEnabled = T),
+      (l.isCTWA3pdDataSharingTitleChangeEnabled = D),
+      (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = x),
+      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = $),
+      (l.suppressMessageWithExternalAdReplyConsumerEnabled = P),
+      (l.isPerCustomerDataSharingControlsEnabled = N),
+      (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = M),
+      (l.showCTWACCICompliantUI = w),
+      (l.isCTWATosFilteringEnabled = A),
+      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = F),
+      (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = O));
   },
   98,
 );

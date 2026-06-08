@@ -42,23 +42,9 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaCustomerData")
-            .getCustomerDataTable()
-            .bulkMergeOnly(e);
-        })),
-        _.apply(this, arguments)
-      );
-    }
     ((l.addOrEditCustomerData = e),
       (l.getCustomerDataByChatJid = u),
-      (l.removeCustomerDataByChatJid = d),
-      (l.bulkUpdateCustomerData = p));
+      (l.removeCustomerDataByChatJid = d));
   },
   98,
 );

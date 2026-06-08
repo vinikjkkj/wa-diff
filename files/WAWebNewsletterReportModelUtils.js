@@ -4,57 +4,70 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
-        n = e.reported_content_data,
-        r = {
+        n,
+        r,
+        a = e.reported_content_data,
+        i = {
           state: e.appeal.state,
           appealReason: e.appeal.appeal_reason,
+          appealReasonOptions:
+            (t =
+              (n = e.appeal_reason_options) == null
+                ? void 0
+                : n.map(function (e) {
+                    var t = e.label,
+                      n = e.reason;
+                    return { label: t, reason: n };
+                  })) != null
+              ? t
+              : [],
           creationTime:
             e.appeal.creation_time != null
               ? Number(e.appeal.creation_time)
               : null,
           reportId: e.appeal.report_id,
-          appealId: (t = e.appeal.appeal_id) != null ? t : "",
+          appealId: (r = e.appeal.appeal_id) != null ? r : "",
         },
-        a = {
+        l = {
           id: e.report_id,
           reportStatus: e.status,
           creationTime: Number(e.creation_time),
           newsletterName: e.channel_name,
           newsletterId: o("WAWebWidFactory").createWid(e.channel_jid),
-          appeal: r,
+          appeal: i,
         };
-      if (n != null) {
-        if (n.server_id != null)
-          return babelHelpers.extends({}, a, {
+      if (a != null) {
+        if (a.server_id != null)
+          return babelHelpers.extends({}, l, {
             reportContentData: {
               reportContentType: "status",
-              statusServerId: n.server_id,
+              statusServerId: a.server_id,
             },
           });
-        if (n.server_response_id != null) {
-          var i, l;
-          return babelHelpers.extends({}, a, {
+        if (a.server_response_id != null) {
+          var s, u;
+          return babelHelpers.extends({}, l, {
             reportContentData: {
               reportContentType: "response",
-              responseServerMsgId: Number(n.server_response_id),
-              notifyName: (i = n.notify_name) != null ? i : null,
+              responseServerMsgId: Number(a.server_response_id),
+              notifyName: (s = a.notify_name) != null ? s : null,
               serverMsgId:
-                ((l = n.question_data) == null ? void 0 : l.server_msg_id) !=
+                ((u = a.question_data) == null ? void 0 : u.server_msg_id) !=
                 null
-                  ? Number(n.question_data.server_msg_id)
+                  ? Number(a.question_data.server_msg_id)
                   : null,
             },
           });
         }
-        if (n.server_msg_id != null)
-          return babelHelpers.extends({}, a, {
+        if (a.server_msg_id != null)
+          return babelHelpers.extends({}, l, {
             reportContentData: {
               reportContentType: "message",
-              serverMsgId: Number(n.server_msg_id),
+              serverMsgId: Number(a.server_msg_id),
             },
           });
       }
-      return babelHelpers.extends({}, a, {
+      return babelHelpers.extends({}, l, {
         reportContentData: { reportContentType: "channel" },
       });
     }

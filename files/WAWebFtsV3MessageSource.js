@@ -130,105 +130,107 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a, i, l, s, u, m, f, g, h, y, C, b, v, S, R, L, E, k, I, T;
+          var a, i, l, s, u, m, f, g, h, y, C, b, v, S, R, L, E, k, I, T, D;
           if (t == null || !p(t)) return null;
-          var D = yield o("WAWebSchemaMessage")
+          var x = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .postflightDecryptSingleRecord(t),
-            x = r("WANullthrows")(r("WAWebParseMsgKeyString")(D.id)),
-            $ = x.remote;
-          if ($ === "status@broadcast") return null;
-          var P = o("decodeProtobuf").decodeProtobuf(
+            $ = r("WANullthrows")(r("WAWebParseMsgKeyString")(x.id)),
+            P = $.remote;
+          if (P === "status@broadcast") return null;
+          var N = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb")
                 .MsgRowOpaqueDataSpec,
-              D.msgRowOpaqueData,
+              x.msgRowOpaqueData,
             ),
-            N =
-              (a = (i = P.currentMsg) == null ? void 0 : i.pollOptions) != null
+            M =
+              (a = (i = N.currentMsg) == null ? void 0 : i.pollOptions) != null
                 ? a
                 : [],
-            M =
+            w =
               (l =
-                (s = P.currentMsg) == null || (s = s.pollVotesSnapshot) == null
+                (s = N.currentMsg) == null || (s = s.pollVotesSnapshot) == null
                   ? void 0
                   : s.pollVotes) != null
                 ? l
                 : [],
-            w = [
-              (u = P.currentMsg) == null ? void 0 : u.title,
-              (m = P.currentMsg) == null ? void 0 : m.description,
-              (f = P.currentMsg) == null ? void 0 : f.caption,
-              (g = P.currentMsg) == null ? void 0 : g.vcardFormattedName,
-              (h = P.currentMsg) == null || (h = h.list) == null
+            A = [
+              (u = N.currentMsg) == null ? void 0 : u.title,
+              (m = N.currentMsg) == null ? void 0 : m.description,
+              (f = N.currentMsg) == null ? void 0 : f.caption,
+              (g = N.currentMsg) == null ? void 0 : g.vcardFormattedName,
+              (h = N.currentMsg) == null || (h = h.list) == null
                 ? void 0
                 : h.title,
-              (y = P.currentMsg) == null || (y = y.list) == null
+              (y = N.currentMsg) == null || (y = y.list) == null
                 ? void 0
                 : y.description,
-              (C = P.currentMsg) == null ? void 0 : C.pollName,
-              (b = P.currentMsg) == null ? void 0 : b.eventName,
-              (v = P.currentMsg) == null ? void 0 : v.sharableEventInviteTitle,
-              (S = P.currentMsg) == null
+              (C = N.currentMsg) == null ? void 0 : C.pollName,
+              (b = N.currentMsg) == null ? void 0 : b.eventName,
+              (v = N.currentMsg) == null ? void 0 : v.sharableEventInviteTitle,
+              (S = N.currentMsg) == null
                 ? void 0
                 : S.sharableEventInviteCaption,
             ]
               .concat(
-                N.map(function (e) {
+                M.map(function (e) {
                   return e.name;
                 }),
-                M.map(function (e) {
+                w.map(function (e) {
                   var t = e.option;
                   return t == null ? void 0 : t.name;
                 }),
                 [
-                  D.vcardFormattedName,
-                  D.message,
-                  (R = D.list) == null ? void 0 : R.title,
-                  (L = D.list) == null ? void 0 : L.description,
-                  (E = D.interactiveHeader) == null ? void 0 : E.title,
-                  (k = D.interactiveHeader) == null ? void 0 : k.subtitle,
-                  D.filename,
-                  D.stickerPackPublisher,
+                  x.vcardFormattedName,
+                  x.message,
+                  (R = x.list) == null ? void 0 : R.title,
+                  (L = x.list) == null ? void 0 : L.description,
+                  (E = x.interactiveHeader) == null ? void 0 : E.title,
+                  (k = x.interactiveHeader) == null ? void 0 : k.subtitle,
+                  x.filename,
+                  x.stickerPackPublisher,
                 ],
               )
               .filter(Boolean);
-          if (
-            (t.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-              ((I = D.ctwaContext) == null ? void 0 : I.greetingMessageBody) !=
-                null &&
-              w.push(D.ctwaContext.greetingMessageBody),
+          (t.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
+            ((I = x.ctwaContext) == null ? void 0 : I.greetingMessageBody) !=
+              null &&
+            A.push(x.ctwaContext.greetingMessageBody),
             !c.has(t.type) &&
-              (T = P.currentMsg) != null &&
+              (T = N.currentMsg) != null &&
               T.body &&
-              w.push(P.currentMsg.body),
-            d.has(t.type) && D.footer && w.push(D.footer),
-            D.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              D.nativeFlowName ===
+              A.push(N.currentMsg.body),
+            d.has(t.type) && x.footer && A.push(x.footer));
+          var F = (D = x.bloksWidget) == null ? void 0 : D.fallback;
+          if (
+            (F != null && F !== "" && A.push(F),
+            x.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+              x.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS)
           ) {
-            var A = o("WAWebOrderStatusButton").getOrderStatusButton(D);
-            if (A != null) {
-              var F, O;
-              w.push.apply(
-                w,
+            var O = o("WAWebOrderStatusButton").getOrderStatusButton(x);
+            if (O != null) {
+              var B, W;
+              A.push.apply(
+                A,
                 [
-                  A.reference_id,
-                  A.order.status,
-                  A.order.shipping_method,
-                  (F = A.order.tracking) == null ? void 0 : F.courier_name,
-                  (O = A.order.tracking) == null ? void 0 : O.tracking_ref,
+                  O.reference_id,
+                  O.order.status,
+                  O.order.shipping_method,
+                  (B = O.order.tracking) == null ? void 0 : B.courier_name,
+                  (W = O.order.tracking) == null ? void 0 : W.tracking_ref,
                 ].filter(Boolean),
               );
             }
           }
           if (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
-            if (D.unifiedResponse != null) {
-              var B = r("getPlainTextFromUnifiedResponse")(D.unifiedResponse);
-              B !== "" && w.push(B);
+            if (x.unifiedResponse != null) {
+              var q = r("getPlainTextFromUnifiedResponse")(x.unifiedResponse);
+              q !== "" && A.push(q);
             }
-            if (D.richResponse != null) {
-              var W = r("WAWebCompactMapString")(
-                D.richResponse.fragments,
+            if (x.richResponse != null) {
+              var U = r("WAWebCompactMapString")(
+                x.richResponse.fragments,
                 function (e) {
                   return e.type ===
                     o("WAWebRichResponse.flow").RichResponseFragmentType.Text
@@ -244,17 +246,17 @@ __d(
                       : null;
                 },
               );
-              W.length > 0 && w.push(W.join("\n"));
+              U.length > 0 && A.push(U.join("\n"));
             }
           }
           if (n)
             try {
-              var q = yield _(D);
-              if (q != null)
-                for (var U = 0; U < w.length; U++) {
-                  var V = w[U];
-                  for (var H of Object.keys(q)) V = V.replaceAll(H, q[H]);
-                  w[U] = V;
+              var V = yield _(x);
+              if (V != null)
+                for (var H = 0; H < A.length; H++) {
+                  var G = A[H];
+                  for (var z of Object.keys(V)) G = G.replaceAll(z, V[z]);
+                  A[H] = G;
                 }
             } catch (t) {
               o("WALogger")
@@ -268,13 +270,13 @@ __d(
                 )
                 .sendLogs("mention-search");
             }
-          return w.length === 0
+          return A.length === 0
             ? null
             : {
-                id: String(D.rowId),
-                chatId: $,
-                timestamp: D.t,
-                textFragments: w,
+                id: String(x.rowId),
+                chatId: P,
+                timestamp: x.t,
+                textFragments: A,
               };
         })),
         h.apply(this, arguments)

@@ -13,7 +13,6 @@ __d(
     "WAWebRenderCursor",
     "WAWebThreadModelResolver",
     "WAWebThreadMsgUtils",
-    "WAWebThreadsGating",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "gkx",
@@ -184,9 +183,7 @@ __d(
         o("WAWebViewMode.flow").ViewModeSurface.CHAT,
         t.viewMode,
       )
-        ? r == null ||
-          (n.threadId != null &&
-            o("WAWebThreadsGating").isThreadLoadingInfraEnabled())
+        ? r == null || n.threadId != null
           ? !0
           : o("WAWebThreadMsgUtils").isMsgInThread(t, r) ||
             o("WAWebThreadMsgUtils").isMsgRootOfThread(t, r)

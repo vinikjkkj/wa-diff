@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebBotGating",
+    "WAWebHatchGating",
     "WAWebLocalStorage",
     "asyncToGeneratorRuntime",
     "err",
@@ -125,8 +125,8 @@ __d(
     }
     function D() {
       return {
-        name: o("WAWebBotGating").getHatchBotName(),
-        avatarUrl: o("WAWebBotGating").getHatchBotProfileThumb() || null,
+        name: o("WAWebHatchGating").getHatchBotName(),
+        avatarUrl: o("WAWebHatchGating").getHatchBotProfileThumb() || null,
         videoVariants: null,
         fetchedAt: o("WATimeUtils").unixTime(),
       };
@@ -230,11 +230,11 @@ __d(
       return {
         name:
           (t == null ? void 0 : t.name) ||
-          o("WAWebBotGating").getHatchBotName(),
+          o("WAWebHatchGating").getHatchBotName(),
         profileThumb:
           (e = t == null ? void 0 : t.avatarUrl) != null
             ? e
-            : o("WAWebBotGating").getHatchBotProfileThumb() || "",
+            : o("WAWebHatchGating").getHatchBotProfileThumb() || "",
       };
     }
     function A() {

@@ -144,8 +144,19 @@ __d(
               return a;
             case "template_button_reply":
               return a;
-            case "interactive":
-              return _ != null ? y(t) : i;
+            case "interactive": {
+              var b, v;
+              return _ != null
+                ? y(t)
+                : i != null && i !== ""
+                  ? i
+                  : (b =
+                        (v = o("WAWebMsgGetters").getBloksWidget(t)) == null
+                          ? void 0
+                          : v.fallback) != null
+                    ? b
+                    : i;
+            }
             case "native_flow":
               return y(t);
             case "poll_creation":

@@ -1,16 +1,11 @@
 __d(
   "WAWebThreadWriteThroughAction",
-  ["WAWebThreadModelResolver", "WAWebThreadMsgUtils", "WAWebThreadsGating"],
+  ["WAWebThreadModelResolver", "WAWebThreadMsgUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       var n = t.filter(o("WAWebThreadMsgUtils").isThreadMsg);
-      if (
-        !(
-          n.length === 0 ||
-          !o("WAWebThreadsGating").isThreadLoadingInfraEnabled()
-        )
-      )
+      if (n.length !== 0)
         for (var r of n) {
           var a = r.threadIds;
           if (a != null)

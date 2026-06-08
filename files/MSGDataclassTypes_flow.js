@@ -399,6 +399,7 @@ __d(
         MagicModBackdrop: "MAGIC_MOD_BACKDROP",
         MagicModRestyle: "MAGIC_MOD_RESTYLE",
         Memu: "MEMU",
+        Micdrop: "MICDROP",
         ThirdPartyAi: "THIRD_PARTY_AI",
         ThirdPartyAiEdited: "THIRD_PARTY_AI_EDITED",
       }),

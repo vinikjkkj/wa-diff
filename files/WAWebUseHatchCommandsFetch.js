@@ -2,10 +2,10 @@ __d(
   "WAWebUseHatchCommandsFetch",
   [
     "WALogger",
-    "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebCanonicalHatchCommandGetQuery",
     "WAWebHatchCommandCache",
+    "WAWebHatchGating",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +16,7 @@ __d(
     function c(t) {
       var n = t.toJid(),
         r =
-          o("WAWebBotGating").isHatchCommandsEnabled() &&
+          o("WAWebHatchGating").isHatchCommandsEnabled() &&
           o("WAWebBotUtils").isHatchBot(t);
       u(
         function () {

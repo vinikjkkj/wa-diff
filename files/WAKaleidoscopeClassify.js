@@ -288,10 +288,7 @@ __d(
       );
     }
     ((l.kaleidoscopeClassifyByMediaType = h),
-      (l.kaleidoscopeClassifyVideo = C),
-      (l.kaleidoscopeClassifyImage = v),
-      (l.kaleidoscopeClassifyPTT = R),
-      (l.kaleidoscopeClassifyStickerPack = E));
+      (l.kaleidoscopeClassifyVideo = C));
   },
   98,
 );

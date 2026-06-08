@@ -22,6 +22,7 @@ __d(
     "WAWebExternalLinkPopup.react",
     "WAWebFrontendMsgGetters",
     "WAWebGetGalaxyFlowsActionFromButton",
+    "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebLaunchIcon.react",
     "WAWebMAIBAPrimaryRedirectPopup.react",
@@ -45,6 +46,7 @@ __d(
     "WAWebReplyChatIcon.react",
     "WAWebRichOrderStatusLogger",
     "WAWebSendTextMsgChatAction",
+    "WAWebSignupFlowLoggerLazy",
     "WAWebSmbPaidMessagesButtonLoggerWamEvent",
     "WAWebWamEnumDisclosureEventType",
     "WAWebWamEnumMessageActionEntryPoint",
@@ -76,22 +78,22 @@ __d(
               i = _(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL:
-              i = b(a, t);
+              i = v(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY:
-              i = C(a, t);
+              i = b(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_CATALOG:
-              i = v(a, t);
-              break;
-            case r("WAWebInteractiveMessagesNativeFlowName").CATALOG_MESSAGE:
-              i = v(a, t);
-              break;
-            case r("WAWebInteractiveMessagesNativeFlowName").CTA_COPY_CODE:
               i = S(a, t);
               break;
+            case r("WAWebInteractiveMessagesNativeFlowName").CATALOG_MESSAGE:
+              i = S(a, t);
+              break;
+            case r("WAWebInteractiveMessagesNativeFlowName").CTA_COPY_CODE:
+              i = R(a, t);
+              break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_APP:
-              i = f(a, t);
+              i = g(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW:
               i = o(
@@ -99,17 +101,17 @@ __d(
               ).getCtaFlowInteractiveAction(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS:
-              i = R(a, t);
+              i = L(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER:
-              i = D(a);
+              i = x(a);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .BOOKING_CONFIRMATION:
-              i = x(a, t);
+              i = $(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST:
-              i = $(a, t);
+              i = P(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
@@ -176,14 +178,14 @@ __d(
                       );
                       return;
                     }
-                    g({
+                    h({
                       btn: e,
                       msg: t,
                       eventType: o("WAWebWamEnumDisclosureEventType")
                         .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
                       defaultUrl: e.data.url,
                       onLinkReady: function (r, o, a) {
-                        h(r, t, e, o, a);
+                        y(r, t, e, o, a);
                       },
                     });
                   }
@@ -194,23 +196,42 @@ __d(
             : {
                 label: e.data.label,
                 onClick: function () {
-                  g({
-                    btn: e,
-                    msg: t,
-                    eventType: o("WAWebWamEnumDisclosureEventType")
-                      .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
-                    defaultUrl: e.data.url,
-                    onLinkReady: function (r, o, a) {
-                      h(r, t, e, o, a);
-                    },
-                  });
+                  (f(t),
+                    h({
+                      btn: e,
+                      msg: t,
+                      eventType: o("WAWebWamEnumDisclosureEventType")
+                        .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
+                      defaultUrl: e.data.url,
+                      onLinkReady: function (r, o, a) {
+                        y(r, t, e, o, a);
+                      },
+                    }));
                 },
                 Icon: o("WAWebLaunchIcon.react").LaunchIcon,
                 testid: "cta-url-button",
               };
       }
     }
-    function f(t, n) {
+    function f(e) {
+      if (
+        e.nativeFlowName ===
+        r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
+      ) {
+        var t = o(
+          "WAWebInAppSignupConfirmation",
+        ).getInAppSignupConfirmationInfo(e);
+        if (t != null) {
+          var n = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
+          o("WAWebSignupFlowLoggerLazy").logWebsiteCtaClicked({
+            signupId: t.signupId,
+            businessWid: n.id,
+            chatTimestamp: n.t,
+          });
+        }
+      }
+    }
+    function g(t, n) {
       if (
         o("WAWebMmSignalSharingGatingUtils").isMmSignalSharingAppCtaEnabled()
       ) {
@@ -233,7 +254,7 @@ __d(
           return {
             label: t.data.label,
             onClick: function () {
-              g({
+              h({
                 btn: t,
                 msg: n,
                 eventType: o("WAWebWamEnumDisclosureEventType")
@@ -242,7 +263,7 @@ __d(
                 skipUrlRewrite: !0,
                 onLinkReady: function (r, a, i) {
                   (o("WAWebExternalLink.react").openExternalLink(a),
-                    L(t, n),
+                    E(t, n),
                     o(
                       "WAWebMmSignalSharingLoggingEvents",
                     ).logMmSignalSharingLinkClickEvent({
@@ -252,7 +273,7 @@ __d(
                       msg: n.unsafe(),
                       chat: r,
                       hasShownDisclosure: i,
-                      mmCarouselCardIndex: k(n.unsafe()),
+                      mmCarouselCardIndex: I(n.unsafe()),
                     }));
                 },
               });
@@ -262,7 +283,7 @@ __d(
           };
       }
     }
-    function g(e) {
+    function h(e) {
       var t = e.btn,
         n = e.defaultUrl,
         r = e.eventType,
@@ -319,17 +340,17 @@ __d(
               : i(u, c, !1));
         });
     }
-    function h(e, t, n, r, a) {
+    function y(e, t, n, r, a) {
       if (
         (a === void 0 && (a = !1),
         o(
           "WAWebPremiumMessagesGatingUtils",
         ).isPremiumMessagesUrlCtaDialogEnabled() && !a)
       )
-        y({ btn: n, chat: e, ctaLink: r, hasShownDisclosure: a, msg: t });
+        C({ btn: n, chat: e, ctaLink: r, hasShownDisclosure: a, msg: t });
       else {
         if (r == null) return;
-        (o("WAWebExternalLink.react").openExternalLink(r), L(n, t));
+        (o("WAWebExternalLink.react").openExternalLink(r), E(n, t));
         var i = t.unsafe();
         (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
           msg: i,
@@ -347,7 +368,7 @@ __d(
             msg: i,
             chat: e,
             hasShownDisclosure: a,
-            mmCarouselCardIndex: k(i),
+            mmCarouselCardIndex: I(i),
           }),
           o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
             msg: i,
@@ -359,7 +380,7 @@ __d(
           }));
       }
     }
-    function y(e) {
+    function C(e) {
       var t,
         n,
         a = e.btn,
@@ -376,7 +397,7 @@ __d(
               : "",
           verifyTrackableLink: o("WAWebMsgGetters").getIsMarketingMessage(u),
           onOkClick: function () {
-            L(a, u);
+            E(a, u);
             var e = u.unsafe();
             (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
               msg: e,
@@ -395,7 +416,7 @@ __d(
                 msg: e,
                 chat: i,
                 hasShownDisclosure: s,
-                mmCarouselCardIndex: k(e),
+                mmCarouselCardIndex: I(e),
               }),
               o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
                 msg: e,
@@ -411,7 +432,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       if (t.id.fromMe && o("WAWebMsgGetters").getBizBotType(t) != null)
         return null;
       var n = o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
@@ -421,7 +442,7 @@ __d(
         Icon: o("WAWebReplyChatIcon.react").ReplyChatIcon,
         disabled: e.data.disabled,
         onClick: function () {
-          if (t.isCarouselCard) I(e, r);
+          if (t.isCarouselCard) T(e, r);
           else {
             var a, i;
             (o("WALogger").LOG(
@@ -440,7 +461,7 @@ __d(
                 },
               ));
           }
-          (L(e, t),
+          (E(e, t),
             o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
               msg: r,
               chat: n,
@@ -465,12 +486,12 @@ __d(
         },
       };
     }
-    function b(e, t) {
+    function v(e, t) {
       var n;
       return {
         label: (n = e.data) == null ? void 0 : n.label,
         onClick: function () {
-          (r("WAWebBizMessageOpenCallModal")(), L(e, t));
+          (r("WAWebBizMessageOpenCallModal")(), E(e, t));
           var n = t.unsafe(),
             a = o("WAWebFrontendMsgGetters").getChat(n);
           (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
@@ -492,7 +513,7 @@ __d(
         Icon: o("WAWebPhoneIcon.react").PhoneIcon,
       };
     }
-    function v(e, t) {
+    function S(e, t) {
       return {
         label: e.data.label,
         onClick: function () {
@@ -521,7 +542,7 @@ __d(
         },
       };
     }
-    function S(e, t) {
+    function R(e, t) {
       return {
         label: e.data.label,
         onClick: function () {
@@ -547,7 +568,7 @@ __d(
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
       };
     }
-    function R(e, t) {
+    function L(e, t) {
       var n = e.data,
         a = n.label,
         i = n.orderStatusButton;
@@ -590,7 +611,7 @@ __d(
             };
       }
     }
-    function L(e, t) {
+    function E(e, t) {
       var n;
       o(
         "WAWebPremiumMessagesGatingUtils",
@@ -604,11 +625,11 @@ __d(
           pmButtonEventType: o("WAWebWamEnumPmButtonEventType")
             .PM_BUTTON_EVENT_TYPE.CLICK,
           pmButtonIndex: e.index,
-          pmButtonType: E(e),
+          pmButtonType: k(e),
           pmServerCampaignId: t.pmCampaignId,
         }).commit();
     }
-    function E(e) {
+    function k(e) {
       switch (e.name) {
         case "cta_url":
           return o("WAWebWamEnumPmButtonType").PM_BUTTON_TYPE.CTA_URL;
@@ -646,7 +667,7 @@ __d(
           );
       }
     }
-    function k(e) {
+    function I(e) {
       if (e.isCarouselCard) {
         var t = o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(e);
         if (t != null) {
@@ -658,12 +679,12 @@ __d(
         }
       }
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
             i = r("WANullthrows")(
@@ -699,10 +720,10 @@ __d(
             )
           );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
+    function x(e) {
       var t = e.data,
         n = t.label,
         a = t.paymentReminderInfo;
@@ -721,7 +742,7 @@ __d(
             },
           };
     }
-    function x(e, t) {
+    function $(e, t) {
       var n = e.data,
         r = n.bookingInfo,
         a = n.label;
@@ -737,7 +758,7 @@ __d(
             testid: "booking-confirmation-view-details-button",
           };
     }
-    function $(e, t) {
+    function P(e, t) {
       if (
         !o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(
           t.isFromTemplate === !0,

@@ -34,23 +34,28 @@ __d(
               .ALL_MEMBER_SHARE;
     }
     function c(e, t, n) {
-      var r;
+      return d(t) && m(e, n).eligible;
+    }
+    function d(e) {
+      return !o(
+        "WAWebGroupHistoryGating",
+      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled() ||
+        !s(e.groupType) ||
+        e.hasCapi === !0
+        ? !1
+        : u(e.iAmAdmin, e.iAmSuperAdmin, e.memberShareGroupHistoryMode);
+    }
+    function m(e, t) {
+      var n;
       if (
-        (!o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled() &&
-          !o(
-            "WAWebGroupHistoryGating",
-          ).isGroupHistoryPostJoinInternalTesterEnabled()) ||
-        !s(t.groupType) ||
-        t.hasCapi === !0 ||
-        !u(t.iAmAdmin, t.iAmSuperAdmin, t.memberShareGroupHistoryMode) ||
         o("WAWebBotUtils").isMetaAiBot(e.id) ||
         o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)
       )
-        return !1;
-      var a = e.groupHistorySentState,
-        i = (r = e.joinTime) != null ? r : n;
+        return { eligible: !1, reason: "bot" };
+      var r = (n = e.joinTime) != null ? n : t;
+      if (r == null) return { eligible: !1, reason: "no_join_time" };
+      var a = e.groupHistorySentState;
       if (
-        i == null ||
         a ===
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
             .HISTORY_SENT ||
@@ -58,15 +63,20 @@ __d(
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
             .NOTICE_SENT
       )
-        return !1;
-      var l = o("WAWebABProps").getABPropConfigValue(
-          "group_history_new_user_threshold_secs",
-        ),
-        c = o("WATimeUtils").unixTime();
-      return !(c - i > l);
+        return { eligible: !1, reason: "already_received" };
+      var i = o("WAWebABProps").getABPropConfigValue(
+        "group_history_new_user_threshold_secs",
+      );
+      return o("WATimeUtils").unixTime() - r > i
+        ? { eligible: !1, reason: "window_expired" }
+        : { eligible: !0 };
     }
-    function d(t) {
-      if (!o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled())
+    function p(t) {
+      if (
+        !o(
+          "WAWebGroupHistoryGating",
+        ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled()
+      )
         return [];
       var n = e(t);
       return t.participants.getModelsArray().filter(function (e) {
@@ -76,7 +86,9 @@ __d(
     ((l.groupContextFromMetadata = e),
       (l.canCurrentUserShareHistory = u),
       (l.isEligibleForPostJoinHistory = c),
-      (l.getEligiblePostJoinParticipants = d));
+      (l.isPostJoinHistoryGroupEligible = d),
+      (l.getParticipantPostJoinEligibility = m),
+      (l.getEligiblePostJoinParticipants = p));
   },
   98,
 );

@@ -17,14 +17,18 @@ __d(
       return s() === "test";
     }
     function c() {
-      return !u() || d();
+      return r("WAWebEnvironment").isWindows;
     }
     function d() {
+      return !u() || m();
+    }
+    function m() {
       return r("gkx")("26259");
     }
     ((l.getHybridRegExperiment = s),
       (l.isHybridRegEnabled = u),
-      (l.shouldShowCountrySelector = c));
+      (l.shouldFollowAppTheme = c),
+      (l.shouldShowCountrySelector = d));
   },
   98,
 );

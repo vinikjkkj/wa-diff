@@ -6,8 +6,8 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
+    "WAWebCTWAGatingUtils",
     "WAWebCommonAdEntryPointsTypes",
     "WAWebCommonCTWAQplHelpers",
     "WAWebFetchAdAccountToken",
@@ -53,7 +53,7 @@ __d(
       });
     }
     function b(e) {
-      return o("WAWebBizGatingUtils").adEntryPointsConfigurationFetchEnabled()
+      return o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchEnabled()
         ? o("WAWebOrchestratorNonPersistedJob")
             .createNonPersistedJob(
               "fetchAdEntryPointsConfiguration",
@@ -218,7 +218,7 @@ __d(
         .waitIfOffline()
         .then(function () {
           return o(
-            "WAWebBizGatingUtils",
+            "WAWebCTWAGatingUtils",
           ).adEntryPointsConfigurationFetchM1Enabled()
             ? L(e)
             : R(e);

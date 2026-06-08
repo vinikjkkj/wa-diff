@@ -12,8 +12,6 @@ __d(
     "WARaceSignal",
     "WAStorageEstimator",
     "WAWebBackendErrors",
-    "WAWebBotGating",
-    "WAWebBotUtils",
     "WAWebChatConstants",
     "WAWebChatGetters",
     "WAWebCollectionConstants",
@@ -32,7 +30,6 @@ __d(
     "WAWebSyncGatingUtils",
     "WAWebThreadMsgUtils",
     "WAWebThreadUtils",
-    "WAWebThreadsGating",
     "WAWebWamEnumWebcMessageQueryDirection",
     "WAWebWamEnumWebcQueryTriggerType",
     "asyncToGeneratorRuntime",
@@ -227,12 +224,7 @@ __d(
             s = e.threadId,
             u = e.trigger,
             c = t != null ? t : a === "after" ? i.last() : i.head(),
-            d =
-              o("WAWebBotUtils").isMetaAiBot(n.id) &&
-              o("WAWebBotGating").isAiChatThreadsEnabled() &&
-              !o("WAWebThreadsGating").isThreadLoadingInfraEnabled()
-                ? o("WAWebBotGating").getAiThreadMsgsLoadLimit()
-                : o("WAWebCollectionConstants").PAGE_SIZE,
+            d = o("WAWebCollectionConstants").PAGE_SIZE,
             f = {
               anchor: c != null ? c.id : { remote: n.id },
               count: d,

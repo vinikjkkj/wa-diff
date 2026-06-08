@@ -90,9 +90,7 @@ __d(
         t
       );
     })();
-    ((l.PDF_RENDER_THUMBNAIL_TIMEOUT_MS = s),
-      (l.getPdfThumbnailTimeoutMs = u),
-      (l.WAWebTPThumbnailRenderer = c));
+    ((l.getPdfThumbnailTimeoutMs = u), (l.WAWebTPThumbnailRenderer = c));
   },
   98,
 );

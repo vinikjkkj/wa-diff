@@ -206,7 +206,6 @@ __d(
       (l.getCurrentScreenName = E),
       (l.consumeLastTapTrackingId = k),
       (l.getRapidFireSuppressedCount = I),
-      (l.getTargetType = A),
       (l.getAncestorTrackingPath = F),
       (l.handleClick = O),
       (l.handleDoubleClick = B),

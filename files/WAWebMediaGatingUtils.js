@@ -5,6 +5,7 @@ __d(
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebChatGetters",
+    "WAWebHatchGating",
     "WAWebMmsMediaTypes",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
@@ -162,7 +163,7 @@ __d(
         ]);
         return (
           (!o("WAWebBotUtils").isHatchBot(e.id) ||
-            o("WAWebBotGating").isHatchVideoUploadEnabled()) &&
+            o("WAWebHatchGating").isHatchVideoUploadEnabled()) &&
             r.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
           o("WAWebBotUtils").isManusBot(e.id) ||
             (r.add(o("WAWebMsgType").MSG_TYPE.VCARD),

@@ -191,7 +191,6 @@ __d(
       (l.getOpenChatFlowProps = m),
       (l.submitDeepLinkOpenWamEvent = p),
       (l.externalCtxAuthoriseWAChatIfEnabled = _),
-      (l.getFileNameFromResponse = f),
       (l.downloadAttachments = g));
   },
   98,

@@ -5,6 +5,7 @@ __d(
     "WAWebFindChatAction",
     "WAWebGenerateGroupHistoryBundleMsgData",
     "WAWebGenerateGroupHistoryNoticeMsgData",
+    "WAWebGroupHistoryNoticeHandler",
     "WAWebGroupMemberAddingUserJourneyLogger",
     "WAWebJidToWid",
     "WAWebSendMsgChatAction",
@@ -84,6 +85,12 @@ __d(
                 .sendLogs("group-history-notice-send-failed");
               return;
             }
+            yield o(
+              "WAWebGroupHistoryNoticeHandler",
+            ).markGroupHistoryNoticeSent(
+              o("WAWebJidToWid").groupJidToWid(t),
+              n,
+            );
           },
         )),
         d.apply(this, arguments)

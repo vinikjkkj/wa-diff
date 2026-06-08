@@ -2,9 +2,9 @@ __d(
   "WAWebWasaHatchOutboundWrapper",
   [
     "WACryptoAesGcm",
-    "WAWebBotGating",
     "WAWebBotMessageSecret",
     "WAWebBotUtils",
+    "WAWebHatchGating",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebWasaGenerateSecretEncryptedMessageProto",
@@ -47,7 +47,7 @@ __d(
       return (
         o("WAWebBotUtils").isHatchBot(e) &&
         !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-        o("WAWebBotGating").isHatchSecretEncryptedMessageEnabled()
+        o("WAWebHatchGating").isHatchSecretEncryptedMessageEnabled()
       );
     }
     function d(e) {

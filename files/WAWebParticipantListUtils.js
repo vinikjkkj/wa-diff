@@ -229,29 +229,6 @@ __d(
     }
     function f(e, t) {
       t === void 0 && (t = !0);
-      var n = e.participants.length;
-      if (n === 0) return s._(/*BTDS*/ "Group call").toString();
-      var o = c(e, !1, t);
-      if (n === 1) return o[0];
-      if (n === 2)
-        return r("WAWebFbtIntlList")(
-          o.slice(0, 2),
-          r("WAWebFbtIntlList").CONJUNCTIONS.AND,
-        ).toString();
-      var a = o[0],
-        i = n - 1,
-        l = s
-          ._(/*BTDS*/ '_j{"*":"{other_participants} others","_1":"1 other"}', [
-            s._plural(i, "other_participants"),
-          ])
-          .toString();
-      return r("WAWebFbtIntlList")(
-        [a, l],
-        r("WAWebFbtIntlList").CONJUNCTIONS.AND,
-      ).toString();
-    }
-    function g(e, t) {
-      t === void 0 && (t = !0);
       var n = e.length;
       if (n === 0) return s._(/*BTDS*/ "Group call").toString();
       var r = e.map(function (e) {
@@ -331,8 +308,7 @@ __d(
       (l.getFirstNameForContact = d),
       (l.calculateParticipantsList = p),
       (l.calculateAdminsList = _),
-      (l.formatParticipantNames = f),
-      (l.formatParticipantWidsPreserveOrder = g));
+      (l.formatParticipantWidsPreserveOrder = f));
   },
   226,
 );

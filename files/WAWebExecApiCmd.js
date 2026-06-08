@@ -46,6 +46,7 @@ __d(
     "WAWebFaqUrl",
     "WAWebFindChatAction",
     "WAWebGroupInviteLinkModal.react",
+    "WAWebHatchFrontendGating",
     "WAWebInboxFiltersGatingUtils",
     "WAWebInfoFlowLoadable",
     "WAWebKeyboardTabUtils",
@@ -918,7 +919,7 @@ __d(
           return (Ie(t.data.token), !0);
         }
         case "HATCH_LINK": {
-          if (!o("WAWebBotFrontendGating").isHatchIntegrationEnabled())
+          if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled())
             return !1;
           o("WAWebCmd").Cmd.closeStatusViewer();
           var Te = (function () {

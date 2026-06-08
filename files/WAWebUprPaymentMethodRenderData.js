@@ -5,8 +5,6 @@ __d(
     "WAWebUprPaymentMethodLabels",
     "WDSIconIcAccountBalance.react",
     "WDSIconIcAccountBalanceWallet.react",
-    "WDSIconIcCreditCard.react",
-    "WDSIconIcPhoneAndroid.react",
     "WDSIconIcQrCode.react",
     "react",
   ],
@@ -42,25 +40,7 @@ __d(
         ? null
         : babelHelpers.extends({}, n, { icon: r });
     }
-    function m(e) {
-      return e == null
-        ? r("WDSIconIcCreditCard.react")
-        : e === o("WAWebUprConstants").UprPaymentAccountType.BANK_ACCOUNT
-          ? r("WDSIconIcAccountBalance.react")
-          : e === o("WAWebUprConstants").UprPaymentAccountType.DIGITAL_WALLET
-            ? r("WDSIconIcAccountBalanceWallet.react")
-            : e === o("WAWebUprConstants").UprPaymentAccountType.MOBILE_MONEY
-              ? r("WDSIconIcPhoneAndroid.react")
-              : e === o("WAWebUprConstants").UprPaymentAccountType.QR_CODE
-                ? r("WDSIconIcQrCode.react")
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
-    }
-    ((l.getUprMethodRenderData = d), (l.getPayWithIcon = m));
+    l.getUprMethodRenderData = d;
   },
   98,
 );

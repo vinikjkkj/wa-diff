@@ -948,7 +948,6 @@ __d(
       (l.getAvailableAudioDevices = pe),
       (l.getAvailableAudioOutputDevices = fe),
       (l.switchAudioInputDeviceInternal = he),
-      (l.setSinkIdWithRetry = Ce),
       (l.applyPreferredAudioOutputSink = ve),
       (l.switchAudioOutputSinkIdInternal = Re),
       (l.switchAudioOutputDeviceInternal = Ee));

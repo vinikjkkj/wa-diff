@@ -1,13 +1,13 @@
 __d(
   "WAWebNewsletterModelUtils",
   [
+    "WAFilterObjectNullishProps",
     "WALogger",
     "WATimeUtils",
     "WAWebCommonNewsletterEnums",
     "WAWebNewsletterGatingUtils",
     "WAWebWidFactory",
     "err",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -125,6 +125,7 @@ __d(
     function E(e) {
       var t,
         n,
+        r,
         a,
         i,
         l,
@@ -134,88 +135,86 @@ __d(
         d,
         m,
         p,
-        _,
-        f =
+        _ =
           (t = e.newsletterVerificationMetadataMixin) == null
             ? void 0
             : t.verificationState,
-        h = (n = e.newsletterStateMetadataMixin) == null ? void 0 : n.stateType,
+        f = (n = e.newsletterStateMetadataMixin) == null ? void 0 : n.stateType,
+        h =
+          (r = e.newsletterMembershipMetadataMixin) == null
+            ? void 0
+            : r.membershipType,
         y =
-          (a = e.newsletterMembershipMetadataMixin) == null
+          (a = e.newsletterPrivacyMetadataMixin) == null
             ? void 0
-            : a.membershipType,
-        C =
-          (i = e.newsletterPrivacyMetadataMixin) == null
-            ? void 0
-            : i.privacyType,
-        b = babelHelpers.extends(
+            : a.privacyType,
+        C = babelHelpers.extends(
           {
-            id: o("WAWebWidFactory").createWid(e.idJid),
             creationTime:
-              (l = e.newsletterCreationTimeMetadataMixin) == null
+              (i = e.newsletterCreationTimeMetadataMixin) == null
                 ? void 0
-                : l.creationTimeValue,
+                : i.creationTimeValue,
             name:
+              (l = e.newsletterNameMetadataMixin) == null
+                ? void 0
+                : l.nameElementValue,
+            nameUpdateTime:
               (s = e.newsletterNameMetadataMixin) == null
                 ? void 0
-                : s.nameElementValue,
-            nameUpdateTime:
-              (u = e.newsletterNameMetadataMixin) == null
-                ? void 0
-                : u.nameUpdateTime,
+                : s.nameUpdateTime,
             description:
+              (u = e.newsletterDescriptionMetadataMixin) == null ||
+              (u = u.descriptionQueryDescriptionResponseMixin) == null
+                ? void 0
+                : u.elementValue,
+            descriptionUpdateTime:
               (c = e.newsletterDescriptionMetadataMixin) == null ||
               (c = c.descriptionQueryDescriptionResponseMixin) == null
                 ? void 0
-                : c.elementValue,
-            descriptionUpdateTime:
-              (d = e.newsletterDescriptionMetadataMixin) == null ||
-              (d = d.descriptionQueryDescriptionResponseMixin) == null
-                ? void 0
-                : d.updateTime,
+                : c.updateTime,
             inviteCode:
-              (m = e.newsletterInviteLinkMetadataMixin) == null
+              (d = e.newsletterInviteLinkMetadataMixin) == null
                 ? void 0
-                : m.inviteCode,
+                : d.inviteCode,
             size:
-              (p = e.newsletterSubscribersMetadataMixin) == null
+              (m = e.newsletterSubscribersMetadataMixin) == null
                 ? void 0
-                : p.subscribersCount,
-            verified: f != null ? g(f) : void 0,
+                : m.subscribersCount,
+            verified: _ != null ? g(_) : void 0,
             membershipType:
-              y != null
+              h != null
                 ? o("WAWebCommonNewsletterEnums").NewsletterMembershipType.cast(
-                    y,
+                    h,
                   )
                 : void 0,
             reactionCodesSetting: Object.prototype.hasOwnProperty.call(
               e,
               "newsletterReactionCodesSettingMetadataMixin",
             )
-              ? (_ =
+              ? (p =
                   e == null
                     ? void 0
                     : e.newsletterReactionCodesSettingMetadataMixin) != null
-                ? _
+                ? p
                 : o("WAWebCommonNewsletterEnums").NewsletterReactionCodesSetting
                     .All
               : void 0,
             privacy:
-              C != null
-                ? o("WAWebCommonNewsletterEnums").NewsletterPrivacy.cast(C)
+              y != null
+                ? o("WAWebCommonNewsletterEnums").NewsletterPrivacy.cast(y)
                 : void 0,
             website: void 0,
             followerActivityMuteExpiration: k(e, "MUTE_FOLLOWER_ACTIVITY"),
             suspended:
-              h != null
-                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(h) ===
+              f != null
+                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(f) ===
                     o("WAWebCommonNewsletterEnums").NewsletterState.Suspended ||
-                  o("WAWebCommonNewsletterEnums").NewsletterState.cast(h) ===
+                  o("WAWebCommonNewsletterEnums").NewsletterState.cast(f) ===
                     o("WAWebCommonNewsletterEnums").NewsletterState.GeoSuspended
                 : void 0,
             geosuspended:
-              h != null
-                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(h) ===
+              f != null
+                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(f) ===
                   o("WAWebCommonNewsletterEnums").NewsletterState.GeoSuspended
                 : void 0,
           },
@@ -233,9 +232,10 @@ __d(
                 : void 0,
           },
         );
-      return r("lodash").pickBy(b, function (e) {
-        return e != null;
-      });
+      return babelHelpers.extends(
+        { id: o("WAWebWidFactory").createWid(e.idJid) },
+        o("WAFilterObjectNullishProps").filterObjectNullishProps(C),
+      );
     }
     function k(e, t) {
       var n,
@@ -258,24 +258,24 @@ __d(
     }
     function D(e, t) {
       var n,
+        r,
         a,
         i,
         l,
         s,
         u,
-        c,
-        d = o("WAWebWidFactory").createWid(e);
-      if (t.length === 0) return { id: d };
-      var m, p;
-      for (var _ of t) {
-        var f = _.queryPictureDirectPathOrEmptyResponseMixinGroup;
-        if (f.name === "QueryPictureDirectPathResponse")
-          f.value.type === "preview"
-            ? (p = f.value)
-            : f.value.type === "image" && (m = f.value);
-        else if (f.name === "QueryPictureEmptyResponse")
+        c = o("WAWebWidFactory").createWid(e);
+      if (t.length === 0) return { id: c };
+      var d, m;
+      for (var p of t) {
+        var _ = p.queryPictureDirectPathOrEmptyResponseMixinGroup;
+        if (_.name === "QueryPictureDirectPathResponse")
+          _.value.type === "preview"
+            ? (m = _.value)
+            : _.value.type === "image" && (d = _.value);
+        else if (_.name === "QueryPictureEmptyResponse")
           return {
-            id: d,
+            id: c,
             timestamp: Date.now(),
             eurl: null,
             previewEurl: null,
@@ -283,29 +283,29 @@ __d(
             stale: !1,
           };
       }
-      var g = {
-        id: d,
+      var f = {
         timestamp: Date.now(),
         tag:
-          (n = (a = m) == null ? void 0 : a.id) != null
+          (n = (r = d) == null ? void 0 : r.id) != null
             ? n
-            : (i = p) == null
+            : (a = m) == null
               ? void 0
-              : i.id,
+              : a.id,
         eurl: T(
-          (l = (s = m) == null ? void 0 : s.directPath) != null
-            ? l
-            : (u = p) == null
+          (i = (l = d) == null ? void 0 : l.directPath) != null
+            ? i
+            : (s = m) == null
               ? void 0
-              : u.directPath,
+              : s.directPath,
         ),
-        previewEurl: T((c = p) == null ? void 0 : c.directPath),
+        previewEurl: T((u = m) == null ? void 0 : u.directPath),
         eurlStale: !1,
         stale: !1,
       };
-      return r("lodash").pickBy(g, function (e) {
-        return e != null;
-      });
+      return babelHelpers.extends(
+        { id: c },
+        o("WAFilterObjectNullishProps").filterObjectNullishProps(f),
+      );
     }
     function x(e) {
       var t, n;

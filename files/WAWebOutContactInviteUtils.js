@@ -83,7 +83,6 @@ __d(
       );
     }
     ((l.getInviteMessageText = c),
-      (l.getInviteUrl = d),
       (l.getInviteMessageTextWithCode = m),
       (l.getMultiGroupInviteMessageText = p),
       (l.getGroupInviteAddFailedToastText = _),

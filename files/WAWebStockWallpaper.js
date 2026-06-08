@@ -70,7 +70,7 @@ __d(
     }
     function g(e) {
       var t = c.get(e);
-      return t == null ? null : v(t);
+      return t == null ? null : b(t);
     }
     function h(e) {
       var t = c.get(e);
@@ -79,13 +79,10 @@ __d(
     function y(e) {
       return f(e, u);
     }
-    function C(e) {
-      return c.has(e);
-    }
-    function b() {
+    function C() {
       return Array.from(c.keys());
     }
-    function v(e) {
+    function b(e) {
       var t,
         n =
           typeof window != "undefined" &&
@@ -94,25 +91,24 @@ __d(
             : "_web_2400";
       return f(e, n);
     }
-    function S() {
+    function v() {
       return d;
     }
-    function R() {
+    function S() {
       return m;
     }
-    function L(e, t) {
+    function R(e, t) {
       return t === "dark" ? !0 : !p.has(e);
     }
     ((l.getDefaultWallpaperIdForTheme = _),
       (l.getStockWallpaperUrl = g),
       (l.getStockWallpaperThumbnailUrl = h),
       (l.getStockWallpaperThumbnailUrlByImageId = y),
-      (l.hasStockWallpaper = C),
-      (l.getThemesWithStockWallpapers = b),
-      (l.getStockWallpaperUrlByImageId = v),
-      (l.getStockWallpaperPresets = S),
-      (l.getAllStockWallpaperPresets = R),
-      (l.isLightSwatchBackground = L));
+      (l.getThemesWithStockWallpapers = C),
+      (l.getStockWallpaperUrlByImageId = b),
+      (l.getStockWallpaperPresets = v),
+      (l.getAllStockWallpaperPresets = S),
+      (l.isLightSwatchBackground = R));
   },
   98,
 );

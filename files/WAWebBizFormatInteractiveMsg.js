@@ -52,7 +52,7 @@ __d(
         var _ = c(e);
         if (_ != null) return _;
       }
-      return [
+      var f = [
         (n = e.interactiveHeader) == null ? void 0 : n.title,
         l ? ((o = e.interactiveHeader) == null ? void 0 : o.subtitle) : null,
         e.caption,
@@ -60,6 +60,13 @@ __d(
       ]
         .filter(Boolean)
         .join("\n");
+      if (f === "") {
+        var g, h;
+        return (g = (h = e.bloksWidget) == null ? void 0 : h.fallback) != null
+          ? g
+          : "";
+      }
+      return f;
     }
     function u(e) {
       switch (e) {

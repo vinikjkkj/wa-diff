@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WATimeUtils",
-    "WAWebBotFrontendGating",
     "WAWebBotFrontendUtils",
     "WAWebBotGating",
     "WAWebBotTypes",
@@ -13,6 +12,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupUnreadMessageType",
     "WAWebHatchAboutManager",
+    "WAWebHatchFrontendGating",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgInfoCollection",
@@ -70,7 +70,7 @@ __d(
                       var p = t.unifiedResponse;
                       if (
                         o(
-                          "WAWebBotFrontendGating",
+                          "WAWebHatchFrontendGating",
                         ).isHatchIntegrationEnabled() &&
                         o("WAWebBotUtils").isHatchBot(a.id.remote) &&
                         p != null

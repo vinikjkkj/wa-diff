@@ -51,17 +51,16 @@ __d(
             ? a
             : !1,
         b = [u.jsx(m, { chat: c }, "Info"), u.jsx(d, { chat: c }, "Pin")];
-      return (
-        o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled() &&
-          b.splice(
-            1,
-            0,
-            u.jsx(
-              r("WAWebChatContextMenuItemArchive.react"),
-              { chat: c },
-              "Archive",
-            ),
+      (o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled() &&
+        b.splice(
+          1,
+          0,
+          u.jsx(
+            r("WAWebChatContextMenuItemArchive.react"),
+            { chat: c },
+            "Archive",
           ),
+        ),
         (C ||
           y > 1 ||
           o(
@@ -69,19 +68,20 @@ __d(
           ).isNewsletterAdminNotificationsEnabled(c.newsletterMetadata)) &&
           (b.push(u.jsx(p, { chat: c }, "Mute")),
           b.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
-        b.push(u.jsx(f, { chat: c }, "CopyLink")),
-        b.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            { type: "separator" },
-            "newsletter-context-menu-separator",
-          ),
-        ),
+        b.push(u.jsx(f, { chat: c }, "CopyLink")));
+      var v = u.jsx(
+        r("WDSMenuItem.react"),
+        { type: "separator" },
+        "newsletter-context-menu-separator",
+      );
+      return (
+        b.push(v),
         C && b.push(u.jsx(g, { chat: c }, "Unfollow")),
         (l = (s = c.newsletterMetadata) == null ? void 0 : s.iAmOwner()) !=
           null &&
           l &&
           b.push(u.jsx(h, { chat: c }, "Delete")),
+        b[b.length - 1] === v && b.pop(),
         b
       );
     }

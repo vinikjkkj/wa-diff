@@ -19,7 +19,9 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r;
           if (
-            o("WAWebGroupHistoryGating").isGroupHistoryPostJoinSenderEnabled()
+            o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled()
           ) {
             var a = n.filter(function (e) {
               return e.joinTime != null;
@@ -90,7 +92,30 @@ __d(
         u.apply(this, arguments)
       );
     }
-    l.updateGroupHistoryParticipantMetadataOnJoin = s;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, n;
+          try {
+            n = o("WAWebWidToJid").widToGroupJid(e);
+          } catch (e) {
+            return null;
+          }
+          var r = yield o("WAWebSchemaGroupHistoryParticipant")
+            .getGroupHistoryParticipantTable()
+            .get(n);
+          return (t = r == null ? void 0 : r.participantMetadataMap) != null
+            ? t
+            : null;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    ((l.updateGroupHistoryParticipantMetadataOnJoin = s),
+      (l.getGroupHistoryParticipantMetadataForGroup = c));
   },
   98,
 );

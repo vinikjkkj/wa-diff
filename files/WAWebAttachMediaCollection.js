@@ -9,6 +9,7 @@ __d(
     "WAWebBotUtils",
     "WAWebFileUtils",
     "WAWebGetMetaAiImagineEventContext",
+    "WAWebHatchGating",
     "WAWebImagineActionLogger",
     "WAWebL10nFilesize",
     "WAWebMediaEditorEnumsThemes",
@@ -164,7 +165,7 @@ __d(
                 o("WAWebBotUtils").isHatchBot(n.id)
                   ? (u =
                       o(
-                        "WAWebBotGating",
+                        "WAWebHatchGating",
                       ).getHatchDocumentUploadSizeLimitBytes())
                   : o("WAWebBotUtils").isMetaAiBot(n.id) &&
                     (u =

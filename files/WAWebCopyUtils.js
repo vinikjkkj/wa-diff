@@ -5,12 +5,15 @@ __d(
     "WAWebBizCtwaAGMUtils",
     "WAWebCopyPasteClipboard",
     "WAWebCopyToClipboard",
+    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMediaInMemoryBlobCache",
+    "WAWebMentionDisplayUtils",
     "WAWebMsgActionCapability",
     "WAWebMsgType",
     "WAWebRichResponseCopyText",
+    "WAWebRichTextInputConst",
     "WAWebUnifiedResponseUtils",
     "asyncToGeneratorRuntime",
     "getPlainTextFromUnifiedResponse",
@@ -52,15 +55,115 @@ __d(
       return (e == null ? void 0 : e.toString()) !== "";
     }
     function u(e) {
-      e.body != null && o("WAWebCopyToClipboard").copyTextToClipboard(e.body);
+      if (e.body != null) {
+        var t = c(e),
+          n = t.appText,
+          r = t.hasMentions,
+          a = t.plainText;
+        if (!r) {
+          o("WAWebCopyToClipboard").copyTextToClipboard(a);
+          return;
+        }
+        p(a, n) || o("WAWebCopyToClipboard").copyTextToClipboard(a);
+      }
     }
     function c(e) {
+      var t,
+        n = (t = e.body) != null ? t : "",
+        r = d(e);
+      return {
+        appText: m(n, r, "app"),
+        hasMentions: r.length > 0,
+        plainText: m(n, r, "plain"),
+      };
+    }
+    function d(e) {
+      var t = [],
+        n = e.mentionMap();
+      n != null &&
+        Object.keys(n).forEach(function (e) {
+          var r = n[e];
+          t.push({
+            app:
+              "" +
+              o("WAWebRichTextInputConst").ZWS +
+              r.id.toString() +
+              o("WAWebRichTextInputConst").ZWS,
+            plain: o("WAWebMentionDisplayUtils").addAtPrefixForMention(
+              o("WAWebFrontendContactGetters").getDisplayName(r),
+            ),
+            token: e,
+          });
+        });
+      var r = e.groupMentionMap();
+      return (
+        r != null &&
+          Object.keys(r).forEach(function (e) {
+            var n = r[e],
+              a = e.startsWith("@") ? e.slice(1) : e;
+            t.push({
+              app:
+                "" +
+                o("WAWebRichTextInputConst").ZWS +
+                a +
+                o("WAWebRichTextInputConst").ZWS,
+              plain:
+                n != null && n !== ""
+                  ? o("WAWebMentionDisplayUtils").addAtPrefixForMention(n)
+                  : e,
+              token: e,
+            });
+          }),
+        t
+      );
+    }
+    function m(e, t, n) {
+      var r = [].concat(t).sort(function (e, t) {
+          return t.token.length - e.token.length;
+        }),
+        o = e;
+      for (var a of r) {
+        var i = n === "app" ? a.app : a.plain;
+        o = o.split(a.token).join(i);
+      }
+      return o;
+    }
+    function p(e, t) {
+      var n = document.body;
+      if (n == null) return !1;
+      var r = function (r) {
+          var n = r.clipboardData;
+          if (n != null) {
+            n.setData("text/plain", e);
+            try {
+              n.setData(o("WAWebCopyPasteClipboard").APP_TEXT_MIMETYPE, t);
+            } catch (e) {}
+            r.preventDefault();
+          }
+        },
+        a = document.createElement("textarea");
+      ((a.value = e),
+        n.appendChild(a),
+        a.focus(),
+        a.select(),
+        document.addEventListener("copy", r));
+      var i = !1;
+      try {
+        i = document.execCommand("copy");
+      } catch (e) {
+        i = !1;
+      } finally {
+        (document.removeEventListener("copy", r), n.removeChild(a));
+      }
+      return i;
+    }
+    function _(e) {
       var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
         e.filehash,
       );
       t != null && o("WAWebCopyToClipboard").copyImageToClipboard(t);
     }
-    function d(e) {
+    function f(e) {
       var t,
         n = [];
       (((t = e.interactiveHeader) == null ? void 0 : t.title) != null &&
@@ -70,7 +173,7 @@ __d(
       var r = n.join("\n");
       o("WAWebCopyToClipboard").copyTextToClipboard(r);
     }
-    function m(e) {
+    function g(e) {
       var t = e.unifiedResponse;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) {
         var n = r("getPlainTextFromUnifiedResponse")(t);
@@ -85,7 +188,7 @@ __d(
         i != null && o("WAWebCopyToClipboard").copyTextToClipboard(i);
       }
     }
-    function p(e) {
+    function h(e) {
       var t, n;
       ((e.type === o("WAWebMsgType").MSG_TYPE.CHAT ||
         o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
@@ -101,18 +204,18 @@ __d(
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
           (e == null ? void 0 : e.nativeFlowName) ===
             r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW &&
-          d(e),
-        e.type === o("WAWebMsgType").MSG_TYPE.IMAGE && c(e),
+          f(e),
+        e.type === o("WAWebMsgType").MSG_TYPE.IMAGE && _(e),
         e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           o("WAWebRichResponseCopyText").canCopyRichResponseMessage(e) &&
-          m(e));
+          g(e));
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function f() {
+    function C() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return null;
           var t = e
             .filter(function (e) {
@@ -124,20 +227,33 @@ __d(
               ),
             );
           if (t.length === 0) return null;
-          var n = t
-            .map(function (e) {
-              return e.body;
-            })
-            .join("\n");
+          var n = t.map(c),
+            r = n
+              .map(function (e) {
+                return e.plainText;
+              })
+              .join("\n"),
+            a = n.some(function (e) {
+              return e.hasMentions;
+            });
           return (
-            yield o("WAWebCopyToClipboard").copyTextToClipboard(n),
+            (!a ||
+              !p(
+                r,
+                n
+                  .map(function (e) {
+                    return e.appText;
+                  })
+                  .join("\n"),
+              )) &&
+              (yield o("WAWebCopyToClipboard").copyTextToClipboard(r)),
             t.length
           );
         })),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function g(e) {
+    function b(e) {
       var t = window.getSelection();
       if (t != null) {
         var n = o("WAWebCopyPasteClipboard").Clipboard.fromSelection(e, t);
@@ -146,9 +262,10 @@ __d(
     }
     ((l.canCopyMessage = e),
       (l.canCopySelection = s),
-      (l.copyMessageToClipboard = p),
-      (l.copyMessagesToClipboard = _),
-      (l.copySelection = g));
+      (l.getMentionAwareClipboardContent = c),
+      (l.copyMessageToClipboard = h),
+      (l.copyMessagesToClipboard = y),
+      (l.copySelection = b));
   },
   98,
 );

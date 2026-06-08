@@ -49,6 +49,31 @@ __d(
           storageKey: null,
         },
         s = {
+          alias: null,
+          args: null,
+          concreteType: "XWA2ReportAppealReasonOption",
+          kind: "LinkedField",
+          name: "appeal_reason_options",
+          plural: !0,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "reason",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "label",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        u = {
           kind: "InlineFragment",
           selections: [
             {
@@ -62,7 +87,7 @@ __d(
           type: "XWA2ChannelServerMsgData",
           abstractKey: null,
         },
-        u = {
+        c = {
           kind: "InlineFragment",
           selections: [
             {
@@ -76,21 +101,21 @@ __d(
           type: "XWA2ChannelStatusData",
           abstractKey: null,
         },
-        c = {
+        d = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "server_response_id",
           storageKey: null,
         },
-        d = {
+        m = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "notify_name",
           storageKey: null,
         },
-        m = {
+        p = {
           alias: null,
           args: null,
           concreteType: "XWA2ReportAppeal",
@@ -124,7 +149,7 @@ __d(
           ],
           storageKey: null,
         },
-        p = {
+        _ = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -160,6 +185,7 @@ __d(
                     a,
                     i,
                     l,
+                    s,
                     {
                       alias: null,
                       args: null,
@@ -168,13 +194,13 @@ __d(
                       name: "reported_content_data",
                       plural: !1,
                       selections: [
-                        s,
                         u,
+                        c,
                         {
                           kind: "InlineFragment",
                           selections: [
-                            c,
                             d,
+                            m,
                             {
                               alias: null,
                               args: null,
@@ -182,7 +208,7 @@ __d(
                               kind: "LinkedField",
                               name: "question_data",
                               plural: !1,
-                              selections: [s],
+                              selections: [u],
                               storageKey: null,
                             },
                           ],
@@ -192,7 +218,7 @@ __d(
                       ],
                       storageKey: null,
                     },
-                    m,
+                    p,
                   ],
                   storageKey: null,
                 },
@@ -231,6 +257,7 @@ __d(
                     a,
                     i,
                     l,
+                    s,
                     {
                       alias: null,
                       args: null,
@@ -239,14 +266,14 @@ __d(
                       name: "reported_content_data",
                       plural: !1,
                       selections: [
-                        p,
-                        s,
+                        _,
                         u,
+                        c,
                         {
                           kind: "InlineFragment",
                           selections: [
-                            c,
                             d,
+                            m,
                             {
                               alias: null,
                               args: null,
@@ -254,7 +281,7 @@ __d(
                               kind: "LinkedField",
                               name: "question_data",
                               plural: !1,
-                              selections: [p, s],
+                              selections: [_, u],
                               storageKey: null,
                             },
                           ],
@@ -264,7 +291,7 @@ __d(
                       ],
                       storageKey: null,
                     },
-                    m,
+                    p,
                   ],
                   storageKey: null,
                 },
@@ -274,7 +301,7 @@ __d(
           ],
         },
         params: {
-          id: "27717296871209353",
+          id: "35936238352686172",
           metadata: {},
           name: "WAWebMexFetchNewsletterReportsJobQuery",
           operationKind: "query",

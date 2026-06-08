@@ -1,11 +1,6 @@
 __d(
   "WAWebScheduledMsgOrphanRevealKeyStore",
-  [
-    "WATimeUtils",
-    "WAWebScheduledMsgConstants",
-    "WAWebSchemaScheduledMsgOrphanRevealKey",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebSchemaScheduledMsgOrphanRevealKey", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -49,29 +44,9 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e =
-              o("WAWebScheduledMsgConstants")
-                .SCHEDULED_MSG_ORPHAN_KEY_RETENTION_DAYS *
-              o("WATimeUtils").DAY_SECONDS,
-            t = o("WATimeUtils").unixTime() - e,
-            n = o(
-              "WAWebSchemaScheduledMsgOrphanRevealKey",
-            ).getScheduledMsgOrphanRevealKeyTable();
-          return n.bulkDeleteRange(["createdAt"], 0, t);
-        })),
-        _.apply(this, arguments)
-      );
-    }
     ((l.storeOrphanRevealKey = e),
       (l.getOrphanRevealKeyByRevealKeyId = u),
-      (l.deleteOrphanRevealKey = d),
-      (l.cleanupExpiredOrphanRevealKeys = p));
+      (l.deleteOrphanRevealKey = d));
   },
   98,
 );

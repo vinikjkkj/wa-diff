@@ -6,7 +6,6 @@ __d(
     "WAWebThreadId",
     "WAWebThreadMetadataJob",
     "WAWebThreadUtils",
-    "WAWebThreadsGating",
     "WAWebViewRepliesModel",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -63,15 +62,13 @@ __d(
                   });
                   this.add(n);
                 }
-              if (o("WAWebThreadsGating").isThreadLoadingInfraEnabled()) {
-                var a = o("WAWebChatCollection").ChatCollection.get(
-                  this.$ViewRepliesCollection$p_1,
-                );
-                a &&
-                  this.forEach(function (e) {
-                    e.seedFromChat(a);
-                  });
-              }
+              var a = o("WAWebChatCollection").ChatCollection.get(
+                this.$ViewRepliesCollection$p_1,
+              );
+              a &&
+                this.forEach(function (e) {
+                  e.seedFromChat(a);
+                });
             } catch (e) {
               throw ((this.$ViewRepliesCollection$p_2 = null), e);
             }

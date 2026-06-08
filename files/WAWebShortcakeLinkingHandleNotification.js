@@ -14,10 +14,7 @@ __d(
       s,
       u,
       c = null;
-    function d() {
-      return c;
-    }
-    function m(t) {
+    function d(t) {
       var n = t.content;
       if (!Array.isArray(n) || n.length === 0)
         return o(
@@ -28,7 +25,7 @@ __d(
         );
       var r = n[0].tag;
       return r === "primary_ephemeral_identity"
-        ? p(t)
+        ? m(t)
         : (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,7 +43,7 @@ __d(
             t,
           ));
     }
-    function p(e) {
+    function m(e) {
       var t = o(
           "WASmaxMdSetPrimaryEphemeralIdentityNotificationRPC",
         ).receiveSetPrimaryEphemeralIdentityNotificationRPC(e),
@@ -87,8 +84,7 @@ __d(
         });
       return ((c = i), n());
     }
-    ((l.getPrimaryIdentityHandlingPromise = d),
-      (l.handleShortcakeLinkingNotification = m));
+    l.handleShortcakeLinkingNotification = d;
   },
   98,
 );

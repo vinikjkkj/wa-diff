@@ -410,6 +410,7 @@ __d(
       channel_view_counts_enabled: [4721, "int", 0, 3],
       channel_views_duration_milliseconds: [4648, "int", 250, 250],
       channel_views_vpv_definition_enabled: [23616, "bool", !1, !1],
+      channel_web_embedding_enabled: [31664, "bool", !1, !1],
       channels_admin_insights_gizmos_enabled: [9641, "bool", !1, !1],
       channels_admin_notifications_enabled: [18560, "bool", !1, !1],
       channels_admin_profiles_forwarding_to_chats_enabled: [
@@ -1977,12 +1978,12 @@ __d(
         !1,
         !1,
       ],
+      status_likes_sending_enabled: [31665, "bool", !1, !1],
       status_mentions_group_mention_receiver: [12254, "bool", !1, !0],
       status_mentions_receiver: [7869, "bool", !1, !1],
       status_player_avatar_status_creation_entrypoint: [30912, "bool", !1, !0],
       status_pog_id_rotation_window_days: [18297, "int", -1, -1],
       status_poster_side_gating_enabled: [8742, "bool", !1, !0],
-      status_ranking_poster_side_gating_enabled: [9453, "bool", !1, !1],
       status_reaction_emojis: [
         1852,
         "string",
@@ -1991,6 +1992,7 @@ __d(
       ],
       status_save_to_camera_roll_enabled: [13280, "bool", !1, !0],
       status_video_max_duration: [175, "int", 30, 30],
+      status_web_ranking: [31666, "bool", !1, !1],
       sticker_store_testing_enabled: [25639, "bool", !1, !1],
       stickers_emoji_tagging_enabled: [26465, "bool", !1, !1],
       sticky_chat_profile_picture_enabled: [13692, "bool", !1, !1],
@@ -2158,6 +2160,7 @@ __d(
       ],
       wa_asteria_rollout_enabled: [26996, "bool", !1, !1],
       wa_auth_agent_offboarding_enabled: [29923, "bool", !1, !1],
+      wa_catalog_graphql_use_lid_enabled: [30797, "bool", !1, !0],
       wa_consumer_entry_point_enabled: [24380, "bool", !1, !1],
       wa_consumer_nova_eligibility_subscription_status_check_enabled: [
         25388,
