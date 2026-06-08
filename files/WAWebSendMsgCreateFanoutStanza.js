@@ -54,6 +54,7 @@ __d(
     "WAWebWamEnumMessageType",
     "WAWebWamEnumPrekeysFetchContext",
     "WAWebWamNumberToSizeBucket",
+    "WAWebWasaHatchOutboundWrapper",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -106,14 +107,24 @@ __d(
                     )
                   : l,
                 T = I;
-              k.isBot() &&
+              (k.isBot() &&
                 S &&
                 (T = yield o(
                   "WAWebE2EProtoGenerator",
                 ).updateBotInvokeMsgProtoCopyForCapi({
                   message: I,
                   mentionedJidList: t.mentionedJidList,
-                }));
+                })),
+                o("WAWebWasaHatchOutboundWrapper").shouldWrapHatchOutbound(
+                  a,
+                  k,
+                ) &&
+                  (T = yield o(
+                    "WAWebWasaHatchOutboundWrapper",
+                  ).wrapHatchOutboundMessage({
+                    innerMessage: T,
+                    stanzaId: t.id.id,
+                  })));
               var D =
                   o("WAWebMessagingGatingUtils").isSimpleSignalEnabled() &&
                   (k.isHosted() ||
@@ -204,14 +215,15 @@ __d(
                       try {
                         var g = r,
                           C = n.isBot() && (y || R || L);
-                        (C &&
-                          (g = yield o(
-                            "WAWebE2EProtoGenerator",
-                          ).updateBotInvokeMsgProtoCopyForCapi({
-                            message: r,
-                            botMessageSecret: t.botMessageSecret,
-                            mentionedJidList: t.mentionedJidList,
-                          })),
+                        if (
+                          (C &&
+                            (g = yield o(
+                              "WAWebE2EProtoGenerator",
+                            ).updateBotInvokeMsgProtoCopyForCapi({
+                              message: r,
+                              botMessageSecret: t.botMessageSecret,
+                              mentionedJidList: t.mentionedJidList,
+                            })),
                           n.isFbidBot() &&
                             (g = o(
                               "WAWebE2EProtoGenerator",
@@ -219,7 +231,30 @@ __d(
                           n.isBot() &&
                             (g = o("WAWebE2EProtoGenerator").updateBotProtobuf(
                               g,
-                            )));
+                            )),
+                          o(
+                            "WAWebWasaHatchOutboundWrapper",
+                          ).shouldWrapHatchOutbound(a, n))
+                        )
+                          try {
+                            g = yield o(
+                              "WAWebWasaHatchOutboundWrapper",
+                            ).wrapHatchOutboundMessage({
+                              innerMessage: g,
+                              stanzaId: t.id.id,
+                            });
+                          } catch (e) {
+                            throw e instanceof
+                              o("WAWebWasaHatchOutboundWrapper")
+                                .WAWebWasaHatchWrapError
+                              ? e
+                              : new (o(
+                                  "WAWebWasaHatchOutboundWrapper",
+                                ).WAWebWasaHatchWrapError)(
+                                  "WASA Hatch outbound wrap failed",
+                                  e,
+                                );
+                          }
                         var b =
                             o(
                               "WAWebMessagingGatingUtils",
@@ -287,6 +322,12 @@ __d(
                           }
                         );
                       } catch (t) {
+                        if (
+                          t instanceof
+                          o("WAWebWasaHatchOutboundWrapper")
+                            .WAWebWasaHatchWrapError
+                        )
+                          throw t;
                         return (
                           o("WALogger").WARN(
                             e ||

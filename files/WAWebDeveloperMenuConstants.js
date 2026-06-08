@@ -12,6 +12,7 @@ __d(
       "VoipWasmSamples",
       "TeeDebugInspector",
       "MetaConfig",
+      "WasaHatchDebug",
     ]);
     i.DeveloperMenu = e;
   },

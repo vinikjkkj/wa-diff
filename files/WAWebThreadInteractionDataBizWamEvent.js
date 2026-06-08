@@ -14,6 +14,9 @@ __d(
             {
               autoReplyFromIcebreakerSent: [51, e.TYPES.INTEGER],
               awayMsgsSent: [1, e.TYPES.INTEGER],
+              bizAiSuggestedRepliesSeen: [52, e.TYPES.INTEGER],
+              bizAiSuggestedRepliesSentWithEdits: [53, e.TYPES.INTEGER],
+              bizAiSuggestedRepliesSentWithoutEdits: [54, e.TYPES.INTEGER],
               bizCatalogType: [
                 2,
                 o("WAWebWamEnumBizCatalogType").BIZ_CATALOG_TYPE,

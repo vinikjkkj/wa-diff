@@ -19,6 +19,7 @@ __d(
         Template: 2,
         SenderKeyDistribution: 3,
         UnknownMessageKey: 4,
+        RootSecretDistribute: 5,
       });
     function d(e, t) {
       var n, r, a, i;
@@ -409,16 +410,17 @@ __d(
                                                                                                                   e ===
                                                                                                                     "paymentReminderMessage" ||
                                                                                                                   e ===
-                                                                                                                    "rootSecretDistributeMessage" ||
-                                                                                                                  e ===
                                                                                                                     "splitPaymentMessage"
                                                                                                                 ? c.UnknownMessageKey
-                                                                                                                : (function () {
-                                                                                                                    throw Error(
-                                                                                                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                        e,
-                                                                                                                    );
-                                                                                                                  })();
+                                                                                                                : e ===
+                                                                                                                    "rootSecretDistributeMessage"
+                                                                                                                  ? c.RootSecretDistribute
+                                                                                                                  : (function () {
+                                                                                                                      throw Error(
+                                                                                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                          e,
+                                                                                                                      );
+                                                                                                                    })();
     }
     function m(e) {
       if (e != null && typeof e == "object" && "message" in e) {
