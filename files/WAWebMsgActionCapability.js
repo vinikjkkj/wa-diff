@@ -8,13 +8,13 @@ __d(
     "WAWebAck",
     "WAWebAuraGating",
     "WAWebBizCtwaAGMUtils",
-    "WAWebBizGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotForwardCapability",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileCollection",
     "WAWebBotUtils",
     "WAWebBusinessHSMTypes",
+    "WAWebCTWAGatingUtils",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebCommonMsgSubtypeTypes",
@@ -553,7 +553,7 @@ __d(
             })
           ? a.signupContext != null
             ? !0
-            : o("WAWebBizGatingUtils").isCtwaAgmReportingEnabled()
+            : o("WAWebCTWAGatingUtils").isCtwaAgmReportingEnabled()
           : (a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
                 a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE) &&
               ((a == null ? void 0 : a.nativeFlowName) ===

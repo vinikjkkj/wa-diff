@@ -186,6 +186,9 @@ __d(
         (a.initialize = function () {
           var n = this;
           if ((t.prototype.initialize.call(this), !!this.id)) {
+            var a = o("WAWebABProps").getABPropConfigValue(
+              "web_optimized_event_handlers",
+            );
             (this.id.device != null &&
               o("WALogger")
                 .ERROR(
@@ -207,11 +210,17 @@ __d(
               o("WAWebContactGetters").getIsMe(this) &&
                 o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
                 (this.setupStatusExpiration(),
-                this.listenTo(this, "change:textStatusExpiryTs", function () {
-                  self.setTimeout(function () {
-                    n.setupStatusExpiration();
-                  });
-                })),
+                this.listenTo(
+                  this,
+                  "change:textStatusExpiryTs",
+                  a
+                    ? this.$Contact$p_2
+                    : function () {
+                        self.setTimeout(function () {
+                          n.setupStatusExpiration();
+                        });
+                      },
+                )),
               o("WAWebContactGetters").getIsMe(this) &&
                 this.addChild(
                   "profilePicThumb",
@@ -228,53 +237,84 @@ __d(
                     "WAWebBusinessProfileCollection",
                   ).BusinessProfileCollection.gadd(this.id),
                 ),
-              this.listenTo(this, "change:isBusiness", function () {
-                return o("WAWebBizBusinessChangeAction").handleBusinessChange(
-                  n,
-                );
-              }),
+              this.listenTo(
+                this,
+                "change:isBusiness",
+                a
+                  ? this.$Contact$p_3
+                  : function () {
+                      return o(
+                        "WAWebBizBusinessChangeAction",
+                      ).handleBusinessChange(n);
+                    },
+              ),
               o("WAWebContactGetters").getIsMe(this) &&
                 this.listenTo(
                   o("WAWebConnModel").Conn,
                   "change:pushname",
-                  function () {
-                    n.set({ pushname: o("WAWebConnModel").Conn.pushname });
-                  },
+                  a
+                    ? this.$Contact$p_4
+                    : function () {
+                        n.set({ pushname: o("WAWebConnModel").Conn.pushname });
+                      },
                 ),
               o("WAWebABProps").getABPropConfigValue(
                 "web_contact_collection_locale_listener",
               ) ||
-                this.listenTo(r("WAWebL10N"), "locale_change", function () {
-                  n.locale = r("WAWebL10N").getLocale();
-                }),
+                this.listenTo(
+                  r("WAWebL10N"),
+                  "locale_change",
+                  a
+                    ? this.$Contact$p_5
+                    : function () {
+                        n.locale = r("WAWebL10N").getLocale();
+                      },
+                ),
               this.id.isUser() &&
                 (this.updateContactBlocked(),
                 this.updateContactOptedOutOfMarketingMessages()),
-              this.listenTo(this, "change:name", this.$Contact$p_2),
+              this.listenTo(this, "change:name", this.$Contact$p_6),
               this.listenTo(this, "change:name", this.updateName),
               (this.pendingAction = 0),
               (o("WAWebConnModel").Conn.isSMB ||
                 o("WAWebListsGatingUtils").isListsEnabled()) &&
                 o("WAWebBizLabelUtils").initializeLabels(this));
-            var a = this.id;
-            if (a.isLid()) {
-              var i =
-                this.phoneNumber || o("WAWebApiContact").getPhoneNumber(a);
-              i != null && this.copyFieldsFromPnContact(i);
+            var i = this.id;
+            if (i.isLid()) {
+              var l =
+                this.phoneNumber || o("WAWebApiContact").getPhoneNumber(i);
+              l != null && this.copyFieldsFromPnContact(l);
             } else
               this.id.isUser() &&
-                (this.$Contact$p_3(),
+                (this.$Contact$p_7(),
                 this.listenTo(
                   this,
                   "change:name change:statusMute",
-                  function () {
-                    n.$Contact$p_3();
-                  },
+                  a
+                    ? this.$Contact$p_7
+                    : function () {
+                        n.$Contact$p_7();
+                      },
                 ));
-            this.$Contact$p_4();
+            this.$Contact$p_8();
           }
         }),
+        (a.$Contact$p_2 = function () {
+          var e = this;
+          self.setTimeout(function () {
+            e.setupStatusExpiration();
+          });
+        }),
+        (a.$Contact$p_3 = function () {
+          o("WAWebBizBusinessChangeAction").handleBusinessChange(this);
+        }),
         (a.$Contact$p_4 = function () {
+          this.set({ pushname: o("WAWebConnModel").Conn.pushname });
+        }),
+        (a.$Contact$p_5 = function () {
+          this.locale = r("WAWebL10N").getLocale();
+        }),
+        (a.$Contact$p_8 = function () {
           if (this.id.isBot()) {
             if (o("WAWebBotUtils").isManusBot(this.id)) {
               this.set({ name: o("WAWebBotGating").getManusBotName() });
@@ -341,7 +381,7 @@ __d(
             this.verifiedName != null &&
             this.set({ name: this.verifiedName });
         }),
-        (a.$Contact$p_2 = function () {
+        (a.$Contact$p_6 = function () {
           if (
             o("WAWebContactGetters").getIsUser(this) &&
             this.name &&
@@ -351,7 +391,7 @@ __d(
             e != null && this.set("shortName", e);
           }
         }),
-        (a.$Contact$p_5 = function () {
+        (a.$Contact$p_9 = function () {
           var e = o("WAWebWidFactory").asUserWidOrThrow(this.id);
           if (e.isLid()) return this;
           var t = o("WAWebApiContact").getCurrentLid(e);
@@ -359,8 +399,8 @@ __d(
             ? o("WAWebContactCollection").ContactCollection.get(t)
             : null;
         }),
-        (a.$Contact$p_3 = function () {
-          var e = this.$Contact$p_5();
+        (a.$Contact$p_7 = function () {
+          var e = this.$Contact$p_9();
           e &&
             (e.set({ name: this.name }),
             e.set({ parentStatusMute: this.statusMute }));
@@ -402,11 +442,11 @@ __d(
         (a.addPendingAction = function (t) {
           var e = this,
             n = function () {
-              e.$Contact$p_6();
+              e.$Contact$p_10();
             };
           return (t.then(n, n), this.pendingAction++, t);
         }),
-        (a.$Contact$p_6 = function () {
+        (a.$Contact$p_10 = function () {
           this.pendingAction > 0
             ? this.pendingAction--
             : (o("WALogger").LOG(
@@ -420,10 +460,10 @@ __d(
         (a.updateContactBlocked = function () {
           this.id.isUser() &&
             (o("WAWebBlocklistMigration").applyBlocklistV2Rules()
-              ? (this.isContactBlocked = this.$Contact$p_7())
-              : (this.isContactBlocked = this.$Contact$p_8()));
+              ? (this.isContactBlocked = this.$Contact$p_11())
+              : (this.isContactBlocked = this.$Contact$p_12()));
         }),
-        (a.$Contact$p_8 = function () {
+        (a.$Contact$p_12 = function () {
           if (o("WAWebBlocklistCollection").BlocklistCollection.get(this.id))
             return !0;
           if (this.id.isLid() && this.phoneNumber != null)
@@ -440,7 +480,7 @@ __d(
               o("WAWebBlocklistCollection").BlocklistCollection.get(e) != null;
           return t;
         }),
-        (a.$Contact$p_7 = function () {
+        (a.$Contact$p_11 = function () {
           if (this.id.isRegularUserPn()) {
             var e = o("WAWebChatCollection").ChatCollection.get(this.id);
             return (e == null ? void 0 : e.accountLid) == null
@@ -485,7 +525,7 @@ __d(
         (a.getIsMarketingMessageThread = function () {
           return this.isMarketingMessageThread;
         }),
-        (a.$Contact$p_9 = function () {
+        (a.$Contact$p_13 = function () {
           var e = o("WAWebUsernameTypes").serializeMaybeUsername(
             o("WAWebFrontendContactGetters").getUsername(this),
           );
@@ -495,11 +535,11 @@ __d(
           var n = o("WAWebFrontendContactGetters").getSearchVerifiedName(this);
           return r("isStringNullOrEmpty")(n);
         }),
-        (a.$Contact$p_10 = function (t) {
+        (a.$Contact$p_14 = function (t) {
           return t.slice(1).replace(/#.*/, "");
         }),
-        (a.$Contact$p_11 = function (t) {
-          if (r("isStringNullOrEmpty")(t) || this.$Contact$p_9()) return null;
+        (a.$Contact$p_15 = function (t) {
+          if (r("isStringNullOrEmpty")(t) || this.$Contact$p_13()) return null;
           var e = o("WAWebContactGetters").getUserid(this);
           if (this.id.isLid()) {
             if (e != null) {
@@ -515,8 +555,8 @@ __d(
           } else return e != null && p(t, e) ? e : null;
           return null;
         }),
-        (a.$Contact$p_12 = function (t, n, r) {
-          var e = this.$Contact$p_13(
+        (a.$Contact$p_16 = function (t, n, r) {
+          var e = this.$Contact$p_17(
             t,
             n,
             r,
@@ -533,8 +573,8 @@ __d(
                 }),
               };
         }),
-        (a.$Contact$p_14 = function (t, n, r) {
-          var e = this.$Contact$p_13(
+        (a.$Contact$p_18 = function (t, n, r) {
+          var e = this.$Contact$p_17(
             t,
             n,
             r,
@@ -551,7 +591,7 @@ __d(
                 }),
               };
         }),
-        (a.$Contact$p_13 = function (t, n, a, i) {
+        (a.$Contact$p_17 = function (t, n, a, i) {
           var e = o("WAWebFrontendContactGetters").getSearchName(this);
           if (
             (o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
@@ -584,12 +624,12 @@ __d(
           if (
             !r("isStringNullOrEmpty")(d) &&
             d.includes(t) &&
-            !this.$Contact$p_9()
+            !this.$Contact$p_13()
           ) {
             var m = d.indexOf(t);
             return { match: d, results: [{ startIndex: m, length: t.length }] };
           }
-          var p = this.$Contact$p_11(n);
+          var p = this.$Contact$p_15(n);
           if (p != null && n != null) {
             var _ = p.indexOf(n);
             return { match: p, results: [{ startIndex: _, length: n.length }] };
@@ -623,7 +663,7 @@ __d(
           }
           return null;
         }),
-        (a.$Contact$p_15 = function (t) {
+        (a.$Contact$p_19 = function (t) {
           var e = t.input,
             n = t.query,
             a = t.similarityThreshold;
@@ -639,7 +679,7 @@ __d(
           );
           return i.isMatch() && i.getSimilarityRating() >= a ? i : null;
         }),
-        (a.$Contact$p_16 = function (t) {
+        (a.$Contact$p_20 = function (t) {
           var e = t.split(/\s+/).filter(Boolean);
           if (e.length === 0) return null;
           var n = [
@@ -668,7 +708,7 @@ __d(
           for (var a of n) {
             var i = [];
             for (var l of e) {
-              var s = this.$Contact$p_15({
+              var s = this.$Contact$p_19({
                 input: a,
                 query: l,
                 similarityThreshold: r,
@@ -686,12 +726,12 @@ __d(
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
           ) {
             var e,
-              a = this.$Contact$p_10(t);
-            return (e = this.$Contact$p_14(a, n, r)) != null
+              a = this.$Contact$p_14(t);
+            return (e = this.$Contact$p_18(a, n, r)) != null
               ? e
-              : this.$Contact$p_14(t, n, r);
+              : this.$Contact$p_18(t, n, r);
           }
-          return this.$Contact$p_14(t, n, r);
+          return this.$Contact$p_18(t, n, r);
         }),
         (a.searchMatchExact = function (t, n, r) {
           if (
@@ -699,12 +739,12 @@ __d(
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
           ) {
             var e,
-              a = this.$Contact$p_10(t);
-            return (e = this.$Contact$p_12(a, n, r)) != null
+              a = this.$Contact$p_14(t);
+            return (e = this.$Contact$p_16(a, n, r)) != null
               ? e
-              : this.$Contact$p_12(t, n, r);
+              : this.$Contact$p_16(t, n, r);
           }
-          return this.$Contact$p_12(t, n, r);
+          return this.$Contact$p_16(t, n, r);
         }),
         (a.searchMatchFuzzy = function (t) {
           if (
@@ -712,12 +752,12 @@ __d(
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
           ) {
             var e,
-              n = this.$Contact$p_10(t);
-            return (e = this.$Contact$p_16(n)) != null
+              n = this.$Contact$p_14(t);
+            return (e = this.$Contact$p_20(n)) != null
               ? e
-              : this.$Contact$p_16(t);
+              : this.$Contact$p_20(t);
           }
-          return this.$Contact$p_16(t);
+          return this.$Contact$p_20(t);
         }),
         (a.set = function (n, r, a) {
           var e = t.prototype.set.call(this, n, r, a);

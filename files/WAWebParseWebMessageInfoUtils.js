@@ -5,8 +5,8 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATimeUtils",
-    "WAWebBizGatingUtils",
     "WAWebBotGroupGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDecodeJid",
     "WAWebMsgKey",
@@ -1083,7 +1083,9 @@ __d(
             break;
           case l.BIZ_CUSTOMER_3PD_DATA_SHARING_OPT_IN_MESSAGE:
             if (
-              o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+              o(
+                "WAWebCTWAGatingUtils",
+              ).isPerCustomerDataSharingControlsEnabled()
             ) {
               ((t.subtype = "biz_per_customer_3pd_data_share_opt_in"),
                 (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
@@ -1095,7 +1097,9 @@ __d(
             }
           case l.BIZ_CUSTOMER_3PD_DATA_SHARING_OPT_OUT_MESSAGE:
             if (
-              o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+              o(
+                "WAWebCTWAGatingUtils",
+              ).isPerCustomerDataSharingControlsEnabled()
             ) {
               ((t.subtype = "biz_per_customer_3pd_data_share_opt_out"),
                 (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),

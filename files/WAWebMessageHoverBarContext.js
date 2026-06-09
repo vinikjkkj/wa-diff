@@ -1,6 +1,6 @@
 __d(
   "WAWebMessageHoverBarContext",
-  ["react"],
+  ["WAWebBoolFunc", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -11,9 +11,7 @@ __d(
         onFocusStart: function () {},
         onFocusEnd: function () {},
         cancelDismiss: function () {},
-        isBridgeActiveForMsg: function () {
-          return !1;
-        },
+        isBridgeActiveForMsg: o("WAWebBoolFunc").returnFalse,
       },
       d = u(c),
       m = d;

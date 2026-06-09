@@ -8,8 +8,7 @@ __d(
     "WAWebFaqUrl",
     "WAWebL10N",
     "WAWebNewsletterDirectoryFilterUtils",
-    "WAWebUserPrefsMeUser",
-    "WAWebWidFormat",
+    "WAWebUsernameGatingUtils",
     "WAXplatTrim",
     "react",
   ],
@@ -306,30 +305,37 @@ __d(
     }
     oe.displayName = oe.name + " [from " + i.id + "]";
     function ae() {
-      return s._(
-        /*BTDS*/ "Admins can send updates, change the channel profile and see your phone number. {=m2}.",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
-              children: s._(/*BTDS*/ "Learn more"),
-            }),
-          ),
-        ],
-      );
+      return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
+        ? s._(
+            /*BTDS*/ "Admins can send updates, change the channel profile and see your phone number or username. {=m2}.",
+            [
+              s._implicitParam(
+                "=m2",
+                u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
+                  children: s._(/*BTDS*/ "Learn more"),
+                }),
+              ),
+            ],
+          )
+        : s._(
+            /*BTDS*/ "Admins can send updates, change the channel profile and see your phone number. {=m2}.",
+            [
+              s._implicitParam(
+                "=m2",
+                u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
+                  children: s._(/*BTDS*/ "Learn more"),
+                }),
+              ),
+            ],
+          );
     }
     ae.displayName = ae.name + " [from " + i.id + "]";
     function ie() {
-      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      return e == null
-        ? s._(
-            /*BTDS*/ "Only contacts with your phone number in their address book will receive your invite.",
-          )
-        : s._(
-            /*BTDS*/ "Only contacts with {my-number} in their address book will receive your invite.",
-            [s._param("my-number", o("WAWebWidFormat").widToFormattedUser(e))],
-          );
+      return s._(
+        /*BTDS*/ "Only contacts who have you in their address book will receive your invite.",
+      );
     }
     ie.displayName = ie.name + " [from " + i.id + "]";
     function le() {

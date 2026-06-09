@@ -4,6 +4,7 @@ __d(
     "WAWebConnModel",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebStatusLoggingUtils",
     "WAWebStatusMuteWamEvent",
     "WAWebUnifiedSession",
     "WAWebWamEnumStatusCategory",
@@ -53,7 +54,11 @@ __d(
           : {},
         p = new (o("WAWebStatusMuteWamEvent").StatusMuteWamEvent)(
           babelHelpers.extends(
-            { cid: c ? r.id.user : void 0, muteAction: i, muteOrigin: l },
+            {
+              cid: o("WAWebStatusLoggingUtils").channelStatusCid(r.id),
+              muteAction: i,
+              muteOrigin: l,
+            },
             e(r, d, a, c),
             {
               statusSessionId: s,

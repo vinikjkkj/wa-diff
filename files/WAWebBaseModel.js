@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATypeUtils",
+    "WAWebABProps",
     "WAWebBaseMirror",
     "WAWebEventEmitter",
     "WAWebModelUtils",
@@ -20,7 +21,8 @@ __d(
       return typeof e == "string" ? e : e.toString();
     }
     var c = /^change:/,
-      d = (function (t) {
+      d = {},
+      m = (function (t) {
         function a(e, n) {
           var r;
           if (
@@ -43,7 +45,7 @@ __d(
           var a = r.__defaults,
             i = a ? babelHelpers.extends({}, a, e) : e;
           return (
-            i && !p(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
+            i && !_(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
             r.initialize(),
             (r.__initialized = !0),
             r
@@ -116,7 +118,19 @@ __d(
             var e = {};
             ((e[t] = n),
               this.set(e, { silent: !0 }),
-              this.listenTo(n, "all", this._getCachedEventBubblingHandler(t)));
+              o("WAWebABProps").getABPropConfigValue(
+                "web_optimized_event_handlers",
+              )
+                ? this.listenTo(
+                    n,
+                    "all",
+                    this._getUnboundCachedEventBubblingHandler(t),
+                  )
+                : this.listenTo(
+                    n,
+                    "all",
+                    this._getCachedEventBubblingHandler(t),
+                  ));
           }),
           (i.get = function (t) {
             return this[t];
@@ -140,7 +154,7 @@ __d(
               ? this._set(a, i, s)
               : ((s = i),
                 (t = s) != null && t.merge
-                  ? this._set(_(a), s)
+                  ? this._set(f(a), s)
                   : this._set(a, s));
           }),
           (i._markChange = function (t, n) {
@@ -329,6 +343,16 @@ __d(
                 : e === "change" && this.trigger("change", this);
             }.bind(this);
           }),
+          (i._getUnboundCachedEventBubblingHandler = function (t) {
+            var e;
+            return (e = d[t]) != null
+              ? e
+              : (d[t] = function (e, n, r) {
+                  c.test(e)
+                    ? this.trigger("change:" + t + "." + e.split(":")[1], n, r)
+                    : e === "change" && this.trigger("change", this);
+                });
+          }),
           (a.isIdType = function (t) {
             return this.allowedIds && this.allowedIds.includes(t)
               ? !0
@@ -339,9 +363,9 @@ __d(
           a
         );
       })(r("WAWebEventEmitter"));
-    function m(e) {
+    function p(e) {
       var t = o("WAWebModelUtils").convert(e),
-        n = o("WAWebModelUtils").stateExtend(d, t);
+        n = o("WAWebModelUtils").stateExtend(m, t);
       if (e.Proxy) {
         var r = o("WAWebBaseMirror").genMirrorMask(t);
         ((n.prototype.mirrorMask = r),
@@ -350,12 +374,12 @@ __d(
       }
       return n;
     }
-    function p(e) {
+    function _(e) {
       for (var t in e)
         if (Object.prototype.hasOwnProperty.call(e, t)) return !1;
       return !0;
     }
-    function _(e) {
+    function f(e) {
       for (var t = Object.keys(e), n = t.length, r = {}, o = 0; o < n; o++) {
         var a = t[o];
         e[a] !== void 0 && (r[a] = e[a]);
@@ -368,8 +392,8 @@ __d(
       (l.getter = s.getter),
       (l.collection = s.collection),
       (l.idTypeToString = u),
-      (l.BaseModel = d),
-      (l.defineModel = m));
+      (l.BaseModel = m),
+      (l.defineModel = p));
   },
   98,
 );

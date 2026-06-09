@@ -5,11 +5,11 @@ __d(
     "WALogger",
     "WAUpperFirst",
     "WAWebBizCatalogGatingUtils",
-    "WAWebBizGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileModel",
     "WAWebBusinessProfileSMBUserJourneyLogger",
     "WAWebBusinessProfileTypes",
+    "WAWebCTWAGatingUtils",
     "WAWebCatalogCollection",
     "WAWebContactCollection",
     "WAWebExternalLink.react",
@@ -262,7 +262,7 @@ __d(
       return (
         c ? (q.businessHours = p(c)) : (q.businessHours = null),
         L != null &&
-          o("WAWebBizGatingUtils").getFmxAgmEnabled() &&
+          o("WAWebCTWAGatingUtils").getFmxAgmEnabled() &&
           (q.memberSinceText = L),
         N && (q.profileOptions = k(N)),
         v(a) &&

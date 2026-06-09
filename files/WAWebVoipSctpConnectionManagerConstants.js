@@ -1,0 +1,46 @@
+__d(
+  "WAWebVoipSctpConnectionManagerConstants",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = new Set([
+        "157.240.24.133",
+        "2a03:2880:f262:db:face:b00c:0:6749",
+        "163.70.152.133",
+        "2a03:2880:f202:db:face:b00c:0:6749",
+        "57.144.115.57",
+        "2a03:2880:f32f:139:face:b00c:0:6749",
+        "157.240.197.133",
+        "2a03:2880:f243:db:face:b00c:0:6749",
+        "57.144.23.57",
+        "2a03:2880:f332:139:face:b00c:0:6749",
+        "157.240.14.129",
+        "2a03:2880:f22c:1db:face:b00c:0:6749",
+        "57.144.163.57",
+        "2a03:2880:f351:139:face:b00c:0:6749",
+        "57.144.197.57",
+        "2a03:2880:f362:139:face:b00c:0:6749",
+        "57.144.199.57",
+        "2a03:2880:f363:139:face:b00c:0:6749",
+      ]),
+      l = {
+        CLOSE_OLD_CONNECTION_BEFORE_CALL_END: !1,
+        FAUX_WEB_CLIENT_RELAY_PORT: 3478,
+        TRUE_WEB_CLIENT_RELAY_PORT: 3480,
+        USE_AUTH_TOKEN_FOR_ICE: !0,
+      },
+      s = 500,
+      u = 256 * 1024,
+      c = 3,
+      d = [1e3, 2e3, 3e3],
+      m = 500;
+    ((i.RELAY_VIP_IPS = e),
+      (i.SctpConnectionConfig = l),
+      (i.SLOW_WEBRTC_SETUP_THRESHOLD_MS = s),
+      (i.MAX_BUFFER_BYTES = u),
+      (i.MAX_SAME_PATH_RECONNECT_ATTEMPTS = c),
+      (i.SAME_PATH_RECONNECT_BACKOFF_MS = d),
+      (i.PER_CONNECTION_STAGGER_DELAY_MS = m));
+  },
+  66,
+);

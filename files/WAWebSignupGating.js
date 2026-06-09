@@ -1,11 +1,11 @@
 __d(
   "WAWebSignupGating",
-  ["WAWebABProps", "WAWebBizGatingUtils", "justknobx"],
+  ["WAWebABProps", "WAWebCTWAGatingUtils", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
         o("WAWebABProps").getABPropConfigValue("wa_web_agm_signup_enabled") &&
-        o("WAWebBizGatingUtils").getFmxAgmEnabled()
+        o("WAWebCTWAGatingUtils").getFmxAgmEnabled()
       );
     }
     function s() {

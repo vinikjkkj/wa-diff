@@ -50,29 +50,71 @@ __d(
       }
       return g;
     }
-    var y = r("WAOnceWithReset")(function () {
+    function y() {
+      var e = Reflect.get(window, "crossOriginIsolated");
+      return typeof e == "boolean" ? e : null;
+    }
+    var C = r("WAOnceWithReset")(function () {
+      var e = y(),
+        t = Reflect.get(window, "isSecureContext") === !0;
       return window.SharedArrayBuffer === void 0
         ? (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [Browser Check] no SharedArrayBuffer",
+                "voip: [Browser Check] no SharedArrayBuffer crossOriginIsolated=",
+                " secureContext=",
+                " ",
+                "/",
+                " ",
+                "/",
+                "",
               ])),
+            String(e),
+            t,
+            o("WAWebUA").UA.browser,
+            o("WAWebUA").UA.browserVersion,
+            o("WAWebUA").UA.os,
+            o("WAWebUA").UA.osVersion,
           ),
           "missing_shared_array_buffer")
         : window.Atomics === void 0
           ? (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [Browser Check] Unsupported: Atomics is undefined",
+                  "voip: [Browser Check] no Atomics crossOriginIsolated=",
+                  " secureContext=",
+                  " ",
+                  "/",
+                  " ",
+                  "/",
+                  "",
                 ])),
+              String(e),
+              t,
+              o("WAWebUA").UA.browser,
+              o("WAWebUA").UA.browserVersion,
+              o("WAWebUA").UA.os,
+              o("WAWebUA").UA.osVersion,
             ),
             "missing_atomics")
           : window.RTCPeerConnection === void 0
             ? (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [Browser Check] no RTCPeerConnection",
+                    "voip: [Browser Check] no RTCPeerConnection crossOriginIsolated=",
+                    " secureContext=",
+                    " ",
+                    "/",
+                    " ",
+                    "/",
+                    "",
                   ])),
+                String(e),
+                t,
+                o("WAWebUA").UA.browser,
+                o("WAWebUA").UA.browserVersion,
+                o("WAWebUA").UA.os,
+                o("WAWebUA").UA.osVersion,
               ),
               "missing_rtc_peer_connection")
             : o("WAWebUA").UA.isBrokenVoipWasm
@@ -80,17 +122,29 @@ __d(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [Browser Check] Safari ",
-                      " broken WASM",
+                      " broken WASM crossOriginIsolated=",
+                      " secureContext=",
+                      " ",
+                      "/",
+                      " ",
+                      "/",
+                      "",
                     ])),
                   o("WAWebUA").UA.browserVersion,
+                  String(e),
+                  t,
+                  o("WAWebUA").UA.browser,
+                  o("WAWebUA").UA.browserVersion,
+                  o("WAWebUA").UA.os,
+                  o("WAWebUA").UA.osVersion,
                 ),
                 "broken_voip_wasm")
               : null;
     });
-    function C() {
-      return y() != null;
-    }
     function b() {
+      return C() != null;
+    }
+    function v() {
       if (r("WAWebEnvironment").isWindows)
         return (
           _ ||
@@ -136,84 +190,86 @@ __d(
         e
       );
     }
-    function v() {
+    function S() {
       return r("WAWebEnvironment").isWindows === !0;
     }
-    function S() {
-      return x();
-    }
     function R() {
+      return $();
+    }
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "coex_calling_permissions_3p_enabled",
       );
     }
-    function L() {
+    function E() {
       return (
         o("WAWebABProps").getABPropConfigValue("calling_lid_version") === 1 &&
         o("WAWebABProps").getABPropConfigValue("enable_calling_username")
       );
     }
-    function E() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "enable_calling_phone_number_privacy",
       );
     }
-    function k() {
-      return !1;
-    }
     function I() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_guest_calling_representation_enabled",
+      );
+    }
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "calls_tab_username_global_search_enabled",
       );
     }
-    function T() {
+    function D() {
       return r("WAWebEnvironment").isWindows
-        ? v()
+        ? S()
         : r("WAWebEnvironment").isWeb
-          ? S()
+          ? R()
           : !1;
     }
-    function D(e) {
+    function x(e) {
       return (
         e.group_jid != null ||
         (e.group_info_updates != null && e.group_info_updates.length > 0)
       );
     }
-    function x() {
+    function $() {
       return (
         r("WAWebEnvironment").isWindows ||
-        (b() &&
+        (v() &&
           o("WAWebABProps").getABPropConfigValue("enable_web_group_calling"))
       );
     }
-    function $() {
+    function P() {
       return r("WAWebEnvironment").isWindows
         ? !0
-        : C()
+        : b()
           ? !1
           : o("WAWebABProps").getABPropConfigValue("enable_web_calling");
     }
-    function P() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "enable_web_voip_webtransport",
       );
     }
-    function N() {
+    function M() {
       var e = o("WAWebABProps").getABPropConfigValue("enable_web_calling"),
         t = o("WAWebABProps").getABPropConfigValue("enable_web_group_calling");
       return !r("WAWebEnvironment").isWindows && e ? t : !0;
     }
-    function M() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "gc_device_switching_killswitch",
       );
     }
-    function w() {
+    function A() {
       return o("WAWebABProps").getABPropConfigValue(
         "enable_call_transfer_notification",
       );
     }
-    function A() {
+    function F() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "call_info_optimizations_1on1",
@@ -224,19 +280,14 @@ __d(
         )
       );
     }
-    function F() {
+    function O() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_1on1",
       );
     }
-    function O() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "call_info_optimizations_lgc",
-      );
-    }
     function B() {
       return o("WAWebABProps").getABPropConfigValue(
-        "call_info_optimizations_ahgc_call_link",
+        "call_info_optimizations_lgc",
       );
     }
     function W() {
@@ -244,44 +295,50 @@ __d(
         "call_info_optimizations_ahgc_call_link",
       );
     }
-    function q(e) {
+    function q() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "call_info_optimizations_ahgc_call_link",
+      );
+    }
+    function U(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? W() : t ? B() : r ? O() : F();
+      return n === !0 ? q() : t ? W() : r ? B() : O();
     }
-    function U() {
+    function V() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_calling_full_screen_toggle_enabled",
       );
     }
     ((l.isWebKitBrowser = f),
       (l.shouldUsePortalModeForSafari = h),
-      (l.getUnsupportedBrowserReason = y),
-      (l.isUnsupportedBrowserForWebCalling = C),
-      (l.isCallingEnabled = b),
-      (l.callLinksEnabledOnWindowsHybrid = v),
-      (l.callLinksEnabledForWeb = S),
-      (l.isCoexCallingPermissionsEnabled = R),
-      (l.usernameCallingEnabled = L),
-      (l.usernameCallingPhoneNumberPrivacyEnabled = E),
-      (l.isGuestCallingRepresentationEnabled = k),
-      (l.usernameSearchEnabledOnCallsTab = I),
-      (l.callLinksEnabled = T),
-      (l.isGroupCallMessage = D),
-      (l.isGroupCallingEnabled = x),
-      (l.isVoipDownloadEnabled = $),
-      (l.isWebTransportEnabled = P),
-      (l.isWinHybridJoinableCallsEnabled = N),
-      (l.isDeviceSwitchingEnabled = M),
-      (l.isCallTransferNotificationEnabled = w),
-      (l.isCallInfoOptimizationsEnabled = A),
-      (l.isCallInfoOptimizationsEnabledFor1to1 = F),
-      (l.isCallInfoOptimizationsEnabledForLGC = O),
-      (l.isCallInfoOptimizationsEnabledForAHGC = B),
-      (l.isCallInfoOptimizationsEnabledForCallLink = W),
-      (l.isCallInfoOptimizationsEnabledForCallType = q),
-      (l.isFullScreenToggleEnabled = U));
+      (l.getCrossOriginIsolatedState = y),
+      (l.getUnsupportedBrowserReason = C),
+      (l.isUnsupportedBrowserForWebCalling = b),
+      (l.isCallingEnabled = v),
+      (l.callLinksEnabledOnWindowsHybrid = S),
+      (l.callLinksEnabledForWeb = R),
+      (l.isCoexCallingPermissionsEnabled = L),
+      (l.usernameCallingEnabled = E),
+      (l.usernameCallingPhoneNumberPrivacyEnabled = k),
+      (l.isGuestCallingRepresentationEnabled = I),
+      (l.usernameSearchEnabledOnCallsTab = T),
+      (l.callLinksEnabled = D),
+      (l.isGroupCallMessage = x),
+      (l.isGroupCallingEnabled = $),
+      (l.isVoipDownloadEnabled = P),
+      (l.isWebTransportEnabled = N),
+      (l.isWinHybridJoinableCallsEnabled = M),
+      (l.isDeviceSwitchingEnabled = w),
+      (l.isCallTransferNotificationEnabled = A),
+      (l.isCallInfoOptimizationsEnabled = F),
+      (l.isCallInfoOptimizationsEnabledFor1to1 = O),
+      (l.isCallInfoOptimizationsEnabledForLGC = B),
+      (l.isCallInfoOptimizationsEnabledForAHGC = W),
+      (l.isCallInfoOptimizationsEnabledForCallLink = q),
+      (l.isCallInfoOptimizationsEnabledForCallType = U),
+      (l.isFullScreenToggleEnabled = V));
   },
   98,
 );

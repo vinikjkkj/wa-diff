@@ -1,7 +1,7 @@
 __d(
   "WAWebE2EProtoParserForCtwaContext",
   [
-    "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCtwaAGMUtils",
     "WAWebE2EProtoParserApi",
     "WAWebLinkify",
@@ -39,7 +39,7 @@ __d(
           d.suspiciousCharacters.size != null &&
           (n.isSuspiciousLink = d.suspiciousCharacters.size > 0),
           c.adContextPreviewDismissed != null &&
-            o("WAWebBizGatingUtils").isHideAdContextIfSoftDismissed() &&
+            o("WAWebCTWAGatingUtils").isHideAdContextIfSoftDismissed() &&
             (n.adContextPreviewDismissed = c.adContextPreviewDismissed),
           c.sourceApp != null && (n.sourceApp = c.sourceApp));
         var m = o("WAWebCtwaAGMUtils").isWamoAGMIntegrationEnabled(c.sourceApp);

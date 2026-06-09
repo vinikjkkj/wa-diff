@@ -8,9 +8,9 @@ __d(
     "WAWebAck",
     "WAWebApiContact",
     "WAWebApiDeviceList",
-    "WAWebBizGatingUtils",
     "WAWebBotUtils",
     "WAWebBroadcastInvalidChannelsContextSourceMessageDropWamEvent",
+    "WAWebCTWAGatingUtils",
     "WAWebE2EProtoUtils",
     "WAWebGetMessageCache",
     "WAWebHandleMessageTypes.flow",
@@ -298,7 +298,7 @@ __d(
         !o("WAWebMsgGetters").getIsSentByMe(t) &&
         r != null &&
         o(
-          "WAWebBizGatingUtils",
+          "WAWebCTWAGatingUtils",
         ).suppressMessageWithExternalAdReplyConsumerEnabled()
       )
         throw new (o("WAWebHandleMsgError").MessageValidationError)(

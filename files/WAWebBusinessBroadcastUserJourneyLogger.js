@@ -299,7 +299,7 @@ __d(
           (t.createBroadcastViewed = function (t) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
           }),
-          (t.sendBroadcastResult = function (t, n, r, a, i, l, s) {
+          (t.sendBroadcastResult = function (t, n, r, a, i, l, s, u) {
             o("WAWebBBBroadcastCreationLogs").sendBroadcastResult(
               this.$1,
               t,
@@ -309,6 +309,7 @@ __d(
               i,
               l,
               s,
+              u,
             );
           }),
           (t.sendCampaignAck = function (t) {

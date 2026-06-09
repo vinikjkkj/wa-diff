@@ -151,8 +151,7 @@ __d(
         l = i !== 0 && Math.random() * i > 1;
       if (
         (o("WAWebWamFalcoABProps").isFalcoLoggingEnabled() &&
-          (o("WAWebWamFalcoLogger").maybeSetTraceIdForShadowLogging(e),
-          o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, l)),
+          o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, l),
         l || o("WAWebWamFalcoABProps").isWamLoggingDisabled())
       )
         return (

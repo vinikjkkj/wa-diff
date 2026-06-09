@@ -1,7 +1,7 @@
 __d(
   "WAWebCtwaLogger",
   [
-    "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCtwaBizUserJourneyWamEvent",
     "WAWebCtwaUserJourneyWamEvent",
     "WAWebLid1X1MigrationGating",
@@ -94,8 +94,8 @@ __d(
     }
     function h(e) {
       if (
-        o("WAWebBizGatingUtils").getFmxAgmEnabled() &&
-        o("WAWebBizGatingUtils").getCtwaLogUserJourneyEnabled()
+        o("WAWebCTWAGatingUtils").getFmxAgmEnabled() &&
+        o("WAWebCTWAGatingUtils").getCtwaLogUserJourneyEnabled()
       ) {
         var t = e.adID,
           n = e.businessPhoneNumber,
@@ -115,7 +115,7 @@ __d(
       }
     }
     function y(e) {
-      if (o("WAWebBizGatingUtils").getFmxAgmEnabled()) {
+      if (o("WAWebCTWAGatingUtils").getFmxAgmEnabled()) {
         var t = e.adID,
           n = e.ctaType,
           r = e.operation;

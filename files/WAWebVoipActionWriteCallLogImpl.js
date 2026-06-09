@@ -187,8 +187,8 @@ __d(
                             .WARN(
                               c ||
                                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                                  "writeVoipCallLogMessageImpl: unexpected promotion of offline-resume placeholder (existing=",
-                                  ") to non-VISIBLE viewMode ",
+                                  "[writeVoipCallLogMessageImpl] placeholder ",
+                                  " -> non-VISIBLE ",
                                   "",
                                 ])),
                               l.viewMode,
@@ -359,8 +359,8 @@ __d(
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] call log stored as orphan for callId=",
-                    ", placeholder will handle write",
+                    "[voip] orphaned for placeholder callId=",
+                    "",
                   ])),
                 n,
               ));

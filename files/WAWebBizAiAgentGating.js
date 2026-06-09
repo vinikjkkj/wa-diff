@@ -17,32 +17,27 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("biz_ai_auto_save_enabled");
     }
     function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "biz_ai_in_thread_unmute_v2",
-      );
-    }
-    function d() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_coaching_enabled");
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_thread_status_history_sync_enabled",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_priority_list_enabled",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_responding_list_enabled",
       );
     }
-    var f = 1,
-      g = 2,
-      h = 3;
-    function y() {
+    var _ = 1,
+      f = 2,
+      g = 3;
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
@@ -50,15 +45,14 @@ __d(
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isAiHubTapCtaShowAlertEnabled = s),
       (l.isAiAgentAutoSaveEnabled = u),
-      (l.isAiMuteUnmuteV2Enabled = c),
-      (l.isAiCoachingEnabled = d),
-      (l.isAiAgentThreadStatusHistorySyncEnabled = m),
-      (l.isAiHandoffListEnabled = p),
-      (l.isAiRespondingChipEnabled = _),
-      (l.MULTI_WEBSITE_BRAZIL = f),
-      (l.MULTI_WEBSITE_LATAM = g),
-      (l.MULTI_WEBSITE_DYNAMIC = h),
-      (l.getMultiWebsiteMode = y));
+      (l.isAiCoachingEnabled = c),
+      (l.isAiAgentThreadStatusHistorySyncEnabled = d),
+      (l.isAiHandoffListEnabled = m),
+      (l.isAiRespondingChipEnabled = p),
+      (l.MULTI_WEBSITE_BRAZIL = _),
+      (l.MULTI_WEBSITE_LATAM = f),
+      (l.MULTI_WEBSITE_DYNAMIC = g),
+      (l.getMultiWebsiteMode = h));
   },
   98,
 );

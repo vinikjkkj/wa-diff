@@ -40,6 +40,9 @@ __d(
       return d("new_chat_drawer");
     }
     function h() {
+      return d("chat_list_global_search");
+    }
+    function y() {
       var e = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "native_contact_companion_nux_learn_more_article_id",
@@ -55,7 +58,8 @@ __d(
       (l.addContactGroupMemberEnabled = _),
       (l.addContactFMXCardEnabled = f),
       (l.addContactNewChatDrawerEnabled = g),
-      (l.getNativeContactLearnMoreArticleId = h));
+      (l.addContactChatListGlobalSearchEnabled = h),
+      (l.getNativeContactLearnMoreArticleId = y));
   },
   98,
 );

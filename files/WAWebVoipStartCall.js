@@ -110,21 +110,26 @@ __d(
     function K() {
       var e = o("WAWebVoipGatingUtils").getUnsupportedBrowserReason();
       if (e == null) return !1;
+      var t = o("WAWebVoipGatingUtils").getCrossOriginIsolatedState();
       e: {
         if (e === "missing_shared_array_buffer") {
-          o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingSAB();
+          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingSAB(),
+            o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingSAB(t));
           break e;
         }
         if (e === "missing_atomics") {
-          o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingAtomics();
+          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingAtomics(),
+            o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingAtomics(t));
           break e;
         }
         if (e === "missing_rtc_peer_connection") {
-          o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingRTC();
+          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingRTC(),
+            o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingRTC(t));
           break e;
         }
         if (e === "broken_voip_wasm") {
-          o("WAWebCoreActionsODS").logCallBrowserUnsupportedBrokenWasm();
+          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedBrokenWasm(),
+            o("WAWebCoreActionsODS").logCallBrowserCapabilityBrokenWasm(t));
           break e;
         }
         throw Error(

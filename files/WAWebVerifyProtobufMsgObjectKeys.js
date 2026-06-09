@@ -458,7 +458,7 @@ __d(
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "getProtobufMessageTypesToKeys: nesting depth exceeded limit of ",
+                  "[getProtobufMessageTypesToKeys] nesting depth > ",
                   "",
                 ])),
               u,

@@ -59,21 +59,23 @@ __d(
             (this.$7 = new Map()),
             (this.$1 = null),
             (this.$3 = null),
+            (this.$20 = new Map()),
+            (this.$21 = new Set()),
+            (this.$25 = new Map()),
             (this.$19 = new Map()),
-            (this.$20 = new Set()),
             (this.$9 = new Set()),
-            (this.$24 = new Set()),
+            (this.$26 = new Set()),
             (this.$11 = new (o(
               "WAWebVoipAVSyncController",
             ).WAWebVoipAVSyncController)()),
-            (this.$21 = !1),
-            (this.$30 = null),
+            (this.$22 = !1),
+            (this.$32 = null),
             (this.$5 = []),
             (this.$15 = new Map()),
             (this.$17 = new Map()),
-            (this.$26 = new Map()),
-            (this.$25 = new Set()),
-            (this.$31 = 0));
+            (this.$28 = new Map()),
+            (this.$27 = new Set()),
+            (this.$33 = 0));
         }
         var a = t.prototype;
         return (
@@ -263,33 +265,45 @@ __d(
                   o("WAWebVoipPerfMeasurement").PerfMeasurement
                     .FIRST_PEER_FRAME,
                 );
-            var d =
+            var d = this.$19.get(t);
+            d != null
+              ? ((d.frameCount += 1),
+                (d.lastFrameTimestampMs = window.performance.now()),
+                (d.lastWidth = r),
+                (d.lastHeight = a))
+              : this.$19.set(t, {
+                  frameCount: 1,
+                  lastFrameTimestampMs: window.performance.now(),
+                  lastWidth: r,
+                  lastHeight: a,
+                });
+            var m =
                 (e = o("WAWebVoipMediaEnums").Orientation.cast(i)) != null
                   ? e
                   : o("WAWebVoipMediaEnums").Orientation.Normal,
-              m =
-                d === o("WAWebVoipMediaEnums").Orientation.Rotate90 ||
-                d === o("WAWebVoipMediaEnums").Orientation.Rotate270,
-              p = m ? a : r,
-              _ = m ? r : a,
-              f = this.$19.get(t);
-            if (f == null || f.width !== p || f.height !== _) {
-              this.$19.set(t, { width: p, height: _ });
-              for (var g of this.$20) g(t, p, _);
+              p =
+                m === o("WAWebVoipMediaEnums").Orientation.Rotate90 ||
+                m === o("WAWebVoipMediaEnums").Orientation.Rotate270,
+              _ = p ? a : r,
+              f = p ? r : a,
+              g = this.$20.get(t);
+            if (g == null || g.width !== _ || g.height !== f) {
+              this.$20.set(t, { width: _, height: f });
+              for (var h of this.$21) h(t, _, f);
             }
-            var h =
+            var y =
               (c = o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.cast(l)) !=
               null
                 ? c
                 : o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.UNKNOWN;
             if (
               (t !== o("WAWebVoipVideoRendererInterface").selfPreviewJid &&
-                !this.$21 &&
+                !this.$22 &&
                 !this.$11.isEnabled() &&
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_platform_av_sync",
                 ) === !0 &&
-                this.$22(),
+                this.$23(),
               this.$11.isEnabled() &&
                 t !== o("WAWebVoipVideoRendererInterface").selfPreviewJid)
             ) {
@@ -299,28 +313,36 @@ __d(
                 width: r,
                 height: a,
                 orientation: i,
-                format: h,
+                format: y,
                 timestamp: s,
                 isKeyFrame: u,
               });
               return;
             }
-            this.$23(t, n, r, a, i, h, s, u);
+            this.$24(t, n, r, a, i, y, s, u);
           }),
           (a.getVideoDimensions = function (t) {
             var e;
-            return (e = this.$19.get(t)) != null ? e : null;
+            return (e = this.$20.get(t)) != null ? e : null;
           }),
           (a.hasCanvasForJid = function (t) {
             var e = this.$8.get(t);
             return e != null && e.size > 0;
           }),
+          (a.getDecodeStatsForJid = function (t) {
+            var e;
+            return (e = this.$19.get(t)) != null ? e : null;
+          }),
+          (a.getLastPaintTimestampMsForJid = function (t) {
+            var e;
+            return (e = this.$25.get(t)) != null ? e : null;
+          }),
           (a.addVideoDimensionChangeListener = function (t) {
             var e = this;
             return (
-              this.$20.add(t),
+              this.$21.add(t),
               function () {
-                e.$20.delete(t);
+                e.$21.delete(t);
               }
             );
           }),
@@ -330,14 +352,14 @@ __d(
           (a.addFirstFrameReceivedListener = function (t) {
             var e = this;
             return (
-              this.$24.add(t),
+              this.$26.add(t),
               function () {
-                e.$24.delete(t);
+                e.$26.delete(t);
               }
             );
           }),
           (a.$10 = function (t) {
-            for (var e of this.$24)
+            for (var e of this.$26)
               try {
                 e(t);
               } catch (e) {
@@ -395,10 +417,10 @@ __d(
                   e !== o("WAWebVoipVideoRendererInterface").selfPreviewJid)
                 ) {
                   var n = Date.now();
-                  if (!this.$25.has(e)) {
-                    var r = this.$26.get(e);
+                  if (!this.$27.has(e)) {
+                    var r = this.$28.get(e);
                     if (!(r != null && n - r < A)) {
-                      (this.$25.add(e), this.$26.set(e, n));
+                      (this.$27.add(e), this.$28.set(e, n));
                       try {
                         var a = yield o(
                           "WAWebVoipStackInterface",
@@ -415,7 +437,7 @@ __d(
                             i,
                           );
                       } finally {
-                        this.$25.delete(e);
+                        this.$27.delete(e);
                       }
                     }
                   }
@@ -427,14 +449,15 @@ __d(
             }
             return t;
           })()),
-          (a.$23 = function (t, n, r, o, a, i, l, s) {
+          (a.$24 = function (t, n, r, o, a, i, l, s) {
             var e = this.$8.get(t);
-            if (e && !this.$27(t, r, o, s)) {
-              var u = this.$28(e, t, n, r, o, a, i, l, s);
-              u && !this.$9.has(t) && (this.$9.add(t), this.$10(t));
+            if (e && !this.$29(t, r, o, s)) {
+              var u = this.$30(e, t, n, r, o, a, i, l, s);
+              (u && this.$25.set(t, window.performance.now()),
+                u && !this.$9.has(t) && (this.$9.add(t), this.$10(t)));
             }
           }),
-          (a.$27 = function (t, n, r, a) {
+          (a.$29 = function (t, n, r, a) {
             if (this.$15.has(t)) return (a && this.$15.set(t, !0), !0);
             var e = this.$17.get(t);
             if (e != null)
@@ -478,7 +501,7 @@ __d(
                 !0)
               : !1;
           }),
-          (a.$28 = function (t, n, r, a, i, l, s, u, c) {
+          (a.$30 = function (t, n, r, a, i, l, s, u, c) {
             var e = !1;
             for (var d of t.entries()) {
               var m = d[0],
@@ -681,7 +704,7 @@ __d(
               );
             }
           }),
-          (a.$29 = function (t, n) {
+          (a.$31 = function (t, n) {
             var e = this;
             (o("WALogger").LOG(
               I ||
@@ -694,7 +717,7 @@ __d(
               this.$11.enable(
                 t,
                 function (t, n, r, o, a, i, l, s) {
-                  e.$23(t, n, r, o, a, i, l, s);
+                  e.$24(t, n, r, o, a, i, l, s);
                 },
                 n,
                 function (t) {
@@ -710,12 +733,12 @@ __d(
                     e.$12(t, "av_sync_video_reset"));
                 },
               ),
-              (this.$30 = function (t) {
+              (this.$32 = function (t) {
                 e.$11.reset();
               }),
               o("WAWebAudioDeviceEvents").AudioDeviceEvents.on(
                 "speakerDeviceSelectionChanged",
-                this.$30,
+                this.$32,
               ));
           }),
           (a.disableAVSync = function () {
@@ -727,14 +750,14 @@ __d(
                   ])),
               ),
               this.$11.disable());
-            var e = this.$30;
+            var e = this.$32;
             (e != null &&
               (o("WAWebAudioDeviceEvents").AudioDeviceEvents.off(
                 "speakerDeviceSelectionChanged",
                 e,
               ),
-              (this.$30 = null)),
-              (this.$21 = !1));
+              (this.$32 = null)),
+              (this.$22 = !1));
           }),
           (a.consumeAVSyncMetrics = function () {
             return this.$11.consumeMetrics();
@@ -743,25 +766,25 @@ __d(
             return this.$11.peekPerParticipantMetrics(t);
           }),
           (a.onDecoderFatalError = function () {
-            this.$31++;
+            this.$33++;
           }),
           (a.consumeWebCodecsFatalErrorCount = function () {
-            var e = this.$31;
-            return ((this.$31 = 0), e);
+            var e = this.$33;
+            return ((this.$33 = 0), e);
           }),
           (a.removeParticipantAVSync = function (t) {
             this.$11.removeParticipant(t);
           }),
-          (a.$22 = (function () {
+          (a.$23 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              this.$21 = !0;
+              this.$22 = !0;
               try {
                 var e,
                   t = yield o(
                     "WAWebVoipAudioCaptureAndPlayback",
                   ).waitForPlaybackStart(w);
                 if (!t) {
-                  ((this.$21 = !1),
+                  ((this.$22 = !1),
                     o("WALogger").WARN(
                       x ||
                         (x = babelHelpers.taggedTemplateLiteralLoose([
@@ -782,7 +805,7 @@ __d(
                     ).getPlaybackSampleRate()) != null
                       ? e
                       : 16e3;
-                this.$29(r, function () {
+                this.$31(r, function () {
                   var e = n.getAudioPlaybackTimestamp(),
                     t = o(
                       "WAWebVoipAudioCaptureAndPlayback",
@@ -790,7 +813,7 @@ __d(
                   return Math.max(0, e - t);
                 });
               } catch (e) {
-                ((this.$21 = !1),
+                ((this.$22 = !1),
                   o("WALogger").ERROR(
                     $ ||
                       ($ = babelHelpers.taggedTemplateLiteralLoose([
@@ -807,15 +830,17 @@ __d(
             return t;
           })()),
           (a.$14 = function (t) {
-            (this.$32(t), this.$9.delete(t) && this.$10(t));
+            (this.$34(t), this.$9.delete(t) && this.$10(t));
           }),
-          (a.$32 = function (t) {
+          (a.$34 = function (t) {
             (this.$8.delete(t),
               this.$15.delete(t),
               this.$17.delete(t),
-              this.$26.delete(t),
-              this.$25.delete(t),
-              this.$19.delete(t));
+              this.$28.delete(t),
+              this.$27.delete(t),
+              this.$20.delete(t),
+              this.$19.delete(t),
+              this.$25.delete(t));
           }),
           (a.$18 = function (t) {
             try {
@@ -828,7 +853,7 @@ __d(
                 var r = this.$8.get(n);
                 r != null &&
                   (r.delete(t),
-                  r.size === 0 && (this.$32(n), this.$9.delete(n)));
+                  r.size === 0 && (this.$34(n), this.$9.delete(n)));
               }
               o("WALogger").LOG(
                 P ||

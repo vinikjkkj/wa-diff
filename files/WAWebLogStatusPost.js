@@ -114,7 +114,7 @@ __d(
               statusPostResult: x,
               statusPostOrigin: D,
               mediaType: C,
-              cid: S == null ? void 0 : S.user,
+              cid: o("WAWebStatusLoggingUtils").channelStatusCid(S),
               channelStatusId: v,
               statusCategory: s(p, c),
               defaultStatusPrivacySetting: d(N),

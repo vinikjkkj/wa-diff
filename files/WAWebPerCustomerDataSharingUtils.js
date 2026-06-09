@@ -2,8 +2,8 @@ __d(
   "WAWebPerCustomerDataSharingUtils",
   [
     "WASmaxInBizSettingsEnums",
-    "WAWebBizGatingUtils",
     "WAWebCTWADataSharingModel",
+    "WAWebCTWAGatingUtils",
     "WAWebChatCollection",
     "WAWebCommonCTWADataSharing",
     "WAWebDBMessageUtils",
@@ -28,8 +28,8 @@ __d(
     function u(e, t) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
-        !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
-        !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() ||
+        !o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
+        !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled() ||
         !e
       )
         return !1;
@@ -45,7 +45,7 @@ __d(
             "WAWebUserPrefsGeneral",
           ).getCTWADataSharingDisclosureShownCount() === 0 ||
             o(
-              "WAWebBizGatingUtils",
+              "WAWebCTWAGatingUtils",
             ).shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade()))
       );
     }
@@ -60,7 +60,7 @@ __d(
     }
     function d(e) {
       if (
-        !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
+        !o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
         e == null
       )
         return o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
@@ -107,7 +107,7 @@ __d(
       );
     }
     function _(e, t, n, a) {
-      if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
+      if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
         var i = o(
             "WAWebDataSharing3pdLidCollection",
           ).DataSharing3pdLidCollection.isDataSharingEnabled(e),

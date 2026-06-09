@@ -99,14 +99,15 @@ __d(
           t.deprecatedMms3Url == null &&
           (t.deprecatedMms3Url = p);
         var e;
-        if (o("WAWebFrontendMsgGetters").getAsMms(t)) {
-          var n = t.isUnsentPhoneMsg();
-          ((e = n ? { type: t.type } : t.avParams()),
-            t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
-              !n &&
-              e.url == null &&
-              (e.url = p));
-        }
+        if (o("WAWebFrontendMsgGetters").getAsMms(t))
+          if (t.isUnsentPhoneMsg()) e = { type: t.type };
+          else {
+            var n = t.avParams();
+            (t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
+              n.url == null &&
+              (n.url = p),
+              (e = n));
+          }
         return o("WAWebE2EProtoGenerator").createMsgProtobuf(t, e || {});
       };
     function f(e, t) {

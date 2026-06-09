@@ -8,9 +8,9 @@ __d(
     "WAWap",
     "WAWebBackendJobsCommon",
     "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
-    "WAWebBizGatingUtils",
     "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWABizAccessTokenNonceManager",
+    "WAWebCTWAGatingUtils",
     "WAWebCTWAParsePrivacy",
     "WAWebCTWAParseSuggestion",
     "WAWebCommonParsersVerifiedName",
@@ -107,7 +107,7 @@ __d(
                   );
               }
             } else if (e.hasChild("privacy")) {
-              if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
+              if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
                 var f = o("WAWebCTWAParsePrivacy").parseCTWAPrivacy(e);
                 if (f != null)
                   return babelHelpers.extends(

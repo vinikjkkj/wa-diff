@@ -6,6 +6,7 @@ __d(
     "WAWebBizGatingUtils",
     "WAWebCTWABizDataSharingJob",
     "WAWebCTWADataSharingModel",
+    "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebConversionTupleCollection",
     "WAWebDataSharing3pdLidCollection",
@@ -66,7 +67,7 @@ __d(
       },
       f = function (t) {
         return d(t) == null ||
-          !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()
+          !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
           ? !1
           : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
@@ -95,7 +96,7 @@ __d(
       h = function (n, r) {
         var t;
         if (r === c.CHAT)
-          t = o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats;
+          t = o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats;
         else
           return (
             r === c.MESSAGE ||
@@ -113,7 +114,7 @@ __d(
       },
       y = function (t) {
         return d(t) == null ||
-          !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() ||
+          !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled() ||
           !o(
             "WAWebBizGatingUtils",
           ).showCTWA3pdDataSharingDisclosureOnThreadEntry()
@@ -124,7 +125,7 @@ __d(
         var e;
         if (
           a < 1 ||
-          !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() ||
+          !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled() ||
           m(t) == null
         )
           return !1;
@@ -138,7 +139,9 @@ __d(
               : !0,
           u =
             i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
-            !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled(),
+            !o(
+              "WAWebCTWAGatingUtils",
+            ).isPerCustomerDataSharingControlsEnabled(),
           c =
             i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
             n === "order-create" &&
@@ -148,13 +151,13 @@ __d(
             !s &&
             n === "order-create" &&
             r("WAWebDataSharingUpsellModel").isUpsellEnabled() &&
-            o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled();
+            o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return u || c || d;
       },
       b = function (t) {
         if (t.length === 0) return !1;
         var e = [];
-        if (!o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats())
+        if (!o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats())
           return !1;
         t.forEach(function (t) {
           t instanceof o("WAWebChatModel").Chat && e.push(t);
@@ -175,7 +178,9 @@ __d(
           }),
           l =
             a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
-            !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled(),
+            !o(
+              "WAWebCTWAGatingUtils",
+            ).isPerCustomerDataSharingControlsEnabled(),
           s =
             a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
             r("WAWebDataSharingUpsellModel").isUpsellEnabled(),
@@ -183,12 +188,12 @@ __d(
             a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
             !i &&
             r("WAWebDataSharingUpsellModel").isUpsellEnabled() &&
-            o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled();
+            o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return l || s || u;
       },
       v = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebBizGatingUtils").smbDataSharingConsentEnabled())
+          if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
             return null;
           try {
             var e = yield o(

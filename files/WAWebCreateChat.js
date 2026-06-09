@@ -12,8 +12,8 @@ __d(
     "WAWebApiOrphanTcToken",
     "WAWebApiVerifiedBusinessName",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
     "WAWebBotTypes",
+    "WAWebCTWAGatingUtils",
     "WAWebChatOriginTypes",
     "WAWebContactSystemMsg",
     "WAWebCtwaAGMUtils",
@@ -221,7 +221,7 @@ __d(
                 G == null ? void 0 : G.initiator,
                 G == null ? void 0 : G.afterReadDuration,
               ));
-            var K = o("WAWebBizGatingUtils").getFmxAgmEnabled(),
+            var K = o("WAWebCTWAGatingUtils").getFmxAgmEnabled(),
               Q =
                 (y == null ? void 0 : y.ctwaContext) != null &&
                 o(
@@ -234,7 +234,7 @@ __d(
               Y =
                 (X == null ? void 0 : X.sourceApp) !==
                   o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.WHATSAPP ||
-                o("WAWebBizGatingUtils").getWamoAgmEnabled(),
+                o("WAWebCTWAGatingUtils").getWamoAgmEnabled(),
               J = t === "signupAGM",
               Z = yield o("WAWebContactSystemMsg").genContactInfoCardMsg(N, {
                 isSmb: A,
@@ -247,7 +247,9 @@ __d(
                 isWASupportStartingChat: y != null && N.isCAPISupportAccount(),
                 isFromCTWA: X != null && Q != null,
                 isFMXCtWA:
-                  X != null && Y && o("WAWebBizGatingUtils").getFmxAgmEnabled(),
+                  X != null &&
+                  Y &&
+                  o("WAWebCTWAGatingUtils").getFmxAgmEnabled(),
                 isSignupDeeplink: J,
               });
             Z != null &&

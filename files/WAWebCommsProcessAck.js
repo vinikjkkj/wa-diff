@@ -41,9 +41,7 @@ __d(
             fromMe: !0,
             remote: t,
             id: e,
-            participant: o(
-              "WAWebUserPrefsMeUser",
-            ).getMePnUserOrThrow_DO_NOT_USE(),
+            participant: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
           })
         : new (r("WAWebMsgKey"))({ fromMe: !0, remote: t, id: e });
     }

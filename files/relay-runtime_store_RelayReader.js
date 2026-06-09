@@ -587,23 +587,17 @@ __d(
                     typeof r == "string" ||
                       l(0, 86536, i.path, a.$8.identifier);
                     var o = $(e, i.path, a.$8.identifier),
-                      s = a.$15.ensureClientRecord(o, r),
-                      u = t.modelResolvers;
-                    if (u != null) {
-                      var c = u[r];
-                      c !== void 0 ||
-                        l(
-                          0,
-                          86535,
-                          i.path,
-                          a.$8.identifier,
-                          Object.keys(u).join(", "),
-                          r,
-                        );
-                      var d = a.$42(c, s);
-                      return d != null ? s : null;
+                      s = t.modelResolvers;
+                    if (s != null) {
+                      var u = s[r];
+                      if (u !== void 0) {
+                        var c = a.$15.ensureClientRecord(o, r),
+                          d = a.$42(u, c);
+                        return d != null ? c : null;
+                      } else return o;
                     }
-                    return s;
+                    var m = a.$15.ensureClientRecord(o, r);
+                    return m;
                   }))
                 : (p = m.map(function (e) {
                     return $(e, i.path, a.$8.identifier);
@@ -617,35 +611,37 @@ __d(
               h,
               y = (f = t.concreteType) != null ? f : m.__typename,
               C;
-            t.kind === "ClientEdgeToClientObject"
-              ? t.backingField.normalizationInfo == null
-                ? (typeof y == "string" ||
-                    l(0, 86536, i.path, this.$8.identifier),
-                  (h = this.$15.ensureClientRecord(g, y)),
-                  (C = null))
-                : ((h = g), (C = null))
-              : ((h = g),
+            if (t.kind === "ClientEdgeToClientObject")
+              if (t.backingField.normalizationInfo == null) {
+                typeof y == "string" || l(0, 86536, i.path, this.$8.identifier);
+                var b = t.modelResolvers;
+                if (b != null) {
+                  var v = b[y];
+                  if (v !== void 0) {
+                    h = this.$15.ensureClientRecord(g, y);
+                    var S = this.$42(v, h);
+                    if (S == null) return ((o[u] = null), null);
+                    C = null;
+                  } else {
+                    h = g;
+                    var R = t.serverObjectOperations,
+                      L = R != null ? R[y] : null;
+                    L != null
+                      ? (C = {
+                          clientEdgeDestinationID: g,
+                          readerClientEdge: { operation: L },
+                        })
+                      : (C = null);
+                  }
+                } else ((h = this.$15.ensureClientRecord(g, y)), (C = null));
+              } else ((h = g), (C = null));
+            else
+              ((h = g),
                 (C = { clientEdgeDestinationID: g, readerClientEdge: t }));
-            var b = t.modelResolvers;
-            if (b != null) {
-              typeof y == "string" || l(0, 86536, i.path, this.$8.identifier);
-              var v = b[y];
-              v !== void 0 ||
-                l(
-                  0,
-                  86535,
-                  i.path,
-                  this.$8.identifier,
-                  Object.keys(b).join(", "),
-                  y,
-                );
-              var S = this.$42(v, h);
-              if (S == null) return ((o[u] = null), null);
-            }
             this.$1.push(C);
-            var R = o[u];
-            R == null ||
-              typeof R == "object" ||
+            var E = o[u];
+            E == null ||
+              typeof E == "object" ||
               l(
                 0,
                 86534,
@@ -654,12 +650,12 @@ __d(
                 (
                   s || (s = n("relay-runtime/store/RelayModernRecord"))
                 ).getDataID(r),
-                R,
+                E,
               );
-            var L = this.$6;
+            var k = this.$6;
             this.$6 = null;
-            var E = this.$21(t.linkedField, h, R);
-            return (this.$43(L, u), this.$1.pop(), (o[u] = E), E);
+            var I = this.$21(t.linkedField, h, E);
+            return (this.$43(k, u), this.$1.pop(), (o[u] = I), I);
           }
         }),
         (r.$31 = function (t, r, o) {

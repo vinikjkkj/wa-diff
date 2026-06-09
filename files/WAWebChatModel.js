@@ -275,8 +275,11 @@ __d(
           (i.initialize = function () {
             var n = this,
               a;
-            (t.prototype.initialize.call(this),
-              this.$ChatImpl$p_4(),
+            t.prototype.initialize.call(this);
+            var i = o("WAWebABProps").getABPropConfigValue(
+              "web_optimized_event_handlers",
+            );
+            (this.$ChatImpl$p_4(),
               (this.addQueue = new (r("WAInOrderPromiseQueue"))()),
               (this.sendQueue = new (r("WAInOrderPromiseQueue"))()),
               (this.$ChatImpl$p_1 = new Set()),
@@ -290,10 +293,10 @@ __d(
                   this.$ChatImpl$p_6(),
                 ),
               ));
-            var i = o("WAWebMuteCollection").MuteCollection.get(this.id);
+            var l = o("WAWebMuteCollection").MuteCollection.get(this.id);
             if (
-              (i
-                ? this.addChild("mute", i)
+              (l
+                ? this.addChild("mute", l)
                 : this.addChild(
                     "mute",
                     o("WAWebMuteCollection").MuteCollection.gadd({
@@ -304,159 +307,247 @@ __d(
                       callExpiration: this.callMuteExpiration,
                     }),
                   ),
-              this.listenTo(this.mute, "change:expiration", function () {
-                return o("WAWebChatUpdates").updateMuteExpiration(n);
-              }),
-              this.listenTo(this.mute, "change:isAutoMuted", function () {
-                return o("WAWebChatUpdates").updateMuteExpiration(n);
-              }),
+              this.listenTo(
+                this.mute,
+                "change:expiration",
+                i
+                  ? this.$ChatImpl$p_7
+                  : function () {
+                      return o("WAWebChatUpdates").updateMuteExpiration(n);
+                    },
+              ),
+              this.listenTo(
+                this.mute,
+                "change:isAutoMuted",
+                i
+                  ? this.$ChatImpl$p_7
+                  : function () {
+                      return o("WAWebChatUpdates").updateMuteExpiration(n);
+                    },
+              ),
               this.listenTo(
                 this.mute,
                 "change:mentionAllMuteExpiration",
-                function () {
-                  return o("WAWebChatUpdates").updateMentionAllMuteExpiration(
-                    n,
-                  );
-                },
+                i
+                  ? this.$ChatImpl$p_8
+                  : function () {
+                      return o(
+                        "WAWebChatUpdates",
+                      ).updateMentionAllMuteExpiration(n);
+                    },
               ),
-              this.listenTo(this.mute, "change:callExpiration", function () {
-                return o("WAWebChatUpdates").updateCallMuteExpiration(n);
-              }),
+              this.listenTo(
+                this.mute,
+                "change:callExpiration",
+                i
+                  ? this.$ChatImpl$p_9
+                  : function () {
+                      return o("WAWebChatUpdates").updateCallMuteExpiration(n);
+                    },
+              ),
               this.addChild(
                 "contact",
                 o("WAWebContactCollection").ContactCollection.gadd(this.id),
               ),
               this.name && !this.contact.name)
             ) {
-              var l = { name: this.name };
+              var s = { name: this.name };
               o("WAWebChatGetters").getIsGroup(this)
-                ? this.contact.set(l)
+                ? this.contact.set(s)
                 : o("WAWebChatGetters").getIsNewsletter(this)
-                  ? this.contact.set(l)
+                  ? this.contact.set(s)
                   : o("WAWebDBUpdateContactTable")
-                      .updateContactTable(this.contact.id, l)
+                      .updateContactTable(this.contact.id, s)
                       .then(function () {
-                        n.contact.set(l);
+                        n.contact.set(s);
                       });
             }
             if (
-              (this.listenTo(this.contact, "change:name", function () {
-                return o("WAWebChatGroupUtils").updateTitle(n);
-              }),
+              (this.listenTo(
+                this.contact,
+                "change:name",
+                i
+                  ? this.$ChatImpl$p_10
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateTitle(n);
+                    },
+              ),
               this.listenTo(
                 this.contact,
                 "change:isContactBlocked",
-                function () {
-                  return o("WAWebChatGroupUtils").updateCanSend(n);
-                },
+                i
+                  ? this.$ChatImpl$p_11
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateCanSend(n);
+                    },
               ),
               this.listenTo(
                 this,
                 "change:id change:archive change:unreadCount change:pendingSeenCount change:muteExpiration change:isLocked",
-                function () {
-                  return n.$ChatImpl$p_7();
-                },
+                i
+                  ? this.$ChatImpl$p_12
+                  : function () {
+                      return n.$ChatImpl$p_12();
+                    },
               ),
               this.listenTo(
                 o("WAWebFavoriteCollection").FavoriteCollection,
                 "add remove change",
-                function () {
-                  n.isFavorite = !!o(
-                    "WAWebFavoriteCollection",
-                  ).FavoriteCollection.get(n.id.toString());
-                },
+                i
+                  ? this.$ChatImpl$p_13
+                  : function () {
+                      n.isFavorite = !!o(
+                        "WAWebFavoriteCollection",
+                      ).FavoriteCollection.get(n.id.toString());
+                    },
               ),
               o("WAWebFavoriteCollection").FavoriteCollection.get(
                 this.id.toString(),
               ) && (this.isFavorite = !0),
               o("WAWebChatGetters").getIsGroup(this) && (this.trusted = !0),
-              this.listenTo(o("WAWebTos").TosManager, "change", function () {
-                return o("WAWebChatGroupUtils").updateCanSend(n);
-              }),
-              this.listenTo(this.contact, "change:privacyMode", function () {
-                return o("WAWebChatGroupUtils").updateCanSend(n);
-              }),
+              this.listenTo(
+                o("WAWebTos").TosManager,
+                "change",
+                i
+                  ? this.$ChatImpl$p_11
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateCanSend(n);
+                    },
+              ),
+              this.listenTo(
+                this.contact,
+                "change:privacyMode",
+                i
+                  ? this.$ChatImpl$p_11
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateCanSend(n);
+                    },
+              ),
               o("WAWebChatGetters").getIsGroup(this))
             ) {
-              var s = this.getGroupMetadataCollection(),
-                u = s.gadd(this.id);
-              (this.addChild("groupMetadata", u),
-                this.listenTo(u, "change:stale change:announce", function () {
-                  return n.$ChatImpl$p_8();
-                }),
-                this.listenTo(u, "change:groupType", function () {
-                  (n.$ChatImpl$p_7(), (n.groupType = u.groupType));
-                }),
-                (this.groupType = u.groupType),
-                this.listenTo(u, "change:hasCapi", function () {
-                  n.hasCapi = u.hasCapi;
-                }),
-                (this.hasCapi = u.hasCapi),
+              var u = this.getGroupMetadataCollection(),
+                c = u.gadd(this.id);
+              (this.addChild("groupMetadata", c),
                 this.listenTo(
-                  u.participants,
+                  c,
+                  "change:stale change:announce",
+                  i
+                    ? this.$ChatImpl$p_14
+                    : function () {
+                        return n.$ChatImpl$p_14();
+                      },
+                ),
+                this.listenTo(
+                  c,
+                  "change:groupType",
+                  i
+                    ? this.$ChatImpl$p_15
+                    : function () {
+                        (n.$ChatImpl$p_12(), (n.groupType = c.groupType));
+                      },
+                ),
+                (this.groupType = c.groupType),
+                this.listenTo(
+                  c,
+                  "change:hasCapi",
+                  i
+                    ? this.$ChatImpl$p_16
+                    : function () {
+                        n.hasCapi = c.hasCapi;
+                      },
+                ),
+                (this.hasCapi = c.hasCapi),
+                this.listenTo(
+                  c.participants,
                   "change:isAdmin bulk_add bulk_remove",
-                  function () {
-                    return n.$ChatImpl$p_8();
-                  },
+                  i
+                    ? this.$ChatImpl$p_14
+                    : function () {
+                        return n.$ChatImpl$p_14();
+                      },
                 ),
-                this.listenTo(u, "change:trusted change:stale", function () {
-                  return n.isTrusted();
-                }),
                 this.listenTo(
-                  u,
+                  c,
+                  "change:trusted change:stale",
+                  i
+                    ? this.isTrusted
+                    : function () {
+                        return n.isTrusted();
+                      },
+                ),
+                this.listenTo(
+                  c,
                   "change:groupSafetyCheck change:stale",
-                  function () {
-                    return n.isGroupSafetyChecked();
-                  },
+                  i
+                    ? this.isGroupSafetyChecked
+                    : function () {
+                        return n.isGroupSafetyChecked();
+                      },
                 ),
                 this.listenTo(
-                  u,
+                  c,
                   "change:participants change:stale change:suspended change:terminated",
-                  function () {
-                    o("WAWebChatGroupUtils").updateReadOnly(n);
-                  },
+                  i
+                    ? this.$ChatImpl$p_17
+                    : function () {
+                        o("WAWebChatGroupUtils").updateReadOnly(n);
+                      },
                 ),
                 this.listenTo(
-                  u.participants,
+                  c.participants,
                   "change:contact.formattedShortName",
-                  function () {
-                    return o("WAWebChatGroupUtils").updateTitle(n);
-                  },
+                  i
+                    ? this.$ChatImpl$p_10
+                    : function () {
+                        return o("WAWebChatGroupUtils").updateTitle(n);
+                      },
                 ),
-                this.$ChatImpl$p_9(u),
+                this.$ChatImpl$p_18(c),
                 this.listenTo(
-                  u.unreadMentionMetadata.unreadMentionCollection,
+                  c.unreadMentionMetadata.unreadMentionCollection,
                   "add remove reset",
-                  function () {
-                    return n.$ChatImpl$p_10();
-                  },
+                  i
+                    ? this.$ChatImpl$p_19
+                    : function () {
+                        return n.$ChatImpl$p_19();
+                      },
                 ),
                 this.listenTo(
-                  u.unreadMentionMetadata,
+                  c.unreadMentionMetadata,
                   "change:pendingUnreadMentionCount",
-                  function () {
-                    return n.$ChatImpl$p_10();
-                  },
+                  i
+                    ? this.$ChatImpl$p_19
+                    : function () {
+                        return n.$ChatImpl$p_19();
+                      },
                 ),
-                this.$ChatImpl$p_8(),
+                this.$ChatImpl$p_14(),
                 o("WAWebChatGroupUtils").updateReadOnly(this),
                 this.listenTo(
                   this,
                   "change:isAnnounceGrpRestrict",
-                  function () {
-                    (o("WAWebChatGroupUtils").updateReadOnly(n),
-                      o("WAWebChatGroupUtils").updateCanSend(n));
-                  },
+                  i
+                    ? this.$ChatImpl$p_20
+                    : function () {
+                        (o("WAWebChatGroupUtils").updateReadOnly(n),
+                          o("WAWebChatGroupUtils").updateCanSend(n));
+                      },
                 ),
-                this.listenTo(u, "change:isParentGroup", function () {
-                  n.isParentGroup = u.isParentGroup;
-                }),
-                (this.isParentGroup = u.isParentGroup));
+                this.listenTo(
+                  c,
+                  "change:isParentGroup",
+                  i
+                    ? this.$ChatImpl$p_21
+                    : function () {
+                        n.isParentGroup = c.isParentGroup;
+                      },
+                ),
+                (this.isParentGroup = c.isParentGroup));
             }
             if (o("WAWebChatGetters").getIsBroadcast(this)) {
-              var c = this.$ChatImpl$p_11();
-              c.get(this.id) ||
-                c
+              var d = this.$ChatImpl$p_22();
+              d.get(this.id) ||
+                d
                   .update(this.id)
                   .then(function () {
                     o("WAWebChatGroupUtils").updateTitle(n);
@@ -471,131 +562,235 @@ __d(
                       t,
                     );
                   });
-              var d = c.gadd(this.id);
-              (this.addChild("broadcastMetadata", d),
-                d.recipients != null &&
-                  ((this.broadcastRecipientCount = d.recipients.length),
-                  this.listenTo(d.recipients, "add remove reset", function () {
-                    ((n.broadcastRecipientCount = d.recipients.length),
-                      o("WAWebChatGroupUtils").updateTitle(n));
-                  }),
+              var m = d.gadd(this.id);
+              (this.addChild("broadcastMetadata", m),
+                m.recipients != null &&
+                  ((this.broadcastRecipientCount = m.recipients.length),
                   this.listenTo(
-                    d.recipients,
+                    m.recipients,
+                    "add remove reset",
+                    i
+                      ? this.$ChatImpl$p_23
+                      : function () {
+                          ((n.broadcastRecipientCount = m.recipients.length),
+                            o("WAWebChatGroupUtils").updateTitle(n));
+                        },
+                  ),
+                  this.listenTo(
+                    m.recipients,
                     "change:contact.formattedShortName",
                     function (e, t) {
-                      var r = d.recipients.get(e.id);
+                      var r = m.recipients.get(e.id);
                       (r != null && (r.formattedShortName = t),
                         o("WAWebChatGroupUtils").updateTitle(n));
                     },
                   )));
             }
             if (o("WAWebChatGetters").getIsNewsletter(this)) {
-              var m = this.getNewsletterMetadataCollection(),
-                p = m.gadd(this.id);
-              (this.addChild("newsletterMetadata", p),
+              var p = this.getNewsletterMetadataCollection(),
+                _ = p.gadd(this.id);
+              (this.addChild("newsletterMetadata", _),
                 o("WAWebChatGroupUtils").updateReadOnly(this),
                 o("WAWebChatGroupUtils").updateCanSend(this),
-                this.listenTo(p, "change:membershipType", function () {
-                  (o("WAWebChatGroupUtils").updateReadOnly(n),
-                    o("WAWebChatGroupUtils").updateCanSend(n));
-                }));
+                this.listenTo(
+                  _,
+                  "change:membershipType",
+                  i
+                    ? this.$ChatImpl$p_20
+                    : function () {
+                        (o("WAWebChatGroupUtils").updateReadOnly(n),
+                          o("WAWebChatGroupUtils").updateCanSend(n));
+                      },
+                ));
             } else
-              this.listenTo(this.presence, "change:isOnline", function () {
-                return o("WAWebPresenceChatAction").presenceOnlineChanged(n);
-              });
-            this.listenTo(this, "change:isReadOnly", function () {
-              if (
-                ((o("WAWebChatGetters").getIsGroup(this) ||
-                  o("WAWebChatGetters").getIsNewsletter(this)) &&
-                  (this.isTrusted(),
-                  o("WAWebChatGroupUtils").updateCanSend(this)),
-                o("WAWebChatGetters").getIsGroup(this))
-              ) {
-                var e = this.getGroupMetadataCollection();
-                e.update(this.id);
-              }
-            });
-            var _ = this.getCollection();
+              this.listenTo(
+                this.presence,
+                "change:isOnline",
+                i
+                  ? this.$ChatImpl$p_24
+                  : function () {
+                      return o("WAWebPresenceChatAction").presenceOnlineChanged(
+                        n,
+                      );
+                    },
+              );
+            i
+              ? this.listenTo(this, "change:isReadOnly", this.$ChatImpl$p_25)
+              : this.listenTo(this, "change:isReadOnly", function () {
+                  if (
+                    ((o("WAWebChatGetters").getIsGroup(this) ||
+                      o("WAWebChatGetters").getIsNewsletter(this)) &&
+                      (this.isTrusted(),
+                      o("WAWebChatGroupUtils").updateCanSend(this)),
+                    o("WAWebChatGetters").getIsGroup(this))
+                  ) {
+                    var e = this.getGroupMetadataCollection();
+                    e.update(this.id);
+                  }
+                });
+            var f = this.getCollection();
             if (
-              (_.notSpam[this.id] &&
+              (f.notSpam[this.id] &&
                 !this.notSpam &&
                 r("WAWebSendNotSpamAction")(this).catch(r("WAWebNoop")),
-              (_.notSpam[this.id] = !!this.notSpam),
+              (f.notSpam[this.id] = !!this.notSpam),
               this.notSpam ||
-                this.listenTo(this, "change:notSpam", function () {
-                  return n.$ChatImpl$p_12();
-                }),
+                this.listenTo(
+                  this,
+                  "change:notSpam",
+                  i
+                    ? this.$ChatImpl$p_26
+                    : function () {
+                        return n.$ChatImpl$p_26();
+                      },
+                ),
               o("WAWebChatGroupUtils").updateTitle(this),
               this.isTrusted(),
               (this.groupSafetyChecked = !!(
                 (a = this.groupMetadata) != null && a.groupSafetyCheck
               )),
               o("WAWebChatGroupUtils").updateCanSend(this),
-              this.listenTo(this.contact, "change:name", function () {
-                return n.isTrusted();
-              }),
-              this.listenTo(this.msgs, "add", function (e) {
-                o("WAWebHandleNewMsgAction").handleNewMsgForChat(n, e);
-              }),
-              this.listenTo(this.msgs, "update_sort_time", function () {
-                return o("WAWebChatUpdates").updateSortTime(n);
-              }),
-              this.listenTo(this.msgs, "bulk_add", function (e, t) {
-                return o("WAWebChatMedia").addMediaMsgs(n, e, t);
-              }),
-              this.listenTo(this.msgs, "add", function (e) {
-                return n.$ChatImpl$p_13(e);
-              }),
-              this.listenTo(this.msgs, "bulk_add", function (e) {
-                return n.deregisterExpiredViewOnceBulkMessages(e);
-              }),
+              this.listenTo(
+                this.contact,
+                "change:name",
+                i
+                  ? this.isTrusted
+                  : function () {
+                      return n.isTrusted();
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "add",
+                i
+                  ? this.$ChatImpl$p_27
+                  : function (e) {
+                      o("WAWebHandleNewMsgAction").handleNewMsgForChat(n, e);
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "update_sort_time",
+                i
+                  ? this.$ChatImpl$p_28
+                  : function () {
+                      return o("WAWebChatUpdates").updateSortTime(n);
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "bulk_add",
+                i
+                  ? this.$ChatImpl$p_29
+                  : function (e, t) {
+                      return o("WAWebChatMedia").addMediaMsgs(n, e, t);
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "add",
+                i
+                  ? this.$ChatImpl$p_30
+                  : function (e) {
+                      return n.$ChatImpl$p_30(e);
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "bulk_add",
+                i
+                  ? this.deregisterExpiredViewOnceBulkMessages
+                  : function (e) {
+                      return n.deregisterExpiredViewOnceBulkMessages(e);
+                    },
+              ),
               this.listenTo(
                 this.msgs,
                 "add remove change:ephemeralExpirationTimestamp change:kicState change:expiredTimestamp",
-                function (e) {
-                  return n.$ChatImpl$p_14(e);
-                },
+                i
+                  ? this.$ChatImpl$p_31
+                  : function (e) {
+                      return n.$ChatImpl$p_31(e);
+                    },
               ),
-              this.listenTo(this.msgs, "bulk_add", function (e) {
-                e.forEach(function (e) {
-                  n.$ChatImpl$p_14(e);
-                });
-              }),
-              this.listenTo(this.msgs, "change:kicState", function (e) {
-                var t = n.keptMsgs;
-                t &&
-                  (o("WAWebMsgGetters").getIsKept(e) ? t.add(e) : t.remove(e));
-              }),
-              this.listenTo(this, "change:msgs", function () {
-                return o("WAWebChatMedia").resetMediaMsgs(n);
-              }),
+              this.listenTo(
+                this.msgs,
+                "bulk_add",
+                i
+                  ? this.$ChatImpl$p_32
+                  : function (e) {
+                      e.forEach(function (e) {
+                        n.$ChatImpl$p_31(e);
+                      });
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "change:kicState",
+                i
+                  ? this.$ChatImpl$p_33
+                  : function (e) {
+                      var t = n.keptMsgs;
+                      t &&
+                        (o("WAWebMsgGetters").getIsKept(e)
+                          ? t.add(e)
+                          : t.remove(e));
+                    },
+              ),
+              this.listenTo(
+                this,
+                "change:msgs",
+                i
+                  ? this.$ChatImpl$p_34
+                  : function () {
+                      return o("WAWebChatMedia").resetMediaMsgs(n);
+                    },
+              ),
               (this.saveAssignedColorsDebounced = r("WAWebDebounce")(
                 function () {
                   return o("WAWebChatParticipantColor").saveAssignedColors(n);
                 },
                 1e3,
               )),
-              this.listenTo(this, "change:active", function () {
-                return n.$ChatImpl$p_15();
-              }),
+              this.listenTo(
+                this,
+                "change:active",
+                i
+                  ? this.$ChatImpl$p_35
+                  : function () {
+                      return n.$ChatImpl$p_35();
+                    },
+              ),
               (this.pendingAction = 0),
-              this.listenTo(this, "change:t change:modifyTag", function () {
-                return o("WAWebChatMessageSearch").clearFtsCache(n);
-              }),
-              this.listenTo(r("WAWebL10N"), "locale_change", function () {
-                o("WAWebChatGroupUtils").updateTitle(n);
-              }),
+              this.listenTo(
+                this,
+                "change:t change:modifyTag",
+                i
+                  ? this.$ChatImpl$p_36
+                  : function () {
+                      return o("WAWebChatMessageSearch").clearFtsCache(n);
+                    },
+              ),
+              this.listenTo(
+                r("WAWebL10N"),
+                "locale_change",
+                i
+                  ? this.$ChatImpl$p_10
+                  : function () {
+                      o("WAWebChatGroupUtils").updateTitle(n);
+                    },
+              ),
               (o("WAWebConnModel").Conn.isSMB ||
                 o("WAWebListsGatingUtils").isListsEnabled()) &&
                 o("WAWebBizLabelUtils").initializeLabels(this),
-              o("WAWebConnModel").Conn.isSMB && this.$ChatImpl$p_16(),
-              this.$ChatImpl$p_7(),
-              this.$ChatImpl$p_17(),
+              o("WAWebConnModel").Conn.isSMB && this.$ChatImpl$p_37(),
+              this.$ChatImpl$p_12(),
+              this.$ChatImpl$p_38(),
               o("WAWebBotUtils").isMetaAiBot(this.id) &&
                 o("WAWebBotGating").isAiChatThreadsEnabled())
             ) {
-              var f = new (o("WAWebAiThreadCollection").AiThreadCollection)();
-              this.aiThreads = f;
+              var g = new (o("WAWebAiThreadCollection").AiThreadCollection)();
+              this.aiThreads = g;
             }
             ((o("WAWebThreadsGating").isViewRepliesEntryPointEnabled(this) ||
               o("WAWebThreadsGating").isViewRepliesContextMenuEnabled(this)) &&
@@ -613,34 +808,45 @@ __d(
                 this.listenTo(
                   this,
                   "change:capiThreadControl change:forceDismissAiAgentBlockBar",
-                  function () {
-                    o("WAWebChatGroupUtils").updateCanSend(n);
-                  },
+                  i
+                    ? this.$ChatImpl$p_11
+                    : function () {
+                        o("WAWebChatGroupUtils").updateCanSend(n);
+                      },
                 ),
               this.listenTo(
                 o("WAWebCmd").Cmd,
                 "reachout_timelock_state_change",
-                function () {
-                  return o("WAWebChatGroupUtils").updateCanSend(n);
-                },
+                i
+                  ? this.$ChatImpl$p_11
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateCanSend(n);
+                    },
               ),
               this.listenTo(
                 o("WAWebCmd").Cmd,
                 "new_chat_message_capping_state_change",
-                function () {
-                  return o("WAWebChatGroupUtils").updateCanSend(n);
-                },
+                i
+                  ? this.$ChatImpl$p_11
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateCanSend(n);
+                    },
               ),
               this.listenTo(
                 this,
                 "add:tcToken change:tcToken remove:tcToken",
-                function () {
-                  return o("WAWebChatGroupUtils").updateCanSend(n);
-                },
+                i
+                  ? this.$ChatImpl$p_11
+                  : function () {
+                      return o("WAWebChatGroupUtils").updateCanSend(n);
+                    },
               ));
           }),
-          (i.$ChatImpl$p_16 = function () {
-            var e = this;
+          (i.$ChatImpl$p_37 = function () {
+            var e = this,
+              t = o("WAWebABProps").getABPropConfigValue(
+                "web_optimized_event_handlers",
+              );
             if (o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled()) {
               this.set(
                 "unopenedByAssignedAgent",
@@ -648,24 +854,32 @@ __d(
                   "WAWebChatAssignmentCollection",
                 ).ChatAssignmentCollection.getChatUnopenedStatus(this.id),
               );
-              var t = o(
+              var n = o(
                 "WAWebChatAssignmentCollection",
               ).ChatAssignmentCollection.getAgentCollectionForChatId(this.id);
-              (this.set("isAssignedToMe", this.$ChatImpl$p_18()),
-                this.set("assignedAgent", t.at(0)),
-                this.listenTo(t, "add remove change", function () {
-                  (e.set(
-                    "unopenedByAssignedAgent",
-                    o(
-                      "WAWebChatAssignmentCollection",
-                    ).ChatAssignmentCollection.getChatUnopenedStatus(e.id),
-                  ),
-                    e.set("isAssignedToMe", e.$ChatImpl$p_18()),
-                    e.set("assignedAgent", t.at(0)));
-                }));
+              (this.set("isAssignedToMe", this.$ChatImpl$p_39()),
+                this.set("assignedAgent", n.at(0)),
+                this.listenTo(
+                  n,
+                  "add remove change",
+                  t
+                    ? this.$ChatImpl$p_40
+                    : function () {
+                        (e.set(
+                          "unopenedByAssignedAgent",
+                          o(
+                            "WAWebChatAssignmentCollection",
+                          ).ChatAssignmentCollection.getChatUnopenedStatus(
+                            e.id,
+                          ),
+                        ),
+                          e.set("isAssignedToMe", e.$ChatImpl$p_39()),
+                          e.set("assignedAgent", n.at(0)));
+                      },
+                ));
             }
           }),
-          (i.$ChatImpl$p_9 = function (t) {
+          (i.$ChatImpl$p_18 = function (t) {
             var e = this;
             if (this.unreadMentionsOfMe) {
               var n = new Map(
@@ -690,26 +904,155 @@ __d(
             (this.unreadMentionCount != null &&
               (t.unreadMentionMetadata.pendingUnreadMentionCount =
                 this.unreadMentionCount),
-              this.$ChatImpl$p_10());
+              this.$ChatImpl$p_19());
+          }),
+          (i.$ChatImpl$p_38 = function () {
+            var e = this,
+              t = o("WAWebABProps").getABPropConfigValue(
+                "web_optimized_event_handlers",
+              );
+            ((this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
+              this.listenTo(
+                this.msgs,
+                "bulk_add",
+                t
+                  ? this.$ChatImpl$p_41
+                  : function (t, n) {
+                      var r = t.filter(function (e) {
+                        return o("WAWebFrontendMsgGetters").getAsEventCreation(
+                          e,
+                        );
+                      });
+                      r.length && e.getEventMsgs().add(r, n);
+                    },
+              ),
+              this.listenTo(
+                this.msgs,
+                "change:msgs",
+                t
+                  ? this.$ChatImpl$p_42
+                  : function () {
+                      if (e.eventMsgs) {
+                        var t;
+                        (e.eventMsgs.delete(),
+                          (t = e.eventMsgs) == null || t.initialize());
+                      }
+                    },
+              ));
+          }),
+          (i.$ChatImpl$p_11 = function () {
+            o("WAWebChatGroupUtils").updateCanSend(this);
+          }),
+          (i.$ChatImpl$p_10 = function () {
+            o("WAWebChatGroupUtils").updateTitle(this);
+          }),
+          (i.$ChatImpl$p_7 = function () {
+            o("WAWebChatUpdates").updateMuteExpiration(this);
+          }),
+          (i.$ChatImpl$p_8 = function () {
+            o("WAWebChatUpdates").updateMentionAllMuteExpiration(this);
+          }),
+          (i.$ChatImpl$p_9 = function () {
+            o("WAWebChatUpdates").updateCallMuteExpiration(this);
           }),
           (i.$ChatImpl$p_17 = function () {
-            var e = this;
-            ((this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
-              this.listenTo(this.msgs, "bulk_add", function (t, n) {
-                var r = t.filter(function (e) {
-                  return o("WAWebFrontendMsgGetters").getAsEventCreation(e);
-                });
-                r.length && e.getEventMsgs().add(r, n);
-              }),
-              this.listenTo(this.msgs, "change:msgs", function () {
-                if (e.eventMsgs) {
-                  var t;
-                  (e.eventMsgs.delete(),
-                    (t = e.eventMsgs) == null || t.initialize());
-                }
-              }));
+            o("WAWebChatGroupUtils").updateReadOnly(this);
           }),
-          (i.$ChatImpl$p_18 = function () {
+          (i.$ChatImpl$p_20 = function () {
+            (o("WAWebChatGroupUtils").updateReadOnly(this),
+              o("WAWebChatGroupUtils").updateCanSend(this));
+          }),
+          (i.$ChatImpl$p_34 = function () {
+            o("WAWebChatMedia").resetMediaMsgs(this);
+          }),
+          (i.$ChatImpl$p_36 = function () {
+            o("WAWebChatMessageSearch").clearFtsCache(this);
+          }),
+          (i.$ChatImpl$p_28 = function () {
+            o("WAWebChatUpdates").updateSortTime(this);
+          }),
+          (i.$ChatImpl$p_24 = function () {
+            o("WAWebPresenceChatAction").presenceOnlineChanged(this);
+          }),
+          (i.$ChatImpl$p_13 = function () {
+            this.isFavorite = !!o(
+              "WAWebFavoriteCollection",
+            ).FavoriteCollection.get(this.id.toString());
+          }),
+          (i.$ChatImpl$p_15 = function () {
+            this.$ChatImpl$p_12();
+            var e = this.groupMetadata;
+            e != null && (this.groupType = e.groupType);
+          }),
+          (i.$ChatImpl$p_16 = function () {
+            var e = this.groupMetadata;
+            e != null && (this.hasCapi = e.hasCapi);
+          }),
+          (i.$ChatImpl$p_21 = function () {
+            var e = this.groupMetadata;
+            e != null && (this.isParentGroup = e.isParentGroup);
+          }),
+          (i.$ChatImpl$p_23 = function () {
+            var e = this.broadcastMetadata;
+            ((e == null ? void 0 : e.recipients) != null &&
+              (this.broadcastRecipientCount = e.recipients.length),
+              o("WAWebChatGroupUtils").updateTitle(this));
+          }),
+          (i.$ChatImpl$p_25 = function () {
+            if (
+              ((o("WAWebChatGetters").getIsGroup(this) ||
+                o("WAWebChatGetters").getIsNewsletter(this)) &&
+                (this.isTrusted(),
+                o("WAWebChatGroupUtils").updateCanSend(this)),
+              o("WAWebChatGetters").getIsGroup(this))
+            ) {
+              var e = this.getGroupMetadataCollection();
+              e.update(this.id);
+            }
+          }),
+          (i.$ChatImpl$p_27 = function (t) {
+            o("WAWebHandleNewMsgAction").handleNewMsgForChat(this, t);
+          }),
+          (i.$ChatImpl$p_29 = function (t, n) {
+            o("WAWebChatMedia").addMediaMsgs(this, t, n);
+          }),
+          (i.$ChatImpl$p_32 = function (t) {
+            var e = this;
+            t.forEach(function (t) {
+              e.$ChatImpl$p_31(t);
+            });
+          }),
+          (i.$ChatImpl$p_33 = function (t) {
+            var e = this.keptMsgs;
+            e && (o("WAWebMsgGetters").getIsKept(t) ? e.add(t) : e.remove(t));
+          }),
+          (i.$ChatImpl$p_40 = function () {
+            var e = o(
+              "WAWebChatAssignmentCollection",
+            ).ChatAssignmentCollection.getAgentCollectionForChatId(this.id);
+            (this.set(
+              "unopenedByAssignedAgent",
+              o(
+                "WAWebChatAssignmentCollection",
+              ).ChatAssignmentCollection.getChatUnopenedStatus(this.id),
+            ),
+              this.set("isAssignedToMe", this.$ChatImpl$p_39()),
+              this.set("assignedAgent", e.at(0)));
+          }),
+          (i.$ChatImpl$p_41 = function (t, n) {
+            var e = t.filter(function (e) {
+              return o("WAWebFrontendMsgGetters").getAsEventCreation(e);
+            });
+            e.length && this.getEventMsgs().add(e, n);
+          }),
+          (i.$ChatImpl$p_42 = function () {
+            if (this.eventMsgs) {
+              var e;
+              (this.eventMsgs.delete(),
+                (e = this.eventMsgs) == null || e.initialize());
+            }
+          }),
+          (i.$ChatImpl$p_39 = function () {
             var e = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
@@ -720,7 +1063,7 @@ __d(
                 return t.deviceId === e;
               });
           }),
-          (i.$ChatImpl$p_10 = function () {
+          (i.$ChatImpl$p_19 = function () {
             o("WAWebChatGetters").getIsGroup(this) &&
               this.groupMetadata &&
               (this.hasUnreadMention =
@@ -846,7 +1189,7 @@ __d(
               );
             }
           }),
-          (i.$ChatImpl$p_15 = function () {
+          (i.$ChatImpl$p_35 = function () {
             var e = this;
             if (
               (o("WAWebChatGetters").getIsGroup(this) &&
@@ -874,7 +1217,7 @@ __d(
               (this.$ChatImpl$p_5(),
                 this.getCollection().sort(),
                 this.deregisterExpiredViewOnceBulkMessages(this.msgs),
-                this.$ChatImpl$p_19());
+                this.$ChatImpl$p_43());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
                 .removeExpiredMessagesFromHistory(a)
@@ -919,7 +1262,7 @@ __d(
                 }));
             }
           }),
-          (i.$ChatImpl$p_19 = function () {
+          (i.$ChatImpl$p_43 = function () {
             if (o("WAWebABProps").getABPropConfigValue("web_anr_prune_cmc")) {
               var e = this.msgs;
               if (!(e.length <= o("WAWebCollectionConstants").PAGE_SIZE)) {
@@ -930,7 +1273,7 @@ __d(
               }
             }
           }),
-          (i.$ChatImpl$p_12 = function () {
+          (i.$ChatImpl$p_26 = function () {
             var e = this.getCollection();
             ((e.notSpam[this.id] = this.notSpam),
               this.isTrusted(),
@@ -1344,17 +1687,17 @@ __d(
           (i.deregisterExpiredViewOnceBulkMessages = function (t) {
             var e = this;
             t.forEach(function (t) {
-              return e.$ChatImpl$p_13(t);
+              return e.$ChatImpl$p_30(t);
             });
           }),
-          (i.$ChatImpl$p_13 = function (t) {
+          (i.$ChatImpl$p_30 = function (t) {
             o("WAWebViewOnceState").isExpired(t.safe()) &&
               (o("WAWebAppTracker").AppTracker.mark(
                 o("WAWebAppTracker").AppTrackerType.PurgeViewOnce,
               ),
               o("WAWebMedia").deregisterMsg(t));
           }),
-          (i.$ChatImpl$p_14 = function (t) {
+          (i.$ChatImpl$p_31 = function (t) {
             var e = this;
             (r("WAWebAlarm").clearTimeout(this.$ChatImpl$p_2.get(t)),
               this.$ChatImpl$p_2.delete(t),
@@ -1438,12 +1781,12 @@ __d(
             }
           }),
           (i.isUnreadMsg = function (t) {
-            return this.$ChatImpl$p_20(t, this.unreadCount);
+            return this.$ChatImpl$p_44(t, this.unreadCount);
           }),
           (i.isActiveUnreadMsg = function (t) {
-            return this.$ChatImpl$p_20(t, this.activeUnreadCount);
+            return this.$ChatImpl$p_44(t, this.activeUnreadCount);
           }),
-          (i.$ChatImpl$p_20 = function (t, n) {
+          (i.$ChatImpl$p_44 = function (t, n) {
             if (n <= 0) return !1;
             for (
               var e = this.msgs.getModelsArray(), r = 0, a = e.length - 1;
@@ -1536,7 +1879,7 @@ __d(
           (i.setForceDismissAiAgentBlockingBar = function (t) {
             this.forceDismissAiAgentBlockBar = t;
           }),
-          (i.$ChatImpl$p_8 = function () {
+          (i.$ChatImpl$p_14 = function () {
             var e = this,
               t = this.groupMetadata;
             if (
@@ -1597,7 +1940,7 @@ __d(
               t
             );
           }),
-          (i.$ChatImpl$p_7 = function () {
+          (i.$ChatImpl$p_12 = function () {
             var e,
               t = !!this.muteExpiration;
             if (this.archive) {
@@ -1825,7 +2168,7 @@ __d(
           (i.getNewsletterMetadataCollection = function () {
             return r("WAWebNewsletterMetadataCollection");
           }),
-          (i.$ChatImpl$p_11 = function () {
+          (i.$ChatImpl$p_22 = function () {
             return r("WAWebBroadcastMetadataCollection");
           }),
           (i.updateBotInvokeSystemMsgCreated = (function () {

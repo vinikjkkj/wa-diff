@@ -1,6 +1,6 @@
 __d(
   "WAWebCtwaAGMUtils",
-  ["WALogger", "WAWebBizGatingUtils", "getErrorSafe"],
+  ["WALogger", "WAWebCTWAGatingUtils", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -35,8 +35,8 @@ __d(
       }
     }
     function d(e) {
-      var t = o("WAWebBizGatingUtils").getFmxAgmEnabled();
-      return o("WAWebBizGatingUtils").getWamoAgmEnabled()
+      var t = o("WAWebCTWAGatingUtils").getFmxAgmEnabled();
+      return o("WAWebCTWAGatingUtils").getWamoAgmEnabled()
         ? t
         : t && e !== u.WHATSAPP;
     }

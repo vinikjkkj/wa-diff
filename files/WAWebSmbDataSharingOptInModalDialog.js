@@ -9,6 +9,7 @@ __d(
     "WAWebBusinessDataSharingIllustrationDarkIcon.react",
     "WAWebBusinessDataSharingIllustrationLightIcon.react",
     "WAWebCTWADataSharingModel",
+    "WAWebCTWAGatingUtils",
     "WAWebCommonCTWADataSharing",
     "WAWebConfirmPopup.react",
     "WAWebCtwaPerCustomerDataSharingSync",
@@ -517,7 +518,7 @@ __d(
         C;
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((C = o(
-            "WAWebBizGatingUtils",
+            "WAWebCTWAGatingUtils",
           ).isPerCustomerDataSharingControlsEnabled()),
           (t[0] = C))
         : (C = t[0]);

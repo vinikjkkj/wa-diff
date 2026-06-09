@@ -20,8 +20,8 @@ __d(
     "WAWebBizAiAgentGating",
     "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
-    "WAWebBizGatingUtils",
     "WAWebBotTypes",
+    "WAWebCTWAGatingUtils",
     "WAWebChatConstants",
     "WAWebCheckUpdateOrphanReactions",
     "WAWebCryptoCurve25519",
@@ -374,7 +374,7 @@ __d(
                       (T == null ? void 0 : T.fromMe) != null &&
                       I != null &&
                       D != null &&
-                      o("WAWebBizGatingUtils").shouldGenerateAGMMsgs(E)
+                      o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(E)
                     ) {
                       var x,
                         $ = new (r("WAWebMsgKey"))({

@@ -2,7 +2,7 @@ __d(
   "WAWebDataSharingOptInCoolOffModel",
   [
     "WATimeUtils",
-    "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "gkx",
@@ -10,7 +10,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = null,
       s = function () {
-        var t = o("WAWebBizGatingUtils").smbDataSharingOptInCoolOffSeconds();
+        var t = o("WAWebCTWAGatingUtils").smbDataSharingOptInCoolOffSeconds();
         if (e == null) {
           var n = r("WAWebUserPrefsStore").get(
             o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,

@@ -30,7 +30,7 @@ __d(
               p = new (o(
                 "WAWebStatusPogImpressionWamEvent",
               ).StatusPogImpressionWamEvent)({
-                cid: r.isNewsletter() ? r.user : void 0,
+                cid: o("WAWebStatusLoggingUtils").channelStatusCid(r),
                 pogIndex: n,
                 statusCategory: m(r),
                 statusGroupId: s != null ? s : void 0,

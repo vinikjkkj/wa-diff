@@ -2,8 +2,8 @@ __d(
   "WAWebSmbMarkAsXOrderAction",
   [
     "WASmaxInBizSettingsEnums",
-    "WAWebBizGatingUtils",
     "WAWebCTWADataSharingModel",
+    "WAWebCTWAGatingUtils",
     "WAWebChatThreadLogging",
     "WAWebCommonCTWADataSharing",
     "WAWebCtwaOrderSignalWamEvent",
@@ -41,7 +41,9 @@ __d(
         return e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
           ? babelHelpers.extends(
               { globalSharingSettingEnabled: !0 },
-              o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+              o(
+                "WAWebCTWAGatingUtils",
+              ).isPerCustomerDataSharingControlsEnabled()
                 ? null
                 : { eventSharingSettingEnabled: t },
             )
@@ -57,7 +59,7 @@ __d(
         if (
           !(
             c == null ||
-            !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()
+            !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
           )
         ) {
           var d = (l = t.accountLid) == null ? void 0 : l.toString();
@@ -87,7 +89,9 @@ __d(
       var n,
         a = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
       if (
-        !(a == null || !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled())
+        !(
+          a == null || !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
+        )
       ) {
         var i = (n = e.accountLid) == null ? void 0 : n.toString();
         o("WAWebChatThreadLogging")

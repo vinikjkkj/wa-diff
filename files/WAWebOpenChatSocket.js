@@ -257,9 +257,10 @@ __d(
           );
         });
       return x.all([i.pubKey, E, R]).then(function (n) {
-        var s = n[0],
-          u = n[1],
-          c = n[2];
+        var s,
+          u = n[0],
+          c = n[1],
+          d = n[2];
         o("WALogger")
           .LOG(
             g ||
@@ -268,10 +269,12 @@ __d(
               ])),
           )
           .tags("handshake");
-        var d = { clientHello: { ephemeral: s, payload: u, static: c } };
+        var m = {
+          clientHello: ((s = { ephemeral: u, payload: c }), (s.static = d), s),
+        };
         return S.sendAndReceive(
           o("encodeProtobuf")
-            .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, d)
+            .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, m)
             .readByteArrayView(),
         ).then(function (n) {
           o("WALogger")

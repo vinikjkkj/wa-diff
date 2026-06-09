@@ -2,9 +2,9 @@ __d(
   "WAWebSmbMarkAsXLabelAction",
   [
     "WASmaxInBizSettingsEnums",
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
+    "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebChatThreadLogging",
     "WAWebCommonCTWADataSharing",
@@ -53,7 +53,9 @@ __d(
           case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true:
             return babelHelpers.extends(
               { globalSharingSettingEnabled: !0 },
-              o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+              o(
+                "WAWebCTWAGatingUtils",
+              ).isPerCustomerDataSharingControlsEnabled()
                 ? null
                 : { eventSharingSettingEnabled: t },
             );
@@ -70,7 +72,7 @@ __d(
       if (
         !(
           l == null ||
-          !o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats()
+          !o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats()
         )
       ) {
         var s = (i = e.accountLid) == null ? void 0 : i.toString(),
@@ -146,7 +148,7 @@ __d(
           var a = u.get(n);
           (a != null && r.push(a),
             n === o("WAWebCTWAConstants").IMPORTANT_PREDEFINED_ID &&
-              o("WAWebBizGatingUtils").is3pdImportantLabelSignalsEnabled() &&
+              o("WAWebCTWAGatingUtils").is3pdImportantLabelSignalsEnabled() &&
               r.push(o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.IMPORTANT));
         }
       }),

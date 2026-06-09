@@ -1,9 +1,9 @@
 __d(
   "WAWebWamFalcoLogger",
   [
-    "FalcoLoggerInternal",
     "WALogger",
     "WAWebCanonicalWamFalcoBuffer",
+    "WAWebFalcoEventQueue",
     "WAWebWamFalcoABProps",
     "WAWebWamFalcoGlobalFields",
     "WAWebWamFalcoModes",
@@ -23,19 +23,12 @@ __d(
         e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
       );
     }
-    function c(e, t) {
+    function c(e) {
       if (o("WAWebWamFalcoABProps").shouldBufferFalcoEvent()) {
-        o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(
-          e,
-          t,
-          Date.now(),
-        );
+        o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(e);
         return;
       }
-      var n = o("FalcoLoggerInternal").create(e, { r: 1 });
-      n.log(function () {
-        return t;
-      });
+      o("WAWebFalcoEventQueue").enqueueFalcoEvent(e);
     }
     function d(e) {
       var t = e.getFieldsMapForFalco();
@@ -61,27 +54,29 @@ __d(
       }
     }
     function p(e, t, n) {
+      var r = Date.now();
       e: {
         if (
           e === o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING
         ) {
-          c("_test$" + t, n);
+          c({ name: "_test$" + t, fields: n, timestamp: r });
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING) {
-          c(t + "_shadow", n);
+          c({ name: t + "_shadow", fields: n, timestamp: r });
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED) {
-          c(t + "_shadow_sampled", n);
+          c({ name: t + "_shadow_sampled", fields: n, timestamp: r });
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL) {
-          (c(t + "_shadow_sampled", n), c(t + "_shadow", n));
+          (c({ name: t + "_shadow_sampled", fields: n, timestamp: r }),
+            c({ name: t + "_shadow", fields: n, timestamp: r }));
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY) {
-          c(t, n);
+          c({ name: t, fields: n, timestamp: r });
           break e;
         }
         return;
@@ -89,6 +84,7 @@ __d(
     }
     function _(t, n) {
       try {
+        m(t);
         var r = o("WAWebWamFalcoABProps").getWamFalcoMode();
         if (
           (u(r) && n) ||

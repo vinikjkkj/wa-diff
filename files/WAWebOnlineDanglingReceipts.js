@@ -34,7 +34,7 @@ __d(
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[online-preacks] clear online dangling receipts due to timeout",
+                  "[online-preacks] clear dangling receipts (timeout)",
                 ])),
             ),
               E(),
@@ -73,7 +73,7 @@ __d(
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[online-preacks]: sending online dangling grouped receipts for ",
+                  "[online-preacks] sending dangling receipts for ",
                   " chats => ",
                   "",
                 ])),
@@ -100,7 +100,7 @@ __d(
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOnlineDanglingReceiptsAfterSending: skip due to offline",
+                    "[online-preacks] clearOnlineDanglingReceiptsAfterSending: skip offline",
                   ])),
               );
               return;
@@ -108,7 +108,7 @@ __d(
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[online-preacks] clearOnlineDanglingReceiptsAfterSending: sending ping",
+                  "[online-preacks] clearOnlineDanglingReceiptsAfterSending: ping",
                 ])),
             );
             var e = yield o("WAWebCommsSendPing").blockSendPing();
@@ -116,7 +116,7 @@ __d(
               (o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOnlineDanglingReceiptsAfterSending: clearing receipts",
+                    "[online-preacks] clearOnlineDanglingReceiptsAfterSending: cleared",
                   ])),
               ),
               g.clear());
@@ -136,7 +136,7 @@ __d(
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOrFlushOnlineDanglingReceipts: sending ping",
+                    "[online-preacks] clearOrFlushOnlineDanglingReceipts: ping",
                   ])),
               );
               var e = yield o("WAWebCommsSendPing").blockSendPing();
@@ -144,7 +144,7 @@ __d(
                 (o("WALogger").LOG(
                   p ||
                     (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[online-preacks] clearOrFlushOnlineDanglingReceipts: clearing receipts",
+                      "[online-preacks] clearOrFlushOnlineDanglingReceipts: cleared",
                     ])),
                 ),
                 g.clear());
@@ -152,7 +152,7 @@ __d(
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[online-preacks] clearOrFlushOnlineDanglingReceipts: failed to clear receipts: ",
+                    "[online-preacks] clearOrFlushOnlineDanglingReceipts: failed ",
                     "",
                   ])),
                 e,

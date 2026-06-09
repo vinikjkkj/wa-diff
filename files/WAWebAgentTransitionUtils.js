@@ -3,127 +3,57 @@ __d(
   ["WAWebUserPrefsIndexedDBStorage", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "WAAgentDisassociationState",
-      s = "wa-agent-disassociation-state-changed";
-    function u(e, t) {
+    var e = "WAMeSmbOffboardingState",
+      s = "WAMeSmbParentCompanyName";
+    function u() {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r,
-            a =
-              (r = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e)) !=
-              null
-                ? r
-                : [],
-            i = t.toString() + ":" + n;
-          a.includes(i) ||
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              e,
-              [].concat(a, [i]),
-            ),
-            document.dispatchEvent(new CustomEvent(s)));
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(e, !0);
         })),
         c.apply(this, arguments)
       );
     }
-    function d(t) {
-      var n,
-        r =
-          (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e)) != null
-            ? n
-            : [],
-        a = t.toString() + ":";
-      for (var i of r)
-        if (i.startsWith(a)) {
-          var l = i.slice(a.length);
-          if (l === "disassociated") return l;
-        }
-      return null;
+    function d() {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e) === !0;
     }
-    function m(e) {
+    function m() {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            r =
-              (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e)) !=
-              null
-                ? n
-                : [],
-            a = t.toString() + ":",
-            i = r.filter(function (e) {
-              return !e.startsWith(a);
-            });
-          i.length !== r.length &&
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(e, i),
-            document.dispatchEvent(new CustomEvent(s)));
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(e),
+            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(s));
         })),
         p.apply(this, arguments)
       );
     }
-    var _ = "WAMeSmbOffboardingState",
-      f = "WAMeSmbParentCompanyName";
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, e);
+        })),
+        f.apply(this, arguments)
+      );
+    }
     function g() {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(_, !0);
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y() {
-      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(_) === !0;
-    }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(_),
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(f));
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(f, e);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R() {
       var e;
-      return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(f)) !=
+      return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s)) !=
         null
         ? e
         : "";
     }
-    function L(e, t) {
-      return !e && t ? "associated" : e && !t ? "disassociated" : null;
-    }
-    ((l.AGENT_DISASSOCIATION_STATE_CHANGED_EVENT = s),
-      (l.storeAgentDisassociationState = u),
-      (l.getAgentDisassociationState = d),
-      (l.clearAgentDisassociationState = m),
-      (l.storeMeSmbOffboardingState = g),
-      (l.getMeSmbOffboardingState = y),
-      (l.clearMeSmbOffboardingState = C),
-      (l.storeMeSmbParentCompanyName = v),
-      (l.getMeSmbParentCompanyName = R),
-      (l.detectAgentTransition = L));
+    ((l.storeMeSmbOffboardingState = u),
+      (l.getMeSmbOffboardingState = d),
+      (l.clearMeSmbOffboardingState = m),
+      (l.storeMeSmbParentCompanyName = _),
+      (l.getMeSmbParentCompanyName = g));
   },
   98,
 );

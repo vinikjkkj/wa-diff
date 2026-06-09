@@ -2,10 +2,10 @@ __d(
   "WAWebCommonParsersParseBusinessProfile",
   [
     "WAWebBizCoexGatingUtils",
-    "WAWebBizGatingUtils",
     "WAWebBizProfileGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileTypes",
+    "WAWebCTWAGatingUtils",
     "cr:5664",
     "gkx",
   ],
@@ -88,7 +88,7 @@ __d(
         B.push({ url: e.contentString() });
       });
       var W;
-      if (o("WAWebBizGatingUtils").getFmxAgmEnabled()) {
+      if (o("WAWebCTWAGatingUtils").getFmxAgmEnabled()) {
         var q = e.maybeChild("member_since_text");
         q && (W = q.contentString());
       }

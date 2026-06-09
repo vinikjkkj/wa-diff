@@ -7,6 +7,7 @@ __d(
     "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
+    "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebCommonCTWADataSharing",
     "WAWebCtwa3pdConversionWamEvent",
@@ -95,7 +96,7 @@ __d(
               });
           }
           var C = o(
-            "WAWebBizGatingUtils",
+            "WAWebCTWAGatingUtils",
           ).isPerCustomerDataSharingControlsEnabled()
             ? t.accountLid == null ||
               !o(
@@ -122,7 +123,7 @@ __d(
               ) &&
               !(
                 i === o("WAWebCTWAConstants").IMPORTANT_PREDEFINED_ID &&
-                o("WAWebBizGatingUtils").is3pdImportantLabelSignalsEnabled()
+                o("WAWebCTWAGatingUtils").is3pdImportantLabelSignalsEnabled()
               )
             )
           ) {
@@ -181,7 +182,7 @@ __d(
         a = e.orderStatus,
         i = e.paidData,
         l = e.type;
-      if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
+      if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
         var s = {
           surface: "order",
           chat: n,
@@ -221,12 +222,12 @@ __d(
         (t != null &&
           t.length > 0 &&
           a.length > 0 &&
-          o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
+          o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
           m(a, t, n),
           r != null &&
             r.length > 0 &&
             a.length > 0 &&
-            o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
+            o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
             p(a, r, n));
       }
     }

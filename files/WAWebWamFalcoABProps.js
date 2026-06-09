@@ -6,6 +6,7 @@ __d(
     "WAWebABPropsCache",
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
+    "WAWebNetworkStatus",
     "WAWebWamFalcoModes",
     "justknobx",
   ],
@@ -27,11 +28,10 @@ __d(
       return e > 0 ? e : 2e3;
     }
     function d() {
-      return (
-        u() &&
-        o("WAWebCanonicalGating").isCanonicalEnabled() &&
-        !o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
-      );
+      return !m() || !u() || !o("WAWebCanonicalGating").isCanonicalEnabled()
+        ? !1
+        : !r("WAWebNetworkStatus").online ||
+            !o("WAWebCanonicalUtils").isCurrentUserLoggedIn();
     }
     function m() {
       return (

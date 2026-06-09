@@ -74,24 +74,23 @@ __d(
                 t.duration,
                 l,
               ),
-              f = "";
-            if (r("WAWebEnvironment").isWeb) {
-              var g = _.includes(
-                  String(o("WAWebAppTracker").AppTrackerType.VoipAudio),
-                ),
-                h = _.includes(
-                  String(o("WAWebAppTracker").AppTrackerType.VoipVideo),
+              f = "",
+              g = _.includes(
+                String(o("WAWebAppTracker").AppTrackerType.VoipAudio),
+              ),
+              h = _.includes(
+                String(o("WAWebAppTracker").AppTrackerType.VoipVideo),
+              ),
+              y = g || h;
+            if (r("WAWebEnvironment").isWeb && y) {
+              (r("WAWebODS").incr("web.perf.anr.during.voip"),
+                o("WAWebVoipAnrTracker").isAnrTrackingActive() &&
+                  o("WAWebVoipAnrTracker").incrementAnrCount());
+              var C = h ? "video" : "audio",
+                b = o("WAWebABProps").getABPropConfigValue(
+                  "enable_web_voip_proxy_and_sctp_workers",
                 );
-              if (g || h) {
-                (r("WAWebODS").incr("web.perf.anr.during.voip"),
-                  o("WAWebVoipAnrTracker").isAnrTrackingActive() &&
-                    o("WAWebVoipAnrTracker").incrementAnrCount());
-                var y = h ? "video" : "audio",
-                  C = o("WAWebABProps").getABPropConfigValue(
-                    "enable_web_voip_proxy_and_sctp_workers",
-                  );
-                f = " callType:" + y + " proxyWorker:" + String(C);
-              }
+              f = " callType:" + C + " proxyWorker:" + String(b);
             }
             (o("WAWebPdfViewerAnrTracker").isPdfViewerAnrTrackingActive() &&
               o("WAWebPdfViewerAnrTracker").incrementPdfViewerAnrCount(),
@@ -121,7 +120,7 @@ __d(
                   f,
                 )
                 .sendLogs("[performance observer] longtask", {
-                  sampling: 0.01,
+                  sampling: y ? 1 : 0.01,
                   sendLogsType:
                     o("WALogger").SendLogsType
                       .PERFORMANCE_OBSERVER_LONGTASK_SAD,

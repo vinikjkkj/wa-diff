@@ -95,8 +95,8 @@ __d(
                       o("WALogger").LOG(
                         c ||
                           (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][utils] runReceiptCleanUpLoop: failed with error ",
-                            ".",
+                            "[offline-resume][utils] runReceiptCleanUpLoop failed ",
+                            "",
                           ])),
                         t,
                       ),
@@ -104,7 +104,7 @@ __d(
                         ? (o("WALogger").WARN(
                             d ||
                               (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "[offline-resume][utils] runReceiptCleanUpLoop: Gave up clean up receipts ",
+                                "[offline-resume] runReceiptCleanUpLoop: gave up ",
                                 " tries",
                               ])),
                             n,
@@ -123,7 +123,7 @@ __d(
         : (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[offline-resume][utils] runReceiptCleanUpLoop: skip due to offline.",
+                "[offline-resume][utils] runReceiptCleanUpLoop: offline skip",
               ])),
           ),
           (y || (y = n("Promise"))).resolve());
@@ -178,7 +178,7 @@ __d(
                 o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][blocking] reconcileMetaAiUnreadCounts failed: ",
+                      "[offline-resume][blocking] reconcileMetaAiUnreadCounts - ",
                       "",
                     ])),
                   String(e),
@@ -262,7 +262,7 @@ __d(
                     .ERROR(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
-                          "[offline-resume] loadMainScreen: pruneExpiredMessages message failed",
+                          "[offline-resume] pruneExpiredMessagesWithAddOns failed",
                         ])),
                     )
                     .catching(r("getErrorSafe")(e)),

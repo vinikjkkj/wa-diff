@@ -124,8 +124,8 @@ __d(
                           .ERROR(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([
-                                "[BroadcastBridgeApi] failed to sync campaign ",
-                                " into collection",
+                                "[BroadcastBridgeApi] sync campaign ",
+                                " failed",
                               ])),
                             e,
                           )

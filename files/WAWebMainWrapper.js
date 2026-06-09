@@ -4,6 +4,7 @@ __d(
     "FBLogger",
     "WALogger",
     "WAWebABProps",
+    "WAWebCrashAnnotations",
     "WAWebEmojiAssetLoader",
     "WAWebEmojiSetup",
     "WAWebExecApiCmd",
@@ -87,7 +88,7 @@ __d(
           .catching(r("getErrorSafe")(e))
           .warn("failed to run JSSPWAWebConfigInit");
       }
-      c();
+      (c(), o("WAWebCrashAnnotations").initCrashAnnotations());
       var a = n("WAWebMain.react");
       return {
         MainComponent: a.MainComponent,

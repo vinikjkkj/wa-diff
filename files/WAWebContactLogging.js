@@ -31,6 +31,7 @@ __d(
         "FMXCard",
         "MessageContextMenu",
         "NewChatDrawer",
+        "ChatListGlobalSearch",
       ]);
     function c(e) {
       switch (e) {
@@ -52,6 +53,8 @@ __d(
           return "CONTACT_INFO";
         case u.VCard:
           return "VCARD";
+        case u.ChatListGlobalSearch:
+          return "CHAT_LIST_GLOBAL_SEARCH";
       }
     }
     var d = (function () {
@@ -257,6 +260,9 @@ __d(
         case u.NewChatDrawer:
           return o("WAWebWamEnumNativeContactsNuxEntryPoint")
             .NATIVE_CONTACTS_NUX_ENTRY_POINT.NEW_CHAT_SEARCH;
+        case u.ChatListGlobalSearch:
+          return o("WAWebWamEnumNativeContactsNuxEntryPoint")
+            .NATIVE_CONTACTS_NUX_ENTRY_POINT.CHAT_SEARCH;
       }
     }
     function p(e) {

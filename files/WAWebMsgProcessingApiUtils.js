@@ -9,10 +9,10 @@ __d(
     "WAWebABProps",
     "WAWebAck",
     "WAWebBackendJobs.flow",
-    "WAWebBizGatingUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebBusinessHSMTypes",
+    "WAWebCTWAGatingUtils",
     "WAWebDBGroupsGroupMetadata",
     "WAWebDBMessageSerialization",
     "WAWebDeviceSentMessageProtoUtils",
@@ -645,7 +645,7 @@ __d(
                   (E.isOffline = C),
                   (g.author !== E.from || g.author !== E.author) &&
                     (E.senderWithDevice = g.author),
-                  o("WAWebBizGatingUtils").shouldGenerateAGMMsgs(E.ctwaContext)
+                  o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(E.ctwaContext)
                     ? (oe = yield o(
                         "WAWebMsgAGMProcessing",
                       ).generateAutomatedGreetingMsgs(E, g))

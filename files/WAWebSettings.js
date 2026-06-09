@@ -4,8 +4,8 @@ __d(
     "fbt",
     "$InternalEnum",
     "WAWebABProps",
-    "WAWebBizGatingUtils",
     "WAWebBizToolsGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCurrentUser",
     "err",
     "gkx",
@@ -45,7 +45,9 @@ __d(
         case e.BusinessTools:
           return o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled();
         case e.DataSharing:
-          return o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() === !0;
+          return (
+            o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled() === !0
+          );
         case e.PrivacySettings:
           return !0;
         case e.Security:

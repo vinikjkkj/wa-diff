@@ -162,16 +162,17 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function R(e, t, n, r, a, i, l, s) {
-      var u = { contact_count: t, save_result: n };
-      (s != null && ((u.audience_count = s), (u.is_multi_audience = s > 1)),
-        a != null && (u.errorType = a),
-        i != null && (u.campaign_sent_error_type = i),
-        r != null && (u.attachmentExt = r),
-        l != null && (u.attachment_type = l),
+    function R(e, t, n, r, a, i, l, s, u) {
+      var c = { contact_count: t, save_result: n };
+      (s != null && ((c.audience_count = s), (c.is_multi_audience = s > 1)),
+        a != null && (c.errorType = a),
+        i != null && (c.campaign_sent_error_type = i),
+        r != null && (c.attachmentExt = r),
+        l != null && (c.attachment_type = l),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
-          extraAttributes: u,
+          entryPoint: u,
+          extraAttributes: c,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,

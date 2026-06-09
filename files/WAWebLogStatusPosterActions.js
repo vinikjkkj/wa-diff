@@ -2,6 +2,7 @@ __d(
   "WAWebLogStatusPosterActions",
   [
     "WAWebABProps",
+    "WAWebStatusLoggingUtils",
     "WAWebStatusPosterActionsWamEvent",
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusContentSource",
@@ -67,7 +68,7 @@ __d(
                 editable: r,
                 externalInteractables: a,
                 statusPostingSessionId: this.sessionId,
-                cid: h == null ? void 0 : h.user,
+                cid: o("WAWebStatusLoggingUtils").channelStatusCid(h),
                 statusCategory:
                   h != null
                     ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
@@ -202,7 +203,7 @@ __d(
               .STATUS_ENTRYPOINT_TAP,
             statusCreationEntryPoint: t,
             statusPostingSessionId: n,
-            cid: r == null ? void 0 : r.user,
+            cid: o("WAWebStatusLoggingUtils").channelStatusCid(r),
             statusCategory:
               r != null
                 ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.CHANNEL_STATUS

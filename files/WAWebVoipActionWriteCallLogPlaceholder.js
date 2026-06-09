@@ -64,8 +64,8 @@ __d(
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] placeholder for callId=",
-                    ": ICCE already exists, skipping",
+                    "[voip] placeholder ",
+                    ": ICCE exists, skip",
                   ])),
                 a,
               );
@@ -84,8 +84,8 @@ __d(
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] placeholder for callId=",
-                      ": merged with orphan data",
+                      "[voip] placeholder ",
+                      ": merged with orphan",
                     ])),
                   a,
                 ));
@@ -94,8 +94,8 @@ __d(
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] placeholder for callId=",
-                      ": writing hidden placeholder ICCE",
+                      "[voip] placeholder ",
+                      ": writing hidden ICCE",
                     ])),
                   a,
                 ));

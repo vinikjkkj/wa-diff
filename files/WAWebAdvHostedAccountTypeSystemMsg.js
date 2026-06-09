@@ -12,7 +12,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, a) {
       if ((a === void 0 && (a = !1), !e.isUser())) return null;
-      var i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         l = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -44,7 +44,7 @@ __d(
     }
     function s(e, t) {
       if (!e.isUser()) return null;
-      var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -63,7 +63,7 @@ __d(
     }
     function u(e, t) {
       if (!e.isUser()) return null;
-      var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -87,7 +87,7 @@ __d(
         ).smbHostedLazySystemMsgInsertInHistorySyncEnabled() &&
         e.isUser()
       ) {
-        var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
           a = new (r("WAWebMsgKey"))({
             fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
             remote: e,

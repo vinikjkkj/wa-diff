@@ -3,7 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebApiContact",
-    "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebFMXGatingUtils",
     "WAWebMsgKey",
@@ -163,10 +163,10 @@ __d(
               templateParams: [e],
             });
           if (
-            (t.isEnterprise && !o("WAWebBizGatingUtils").getFmxAgmEnabled()) ||
+            (t.isEnterprise && !o("WAWebCTWAGatingUtils").getFmxAgmEnabled()) ||
             (t.isEnterprise &&
               !t.isFMXCtWA &&
-              o("WAWebBizGatingUtils").getFmxAgmEnabled()) ||
+              o("WAWebCTWAGatingUtils").getFmxAgmEnabled()) ||
             !e.isUser() ||
             t.isWASupportStartingChat ||
             (t.iAmStartingChat && !t.isFMXCtWA) ||
