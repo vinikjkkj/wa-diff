@@ -167,9 +167,7 @@ __d(
                   okText: s._(/*BTDS*/ "Send"),
                   onCancel: o("WAWebModalManager").closeModalManager,
                   onConfirm: function () {
-                    return g(null, function () {
-                      return o("WAWebModalManager").ModalManager.close();
-                    });
+                    return g(null, o("WAWebModalManager").closeModalManager);
                   },
                   children: s._(
                     /*BTDS*/ "Choose how many {recentMessagesLink} from this group you want to send {contactName}.",
@@ -275,9 +273,7 @@ __d(
                 okText: s._(/*BTDS*/ "Send"),
                 onCancel: o("WAWebModalManager").closeModalManager,
                 onConfirm: function () {
-                  return m(null, function () {
-                    return o("WAWebModalManager").ModalManager.close();
-                  });
+                  return m(null, o("WAWebModalManager").closeModalManager);
                 },
                 children: s._(
                   /*BTDS*/ "Choose how many {recentMessagesLink} from this group you want to send.",

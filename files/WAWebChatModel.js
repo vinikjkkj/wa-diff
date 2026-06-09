@@ -156,6 +156,7 @@ __d(
             (e.showDoodle = o("WAWebBaseModel").prop()),
             (e.chatThemeId = o("WAWebBaseModel").prop()),
             (e.colorSchemeId = o("WAWebBaseModel").prop()),
+            (e.stockWallpaperImageId = o("WAWebBaseModel").prop()),
             (e.name = o("WAWebBaseModel").prop()),
             (e.notSpam = o("WAWebBaseModel").prop()),
             (e.pin = o("WAWebBaseModel").prop()),
@@ -963,7 +964,7 @@ __d(
               o("WAWebChatGroupUtils").updateCanSend(this));
           }),
           (i.$ChatImpl$p_34 = function () {
-            o("WAWebChatMedia").resetMediaMsgs(this);
+            return o("WAWebChatMedia").resetMediaMsgs(this);
           }),
           (i.$ChatImpl$p_36 = function () {
             o("WAWebChatMessageSearch").clearFtsCache(this);
@@ -1830,6 +1831,14 @@ __d(
             return o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
               colorSchemeId: e,
             });
+          }),
+          (i.setStockWallpaperImageId = function (t) {
+            return (
+              (this.stockWallpaperImageId = t),
+              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                stockWallpaperImageId: t,
+              })
+            );
           }),
           (i.setCapiThreadControl = function (t, n) {
             var e = (n == null ? void 0 : n.skipSideEffects) === !0;

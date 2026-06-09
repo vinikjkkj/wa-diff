@@ -1,9 +1,9 @@
 __d(
   "WAWebUpdateUtmAction",
-  ["WAWebBizGatingUtils", "WAWebChatUtmCache", "WAWebUtmBizPrefs"],
+  ["WAWebCTWAGatingUtils", "WAWebChatUtmCache", "WAWebUtmBizPrefs"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      if (o("WAWebBizGatingUtils").isUtmTrackingEnabled()) {
+      if (o("WAWebCTWAGatingUtils").isUtmTrackingEnabled()) {
         var n = e.toString();
         (o("WAWebUtmBizPrefs").persistUtmtoLocalStorage(n, t),
           r("WAWebChatUtmCache").deleteChatId(n));
@@ -15,7 +15,7 @@ __d(
         r("WAWebChatUtmCache").read(t));
     }
     function u(e) {
-      if (!o("WAWebBizGatingUtils").isUtmTrackingEnabled()) return null;
+      if (!o("WAWebCTWAGatingUtils").isUtmTrackingEnabled()) return null;
       var t = e.toString();
       if (r("WAWebChatUtmCache").hasRead(t)) return null;
       var n = o("WAWebUtmBizPrefs").getUtmFromLocalStorage(t);

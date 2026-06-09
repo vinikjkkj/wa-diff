@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WASmaxInBizSettingsEnums",
-    "WAWebBizGatingUtils",
     "WAWebBusinessDataSharingIllustrationDarkIcon.react",
     "WAWebBusinessDataSharingIllustrationLightIcon.react",
     "WAWebCTWADataSharingModel",
@@ -238,7 +237,7 @@ __d(
       var m;
       t[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((m = o(
-            "WAWebBizGatingUtils",
+            "WAWebCTWAGatingUtils",
           ).isCTWA3pdDataSharingTitleChangeEnabled()
             ? s._(
                 /*BTDS*/ "Improve your ads by sharing customer-related activities",
@@ -529,7 +528,7 @@ __d(
       (t[1] !== l
         ? ((k = function () {
             var e = o(
-              "WAWebBizGatingUtils",
+              "WAWebCTWAGatingUtils",
             ).isCTWA3pdDataSharingAdditionalLoggingEnabled()
               ? b()
               : null;
@@ -544,7 +543,7 @@ __d(
               o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
                 o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
                 o(
-                  "WAWebBizGatingUtils",
+                  "WAWebCTWAGatingUtils",
                 ).isCTWA3pdOptOutCounterOptimizationEnabled())
             ) {
               var n = o(
@@ -601,7 +600,7 @@ __d(
                         o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false &&
                         (!e &&
                           o(
-                            "WAWebBizGatingUtils",
+                            "WAWebCTWAGatingUtils",
                           ).isCTWA3pdOptOutCounterOptimizationEnabled() &&
                           o(
                             "WAWebUserPrefsGeneral",

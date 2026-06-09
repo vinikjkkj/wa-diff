@@ -22,13 +22,10 @@ __d(
           ) === !0;
     }
     function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_ai_group_open_support",
-      ) !== !0
-        ? !1
-        : o("WAWebABProps").getABPropConfigValue(
-            "ai_group_participation_send_enabled",
-          ) === !0;
+      return (
+        o("WAWebABProps").getABPropConfigValue("web_ai_group_open_support") ===
+        !0
+      );
     }
     function c() {
       return (

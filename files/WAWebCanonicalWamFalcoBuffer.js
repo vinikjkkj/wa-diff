@@ -144,6 +144,16 @@ __d(
                   o("WAWebFalcoEventQueue").sendFalcoEventsChunked(t)));
             }
           }),
+          (t.flushNow = function () {
+            var e = Date.now(),
+              t = this.$1.filter(function (t) {
+                return e - t.timestamp < p;
+              });
+            ((this.$1 = []),
+              (this.$2 = !1),
+              b(),
+              t.length > 0 && o("WAWebFalcoEventQueue").sendFalcoEventsNow(t));
+          }),
           (t.$9 = function () {
             var e = o(
                 "WAWebWamFalcoABProps",
@@ -168,7 +178,12 @@ __d(
     function E() {
       (S == null && y().length === 0) || R().drain();
     }
-    ((l.bufferCanonicalFalcoEvent = L), (l.drainCanonicalWamFalcoBuffer = E));
+    function k() {
+      (S == null && y().length === 0) || R().flushNow();
+    }
+    ((l.bufferCanonicalFalcoEvent = L),
+      (l.drainCanonicalWamFalcoBuffer = E),
+      (l.flushCanonicalWamFalcoBuffer = k));
   },
   98,
 );

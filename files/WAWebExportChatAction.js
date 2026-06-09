@@ -45,78 +45,80 @@ __d(
         s.MSG_TYPE.KEEP_IN_CHAT,
         s.MSG_TYPE.PIN_MESSAGE,
       ]);
-    function h(e, t, n, r, o, a) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s) {
-            var c = [],
-              d = { remote: e.id },
-              m = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    if (!(c.length >= t)) {
-                      if (l != null && l.aborted)
-                        throw new (o("WAAbortError").AbortError)(
-                          "Export cancelled",
-                        );
-                      var e = yield o("WAWebDBMessageFindLocal").msgFindBefore({
-                        anchor: d,
-                        count: u,
-                      });
-                      if (!(e.status >= 400 || e.messages.length === 0)) {
-                        var n = !1;
-                        for (var p of e.messages) {
-                          var _,
-                            f,
-                            h = (_ = p.t) != null ? _ : 0,
-                            y = (f = p.type) != null ? f : "";
-                          if (a != null && h < a) {
-                            n = !0;
-                            continue;
-                          }
-                          if (!g.has(y) && p.isViewOnce !== !0) {
-                            var C = p.ephemeralDuration;
-                            if (
-                              !(C != null && C !== 0) &&
-                              !(i != null && h > i) &&
-                              (c.push(p), c.length >= t)
-                            )
-                              break;
-                          }
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            a = e.endDate,
+            i = e.messageLimit,
+            l = e.onProgress,
+            s = e.signal,
+            c = e.startDate,
+            d = [],
+            m = { remote: t.id },
+            p = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  if (!(d.length >= i)) {
+                    if (s != null && s.aborted)
+                      throw new (o("WAAbortError").AbortError)(
+                        "Export cancelled",
+                      );
+                    var e = yield o("WAWebDBMessageFindLocal").msgFindBefore({
+                      anchor: m,
+                      count: u,
+                    });
+                    if (!(e.status >= 400 || e.messages.length === 0)) {
+                      var t = !1;
+                      for (var n of e.messages) {
+                        var _,
+                          f,
+                          h = (_ = n.t) != null ? _ : 0,
+                          y = (f = n.type) != null ? f : "";
+                        if (c != null && h < c) {
+                          t = !0;
+                          continue;
                         }
-                        var b = e.messages[0],
-                          v = Number.isFinite(t) ? t : -1;
-                        if (
-                          (s == null || s("loading", c.length, v),
-                          !n &&
-                            c.length < t &&
-                            (b == null ? void 0 : b.id) instanceof
-                              r("WAWebMsgKey"))
-                        )
-                          return ((d = b.id), m());
+                        if (!g.has(y) && n.isViewOnce !== !0) {
+                          var C = n.ephemeralDuration;
+                          if (
+                            !(C != null && C !== 0) &&
+                            !(a != null && h > a) &&
+                            (d.push(n), d.length >= i)
+                          )
+                            break;
+                        }
                       }
+                      var b = e.messages[0],
+                        v = Number.isFinite(i) ? i : -1;
+                      if (
+                        (l == null || l("loading", d.length, v),
+                        !t &&
+                          d.length < i &&
+                          (b == null ? void 0 : b.id) instanceof
+                            r("WAWebMsgKey"))
+                      )
+                        return ((m = b.id), p());
                     }
-                  },
-                );
-                return function () {
-                  return e.apply(this, arguments);
-                };
-              })();
-            return (
-              yield m(),
-              c.sort(function (e, t) {
-                var n, r;
-                return (
-                  ((n = e.t) != null ? n : 0) - ((r = t.t) != null ? r : 0)
-                );
-              }),
-              c
-            );
-          },
-        )),
+                  }
+                },
+              );
+              return function () {
+                return e.apply(this, arguments);
+              };
+            })();
+          return (
+            yield p(),
+            d.sort(function (e, t) {
+              var n, r;
+              return ((n = e.t) != null ? n : 0) - ((r = t.t) != null ? r : 0);
+            }),
+            d
+          );
+        })),
         y.apply(this, arguments)
       );
     }
@@ -149,7 +151,14 @@ __d(
           f = !0;
           try {
             s == null || s("loading", 0, 1);
-            var E = yield h(a, L, g, i, u, s);
+            var E = yield h({
+              chat: a,
+              endDate: i,
+              messageLimit: L,
+              onProgress: s,
+              signal: u,
+              startDate: g,
+            });
             if (u != null && u.aborted)
               throw new (o("WAAbortError").AbortError)("Export cancelled");
             var k = E.map(function (e) {

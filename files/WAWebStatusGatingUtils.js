@@ -150,6 +150,11 @@ __d(
         "status_player_avatar_status_creation_entrypoint",
       );
     }
+    function D() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_ranking_enabled",
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isStatusPrivateMentionsReceiveEnabled = d),
@@ -169,7 +174,8 @@ __d(
       (l.isStatusStanzaSendEnabled = E),
       (l.isStatusStanzaReceiveEnabled = k),
       (l.isStatusRingOutsideChatlistEnabled = I),
-      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = T));
+      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = T),
+      (l.isStatusRankingEnabled = D));
   },
   98,
 );

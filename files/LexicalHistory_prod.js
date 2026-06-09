@@ -71,14 +71,14 @@ __d(
       var f = a.anchor,
         p = s.anchor;
       if (f.key !== p.key || "text" !== f.type) return 0;
-      var g = f.offset,
-        h = p.offset,
+      var h = f.offset,
+        g = p.offset,
         O = _.length - c.length;
-      return 1 === O && h === g - 1
+      return 1 === O && g === h - 1
         ? 2
-        : -1 === O && h === g + 1
+        : -1 === O && g === h + 1
           ? 3
-          : -1 === O && h === g
+          : -1 === O && g === h
             ? 4
             : 0;
     }
@@ -88,29 +88,33 @@ __d(
         s = i,
         l = 0,
         d = null;
-      return function (u, c, _, f, p, g) {
-        var h = r();
+      return function (u, c, _, f, p, h) {
+        var g = r();
         if (
-          (g.has(require("Lexical").COMPOSITION_START_TAG) &&
+          (h.has(require("Lexical").COMPOSITION_START_TAG) &&
             ((s = i), (l = a), (d = u)),
-          g.has(require("Lexical").HISTORIC_TAG))
+          h.has(require("Lexical").HISTORIC_TAG))
         )
-          return ((a = 0), (i = h), 2);
-        g.has(require("Lexical").COMPOSITION_END_TAG) &&
+          return ((a = 0), (i = g), 2);
+        h.has(require("Lexical").COMPOSITION_END_TAG) &&
           d &&
           ((i = s), (a = l), (u = d));
-        var O = o(u, c, f, p, e.isComposing()),
+        var O =
+            h.has(require("Lexical").PASTE_TAG) ||
+            h.has(require("Lexical").CUT_TAG)
+              ? 0
+              : o(u, c, f, p, e.isComposing()),
           S = (function () {
             var o = null === _ || _.editor === e,
-              r = g.has(require("Lexical").HISTORY_PUSH_TAG);
-            if (!r && o && g.has(require("Lexical").HISTORY_MERGE_TAG))
+              r = h.has(require("Lexical").HISTORY_PUSH_TAG);
+            if (!r && o && h.has(require("Lexical").HISTORY_MERGE_TAG))
               return 0;
             if (1 === O) return 2;
             if (null === u) return 1;
             var s = c._selection;
             if (!(f.size > 0 || p.size > 0)) return null !== s ? 0 : 2;
             var l = "number" == typeof t ? t : t.peek();
-            if (!1 === r && 0 !== O && O === a && h < i + l && o) return 0;
+            if (!1 === r && 0 !== O && O === a && g < i + l && o) return 0;
             if (1 === f.size) {
               if (
                 (function (e, t, o) {
@@ -147,7 +151,7 @@ __d(
             }
             return 1;
           })();
-        return ((i = h), (a = O), S);
+        return ((i = g), (a = O), S);
       };
     }
     function i(e, t) {
@@ -265,8 +269,8 @@ __d(
               f = o.undoStack,
               p = null === l ? null : l.editorState;
             if (null !== l && t === p) return;
-            var g = u(r, t, l, i, a, s);
-            if (1 === g) {
+            var h = u(r, t, l, i, a, s);
+            if (1 === h) {
               if (
                 (0 !== _.length &&
                   ((o.redoStack = []),
@@ -278,7 +282,7 @@ __d(
                 (null !== _t3 && f.length > _t3 && f.splice(0, f.length - _t3),
                   e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !0));
               }
-            } else if (2 === g) return;
+            } else if (2 === h) return;
             ((o.current = { editor: e, editorState: t }), c());
           }),
         )

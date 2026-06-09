@@ -1,6 +1,6 @@
 __d(
   "WAWebUtmBizUtils",
-  ["WAWebBizGatingUtils", "WAWebMsgGetters", "WAWebStateUtils"],
+  ["WAWebCTWAGatingUtils", "WAWebMsgGetters", "WAWebStateUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       return e.contact.isEnterprise && !c(t) && !s(e, t);
@@ -24,7 +24,7 @@ __d(
     function c(e) {
       var t = Date.now(),
         n =
-          o("WAWebBizGatingUtils").utmTrackingExpirationInHours() *
+          o("WAWebCTWAGatingUtils").utmTrackingExpirationInHours() *
           60 *
           60 *
           1e3;

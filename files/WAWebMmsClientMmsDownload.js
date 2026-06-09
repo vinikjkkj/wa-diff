@@ -15,6 +15,7 @@ __d(
     "WAWebMmsMediaTypes",
     "asyncToGeneratorRuntime",
     "err",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -134,7 +135,7 @@ __d(
           ),
         );
       var b =
-        t || s == null
+        t || r("isStringNullOrEmpty")(s)
           ? null
           : (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(

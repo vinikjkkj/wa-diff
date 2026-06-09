@@ -101,16 +101,20 @@ __d(
           : "[" + String(l != null ? l : "message") + "]";
       return "> _" + m + p + "_\n\n";
     }
-    function y(e, t, n, a) {
-      var i = o("WAWebMsgGetters").getType(e),
-        l = o("WAWebMsgGetters").getBody(e),
-        m = o("WAWebMsgGetters").getCaption(e);
-      if (i === o("WAWebMsgType").MSG_TYPE.REVOKED) {
-        var p = e.subtype;
-        if (p === "admin") {
-          var _ = o("WAWebMsgGetters").getRevokeSender(e);
-          return _ != null
-            ? o("WAWebMsgGetters").getIsRevokedByMe(e)
+    function y(e) {
+      var t = e.downloadedMediaMsgIds,
+        n = e.includeMedia,
+        a = e.mediaFolder,
+        i = e.msg,
+        l = o("WAWebMsgGetters").getType(i),
+        m = o("WAWebMsgGetters").getBody(i),
+        p = o("WAWebMsgGetters").getCaption(i);
+      if (l === o("WAWebMsgType").MSG_TYPE.REVOKED) {
+        var _ = i.subtype;
+        if (_ === "admin") {
+          var f = o("WAWebMsgGetters").getRevokeSender(i);
+          return f != null
+            ? o("WAWebMsgGetters").getIsRevokedByMe(i)
               ? "_" +
                 s._(/*BTDS*/ "You deleted this message as admin").toString() +
                 "_"
@@ -122,7 +126,7 @@ __d(
                       s._param(
                         "admin-name",
                         o("WAWebExportChatSystemMsgFormatter").getPlainTextName(
-                          _,
+                          f,
                         ),
                       ),
                     ],
@@ -135,17 +139,17 @@ __d(
                   .toString() +
                 "_";
         }
-        return o("WAWebMsgGetters").getIsSentByMe(e)
+        return o("WAWebMsgGetters").getIsSentByMe(i)
           ? "_" + s._(/*BTDS*/ "You deleted this message").toString() + "_"
           : "_" + s._(/*BTDS*/ "This message was deleted").toString() + "_";
       }
-      if (d.has(i))
+      if (d.has(l))
         return (
           "__" +
-          o("WAWebExportChatSystemMsgFormatter").formatSystemMsgForExport(e) +
+          o("WAWebExportChatSystemMsgFormatter").formatSystemMsgForExport(i) +
           "__"
         );
-      if (i === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
+      if (l === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
         return (
           "_" +
           s
@@ -153,89 +157,89 @@ __d(
             .toString() +
           "_"
         );
-      if (u.has(i)) {
-        var f,
-          h,
-          y = g(i),
-          C = o("WAWebMsgGetters").getIsGif(e),
-          b = c.has(i) || C,
-          v =
-            ((f = e.mediaData) == null ? void 0 : f.filename) ||
-            e.filename ||
-            "" + y.toLowerCase(),
-          S = (h = e.id) == null ? void 0 : h.toString(),
-          R = t && a != null && S != null && a.has(S);
-        if (b) {
-          var L = C ? s._(/*BTDS*/ "GIF").toString() : y;
-          return R ? "[" + L + "](" + n + "/" + v + ")" : "[" + L + "]";
+      if (u.has(l)) {
+        var h,
+          y,
+          C = g(l),
+          b = o("WAWebMsgGetters").getIsGif(i),
+          v = c.has(l) || b,
+          S =
+            ((h = i.mediaData) == null ? void 0 : h.filename) ||
+            i.filename ||
+            "" + C.toLowerCase(),
+          R = (y = i.id) == null ? void 0 : y.toString(),
+          L = n && t != null && R != null && t.has(R);
+        if (v) {
+          var E = b ? s._(/*BTDS*/ "GIF").toString() : C;
+          return L ? "[" + E + "](" + a + "/" + S + ")" : "[" + E + "]";
         }
-        if (R) {
-          var E = n + "/" + v,
-            k = "[" + y + "](" + E + ")";
-          return m != null && m !== ""
-            ? k + " " + r("WAWebUnformatMsg")(e, m)
-            : k;
+        if (L) {
+          var k = a + "/" + S,
+            I = "[" + C + "](" + k + ")";
+          return p != null && p !== ""
+            ? I + " " + r("WAWebUnformatMsg")(i, p)
+            : I;
         }
-        return m != null && m !== ""
-          ? "[" + y + "] " + r("WAWebUnformatMsg")(e, m)
-          : "[" + y + "]";
+        return p != null && p !== ""
+          ? "[" + C + "] " + r("WAWebUnformatMsg")(i, p)
+          : "[" + C + "]";
       }
-      if (i === o("WAWebMsgType").MSG_TYPE.LOCATION) {
-        var I = o("WAWebMsgGetters").getLat(e),
-          T = o("WAWebMsgGetters").getLng(e),
-          D = o("WAWebMsgGetters").getIsLive(e),
-          x = D
+      if (l === o("WAWebMsgType").MSG_TYPE.LOCATION) {
+        var T = o("WAWebMsgGetters").getLat(i),
+          D = o("WAWebMsgGetters").getLng(i),
+          x = o("WAWebMsgGetters").getIsLive(i),
+          $ = x
             ? s._(/*BTDS*/ "Live location").toString()
             : s._(/*BTDS*/ "Location").toString();
-        if (I != null && T != null) {
-          var $ = l ? l + ": " : "";
+        if (T != null && D != null) {
+          var P = m ? m + ": " : "";
           return (
             "" +
+            P +
             $ +
-            x +
             ": " +
-            I +
-            ", " +
             T +
+            ", " +
+            D +
             " \u2014 https://maps.google.com/?q=" +
-            I +
+            T +
             "," +
-            T
+            D
           );
         }
-        return "[" + x + "]";
+        return "[" + $ + "]";
       }
-      if (i === o("WAWebMsgType").MSG_TYPE.VCARD)
-        return l
-          ? "[" + s._(/*BTDS*/ "Contact").toString() + ": " + l + "]"
+      if (l === o("WAWebMsgType").MSG_TYPE.VCARD)
+        return m
+          ? "[" + s._(/*BTDS*/ "Contact").toString() + ": " + m + "]"
           : "[" + s._(/*BTDS*/ "Contact card").toString() + "]";
-      if (i === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD) {
-        var P = o("WAWebMsgGetters").getVcardList(e),
-          N = P.length;
-        return N > 0
+      if (l === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD) {
+        var N = o("WAWebMsgGetters").getVcardList(i),
+          M = N.length;
+        return M > 0
           ? "[" +
               s
                 ._(/*BTDS*/ '_j{"*":"{number} contacts","_1":"1 contact"}', [
-                  s._plural(N, "number"),
+                  s._plural(M, "number"),
                 ])
                 .toString() +
               "]"
-          : l
-            ? "[" + s._(/*BTDS*/ "Contact").toString() + ": " + l + "]"
+          : m
+            ? "[" + s._(/*BTDS*/ "Contact").toString() + ": " + m + "]"
             : "[" + s._(/*BTDS*/ "Contact card").toString() + "]";
       }
-      if (i === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
-        var M = s._(/*BTDS*/ "Poll").toString(),
-          w = o("WAWebMsgGetters").getPollName(e),
-          A = o("WAWebMsgGetters").getPollOptions(e),
-          F = w != null ? "**" + M + ": " + w + "**" : "**" + M + "**";
-        if (A != null) for (var O of A) F += "\n- " + O.name;
-        return F;
+      if (l === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
+        var w = s._(/*BTDS*/ "Poll").toString(),
+          A = o("WAWebMsgGetters").getPollName(i),
+          F = o("WAWebMsgGetters").getPollOptions(i),
+          O = A != null ? "**" + w + ": " + A + "**" : "**" + w + "**";
+        if (F != null) for (var B of F) O += "\n- " + B.name;
+        return O;
       }
-      return i === o("WAWebMsgType").MSG_TYPE.CHAT || l
-        ? r("WAWebUnformatMsg")(e, l)
+      return l === o("WAWebMsgType").MSG_TYPE.CHAT || m
+        ? r("WAWebUnformatMsg")(i, m)
         : "[" +
-            s._(/*BTDS*/ "{type} message", [s._param("type", i)]).toString() +
+            s._(/*BTDS*/ "{type} message", [s._param("type", l)]).toString() +
             "]";
     }
     function C(e) {
@@ -295,13 +299,23 @@ __d(
           var E = p(S),
             k = d.has(R);
           if (k) {
-            var I = y(v, i, u, n);
+            var I = y({
+              downloadedMediaMsgIds: n,
+              includeMedia: i,
+              mediaFolder: u,
+              msg: v,
+            });
             (g.push("[" + E + "] " + I), g.push(""));
             continue;
           }
           var T = f(v),
             D = h(v),
-            x = y(v, i, u, n),
+            x = y({
+              downloadedMediaMsgIds: n,
+              includeMedia: i,
+              mediaFolder: u,
+              msg: v,
+            }),
             $ = x;
           if (o("WAWebMsgGetters").getIsForwarded(v)) {
             var P = o("WAWebMsgGetters").getIsFrequentlyForwarded(v)

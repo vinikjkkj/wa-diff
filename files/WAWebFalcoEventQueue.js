@@ -1,6 +1,6 @@
 __d(
   "WAWebFalcoEventQueue",
-  ["FalcoLoggerInternal", "WALogger", "WAShiftTimer"],
+  ["WALogger", "WAShiftTimer", "WAWebFalcoLoggerCache"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -14,10 +14,11 @@ __d(
         var t = r.fields,
           n = r.name;
         try {
-          var a = o("FalcoLoggerInternal").create(n, { r: 1 });
-          a.logImmediately(function () {
-            return t;
-          });
+          o("WAWebFalcoLoggerCache")
+            .getFalcoLogger(n)
+            .logImmediately(function () {
+              return t;
+            });
         } catch (t) {
           o("WALogger")
             .WARN(
@@ -77,6 +78,7 @@ __d(
     }
     ((l.sendFalcoEventsNow = _),
       (l.sendFalcoEventsChunked = f),
+      (l.drainFalcoQueue = h),
       (l.enqueueFalcoEvent = v));
   },
   98,

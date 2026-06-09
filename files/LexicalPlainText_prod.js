@@ -235,10 +235,13 @@ __d(
               !!require("Lexical").$isRangeSelection(n) &&
               ((function (e, t) {
                 (o(e, t),
-                  t.update(function () {
-                    var e = require("Lexical").$getSelection();
-                    require("Lexical").$isRangeSelection(e) && e.removeText();
-                  }));
+                  t.update(
+                    function () {
+                      var e = require("Lexical").$getSelection();
+                      require("Lexical").$isRangeSelection(e) && e.removeText();
+                    },
+                    { tag: require("Lexical").CUT_TAG },
+                  ));
               })(e, t),
               !0)
             );

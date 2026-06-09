@@ -9,22 +9,29 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("getFalcoLogPolicy_DO_NOT_USE")("7577"),
-      u = {
-        platform: r("requireDeferred")("WAWebFalcoCanonicalPlatform").__setRef(
+      s,
+      u = r("getFalcoLogPolicy_DO_NOT_USE")("7577"),
+      c = {
+        platform: (s = r("requireDeferred"))(
+          "WAWebFalcoCanonicalPlatform",
+        ).__setRef("WamPathfinderWebFalcoEvent"),
+        os_version: s("WAWebFalcoCanonicalOsVersion").__setRef(
           "WamPathfinderWebFalcoEvent",
         ),
-        os_version: r("requireDeferred")(
-          "WAWebFalcoCanonicalOsVersion",
-        ).__setRef("WamPathfinderWebFalcoEvent"),
-        app_version: r("requireDeferred")(
-          "WAWebFalcoCanonicalAppVersion",
-        ).__setRef("WamPathfinderWebFalcoEvent"),
+        app_version: s("WAWebFalcoCanonicalAppVersion").__setRef(
+          "WamPathfinderWebFalcoEvent",
+        ),
+        md_id: s("WAWebFalcoCanonicalMdId").__setRef(
+          "WamPathfinderWebFalcoEvent",
+        ),
+        md_session_id: s("WAWebFalcoCanonicalMdSessionId").__setRef(
+          "WamPathfinderWebFalcoEvent",
+        ),
       };
-    function c() {
+    function d() {
       return (e || (e = n("Promise")))
         .all(
-          Object.entries(u).map(function (e) {
+          Object.entries(c).map(function (e) {
             var t = e[0],
               n = e[1];
             return n.load().then(function (e) {
@@ -44,9 +51,9 @@ __d(
           );
         });
     }
-    var d = o("FalcoLoggerInternal").create("wam_pathfinder_web", s, c),
-      m = d;
-    l.default = m;
+    var m = o("FalcoLoggerInternal").create("wam_pathfinder_web", u, d),
+      p = m;
+    l.default = p;
   },
   98,
 );

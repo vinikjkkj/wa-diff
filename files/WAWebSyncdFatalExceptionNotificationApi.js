@@ -23,14 +23,16 @@ __d(
             },
             n = new (r("WAWebMsgKey"))({
               fromMe: !0,
-              remote: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
               id: yield r("WAWebMsgKey").newId(),
             }),
             a = {
               id: n,
               to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().user,
-                o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().server,
+                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+                  .user,
+                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+                  .server,
                 0,
               ),
               type: "protocol",

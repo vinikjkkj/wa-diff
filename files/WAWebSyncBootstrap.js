@@ -19,6 +19,7 @@ __d(
     "WAWebClientFeatureFlags",
     "WAWebCoreActionsODS",
     "WAWebDbEncryptionKey",
+    "WAWebForceFlushWamBuffers",
     "WAWebGetUsernameQueryJob",
     "WAWebHandleAccountSyncNotification",
     "WAWebHandleHistorySyncChunk",
@@ -49,7 +50,6 @@ __d(
     "WAWebWamEnumMdBootstrapSource",
     "WAWebWamEnumWebcScenarioType",
     "WAWebWamMemoryStat",
-    "WAWebWamUtils",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "cr:17219",
@@ -493,7 +493,9 @@ __d(
                     (o(
                       "WAWebMetricsAttributionActions",
                     ).stopAllHistorySyncAttributionTracking(),
-                      o("WAWebWamUtils").forceFlushAllWamAndQplBuffers(),
+                      o(
+                        "WAWebForceFlushWamBuffers",
+                      ).forceFlushAllWamAndQplBuffers(),
                       o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
                         "syncd critical data timeout exceeded, logging out",
                       ),
@@ -530,7 +532,9 @@ __d(
                           }),
                         yield o("WAAsyncSleep").asyncSleep(5e3));
                     } catch (e) {}
-                    (o("WAWebWamUtils").forceFlushAllWamAndQplBuffers(),
+                    (o(
+                      "WAWebForceFlushWamBuffers",
+                    ).forceFlushAllWamAndQplBuffers(),
                       o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
                         "history sync critical data timeout exceeded, logging out",
                       ),

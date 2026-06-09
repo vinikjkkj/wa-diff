@@ -30,15 +30,15 @@ __d(
             var u = o("WAWebWidFactory").createUserWidOrThrow(e),
               c = o("WAWebChatCollection").ChatCollection.get(u);
             if (c == null) throw r("err")("Couldn't find chat for number " + e);
-            yield o("WAWebEphemeralSyncResponse")._sendEphemeralSyncResponse(
-              u,
-              {
+            yield o("WAWebEphemeralSyncResponse")._sendEphemeralSyncResponse({
+              changes: {
                 duration: t,
                 settingTimestamp: n,
                 initiator: l,
                 disappearingModeTrigger: s,
               },
-            );
+              to: u,
+            });
           },
         )),
         s.apply(this, arguments)

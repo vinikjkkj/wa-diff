@@ -16,8 +16,8 @@ __d(
     "WAWebApiTextStatus",
     "WAWebBizBroadcastAudienceRefreshJob",
     "WAWebBizBroadcastCampaignCleanup",
-    "WAWebBizGatingUtils",
     "WAWebBotGating",
+    "WAWebCTWAGatingUtils",
     "WAWebCanonicalCredentialRecoveryJob",
     "WAWebCanonicalGating",
     "WAWebCleanUtmJob",
@@ -562,7 +562,7 @@ __d(
                                           .CLEAN_EXPIRED_UTM
                                       ? function () {
                                           return o(
-                                            "WAWebBizGatingUtils",
+                                            "WAWebCTWAGatingUtils",
                                           ).isUtmTrackingEnabled()
                                             ? o("WAWebCleanUtmJob")
                                                 .cleanExpiredUtmJob()

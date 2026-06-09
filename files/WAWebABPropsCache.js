@@ -18,59 +18,70 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 10,
-      c = new Map();
-    function d() {
+      u = null;
+    function c() {
+      if (!n("cr:4941")) return null;
+      var e = window.location.search;
+      if (u == null || u.search !== e) {
+        var t = new Map();
+        (new (n("cr:4941"))(e).forEach(function (e, n) {
+          t.has(n) || t.set(n, e);
+        }),
+          (u = { search: e, params: t }));
+      }
+      return u.params;
+    }
+    var d = 10,
+      m = new Map();
+    function p() {
       var e,
         t = r("err")("");
       return (e = t.stack) != null ? e : "";
     }
-    var m = new Map(),
-      p = new (o("WAResolvable").Resolvable)(),
-      _;
-    function f(e) {
+    var _ = new Map(),
+      f = new (o("WAResolvable").Resolvable)(),
+      g;
+    function h(e) {
       return (
-        _ == null &&
-          ((_ = {}),
+        g == null &&
+          ((g = {}),
           Object.keys(o("WAWebABPropsConfigs").ABPropConfigs).forEach(
             function (e) {
               var t = o("WAWebABPropsConfigs").ABPropConfigs[e],
                 n = t[0];
-              _[n] = e;
+              g[n] = e;
             },
           ),
-          Object.freeze(_)),
-        _[e]
+          Object.freeze(g)),
+        g[e]
       );
     }
-    function g() {
-      (o("WAWebABProps").setGetABPropConfigValueImpl(h),
+    function y() {
+      (o("WAWebABProps").setGetABPropConfigValueImpl(C),
         o("WAWebGroupABPropsCache").initializeGroupABPropsCache());
     }
-    function h(t) {
-      var a = o("WAWebABPropsConfigs").ABPropConfigs[t],
-        i = a[0],
-        l = a[1],
-        m = a[2],
-        _ = a[3],
-        f = m;
-      if (
-        !r("gkx")("26258") &&
-        !o("WAWebRuntimeEnvironmentUtils").isWorker() &&
-        n("cr:4941")
-      ) {
-        var g = new (n("cr:4941"))(window.location.search),
-          h = g.get(t);
-        if (h != null && h !== "")
-          return o("WAWebABPropsParseConfigValue").parseConfigValue(h, l, f);
+    function C(t) {
+      var n = o("WAWebABPropsConfigs").ABPropConfigs[t],
+        a = n[0],
+        i = n[1],
+        l = n[2],
+        u = n[3],
+        _ = l;
+      if (!r("gkx")("26258") && !o("WAWebRuntimeEnvironmentUtils").isWorker()) {
+        var g = c();
+        if (g) {
+          var h = g.get(t);
+          if (h != null && h !== "")
+            return o("WAWebABPropsParseConfigValue").parseConfigValue(h, i, _);
+        }
       }
-      if (!p.resolveWasCalled()) {
+      if (!f.resolveWasCalled()) {
         if (!o("WAWebABProps").usedBeforeInitializationConfigs.includes(t)) {
           var y,
-            b = (y = c.get(t)) != null ? y : 0;
-          b < u &&
-            (c.set(t, b + 1),
-            b === 0 && !r("gkx")("17264")
+            C = (y = m.get(t)) != null ? y : 0;
+          C < d &&
+            (m.set(t, C + 1),
+            C === 0 && !r("gkx")("17264")
               ? o("WALogger").WARN(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -79,7 +90,7 @@ __d(
                       "",
                     ])),
                   t,
-                  d(),
+                  p(),
                 )
               : o("WALogger").WARN(
                   s ||
@@ -90,14 +101,14 @@ __d(
                   t,
                 ));
         }
-        return f;
+        return _;
       }
-      return C(i);
+      return v(a);
     }
-    function y(e) {
-      if (m.get(e) && !o("WAWebABPropsGlobals").accessedConfigs.has(e)) {
+    function b(e) {
+      if (_.get(e) && !o("WAWebABPropsGlobals").accessedConfigs.has(e)) {
         var t,
-          n = (t = m.get(e)) == null ? void 0 : t.configExpoKey;
+          n = (t = _.get(e)) == null ? void 0 : t.configExpoKey;
         (n != null &&
           !o("WAWebABPropsGlobals").exposureKeys.has(n) &&
           (o("WAWebABPropsGlobals").exposureKeys.add(n),
@@ -108,9 +119,9 @@ __d(
           }, 0));
       }
     }
-    function C(e) {
-      y(e);
-      var t = m.get(e);
+    function v(e) {
+      b(e);
+      var t = _.get(e);
       return !r("gkx")("26258") &&
         (t == null ? void 0 : t.overriddenConfigValue) != null
         ? t.overriddenConfigValue
@@ -118,16 +129,16 @@ __d(
           ? void 0
           : t.configValue;
     }
-    function b() {
-      return Array.from(m.values());
+    function S() {
+      return Array.from(_.values());
     }
-    function v() {
-      return m;
+    function R() {
+      return _;
     }
-    function S(e) {
+    function L(e) {
       var t = !1;
       (e.forEach(function (e) {
-        (m.set(e.configCode, e),
+        (_.set(e.configCode, e),
           e.hasAccessed === !0 &&
             (o("WAWebABPropsGlobals").accessedConfigs.add(e.configCode),
             e.configExpoKey != null &&
@@ -135,8 +146,8 @@ __d(
               (t = !0))));
       }),
         t && o("WAWebABPropsGlobals").updateGlobalExpoKey(),
-        p.resolve());
-      var n = v(),
+        f.resolve());
+      var n = R(),
         r = Array.from(n.values()).map(function (e) {
           return { configCode: e.configCode, configValue: e.configValue };
         });
@@ -145,27 +156,27 @@ __d(
         urlSearch: window.location.search,
       });
     }
-    function R() {
-      return p.promise;
-    }
-    function L() {
-      return p.resolveWasCalled();
-    }
     function E() {
-      (m.clear(),
+      return f.promise;
+    }
+    function k() {
+      return f.resolveWasCalled();
+    }
+    function I() {
+      (_.clear(),
         o("WAWebABPropsGlobals").accessedConfigs.clear(),
         o("WAWebABPropsGlobals").exposureKeys.clear(),
-        (p = new (o("WAResolvable").Resolvable)()));
+        (f = new (o("WAResolvable").Resolvable)()));
     }
-    ((l.getABPropConfigNameFromCode = f),
-      (l.initializeABPropsCache = g),
-      (l.saveExposure = y),
-      (l.getAllABPropConfigs = b),
-      (l.getAllABPropsMap = v),
-      (l.bulkCreateOrReplaceABPropConfigs = S),
-      (l.waitForABPropConfigsReady = R),
-      (l.isABPropConfigsReady = L),
-      (l.clearABPropConfigs = E));
+    ((l.getABPropConfigNameFromCode = h),
+      (l.initializeABPropsCache = y),
+      (l.saveExposure = b),
+      (l.getAllABPropConfigs = S),
+      (l.getAllABPropsMap = R),
+      (l.bulkCreateOrReplaceABPropConfigs = L),
+      (l.waitForABPropConfigsReady = E),
+      (l.isABPropConfigsReady = k),
+      (l.clearABPropConfigs = I));
   },
   98,
 );

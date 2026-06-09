@@ -57,6 +57,7 @@ __d(
               r("showDoodle"),
               r("chatThemeId"),
               r("colorSchemeId"),
+              r("stockWallpaperImageId"),
               r("capiThreadControl"),
               r("capiCallingPermissionType"),
               r("createdLocally"),

@@ -53,6 +53,7 @@ __d(
               hasProfilePicture: [13, e.TYPES.BOOLEAN],
               isAdmin: [29, e.TYPES.BOOLEAN],
               isGroupHistoryToggledOn: [22, e.TYPES.BOOLEAN],
+              isTeeBotNoticeOnly: [30, e.TYPES.BOOLEAN],
               potentialTotalSuggestionCount: [10, e.TYPES.INTEGER],
               recentlyContactedIndex: [5, e.TYPES.INTEGER],
               selectedMemberCnt: [14, e.TYPES.INTEGER],

@@ -2,7 +2,6 @@ __d(
   "WAWebUserPrefsCTWA",
   [
     "WATimeUtils",
-    "WAWebBizGatingUtils",
     "WAWebCTWAGatingUtils",
     "WAWebCommonAdEntryPointsTypes",
     "WAWebCommonAdsTypes",
@@ -103,7 +102,8 @@ __d(
       }
     }
     function _() {
-      if (!o("WAWebBizGatingUtils").adAccountTokenStoringEnabled()) return null;
+      if (!o("WAWebCTWAGatingUtils").adAccountTokenStoringEnabled())
+        return null;
       var e = r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").KEYS.AD_ACCOUNT_TOKEN,
         ),
@@ -120,7 +120,7 @@ __d(
           o("WAWebCommonAdsTypes").asAdAccountToken(e, t, "WAA", p(n)));
     }
     function f(e) {
-      o("WAWebBizGatingUtils").adAccountTokenStoringEnabled() &&
+      o("WAWebCTWAGatingUtils").adAccountTokenStoringEnabled() &&
         (r("WAWebUserPrefsStore").setUser(
           o("WAWebUserPrefsKeys").KEYS.AD_ACCOUNT_TOKEN,
           e.token,

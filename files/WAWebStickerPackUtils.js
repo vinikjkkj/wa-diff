@@ -1,6 +1,7 @@
 __d(
   "WAWebStickerPackUtils",
   [
+    "Promise",
     "WABlobToArrayBuffer",
     "WAMediaCalculateFilehash",
     "WAWebApiParse",
@@ -15,12 +16,13 @@ __d(
     "fflate",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = o(
                 "WAWebRecentStickerCollectionMd",
@@ -60,15 +62,15 @@ __d(
             stickerPackStickers: r,
           };
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.stickers,
             a = t.trayIconFileName,
             i = null;
@@ -124,15 +126,15 @@ __d(
           for (var m of Object.entries(u)) yield* d();
           return c;
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t, n, r, o, a, i, l, s, u) {
-      return m.apply(this, arguments);
+    function m(e, t, n, r, o, a, i, l, s, u) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i, l, s, u, c) {
             (i === void 0 && (i = o("WAWebStickerPackConstants").PADDING),
               l === void 0 &&
@@ -157,10 +159,10 @@ __d(
             }
           },
         )),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
+    function _(e) {
       if (o("WAWebApiParse").isStickerPackURL(e)) {
         var t = new URL(e),
           n = t.pathname.split("/"),
@@ -170,12 +172,12 @@ __d(
         return i;
       }
     }
-    function _(e, t, n, r, o) {
-      return f.apply(this, arguments);
+    function f(e, t, n, r, o) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             (t === void 0 &&
               (t = o("WAWebStickerPackConstants").THUMBNAIL_LENGTH),
@@ -193,21 +195,21 @@ __d(
               }),
               u = Math.min(s.length, e != null ? e : 4),
               c = o("WAWebStickerPackConstants").PADDING,
-              m = o("WAWebStickerPackConstants").PADDING;
+              d = o("WAWebStickerPackConstants").PADDING;
             switch (u) {
               case 1:
-                ((c = t / 2 - r / 2), (m = n / 2 - a / 2));
+                ((c = t / 2 - r / 2), (d = n / 2 - a / 2));
                 break;
               case 2:
-                m = n / 2 - a / 2;
+                d = n / 2 - a / 2;
                 break;
             }
             return (
-              yield d(
+              yield m(
                 s,
                 u,
                 c,
-                m,
+                d,
                 l,
                 o("WAWebStickerPackConstants").PADDING,
                 t,
@@ -219,13 +221,107 @@ __d(
             );
           },
         )),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.compressedRecentStickers = e),
-      (l.decompressStickerPackMedia = u),
-      (l.extractStickerPackIdFromUrl = p),
-      (l.generateStickerPackThumbnail = _));
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          r === void 0 &&
+            (r = o("WAWebStickerPackConstants").STICKER_GRID_COUNT);
+          var a = o("WAWebCanvasUtils").createCanvas(
+              o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
+              o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
+            ),
+            i = a.getContext("2d"),
+            l = t.slice(0, r);
+          if (l.length < r) {
+            var s = yield C(l[0]);
+            return (
+              s != null &&
+                i.drawImage(
+                  s,
+                  0,
+                  0,
+                  o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
+                  o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
+                ),
+              a
+            );
+          }
+          var u = yield (e || (e = n("Promise"))).all(
+            l.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e, t) {
+                    var n = yield C(e);
+                    return n != null ? { image: n, index: t } : null;
+                  },
+                );
+                return function (t, n) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+          for (var c of u)
+            if (c != null) {
+              var d = c.image,
+                m = c.index,
+                p = m % 2,
+                _ = Math.floor(m / 2),
+                f =
+                  o("WAWebStickerPackConstants").PADDING +
+                  p *
+                    (o("WAWebStickerPackConstants").IMAGE_LENGTH +
+                      o("WAWebStickerPackConstants").GRID_GAP),
+                g =
+                  o("WAWebStickerPackConstants").PADDING +
+                  _ *
+                    (o("WAWebStickerPackConstants").IMAGE_WIDTH +
+                      o("WAWebStickerPackConstants").GRID_GAP);
+              i.drawImage(
+                d,
+                f,
+                g,
+                o("WAWebStickerPackConstants").IMAGE_LENGTH,
+                o("WAWebStickerPackConstants").IMAGE_WIDTH,
+              );
+            }
+          return a;
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e == null) return null;
+          var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+            e.mediaData.filehash,
+          );
+          if (t == null) return null;
+          var n = window.URL.createObjectURL(t);
+          try {
+            return yield o("WAWebMediaLoad").loadImage(n);
+          } finally {
+            window.URL.revokeObjectURL(n);
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    ((l.compressedRecentStickers = s),
+      (l.decompressStickerPackMedia = c),
+      (l.extractStickerPackIdFromUrl = _),
+      (l.generateStickerPackThumbnail = f),
+      (l.generateStickerGridThumbnail = h));
   },
   98,
 );

@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WASmaxInBizSettingsEnums",
-    "WAWebBizGatingUtils",
     "WAWebCTWABizDataSharingJob",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
@@ -80,13 +79,13 @@ __d(
             ? !0
             : t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false
               ? o(
-                  "WAWebBizGatingUtils",
+                  "WAWebCTWAGatingUtils",
                 ).isCTWA3pdOptOutCounterOptimizationEnabled()
                 ? o(
                     "WAWebUserPrefsGeneral",
                   ).getCTWADataSharingOptOutDisclosureShownCount() <
                   o(
-                    "WAWebBizGatingUtils",
+                    "WAWebCTWAGatingUtils",
                   ).getCTWA3pdDataSharingMaxTimesShownForOptedOut()
                 : o(
                     "WAWebUserPrefsGeneral",
@@ -116,7 +115,7 @@ __d(
         return d(t) == null ||
           !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled() ||
           !o(
-            "WAWebBizGatingUtils",
+            "WAWebCTWAGatingUtils",
           ).showCTWA3pdDataSharingDisclosureOnThreadEntry()
           ? !1
           : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());

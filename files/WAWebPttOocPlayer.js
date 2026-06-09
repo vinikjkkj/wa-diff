@@ -1,14 +1,12 @@
 __d(
   "WAWebPttOocPlayer",
   [
-    "cx",
     "WANullthrows",
     "WAWebAudioFileIcon.react",
     "WAWebAudioStatusIcon.react",
     "WAWebChatEntryPoint",
     "WAWebChatGetters",
     "WAWebChatMessageSearch",
-    "WAWebClassnames",
     "WAWebCmd",
     "WAWebDetailImage.react",
     "WAWebElevatedPushNamesFlag",
@@ -24,7 +22,7 @@ __d(
     "WAWebPttOocMarquee",
     "WAWebPttPlayPauseButton.react",
     "WAWebPttPrefs",
-    "WAWebPttStatusIcon.react",
+    "WAWebPttStatusIconStyleable.react",
     "WAWebPttUseMsgAudioPlaybackController",
     "WAWebTabOrder",
     "WAWebThemeContext",
@@ -38,21 +36,21 @@ __d(
     "useWAWebModelValues",
     "useWAWebMsgValues",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react")),
-      c = e,
-      d = c.useCallback,
-      m = c.useContext,
-      p = c.useEffect,
-      _ = c.useRef,
-      f = c.useState,
-      g = 62,
-      h = 3,
-      y = 26,
-      C = 40,
-      b = 18,
-      v = {
+      s = e || (e = o("react")),
+      u = e,
+      c = u.useCallback,
+      d = u.useContext,
+      m = u.useEffect,
+      p = u.useRef,
+      _ = u.useState,
+      f = 62,
+      g = 3,
+      h = 26,
+      y = 40,
+      C = 18,
+      b = {
         senderButton: {
           maxWidth: "x193iq5w",
           height: "x5yr21d",
@@ -66,9 +64,13 @@ __d(
         },
         senderName: { color: "xmzmlnv", fontSize: "x1jchvi3", $$css: !0 },
       },
-      S = "_ak99",
-      R = "_ak9a";
-    function L() {
+      v = {
+        outOfChatBg: { fill: "xph03yc", $$css: !0 },
+        outOfChatIcon: { color: "xll8lwp", $$css: !0 },
+        forwardedBg: { fill: "xzp0ayt", $$css: !0 },
+        forwardedIcon: { color: "x17t9dm2", $$css: !0 },
+      };
+    function S() {
       var e = o("react-compiler-runtime").c(7),
         t;
       e[0] === Symbol.for("react.memo_cache_sentinel")
@@ -90,17 +92,17 @@ __d(
           (e[2] = a),
           (e[3] = i))
         : ((a = e[2]), (i = e[3])),
-        p(a, i));
+        m(a, i));
       var l = o(
           "WAWebPttUseMsgAudioPlaybackController",
         ).useMsgAudioPlaybackController(r),
-        s = E,
+        u = R,
         c;
       return (
         e[4] !== r || e[5] !== l
           ? ((c =
               r && l
-                ? u.jsx(k, { msg: r, playbackController: l, onPlayNext: s })
+                ? s.jsx(L, { msg: r, playbackController: l, onPlayNext: u })
                 : null),
             (e[4] = r),
             (e[5] = l),
@@ -109,10 +111,10 @@ __d(
         c
       );
     }
-    function E(e) {
+    function R(e) {
       o("WAWebPttPrefs").PttPrefs.outOfChatPlayerMessage = e;
     }
-    function k(e) {
+    function L(e) {
       var t = o("react-compiler-runtime").c(51),
         n = e.msg,
         a = e.playbackController,
@@ -125,7 +127,7 @@ __d(
           (t[0] = i))
         : (i = t[0]);
       var l = o("useWAWebMsgValues").useMsgValues(n.id, i),
-        s = l[0],
+        u = l[0],
         c = l[1],
         d;
       t[1] !== n
@@ -133,14 +135,14 @@ __d(
           (t[1] = n),
           (t[2] = d))
         : (d = t[2]);
-      var m = d,
+      var f = d,
         g = a.audio,
         h = a.pttPlaybackLogger,
-        y = N(n),
-        C = f(!g.paused),
-        b = C[0],
+        y = $(n),
+        C = _(!g.paused),
+        v = C[0],
         S = C[1],
-        R = _(!1),
+        R = p(!1),
         L;
       t[3] === Symbol.for("react.memo_cache_sentinel")
         ? ((L = function () {
@@ -148,62 +150,62 @@ __d(
           }),
           (t[3] = L))
         : (L = t[3]);
-      var E = L,
-        k;
+      var I = L,
+        T;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = function () {
-            E();
+        ? ((T = function () {
+            I();
           }),
-          (t[4] = k))
-        : (k = t[4]);
+          (t[4] = T))
+        : (T = t[4]);
       var D;
-      (t[5] !== n ? ((D = [n]), (t[5] = n), (t[6] = D)) : (D = t[6]), p(k, D));
-      var x;
+      (t[5] !== n ? ((D = [n]), (t[5] = n), (t[6] = D)) : (D = t[6]), m(T, D));
+      var P;
       t[7] !== g.paused
-        ? ((x = function () {
+        ? ((P = function () {
             return S(!g.paused);
           }),
           (t[7] = g.paused),
-          (t[8] = x))
-        : (x = t[8]);
-      var $ = x,
+          (t[8] = P))
+        : (P = t[8]);
+      var N = P,
         M;
-      (t[9] !== $
+      (t[9] !== N
         ? ((M = function () {
-            $();
+            N();
           }),
-          (t[9] = $),
+          (t[9] = N),
           (t[10] = M))
         : (M = t[10]),
         o("useWAWebListener").useListener(g, "playing", M));
       var w;
-      (t[11] !== m || t[12] !== h || t[13] !== y || t[14] !== $
+      (t[11] !== f || t[12] !== h || t[13] !== y || t[14] !== N
         ? ((w = function () {
-            ($(),
+            (N(),
               y &&
                 (h.markAsPlayedInOoc(),
                 R.current ||
                   ((R.current = !0),
                   o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.OOC_PLAYBACK,
-                    r("WANullthrows")(o("WAWebFrontendChatGetters").getKind(m)),
+                    r("WANullthrows")(o("WAWebFrontendChatGetters").getKind(f)),
                   ))));
           }),
-          (t[11] = m),
+          (t[11] = f),
           (t[12] = h),
           (t[13] = y),
-          (t[14] = $),
+          (t[14] = N),
           (t[15] = w))
         : (w = t[15]),
         o("useWAWebListener").useListener(g, "timeupdate", w),
-        o("useWAWebListener").useListener(g, "pause", $));
+        o("useWAWebListener").useListener(g, "pause", N));
       var A;
-      (t[16] !== y || t[17] !== $
+      (t[16] !== y || t[17] !== N
         ? ((A = function () {
-            ($(), y && E());
+            (N(), y && I());
           }),
           (t[16] = y),
-          (t[17] = $),
+          (t[17] = N),
           (t[18] = A))
         : (A = t[18]),
         o("useWAWebListener").useListener(g, "ended", A));
@@ -233,29 +235,29 @@ __d(
           (t[22] = g),
           (t[23] = B))
         : (B = t[23]),
-        o("useWAWebListener").useListener(m, "remove", B));
+        o("useWAWebListener").useListener(f, "remove", B));
       var W, q;
-      (t[24] !== s || t[25] !== g || t[26] !== c
+      (t[24] !== u || t[25] !== g || t[26] !== c
         ? ((W = function () {
-            (s || c) &&
+            (u || c) &&
               (g.pause(), o("WAWebPttPrefs").PttPrefs.closeOocPlayer());
           }),
-          (q = [s, c, g]),
-          (t[24] = s),
+          (q = [u, c, g]),
+          (t[24] = u),
           (t[25] = g),
           (t[26] = c),
           (t[27] = W),
           (t[28] = q))
         : ((W = t[27]), (q = t[28])),
-        p(W, q));
+        m(W, q));
       var U;
-      t[29] !== g || t[30] !== b || t[31] !== h
+      t[29] !== g || t[30] !== v || t[31] !== h
         ? ((U = function (t) {
-            (b ? (g.pause(), h.increaseOocPauseCount()) : g.play(),
+            (v ? (g.pause(), h.increaseOocPauseCount()) : g.play(),
               t.preventDefault());
           }),
           (t[29] = g),
-          (t[30] = b),
+          (t[30] = v),
           (t[31] = h),
           (t[32] = U))
         : (U = t[32]);
@@ -276,81 +278,81 @@ __d(
         : (H = t[35]);
       var G = H,
         z;
-      t[36] !== m || t[37] !== n.id || t[38] !== h
+      t[36] !== f || t[37] !== n.id || t[38] !== h
         ? ((z = function (t) {
             t.defaultPrevented ||
               (o("WAWebCmd").Cmd.openChatAt({
-                chat: m,
+                chat: f,
                 chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
                   .PttOocPlayer,
                 msgContext: o("WAWebChatMessageSearch").getSearchContext({
-                  chat: m,
+                  chat: f,
                   msgKey: n.id,
                 }),
               }),
               h.increaseOocClickToChatCount());
           }),
-          (t[36] = m),
+          (t[36] = f),
           (t[37] = n.id),
           (t[38] = h),
           (t[39] = z))
         : (z = t[39]);
       var j = z,
-        K = y && !s && !c,
+        K = y && !u && !c,
         Q;
       t[40] !== g ||
-      t[41] !== m ||
+      t[41] !== f ||
       t[42] !== G ||
       t[43] !== j ||
       t[44] !== V ||
-      t[45] !== b ||
+      t[45] !== v ||
       t[46] !== n ||
       t[47] !== K
         ? ((Q = K
-            ? u.jsxs("div", {
+            ? s.jsxs("div", {
                 className:
                   "x10l6tqk x12xzxwr x78zum5 xh8yej3 x1x0gksc x1xrx4lg xnj6ddq",
                 children: [
-                  u.jsx("div", {
+                  s.jsx("div", {
                     className: "xfvyar9 x5yr21d x78zum5 xl56j7k x6s0dn4",
-                    children: u.jsx(r("WAWebPttPlayPauseButton.react"), {
+                    children: s.jsx(r("WAWebPttPlayPauseButton.react"), {
                       onConfirm: V,
-                      paused: !b,
+                      paused: !v,
                       tabOrder: o("WAWebTabOrder").TAB_ORDER.PTT_OOC_BUTTON,
                       theme: "out-of-chat-playback",
                     }),
                   }),
-                  u.jsx("div", {
+                  s.jsx("div", {
                     className:
                       "xh8yej3 x5yr21d x6ikm8r x10wlt62 x78zum5 xl56j7k x6s0dn4 x1n2onr6",
-                    children: u.jsxs(r("WAWebUnstyledButton.react"), {
+                    children: s.jsxs(r("WAWebUnstyledButton.react"), {
                       dataTab: o("WAWebTabOrder").TAB_ORDER.PTT_OOC_BUTTON,
-                      xstyle: v.senderButton,
+                      xstyle: b.senderButton,
                       onClick: j,
                       children: [
-                        u.jsx(T, { msg: n }),
-                        u.jsx(I, { author: n.senderObj, chat: m }),
+                        s.jsx(k, { msg: n }),
+                        s.jsx(E, { author: n.senderObj, chat: f }),
                       ],
                     }),
                   }),
-                  u.jsx("div", {
+                  s.jsx("div", {
                     className: "xfvyar9 x5yr21d x78zum5 xl56j7k x6s0dn4",
-                    children: u.jsx(r("WAWebPttCloseButton.react"), {
+                    children: s.jsx(r("WAWebPttCloseButton.react"), {
                       onConfirm: G,
                       tabOrder: o("WAWebTabOrder").TAB_ORDER.PTT_OOC_BUTTON,
                       theme: "out-of-chat-playback",
                     }),
                   }),
-                  u.jsx(P, { audio: g, isPlaying: b }),
+                  s.jsx(x, { audio: g, isPlaying: v }),
                 ],
               })
             : null),
           (t[40] = g),
-          (t[41] = m),
+          (t[41] = f),
           (t[42] = G),
           (t[43] = j),
           (t[44] = V),
-          (t[45] = b),
+          (t[45] = v),
           (t[46] = n),
           (t[47] = K),
           (t[48] = Q))
@@ -358,7 +360,7 @@ __d(
       var X;
       return (
         t[49] !== Q
-          ? ((X = u.jsx(r("WAWebVelocityTransitionGroup"), {
+          ? ((X = s.jsx(r("WAWebVelocityTransitionGroup"), {
               transitionName: "ptt-out-of-chat",
               children: Q,
             })),
@@ -368,14 +370,14 @@ __d(
         X
       );
     }
-    function I(e) {
+    function E(e) {
       var t = o("react-compiler-runtime").c(26),
         n = e.author,
         a = e.chat,
         i = r("useWAWebMeasure")(),
         l = i[0],
-        s = i[1],
-        c = s.width,
+        u = i[1],
+        c = u.width,
         d = r("useWAWebMeasure")(),
         m = d[0],
         p = d[1],
@@ -391,11 +393,11 @@ __d(
       if (o("WAWebChatGetters").getIsGroup(a)) {
         var y;
         (t[2] !== n || t[3] !== a
-          ? ((y = u.jsx(o("WAWebName.react").ContactAndGroupName, {
+          ? ((y = s.jsx(o("WAWebName.react").ContactAndGroupName, {
               contact: n,
               chat: a,
               elevatedPushNamesEnabled: !0,
-              xstyle: v.senderName,
+              xstyle: b.senderName,
             })),
             (t[2] = n),
             (t[3] = a),
@@ -405,10 +407,10 @@ __d(
       } else if (o("WAWebChatGetters").getIsNewsletter(a)) {
         var C;
         (t[5] !== a || t[6] !== g
-          ? ((C = u.jsx(o("WAWebNewsletterName.react").NewsletterName, {
+          ? ((C = s.jsx(o("WAWebNewsletterName.react").NewsletterName, {
               chat: a,
               elevatedPushNamesEnabled: g,
-              xstyle: v.senderName,
+              xstyle: b.senderName,
             })),
             (t[5] = a),
             (t[6] = g),
@@ -416,19 +418,19 @@ __d(
           : (C = t[7]),
           (h = C));
       } else {
-        var b;
+        var v;
         (t[8] !== n || t[9] !== g
-          ? ((b = u.jsx(o("WAWebName.react").Name, {
+          ? ((v = s.jsx(o("WAWebName.react").Name, {
               contact: n,
               useShortName: !0,
-              xstyle: v.senderName,
+              xstyle: b.senderName,
               elevatedPushNamesEnabled: g,
             })),
             (t[8] = n),
             (t[9] = g),
-            (t[10] = b))
-          : (b = t[10]),
-          (h = b));
+            (t[10] = v))
+          : (v = t[10]),
+          (h = v));
       }
       var S = _ > c,
         R;
@@ -442,7 +444,7 @@ __d(
         : (L = t[12]);
       var E;
       t[13] !== m || t[14] !== h
-        ? ((E = u.jsx(
+        ? ((E = s.jsx(
             "div",
             babelHelpers.extends({ ref: m }, L, { children: h }),
           )),
@@ -452,7 +454,7 @@ __d(
         : (E = t[15]);
       var k;
       t[16] !== l || t[17] !== E
-        ? ((k = u.jsx(
+        ? ((k = s.jsx(
             "div",
             babelHelpers.extends({ ref: l }, R, { children: E }),
           )),
@@ -470,10 +472,10 @@ __d(
         : (I = t[19]);
       var T;
       t[20] !== h || t[21] !== S
-        ? ((T = u.jsx(
+        ? ((T = s.jsx(
             "div",
             babelHelpers.extends({}, I, {
-              children: S ? u.jsx(r("WAWebPttOocMarquee"), { children: h }) : h,
+              children: S ? s.jsx(r("WAWebPttOocMarquee"), { children: h }) : h,
             }),
           )),
           (t[20] = h),
@@ -483,7 +485,7 @@ __d(
       var D;
       return (
         t[23] !== k || t[24] !== T
-          ? ((D = u.jsxs(u.Fragment, { children: [k, T] })),
+          ? ((D = s.jsxs(s.Fragment, { children: [k, T] })),
             (t[23] = k),
             (t[24] = T),
             (t[25] = D))
@@ -491,7 +493,7 @@ __d(
         D
       );
     }
-    function T(e) {
+    function k(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.msg,
         r;
@@ -506,19 +508,19 @@ __d(
         i = a[0],
         l = a[1];
       if (i || l) {
-        var s;
+        var u;
         return (
           t[1] !== n
-            ? ((s = u.jsx(D, { msg: n })), (t[1] = n), (t[2] = s))
-            : (s = t[2]),
-          s
+            ? ((u = s.jsx(I, { msg: n })), (t[1] = n), (t[2] = u))
+            : (u = t[2]),
+          u
         );
       }
       if (n.isForwarded) {
         var c;
         return (
           t[3] === Symbol.for("react.memo_cache_sentinel")
-            ? ((c = u.jsx(x, {})), (t[3] = c))
+            ? ((c = s.jsx(T, {})), (t[3] = c))
             : (c = t[3]),
           c
         );
@@ -526,13 +528,13 @@ __d(
       var d;
       return (
         t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = u.jsx($, {})), (t[4] = d))
+          ? ((d = s.jsx(D, {})), (t[4] = d))
           : (d = t[4]),
         d
       );
     }
-    function D(e) {
-      var t = o("react-compiler-runtime").c(10),
+    function I(e) {
+      var t = o("react-compiler-runtime").c(11),
         n = e.msg,
         r;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -545,9 +547,9 @@ __d(
       var a = o("useWAWebMsgValues").useMsgValues(n.id, r),
         i = a[0],
         l = a[1],
-        s =
+        u =
           n.type === "ptt" || l
-            ? o("WAWebPttStatusIcon.react").PttStatusIcon
+            ? o("WAWebPttStatusIconStyleable.react").PttStatusIconStyleable
             : o("WAWebAudioStatusIcon.react").AudioStatusIcon,
         c;
       t[1] === Symbol.for("react.memo_cache_sentinel")
@@ -559,68 +561,81 @@ __d(
         : (c = t[1]);
       var d;
       t[2] !== i
-        ? ((d = u.jsx(o("WAWebDetailImage.react").DetailImage, {
+        ? ((d = s.jsx(o("WAWebDetailImage.react").DetailImage, {
             id: i,
-            size: C,
+            size: y,
           })),
           (t[2] = i),
           (t[3] = d))
         : (d = t[3]);
       var m;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            "x11uqc5h x10l6tqk xuivejd xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x9hgfsb",
-            S,
-          )),
+        ? ((m = {
+            className:
+              "x11uqc5h x10l6tqk xuivejd xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x9hgfsb",
+          }),
           (t[4] = m))
         : (m = t[4]);
       var p;
-      t[5] !== s
-        ? ((p = u.jsx("span", {
-            className: m,
-            children: u.jsx(s, { width: y, height: y }),
-          })),
-          (t[5] = s),
-          (t[6] = p))
-        : (p = t[6]);
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = { background: v.outOfChatBg, primary: v.outOfChatIcon }),
+          (t[5] = p))
+        : (p = t[5]);
       var _;
+      t[6] !== u
+        ? ((_ = s.jsx(
+            "span",
+            babelHelpers.extends({}, m, {
+              children: s.jsx(u, { width: h, height: h, innerStyles: p }),
+            }),
+          )),
+          (t[6] = u),
+          (t[7] = _))
+        : (_ = t[7]);
+      var f;
       return (
-        t[7] !== d || t[8] !== p
-          ? ((_ = u.jsxs(
+        t[8] !== d || t[9] !== _
+          ? ((f = s.jsxs(
               "div",
-              babelHelpers.extends({}, c, { children: [d, p] }),
+              babelHelpers.extends({}, c, { children: [d, _] }),
             )),
-            (t[7] = d),
-            (t[8] = p),
-            (t[9] = _))
-          : (_ = t[9]),
-        _
+            (t[8] = d),
+            (t[9] = _),
+            (t[10] = f))
+          : (f = t[10]),
+        f
       );
     }
-    function x() {
-      return u.jsx("div", {
+    function T() {
+      return s.jsx("div", {
         className:
           "x14iifvp x100vrsf x1vqgdyp x1fns5xo x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6 xvs2etk xg3wpu6 x1jwbhkm xgg4q86 x6ikm8r x10wlt62 x1aqdfop",
-        children: u.jsx(o("WAWebPttStatusIcon.react").PttStatusIcon, {
-          width: 20,
-          height: 20,
-          className_DONOTUSE: R,
-        }),
+        children: s.jsx(
+          o("WAWebPttStatusIconStyleable.react").PttStatusIconStyleable,
+          {
+            width: 20,
+            height: 20,
+            innerStyles: {
+              background: v.forwardedBg,
+              primary: v.forwardedIcon,
+            },
+          },
+        ),
       });
     }
-    x.displayName = x.name + " [from " + i.id + "]";
-    function $() {
-      return u.jsx("div", {
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D() {
+      return s.jsx("div", {
         className:
           "x14iifvp x100vrsf x1vqgdyp x1fns5xo x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6 xvs2etk xg3wpu6 x1jwbhkm xgg4q86 x6ikm8r x10wlt62",
-        children: u.jsx(o("WAWebAudioFileIcon.react").AudioFileIcon, {
-          width: C,
-          height: C,
+        children: s.jsx(o("WAWebAudioFileIcon.react").AudioFileIcon, {
+          width: y,
+          height: y,
         }),
       });
     }
-    $.displayName = $.name + " [from " + i.id + "]";
-    function P(e) {
+    D.displayName = D.name + " [from " + i.id + "]";
+    function x(e) {
       var t = o("react-compiler-runtime").c(15),
         n = e.audio,
         a = e.isPlaying,
@@ -630,21 +645,21 @@ __d(
           (t[0] = n),
           (t[1] = i))
         : (i = t[1]);
-      var l = f(i),
-        s = l[0],
+      var l = _(i),
+        u = l[0],
         c = l[1],
-        d;
+        m;
       t[2] !== n
-        ? ((d = function () {
+        ? ((m = function () {
             c(o("WAWebPttCalculateAudioProgress").calculateAudioProgress(n));
           }),
           (t[2] = n),
-          (t[3] = d))
-        : (d = t[3]);
-      var p = d,
-        _;
-      (t[4] !== a ? ((_ = { active: a }), (t[4] = a), (t[5] = _)) : (_ = t[5]),
-        r("useWAWebAnimationFrames")(p, _),
+          (t[3] = m))
+        : (m = t[3]);
+      var p = m,
+        f;
+      (t[4] !== a ? ((f = { active: a }), (t[4] = a), (t[5] = f)) : (f = t[5]),
+        r("useWAWebAnimationFrames")(p, f),
         o("useWAWebListener").useListener(n, "timeupdate", p));
       var g;
       (t[6] === Symbol.for("react.memo_cache_sentinel")
@@ -654,7 +669,7 @@ __d(
           (t[6] = g))
         : (g = t[6]),
         o("useWAWebListener").useListener(n, "ended", g));
-      var h = m(o("WAWebThemeContext").ThemeContext),
+      var h = d(o("WAWebThemeContext").ThemeContext),
         y = h.theme,
         C;
       t[7] === Symbol.for("react.memo_cache_sentinel")
@@ -671,7 +686,7 @@ __d(
           (t[8] = y),
           (t[9] = b))
         : (b = t[9]);
-      var v = "translateX(" + (s * 100 - 100) + "%)",
+      var v = "translateX(" + (u * 100 - 100) + "%)",
         S;
       t[10] !== v
         ? ((S = { transform: v }), (t[10] = v), (t[11] = S))
@@ -679,10 +694,10 @@ __d(
       var R;
       return (
         t[12] !== b || t[13] !== S
-          ? ((R = u.jsx(
+          ? ((R = s.jsx(
               "div",
               babelHelpers.extends({}, C, {
-                children: u.jsx("div", { className: b, style: S }),
+                children: s.jsx("div", { className: b, style: S }),
               }),
             )),
             (t[12] = b),
@@ -692,7 +707,7 @@ __d(
         R
       );
     }
-    function N(e) {
+    function $(e) {
       var t = o("react-compiler-runtime").c(4),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -718,7 +733,7 @@ __d(
         c = u.active;
       return !a && !c;
     }
-    l.default = L;
+    l.default = S;
   },
   98,
 );

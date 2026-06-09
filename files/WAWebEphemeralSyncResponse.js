@@ -230,103 +230,104 @@ __d(
       [1e3 * 60 * 3, 1e3 * 60 * 15, 1 / 0],
       { resetInterval: o("WATimeUtils").DAY_SECONDS },
     );
-    function w(e, t, n, r) {
+    function w(e) {
       return A.apply(this, arguments);
     }
     function A() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i;
-            if ((D(), !T() || !e.isUser() || e.isPSA() || e.isBot())) {
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] skip sending ESR: disabled or unsupported chat",
-                  ])),
-              );
-              return;
-            }
-            if (r("gkx")("26256")) {
-              var l;
-              window.esrCount = ((l = window.esrCount) != null ? l : 0) + 1;
-            }
-            var s = e.toString();
-            if (M.test(s)) {
-              var u;
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] Not sending ESR to ",
-                    " due to back off limit",
-                  ])),
-                e,
-              );
-              var c = (u = M.get(s)) == null ? void 0 : u.attempts;
-              c != null &&
-                o(
-                  "WAWebEphemeralSyncResponseWAM",
-                ).sendEphemeralSyncResponseSendErrorWamEvent({
-                  to: e,
-                  error: o("WAWebWamEnumEsrFailureReasonType")
-                    .ESR_FAILURE_REASON_TYPE.ATTEMPTS_EXHAUSTED,
-                  attempts: c,
-                });
-              return;
-            }
-            var d = t.duration,
-              m = t.initiator,
-              p = t.settingTimestamp,
-              h = o("WAWebUserPrefsMeUser").getMeUser(),
-              y = new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: e,
-                id: yield r("WAWebMsgKey").newId(),
-                participant: void 0,
-              }),
-              C = {
-                id: y,
-                from: h,
-                to: e,
-                t: o("WATimeUtils").unixTime(),
-                type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-                subtype: "ephemeral_sync_response",
-                ephemeralDuration: d,
-                ephemeralSettingTimestamp: p,
-                disappearingModeInitiator: m,
-              },
-              b = new (o("WAWebMsgModel").Msg)(C);
-            return (
-              o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] Sending out EPHEMERAL_SYNC_RESPONSE",
-                  ])),
-              ),
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.changes,
+            a = e.incomingMsgSettings,
+            i = e.localChatSettings,
+            l = e.to;
+          if ((D(), !T() || !l.isUser() || l.isPSA() || l.isBot())) {
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DMResolve] skip sending ESR: disabled or unsupported chat",
+                ])),
+            );
+            return;
+          }
+          if (r("gkx")("26256")) {
+            var s;
+            window.esrCount = ((s = window.esrCount) != null ? s : 0) + 1;
+          }
+          var u = l.toString();
+          if (M.test(u)) {
+            var c;
+            o("WALogger").LOG(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DMResolve] Not sending ESR to ",
+                  " due to back off limit",
+                ])),
+              l,
+            );
+            var d = (c = M.get(u)) == null ? void 0 : c.attempts;
+            d != null &&
               o(
                 "WAWebEphemeralSyncResponseWAM",
-              ).sendEphemeralSyncResponseSendWamEvent({
-                to: e,
-                changes: t,
-                incomingMsgSettings: n,
-                localChatSettings: a,
-                attempts: (i = M.get(s)) == null ? void 0 : i.attempts,
-              }),
-              o("WAWebOrchestratorNonPersistedJob")
-                .createNonPersistedJob(
-                  "sendMessage",
-                  function () {
-                    return o("WAWebSendMsgRecordAction").sendMsgRecord(b);
-                  },
-                  {
-                    priority: o("WAJobOrchestratorTypes").JOB_PRIORITY
-                      .UI_ACTION,
-                  },
-                )
-                .waitUntilCompleted()
-            );
-          },
-        )),
+              ).sendEphemeralSyncResponseSendErrorWamEvent({
+                to: l,
+                error: o("WAWebWamEnumEsrFailureReasonType")
+                  .ESR_FAILURE_REASON_TYPE.ATTEMPTS_EXHAUSTED,
+                attempts: d,
+              });
+            return;
+          }
+          var m = n.duration,
+            p = n.initiator,
+            h = n.settingTimestamp,
+            y = o("WAWebUserPrefsMeUser").getMeUser(),
+            C = new (r("WAWebMsgKey"))({
+              fromMe: !0,
+              remote: l,
+              id: yield r("WAWebMsgKey").newId(),
+              participant: void 0,
+            }),
+            b = {
+              id: C,
+              from: y,
+              to: l,
+              t: o("WATimeUtils").unixTime(),
+              type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+              subtype: "ephemeral_sync_response",
+              ephemeralDuration: m,
+              ephemeralSettingTimestamp: h,
+              disappearingModeInitiator: p,
+            },
+            v = new (o("WAWebMsgModel").Msg)(b);
+          return (
+            o("WALogger").LOG(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DMResolve] Sending out EPHEMERAL_SYNC_RESPONSE",
+                ])),
+            ),
+            o(
+              "WAWebEphemeralSyncResponseWAM",
+            ).sendEphemeralSyncResponseSendWamEvent({
+              to: l,
+              changes: n,
+              incomingMsgSettings: a,
+              localChatSettings: i,
+              attempts: (t = M.get(u)) == null ? void 0 : t.attempts,
+            }),
+            o("WAWebOrchestratorNonPersistedJob")
+              .createNonPersistedJob(
+                "sendMessage",
+                function () {
+                  return o("WAWebSendMsgRecordAction").sendMsgRecord(v);
+                },
+                {
+                  priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
+                },
+              )
+              .waitUntilCompleted()
+          );
+        })),
         A.apply(this, arguments)
       );
     }
@@ -503,7 +504,12 @@ __d(
                 d = (c = r == null ? void 0 : r.duration) != null ? c : 0;
               (i.duration !== d &&
                 (x(e), O(r == null ? void 0 : r.duration, t)),
-                w(e.from, i, r, a));
+                w({
+                  changes: i,
+                  incomingMsgSettings: r,
+                  localChatSettings: a,
+                  to: e.from,
+                }));
             }
           }
         })),

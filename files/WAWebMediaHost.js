@@ -78,7 +78,9 @@ __d(
         ? o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO
         : e === o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT
           ? o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE
-          : e;
+          : e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_STICKER_PACK
+            ? o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER_PACK
+            : e;
     }
     function m(e) {
       return e === "ptv"

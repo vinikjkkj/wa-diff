@@ -21,7 +21,6 @@ __d(
     "WAWebChatGetters",
     "WAWebCmd",
     "WAWebCommonMsgUtils",
-    "WAWebCompactMapString",
     "WAWebConnModel",
     "WAWebContactCollection",
     "WAWebDBUpdateMessageTable",
@@ -56,7 +55,6 @@ __d(
     "WAWebSuspendedGroupMediaDownloadFailureModal.react",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
-    "WAWebVcardParsingUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebViewOnceState",
@@ -932,31 +930,6 @@ __d(
               (!o("WAWebFrontendMsgGetters").getHasTemplateButtons(this) &&
                 this.type !== o("WAWebMsgType").MSG_TYPE.TEMPLATE_BUTTON_REPLY)
             );
-          }),
-          (i.getVcardWids = function () {
-            return this.type !== o("WAWebMsgType").MSG_TYPE.VCARD
-              ? null
-              : o("WAWebVcardParsingUtils").vcardAllWids(
-                  o("WAWebMsgGetters").getVcard(this),
-                );
-          }),
-          (i.getMultiVcardWids = function () {
-            if (this.type !== o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)
-              return null;
-            var e = o("WAWebMsgGetters").getVcardList(this),
-              t = r("WAWebCompactMapString")(e, function (e) {
-                return e.vcard;
-              })
-                .map(function (e) {
-                  return o("WAWebVcardParsingUtils").parseMultiVcard(e);
-                })
-                .flat(),
-              n = t
-                .map(function (e) {
-                  return o("WAWebVcardParsingUtils").vcardAllWids(e);
-                })
-                .flat();
-            return Array.from(new Set(n));
           }),
           (i.resumeRemoteUpload = function () {
             return o("WAWebMsgGetters").getIsNewsletterMsg(this)

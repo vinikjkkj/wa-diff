@@ -107,7 +107,13 @@ __d(
           .sendLogs("wam_falco_bridge_error", { sampling: 0.1 });
       }
     }
-    ((l.maybeSetTraceIdForShadowLogging = m), (l.logEventToFalcoBridge = _));
+    function f() {
+      (o("WAWebCanonicalWamFalcoBuffer").flushCanonicalWamFalcoBuffer(),
+        o("WAWebFalcoEventQueue").drainFalcoQueue());
+    }
+    ((l.maybeSetTraceIdForShadowLogging = m),
+      (l.logEventToFalcoBridge = _),
+      (l.flushFalcoForLogout = f));
   },
   98,
 );

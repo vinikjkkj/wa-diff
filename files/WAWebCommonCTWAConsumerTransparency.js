@@ -1,7 +1,7 @@
 __d(
   "WAWebCommonCTWAConsumerTransparency",
   [
-    "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebCommonCTWADataSharing",
     "WAWebConsumerTransparencyInfoIconModel",
     "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
@@ -19,9 +19,13 @@ __d(
     }
     function s() {
       return (
-        !o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiIndiaEnabled() &&
-        (o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiRowEnabled() ||
-          o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiBrazilEnabled())
+        !o(
+          "WAWebCTWAGatingUtils",
+        ).isUpdatedConsumerDisclosureUiIndiaEnabled() &&
+        (o("WAWebCTWAGatingUtils").isUpdatedConsumerDisclosureUiRowEnabled() ||
+          o(
+            "WAWebCTWAGatingUtils",
+          ).isUpdatedConsumerDisclosureUiBrazilEnabled())
       );
     }
     function u(e, t, n) {

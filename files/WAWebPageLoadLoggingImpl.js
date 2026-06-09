@@ -8,6 +8,7 @@ __d(
     "WAWebDeviceFeatures",
     "WAWebEncryptedRid",
     "WAWebEnvironment",
+    "WAWebForceFlushWamBuffers",
     "WAWebPageLoadLogging",
     "WAWebPageLoadTierStats",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -17,7 +18,6 @@ __d(
     "WAWebUserPrefsStore",
     "WAWebWaUlCookieUtils",
     "WAWebWamPageLoadReporter",
-    "WAWebWamUtils",
     "WAWebWebcPageLoad2WamEvent",
     "gkx",
     "qpl",
@@ -112,10 +112,11 @@ __d(
           o("WAWebABProps").getABPropConfigValue(
             "webc_page_load_early_commit_enabled",
           ) && o("WAWebWamPageLoadReporter").logWamPageLoad(),
-          self.setTimeout(
-            o("WAWebWamUtils").forceFlushAllWamAndQplBuffers,
-            1e4,
-          ));
+          self.setTimeout(function () {
+            return o("WAWebForceFlushWamBuffers").forceFlushAllWamAndQplBuffers(
+              !1,
+            );
+          }, 1e4));
       }
     }
     var R = new Set();

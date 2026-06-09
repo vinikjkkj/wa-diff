@@ -1,29 +1,26 @@
 __d(
   "WAWebPttAudioPlayedStatus",
   [
-    "cx",
     "WAWebAck",
     "WAWebAudioStatusIcon.react",
-    "WAWebClassnames",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
-    "WAWebPttStatusIcon.react",
+    "WAWebPttStatusIconStyleable.react",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react")),
-      c = {
-        incoming: "_akb1",
-        outgoing: "_akb2",
-        green: "_akb5",
-        blue: "_akb3",
-        gray: "_akb4",
-        icon: "_akb0",
+      s = e || (e = o("react")),
+      u = {
+        bgIncoming: { fill: "x1yd6tts", $$css: !0 },
+        bgOutgoing: { fill: "xnbcrc8", $$css: !0 },
+        iconBlue: { color: "x100la0o", $$css: !0 },
+        iconGray: { color: "x1bbjyja", $$css: !0 },
+        iconGreen: { color: "x1x3uvgb", $$css: !0 },
       };
-    function d(e) {
+    function c(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.msg,
         r;
@@ -38,57 +35,59 @@ __d(
       var a = o("useWAWebMsgValues").useMsgValues(e.msg.id, r),
         i = a[0],
         l = a[1],
-        s = a[2],
-        d = i === o("WAWebAck").ACK.PLAYED,
-        p;
-      if (t[1] !== l || t[2] !== d) {
-        var _;
-        ((p = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          c.icon,
-          m({ played: d, isOutgoingMsg: l }),
-          ((_ = {}), (_[c.outgoing] = l), (_[c.incoming] = !l), _),
-        )),
-          (t[1] = l),
-          (t[2] = d),
-          (t[3] = p));
-      } else p = t[3];
-      var f = p,
-        g;
+        c = a[2],
+        m = i === o("WAWebAck").ACK.PLAYED,
+        p = l ? u.bgOutgoing : u.bgIncoming,
+        _;
+      t[1] !== l || t[2] !== m
+        ? ((_ = d(m, l)), (t[1] = l), (t[2] = m), (t[3] = _))
+        : (_ = t[3]);
+      var f = _,
+        g,
+        h;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = { className: "xexx8yu xrw5ot4 x18d9i69 x7coems" }), (t[4] = g))
-        : (g = t[4]);
-      var h;
-      t[5] !== s || t[6] !== n.type
-        ? ((h =
-            n.type === "ptt" || s
-              ? u.jsx(o("WAWebPttStatusIcon.react").PttStatusIcon, {})
-              : u.jsx(o("WAWebAudioStatusIcon.react").AudioStatusIcon, {})),
-          (t[5] = s),
-          (t[6] = n.type),
-          (t[7] = h))
-        : (h = t[7]);
+        ? ((g = { className: "xexx8yu xrw5ot4 x18d9i69 x7coems" }),
+          (h = { className: "x11uqc5h x78zum5 x6s0dn4" }),
+          (t[4] = g),
+          (t[5] = h))
+        : ((g = t[4]), (h = t[5]));
       var y;
       return (
-        t[8] !== f || t[9] !== h
-          ? ((y = u.jsx(
+        t[6] !== c || t[7] !== p || t[8] !== n.type || t[9] !== f
+          ? ((y = s.jsx(
               "div",
               babelHelpers.extends({}, g, {
-                children: u.jsx("div", { className: f, children: h }),
+                children: s.jsx(
+                  "div",
+                  babelHelpers.extends({}, h, {
+                    children:
+                      n.type === "ptt" || c
+                        ? s.jsx(
+                            o("WAWebPttStatusIconStyleable.react")
+                              .PttStatusIconStyleable,
+                            { innerStyles: { background: p, primary: f } },
+                          )
+                        : s.jsx(
+                            o("WAWebAudioStatusIcon.react").AudioStatusIcon,
+                            { innerStyles: { background: p, primary: f } },
+                          ),
+                  }),
+                ),
               }),
             )),
-            (t[8] = f),
-            (t[9] = h),
+            (t[6] = c),
+            (t[7] = p),
+            (t[8] = n.type),
+            (t[9] = f),
             (t[10] = y))
           : (y = t[10]),
         y
       );
     }
-    function m(e) {
-      var t = e.isOutgoingMsg,
-        n = e.played;
-      return n ? c.blue : t ? c.gray : c.green;
+    function d(e, t) {
+      return e ? u.iconBlue : t ? u.iconGray : u.iconGreen;
     }
-    l.default = d;
+    l.default = c;
   },
   98,
 );

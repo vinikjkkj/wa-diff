@@ -7,7 +7,7 @@ __d(
     "WAPromiseTimeout",
     "WAResolvable",
     "WASmaxBizAccessTokenRequestSilentNonceRPC",
-    "WAWebBizGatingUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebQplFlowWrapper",
     "qpl",
   ],
@@ -22,9 +22,9 @@ __d(
     function _(e) {
       if (p != null && e !== !0) return p.promise;
       var t = o(
-          "WAWebBizGatingUtils",
+          "WAWebCTWAGatingUtils",
         ).adAccountTokenNoncePushWaitTimeoutSeconds(),
-        n = o("WAWebBizGatingUtils").adAccountTokenNonceMaxRetries();
+        n = o("WAWebCTWAGatingUtils").adAccountTokenNonceMaxRetries();
       (o("WAWebQplFlowWrapper").QPL.markerStart(c),
         o("WAWebQplFlowWrapper").QPL.markerAnnotate(c, {
           int: { fetch_nonce_max_retries: n, fetch_nonce_timeout: t },
@@ -167,8 +167,8 @@ __d(
     }
     function v() {
       return (
-        o("WAWebBizGatingUtils").adAccountTokenNoncePushWaitTimeoutSeconds() *
-        (o("WAWebBizGatingUtils").adAccountTokenNonceMaxRetries() + 1)
+        o("WAWebCTWAGatingUtils").adAccountTokenNoncePushWaitTimeoutSeconds() *
+        (o("WAWebCTWAGatingUtils").adAccountTokenNonceMaxRetries() + 1)
       );
     }
     ((l.fetchNonce = _),

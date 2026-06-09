@@ -31,6 +31,7 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgOpaqueData",
     "WAWebMsgType",
+    "WAWebMsgVcardUtils",
     "WAWebNewsletterMsgHistoryUtils",
     "WAWebNewsletterViewModeUIUtils",
     "WAWebNoop",
@@ -270,8 +271,8 @@ __d(
                 return e;
               var n =
                 t.type === o("WAWebMsgType").MSG_TYPE.VCARD
-                  ? t.getVcardWids()
-                  : t.getMultiVcardWids();
+                  ? o("WAWebMsgVcardUtils").getVcardWids(t)
+                  : o("WAWebMsgVcardUtils").getMultiVcardWids(t);
               if (n == null) return e;
               var r = n.filter(function (e) {
                 return o("WAWebLidMigrationUtils").toUserLid(e) == null;

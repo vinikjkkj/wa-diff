@@ -5,11 +5,11 @@ __d(
     "WANullthrows",
     "WAWebABPropsInternalNumber",
     "WAWebBizBroadcastFormatStatusText",
-    "WAWebBizGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotTypes",
     "WAWebBotUtils",
+    "WAWebCTWAGatingUtils",
     "WAWebChatAssignmentUtils",
     "WAWebClock",
     "WAWebCommonMsgTemplateParamsUtils",
@@ -1648,19 +1648,21 @@ __d(
         : s._(/*BTDS*/ "You unblocked this person");
     }
     function B() {
-      return o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiEuUkEnabled()
+      return o(
+        "WAWebCTWAGatingUtils",
+      ).isUpdatedConsumerDisclosureUiEuUkEnabled()
         ? s._(
             /*BTDS*/ "AI from Meta receives and generates messages for this business. Click to learn more.",
           )
-        : o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiBrazilEnabled()
+        : o("WAWebCTWAGatingUtils").isUpdatedConsumerDisclosureUiBrazilEnabled()
           ? s._(
               /*BTDS*/ "AI from Meta receives messages and may use them to improve AI quality and generate messages for this business. Click to learn more.",
             )
           : o(
-                "WAWebBizGatingUtils",
+                "WAWebCTWAGatingUtils",
               ).isUpdatedConsumerDisclosureUiRowEnabled() ||
               o(
-                "WAWebBizGatingUtils",
+                "WAWebCTWAGatingUtils",
               ).isUpdatedConsumerDisclosureUiIndiaEnabled()
             ? s._(
                 /*BTDS*/ "AI from Meta receives messages to improve AI quality and generate messages for this business. Click to learn more.",

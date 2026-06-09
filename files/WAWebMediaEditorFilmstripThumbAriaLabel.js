@@ -11,14 +11,14 @@ __d(
         i = u(a, r);
       return t != null && t !== ""
         ? s._(
-            /*BTDS*/ '_j{"audio":"Audio thumbnail, {filename}, item {position} of {total}","document":"Document thumbnail, {filename}, item {position} of {total}","gif":"GIF thumbnail, {filename}, item {position} of {total}","image":"Image thumbnail, {filename}, item {position} of {total}","video":"Video thumbnail, {filename}, item {position} of {total}"}',
+            /*BTDS*/ '_j{"audio":"Open audio, {filename}, item {position} of {total}","document":"Open document, {filename}, item {position} of {total}","gif":"Open GIF, {filename}, item {position} of {total}","image":"Open photo, {filename}, item {position} of {total}","video":"Open video, {filename}, item {position} of {total}"}',
             [
               s._enum(i, {
-                audio: "Audio",
-                document: "Document",
+                audio: "audio",
+                document: "document",
                 gif: "GIF",
-                image: "Image",
-                video: "Video",
+                image: "photo",
+                video: "video",
               }),
               s._param("filename", t),
               s._param("position", n),
@@ -26,14 +26,14 @@ __d(
             ],
           )
         : s._(
-            /*BTDS*/ '_j{"audio":"Audio thumbnail, item {position} of {total}","document":"Document thumbnail, item {position} of {total}","gif":"GIF thumbnail, item {position} of {total}","image":"Image thumbnail, item {position} of {total}","video":"Video thumbnail, item {position} of {total}"}',
+            /*BTDS*/ '_j{"audio":"Open audio, item {position} of {total}","document":"Open document, item {position} of {total}","gif":"Open GIF, item {position} of {total}","image":"Open photo, item {position} of {total}","video":"Open video, item {position} of {total}"}',
             [
               s._enum(i, {
-                audio: "Audio",
-                document: "Document",
+                audio: "audio",
+                document: "document",
                 gif: "GIF",
-                image: "Image",
-                video: "Video",
+                image: "photo",
+                video: "video",
               }),
               s._param("position", n),
               s._param("total", o),

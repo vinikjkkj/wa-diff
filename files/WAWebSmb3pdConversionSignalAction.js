@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WASmaxInBizSettingsEnums",
     "WATimeUtils",
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
@@ -72,7 +71,7 @@ __d(
             };
           if (
             (m.data != null && (h.ctwaTrackingPayload = m.data),
-            o("WAWebBizGatingUtils").isDownload3PDSignalsEnabled())
+            o("WAWebCTWAGatingUtils").isDownload3PDSignalsEnabled())
           ) {
             var y;
             o("WAWebDownloads3PDSignalsDatabaseApi")
