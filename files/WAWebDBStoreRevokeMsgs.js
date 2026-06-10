@@ -111,7 +111,7 @@ __d(
                 .WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "processRevokeMsgs: admin revoke has to be sent to a group or newsletter chat",
+                      "processRevokeMsgs: admin revoke needs group/newsletter chat",
                     ])),
                 )
                 .sendLogs("process-admin-revoke-message")),
@@ -120,7 +120,7 @@ __d(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "processRevokeMsgs: ",
-                    " revokeMsgKeys have not been revoked (different group) => ",
+                    " revokes skipped (diff group) => ",
                     "",
                   ])),
                 k.length,
@@ -130,7 +130,7 @@ __d(
                 .WARN(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "processRevokeMsgs: admin revoke came for the different group than the original message was in",
+                      "processRevokeMsgs: admin revoke group != orig msg group",
                     ])),
                 )
                 .sendLogs("process-admin-revoke-message")),
@@ -150,7 +150,7 @@ __d(
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "processRevokeMsgs: sending invalid revokes for secondary validation as bot invoker revoke",
+                    "processRevokeMsgs: retry invalid revokes as bot invoker",
                   ])),
               )),
             b.size > 0)
@@ -404,7 +404,7 @@ __d(
                               h ||
                                 (h = babelHelpers.taggedTemplateLiteralLoose([
                                   "processRevokeMsgs: ",
-                                  " revokeMsgKeys are outside revoke window => ",
+                                  " revokes outside window => ",
                                   "",
                                 ])),
                               D.length,

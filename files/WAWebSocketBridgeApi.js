@@ -6,6 +6,7 @@ __d(
     "WAWebEnvironment",
     "WAWebSocketModel",
     "WAWebUpdater",
+    "WAWebUpdaterHardExpireTime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -71,6 +72,9 @@ __d(
           belowSoft: n,
           belowHard: r,
         });
+      },
+      getHardExpireTime: function () {
+        return r("WAWebUpdaterHardExpireTime");
       },
     };
     l.SocketBridgeApi = e;

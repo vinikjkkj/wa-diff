@@ -115,7 +115,7 @@ __d(
         o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
-              "Ad account email onboarding: awaitPushNonce overwriting in-flight cachedNonce",
+              "[ad-email] awaitPushNonce overwriting cachedNonce",
             ])),
         );
       var t = (p = new (o("WAResolvable").Resolvable)());
@@ -131,7 +131,7 @@ __d(
               o("WALogger").WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Ad account email onboarding: silent nonce push listen timed out",
+                    "[ad-email] silent nonce push timeout",
                   ])),
               ),
               { type: "error" }

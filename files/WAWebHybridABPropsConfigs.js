@@ -31,6 +31,7 @@ __d(
       ai_group_call_max_version_by_country: [24656, "int", 0, 0],
       ai_group_call_max_version_by_platform: [24655, "int", 0, 0],
       ai_group_call_start_call_ahgc_enabled: [31716, "bool", !1, !1],
+      ai_group_call_start_call_notice_id: [31736, "string", "", ""],
       ai_group_call_version: [24652, "int", 0, 0],
       ai_groups_open_enabled: [22165, "bool", !1, !1],
       ai_hatch_integration_bot_profile: [26190, "string", "", ""],

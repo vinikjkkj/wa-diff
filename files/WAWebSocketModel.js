@@ -340,7 +340,7 @@ __d(
                 (o("WAWebABPropsCache").clearABPropConfigs(),
                   o("WAWebGroupABPropsCache").clearGroupABPropConfigs(),
                   l || this.$SocketImpl$p_5(),
-                  r("WAWebReloadAfterLogout")(l, e, t));
+                  o("WAWebReloadAfterLogout").reloadAfterLogout(l, e, t));
               },
             );
             function t(t, n) {

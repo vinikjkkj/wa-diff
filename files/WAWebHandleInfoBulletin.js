@@ -271,7 +271,7 @@ __d(
             case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
               .CLIENT_EXPIRATION:
               return (
-                o(
+                yield o(
                   "WAWebHandleServerClientExpiration",
                 ).handleServerClientExpiration(n.newClientExpirationTime),
                 "NO_ACK"

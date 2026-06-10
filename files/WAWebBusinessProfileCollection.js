@@ -208,7 +208,7 @@ __d(
           (i.getMeBusinessProfile = function () {
             var e;
             for (var t of [
-              o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
+              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
             ])
               if (t != null) {

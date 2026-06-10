@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebCommonNewsletterEnums",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
@@ -99,8 +100,8 @@ __d(
             var i = yield o(
               "WAWebQueryAndUpdateNewslettersMetadataAction",
             ).queryAndUpdateAllNewsletterMetadataAction(
-              o("WAWebQueryAndUpdateNewslettersMetadataAction")
-                .NewsletterMetadataUpdateEntryPoint.Bootstrap,
+              o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
+                .Bootstrap,
               { messageCount: 1, addSystemMsgs: !0, qplEvent: a },
             );
             (o(

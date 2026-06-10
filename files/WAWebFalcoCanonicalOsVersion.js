@@ -1,9 +1,14 @@
 __d(
   "WAWebFalcoCanonicalOsVersion",
-  ["WAWebBrowserInfo"],
+  ["WAWebBrowserApi", "WAWebBrowserInfo", "WAWebEnvironment"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return r("WAWebBrowserInfo")().version || null;
+      var e,
+        t = r("WAWebBrowserInfo")().version || null;
+      return r("WAWebEnvironment").isWindows &&
+        (e = o("WAWebBrowserApi").getOsVersionOverride()) != null
+        ? e
+        : t;
     }
     l.default = e;
   },

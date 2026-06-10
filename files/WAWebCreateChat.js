@@ -2,6 +2,7 @@ __d(
   "WAWebCreateChat",
   [
     "Promise",
+    "WAFilterObjectNullishProps",
     "WALogger",
     "WANullthrows",
     "WAWebApiBusinessProfile",
@@ -42,7 +43,6 @@ __d(
     "WAWebWidFactory",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C;
@@ -462,10 +462,7 @@ __d(
       return c;
     }
     function R(e) {
-      var t = S(e);
-      return r("lodash").pickBy(t, function (e) {
-        return e != null;
-      });
+      return o("WAFilterObjectNullishProps").filterObjectNullishProps(S(e));
     }
     function L(e, t, n, r) {
       var a = null;

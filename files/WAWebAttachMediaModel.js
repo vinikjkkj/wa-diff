@@ -394,7 +394,7 @@ __d(
                       o("WALogger").LOG(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "WAWebAttachMediaModel:processAttachmentPromiseHelper before prepRawMedia",
+                            "processAttachmentPromiseHelper before prepRawMedia",
                           ])),
                       );
                       var C = o("WAWebMedia").prepRawMedia(y, i);
@@ -508,7 +508,7 @@ __d(
                   o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "AttachMedia:processFile convert unexpected error to InvalidMediaFileType: ",
+                        "[AttachMedia] unexpected err -> InvalidMediaFileType: ",
                         "",
                       ])),
                     t,

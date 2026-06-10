@@ -25,26 +25,25 @@ __d(
     "cr:10198",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r,
-            a = t.chatId,
-            i = t.metricReporter,
-            l = t.msgProtobuf,
-            p = t.msgRecord,
-            _ = t.scheduledMsgMetadata,
-            h = p.data,
-            y = h.botRespOrInvocationRevokeBotWid,
-            C = h.id,
-            b = h.invokedBotWid,
-            v = h.protocolMessageKey,
-            S = h.subtype,
-            R = h.to;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.chatId,
+            a = t.metricReporter,
+            i = t.msgProtobuf,
+            l = t.msgRecord,
+            f = t.scheduledMsgMetadata,
+            g = l.data,
+            C = g.botRespOrInvocationRevokeBotWid,
+            b = g.id,
+            v = g.invokedBotWid,
+            S = g.protocolMessageKey,
+            R = g.subtype,
+            L = g.to;
           o("WALogger")
             .LOG(
               e ||
@@ -52,91 +51,110 @@ __d(
                   "encryptAndSendUserMsg: sending ",
                   "",
                 ])),
-              C,
+              b,
             )
             .tags("messaging");
-          var L = R.isRegularUserPn()
-              ? o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
-              : (r = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) != null
-                ? r
-                : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-            E = { wids: [R, L] };
-          R != null &&
-            R.isUser() &&
-            (E.chatWidSetToIncludeHostedInFanoutOneToOneChatOnly = R);
-          var k = yield o("WAWebDBDeviceListFanout").getFanOutList(E);
-          if (o("WAWebBotBaseGating").isBotEnabled())
-            if (
-              o("WAWebMsgGetters").getIsBotFeedbackMessage(p.data) &&
-              v != null
-            ) {
-              var I;
-              (!R.isBot() && v.participant != null
-                ? (I = v.participant)
-                : p.data.bizBotType != null
-                  ? (I = R)
-                  : (I = v.remote),
-                (k = [
-                  o(
-                    "WAWebSimpleSignalPNToFBIDMigration",
-                  ).maybeReplaceDeprecatedBotPnWithFbid(I),
-                ]));
-            } else if (b && b != null && b.isBot()) {
-              var T = b;
-              k = [].concat(k, [T]);
-            } else
-              y &&
-                y != null &&
-                y.isBot() &&
-                (S === "sender_revoke" || S === "admin_revoke") &&
-                (k = [].concat(k, [y]));
-          o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
-            o("WAWebDBUpdateMessageTable").updateMessageTable(p.data.id, {
-              senderOrRecipientAccountTypeHosted: !0,
-            });
-          var D = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList(
-            p,
-            l,
-            k,
-            { fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT },
-            i,
-            a,
-            _,
-          );
-          f(R, D);
-          var x = D.phash;
-          if (x != null) {
+          var E = L.isRegularUserPn()
+            ? o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+            : o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+          L.isRegularUserPn() &&
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "encryptAndSendUserMsg: to=",
+                  ", subtype=",
+                  ", chatId:",
+                  "",
+                ])),
+              L.toLogString(),
+              R,
+              r,
+            ),
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "encryptAndSendUserMsg: pn recipient found",
+                  ])),
+              )
+              .sendLogs("send-user-msg-pn-recipient-fanout"));
+          var k = { wids: [L, E] };
+          L != null &&
+            L.isUser() &&
+            (k.chatWidSetToIncludeHostedInFanoutOneToOneChatOnly = L);
+          var I = yield o("WAWebDBDeviceListFanout").getFanOutList(k);
+          if (o("WAWebBotBaseGating").isBotEnabled())
+            if (
+              o("WAWebMsgGetters").getIsBotFeedbackMessage(l.data) &&
+              S != null
+            ) {
+              var T;
+              (!L.isBot() && S.participant != null
+                ? (T = S.participant)
+                : l.data.bizBotType != null
+                  ? (T = L)
+                  : (T = S.remote),
+                (I = [
+                  o(
+                    "WAWebSimpleSignalPNToFBIDMigration",
+                  ).maybeReplaceDeprecatedBotPnWithFbid(T),
+                ]));
+            } else if (v && v != null && v.isBot()) {
+              var D = v;
+              I = [].concat(I, [D]);
+            } else
+              C &&
+                C != null &&
+                C.isBot() &&
+                (R === "sender_revoke" || R === "admin_revoke") &&
+                (I = [].concat(I, [C]));
+          o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(I) &&
+            o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
+              senderOrRecipientAccountTypeHosted: !0,
+            });
+          var x = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList(
+            l,
+            i,
+            I,
+            { fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT },
+            a,
+            r,
+            f,
+          );
+          h(L, x);
+          var $ = x.phash;
+          if ($ != null) {
+            o("WALogger")
+              .LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "encryptAndSendUserMsg: phash mismatch, got server phash ",
                     "",
                   ])),
-                x,
+                $,
               )
               .tags("messaging");
-            var $ = o("WATimeUtils").unixTime();
+            var P = o("WATimeUtils").unixTime();
             (o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric(
-              R,
-              p,
+              L,
               l,
+              i,
             ),
-              (i.sendReporter = i.createSendReporter({
+              (a.sendReporter = a.createSendReporter({
                 isResend: !0,
-                originalMessage: p.type === "message" ? p.data : void 0,
+                originalMessage: l.type === "message" ? l.data : void 0,
               })),
-              (m || (m = n("Promise")))
+              (_ || (_ = n("Promise")))
                 .resolve()
                 .then(function () {
-                  if (!R.isLid())
+                  if (!L.isLid())
                     return o("WAWebFetchResendMissingKeyJob")
-                      .fetchResendMissingKeys([R, L])
+                      .fetchResendMissingKeys([L, E])
                       .catch(function () {
                         o("WALogger")
                           .WARN(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                            d ||
+                              (d = babelHelpers.taggedTemplateLiteralLoose([
                                 "fetchResendMissingKeys: failed",
                               ])),
                           )
@@ -145,31 +163,31 @@ __d(
                 })
                 .then(function () {
                   return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-                    [R, L],
+                    [L, E],
                     "message",
-                    x,
+                    $,
                   );
                 })
                 .then(function () {
-                  return g(p, l, k, $, i, a, _);
+                  return y(l, i, I, P, a, r, f);
                 })
                 .catch(function (e) {
                   (o("WALogger")
                     .WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "resendUserMsg: failed to resend message: ",
                           ", type: ",
                           "",
                         ])),
-                      p.data.id.toString(),
-                      p.data.type,
+                      l.data.id.toString(),
+                      l.data.type,
                     )
                     .tags("messaging"),
                     o("WALogger")
                       .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "resendUserMsg: failed to resend message: ",
                             "",
                           ])),
@@ -179,12 +197,12 @@ __d(
                       .sendLogs("message-resend-failed", { sampling: 0.01 }));
                 }));
           }
-          return D;
+          return x;
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function h(e, t) {
       var n = t.refreshLid;
       if (n) {
         var r = o("WAWebLidMigrationUtils").toPn(e);
@@ -195,12 +213,12 @@ __d(
           );
       }
     }
-    function g(e, t, n, r, o, a, i) {
-      return h.apply(this, arguments);
+    function y(e, t, n, r, o, a, i) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i, l) {
             var s = yield o("WAWebPersistedJobManagerWorkerCompatible")
               .getJobManager()
@@ -217,10 +235,10 @@ __d(
                 .accessors.deletePersistedJob(s.id));
           },
         )),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((l.encryptAndSendUserMsg = p), (l.maybeRefreshLid = f));
+    ((l.encryptAndSendUserMsg = f), (l.maybeRefreshLid = h));
   },
   98,
 );

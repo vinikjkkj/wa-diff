@@ -25,9 +25,7 @@ __d(
         );
       };
     }
-    ((i.clearAllMemoizeCache = l),
-      (i.MemoizeCache = s),
-      (i.memoizeWithArgs = u));
+    ((i.clearAllMemoizeCache = l), (i.memoizeWithArgs = u));
   },
   66,
 );

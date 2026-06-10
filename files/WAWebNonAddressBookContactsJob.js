@@ -1,7 +1,6 @@
 __d(
   "WAWebNonAddressBookContactsJob",
   [
-    "WAJids",
     "WALogger",
     "WAWebApiContact",
     "WAWebChatCollection",
@@ -12,11 +11,13 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebWid",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(t) {
+    var e, s, u, c, d, m, p;
+    function _(t) {
       t === void 0 && (t = 500);
       var n = [],
         r = [],
@@ -60,51 +61,34 @@ __d(
         n
       );
     }
-    function _() {
-      return f.apply(this, arguments);
-    }
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new Set();
           return (
             yield o("WAWebSchemaParticipant")
               .getParticipantTable()
               .forEach(function (t) {
                 t.participants.forEach(function (t) {
-                  r("WAWebWid").isStringLid(t)
-                    ? e.add(
-                        o("WAJids").toLidUserJid(
-                          o("WAWebWidFactory").createWid(t).user,
-                        ),
-                      )
-                    : e.add(
-                        o("WAJids").toPhoneUserJid(
-                          o("WAWebWidFactory").createWid(t).user,
-                        ),
-                      );
+                  var n = h(t);
+                  n != null && e.add(n);
                 });
               }),
             yield o("WAWebSchemaChat")
               .getChatTable()
               .forEach(function (t) {
-                r("WAWebWid").isEligibleForUSync(t.id) &&
-                  (r("WAWebWid").isStringLid(t.id)
-                    ? e.add(
-                        o("WAJids").toLidUserJid(
-                          o("WAWebWidFactory").createWid(t.id).user,
-                        ),
-                      )
-                    : e.add(
-                        o("WAJids").toPhoneUserJid(
-                          o("WAWebWidFactory").createWid(t.id).user,
-                        ),
-                      ));
+                if (r("WAWebWid").isEligibleForUSync(t.id)) {
+                  var n = h(t.id);
+                  n != null && e.add(n);
+                }
               }),
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "found ",
                     " contacts from chat and group participant tables",
                   ])),
@@ -114,15 +98,37 @@ __d(
             Array.from(e)
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g() {
-      return h.apply(this, arguments);
+    function h(e) {
+      try {
+        return o("WAWebWidToJid").widToUserJid(
+          o("WAWebWidFactory").createWid(e),
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  'toUserJid: "',
+                  '" is not a valid UserJid',
+                ])),
+              e,
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("contact-id-not-user-jid"),
+          null
+        );
+      }
     }
-    function h() {
+    function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("WAWebLidAwareContactsDB").anyOf(
               ["isAddressBookContact"],
               [1, 0],
@@ -135,8 +141,8 @@ __d(
           return (
             o("WALogger")
               .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "found ",
                     " contacts with isAddressBookContact set",
                   ])),
@@ -146,15 +152,15 @@ __d(
             t
           );
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.size !== 0) {
             var n = function (n, r) {
                 var e = {
@@ -206,8 +212,8 @@ __d(
             return (
               o("WALogger")
                 .LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "add missing contactHashes to ",
                       " contacts",
                     ])),
@@ -221,22 +227,22 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield _();
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield f();
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["contact"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield g(),
+                var t = yield y(),
                   n = new Set(),
                   a = Array.from(e, function (e) {
                     var r = { id: e, isContactSyncCompleted: 0 };
@@ -248,8 +254,8 @@ __d(
                   });
                 (o("WALogger")
                   .LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "mark ",
                         " contacts dirty during the regular sync",
                       ])),
@@ -263,26 +269,26 @@ __d(
                   t.forEach(function (e, t) {
                     e == null && n.add(t);
                   }),
-                  yield y(n, t));
+                  yield b(n, t));
               }),
             );
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
+    function L() {
+      return E.apply(this, arguments);
     }
-    function R() {
+    function E() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield _();
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield f();
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["contact"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield g(),
+                var t = yield y(),
                   n = e.filter(function (e) {
                     return !t.has(e);
                   }),
@@ -295,8 +301,8 @@ __d(
                   });
                 (o("WALogger")
                   .LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "get ",
                         " non-AB contacts, mark dirty (initial sync)",
                       ])),
@@ -315,16 +321,16 @@ __d(
                 (t.forEach(function (e, t) {
                   e == null && i.add(t);
                 }),
-                  yield y(i, t));
+                  yield b(i, t));
               }),
             );
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    ((l.getAllContactsFromChatCollectionIntoChunks = p),
-      (l.getNonAddressBookContactsAndMarkAllContactsDirty = b),
-      (l.getAndUpdateNonAddressBookContacts = S));
+    ((l.getAllContactsFromChatCollectionIntoChunks = _),
+      (l.getNonAddressBookContactsAndMarkAllContactsDirty = S),
+      (l.getAndUpdateNonAddressBookContacts = L));
   },
   98,
 );

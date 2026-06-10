@@ -12,119 +12,107 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.ack,
             a = t.ackString,
             i = t.externalIds,
             l = t.from,
-            c = t.isLidBot,
-            d = t.offline,
-            m = t.participant,
-            p = t.recipient,
-            _ = t.ts;
-          if (!m)
-            throw (
+            u = t.isLidBot,
+            c = t.offline,
+            d = t.participant,
+            m = t.recipient,
+            p = t.ts;
+          if (!d) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "error: got group ack without participant.",
+                  ])),
+              )
+              .sendLogs("handleGroupSimpleReceipt: failed");
+            return;
+          }
+          var _ = o("WAWebWidFactory").asUserWidOrThrow(d),
+            f = a === o("WAWebAck").ACK_STRING.SENDER,
+            g = !f && o("WAWebUserPrefsMeUser").isMeAccount(_),
+            h;
+          if (g) {
+            if (!m) {
               o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "error: got group ack without participant.",
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "handleGroupSimpleReceipt: skipping self peer receipt without recipient",
                     ])),
                 )
-                .sendLogs("handleGroupSimpleReceipt: failed"),
-              r("err")(
-                "handleGroupSimpleReceipt: got group ack without participant.",
-              )
-            );
-          var f = o("WAWebWidFactory").asUserWidOrThrow(m),
-            g = a === o("WAWebAck").ACK_STRING.SENDER,
-            h = !g && o("WAWebUserPrefsMeUser").isMeAccount(f),
-            y;
-          if (h) {
-            if (!p)
-              throw (
-                r("gkx")("26258")
-                  ? o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "error: invalid sender/peer receipt without recipient",
-                        ])),
-                    )
-                  : o("WALogger")
-                      .WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "error: invalid sender/peer receipt without recipient",
-                          ])),
-                      )
-                      .sendLogs("handleGroupSimpleReceipt: failed"),
-                r("err")(
-                  "handleGroupSimpleReceipt: invalid sender/peer receipt without recipient",
-                )
-              );
-            y = p;
+                .sendLogs(
+                  "handleGroupSimpleReceipt: skip self receipt without recipient",
+                  { sampling: 0.01 },
+                );
+              return;
+            }
+            h = m;
           } else
-            y =
-              f.isLid() || c
+            h =
+              _.isLid() || u
                 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
                 : o("WAWebUserPrefsMeUser").getMeUser();
-          var C = i.map(function (e) {
+          var y = i.map(function (e) {
             return new (r("WAWebMsgKey"))({
               id: e,
               remote: l,
-              fromMe: !h,
-              participant: y,
+              fromMe: !g,
+              participant: h,
             });
           });
-          h &&
+          g &&
             n === o("WAWebAck").ACK.PLAYED &&
-            o("WAWebHandleMsgReceiptCommon").handleViewOnceOpenedIfNecessary(C);
-          var b = C.map(function (e) {
+            o("WAWebHandleMsgReceiptCommon").handleViewOnceOpenedIfNecessary(y);
+          var C = y.map(function (e) {
             return e.toString();
           });
-          d != null &&
+          c != null &&
             o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete();
-          var v =
-              d != null &&
+          var b =
+              c != null &&
               !o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.isResumeFromRestartComplete(),
-            S;
+            v;
           return (
-            h
-              ? p != null &&
+            g
+              ? m != null &&
                 o("WAWebHandleMsgReceiptUtils").isReadOrPlayedReceipt(a) &&
                 i.length > 0 &&
-                (S = o(
+                (v = o(
                   "WAWebMessageReceiptBatcher",
                 ).receiptBatcher.acceptPeerReceipt({
-                  isOffline: v,
+                  isOffline: b,
                   ack: n,
-                  ts: _,
-                  msgKeys: b,
+                  ts: p,
+                  msgKeys: C,
                   remote: l,
                 }))
-              : (S = o(
+              : (v = o(
                   "WAWebMessageReceiptBatcher",
                 ).receiptBatcher.acceptOtherReceipt({
                   ack: n,
-                  ts: _,
-                  receiverId: m,
-                  msgKeys: b,
+                  ts: p,
+                  receiverId: d,
+                  msgKeys: C,
                 })),
-            v ||
+            b ||
               (yield o("WAWebOrchestratorNonPersistedJob")
                 .createNonPersistedJob(
                   "receiptBatcherRunActiveBatches",
@@ -135,13 +123,13 @@ __d(
                   },
                 )
                 .waitUntilCompleted()),
-            S
+            v
           );
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.handleGroupSimpleReceipt = c;
+    l.handleGroupSimpleReceipt = u;
   },
   98,
 );

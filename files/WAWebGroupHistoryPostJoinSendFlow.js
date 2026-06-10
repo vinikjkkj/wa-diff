@@ -54,7 +54,7 @@ __d(
                 .WARN(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] post-join send flow: missing groupMetadata for ",
+                      "[group-history] post-join: missing groupMetadata ",
                       "",
                     ])),
                   a.toString(),
@@ -460,7 +460,7 @@ __d(
                 .ERROR(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] failed to send post-join history bundle to multiple recipients: ",
+                      "[group-history] post-join multi send failed: ",
                       "",
                     ])),
                   e,

@@ -43,7 +43,7 @@ __d(
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[bb:derive-list-item] failed to resolve audience name for campaign ",
+              "[bb:derive-list-item] audience name resolve failed ",
               "",
             ])),
           t.id,

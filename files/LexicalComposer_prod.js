@@ -15,31 +15,43 @@ __d(
         _require_closure_react || (_require_closure_react = require("react")),
       r = _require_closure_react;
     var n = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect,
-      i = { tag: require("Lexical").HISTORY_MERGE_TAG };
+      a = { tag: require("Lexical").HISTORY_MERGE_TAG };
     exports.LexicalComposer = function (_ref) {
-      var a = _ref.initialConfig,
+      var i = _ref.initialConfig,
         c = _ref.children;
       var s = o.useMemo(function () {
-        var o = a.theme,
-          r = a.namespace,
-          n = a.nodes,
-          c = a.onError,
-          s = a.editorState,
-          l = a.html,
-          u = require("LexicalComposerContext").createLexicalComposerContext(
+        var o = i.theme,
+          r = i.namespace,
+          n = i.nodes,
+          c = i.onError,
+          s = i.onWarn,
+          l = i.editorState,
+          u = i.html,
+          d = require("LexicalComposerContext").createLexicalComposerContext(
             null,
             o,
           ),
-          d = require("Lexical").createEditor({
-            editable: a.editable,
-            html: l,
-            namespace: r,
-            nodes: n,
-            onError: function onError(e) {
-              return c(e, d);
-            },
-            theme: o,
-          });
+          E = require("Lexical").createEditor(
+            babelHelpers["extends"](
+              {
+                editable: i.editable,
+                html: u,
+                namespace: r,
+                nodes: n,
+                onError: function onError(e) {
+                  return c(e, E);
+                },
+              },
+              s
+                ? {
+                    onWarn: function onWarn(e) {
+                      return s(e, E);
+                    },
+                  }
+                : {},
+              { theme: o },
+            ),
+          );
         return (
           (function (e, o) {
             if (null === o) return;
@@ -56,29 +68,29 @@ __d(
                     (null !== _n && _n === e.getRootElement())) &&
                     _r.select();
                 }
-              }, i);
+              }, a);
             else if (null !== o)
               switch (typeof o) {
                 case "string": {
                   var _t = e.parseEditorState(o);
-                  e.setEditorState(_t, i);
+                  e.setEditorState(_t, a);
                   break;
                 }
                 case "object":
-                  e.setEditorState(o, i);
+                  e.setEditorState(o, a);
                   break;
                 case "function":
                   e.update(function () {
                     require("Lexical").$getRoot().isEmpty() && o(e);
-                  }, i);
+                  }, a);
               }
-          })(d, s),
-          [d, u]
+          })(E, l),
+          [E, d]
         );
       }, []);
       return (
         n(function () {
-          var e = a.editable,
+          var e = i.editable,
             t = s[0];
           t.setEditable(void 0 === e || e);
         }, []),

@@ -920,6 +920,18 @@ __d(
           }
           return t;
         })(),
+        markRelayConnected: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = O != null ? O : yield A;
+              n.markRelayConnected(e, t);
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         setCallMute: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = yield A,

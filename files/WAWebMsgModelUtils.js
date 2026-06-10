@@ -155,7 +155,9 @@ __d(
         (e.subtype = void 0),
         (e.body = n),
         (e.richResponse = void 0),
-        (e.unifiedResponse = void 0));
+        (e.unifiedResponse = void 0),
+        (e.unifiedResponseRawData = void 0),
+        (e.botSignatureVerificationMetadata = void 0));
     }
     function R(e) {
       var t = e.filter(function (e) {

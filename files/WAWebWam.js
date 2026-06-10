@@ -406,7 +406,17 @@ __d(
                   var g = _[0],
                     h = _[1],
                     y = i === "realtime" ? "regular" : i;
-                  g.channels.includes(y) && ((a[g.name] = h), l.set(g.id, h));
+                  g.channels.includes(y) &&
+                    ((a[g.name] = h),
+                    l.set(g.id, h),
+                    g.name === "memClass"
+                      ? o("WAWebBrowserApi").setMemClassOverride(
+                          typeof h == "number" ? h : null,
+                        )
+                      : g.name === "osVersion" &&
+                        o("WAWebBrowserApi").setOsVersionOverride(
+                          typeof h == "string" ? h : null,
+                        ));
                 } else {
                   var f = _;
                   (((f.wamChannel === "regular" ||

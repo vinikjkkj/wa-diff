@@ -9,13 +9,20 @@ __d(
     function u() {
       return e;
     }
-    function c() {
+    var c = null;
+    function d(e) {
+      c = e;
+    }
+    function m() {
+      return c;
+    }
+    function p() {
       var e;
       if (r("gkx")("17565")) return 1e3;
       var t = (e = self.navigator) == null ? void 0 : e.deviceMemory;
       return t == null ? t : t * 1e3;
     }
-    function d() {
+    function _() {
       var e;
       return r("gkx")("17565")
         ? 1
@@ -23,7 +30,7 @@ __d(
           ? void 0
           : e.hardwareConcurrency;
     }
-    function m() {
+    function f() {
       var e = globalThis.navigator;
       if (e != null) {
         var t = e.cpu;
@@ -35,9 +42,11 @@ __d(
     }
     ((l.setMemClassOverride = s),
       (l.getMemClassOverride = u),
-      (l.getMemClass = c),
-      (l.getNumCpu = d),
-      (l.readCpuPerformanceClass = m));
+      (l.setOsVersionOverride = d),
+      (l.getOsVersionOverride = m),
+      (l.getMemClass = p),
+      (l.getNumCpu = _),
+      (l.readCpuPerformanceClass = f));
   },
   98,
 );

@@ -1114,6 +1114,17 @@ __d(
           }
           return t;
         })(),
+        markRelayConnected: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              yield Z("markRelayConnected", { ip: e, port: t });
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         setCallMute: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = yield te("setCallMute", { enable: e });

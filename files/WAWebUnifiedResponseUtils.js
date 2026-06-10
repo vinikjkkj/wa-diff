@@ -68,6 +68,9 @@ __d(
       "GenAIReelPrimitive",
     ];
     function _(e) {
+      if (e != null) return { data: e };
+    }
+    function f(e) {
       if (e == null) return !1;
       for (var t of e.sections) {
         var n = u(t.view_model);
@@ -78,7 +81,8 @@ __d(
     ((l.UnifiedResponseQPLLogger = s),
       (l.isUnifiedResponseVisible = c),
       (l.isImagineResponse = m),
-      (l.unifiedResponseHasMediaContent = _));
+      (l.buildUnifiedResponseFromRawData = _),
+      (l.unifiedResponseHasMediaContent = f));
   },
   98,
 );

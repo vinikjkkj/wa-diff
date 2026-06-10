@@ -92,9 +92,7 @@ __d(
               o("WAWebSessionScope").SessionScope.DEFAULT,
             ));
           var y = yield o("WAWebPhashUtils").phashV2(
-              [].concat(h, [
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-              ]),
+              [].concat(h, [o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow()]),
             ),
             C = yield _(i, f, p),
             b = C[0],
@@ -162,31 +160,26 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = t.every(function (e) {
-              return e.isLid();
-            }),
-            a = r
-              ? o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow()
-              : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
-          n && (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(e, a));
-          var i = yield o("WAWebSignal").Session.getGroupSenderKeyInfo(e, a),
-            l = yield o(
+          var r = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+          n && (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(e, r));
+          var a = yield o("WAWebSignal").Session.getGroupSenderKeyInfo(e, r),
+            i = yield o(
               "WAWebGetGroupKeyDistributionMsg",
-            ).getKeyDistributionMsg(null, e, t, i, !0),
-            s = null,
-            u = !1;
-          l &&
-            l.length > 0 &&
-            (s = o("WAWap").wap(
+            ).getKeyDistributionMsg(null, e, t, a, !0),
+            l = null,
+            s = !1;
+          i &&
+            i.length > 0 &&
+            (l = o("WAWap").wap(
               "participants",
               null,
-              l.map(function (e) {
+              i.map(function (e) {
                 var t = e.ciphertext,
                   n = e.participant,
                   r = e.type;
                 return (
                   r === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
-                    (u = !0),
+                    (s = !0),
                   o("WAWap").wap(
                     "to",
                     { jid: o("WAWebCommsWapMd").DEVICE_JID(n) },
@@ -207,12 +200,12 @@ __d(
                 );
               }),
             ));
-          var c = null;
-          if (u) {
-            var d = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
-            c = o("WAWap").wap("device-identity", null, d);
+          var u = null;
+          if (s) {
+            var c = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
+            u = o("WAWap").wap("device-identity", null, c);
           }
-          return [s, c];
+          return [l, u];
         })),
         f.apply(this, arguments)
       );

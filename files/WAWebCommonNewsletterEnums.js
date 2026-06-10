@@ -84,7 +84,8 @@ __d(
         "RESPONSE_REPORT",
         "STATUS_REPORT",
       ]),
-      h = e.Mirrored(["MESSAGE", "STATUS"]);
+      h = e.Mirrored(["MESSAGE", "STATUS"]),
+      y = e.Mirrored(["Bootstrap", "DirtyBit", "Debug"]);
     ((i.NewsletterMembershipType = l),
       (i.NewsletterPrivacy = s),
       (i.NewsletterState = u),
@@ -95,7 +96,8 @@ __d(
       (i.NewsletterCapability = _),
       (i.WamoSubStatus = f),
       (i.ReviewType = g),
-      (i.ViolatingContentType = h));
+      (i.ViolatingContentType = h),
+      (i.NewsletterMetadataUpdateEntryPoint = y));
   },
   66,
 );

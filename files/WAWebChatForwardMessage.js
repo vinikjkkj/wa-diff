@@ -13,6 +13,7 @@ __d(
     "WAWebCryptoRandomMediaKey",
     "WAWebFileUtils",
     "WAWebForwardAssociationConfig",
+    "WAWebForwardRichResponseHandler",
     "WAWebFrontendMsgGetters",
     "WAWebGeneratePollVotesSnapshotFromPoll",
     "WAWebGetAiBotContextForForwardedMsg",
@@ -407,6 +408,8 @@ __d(
           ).generatePollVotesSnapshotFromPoll(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))),
+        e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+          o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, d),
         (d.forwardedNewsletterMessageInfo = o(
           "WAWebGetNewsletterContextForForwardedMsg",
         ).getNewsletterContextForForwardedMsg(e)),

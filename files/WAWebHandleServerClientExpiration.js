@@ -2,33 +2,47 @@ __d(
   "WAWebHandleServerClientExpiration",
   [
     "WATimeUtils",
+    "WAWebBackendApi",
     "WAWebBuildConstants",
-    "WAWebUpdaterHardExpireTime",
     "WAWebUserPrefsMultiDevice",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = parseInt(r("WAWebUpdaterHardExpireTime"), 10);
-      if (e == null)
-        o("WAWebUserPrefsMultiDevice").clearServerClientExpirationOverride();
-      else {
-        var n,
-          a =
-            (n = o(
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebBackendApi").frontendSendAndReceive(
+            "getHardExpireTime",
+            {},
+          );
+          if (e == null)
+            o(
               "WAWebUserPrefsMultiDevice",
-            ).getServerClientExpirationOverride()) == null
-              ? void 0
-              : n.timestamp;
-        if ((a != null && e >= a) || e >= t) return;
-        var i = o("WATimeUtils").futureUnixTime(
-            3 * o("WATimeUtils").DAY_SECONDS,
-          ),
-          l = Math.max(i, Math.min(e, t));
-        o("WAWebUserPrefsMultiDevice").setServerClientExpirationOverride(
-          "" + l,
-          o("WAWebBuildConstants").VERSION_BASE,
-        );
-      }
+            ).clearServerClientExpirationOverride();
+          else {
+            var n,
+              r =
+                (n = o(
+                  "WAWebUserPrefsMultiDevice",
+                ).getServerClientExpirationOverride()) == null
+                  ? void 0
+                  : n.timestamp;
+            if ((r != null && e >= r) || e >= t) return;
+            var a = o("WATimeUtils").futureUnixTime(
+                3 * o("WATimeUtils").DAY_SECONDS,
+              ),
+              i = Math.max(a, Math.min(e, t));
+            o("WAWebUserPrefsMultiDevice").setServerClientExpirationOverride(
+              "" + i,
+              o("WAWebBuildConstants").VERSION_BASE,
+            );
+          }
+        })),
+        s.apply(this, arguments)
+      );
     }
     l.handleServerClientExpiration = e;
   },

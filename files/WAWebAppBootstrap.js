@@ -26,7 +26,6 @@ __d(
     "WAWebInfraErrorLogger",
     "WAWebInvocationInterface",
     "WAWebKeyboardShortcuts",
-    "WAWebLodashMemoizeCache",
     "WAWebLoggerOnError",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
@@ -89,7 +88,6 @@ __d(
           var e, t, a, i;
           (n("cr:6448") == null || n("cr:6448").incr("web.app.bootstrap"),
             n("cr:5203") == null || n("cr:5203")(),
-            o("WAWebLodashMemoizeCache").setupLodashMemoizeCache(),
             o("WAWebMainThreadLogger").initializeWAWebMainThreadLogger(),
             o("WDSTooltipShortcutResolver").registerWDSTooltipShortcutResolver(
               o("WAWebKeyboardShortcuts").getWDSShortcuts,

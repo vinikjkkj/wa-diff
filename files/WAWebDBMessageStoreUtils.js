@@ -157,8 +157,8 @@ __d(
             o("WALogger").WARN(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "queryChatVisibleMessageHelper: visibleMsgsCount ",
-                  " exceeds the threshold ",
+                  "queryChatVisibleMessageHelper: visible ",
+                  " > limit ",
                   "",
                 ])),
               g,
@@ -334,8 +334,8 @@ __d(
                     (o("WALogger").WARN(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[init-from-storage] getKeyMsgsFromChatHistory: Exceeded limit ",
-                          " to find a non futureproof reaction message",
+                          "[init-from-storage] getKeyMsgsFromChatHistory: non-fp limit ",
+                          "",
                         ])),
                       a,
                     ),

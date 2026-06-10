@@ -9,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebClearDirtyBitsJob",
+    "WAWebCommonNewsletterEnums",
     "WAWebDirtyBitsConsts",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebMdAppStateDirtyBitsWamEvent",
@@ -219,7 +220,7 @@ __d(
                       return o(
                         "WAWebQueryAndUpdateNewslettersMetadataAction",
                       ).queryAndUpdateAllNewsletterMetadataAction(
-                        o("WAWebQueryAndUpdateNewslettersMetadataAction")
+                        o("WAWebCommonNewsletterEnums")
                           .NewsletterMetadataUpdateEntryPoint.DirtyBit,
                         { messageCount: 1 },
                       );

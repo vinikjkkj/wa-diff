@@ -56,20 +56,21 @@ __d(
     }
     var C = r("WAOnceWithReset")(function () {
       var e = y(),
-        t = Reflect.get(window, "isSecureContext") === !0;
+        t = Reflect.get(window, "isSecureContext") === !0,
+        n = String(e);
       return window.SharedArrayBuffer === void 0
         ? (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [Browser Check] no SharedArrayBuffer crossOriginIsolated=",
-                " secureContext=",
+                "voip: [browser] no SharedArrayBuffer coi=",
+                " sec=",
                 " ",
                 "/",
                 " ",
                 "/",
                 "",
               ])),
-            String(e),
+            n,
             t,
             o("WAWebUA").UA.browser,
             o("WAWebUA").UA.browserVersion,
@@ -81,15 +82,15 @@ __d(
           ? (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [Browser Check] no Atomics crossOriginIsolated=",
-                  " secureContext=",
+                  "voip: [browser] no Atomics coi=",
+                  " sec=",
                   " ",
                   "/",
                   " ",
                   "/",
                   "",
                 ])),
-              String(e),
+              n,
               t,
               o("WAWebUA").UA.browser,
               o("WAWebUA").UA.browserVersion,
@@ -101,15 +102,15 @@ __d(
             ? (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [Browser Check] no RTCPeerConnection crossOriginIsolated=",
-                    " secureContext=",
+                    "voip: [browser] no RTCPeerConnection coi=",
+                    " sec=",
                     " ",
                     "/",
                     " ",
                     "/",
                     "",
                   ])),
-                String(e),
+                n,
                 t,
                 o("WAWebUA").UA.browser,
                 o("WAWebUA").UA.browserVersion,
@@ -121,9 +122,9 @@ __d(
               ? (o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [Browser Check] Safari ",
-                      " broken WASM crossOriginIsolated=",
-                      " secureContext=",
+                      "voip: [browser] Safari ",
+                      " broken WASM coi=",
+                      " sec=",
                       " ",
                       "/",
                       " ",
@@ -131,7 +132,7 @@ __d(
                       "",
                     ])),
                   o("WAWebUA").UA.browserVersion,
-                  String(e),
+                  n,
                   t,
                   o("WAWebUA").UA.browser,
                   o("WAWebUA").UA.browserVersion,

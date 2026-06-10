@@ -67,7 +67,7 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] failed to hydrate participant send state for ",
+                    "[group-history] hydrate send state failed for ",
                     "",
                   ])),
                 t.toString(),

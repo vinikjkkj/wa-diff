@@ -1,7 +1,6 @@
 __d(
   "WAWebQueryAndUpdateNewslettersMetadataAction",
   [
-    "$InternalEnum",
     "Promise",
     "WAJids",
     "WAJobOrchestratorTypes",
@@ -41,13 +40,12 @@ __d(
     function R(e) {
       return e != null && Number.isInteger(e) && e > 0;
     }
-    var L = n("$InternalEnum").Mirrored(["Bootstrap", "DirtyBit", "Debug"]);
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           (r === void 0 && (r = {}),
             o("WALogger").LOG(
               e ||
@@ -98,7 +96,7 @@ __d(
               b = h.pics;
             (m == null || m.addPoint("getAllNewslettersMetadata_end"),
               m == null || m.addPoint("processDeletedNewsletters_start"),
-              yield N(f),
+              yield P(f),
               m == null || m.addPoint("processDeletedNewsletters_end"));
             var v = (p = g.map(function (e) {
               return e.idJid;
@@ -109,10 +107,12 @@ __d(
               }),
             );
             return (
-              t === L.DirtyBit &&
+              t ===
+                o("WAWebCommonNewsletterEnums")
+                  .NewsletterMetadataUpdateEntryPoint.DirtyBit &&
                 (m == null ||
                   m.addPoint("processUnsubscribedNewsletters_start"),
-                yield w(v),
+                yield M(v),
                 m == null || m.addPoint("processUnsubscribedNewsletters_end")),
               m == null ||
                 m.addPoint("fetchAdminCountsForOwnerNewsletter_start"),
@@ -152,7 +152,7 @@ __d(
                     "[queryAndUpdateAllNewsletterMetadataAction] update model",
                   ])),
               ),
-              yield $({
+              yield x({
                 chats: y,
                 metadata: C,
                 pics: b,
@@ -203,15 +203,15 @@ __d(
             );
           }
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -242,7 +242,7 @@ __d(
                     ),
                   ]
                 : [],
-              f = yield D(e, t == null ? void 0 : t.adminFields),
+              f = yield T(e, t == null ? void 0 : t.adminFields),
               g = f.adminCount,
               h = f.adminProfile,
               y = f.adminProfilesSettingEnabled,
@@ -254,7 +254,7 @@ __d(
                 (C = yield o(
                   "WAWebNewsletterGetAdminCapabilitiesJob",
                 ).getNewsletterAdminCapabilities(e)),
-              yield $({
+              yield x({
                 chats: [s],
                 metadata: [
                   babelHelpers.extends({}, u, {
@@ -292,15 +292,15 @@ __d(
               .sendLogs("newsletter-failed-to-retrieve-newsletter");
           }
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t != null ? t : {},
             r = n.adminCount,
             a = n.adminProfileData,
@@ -322,15 +322,15 @@ __d(
               : void 0,
           };
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.addSystemMsgs,
             a = e.chats,
             i = e.messageCount,
@@ -343,7 +343,7 @@ __d(
                 "[newsletters][updateCollections] Start",
               ])),
           );
-          var c = F(a, l, s),
+          var c = A(a, l, s),
             d = c.filteredChats,
             m = c.filteredMetadata,
             p = c.filteredPics;
@@ -478,15 +478,15 @@ __d(
           (o("WAWebContactCollection").ContactCollection.add(_, { merge: !0 }),
             u == null || u.addPoint("contactUpdates_end"));
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e != null) {
             var t = e.id.map(function (e) {
                 return { id: e.jid.toString(), terminated: !0 };
@@ -501,15 +501,15 @@ __d(
               r("WAWebNewsletterMetadataCollection").add(n, { merge: !0 }));
           }
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaChat").getChatTable().all(),
             r = t
               .map(function (e) {
@@ -540,10 +540,10 @@ __d(
           }),
             yield (S || (S = n("Promise"))).all(a));
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(e, t, n) {
+    function A(e, t, n) {
       var a = t
           .filter(function (e) {
             if (e.membershipType != null)
@@ -572,10 +572,12 @@ __d(
         });
       return { filteredChats: i, filteredMetadata: l, filteredPics: s };
     }
-    ((l.NewsletterMetadataUpdateEntryPoint = L),
-      (l.queryAndUpdateAllNewsletterMetadataAction = E),
-      (l.queryAndUpdateNewsletterMetadataAction = I),
-      (l.updateCollections = $));
+    ((l.NewsletterMetadataUpdateEntryPoint = o(
+      "WAWebCommonNewsletterEnums",
+    ).NewsletterMetadataUpdateEntryPoint),
+      (l.queryAndUpdateAllNewsletterMetadataAction = L),
+      (l.queryAndUpdateNewsletterMetadataAction = k),
+      (l.updateCollections = x));
   },
   98,
 );

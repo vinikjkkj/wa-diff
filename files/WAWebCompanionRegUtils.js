@@ -114,7 +114,7 @@ __d(
               yield o("WAWebAdvSignatureApi").clearADVSecretKey());
             var e = yield r("WAWebClearCredentials")(),
               t = e || (yield E());
-            r("WAWebReloadAfterLogout")(t);
+            o("WAWebReloadAfterLogout").reloadAfterLogout(t);
           }
         })),
         L.apply(this, arguments)

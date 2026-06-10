@@ -82,7 +82,7 @@ __d(
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "handleNewIdentity: ignore identity change from companion device",
+                "handleNewIdentity: ignore from companion device",
               ])),
           ),
           (m || (m = n("Promise"))).resolve(y)
@@ -123,8 +123,8 @@ __d(
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "handleE2eIdentityChange: ",
-                    " has old identity, establishing new session",
+                    "[handleE2eIdentityChange] ",
+                    " old identity, new session",
                   ])),
                 h.toString(),
               );
@@ -140,7 +140,7 @@ __d(
                     o("WALogger").WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "handleE2eIdentityChange: addSecurityCodeChangedNotifications failed with: ",
+                          "addSecurityCodeChangedNotifications failed: ",
                           "",
                         ])),
                       String(e),

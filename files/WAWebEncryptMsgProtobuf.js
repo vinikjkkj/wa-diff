@@ -6,7 +6,6 @@ __d(
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebE2eMessageSendWamEvent",
-    "WAWebGroupMsgSendUtils",
     "WAWebMsgGetters",
     "WAWebPostE2eMessageSendMetric",
     "WAWebSendMsgCommonApi",
@@ -126,19 +125,13 @@ __d(
               ),
               m = o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
             m != null && (d.agentEngagementType = m);
-            var p = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-              _ = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-              f =
-                o("WAWebGroupMsgSendUtils").isCagAddon(e, i) ||
-                i.isLidAddressingMode === !0
-                  ? p
-                  : _;
+            var p = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
             try {
               return babelHelpers.extends(
                 {},
                 yield o("WAWebSignal").Cipher.encryptSenderKeyMsgSignalProto(
                   t,
-                  f,
+                  p,
                   a,
                 ),
               );
