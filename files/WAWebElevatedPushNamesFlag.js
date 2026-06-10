@@ -1,7 +1,6 @@
 __d(
   "WAWebElevatedPushNamesFlag",
   [
-    "WAWebABProps",
     "WAWebChatGetters",
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
@@ -24,10 +23,7 @@ __d(
       return (
         o("WAWebChatGetters").getIsGroup(t) &&
         (o("WAWebFrontendChatGetters").getIsCAG(t) ||
-          t.getParticipantCount() > 2) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "elevated_push_names_v2_m2_enabled",
-        )
+          t.getParticipantCount() > 2)
       );
     }
     function u(e) {

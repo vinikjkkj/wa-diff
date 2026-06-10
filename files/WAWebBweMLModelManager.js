@@ -190,7 +190,7 @@ __d(
           if (!(e == null || !e.isReady())) {
             var t = e.listAllModels();
             if (t.success) {
-              var n = new Set(E()),
+              var n = new Set(L()),
                 r = [];
               for (var a of t.value)
                 a.modelName === o("WAWebBweModelHashes").BWE_MODEL_NAME &&
@@ -228,14 +228,6 @@ __d(
       return e != null ? e : !0;
     }
     function L() {
-      var e;
-      return (e = o("WAWebABProps").getABPropConfigValue(
-        "enable_ml_bwe_model_download",
-      )) != null
-        ? e
-        : !1;
-    }
-    function E() {
       var e = new Set(),
         t = [
           "wavoip_ml_bwe_plc_model_download_versions",
@@ -273,14 +265,13 @@ __d(
       var c = Array.from(e);
       return c;
     }
-    function k() {
-      return I.apply(this, arguments);
+    function E() {
+      return k.apply(this, arguments);
     }
-    function I() {
+    function k() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!L()) return null;
-          var e = E();
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = L();
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -310,21 +301,21 @@ __d(
             t
           );
         })),
-        I.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield h(e), yield k());
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield h(e), yield E());
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    l.initBweMLModelsForCall = T;
+    l.initBweMLModelsForCall = I;
   },
   98,
 );

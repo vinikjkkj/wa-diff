@@ -5,7 +5,6 @@ __d(
     "WAWebBizProfileGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileTypes",
-    "WAWebCTWAGatingUtils",
     "cr:5664",
     "gkx",
   ],
@@ -87,11 +86,9 @@ __d(
       e.forEachChildWithTag("website", function (e) {
         B.push({ url: e.contentString() });
       });
-      var W;
-      if (o("WAWebCTWAGatingUtils").getFmxAgmEnabled()) {
-        var q = e.maybeChild("member_since_text");
-        q && (W = q.contentString());
-      }
+      var W,
+        q = e.maybeChild("member_since_text");
+      q && (W = q.contentString());
       var U, V, H, G;
       if (o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled()) {
         var z = e.maybeChild("authorized_agent");

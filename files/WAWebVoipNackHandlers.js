@@ -7,13 +7,16 @@ __d(
     "WAWebConfirmPopup.react",
     "WAWebContactCollection",
     "WAWebCoreActionsODS",
+    "WAWebFrontendContactGetters",
     "WAWebModalManager",
     "WAWebName.react",
     "WAWebNoop",
     "WAWebUserPrefsMeUser",
+    "WAWebVoipEventConstants",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipUiManager",
+    "WAWebWidFactory",
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
@@ -29,8 +32,10 @@ __d(
       _,
       f,
       g,
-      h = g || (g = o("react")),
-      y = {
+      h,
+      y,
+      C = y || (y = o("react")),
+      b = {
         NackCallerCountry: 401,
         NackCallerNotEnabled: 403,
         NackCalleeCountry: 405,
@@ -44,15 +49,15 @@ __d(
         NackCalleeOSVersion: 460,
         NackUnavailable: 473,
       };
-    function C(e, t, n) {
+    function v(e, t, n) {
       o("WAWebModalManager").ModalManager.open(
-        h.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        C.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(), t == null || t());
           },
           okText: s._(/*BTDS*/ "OK"),
           title: n,
-          children: h.jsx(r("WDSText.react"), {
+          children: C.jsx(r("WDSText.react"), {
             type: "Body1",
             colorName: "contentDefault",
             children: e,
@@ -60,12 +65,12 @@ __d(
         }),
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           e != null && e.type === "web"
             ? yield e.endCall(
@@ -75,10 +80,10 @@ __d(
             : (r("WAWebCallCollection").setActiveCall(null),
               r("WAWebCallCollection").setIsInConnectedCall(!1));
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function S(t, n) {
+    function L(t, n) {
       var a = t != null && o("WAWebUserPrefsMeUser").isMeAccount(t);
       if (a)
         return (
@@ -88,7 +93,7 @@ __d(
                 "voip: handleCallOfferNacked: Self nacked for NackGroupCallNotEnabled (427)",
               ])),
           ),
-          C(
+          v(
             s._(
               /*BTDS*/ "Your version of WhatsApp doesn't support group calls.",
             ),
@@ -111,14 +116,14 @@ __d(
             })
           : null;
       return (
-        C(
+        v(
           i != null
             ? s._(
                 /*BTDS*/ "{name} is unable to join WhatsApp group calls at this time.",
                 [
                   s._param(
                     "name",
-                    h.jsx(o("WAWebName.react").Name, { contact: i }),
+                    C.jsx(o("WAWebName.react").Name, { contact: i }),
                   ),
                 ],
               )
@@ -129,24 +134,24 @@ __d(
         !1
       );
     }
-    function R(e) {
+    function E(e) {
       var t = r("WAWebCallCollection").activeCall;
       if (t) {
         for (var n of e.errors)
           switch (n.errorCode) {
-            case y.NackUnknownReason:
-            case y.NackUnavailable:
+            case b.NackUnknownReason:
+            case b.NackUnavailable:
               o("WAWebCoreActionsODS").logCallErrorTerminal();
               break;
-            case y.NackCallerCountry:
-            case y.NackCallerNotEnabled:
-            case y.NackCalleeCountry:
-            case y.NackCalleePlatform:
-            case y.NackCalleeAppVersion:
-            case y.NackCalleeOSVersion:
+            case b.NackCallerCountry:
+            case b.NackCallerNotEnabled:
+            case b.NackCalleeCountry:
+            case b.NackCalleePlatform:
+            case b.NackCalleeAppVersion:
+            case b.NackCalleeOSVersion:
               break;
-            case y.NackGroupCallMaximumLimit:
-            case y.NackGroupCallCapacityFull:
+            case b.NackGroupCallMaximumLimit:
+            case b.NackGroupCallCapacityFull:
               break;
             default:
               break;
@@ -154,14 +159,14 @@ __d(
         var a = e.isCompleteNack;
         for (var i of e.errors)
           switch (i.errorCode) {
-            case y.NackDuplicateLinkedGroupCall:
+            case b.NackDuplicateLinkedGroupCall:
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: handleCallOfferNacked: NackDuplicateLinkedGroupCall (411)",
                   ])),
               ),
-                C(
+                v(
                   s._(
                     /*BTDS*/ "Each group can only have one ongoing call at a time.",
                   ),
@@ -169,8 +174,8 @@ __d(
                   s._(/*BTDS*/ "Call Failed"),
                 ));
               break;
-            case y.NackGroupCallNotEnabled: {
-              a = S(i.errorJid, a);
+            case b.NackGroupCallNotEnabled: {
+              a = L(i.errorJid, a);
               break;
             }
             default:
@@ -183,7 +188,7 @@ __d(
                 "voip: Complete nack received, ending call",
               ])),
           ),
-            b());
+            S());
           return;
         }
         o("WALogger").LOG(
@@ -194,7 +199,7 @@ __d(
         );
       }
     }
-    var L = {
+    var k = {
       BadRequest: 400,
       DoesNotExist: 404,
       UnsupportedAppVersion: 427,
@@ -202,7 +207,7 @@ __d(
       NotCompatible: 432,
       ServiceUnavailable: 503,
     };
-    function E(e) {
+    function I(e) {
       o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -211,33 +216,33 @@ __d(
           ])),
         e,
       );
-      var t = k(e);
-      C(t);
+      var t = T(e);
+      v(t);
     }
-    function k(e) {
+    function T(e) {
       switch (e) {
-        case L.DoesNotExist:
+        case k.DoesNotExist:
           return s._(/*BTDS*/ "Invalid call link");
-        case L.CallFull:
+        case k.CallFull:
           return s._(/*BTDS*/ "This call is full.");
-        case L.UnsupportedAppVersion:
+        case k.UnsupportedAppVersion:
           return s._(/*BTDS*/ "Please update WhatsApp to join this call.");
-        case L.ServiceUnavailable:
+        case k.ServiceUnavailable:
           return s._(/*BTDS*/ "Unable to connect. Please try again later.");
         default:
           return s._(/*BTDS*/ "Couldn't join this call.");
       }
     }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I() {
-      return T.apply(this, arguments);
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D() {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: handleLobbyNacked: ending call",
               ])),
           );
@@ -253,20 +258,20 @@ __d(
               callEnded: !0,
               surveyInteracted: !1,
             }),
-            C(s._(/*BTDS*/ "Unable to connect.")));
+            v(s._(/*BTDS*/ "Unable to connect.")));
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function D() {
-      return x.apply(this, arguments);
+    function $() {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
-            f ||
-              (f = babelHelpers.taggedTemplateLiteralLoose([
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: handleLobbyTimeout: ending call",
               ])),
           );
@@ -282,16 +287,73 @@ __d(
               callEnded: !0,
               surveyInteracted: !1,
             }),
-            C(s._(/*BTDS*/ "Call preview has timed out.")));
+            v(s._(/*BTDS*/ "Call preview has timed out.")));
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((l.showErrorDialog = C),
-      (l.handleCallOfferNacked = R),
-      (l.handleCallLinkNacked = E),
-      (l.handleLobbyNacked = I),
-      (l.handleLobbyTimeout = D));
+    function N(e) {
+      o("WALogger").LOG(
+        _ ||
+          (_ = babelHelpers.taggedTemplateLiteralLoose([
+            "voip: showUserRemovedDialog: removerJid=",
+            "",
+          ])),
+        e != null ? e : "null",
+      );
+      var t = "";
+      if (e != null && e !== "") {
+        var n = o("WAWebContactCollection").ContactCollection.get(e);
+        (n != null && (t = o("WAWebFrontendContactGetters").getDisplayName(n)),
+          t === "" && (t = e));
+      }
+      var r =
+        t !== ""
+          ? s._(/*BTDS*/ "You have been removed from the call by {name}.", [
+              s._param("name", t),
+            ])
+          : s._(/*BTDS*/ "You have been removed from the call.");
+      v(
+        r,
+        function () {
+          o("WAWebVoipUiManager").closeAllVoipWindows({
+            callEnded: !0,
+            surveyInteracted: !1,
+          });
+        },
+        s._(/*BTDS*/ "Call has ended"),
+      );
+    }
+    function M(e) {
+      var t;
+      try {
+        t = o("WAWebWidFactory").createWid(e);
+      } catch (t) {
+        o("WALogger").WARN(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: showParticipantRemovedToast: invalid jid ",
+              "",
+            ])),
+          e,
+        );
+        return;
+      }
+      r("WAWebCallCollection").trigger(
+        o("WAWebVoipEventConstants").getChangeEvent(
+          o("WAWebVoipEventConstants").VoipCallCollectionEvents
+            .PARTICIPANT_REMOVED,
+        ),
+        { jid: t },
+      );
+    }
+    ((l.showErrorDialog = v),
+      (l.handleCallOfferNacked = E),
+      (l.handleCallLinkNacked = I),
+      (l.handleLobbyNacked = D),
+      (l.handleLobbyTimeout = $),
+      (l.showUserRemovedDialog = N),
+      (l.showParticipantRemovedToast = M));
   },
   226,
 );

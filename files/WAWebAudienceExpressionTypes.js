@@ -42,9 +42,12 @@ __d(
       return n != null && n.type === l ? n : null;
     }
     function h(e) {
+      return g(e) != null;
+    }
+    function y(e) {
       return JSON.stringify(e);
     }
-    function y(t) {
+    function C(t) {
       try {
         var n = JSON.parse(t);
         return (n == null ? void 0 : n.type) === e && Array.isArray(n.userJids)
@@ -56,7 +59,7 @@ __d(
         return null;
       }
     }
-    var C = m([]);
+    var b = m([]);
     ((i.EXPRESSION_TYPE_EXPLICIT = e),
       (i.EXPRESSION_TYPE_PREDICATE = l),
       (i.PREDICATE_TYPE_LABEL = s),
@@ -68,9 +71,10 @@ __d(
       (i.getLabelIdsFromExpression = _),
       (i.expressionUsesLabel = f),
       (i.getPredicateExpressionFromChat = g),
-      (i.serializeAudienceExpression = h),
-      (i.parseAudienceExpressionJson = y),
-      (i.DEFAULT_AUDIENCE_EXPRESSION = C));
+      (i.isPredicateAudience = h),
+      (i.serializeAudienceExpression = y),
+      (i.parseAudienceExpressionJson = C),
+      (i.DEFAULT_AUDIENCE_EXPRESSION = b));
   },
   66,
 );

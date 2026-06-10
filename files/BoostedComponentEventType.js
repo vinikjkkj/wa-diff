@@ -1644,6 +1644,8 @@ __d(
       MAIBA_AUDIENCE_DISMISSED: "maiba_audience_dismissed",
       MAIBA_AUDIENCE_KEPT_AFTER_EDIT: "maiba_audience_kept_after_edit",
       MAIBA_AUDIENCE_SUBMIT_OUTCOME: "maiba_audience_submit_outcome",
+      MAIBA_AUDIENCE_SUBMIT_OUTCOME_SUCCESS:
+        "maiba_audience_submit_outcome_success",
       PROACTIVE_RESULTS_DELIVERY_SCHEDULED:
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:

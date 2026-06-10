@@ -1,6 +1,12 @@
 __d(
   "WAWebSocketBridgeApi",
-  ["WAWebCmd", "WAWebCurrentUser", "WAWebEnvironment", "WAWebSocketModel"],
+  [
+    "WAWebCmd",
+    "WAWebCurrentUser",
+    "WAWebEnvironment",
+    "WAWebSocketModel",
+    "WAWebUpdater",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = {
       socketLogout: function (t) {
@@ -55,6 +61,16 @@ __d(
       },
       triggerOfflineProgressUpdateFromBridge: function () {
         o("WAWebCmd").Cmd.onOfflineProgressUpdateFromBridge();
+      },
+      forceAppUpdate: function (t) {
+        var e = t.version,
+          n = t.belowSoft,
+          r = t.belowHard;
+        o("WAWebUpdater").Updater.update({
+          serverVersion: e,
+          belowSoft: n,
+          belowHard: r,
+        });
       },
     };
     l.SocketBridgeApi = e;

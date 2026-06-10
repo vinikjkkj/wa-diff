@@ -657,54 +657,18 @@ __d(
         }
         return t;
       })(),
-      addNewsletterMessageDeliveryUpdateForSelectedChat: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = o("WAWebDebugUtils").getSelectedChat();
-          if (t == null)
-            throw r("err")(
-              "addNewsletterMessageDeliveryUpdateForSelectedChat: no selected chat",
-            );
-          var n = (e = t.msgs.last()) == null ? void 0 : e.serverId;
-          if (n == null)
-            throw r("err")(
-              "addNewsletterMessageDeliveryUpdateForSelectedChat: latest message has no serverId",
-            );
-          var a = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
-            n,
-            t.id.toString(),
+      getLastChannelMessageServerId: function () {
+        var e,
+          t = o("WAWebDebugUtils").getSelectedChat();
+        if (t == null)
+          throw r("err")("getLastChannelMessageServerId: no selected chat");
+        var n = (e = t.msgs.last()) == null ? void 0 : e.serverId;
+        if (n == null)
+          throw r("err")(
+            "getLastChannelMessageServerId: latest message has no serverId",
           );
-          if (a == null)
-            throw r("err")(
-              "addNewsletterMessageDeliveryUpdateForSelectedChat: no MsgData for serverId",
-            );
-          yield o(
-            "WAWebNewsletterBridgeApi",
-          ).NewsletterBridgeApi.updateNewsletterMessageDeliveryUpdate({
-            id: t.id,
-            modelUpdatesToAdd: [{ id: a.id, serverId: n, msgData: a, code: 1 }],
-            modelUpdatesToRemove: [],
-          });
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      terminateSelectedChannel: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebDebugUtils").getSelectedChat();
-          if (e == null)
-            throw r("err")("terminateSelectedChannel: no selected chat");
-          yield o(
-            "WAWebNewsletterBridgeApi",
-          ).NewsletterBridgeApi.terminateNewsletter({ id: e.id, msgs: [] });
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+        return n;
+      },
       addProfilePictureDeletionAlertForSelectedChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebDebugUtils").getSelectedChat();

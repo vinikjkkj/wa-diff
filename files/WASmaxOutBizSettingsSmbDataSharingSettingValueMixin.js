@@ -1,13 +1,15 @@
 __d(
   "WASmaxOutBizSettingsSmbDataSharingSettingValueMixin",
-  ["WASmaxJsx", "WASmaxMixins", "WAWap"],
+  ["WASmaxAttrs", "WASmaxJsx", "WASmaxMixins", "WAWap"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.anyValue,
-        n = o("WASmaxJsx").smax("smax$any", {
+        n = e.anyVersion,
+        r = o("WASmaxJsx").smax("smax$any", {
           value: o("WAWap").CUSTOM_STRING(t),
+          version: o("WASmaxAttrs").OPTIONAL(o("WAWap").INT, n),
         });
-      return n;
+      return r;
     }
     function s(t, n) {
       var r = e(n);

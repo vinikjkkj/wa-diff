@@ -2,7 +2,6 @@ __d(
   "WAWebParticipantListUtils",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebAlphaRegex",
     "WAWebApiContact",
     "WAWebBotGroupGatingUtils",
@@ -92,10 +91,7 @@ __d(
           return !o("WAWebFrontendContactGetters").getIsMyContact(e.contact);
         }),
         u = [];
-      o("WAWebABProps").getABPropConfigValue(
-        "elevated_push_names_v2_m2_enabled",
-      ) &&
-        i >= 3 &&
+      i >= 3 &&
         (u = s.filter(function (e) {
           return o("WAWebContactGetters").getNotifyName(e.contact) != null;
         }));

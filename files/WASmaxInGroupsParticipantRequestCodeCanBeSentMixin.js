@@ -18,9 +18,14 @@ __d(
         "403",
       );
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").attrString(n.value, "code");
+      var a = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrString,
+        n.value,
+        "code",
+      );
       if (!a.success) return a;
-      var i = o("WASmaxParseUtils").attrIntRange(
+      var i = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
         n.value,
         "expiration",
         0,

@@ -45,8 +45,13 @@ __d(
         ROW_META_AI_TYPEAHEAD_SUGGESTIONS: "ROW_META_AI_TYPEAHEAD_SUGGESTIONS",
         ROW_UPCOMING_EVENTS_VIEW_ALL: "ROW_UPCOMING_EVENTS_VIEW_ALL",
         ROW_OUT_CONTACTS: "ROW_OUT_CONTACTS",
-      });
-    ((i.WAWebChatlistSection = e), (i.WAWebChatlistRow = l));
+      }),
+      s = "calls-tab-add-favorite",
+      u = Object.freeze({ id: s });
+    ((i.WAWebChatlistSection = e),
+      (i.WAWebChatlistRow = l),
+      (i.CALLS_ADD_FAVORITE_SELECTION_ID = s),
+      (i.CALLS_ADD_FAVORITE_SELECTION_ITEM = u));
   },
   66,
 );

@@ -93,10 +93,7 @@ __d(
       }
     }
     function h(e) {
-      if (
-        o("WAWebCTWAGatingUtils").getFmxAgmEnabled() &&
-        o("WAWebCTWAGatingUtils").getCtwaLogUserJourneyEnabled()
-      ) {
+      if (o("WAWebCTWAGatingUtils").getCtwaLogUserJourneyEnabled()) {
         var t = e.adID,
           n = e.businessPhoneNumber,
           r = e.ctaType,
@@ -115,17 +112,15 @@ __d(
       }
     }
     function y(e) {
-      if (o("WAWebCTWAGatingUtils").getFmxAgmEnabled()) {
-        var t = e.adID,
-          n = e.ctaType,
-          r = e.operation;
-        new (o("WAWebCtwaBizUserJourneyWamEvent").CtwaBizUserJourneyWamEvent)({
-          adId: String(t),
-          ctwaBizUserJourneyOperation: r,
-          bizFeatureEnabled: d,
-          ctwaBizUserJourneyMetadata: JSON.stringify({ agm_cta_type: n }),
-        }).commit();
-      }
+      var t = e.adID,
+        n = e.ctaType,
+        r = e.operation;
+      new (o("WAWebCtwaBizUserJourneyWamEvent").CtwaBizUserJourneyWamEvent)({
+        adId: String(t),
+        ctwaBizUserJourneyOperation: r,
+        bizFeatureEnabled: d,
+        ctwaBizUserJourneyMetadata: JSON.stringify({ agm_cta_type: n }),
+      }).commit();
     }
     function C(e) {
       return e != null ? e.toString() : "null";

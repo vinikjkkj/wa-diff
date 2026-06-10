@@ -28,6 +28,11 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.initialize = function () {
+            t.prototype.initialize.call(this);
+            var e = this.getParentChat();
+            e != null && this.seedFromChat(e);
+          }),
           (i.seedFromChat = function (a) {
             t.prototype.seedFromChat.call(this, a);
             var n = this.id.key.toString();

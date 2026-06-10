@@ -6,7 +6,6 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAddAndReorderMsgsActionsUtils",
-    "WAWebAvatarGatingUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
     "WAWebChatCollection",
@@ -223,13 +222,7 @@ __d(
                   a =
                     o("WAWebMsgGetters").getIsSentByMe(e) &&
                     e.type === o("WAWebMsgType").MSG_TYPE.STICKER;
-                if (
-                  a &&
-                  !(
-                    e.isAvatar === !0 &&
-                    !o("WAWebAvatarGatingUtils").avatarsOnWebEnabled()
-                  )
-                ) {
+                if (a && e.isAvatar !== !0) {
                   var i = e.mediaData,
                     l = e.mediaObject,
                     s = e.id.toString(),

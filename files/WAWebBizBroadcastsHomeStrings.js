@@ -335,7 +335,7 @@ __d(
     }
     De.displayName = De.name + " [from " + i.id + "]";
     function xe() {
-      return s._(/*BTDS*/ "Use your phone to edit audiences with lists.");
+      return s._(/*BTDS*/ "Use your phone to edit this audience.");
     }
     xe.displayName = xe.name + " [from " + i.id + "]";
     function $e() {
@@ -436,7 +436,7 @@ __d(
       (l.getPrimaryOfflineInsightsToast = Ie),
       (l.getListsLinkedTitle = Te),
       (l.getEditRecipientsLabel = De),
-      (l.getEditAudiencesWithListsLabel = xe),
+      (l.getEditAudienceOnPhoneLabel = xe),
       (l.getRecipientsDisclaimerLabel = $e),
       (l.getDeliveredToLoadingLabel = Pe),
       (l.getDeliveredToErrorLabel = Ne),

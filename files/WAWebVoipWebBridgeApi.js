@@ -1359,6 +1359,14 @@ __d(
             ));
         }
       },
+      showUserRemovedDialog: function (t) {
+        var e = t.removerJid;
+        o("WAWebVoipNackHandlers").showUserRemovedDialog(e);
+      },
+      showParticipantRemovedToast: function (t) {
+        var e = t.removeeJid;
+        o("WAWebVoipNackHandlers").showParticipantRemovedToast(e);
+      },
       cleanupPrewarmedCamera: function () {
         o("WAWebVoipCameraPrewarm").cleanupPrewarmedCamera();
       },

@@ -51,56 +51,59 @@ __d(
           ? s._(/*BTDS*/ "Added to Favourites")
           : s._(/*BTDS*/ "Added to Favorites");
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function p(e) {
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          onOK: o("WAWebModalManager").closeModalManager,
+          okText: r("WAWebFbtCommon")("OK"),
+          children: o(
+            "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+          ).isUsingSupportedBritishEnglishLocale()
+            ? s._(
+                /*BTDS*/ "You can't add more than {favorites_limit} favourites",
+                [s._param("favorites_limit", e)],
+              )
+            : s._(
+                /*BTDS*/ "You can't add more than {favorites_limit} favorites",
+                [s._param("favorites_limit", e)],
+              ),
+        }),
+      );
     }
-    function _() {
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           var i;
           if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
             var l = yield o("WAWebDBFavoriteDatabaseApi").getAllFavorites(),
-              u =
+              s =
                 (i =
                   o("WAWebABProps").getABPropConfigValue("favorites_limit")) !=
                 null
                   ? i
                   : 100;
-            if (l.length + (Array.isArray(t) ? t.length : 1) > u) {
-              o("WAWebModalManager").ModalManager.open(
-                c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  onOK: o("WAWebModalManager").closeModalManager,
-                  okText: r("WAWebFbtCommon")("OK"),
-                  children: o(
-                    "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-                  ).isUsingSupportedBritishEnglishLocale()
-                    ? s._(
-                        /*BTDS*/ "You can't add more than {favorites_limit} favourites",
-                        [s._param("favorites_limit", u)],
-                      )
-                    : s._(
-                        /*BTDS*/ "You can't add more than {favorites_limit} favorites",
-                        [s._param("favorites_limit", u)],
-                      ),
-                }),
-              );
+            if (l.length + (Array.isArray(t) ? t.length : 1) > s) {
+              p(s);
               return;
             }
-            var p;
+            var u;
             if (Array.isArray(t)) {
               var _ = yield o(
                 "WAWebDBFavoriteDatabaseApi",
               ).getNextFavoriteOrderIndex();
-              p = t.map(function (e) {
+              u = t.map(function (e) {
                 return { id: e.toString(), orderIndex: _++ };
               });
-            } else p = [babelHelpers.extends({}, t)];
+            } else u = [babelHelpers.extends({}, t)];
             a.entryPoint != null &&
               o("WAWebFavoritesLogging").logAddingMessagingFavorites(
-                p,
+                u,
                 a.entryPoint,
               );
-            var f = l.concat(p),
+            var f = l.concat(u),
               g = o("WATimeUtils").unixTime(),
               h = yield r("WAWebFavoritesSync").getFavoritesMutation(f, g);
             o("WALogger").LOG(
@@ -114,12 +117,12 @@ __d(
                 ["favorite", "chat"],
                 [h],
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  return o("WAWebDBFavoriteDatabaseApi").addOrEditFavorites(p);
+                  return o("WAWebDBFavoriteDatabaseApi").addOrEditFavorites(u);
                 }),
               )
               .then(function () {
                 return o("WAWebFavoriteCollection").FavoriteCollection.add(
-                  p.map(function (e) {
+                  u.map(function (e) {
                     return babelHelpers.extends({}, e);
                   }),
                 );
@@ -140,10 +143,10 @@ __d(
             }
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.addToFavoritesAction = p;
+    ((l.showFavoritesLimitExceededPopup = p), (l.addToFavoritesAction = _));
   },
   226,
 );

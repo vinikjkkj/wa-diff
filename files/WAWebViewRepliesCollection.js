@@ -1,7 +1,6 @@
 __d(
   "WAWebViewRepliesCollection",
   [
-    "WAWebChatCollection",
     "WAWebCollection",
     "WAWebThreadId",
     "WAWebThreadMetadataJob",
@@ -62,13 +61,6 @@ __d(
                   });
                   this.add(n);
                 }
-              var a = o("WAWebChatCollection").ChatCollection.get(
-                this.$ViewRepliesCollection$p_1,
-              );
-              a &&
-                this.forEach(function (e) {
-                  e.seedFromChat(a);
-                });
             } catch (e) {
               throw ((this.$ViewRepliesCollection$p_2 = null), e);
             }

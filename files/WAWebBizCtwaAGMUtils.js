@@ -46,8 +46,7 @@ __d(
         a = e.msgType;
       if (
         a === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-        r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup &&
-        o("WAWebCTWAGatingUtils").getFmxAgmEnabled()
+        r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup
       )
         return !0;
       var i = o("WAWebCTWAGatingUtils").getWamoAgmEnabled(),
@@ -56,8 +55,7 @@ __d(
           n === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.INSTAGRAM,
         s =
           a === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-          t === !0 &&
-          o("WAWebCTWAGatingUtils").getFmxAgmEnabled();
+          t === !0;
       return (i || l) && s;
     }
     function f(e) {

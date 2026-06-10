@@ -1,21 +1,32 @@
 __d(
   "WAWebLinkedAccountsGQL",
   [
+    "FBLogger",
     "WAWebFetchAdAccountToken",
     "WAWebLinkedAccountsGQLQuery.graphql",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (t.type !== "success" && r("justknobx")._("2987"))
+            return (
+              r("FBLogger")("wa_ctwa_web").warn(
+                "Skipping linked accounts query: ad account token fetch failed with type " +
+                  t.type,
+              ),
+              null
+            );
+          var a = t.type === "success" ? t.token : void 0;
           return o("WAWebRelayClient")
             .fetchQuery(
               e !== void 0 ? e : (e = n("WAWebLinkedAccountsGQLQuery.graphql")),
               {},
-              { accessToken: t.token, environmentType: "facebook" },
+              { accessToken: a, environmentType: "facebook" },
             )
             .then(function (e) {
               var t,

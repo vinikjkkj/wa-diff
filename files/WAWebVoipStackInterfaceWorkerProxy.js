@@ -925,7 +925,7 @@ __d(
         })(),
         previewAndJoinCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, n, r, a, i) {
+            function* (e, n, r, a, i, l) {
               if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
                 o("WALogger").ERROR(
                   F ||
@@ -939,9 +939,9 @@ __d(
                 r != null ? r : null,
                 null,
               );
-              var l = yield t;
+              var s = yield t;
               (o("WAWebBweMLModelManager")
-                .initBweMLModelsForCall(l)
+                .initBweMLModelsForCall(s)
                 .catch(function (e) {
                   o("WALogger").WARN(
                     O ||
@@ -958,10 +958,11 @@ __d(
                   lobbyEntryType: r != null ? r : 0,
                   username: a != null ? a : "",
                   videoMuted: i != null ? i : !1,
+                  pushName: l != null ? l : "",
                 }));
             },
           );
-          function r(t, n, r, o, a) {
+          function r(t, n, r, o, a, i) {
             return e.apply(this, arguments);
           }
           return r;

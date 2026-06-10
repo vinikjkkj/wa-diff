@@ -3,7 +3,9 @@ __d(
   [
     "WALogger",
     "WANullthrows",
+    "WATimeUtils",
     "WAWebChatThreadLogging",
+    "WAWebChatThreadLoggingUtils",
     "WAWebCrashlog",
     "WAWebDebugABProps",
     "WAWebLocalStorage",
@@ -15,39 +17,90 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "WAWebWamGlobals",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
+    var e, s, u, c, d;
+    function m() {
       return o("WAWebCrashlog").upload({
         reason: o("WAWebCrashlog").MANUAL_UPLOAD,
         isHighPri: !0,
         immediate: !0,
       });
     }
-    u.doc =
+    m.doc =
       "Upload Crashlogs with reason: " +
       o("WAWebCrashlog").MANUAL_UPLOAD +
       ", ignores sampling";
-    function c(e) {
+    function p(e) {
       return (
         e === void 0 && (e = "testing"),
         o("WAWebCrashlog").upload({ reason: e })
       );
     }
-    c.doc =
+    p.doc =
       "Upload Crashlogs with reason: testing, or supply a reason. Dev env blocks all uploads but: testing";
-    function d() {
+    function _() {
       o("WAWebTasksDailyStatsTask").logDailyStats();
     }
-    d.doc = "log wam daily stats";
-    function m() {
+    _.doc = "log wam daily stats";
+    function f() {
       return r("WANullthrows")(
         o("WAWebChatThreadLogging").getChatThreadLoggingStateDebug(),
       );
     }
-    m.doc = "thread logging internal API";
-    function p(t) {
+    f.doc = "thread logging internal API";
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebChatThreadLogging").getChatThreadLoggingStateDebug();
+          if (e == null) {
+            o("WALogger").ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "uploadThreadLoggingEventsNow: chat thread logging not initialized",
+                ])),
+            );
+            return;
+          }
+          var t = yield e.metadataStore.getOffset();
+          if (t == null) {
+            o("WALogger").ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "uploadThreadLoggingEventsNow: thread logging offset unset",
+                ])),
+            );
+            return;
+          }
+          var n = o("WAWebChatThreadLoggingUtils").computeStartTs(
+              t,
+              o("WATimeUtils").unixTime(),
+            ),
+            r = yield e.metadataStore.getLastUploadedStartTs();
+          (yield o("WAWebChatThreadLogging").uploadChatThreadLoggingEvents({
+            lastStartTs: n,
+          }),
+            yield e.metadataStore.setLastUploadedStartTs(r),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "uploadThreadLoggingEventsNow: flushed CTL events to WAM up to startTs=",
+                  "",
+                ])),
+              n,
+            ));
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    ((g.doc =
+      "Flush all pending Chat Thread Logging (CTL v2) events from IndexedDB to WAM now, including the current day bucket. Use to verify thread-interaction WAM events (e.g. After Read fields) in Scuba without waiting for the daily upload timer. Purges uploaded rows and restores the upload watermark so logging continues."),
+      (g.paramsToExecute = []));
+    function y(t) {
       for (var n = window.performance.now(), r = 0; r < t; r++)
         o("WALogger").LOG(
           e ||
@@ -57,8 +110,8 @@ __d(
         );
       "" + (window.performance.now() - n).toString();
     }
-    p.doc = "test logging perf";
-    function _() {
+    y.doc = "test logging perf";
+    function C() {
       var e =
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").UserPrefs.PageLoadDebug,
@@ -75,16 +128,16 @@ __d(
           ),
           !0);
     }
-    _.doc = "toggle page load QPL mirrored performance markers";
-    function f() {
+    C.doc = "toggle page load QPL mirrored performance markers";
+    function b() {
       return o("WAWebWamGlobals").Global;
     }
-    f.doc = "Get wam global fields";
-    function g(e) {
+    b.doc = "Get wam global fields";
+    function v(e) {
       r("WAWebDebugABProps").overrideABProp("wa_web_console_log_level", e);
     }
-    g.doc = "Set console log level. 1: All logs, 2: Log, 3: Warn, 4: Error";
-    function h() {
+    v.doc = "Set console log level. 1: All logs, 2: Log, 3: Warn, 4: Error";
+    function S() {
       o("WALogger")
         .ERROR(
           s ||
@@ -96,10 +149,10 @@ __d(
           employeeSampling: 1,
         });
     }
-    ((h.doc =
+    ((S.doc =
       "Send logs without employee separation (does not add -employee suffix for employees)"),
-      (h.paramsToExecute = []));
-    function y(e) {
+      (S.paramsToExecute = []));
+    function R(e) {
       r("WAWebLocalStorage") != null &&
         (o("WAWebLoggerDev").clearContextBuffer(),
         e == null
@@ -112,51 +165,52 @@ __d(
             ),
             "" + e));
     }
-    y.doc =
+    R.doc =
       "Set a filter pattern for logs (string or regex). Only matching logs will be shown. Pass null to clear the filter.";
-    function C() {
+    function L() {
       return r("WAWebLocalStorage") == null
         ? null
         : r("WAWebLocalStorage").getItem(
             o("WAWebLoggerDev").LOG_FILTER_STORAGE_KEY,
           );
     }
-    C.doc = "Get the current log filter pattern, or null if not set";
-    function b(e) {
+    L.doc = "Get the current log filter pattern, or null if not set";
+    function E(e) {
       e < 0 ||
         (o("WAWebLoggerDev").setContextLinesCount(e),
         o("WAWebLoggerDev").clearContextBuffer(),
         e === 0 || "" + e);
     }
-    b.doc =
+    E.doc =
       "Set number of context lines to show before/after matching logs. Pass 0 to disable context.";
-    function v() {
+    function k() {
       return o("WAWebLoggerDev").getContextLinesCount();
     }
-    v.doc = "Get current context lines setting";
-    var S = {
+    k.doc = "Get current context lines setting";
+    var I = {
       Logger: o("WAWebLoggerImpl").Logger,
-      getLogContext: v,
-      getLogFilter: C,
+      getLogContext: k,
+      getLogFilter: L,
       getOrInitTimeSpentSession: o("WAWebTimeSpentLoggingSession")
         .getOrInitTimeSpentSession,
-      getThreadLogging: m,
-      getWamGlobal: f,
-      listenLog: y,
-      logWamDailyStats: d,
-      loggingPerfTest: p,
+      getThreadLogging: f,
+      getWamGlobal: b,
+      listenLog: R,
+      logWamDailyStats: _,
+      loggingPerfTest: y,
       markTimeSpentActivity: o("WAWebTimeSpentLoggingSession")
         .markTimeSpentActivity,
-      sendLogsWithoutEmployeeSeparation: h,
-      setLogContext: b,
-      setLogLevel: g,
-      togglePageLoadDebug: _,
+      sendLogsWithoutEmployeeSeparation: S,
+      setLogContext: E,
+      setLogLevel: v,
+      togglePageLoadDebug: C,
       toggleTsNavigationDebug: o("WAWebTimeSpentLoggingNavigation")
         .toggleTsNavigationDebug,
-      uploadLogs: u,
-      uploadLogsTesting: c,
+      uploadLogs: m,
+      uploadLogsTesting: p,
+      uploadThreadLoggingEventsNow: g,
     };
-    l.default = S;
+    l.default = I;
   },
   98,
 );

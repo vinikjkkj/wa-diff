@@ -6,15 +6,25 @@ __d(
     function s(t) {
       try {
         var n,
-          r = o(
+          r,
+          a,
+          i = o(
             "WASmaxBizSettingsSyncPrivacySettingRPC",
           ).receiveSyncPrivacySettingRPC(t.node()),
-          a = r.parsedRequest,
-          i =
-            (n = a.privacySmbDataSharingSettingMixin) == null
+          l = i.parsedRequest,
+          s =
+            (n = l.privacySmbDataSharingSettingMixin) == null
               ? void 0
               : n.value;
-        return i == null ? null : { smbDataSharingSetting: i };
+        if (s == null) return null;
+        var u =
+          (r =
+            (a = l.privacySmbDataSharingSettingMixin) == null
+              ? void 0
+              : a.version) != null
+            ? r
+            : void 0;
+        return { smbDataSharingSetting: s, smbDataSharingVersion: u };
       } catch (t) {
         return (
           o("WALogger").ERROR(

@@ -17,7 +17,7 @@ __d(
         MEMBER_SHARE_GROUP_HISTORY_MODE: "member_share_group_history_mode",
       },
       l = 60,
-      s = 128;
+      s = 32;
     ((i.GROUP_SETTING_TYPE = e),
       (i.PAST_PARTICIPANT_EXPIRATION_DAYS = l),
       (i.MAX_GROUP_SIZE_FOR_BULK_ADD = s));

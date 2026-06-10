@@ -9,7 +9,6 @@ __d(
     "WAWebBusinessProfileModel",
     "WAWebBusinessProfileSMBUserJourneyLogger",
     "WAWebBusinessProfileTypes",
-    "WAWebCTWAGatingUtils",
     "WAWebCatalogCollection",
     "WAWebContactCollection",
     "WAWebExternalLink.react",
@@ -261,9 +260,7 @@ __d(
         q = { id: n };
       return (
         c ? (q.businessHours = p(c)) : (q.businessHours = null),
-        L != null &&
-          o("WAWebCTWAGatingUtils").getFmxAgmEnabled() &&
-          (q.memberSinceText = L),
+        L != null && (q.memberSinceText = L),
         N && (q.profileOptions = k(N)),
         v(a) &&
           ((q.catalogStatus = d),

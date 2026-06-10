@@ -24,63 +24,236 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react")),
-      c = e.useMemo;
-    function d(e, t, n, o) {
-      return function () {
-        var a = n != null && n.key === t ? n.direction : null;
-        return u.jsxs("div", {
-          className:
-            "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj x1ypdohk",
-          role: "button",
-          tabIndex: 0,
-          onClick: function () {
-            return o(t);
-          },
-          onKeyDown: function (n) {
-            (n.key === "Enter" || n.key === " ") && (n.preventDefault(), o(t));
-          },
-          children: [
-            u.jsx(r("WDSText.react"), {
-              maxLines: 1,
-              type: "Body2Emphasized",
-              colorName: "contentDeemphasized",
-              children: e,
-            }),
-            a != null &&
-              u.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  {
-                    0: { className: "x78zum5" },
-                    1: { className: "x78zum5 x19jd1h0" },
-                  }[(a === "asc") << 0],
-                  {
-                    children: u.jsx(r("WDSIconIcArrowDropDown.react"), {
-                      width: 12,
-                      height: 12,
-                    }),
-                  },
-                ),
-              ),
-          ],
-        });
-      };
+      c = e,
+      d = c.useMemo,
+      m = c.useState;
+    function p(e, t, n) {
+      return n == null || b.includes(e)
+        ? null
+        : {
+            draggable: !0,
+            onDragStart: function (r) {
+              (r.dataTransfer.setData("text/plain", e),
+                (r.dataTransfer.effectAllowed = "move"),
+                t(!0));
+            },
+            onDragEnd: function () {
+              t(!1);
+            },
+            onDragOver: function (t) {
+              (t.preventDefault(), (t.dataTransfer.dropEffect = "move"));
+            },
+            onDrop: function (r) {
+              r.preventDefault();
+              var t = r.dataTransfer.getData("text/plain"),
+                o = v.find(function (e) {
+                  return e === t;
+                });
+              o != null && o !== e && n(o, e);
+            },
+          };
     }
-    function m(e) {
-      return function () {
-        return u.jsx("div", {
-          className: "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj",
-          children: u.jsx(r("WDSText.react"), {
+    function _(e) {
+      var t = o("react-compiler-runtime").c(23),
+        n = e.columnKey,
+        a = e.label,
+        i = e.onColumnReorder,
+        l = e.onSort,
+        s = e.sortConfig,
+        c = m(!1),
+        d = c[0],
+        _ = c[1],
+        f;
+      t[0] !== n || t[1] !== i
+        ? ((f = p(n, _, i)), (t[0] = n), (t[1] = i), (t[2] = f))
+        : (f = t[2]);
+      var g = f,
+        h = s != null && s.key === n ? s.direction : null,
+        y;
+      t[3] !== g || t[4] !== d
+        ? ((y = {
+            0: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj x1ypdohk",
+            },
+            2: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1nbhmlj x9f619 x1jm3nie xn3w4p2 xe3kor7 x15w1vwp x1olz2oy x1p57kb1 x1phvje8 xcldk2z",
+            },
+            1: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj x1ypdohk xti2d7y",
+            },
+            3: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1nbhmlj x9f619 x1jm3nie xn3w4p2 xe3kor7 x15w1vwp x1olz2oy x1p57kb1 x1phvje8 xcldk2z xti2d7y",
+            },
+          }[((g != null) << 1) | (!!d << 0)]),
+          (t[3] = g),
+          (t[4] = d),
+          (t[5] = y))
+        : (y = t[5]);
+      var C;
+      t[6] !== g
+        ? ((C = g != null ? g : {}), (t[6] = g), (t[7] = C))
+        : (C = t[7]);
+      var b, v;
+      t[8] !== n || t[9] !== l
+        ? ((b = function () {
+            return l(n);
+          }),
+          (v = function (t) {
+            (t.key === "Enter" || t.key === " ") && (t.preventDefault(), l(n));
+          }),
+          (t[8] = n),
+          (t[9] = l),
+          (t[10] = b),
+          (t[11] = v))
+        : ((b = t[10]), (v = t[11]));
+      var S;
+      t[12] !== a
+        ? ((S = u.jsx(r("WDSText.react"), {
             maxLines: 1,
             type: "Body2Emphasized",
             colorName: "contentDeemphasized",
-            children: e,
-          }),
+            children: a,
+          })),
+          (t[12] = a),
+          (t[13] = S))
+        : (S = t[13]);
+      var R;
+      t[14] !== h
+        ? ((R =
+            h != null &&
+            u.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                {
+                  0: { className: "x78zum5" },
+                  1: { className: "x78zum5 x19jd1h0" },
+                }[(h === "asc") << 0],
+                {
+                  children: u.jsx(r("WDSIconIcArrowDropDown.react"), {
+                    width: 12,
+                    height: 12,
+                  }),
+                },
+              ),
+            )),
+          (t[14] = h),
+          (t[15] = R))
+        : (R = t[15]);
+      var L;
+      return (
+        t[16] !== y ||
+        t[17] !== C ||
+        t[18] !== b ||
+        t[19] !== v ||
+        t[20] !== S ||
+        t[21] !== R
+          ? ((L = u.jsxs(
+              "div",
+              babelHelpers.extends({}, y, { role: "button", tabIndex: 0 }, C, {
+                onClick: b,
+                onKeyDown: v,
+                children: [S, R],
+              }),
+            )),
+            (t[16] = y),
+            (t[17] = C),
+            (t[18] = b),
+            (t[19] = v),
+            (t[20] = S),
+            (t[21] = R),
+            (t[22] = L))
+          : (L = t[22]),
+        L
+      );
+    }
+    function f(e) {
+      var t = o("react-compiler-runtime").c(14),
+        n = e.columnKey,
+        a = e.label,
+        i = e.onColumnReorder,
+        l = m(!1),
+        s = l[0],
+        c = l[1],
+        d;
+      t[0] !== n || t[1] !== i
+        ? ((d = p(n, c, i)), (t[0] = n), (t[1] = i), (t[2] = d))
+        : (d = t[2]);
+      var _ = d,
+        f;
+      t[3] !== _ || t[4] !== s
+        ? ((f = {
+            0: {
+              className: "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj",
+            },
+            2: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1nbhmlj x9f619 x1jm3nie xn3w4p2 xe3kor7 x15w1vwp x1olz2oy x1p57kb1 x1phvje8 xcldk2z",
+            },
+            1: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1tiyuxx x1nbhmlj xti2d7y",
+            },
+            3: {
+              className:
+                "x78zum5 x6s0dn4 x1ned7t2 x193iq5w x1nbhmlj x9f619 x1jm3nie xn3w4p2 xe3kor7 x15w1vwp x1olz2oy x1p57kb1 x1phvje8 xcldk2z xti2d7y",
+            },
+          }[((_ != null) << 1) | (!!s << 0)]),
+          (t[3] = _),
+          (t[4] = s),
+          (t[5] = f))
+        : (f = t[5]);
+      var g;
+      t[6] !== _
+        ? ((g = _ != null ? _ : {}), (t[6] = _), (t[7] = g))
+        : (g = t[7]);
+      var h;
+      t[8] !== a
+        ? ((h = u.jsx(r("WDSText.react"), {
+            maxLines: 1,
+            type: "Body2Emphasized",
+            colorName: "contentDeemphasized",
+            children: a,
+          })),
+          (t[8] = a),
+          (t[9] = h))
+        : (h = t[9]);
+      var y;
+      return (
+        t[10] !== f || t[11] !== g || t[12] !== h
+          ? ((y = u.jsx(
+              "div",
+              babelHelpers.extends({}, f, g, { children: h }),
+            )),
+            (t[10] = f),
+            (t[11] = g),
+            (t[12] = h),
+            (t[13] = y))
+          : (y = t[13]),
+        y
+      );
+    }
+    function g(e, t, n, r, o) {
+      return function () {
+        return u.jsx(_, {
+          label: e,
+          columnKey: t,
+          sortConfig: n,
+          onSort: r,
+          onColumnReorder: o,
         });
       };
     }
-    function p(e) {
+    function h(e, t, n) {
+      return function () {
+        return u.jsx(f, { label: e, columnKey: t, onColumnReorder: n });
+      };
+    }
+    function y(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.chatJid,
         a;
@@ -116,7 +289,7 @@ __d(
         c
       );
     }
-    function _(e) {
+    function C(e) {
       if (e == null || e === 0) return "\u2014";
       try {
         return new Intl.DateTimeFormat(void 0, {
@@ -128,8 +301,8 @@ __d(
         return "\u2014";
       }
     }
-    var f = ["customer", "actions"],
-      g = [
+    var b = ["customer", "actions"],
+      v = [
         "customer",
         "phone",
         "leadStage",
@@ -141,8 +314,8 @@ __d(
         "notes",
         "actions",
       ],
-      h = g;
-    function y(e) {
+      S = v;
+    function R(e) {
       return e === "customer"
         ? s._(/*BTDS*/ "Customer")
         : e === "phone"
@@ -172,11 +345,11 @@ __d(
                               );
                             })();
     }
-    function C(e, t, n, a) {
-      var i = function (t, r) {
-          return a != null ? d(t, r, n, a) : void 0;
+    function L(e, t, n, a, i) {
+      var l = function (t, r) {
+          return a != null ? g(t, r, n, a, i) : void 0;
         },
-        l = s._(/*BTDS*/ "Customer");
+        c = s._(/*BTDS*/ "Customer");
       return [
         {
           cell: function (t) {
@@ -184,20 +357,20 @@ __d(
               item: t.item,
             });
           },
-          header: l,
+          header: c,
           key: "customer",
-          renderHeader: i(l, "customer"),
+          renderHeader: l(c, "customer"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.customer,
         },
         {
           cell: function (t) {
-            return u.jsx(p, { chatJid: t.item.chatJid });
+            return u.jsx(y, { chatJid: t.item.chatJid });
           },
           header: s._(/*BTDS*/ "Phone number"),
           key: "phone",
-          renderHeader: i(s._(/*BTDS*/ "Phone number"), "phone"),
+          renderHeader: l(s._(/*BTDS*/ "Phone number"), "phone"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.phone,
@@ -235,7 +408,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Lead stage"),
           key: "leadStage",
-          renderHeader: i(s._(/*BTDS*/ "Lead stage"), "leadStage"),
+          renderHeader: l(s._(/*BTDS*/ "Lead stage"), "leadStage"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.leadStage,
@@ -250,7 +423,7 @@ __d(
             ? s._(/*BTDS*/ "List")
             : s._(/*BTDS*/ "Label"),
           key: "list",
-          renderHeader: i(
+          renderHeader: l(
             o("WAWebListsGatingUtils").isListsEnabled()
               ? s._(/*BTDS*/ "List")
               : s._(/*BTDS*/ "Label"),
@@ -287,7 +460,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Source"),
           key: "acquisitionSource",
-          renderHeader: i(s._(/*BTDS*/ "Source"), "acquisitionSource"),
+          renderHeader: l(s._(/*BTDS*/ "Source"), "acquisitionSource"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.acquisitionSource,
@@ -304,7 +477,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Email"),
           key: "email",
-          renderHeader: i(s._(/*BTDS*/ "Email"), "email"),
+          renderHeader: l(s._(/*BTDS*/ "Email"), "email"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.email,
@@ -316,12 +489,12 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: _(e == null ? void 0 : e.t),
+              children: C(e == null ? void 0 : e.t),
             });
           },
           header: s._(/*BTDS*/ "Last message"),
           key: "lastMessage",
-          renderHeader: i(s._(/*BTDS*/ "Last message"), "lastMessage"),
+          renderHeader: l(s._(/*BTDS*/ "Last message"), "lastMessage"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.lastMessage,
@@ -332,12 +505,12 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: _(t.item.lastOrder),
+              children: C(t.item.lastOrder),
             });
           },
           header: s._(/*BTDS*/ "Last order"),
           key: "lastOrder",
-          renderHeader: i(s._(/*BTDS*/ "Last order"), "lastOrder"),
+          renderHeader: l(s._(/*BTDS*/ "Last order"), "lastOrder"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.lastOrder,
@@ -350,7 +523,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Notes"),
           key: "notes",
-          renderHeader: m(s._(/*BTDS*/ "Notes")),
+          renderHeader: h(s._(/*BTDS*/ "Notes"), "notes", i),
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.notes,
         },
@@ -369,11 +542,11 @@ __d(
         },
       ];
     }
-    ((l.ALWAYS_VISIBLE_COLUMNS = f),
-      (l.ALL_COLUMN_KEYS = g),
-      (l.DEFAULT_VISIBLE_COLUMNS = h),
-      (l.getColumnLabel = y),
-      (l.getCustomerManagerListColumns = C));
+    ((l.ALWAYS_VISIBLE_COLUMNS = b),
+      (l.ALL_COLUMN_KEYS = v),
+      (l.DEFAULT_VISIBLE_COLUMNS = S),
+      (l.getColumnLabel = R),
+      (l.getCustomerManagerListColumns = L));
   },
   226,
 );

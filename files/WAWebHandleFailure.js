@@ -14,7 +14,6 @@ __d(
     "WAWebLocalStorage",
     "WAWebLogoutReasonConstants",
     "WAWebSocketModel",
-    "WAWebUpdater",
     "WAWebUpdaterPlatforms",
     "WAWebUpdaterVersion",
     "WAWebWamPlatform",
@@ -145,16 +144,11 @@ __d(
                 S = o("WAWebUpdaterPlatforms").PLATFORMS[
                   o("WAWebWamPlatform").getWamPlatform()
                 ];
-              (S === "web"
-                ? o("WAWebUpdater").Updater.update({
-                    belowHard: 0,
-                    belowSoft: !1,
-                    serverVersion: v,
-                  })
-                : o("WAWebUpdater").Updater.update({
-                    belowHard: 0,
-                    belowSoft: !1,
-                  }),
+              (o("WAWebBackendApi").frontendFireAndForget("forceAppUpdate", {
+                version: S === "web" ? v : null,
+                belowSoft: !1,
+                belowHard: 0,
+              }),
                 o("WAComms").stopComms());
               break;
             }

@@ -7,6 +7,7 @@ __d(
     "WAWebInteractiveBubble.react",
     "WAWebInteractiveHeader",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebIsBloksOnlyMessage",
     "WAWebMsgGetters",
     "WAWebOrderDetails",
     "WAWebOrderStatus",
@@ -85,8 +86,9 @@ __d(
         }),
         actions: C,
         hideMeta:
-          c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-          o("WAWebOrderStatus").isPaymentRequest(m, g),
+          (c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+            o("WAWebOrderStatus").isPaymentRequest(m, g)) ||
+          r("WAWebIsBloksOnlyMessage")(a),
       });
     }
     ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));

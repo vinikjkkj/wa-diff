@@ -8,9 +8,17 @@ __d(
         "value",
         o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE,
       );
-      return t.success
-        ? o("WAResultOrError").makeResult({ value: t.value })
-        : t;
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
+        e,
+        "version",
+        1,
+        void 0,
+      );
+      return n.success
+        ? o("WAResultOrError").makeResult({ value: t.value, version: n.value })
+        : n;
     }
     l.parseSmbDataSharingSettingValueMixin = e;
   },

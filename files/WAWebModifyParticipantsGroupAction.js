@@ -147,7 +147,7 @@ __d(
                     c = new Set(
                       l
                         .filter(function (e) {
-                          return e.invite_code != null;
+                          return e.code !== "200";
                         })
                         .map(function (e) {
                           return e.phoneNumberWid.toString();
@@ -159,7 +159,7 @@ __d(
                       );
                     }),
                     p = r("countWhere")(l, function (e) {
-                      return e.invite_code == null;
+                      return e.code !== "200";
                     }),
                     _ =
                       i.length > 0

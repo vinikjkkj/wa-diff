@@ -179,7 +179,11 @@ __d(
       var t = o("WAWebWidValidator").validateAndGetParts(e);
       if (t == null || t.userPart == null) return !1;
       var n = o("WAWebWidFactory").createWid(e);
-      return o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) && !n.isLid();
+      return (
+        o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) &&
+        !n.isLid() &&
+        !n.isHostedLid()
+      );
     }
     function E(e) {
       if (!(e.tag === "receipt" || e.tag === "ack")) {

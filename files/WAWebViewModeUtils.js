@@ -27,9 +27,13 @@ __d(
     function s(t) {
       return t.associationType ===
         o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL ||
+        t.associationType ===
+          o("WAWebMessageAssociation.flow").MessageAssociationType
+            .MEDIA_ALBUM ||
         (t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
           t.pollContentType ===
-            o("WAWebPollCreationUtils").PollContentType.IMAGE)
+            o("WAWebPollCreationUtils").PollContentType.IMAGE) ||
+        t.type === o("WAWebMsgType").MSG_TYPE.ALBUM
         ? !0
         : e(o("WAWebViewMode.flow").ViewModeSurface.CHAT, t.viewMode);
     }

@@ -385,42 +385,25 @@ __d(
           i =
             n.value
               .participantRequestCodeCanBeSentOrRequestCodeCannotBeCreatedForLegalConcernsOrHasInvalidPNMixinGroup;
-        if (a == null || i == null) return [];
-        var l =
-            i.name === "ParticipantRequestCodeCanBeSent"
-              ? i.value.addRequestCode
-              : null,
-          s =
-            i.name === "ParticipantRequestCodeCanBeSent" &&
-            i.value.addRequestExpiration != null
-              ? String(i.value.addRequestExpiration)
-              : null,
-          u =
-            l != null ? "200" : String((r = i.value.error) != null ? r : "200");
-        return [
-          {
-            phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(a),
-            code: u,
-            invite_code: l,
-            invite_code_exp: s,
-          },
-        ];
+        return a == null || i == null
+          ? []
+          : [
+              {
+                phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(a),
+                code: String((r = i.value.error) != null ? r : "200"),
+              },
+            ];
       }
-      var c = n.value.jid,
-        d = n.value.addParticipantsParticipantMixins;
-      return c == null ||
-        (d == null ? void 0 : d.name) !== "ParticipantRequestCodeCanBeSent" ||
-        d.value.participantNotAddressableMixin == null
+      var l = n.value.jid,
+        s = n.value.addParticipantsParticipantMixins;
+      return l == null ||
+        (s == null ? void 0 : s.name) !== "ParticipantRequestCodeCanBeSent" ||
+        s.value.participantNotAddressableMixin == null
         ? []
         : [
             {
-              phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(c),
-              code: String((t = d.value.error) != null ? t : "200"),
-              invite_code: d.value.addRequestCode,
-              invite_code_exp:
-                d.value.addRequestExpiration != null
-                  ? String(d.value.addRequestExpiration)
-                  : null,
+              phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(l),
+              code: String((t = s.value.error) != null ? t : "200"),
             },
           ];
     }

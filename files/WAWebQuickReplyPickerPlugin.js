@@ -38,40 +38,41 @@ __d(
       p = m.useEffect,
       _ = m.useMemo,
       f = m.useRef,
-      g = m.useState,
-      h = 52,
-      y = "/",
-      C = 25,
-      b = 30;
-    function v(e) {
-      var t = e.editor,
-        n = t,
-        a = o("WAWebPencilRefreshedIcon.react").PencilRefreshedIcon,
-        i = o("useWAWebLexicalTypeAhead").useTypeAhead(n, y, {
+      g = 52,
+      h = "/",
+      y = 25,
+      C = 30;
+    function b(e) {
+      var t = e.composerAnchorRef,
+        n = e.editor,
+        a = e.onPickerClose,
+        i = e.openedFromMenu,
+        l = n,
+        u = o("WAWebPencilRefreshedIcon.react").PencilRefreshedIcon,
+        c = o("useWAWebLexicalTypeAhead").useTypeAhead(l, h, {
           boundary: !0,
-          maxQueryLength: C,
+          maxQueryLength: y,
         }),
-        l = i.leadOffset,
-        u = i.omitQuery,
-        c = i.query,
-        m = i.replaceQuery,
-        v = f(!1),
-        R = f(),
-        T = f(!1),
-        D = g(!1),
-        x = D[0],
-        $ = D[1];
-      (p(function () {
+        m = c.leadOffset,
+        b = c.omitQuery,
+        S = c.query,
+        I = c.replaceQuery,
+        T = f(),
+        D = f(!1);
+      p(function () {
         o(
           "WAWebQuickReplyCollection",
         ).QuickReplyCollection.addSmartDefaultsIfNeeded();
-      }, []),
-        p(
-          function () {
-            $(v.current);
-          },
-          [c],
-        ));
+      }, []);
+      var x = S != null && i === !0,
+        $ = f(S);
+      p(
+        function () {
+          var e = $.current != null;
+          (($.current = S), e && S == null && (a == null || a()));
+        },
+        [S, a],
+      );
       var P = function (t, n) {
           if (t.itemKey === "quick-replies-header")
             return d.jsxs(
@@ -85,7 +86,7 @@ __d(
                     variant: "borderless",
                     type: "default",
                     size: "small",
-                    Icon: a,
+                    Icon: u,
                     onPress: function () {
                       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
                         d.jsx(
@@ -117,55 +118,52 @@ __d(
             var e = t.quickReply;
             if (e) {
               switch (
-                ((R.current = e.message),
+                ((T.current = e.message),
                 o("WAWebQuickReplyGetters").getType(e))
               ) {
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .PROFILE_SMART_DEFAULT:
-                  (u(), k(e));
+                  (b(), E(e));
                   break;
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .ADDRESS_SMART_DEFAULT:
-                  (u(), E(e));
+                  (b(), L(e));
                   break;
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .HOURS_SMART_DEFAULT:
-                  (u(), L(e));
+                  (b(), R(e));
                   break;
                 case o("WAWebQuickReplyEnum").QuickReplyTypes
                   .PIX_KEY_SMART_DEFAULT:
-                  (u(), I(e, x));
+                  (b(), k(e, x));
                   break;
                 default:
-                  (m(e.message, { select: !0 }), e.useOnce());
+                  (I(e.message, { select: !0 }), e.useOnce());
               }
               (o("WAWebQuickReplyGetters").getType(e) ===
               o("WAWebQuickReplyEnum").QuickReplyTypes.PIX_KEY_SMART_DEFAULT
                 ? o("WAWebQuickRepliesPluginLogEvents").logPixSmartSelectEvent(
-                    v.current,
+                    x,
                   )
                 : e.isSmartDefault()
                   ? o(
                       "WAWebQuickRepliesPluginLogEvents",
-                    ).logSmartDefaultSelectEvent(v.current)
-                  : o("WAWebQuickRepliesPluginLogEvents").logSelectEvent(
-                      v.current,
-                    ),
-                (T.current = v.current),
-                (v.current = !1));
+                    ).logSmartDefaultSelectEvent(x)
+                  : o("WAWebQuickRepliesPluginLogEvents").logSelectEvent(x),
+                (D.current = x));
             }
           }
         },
         M = function () {
-          (u(), (v.current = !1));
+          b();
         },
         w = _(
           function () {
-            if (c == null) return null;
-            var e = S(c, x);
+            if (S == null) return null;
+            var e = v(S, x);
             if (e.length === 0) return null;
             var t = {
-                height: b,
+                height: C,
                 itemKey: "quick-replies-header",
                 contentKey: "header",
                 index: 0,
@@ -175,18 +173,18 @@ __d(
               },
               n = e.map(function (e, t) {
                 return {
-                  height: h,
+                  height: g,
                   itemKey: e.id,
-                  contentKey: c,
+                  contentKey: S,
                   index: t + 1,
                   quickReply: e,
-                  query: c,
+                  query: S,
                   selectable: !0,
                 };
               });
             return [t].concat(n);
           },
-          [c, x],
+          [S, x],
         ),
         A = 600,
         F = (w != null ? w : []).map(function (e) {
@@ -199,7 +197,7 @@ __d(
               return N(e);
             },
             width: A,
-            height: (t = e.height) != null ? t : h,
+            height: (t = e.height) != null ? t : g,
             skipKeyboardNav: e.itemKey === "quick-replies-header",
           };
         }),
@@ -207,31 +205,32 @@ __d(
           return e.skipKeyboardNav === !1;
         });
       return d.jsx(r("WAWebLexicalTypeAheadList.react"), {
-        leadOffset: l,
+        leadOffset: m,
         items: F,
         onCancel: M,
         startingIndex: O,
+        anchorElRef: x ? t : void 0,
       });
     }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S(e, t) {
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e, t) {
       var n = o(
           "WAWebQuickReplyCollection",
         ).QuickReplyCollection.filterShortcuts(e),
         r = o("WAWebChatCollection").ChatCollection.getActive();
       return (
-        (n = R(r, n)),
+        (n = S(r, n)),
         n.length &&
           o("WAWebQuickRepliesPluginLogEvents").logFilterEvent(n.length, t),
         n
       );
     }
-    function R(e, t) {
+    function S(e, t) {
       return t.filter(function (t) {
         return !t.hideForChat(e);
       });
     }
-    function L(t) {
+    function R(t) {
       var n = o("WAWebChatCollection").ChatCollection.getActive();
       n &&
         (o("WALogger").LOG(
@@ -243,7 +242,7 @@ __d(
         o("WAWebSendTextMsgChatAction").sendTextMsgToChat(n, t.message),
         t.useOnce());
     }
-    function E(e) {
+    function L(e) {
       var t = o("WAWebChatCollection").ChatCollection.getActive(),
         n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
         a = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
@@ -277,7 +276,7 @@ __d(
             e.useOnce());
       }
     }
-    function k(e) {
+    function E(e) {
       var t = o("WAWebChatCollection").ChatCollection.getActive(),
         n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
       if (n != null) {
@@ -285,7 +284,7 @@ __d(
         !t || !a || (r("WAWebSendContactsAction")([a], t), e.useOnce());
       }
     }
-    function I(e, t) {
+    function k(e, t) {
       var n = o("WAWebChatCollection").ChatCollection.getActive();
       n &&
         (o(
@@ -302,7 +301,7 @@ __d(
           o("WAWebUserPrefsCustomPaymentMethods").getPIX(),
         ));
     }
-    l.default = v;
+    l.default = b;
   },
   226,
 );

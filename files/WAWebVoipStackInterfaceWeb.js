@@ -698,7 +698,7 @@ __d(
         })(),
         previewAndJoinCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, r, a) {
+            function* (e, t, n, r, a, i) {
               if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
                 o("WALogger").ERROR(
                   I ||
@@ -708,10 +708,10 @@ __d(
                 );
                 return;
               }
-              var i = yield A;
+              var l = yield A;
               try {
                 o("WAWebBweMLModelManager")
-                  .initBweMLModelsForCall(i)
+                  .initBweMLModelsForCall(l)
                   .catch(function (e) {
                     o("WALogger").WARN(
                       T ||
@@ -722,14 +722,15 @@ __d(
                       e,
                     );
                   });
-                var l = i.previewAndJoinCallLink(
+                var s = l.previewAndJoinCallLink(
                   e,
                   t,
                   n != null ? n : 0,
                   r != null ? r : "",
                   a != null ? a : !1,
+                  i != null ? i : "",
                 );
-                l !== 0 &&
+                s !== 0 &&
                   o("WALogger")
                     .ERROR(
                       D ||
@@ -737,13 +738,13 @@ __d(
                           "voip: previewAndJoinCallLink: failed with status ",
                           "",
                         ])),
-                      l,
+                      s,
                     )
                     .sendLogs("voip-preview-and-join-call-link-failed");
               } catch (e) {
                 throw (
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    i,
+                    l,
                     e,
                   ),
                   e
@@ -751,7 +752,7 @@ __d(
               }
             },
           );
-          function t(t, n, r, o, a) {
+          function t(t, n, r, o, a, i) {
             return e.apply(this, arguments);
           }
           return t;

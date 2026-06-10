@@ -13,10 +13,12 @@ __d(
         return (
           babelHelpers.inheritsLoose(t, e),
           (t.jsx = function (t, n, o) {
-            var e = o.selectable,
-              a = e === void 0 ? !1 : e;
+            var e = o.codeXstyle,
+              a = o.selectable,
+              i = a === void 0 ? !1 : a;
             return s.jsx(r("WAWebCodeMutatorComponent.react"), {
-              selectable: a,
+              selectable: i,
+              xstyle: e,
               children: t,
             });
           }),

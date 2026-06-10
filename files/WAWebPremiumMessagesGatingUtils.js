@@ -4,15 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_premium_messages_click_logging_enabled",
-      );
-    }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
         "smb_premium_messages_url_cta_alert_dialog_enabled",
       );
     }
-    function u() {
+    function s() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -20,9 +15,8 @@ __d(
         )
       );
     }
-    ((l.isPremiumMessagesClickLoggingEnabled = e),
-      (l.isPremiumMessagesUrlCtaDialogEnabled = s),
-      (l.isPremiumMessagesNewLeavingWAContentEnabled = u));
+    ((l.isPremiumMessagesUrlCtaDialogEnabled = e),
+      (l.isPremiumMessagesNewLeavingWAContentEnabled = s));
   },
   98,
 );

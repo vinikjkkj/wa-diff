@@ -61,7 +61,14 @@ __d(
         );
       return Math.floor(n / t) % 2 === 1;
     }
-    function y(e, t) {
+    function y() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "events_v2_enable_notifications",
+        ) === !0
+      );
+    }
+    function C(e, t) {
       var n = o("WATimeUtils").unixTime();
       if (t != null && n > t) return !0;
       if (e == null) return !1;
@@ -80,7 +87,8 @@ __d(
       (l.isSharableEventCreationEnabled = f),
       (l.SharableScheduledCallCreationEntryPoint = g),
       (l.isSharableScheduledCallCreationEnabled = h),
-      (l.isAddToCalendarHiddenByEventTime = y));
+      (l.isSharableEventNotificationsEnabled = y),
+      (l.isAddToCalendarHiddenByEventTime = C));
   },
   98,
 );

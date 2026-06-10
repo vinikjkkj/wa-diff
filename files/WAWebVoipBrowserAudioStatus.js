@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipBrowserAudioStatus",
-  ["WAGetMediaDevicesSupportedConstraints", "WALogger"],
+  ["WAGetMediaDevicesSupportedConstraints", "WALogger", "WAWebUA"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -16,7 +16,11 @@ __d(
     }
     function _() {
       var e = p();
-      return e == null ? u : g(e);
+      return e == null
+        ? u
+        : o("WAWebUA").UA.isSafari && e.echoCancellation
+          ? c
+          : g(e);
     }
     function f() {
       if (d == null) {

@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebVoipRelayConnectionUtils",
-    "WAWebVoipSctpDataChannelThreadManager",
+    "WAWebVoipSctpConnectionManager",
     "WAWebVoipSctpStatsInstrumentation",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -178,7 +178,7 @@ __d(
     function Te() {
       if (J && ee != null) {
         var e = ee,
-          t = o("WAWebVoipSctpDataChannelThreadManager").getDataChannelThread();
+          t = o("WAWebVoipSctpConnectionManager").getDataChannelThread();
         (t != null && t.closeChannel(e), (J = !1), (ee = null));
       }
     }
@@ -506,9 +506,7 @@ __d(
             var l = o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled(),
               s = l
                 ? null
-                : o(
-                    "WAWebVoipSctpDataChannelThreadManager",
-                  ).getDataChannelThread();
+                : o("WAWebVoipSctpConnectionManager").getDataChannelThread();
             if (
               (l &&
                 o("WALogger").LOG(

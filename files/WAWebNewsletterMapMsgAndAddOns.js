@@ -44,54 +44,46 @@ __d(
             c,
             d,
             _,
-            f,
-            g,
-            h =
+            f =
               (r = e.newsletterReactionsMixin) == null
                 ? void 0
                 : r.reactionsReaction,
-            y = (a = e.newsletterPollVotesMixin) == null ? void 0 : a.votesVote,
-            C = o("WAWebNewsletterMsgUtils").mapNewsletterMsgToMsgData(
+            g = (a = e.newsletterPollVotesMixin) == null ? void 0 : a.votesVote,
+            h = o("WAWebNewsletterMsgUtils").mapNewsletterMsgToMsgData(
               e,
               t,
-              ((i = h == null ? void 0 : h.length) != null ? i : 0) > 0,
+              ((i = f == null ? void 0 : f.length) != null ? i : 0) > 0,
               n,
             ),
-            b =
-              (l = C == null ? void 0 : C.id) != null
+            y =
+              (l = h == null ? void 0 : h.id) != null
                 ? l
                 : yield s(t, e.serverId),
-            v = e.newsletterViewsCountViewsOrDeprecatedMixinGroup,
-            S =
-              (v == null ? void 0 : v.name) === "NewsletterViewsCountViews"
-                ? (u = v.value.viewsCount[0]) == null
+            C = o("WAWebNewsletterMsgUtils").getNewsletterViewCount(
+              e.newsletterViewsCountViewsOrDeprecatedMixinGroup,
+            ),
+            b =
+              (u =
+                (c = e.newsletterForwardsCountMixin) == null
                   ? void 0
-                  : u.count
-                : v == null || (c = v.value) == null
-                  ? void 0
-                  : c.viewsCountCount,
-            R =
-              (d =
-                (_ = e.newsletterForwardsCountMixin) == null
-                  ? void 0
-                  : _.forwardsCountCount) != null
-                ? d
+                  : c.forwardsCountCount) != null
+                ? u
                 : 0,
-            L =
-              (f =
-                (g = e.newsletterResponsesCountMixin) == null
+            v =
+              (d =
+                (_ = e.newsletterResponsesCountMixin) == null
                   ? void 0
-                  : g.responsesCountCount) != null
-                ? f
+                  : _.responsesCountCount) != null
+                ? d
                 : 0;
           return {
-            msgData: C,
-            reactionData: m(h, b, n),
-            pollVoteData: p(y, b, n),
-            id: b,
-            viewCount: S,
-            questionResponsesCount: L,
-            forwardsCount: R,
+            msgData: h,
+            reactionData: m(f, y, n),
+            pollVoteData: p(g, y, n),
+            id: y,
+            viewCount: C,
+            questionResponsesCount: v,
+            forwardsCount: b,
           };
         })),
         d.apply(this, arguments)

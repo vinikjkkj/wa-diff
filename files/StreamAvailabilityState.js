@@ -60,7 +60,8 @@ __d(
                 ((this.$1 = "available"), (this.$2 = "available"));
                 break;
               case "stream_ping_timeout":
-                ((this.$1 = "unavailable"), (this.$9 = "DOWNSTREAM"));
+                (this.$1 === "available" && (this.$9 = "DOWNSTREAM"),
+                  (this.$1 = "unavailable"));
                 break;
               case "error_retryable":
                 ((this.$1 = "unavailable"), (this.$9 = "RETRY"));

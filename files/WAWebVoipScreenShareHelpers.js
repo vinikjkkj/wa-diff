@@ -98,13 +98,33 @@ __d(
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i = t.closeModal,
-            l = t.isSelfScreenSharing,
-            u = t.isVideoCall,
-            c = t.isVideoMuted,
-            m = t.onVideoMuteToggle,
-            _ = t.openModal;
-          if (!u) {
-            _(
+            l = t.isCallLink,
+            u = l === void 0 ? !1 : l,
+            c = t.isSelfScreenSharing,
+            m = t.isVideoCall,
+            _ = t.isVideoMuted,
+            f = t.onVideoMuteToggle,
+            g = t.openModal;
+          if (!m) {
+            if (u) {
+              g(
+                p.jsx(
+                  o("WAWebVoipScreenShareConfirmPopup.react")
+                    .WAWebVoipScreenShareConfirmPopup,
+                  {
+                    closeModal: i,
+                    hideCancel: !0,
+                    message: s._(
+                      /*BTDS*/ "You can only share your screen in video calls.",
+                    ),
+                    okText: s._(/*BTDS*/ "OK"),
+                    onOK: i,
+                  },
+                ),
+              );
+              return;
+            }
+            g(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
@@ -113,16 +133,16 @@ __d(
             );
             return;
           }
-          if (l) {
+          if (c) {
             yield S();
             return;
           }
           if (
             ((a = r("WAWebCallCollection").activeCall) == null ||
               a.setSelfScreenShareRejected(!1),
-            c)
+            _)
           ) {
-            _(
+            g(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
@@ -135,7 +155,7 @@ __d(
                   onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
                       try {
-                        (yield (d || (d = n("Promise"))).resolve(m()),
+                        (yield (d || (d = n("Promise"))).resolve(f()),
                           yield b());
                       } catch (t) {
                         o("WALogger")

@@ -221,8 +221,7 @@ __d(
                 G == null ? void 0 : G.initiator,
                 G == null ? void 0 : G.afterReadDuration,
               ));
-            var K = o("WAWebCTWAGatingUtils").getFmxAgmEnabled(),
-              Q =
+            var K =
                 (y == null ? void 0 : y.ctwaContext) != null &&
                 o(
                   "WAWebGetCTWAEligibilityFromConversion",
@@ -230,13 +229,13 @@ __d(
                   conversionData: y.ctwaContext.conversionData,
                   conversionSource: y.ctwaContext.conversionSource,
                 }),
-              X = y == null ? void 0 : y.ctwaContext,
-              Y =
-                (X == null ? void 0 : X.sourceApp) !==
+              Q = y == null ? void 0 : y.ctwaContext,
+              X =
+                (Q == null ? void 0 : Q.sourceApp) !==
                   o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.WHATSAPP ||
                 o("WAWebCTWAGatingUtils").getWamoAgmEnabled(),
-              J = t === "signupAGM",
-              Z = yield o("WAWebContactSystemMsg").genContactInfoCardMsg(N, {
+              Y = t === "signupAGM",
+              J = yield o("WAWebContactSystemMsg").genContactInfoCardMsg(N, {
                 isSmb: A,
                 isEnterprise:
                   w ||
@@ -245,14 +244,11 @@ __d(
                     : y.senderOrRecipientAccountTypeHosted) === !0,
                 iAmStartingChat: y == null || y.id.fromMe,
                 isWASupportStartingChat: y != null && N.isCAPISupportAccount(),
-                isFromCTWA: X != null && Q != null,
-                isFMXCtWA:
-                  X != null &&
-                  Y &&
-                  o("WAWebCTWAGatingUtils").getFmxAgmEnabled(),
-                isSignupDeeplink: J,
+                isFromCTWA: Q != null && K != null,
+                isFMXCtWA: Q != null && X,
+                isSignupDeeplink: Y,
               });
-            Z != null &&
+            J != null &&
               o("WAWebFMXGatingUtils").fmxLoggingEnabled() &&
               new (o("WAWebPsFmxActionWamEvent").PsFmxActionWamEvent)({
                 fmxEntryPoint: o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT
@@ -260,20 +256,20 @@ __d(
                 fmxEvent: o("WAWebWamEnumFmxEvent").FMX_EVENT.FMX_CARD_INSERTED,
                 isSenderSmb: A,
               }).commit();
-            var ee;
-            (A || w) && (ee = yield I(N));
-            var te = yield r("WAWebInitialSystemMsg")(N, z, ee);
-            te.some(function (e) {
+            var Z;
+            (A || w) && (Z = yield I(N));
+            var ee = yield r("WAWebInitialSystemMsg")(N, z, Z);
+            ee.some(function (e) {
               return e.subtype === "biz_bot_3p_disclosure";
             })
               ? (q.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_3P)
-              : te.some(function (e) {
+              : ee.some(function (e) {
                   return e.subtype === "biz_bot_1p_disclosure";
                 }) &&
                 (q.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P);
-            var ne = yield o("WAWebApiOrphanTcToken").getOrphanTcToken(N);
-            if (ne) {
-              var re, oe;
+            var te = yield o("WAWebApiOrphanTcToken").getOrphanTcToken(N);
+            if (te) {
+              var ne, re;
               (o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -282,9 +278,9 @@ __d(
                   ])),
                 N.toLogString(),
               ),
-                (q.tcToken = (re = ne.tcToken) != null ? re : null),
+                (q.tcToken = (ne = te.tcToken) != null ? ne : null),
                 (q.tcTokenTimestamp =
-                  (oe = ne.tcTokenTimestamp) != null ? oe : null),
+                  (re = te.tcTokenTimestamp) != null ? re : null),
                 yield o("WAWebApiOrphanTcToken").removeOrphanTcToken(N));
             }
             try {
@@ -294,8 +290,8 @@ __d(
                 ).Lid1X1MigrationUtils.isLidMigrated() &&
                 q.id.isRegularUserPn()
               ) {
-                var ae = o("WAWebApiContact").getCurrentLid(q.id);
-                ae != null && (q.originalLid = ae);
+                var oe = o("WAWebApiContact").getCurrentLid(q.id);
+                oe != null && (q.originalLid = oe);
               }
             } catch (e) {
               o("WALogger")
@@ -312,20 +308,20 @@ __d(
                   "createChat-lid-offline-resume-workaround-failed-chat",
                 );
             }
-            var ie;
+            var ae;
             if (
               N.isLid() &&
               o(
                 "WAWebUsernameGatingUtils",
               ).usernameAdoptionAndEngagementMonitoringEnabled()
             ) {
-              var le = o("WAWebLidMigrationUtils").toPn(N) != null;
-              if (le) q.isUsernameThreadAtCreation = !1;
+              var ie = o("WAWebLidMigrationUtils").toPn(N) != null;
+              if (ie) q.isUsernameThreadAtCreation = !1;
               else {
-                var se;
-                ((ie = yield o("WAWebApiContact").getContactRecord(N)),
+                var le;
+                ((ae = yield o("WAWebApiContact").getContactRecord(N)),
                   (q.isUsernameThreadAtCreation =
-                    ((se = ie) == null ? void 0 : se.username) != null));
+                    ((le = ae) == null ? void 0 : le.username) != null));
               }
             }
             if (
@@ -334,30 +330,28 @@ __d(
                 { chat: q },
               ),
               yield o("WAWebApiChat").createChatRecord(N, S(q)),
-              Z != null &&
+              J != null &&
                 !A &&
                 !w &&
                 o("WAWebFMXGatingUtils").isExpandFmxMexEnabled())
             ) {
-              var ue = o(
+              var se = o(
                 "WAWebFetchAndSetIntegritySignals",
               ).fetchAndSetIntegritySignals(N);
               o("WAWebBackendApi").frontendFireAndForget(
                 "chatCollectionUpdate",
-                { updates: [{ id: N, integritySignalsPromise: ue }] },
+                { updates: [{ id: N, integritySignalsPromise: se }] },
               );
             }
-            var ce = o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
+            var ue = o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
                 .NO_OVERWRITE,
-              de = !1,
-              me = K
-                ? [].concat(te, [Z, j]).filter(Boolean)
-                : [Z].concat(te, [j]).filter(Boolean);
+              ce = !1,
+              de = [].concat(ee, [J, j]).filter(Boolean);
             if (h)
               o("WAWebGetMessageCache")
                 .getMessageCache()
                 .addMessages(
-                  me.map(function (e) {
+                  de.map(function (e) {
                     return { msg: e };
                   }),
                   !1,
@@ -370,40 +364,40 @@ __d(
                     " messages to chat ",
                     "",
                   ])),
-                me.length,
+                de.length,
                 N.toLogString(),
               );
-              for (var pe of me)
+              for (var me of de)
                 yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg(
                   {
                     chatId: N,
-                    newMsg: pe,
+                    newMsg: me,
                     handleSingleMsgOrigin: "createChat",
-                    messageOverwriteOption: ce,
-                    preserveOrder: de,
+                    messageOverwriteOption: ue,
+                    preserveOrder: ce,
                   },
                 );
             }
             if (e.chatId.isUser()) {
-              var _e = o("WAWebWidFactory").createUserWidOrThrow(
+              var pe = o("WAWebWidFactory").createUserWidOrThrow(
                   e.chatId.toString(),
                 ),
-                fe = _e.toJid(),
-                ge = o("WAWebApiContact").getContactHash(fe),
-                he = { id: fe, contactHash: ge },
-                ye;
+                _e = pe.toJid(),
+                fe = o("WAWebApiContact").getContactHash(_e),
+                ge = { id: _e, contactHash: fe },
+                he;
               if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-                var Ce, be;
-                ((ye =
-                  (Ce = (be = ie) == null ? void 0 : be.usernameCountryCode) !=
+                var ye, Ce;
+                ((he =
+                  (ye = (Ce = ae) == null ? void 0 : Ce.usernameCountryCode) !=
                   null
-                    ? Ce
+                    ? ye
                     : yield o(
                         "WAWebApiContactUsernameFields",
                       ).getOrFetchContactUsernameCountryCode(N)),
-                  ye != null && (he.usernameCountryCode = ye));
+                  he != null && (ge.usernameCountryCode = he));
               }
-              yield r("WAWebLidAwareContactsDB").createOrMerge(fe, he);
+              yield r("WAWebLidAwareContactsDB").createOrMerge(_e, ge);
             }
           },
         )),

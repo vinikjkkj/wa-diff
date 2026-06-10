@@ -3,26 +3,31 @@ __d(
   ["WAWebEventEmitter"],
   function (t, n, r, o, a, i, l) {
     var e = null,
-      s = new (r("WAWebEventEmitter"))(),
-      u = function (n) {
-        ((e = n), s.trigger("update", e));
+      s = null,
+      u = new (r("WAWebEventEmitter"))(),
+      c = function (n, r) {
+        ((e = n), r != null && (s = r), u.trigger("update", e));
       },
-      c = function () {
+      d = function () {
         return e;
       },
-      d = function (t) {
-        s.on("update", t);
+      m = function () {
+        return s;
       },
-      m = function (t) {
-        s.off("update", t);
+      p = function (t) {
+        u.on("update", t);
       },
-      p = {
-        subscribeForUpdates: d,
-        unsubscribeFromUpdates: m,
-        setValue: u,
-        getValue: c,
+      _ = function (t) {
+        u.off("update", t);
+      },
+      f = {
+        subscribeForUpdates: p,
+        unsubscribeFromUpdates: _,
+        setValue: c,
+        getValue: d,
+        getVersion: m,
       };
-    l.CTWADataSharingModel = p;
+    l.CTWADataSharingModel = f;
   },
   98,
 );

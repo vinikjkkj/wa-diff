@@ -259,47 +259,31 @@ __d(
                         i =
                           n.value
                             .participantRequestCodeCanBeSentOrRequestCodeCannotBeCreatedForLegalConcernsOrHasInvalidPNMixinGroup;
-                      if (a == null || i == null) return;
-                      var l =
-                          i.name === "ParticipantRequestCodeCanBeSent"
-                            ? i.value.addRequestCode
-                            : null,
-                        s =
-                          i.name === "ParticipantRequestCodeCanBeSent" &&
-                          i.value.addRequestExpiration != null
-                            ? String(i.value.addRequestExpiration)
-                            : null,
-                        u =
-                          l != null
-                            ? "200"
-                            : String((r = i.value.error) != null ? r : "200");
-                      return {
-                        phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(a),
-                        code: u,
-                        invite_code: l,
-                        invite_code_exp: s,
-                      };
+                      return a == null || i == null
+                        ? void 0
+                        : {
+                            phoneNumberWid:
+                              o("WAWebJidToWid").userJidToUserWid(a),
+                            code: String(
+                              (r = i.value.error) != null ? r : "200",
+                            ),
+                          };
                     }
                     if (n.name === "CreateParticipantAddedResponse") {
-                      var c = n.value.jid,
-                        d = n.value.createParticipantMixins;
+                      var l = n.value.jid,
+                        s = n.value.createParticipantMixins;
                       if (
                         !(
-                          c == null ||
-                          d == null ||
-                          d.name !== "ParticipantRequestCodeCanBeSent" ||
-                          d.value.participantNotAddressableMixin == null
+                          l == null ||
+                          s == null ||
+                          s.name !== "ParticipantRequestCodeCanBeSent" ||
+                          s.value.participantNotAddressableMixin == null
                         )
                       )
                         return {
                           phoneNumberWid:
-                            o("WAWebJidToWid").userJidToUserWid(c),
-                          code: String((t = d.value.error) != null ? t : "200"),
-                          invite_code: d.value.addRequestCode,
-                          invite_code_exp:
-                            d.value.addRequestExpiration != null
-                              ? String(d.value.addRequestExpiration)
-                              : null,
+                            o("WAWebJidToWid").userJidToUserWid(l),
+                          code: String((t = s.value.error) != null ? t : "200"),
                         };
                     }
                   }),

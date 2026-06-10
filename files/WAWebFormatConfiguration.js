@@ -144,7 +144,9 @@ __d(
         P = $ === void 0 ? null : $,
         N = a.messageHasSpoiler,
         M = N === void 0 ? !1 : N,
-        w =
+        w = a.boldXstyle,
+        A = a.codeXstyle,
+        F =
           f && m != null && m.length > 0
             ? [
                 [
@@ -153,21 +155,33 @@ __d(
                 ],
               ]
             : null,
-        A;
+        O;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
           b &&
           b.length > 0 &&
-          (A = [
+          (O = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
               { commands: b, selectable: p },
             ],
           ]),
         [
-          [[o("WAWebCodeFormatMutator").Code, { selectable: p }]],
-          S ? [[r("WAWebInlineCodeFormatMutator"), { selectable: p }]] : null,
+          [
+            [
+              o("WAWebCodeFormatMutator").Code,
+              { selectable: p, codeXstyle: A },
+            ],
+          ],
+          S
+            ? [
+                [
+                  r("WAWebInlineCodeFormatMutator"),
+                  { selectable: p, codeXstyle: A },
+                ],
+              ]
+            : null,
           L
             ? [
                 [
@@ -223,10 +237,10 @@ __d(
               ]
             : null,
           !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(p) : null,
-          w,
+          F,
           e({ messageHasSpoiler: M, selectable: p }),
           [
-            [r("WAWebBoldFormatMutator"), { selectable: p }],
+            [r("WAWebBoldFormatMutator"), { selectable: p, boldXstyle: w }],
             [r("WAWebItalicFormatMutator"), { selectable: p }],
             [r("WAWebStrikethroughFormatMutator"), { selectable: p }],
           ],
@@ -239,7 +253,7 @@ __d(
                 ],
               ]
             : null,
-          A,
+          O,
           P != null
             ? [
                 [

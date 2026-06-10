@@ -19,13 +19,15 @@ __d(
         return (
           babelHelpers.inheritsLoose(t, e),
           (t.jsx = function (t, n, o) {
-            var e = o.quoted,
-              a = e === void 0 ? !1 : e,
-              i = o.selectable,
-              l = i === void 0 ? !1 : i;
+            var e = o.codeXstyle,
+              a = o.quoted,
+              i = a === void 0 ? !1 : a,
+              l = o.selectable,
+              u = l === void 0 ? !1 : l;
             return s.jsx(r("WAWebInlineCodeMutatorComponent.react"), {
-              selectable: l,
-              quoted: a,
+              selectable: u,
+              quoted: i,
+              xstyle: e,
               children: t,
             });
           }),

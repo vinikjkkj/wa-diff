@@ -19,76 +19,108 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, n) {
+    function s(e) {
+      var t;
+      if (e != null) {
+        if (e.name === "NewsletterViewsCountDeprecated")
+          return e.value.viewsCountCount;
+        var n = e.value.viewsCount;
+        if (
+          o(
+            "WAWebNewsletterGatingUtils",
+          ).isNewsletterViewsVPVDefinitionEnabled()
+        ) {
+          var r, a, i;
+          return (r =
+            (a = n.find(function (e) {
+              return e.type === "views";
+            })) == null
+              ? void 0
+              : a.count) != null
+            ? r
+            : (i = n.find(function (e) {
+                  return e.type == null;
+                })) == null
+              ? void 0
+              : i.count;
+        }
+        return (t = n.find(function (e) {
+          return e.type == null;
+        })) == null
+          ? void 0
+          : t.count;
+      }
+    }
+    function u(t, n) {
       var a,
         i,
         l,
         s,
-        c = t.msg,
-        m = t.msgContext,
+        u = t.msg,
+        d = t.msgContext,
         p = new (r("WAWebMsgKey"))({
-          remote: c.from,
-          fromMe: c.isSender,
-          id: c.id,
+          remote: u.from,
+          fromMe: u.isSender,
+          id: u.id,
         });
-      switch (c.type) {
+      switch (u.type) {
         case "NewsletterReaction":
         case "NewsletterReactionRevoke":
           return o("WAWebNewsletterMsgStanzaAdapters").mapReactionMsgStanza(
             p,
-            c,
-            m,
+            u,
+            d,
           );
         case "NewsletterPollVote":
           return o("WAWebNewsletterMsgStanzaAdapters").mapPollVoteMsgStanza(
             p,
-            c,
-            m,
+            u,
+            d,
           );
       }
-      var _ = d(p, c);
-      if (c.type === "NewsletterRevoke")
+      var _ = m(p, u);
+      if (u.type === "NewsletterRevoke")
         return o("WAWebNewsletterMsgStanzaAdapters").mapRevokeMsgStanza({
           msgKey: p,
-          msg: c,
-          msgContext: m,
+          msg: u,
+          msgContext: d,
           baseMsgData: _,
           parsingContext: n,
         });
       var f = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsE2E.pb").MessageSpec,
-          c.payload,
+          u.payload,
         ),
         g = o("WAWebE2EProtoParser").parseMsgProto({
           messageProtobuf: f,
           message: _,
           msgContext: n,
         }),
-        h = u(
+        h = c(
           babelHelpers.extends({}, g, {
-            isNewMsg: m.isNewMsg,
-            viewCount: (a = m.viewCount) != null ? a : void 0,
-            forwardsCount: (i = m.forwardsCount) != null ? i : void 0,
+            isNewMsg: d.isNewMsg,
+            viewCount: (a = d.viewCount) != null ? a : void 0,
+            forwardsCount: (i = d.forwardsCount) != null ? i : void 0,
             questionResponsesCount:
-              (l = m.questionResponsesCount) != null ? l : 0,
-            hasReaction: !!m.hasReaction,
-            latestEditSenderTimestampMs: m.latestEditSenderTimestampMs,
+              (l = d.questionResponsesCount) != null ? l : 0,
+            hasReaction: !!d.hasReaction,
+            latestEditSenderTimestampMs: d.latestEditSenderTimestampMs,
             lastUpdateFromServerTs:
-              (s = m.lastUpdateFromServerTs) != null ? s : void 0,
-            latestEditMsgKey: m.isEdited === !0 ? p : void 0,
-            serverId: c.serverId,
+              (s = d.lastUpdateFromServerTs) != null ? s : void 0,
+            latestEditMsgKey: d.isEdited === !0 ? p : void 0,
+            serverId: u.serverId,
           }),
         );
       if (
-        m.isWamoSub != null &&
+        d.isWamoSub != null &&
         o("WAWebNewsletterGatingUtils").isWamoSubMessagesProcessingEnabled()
       ) {
         var y;
-        h.isWamoSub = (y = m.isWamoSub) != null ? y : void 0;
+        h.isWamoSub = (y = d.isWamoSub) != null ? y : void 0;
       }
-      c.newsletterAdminProfile != null &&
-        (h.newsletterAdminProfile = c.newsletterAdminProfile);
-      var C = m.hasPaidPartnershipLabel;
+      u.newsletterAdminProfile != null &&
+        (h.newsletterAdminProfile = u.newsletterAdminProfile);
+      var C = d.hasPaidPartnershipLabel;
       C != null &&
         o("WAWebNewsletterGatingUtils").isChannelDSA26ReceiverEnabled() &&
         (h.hasPaidPartnershipLabel = C);
@@ -114,13 +146,13 @@ __d(
               g.subtype,
             )
             .sendLogs("unsupported-newsletter-message", { sampling: 0.1 })),
-        c.type)
+        u.type)
       ) {
         case "NewsletterEdit":
           return o("WAWebNewsletterMsgStanzaAdapters").mapEditMsgStanza(
             h,
             n,
-            m,
+            d,
           );
         case "NewsletterPollCreation":
         case "NewsletterPollResultSnapshot":
@@ -133,10 +165,10 @@ __d(
             viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
           });
         default:
-          throw (c.type, r("err")("unreachable code"));
+          throw (u.type, r("err")("unreachable code"));
       }
     }
-    function u(e) {
+    function c(e) {
       return (
         (e.streamingSidecar = null),
         (e.mediaKey = null),
@@ -144,54 +176,46 @@ __d(
         e
       );
     }
-    function c(e, t, n, r) {
-      var a, i, l, u, c;
+    function d(e, t, n, r) {
+      var a, i, l;
       n === void 0 && (n = !1);
-      var d = e.newsletterMessageHistoryContent,
-        m = e.id,
-        p = e.serverId,
-        _ = e.t;
-      if (d == null || m == null || _ == null) return null;
-      var f = e.isSender === "true",
-        g = {
-          id: m,
+      var c = e.newsletterMessageHistoryContent,
+        d = e.id,
+        m = e.serverId,
+        p = e.t;
+      if (c == null || d == null || p == null) return null;
+      var _ = e.isSender === "true",
+        f = {
+          id: d,
           from: t,
-          isSender: f,
-          to: f ? t : o("WAWebUserPrefsMeUser").getMeUser(),
-          t: _,
-          serverId: p,
+          isSender: _,
+          to: _ ? t : o("WAWebUserPrefsMeUser").getMeUser(),
+          t: p,
+          serverId: m,
           offline: null,
           newsletterAdminProfile: o(
             "WAWebNewsletterAdminProfilesSmaxUtils",
           ).mapAdminProfileInfoFromAdminProfileMixin(e.adminProfileMetaMixin),
         },
-        h =
+        g =
           (a = e.newsletterMessageOriginalTimestampMixin) == null
             ? void 0
             : a.metaOriginalMsgT,
-        y = e.newsletterViewsCountViewsOrDeprecatedMixinGroup,
-        C = babelHelpers.extends(
+        h = babelHelpers.extends(
           {
             hasReaction: n,
             lastUpdateFromServerTs: r,
-            viewCount:
-              (y == null ? void 0 : y.name) === "NewsletterViewsCountViews"
-                ? (i = y.value.viewsCount[0]) == null
-                  ? void 0
-                  : i.count
-                : y == null || (l = y.value) == null
-                  ? void 0
-                  : l.viewsCountCount,
+            viewCount: s(e.newsletterViewsCountViewsOrDeprecatedMixinGroup),
             questionResponsesCount:
-              (u = e.newsletterResponsesCountMixin) == null
+              (i = e.newsletterResponsesCountMixin) == null
                 ? void 0
-                : u.responsesCountCount,
+                : i.responsesCountCount,
             forwardsCount:
-              (c = e.newsletterForwardsCountMixin) == null
+              (l = e.newsletterForwardsCountMixin) == null
                 ? void 0
-                : c.forwardsCountCount,
-            isEdited: d.name === "NewsletterEdit",
-            metaOriginalMsgT: h,
+                : l.forwardsCountCount,
+            isEdited: c.name === "NewsletterEdit",
+            metaOriginalMsgT: g,
           },
           e.hasPaidPartnershipContentMixin != null && {
             hasPaidPartnershipLabel: e.hasPaidPartnershipContentMixin,
@@ -200,138 +224,138 @@ __d(
       if (
         o("WAWebNewsletterGatingUtils").isWamoSubMessagesProcessingEnabled()
       ) {
-        var b;
-        C.isWamoSub =
-          ((b = e.newsletterMessageHistoryContent) == null ||
-          (b = b.value.wAMOSubMixin) == null
+        var y;
+        h.isWamoSub =
+          ((y = e.newsletterMessageHistoryContent) == null ||
+          (y = y.value.wAMOSubMixin) == null
             ? void 0
-            : b.metaIsWamoSub) === "true";
+            : y.metaIsWamoSub) === "true";
       }
-      var v = "history";
-      switch (d.name) {
+      var C = "history";
+      switch (c.name) {
         case "NewsletterEdit": {
-          var S,
-            R =
-              (S = e.newsletterMessageLastEditTimestampMixin) == null
+          var b,
+            v =
+              (b = e.newsletterMessageLastEditTimestampMixin) == null
                 ? void 0
-                : S.metaMsgEditT,
-            L = R != null ? o("WATimeUtils").castToMillisTime(R) : void 0,
-            E = h != null ? h : _,
-            k = d.value.newsletterQuestionReplyOrTextOrMediaMixinGroup;
+                : b.metaMsgEditT,
+            S = v != null ? o("WATimeUtils").castToMillisTime(v) : void 0,
+            R = g != null ? g : p,
+            L = c.value.newsletterQuestionReplyOrTextOrMediaMixinGroup;
           return (
-            k.name === "NewsletterQuestionReply" &&
-              (k = k.value.newsletterTextOrMediaMixinGroup),
-            s(
+            L.name === "NewsletterQuestionReply" &&
+              (L = L.value.newsletterTextOrMediaMixinGroup),
+            u(
               {
-                msg: babelHelpers.extends({}, g, {
-                  type: d.name,
-                  t: E,
-                  payload: k.value.plaintextPayloadMixin.elementValue,
-                  msgEditT: R,
-                  msgOriginalT: _,
+                msg: babelHelpers.extends({}, f, {
+                  type: c.name,
+                  t: R,
+                  payload: L.value.plaintextPayloadMixin.elementValue,
+                  msgEditT: v,
+                  msgOriginalT: p,
                 }),
-                msgContext: babelHelpers.extends({}, C, {
-                  latestEditSenderTimestampMs: L,
+                msgContext: babelHelpers.extends({}, h, {
+                  latestEditSenderTimestampMs: S,
                 }),
               },
-              v,
+              C,
             )
           );
         }
         case "NewsletterQuestion":
         case "NewsletterQuestionReply": {
-          var I =
-            d.value.newsletterTextOrMediaMixinGroup.value.plaintextPayloadMixin
+          var E =
+            c.value.newsletterTextOrMediaMixinGroup.value.plaintextPayloadMixin
               .elementValue;
-          return d.value.newsletterTextOrMediaMixinGroup.name ===
+          return c.value.newsletterTextOrMediaMixinGroup.name ===
             "NewsletterMedia"
-            ? s(
+            ? u(
                 {
-                  msg: babelHelpers.extends({}, g, {
-                    payload: I,
+                  msg: babelHelpers.extends({}, f, {
+                    payload: E,
                     type: "NewsletterMedia",
                   }),
-                  msgContext: C,
+                  msgContext: h,
                 },
-                v,
+                C,
               )
-            : s(
+            : u(
                 {
-                  msg: babelHelpers.extends({}, g, {
-                    payload: I,
+                  msg: babelHelpers.extends({}, f, {
+                    payload: E,
                     type: "NewsletterText",
                   }),
-                  msgContext: C,
+                  msgContext: h,
                 },
-                v,
+                C,
               );
         }
         case "NewsletterText":
-          return s(
+          return u(
             {
-              msg: babelHelpers.extends({}, g, {
-                payload: d.value.plaintextPayloadMixin.elementValue,
+              msg: babelHelpers.extends({}, f, {
+                payload: c.value.plaintextPayloadMixin.elementValue,
                 type: "NewsletterText",
               }),
-              msgContext: C,
+              msgContext: h,
             },
-            v,
+            C,
           );
         case "NewsletterQuizCreation":
         case "NewsletterPollCreation":
-          return s(
+          return u(
             {
-              msg: babelHelpers.extends({}, g, {
-                payload: d.value.plaintextPayloadMixin.elementValue,
+              msg: babelHelpers.extends({}, f, {
+                payload: c.value.plaintextPayloadMixin.elementValue,
                 type: "NewsletterPollCreation",
               }),
-              msgContext: C,
+              msgContext: h,
             },
-            v,
+            C,
           );
         case "NewsletterPollResultSnapshot":
-          return s(
+          return u(
             {
-              msg: babelHelpers.extends({}, g, {
-                payload: d.value.plaintextPayloadMixin.elementValue,
-                type: d.name,
+              msg: babelHelpers.extends({}, f, {
+                payload: c.value.plaintextPayloadMixin.elementValue,
+                type: c.name,
               }),
-              msgContext: C,
+              msgContext: h,
             },
-            v,
+            C,
           );
         case "NewsletterMedia":
-          return s(
+          return u(
             {
-              msg: babelHelpers.extends({}, g, {
-                payload: d.value.plaintextPayloadMixin.elementValue,
-                type: d.name,
+              msg: babelHelpers.extends({}, f, {
+                payload: c.value.plaintextPayloadMixin.elementValue,
+                type: c.name,
               }),
-              msgContext: C,
+              msgContext: h,
             },
-            v,
+            C,
           );
         case "NewsletterRevoke":
-          return s(
+          return u(
             {
-              msg: babelHelpers.extends({}, g, { type: d.name }),
-              msgContext: C,
+              msg: babelHelpers.extends({}, f, { type: c.name }),
+              msgContext: h,
             },
-            v,
+            C,
           );
         case "NewsletterWAMOEmpty":
-          return s(
+          return u(
             {
-              msg: babelHelpers.extends({}, g, { type: d.name }),
-              msgContext: C,
+              msg: babelHelpers.extends({}, f, { type: c.name }),
+              msgContext: h,
             },
-            v,
+            C,
           );
         default:
-          return (d.name, null);
+          return (c.name, null);
       }
     }
-    function d(e, t) {
+    function m(e, t) {
       return {
         ack: o("WAAckLevel").ACK.SENT,
         from: t.from,
@@ -344,9 +368,10 @@ __d(
         invis: !1,
       };
     }
-    ((l.mapMsgStanzaToMsgData = s),
-      (l.cleanupMediaFields = u),
-      (l.mapNewsletterMsgToMsgData = c));
+    ((l.getNewsletterViewCount = s),
+      (l.mapMsgStanzaToMsgData = u),
+      (l.cleanupMediaFields = c),
+      (l.mapNewsletterMsgToMsgData = d));
   },
   98,
 );

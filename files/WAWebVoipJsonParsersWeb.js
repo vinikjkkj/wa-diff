@@ -545,6 +545,17 @@ __d(
             nackCode: (e = n == null ? void 0 : n.nack_code) != null ? e : 0,
           };
         },
+        parseUserRemovedData: function (t) {
+          var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (e == null) throw r("err")("Invalid user removed data");
+          return {
+            removeeJid: o("WAWebWidFactory").createWid(e.removee_jid.raw_jid),
+            removerJid:
+              e.remover_jid != null
+                ? o("WAWebWidFactory").createWid(e.remover_jid.raw_jid)
+                : null,
+          };
+        },
         parseEncodeTargetFpsChangedData: function (t) {
           var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
           if (e == null)

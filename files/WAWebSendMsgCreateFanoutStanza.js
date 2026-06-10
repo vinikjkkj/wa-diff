@@ -852,13 +852,7 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o("WAWebABProps").getABPropConfigValue(
-              "privacy_token_sending_on_all_1_on_1_messages",
-            ) ||
-            e == null
-          )
-            return null;
+          if (e == null) return null;
           var t = e.tcToken,
             n = e.tcTokenTimestamp;
           return t == null ||

@@ -613,10 +613,7 @@ __d(
     }
     function E(e, t) {
       var n;
-      o(
-        "WAWebPremiumMessagesGatingUtils",
-      ).isPremiumMessagesClickLoggingEnabled() &&
-        o("WAWebMsgGetters").getIsMarketingMessage(t) &&
+      o("WAWebMsgGetters").getIsMarketingMessage(t) &&
         new (o(
           "WAWebSmbPaidMessagesButtonLoggerWamEvent",
         ).SmbPaidMessagesButtonLoggerWamEvent)({

@@ -115,32 +115,34 @@ __d(
       if (!h.success) return h;
       var y = o("WASmaxParseUtils").optionalChildWithTag(t, "ephemeral", m);
       if (!y.success) return y;
-      var C = o("WASmaxParseUtils").attrIntRange(t, "size", 0, 19999);
+      var C = o("WASmaxParseUtils").optionalChild(t, "group_join_context");
       if (!C.success) return C;
-      var b = o(
+      var b = o("WASmaxParseUtils").attrIntRange(t, "size", 0, 19999);
+      if (!b.success) return b;
+      var v = o(
           "WASmaxInGroupsGroupInfoDescriptionMixin",
         ).parseGroupInfoDescriptionMixin(r.value),
-        v = o(
+        S = o(
           "WASmaxInGroupsGroupInfoAttributesMixin",
         ).parseGroupInfoAttributesMixin(t);
-      if (!v.success) return v;
-      var S = o("WASmaxParseUtils").mapChildrenWithTag(
+      if (!S.success) return S;
+      var R = o("WASmaxParseUtils").mapChildrenWithTag(
         t,
         "participant",
         0,
         19999,
         e,
       );
-      return S.success
+      return R.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
               {
-                size: C.value,
-                descriptionGroupInfoDescriptionMixin: b.success
-                  ? b.value
+                size: b.value,
+                descriptionGroupInfoDescriptionMixin: v.success
+                  ? v.value
                   : null,
               },
-              v.value,
+              S.value,
               {
                 parent: a.value,
                 linkedParent: i.value,
@@ -151,11 +153,12 @@ __d(
                 membershipApprovalRequest: g.value,
                 hasCapi: h.value != null,
                 ephemeral: y.value,
-                participant: S.value,
+                hasGroupJoinContext: C.value != null,
+                participant: R.value,
               },
             ),
           )
-        : S;
+        : R;
     }
     ((l.parseInviteLinkGroupInfoParticipant = e),
       (l.parseInviteLinkGroupInfoParent = s),

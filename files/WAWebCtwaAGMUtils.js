@@ -35,10 +35,7 @@ __d(
       }
     }
     function d(e) {
-      var t = o("WAWebCTWAGatingUtils").getFmxAgmEnabled();
-      return o("WAWebCTWAGatingUtils").getWamoAgmEnabled()
-        ? t
-        : t && e !== u.WHATSAPP;
+      return o("WAWebCTWAGatingUtils").getWamoAgmEnabled() || e !== u.WHATSAPP;
     }
     ((l.AGM_CTA_TYPE = s),
       (l.AGM_SOURCE_APP = u),
