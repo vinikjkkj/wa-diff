@@ -21,7 +21,7 @@ __d(
           if (
             o(
               "WAWebGroupHistoryGating",
-            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled()
+            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(t)
           ) {
             var a = n.filter(function (e) {
               return e.joinTime != null;

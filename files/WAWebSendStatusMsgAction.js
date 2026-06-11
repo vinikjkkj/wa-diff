@@ -434,7 +434,8 @@ __d(
         D.apply(this, arguments)
       );
     }
-    ((l.sendStatusTextMsgAction = b),
+    ((l.getContentTypeForLogging = C),
+      (l.sendStatusTextMsgAction = b),
       (l.sendStatusMediaMsgAction = S),
       (l.sendStatusReaction = k),
       (l.buildStatusReactionMsgData = T));

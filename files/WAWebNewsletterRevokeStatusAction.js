@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebDBMessageDelete",
+    "WAWebLogStatusPosterActions",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterRevokeStatusQueryJob",
     "WAWebWidFactory",
@@ -23,19 +24,24 @@ __d(
             i = r("WAWebNewsletterMetadataCollection").get(a);
           if ((i == null ? void 0 : i.iAmAdminOrOwner()) !== !0)
             throw r("err")("[newsletter][status] User is not admin or owner");
-          var l = o("WAWebWidToJid").widToNewsletterJid(a);
+          var l = o("WAWebWidToJid").widToNewsletterJid(a),
+            u = new (o(
+              "WAWebLogStatusPosterActions",
+            ).StatusPosterActionsLogger)(void 0, a);
+          u.logDeleteStatusRequest();
           try {
-            var u = yield o(
+            var c = yield o(
               "WAWebNewsletterRevokeStatusQueryJob",
             ).queryRevokeNewsletterStatus({
               newsletterJid: l,
               statusId: n.id.id,
             });
-            if (u.success) {
-              var c = n.id.toString();
+            if (c.success) {
+              var d = n.id.toString();
               return (
-                t.revokeMsgs([c]),
+                t.revokeMsgs([d]),
                 yield o("WAWebDBMessageDelete").removeStatusMessage([n]),
+                u.logDeleteStatusSuccess(),
                 !0
               );
             }
@@ -47,12 +53,14 @@ __d(
                       "[newsletter][status][revoke] Revoke failed: ",
                       "",
                     ])),
-                  u.ack.error,
+                  c.ack.error,
                 )
                 .sendLogs("newsletter-status-revoke-action-failed"),
+              u.logDeleteStatusFailure(c.ack.error),
               !1
             );
           } catch (e) {
+            var m = r("getErrorSafe")(e);
             return (
               o("WALogger")
                 .ERROR(
@@ -61,8 +69,9 @@ __d(
                       "[newsletter][status][revoke] Revoke request failed",
                     ])),
                 )
-                .catching(r("getErrorSafe")(e))
+                .catching(m)
                 .sendLogs("newsletter-status-revoke-request-error"),
+              u.logDeleteStatusFailure(m == null ? void 0 : m.message),
               !1
             );
           }

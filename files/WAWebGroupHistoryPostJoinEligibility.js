@@ -14,6 +14,7 @@ __d(
     function e(e) {
       return {
         groupType: e.groupType,
+        groupWid: e.id,
         hasCapi: e.hasCapi,
         iAmAdmin: e.participants.iAmAdmin(),
         iAmSuperAdmin: e.participants.iAmSuperAdmin(),
@@ -39,7 +40,7 @@ __d(
     function d(e) {
       return !o(
         "WAWebGroupHistoryGating",
-      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled() ||
+      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e.groupWid) ||
         !s(e.groupType) ||
         e.hasCapi === !0
         ? !1
@@ -75,7 +76,7 @@ __d(
       if (
         !o(
           "WAWebGroupHistoryGating",
-        ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled()
+        ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(t.id)
       )
         return [];
       var n = e(t);

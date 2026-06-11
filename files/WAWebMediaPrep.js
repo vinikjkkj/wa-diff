@@ -727,7 +727,11 @@ __d(
                     .__setRef("WAWebMediaPrep")
                     .load()
                     .then(function (e) {
-                      return e.sendNewsletterStatusMediaMsgAction(H, G);
+                      return e.sendNewsletterStatusMediaMsgAction(
+                        H,
+                        G,
+                        s.statusPostFunnelContext,
+                      );
                     }))
                 : (U = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
                     i,
@@ -764,7 +768,11 @@ __d(
                   .__setRef("WAWebMediaPrep")
                   .load()
                   .then(function (e) {
-                    return e.sendNewsletterStatusMediaMsgAction(j, W);
+                    return e.sendNewsletterStatusMediaMsgAction(
+                      j,
+                      W,
+                      s.statusPostFunnelContext,
+                    );
                   });
               } else
                 U = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(

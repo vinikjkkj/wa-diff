@@ -13,6 +13,7 @@ __d(
     "WAWebWamEnumMediaQuality",
     "WAWebWamEnumMetaAiModelTierType",
     "WAWebWamEnumNotificationSettingType",
+    "WAWebWamEnumPeripheralDisplayConnectivityType",
     "WAWebWamEnumPrivacySettingsContactsBuckets",
     "WAWebWamEnumPrivacySettingsValueType",
     "WAWebWamEnumUsernameState",
@@ -172,6 +173,11 @@ __d(
               passkeyExists: [165, e.TYPES.BOOLEAN],
               paymentsIsEnabled: [100, e.TYPES.BOOLEAN],
               peripheralConnected: [209, e.TYPES.STRING],
+              peripheralDisplayConnectivityType: [
+                255,
+                o("WAWebWamEnumPeripheralDisplayConnectivityType")
+                  .PERIPHERAL_DISPLAY_CONNECTIVITY_TYPE,
+              ],
               peripheralLinkedProductLine: [229, e.TYPES.STRING],
               permissionAccessCoarseLocation: [57, e.TYPES.INTEGER],
               permissionAccessFineLocation: [58, e.TYPES.INTEGER],

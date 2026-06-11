@@ -520,6 +520,7 @@ __d(
             (e.isOffline = o("WAWebBaseModel").session(!1)),
             (e.read = o("WAWebBaseModel").prop()),
             (e.memberLabelData = o("WAWebBaseModel").prop()),
+            (e.hatchMetadataSync = o("WAWebBaseModel").prop(null)),
             (e.musicArtwork = o("WAWebBaseModel").prop()),
             (e.$MsgImpl$p_3 = o("WAWebBaseModel").session(function () {
               return [];

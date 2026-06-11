@@ -39,6 +39,7 @@ __d(
     "getSafeQplErrorMessage",
     "gkx",
     "qpl",
+    "supportsModuleWorker",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -457,9 +458,12 @@ __d(
                   t,
                 );
               }));
-          var n = o("QPLFlow").startQPLFlow(m, {
+          var a = o("QPLFlow").startQPLFlow(m, {
             annotations: {
-              bool: { wa_web_media_wasm_worker_split: r("gkx")("24042") },
+              bool: {
+                wa_web_media_wasm_worker_split: r("gkx")("24042"),
+                supportModule: r("supportsModuleWorker")(!1),
+              },
               int: {
                 creatingWorkerCount: y++,
                 isWorkerV2: t == null ? -1 : t ? 1 : 0,
@@ -468,28 +472,31 @@ __d(
             timeoutInMs: 6e4,
           });
           try {
-            n.addPoint("create_worker_start");
-            var a;
-            t === !0
-              ? (a = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
-                  r("WAWebBackendWorkerV2Resource"),
-                  _,
-                  "WAWebBackendV2Worker",
-                ))
-              : (a = o("WorkerBundleResource").createDedicatedWebWorker(
-                  r("WAWebBackendWorkerResource"),
-                ));
-            var i;
-            (o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
-              ? (i = yield o(
+            a.addPoint("create_worker_start");
+            var i,
+              l = (c || (c = n("Promise"))).resolve();
+            if (t === !0) {
+              var u = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
+                r("WAWebBackendWorkerV2Resource"),
+                _,
+                "WAWebBackendV2Worker",
+              );
+              ((l = u.initReady), (i = u.worker));
+            } else
+              i = o("WorkerBundleResource").createDedicatedWebWorker(
+                r("WAWebBackendWorkerResource"),
+              );
+            (a.addPoint("worker_connect_start"),
+              yield c.all([l, v(i)]),
+              a.addPoint("worker_connect_end"));
+            var d;
+            o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
+              ? (d = yield o(
                   "WAWebBackendWorkerClient",
                 ).getBackendWorkerBridge())
-              : (i = g()),
-              n.addPoint("worker_connect_start"),
-              yield v(a),
-              n.addPoint("worker_connect_end"));
-            var l = f(a);
-            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(i, l, [
+              : (d = g());
+            var p = f(i);
+            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(d, p, [
               "historySync",
               "deviceSync",
               "crypto",
@@ -500,12 +507,12 @@ __d(
               "userPrefs",
               "workerInit",
             ]),
-              o("WAWebBackendWorkerClient").setBackendWorkerBridge(i),
-              n.addPoint("init_data_start"),
-              yield o("WAWebBackendWorkerInitState").sendInitState(i),
-              n.addPoint("init_data_end"),
-              n.addPoint("create_worker_end"),
-              n.endSuccess(),
+              o("WAWebBackendWorkerClient").setBackendWorkerBridge(d),
+              a.addPoint("init_data_start"),
+              yield o("WAWebBackendWorkerInitState").sendInitState(d),
+              a.addPoint("init_data_end"),
+              a.addPoint("create_worker_end"),
+              a.endSuccess(),
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -529,7 +536,7 @@ __d(
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("main-thread-backend-worker-init-fails"),
-              n.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e)));
+              a.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e)));
           }
         })),
         b.apply(this, arguments)

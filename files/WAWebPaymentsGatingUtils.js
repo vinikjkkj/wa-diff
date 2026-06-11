@@ -29,9 +29,7 @@ __d(
       );
     }
     function c(e) {
-      var t = o("WAWebLidMigrationUtils").toPn(
-          o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        ),
+      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
           t == null ? void 0 : t.user,
         ),

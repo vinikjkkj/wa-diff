@@ -31,7 +31,7 @@ __d(
             return this.$1;
           }),
           (n.setAgentStatus = function (t) {
-            ((this.$1 = t), this.$4(t.activityText));
+            ((this.$1 = t), this.$4(this.$5(t)));
           }),
           (n.clearAgentStatus = function () {
             ((this.$1 = null), this.$4(null));
@@ -86,6 +86,11 @@ __d(
           }),
           (n.__resetForTesting = function () {
             ((this.$1 = null), (this.$2 = []), (this.$3 = null));
+          }),
+          (n.$5 = function (t) {
+            var e = t.activityEmoji,
+              n = t.activityText;
+            return e != null && e !== "" ? e + " " + n : n;
           }),
           (n.$4 = function (t) {
             for (var e of [].concat(this.$2)) e(t);

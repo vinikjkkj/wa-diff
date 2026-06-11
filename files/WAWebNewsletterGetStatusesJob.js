@@ -11,8 +11,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t, a, i) {
+    var e, s;
+    function u(t, a, i) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterStatuses",
@@ -55,62 +55,78 @@ __d(
                 }
               );
             }
-            var s = [],
-              u = new Map(),
+            var u = [],
               c = new Map(),
-              d = [];
-            for (var m of l) {
-              var p;
-              if (
-                ((p = m.statusNewsletterContentMixin) == null
-                  ? void 0
-                  : p.newsletterStatusContentTypeMixins.name) ===
-                "StatusNewsletterRevoke"
-              ) {
-                d.push(m.serverId);
-                continue;
-              }
-              var _ = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
-                m,
-                n,
-              );
-              if (_ != null) {
-                var f,
-                  g,
-                  h =
-                    (f = m.statusNewsletterViewsCountsMixin) == null
-                      ? void 0
-                      : f.viewsCountCount,
-                  y = _.id.toString();
-                (s.push(
-                  babelHelpers.extends({}, _, {
-                    isNewsletterStatus: !0,
-                    author: n,
-                    viewCount: h,
-                  }),
-                ),
-                  h != null && u.set(y, h));
-                var C = o("WAWebNewsletterStatusUtils").buildEmojiCountMap(
-                  (g = m.statusNewsletterReactionsMixin) == null
+              d = new Map(),
+              m = [];
+            for (var p of l)
+              try {
+                var _;
+                if (
+                  ((_ = p.statusNewsletterContentMixin) == null
                     ? void 0
-                    : g.reactionsReaction,
+                    : _.newsletterStatusContentTypeMixins.name) ===
+                  "StatusNewsletterRevoke"
+                ) {
+                  m.push(p.serverId);
+                  continue;
+                }
+                var f = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
+                  p,
+                  n,
                 );
-                C != null && c.set(y, C);
+                if (f != null) {
+                  var g,
+                    h,
+                    y =
+                      (g = p.statusNewsletterViewsCountsMixin) == null
+                        ? void 0
+                        : g.viewsCountCount,
+                    C = f.id.toString();
+                  (u.push(
+                    babelHelpers.extends({}, f, {
+                      isNewsletterStatus: !0,
+                      author: n,
+                      viewCount: y,
+                    }),
+                  ),
+                    y != null && c.set(C, y));
+                  var b = o("WAWebNewsletterStatusUtils").buildEmojiCountMap(
+                    (h = p.statusNewsletterReactionsMixin) == null
+                      ? void 0
+                      : h.reactionsReaction,
+                  );
+                  b != null && d.set(C, b);
+                }
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[newsletter][status] Skipping unparseable status entry ",
+                        " for ",
+                        "",
+                      ])),
+                    String(p.serverId),
+                    t,
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .tags("newsletter", "status")
+                  .sendLogs("newsletter-status-entry-skipped");
               }
-            }
             return {
-              msgs: s,
+              msgs: u,
               from: n,
-              viewCounts: u,
-              reactionCounts: c,
-              revokedServerIds: d,
+              viewCounts: c,
+              reactionCounts: d,
+              revokedServerIds: m,
             };
           }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    l.getNewsletterStatuses = s;
+    l.getNewsletterStatuses = u;
   },
   98,
 );

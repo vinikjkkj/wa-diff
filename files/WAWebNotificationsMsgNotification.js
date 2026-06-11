@@ -104,72 +104,77 @@ __d(
                           )
                         ? r("WAWebNotificationMuteReason")
                             .IgnoreAddedToCommunityHome
-                        : !r("gkx")("26258") &&
-                            o("WAWebNotificationHelpers").shouldIgnoreGroupMsg(
-                              this.msg,
-                            )
-                          ? r("WAWebNotificationMuteReason").IgnoreGroupMsg
-                          : o("WAWebMsgGetters").getIsFutureproof(this.msg)
-                            ? r("WAWebNotificationMuteReason").IgnoreFutureProof
-                            : o(
-                                  "WAWebNotificationHelpers",
-                                ).isOfflineResumeInProgress()
+                        : this.msg.type ===
+                            o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE
+                          ? r("WAWebNotificationMuteReason")
+                              .IgnoreGroupHistoryNotice
+                          : !r("gkx")("26258") &&
+                              o(
+                                "WAWebNotificationHelpers",
+                              ).shouldIgnoreGroupMsg(this.msg)
+                            ? r("WAWebNotificationMuteReason").IgnoreGroupMsg
+                            : o("WAWebMsgGetters").getIsFutureproof(this.msg)
                               ? r("WAWebNotificationMuteReason")
-                                  .OfflineResumeInProgress
-                              : o("WAWebMsgGetters").getIsBizContentPlaceholder(
-                                    this.msg,
-                                  )
+                                  .IgnoreFutureProof
+                              : o(
+                                    "WAWebNotificationHelpers",
+                                  ).isOfflineResumeInProgress()
                                 ? r("WAWebNotificationMuteReason")
-                                    .IgnoreBizContentPlaceholder
-                                : o("WAWebMsgGetters").getIsCallSilenced(
-                                      this.msg,
-                                    ) ||
-                                    (o(
-                                      "WAWebVoipGatingUtils",
-                                    ).isCallingEnabled() &&
-                                      this.msg.type ===
-                                        o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
-                                      this.msg.subtype == null &&
-                                      !o("WAWebMsgGetters").getIsMissedCall(
-                                        this.msg,
-                                      ))
+                                    .OfflineResumeInProgress
+                                : o(
+                                      "WAWebMsgGetters",
+                                    ).getIsBizContentPlaceholder(this.msg)
                                   ? r("WAWebNotificationMuteReason")
-                                      .IgnoreCallMsgs
-                                  : o("WAWebBotUtils").isHiddenBotWid(e.id) ||
-                                      (e.id.isBot() &&
-                                        (!o(
-                                          "WAWebBotBaseGating",
-                                        ).isBotEnabled() ||
-                                          this.msg.botMsgBodyType ===
-                                            o("WAWebBotTypes").BotMsgBodyType
-                                              .VOICE))
+                                      .IgnoreBizContentPlaceholder
+                                  : o("WAWebMsgGetters").getIsCallSilenced(
+                                        this.msg,
+                                      ) ||
+                                      (o(
+                                        "WAWebVoipGatingUtils",
+                                      ).isCallingEnabled() &&
+                                        this.msg.type ===
+                                          o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
+                                        this.msg.subtype == null &&
+                                        !o("WAWebMsgGetters").getIsMissedCall(
+                                          this.msg,
+                                        ))
                                     ? r("WAWebNotificationMuteReason")
-                                        .IgnoreBotMsgs
-                                    : v(this.msg)
+                                        .IgnoreCallMsgs
+                                    : o("WAWebBotUtils").isHiddenBotWid(e.id) ||
+                                        (e.id.isBot() &&
+                                          (!o(
+                                            "WAWebBotBaseGating",
+                                          ).isBotEnabled() ||
+                                            this.msg.botMsgBodyType ===
+                                              o("WAWebBotTypes").BotMsgBodyType
+                                                .VOICE))
                                       ? r("WAWebNotificationMuteReason")
-                                          .IgnoreInternalSilentTag
-                                      : o(
-                                            "WAWebViewModeUtils",
-                                          ).isViewModeVisibleInSurface(
-                                            o("WAWebViewMode.flow")
-                                              .ViewModeSurface.NOTIFICATION,
-                                            this.msg.viewMode,
-                                          )
-                                        ? o(
-                                            "WAWebBizAiAgentStatusUtils",
-                                          ).shouldMuteNotification(e)
-                                          ? r("WAWebNotificationMuteReason")
-                                              .AIRepliesOn
-                                          : o(
-                                                "WAWebNotifyForUtils",
-                                              ).shouldMuteForNotifyForSetting(
-                                                this.msg,
-                                              )
+                                          .IgnoreBotMsgs
+                                      : v(this.msg)
+                                        ? r("WAWebNotificationMuteReason")
+                                            .IgnoreInternalSilentTag
+                                        : o(
+                                              "WAWebViewModeUtils",
+                                            ).isViewModeVisibleInSurface(
+                                              o("WAWebViewMode.flow")
+                                                .ViewModeSurface.NOTIFICATION,
+                                              this.msg.viewMode,
+                                            )
+                                          ? o(
+                                              "WAWebBizAiAgentStatusUtils",
+                                            ).shouldMuteNotification(e)
                                             ? r("WAWebNotificationMuteReason")
-                                                .NotifyForHighlights
-                                            : null
-                                        : r("WAWebNotificationMuteReason")
-                                            .IgnoreHiddenViewModeMsgs;
+                                                .AIRepliesOn
+                                            : o(
+                                                  "WAWebNotifyForUtils",
+                                                ).shouldMuteForNotifyForSetting(
+                                                  this.msg,
+                                                )
+                                              ? r("WAWebNotificationMuteReason")
+                                                  .NotifyForHighlights
+                                              : null
+                                          : r("WAWebNotificationMuteReason")
+                                              .IgnoreHiddenViewModeMsgs;
           }),
           (a.shouldSquelch = function () {
             var e = o(

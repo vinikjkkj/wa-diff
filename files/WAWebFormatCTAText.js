@@ -127,7 +127,7 @@ __d(
             ).isEligibleForPostJoinHistory(t, a, n)
           );
         });
-        return i ? p() : _();
+        return i ? p() : null;
       }
       if (e.length !== 1 || e[0] == null) return null;
       var l = e[0];
@@ -141,16 +141,12 @@ __d(
         o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(r),
         n,
       );
-      return u ? p() : _();
+      return u ? p() : null;
     }
     function p() {
       return s._(/*BTDS*/ "Send message history");
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _() {
-      return s._(/*BTDS*/ "View member actions");
-    }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = c));
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

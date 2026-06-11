@@ -63,7 +63,11 @@ __d(
       );
     }
     function d(e) {
-      return u(e) && !e.forceDismissAiAgentBlockBar;
+      return (
+        u(e) &&
+        !e.forceDismissAiAgentBlockBar &&
+        !o("WAWebContactGetters").getIsAiHub(e.contact)
+      );
     }
     function m(e) {
       return u(e);

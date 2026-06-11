@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebAck",
     "WAWebDBProcessMessage",
+    "WAWebLogStatusPosterActions",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgModel",
@@ -14,13 +15,17 @@ __d(
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebProtobufsStatusAttributions.pb",
     "WAWebSendMsgResultAction",
+    "WAWebSendStatusMsgAction",
     "WAWebStatusCollection",
+    "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
     "WAWebWamEnumMessageSendResultType",
+    "WAWebWamEnumStatusContentType",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -40,12 +45,12 @@ __d(
             unreadCount: 1,
           });
     }
-    function d(e, t) {
+    function d(e, t, n) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled(
               r("WAWebNewsletterMetadataCollection").get(e),
@@ -54,13 +59,13 @@ __d(
             throw r("err")(
               "[newsletter][status] Newsletter status posting not allowed: capability missing or not admin",
             );
-          var n = o("WAWebWidToJid").widToNewsletterJid(e),
-            a = yield o("WAWebStatusMsgDataUtils").createTextStatusMsgData(
+          var a = o("WAWebWidToJid").widToNewsletterJid(e),
+            i = yield o("WAWebStatusMsgDataUtils").createTextStatusMsgData(
               t,
               e,
             );
-          a != null || s(0, 143976);
-          var i = babelHelpers.extends({}, a, {
+          i != null || s(0, 143976);
+          var l = babelHelpers.extends({}, i, {
               isNewsletterStatus: !0,
               author: e,
               statusAttributions: [
@@ -71,62 +76,91 @@ __d(
               ],
               canBeReshared: !0,
             }),
-            l = new (o("WAWebMsgModel").Msg)(i);
-          ((l.wamMessageSendReporter = new (o(
+            u = new (o("WAWebMsgModel").Msg)(l);
+          ((u.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
-          ).MessageSendReporter)(l, {
+          ).MessageSendReporter)(u, {
             frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
               .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           })),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
               e,
-              [l],
+              [u],
             ),
-            c(e, i.t),
-            yield o("WAWebDBProcessMessage").storeMessages([i], e));
+            c(e, l.t),
+            yield o("WAWebDBProcessMessage").storeMessages([l], e));
+          var d = new (o(
+            "WAWebLogStatusPosterActions",
+          ).StatusPosterActionsLogger)(n == null ? void 0 : n.sessionId, e);
+          d.logPostStatusRequest(
+            o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT,
+            0,
+            n == null ? void 0 : n.entryPoint,
+          );
           try {
-            var u = yield o(
-              "WAWebNewsletterSendStatusJob",
-            ).sendNewsletterStatus({ type: "text", msg: l, newsletterJid: n });
-            return f(l, u);
+            var m = yield o(
+                "WAWebNewsletterSendStatusJob",
+              ).sendNewsletterStatus({
+                type: "text",
+                msg: u,
+                newsletterJid: a,
+              }),
+              p = h(u, m);
+            return (
+              yield f(
+                p,
+                m,
+                u,
+                d,
+                o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT,
+                n,
+              ),
+              p
+            );
           } catch (e) {
-            var d;
+            var _, g;
             throw (
-              l.updateAck(o("WAWebAck").ACK.FAILED),
-              (d = l.wamMessageSendReporter) == null ||
-                d.postFailure({
+              u.updateAck(o("WAWebAck").ACK.FAILED),
+              (_ = u.wamMessageSendReporter) == null ||
+                _.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !0,
                 }),
+              d.logPostStatusFailure(
+                o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT,
+                (g = r("getErrorSafe")(e)) == null ? void 0 : g.message,
+                0,
+                n == null ? void 0 : n.entryPoint,
+              ),
               e
             );
           } finally {
-            l.wamMessageSendReporter = null;
+            u.wamMessageSendReporter = null;
           }
         })),
         m.apply(this, arguments)
       );
     }
-    function p(e, t) {
+    function p(e, t, n) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebWidFactory").asNewsletterWidOrThrow(e.id.remote);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = o("WAWebWidFactory").asNewsletterWidOrThrow(e.id.remote);
           if (
             !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled(
-              r("WAWebNewsletterMetadataCollection").get(n),
+              r("WAWebNewsletterMetadataCollection").get(a),
             )
           )
             throw r("err")(
               "[newsletter][status] Newsletter status posting not allowed: capability missing or not admin",
             );
-          var a = o("WAWebWidToJid").widToNewsletterJid(n),
-            i = babelHelpers.extends({}, e, {
+          var i = o("WAWebWidToJid").widToNewsletterJid(a),
+            l = babelHelpers.extends({}, e, {
               isNewsletterStatus: !0,
-              author: n,
+              author: a,
               statusAttributions: [
                 {
                   type: o("WAWebProtobufsStatusAttributions.pb")
@@ -135,71 +169,107 @@ __d(
               ],
               canBeReshared: !0,
             }),
-            l = new (o("WAWebMsgModel").Msg)(i);
-          ((l.wamMessageSendReporter = new (o(
+            d = new (o("WAWebMsgModel").Msg)(l);
+          ((d.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
-          ).MessageSendReporter)(l, {
+          ).MessageSendReporter)(d, {
             frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
               .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           })),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
-              n,
-              [l],
+              a,
+              [d],
             ),
-            c(n, i.t),
-            yield o("WAWebDBProcessMessage").storeMessages([i], n));
+            c(a, l.t),
+            yield o("WAWebDBProcessMessage").storeMessages([l], a));
           try {
-            yield t(l);
+            yield t(d);
           } catch (e) {
-            var d;
+            var m;
             return (
-              l.updateAck(o("WAWebAck").ACK.FAILED),
-              (d = l.wamMessageSendReporter) == null ||
-                d.postFailure({
+              d.updateAck(o("WAWebAck").ACK.FAILED),
+              (m = d.wamMessageSendReporter) == null ||
+                m.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UPLOAD,
                   isTerminal: !0,
                 }),
-              (l.wamMessageSendReporter = null),
+              (d.wamMessageSendReporter = null),
               {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                   .ERROR_UPLOAD,
               }
             );
           }
-          l.deprecatedMms3Url = u;
-          var m = l.mediaHandle;
-          m != null || s(0, 144005);
+          d.deprecatedMms3Url = u;
+          var p = d.mediaHandle;
+          p != null || s(0, 144005);
+          var _ = o("WAWebSendStatusMsgAction").getContentTypeForLogging(
+              d.type,
+            ),
+            g = new (o(
+              "WAWebLogStatusPosterActions",
+            ).StatusPosterActionsLogger)(n == null ? void 0 : n.sessionId, a);
+          g.logPostStatusRequest(_, 0, n == null ? void 0 : n.entryPoint);
           try {
-            var p = yield o(
-              "WAWebNewsletterSendStatusJob",
-            ).sendNewsletterStatus({
-              type: "media",
-              msg: l,
-              newsletterJid: a,
-              mediaHandle: m,
-            });
-            return f(l, p);
+            var y = yield o(
+                "WAWebNewsletterSendStatusJob",
+              ).sendNewsletterStatus({
+                type: "media",
+                msg: d,
+                newsletterJid: i,
+                mediaHandle: p,
+              }),
+              C = h(d, y);
+            return (yield f(C, y, d, g, _, n), C);
           } catch (e) {
-            var _;
+            var b, v;
             throw (
-              l.updateAck(o("WAWebAck").ACK.FAILED),
-              (_ = l.wamMessageSendReporter) == null ||
-                _.postFailure({
+              d.updateAck(o("WAWebAck").ACK.FAILED),
+              (b = d.wamMessageSendReporter) == null ||
+                b.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !0,
                 }),
+              g.logPostStatusFailure(
+                _,
+                (v = r("getErrorSafe")(e)) == null ? void 0 : v.message,
+                0,
+                n == null ? void 0 : n.entryPoint,
+              ),
               e
             );
           } finally {
-            l.wamMessageSendReporter = null;
+            d.wamMessageSendReporter = null;
           }
         })),
         _.apply(this, arguments)
       );
     }
-    function f(t, n) {
+    function f(e, t, n, r, o, a) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a, i) {
+            if (
+              e.messageSendResult ===
+              o("WAWebSendMsgResultAction").SendMsgResult.OK
+            ) {
+              var l = yield o("WAWebStatusLoggingUtils").statusIdForLogging(n);
+              r.logPostStatusSuccess(a, l, i == null ? void 0 : i.entryPoint);
+              return;
+            }
+            var s = t.success ? void 0 : t.ack.error;
+            r.logPostStatusFailure(a, s, 0, i == null ? void 0 : i.entryPoint);
+          },
+        )),
+        g.apply(this, arguments)
+      );
+    }
+    function h(t, n) {
       var r;
       if (n.success) {
         var a;

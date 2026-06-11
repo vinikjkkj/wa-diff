@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebApiContact",
     "WAWebBackendErrors",
     "WAWebBaseCachePolicy",
     "WAWebBotUtils",
@@ -22,6 +23,7 @@ __d(
     "WAWebStaleBaseCollection",
     "WAWebUnjoinedSubgroupMetadataCollection",
     "WAWebUserPrefsKeys",
+    "WAWebUserPrefsMeUser",
     "WAWebVcardParsingUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -36,7 +38,8 @@ __d(
       d,
       m,
       p,
-      _ = (function (t) {
+      _ = new Set(),
+      f = (function (t) {
         function a() {
           var e, a;
           ((a = t.call(this) || this),
@@ -154,11 +157,48 @@ __d(
               (r = i.pictures) == null || r.notifyUpdate(e);
             });
           }
-          return a;
+          return (
+            a.listenTo(a, "add change", function (e) {
+              a._mirrorMeRow(e);
+            }),
+            a
+          );
         }
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i._mirrorMeRow = function (t) {
+            if (o("WAWebUserPrefsMeUser").isMeAccount(t.id)) {
+              var e = t.id.toString();
+              if (!_.has(e)) {
+                var n = o("WAWebApiContact").getMeUserWids();
+                if (!(n.length < 2)) {
+                  var r = {
+                    tag: t.tag,
+                    eurl: t.eurl,
+                    previewEurl: t.previewEurl,
+                    fullDirectPath: t.fullDirectPath,
+                    previewDirectPath: t.previewDirectPath,
+                    filehash: t.filehash,
+                    timestamp: t.timestamp,
+                    stale: t.stale,
+                    eurlStale: t.eurlStale,
+                  };
+                  for (var a of n)
+                    if (!a.equals(t.id)) {
+                      var i = a.toString();
+                      _.add(i);
+                      try {
+                        var l = this.gadd(a);
+                        l.set(r);
+                      } finally {
+                        _.delete(i);
+                      }
+                    }
+                }
+              }
+            }
+          }),
           (i.get = function (n) {
             var e = t.prototype.get.call(this, n);
             return (
@@ -340,16 +380,16 @@ __d(
           a
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    ((_.model = o("WAWebProfilePicThumbModel").ProfilePicThumb),
-      (_.cachePolicy = {
+    ((f.model = o("WAWebProfilePicThumbModel").ProfilePicThumb),
+      (f.cachePolicy = {
         id: o("WAWebUserPrefsKeys").COLLECTIONS_KEYS
           .PROFILE_PIC_THUMB_COLLECTION,
         trigger: "change:tag",
         policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE,
         delay: 5e3,
       }));
-    var f = new _();
-    l.ProfilePicThumbCollection = f;
+    var g = new f();
+    l.ProfilePicThumbCollection = g;
   },
   98,
 );

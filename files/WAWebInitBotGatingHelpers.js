@@ -6,10 +6,8 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBotBaseGating",
-    "WAWebCanonicalHatchAgentStatusGetQuery",
     "WAWebCanonicalHatchIdentityGetQuery",
     "WAWebCanonicalHatchLinkedStatusGetQuery",
-    "WAWebHatchAgentStatusManager",
     "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "asyncToGeneratorRuntime",
@@ -25,9 +23,6 @@ __d(
           (o("WAWebAIHatchIdentityStore").registerIdentityFetcher(
             o("WAWebCanonicalHatchIdentityGetQuery").fetchHatchIdentityGet,
           ),
-            r("WAWebHatchAgentStatusManager").registerFetcher(
-              o("WAWebCanonicalHatchAgentStatusGetQuery").fetchHatchAgentStatus,
-            ),
             r("WAWebHatchLinkedStatusManager").registerFetcher(
               o("WAWebCanonicalHatchLinkedStatusGetQuery")
                 .fetchHatchLinkedStatus,

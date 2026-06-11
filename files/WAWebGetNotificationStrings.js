@@ -443,7 +443,7 @@ __d(
         case "automated_greeting_message":
         case "rich_response":
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
-        case "message_history_notice":
+        case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE:
         case "loading_media":
         case "newsletter_notification":
           return "";

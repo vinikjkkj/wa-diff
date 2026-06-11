@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
@@ -19,7 +20,12 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE) {
+          if (
+            t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE &&
+            o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(t.id.remote)
+          ) {
             var n = t.groupHistoryBundleMetadata;
             if (n != null) {
               var r = n.historyReceivers;

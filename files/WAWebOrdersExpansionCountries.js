@@ -30,14 +30,15 @@ __d(
       function (e, t) {
         var n = [];
         if (t.length === 0) return n;
-        var r = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e),
-          a = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
-          );
+        var r = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+          a = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e),
+          i = r
+            ? o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(r.user)
+            : null;
         return (
           (n = t
             .filter(function (e) {
-              return e === r || e === a;
+              return e === a || (i != null && e === i);
             })
             .map(function (e) {
               return o("WAWebCurrencyUtils").currencyForCountryShortcode(e);

@@ -1,7 +1,7 @@
 __d(
   "WebWorkerV4Resource",
   [
-    "FBLogger",
+    "Promise",
     "WebWorkerV4DedicatedDynamicData",
     "err",
     "forEachObject",
@@ -12,46 +12,68 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, a) {
-      var i = n != null ? n : e.name,
-        l = r("supportsModuleWorker")(!1) && a !== !0,
-        s = l ? "module" : "classic",
-        u = r("getWorkerInitScriptSPINParams")();
+    var e;
+    function s(t, a, i, l) {
+      var s = i != null ? i : t.name,
+        u = r("supportsModuleWorker")(!1) && l !== !0,
+        c = u ? "module" : "classic",
+        d = r("getWorkerInitScriptSPINParams")();
       r("forEachObject")(
         r("getAsyncParamsFromCurrentPageURI")(),
         function (e, t) {
-          u.set(t, e);
+          d.set(t, e);
         },
       );
-      var c = r("nullthrows")(
-          t.initScriptRouteBuilder
-            .buildUri({ worker_type: l ? "MODULE" : "CLASSIC" })
-            .addQueryParams(u),
+      var m = r("nullthrows")(
+          a.initScriptRouteBuilder
+            .buildUri({ worker_type: u ? "MODULE" : "CLASSIC" })
+            .addQueryParams(d),
         ).toString(),
-        d = new Worker(c, { name: i, type: s });
-      return (
-        o("WebWorkerV4DedicatedDynamicData")
-          .readDynamicDataForWorkerV4(e, t.hasteResponseRouteBuilder)
-          .then(function (e) {
-            var t = e.data;
-            d.postMessage({
-              type: "ww-hrp-init",
-              hrp: t.hrp,
-              js_env: t.js_env,
-              is_dev: !1,
-              tiered: !0,
-            });
-          })
-          .catch(function (e) {
-            (r("FBLogger")("webworker_v4_dedicated")
-              .catching(e instanceof Error ? e : r("err")(String(e)))
-              .mustfix("HRP fetch failed for worker %s", i),
-              d.terminate());
-          }),
-        d
-      );
+        p = new Worker(m, { name: s, type: c }),
+        _ = new (e || (e = n("Promise")))(function (e, n) {
+          var i = function (o) {
+            var t = o.data;
+            if (
+              typeof t == "object" &&
+              ((t == null ? void 0 : t.type) === "ww-init-error" ||
+                (t == null ? void 0 : t.type) === "ww-init-complete")
+            ) {
+              var a, l;
+              if (
+                (p.removeEventListener("message", i),
+                (t == null ? void 0 : t.type) === "ww-init-complete")
+              ) {
+                e();
+                return;
+              }
+              var s =
+                  (a = t == null ? void 0 : t.error) != null ? a : "unknown",
+                u = (l = t == null ? void 0 : t.reason) != null ? l : "unknown";
+              n(
+                r("err")(
+                  "ww-hrp-init error: " + String(s) + ", reason: " + String(u),
+                ),
+              );
+            }
+          };
+          (p.addEventListener("message", i),
+            o("WebWorkerV4DedicatedDynamicData")
+              .readDynamicDataForWorkerV4(t, a.hasteResponseRouteBuilder)
+              .then(function (e) {
+                var t = e.data;
+                p.postMessage({
+                  type: "ww-hrp-init",
+                  hrp: t.hrp,
+                  js_env: t.js_env,
+                  is_dev: !1,
+                  tiered: !0,
+                });
+              })
+              .catch(n));
+        });
+      return { worker: p, initReady: _ };
     }
-    l.createDedicatedV4WebWorker = e;
+    l.createDedicatedV4WebWorker = s;
   },
   98,
 );

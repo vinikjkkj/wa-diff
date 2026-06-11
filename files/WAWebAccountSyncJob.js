@@ -6,6 +6,7 @@ __d(
     "WAPromiseCache",
     "WAResolvable",
     "WATimeUtils",
+    "WAWebApiContact",
     "WAWebDefenseModeTransitionListener",
     "WAWebProfilePicThumbCollection",
     "WAWebQueryDisappearingModeJob",
@@ -43,17 +44,19 @@ __d(
       );
     }
     function c() {
-      var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        t = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
-          e,
-        );
-      return t != null
-        ? o(
+      var e = o("WAWebApiContact").getMeUserWids();
+      for (var t of e) {
+        var n = o(
+          "WAWebProfilePicThumbCollection",
+        ).ProfilePicThumbCollection.get(t);
+        if (n != null)
+          return o(
             "WAWebProfilePicThumbCollection",
-          ).ProfilePicThumbCollection.resyncPictures([t])
-        : o(
-            "WAWebProfilePicThumbCollection",
-          ).ProfilePicThumbCollection.resyncPicturesByWid([e]);
+          ).ProfilePicThumbCollection.resyncPictures([n]);
+      }
+      return o(
+        "WAWebProfilePicThumbCollection",
+      ).ProfilePicThumbCollection.resyncPicturesByWid(e);
     }
     var d = 3e3,
       m = 1e3,
@@ -149,9 +152,7 @@ __d(
           yield o(
             "WAWebUpdateDisappearingModeForContact",
           ).updateDisappearingModeForContact({
-            contactId: o(
-              "WAWebUserPrefsMeUser",
-            ).getMePnUserOrThrow_DO_NOT_USE(),
+            contactId: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             newDuration: e.duration,
             newSettingTimestamp: e.t,
           });

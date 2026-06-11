@@ -185,9 +185,16 @@ __d(
         throw r("err")(
           "getAlternateUserWid - Invalid get call using deviceWid",
         );
-      return e.isLid() ? w(e) : M(e);
+      return e.isLid() ? A(e) : w(e);
     }
-    function P(e) {
+    function P() {
+      var e = [],
+        t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
+      t != null && e.push(t);
+      var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      return (n != null && e.push(n), e);
+    }
+    function N(e) {
       var t = $(o("WAWebWidFactory").asUserWidOrThrow(e));
       if (t != null) {
         var n;
@@ -198,46 +205,46 @@ __d(
         );
       }
     }
-    function N(e) {
-      var t = w(e);
-      return t ? M(t) : e;
-    }
     function M(e) {
+      var t = A(e);
+      return t ? w(t) : e;
+    }
+    function w(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return n != null && t != null && e.equals(t) ? n : C.getCurrentLid(e);
     }
-    function w(e) {
+    function A(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
         n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return n != null && t != null && e.equals(t) ? n : C.getPhoneNumber(e);
     }
-    function A(e) {
-      var t = w(e);
+    function F(e) {
+      var t = A(e);
       if (t != null) {
-        var n = M(t);
+        var n = w(t);
         if (e.equals(n)) return t;
       }
     }
-    function F() {
+    function O() {
       (C.clear(), b.clear());
     }
-    function O(e) {
+    function B(e) {
       return r("WAWebLidAwareContactsDB").get(e.toJid());
     }
-    function B(e) {
+    function W(e) {
       return r("WAWebLidAwareContactsDB").bulkGet(
         e.map(function (e) {
           return e.toJid();
         }),
       );
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t != null) {
             t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
               (o("WALogger").LOG(
@@ -275,10 +282,10 @@ __d(
               });
           }
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    var U = n("$InternalEnum")({
+    var V = n("$InternalEnum")({
       WAWEB_SIGNAL_SESSION_HAS_SIGNAL_SESSIONS: "waweb-ss-has-signal-sessions",
       WAWEB_SIGNAL_SESSION_DELETE_REMOTE_INFO: "waweb-ss-delete-remote-info",
       WAWEB_SIGNAL_SESSION_DELETE_REMOTE_SESSION:
@@ -308,7 +315,7 @@ __d(
       WAWEB_API_DEVICE_LIST_BULK_CREATE_OR_REPLACE_DEVICE_RECORD:
         "waweb-adl-bulk-create-or-replace-device-record",
     });
-    function V(t, n) {
+    function H(t, n) {
       var r = new Set();
       t.forEach(function (e) {
         e.isBot() ||
@@ -318,7 +325,7 @@ __d(
       });
       var a = new Set();
       r.forEach(function (e) {
-        var t = M(o("WAWebWidFactory").createUserWidOrThrow(e));
+        var t = w(o("WAWebWidFactory").createUserWidOrThrow(e));
         t == null && a.add(e);
       });
       var i = n != null ? n : "unknown";
@@ -338,12 +345,12 @@ __d(
           )
           .sendLogs("lidInfraAccount-" + i, { sampling: 0 });
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
           if (t.length > 0) return t[0];
           if (!r("justknobx")._("1559")) {
@@ -394,15 +401,15 @@ __d(
             );
           }
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e) {
-      return j.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function j() {
+    function K() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           for (var n of e) t.push({ id: n.id, contactHash: n.contactHash });
           yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
@@ -410,7 +417,7 @@ __d(
             "ApiContact.updateContactsHashes",
           );
         })),
-        j.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
     ((l.lidPnCache = C),
@@ -423,19 +430,20 @@ __d(
       (l.warmUpLidPnMapping = I),
       (l.warmUpAllLidPnMappings = D),
       (l.getAlternateUserWid = $),
-      (l.getAlternateDeviceWid = P),
-      (l.getLatestLid = N),
-      (l.getCurrentLid = M),
-      (l.getPhoneNumber = w),
-      (l.getPnIfLidIsLatestMapping = A),
-      (l.clearLidPnMappingCache = F),
-      (l.getContactRecord = O),
-      (l.bulkGetContactRecord = B),
-      (l.updateContactAdvHostedType = W),
-      (l.CheckPnToLidMappingCaller = U),
-      (l.checkPnToLidMapping = V),
-      (l.getContactRecordByHash = H),
-      (l.updateContactsHashes = z));
+      (l.getMeUserWids = P),
+      (l.getAlternateDeviceWid = N),
+      (l.getLatestLid = M),
+      (l.getCurrentLid = w),
+      (l.getPhoneNumber = A),
+      (l.getPnIfLidIsLatestMapping = F),
+      (l.clearLidPnMappingCache = O),
+      (l.getContactRecord = B),
+      (l.bulkGetContactRecord = W),
+      (l.updateContactAdvHostedType = q),
+      (l.CheckPnToLidMappingCaller = V),
+      (l.checkPnToLidMapping = H),
+      (l.getContactRecordByHash = G),
+      (l.updateContactsHashes = j));
   },
   98,
 );

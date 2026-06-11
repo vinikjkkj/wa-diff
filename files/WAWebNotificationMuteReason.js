@@ -35,6 +35,7 @@ __d(
         "NewsletterFollowerActivityDisabled",
         "ReadByPeer",
         "NotifyForHighlights",
+        "IgnoreGroupHistoryNotice",
       ]),
       l = e;
     i.default = l;

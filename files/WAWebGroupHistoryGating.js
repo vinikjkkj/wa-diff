@@ -83,10 +83,21 @@ __d(
         "group_history_out_of_window_pins_receiver",
       );
     }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_after_join",
-      );
+    function g(e) {
+      if (
+        o("WAWebABProps").getABPropConfigValue("group_history_send_after_join")
+      )
+        return !0;
+      if (e != null)
+        try {
+          return o("WAWebGroupABProps").getGroupABPropConfigValue(
+            o("WAWebWidToJid").widToGroupJid(e),
+            "group_history_send_after_join_group_level",
+          );
+        } catch (e) {
+          return !1;
+        }
+      return !1;
     }
     var h = 1209600;
     function y(e) {
@@ -106,8 +117,8 @@ __d(
     function C() {
       return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
     }
-    function b() {
-      return g() || C();
+    function b(e) {
+      return g(e) || C();
     }
     function v() {
       return o("WAWebABProps").getABPropConfigValue(
