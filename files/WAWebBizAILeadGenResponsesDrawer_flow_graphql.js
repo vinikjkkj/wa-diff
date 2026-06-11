@@ -91,6 +91,11 @@ __d(
                         name: "creation_time",
                         storageKey: null,
                       },
+                      {
+                        args: null,
+                        kind: "FragmentSpread",
+                        name: "WAWebBizAILeadGenResponseDetailDrawer_response",
+                      },
                     ],
                     storageKey: null,
                   },

@@ -4,7 +4,10 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebAck",
+    "WAWebAfterReadUtils",
     "WAWebAppTracker",
+    "WAWebChatThreadLogging",
     "WAWebDBMessageDelete",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebEphemeralityUtils",
@@ -42,7 +45,16 @@ __d(
             });
           return n.length === 0
             ? []
-            : (o("WAWebAppTracker").AppTracker.start(
+            : (f(
+                n.map(function (e) {
+                  return {
+                    ack: e.ack,
+                    afterReadDuration: e.afterReadDuration,
+                    chatId: r("WAWebMsgKey").fromString(e.id.toString()).remote,
+                  };
+                }),
+              ),
+              o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
               ),
               yield o("WAWebDBMessageDelete")
@@ -77,6 +89,15 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0)
             return (
+              f(
+                e.map(function (e) {
+                  return {
+                    ack: e.ack,
+                    afterReadDuration: e.afterReadDuration,
+                    chatId: e.id.remote,
+                  };
+                }),
+              ),
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
               ),
@@ -97,11 +118,30 @@ __d(
       );
     }
     function f(e) {
-      return g.apply(this, arguments);
+      if (o("WAWebAfterReadUtils").isAfterReadEnabled()) {
+        var t = o("WATimeUtils").unixTime(),
+          n = [];
+        for (var r of e) {
+          var a = r.afterReadDuration;
+          a == null ||
+            a <= 0 ||
+            n.push({
+              activityType: "afterReadMsgExpired",
+              ts: t,
+              chatId: r.chatId,
+              wasUnread: r.ack == null || r.ack < o("WAWebAck").ACK.READ,
+            });
+        }
+        n.length > 0 &&
+          o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging(n);
+      }
     }
-    function g() {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.contactId,
             a = e.messageId,
             i = yield (c || (c = n("Promise"))).all([
@@ -152,12 +192,12 @@ __d(
             }
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.pruneExpiredMessages = d),
       (l.removeExpiredMessagesFromHistory = p),
-      (l.convertMessageNotEphemeralForContactWithEphmeralityDisabled = f));
+      (l.convertMessageNotEphemeralForContactWithEphmeralityDisabled = g));
   },
   98,
 );

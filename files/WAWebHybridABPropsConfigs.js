@@ -504,6 +504,7 @@ __d(
       web_chat_info_action_buttons_refresh: [14664, "bool", !1, !0],
       web_group_bulk_add_contact: [30417, "bool", !1, !1],
       web_ip_token_enabled: [20043, "bool", !1, !1],
+      web_windows_calling_32p_version: [31845, "int", 3, 3],
       webview2_disable_gpu_acceleration: [18262, "bool", !1, !1],
       webview2_disable_gpu_acceleration_memory_threshold_mb: [
         23073,

@@ -2,6 +2,7 @@ __d(
   "WAWebBroadcastDuplicateFromThreadHandler",
   [
     "WALogger",
+    "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastContextualEntrypointUtils",
     "WAWebBizBroadcastCreationQPLLogger",
     "WAWebBizBroadcastNewBroadcastFlowLoadable",
@@ -31,22 +32,26 @@ __d(
           );
           try {
             var n,
-              a = yield o(
+              a,
+              i = yield o(
                 "WAWebBizBroadcastContextualEntrypointUtils",
               ).getAttachmentDataFromMsg(t),
-              i =
-                (a == null ? void 0 : a.file) != null &&
+              l =
+                (i == null ? void 0 : i.file) != null &&
                 (n = yield o(
                   "WAWebBizBroadcastContextualEntrypointUtils",
-                ).getAttachmentDataFromFile(a.file)) != null
+                ).getAttachmentDataFromFile(i.file)) != null
                   ? n
-                  : a,
-              l = o(
-                "WAWebBizBroadcastContextualEntrypointUtils",
-              ).getCTAButtonDataFromMsgText(t),
+                  : i,
               s = o(
                 "WAWebBizBroadcastContextualEntrypointUtils",
-              ).getMessageFromMsg(t);
+              ).getCTAButtonDataFromMsgText(t),
+              c = o(
+                "WAWebBizBroadcastContextualEntrypointUtils",
+              ).getMessageFromMsg(t),
+              d = yield o(
+                "WAWebBizBroadcastCampaignAPI",
+              ).getBizBroadcastCampaignByMsgId(t.id.id);
             o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
               u.jsx(
                 o("WAWebBizBroadcastNewBroadcastFlowLoadable")
@@ -59,11 +64,14 @@ __d(
                     ).DrawerManager.closeDrawerFullscreen();
                   },
                   sourceBroadcastMessageData: {
-                    attachmentData: i,
-                    campaignId: null,
-                    ctaButtonData: l,
+                    attachmentData: l,
+                    campaignId:
+                      (a = d == null ? void 0 : d.campaignId) != null
+                        ? a
+                        : null,
+                    ctaButtonData: s,
                     isDuplicateBroadcast: !0,
-                    message: s,
+                    message: c,
                   },
                 },
               ),

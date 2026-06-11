@@ -9,6 +9,7 @@ __d(
     "WAWebBizCatalogManagementFetchProduct",
     "WAWebBizParseProductGraphql",
     "WAWebCatalogEventLogger",
+    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebQueryCatalogProductQuery.graphql",
@@ -43,14 +44,20 @@ __d(
             y = a[8];
           try {
             var C,
-              b = yield o("WAWebRelayClient").fetchQuery(
+              b,
+              v = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryCatalogProductQuery.graphql")),
                 {
                   request: {
                     product: {
-                      jid: l.toString(),
+                      jid:
+                        (C = o(
+                          "WAWebGetFormattedCatalogJid",
+                        ).getFormattedCatalogJid(l)) != null
+                          ? C
+                          : l.toString(),
                       product_id: s,
                       width: String(c),
                       height: String(d),
@@ -71,24 +78,24 @@ __d(
                   ),
                 },
               ),
-              v = r("WANullthrows")(
-                b == null ||
-                  (C = b.xwa_product_catalog_get_product) == null ||
-                  (C = C.product_catalog) == null
+              S = r("WANullthrows")(
+                v == null ||
+                  (b = v.xwa_product_catalog_get_product) == null ||
+                  (b = b.product_catalog) == null
                   ? void 0
-                  : C.product,
+                  : b.product,
               );
             return {
-              data: o("WAWebBizParseProductGraphql").parseProductGraphQL(v),
+              data: o("WAWebBizParseProductGraphql").parseProductGraphQL(S),
               catalog_id: null,
               catalog_type: null,
             };
           } catch (e) {
             if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var S,
-                R = ((S = e.source) == null ? void 0 : S.errors) || [],
-                L = R[0];
-              if ((L == null ? void 0 : L.code) === 2498052)
+              var R,
+                L = ((R = e.source) == null ? void 0 : R.errors) || [],
+                E = L[0];
+              if ((E == null ? void 0 : E.code) === 2498052)
                 return { error: "NOT_FOUND" };
               o(
                 "WAWebMaybeThrowCatalogErrors",
@@ -111,56 +118,62 @@ __d(
       })(),
       m = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
           if (
             o(
               "WAWebBizCatalogGatingUtils",
             ).commerceFeaturesDisabledBySanctions()
           )
             throw new (o("WAWebBackendErrors").E451)();
-          for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
-            t[n] = arguments[n];
-          var r = t[0],
-            a = t[1],
-            i = t[2],
-            l = t[3],
-            s = t[4],
-            u = s === void 0 ? !1 : s,
-            d = t[5],
-            m = d === void 0 ? null : d,
-            p = t[6],
-            _ = t[7],
-            f = t[8],
-            g = yield o("WAWebBizCatalogManagementFetchProduct").fetchProduct({
+          for (var t = arguments.length, n = new Array(t), r = 0; r < t; r++)
+            n[r] = arguments[r];
+          var a = n[0],
+            i = n[1],
+            l = n[2],
+            s = n[3],
+            u = n[4],
+            d = u === void 0 ? !1 : u,
+            m = n[5],
+            p = m === void 0 ? null : m,
+            _ = n[6],
+            f = n[7],
+            g = n[8],
+            h = yield o("WAWebBizCatalogManagementFetchProduct").fetchProduct({
               product: {
-                jid: r.toJid(),
-                product_id: a,
-                width: String(i),
-                height: String(l),
-                direct_connection_encrypted_info: m,
-                fetch_compliance_info: String(u),
-                variant_info_fields: p,
-                variant_thumbnail_height: _ != null ? String(_) : null,
-                variant_thumbnail_width: f != null ? String(f) : null,
+                jid:
+                  (e = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    a,
+                  )) != null
+                    ? e
+                    : a.toJid(),
+                product_id: i,
+                width: String(l),
+                height: String(s),
+                direct_connection_encrypted_info: p,
+                fetch_compliance_info: String(d),
+                variant_info_fields: _,
+                variant_thumbnail_height: f != null ? String(f) : null,
+                variant_thumbnail_width: g != null ? String(g) : null,
               },
             });
-          if (g.type === "success") return g.productResult;
-          if (g.type === "graphql-error") {
-            var h,
-              y = (h = g.error.source) == null ? void 0 : h.errors,
-              C = y[0];
-            if ((C == null ? void 0 : C.code) === 2498052)
+          if (h.type === "success") return h.productResult;
+          if (h.type === "graphql-error") {
+            var y,
+              C = (y = h.error.source) == null ? void 0 : y.errors,
+              b = C[0];
+            if ((b == null ? void 0 : b.code) === 2498052)
               return { error: "NOT_FOUND" };
             o(
               "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(g.error);
+            ).maybeThrowLocalErrorForCatalogQuery(h.error);
           } else {
-            if (g.type === "recovery-required")
+            if (h.type === "recovery-required")
               throw new (o(
                 "WAWebBackendErrors",
-              ).AdAccountRecoveryRequiredError)(g.emailMask);
-            if (g.type === "incorrect-nonce")
+              ).AdAccountRecoveryRequiredError)(h.emailMask);
+            if (h.type === "incorrect-nonce")
               throw new (o("WAWebBackendErrors").CatalogIncorrectNonceError)();
-            g.type;
+            h.type;
           }
           throw (
             o("WALogger").WARN(
@@ -169,7 +182,7 @@ __d(
                   "queryCatalogProductGraphQLByOwner: unhandled err ",
                   "",
                 ])),
-              JSON.stringify(g),
+              JSON.stringify(h),
             ),
             new (o("WAWebBackendErrors").CatalogUnknownError)()
           );

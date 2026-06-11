@@ -299,7 +299,7 @@ __d(
           (t.createBroadcastViewed = function (t) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
           }),
-          (t.sendBroadcastResult = function (t, n, r, a, i, l, s, u) {
+          (t.sendBroadcastResult = function (t, n, r, a, i, l, s, u, c, d) {
             o("WAWebBBBroadcastCreationLogs").sendBroadcastResult(
               this.$1,
               t,
@@ -310,6 +310,8 @@ __d(
               l,
               s,
               u,
+              c,
+              d,
             );
           }),
           (t.sendCampaignAck = function (t) {
@@ -363,7 +365,7 @@ __d(
               n,
             );
           }),
-          (t.createBroadcastSendClicked = function (t, n, r, a, i) {
+          (t.createBroadcastSendClicked = function (t, n, r, a, i, l, s) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastSendClicked(
               this.$1,
               t,
@@ -371,6 +373,8 @@ __d(
               r,
               a,
               i,
+              l,
+              s,
             );
           }),
           (t.sendBroadcastButtonViewed = function (t, n) {
@@ -719,6 +723,13 @@ __d(
           }),
           (t.duplicateBroadcastClicked = function (t, n) {
             o("WAWebBBInfoDrawerLogs").duplicateBroadcastClicked(this.$1, t, n);
+          }),
+          (t.duplicateBroadcastTileViewed = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").duplicateBroadcastTileViewed(
+              this.$1,
+              t,
+              n,
+            );
           }),
           (t.deliveredToDrawerViewed = function (t, n) {
             o("WAWebBBInfoDrawerLogs").deliveredToDrawerViewed(this.$1, t, n);

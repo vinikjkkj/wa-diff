@@ -14,6 +14,10 @@ __d(
         ordersSent: 0,
         repliesSent: 0,
         commentsReceived: 0,
+        afterReadMessagesSent: 0,
+        afterReadMessagesReceived: 0,
+        afterReadMessagesExpired: 0,
+        afterReadMessagesUnreadExpired: 0,
       },
       l = Object.freeze(e),
       s = Object.freeze(Object.keys(e));

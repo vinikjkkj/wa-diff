@@ -189,6 +189,13 @@ __d(
                               name: "creation_time",
                               storageKey: null,
                             },
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "customer_info",
+                              storageKey: null,
+                            },
                           ],
                           storageKey: null,
                         },

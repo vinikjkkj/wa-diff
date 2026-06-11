@@ -699,7 +699,7 @@ __d(
               O.messageSendResult ===
               o("WAWebSendMsgResultAction").SendMsgResult.OK
             ) {
-              var B, W, q;
+              var B, W, q, V;
               return (
                 o("WALogger").LOG(
                   k ||
@@ -740,14 +740,20 @@ __d(
                   campaign_send_ts: (W = c.sendTimestamp) != null ? W : void 0,
                   character_cnt: g.length,
                   client_campaign_id: a == null ? void 0 : a.campaignId,
+                  created_from_client_campaign_id:
+                    (q = a == null ? void 0 : a.sourceCampaignId) != null
+                      ? q
+                      : void 0,
                   has_catalog: m != null,
                   has_document_attachments:
                     F === o("WAWebMsgType").MSG_TYPE.DOCUMENT,
                   has_trackable_link: p != null,
                   integrity_status: e.status,
+                  is_duplicate_bb:
+                    (a == null ? void 0 : a.isDuplicate) === !0 ? !0 : void 0,
                   is_web_imported_list:
-                    (q = P == null ? void 0 : P.isWebCreatedList) != null
-                      ? q
+                    (V = P == null ? void 0 : P.isWebCreatedList) != null
+                      ? V
                       : !1,
                   photo_cnt: F === o("WAWebMsgType").MSG_TYPE.IMAGE ? 1 : 0,
                   recipient_cnt: N.length,
@@ -759,7 +765,7 @@ __d(
             }
             yield X(O, t, n, d, N, m, h, F, f);
           } catch (e) {
-            var V, H;
+            var H, G;
             if (
               e ===
               o("WAWebPendingBusinessBroadcastAPI").AD_GROUP_NOT_FOUND_ERROR
@@ -789,10 +795,10 @@ __d(
                 "failure",
                 null,
                 String(
-                  (V =
-                    (H = r("getErrorSafe")(e)) == null ? void 0 : H.message) !=
+                  (H =
+                    (G = r("getErrorSafe")(e)) == null ? void 0 : G.message) !=
                     null
-                    ? V
+                    ? H
                     : e,
                 ),
                 "unknown",

@@ -49,6 +49,7 @@ __d(
         VOIP_WINDOW_LAUNCHED: "voip_window_launched",
         VOIP_WINDOW_RESIZE: "voip_window_resize",
         VOIP_WINDOW_DRAG: "voip_window_drag",
+        VOIP_WINDOW_CLOSE_ATTEMPT: "voip_window_close_attempt",
         VOIP_WINDOW_MOVE_TO_POPOUT: "voip_window_move_to_popout",
         VOIP_WINDOW_MOVE_FROM_POPOUT: "voip_window_move_from_popout",
         VOIP_WINDOW_MOVE_TO_DOC_PIP: "voip_window_move_to_doc_pip",

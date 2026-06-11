@@ -41,6 +41,13 @@ __d(
                 name: "success",
                 storageKey: null,
               },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "update_timestamp_ms",
+                storageKey: null,
+              },
             ],
             storageKey: null,
           },

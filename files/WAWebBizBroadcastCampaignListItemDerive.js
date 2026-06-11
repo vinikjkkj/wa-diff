@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastCampaignListItemDerive",
   [
     "WALogger",
+    "WAWebBizBroadcastCampaignTimestamp",
     "WAWebBizBroadcastRateUtils",
     "WAWebBroadcastHomeTypes",
     "WAWebChatCollection",
@@ -58,7 +59,9 @@ __d(
         campaignId: t.id,
         campaignModelForLazyMedia: t,
         campaignName: R,
-        createdTimestamp: t.createdTimestamp,
+        createdTimestamp: o(
+          "WAWebBizBroadcastCampaignTimestamp",
+        ).campaignTimestampToMillis(t.createdTimestamp),
         ctaButtonData: null,
         deliveredCount: m,
         lastUpdatedTimestampMs:
@@ -70,14 +73,22 @@ __d(
         readRate: h,
         recipientCount: _,
         replyRate: y,
-        scheduledTimestamp: t.scheduledTimestamp,
-        sentAt: (c = t.scheduledTimestamp) != null ? c : t.createdTimestamp,
+        scheduledTimestamp: o(
+          "WAWebBizBroadcastCampaignTimestamp",
+        ).campaignTimestampToMillisOrNull(t.scheduledTimestamp),
+        sentAt: o(
+          "WAWebBizBroadcastCampaignTimestamp",
+        ).campaignTimestampToMillis(
+          (c = t.scheduledTimestamp) != null ? c : t.createdTimestamp,
+        ),
         status: u(t),
       };
     }
     function u(e) {
       var t = e.status,
-        n = e.scheduledTimestamp,
+        n = o(
+          "WAWebBizBroadcastCampaignTimestamp",
+        ).campaignTimestampToMillisOrNull(e.scheduledTimestamp),
         r = n != null && n > Date.now();
       return t ===
         o("WAWebSchemaBusinessBroadcastCampaign")

@@ -218,17 +218,18 @@ __d(
                                 ).isStatusStanzaSendEnabled() &&
                                 (a === !0 ||
                                   k.toString() === o("WAJids").STATUS_JID)
-                                  ? o("WAWap").CUSTOM_STRING("status")
-                                  : o("WAWap").DROP_ATTR,
-                              v = o("WAWap").wap(
+                                  ? "status"
+                                  : null,
+                              v = l != null ? l : h,
+                              S = o("WAWap").wap(
                                 "receipt",
                                 {
                                   to: o("WAWebCommsWapMd").JID(D),
                                   type:
                                     y === u.DELIVERY ? o("WAWap").DROP_ATTR : y,
                                   class:
-                                    l != null
-                                      ? o("WAWap").CUSTOM_STRING(l)
+                                    v != null
+                                      ? o("WAWap").CUSTOM_STRING(v)
                                       : o("WAWap").DROP_ATTR,
                                   id: o("WAWap").CUSTOM_STRING(t[0]),
                                   t:
@@ -247,13 +248,12 @@ __d(
                                     b != null
                                       ? o("WAWap").CUSTOM_STRING(String(b))
                                       : o("WAWap").DROP_ATTR,
-                                  context: h,
                                 },
                                 r,
                                 f,
                               );
                             if (C) {
-                              var S = (function () {
+                              var R = (function () {
                                 var r = n(
                                   "asyncToGeneratorRuntime",
                                 ).asyncToGenerator(function* () {
@@ -269,7 +269,7 @@ __d(
                                     var r = yield o(
                                         "WADeprecatedSendIq",
                                       ).deprecatedSendStanzaAndReturnAck(
-                                        v,
+                                        S,
                                         o(
                                           "WAWebCommsAckParser",
                                         ).toCoreAckTemplate(n),
@@ -306,7 +306,7 @@ __d(
                                     return o(
                                       "WADeprecatedSendIq",
                                     ).deprecatedSendStanzaAndWaitForAck(
-                                      v,
+                                      S,
                                       o(
                                         "WAWebCommsAckParser",
                                       ).toCoreAckTemplate(n),
@@ -316,10 +316,10 @@ __d(
                                   return r.apply(this, arguments);
                                 };
                               })();
-                              x.push(S());
+                              x.push(R());
                             } else
                               x.push(
-                                o("WADeprecatedSendIq").deprecatedCastStanza(v),
+                                o("WADeprecatedSendIq").deprecatedCastStanza(S),
                               );
                           };
                         _.length > 0;

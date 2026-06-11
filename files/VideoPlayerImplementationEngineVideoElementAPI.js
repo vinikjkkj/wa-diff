@@ -6,17 +6,21 @@ __d(
     "VideoPlaybackQuality",
     "VideoPlayerOzWWWGlobalConfig",
     "getErrorSafe",
+    "gkx",
+    "performance",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
+    var e,
+      s,
+      u = 250;
+    function c(e) {
       return isNaN(e) ? 0 : e;
     }
-    function u(e) {
-      return s(e.duration);
+    function d(e) {
+      return c(e.duration);
     }
-    function c(e) {
+    function m(e) {
       var t = [];
       try {
         for (var n = e.buffered, r = 0; r < n.length; ++r)
@@ -24,24 +28,33 @@ __d(
       } catch (e) {}
       return t;
     }
-    function d(e) {
+    function p(e) {
       try {
         var t = e.buffered;
         if (t.length > 0) return t.end(t.length - 1);
       } catch (e) {}
       return 0;
     }
-    function m(e) {
-      return s(e.currentTime);
+    function _(e) {
+      return c(e.currentTime);
     }
-    function p(e) {
+    function f(e) {
       try {
         var t = e.buffered;
         if (t.length > 0) return t.start(0);
       } catch (e) {}
       return 0;
     }
-    function _(t) {
+    function g(t) {
+      var a = r("gkx")("13686") || r("gkx")("17440"),
+        i = null,
+        l = 0,
+        c = function () {
+          var e = o("VideoPlaybackQuality").getFramesSnapshot(t),
+            n = e.droppedFrames,
+            r = e.totalFrames;
+          return { droppedFrameCount: n, totalFrameCount: r };
+        };
       return {
         exitPictureInPicture: function () {
           window.document.exitPictureInPicture().catch(function (e) {
@@ -51,10 +64,10 @@ __d(
           });
         },
         getBufferedRanges: function () {
-          return c(t);
+          return m(t);
         },
         getCanPlayPromise: function () {
-          return new (e || (e = n("Promise")))(function (e, n) {
+          return new (s || (s = n("Promise")))(function (e, n) {
             t.readyState === 4
               ? e()
               : t.addEventListener("canplay", function () {
@@ -63,7 +76,7 @@ __d(
           });
         },
         getDOMLoadedMetadataPromise: function () {
-          return new (e || (e = n("Promise")))(function (e, n) {
+          return new (s || (s = n("Promise")))(function (e, n) {
             t.addEventListener("loadedmetadata", function () {
               return e();
             });
@@ -73,7 +86,7 @@ __d(
           return o("VideoPlaybackQuality").getDroppedFrames(t);
         },
         getDuration: function () {
-          return u(t);
+          return d(t);
         },
         getEnded: function () {
           return t.ended;
@@ -81,8 +94,18 @@ __d(
         getError: function () {
           return t.error;
         },
+        getFrameCounts: function () {
+          if (
+            !a ||
+            u <= 0 ||
+            typeof (e || (e = r("performance"))).now != "function"
+          )
+            return c();
+          var t = (e || (e = r("performance"))).now();
+          return ((i != null && t - l < u) || ((i = c()), (l = t)), i);
+        },
         getLastBufferEndPosition: function () {
-          return d(t);
+          return p(t);
         },
         getMuted: function () {
           return t.muted;
@@ -97,7 +120,7 @@ __d(
           return t.playbackRate;
         },
         getPlayheadPosition: function () {
-          return m(t);
+          return _(t);
         },
         getReadyState: function () {
           return t.readyState;
@@ -132,12 +155,12 @@ __d(
           t.pause();
         },
         play: function () {
-          var r = t.play(),
-            o =
-              r instanceof (e || (e = n("Promise")))
-                ? (e || (e = n("Promise"))).resolve(r)
+          var e = t.play(),
+            r =
+              e instanceof (s || (s = n("Promise")))
+                ? (s || (s = n("Promise"))).resolve(e)
                 : null;
-          return o;
+          return r;
         },
         requestPictureInPicture: function () {
           typeof t.requestPictureInPicture == "function" &&
@@ -160,7 +183,7 @@ __d(
               0,
             );
             if (o > 0) {
-              var a = p(t);
+              var a = f(t);
               a > 0 && a <= o && (e = a);
             }
           }
@@ -171,8 +194,8 @@ __d(
         },
       };
     }
-    ((l.getBufferedRangesFromVideoElement = c),
-      (l.createVideoPlayerImplementationEngineVideoElementAPI = _));
+    ((l.getBufferedRangesFromVideoElement = m),
+      (l.createVideoPlayerImplementationEngineVideoElementAPI = g));
   },
   98,
 );

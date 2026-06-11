@@ -1,6 +1,7 @@
 __d(
   "WAWebShouldShowCallButtons",
   [
+    "WAWebBizCoexGatingUtils",
     "WAWebChatGetters",
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
@@ -45,7 +46,10 @@ __d(
           !a.isEnterprise &&
           !c &&
           !_ &&
-          !u;
+          !u &&
+          !o(
+            "WAWebBizCoexGatingUtils",
+          ).isCallingDisabledOnAuthAgentSoftOffboarded();
       return { shouldShow: g, shouldDisableStartCall: _ };
     }
     function s(t) {

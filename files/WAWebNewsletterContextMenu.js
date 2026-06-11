@@ -11,11 +11,13 @@ __d(
     "WAWebMuteMenuItem.react",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterMsgLinkUtils",
     "WAWebRunWithInternetCheck",
     "WAWebStateUtils",
     "WAWebUnfollowNewsletterConfirmationModal.react",
     "WAWebWamEnumChannelEventSurface",
     "WAWebWamEnumTsSurface",
+    "WDSIconIcCode.react",
     "WDSIconIcDelete.react",
     "WDSIconIcInfo.react",
     "WDSIconIcLink.react",
@@ -39,20 +41,20 @@ __d(
         l,
         s,
         c = o("WAWebStateUtils").unproxy(e),
-        y =
+        C =
           (t = (n = c.newsletterMetadata) == null ? void 0 : n.adminCount) !=
           null
             ? t
             : 0,
-        C =
+        b =
           (a =
             (i = c.newsletterMetadata) == null ? void 0 : i.iAmSubscriber()) !=
           null
             ? a
             : !1,
-        b = [u.jsx(m, { chat: c }, "Info"), u.jsx(d, { chat: c }, "Pin")];
+        v = [u.jsx(m, { chat: c }, "Info"), u.jsx(d, { chat: c }, "Pin")];
       (o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled() &&
-        b.splice(
+        v.splice(
           1,
           0,
           u.jsx(
@@ -61,28 +63,29 @@ __d(
             "Archive",
           ),
         ),
-        (C ||
-          y > 1 ||
+        (b ||
+          C > 1 ||
           o(
             "WAWebNewsletterExtendedGatingUtils",
           ).isNewsletterAdminNotificationsEnabled(c.newsletterMetadata)) &&
-          (b.push(u.jsx(p, { chat: c }, "Mute")),
-          b.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
-        b.push(u.jsx(f, { chat: c }, "CopyLink")));
-      var v = u.jsx(
+          (v.push(u.jsx(p, { chat: c }, "Mute")),
+          v.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
+        v.push(u.jsx(f, { chat: c }, "CopyLink")),
+        v.push(u.jsx(g, { chat: c }, "EmbedChannel")));
+      var S = u.jsx(
         r("WDSMenuItem.react"),
         { type: "separator" },
         "newsletter-context-menu-separator",
       );
       return (
-        b.push(v),
-        C && b.push(u.jsx(g, { chat: c }, "Unfollow")),
+        v.push(S),
+        b && v.push(u.jsx(h, { chat: c }, "Unfollow")),
         (l = (s = c.newsletterMetadata) == null ? void 0 : s.iAmOwner()) !=
           null &&
           l &&
-          b.push(u.jsx(h, { chat: c }, "Delete")),
-        b[b.length - 1] === v && b.pop(),
-        b
+          v.push(u.jsx(y, { chat: c }, "Delete")),
+        v[v.length - 1] === S && v.pop(),
+        v
       );
     }
     function d(e) {
@@ -249,6 +252,50 @@ __d(
     }
     function g(e) {
       var t = o("react-compiler-runtime").c(5),
+        n = e.chat;
+      if (
+        !o("WAWebNewsletterGatingUtils").canEmbedNewsletterChannel(
+          n.newsletterMetadata,
+        )
+      )
+        return null;
+      var a;
+      t[0] !== n
+        ? ((a = function () {
+            return o(
+              "WAWebNewsletterMsgLinkUtils",
+            ).handleNewsletterChannelEmbedClick(n);
+          }),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Embed channel")), (t[2] = l))
+        : (l = t[2]);
+      var c = l,
+        d;
+      return (
+        t[3] !== i
+          ? ((d = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                testid: "mi-embed-channel",
+                onPress: i,
+                Icon: r("WDSIconIcCode.react"),
+                title: c,
+              },
+              "EmbedChannel",
+            )),
+            (t[3] = i),
+            (t[4] = d))
+          : (d = t[4]),
+        d
+      );
+    }
+    function h(e) {
+      var t = o("react-compiler-runtime").c(5),
         a = e.chat,
         i;
       t[0] !== a
@@ -305,7 +352,7 @@ __d(
         m
       );
     }
-    function h(e) {
+    function y(e) {
       var t = o("react-compiler-runtime").c(5),
         a = e.chat,
         i;

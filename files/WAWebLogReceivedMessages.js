@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
+    "WAWebAfterReadUtils",
     "WAWebApiBulkGetChats",
     "WAWebBackendApi",
     "WAWebBoolFunc",
@@ -221,38 +222,39 @@ __d(
                           s != null && (b.messageQueueTime = s - i)),
                         e.ephemeralDuration != null &&
                           e.ephemeralDuration > 0 &&
-                          (b.ephemeralityDuration = e.ephemeralDuration),
-                        e.afterReadDuration != null &&
-                          ((b.isAfterRead = e.afterReadDuration > 0),
-                          (b.afterReadDuration = e.afterReadDuration)));
-                      var I =
-                        o("WAWebMsgGetters").getWamDisappearingModeInitiator(e);
-                      I != null && (b.disappearingChatInitiator = I);
+                          (b.ephemeralityDuration = e.ephemeralDuration));
+                      var I = e.afterReadDuration;
+                      I != null &&
+                        o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+                        ((b.isAfterRead = I > 0), (b.afterReadDuration = I));
                       var T =
-                        o("WAWebMsgGetters").getWamDisappearingModeTrigger(e);
-                      T != null && (b.ephemeralityTriggerAction = T);
+                        o("WAWebMsgGetters").getWamDisappearingModeInitiator(e);
+                      T != null && (b.disappearingChatInitiator = T);
                       var D =
+                        o("WAWebMsgGetters").getWamDisappearingModeTrigger(e);
+                      D != null && (b.ephemeralityTriggerAction = D);
+                      var x =
                         o(
                           "WAWebMsgGetters",
                         ).getWamDisappearingModeInitiatedByMe(e);
-                      D != null && (b.ephemeralityInitiator = D);
-                      var x =
+                      x != null && (b.ephemeralityInitiator = x);
+                      var $ =
                         o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
-                      x != null && (b.agentEngagementType = x);
-                      var $ = e.senderWithDevice;
-                      if ($ != null) {
-                        var P = o("WAWebWamMsgUtils").getWamE2eSenderType($);
-                        (P != null && (b.e2eSenderType = P),
-                          $.isHosted() &&
+                      $ != null && (b.agentEngagementType = $);
+                      var P = e.senderWithDevice;
+                      if (P != null) {
+                        var N = o("WAWebWamMsgUtils").getWamE2eSenderType(P);
+                        (N != null && (b.e2eSenderType = N),
+                          P.isHosted() &&
                             (b.encryptionType = o(
                               "WAWebWamEnumEncryptionTypeCode",
                             ).ENCRYPTION_TYPE_CODE.COEX));
                       }
-                      var N = yield o(
+                      var M = yield o(
                         "WAWebWamGroupMetadataMetricUtils",
                       ).getGroupTypeFromChatWid(a);
                       if (
-                        (N != null && (b.typeOfGroup = N),
+                        (M != null && (b.typeOfGroup = M),
                         m != null &&
                           (b.serverAddressingMode = o(
                             "WAWebWamAddressingModeUtils",
@@ -269,20 +271,20 @@ __d(
                               .PREMIUM),
                         a != null && a.isGroup())
                       ) {
-                        var M = yield o(
+                        var w = yield o(
                             "WAWebWamGroupMetadataMetricUtils",
                           ).isCagFromChatWid(a),
-                          w = o("WAWebMsgGetters").getIsReaction(e);
-                        M != null && w != null && (b.isLid = M && w);
-                        var A = yield o(
+                          A = o("WAWebMsgGetters").getIsReaction(e);
+                        w != null && A != null && (b.isLid = w && A);
+                        var F = yield o(
                           "WAWebWamGroupMetricCache",
                         ).getGroupMetrics(a);
-                        ((A == null ? void 0 : A.participantCount) != null &&
-                          (b.participantCount = A.participantCount),
-                          (A == null ? void 0 : A.deviceCount) != null &&
-                            (b.deviceCount = A.deviceCount),
-                          (A == null ? void 0 : A.deviceSizeBucket) != null &&
-                            (b.deviceSizeBucket = A.deviceSizeBucket));
+                        ((F == null ? void 0 : F.participantCount) != null &&
+                          (b.participantCount = F.participantCount),
+                          (F == null ? void 0 : F.deviceCount) != null &&
+                            (b.deviceCount = F.deviceCount),
+                          (F == null ? void 0 : F.deviceSizeBucket) != null &&
+                            (b.deviceSizeBucket = F.deviceSizeBucket));
                       }
                       b.commit();
                     }
@@ -425,14 +427,15 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
           if (
             o("WAWebMsgGetters").getType(e) ===
             o("WAWebMsgType").MSG_TYPE.COMMENT
           ) {
-            var t;
+            var n;
             return {
               activityType: "commentsReceived",
-              ts: (t = e.t) != null ? t : o("WATimeUtils").unixTimeMs(),
+              ts: (n = e.t) != null ? n : o("WATimeUtils").unixTimeMs(),
               chatId: e.id.remote,
             };
           }
@@ -441,29 +444,29 @@ __d(
               "group_status_receiver_enabled",
             )
           ) {
-            var n = R(e);
-            if (n !== "missing-stanza-id") {
-              var r = yield o("WAWebDBMsgUtils").getMsgByMsgKey(n);
+            var r = R(e);
+            if (r !== "missing-stanza-id") {
+              var a = yield o("WAWebDBMsgUtils").getMsgByMsgKey(r);
               if (
                 (o("WAWebMsgGetters").getIsReply(e) &&
-                  r == null &&
-                  (r = yield L(n)),
-                r != null && o("WAWebMsgGetters").getIsGroupStatus(r))
+                  a == null &&
+                  (a = yield L(r)),
+                a != null && o("WAWebMsgGetters").getIsGroupStatus(a))
               ) {
-                var a = o("WAWebMsgGetters").getIsReply(e),
-                  i =
+                var i = o("WAWebMsgGetters").getIsReply(e),
+                  l =
                     o("WAWebMsgGetters").getIsReaction(e) &&
                     e.reactionText === d;
-                if (a || i) {
-                  var l = o("WAWebMsgGetters").getIsSentByMe(r);
+                if (i || l) {
+                  var s = o("WAWebMsgGetters").getIsSentByMe(a);
                   return {
                     activityType: "groupStatusMsgReceive",
                     chatId: e.id.remote,
                     ts: e.t,
-                    isGroupStatusReplyOthersToOwn: a && l,
-                    isGroupStatusReplyOthersToOthers: a && !l,
-                    isGroupStatusLikeOthersToOwn: i && l,
-                    isGroupStatusLikeOthersToOthers: i && !l,
+                    isGroupStatusReplyOthersToOwn: i && s,
+                    isGroupStatusReplyOthersToOthers: i && !s,
+                    isGroupStatusLikeOthersToOwn: l && s,
+                    isGroupStatusLikeOthersToOthers: l && !s,
                   };
                 }
               }
@@ -488,6 +491,9 @@ __d(
               e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION,
             isEventResponse:
               e.type === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE,
+            isAfterRead: o("WAWebAfterReadUtils").isAfterReadEnabled()
+              ? ((t = e.afterReadDuration) != null ? t : 0) > 0
+              : void 0,
           };
         })),
         I.apply(this, arguments)

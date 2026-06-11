@@ -1,13 +1,15 @@
 __d(
   "WAWebHandleCloudApiThreadControlNotification",
-  ["WALogger", "WAWebBackendApi"],
+  ["WALogger", "WALongInt", "WAWebBackendApi"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
     function u(t) {
       var n = t.consumerLid,
         r = t.consumerPhoneNumber,
-        a = t.status;
+        a = t.senderNotificationTimestampMs,
+        i = t.shouldSuppressNotification,
+        l = t.status;
       if (r == null && n == null) {
         o("WALogger").WARN(
           e ||
@@ -15,7 +17,7 @@ __d(
               "[Maiba] thread ctrl missing phone & lid, status=",
               "",
             ])),
-          a,
+          l,
         );
         return;
       }
@@ -25,11 +27,17 @@ __d(
             "[Biz AI] Received thread control notification, status: ",
             "",
           ])),
-        a,
+        l,
       ),
         o("WAWebBackendApi").frontendFireAndForget(
           "updateChatCapiThreadControl",
-          { consumerPhoneNumber: r, consumerLid: n, status: a },
+          {
+            consumerPhoneNumber: r,
+            consumerLid: n,
+            status: l,
+            timestampMs: o("WALongInt").maybeNumber(a),
+            shouldSuppressNotification: i,
+          },
         ));
     }
     l.default = u;

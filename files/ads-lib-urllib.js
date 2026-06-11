@@ -1,28 +1,29 @@
 __d(
   "ads-lib-urllib",
-  ["isTruthy"],
+  ["URISchemes", "isTruthy"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return p(f.normalize(e.trim()));
+    var e;
+    function s(e) {
+      return _(g.normalize(e.trim()));
     }
-    var s =
+    var u =
         /^(?:(\w+):)?(?:\/\/([^\/:?#]*)(?::(\d+))?)?([^#?]*)(?:\?([^#]*))?(?:#(.*))?/,
-      u = "invalid.invalid",
-      c = ["\u200B"],
-      d = c.map(function (e) {
+      c = "invalid.invalid",
+      d = ["\u200B"],
+      m = d.map(function (e) {
         return new RegExp(e, "g");
       });
-    function m(e) {
+    function p(e) {
       var t = new RegExp(
         "[\\x00-\\x2c\\x2f\\x3b-\\x40\\x5c\\x5e\\x60\\x7b-\\x7f\\uFDD0-\\uFDEF\\uFFF0-\\uFFFF\\u2047\\u2048\\uFE56\\uFE5F\\uFF03\\uFF0F\\uFF1F]",
       );
-      return t.test(e) ? u : e;
+      return t.test(e) ? c : e;
     }
-    function p(e) {
-      var t = e.toString().trim().match(s) || [],
+    function _(e) {
+      var t = e.toString().trim().match(u) || [],
         n = {
           protocol: t[1] || "",
-          domain: m(t[2] || ""),
+          domain: p(t[2] || ""),
           port: t[3] || "",
           path: t[4] || "",
           query_s: t[5] || "",
@@ -32,7 +33,7 @@ __d(
       var r = new RegExp("^(?:[^/]*:|[\\x00-\\x1f]*/[\\x00-\\x1f]*/)");
       return !n.protocol && r.test(e.toString()) ? {} : n;
     }
-    function _(e) {
+    function f(e) {
       var t = "";
       return (
         r("isTruthy")(e.protocol) && (t += e.protocol + "://"),
@@ -45,19 +46,19 @@ __d(
         t
       );
     }
-    var f = {
-        normalize: function (t) {
-          if (!t) return t;
-          var e = p(t);
-          return (
-            !r("isTruthy")(e.protocol) &&
-              r("isTruthy")(e.path) &&
-              e.path.indexOf("/") !== 0 &&
-              r("isTruthy")(e.path) &&
-              e.path.indexOf("\\") !== 0 &&
-              (e.protocol = "http"),
-            _(e)
-          );
+    var g = {
+        normalize: function (n) {
+          if (!n) return n;
+          var t = _(n);
+          return (e || (e = o("URISchemes"))).isAllowed(t.protocol)
+            ? (!r("isTruthy")(t.protocol) &&
+                r("isTruthy")(t.path) &&
+                t.path.indexOf("/") !== 0 &&
+                r("isTruthy")(t.path) &&
+                t.path.indexOf("\\") !== 0 &&
+                (t.protocol = "http"),
+              f(t))
+            : "";
         },
         isUrlSimple: function (t) {
           var e = t.trim().split(".");
@@ -68,33 +69,33 @@ __d(
             }).length === 0
           );
         },
-        isUrl: function (n) {
-          if (!r("isTruthy")(n)) return !1;
-          var t = e(n);
+        isUrl: function (t) {
+          if (!r("isTruthy")(t)) return !1;
+          var e = s(t);
           return (
-            r("isTruthy")(t.domain) && t.domain !== u && f.isUrlSimple(t.domain)
+            r("isTruthy")(e.domain) && e.domain !== c && g.isUrlSimple(e.domain)
           );
         },
-        isPotentialUrl: function (n) {
-          if (!r("isTruthy")(n)) return !0;
-          var t = e(n);
-          return r("isTruthy")(t.domain) && t.domain !== u;
+        isPotentialUrl: function (t) {
+          if (!r("isTruthy")(t)) return !0;
+          var e = s(t);
+          return r("isTruthy")(e.domain) && e.domain !== c;
         },
-        getDomain: function (n) {
-          if (!n) return null;
-          var t = e(n);
-          return r("isTruthy")(t.domain) && t.domain !== u ? t.domain : null;
+        getDomain: function (t) {
+          if (!t) return null;
+          var e = s(t);
+          return r("isTruthy")(e.domain) && e.domain !== c ? e.domain : null;
         },
         cleanupUrl: function (t) {
           return t
-            ? d.reduce(function (e, t) {
+            ? m.reduce(function (e, t) {
                 return e.replace(t, "");
               }, t.trim())
             : null;
         },
       },
-      g = f;
-    l.default = g;
+      h = g;
+    l.default = h;
   },
   98,
 );

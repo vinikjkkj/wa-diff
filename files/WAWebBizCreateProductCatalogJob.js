@@ -5,6 +5,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementCreateCatalog",
+    "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -18,28 +19,36 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (t == null)
+          var t,
+            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (n == null)
             throw r("err")("createProductCatalogGraphQL: meUser is null");
-          var n = yield o(
+          var a = yield o(
             "WAWebBizCatalogManagementCreateCatalog",
           ).createCatalog({
-            product_catalog: { biz_jid: t.toJid() },
+            product_catalog: {
+              biz_jid:
+                (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  n,
+                )) != null
+                  ? t
+                  : n.toJid(),
+            },
             platform: "WEB",
           });
-          n.type !== "success" &&
-            (n.type === "graphql-error"
+          a.type !== "success" &&
+            (a.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(n.error)
-              : n.type,
+                ).maybeThrowLocalErrorForCatalogQuery(a.error)
+              : a.type,
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "createProductCatalogGraphQL: unhandled error ",
                   "",
                 ])),
-              JSON.stringify(n),
+              JSON.stringify(a),
             ));
         })),
         u.apply(this, arguments)

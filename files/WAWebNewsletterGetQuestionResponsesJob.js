@@ -64,7 +64,7 @@ __d(
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         t: e.messageT,
         from: u,
-        to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         isNewMsg: !1,
         ack: o("WAWebAck").ACK.SENT,
         body: d,

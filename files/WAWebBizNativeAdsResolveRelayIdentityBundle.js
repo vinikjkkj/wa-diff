@@ -17,6 +17,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -143,23 +144,23 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, c) {
             try {
-              var m, _, g, h, y;
-              ((y = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
-                y.AdsManagementQplPoint.IDENTITY_RESOLUTION_START,
+              var m, _, g;
+              ((g = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
+                g.AdsManagementQplPoint.IDENTITY_RESOLUTION_START,
               ),
-                y.adsManagementQplAddPoint(
-                  y.AdsManagementQplPoint.RESOLVE_IDENTITY_START,
+                g.adsManagementQplAddPoint(
+                  g.AdsManagementQplPoint.RESOLVE_IDENTITY_START,
                 ));
-              var C = yield d(),
-                b = C.resolveAdsPage,
-                v = C.resolveIdentityForAccountType,
-                S = c != null ? c : yield v(t);
+              var h = yield d(),
+                y = h.resolveAdsPage,
+                C = h.resolveIdentityForAccountType,
+                b = c != null ? c : yield C(t);
               if (
                 (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
                   o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                     .RESOLVE_IDENTITY_END,
                 ),
-                S == null)
+                b == null)
               ) {
                 if (t === "WAA")
                   throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
@@ -175,16 +176,16 @@ __d(
               o(
                 "WAWebBizNativeAdsQplHelpers",
               ).adsManagementQplAnnotateAccountType(t);
-              var R;
-              if (S.type === "WAA") {
-                var y;
-                (y = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
-                  y.AdsManagementQplPoint.ONBOARD_WAA_START,
+              var S;
+              if (b.type === "WAA") {
+                var g;
+                (g = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
+                  g.AdsManagementQplPoint.ONBOARD_WAA_START,
                 );
-                var L = yield f();
-                ((R = yield L(a)),
-                  y.adsManagementQplAddPoint(
-                    y.AdsManagementQplPoint.ONBOARD_WAA_END,
+                var R = yield f();
+                ((S = yield R(a)),
+                  g.adsManagementQplAddPoint(
+                    g.AdsManagementQplPoint.ONBOARD_WAA_END,
                   ));
               }
               (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
@@ -195,14 +196,14 @@ __d(
                   o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                     .QUERY_LINKED_PAGES_START,
                 ));
-              var E = yield (e || (e = n("Promise"))).all([
-                  r("WAWebGetAdsRelayEnvironment")(S),
+              var L = yield (e || (e = n("Promise"))).all([
+                  r("WAWebGetAdsRelayEnvironment")(b),
                   i != null
                     ? i
                     : o("WAWebLinkedAccountsJob").queryLinkedPagesInfo(),
                 ]),
-                k = E[0],
-                I = E[1];
+                E = L[0],
+                k = L[1];
               (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
                 o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                   .GET_RELAY_ENV_END,
@@ -211,13 +212,13 @@ __d(
                   o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                     .QUERY_LINKED_PAGES_END,
                 ));
-              var T = t === "FB" && I.waPageId != null;
-              if (T)
+              var I = t === "FB" && k.waPageId != null;
+              if (I)
                 try {
-                  var D = yield o("WAWebFetchAdAccountToken").fetchToken();
-                  if (D.token != null) {
-                    var x = yield r("WAWebGetAccountNonce")(D.token);
-                    yield r("WAWebCreateWhatsAppAdsIdentity")(S, x);
+                  var T = yield o("WAWebFetchAdAccountToken").fetchToken();
+                  if (T.token != null) {
+                    var D = yield r("WAWebGetAccountNonce")(T.token);
+                    yield r("WAWebCreateWhatsAppAdsIdentity")(b, D);
                   }
                 } catch (e) {
                   r("FBLogger")("wa_ctwa_web")
@@ -226,65 +227,62 @@ __d(
                       "Failed to ensure admin permissions on WA ads identity page",
                     );
                 }
-              var $ = null,
-                P = null,
-                N = null;
+              var x = null,
+                $ = null,
+                P = null;
               if (l === !0) {
-                var M = yield (e || (e = n("Promise"))).all([
+                var N = yield (e || (e = n("Promise"))).all([
                     s.load(),
                     u(),
-                    b(S, I),
+                    y(b, k),
                   ]),
-                  w = M[0],
-                  A = M[1],
-                  F = M[2];
-                ((P = F.pageId),
-                  (N = F.pageType),
-                  ($ = A(
+                  M = N[0],
+                  w = N[1],
+                  A = N[2];
+                (($ = A.pageId),
+                  (P = A.pageType),
+                  (x = w(
                     {
                       getEnvironment: function () {
-                        return k;
+                        return E;
                       },
                     },
-                    w,
+                    M,
                     {
-                      ad_account_id: R,
+                      ad_account_id: S,
                       ad_account_type: t,
                       boost_id: null,
                       draft_id: null,
                       flow_id: a,
-                      page_id: P,
+                      page_id: $,
                     },
                   )));
               }
-              var O = {
-                draftPageId:
-                  (m = (_ = I.fbPageId) != null ? _ : I.waPageId) != null
+              var F = {
+                draftPageId: v(t, k),
+                pageId1:
+                  (m = (_ = k.fbPageId) != null ? _ : k.waPageId) != null
                     ? m
                     : "",
-                pageId1:
-                  (g = (h = I.fbPageId) != null ? h : I.waPageId) != null
-                    ? g
-                    : "",
                 pageId2:
-                  I.fbPageId != null && I.waPageId != null ? I.waPageId : null,
+                  k.fbPageId != null && k.waPageId != null ? k.waPageId : null,
               };
               o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
                 o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                   .PRELOAD_AD_MGMT_QUERY_START,
               );
-              var B = yield p(),
-                W = B(
-                  k,
+              var O = yield p(),
+                B = O(
+                  E,
                   r("WAWebBizAdManagementRootQuery$Parameters"),
                   {
                     after: null,
-                    draft_page_id: O.draftPageId,
+                    draft_page_id: F.draftPageId,
                     first: o("WAWebBizAdCreationConsts")
                       .AD_MANAGEMENT_INITIAL_LOAD_COUNT,
                     options: {},
-                    page_id_1: O.pageId1,
-                    page_id_2: O.pageId2,
+                    page_id_1: F.pageId1,
+                    page_id_2: F.pageId2,
                   },
                   { fetchPolicy: "network-only" },
                 );
@@ -300,35 +298,35 @@ __d(
                 o("WAWebUserPrefsGeneral").setLastUsedAdAccountType(t),
                 {
                   accountType: t,
-                  adAccountId: R,
-                  adCreationEntrypointReference: $,
-                  adManagementQueryRef: W,
-                  adManagementQueryVariables: O,
-                  hasLinkedFbPage: I.fbPageId != null,
+                  adAccountId: S,
+                  adCreationEntrypointReference: x,
+                  adManagementQueryRef: B,
+                  adManagementQueryVariables: F,
+                  hasLinkedFbPage: k.fbPageId != null,
                   hasWeakToken:
-                    S.type === "WAA" &&
-                    S.tokenStrength ===
+                    b.type === "WAA" &&
+                    b.tokenStrength ===
                       o("WAWebCommonAdsTypes").WAAIdentityTokenStrengthEnum
                         .WEAK,
-                  linkedPagesInfo: I,
-                  pageId: P,
-                  pageType: N,
-                  relayEnvironment: k,
+                  linkedPagesInfo: k,
+                  pageId: $,
+                  pageType: P,
+                  relayEnvironment: E,
                 }
               );
             } catch (e) {
               o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplFail(
                 "identity_resolution_error",
               );
-              var q = r("getErrorSafe")(e);
+              var W = r("getErrorSafe")(e);
               if (
-                (o("WAWebFetchAdAccountToken").hasGraphQLAuthError(q)
+                (o("WAWebFetchAdAccountToken").hasGraphQLAuthError(W)
                   ? r("FBLogger")("wa_ctwa_web").warn(
                       "Token invalid/expired during identity resolution for account type: " +
                         t,
                     )
                   : r("FBLogger")("wa_ctwa_web")
-                      .catching(q)
+                      .catching(W)
                       .mustfix(
                         "Unexpected error during identity resolution for account type: " +
                           t,
@@ -348,8 +346,23 @@ __d(
         b.apply(this, arguments)
       );
     }
+    function v(e, t) {
+      var n,
+        o,
+        a,
+        i,
+        l = e === "WAA" && r("justknobx")._("3154");
+      return l
+        ? (n = (o = t.waPageId) != null ? o : t.fbPageId) != null
+          ? n
+          : ""
+        : (a = (i = t.fbPageId) != null ? i : t.waPageId) != null
+          ? a
+          : "";
+    }
     ((l.prepareDeferredAdCreationEntrypoint = h),
-      (l.resolveBizNativeAdsRelayIdentityBundle = C));
+      (l.resolveBizNativeAdsRelayIdentityBundle = C),
+      (l.resolveDraftPageId = v));
   },
   98,
 );

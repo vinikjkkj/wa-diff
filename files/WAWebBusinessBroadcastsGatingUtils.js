@@ -59,6 +59,11 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_broadcast_disappearing_messages_fix",
+      );
+    }
+    function _() {
+      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_contextual_entrypoints",
       );
     }
@@ -68,7 +73,8 @@ __d(
       (l.isBizBroadcastDuplicateEnabled = c),
       (l.isBizBroadcastMultiAudienceSendEnabled = d),
       (l.isBizBroadcastCatalogAttachmentEnabled = m),
-      (l.isBizBroadcastContextualEntrypointsEnabled = p));
+      (l.isBizBroadcastDisappearingMessagesFixEnabled = p),
+      (l.isBizBroadcastContextualEntrypointsEnabled = _));
   },
   98,
 );

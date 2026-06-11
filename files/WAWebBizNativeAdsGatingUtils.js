@@ -14,7 +14,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_native_ads_creation_web_targeting_modal_hawk_tool_enabled",
+          "ctwa_native_ads_creation_web_hawk_tool_enabled",
         )
       );
     }
@@ -22,7 +22,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_ad_creation_entry_point_catalog_web",
+          "ctwa_native_ads_creation_web_targeting_modal_hawk_tool_enabled",
         )
       );
     }
@@ -30,7 +30,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_ad_creation_entry_point_catalog_product_web",
+          "ctwa_ad_creation_entry_point_catalog_web",
         )
       );
     }
@@ -38,7 +38,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_web_native_ads_mvp_qe1_enabled",
+          "ctwa_ad_creation_entry_point_catalog_product_web",
         )
       );
     }
@@ -46,7 +46,7 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_web_native_ads_mvp_qe1_enabled_no_exposure",
+          "ctwa_web_native_ads_mvp_qe1_enabled",
         )
       );
     }
@@ -54,23 +54,32 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
-          "ctwa_web_native_ads_mvp_qe2_enabled",
+          "ctwa_web_native_ads_mvp_qe1_enabled_no_exposure",
         )
       );
     }
     function _() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_web_native_ads_mvp_qe2_enabled",
+        )
+      );
+    }
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_ctwa_web_enable_continuous_duration",
       );
     }
     ((l.nativeAdsDogfoodEnabled = e),
-      (l.nativeAdsCreationTargetingModalHawkToolEnabled = s),
-      (l.adCreationEntryPointCatalogEnabled = u),
-      (l.adCreationEntryPointCatalogProductEnabled = c),
-      (l.nativeAdsMvpQE1Enabled = d),
-      (l.nativeAdsMvpQE1EnabledNoExposure = m),
-      (l.nativeAdsMvpQE2Enabled = p),
-      (l.continuousDurationEnabled = _));
+      (l.nativeAdsCreationHawkToolEnabled = s),
+      (l.nativeAdsCreationTargetingModalHawkToolEnabled = u),
+      (l.adCreationEntryPointCatalogEnabled = c),
+      (l.adCreationEntryPointCatalogProductEnabled = d),
+      (l.nativeAdsMvpQE1Enabled = m),
+      (l.nativeAdsMvpQE1EnabledNoExposure = p),
+      (l.nativeAdsMvpQE2Enabled = _),
+      (l.continuousDurationEnabled = f));
   },
   98,
 );

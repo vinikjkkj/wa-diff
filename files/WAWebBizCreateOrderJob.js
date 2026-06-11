@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBackendErrors",
     "WAWebBizCreateOrderJobMutation.graphql",
+    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
@@ -17,8 +18,9 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a;
           n === void 0 && (n = null);
-          var a = t.map(function (e) {
+          var i = t.map(function (e) {
               var t = { id: e.id, name: e.name, quantity: e.quantity };
               return (
                 e.currency != null && (t.currency = e.currency),
@@ -41,15 +43,25 @@ __d(
                 t
               );
             }),
-            i = { order: { jid: e.toJid(), products: a } };
+            l = {
+              order: {
+                jid:
+                  (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    e,
+                  )) != null
+                    ? a
+                    : e.toJid(),
+                products: i,
+              },
+            };
           return (
-            n != null && (i.order.direct_connection_encrypted_info = n),
+            n != null && (l.order.direct_connection_encrypted_info = n),
             r("WAWebNetworkStatus")
               .waitIfOffline()
               .then(function () {
                 return o("WAWebRelayClient").commitMutation(
                   s,
-                  { input: i },
+                  { input: l },
                   { environmentType: "whatsapp_catalog" },
                 );
               })

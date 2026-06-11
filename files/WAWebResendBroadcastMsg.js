@@ -8,7 +8,9 @@ __d(
     "WAWebBackendJobsCommon",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBroadcastDeviceClassifier",
+    "WAWebBroadcastEphemeralUtils",
     "WAWebBroadcastODS",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
     "WAWebEncryptMsgProtobuf",
@@ -18,6 +20,7 @@ __d(
     "WAWebSessionScope",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -25,17 +28,19 @@ __d(
     var e,
       s,
       u,
-      c = new Set([
+      c,
+      d,
+      m = new Set([
         "self:primary:iphone",
         "self:primary:smbi",
         "self:primary:ipad",
       ]);
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r = o("WAWebE2EProtoUtils").getBizNativeFlowName(t);
           if (r == null) return null;
           var a = yield o(
@@ -71,23 +76,23 @@ __d(
                 ),
               );
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.deviceMsgType,
             n = e.msgProtobuf,
             a = e.msgRecord,
             i = e.participant,
             l = e.to,
-            m = a.data.id,
-            p = t.retryCount,
-            _ = o("WAWebBroadcastDeviceClassifier").classifyBroadcastDevice(i);
+            _ = a.data.id,
+            f = t.retryCount,
+            g = o("WAWebBroadcastDeviceClassifier").classifyBroadcastDevice(i);
           o("WAWebBroadcastODS").bumpBroadcastRetry();
           try {
             yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
@@ -95,20 +100,66 @@ __d(
               !1,
               o("WAWebSessionScope").SessionScope.DEFAULT,
             );
-            var f = n,
-              g = o("WAWebUserPrefsMeUser").isMeAccount(i),
-              h = c.has(_),
-              y = yield d(n, m.id),
-              C =
-                y != null
+            var h = n,
+              y = null;
+            if (
+              o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastDisappearingMessagesFixEnabled()
+            )
+              try {
+                var C = yield o(
+                  "WAWebBroadcastEphemeralUtils",
+                ).buildBroadcastRetryEphemeral({
+                  authorId: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  broadcastJid: l,
+                  proto: n,
+                  recipient: o("WAWebWidFactory").asUserWidOrThrow(i),
+                });
+                ((h = C.content), (y = C.ephSetting));
+              } catch (e) {
+                (o("WAWebBroadcastODS").bumpBroadcastEphemeralSetupError(),
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[broadcast:retry] ephemeral setup failed, resending without DM: retryCount=",
+                          "",
+                        ])),
+                      f,
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("broadcast-retry-ephemeral-setup-failed"),
+                  (h = n),
+                  (y = null));
+              }
+            o("WALogger")
+              .LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[broadcast:retry] eph_retry_debug resend stanza for participant=",
+                    " retryCount=",
+                    " eph_setting=",
+                    "",
+                  ])),
+                i.toString(),
+                f,
+                y != null ? "attached" : "none",
+              )
+              .tags("messaging");
+            var b = o("WAWebUserPrefsMeUser").isMeAccount(i),
+              v = m.has(g),
+              S = yield p(h, _.id),
+              R =
+                S != null
                   ? o("WAWap").wap("meta", {
                       metering_type: o("WAWap").CUSTOM_STRING("smb_mm"),
                     })
                   : null;
             o("WALogger")
               .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:retry] deviceType=",
                     " isIOSPrimary=",
                     " isMeDevice=",
@@ -116,89 +167,93 @@ __d(
                     " retryCount=",
                     "",
                   ])),
-                _,
-                String(h),
-                String(g),
-                String(y != null),
-                p,
+                g,
+                String(v),
+                String(b),
+                String(S != null),
+                f,
               )
               .tags("messaging");
-            var b = o("WAWebBackendJobsCommon").getMetricEditTypeFromMsg(
-                n,
+            var L = o("WAWebBackendJobsCommon").getMetricEditTypeFromMsg(
+                h,
                 a.data,
               ),
-              v = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+              E = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
                 i,
-                p,
                 f,
+                h,
                 a.data,
-                b,
+                L,
               ),
-              S = v.ciphertext,
-              R = v.type,
-              L = null;
-            if (R === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg) {
-              var E = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
-              L = o("WAWap").wap("device-identity", null, E);
+              k = E.ciphertext,
+              I = E.type,
+              T = null;
+            if (I === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg) {
+              var D = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
+              T = o("WAWap").wap("device-identity", null, D);
             }
-            var k = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(n),
-              I = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+            var x = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(h),
+              $ = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
                 a.data,
-                n,
+                h,
               );
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode();
-            var T = o("WAWap").wap(
+            var P = o("WAWap").wap(
               "message",
               {
-                id: o("WAWap").CUSTOM_STRING(m.id),
+                id: o("WAWap").CUSTOM_STRING(_.id),
                 to: o("WAWebCommsWapMd").JID(l),
                 participant: o("WAWebCommsWapMd").DEVICE_JID(i),
-                type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(n),
+                type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(h),
                 edit: o("WAWebSendMsgCommonApi").editAttribute(
-                  n,
+                  h,
                   a.data.subtype,
                 ),
+                eph_setting:
+                  y != null
+                    ? o("WAWap").CUSTOM_STRING(y)
+                    : o("WAWap").DROP_ATTR,
               },
-              C,
+              R,
               o("WAWap").wap(
                 "enc",
                 {
                   v: o("WAWap").CUSTOM_STRING(
                     o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
                   ),
-                  type: o("WAWap").CUSTOM_STRING(R),
-                  count: p === 0 ? o("WAWap").DROP_ATTR : o("WAWap").INT(p),
+                  type: o("WAWap").CUSTOM_STRING(I),
+                  count: f === 0 ? o("WAWap").DROP_ATTR : o("WAWap").INT(f),
                   mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(
-                    k,
+                    x,
                   ),
                   "decrypt-fail": o(
                     "WAWebBackendJobsCommon",
                   ).encodeMaybeDecryptFail(
-                    o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(n),
+                    o("WAWebE2EProtoUtils").decryptFailAttributeFromProtobuf(h),
                   ),
                 },
-                S,
+                k,
               ),
-              L,
-              I,
-              y,
+              T,
+              $,
+              S,
             );
-            return (o("WAWebBroadcastODS").bumpBroadcastRetrySuccess(), T);
+            return (o("WAWebBroadcastODS").bumpBroadcastRetrySuccess(), P);
           } catch (e) {
             throw (
               o("WAWebBroadcastODS").bumpBroadcastRetryError(),
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:retry] Device retry failed: retryCount=",
                       ", deviceType=",
                       "",
                     ])),
-                  p,
-                  _,
+                  f,
+                  g,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("broadcast-device-retry-failed"),
@@ -206,10 +261,10 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.createBroadcastDeviceMsgStanza = p;
+    l.createBroadcastDeviceMsgStanza = f;
   },
   98,
 );

@@ -1152,7 +1152,7 @@ __d(
         case "WEB_REGISTRATION":
         case "WEB_REGISTRATION_CAMPAIGN":
           return !1;
-        case "CALL_RECEIVED": {
+        case "CALL_ACTIVE": {
           if (
             !o("WAWebVoipGatingUtils").isDeviceSwitchingEnabled() ||
             n("cr:38809") == null
@@ -1168,7 +1168,7 @@ __d(
                 o("WALogger").ERROR(
                   y ||
                     (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "callReceived joinOngoingCall failed",
+                      "callActive joinOngoingCall failed",
                     ])),
                 );
               });
@@ -1176,7 +1176,7 @@ __d(
             o("WALogger").ERROR(
               C ||
                 (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "callReceived joinOngoingCall failed",
+                  "callActive joinOngoingCall failed",
                 ])),
             );
           }

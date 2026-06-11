@@ -8,6 +8,7 @@ __d(
     "WAWebBizCatalogManagementDeleteCollections",
     "WAWebBizCatalogManagementUpdateCollection",
     "WAWebBizCatalogManagementUpdateCollectionList",
+    "WAWebGetFormattedCatalogJid",
     "WAWebHttpErrors",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebNetworkStatus",
@@ -22,33 +23,39 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a;
           if (
             o(
               "WAWebBizCatalogGatingUtils",
             ).commerceFeaturesDisabledBySanctions()
           )
             throw new (o("WAWebBackendErrors").E451)();
-          var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (a == null) throw r("err")("createCollection: meUser is null");
-          var i = yield o(
+          var i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (i == null) throw r("err")("createCollection: meUser is null");
+          var l = yield o(
             "WAWebBizCatalogManagementCreateCollection",
           ).createCollection({
             collection: {
               name: e,
               product_ids: t,
-              biz_jid: a.toJid(),
+              biz_jid:
+                (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  i,
+                )) != null
+                  ? a
+                  : i.toJid(),
               catalog_session_id: n,
             },
           });
-          if (i.type === "success") return i.collectionResult;
+          if (l.type === "success") return l.collectionResult;
           throw (
-            i.type === "graphql-error" &&
+            l.type === "graphql-error" &&
               o(
                 "WAWebMaybeThrowCatalogErrors",
-              ).maybeThrowLocalErrorForCatalogQuery(i.error),
+              ).maybeThrowLocalErrorForCatalogQuery(l.error),
             r("err")(
               "createCollection: error handling flow not implemented for " +
-                JSON.stringify(i),
+                JSON.stringify(l),
             )
           );
         })),
@@ -61,28 +68,34 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (n == null)
+          var n,
+            a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (a == null)
             throw r("err")("deleteCollectionGraphQL: meUser is null");
-          var a = yield o(
+          var i = yield o(
             "WAWebBizCatalogManagementDeleteCollections",
           ).deleteCollections({
             collections: {
               collection_ids: [e],
-              biz_jid: n.toJid(),
+              biz_jid:
+                (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  a,
+                )) != null
+                  ? n
+                  : a.toJid(),
               catalog_session_id: t,
             },
           });
-          if (a.type !== "success")
+          if (i.type !== "success")
             throw (
-              a.type === "graphql-error"
+              i.type === "graphql-error"
                 ? o(
                     "WAWebMaybeThrowCatalogErrors",
-                  ).maybeThrowLocalErrorForCatalogQuery(a.error)
-                : a.type,
+                  ).maybeThrowLocalErrorForCatalogQuery(i.error)
+                : i.type,
               r("err")(
                 "deleteCollectionGraphQL: error handling flow not implemented for " +
-                  JSON.stringify(a),
+                  JSON.stringify(i),
               )
             );
         })),
@@ -113,27 +126,37 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
-            var l = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-            if (l == null)
+            var l,
+              s = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+            if (s == null)
               throw r("err")("editCollectionGraphQL: meUser is null");
-            var s = {
-              collection: { id: e, biz_jid: l.toJid(), catalog_session_id: i },
+            var u = {
+              collection: {
+                id: e,
+                biz_jid:
+                  (l = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    s,
+                  )) != null
+                    ? l
+                    : s.toJid(),
+                catalog_session_id: i,
+              },
             };
-            (t != null && (s.collection.name = t),
-              n.length > 0 && (s.collection.add = { ids: n }),
-              a.length > 0 && (s.collection.remove = { ids: a }));
-            var u = yield o(
+            (t != null && (u.collection.name = t),
+              n.length > 0 && (u.collection.add = { ids: n }),
+              a.length > 0 && (u.collection.remove = { ids: a }));
+            var c = yield o(
               "WAWebBizCatalogManagementUpdateCollection",
-            ).updateCollection(s);
-            if (u.type === "success") return u.collectionResult;
+            ).updateCollection(u);
+            if (c.type === "success") return c.collectionResult;
             throw (
-              u.type === "graphql-error" &&
+              c.type === "graphql-error" &&
                 o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(u.error),
+                ).maybeThrowLocalErrorForCatalogQuery(c.error),
               r("err")(
                 "editCollectionGraphQL: unexpected result type " +
-                  JSON.stringify(u),
+                  JSON.stringify(c),
               )
             );
           },
@@ -166,22 +189,32 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (n == null)
+          var n,
+            a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (a == null)
             throw r("err")("appealCollectionGraphQL: meUser is null");
-          var a = yield o(
+          var i = yield o(
             "WAWebBizCatalogManagementAppealCollection",
-          ).appealCollection({ product_set_id: e, jid: n.toJid(), reason: t });
-          if (a.type === "success") return a.result;
+          ).appealCollection({
+            product_set_id: e,
+            jid:
+              (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                a,
+              )) != null
+                ? n
+                : a.toJid(),
+            reason: t,
+          });
+          if (i.type === "success") return i.result;
           throw (
-            a.type === "graphql-error"
+            i.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(a.error)
-              : a.type,
+                ).maybeThrowLocalErrorForCatalogQuery(i.error)
+              : i.type,
             r("err")(
               "appealCollectionGraphQL: error handling flow not implemented for " +
-                JSON.stringify(a),
+                JSON.stringify(i),
             )
           );
         })),
@@ -211,13 +244,19 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (t == null)
+          var t,
+            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (n == null)
             throw r("err")("reorderCollectionGraphQL: meUser is null");
-          var n = yield o(
+          var a = yield o(
             "WAWebBizCatalogManagementUpdateCollectionList",
           ).updateCollectionList({
-            biz_jid: t.toJid(),
+            biz_jid:
+              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                n,
+              )) != null
+                ? t
+                : n.toJid(),
             move: e.map(function (e) {
               var t = e[0],
                 n = e[1],
@@ -225,16 +264,16 @@ __d(
               return { collection_id: t, from_index: n, to_index: r };
             }),
           });
-          if (n.type === "success") return n.result;
+          if (a.type === "success") return a.result;
           throw (
-            n.type === "graphql-error"
+            a.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(n.error)
-              : n.type,
+                ).maybeThrowLocalErrorForCatalogQuery(a.error)
+              : a.type,
             r("err")(
               "reorderCollectionGraphQL: error handling flow not implemented for " +
-                JSON.stringify(n),
+                JSON.stringify(a),
             )
           );
         })),

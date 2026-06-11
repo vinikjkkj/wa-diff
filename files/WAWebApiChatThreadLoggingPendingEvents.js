@@ -72,9 +72,13 @@ __d(
                 }),
                 o(
                   "WAWebChatThreadLoggingBoolFlagFields",
-                ).FLAG_FIELD_NAMES.forEach(function (e) {
+                ).REGULAR_FLAG_FIELD_NAMES.forEach(function (e) {
                   a[e] = r[e];
                 }),
+                r.afterReadTurnedOn && (a.afterReadTurnedOn = !0),
+                r.afterReadTurnedOff &&
+                  a.afterReadTurnedOn &&
+                  (a.afterReadTurnedOff = !0),
                 (a.msgsSent += r.addMsgsSent),
                 (a.msgsReceived += r.addMsgsReceived),
                 (a.msgsRead += r.addMsgsRead),

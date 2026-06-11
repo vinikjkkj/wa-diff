@@ -324,24 +324,21 @@ __d(
                 this.systemAudioSourceNode &&
                   (this.systemAudioSourceNode.disconnect(),
                   (this.systemAudioSourceNode = null)),
-                this.systemAudioContext)
+                this.systemAudioContext &&
+                  (this.systemAudioContext.close().catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                            "[AV:systemAudio] context close failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("system-audio-context-close-failed");
+                  }),
+                  (this.systemAudioContext = null)),
+                this.systemAudioSabBuffer != null)
               ) {
-                try {
-                  yield this.systemAudioContext.close();
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "[AV:systemAudio] context close failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("system-audio-context-close-failed");
-                }
-                this.systemAudioContext = null;
-              }
-              if (this.systemAudioSabBuffer != null) {
                 try {
                   yield o("WAWebAudioUtility").freeWasmBuffer(
                     this.systemAudioSabBuffer,

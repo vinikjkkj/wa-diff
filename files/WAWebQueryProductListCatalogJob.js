@@ -15,6 +15,7 @@ __d(
     "WAWebCatalogEventLogger",
     "WAWebCommsWapMd",
     "WAWebDefinePersistedJob",
+    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebProductMessageListConstant",
@@ -114,25 +115,33 @@ __d(
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var a,
-              i = t.catalogWid,
-              l = t.directConnectionEncryptedInfo,
-              u = t.height,
-              c = t.productIds,
-              m = t.width,
-              p = yield o("WAWebRelayClient").fetchQuery(
+              i,
+              l = t.catalogWid,
+              u = t.directConnectionEncryptedInfo,
+              c = t.height,
+              m = t.productIds,
+              p = t.width,
+              _ = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryProductListCatalogJobQuery.graphql")),
                 {
                   request: {
                     product_list: {
-                      jid: i.toString(),
-                      products: c.map(function (e) {
+                      jid:
+                        (a = o(
+                          "WAWebGetFormattedCatalogJid",
+                        ).getFormattedCatalogJid(
+                          o("WAWebWidFactory").createWid(l),
+                        )) != null
+                          ? a
+                          : l.toString(),
+                      products: m.map(function (e) {
                         return { id: e };
                       }),
-                      width: String(m),
-                      height: String(u),
-                      direct_connection_encrypted_info: l,
+                      width: String(p),
+                      height: String(c),
+                      direct_connection_encrypted_info: u,
                     },
                   },
                 },
@@ -146,11 +155,11 @@ __d(
                 },
               );
             return r("WANullthrows")(
-              p == null ||
-                (a = p.xwa_product_catalog_get_product_list) == null ||
-                (a = a.product_list) == null
+              _ == null ||
+                (i = _.xwa_product_catalog_get_product_list) == null ||
+                (i = i.product_list) == null
                 ? void 0
-                : a.products.map(
+                : i.products.map(
                     o("WAWebBizParseProductGraphql").parseProductGraphQL,
                   ),
             );
@@ -176,38 +185,44 @@ __d(
       })(),
       p = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.catalogWid,
-            n = e.directConnectionEncryptedInfo,
-            r = e.height,
-            a = e.productIds,
-            i = e.width,
-            l = yield o(
+          var t,
+            n = e.catalogWid,
+            r = e.directConnectionEncryptedInfo,
+            a = e.height,
+            i = e.productIds,
+            l = e.width,
+            s = yield o(
               "WAWebBizCatalogManagementFetchProductList",
             ).fetchProductList({
               product_list: {
-                jid: t.toString(),
-                products: a.map(function (e) {
+                jid:
+                  (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    o("WAWebWidFactory").createWid(n),
+                  )) != null
+                    ? t
+                    : n.toString(),
+                products: i.map(function (e) {
                   return { id: e };
                 }),
-                width: String(i),
-                height: String(r),
-                direct_connection_encrypted_info: n,
+                width: String(l),
+                height: String(a),
+                direct_connection_encrypted_info: r,
               },
             });
-          return l.type === "success"
-            ? l.productsResult
-            : (l.type === "graphql-error"
+          return s.type === "success"
+            ? s.productsResult
+            : (s.type === "graphql-error"
                 ? o(
                     "WAWebMaybeThrowCatalogErrors",
-                  ).maybeThrowLocalErrorForCatalogQuery(l.error)
-                : l.type,
+                  ).maybeThrowLocalErrorForCatalogQuery(s.error)
+                : s.type,
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "queryProductListGraphQLByOwner: unhandled error ",
                     "",
                   ])),
-                JSON.stringify(l),
+                JSON.stringify(s),
               ),
               d(e));
         });

@@ -47,6 +47,7 @@ __d(
       "MediaMgr",
       "InitialChatLoad",
       "LoadMainScreen",
+      "ClosingBrowserTab",
     ]);
     function s(e, t, n) {
       Object.prototype.hasOwnProperty.call(e, "appContext") ||

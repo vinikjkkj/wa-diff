@@ -35,6 +35,7 @@ __d(
     "WAWebNewChatMessageCappingNotificationHandler",
     "WAWebScheduledMsgPostNotificationHandler",
     "WAWebScheduledMsgRevealNotificationHandler",
+    "WAWebSharableEventNotificationHandler",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -381,17 +382,80 @@ __d(
                                                                           )
                                                                             .mexHandleScheduledMsgReveal,
                                                                         )
-                                                                      : (
-                                                                          u ||
-                                                                          (u =
-                                                                            n(
-                                                                              "Promise",
-                                                                            ))
-                                                                        ).reject(
-                                                                          new g(
-                                                                            e.OperationName,
-                                                                          ),
-                                                                        );
+                                                                      : e.OperationName ===
+                                                                          "NotificationEventInvite"
+                                                                        ? h(
+                                                                            e,
+                                                                            o(
+                                                                              "WAWebSharableEventNotificationHandler",
+                                                                            )
+                                                                              .mexHandleSharableEventInviteNotification,
+                                                                          )
+                                                                        : e.OperationName ===
+                                                                            "NotificationEventUpdate"
+                                                                          ? h(
+                                                                              e,
+                                                                              o(
+                                                                                "WAWebSharableEventNotificationHandler",
+                                                                              )
+                                                                                .mexHandleSharableEventUpdateNotification,
+                                                                            )
+                                                                          : e.OperationName ===
+                                                                              "NotificationEventRsvp"
+                                                                            ? h(
+                                                                                e,
+                                                                                o(
+                                                                                  "WAWebSharableEventNotificationHandler",
+                                                                                )
+                                                                                  .mexHandleSharableEventRsvpNotification,
+                                                                              )
+                                                                            : e.OperationName ===
+                                                                                "NotificationEventDelete"
+                                                                              ? h(
+                                                                                  e,
+                                                                                  o(
+                                                                                    "WAWebSharableEventNotificationHandler",
+                                                                                  )
+                                                                                    .mexHandleSharableEventDeleteNotification,
+                                                                                )
+                                                                              : e.OperationName ===
+                                                                                  "NotificationEventReminder"
+                                                                                ? h(
+                                                                                    e,
+                                                                                    o(
+                                                                                      "WAWebSharableEventNotificationHandler",
+                                                                                    )
+                                                                                      .mexHandleSharableEventReminderNotification,
+                                                                                  )
+                                                                                : e.OperationName ===
+                                                                                    "NotificationEventInviteAdd"
+                                                                                  ? h(
+                                                                                      e,
+                                                                                      o(
+                                                                                        "WAWebSharableEventNotificationHandler",
+                                                                                      )
+                                                                                        .mexHandleSharableEventInviteAddNotification,
+                                                                                    )
+                                                                                  : e.OperationName ===
+                                                                                      "NotificationEventInviteRemove"
+                                                                                    ? h(
+                                                                                        e,
+                                                                                        o(
+                                                                                          "WAWebSharableEventNotificationHandler",
+                                                                                        )
+                                                                                          .mexHandleSharableEventInviteRemoveNotification,
+                                                                                      )
+                                                                                    : (
+                                                                                        u ||
+                                                                                        (u =
+                                                                                          n(
+                                                                                            "Promise",
+                                                                                          ))
+                                                                                      ).reject(
+                                                                                        new g(
+                                                                                          e.OperationName,
+                                                                                        ),
+                                                                                      );
     }
     var g = (function (e) {
       function t(n) {

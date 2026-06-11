@@ -354,24 +354,13 @@ __d(
         de = ce[0],
         me = ce[1].isIntersecting,
         pe = r("useWAWebPrevious")(me);
-      !me &&
+      (!me &&
         pe === !0 &&
         (self.setTimeout(function () {
           var e;
           (e = b.current) == null || e.pause("product_initiated");
         }, 100),
-        (le.current = 0));
-      var _e = function () {
-        if (o("WAWebPtvGatingUtils").isPtvAutoplayEnabled()) {
-          var e;
-          (e = b.current) == null || e.play("product_initiated");
-        }
-      };
-      (me &&
-        pe === !1 &&
-        self.setTimeout(function () {
-          Y || _e();
-        }, 100),
+        (le.current = 0)),
         _(
           function () {
             if (Y && Z === !1) {
@@ -386,29 +375,29 @@ __d(
           },
           [Y, c, Z],
         ));
-      var fe = r("useWAWebEventTargetValue")(
+      var _e = r("useWAWebEventTargetValue")(
           C ? null : S,
           ["playing", "pause"],
           function () {
             return S ? !S.paused : !0;
           },
         ),
-        ge = C ? x : fe,
-        he = o("useWAWebDebouncedChanges").useDebouncedChanges({
-          value: ge,
+        fe = C ? x : _e,
+        ge = o("useWAWebDebouncedChanges").useDebouncedChanges({
+          value: fe,
           debounceMs: 100,
-          shouldDebounce: !ge,
+          shouldDebounce: !fe,
         }),
-        ye = ne && !Y,
-        Ce = o("WAWebMsgCollection").MsgCollection.get(B),
-        be = d.jsx(o("WAWebMessageMeta.react").MetaWrapper, {
+        he = ne && !Y,
+        ye = o("WAWebMsgCollection").MsgCollection.get(B),
+        Ce = d.jsx(o("WAWebMessageMeta.react").MetaWrapper, {
           isSentByMe: W,
           isTransparent: !0,
           displayType: i,
           xstyle: V != null && D.groupHistoryMessage,
           children: d.jsx(o("WAWebMessageMeta.react").Meta, { msg: c }),
         }),
-        ve = d.jsx(d.Fragment, {
+        be = d.jsx(d.Fragment, {
           children:
             i != null &&
             [
@@ -416,7 +405,7 @@ __d(
               o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT,
               o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER,
             ].includes(i) &&
-            Ce != null &&
+            ye != null &&
             d.jsx(
               "div",
               babelHelpers.extends(
@@ -430,7 +419,7 @@ __d(
                     displayType: i,
                     bubbleType: o("WAWebAddOnBubbleType").AddOnBubbleType
                       .STICKER_LIKE_MSG,
-                    parentIds: [Ce.id.toString()],
+                    parentIds: [ye.id.toString()],
                     hasReaction: U,
                   }),
                 },
@@ -490,7 +479,7 @@ __d(
             className: {
               0: "x3oybdh x1d8287x x11xpdln",
               1: "x11xpdln x1jec706 x1pv9i8n",
-            }[!!ye << 0],
+            }[!!he << 0],
             children: d.jsxs(o("WAWebFlex.react").FlexRow, {
               justify: "center",
               align: "center",
@@ -516,7 +505,7 @@ __d(
                         ? e
                         : 0;
                     },
-                    isPlaying: ge,
+                    isPlaying: fe,
                     duration: K,
                     isSentByMe: W,
                     displayType: i,
@@ -536,7 +525,7 @@ __d(
                     d.jsx(r("WAWebPtvDownloadState.react"), {
                       mediaDataFileSize: G.size,
                       mediaStage: G.mediaStage,
-                      isPlaying: he,
+                      isPlaying: ge,
                       onDownloadClick: function () {
                         c.forceDownloadMediaEvenIfExpensive();
                       },
@@ -559,12 +548,10 @@ __d(
                             }
                           },
                           src: G.renderableUrl,
-                          xstyle: [D.video, ye && D.depressedVideo],
+                          xstyle: [D.video, he && D.depressedVideo],
                           renderVideoPixelsFit: I,
                           muted: !Y,
-                          autoPlay:
-                            !C &&
-                            o("WAWebPtvGatingUtils").isPtvAutoplayEnabled(),
+                          autoPlay: !1,
                           disableAutoplayManagement: C,
                           loop: !C,
                           onAudioChannelRelease: function () {
@@ -573,15 +560,6 @@ __d(
                           onLoadedData: C
                             ? function () {
                                 var e, t;
-                                if (
-                                  o(
-                                    "WAWebPtvGatingUtils",
-                                  ).isPtvAutoplayEnabled()
-                                ) {
-                                  var n;
-                                  (n = b.current) == null ||
-                                    n.play("product_initiated");
-                                }
                                 A(
                                   (e =
                                     (t = b.current) == null
@@ -631,7 +609,7 @@ __d(
                                 width: 10,
                                 xstyle: [
                                   D.muteIcon,
-                                  Y || !he
+                                  Y || !ge
                                     ? [
                                         D.muteIconHidden,
                                         o("WAWebUISpacing").uiMargin.end0,
@@ -657,9 +635,9 @@ __d(
             ? d.jsxs(o("WAWebFlex.react").FlexRow, {
                 justifySelf: "center",
                 columnGap: 2,
-                children: [ve, be],
+                children: [be, Ce],
               })
-            : d.jsxs(o("WAWebFlex.react").FlexColumn, { children: [be, ve] }),
+            : d.jsxs(o("WAWebFlex.react").FlexColumn, { children: [Ce, be] }),
         ],
       });
     }

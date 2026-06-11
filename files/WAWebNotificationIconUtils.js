@@ -75,7 +75,8 @@ __d(
           ),
         );
     }
-    ((l.USER_DEFAULT_ICON = d),
+    ((l.WHATSAPP_DEFAULT_ICON = u),
+      (l.USER_DEFAULT_ICON = d),
       (l.getDefaultChatNotificationIcon = p),
       (l.getChatNotificationIcon = _),
       (l.getNotificationIconByWid = g));

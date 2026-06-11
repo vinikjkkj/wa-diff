@@ -5,7 +5,7 @@ __d(
     var e = {
       WAWebBizGraphQLRefreshCartJobQuery: "26249779981350522",
       queryProductListCatalogQuery: "5127568407281377",
-      WAWebAiAgentAutoReplyControlMutation: "9175037952515083",
+      WAWebAiAgentAutoReplyControlMutation: "27506359585667043",
       WAWebCanonicalHatchIdentityGetQuery: "26226835783605669",
       WAWebCanonicalUserValidQuery: "25995999653397511",
       WAWebBizGetCustomUrlUserGraphqlQuery: "7942225995860428",

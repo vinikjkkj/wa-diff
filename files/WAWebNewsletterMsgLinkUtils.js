@@ -43,7 +43,22 @@ __d(
           });
       }
     }
-    l.handleNewsletterMessageLinkCopyClick = d;
+    function m(e) {
+      _();
+    }
+    function p(e) {
+      _();
+    }
+    function _() {
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Embedding is a work in progress"),
+        }),
+      );
+    }
+    ((l.handleNewsletterMessageLinkCopyClick = d),
+      (l.handleNewsletterMsgEmbedClick = m),
+      (l.handleNewsletterChannelEmbedClick = p));
   },
   226,
 );

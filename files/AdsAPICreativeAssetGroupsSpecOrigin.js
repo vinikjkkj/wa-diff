@@ -11,6 +11,7 @@ __d(
       COEXISTENCE_TEST_PRODUCT_B: "coexistence_test_product_b",
       CREATIVE_ELIGIBILITY: "creative_eligibility",
       CREATIVE_FLEX: "creative_flex",
+      CREATIVE_FLEX_EPA_POSITIVE_TEST: "creative_flex_epa_positive_test",
       CREATIVE_FLEX_POSITIVE_TEST: "creative_flex_positive_test",
       CREATIVE_FLEX_TO_WEBSITE_IMAGES: "creative_flex_to_website_images",
       CREATIVE_PRODUCTS_PARITY: "creative_products_parity",

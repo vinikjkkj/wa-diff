@@ -162,17 +162,19 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function R(e, t, n, r, a, i, l, s, u) {
-      var c = { contact_count: t, save_result: n };
-      (s != null && ((c.audience_count = s), (c.is_multi_audience = s > 1)),
-        a != null && (c.errorType = a),
-        i != null && (c.campaign_sent_error_type = i),
-        r != null && (c.attachmentExt = r),
-        l != null && (c.attachment_type = l),
+    function R(e, t, n, r, a, i, l, s, u, c, d) {
+      var m = { contact_count: t, save_result: n };
+      (s != null && ((m.audience_count = s), (m.is_multi_audience = s > 1)),
+        a != null && (m.errorType = a),
+        i != null && (m.campaign_sent_error_type = i),
+        r != null && (m.attachmentExt = r),
+        l != null && (m.attachment_type = l),
+        c === !0 && (m.is_duplicate_bb = !0),
+        d != null && (m.created_from_client_campaign_id = d),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
           entryPoint: u,
-          extraAttributes: c,
+          extraAttributes: m,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
@@ -241,20 +243,22 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function $(e, t, n, r, a, i) {
-      var l = t.length,
-        s = {
-          audience_count: l,
+    function $(e, t, n, r, a, i, l, s) {
+      var u = t.length,
+        c = {
+          audience_count: u,
           audience_id: t.join(","),
-          is_multi_audience: l > 1,
+          is_multi_audience: u > 1,
           recipient_count: n,
         };
-      (i != null && i > 0 && (s.overlapping_recipient_count = i),
-        a != null && (s.attachment_type = a),
+      (i != null && i > 0 && (c.overlapping_recipient_count = i),
+        a != null && (c.attachment_type = a),
+        l === !0 && (c.is_duplicate_bb = !0),
+        s != null && (c.created_from_client_campaign_id = s),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
           entryPoint: r,
-          extraAttributes: s,
+          extraAttributes: c,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,

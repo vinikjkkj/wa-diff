@@ -20,10 +20,12 @@ __d(
           (t.campaignName = o("WAWebModelUtils").prop()),
           (t.createdTimestamp = o("WAWebModelUtils").prop()),
           (t.deviceId = o("WAWebModelUtils").prop()),
+          (t.isDuplicate = o("WAWebModelUtils").prop()),
           (t.msgId = o("WAWebModelUtils").prop()),
           (t.pendingBroadcastMessageId = o("WAWebModelUtils").prop()),
           (t.reservedQuota = o("WAWebModelUtils").prop()),
           (t.scheduledTimestamp = o("WAWebModelUtils").prop()),
+          (t.sourceCampaignId = o("WAWebModelUtils").prop()),
           (t.status = o("WAWebModelUtils").prop()),
           (t.isScheduled = o("WAWebModelUtils").derived(
             function () {

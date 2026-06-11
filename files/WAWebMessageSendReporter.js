@@ -6,6 +6,7 @@ __d(
     "WANullthrows",
     "WAStartSendToSentQplFlow",
     "WAWebABProps",
+    "WAWebAfterReadUtils",
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
     "WAWebEditMessageSendWamEvent",
@@ -151,22 +152,23 @@ __d(
               ? (M = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
                   .LID_CTWA)
               : (M = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.OTHERS);
-          if (
-            (M && (this.$2.chatOrigins = M),
+          (M && (this.$2.chatOrigins = M),
             t.ephemeralDuration != null &&
-              (this.$2.ephemeralityDuration = t.ephemeralDuration),
-            t.afterReadDuration != null &&
-              ((this.$2.isAfterRead = t.afterReadDuration > 0),
-              (this.$2.afterReadDuration = t.afterReadDuration)),
+              (this.$2.ephemeralityDuration = t.ephemeralDuration));
+          var A = t.afterReadDuration;
+          if (
+            (A != null &&
+              o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+              ((this.$2.isAfterRead = A > 0), (this.$2.afterReadDuration = A)),
             !v ||
               o("WAWebABProps").getABPropConfigValue(
                 "dm_initiator_trigger_groups",
               ))
           ) {
-            var A = o("WAWebMsgGetters").getWamDisappearingModeTrigger(t);
-            A != null && (this.$2.ephemeralityTriggerAction = A);
-            var F = o("WAWebMsgGetters").getWamDisappearingModeInitiatedByMe(t);
-            F != null && (this.$2.ephemeralityInitiator = F);
+            var F = o("WAWebMsgGetters").getWamDisappearingModeTrigger(t);
+            F != null && (this.$2.ephemeralityTriggerAction = F);
+            var O = o("WAWebMsgGetters").getWamDisappearingModeInitiatedByMe(t);
+            O != null && (this.$2.ephemeralityInitiator = O);
           }
           if (!v && !S && !R) {
             ((this.$2.isLid = b.isLid()),
@@ -176,7 +178,7 @@ __d(
                     "MessageSendReporter constructor before get ephemeral for me",
                   ])),
               ));
-            var O = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+            var B = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
               k == null ? void 0 : k.getMeContact(),
             );
             (o("WALogger").LOG(
@@ -185,14 +187,14 @@ __d(
                   "MessageSendReporter constructor after get ephemeral for me",
                 ])),
             ),
-              O != null && (this.$2.senderDefaultDisappearingDuration = O),
+              B != null && (this.$2.senderDefaultDisappearingDuration = B),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "MessageSendReporter constructor before get ephemeral for wid",
                   ])),
               ));
-            var B = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+            var W = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
               k == null ? void 0 : k.get(b),
             );
             (o("WALogger").LOG(
@@ -201,32 +203,32 @@ __d(
                   "MessageSendReporter constructor after get ephemeral for wid",
                 ])),
             ),
-              B != null && (this.$2.receiverDefaultDisappearingDuration = B));
+              W != null && (this.$2.receiverDefaultDisappearingDuration = W));
           }
           if (o("WAWebMsgGetters").getIsRevoke(t)) {
             this.$2.revokeType =
               t.subtype === "admin_revoke" || t.subtype === "admin"
                 ? o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN
                 : o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER;
-            var W = o("WAWebMsgGetters").getRevokeDuration(t);
-            W != null && (this.$2.revokeDuration = W);
+            var q = o("WAWebMsgGetters").getRevokeDuration(t);
+            q != null && (this.$2.revokeDuration = q);
           }
           if (o("WAWebMsgGetters").getIsEditProtocolMsg(t)) {
-            var q = r("WANullthrows")(
+            var U = r("WANullthrows")(
               n == null ? void 0 : n.originalMessage,
               "edit protocol msg must have an original msg",
             );
             ((this.$2.editDuration =
-              o("WAWebMsgGetters").getT(t) - o("WAWebMsgGetters").getT(q)),
-              (this.$4 = o("WAWebWamMsgUtils").getWamMediaType(q)));
+              o("WAWebMsgGetters").getT(t) - o("WAWebMsgGetters").getT(U)),
+              (this.$4 = o("WAWebWamMsgUtils").getWamMediaType(U)));
           }
-          var U = o("WAWebMsgGetters").getWamDisappearingModeInitiator(t);
-          U != null && (this.$2.disappearingChatInitiator = U);
-          var V = o("WAWebWamMsgUtils").getWamAgentEngagementType(t);
-          if ((V != null && (this.$2.agentEngagementType = V), v)) {
-            var H;
+          var V = o("WAWebMsgGetters").getWamDisappearingModeInitiator(t);
+          V != null && (this.$2.disappearingChatInitiator = V);
+          var H = o("WAWebWamMsgUtils").getWamAgentEngagementType(t);
+          if ((H != null && (this.$2.agentEngagementType = H), v)) {
+            var G;
             ((this.$2.isLid = !!(
-              !(n == null || (H = n.groupData) == null) && H.isLidAddressingMode
+              !(n == null || (G = n.groupData) == null) && G.isLidAddressingMode
             )),
               (n == null ? void 0 : n.groupData) != null &&
                 this.setGroupData(n.groupData));

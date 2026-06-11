@@ -80,6 +80,12 @@ __d(
               chatOverflowClicks: n.chatOverflowClicks,
               repliesSent: n.repliesSent,
               afterReadDuration: (t = n.afterReadDuration) != null ? t : void 0,
+              afterReadMessagesSent: n.afterReadMessagesSent,
+              afterReadMessagesReceived: n.afterReadMessagesReceived,
+              afterReadMessagesExpired: n.afterReadMessagesExpired,
+              afterReadMessagesUnreadExpired: n.afterReadMessagesUnreadExpired,
+              afterReadTurnedOn: n.afterReadTurnedOn ? !0 : void 0,
+              afterReadTurnedOff: n.afterReadTurnedOff ? !0 : void 0,
             },
             s = new (o(
               "WAWebThreadInteractionDataCoreConsumerWamEvent",

@@ -1,6 +1,11 @@
 __d(
   "WAWebBizCoexGatingUtils",
-  ["WAWebABProps", "cr:37209"],
+  [
+    "WAWebABProps",
+    "WAWebAgentTransitionUtils",
+    "WAWebUserPrefsMultiDevice",
+    "cr:37209",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -47,6 +52,16 @@ __d(
       );
     }
     function y() {
+      return (
+        (u == null ? void 0 : u()) === !0 &&
+        !o(
+          "WAWebUserPrefsMultiDevice",
+        ).getIsHostedMeAccountFromLocalStorage() &&
+        o("WAWebAgentTransitionUtils").getMeSmbOffboardingState() &&
+        g()
+      );
+    }
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_auth_agents_feature_control_enabled",
       );
@@ -59,7 +74,8 @@ __d(
       (l.agentOffboardingEnabled = f),
       (l.agentSmbOffboardingEnabled = g),
       (l.agentBizProfileFeatureControlEnabled = h),
-      (l.authAgentFeatureControlEnabled = y));
+      (l.isCallingDisabledOnAuthAgentSoftOffboarded = y),
+      (l.authAgentFeatureControlEnabled = C));
   },
   98,
 );

@@ -5,41 +5,20 @@ __d(
     function e() {
       return o("WAWebMobilePlatforms").isSMB()
         ? !1
-        : o("WAWebABProps").getABPropConfigValue("web_whats_new_carousel") ===
-            !0;
-    }
-    function s() {
-      return o("WAWebMobilePlatforms").isSMB()
-        ? !1
-        : o("WAWebABProps").getABPropConfigValue("web_whats_new_banner") === !0;
-    }
-    function u() {
-      return o("WAWebMobilePlatforms").isSMB()
-        ? !1
         : o("WAWebABProps").getABPropConfigValue("web_whats_new_auto_modal") ===
             !0;
     }
-    var c = 30,
-      d = 15;
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_whats_new_banner_short_cooldown_v2",
-      ) === !0
-        ? d
-        : c;
-    }
-    function p() {
+    var s = 30,
+      u = 15;
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_short_cooldown",
       ) === !0
-        ? d
-        : c;
+        ? u
+        : s;
     }
-    ((l.isWhatsNewCarouselEnabled = e),
-      (l.isWhatsNewBannerEnabled = s),
-      (l.isWhatsNewAutoModalEnabled = u),
-      (l.getWhatsNewBannerCooldownDays = m),
-      (l.getWhatsNewAutoModalCooldownDays = p));
+    ((l.isWhatsNewAutoModalEnabled = e),
+      (l.getWhatsNewAutoModalCooldownDays = c));
   },
   98,
 );

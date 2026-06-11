@@ -16,18 +16,17 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebAiAgentAutoReplyControlMutation.graphql")),
-      c = { isSuccess: !0 },
-      d = { isSuccess: !1 };
-    function m(e, t) {
+      c = { isSuccess: !1 };
+    function d(e, t) {
       var r, a;
       if (!o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled())
-        return (s || (s = n("Promise"))).resolve(d);
+        return (s || (s = n("Promise"))).resolve(c);
       var i =
           (r = o("WAWebLidMigrationUtils").toLid(e)) == null ? void 0 : r.user,
         l = (a = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : a.user;
-      return p(l, i, t);
+      return m(l, i, t);
     }
-    function p(e, t, n) {
+    function m(e, t, n) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
         .then(function (a) {
@@ -46,22 +45,29 @@ __d(
                       { environmentType: "facebook", accessToken: a.token },
                     )
                     .then(function (e) {
-                      var t,
-                        n =
-                          e == null ||
-                          (t = e.xfb_whatsapp_smb_maiba_status_update) == null
-                            ? void 0
-                            : t.success;
-                      return n === !0 ? c : d;
+                      var t =
+                        e == null
+                          ? void 0
+                          : e.xfb_whatsapp_smb_maiba_status_update;
+                      if ((t == null ? void 0 : t.success) === !0) {
+                        var n = t.update_timestamp_ms,
+                          r = n != null && n !== "" ? Number(n) : null;
+                        return {
+                          isSuccess: !0,
+                          updateTimestampMs:
+                            r != null && Number.isFinite(r) ? r : null,
+                        };
+                      }
+                      return c;
                     })
                     .catch(function (e) {
-                      return d;
+                      return c;
                     });
                 })
-            : d;
+            : c;
         });
     }
-    l.changeAiReplyStatus = m;
+    l.changeAiReplyStatus = d;
   },
   98,
 );

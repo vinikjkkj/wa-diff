@@ -1,9 +1,9 @@
 __d(
   "WAWebMexFetchTextStatusListJob",
   [
-    "WABatcher",
     "WAComms",
     "WALogger",
+    "WAWebCooldownBatcher",
     "WAWebGroupsPrivacyTokenUtils",
     "WAWebMexClient",
     "WAWebMexFetchTextStatusListJobQuery.graphql",
@@ -71,9 +71,9 @@ __d(
               }
             var f = { input: u };
             yield o("WAComms").waitForConnection();
-            var h = yield o("WAWebMexClient").fetchQuery(c, f),
-              y = h.xwa2_text_status_list;
-            if (y == null) throw r("err")("textStatusListResponse is null");
+            var g = yield o("WAWebMexClient").fetchQuery(c, f),
+              h = g.xwa2_text_status_list;
+            if (h == null) throw r("err")("textStatusListResponse is null");
             o("WALogger")
               .LOG(
                 s ||
@@ -81,20 +81,20 @@ __d(
                     "[MEX][TEXT-STATUS] fetched text status for ",
                     " contacts",
                   ])),
-                y.length,
+                h.length,
               )
               .tags("GQL", "MEX");
-            var C = new Map();
-            for (var b of y) b != null && C.set(b.jid, b);
+            var y = new Map();
+            for (var b of h) b != null && y.set(b.jid, b);
             return e.map(function (e) {
               var t = e.wid.toJid(),
-                n = C.get(t);
+                n = y.get(t);
               if (n == null)
                 return {
                   success: !1,
                   error: r("err")("No response for jid in batch"),
                 };
-              var o = g(n);
+              var o = C(n);
               return {
                 success: !0,
                 result: {
@@ -116,13 +116,19 @@ __d(
         m.apply(this, arguments)
       );
     }
-    var p = o("WABatcher").batch({ delayMs: 200 }, d);
-    function _(e, t) {
-      return f.apply(this, arguments);
+    var p = 250,
+      _ = 5e3,
+      f = 5e3,
+      g = o("WAWebCooldownBatcher").createCooldownBatcher(
+        { windowMs: p, maxWindowMs: _, cooldownMs: f },
+        d,
+      );
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function f() {
+    function y() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!r("WAWebWid").isWid(e) || !e.isUser())
             throw (
               o("WALogger")
@@ -140,14 +146,14 @@ __d(
                   e.toLogString(),
               )
             );
-          var n = yield p({ wid: e, lastUpdateTime: t });
+          var n = yield g({ wid: e, lastUpdateTime: t });
           if (!n.success) throw n.error;
           return n.result;
         })),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function g(e) {
+    function C(e) {
       var t;
       return {
         id: o("WAWebWidFactory").createWid(e.jid),
@@ -157,7 +163,7 @@ __d(
         textStatusLastUpdateTime: Number(e.last_update_time),
       };
     }
-    ((l.mexGetTextStatusList = _), (l.parseTextStatusServerResponse = g));
+    ((l.mexGetTextStatusList = h), (l.parseTextStatusServerResponse = C));
   },
   98,
 );

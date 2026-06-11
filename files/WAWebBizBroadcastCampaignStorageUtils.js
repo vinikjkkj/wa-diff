@@ -104,8 +104,10 @@ __d(
               C,
               b,
               v,
-              S = yield m(t, n.adId);
-            if (S.action === "skip") {
+              S,
+              R,
+              L = yield m(t, n.adId);
+            if (L.action === "skip") {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -116,15 +118,15 @@ __d(
               );
               return;
             }
-            var R = S.existing;
+            var E = L.existing;
             yield o("WAWebSchemaBusinessBroadcastCampaign")
               .getBusinessBroadcastCampaignTable()
               .createOrReplace({
                 adGroupId:
-                  (c = R == null ? void 0 : R.adGroupId) != null ? c : null,
+                  (c = E == null ? void 0 : E.adGroupId) != null ? c : null,
                 adId:
                   (d =
-                    (p = n.adId) != null ? p : R == null ? void 0 : R.adId) !=
+                    (p = n.adId) != null ? p : E == null ? void 0 : E.adId) !=
                   null
                     ? d
                     : null,
@@ -134,35 +136,41 @@ __d(
                   (_ =
                     (f = n.name) != null
                       ? f
-                      : R == null
+                      : E == null
                         ? void 0
-                        : R.campaignName) != null
+                        : E.campaignName) != null
                     ? _
                     : null,
                 createdTimestamp: u,
                 deviceId: n.deviceId,
+                isDuplicate:
+                  (g = E == null ? void 0 : E.isDuplicate) != null ? g : null,
                 msgId:
-                  (g =
-                    (h = n.msgId) != null ? h : R == null ? void 0 : R.msgId) !=
+                  (h =
+                    (y = n.msgId) != null ? y : E == null ? void 0 : E.msgId) !=
                   null
-                    ? g
+                    ? h
                     : null,
                 pendingBroadcastMessageId:
-                  (y = R == null ? void 0 : R.pendingBroadcastMessageId) != null
-                    ? y
-                    : null,
-                reservedQuota:
-                  (C =
-                    (b = n.reservedQuota) != null
-                      ? b
-                      : R == null
-                        ? void 0
-                        : R.reservedQuota) != null
+                  (C = E == null ? void 0 : E.pendingBroadcastMessageId) != null
                     ? C
                     : null,
+                reservedQuota:
+                  (b =
+                    (v = n.reservedQuota) != null
+                      ? v
+                      : E == null
+                        ? void 0
+                        : E.reservedQuota) != null
+                    ? b
+                    : null,
                 scheduledTimestamp:
-                  (v = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
-                    ? v
+                  (S = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
+                    ? S
+                    : null,
+                sourceCampaignId:
+                  (R = E == null ? void 0 : E.sourceCampaignId) != null
+                    ? R
                     : null,
                 status: n.status,
               });

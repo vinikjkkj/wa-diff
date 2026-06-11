@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
+    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebRelayClient",
@@ -18,11 +19,20 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = { jid: e.toJid(), product_id: t };
+          var r,
+            a = {
+              jid:
+                (r = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  e,
+                )) != null
+                  ? r
+                  : e.toJid(),
+              product_id: t,
+            };
           return (
-            n !== "" && (r.reason = n),
+            n !== "" && (a.reason = n),
             o("WAWebRelayClient")
-              .commitMutation(s, { input: r })
+              .commitMutation(s, { input: a })
               .then(function (e) {
                 var t,
                   n =

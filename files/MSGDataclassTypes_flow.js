@@ -457,6 +457,7 @@ __d(
       ze = e({
         AiAnimatedPhoto: "AI_ANIMATED_PHOTO",
         AiGeneratedSticker: "AI_GENERATED_STICKER",
+        AiMeme: "AI_MEME",
         AiMusicSongGen: "AI_MUSIC_SONG_GEN",
         AiSummaryBottomSheet: "AI_SUMMARY_BOTTOM_SHEET",
         AnimatedAiSticker: "ANIMATED_AI_STICKER",

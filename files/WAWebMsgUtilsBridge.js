@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebAfterReadUtils",
     "WAWebBackendApi",
     "WAWebChatThreadLogging",
     "WAWebChatThreadLoggingUtils",
@@ -109,6 +110,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
           if (
             o("WAWebChatThreadLoggingUtils").shouldIncrementMsgSendAndReceive(e)
           ) {
@@ -117,12 +119,12 @@ __d(
                 "group_status_receiver_enabled",
               )
             ) {
-              var t = o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(e);
-              if (t !== "missing-stanza-id") {
-                var n = yield o("WAWebDBMsgUtils").getMsgByMsgKey(t);
-                if (n != null && o("WAWebMsgGetters").getIsGroupStatus(n)) {
-                  var r = o("WAWebMsgGetters").getIsSentByMe(n),
-                    a = o("WAWebMsgGetters").getIsReply(e);
+              var n = o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(e);
+              if (n !== "missing-stanza-id") {
+                var r = yield o("WAWebDBMsgUtils").getMsgByMsgKey(n);
+                if (r != null && o("WAWebMsgGetters").getIsGroupStatus(r)) {
+                  var a = o("WAWebMsgGetters").getIsSentByMe(r),
+                    i = o("WAWebMsgGetters").getIsReply(e);
                   return o(
                     "WAWebChatThreadLogging",
                   ).handleActivitiesForChatThreadLogging([
@@ -130,8 +132,8 @@ __d(
                       activityType: "groupStatusMsgSend",
                       chatId: e.id.remote,
                       ts: o("WATimeUtils").unixTime(),
-                      isGroupStatusReplyOwnToOwn: a && r,
-                      isGroupStatusReplyOwnToOthers: a && !r,
+                      isGroupStatusReplyOwnToOwn: i && a,
+                      isGroupStatusReplyOwnToOthers: i && !a,
                     },
                   ]);
                 }
@@ -156,6 +158,9 @@ __d(
                   e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION,
                 isEventResponse:
                   e.type === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE,
+                isAfterRead: o("WAWebAfterReadUtils").isAfterReadEnabled()
+                  ? ((t = e.afterReadDuration) != null ? t : 0) > 0
+                  : void 0,
               },
             ]);
           }

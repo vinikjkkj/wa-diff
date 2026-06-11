@@ -74,7 +74,8 @@ __d(
         };
       }
       var b = p.getPlayheadPosition(),
-        v = f.getCurrent();
+        v = p.getFrameCounts(),
+        S = f.getCurrent();
       return {
         audioRepresentationID: d
           ? d.getCurrentPlayingAudioRepresentationID()
@@ -133,7 +134,7 @@ __d(
             ? void 0
             : c.src
           : void 0,
-        videoElementDroppedFrameCount: p.getDroppedFrameCount(),
+        videoElementDroppedFrameCount: v.droppedFrameCount,
         videoElementDuration: p.getDuration(),
         videoElementEnded: p.getEnded(),
         videoElementError: p.getError(),
@@ -144,14 +145,14 @@ __d(
         videoElementPlaybackRate: p.getPlaybackRate(),
         videoElementPlayheadPosition: b,
         videoElementReadyState: p.getReadyState(),
-        videoElementTotalFrameCount: p.getTotalFrameCount(),
+        videoElementTotalFrameCount: v.totalFrameCount,
         videoElementVolume: p.getVolume(),
         videoProjection: d == null ? void 0 : d.getVideoProjectionType(),
         videoRepresentationID: d
           ? d.getCurrentPlayingVideoRepresentationID()
           : void 0,
-        viewabilityPercentage: v
-          ? r("convertToViewabilityPercentage")(v.visiblePercentage)
+        viewabilityPercentage: S
+          ? r("convertToViewabilityPercentage")(S.visiblePercentage)
           : void 0,
       };
     }

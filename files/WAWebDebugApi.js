@@ -28,7 +28,7 @@ __d(
         );
         return;
       }
-      if (a.resultType === "CALL_RECEIVED") {
+      if (a.resultType === "CALL_ACTIVE") {
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([

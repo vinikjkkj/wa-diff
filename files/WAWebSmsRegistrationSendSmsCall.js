@@ -6,6 +6,7 @@ __d(
     "WAWebEnvironment",
     "WAWebFbtCommon",
     "WAWebL10N",
+    "WAWebLandingPromoGating",
     "WAWebSignUpViaWebRequestEntryPoint",
     "WAXWhatsAppWebRegistrationControllerRouteBuilder",
     "asyncToGeneratorRuntime",
@@ -33,6 +34,9 @@ __d(
                         .WhatsappGrowthInvites_SignUpViaWebRequestEntryPoint
                         .WINDOWS
                     : void 0,
+                  exp_bucket: o(
+                    "WAWebLandingPromoGating",
+                  ).getLandingPromoExpBucket(),
                 })
                 .toString()
                 .concat("&__a=1"),

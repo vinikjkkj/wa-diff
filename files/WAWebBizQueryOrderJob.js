@@ -6,6 +6,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizQueryOrderJobQuery.graphql",
+    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
@@ -49,15 +50,20 @@ __d(
           function* (e, t, n, a, i) {
             i === void 0 && (i = null);
             try {
-              var l, u, d, m, p;
+              var l, u, d, m, p, _;
               yield r("WAWebNetworkStatus").waitIfOffline();
-              var _ = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                f = yield o("WAWebRelayClient").fetchQuery(
+              var f = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                g = yield o("WAWebRelayClient").fetchQuery(
                   c,
                   {
                     request: {
                       order: {
-                        jid: _.toString(),
+                        jid:
+                          (l = o(
+                            "WAWebGetFormattedCatalogJid",
+                          ).getFormattedCatalogJid(f)) != null
+                            ? l
+                            : f.toString(),
                         token: { sensitive_string_value: a },
                         id: e,
                         image_dimensions: { height: n, width: t },
@@ -68,13 +74,13 @@ __d(
                   { environmentType: "whatsapp_catalog" },
                 );
               if (
-                (f == null || (l = f.xwa_checkout_get_order_info) == null
+                (g == null || (u = g.xwa_checkout_get_order_info) == null
                   ? void 0
-                  : l.order) == null
+                  : u.order) == null
               )
                 throw new (o("WAWebBackendErrors").ServerStatusCodeError)(500);
-              var g = f.xwa_checkout_get_order_info.order,
-                h = ((u = g.products) != null ? u : []).map(function (e) {
+              var h = g.xwa_checkout_get_order_info.order,
+                y = ((d = h.products) != null ? d : []).map(function (e) {
                   var t,
                     n,
                     r,
@@ -112,23 +118,23 @@ __d(
                 });
               return {
                 createdAt:
-                  g.creation_time_stamp != null
-                    ? Number(g.creation_time_stamp)
+                  h.creation_time_stamp != null
+                    ? Number(h.creation_time_stamp)
                     : null,
-                currency: (d = g.price_details) == null ? void 0 : d.currency,
+                currency: (m = h.price_details) == null ? void 0 : m.currency,
                 subtotal:
-                  ((m = g.price_details) == null
+                  ((p = h.price_details) == null
                     ? void 0
-                    : m.subtotal_amount) != null
-                    ? parseInt(g.price_details.subtotal_amount, 10)
+                    : p.subtotal_amount) != null
+                    ? parseInt(h.price_details.subtotal_amount, 10)
                     : null,
                 tax: null,
                 total:
-                  ((p = g.price_details) == null ? void 0 : p.total_amount) !=
+                  ((_ = h.price_details) == null ? void 0 : _.total_amount) !=
                   null
-                    ? parseInt(g.price_details.total_amount, 10)
+                    ? parseInt(h.price_details.total_amount, 10)
                     : null,
-                products: h,
+                products: y,
               };
             } catch (e) {
               if (
@@ -140,12 +146,12 @@ __d(
                 ),
                 e instanceof o("WAWebGraphQLServerError").GraphQLServerError)
               ) {
-                var y,
-                  C = (y = e.source.errors[0]) == null ? void 0 : y.code;
-                throw C === 451
+                var C,
+                  b = (C = e.source.errors[0]) == null ? void 0 : C.code;
+                throw b === 451
                   ? new (o("WAWebBackendErrors").E451)()
                   : new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      C != null ? C : 500,
+                      b != null ? b : 500,
                     );
               }
               throw e;

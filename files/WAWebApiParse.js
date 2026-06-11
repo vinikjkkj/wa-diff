@@ -260,7 +260,7 @@ __d(
     }
     var $ = /^whatsapp:\/\/newchat\/?$/i,
       P = /^whatsapp:\/\/chatOpen\/?(\?.*)?$/i,
-      N = /^whatsapp:\/\/callReceived\/?(\?.*)?$/i,
+      N = /^whatsapp:\/\/callActive\/?(\?.*)?$/i,
       M = /^whatsapp:\/\/appOpen\/?(\?.*)?$/i,
       w = /^whatsapp:\/\/oidc_callback\/?(\?.*)?$/i;
     function A(e) {
@@ -282,7 +282,7 @@ __d(
     }
     function F(e) {
       return N.test(e)
-        ? { resultType: o("WAWebApi").APICmd.CALL_RECEIVED }
+        ? { resultType: o("WAWebApi").APICmd.CALL_ACTIVE }
         : null;
     }
     function O(e) {

@@ -98,7 +98,7 @@ __d(
                     ? o("WAWebCommsWapMd").USER_JID(u)
                     : o("WAWap").DROP_ATTR,
                 type: d,
-                context: m,
+                class: m,
               },
               _,
             );

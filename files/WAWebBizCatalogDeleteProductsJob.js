@@ -4,6 +4,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementDeleteProduct",
+    "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -16,22 +17,31 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (t == null)
+          var t,
+            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (n == null)
             throw r("err")("deleteProductsGraphQL: meUser is null");
-          var n = yield o(
+          var a = yield o(
             "WAWebBizCatalogManagementDeleteProduct",
-          ).deleteProduct({ biz_jid: t.toJid(), product_ids: e });
-          if (n.type === "success") return n.deleteResult;
+          ).deleteProduct({
+            biz_jid:
+              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                n,
+              )) != null
+                ? t
+                : n.toJid(),
+            product_ids: e,
+          });
+          if (a.type === "success") return a.deleteResult;
           throw (
-            n.type === "graphql-error"
+            a.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(n.error)
-              : n.type,
+                ).maybeThrowLocalErrorForCatalogQuery(a.error)
+              : a.type,
             r("err")(
               "deleteProductsGraphQL: error handling flow not implemented for " +
-                JSON.stringify(n),
+                JSON.stringify(a),
             )
           );
         })),

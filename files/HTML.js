@@ -24,7 +24,6 @@ __d(
         param: !0,
       },
       u = (function () {
-        "use strict";
         function t(e) {
           if (
             (e && typeof e.__html == "string" && (e = e.__html),
@@ -133,8 +132,9 @@ __d(
           }),
           t
         );
-      })();
-    a.exports = u;
+      })(),
+      c = u;
+    i.default = c;
   },
-  null,
+  66,
 );

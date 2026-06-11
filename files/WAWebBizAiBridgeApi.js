@@ -2,6 +2,7 @@ __d(
   "WAWebBizAiBridgeApi",
   [
     "WALogger",
+    "WAWebAIAgentAIReplyUtils",
     "WAWebBizAISettingsCategoryHandlers",
     "WAWebBizAISettingsVersionCollection",
     "WAWebChatCollection",
@@ -19,37 +20,39 @@ __d(
         updateChatCapiThreadControl: function (n) {
           var t = n.consumerLid,
             r = n.consumerPhoneNumber,
-            a = n.status;
+            a = n.shouldSuppressNotification,
+            i = n.status,
+            l = n.timestampMs;
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "[BizAI] updateChatCapiThreadControl status=",
                 "",
               ])),
-            a,
+            i,
           );
-          var i = null,
-            l =
+          var c = null,
+            d =
               t != null
                 ? o("WAWebWidFactory").createUserWidOrThrow(t, "lid")
                 : null,
-            c = r != null ? o("WAWebWidFactory").createUserWidOrThrow(r) : null;
+            m = r != null ? o("WAWebWidFactory").createUserWidOrThrow(r) : null;
           if (
-            (l != null && (i = o("WAWebChatCollection").ChatCollection.get(l)),
-            i == null &&
-              c != null &&
-              (i = o("WAWebChatCollection").ChatCollection.get(c)),
-            i == null && c == null)
+            (d != null && (c = o("WAWebChatCollection").ChatCollection.get(d)),
+            c == null &&
+              m != null &&
+              (c = o("WAWebChatCollection").ChatCollection.get(m)),
+            c == null && m == null)
           ) {
-            var d = l != null ? o("WAWebLidMigrationUtils").toPn(l) : null;
-            i =
-              d != null ? o("WAWebChatCollection").ChatCollection.get(d) : null;
-          } else if (i == null && l == null) {
-            var m = c != null ? o("WAWebLidMigrationUtils").toLid(c) : null;
-            i =
-              m != null ? o("WAWebChatCollection").ChatCollection.get(m) : null;
+            var p = d != null ? o("WAWebLidMigrationUtils").toPn(d) : null;
+            c =
+              p != null ? o("WAWebChatCollection").ChatCollection.get(p) : null;
+          } else if (c == null && d == null) {
+            var _ = m != null ? o("WAWebLidMigrationUtils").toLid(m) : null;
+            c =
+              _ != null ? o("WAWebChatCollection").ChatCollection.get(_) : null;
           }
-          i != null
+          c != null
             ? (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -57,10 +60,15 @@ __d(
                     " to chat=",
                     "",
                   ])),
-                a,
-                i.id.toLogString(),
+                i,
+                c.id.toLogString(),
               ),
-              i.setCapiThreadControl(a))
+              o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl(
+                c,
+                i,
+                l,
+                { suppressNotification: a },
+              ))
             : o("WALogger")
                 .ERROR(
                   u ||

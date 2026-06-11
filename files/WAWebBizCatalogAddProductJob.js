@@ -5,6 +5,7 @@ __d(
     "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementAddProduct",
     "WAWebBizCatalogManagementParseProductGraphql",
+    "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -17,11 +18,17 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (a == null) throw r("err")("addProductGraphQL: meUser is null");
-          var i = yield o("WAWebBizCatalogManagementAddProduct").addProduct({
+          var a,
+            i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (i == null) throw r("err")("addProductGraphQL: meUser is null");
+          var l = yield o("WAWebBizCatalogManagementAddProduct").addProduct({
             product: {
-              biz_jid: a.toJid(),
+              biz_jid:
+                (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  i,
+                )) != null
+                  ? a
+                  : i.toJid(),
               width: t,
               height: n,
               product_info: o(
@@ -29,16 +36,16 @@ __d(
               ).productModelToGraphQLInput(e),
             },
           });
-          if (i.type === "success") return i.productResult;
+          if (l.type === "success") return l.productResult;
           throw (
-            i.type === "graphql-error"
+            l.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(i.error)
-              : i.type,
+                ).maybeThrowLocalErrorForCatalogQuery(l.error)
+              : l.type,
             r("err")(
               "addProductGraphQL: error handling flow not implemented for " +
-                JSON.stringify(i),
+                JSON.stringify(l),
             )
           );
         })),

@@ -4,6 +4,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementUpdateProductVisibility",
+    "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -22,21 +23,27 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (a == null)
+          var a,
+            i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (i == null)
             throw r("err")("updateProductVisibilityGraphQL: meUser is null");
-          var i = yield o(
+          var l = yield o(
             "WAWebBizCatalogManagementUpdateProductVisibility",
           ).updateProductVisibility({
-            jid: a.toJid(),
+            jid:
+              (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                i,
+              )) != null
+                ? a
+                : i.toJid(),
             products: [{ product_id: t, is_hidden: n }],
           });
-          if (i.type === "success") return i.result === !0 ? void 0 : e(i);
-          if (i.type === "graphql-error")
+          if (l.type === "success") return l.result === !0 ? void 0 : e(l);
+          if (l.type === "graphql-error")
             o(
               "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(i.error);
-          else return (i.type, e(i));
+            ).maybeThrowLocalErrorForCatalogQuery(l.error);
+          else return (l.type, e(l));
         })),
         u.apply(this, arguments)
       );

@@ -4,6 +4,7 @@ __d(
     "errorCode",
     "WALogger",
     "WAWebCatalogEventLogger",
+    "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebQueryCatalogHasCategoriesQuery.graphql",
@@ -22,14 +23,20 @@ __d(
             s = t.sessionId;
           try {
             var c,
-              d = yield o("WAWebRelayClient").fetchQuery(
+              d,
+              m = yield o("WAWebRelayClient").fetchQuery(
                 e !== void 0
                   ? e
                   : (e = n("WAWebQueryCatalogHasCategoriesQuery.graphql")),
                 {
                   request: {
                     categories: {
-                      biz_jid: r.toString(),
+                      biz_jid:
+                        (c = o(
+                          "WAWebGetFormattedCatalogJid",
+                        ).getFormattedCatalogJid(r)) != null
+                          ? c
+                          : r.toString(),
                       direct_connection_encrypted_info: a,
                       image_dimensions: l,
                       catalog_session_id: s,
@@ -47,14 +54,14 @@ __d(
               );
             return !!(
               !(
-                d == null || (c = d.xwa_product_catalog_get_categories) == null
-              ) && c.categories.length
+                m == null || (d = m.xwa_product_catalog_get_categories) == null
+              ) && d.categories.length
             );
           } catch (e) {
             if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var m = e.source.errors || [],
-                p = m[0];
-              if ((p == null ? void 0 : p.code) === 2498052) return !1;
+              var p = e.source.errors || [],
+                _ = p[0];
+              if ((_ == null ? void 0 : _.code) === 2498052) return !1;
               o(
                 "WAWebMaybeThrowCatalogErrors",
               ).maybeThrowLocalErrorForCatalogQuery(e);

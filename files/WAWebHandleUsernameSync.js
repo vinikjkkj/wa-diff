@@ -35,9 +35,11 @@ __d(
                 ? []
                 : e.id == null
                   ? []
-                  : e.username == null
-                    ? [{ userId: e.id, deleteUsername: !0 }]
-                    : [{ userId: e.id, username: e.username }];
+                  : "username" in e
+                    ? e.username == null || e.username === ""
+                      ? [{ userId: e.id, deleteUsername: !0 }]
+                      : [{ userId: e.id, username: e.username }]
+                    : [];
             });
           if (a.length !== 0) {
             var i = yield o("WAWebSetUsernameJob").setUsernamesJob(a);

@@ -13,6 +13,7 @@ __d(
       "CatalogManagement",
       "LeadGenList",
       "LeadGenResponses",
+      "LeadGenResponseDetail",
       "Knowledge",
     ]);
     i.BizAIStep = e;

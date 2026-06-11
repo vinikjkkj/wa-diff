@@ -29,70 +29,74 @@ __d(
             a = t.broadcastJid,
             i = t.campaignName,
             l = t.freeReservedMsgs,
-            s = t.messageContent,
-            u = t.sendTimestamp,
-            c = r("WAWebPonyfillsCryptoRandomUUID")(),
-            d = o("WAWebUserPrefsMeUser")
+            s = t.isDuplicate,
+            u = t.messageContent,
+            c = t.sendTimestamp,
+            d = t.sourceCampaignId,
+            m = r("WAWebPonyfillsCryptoRandomUUID")(),
+            p = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId(),
-            m = r("WAWebPonyfillsCryptoRandomUUID")(),
-            p = null,
-            _ = null,
-            f = s.selectedMediaFile;
-          (f != null
-            ? ((p = yield f.arrayBuffer()),
-              (_ = JSON.stringify({
-                lastModified: f.lastModified,
-                name: f.name,
-                type: f.type,
+            _ = r("WAWebPonyfillsCryptoRandomUUID")(),
+            f = null,
+            g = null,
+            h = u.selectedMediaFile;
+          (h != null
+            ? ((f = yield h.arrayBuffer()),
+              (g = JSON.stringify({
+                lastModified: h.lastModified,
+                name: h.name,
+                type: h.type,
               })))
-            : s.catalogWid != null &&
-              (_ = JSON.stringify({
-                catalogWid: s.catalogWid,
-                productId: s.productId,
-                productImageUrl: s.productImageUrl,
+            : u.catalogWid != null &&
+              (g = JSON.stringify({
+                catalogWid: u.catalogWid,
+                productId: u.productId,
+                productImageUrl: u.productImageUrl,
               })),
             yield o("WAWebSchemaPendingBusinessBroadcastMessage")
               .getPendingBusinessBroadcastMessageTable()
               .create({
-                ctaButtonJson: s.ctaButtonJson,
-                mediaData: p,
-                mediaMetadata: _,
-                messageBody: s.body,
-                pendingBroadcastMessageId: m,
+                ctaButtonJson: u.ctaButtonJson,
+                mediaData: f,
+                mediaMetadata: g,
+                messageBody: u.body,
+                pendingBroadcastMessageId: _,
               }));
-          var g = Date.now(),
-            h = {
+          var y = Date.now(),
+            C = {
               broadcastJid: a,
-              createTimestamp: g,
-              deviceId: d,
+              createTimestamp: y,
+              deviceId: p,
               name: i,
               reservedQuota: l != null ? l : void 0,
-              scheduledTimestamp: u != null ? u : void 0,
+              scheduledTimestamp: c != null ? c : void 0,
               status: o("WAWebSchemaBusinessBroadcastCampaign")
                 .BusinessBroadcastCampaignStatus.PROCESSING,
             },
-            y = r("WAWebBroadcastCampaignSync").getCampaignMutation(c, h, g);
+            b = r("WAWebBroadcastCampaignSync").getCampaignMutation(m, C, y);
           (yield o(
             "WAWebBizBroadcastCampaignStorageUtils",
           ).updateCampaignWithSync(
-            c,
+            m,
             {
               adGroupId: n,
               adId: null,
               broadcastJid: a,
-              campaignId: c,
+              campaignId: m,
               campaignName: i,
-              createdTimestamp: g,
-              deviceId: d,
+              createdTimestamp: y,
+              deviceId: p,
+              isDuplicate: s != null ? s : null,
               msgId: null,
-              pendingBroadcastMessageId: m,
+              pendingBroadcastMessageId: _,
               reservedQuota: l != null ? l : null,
-              scheduledTimestamp: u != null ? u : null,
+              scheduledTimestamp: c != null ? c : null,
+              sourceCampaignId: d != null ? d : null,
               status: o("WAWebSchemaBusinessBroadcastCampaign")
                 .BusinessBroadcastCampaignStatus.PROCESSING,
             },
-            [y],
+            [b],
           ),
             r("WAWebBizBroadcastCampaignCollection").add(
               {
@@ -100,13 +104,15 @@ __d(
                 adId: null,
                 broadcastJid: a,
                 campaignName: i,
-                createdTimestamp: g,
-                deviceId: d,
-                id: c,
+                createdTimestamp: y,
+                deviceId: p,
+                id: m,
+                isDuplicate: s != null ? s : null,
                 msgId: null,
-                pendingBroadcastMessageId: m,
+                pendingBroadcastMessageId: _,
                 reservedQuota: l != null ? l : null,
-                scheduledTimestamp: u != null ? u : null,
+                scheduledTimestamp: c != null ? c : null,
+                sourceCampaignId: d != null ? d : null,
                 status: o("WAWebSchemaBusinessBroadcastCampaign")
                   .BusinessBroadcastCampaignStatus.PROCESSING,
               },
@@ -118,7 +124,7 @@ __d(
                   "[broadcast:pending-campaign] Campaign created with SyncD mutation: ",
                   "",
                 ])),
-              c,
+              m,
             ));
         })),
         f.apply(this, arguments)
@@ -209,8 +215,10 @@ __d(
                     broadcastJid: t.broadcastJid,
                     campaignName: e.campaignInput.campaign_name,
                     freeReservedMsgs: t.freeReservedMsgs,
+                    isDuplicate: e.isDuplicate,
                     messageContent: e.messageContent,
                     sendTimestamp: e.sendTimestamp,
+                    sourceCampaignId: e.sourceCampaignId,
                   })
                 );
               }),

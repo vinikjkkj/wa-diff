@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATypeUtils",
     "WAWebApp.react",
+    "WAWebAppTracker",
     "WAWebBuildConstants",
     "WAWebExternalLink.react",
     "WAWebMiscBrowserUtils",
@@ -50,6 +51,14 @@ __d(
           ) {
             if (n)
               return (
+                o("WAWebAppTracker").AppTracker.start(
+                  o("WAWebAppTracker").AppTrackerType.ClosingBrowserTab,
+                ),
+                self.setTimeout(function () {
+                  o("WAWebAppTracker").AppTracker.stop(
+                    o("WAWebAppTracker").AppTrackerType.ClosingBrowserTab,
+                  );
+                }, 0),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([

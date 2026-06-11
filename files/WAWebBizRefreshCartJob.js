@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBizGraphQLRefreshCartJob",
+    "WAWebGetFormattedCatalogJid",
     "WAWebLidMigrationUtils",
     "asyncToGeneratorRuntime",
     "err",
@@ -12,31 +13,37 @@ __d(
       s = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i, l) {
-            var s = yield o("WAWebBizGraphQLRefreshCartJob").RefreshCart({
-              cart: {
-                jid: t.toString(),
-                products: n.map(function (e) {
-                  return { id: e };
-                }),
-                image_dimensions: { width: a, height: i },
-                direct_connection_encrypted_info: l,
-                variant_info_fields: "variant_properties",
-              },
-            });
-            if (s.type === "success") return s.cartResult;
+            var s,
+              u = yield o("WAWebBizGraphQLRefreshCartJob").RefreshCart({
+                cart: {
+                  jid:
+                    (s = o(
+                      "WAWebGetFormattedCatalogJid",
+                    ).getFormattedCatalogJid(t)) != null
+                      ? s
+                      : t.toString(),
+                  products: n.map(function (e) {
+                    return { id: e };
+                  }),
+                  image_dimensions: { width: a, height: i },
+                  direct_connection_encrypted_info: l,
+                  variant_info_fields: "variant_properties",
+                },
+              });
+            if (u.type === "success") return u.cartResult;
             throw (
-              s.type,
+              u.type,
               o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "WAWebBizRefreshCart: error handling flow, Error Type ",
                     "",
                   ])),
-                JSON.stringify(s.type),
+                JSON.stringify(u.type),
               ),
               r("err")(
                 "refreshCartGraphQL: error handling flow, Error Type " +
-                  JSON.stringify(s.type),
+                  JSON.stringify(u.type),
               )
             );
           },

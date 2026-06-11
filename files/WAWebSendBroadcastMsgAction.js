@@ -3,13 +3,16 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebBatchUpdateBroadcastAck",
+    "WAWebBroadcastEphemeralUtils",
     "WAWebBroadcastMsgCollectionUtils",
     "WAWebBroadcastODS",
     "WAWebBuildBroadcastMsgModels",
     "WAWebDBMessageBulkHelper",
     "WAWebEncryptAndSendBroadcastMsg",
+    "WAWebEphemeralEncodeBroadcastSetting",
     "WAWebHandleMsgError",
     "WAWebMessageProcessUtils",
     "WAWebMsgCollection",
@@ -86,112 +89,116 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.authorId,
             n = e.businessMetadata,
-            a = e.msg,
-            i = e.recipients,
-            l = a.id.toString(),
-            s = i.length;
+            a = e.ephemeralSharedSecret,
+            i = e.ephSettingMap,
+            l = e.msg,
+            s = e.recipients,
+            u = l.id.toString(),
+            f = s.length;
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[broadcast:send] Starting broadcast message send: msgId=",
-                ", recipients=",
+                ",\n    recipients=",
                 "",
               ])),
-            l,
-            s,
+            u,
+            f,
           );
-          var u = {
+          var g = {
               type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-              data: a,
+              data: l,
             },
-            g = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+            h = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Chat,
-              u,
-            );
-          (o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:send] Protobuf created: msgId=",
-                "",
-              ])),
-            l,
-          ),
-            o("WAWebBroadcastODS").bumpBroadcastSend());
+              g,
+            ),
+            y = i;
+          if (a != null) {
+            var C = o("WAWebBroadcastEphemeralUtils").addSharedSecretToProto(
+                h,
+                a,
+              ),
+              b = C.injected,
+              v = C.proto;
+            ((h = v), b || (y = null));
+          }
+          o("WAWebBroadcastODS").bumpBroadcastSend();
           try {
             yield o(
               "WAWebEncryptAndSendBroadcastMsg",
-            ).encryptAndSendBroadcastMsg(u, g, i, t, n);
-            var h = yield o(
+            ).encryptAndSendBroadcastMsg(g, h, s, t, n, y);
+            var R = yield o(
               "WAWebBatchUpdateBroadcastAck",
-            ).batchUpdateAckForBroadcastMessages(a, o("WAWebAck").ACK.SENT);
+            ).batchUpdateAckForBroadcastMessages(l, o("WAWebAck").ACK.SENT);
             return (
-              h != null &&
+              R != null &&
                 o("WALogger")
                   .WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:send] Batch ack update failed after send: error=",
                         "",
                       ])),
-                    h,
+                    R,
                   )
-                  .sendLogs("broadcast-batch-ack-sent-" + h),
+                  .sendLogs("broadcast-batch-ack-sent-" + R),
               o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Successfully sent: msgId=",
                     ", ack=",
                     "",
                   ])),
-                l,
+                u,
                 o("WAWebAck").ACK.SENT,
               ),
               o("WAWebBroadcastODS").bumpBroadcastSendSuccess(),
-              h == null && S(a),
+              R == null && S(l),
               {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                   .OK,
-                msgId: l,
+                msgId: u,
               }
             );
           } catch (e) {
-            var y = yield o(
+            var L = yield o(
               "WAWebBatchUpdateBroadcastAck",
-            ).batchUpdateAckForBroadcastMessages(a, o("WAWebAck").ACK.FAILED);
-            (y != null &&
+            ).batchUpdateAckForBroadcastMessages(l, o("WAWebAck").ACK.FAILED);
+            (L != null &&
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[broadcast:send] Batch ack update failed after send failure: error=",
+                      "",
+                    ])),
+                  L,
+                )
+                .sendLogs("broadcast-batch-ack-failed-" + L),
               o("WALogger")
                 .ERROR(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:send] Batch ack update failed after send failure: error=",
-                      "",
-                    ])),
-                  y,
-                )
-                .sendLogs("broadcast-batch-ack-failed-" + y),
-              o("WALogger")
-                .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:send] Send failed: recipientCount=",
                       ", ack=",
                       "",
                     ])),
-                  s,
+                  f,
                   o("WAWebAck").ACK.FAILED,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("broadcast-send-failure"),
               o("WAWebBroadcastODS").bumpBroadcastSendError());
-            var C =
+            var E =
               e instanceof o("WAWebHandleMsgError").MessageSentAckError
                 ? e.ackErrorCode
                 : null;
             return {
               messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                 .ERROR_UNKNOWN,
-              msgId: l,
-              ackErrorCode: C,
+              msgId: u,
+              ackErrorCode: E,
             };
           }
         })),
@@ -228,50 +235,70 @@ __d(
                 })(),
               ),
             ),
-            l = o(
+            l = e.recipients.map(function (e, t) {
+              return { lid: e, resolved: i[t] };
+            }),
+            s = null,
+            u = null;
+          try {
+            var c = yield T(t, l, a);
+            c != null && ((s = c.sharedSecret), (u = c.ephSettingMap));
+          } catch (e) {
+            (o("WAWebBroadcastODS").bumpBroadcastEphemeralSetupError(),
+              o("WALogger")
+                .ERROR(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[broadcast:send] ephemeral setup failed, sending without DM",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("broadcast-ephemeral-setup-failed"));
+          }
+          var d = o(
               "WAWebBuildBroadcastMsgModels",
             ).buildBroadcastMsgModelsFromMsgData(t, i),
-            s = o(
+            m = o(
               "WAWebBuildBroadcastMsgModels",
-            ).bulkBroadcastMessagesToBulkUpdateInput(l),
-            u = s.chatsIdWithNewMsgs,
-            c = s.msgs;
-          yield o("WAWebDBMessageBulkHelper").persistNewMessagesInBulk(c, u);
-          var d = o("WAWebBroadcastMsgCollectionUtils").addMsgsToCollections(
-              l.mainMessage,
-              l.messageClones,
+            ).bulkBroadcastMessagesToBulkUpdateInput(d),
+            p = m.chatsIdWithNewMsgs,
+            _ = m.msgs;
+          yield o("WAWebDBMessageBulkHelper").persistNewMessagesInBulk(_, p);
+          var S = o("WAWebBroadcastMsgCollectionUtils").addMsgsToCollections(
+              d.mainMessage,
+              d.messageClones,
             ),
-            m = e.beforeSend;
+            R = e.beforeSend;
           try {
-            m != null &&
-              (yield d.waitForPrep(),
+            R != null &&
+              (yield S.waitForPrep(),
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Media prep complete: msgId=",
                     "",
                   ])),
-                d.id,
+                S.id,
               ),
-              yield m(d),
+              yield R(S),
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Media upload complete: msgId=",
                     "",
                   ])),
-                d.id,
+                S.id,
               ),
               yield o(
                 "WAWebBuildBroadcastMsgModels",
-              ).propagateMediaFieldsToBroadcastClones(d),
+              ).propagateMediaFieldsToBroadcastClones(S),
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:send] Media fields persisted for all clone messages: msgId=",
                     "",
                   ])),
-                d.id,
+                S.id,
               ));
           } catch (e) {
             return (
@@ -285,22 +312,102 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("broadcast-media-prep-upload-error"),
               o("WAWebBroadcastODS").bumpBroadcastSendError(),
-              yield d.updateAck(o("WAWebAck").ACK.FAILED),
+              yield S.updateAck(o("WAWebAck").ACK.FAILED),
               {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                   .ERROR_UPLOAD,
-                msgId: d.id.toString(),
+                msgId: S.id.toString(),
               }
             );
           }
           return L({
             authorId: a,
             businessMetadata: e.businessMetadata,
-            msg: d,
+            ephemeralSharedSecret: s,
+            ephSettingMap: u,
+            msg: S,
             recipients: e.recipients,
           });
         })),
         I.apply(this, arguments)
+      );
+    }
+    function T(e, t, n) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = yield (b || (b = n("Promise"))).all(
+            t.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = e.lid,
+                      n = e.resolved;
+                    return {
+                      lid: t,
+                      setting: yield o(
+                        "WAWebBroadcastEphemeralUtils",
+                      ).getBroadcastEphemeralSettingForRecipient(n),
+                    };
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+          if (
+            !a.some(function (e) {
+              var t = e.setting;
+              return t.duration > 0;
+            }) ||
+            !o("WAWebABProps").getABPropConfigValue(
+              "wa_web_broadcast_disappearing_messages_fix",
+            )
+          )
+            return null;
+          var i = o(
+              "WAWebEphemeralEncodeBroadcastSetting",
+            ).generateEphemeralSharedSecret(),
+            l = e.to,
+            s = new Map(),
+            u = [].concat(a, [
+              { lid: r, setting: { duration: 0, timestamp: 0 } },
+            ]);
+          return (
+            yield b.all(
+              u.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e.lid,
+                        n = e.setting,
+                        a = yield o(
+                          "WAWebEphemeralEncodeBroadcastSetting",
+                        ).encodeBroadcastEphemeralSetting({
+                          broadcastJid: l,
+                          duration: n.duration,
+                          recipient: t,
+                          sender: r,
+                          sharedSecret: i,
+                          timestamp: n.timestamp,
+                        });
+                      s.set(t.toString(), a);
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            ),
+            { sharedSecret: i, ephSettingMap: s }
+          );
+        })),
+        D.apply(this, arguments)
       );
     }
     l.sendBroadcastMsgAction = k;
