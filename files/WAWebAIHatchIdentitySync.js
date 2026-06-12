@@ -39,12 +39,15 @@ __d(
             s(t, o("WAWebBotUtils").HATCH_BOT_FBID_WID, e.name, e.avatarUrl);
         }));
     }
-    function c(e, t, n) {
+    function c(e) {
+      var t = e.contact,
+        n = e.force,
+        a = e.wid;
       (u(),
         o("WAWebAIHatchIdentityStore")
           .getHatchIdentity(n)
-          .then(function (n) {
-            s(e, t, n.name, n.avatarUrl);
+          .then(function (e) {
+            s(t, a, e.name, e.avatarUrl);
           })
           .catch(r("WAWebNoop")));
     }

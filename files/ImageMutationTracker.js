@@ -6,7 +6,8 @@ __d(
     var e,
       s = null,
       u = new Set(),
-      c = (function () {
+      c = new Set(),
+      d = (function () {
         function t() {
           ((this.$2 = !1),
             (this.$3 =
@@ -46,7 +47,7 @@ __d(
                     r.hasAttribute("data-imgperflogname")
                   ) {
                     var i;
-                    ((i = t.$3) == null || i.add(r), g(r, "imgLoad", a));
+                    ((i = t.$3) == null || i.add(r), C(r, "imgLoad", a));
                     return;
                   } else if (o("VisualCompletionUtil").isElementNode(r)) {
                     var l = t.$5(r);
@@ -54,7 +55,7 @@ __d(
                       var n;
                       if (!((n = t.$3) != null && n.has(e))) {
                         var r;
-                        ((r = t.$3) == null || r.add(e), g(e, "imgLoad", a));
+                        ((r = t.$3) == null || r.add(e), C(e, "imgLoad", a));
                       }
                     });
                   }
@@ -69,7 +70,7 @@ __d(
                     if (!((i = t.$3) != null && i.has(n))) {
                       var l;
                       ((l = t.$3) == null || l.add(n),
-                        g(n, "mutationHiddenAttribute", a));
+                        C(n, "mutationHiddenAttribute", a));
                     }
                   }
                 } else if (r === "style") {
@@ -83,7 +84,7 @@ __d(
                     if (!((c = t.$3) != null && c.has(n))) {
                       var d;
                       ((d = t.$3) == null || d.add(n),
-                        g(n, "mutationStyleAttribute", a));
+                        C(n, "mutationStyleAttribute", a));
                     }
                   }
                 } else if (
@@ -96,10 +97,27 @@ __d(
                   if (!((m = t.$3) != null && m.has(n))) {
                     var p;
                     ((p = t.$3) == null || p.add(n),
-                      g(n, "mutationImageAttribute", a));
+                      C(n, "mutationImageAttribute", a));
                   }
                 }
               }
+              e.type === "childList" &&
+                e.removedNodes &&
+                e.removedNodes.length &&
+                Array.from(e.removedNodes).forEach(function (e) {
+                  var n = e;
+                  if (
+                    o("VisualCompletionUtil").isImage(n) &&
+                    n.hasAttribute("data-imgperflogname")
+                  )
+                    b(n);
+                  else if (o("VisualCompletionUtil").isElementNode(n)) {
+                    var r = t.$5(n);
+                    r.forEach(function (e) {
+                      return b(e);
+                    });
+                  }
+                });
             });
           }),
           (n.$5 = function (t) {
@@ -121,31 +139,44 @@ __d(
           t
         );
       })();
-    function d() {
-      return (s || (s = new c()), s);
+    function m() {
+      return (s || (s = new d()), s);
     }
-    function m(e) {
-      (e != null && _(e), d().init());
+    function p(e, t) {
+      (e != null && f(e), t != null && h(t), m().init());
     }
-    function p() {
+    function _() {
       s && s.disconnect();
     }
-    function _(e) {
+    function f(e) {
       u.add(e);
     }
-    function f(e) {
+    function g(e) {
       u.delete(e);
     }
-    function g(e, t, n) {
+    function h(e) {
+      c.add(e);
+    }
+    function y(e) {
+      c.delete(e);
+    }
+    function C(e, t, n) {
       u.forEach(function (r) {
         return r(e, t, n);
       });
     }
-    ((l.getInstance = d),
-      (l.init = m),
-      (l.disconnect = p),
-      (l.subscribeImageLoadStart = _),
-      (l.unsubscribeImageLoadStart = f));
+    function b(e) {
+      c.forEach(function (t) {
+        return t(e);
+      });
+    }
+    ((l.getInstance = m),
+      (l.init = p),
+      (l.disconnect = _),
+      (l.subscribeImageLoadStart = f),
+      (l.unsubscribeImageLoadStart = g),
+      (l.subscribeImageRemove = h),
+      (l.unsubscribeImageRemove = y));
   },
   98,
 );

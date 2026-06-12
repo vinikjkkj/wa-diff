@@ -9,6 +9,7 @@ __d(
     "WAWebBuildConstants",
     "WAWebExternalLink.react",
     "WAWebMiscBrowserUtils",
+    "WAWebTrackBrowserTabHidden",
     "fbs",
   ],
   function (t, n, r, o, a, i, l) {
@@ -97,7 +98,8 @@ __d(
         }),
         window.addEventListener("drop", function (e) {
           e.preventDefault();
-        }));
+        }),
+        o("WAWebTrackBrowserTabHidden").trackBrowserTabHidden());
     }
     function p() {
       ["getSelection", "open", "focus"].forEach(function (e) {

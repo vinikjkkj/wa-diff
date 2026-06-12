@@ -25,14 +25,14 @@ __d(
           ((d = new WeakMap()), (u = new WeakSet())),
         o("WebAPIs").IntersectionObserver &&
           (c = new (o("WebAPIs").IntersectionObserver)(y)),
-        o("ImageMutationTracker").init(_),
+        o("ImageMutationTracker").init(_, I),
         (m = !0));
     }
     function _(e, t, n) {
       var r, o, a;
       if (
         !(!d || !c) &&
-        T(e) &&
+        D(e) &&
         !(((r = u) != null && r.has(e)) || ((o = d) != null && o.has(e)))
       ) {
         if (((a = u) == null || a.add(e), f(e))) {
@@ -45,7 +45,7 @@ __d(
           return;
         }
         if (!f(e)) {
-          I(e, t, n);
+          T(e, t, n);
           return;
         }
       }
@@ -87,50 +87,50 @@ __d(
         }
       });
     }
-    function C(t, n, a, i) {
+    function C(t, n, a, i, l) {
       if (!(!d || !c)) {
-        var l = r("uuidv4")(),
-          u = (e || (e = r("performanceNow")))(),
-          m = {
+        var u = l != null ? l : r("uuidv4")(),
+          m = (e || (e = r("performanceNow")))(),
+          p = {
             element: t,
-            traceID: l,
+            traceID: u,
             mutationTime: a,
             mutationType: n,
-            startPaintingTime: u,
+            startPaintingTime: m,
             imageOnLoadTime: i,
           };
         if (h())
-          (L(babelHelpers.extends({}, m, { endPainingTime: u })),
-            r("OneTraceCore").endTrace(l, u, "SUCCESS"));
+          (L(babelHelpers.extends({}, p, { endPainingTime: m })),
+            r("OneTraceCore").endTrace(u, m, "SUCCESS"));
         else {
-          var p,
-            _,
-            f = setTimeout(function () {
+          var _,
+            f,
+            g = setTimeout(function () {
               var n = (e || (e = r("performanceNow")))();
-              (L(babelHelpers.extends({}, m, { endPainingTime: n })),
-                r("OneTraceCore").endTrace(l, n, "TIMEOUT"),
+              (L(babelHelpers.extends({}, p, { endPainingTime: n })),
+                r("OneTraceCore").endTrace(u, n, "TIMEOUT"),
                 k(t));
             }, s),
-            g = function (o, a) {
+            y = function (o, a) {
               if (a) {
                 var n = (e || (e = r("performanceNow")))();
-                (L(babelHelpers.extends({}, m, { endPainingTime: n })),
-                  r("OneTraceCore").endTrace(l, n, "SUCCESS"),
+                (L(babelHelpers.extends({}, p, { endPainingTime: n })),
+                  r("OneTraceCore").endTrace(u, n, "SUCCESS"),
                   k(t));
               }
             };
-          (o("VisibilityState").subscribe(g),
-            (p = d) == null ||
-              p.set(t, {
-                timer: f,
-                traceID: l,
-                visibilityChangeCallaback: g,
+          (o("VisibilityState").subscribe(y),
+            (_ = d) == null ||
+              _.set(t, {
+                timer: g,
+                traceID: u,
+                visibilityChangeCallaback: y,
                 mutationType: n,
                 mutationTime: a,
-                startPaintingTime: u,
+                startPaintingTime: m,
                 imageOnLoadTime: i,
               }),
-            (_ = c) == null || _.observe(t));
+            (f = c) == null || f.observe(t));
         }
       }
     }
@@ -224,34 +224,29 @@ __d(
         r("addAnnotations")(h.annotations, { string: m, int: p });
       }
     }
-    function E(t, n, o, a) {
-      var i = function () {
-          (C(t, n, o, a),
-            t.removeEventListener("load", i),
-            t.removeEventListener("error", l));
+    function E(t, n, o, a, i) {
+      var l = function () {
+          (C(t, n, o, a, i),
+            t.removeEventListener("load", l),
+            t.removeEventListener("error", s));
         },
-        l = function () {
-          var s,
-            u = (s = d) == null ? void 0 : s.get(t);
-          if (u) {
-            var c = u.startPaintingTime,
-              m = u.traceID,
-              p = (e || (e = r("performanceNow")))();
-            (L({
-              element: t,
-              mutationTime: o,
-              mutationType: n,
-              startPaintingTime: c,
-              endPainingTime: p,
-              traceID: m,
-              imageOnLoadTime: a,
-            }),
-              r("OneTraceCore").endTrace(m, p, "FAIL"),
-              k(t));
-          }
-          (t.removeEventListener("load", i), t.removeEventListener("error", l));
+        s = function () {
+          var u = (e || (e = r("performanceNow")))();
+          (L({
+            element: t,
+            mutationTime: o,
+            mutationType: n,
+            startPaintingTime: a,
+            endPainingTime: u,
+            traceID: i,
+            imageOnLoadTime: a,
+          }),
+            r("OneTraceCore").endTrace(i, u, "FAIL"),
+            k(t),
+            t.removeEventListener("load", l),
+            t.removeEventListener("error", s));
         };
-      return { errorHandler: l, loadHandler: i };
+      return { errorHandler: s, loadHandler: l };
     }
     function k(e) {
       var t,
@@ -266,17 +261,41 @@ __d(
           o("VisibilityState").unsubscribe(s));
       }
     }
-    function I(t, n, o) {
-      var a = (e || (e = r("performanceNow")))(),
-        i = E(t, n, o, a),
-        l = i.errorHandler,
-        s = i.loadHandler;
-      (t.addEventListener("load", s), t.addEventListener("error", l));
+    function I(t) {
+      var n,
+        o = (n = d) == null ? void 0 : n.get(t);
+      if (o != null) {
+        var a = (e || (e = r("performanceNow")))(),
+          i = o.imageOnLoadTime,
+          l = o.mutationTime,
+          s = o.mutationType,
+          u = o.startPaintingTime,
+          c = o.traceID;
+        (L({
+          element: t,
+          traceID: c,
+          mutationType: s,
+          mutationTime: l,
+          startPaintingTime: u,
+          endPainingTime: a,
+          imageOnLoadTime: i,
+        }),
+          r("OneTraceCore").endTrace(c, a, "CANCEL"),
+          k(t));
+      }
     }
-    function T(e) {
-      return D(e) === "IMG";
+    function T(t, n, o) {
+      var a = (e || (e = r("performanceNow")))(),
+        i = r("uuidv4")(),
+        l = E(t, n, o, a, i),
+        s = l.errorHandler,
+        u = l.loadHandler;
+      (t.addEventListener("load", u), t.addEventListener("error", s));
     }
     function D(e) {
+      return x(e) === "IMG";
+    }
+    function x(e) {
       var t;
       return (t = e.tagName) != null ? t : "";
     }

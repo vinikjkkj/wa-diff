@@ -48,6 +48,7 @@ __d(
       "InitialChatLoad",
       "LoadMainScreen",
       "ClosingBrowserTab",
+      "BrowserTabHidden",
     ]);
     function s(e, t, n) {
       Object.prototype.hasOwnProperty.call(e, "appContext") ||

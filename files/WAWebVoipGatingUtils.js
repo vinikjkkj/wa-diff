@@ -251,9 +251,11 @@ __d(
           : o("WAWebABProps").getABPropConfigValue("enable_web_calling");
     }
     function N() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "enable_web_voip_webtransport",
-      );
+      return f()
+        ? !1
+        : o("WAWebABProps").getABPropConfigValue(
+            "enable_web_voip_webtransport",
+          );
     }
     function M() {
       var e = o("WAWebABProps").getABPropConfigValue("enable_web_calling"),

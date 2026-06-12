@@ -599,18 +599,36 @@ __d(
         : !1;
     }
     function re(e) {
-      (o("WALogger").LOG(
+      o("WALogger").LOG(
         _ ||
           (_ = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [WebTransportConnectionManager] Received relay list update",
           ])),
-      ),
-        (w = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(e)));
+      );
+      var t = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(e);
+      (ae(t) && o("WAWebCoreActionsODS").logCallWebtransportRelaysIpv6Only(),
+        (w = oe(t)));
     }
-    function oe() {
+    function oe(e) {
+      var t = new Set();
+      for (var n of e.values()) n.isIPv6 || t.add(n.relayId);
+      var r = new Map();
+      for (var o of e) {
+        var a = o[0],
+          i = o[1];
+        (i.isIPv6 && t.has(i.relayId)) || r.set(a, i);
+      }
+      return r;
+    }
+    function ae(e) {
+      if (e.size === 0) return !1;
+      for (var t of e.values()) if (!t.isIPv6) return !1;
+      return !0;
+    }
+    function ie() {
       F = !0;
     }
-    function ae() {
+    function le() {
       (o("WALogger").LOG(
         f ||
           (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -639,8 +657,8 @@ __d(
     ((l.registerPacketHandler = q),
       (l.sendData = ee),
       (l.handleRelayListUpdate = re),
-      (l.prepareForEndCall = oe),
-      (l.closeAllConnections = ae));
+      (l.prepareForEndCall = ie),
+      (l.closeAllConnections = le));
   },
   98,
 );

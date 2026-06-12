@@ -7,15 +7,18 @@ __d(
     "WALogger",
     "WAMemoizeConcurrent",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebCreateMediaUploadMetrics",
     "WAWebCryptoEncryptMedia",
+    "WAWebCryptoEncryptMediaFromBlobLoadable",
     "WAWebCryptoRandomMediaKey",
     "WAWebFileUtils",
     "WAWebMediaDebugString",
     "WAWebMmsClient",
     "WAWebMmsClientErrors",
     "WAWebMmsDownloadUploadCrashLogger",
+    "WAWebMmsMediaTypes",
     "WAWebNullFunc",
     "WAWebPonyfillsUrlSearchParams",
     "asyncToGeneratorRuntime",
@@ -318,7 +321,41 @@ __d(
                 );
                 try {
                   var O = b(e),
-                    B = (C || (C = n("Promise")))
+                    B =
+                      m === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
+                      a instanceof Blob
+                        ? o("WAWebABProps").getABPropConfigValue(
+                            "web_streaming_document_encrypt_min_bytes",
+                          )
+                        : 0,
+                    W;
+                  if (B > 0 && a instanceof Blob && a.size >= B) {
+                    var q = a;
+                    W = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* () {
+                        var e = yield o(
+                          "WAWebCryptoEncryptMediaFromBlobLoadable",
+                        ).requireEncryptMediaFromBlob();
+                        (L(q.size),
+                          I(),
+                          o("WAWebAppTracker").AppTracker.start(
+                            o("WAWebAppTracker").AppTrackerType.MediaProcessing,
+                          ));
+                        try {
+                          return yield e({
+                            type: m,
+                            blob: q,
+                            mediaKey: O.mediaKey,
+                          });
+                        } finally {
+                          o("WAWebAppTracker").AppTracker.stop(
+                            o("WAWebAppTracker").AppTrackerType.MediaProcessing,
+                          );
+                        }
+                      },
+                    )();
+                  } else
+                    W = (C || (C = n("Promise")))
                       .resolve(a)
                       .then(function (e) {
                         o(
@@ -362,52 +399,52 @@ __d(
                             );
                           })
                         );
-                      })
-                      .then(function (n) {
-                        var r,
-                          a = n.ciphertextHmac,
-                          l = n.firstFrameSidecar,
-                          s = n.hash,
-                          c = n.sidecar;
-                        (T(),
-                          o(
-                            "WAWebMmsDownloadUploadCrashLogger",
-                          ).downloadUploadCrashLogger.mark(
-                            A,
-                            o("WAWebMmsDownloadUploadCrashLogger").ProgressType
-                              .UPLOAD_ENCRYPTION_FINISHED,
-                          ));
-                        var p = e.mediaKey ? t.$2 : t.$3;
-                        return p({
-                          ciphertextHmac: a,
+                      });
+                  var U = W.then(function (n) {
+                      var r,
+                        a = n.ciphertextHmac,
+                        l = n.firstFrameSidecar,
+                        s = n.hash,
+                        c = n.sidecar;
+                      (T(),
+                        o(
+                          "WAWebMmsDownloadUploadCrashLogger",
+                        ).downloadUploadCrashLogger.mark(
+                          A,
+                          o("WAWebMmsDownloadUploadCrashLogger").ProgressType
+                            .UPLOAD_ENCRYPTION_FINISHED,
+                        ));
+                      var p = e.mediaKey ? t.$2 : t.$3;
+                      return p({
+                        ciphertextHmac: a,
+                        encFilehash: s,
+                        type: m,
+                        signal: d,
+                        onCheckExistingSuccess: k,
+                        onCheckExistingError: E,
+                        onUploadHostFound: N,
+                        onUploadAttemptSuccess: $,
+                        onUploadAttemptError: x,
+                        onUploadSuccess: w,
+                        onProgress: F,
+                        onFinalize: u,
+                        onStreamUploadStart: D,
+                        mediaId: A,
+                        token: (r = e.token) != null ? r : s,
+                      }).then(function (e) {
+                        return {
+                          directPath: i ? R(e.directPath) : e.directPath,
                           encFilehash: s,
-                          type: m,
-                          signal: d,
-                          onCheckExistingSuccess: k,
-                          onCheckExistingError: E,
-                          onUploadHostFound: N,
-                          onUploadAttemptSuccess: $,
-                          onUploadAttemptError: x,
-                          onUploadSuccess: w,
-                          onProgress: F,
-                          onFinalize: u,
-                          onStreamUploadStart: D,
-                          mediaId: A,
-                          token: (r = e.token) != null ? r : s,
-                        }).then(function (e) {
-                          return {
-                            directPath: i ? R(e.directPath) : e.directPath,
-                            encFilehash: s,
-                            mediaKey: O.mediaKey,
-                            mediaKeyTimestamp: O.mediaKeyTimestamp,
-                            sidecar: c,
-                            firstFrameSidecar: l,
-                            url: e.url,
-                            handle: e.handle,
-                          };
-                        });
-                      }),
-                    W = yield B;
+                          mediaKey: O.mediaKey,
+                          mediaKeyTimestamp: O.mediaKeyTimestamp,
+                          sidecar: c,
+                          firstFrameSidecar: l,
+                          url: e.url,
+                          handle: e.handle,
+                        };
+                      });
+                    }),
+                    V = yield U;
                   return (
                     o("WALogger").LOG(
                       g ||
@@ -423,7 +460,7 @@ __d(
                         .UPLOAD_FINISHED,
                     ),
                     e.uploadQpl.endSuccess(),
-                    W
+                    V
                   );
                 } catch (t) {
                   throw (

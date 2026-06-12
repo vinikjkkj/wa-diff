@@ -6,8 +6,10 @@ __d(
     "WAWebBaseCollection",
     "WAWebContactComparator",
     "WAWebContactSearchGatingUtils",
+    "WAWebL10NAccentFold",
     "WAWebOutContactInviteGating",
     "WAWebOutContactModel",
+    "WAWebPhoneNumberSearch",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -18,6 +20,11 @@ __d(
         babelHelpers.inheritsLoose(n, t);
         var r = n.prototype;
         return (
+          (r.getContacts = function () {
+            return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
+              ? [].concat(this.getModelsArray())
+              : [];
+          }),
           (r.getFilteredContacts = function (t) {
             if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
               return [];
@@ -26,31 +33,35 @@ __d(
               return []
                 .concat(e)
                 .sort(o("WAWebContactComparator").ContactComparator);
-            var n = t.toLowerCase();
+            var n = o("WAWebL10NAccentFold").accentFold(t).toLowerCase(),
+              r = o("WAWebPhoneNumberSearch").numberSearch(n);
             return e
               .filter(function (e) {
-                return u(e, n);
+                return c(e, n, r);
               })
               .sort(o("WAWebContactComparator").ContactComparator);
           }),
           (r.searchOutContacts = function (n) {
-            var t = n.query;
+            var t = n.query,
+              r = n.skipFuzzySearch,
+              a = r === void 0 ? !1 : r;
             if (
               !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
               !t.text
             )
               return [];
-            var r = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
-              a = this.getModelsArray(),
-              i = [];
-            for (var l of a) {
-              var s = r
-                ? l.searchMatchPrefix(t.text, t.number)
-                : l.searchMatchExact(t.text, t.number);
-              s != null && i.push({ outContact: l, searchMatch: s });
+            var i = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
+              l = this.getModelsArray(),
+              s = [];
+            for (var c of l) {
+              var d = i
+                ? c.searchMatchPrefix(t.text, t.number)
+                : c.searchMatchExact(t.text, t.number);
+              d != null && s.push({ outContact: c, searchMatch: d });
             }
             if (
-              i.length > 0 ||
+              s.length > 0 ||
+              a ||
               !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
               !o(
                 "WAWebContactSearchGatingUtils",
@@ -58,16 +69,16 @@ __d(
                 t.text.split(/\s+/).filter(Boolean),
               )
             )
-              return i;
-            var u =
+              return u(s);
+            var m =
                 o(
                   "WAWebContactSearchGatingUtils",
                 ).getFuzzySearchTimeoutThreshold() * 1e3,
-              c = new (o("WATimeUtils").MonotonicTimer)(),
-              d = [];
-            for (var m of a) {
-              var p = c.elapsed();
-              if (p > u) {
+              p = new (o("WATimeUtils").MonotonicTimer)(),
+              _ = [];
+            for (var f of l) {
+              var g = p.elapsed();
+              if (g > m) {
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -75,26 +86,36 @@ __d(
                       "ms (limit ",
                       "ms)",
                     ])),
-                  p,
-                  u,
+                  g,
+                  m,
                 );
                 break;
               }
-              var _ = m.searchMatchFuzzy(t.text);
-              _ != null && d.push({ outContact: m, searchMatch: _ });
+              var h = f.searchMatchFuzzy(t.text);
+              h != null && _.push({ outContact: f, searchMatch: h });
             }
-            return d;
+            return u(_);
           }),
           n
         );
       })(o("WAWebBaseCollection").BaseCollection);
     s.model = r("WAWebOutContactModel");
-    function u(e, t) {
-      var n = e.getName().toLowerCase();
-      return !!(n.includes(t) || e.phoneNumber.includes(t));
+    function u(e) {
+      return e.sort(function (e, t) {
+        return o("WAWebContactComparator").ContactComparator(
+          e.outContact,
+          t.outContact,
+        );
+      });
     }
-    var c = new s();
-    ((l.OutContactCollectionImpl = s), (l.OutContactCollection = c));
+    function c(e, t, n) {
+      var r = o("WAWebL10NAccentFold").accentFold(e.getName()).toLowerCase();
+      if (r.includes(t)) return !0;
+      var a = n != null ? n : t;
+      return !!e.phoneNumber.includes(a);
+    }
+    var d = new s();
+    ((l.OutContactCollectionImpl = s), (l.OutContactCollection = d));
   },
   98,
 );

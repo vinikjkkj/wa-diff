@@ -32,8 +32,9 @@ __d(
                 s,
                 u,
                 c,
-                d = e.mediaData,
-                m = null;
+                d,
+                m = e.mediaData,
+                p = null;
               ((n = e.mediaData) == null ? void 0 : n.mediaBlob) == null &&
                 (yield e.downloadMedia({
                   downloadEvenIfExpensive: !0,
@@ -41,35 +42,39 @@ __d(
                     .WEBC_RMR_REASON_CODE.SEND_TO_CHAT,
                   isUserInitiated: !0,
                 }));
-              var p = (a = e.mediaData) == null ? void 0 : a.mediaBlob;
+              var _ = (a = e.mediaData) == null ? void 0 : a.mediaBlob;
               if (
-                (p instanceof r("WAWebMediaOpaqueData")
-                  ? (m = p.forceToBlob())
+                (_ instanceof r("WAWebMediaOpaqueData")
+                  ? (p = _.forceToBlob())
                   : ((i = e.mediaData) == null ? void 0 : i.filehash) != null &&
-                    (m = o(
+                    (p = o(
                       "WAWebMediaInMemoryBlobCache",
                     ).InMemoryMediaBlobCache.get(e.mediaData.filehash)),
-                m == null)
+                p == null)
               )
                 return null;
-              var _ = new File([m], "forwarded-media", {
-                type:
-                  m.type ||
-                  ((l = e.mediaData) == null ? void 0 : l.mimetype) ||
-                  "image/jpeg",
-              });
+              var f = new File(
+                [p],
+                (l = e.filename) != null ? l : "forwarded-media",
+                {
+                  type:
+                    p.type ||
+                    ((s = e.mediaData) == null ? void 0 : s.mimetype) ||
+                    "image/jpeg",
+                },
+              );
               t = {
-                file: _,
+                file: f,
                 fileExt: o("WAWebFileUtils").getFileExtension(
-                  (s = e.filename) != null ? s : "",
+                  (u = e.filename) != null ? u : "",
                 ),
-                fileName: (u = e.filename) != null ? u : "",
-                fileSize: d.size,
+                fileName: (c = e.filename) != null ? c : "",
+                fileSize: m.size,
                 mediaType: e.type,
-                mimetype: d.mimetype,
-                pageCount: (c = d.pageCount) != null ? c : 0,
-                previewSize: { width: d.fullWidth, height: d.fullHeight },
-                previewUrl: URL.createObjectURL(_),
+                mimetype: m.mimetype,
+                pageCount: (d = m.pageCount) != null ? d : 0,
+                previewSize: { width: m.fullWidth, height: m.fullHeight },
+                previewUrl: URL.createObjectURL(f),
               };
             }
             return t;

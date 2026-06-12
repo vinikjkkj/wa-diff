@@ -10,7 +10,7 @@ __d(
     "WAWebFlex.react",
     "WAWebModal.react",
     "WAWebModalManager",
-    "WAWebSmbPerCustomerDataSharingControlWamEvent",
+    "WAWebPerCustomerDataSharingControlLogging",
     "WAWebSpinner.react",
     "WAWebText_DONOTUSE.react",
     "WAWebThemeContext",
@@ -30,28 +30,24 @@ __d(
       c = e,
       d = c.useEffect,
       m = c.useState,
-      p = 1,
-      _ = !0;
-    function f(e) {
-      var t = new (o(
-        "WAWebSmbPerCustomerDataSharingControlWamEvent",
-      ).SmbPerCustomerDataSharingControlWamEvent)();
-      ((t.smbPerCustomerDataSharingControlAction = e.action),
-        e.actionOptInStatus != null &&
-          (t.smbPerCustomerDataSharingControlActionOptInStatus =
-            e.actionOptInStatus),
-        (t.smbPerCustomerDataSharingControlCurrentOptInStatus = _),
-        (t.smbPerCustomerDataSharingControlEntryPoint = e.entryPoint),
-        (t.smbPerCustomerDataSharingControlVersion = p),
-        t.commit());
+      p = !0;
+    function _(e) {
+      o(
+        "WAWebPerCustomerDataSharingControlLogging",
+      ).logPerCustomerDataSharingControlEvent({
+        action: e.action,
+        actionOptInStatus: e.actionOptInStatus,
+        currentOptInStatus: p,
+        entryPoint: e.entryPoint,
+      });
     }
-    function g(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(3),
         n,
         r;
       (t[0] !== e
         ? ((n = function () {
-            f({
+            _({
               action: o("WAWebWamEnumSmbPerCustomerDataSharingControlAction")
                 .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
                 .CONSENT_SCREEN_VIEW,
@@ -65,7 +61,7 @@ __d(
         : ((n = t[1]), (r = t[2])),
         d(n, r));
     }
-    var h = function () {
+    var g = function () {
         var e = s._(/*BTDS*/ "OK");
         o("WAWebToastManager").ToastManager.open(
           u.jsx(o("WAWebToast.react").Toast, {
@@ -75,7 +71,7 @@ __d(
           }),
         );
       },
-      y = {
+      h = {
         illustration: { width: "xh8yej3", $$css: !0 },
         title: { lineHeight: "x1u7k74", $$css: !0 },
         centered_text: { textAlign: "x2b8uid", $$css: !0 },
@@ -85,7 +81,7 @@ __d(
         paddingTop24: { paddingTop: "xl7twdi", $$css: !0 },
         paddingBottom24: { paddingBottom: "xvg22vi", $$css: !0 },
       };
-    function C() {
+    function y() {
       var e = o("react-compiler-runtime").c(5),
         t = o("WAWebThemeContext").useIsDarkTheme();
       t
@@ -112,7 +108,7 @@ __d(
       var a;
       e[1] === Symbol.for("react.memo_cache_sentinel")
         ? ((a = u.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: [y.paddingTop24, y.paddingBottom24, y.illustration],
+            xstyle: [h.paddingTop24, h.paddingBottom24, h.illustration],
             justify: "center",
             children: n,
           })),
@@ -125,7 +121,7 @@ __d(
               size: "20",
               color: "dark",
               weight: "medium",
-              xstyle: [y.marginBottom12, y.title, y.centered_text],
+              xstyle: [h.marginBottom12, h.title, h.centered_text],
               children: s._(/*BTDS*/ "Stop sharing data for this customer?"),
             }),
           })),
@@ -146,12 +142,12 @@ __d(
                 a,
                 i,
                 u.jsx(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: y.marginBottom12,
+                  xstyle: h.marginBottom12,
                   children: u.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
                     size: "16",
                     color: "secondary",
                     weight: "normal",
-                    xstyle: y.paragraph,
+                    xstyle: h.paragraph,
                     children: [
                       l,
                       " ",
@@ -169,11 +165,11 @@ __d(
         c
       );
     }
-    var b = function () {
+    var C = function () {
       return u.jsx(o("WAWebFlex.react").FlexColumn, {
         align: "center",
         justify: "center",
-        xstyle: y.spinnerWrapper,
+        xstyle: h.spinnerWrapper,
         children: u.jsx(o("WAWebSpinner.react").Spinner, {
           color: "default",
           size: 48,
@@ -181,31 +177,23 @@ __d(
         }),
       });
     };
-    function v(e) {
+    function b(e) {
       var t = e.accountLid,
         a = e.entryPoint,
         i = m(!1),
         l = i[0],
         c = i[1];
-      g(a);
+      f(a);
       var d = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             c(!0);
             try {
               var e = o("WAWebWidFactory").createUserLidOrThrow(t);
-              (yield r(
+              yield r(
                 "WAWebCtwaPerCustomerDataSharingSync",
-              ).sendPerCustomerDataSharingUpdate(e, !1, a),
-                f({
-                  action: o(
-                    "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
-                  ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
-                    .CONSENT_SCREEN_CONFIRM,
-                  actionOptInStatus: !1,
-                  entryPoint: a,
-                }));
+              ).sendPerCustomerDataSharingUpdate(e, !1, a);
             } catch (e) {
-              h();
+              g();
             } finally {
               (c(!1), o("WAWebModalManager").ModalManager.close());
             }
@@ -214,12 +202,12 @@ __d(
             return e.apply(this, arguments);
           };
         })(),
-        p = function () {
-          (f({
+        h = function () {
+          (_({
             action: o("WAWebWamEnumSmbPerCustomerDataSharingControlAction")
               .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
               .CONSENT_SCREEN_CANCEL,
-            actionOptInStatus: _,
+            actionOptInStatus: p,
             entryPoint: a,
           }),
             o("WAWebModalManager").ModalManager.close());
@@ -232,13 +220,13 @@ __d(
         okDisabled: l,
         cancelDisabled: l,
         okText: s._(/*BTDS*/ "Stop sharing"),
-        onCancel: p,
-        onOverlayClick: p,
+        onCancel: h,
+        onOverlayClick: h,
         cancelText: s._(/*BTDS*/ "Continue sharing"),
-        children: l ? u.jsx(b, {}) : u.jsx(C, {}),
+        children: l ? u.jsx(C, {}) : u.jsx(y, {}),
       });
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));
+    ((b.displayName = b.name + " [from " + i.id + "]"), (l.default = b));
   },
   226,
 );

@@ -15,9 +15,13 @@ __d(
               firstName: t,
             });
           });
-        o("WAWebOutContactCollection").OutContactCollection.add(n, {
+        (o("WAWebOutContactCollection").OutContactCollection.add(n, {
           merge: !0,
-        });
+          silent: !0,
+        }),
+          o("WAWebOutContactCollection").OutContactCollection.trigger(
+            "change",
+          ));
       },
       bulkRemoveOutContacts: function (t) {
         var e = t.ids;

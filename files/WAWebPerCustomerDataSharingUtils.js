@@ -133,7 +133,6 @@ __d(
                 {
                   entrypoint: t,
                   chats: a != null ? [a] : null,
-                  perCustomerEntryPoint: n,
                   callback: function () {
                     o(
                       "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
@@ -141,6 +140,7 @@ __d(
                       accountLid: e,
                       perCustomerDataSharingState: i,
                       entryPoint: n,
+                      globalDataSharingEntryPoint: t,
                     });
                   },
                 },

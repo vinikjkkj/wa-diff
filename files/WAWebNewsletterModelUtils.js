@@ -78,14 +78,17 @@ __d(
         l =
           (r = e.newsletterCreationTimeMetadataMixin) == null
             ? void 0
-            : r.creationTimeValue;
-      return {
-        id: o("WAWebWidFactory").createWid(e.idJid),
-        name: a != null ? a : void 0,
-        isReadOnly: i != null ? !b(i) : void 0,
-        muteExpiration: k(e, "MUTE_ADMIN_ACTIVITY"),
-        t: l != null ? o("WATimeUtils").castToUnixTime(l) : void 0,
-      };
+            : r.creationTimeValue,
+        s = k(e, "MUTE_ADMIN_ACTIVITY");
+      return babelHelpers.extends(
+        {
+          id: o("WAWebWidFactory").createWid(e.idJid),
+          name: a != null ? a : void 0,
+          isReadOnly: i != null ? !b(i) : void 0,
+          t: l != null ? o("WATimeUtils").castToUnixTime(l) : void 0,
+        },
+        s != null && { muteExpiration: s },
+      );
     }
     function S(e) {
       var t = E(e);

@@ -6,22 +6,32 @@ __d(
     "WASyncdConst",
     "WATimeUtils",
     "WAWebBackendApi",
+    "WAWebPerCustomerDataSharingControlLogging",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaDataSharing3pdLidV2",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdCoreApi",
     "WAWebSyncdIndexUtils",
+    "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m = (function (t) {
+    var e, s, u, c, d;
+    function m(e) {
+      o(
+        "WAWebPerCustomerDataSharingControlLogging",
+      ).logPerCustomerDataSharingControlEvent({
+        action: o("WAWebWamEnumSmbPerCustomerDataSharingControlAction")
+          .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION.CONSENT_SCREEN_CONFIRM,
+        actionOptInStatus: e.actionOptInStatus,
+        currentOptInStatus: e.currentOptInStatus,
+        entryPoint: e.entryPoint,
+        globalDataSharingEntryPoint: e.globalDataSharingEntryPoint,
+      });
+    }
+    var p = (function (t) {
         function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -238,34 +248,50 @@ __d(
           }),
           (a.sendPerCustomerDataSharingUpdate = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r) {
-                var a = this,
-                  i = this.getCtwaPerCustomerDataSharingMutation({
+              function* (e, t, r, a) {
+                var i = this,
+                  l,
+                  s,
+                  u = this.getCtwaPerCustomerDataSharingMutation({
                     accountLid: e,
                     isEnabled: t,
                   }),
-                  l = o(
+                  c = o(
                     "WAWebSchemaDataSharing3pdLidV2",
                   ).getDataSharing3pdLidTable(),
-                  s = e.toString();
-                (yield o("WAWebSyncdCoreApi").lockForSync(
+                  d = e.toString(),
+                  p;
+                yield o("WAWebSyncdCoreApi").lockForSync(
                   ["data-sharing-3pd-lid-v2"],
-                  [i],
+                  [u],
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    yield a.$CtwaPerCustomerDataSharingSync$p_1(l, s, t);
+                    ((p = yield c.get(d)),
+                      yield i.$CtwaPerCustomerDataSharingSync$p_1(c, d, t));
                   }),
-                ),
+                );
+                var _ =
+                  (l = (s = p) == null ? void 0 : s.dataSharing3pdEnabled) !=
+                  null
+                    ? l
+                    : !0;
+                (m({
+                  actionOptInStatus: t,
+                  currentOptInStatus: _,
+                  entryPoint: r,
+                  globalDataSharingEntryPoint: a,
+                }),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "maybeGeneratePerCustomerDataSharingSystemMessage",
                     {
-                      accountLid: s,
+                      accountLid: d,
                       perCustomerDataSharingState: t,
                       entryPoint: r,
+                      globalDataSharingEntryPoint: a,
                     },
                   ));
               },
             );
-            function t(t, n, r) {
+            function t(t, n, r, o) {
               return e.apply(this, arguments);
             }
             return t;
@@ -273,8 +299,8 @@ __d(
           r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      p = new m();
-    l.default = p;
+      _ = new p();
+    l.default = _;
   },
   98,
 );

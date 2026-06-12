@@ -15,6 +15,7 @@ __d(
     "WAWebNotificationsStatusReactionNotification",
     "WAWebPollsVoteNotification",
     "WAWebStatusNotification",
+    "WAWebVoiceChatWaveNotification",
     "WAWebWaitingRoomNotification",
   ],
   function (t, n, r, o, a, i, l) {
@@ -123,29 +124,38 @@ __d(
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
+        new (o("WAWebVoiceChatWaveNotification").WAVoiceChatWaveNotification)(
+          e,
+        ),
+      );
+    }
+    function C(e) {
+      return o(
+        "WAWebNotificationController",
+      ).WANotificationController.triggerNotification(
         new (o("WAWebAiHandoffNotification").AiHandoffNotification)({
           chat: e,
         }),
       );
     }
-    function C() {
+    function b() {
       o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelAllNotifications();
     }
-    function b(e) {
+    function v(e) {
       o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelNotificationsForChat(e);
     }
-    function v(e) {
+    function S(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
         new (o("WAWebStatusNotification").WAStatusNotification)({ msg: e }),
       );
     }
-    function S(e) {
+    function R(e) {
       o("WAWebNotificationController").WANotificationController.setAppContext(
         e,
       );
@@ -160,11 +170,12 @@ __d(
       (l.showCallAcceptedElsewhereNotification = f),
       (l.showCallLinkJoinedNotification = g),
       (l.showWaitingRoomNotification = h),
-      (l.showAiHandoffNotification = y),
-      (l.shutdownAsNeeded = C),
-      (l.closeNotifications = b),
-      (l.showStatusNotification = v),
-      (l.setAppContext = S));
+      (l.showVoiceChatWaveNotification = y),
+      (l.showAiHandoffNotification = C),
+      (l.shutdownAsNeeded = b),
+      (l.closeNotifications = v),
+      (l.showStatusNotification = S),
+      (l.setAppContext = R));
   },
   98,
 );

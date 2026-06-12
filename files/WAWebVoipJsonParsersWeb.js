@@ -616,6 +616,18 @@ __d(
               (i = l.waiting_room_users_count) != null ? i : 0,
           };
         },
+        parseVoiceChatWaveReceivedData: function (t) {
+          var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (e == null)
+            throw r("err")("Invalid voice chat wave received data");
+          return {
+            callId: e.call_id,
+            senderWid: p(e.peer_user_jid),
+            groupJid: p(e.group_jid),
+            silenceReason: e.silence_reason,
+            isFirstWave: e.is_first_wave,
+          };
+        },
       },
       d = c;
     function m(e) {

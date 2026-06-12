@@ -6,30 +6,30 @@ __d(
     "WAWebContactSystemMsg",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgType",
+    "WAWebPerCustomerDataSharingControlLogging",
     "WAWebPerCustomerDataSharingUtils",
-    "WAWebSmbPerCustomerDataSharingControlWamEvent",
     "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 1;
-    function s(e) {
-      return u.apply(this, arguments);
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    function u() {
+    function s() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.accountLid,
-            r = t.entryPoint,
-            a = t.perCustomerDataSharingState,
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.accountLid,
+            n = e.entryPoint,
+            r = e.globalDataSharingEntryPoint,
+            a = e.perCustomerDataSharingState,
             i = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
           if (
             o(
               "WAWebPerCustomerDataSharingUtils",
-            ).isPerCustomerDataSharingFeatureEnabled(n, i)
+            ).isPerCustomerDataSharingFeatureEnabled(t, i)
           ) {
-            var l = o("WAWebWidFactory").createWid(n),
+            var l = o("WAWebWidFactory").createWid(t),
               s = yield o(
                 "WAWebPerCustomerDataSharingUtils",
               ).getLastDataSharingState(l),
@@ -45,29 +45,30 @@ __d(
                   : "biz_per_customer_3pd_data_share_opt_out",
                 templateParams: [],
               });
-              yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+              (yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: l,
                 newMsg: c,
                 handleSingleMsgOrigin: "perCustomerDataSharingNotification",
                 preserveOrder: !1,
-              });
-              var d = new (o(
-                "WAWebSmbPerCustomerDataSharingControlWamEvent",
-              ).SmbPerCustomerDataSharingControlWamEvent)();
-              ((d.smbPerCustomerDataSharingControlAction = o(
-                "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
-              ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION.SYSTEM_MESSAGE_INSERTED),
-                (d.smbPerCustomerDataSharingControlCurrentOptInStatus = u),
-                r != null && (d.smbPerCustomerDataSharingControlEntryPoint = r),
-                (d.smbPerCustomerDataSharingControlVersion = e),
-                d.commit());
+              }),
+                o(
+                  "WAWebPerCustomerDataSharingControlLogging",
+                ).logPerCustomerDataSharingControlEvent({
+                  action: o(
+                    "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
+                  ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
+                    .SYSTEM_MESSAGE_INSERTED,
+                  currentOptInStatus: u,
+                  entryPoint: n,
+                  globalDataSharingEntryPoint: r,
+                }));
             }
           }
         })),
-        u.apply(this, arguments)
+        s.apply(this, arguments)
       );
     }
-    l.maybeGeneratePerCustomerDataSharingSystemMessage = s;
+    l.maybeGeneratePerCustomerDataSharingSystemMessage = e;
   },
   98,
 );

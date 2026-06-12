@@ -88,13 +88,27 @@ __d(
         : m();
     }
     function k() {
-      return r("WANullthrows")(x(), "meDisplayName");
+      return o(
+        "WAWebBeyondPhoneNumberGatingUtils",
+      ).peerMessageLidMigrationOutgoingEnabled()
+        ? p()
+        : m();
     }
     function I() {
+      return o(
+        "WAWebBeyondPhoneNumberGatingUtils",
+      ).peerMessageLidMigrationOutgoingEnabled()
+        ? S()
+        : v();
+    }
+    function T() {
+      return r("WANullthrows")(P(), "meDisplayName");
+    }
+    function D() {
       var e = d();
       return e == null ? [m()] : [m(), e];
     }
-    function T(e) {
+    function x(e) {
       (h(),
         o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
           o("WAWebUserPrefsKeys").KEYS.LAST_WID_MD,
@@ -102,7 +116,7 @@ __d(
         ),
         o("WABaseGlobals").setMyJids(o("WAWebWidToJid").widToMyJids(e)));
     }
-    function D(e) {
+    function $(e) {
       (b(),
         o("WAWebRuntimeEnvironmentUtils").isWorker()
           ? o("WAWebGlobals").setMyLidDeviceJid(e.toString())
@@ -111,7 +125,7 @@ __d(
               e.toString(),
             ));
     }
-    function x() {
+    function P() {
       o("WAWebRuntimeEnvironmentUtils").isWorker() &&
         o("WAWebGlobals").getMyDisplayName();
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
@@ -119,7 +133,7 @@ __d(
       );
       if (typeof e == "string") return e;
     }
-    function $(e) {
+    function N(e) {
       o("WAWebRuntimeEnvironmentUtils").isWorker()
         ? o("WAWebGlobals").setMyDisplayName(e)
         : o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
@@ -127,7 +141,7 @@ __d(
             e,
           );
     }
-    function P(e) {
+    function M(e) {
       var t = e instanceof r("WAWebWid");
       if (!t)
         if (r("gkx")("26258"))
@@ -157,44 +171,44 @@ __d(
         }
       return t;
     }
-    function N(e) {
-      return e == null || !P(e) ? !1 : w(e) || M(e);
+    function w(e) {
+      return e == null || !M(e) ? !1 : F(e) || A(e);
     }
-    function M(e) {
+    function A(e) {
       var t = g();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function w(e) {
+    function F(e) {
       var t = d();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function A(e) {
-      if (e == null || !P(e)) return !1;
+    function O(e) {
+      if (e == null || !M(e)) return !1;
       if (e.equals(m())) return !0;
       var t = d();
       return t != null && e.equals(t);
     }
-    function F(e) {
-      if (e == null || !P(e)) return !1;
+    function B(e) {
+      if (e == null || !M(e)) return !1;
       var t = C();
       if (t != null && e.equals(t)) return !0;
       var n = g();
       return n != null && e.equals(n);
     }
-    function O(e) {
-      return N(o("WAWebWidFactory").createWid(e));
+    function W(e) {
+      return w(o("WAWebWidFactory").createWid(e));
     }
-    function B() {
+    function q() {
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
       );
       return (
         (typeof e != "string" || e === "") &&
-          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), W(e)),
+          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), U(e)),
         e
       );
     }
-    function W(e) {
+    function U(e) {
       return o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
         e,
@@ -214,19 +228,21 @@ __d(
       (l.getMeUser = R),
       (l.getMeUserMatchingAddressingMode = L),
       (l.getMeDeviceOrThrow = E),
-      (l.getMeDisplayNameOrThrow = k),
-      (l.getMePNandLIDWids = I),
-      (l.setMe = T),
-      (l.setMeLid = D),
-      (l.getMaybeMeDisplayName = x),
-      (l.setMeDisplayName = $),
-      (l.isMeAccount = N),
-      (l.isMePnUser = M),
-      (l.isMeDevice = A),
-      (l.isMePrimary = F),
-      (l.isSerializedWidMe = O),
-      (l.getUnknownId = B),
-      (l.setUnknownId = W));
+      (l.getMeDeviceForOutgoingPeerMessage = k),
+      (l.getMeUserForOutgoingPeerMessage = I),
+      (l.getMeDisplayNameOrThrow = T),
+      (l.getMePNandLIDWids = D),
+      (l.setMe = x),
+      (l.setMeLid = $),
+      (l.getMaybeMeDisplayName = P),
+      (l.setMeDisplayName = N),
+      (l.isMeAccount = w),
+      (l.isMePnUser = A),
+      (l.isMeDevice = O),
+      (l.isMePrimary = B),
+      (l.isSerializedWidMe = W),
+      (l.getUnknownId = q),
+      (l.setUnknownId = U));
   },
   98,
 );

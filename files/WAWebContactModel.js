@@ -344,10 +344,10 @@ __d(
                       stale: !1,
                       timestamp: Date.now(),
                     }),
-                o("WAWebAIHatchIdentitySync").syncHatchContactIdentity(
-                  this,
-                  this.id,
-                ));
+                o("WAWebAIHatchIdentitySync").syncHatchContactIdentity({
+                  contact: this,
+                  wid: this.id,
+                }));
             } else {
               if (this.name) return;
               if (o("WAWebBotUtils").isMetaAiBot(this.id))

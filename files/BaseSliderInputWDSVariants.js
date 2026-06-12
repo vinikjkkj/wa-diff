@@ -11,6 +11,16 @@ __d(
           $$css: !0,
         },
         inputDisabled: { opacity: "xti2d7y", cursor: "x1h6gzvc", $$css: !0 },
+        marker: {
+          backgroundColor: "xfn3atn",
+          borderStartStartRadius: "x1c9tyrk",
+          borderStartEndRadius: "xeusxvb",
+          borderEndEndRadius: "x1pahc9y",
+          borderEndStartRadius: "x1ertn4p",
+          height: "xqu0tyb",
+          width: "x51ohtg",
+          $$css: !0,
+        },
         progress: {
           backgroundColor: "xfn3atn",
           borderStartStartRadius: "xbjudin",
@@ -44,6 +54,7 @@ __d(
         xstyleConfig: {
           input: e.input,
           inputDisabled: e.inputDisabled,
+          marker: e.marker,
           progress: e.progress,
           thumb: e.thumb,
           track: e.track,
