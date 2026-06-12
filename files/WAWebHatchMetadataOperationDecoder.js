@@ -27,7 +27,8 @@ __d(
     }
     function u(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readField(e, "type");
-      if (r === "req" || r === "res") return null;
+      if (r === "req") return c(e, n);
+      if (r === "res") return null;
       var a = o("WAWebHatchJsonReaders").readField(e, "payload");
       if (!o("WAWebHatchJsonReaders").isObject(a))
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
@@ -41,20 +42,33 @@ __d(
       var l = o("WAWebHatchJsonReaders").readField(a, "payload"),
         s = o("WAWebHatchJsonReaders").readString(l, "session_id"),
         u = o("WAWebHatchJsonReaders").readNumber(a, "ts_ms"),
-        c = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
-        d = "SET";
+        d = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
+        m = "SET";
       return {
         type: "event",
         requestId: n,
         event: {
-          timestamp: c,
+          timestamp: d,
           index: i,
           opKey: i,
-          operation: d,
+          operation: m,
           payload: l,
           sessionId: s,
         },
       };
+    }
+    function c(e, t) {
+      var n = o("WAWebHatchJsonReaders").readField(e, "payload"),
+        r = o("WAWebHatchJsonReaders").readString(n, "method");
+      if (r !== "init/fetch")
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      if (t == null)
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      return { type: "req", requestId: t, request: { method: r } };
     }
     l.decodeHatchMetadataOperation = s;
   },

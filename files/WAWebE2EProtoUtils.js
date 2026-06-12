@@ -221,7 +221,10 @@ __d(
               .GROUP_MEMBER_LABEL_CHANGE ||
           u.type ===
             o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-              .MESSAGE_UNSCHEDULE)
+              .MESSAGE_UNSCHEDULE ||
+          u.type ===
+            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+              .AI_METADATA_OPERATION)
         ? o("WAWebBackendJobs.flow").DecryptFailType.Hide
         : o("WAWebBackendJobs.flow").DecryptFailType.Show;
     }

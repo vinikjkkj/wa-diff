@@ -18,6 +18,7 @@ __d(
     "WAWebGenerateEphemeralSyncResponseMessageProto",
     "WAWebGenerateExtendedTextUrlChatMessageProto",
     "WAWebGenerateGroupInviteMessageProto",
+    "WAWebGenerateHatchMetadataSyncProto",
     "WAWebGenerateHsmMessageProto",
     "WAWebGenerateImageMessageProto",
     "WAWebGenerateInteractiveMessageProto",
@@ -349,7 +350,7 @@ __d(
         {
           type: "protocol",
           subtype: "hatch_metadata_sync",
-          generateProtobuf: null,
+          generateProtobuf: r("WAWebGenerateHatchMetadataSyncProto"),
         },
         {
           type: "protocol",

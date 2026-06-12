@@ -2,6 +2,7 @@ __d(
   "WAWebHandleHatchMetadataSync",
   [
     "WALogger",
+    "WAWebAIHatchIdentityStore",
     "WAWebCurrentUser",
     "WAWebHandleHatchAgentStatus",
     "WAWebHatchPayloadDecoder",
@@ -24,8 +25,10 @@ __d(
         }
         var s = o("WAWebHatchPayloadDecoder").decodeHatchPayload(a);
         if ((d(n, a, s), a.operation === "REMOVE")) return;
-        s.kind === "agent_status" &&
-          o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(s.status);
+        s.kind === "agent_status"
+          ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(s.status)
+          : s.kind === "identity" &&
+            o("WAWebAIHatchIdentityStore").applyHatchIdentity(s.identity);
       } catch (t) {
         o("WALogger")
           .ERROR(
