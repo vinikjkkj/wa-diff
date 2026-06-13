@@ -45,15 +45,10 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_web_custom_label_signals_enabled",
-      );
-    }
-    function _() {
-      return o("WAWebABProps").getABPropConfigValue(
         "ctwa_custom_label_algorithm",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
@@ -64,9 +59,8 @@ __d(
       (l.isSMBEnhancedLoggingEnabled = c),
       (l.smartFiltersEnabled = d),
       (l.isCTWACustomLabelsSignalsEnabled = m),
-      (l.isCTWAWebCustomLabelsSignalsEnabled = p),
-      (l.getCTWACustomLabelAlgorithmGroup = _),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = f));
+      (l.getCTWACustomLabelAlgorithmGroup = p),
+      (l.isCTWASMBLabelChatHeaderEnabledWeb = _));
   },
   98,
 );

@@ -346,41 +346,35 @@ __d(
       return (
         (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "out_of_sync_disappearing_messages_logging",
-            )
-          ) {
-            o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "logEphemeralOutOfSync",
-                ])),
+          o("WALogger").LOG(
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
+                "logEphemeralOutOfSync",
+              ])),
+          );
+          var r =
+              (n = o("WAWebChatEphemerality").getEphemeralSetting(t)) != null
+                ? n
+                : 0,
+            a = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+              o("WAWebContactCollection").ContactCollection.getMeContact(),
+            ),
+            i = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+              t.contact,
             );
-            var r =
-                (n = o("WAWebChatEphemerality").getEphemeralSetting(t)) != null
-                  ? n
-                  : 0,
-              a = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-                o("WAWebContactCollection").ContactCollection.getMeContact(),
-              ),
-              i = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-                t.contact,
-              );
-            new (o(
-              "WAWebEphemeralOutOfSyncInfoWamEvent",
-            ).EphemeralOutOfSyncInfoWamEvent)({
-              incomingMessageEphemeralityDuration: e != null ? e : 0,
-              isAGroup: o("WAWebChatGetters").getIsGroup(t),
-              threadEphemeralityDuration: r,
-              otherDefaultModeDuration: i != null ? i : 0,
-              userDefaultModeDuration: a != null ? a : 0,
-              threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
-                t.id.toJid(),
-              ),
-              isNewThreadForUser: t.msgs.length === 0,
-            }).commit();
-          }
+          new (o(
+            "WAWebEphemeralOutOfSyncInfoWamEvent",
+          ).EphemeralOutOfSyncInfoWamEvent)({
+            incomingMessageEphemeralityDuration: e != null ? e : 0,
+            isAGroup: o("WAWebChatGetters").getIsGroup(t),
+            threadEphemeralityDuration: r,
+            otherDefaultModeDuration: i != null ? i : 0,
+            userDefaultModeDuration: a != null ? a : 0,
+            threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
+              t.id.toJid(),
+            ),
+            isNewThreadForUser: t.msgs.length === 0,
+          }).commit();
         })),
         B.apply(this, arguments)
       );

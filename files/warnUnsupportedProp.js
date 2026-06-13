@@ -9,7 +9,7 @@ __d(
         "%s component does not support prop `%s`.%s",
         e,
         t,
-        n ? " " + n : "",
+        n != null && n !== "" ? " " + n : "",
       );
     }
     l.default = e;

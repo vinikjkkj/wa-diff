@@ -1,7 +1,6 @@
 __d(
   "WAWebWamLabelSyncTrackingReporter",
   [
-    "WAWebABProps",
     "WAWebMdLabelSyncTrackingWamEvent",
     "WAWebMobilePlatforms",
     "WAWebWamEnumLabelSyncDeviceRoleType",
@@ -27,12 +26,7 @@ __d(
       return s;
     }
     function c() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_label_sync_critical_event_logging",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function d(e) {
       return m.apply(this, arguments);

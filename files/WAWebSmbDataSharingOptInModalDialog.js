@@ -167,13 +167,7 @@ __d(
       );
     }
     function T(e, t, n) {
-      if (
-        !r("WAWebCommonCTWADataSharing").shouldShowChatEntryDataSharingDialog(e)
-      )
-        return t();
-      o("WAWebModalManager").ModalManager.open(
-        p.jsx(N, { entrypoint: n, callback: t, chats: [e] }),
-      );
+      return t();
     }
     function D(e) {
       var t = o("react-compiler-runtime").c(42),

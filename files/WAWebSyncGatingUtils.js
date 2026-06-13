@@ -32,15 +32,12 @@ __d(
         o("WAWebMobilePlatforms").getMobilePlatform() ===
           o("WAWebMobilePlatforms").PLATFORMS.SMBA;
       return a &&
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.isPrimaryBetaBuild &&
-        o("WAWebABProps").getABPropConfigValue(
-          "history_sync_on_demand_with_android_beta",
-        )
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.isPrimaryBetaBuild
         ? !0
         : r("WAWebEnvironment").isWindows
           ? o("WAWebPrimaryFeaturesModel").PrimaryFeatures
               .extendedHistorySyncOnDemand && p()
-          : o("WAWebABProps").getABPropConfigValue("history_sync_on_demand");
+          : !0;
     }
     function u() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.historySyncOnDemand;

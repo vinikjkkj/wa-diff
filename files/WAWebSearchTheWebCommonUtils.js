@@ -67,7 +67,6 @@ __d(
       );
     }
     function C(t) {
-      if (!o("WAWebSTWGatingUtils").isSearchTheWebEnabled()) return new Map();
       var a = o("WAWebFrontendMsgGetters").getText(t),
         i = o("WAWebMsgLinks").getLinksFromMsg(t),
         l = new Map();

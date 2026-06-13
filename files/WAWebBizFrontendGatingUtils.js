@@ -46,12 +46,7 @@ __d(
         )
       );
     }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "payments_br_copy_pix_code_api_merchant_enabled",
-      );
-    }
-    function m(e) {
+    function d(e) {
       var t = o("WAWebContactUtils").getMaybeBizPlatformForLogging(e),
         n = t !== o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN;
       return n
@@ -62,7 +57,7 @@ __d(
             "payments_br_p2p_pix_copy_key_buyer_logging",
           );
     }
-    function p(e) {
+    function m(e) {
       var t = o("WAWebContactUtils").getMaybeBizPlatformForLogging(e),
         n = t !== o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN;
       return n
@@ -73,7 +68,7 @@ __d(
             "payments_br_p2p_pix_copy_code_buyer_logging",
           );
     }
-    function _() {
+    function p() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -81,13 +76,13 @@ __d(
         o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web")
       );
     }
-    function f() {
+    function _() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("ctwa_smb_multiselect_enabled")
       );
     }
-    function g() {
+    function f() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -95,7 +90,7 @@ __d(
         )
       );
     }
-    function h() {
+    function g() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -105,7 +100,7 @@ __d(
         ).isCustomPaymentMethodsSyncEnabledForCountry("MX")
       );
     }
-    function y() {
+    function h() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -119,14 +114,13 @@ __d(
       (l.isCustomPaymentMethodsSyncEnabled = s),
       (l.isPixInQuickReplyEnabled = u),
       (l.isForceCopyPixCTAEnabled = c),
-      (l.isAPICopyPixCTAEnabled = d),
-      (l.isCopyPixKeyBuyerLoggingEnabled = m),
-      (l.isCopyPixCodeBuyerLoggingEnabled = p),
-      (l.isPixOnWebEnabled = _),
-      (l.isCTWASMBListsMultiSelectEnabled = f),
-      (l.isCTWASMBListsDropdownApplicationFixEnabled = g),
-      (l.isClabeSyncEnabled = h),
-      (l.isIdPaymentAccountSyncEnabled = y));
+      (l.isCopyPixKeyBuyerLoggingEnabled = d),
+      (l.isCopyPixCodeBuyerLoggingEnabled = m),
+      (l.isPixOnWebEnabled = p),
+      (l.isCTWASMBListsMultiSelectEnabled = _),
+      (l.isCTWASMBListsDropdownApplicationFixEnabled = f),
+      (l.isClabeSyncEnabled = g),
+      (l.isIdPaymentAccountSyncEnabled = h));
   },
   98,
 );

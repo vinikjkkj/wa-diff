@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WALogger",
     "WANullthrows",
-    "WAWebABProps",
     "WAWebAfterReadUtils",
     "WAWebChatEphemerality",
     "WAWebContactCollection",
@@ -337,11 +336,6 @@ __d(
       var l = null;
       if (
         (n.newDuration ? (C(e) ? (l = "update") : (l = "on")) : (l = "off"),
-        l === "update" &&
-          !o("WAWebABProps").getABPropConfigValue(
-            "dm_updated_system_message",
-          ) &&
-          (l = "on"),
         n.initiatingUser != null && !i)
       ) {
         var s = o("WAWebContactCollection").ContactCollection.gadd(

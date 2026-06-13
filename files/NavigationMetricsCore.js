@@ -75,7 +75,7 @@ __d(
               { start: this.start, extras: this.extras },
               this.eventTimings,
             );
-            if (this.serverLID && c[this.serverLID]) {
+            if (this.serverLID != null && c[this.serverLID] != null) {
               var n = this.serverLID;
               (Object.assign(t, c[n]), delete c[n]);
             }

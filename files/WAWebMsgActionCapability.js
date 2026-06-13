@@ -43,7 +43,6 @@ __d(
     "WAWebMusicPlaybackUtils",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterGatingUtils",
-    "WAWebPinMsgGatingUtils",
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebQuestionsGatingUtils",
@@ -390,7 +389,6 @@ __d(
             ) &&
             a.interactiveButtonsReleased() &&
             !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(a) &&
-            o("WAWebPinMsgGatingUtils").isPinnedMessagesM1SenderEnabled() &&
             !o("WAWebFrontendMsgGetters").getAsAlbum(a);
     }
     function E(e) {

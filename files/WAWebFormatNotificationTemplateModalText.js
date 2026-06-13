@@ -10,7 +10,6 @@ __d(
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebOrderGatingUtils",
-    "WAWebPrivacyGatingUtils",
     "WAWebSupportChatStrings",
     "WAWebWid",
     "WAWebWidToFormattedNameOrNumber",
@@ -352,38 +351,20 @@ __d(
       );
     }
     function m() {
-      return o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2NonE2eeEnabled()
-        ? u.jsxs(u.Fragment, {
-            children: [
-              u.jsx("div", {
-                className: "x1603h9y x1w7chpp",
-                children: s._(
-                  /*BTDS*/ "WhatsApp secures your messages and calls with this business.",
-                ),
-              }),
-              u.jsx("br", {}),
-              s._(
-                /*BTDS*/ "You are always in control of the conversation. You can stop chatting with this business or block them at any time.",
-              ),
-            ],
-          })
-        : u.jsxs(u.Fragment, {
-            children: [
-              s._(
-                /*BTDS*/ "You are always in control of the conversation. You can stop chatting with this business or block them at any time.",
-              ),
-              u.jsx("br", {}),
-              u.jsx("br", {}),
-              s._(
-                /*BTDS*/ "WhatsApp secures your messages and calls with this business.",
-              ),
-              u.jsx("br", {}),
-              u.jsx("br", {}),
-              s._(
-                /*BTDS*/ "For details about how this chat is secured, click Learn more.",
-              ),
-            ],
-          });
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx("div", {
+            className: "x1603h9y x1w7chpp",
+            children: s._(
+              /*BTDS*/ "WhatsApp secures your messages and calls with this business.",
+            ),
+          }),
+          u.jsx("br", {}),
+          s._(
+            /*BTDS*/ "You are always in control of the conversation. You can stop chatting with this business or block them at any time.",
+          ),
+        ],
+      });
     }
     function p() {
       return u.jsxs(u.Fragment, {

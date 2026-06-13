@@ -17,11 +17,7 @@ __d(
       u,
       c = u || (u = o("react"));
     function d(e) {
-      if (
-        o("WAWebABProps").getABPropConfigValue("web_otp_copy_code_disabled") ||
-        !navigator.clipboard
-      )
-        return !1;
+      if (!navigator.clipboard) return !1;
       var t = e.url;
       if (
         e.subtype !==

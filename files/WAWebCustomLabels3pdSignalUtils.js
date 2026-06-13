@@ -64,12 +64,7 @@ __d(
       }
     }
     function _(t, n, a) {
-      if (
-        !(
-          !o("WAWebListsLabelGatingUtils").isCTWACustomLabelsSignalsEnabled() ||
-          !o("WAWebListsLabelGatingUtils").isCTWAWebCustomLabelsSignalsEnabled()
-        )
-      ) {
+      if (o("WAWebListsLabelGatingUtils").isCTWACustomLabelsSignalsEnabled()) {
         var i = n.filter(function (e) {
           return (
             e instanceof o("WAWebChatModel").Chat &&

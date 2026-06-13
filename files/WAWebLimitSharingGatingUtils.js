@@ -18,35 +18,29 @@ __d(
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
-        "limit_sharing_enabled_for_1on1_chat",
+        "limit_sharing_update_enabled_web",
       );
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "limit_sharing_update_enabled_web",
+        "limit_sharing_protocol_message_receiver_enabled",
       );
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "limit_sharing_protocol_message_receiver_enabled",
-      );
-    }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
         "advanced_chat_privacy_content_update_july_25",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue("opus_admin");
     }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),
       (l.isRenderUpdatedDisclosureGatingEnabled = u),
-      (l.isLimitSharingSetterGatingEnabledFor1on1Chat = c),
-      (l.isLimitSharingSetterUpdateGatingEnabledForWeb = d),
-      (l.isLimitSharingReceiverGatingEnabledForChat = m),
-      (l.isLimitSharingContentUpdateJuly25Enabled = p),
-      (l.isOpusAdminOnly = _));
+      (l.isLimitSharingSetterUpdateGatingEnabledForWeb = c),
+      (l.isLimitSharingReceiverGatingEnabledForChat = d),
+      (l.isLimitSharingContentUpdateJuly25Enabled = m),
+      (l.isOpusAdminOnly = p));
   },
   98,
 );

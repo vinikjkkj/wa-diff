@@ -797,28 +797,24 @@ __d(
             s != null &&
             o("WAWebAfterReadUtils").isAfterReadDuration(s) &&
             o("WAWebAfterReadUtils").isAfterReadEnabled();
-          if (
-            ((i.defaultAfterReadEnabled = u),
+          ((i.defaultAfterReadEnabled = u),
             (i.defaultAfterReadDuration = u ? s : void 0),
             u && (i.defaultDisappearingDuration = 0),
             (i.defenseMode = N(a.defenseMode)),
-            o("WAWebABProps").getABPropConfigValue(
-              "dm_initiator_trigger_daily_logs",
-            ))
-          ) {
-            i.isDefaultDisappearingMessagingUser =
-              i.defaultDisappearingDuration !== 0;
-            var c = yield o(
-                "WAWebApiPrivacyEphemerality",
-              ).queryEphemeralityDailyLogInfo(),
-              d = c.countEphemeralThreads,
-              m = c.countEphemeralThreadsEnabledByMe,
-              p = c.isEphemeralMessagingUser;
-            ((i.isEphemeralMessagingUser = p),
-              (i.countEphemeralThreads = d),
-              (i.countEphemeralThreadsEnabledByMe = m));
-          }
-          return i;
+            (i.isDefaultDisappearingMessagingUser =
+              i.defaultDisappearingDuration !== 0));
+          var c = yield o(
+              "WAWebApiPrivacyEphemerality",
+            ).queryEphemeralityDailyLogInfo(),
+            d = c.countEphemeralThreads,
+            m = c.countEphemeralThreadsEnabledByMe,
+            p = c.isEphemeralMessagingUser;
+          return (
+            (i.isEphemeralMessagingUser = p),
+            (i.countEphemeralThreads = d),
+            (i.countEphemeralThreadsEnabledByMe = m),
+            i
+          );
         })),
         x.apply(this, arguments)
       );

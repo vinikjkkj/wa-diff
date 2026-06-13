@@ -9,41 +9,35 @@ __d(
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "data_privacy_phase_2_non_e2ee_enabled",
+        "pnh_thread_promotion_to_general_lid",
       );
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "pnh_thread_promotion_to_general_lid",
+        "profile_scraping_privacy_token_in_about_usync",
       );
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_usync",
+        "profile_scraping_privacy_token_in_about_iq",
       );
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_iq",
-      );
-    }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
         "paa_support_for_disabled_epehemerality",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "mex_get_privacy_contact_list_enabled",
       );
     }
     ((l.isDataPrivacyPhase2Enabled = e),
-      (l.isDataPrivacyPhase2NonE2eeEnabled = s),
-      (l.isPhoneNumberHidingThreadPromotionToGeneralLidEnabled = u),
-      (l.isProfileScrappingProtectionInUsyncEnabled = c),
-      (l.isProfileScrappingProtectionInMexFetchEnabled = d),
-      (l.isPAASupportForDisabledEphemeralityEnabled = m),
-      (l.isMexPrivacyContactListEnabled = p));
+      (l.isPhoneNumberHidingThreadPromotionToGeneralLidEnabled = s),
+      (l.isProfileScrappingProtectionInUsyncEnabled = u),
+      (l.isProfileScrappingProtectionInMexFetchEnabled = c),
+      (l.isPAASupportForDisabledEphemeralityEnabled = d),
+      (l.isMexPrivacyContactListEnabled = m));
   },
   98,
 );

@@ -7,7 +7,6 @@ __d(
     "WAWebApiParticipantStore",
     "WAWebBotGroupGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
-    "WAWebCommunityGatingUtils",
     "WAWebContactSystemMsg",
     "WAWebDBCommunity",
     "WAWebDBGroupsGroupMetadata",
@@ -52,11 +51,7 @@ __d(
         ((p = "community_create"),
           t.parentGroup && (_ = [t.parentGroup, t.subject]),
           (s = (f = t.owner) != null ? f : e.author));
-      } else if (
-        t.generalSubgroup === !0 &&
-        u &&
-        o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
-      ) {
+      } else if (t.generalSubgroup === !0 && u) {
         var g;
         ((p = "general_chat_add"),
           (_ = ["created", t.subject]),
@@ -297,12 +292,7 @@ __d(
                     return o("WAWebUserPrefsMeUser").isMeAccount(t);
                   })
                 )
-                  if (
-                    t.generalSubgroup === !0 &&
-                    o(
-                      "WAWebCommunityGatingUtils",
-                    ).communityGeneralChatUIEnabled()
-                  ) {
+                  if (t.generalSubgroup === !0) {
                     var S;
                     ((g = "general_chat_add"),
                       (h = [
@@ -334,8 +324,7 @@ __d(
                   t.participants.some(function (e) {
                     var t = e.id;
                     return o("WAWebUserPrefsMeUser").isMeAccount(t);
-                  }) &&
-                  o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
+                  })
                 ) {
                   var T;
                   ((g = "general_chat_add"),
@@ -405,8 +394,7 @@ __d(
                   return o("WAWebUserPrefsMeUser").isMeAccount(t);
                 }) &&
                 t.reason ===
-                  o("WAWebGroupType").ADD_REASON.GENERAL_CHAT_AUTO_ADD &&
-                o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
+                  o("WAWebGroupType").ADD_REASON.GENERAL_CHAT_AUTO_ADD
               ) {
                 var A;
                 ((g = "general_chat_add"),
@@ -421,8 +409,7 @@ __d(
                   var t = e.id;
                   return o("WAWebUserPrefsMeUser").isMeAccount(t);
                 }) &&
-                t.generalSubgroup === !0 &&
-                o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
+                t.generalSubgroup === !0
               ) {
                 var F;
                 ((g = "general_chat_add"),

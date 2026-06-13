@@ -11,9 +11,8 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = -1,
-      d = ["additional", "dev"];
-    function m() {
+      c = -1;
+    function d() {
       var t = o("WAWebABProps").getABPropConfigValue(
         "dm_receiver_allowed_values",
       );
@@ -35,7 +34,7 @@ __d(
         );
       }
     }
-    function p(e, t) {
+    function m(e, t) {
       return {
         type: t,
         value: e,
@@ -44,15 +43,15 @@ __d(
         ).getDisappearingMessageDurationString(e),
       };
     }
-    function _() {
-      var e = m(),
+    function p() {
+      var e = d(),
         t = [].concat(
           e
             .filter(function (e) {
               return e > 0;
             })
             .map(function (e) {
-              return p(e, "default");
+              return m(e, "default");
             }),
         );
       t.sort(function (e, t) {
@@ -70,24 +69,19 @@ __d(
       } else t.push(n);
       return t;
     }
-    function f() {
-      return _().filter(function (e) {
+    function _() {
+      return p().filter(function (e) {
         return e.type === "default" || e.type === "after_reading";
       });
     }
-    function g() {
-      return _().filter(function (e) {
-        return d.includes(e.type);
-      });
-    }
-    function h(e) {
+    function f(e) {
       var t = o("WAWebAfterReadUtils")
         .getAfterReadAllowedValues()
         .filter(function (e) {
           return e > 0;
         })
         .map(function (e) {
-          return p(e, "default");
+          return m(e, "default");
         });
       return (
         e === "asc" &&
@@ -97,13 +91,13 @@ __d(
         t
       );
     }
-    function y(e) {
+    function g(e) {
       if (e == null) return s._(/*BTDS*/ "Off");
-      var t = _().find(function (t) {
+      var t = p().find(function (t) {
         return t.value === e;
       });
       return t == null &&
-        ((t = h("none").find(function (t) {
+        ((t = f("none").find(function (t) {
           return t.value === e;
         })),
         t != null)
@@ -125,10 +119,9 @@ __d(
           : t.label;
     }
     ((l.AFTER_READING_VALUE = c),
-      (l.getDefaultEphemeralityDurations = f),
-      (l.getAdditionalEphemeralityDurations = g),
-      (l.getAfterReadEphemeralityDurations = h),
-      (l.durationToLabel = y));
+      (l.getDefaultEphemeralityDurations = _),
+      (l.getAfterReadEphemeralityDurations = f),
+      (l.durationToLabel = g));
   },
   226,
 );

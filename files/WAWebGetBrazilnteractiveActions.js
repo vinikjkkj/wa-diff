@@ -499,8 +499,7 @@ __d(
           var a, i;
           if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
             var l = [];
-            o("WAWebBizFrontendGatingUtils").isAPICopyPixCTAEnabled() &&
-              E(t) &&
+            E(t) &&
               l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               );

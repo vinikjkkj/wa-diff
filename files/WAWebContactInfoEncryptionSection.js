@@ -13,11 +13,9 @@ __d(
     "WAWebModalManager",
     "WAWebOpenCoexSystemMessageModal.react",
     "WAWebOpenSystemMessageModal",
-    "WAWebPrivacyGatingUtils",
     "WAWebPrivacyModeSystemMsg",
     "WAWebSecurityDrawerSection.react",
     "WAWebSupportAIInfoNuxLoadable",
-    "WAWebSupportChatStrings",
     "WAWebTextWithLearnMoreLink",
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
@@ -146,48 +144,23 @@ __d(
           },
         };
       if (r("WAWebABPropsSupportGroup")(t.user)) {
-        if (o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2NonE2eeEnabled()) {
-          var l = function () {
-            _(t)
-              ? p()
-              : o("WAWebExternalLink.react").openExternalLink(
-                  o("WAWebFaqUrl").getSupportChatSafetyFaqUrl(),
-                );
-          };
-          return {
-            text: u.jsx(r("WAWebTextWithLearnMoreLink"), {
-              text: s._(
-                /*BTDS*/ "WhatsApp secures your messages and calls with this account.",
-              ),
-              handleClick: l,
-            }),
-            header: { type: "none" },
-            onClick: l,
-          };
-        }
-        return _(t)
-          ? {
-              text: s._(
-                /*BTDS*/ "This is an official account of WhatsApp Support. Click to learn more.",
-              ),
-              header: { type: "security" },
-              onClick: function () {
-                p();
-              },
-            }
-          : {
-              text: s._(
-                /*BTDS*/ "Click to learn how messages and calls are secured.",
-              ),
-              header: { type: "security" },
-              onClick: function () {
-                o("WAWebOpenSystemMessageModal").openSystemMessageModal(
-                  o("WAWebSupportChatStrings").SupportChatSecurityModalText(),
-                  o("WAWebFaqUrl").getSupportChatSafetyFaqUrl(),
-                  o("WAWebSupportChatStrings").SupportChatLearnMoreLinkText(),
-                );
-              },
-            };
+        var l = function () {
+          _(t)
+            ? p()
+            : o("WAWebExternalLink.react").openExternalLink(
+                o("WAWebFaqUrl").getSupportChatSafetyFaqUrl(),
+              );
+        };
+        return {
+          text: u.jsx(r("WAWebTextWithLearnMoreLink"), {
+            text: s._(
+              /*BTDS*/ "WhatsApp secures your messages and calls with this account.",
+            ),
+            handleClick: l,
+          }),
+          header: { type: "none" },
+          onClick: l,
+        };
       }
       switch (e) {
         case o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE:
@@ -203,69 +176,38 @@ __d(
             );
           };
           return {
-            text: o(
-              "WAWebPrivacyGatingUtils",
-            ).isDataPrivacyPhase2NonE2eeEnabled()
-              ? u.jsx(r("WAWebTextWithLearnMoreLink"), {
-                  text: s._(
-                    /*BTDS*/ "This business works with other companies to manage this chat.",
-                  ),
-                  handleClick: c,
-                })
-              : s._(
-                  /*BTDS*/ "This business works with other companies to manage this chat. Click to learn more.",
-                ),
-            header: o(
-              "WAWebPrivacyGatingUtils",
-            ).isDataPrivacyPhase2NonE2eeEnabled()
-              ? { type: "none" }
-              : { type: "security" },
+            text: u.jsx(r("WAWebTextWithLearnMoreLink"), {
+              text: s._(
+                /*BTDS*/ "This business works with other companies to manage this chat.",
+              ),
+              handleClick: c,
+            }),
+            header: { type: "none" },
             onClick: c,
           };
         }
         case o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB: {
-          var d;
-          t.isIAS()
-            ? (d = o(
-                "WAWebPrivacyGatingUtils",
-              ).isDataPrivacyPhase2NonE2eeEnabled()
-                ? s._(
-                    /*BTDS*/ "WhatsApp Surveys uses a secure service from Meta to manage this chat.",
-                  )
-                : s._(
-                    /*BTDS*/ "WhatsApp Surveys uses a secure service from Meta to manage this chat. Click to learn more.",
-                  ))
-            : (d = o(
-                "WAWebPrivacyGatingUtils",
-              ).isDataPrivacyPhase2NonE2eeEnabled()
-                ? s._(
-                    /*BTDS*/ "This business uses a secure service from Meta to manage this chat.",
-                  )
-                : s._(
-                    /*BTDS*/ "This business uses a secure service from Meta to manage this chat. Click to learn more.",
-                  ));
-          var m = function () {
-            o("WAWebOpenSystemMessageModal").openSystemMessageModal(
-              o("WAWebFormatNotificationTemplateModalText").formatFbModalText(
-                t.isIAS(),
-              ),
-              o("WAWebFaqUrl").getE2EEnterpriseFaqUrl(),
-            );
-          };
+          var d = t.isIAS()
+              ? s._(
+                  /*BTDS*/ "WhatsApp Surveys uses a secure service from Meta to manage this chat.",
+                )
+              : s._(
+                  /*BTDS*/ "This business uses a secure service from Meta to manage this chat.",
+                ),
+            m = function () {
+              o("WAWebOpenSystemMessageModal").openSystemMessageModal(
+                o("WAWebFormatNotificationTemplateModalText").formatFbModalText(
+                  t.isIAS(),
+                ),
+                o("WAWebFaqUrl").getE2EEnterpriseFaqUrl(),
+              );
+            };
           return {
             text: u.jsx(r("WAWebTextWithLearnMoreLink"), {
               text: d,
-              handleClick: o(
-                "WAWebPrivacyGatingUtils",
-              ).isDataPrivacyPhase2NonE2eeEnabled()
-                ? m
-                : null,
+              handleClick: m,
             }),
-            header: o(
-              "WAWebPrivacyGatingUtils",
-            ).isDataPrivacyPhase2NonE2eeEnabled()
-              ? { type: "none" }
-              : { type: "security" },
+            header: { type: "none" },
             onClick: m,
           };
         }

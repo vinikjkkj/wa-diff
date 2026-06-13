@@ -2,7 +2,6 @@ __d(
   "WAWebMessagePluginGenerateReportingTokenContent",
   [
     "WAWebMessagePluginGenerateReportingTokenContentRegistry",
-    "WAWebMessagingGatingUtils",
     "WAWebMsgType",
     "WAWebPluginCreateRegistryLookup",
   ],
@@ -17,16 +16,13 @@ __d(
         ? void 0
         : n.generateReportingTokenContent(t);
     }
-    function u(t, n) {
-      var r;
-      return o(
-        "WAWebMessagingGatingUtils",
-      ).isReportingTokenFromInclusionListEnabled()
-        ? !!((r = e(t, n)) != null && r.generateReportingTokenContent)
-        : t !== o("WAWebMsgType").MSG_TYPE.REACTION &&
-            t !== o("WAWebMsgType").MSG_TYPE.REACTION_ENC &&
-            t !== o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE &&
-            t !== o("WAWebMsgType").MSG_TYPE.POLL_UPDATE;
+    function u(e, t) {
+      return (
+        e !== o("WAWebMsgType").MSG_TYPE.REACTION &&
+        e !== o("WAWebMsgType").MSG_TYPE.REACTION_ENC &&
+        e !== o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE &&
+        e !== o("WAWebMsgType").MSG_TYPE.POLL_UPDATE
+      );
     }
     ((l.generateReportingTokenContent = s),
       (l.isMsgTypeReportingTokenCompatible = u));

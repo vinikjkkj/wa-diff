@@ -49,80 +49,67 @@ __d(
       return !(o("WAWebUA").UA.isGecko && !(e != null && e.exiforientation));
     }
     function _() {
-      return o("WAWebABProps").getABPropConfigValue("web_group_profile_editor");
-    }
-    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_multi_skin_toned_emoji_picker",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_message_list_a11y_redesign",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_abprop_media_links_docs_search",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue("graphql_locale_remapping");
     }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_message_custom_aria_label",
-      );
-    }
-    function b() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "four_reactions_in_bubble_enabled",
-      );
-    }
-    function v() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_message_plugin_frontend_registration_enabled",
       );
     }
-    function S() {
+    function C() {
       return !o("WAWebMobilePlatforms").isSMB();
     }
-    function R() {
+    function b() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled("ddm_settings");
     }
-    function L() {
+    function v() {
       var e;
       return (e = o("WAWebABProps").getABPropConfigValue("drop_last_name")) !=
         null
         ? e
         : !1;
     }
-    function E() {
+    function S() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("smb_rambutan_enabled")
       );
     }
-    function k() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue("group_suspend_v2_enabled");
     }
-    function I() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue("blue_enabled");
     }
-    function T() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue("blue_education_enabled");
     }
-    function D() {
+    function k() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue(
             "blue_profile_locked_ui_enabled",
           )
         : !1;
     }
-    function x() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue("blue_strings_enabled");
     }
-    function $() {
+    function T() {
       o("WAWebABProps").getABPropConfigValue("wa_web_pre_chat_device_id_test");
     }
     ((l.webMediaAutoDownloadEnabled = e),
@@ -132,24 +119,21 @@ __d(
       (l.isFavoriteStickersEnabled = d),
       (l.isFavoriteStickerSyncAfterPairingEnabled = m),
       (l.isHighQualityVideoThumbnailsEnabled = p),
-      (l.groupProfileEditorEnabled = _),
-      (l.multiSkinToneEmojiPickerEnabled = f),
-      (l.messageListA11yRedesignEnabled = g),
-      (l.mediaLinksDocsFilteringEnabled = h),
-      (l.getGraphqlLocaleRemapping = y),
-      (l.messageCustomAriaLabelEnabled = C),
-      (l.fourReactionsInBubbleEnabled = b),
-      (l.messagePluginFrontendRegistrationEnabled = v),
-      (l.isPrivacyNarrativeV1Enabled = S),
-      (l.isDefaultDisappearingMessagesEnabled = R),
-      (l.isDropLastNameEnabled = L),
-      (l.isRambutanEnabled = E),
-      (l.isGroupSuspendV2Enabled = k),
-      (l.isBlueEnabled = I),
-      (l.isBlueEducationEnabled = T),
-      (l.isBlueLockingEnabled = D),
-      (l.isBlueStringsEnabled = x),
-      (l.checkDeviceIdTestAbProp = $));
+      (l.multiSkinToneEmojiPickerEnabled = _),
+      (l.messageListA11yRedesignEnabled = f),
+      (l.mediaLinksDocsFilteringEnabled = g),
+      (l.getGraphqlLocaleRemapping = h),
+      (l.messagePluginFrontendRegistrationEnabled = y),
+      (l.isPrivacyNarrativeV1Enabled = C),
+      (l.isDefaultDisappearingMessagesEnabled = b),
+      (l.isDropLastNameEnabled = v),
+      (l.isRambutanEnabled = S),
+      (l.isGroupSuspendV2Enabled = R),
+      (l.isBlueEnabled = L),
+      (l.isBlueEducationEnabled = E),
+      (l.isBlueLockingEnabled = k),
+      (l.isBlueStringsEnabled = I),
+      (l.checkDeviceIdTestAbProp = T));
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebInteractiveNativeFlowOrderHeader",
   [
-    "WAWebBizFrontendGatingUtils",
     "WAWebBrazilPaymentsGeoGating",
     "WAWebCurrencyUtils",
     "WAWebFrontendMsgGetters",
@@ -253,8 +252,7 @@ __d(
             u.marginStart4,
             r && u.iconDarkBackground,
           ];
-        (o("WAWebBizFrontendGatingUtils").isAPICopyPixCTAEnabled() &&
-          o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(t) &&
+        (o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(t) &&
           n.push(
             s.jsx(o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon, {
               iconXstyle: a,

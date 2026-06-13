@@ -5,7 +5,6 @@ __d(
     "WAWebFaqUrl",
     "WAWebFormatNotificationTemplateModalText",
     "WAWebOpenSystemMessageModal",
-    "WAWebPrivacyGatingUtils",
     "WAWebSecurityDrawerSection.react",
     "WAWebTextWithLearnMoreLink",
     "react",
@@ -39,12 +38,11 @@ __d(
         },
         t = s._(/*BTDS*/ "This is an official account of WhatsApp");
       return {
-        text: o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2NonE2eeEnabled()
-          ? u.jsx(r("WAWebTextWithLearnMoreLink"), { text: t, handleClick: e })
-          : t,
-        header: o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2NonE2eeEnabled()
-          ? { type: "none" }
-          : { type: "security" },
+        text: u.jsx(r("WAWebTextWithLearnMoreLink"), {
+          text: t,
+          handleClick: e,
+        }),
+        header: { type: "none" },
         onClick: e,
       };
     }

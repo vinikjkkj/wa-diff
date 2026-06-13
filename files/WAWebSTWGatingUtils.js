@@ -5,32 +5,26 @@ __d(
     "use strict";
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
-        "search_the_web_dialog_redesign",
-      );
-    }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
         "search_the_web_text_search",
       );
     }
-    function u() {
+    function s() {
       return o("WAWebABProps").getABPropConfigValue("search_the_web_url_offer");
     }
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "search_the_web_image_search",
       );
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "search_the_web_design_experiment_v1",
       );
     }
-    ((l.isSearchTheWebEnabled = e),
-      (l.isSearchTheWebTextSearchEnabled = s),
-      (l.isSearchTheWebURLSearchEnabled = u),
-      (l.isSearchTheWebImageSearchEnabled = c),
-      (l.isSearchTheWebDesignExperimentV1Enabled = d));
+    ((l.isSearchTheWebTextSearchEnabled = e),
+      (l.isSearchTheWebURLSearchEnabled = s),
+      (l.isSearchTheWebImageSearchEnabled = u),
+      (l.isSearchTheWebDesignExperimentV1Enabled = c));
   },
   98,
 );

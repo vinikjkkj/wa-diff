@@ -18,8 +18,7 @@ __d(
     }
     function c() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? o("WAWebABProps").getABPropConfigValue("smb_billing_enabled") ||
-            o("WAWebABProps").getABPropConfigValue("smb_ctwa_billing_enabled")
+        ? o("WAWebABProps").getABPropConfigValue("smb_billing_enabled")
         : !1;
     }
     function d() {

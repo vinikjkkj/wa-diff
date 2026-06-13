@@ -304,7 +304,6 @@ __d(
         (!o("WAWebBotBaseGating").isBotEnabled() &&
           !o("WAWebBotFrontendGating").isManusIntegrationEnabled() &&
           e.id.isBot()) ||
-        (!o("WAWebBotGating").isFbidBotEnabled() && e.id.isFbidBot()) ||
         (o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
           o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e))
       )

@@ -3,7 +3,6 @@ __d(
   [
     "WABase64",
     "WACryptoHmac",
-    "WAWebABProps",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
   ],
@@ -58,12 +57,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "placeholder_message_key_hash_logging",
-      );
-    }
-    ((l.getMessageKeyHash = d), (l.messageKeyHashEnabled = p));
+    l.getMessageKeyHash = d;
   },
   98,
 );

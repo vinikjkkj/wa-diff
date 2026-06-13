@@ -117,8 +117,7 @@ __d(
         : e.hasCapi !== !0 &&
             !e.id.isBot() &&
             !r("WAWebWid").isPSA(e.contact.id) &&
-            !e.contact.isEnterprise &&
-            B(e);
+            !e.contact.isEnterprise;
     }
     function y(e) {
       o("WAWebModalManager").ModalManager.open(
@@ -270,7 +269,7 @@ __d(
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, o) {
             (r("WAWebWid").isGroup(e.id) ? yield D(e, t) : yield $(e, t, n, o),
-              W(t));
+              B(t));
           },
         )),
         T.apply(this, arguments)
@@ -396,17 +395,6 @@ __d(
       };
     }
     function B(e) {
-      var t;
-      return e
-        ? ((t = e.limitSharing) == null ? void 0 : t.sharingLimited) === !0
-          ? !0
-          : r("WAWebWid").isGroup(e.id) ||
-            o(
-              "WAWebLimitSharingGatingUtils",
-            ).isLimitSharingSetterGatingEnabledFor1on1Chat()
-        : !1;
-    }
-    function W(e) {
       new (o(
         "WAWebLimitSharingSettingUpdateWamEvent",
       ).LimitSharingSettingUpdateWamEvent)({

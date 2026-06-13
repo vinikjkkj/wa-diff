@@ -14,7 +14,6 @@ __d(
     "WAWebApiVerifiedBusinessName",
     "WAWebBackendApi",
     "WAWebBotTypes",
-    "WAWebCTWAGatingUtils",
     "WAWebChatOriginTypes",
     "WAWebContactSystemMsg",
     "WAWebCtwaAGMUtils",
@@ -232,8 +231,7 @@ __d(
               Q = y == null ? void 0 : y.ctwaContext,
               X =
                 (Q == null ? void 0 : Q.sourceApp) !==
-                  o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.WHATSAPP ||
-                o("WAWebCTWAGatingUtils").getWamoAgmEnabled(),
+                o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.WHATSAPP,
               Y = t === "signupAGM",
               J = yield o("WAWebContactSystemMsg").genContactInfoCardMsg(N, {
                 isSmb: A,

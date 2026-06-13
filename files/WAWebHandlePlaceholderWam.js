@@ -202,14 +202,10 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            o("WAWebHandlePlaceholderMsgKeyHashUtils").messageKeyHashEnabled()
-          ) {
-            var n = yield o(
-              "WAWebHandlePlaceholderMsgKeyHashUtils",
-            ).getMessageKeyHash(t);
-            n != null && (e.messageKeyHash = n);
-          }
+          var n = yield o(
+            "WAWebHandlePlaceholderMsgKeyHashUtils",
+          ).getMessageKeyHash(t);
+          n != null && (e.messageKeyHash = n);
         })),
         v.apply(this, arguments)
       );

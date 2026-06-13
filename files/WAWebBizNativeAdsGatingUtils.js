@@ -35,12 +35,7 @@ __d(
       );
     }
     function d() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_ad_creation_entry_point_catalog_product_web",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function m() {
       return (

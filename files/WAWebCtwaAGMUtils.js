@@ -1,6 +1,6 @@
 __d(
   "WAWebCtwaAGMUtils",
-  ["WALogger", "WAWebCTWAGatingUtils", "getErrorSafe"],
+  ["WALogger", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -35,7 +35,7 @@ __d(
       }
     }
     function d(e) {
-      return o("WAWebCTWAGatingUtils").getWamoAgmEnabled() || e !== u.WHATSAPP;
+      return e !== u.WHATSAPP;
     }
     ((l.AGM_CTA_TYPE = s),
       (l.AGM_SOURCE_APP = u),

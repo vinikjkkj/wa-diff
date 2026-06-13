@@ -3,11 +3,9 @@ __d(
   [
     "fbt",
     "WAWebABProps",
-    "WAWebCTWAGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebCtwaAGMUtils",
     "WAWebMsgType",
-    "WAWebSettingsFBT",
     "WAWebSignupGating",
     "WAWebURLUtils",
   ],
@@ -17,10 +15,7 @@ __d(
       return s._(/*BTDS*/ "View details");
     }
     function u(e) {
-      return e === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.WHATSAPP &&
-        o("WAWebCTWAGatingUtils").getWamoAgmEnabled()
-        ? o("WAWebSettingsFBT").wamoNonAGMMessagePreviewTitle()
-        : s._(/*BTDS*/ "{ad source} ad", [s._param("ad source", e)]);
+      return s._(/*BTDS*/ "{ad source} ad", [s._param("ad source", e)]);
     }
     function c(e) {
       return r("WAWebURLUtils").withoutWww(r("WAWebURLUtils").hostname(e));
@@ -49,14 +44,13 @@ __d(
         r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup
       )
         return !0;
-      var i = o("WAWebCTWAGatingUtils").getWamoAgmEnabled(),
-        l =
+      var i =
           n === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.FACEBOOK ||
           n === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.INSTAGRAM,
-        s =
+        l =
           a === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
           t === !0;
-      return (i || l) && s;
+      return i && l;
     }
     function f(e) {
       if (

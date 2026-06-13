@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebBizEntryPoint",
-    "WAWebBizFrontendGatingUtils",
     "WAWebBizOrderDetailAction",
     "WAWebBizShopsAction",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
@@ -86,13 +85,11 @@ __d(
                 o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(b)
               ) {
                 var E = [],
-                  k = 2,
-                  I = o("WAWebBizFrontendGatingUtils").isAPICopyPixCTAEnabled();
+                  k = 2;
                 (L
-                  ? (I &&
-                      o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(
-                        C,
-                      ) &&
+                  ? (o("WAWebGetBrazilnteractiveActions").hasValidDynamicPix(
+                      C,
+                    ) &&
                       E.push(
                         o(
                           "WAWebGetBrazilnteractiveActions",
@@ -118,40 +115,39 @@ __d(
                         ).getCopyBoletoCodeInteractiveAction(C, n),
                       ),
                     E.length < k &&
-                      I &&
                       o("WAWebGetBrazilnteractiveActions").hasValidCard(C) &&
                       E.push(d()))
                   : E.push(m(n, l, !0)),
                   E.length === 0 && E.push(m(n, l, !R)),
                   f.push.apply(f, E));
               } else if (o("WAWebOrderStatus").isPaymentRequest(b, C)) {
-                var T = p(n, C);
-                T != null && f.push(T);
+                var I = p(n, C);
+                I != null && f.push(I);
               } else {
-                var D = null;
+                var T = null;
                 (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(b) &&
                   o("WAWebGetBrazilnteractiveActions").hasValidStaticPix(C) &&
-                  (D = o(
+                  (T = o(
                     "WAWebGetBrazilnteractiveActions",
                   ).getCopyPixStaticCodeInteractiveAction(n, C)),
-                  f.push(D != null ? D : m(n, l, !R)));
+                  f.push(T != null ? T : m(n, l, !R)));
               }
               if (!o("WAWebMsgGetters").getIsSentByMe(n)) {
-                var x = o("WAWebGetQuickPayAction").getQuickPayAction(
+                var D = o("WAWebGetQuickPayAction").getQuickPayAction(
                   n,
                   C.type,
                   !R,
                 );
-                x && f.push(x);
+                D && f.push(D);
               }
             } else if (
               c ===
               r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK
             ) {
-              var $ = o(
+              var x = o(
                 "WAWebGetMessageWithLinkAction",
               ).getOpenMessageWithLinkAction(n);
-              $ && f.push($);
+              x && f.push(x);
             }
             if (
               c != null &&
@@ -159,13 +155,13 @@ __d(
                 "WAWebBizTemplateAndInteractiveMessagesUtils",
               ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(c)
             ) {
-              var P = o(
+              var $ = o(
                 "WAWebGetInteractiveCtaActions",
               ).getNativeFlowCtasFromInteractiveMsg(n);
-              P != null &&
+              $ != null &&
                 f.push.apply(
                   f,
-                  r("WAWebGetInteractiveActionsFromButtons")(P, n),
+                  r("WAWebGetInteractiveActionsFromButtons")($, n),
                 );
             }
           }

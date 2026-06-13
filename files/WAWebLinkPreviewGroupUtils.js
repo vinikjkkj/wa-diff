@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebChatCollection",
-    "WAWebCommunityGatingUtils",
     "WAWebCommunityGeneralChatImage.react",
     "WAWebGroupMetadataCollection",
     "WAWebGroupType",
@@ -45,9 +44,7 @@ __d(
           }
           var _ = 0.75;
           (s == null || s === "") &&
-            (l.groupType ===
-              o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP &&
-            o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
+            (l.groupType === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
               ? (s = o(
                   "WAWebCommunityGeneralChatImage.react",
                 ).GeneralChatPlaceholderFullUrl)

@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebChatThreadLoggingEventStore",
     "WAWebChatThreadLoggingEventUploader",
     "WAWebChatThreadLoggingLocalstorageMetadataHandler",
@@ -49,11 +48,7 @@ __d(
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           e === void 0 && (e = !0);
-          var t =
-            e &&
-            o("WAWebABProps").getABPropConfigValue(
-              "message_count_logging_md_enabled",
-            );
+          var t = e;
           (yield o(
             "WAWebUserPrefsMultiDevice",
           ).getChatThreadLoggingLastUploadedStartTs()) == null &&
