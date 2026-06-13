@@ -516,42 +516,44 @@ __d(
     }
     ue.doc =
       "Compare current signal sessions and sender keys against the last snapshot and log new/removed/modified entries";
-    function de(e, t, n, r) {
+    function de(e) {
       return me.apply(this, arguments);
     }
     function me() {
       return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = Math.round(Date.now() / 1e3),
-              i = [
-                "\uD83D\uDE00",
-                "\uD83D\uDE02",
-                "\uD83D\uDE07",
-                "\uD83D\uDE08",
-                "\uD83D\uDE0A",
-              ],
-              l = i[Math.floor(Math.random() * i.length)],
-              s = self.crypto.getRandomValues(new Uint8Array(12)),
-              u = {
-                type: o("WAWebMsgType").MsgKind.ReactionDecrypted,
-                encode: { text: l, senderTimestampMs: a },
-              },
-              c = yield o("WAWebAddonEncryption").encryptAddOn(u, {
-                messageSecret: r,
-                iv: s,
-                stanzaId: t,
-                originalMessageSender:
-                  o("WAWebWidFactory").createUserWidOrThrow(n),
-                addOnSender: o("WAWebWidFactory").createUserWidOrThrow(e),
-              }),
-              d = c.encPayload;
-            return {
-              encPayload: o("WABase64").encodeB64(d),
-              encIv: o("WABase64").encodeB64(s.buffer),
-            };
-          },
-        )),
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = e.parentMessageSecret,
+            r = e.parentMessageSender,
+            a = e.parentMessageStanzaId,
+            i = Math.round(Date.now() / 1e3),
+            l = [
+              "\uD83D\uDE00",
+              "\uD83D\uDE02",
+              "\uD83D\uDE07",
+              "\uD83D\uDE08",
+              "\uD83D\uDE0A",
+            ],
+            s = l[Math.floor(Math.random() * l.length)],
+            u = self.crypto.getRandomValues(new Uint8Array(12)),
+            c = {
+              type: o("WAWebMsgType").MsgKind.ReactionDecrypted,
+              encode: { text: s, senderTimestampMs: i },
+            },
+            d = yield o("WAWebAddonEncryption").encryptAddOn(c, {
+              messageSecret: n,
+              iv: u,
+              stanzaId: a,
+              originalMessageSender:
+                o("WAWebWidFactory").createUserWidOrThrow(r),
+              addOnSender: o("WAWebWidFactory").createUserWidOrThrow(t),
+            }),
+            m = d.encPayload;
+          return {
+            encPayload: o("WABase64").encodeB64(m),
+            encIv: o("WABase64").encodeB64(u.buffer),
+          };
+        })),
         me.apply(this, arguments)
       );
     }

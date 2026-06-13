@@ -11,6 +11,7 @@ __d(
     "WAWebContactCollection",
     "WAWebEphemeralityResolver",
     "WAWebFetchAdEntryPointsConfiguration",
+    "WAWebFetchBizAiLargeScreensGate",
     "WAWebFetchNativeAdsMvpEligibility",
     "WAWebFetchQuickPromotions",
     "WAWebFtsClient",
@@ -277,6 +278,12 @@ __d(
           return o(
             "WAWebFetchAdEntryPointsConfiguration",
           ).fetchAdEntryPointsConfiguration(e);
+        },
+        fetchBizAiLargeScreensGate: function (t) {
+          var e = t.trigger;
+          return o(
+            "WAWebFetchBizAiLargeScreensGate",
+          ).fetchBizAiLargeScreensGate(e);
         },
         fetchNativeAdsMvpEligibility: function () {
           return o(

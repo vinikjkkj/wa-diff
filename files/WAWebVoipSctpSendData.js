@@ -87,8 +87,8 @@ __d(
             o("WALogger").WARN(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [DCThread] Failed to send packet for ",
-                  ", pthread may be shutting down",
+                  "voip: [DCThread] send failed ",
+                  ", pthread shutting down",
                 ])),
               i,
             )),
@@ -140,18 +140,22 @@ __d(
       };
       return (
         (n.connectionTimeout = window.setTimeout(function () {
-          n.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
+          if (
+            n.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None
+          ) {
+            var r = t.getSctpConnectionTimeoutMs();
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpConnectionManager] Early packet connection timeout (",
-                  "ms) for ",
+                  "voip: [SctpConnectionManager] early packet timeout (",
+                  "ms) ",
                   "",
                 ])),
-              t.getSctpConnectionTimeoutMs(),
+              r,
               e,
             ),
-            t.failConnection(n, "early_packet_timeout"));
+              t.failConnection(n, "early_packet_timeout"));
+          }
         }, t.getSctpConnectionTimeoutMs())),
         o("WAWebVoipSctpConnectionState").sctpConnections.set(e, n),
         n

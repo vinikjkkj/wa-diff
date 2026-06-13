@@ -77,7 +77,7 @@ __d(
           switch (t.type) {
             case "error":
             case "recovery-required":
-              return t;
+              return (C(t.type), t);
             default:
               return (
                 t.type,
@@ -100,11 +100,11 @@ __d(
           .then(function (e) {
             switch (e.name) {
               case "GetAccessTokenAndSessionCookiesResponseTooManyAttempts":
-                return (C(), { type: "too-many-attempts" });
+                return (C("too-many-attempts"), { type: "too-many-attempts" });
               case "GetAccessTokenAndSessionCookiesResponseIncorrectNonce":
-                return (C(), { type: "incorrect-nonce" });
+                return (C("incorrect-nonce"), { type: "incorrect-nonce" });
               case "GetAccessTokenAndSessionCookiesResponseError":
-                return (C(), { type: "error" });
+                return (C("error"), { type: "error" });
               default:
                 return (
                   e.name,
@@ -122,7 +122,7 @@ __d(
             }
           })
           .catch(function (e) {
-            throw (C(), e);
+            throw (C("error"), e);
           })
       );
     }
@@ -133,8 +133,11 @@ __d(
     function y() {
       h(2);
     }
-    function C() {
-      h(3);
+    function C(t) {
+      (o("WAWebQplFlowWrapper").QPL.markerAnnotate(e, {
+        string: { failure_reason: t },
+      }),
+        h(3));
     }
     function b() {
       return (

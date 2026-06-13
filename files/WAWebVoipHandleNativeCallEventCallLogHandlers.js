@@ -30,13 +30,13 @@ __d(
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
-            a = t.parsers.parseSyncDeviceData(e);
+            i = a.parsers.parseSyncDeviceData(t);
           (yield (_ || (_ = n("Promise"))).all(
-            a.map(function (e) {
+            i.map(function (e) {
               return o("WAWebAdvSyncDeviceListApi").syncDeviceList({
                 wids: [e.UserJid],
                 phash: e.PHash,
@@ -45,12 +45,12 @@ __d(
             }),
           ),
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: handleSyncDevices: ",
                   " wids synced",
                 ])),
-              a.length,
+              i.length,
             ));
         })),
         g.apply(this, arguments)
@@ -105,8 +105,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .WARN(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: sendStoredFieldstats failed",
                         ])),
                     )
@@ -122,8 +122,8 @@ __d(
                 })
                 .catch(function (e) {
                   o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [TS Upload] Failed to upload time-series logs: ",
                         "",
                       ])),
@@ -224,71 +224,88 @@ __d(
         k.apply(this, arguments)
       );
     }
-    function I(t) {
-      var n = t.MissedCallFieldStats;
-      if (n == null) {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: missed call fieldstats: no stats to send",
-            ])),
-        );
-        return;
-      }
-      try {
-        var a = Object.entries(n),
-          i = Object.fromEntries(
-            r("compactMap")(a, function (e) {
-              var t = e[0],
-                n = e[1],
-                a =
-                  t === "abtest_bucket"
-                    ? "callTestBucket"
-                    : r("WACamelCase")(t, { treatNumbersAsWordBoundaries: !1 });
-              if (a == null) return null;
-              try {
-                var i = o("WAWebWamCodegenUtils").metrics.getEvent("Call", a);
-                return i.type === "boolean" ? [a, !!n] : [a, n];
-              } catch (e) {
-                return (
-                  o("WALogger").ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: missed call fieldstats: metric undefined for ",
-                        "",
-                      ])),
-                    a,
-                  ),
-                  null
-                );
-              }
-            }),
-          ),
-          l = new (o("WAWebCallWamEvent").CallWamEvent)(i);
-        (l.commit(),
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: missed call WAM event committed",
-              ])),
-          ));
-      } catch (e) {
-        o("WALogger")
-          .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: failed to send missed call fieldstats",
-              ])),
-          )
-          .catching(r("getErrorSafe")(e));
-      }
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.MissedCallFieldStats;
+          if (t == null) {
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: missed call fieldstats: no stats to send",
+                ])),
+            );
+            return;
+          }
+          try {
+            var n = Object.entries(t),
+              a = Object.fromEntries(
+                r("compactMap")(n, function (e) {
+                  var t = e[0],
+                    n = e[1],
+                    a =
+                      t === "abtest_bucket"
+                        ? "callTestBucket"
+                        : r("WACamelCase")(t, {
+                            treatNumbersAsWordBoundaries: !1,
+                          });
+                  if (a == null) return null;
+                  try {
+                    var i = o("WAWebWamCodegenUtils").metrics.getEvent(
+                      "Call",
+                      a,
+                    );
+                    return i.type === "boolean" ? [a, !!n] : [a, n];
+                  } catch (e) {
+                    return (
+                      o("WALogger").ERROR(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: missed call fieldstats: metric undefined for ",
+                            "",
+                          ])),
+                        a,
+                      ),
+                      null
+                    );
+                  }
+                }),
+              ),
+              i = yield o("WAWebBackendApi").frontendSendAndReceive(
+                "getUnifiedSessionId",
+              ),
+              l = new (o("WAWebCallWamEvent").CallWamEvent)(a);
+            (i != null && l.set({ unifiedSessionId: i }),
+              l.commit(),
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: missed call WAM event committed",
+                  ])),
+              ));
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: failed to send missed call fieldstats",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e));
+          }
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -298,13 +315,13 @@ __d(
             { call1to1LogData: n },
           );
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x() {
+    function $() {
       o("WAWebBackendApi").frontendFireAndForget("handleMuteRequestFailed", {});
     }
-    function $(e) {
+    function P(e) {
       var t = null;
       try {
         var n,
@@ -320,16 +337,16 @@ __d(
         muterJid: t,
       });
     }
-    function P(e) {}
+    function N(e) {}
     ((l.handleSyncDevices = f),
       (l.handleCallEnding = h),
       (l.handleRejectedDecryptionFailure = v),
       (l.handleUpdateJoinableCallLog = R),
       (l.handleCallMissed = E),
-      (l.handleUpdate1to1CallLog = T),
-      (l.handleMuteRequestFailed = x),
-      (l.handleMutedByOthers = $),
-      (l.handleNoOpEvent = P));
+      (l.handleUpdate1to1CallLog = D),
+      (l.handleMuteRequestFailed = $),
+      (l.handleMutedByOthers = P),
+      (l.handleNoOpEvent = N));
   },
   98,
 );

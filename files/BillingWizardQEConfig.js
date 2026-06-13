@@ -109,6 +109,10 @@ __d(
           params: { use_new_content: e },
           type: "PAYMENT_ACCOUNT",
         },
+        billing_lpm_success_screen: {
+          params: { hide_unloadgurad_v1: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_mobile_modular_ptt_api_migration_ama_ios_logging: {
           params: { modular_ptt_api_enabled: e },
         },

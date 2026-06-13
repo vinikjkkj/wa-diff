@@ -141,7 +141,13 @@ __d(
                 isPartOfGroupHistory: !0,
                 groupHistoryBundleMessageId: n.bundleMsgStanzaId,
               }),
-              null
+              {
+                row: null,
+                failureReason: o(
+                  "WAWebWamEnumReportingTokenValidationFailureReason",
+                ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                  .GROUP_HISTORY_MESSAGE_MISSING_FROM_PUBLIC_STANZA,
+              }
             );
           if (n.bundleMessageSecret == null)
             return (
@@ -166,7 +172,13 @@ __d(
                 isPartOfGroupHistory: !0,
                 groupHistoryBundleMessageId: n.bundleMsgStanzaId,
               }),
-              null
+              {
+                row: null,
+                failureReason: o(
+                  "WAWebWamEnumReportingTokenValidationFailureReason",
+                ).REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+                  .MISSING_MESSAGE_SECRET,
+              }
             );
           var i = yield o(
               "WAWebGroupHistoryReportingTokenGenerator",
@@ -182,7 +194,7 @@ __d(
             s = l.failureReason,
             _ = l.isValid,
             f = l.receivedInfo;
-          if (f == null) return null;
+          if (f == null) return { row: null, failureReason: s };
           s != null &&
             (o("WALogger")
               .ERROR(
@@ -204,7 +216,7 @@ __d(
               groupHistoryBundleMessageId: n.bundleMsgStanzaId,
             }));
           var g = f.reportingTag;
-          if (g == null) return null;
+          if (g == null) return { row: null, failureReason: s };
           var h = {
             msgKey: p(e),
             stanzaId: r,
@@ -227,7 +239,7 @@ __d(
                 (h.reportingTokenContentOpaqueData = i.reportingTokenContent),
               (i == null ? void 0 : i.reportingTokenKey) != null &&
                 (h.reportingTokenKey = i.reportingTokenKey)),
-            h
+            { row: h, failureReason: s }
           );
         })),
         h.apply(this, arguments)

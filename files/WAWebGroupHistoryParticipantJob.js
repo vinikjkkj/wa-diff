@@ -3,6 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebSchemaGroupHistoryParticipant",
     "WAWebWidToJid",
@@ -114,8 +116,51 @@ __d(
         d.apply(this, arguments)
       );
     }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            t.actionType !== o("WAWebGroupType").GROUP_ACTIONS.ADD ||
+            !o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
+          )
+            return t;
+          var n = yield c(e);
+          if (n == null || n.size === 0) return t;
+          var r = !1,
+            a = t.participants.map(function (e) {
+              var t,
+                a,
+                i = o("WAWebLidMigrationUtils").toUserLid(
+                  (t = e.lid) != null ? t : e.id,
+                );
+              if (i == null) return e;
+              var l =
+                (a = n.get(o("WAWebWidToJid").userLidtoLidUserJid(i))) == null
+                  ? void 0
+                  : a.groupHistorySentState;
+              return l !==
+                o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                  .HISTORY_SENT &&
+                l !==
+                  o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                    .NOTICE_SENT
+                ? e
+                : ((r = !0),
+                  babelHelpers.extends({}, e, { groupHistorySentState: l }));
+            });
+          return r ? babelHelpers.extends({}, t, { participants: a }) : t;
+        })),
+        p.apply(this, arguments)
+      );
+    }
     ((l.updateGroupHistoryParticipantMetadataOnJoin = s),
-      (l.getGroupHistoryParticipantMetadataForGroup = c));
+      (l.getGroupHistoryParticipantMetadataForGroup = c),
+      (l.enrichGroupActionWithStoredHistoryState = m));
   },
   98,
 );

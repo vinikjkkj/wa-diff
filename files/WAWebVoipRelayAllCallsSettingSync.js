@@ -102,8 +102,8 @@ __d(
                   o("WALogger").WARN(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip relay-all-calls setting sync: ",
-                        " malformed mutations",
+                        "[voip-relay] ",
+                        " malformed muts",
                       ])),
                     a,
                   ),
@@ -111,8 +111,8 @@ __d(
                   o("WALogger").WARN(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip relay-all-calls setting sync: ",
-                        " mutations have null value",
+                        "[voip-relay] ",
+                        " muts w/ null value",
                       ])),
                     i,
                   ),
@@ -120,8 +120,8 @@ __d(
                   o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip relay-all-calls setting sync: ",
-                        " operations not supported",
+                        "[voip-relay] ",
+                        " unsupported ops",
                       ])),
                     l,
                   ),

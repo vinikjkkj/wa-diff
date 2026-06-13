@@ -1,6 +1,13 @@
 __d(
   "WAWebSuperChatMsgs",
-  ["WALogger", "WAWebBaseModel", "WAWebChatMsgsCollection", "err"],
+  [
+    "WALogger",
+    "WAWebBaseModel",
+    "WAWebChatMsgsCollection",
+    "WAWebGroupHistoryGating",
+    "WAWebWid",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -20,9 +27,11 @@ __d(
             (e.disableUnreadAnchor = o("WAWebBaseModel").session()),
             (e.msgsLength = o("WAWebBaseModel").session()),
             (e.msgsChanged = o("WAWebBaseModel").session(0)),
+            (e.noEarlierMsgs = o("WAWebBaseModel").session(!1)),
             (e.msgs = o("WAWebBaseModel").collection(
               o("WAWebChatMsgsCollection").ChatMsgsCollection,
             )),
+            (e.$ChatMsgs$p_1 = null),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -39,12 +48,28 @@ __d(
               this.listenTo(this.msgs, "add remove bulk_add", function () {
                 (e.msgsChanged++, (e.msgsLength = e.msgs.length));
               }));
+            var n = this.id;
+            if (
+              n instanceof r("WAWebWid") &&
+              n.isGroup() &&
+              o(
+                "WAWebGroupHistoryGating",
+              ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(n)
+            ) {
+              var a = function () {
+                var t = e.msgs.msgLoadState.noEarlierMsgs;
+                e.noEarlierMsgs !== t && (e.noEarlierMsgs = t);
+              };
+              ((this.$ChatMsgs$p_1 = this.msgs.onMsgLoadStateChange(a)), a());
+            }
           }),
           (a.onEmptyMRM = function () {
             throw r("err")("onEmptyMRM not implemented");
           }),
           (a.delete = function () {
-            (t.prototype.delete.call(this),
+            var e;
+            ((e = this.$ChatMsgs$p_1) == null || e.call(this),
+              t.prototype.delete.call(this),
               this.getAllCMCs().forEach(function (e) {
                 (e.forEach(function (e) {
                   e.delete();
@@ -62,12 +87,12 @@ __d(
                 ])),
               n.get("id"),
             ),
-              this.$ChatMsgs$p_1(n, n.getMsgChunk()),
+              this.$ChatMsgs$p_2(n, n.getMsgChunk()),
               n.forEachThreadMsgChunk(function (e) {
-                t.$ChatMsgs$p_1(n, e);
+                t.$ChatMsgs$p_2(n, e);
               }));
           }),
-          (a.$ChatMsgs$p_1 = function (t, n) {
+          (a.$ChatMsgs$p_2 = function (t, n) {
             n == null ||
               !n.includes(t) ||
               (n.remove(t),

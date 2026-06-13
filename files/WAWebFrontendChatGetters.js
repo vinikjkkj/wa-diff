@@ -18,7 +18,9 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGetters",
     "WAWebGettersCaches",
+    "WAWebGroupHistorySupportedMessageTypesUtil",
     "WAWebGroupType",
+    "WAWebHistorySyncUtils",
     "WAWebLastAddOnDBSerialization",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -50,20 +52,21 @@ __d(
       R = m("msgs"),
       L = m("msgsLength"),
       E = m("msgsChanged"),
-      k = m("isParentGroup"),
-      I = m("broadcastRecipientCount", { default: 0 }),
-      T = m("groupType"),
-      D = m("hasCapi"),
-      x = m("createdLocally"),
-      $ = m("pendingDeleteForMeCount"),
-      P = m("attachMediaContents"),
-      N = m("formattedTitle"),
-      M = m("assignedAgent"),
-      w = m("isAssignedToMe", { default: !1 }),
-      A = m("mute"),
-      F = m("presence"),
-      O = m("newsletterMetadata"),
-      B = m("promises", {
+      k = m("noEarlierMsgs", { default: !1 }),
+      I = m("isParentGroup"),
+      T = m("broadcastRecipientCount", { default: 0 }),
+      D = m("groupType"),
+      x = m("hasCapi"),
+      $ = m("createdLocally"),
+      P = m("pendingDeleteForMeCount"),
+      N = m("attachMediaContents"),
+      M = m("formattedTitle"),
+      w = m("assignedAgent"),
+      A = m("isAssignedToMe", { default: !1 }),
+      F = m("mute"),
+      O = m("presence"),
+      B = m("newsletterMetadata"),
+      W = m("promises", {
         getDefault: function () {
           return {
             reportSpamAndBlockSender: void 0,
@@ -78,14 +81,14 @@ __d(
           };
         },
       }),
-      W = m("isFavorite", { default: !1 }),
-      q = m("trusted"),
-      U = m("active"),
-      V = m("pendingAction"),
-      H = m("pttRecordingSession"),
-      G = m("unopenedByAssignedAgent", { default: !1 }),
-      z = m("mmSignalSharingExpirationWindow"),
-      j = d(
+      q = m("isFavorite", { default: !1 }),
+      U = m("trusted"),
+      V = m("active"),
+      H = m("pendingAction"),
+      G = m("pttRecordingSession"),
+      z = m("unopenedByAssignedAgent", { default: !1 }),
+      j = m("mmSignalSharingExpirationWindow"),
+      K = d(
         function (t) {
           var n = t[0],
             r = t[1],
@@ -115,10 +118,10 @@ __d(
           s.getIsBroadcast,
           s.getIsUser,
           s.getIsNewsletter,
-          T,
+          D,
         ],
       ),
-      K = d(
+      Q = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -126,16 +129,16 @@ __d(
             t && n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
           );
         },
-        [s.getIsGroup, T],
+        [s.getIsGroup, D],
       ),
-      Q = d(
+      X = d(
         function (e) {
           var t = e[0];
           return t === !0;
         },
-        [D],
+        [x],
       ),
-      X = d(
+      Y = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -152,9 +155,9 @@ __d(
           }
           return n.isHosted !== !0;
         },
-        [j, f],
+        [K, f],
       ),
-      Y = d(
+      J = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -164,7 +167,7 @@ __d(
         },
         [s.getUnreadCount, g],
       ),
-      J = d(
+      Z = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -193,7 +196,7 @@ __d(
         },
         [s.getUnreadCount, h, R],
       ),
-      Z = d(
+      ee = d(
         function (e) {
           var t,
             n = e[0],
@@ -201,9 +204,9 @@ __d(
             o = n == null || (t = n.text) == null ? void 0 : t.trim();
           return !!((o != null && o !== "") || r);
         },
-        [s.getDraftMessage, P],
+        [s.getDraftMessage, N],
       ),
-      ee = d(
+      te = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -269,15 +272,15 @@ __d(
           s.getIsBroadcast,
           s.getEndOfHistoryTransferType,
           s.getIsGroup,
-          k,
-          R,
-          x,
-          L,
-          Z,
           I,
+          R,
+          $,
+          L,
+          ee,
+          T,
         ],
       ),
-      te = d(
+      ne = d(
         function (e) {
           for (
             var t = e[0],
@@ -303,9 +306,32 @@ __d(
           }
           if (t.length > 0) return t.last();
         },
-        [R, E, $, s.getId],
+        [R, E, P, s.getId],
       ),
-      ne = d(
+      re = d(
+        function (e) {
+          var t = e[0],
+            n = e[1],
+            a = e[2],
+            i = e[3],
+            l =
+              i != null &&
+              o("WAWebHistorySyncUtils").primaryHasMoreMessagesReadyToLoad(i),
+            s = a && !l;
+          if (!s) return !1;
+          for (var u = 0; u < t.length; u++) {
+            var c = t.at(u);
+            if (
+              c != null &&
+              r("WAWebGroupHistorySupportedMessageTypesUtil")(c.type)
+            )
+              return !1;
+          }
+          return !0;
+        },
+        [R, E, k, s.getEndOfHistoryTransferType],
+      ),
+      oe = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -324,7 +350,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      re = d(
+      ae = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -345,33 +371,34 @@ __d(
       (l.getQuotedMsgAdminGroupSubject = v),
       (l.getQuotedMsgAdminParentGroupJid = S),
       (l.getMsgs = R),
-      (l.getIsParentGroup = k),
-      (l.getAttachMediaContents = P),
-      (l.getFormattedTitle = N),
-      (l.getAssignedAgent = M),
-      (l.getIsAssignedToMe = w),
-      (l.getMute = A),
-      (l.getPresence = F),
-      (l.getNewsletterMetadata = O),
-      (l.getPromises = B),
-      (l.getIsFavorite = W),
-      (l.getTrusted = q),
-      (l.getActive = U),
-      (l.getPendingAction = V),
-      (l.getPttRecordingSession = H),
-      (l.getUnopenedByAssignedAgent = G),
-      (l.getMmSignalSharingExpirationWindow = z),
-      (l.getKind = j),
-      (l.getIsCAG = K),
-      (l.getIsCapiHostedGroup = Q),
-      (l.getIsE2ee = X),
-      (l.getOptimisticUnreadCount = Y),
-      (l.getShouldShowUnreadDivider = J),
-      (l.getHasDraftMessage = Z),
-      (l.getShouldAppearInList = ee),
-      (l.getPreviewMessage = te),
-      (l.getShowChangeNumberNotification = ne),
-      (l.getDerivedLastAddOnPreview = re));
+      (l.getIsParentGroup = I),
+      (l.getAttachMediaContents = N),
+      (l.getFormattedTitle = M),
+      (l.getAssignedAgent = w),
+      (l.getIsAssignedToMe = A),
+      (l.getMute = F),
+      (l.getPresence = O),
+      (l.getNewsletterMetadata = B),
+      (l.getPromises = W),
+      (l.getIsFavorite = q),
+      (l.getTrusted = U),
+      (l.getActive = V),
+      (l.getPendingAction = H),
+      (l.getPttRecordingSession = G),
+      (l.getUnopenedByAssignedAgent = z),
+      (l.getMmSignalSharingExpirationWindow = j),
+      (l.getKind = K),
+      (l.getIsCAG = Q),
+      (l.getIsCapiHostedGroup = X),
+      (l.getIsE2ee = Y),
+      (l.getOptimisticUnreadCount = J),
+      (l.getShouldShowUnreadDivider = Z),
+      (l.getHasDraftMessage = ee),
+      (l.getShouldAppearInList = te),
+      (l.getPreviewMessage = ne),
+      (l.getHasNoShareableHistory = re),
+      (l.getShowChangeNumberNotification = oe),
+      (l.getDerivedLastAddOnPreview = ae));
   },
   98,
 );

@@ -14,25 +14,29 @@ __d(
     var e,
       s,
       u = s || (s = o("react"));
-    function c(e, t, n, r) {
-      (r === void 0 && (r = !1),
-        navigator.clipboard
-          ? (navigator.clipboard.writeText(e),
-            o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: r === !0 ? "Result copied to clipboard." : t,
-              }),
-            ))
-          : (o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: "Clipboard API not supported.",
-              }),
-            ),
-            n == null ||
-              n.update(function (t) {
-                var n = o("WAWebLexicalUtils").$getRangeSelection();
-                e && n && n.insertText(e);
-              })));
+    function c(e) {
+      var t = e.editor,
+        n = e.isResult,
+        r = n === void 0 ? !1 : n,
+        a = e.successText,
+        i = e.text;
+      navigator.clipboard
+        ? (navigator.clipboard.writeText(i),
+          o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, {
+              msg: r === !0 ? "Result copied to clipboard." : a,
+            }),
+          ))
+        : (o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, {
+              msg: "Clipboard API not supported.",
+            }),
+          ),
+          t == null ||
+            t.update(function (e) {
+              var t = o("WAWebLexicalUtils").$getRangeSelection();
+              i && t && t.insertText(i);
+            }));
     }
     function d(e, t) {
       return m.apply(this, arguments);
@@ -55,7 +59,13 @@ __d(
                 }),
               ));
           } else i = "Debug." + o("WAWebDebugCommandGetters").getName(t);
-          i && c(i, "Command copied to clipboard", r, l);
+          i &&
+            c({
+              editor: r,
+              isResult: l,
+              successText: "Command copied to clipboard",
+              text: i,
+            });
         })),
         m.apply(this, arguments)
       );

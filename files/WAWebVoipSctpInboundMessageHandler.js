@@ -64,7 +64,7 @@ __d(
             o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpConnectionManager] connection not found on sctp message for ",
+                  "voip: [SctpConnectionManager] conn not found for ",
                   "",
                 ])),
               n.id,

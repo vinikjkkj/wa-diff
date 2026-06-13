@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebGuestCoreCommonUtils",
-    "WAWebGuestCoreWamConstants",
+    "WAWebGuestCoreLocalStorage",
     "WAWebGuestUpsellInteractionWamEvent",
     "asyncToGeneratorRuntime",
   ],
@@ -46,7 +46,7 @@ __d(
         browserVersion: e.browserVersion,
         deviceName: e.osName,
         deviceVersion: e.osVersion,
-        webcTabId: o("WAWebGuestCoreWamConstants").WAM_GUEST_TAB_ID,
+        webcTabId: o("WAWebGuestCoreLocalStorage").getGuestExperienceType(),
       };
     }
     ((l.logUpsellAction = s), (l.getGuestWamOverrides = c));

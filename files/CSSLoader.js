@@ -22,8 +22,8 @@ __d(
           t.appendChild(n));
       }
     }
-    function c(e, t, n, o, a) {
-      r("CSSPoller").startCSSPoll(e, n, o, a);
+    function c(e, t, n, o) {
+      r("CSSPoller").startCSSPoll(e, t, n, o);
     }
     function d(t, n, o, a, i, l, s) {
       s === void 0 && (s = !1);
@@ -44,9 +44,9 @@ __d(
         },
         p = r("TimeSlice").getGuardedContinuation("CSSLoader link.onresponse");
       s
-        ? c(t, o, m, i, l)
+        ? c(t, m, i, l)
         : e !== !0
-          ? (c(t, o, m, i, l), e === void 0 && u(o))
+          ? (c(t, m, i, l), e === void 0 && u(o))
           : ((l.onload = p.bind(void 0, function () {
               ((l.onload = l.onerror = null), m());
             })),

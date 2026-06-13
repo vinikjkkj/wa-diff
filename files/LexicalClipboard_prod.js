@@ -229,6 +229,7 @@ __d(
       }),
       x = _require_Lexical.defineExtension({
         dependencies: [
+          require("LexicalHtml").CoreImportExtension,
           require("LexicalExtension").configExtension(m, {
             $importMimeType: {
               "text/html": [
@@ -293,12 +294,12 @@ __d(
         return t ? t.output : f;
       })().$insertDataTransfer(t, n);
     }
-    var h = "application/x-lexical-drag";
-    function C(e, t, n) {
+    var C = "application/x-lexical-drag";
+    function h(e, t, n) {
       var r = e.dataTransfer;
       if (null === r) return !1;
       var l = (function (e) {
-        var t = e.getData(h);
+        var t = e.getData(C);
         if (!t) return null;
         var n;
         try {
@@ -614,19 +615,19 @@ __d(
       (exports.$getHtmlContent = g),
       (exports.$getLexicalContent = $),
       (exports.$handlePlainTextDrop = function (e, t) {
-        return C(e, t, function (e, t) {
+        return h(e, t, function (e, t) {
           return y(e, t);
         });
       }),
       (exports.$handleRichTextDrop = function (e, t) {
-        return C(e, t, T);
+        return h(e, t, T);
       }),
       (exports.$insertDataTransferForPlainText = y),
       (exports.$insertDataTransferForRichText = T),
       (exports.$insertGeneratedNodes = D),
       (exports.$writeDragSourceToDataTransfer = function (e, t) {
         var n = { editorKey: t.getKey() };
-        e.setData(h, JSON.stringify(n));
+        e.setData(C, JSON.stringify(n));
       }),
       (exports.ClipboardDOMImportExtension = x),
       (exports.ClipboardImportExtension = m),

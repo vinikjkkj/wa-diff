@@ -3052,6 +3052,7 @@ __d(
               webTransportUsed: [2900, e.TYPES.BOOLEAN],
               webVideoCaptureCaptureToEncodedAvgMs: [2907, e.TYPES.TIMER],
               webVideoCapturePresentToConstructAvgMs: [2908, e.TYPES.TIMER],
+              webVideoEncoderType: [3032, e.TYPES.STRING],
               webrtcCompatible: [1984, e.TYPES.BOOLEAN],
               wifiInfoAtEnd: [2416, e.TYPES.STRING],
               wifiInfoAtStart: [2417, e.TYPES.STRING],

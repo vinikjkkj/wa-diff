@@ -77,25 +77,30 @@ __d(
       I = r("requireDeferred")("WAWebShowBillingWizard").__setRef(
         "WAWebDebugSmb",
       );
-    function T(e, t, n, r, o, a, i) {
+    function T(e) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l) {
-            var s = { id: e, name: t, colorIndex: n, predefinedId: r };
-            a != null && (s.orderIndex = a);
-            var u = i != null ? o("WAWebSchemaLabel").ListType.cast(i) : null;
-            (u != null && (s.type = u),
-              l != null && (s.isActive = l),
-              yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(s),
-              o("WAWebLabelCollection").LabelCollection.add(
-                babelHelpers.extends({}, s),
-                { merge: !0 },
-              ));
-          },
-        )),
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.colorIndex,
+            n = e.id,
+            r = e.isActive,
+            a = e.name,
+            i = e.orderIndex,
+            l = e.predefinedId,
+            s = e.type,
+            u = { id: n, name: a, colorIndex: t, predefinedId: l };
+          i != null && (u.orderIndex = i);
+          var c = s != null ? o("WAWebSchemaLabel").ListType.cast(s) : null;
+          (c != null && (u.type = c),
+            r != null && (u.isActive = r),
+            yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(u),
+            o("WAWebLabelCollection").LabelCollection.add(
+              babelHelpers.extends({}, u),
+              { merge: !0 },
+            ));
+        })),
         D.apply(this, arguments)
       );
     }

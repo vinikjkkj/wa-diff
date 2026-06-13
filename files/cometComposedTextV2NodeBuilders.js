@@ -15,6 +15,7 @@ __d(
     "CometComposedTextV2GridNodeRenderer.react",
     "CometComposedTextV2HScrollNode.react",
     "CometComposedTextV2HScrollNodeRenderer.react",
+    "CometComposedTextV2ImageGridNodeRenderer.react",
     "CometComposedTextV2LinkNode.react",
     "CometComposedTextV2LinkNodeRenderer.react",
     "CometComposedTextV2MathNode.react",
@@ -143,7 +144,31 @@ __d(
         r("CometComposedTextV2GridNodeRenderer.react"),
       );
     }
-    function y(e, t, n, a) {
+    function y() {
+      return new (o(
+        "CometComposedTextV2GridNode.react",
+      ).CometComposedTextV2GridNode)(
+        { key: r("cometComposedTextV2NodeKey")() },
+        r("CometComposedTextV2ImageGridNodeRenderer.react"),
+      );
+    }
+    function C(e, t) {
+      return new (o(
+        "CometComposedTextV2CustomNode.react",
+      ).CometComposedTextV2CustomNode)(
+        {
+          key: r("cometComposedTextV2NodeKey")(),
+          rendererArgs: babelHelpers.extends(
+            {},
+            t != null ? { imageGroup: t.images, imageIndex: t.index } : {},
+            { imageUrl: e, nodeType: "inlineImage" },
+          ),
+          rendererKey: "inlineImage",
+        },
+        r("CometComposedTextV2CustomNodeRenderer.react"),
+      );
+    }
+    function b(e, t, n, a) {
       return new (o(
         "CometComposedTextV2LinkNode.react",
       ).CometComposedTextV2LinkNode)(
@@ -157,7 +182,7 @@ __d(
         r("CometComposedTextV2LinkNodeRenderer.react"),
       );
     }
-    function C(e) {
+    function v(e) {
       return new (o(
         "CometComposedTextV2MathNode.react",
       ).CometComposedTextV2MathNode)(
@@ -165,7 +190,7 @@ __d(
         r("CometComposedTextV2MathNodeRenderer.react"),
       );
     }
-    function b(e, t) {
+    function S(e, t) {
       return new (o(
         "CometComposedTextV2ContentViewerNode.react",
       ).CometComposedTextV2ContentViewerNode)(
@@ -173,7 +198,7 @@ __d(
         r("CometComposedTextV2ContentViewerNodeRenderer.react"),
       );
     }
-    function v() {
+    function R() {
       return new (o(
         "CometComposedTextV2NewLineNode.react",
       ).CometComposedTextV2NewLineNode)(
@@ -181,7 +206,7 @@ __d(
         r("CometComposedTextV2NewLineNodeRenderer.react"),
       );
     }
-    function S() {
+    function L() {
       return new (o(
         "CometComposedTextV2ParagraphNode.react",
       ).CometComposedTextV2ParagraphNode)(
@@ -189,7 +214,7 @@ __d(
         r("CometComposedTextV2ParagraphNodeRenderer.react"),
       );
     }
-    function R(e, t, n, a, i) {
+    function E(e, t, n, a, i) {
       return new (o(
         "CometComposedTextV2ProgressStatusNode.react",
       ).CometComposedTextV2ProgressStatusNode)(
@@ -204,7 +229,7 @@ __d(
         r("CometComposedTextV2ProgressStatusNodeRenderer.react"),
       );
     }
-    function L() {
+    function k() {
       return new (o(
         "CometComposedTextV2RootNode.react",
       ).CometComposedTextV2RootNode)(
@@ -212,7 +237,7 @@ __d(
         r("CometComposedTextV2RootNodeRenderer.react"),
       );
     }
-    function E(e, t, n) {
+    function I(e, t, n) {
       return (
         t === void 0 && (t = 0),
         new (o(
@@ -228,7 +253,7 @@ __d(
         )
       );
     }
-    function k() {
+    function T() {
       return new (o(
         "CometComposedTextV2ThematicBreakNode.react",
       ).CometComposedTextV2ThematicBreakNode)(
@@ -245,15 +270,17 @@ __d(
       (l.buildProductItemCardNode = f),
       (l.buildHScrollNode = g),
       (l.buildGridNode = h),
-      (l.buildLinkNode = y),
-      (l.buildMathNode = C),
-      (l.buildContentViewerNode = b),
-      (l.buildNewLineNode = v),
-      (l.buildParagraphNode = S),
-      (l.buildProgressStatusNode = R),
-      (l.buildRootNode = L),
-      (l.buildTextNode = E),
-      (l.buildThematicBreakNode = k));
+      (l.buildImageGridNode = y),
+      (l.buildImageNode = C),
+      (l.buildLinkNode = b),
+      (l.buildMathNode = v),
+      (l.buildContentViewerNode = S),
+      (l.buildNewLineNode = R),
+      (l.buildParagraphNode = L),
+      (l.buildProgressStatusNode = E),
+      (l.buildRootNode = k),
+      (l.buildTextNode = I),
+      (l.buildThematicBreakNode = T));
   },
   98,
 );

@@ -75,7 +75,8 @@ __d(
             (n.$Call$p_7 = new Map()),
             (n.$Call$p_8 = new Map()),
             (n.$Call$p_9 = new Map()),
-            (n.$Call$p_10 = null),
+            (n.$Call$p_10 = new Map()),
+            (n.$Call$p_11 = null),
             e != null && (n.id = e),
             n
           );
@@ -100,7 +101,7 @@ __d(
               ),
               o("WAWebVoipCallStateUtils").isCallActive(t) &&
                 (this.wasEverConnected = !0),
-              this.$Call$p_11(e),
+              this.$Call$p_12(e),
               o("WAWebVoipPerfMeasurement").onCallStateChange(t, this.outgoing),
               o("WAWebVoipCallStateUtils").isCallTerminal(t))
             ) {
@@ -132,7 +133,8 @@ __d(
                 ),
                 this.$Call$p_8.clear(),
                 this.$Call$p_9.clear(),
-                (this.$Call$p_10 = null),
+                this.$Call$p_10.clear(),
+                (this.$Call$p_11 = null),
                 this.trigger(
                   n.getChangeEvent(n.VoipCallModelEvents.NETWORK_HEALTH),
                 ),
@@ -185,7 +187,7 @@ __d(
                   this.peerVideoState,
                 );
           }),
-          (a.$Call$p_12 = function () {
+          (a.$Call$p_13 = function () {
             return (
               this.callLinkState ===
                 o("WAWebVoipWaCallEnums").CallLinkState.JoinSent ||
@@ -203,13 +205,13 @@ __d(
             var e = o("WAWebVoipCallStateUtils").isCallConnected(
               this.$Call$p_1,
             );
-            return this.$Call$p_12() && !e;
+            return this.$Call$p_13() && !e;
           }),
           (a.isInCallLinkLobby = function () {
             var e =
               this.$Call$p_1 ===
               o("WAWebVoipWaCallEnums").CallState.ConnectedLonely;
-            return this.isCallLink && this.$Call$p_12() && e;
+            return this.isCallLink && this.$Call$p_13() && e;
           }),
           (a.setPeerReconnectingState = function (t, n, a) {
             var e = t.toString();
@@ -237,7 +239,7 @@ __d(
           }),
           (a.setNetHealth = function (t) {
             var e;
-            ((this.$Call$p_10 = t),
+            ((this.$Call$p_11 = t),
               this.trigger(
                 (e = o("WAWebVoipEventConstants")).getChangeEvent(
                   e.VoipCallModelEvents.NETWORK_HEALTH,
@@ -248,7 +250,7 @@ __d(
               ));
           }),
           (a.getNetHealth = function () {
-            return this.$Call$p_10;
+            return this.$Call$p_11;
           }),
           (a.setScreenShareState = function (t, n) {
             (o("WAWebUserPrefsMeUser").isMeAccount(t)
@@ -348,6 +350,12 @@ __d(
           (a.setGroupParticipantMediaStates = function (t, n) {
             ((this.$Call$p_8 = t), (this.$Call$p_9 = n));
           }),
+          (a.setGroupParticipantPushNames = function (t) {
+            this.$Call$p_10 = t;
+          }),
+          (a.getParticipantPushName = function (t) {
+            return this.$Call$p_10.get(t.toString());
+          }),
           (a.getParticipantVideoState = function (t) {
             return this.$Call$p_8.get(t.toString());
           }),
@@ -370,7 +378,7 @@ __d(
           (a.updateParticipantMicState = function (t, n) {
             this.$Call$p_9.set(t.toString(), n);
           }),
-          (a.$Call$p_11 = function (t) {
+          (a.$Call$p_12 = function (t) {
             if (!r("WAWebEnvironment").isWindows && this.peerJid) {
               var e = {
                 wid: this.peerJid,

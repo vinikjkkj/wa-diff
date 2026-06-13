@@ -10,6 +10,7 @@ __d(
     "cometComposedTextV2GenAiCodeUxPrimitiveParser",
     "cometComposedTextV2GenAiDividerPrimitiveParser",
     "cometComposedTextV2GenAiFollowUpSuggestionPillPrimitiveParser",
+    "cometComposedTextV2GenAiImagePrimitiveParser",
     "cometComposedTextV2GenAiImaginePrimitiveParser",
     "cometComposedTextV2GenAiLatexUxPrimitiveParser",
     "cometComposedTextV2GenAiMetadataTextPrimitiveParser",
@@ -46,6 +47,11 @@ __d(
           return r("cometComposedTextV2GenAiPostUxPrimitiveParser")(e);
         if (e.__typename === "GenAIImaginePrimitive")
           return r("cometComposedTextV2GenAiImaginePrimitiveParser")(e);
+        if (e.__typename === "GenAIImagePrimitive")
+          return r("cometComposedTextV2GenAiImagePrimitiveParser")(
+            e,
+            t == null ? void 0 : t.imageGroupMetadata,
+          );
         if (e.__typename === "GenAIBotProgressStatusPrimitive")
           return r("cometComposedTextV2GenAiBotProgressStatusPrimitiveParser")(
             e,

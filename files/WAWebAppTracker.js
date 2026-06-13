@@ -38,6 +38,7 @@ __d(
       "SyncD",
       "VoipAudio",
       "VoipVideo",
+      "VoipWasmLoad",
       "FTSIndex",
       "PdfViewer",
       "StatusTab",

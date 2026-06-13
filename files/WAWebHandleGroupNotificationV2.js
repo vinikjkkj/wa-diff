@@ -11,6 +11,7 @@ __d(
     "WAWebCommsWapMd",
     "WAWebGetMessageCache",
     "WAWebGroupDatabaseJob",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebGroupQueryJob",
     "WAWebGroupSystemMsg",
     "WAWebHandleGroupNotificationConst",
@@ -154,13 +155,16 @@ __d(
                       );
                       return;
                     }
-                    (yield o(
+                    yield o(
                       "WAWebUpdateDbForGroupActionApi",
-                    ).updateDBForGroupAction(e, r, t),
-                      o("WAWebBackendApi").frontendFireAndForget(
-                        "updateModelForGroupAction",
-                        { groupMeta: e, groupAction: r },
-                      ));
+                    ).updateDBForGroupAction(e, r, t);
+                    var n = yield o(
+                      "WAWebGroupHistoryParticipantJob",
+                    ).enrichGroupActionWithStoredHistoryState(e.chatId, r);
+                    o("WAWebBackendApi").frontendFireAndForget(
+                      "updateModelForGroupAction",
+                      { groupMeta: e, groupAction: n },
+                    );
                   },
                 );
                 function i() {

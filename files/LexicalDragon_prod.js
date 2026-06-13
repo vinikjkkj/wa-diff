@@ -10,88 +10,173 @@ __d(
     exports,
   ) {
     "use strict";
-    function n(e) {
-      var n = window.location.origin,
-        o = function o(_o) {
-          if (_o.origin !== n) return;
-          var i = e.getRootElement();
-          if (document.activeElement !== i) return;
-          var s = _o.data;
-          if ("string" == typeof s) {
-            var _n;
-            try {
-              _n = JSON.parse(s);
-            } catch (e) {
-              return;
-            }
-            if (
-              _n &&
-              "nuanria_messaging" === _n.protocol &&
-              "request" === _n.type
-            ) {
-              var _i = _n.payload;
-              if (_i && "makeChanges" === _i.functionId) {
-                var _n2 = _i.args;
-                if (_n2) {
-                  var _i2 = _n2[0],
-                    _s = _n2[1],
-                    a = _n2[2],
-                    r = _n2[3],
-                    d = _n2[4];
-                  e.update(function () {
-                    var e = require("Lexical").$getSelection();
-                    if (require("Lexical").$isRangeSelection(e)) {
-                      var _n3 = e.anchor;
-                      var c = _n3.getNode(),
-                        g = 0,
-                        u = 0;
-                      if (
-                        (require("Lexical").$isTextNode(c) &&
-                          _i2 >= 0 &&
-                          _s >= 0 &&
-                          ((g = _i2),
-                          (u = _i2 + _s),
-                          e.setTextNodeRange(c, g, c, u)),
-                        (g === u && "" === a) ||
-                          (e.insertRawText(a), (c = _n3.getNode())),
-                        require("Lexical").$isTextNode(c))
-                      ) {
-                        ((g = r), (u = r + d));
-                        var _t = c.getTextContentSize();
-                        ((g = g > _t ? _t : g),
-                          (u = u > _t ? _t : u),
-                          e.setTextNodeRange(c, g, c, u));
-                      }
-                      _o.stopImmediatePropagation();
-                    }
-                  });
+    var n = {
+        bold: "bold",
+        italic: "italic",
+        strikeThrough: "strikethrough",
+        subscript: "subscript",
+        superscript: "superscript",
+        underline: "underline",
+      },
+      i = Symbol["for"]("@lexical/dragon/WindowState");
+    function o(e, t, n) {
+      var o = (function (e) {
+        var t = e[i];
+        return (
+          void 0 === t &&
+            ((t = {
+              dispose: function dispose() {},
+              editors: new Map(),
+              installs: new Set(),
+            }),
+            (e[i] = t)),
+          t
+        );
+      })(e);
+      if (0 === o.installs.size) {
+        var _t = l.bind(e);
+        (e.addEventListener("message", _t, !0),
+          (o.dispose = function () {
+            e.removeEventListener("message", _t, !0);
+          }));
+      }
+      if ((o.installs.add(t), n)) {
+        var _e = o.editors.get(n) || new Set();
+        (_e.add(t), o.editors.set(n, _e));
+      }
+      return s.bind(null, e, o, t, n);
+    }
+    function s(e, t, n, o) {
+      if (o) {
+        var _e2 = t.editors.get(o);
+        _e2 && _e2["delete"](n) && 0 === _e2.size && t.editors["delete"](o);
+      }
+      t.installs["delete"](n) &&
+        0 === t.installs.size &&
+        (t.dispose(), delete e[i]);
+    }
+    function r(e) {
+      return e && e.ownerDocument.defaultView;
+    }
+    function a(t) {
+      var n = require("LexicalExtension").watchedSignal(
+        function () {
+          return r(t.getRootElement());
+        },
+        function (e) {
+          return t.registerRootListener(function (t) {
+            e.value = r(t);
+          });
+        },
+      );
+      return require("LexicalExtension").effect(function () {
+        var e = n.value;
+        if (e) return o(e, Symbol("@lexical/dragon/editorInstall"), t);
+      });
+    }
+    function l(e) {
+      if (e.origin !== this.location.origin) return;
+      var o = (function (e) {
+        var n = e[i];
+        if (void 0 === n) return null;
+        var o = require("Lexical").getEditorPropertyFromDOMNode(
+          e.document.activeElement,
+        );
+        return require("Lexical").isLexicalEditor(o) && n.editors.has(o)
+          ? o
+          : null;
+      })(this);
+      if (null === o) return;
+      var s = e.data;
+      if ("string" == typeof s) {
+        var _i;
+        try {
+          _i = JSON.parse(s);
+        } catch (e) {
+          return;
+        }
+        if (
+          _i &&
+          "nuanria_messaging" === _i.protocol &&
+          "request" === _i.type
+        ) {
+          var _s = _i.payload;
+          if (_s && "makeChanges" === _s.functionId) {
+            var _i2 = _s.args;
+            if (Array.isArray(_i2)) {
+              var _s2 = _i2[0],
+                _r = _i2[1],
+                _a = _i2[2],
+                _l = _i2[3],
+                _d = _i2[4],
+                c = _i2[5];
+              if (
+                ![_s2, _r, _l, _d].every(Number.isFinite) ||
+                ("string" != typeof _a && -1 !== _a)
+              )
+                return;
+              o.update(function () {
+                var i = require("Lexical").$getSelection();
+                if (require("Lexical").$isRangeSelection(i)) {
+                  var _o = i.anchor;
+                  var u = _o.getNode(),
+                    f = 0,
+                    g = 0;
+                  if (
+                    (require("Lexical").$isTextNode(u) &&
+                      _s2 >= 0 &&
+                      _r >= 0 &&
+                      ((f = _s2),
+                      (g = _s2 + _r),
+                      i.setTextNodeRange(u, f, u, g)),
+                    "string" != typeof _a ||
+                      (f === g && "" === _a) ||
+                      (i.insertRawText(_a), (u = _o.getNode())),
+                    require("Lexical").$isTextNode(u))
+                  ) {
+                    var _e3 = u.getTextContentSize();
+                    ((f = Math.min(Math.max(_l, 0), _e3)),
+                      (g = _l < 0 || _d < 0 ? f : Math.min(_l + _d, _e3)),
+                      i.setTextNodeRange(u, f, u, g));
+                  }
+                  if ("string" == typeof c && _d > 0 && !i.isCollapsed()) {
+                    var _e4 = n[c];
+                    void 0 !== _e4 && i.formatText(_e4);
+                  }
+                  e.stopImmediatePropagation();
                 }
-              }
+              });
             }
           }
-        };
-      return (
-        window.addEventListener("message", o, !0),
-        function () {
-          window.removeEventListener("message", o, !0);
         }
-      );
+      }
     }
-    var o = require("Lexical").defineExtension({
-      build: function build(t, n, o) {
+    var d = require("Lexical").defineExtension({
+      build: function build(t, n, i) {
         return require("LexicalExtension").namedSignals(n);
       },
       config: require("Lexical").safeCast({
         disabled: "undefined" == typeof window,
       }),
       name: "LexicalDragon",
-      register: function register(t, o, i) {
+      register: function register(t, n, i) {
         return require("LexicalExtension").effect(function () {
-          return i.getOutput().disabled.value ? void 0 : n(t);
+          return i.getOutput().disabled.value ? void 0 : a(t);
         });
       },
     });
-    ((exports.DragonExtension = o), (exports.registerDragonSupport = n));
+    ((exports.DragonExtension = d),
+      (exports.installDragonSupport = function (e) {
+        if (e === void 0) {
+          e = (function () {
+            return "undefined" != typeof window ? window : void 0;
+          })();
+        }
+        return e
+          ? o(e, Symbol("@lexical/dragon/globalInstall"), void 0)
+          : function () {};
+      }),
+      (exports.registerDragonSupport = a));
   },
   null,
 );

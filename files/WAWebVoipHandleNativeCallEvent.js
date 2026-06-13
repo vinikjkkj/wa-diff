@@ -848,30 +848,36 @@ __d(
     function se() {
       return (
         (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseVoiceChatWaveReceivedData(e);
-            if (n.silenceReason === "wave") {
-              var a = n.callId,
-                i = n.groupJid,
-                l = n.senderWid;
-              if (l == null) {
-                o("WALogger")
-                  .WARN(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: wave received without a sender jid; skipping notification",
-                      ])),
-                  )
-                  .sendLogs("voip-wave-no-sender");
-                return;
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "group_calling_wave_receiving_enabled",
+            )
+          ) {
+            var t = r("nullthrows")(
+              yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+            );
+            if (t.type === "web") {
+              var n = t.parsers.parseVoiceChatWaveReceivedData(e);
+              if (n.silenceReason === "wave") {
+                var a = n.callId,
+                  i = n.groupJid,
+                  l = n.senderWid;
+                if (l == null) {
+                  o("WALogger")
+                    .WARN(
+                      L ||
+                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: wave received without a sender jid; skipping notification",
+                        ])),
+                    )
+                    .sendLogs("voip-wave-no-sender");
+                  return;
+                }
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "showVoiceChatWaveNotification",
+                  { senderWid: l, groupJid: i, callId: a },
+                );
               }
-              o("WAWebBackendApi").frontendFireAndForget(
-                "showVoiceChatWaveNotification",
-                { senderWid: l, groupJid: i, callId: a },
-              );
             }
           }
         })),

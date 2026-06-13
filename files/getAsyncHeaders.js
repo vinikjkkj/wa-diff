@@ -15,10 +15,10 @@ __d(
         r("ZeroCategoryHeader").value &&
         (t[r("ZeroCategoryHeader").header] = r("ZeroCategoryHeader").value);
       var o = s(e);
-      o && (t["X-FB-LSD"] = o);
+      o != null && o !== "" && (t["X-FB-LSD"] = o);
       var a = u(e);
       return (
-        a && (t["X-ASBD-ID"] = a),
+        a != null && a !== "" && (t["X-ASBD-ID"] = a),
         r("requireWeak")("MessengerPWAVersionForUserAgent", function (n) {
           var r = n();
           r != null && !c(e) && (t["x-fb-pwa"] = "" + r);

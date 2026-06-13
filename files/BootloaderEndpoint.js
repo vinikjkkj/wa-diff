@@ -106,10 +106,18 @@ __d(
           }
       return a;
     }
-    function C(t, r) {
+    function C(e, t) {
+      if (e !== 200) return null;
+      try {
+        return JSON.parse(n("CSRFGuard").clean(t));
+      } catch (e) {
+        return null;
+      }
+    }
+    function b(t, r) {
       if (!(t.size === 0 && r.size === 0)) {
-        var o = R._getURL(t, r);
-        L(o) && (o += "&ads_manager_read_regions=true");
+        var o = L._getURL(t, r);
+        E(o) && (o += "&ads_manager_read_regions=true");
         var a = n("getSameOriginTransport")(),
           i = u++,
           s = (e || (e = n("performanceAbsoluteNow")))();
@@ -121,10 +129,7 @@ __d(
           a.readyState === 4 &&
             c(function () {
               l.addFromXHR(a);
-              var e =
-                a.status === 200
-                  ? JSON.parse(n("CSRFGuard").clean(a.responseText))
-                  : null;
+              var e = C(a.status, a.responseText);
               if (e == null) {
                 f(t, r, i, s, o);
                 var u = y(a, t, r),
@@ -165,7 +170,7 @@ __d(
               }
               n("TimeSlice").guard(
                 function () {
-                  return b(o, e, t, r, i, s);
+                  return v(o, e, t, r, i, s);
                 },
                 "Bootloader receiveEndpointData",
                 {
@@ -177,7 +182,7 @@ __d(
           a.send());
       }
     }
-    function b(t, r, o, a, i, l) {
+    function v(t, r, o, a, i, l) {
       var s = (e || (e = n("performanceAbsoluteNow")))(),
         u = r.serverGenTime,
         c = r.hrp;
@@ -224,7 +229,7 @@ __d(
         },
       });
     }
-    function v() {
+    function S() {
       var e = m,
         t = p;
       (n("clearImmediate")(d),
@@ -232,19 +237,19 @@ __d(
         (c = null),
         (m = new Map()),
         (p = new Map()),
-        C(e, t));
+        b(e, t));
     }
-    function S() {
+    function R() {
       var e = n("BootloaderEndpointConfig").maxBatchSize;
       return e <= 0 ? !1 : m.size + p.size >= e;
     }
-    var R = {
+    var L = {
       load: function (t, r, o) {
         if (
           ((r ? m : p).set(t, o),
-          n("BootloaderEndpointConfig").debugNoBatching || S())
+          n("BootloaderEndpointConfig").debugNoBatching || R())
         ) {
-          v();
+          S();
           return;
         }
         d == null &&
@@ -254,20 +259,20 @@ __d(
           (d = n("setImmediateAcrossTransitions")(function () {
             c &&
               c(function () {
-                return v();
+                return S();
               });
           })));
       },
       forceFlush: function () {
         c &&
           c(function () {
-            return v();
+            return S();
           });
       },
       _getURL: h,
-      _sendRequest: C,
+      _sendRequest: b,
     };
-    function L(e) {
+    function E(e) {
       return !!(
         window.location.host.includes("adsmanager") &&
         !n("AdsManagerReadRegions").excluded_endpoints.some(function (t) {
@@ -276,7 +281,7 @@ __d(
         n("BootloaderEndpointConfig").adsManagerReadRegions
       );
     }
-    a.exports = { BootloaderEndpoint: R, shouldRouteToAMReadRegions: L };
+    a.exports = { BootloaderEndpoint: L, shouldRouteToAMReadRegions: E };
   },
   null,
 );

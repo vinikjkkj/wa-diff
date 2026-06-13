@@ -64,13 +64,13 @@ __d(
         o("WAWebCmd").Cmd.onOfflineProgressUpdateFromBridge();
       },
       forceAppUpdate: function (t) {
-        var e = t.version,
+        var e = t.belowHard,
           n = t.belowSoft,
-          r = t.belowHard;
+          r = t.version;
         o("WAWebUpdater").Updater.update({
-          serverVersion: e,
+          serverVersion: r,
           belowSoft: n,
-          belowHard: r,
+          belowHard: e,
         });
       },
       getHardExpireTime: function () {

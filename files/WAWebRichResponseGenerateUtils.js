@@ -19,7 +19,7 @@ __d(
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rich-response-forward] no structured fragments; falling back to plain text submessage",
+                  "[rich-response-forward] no fragments -> text fallback",
                 ])),
             )
             .sendLogs("rich-response-forward-text-fallback"),

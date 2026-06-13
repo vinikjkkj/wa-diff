@@ -12,6 +12,7 @@ __d(
     "WAWebAddonProcessMsgsUtils",
     "WAWebApiFilterAndReplaceMessages",
     "WAWebBackendApi",
+    "WAWebCreateNackFromStanza",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBGroupsGroupMetadata",
     "WAWebDBMessageUtils",
@@ -27,6 +28,7 @@ __d(
     "WAWebGroupHistoryReportingTokenValidator",
     "WAWebHandleOrphansForNewMsg",
     "WAWebLidMigrationUtils",
+    "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMsgEphemerality",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -34,6 +36,7 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebProtobufMsgKeyUtils",
     "WAWebProtobufsGroupHistory.pb",
+    "WAWebReportingTokenUtils",
     "WAWebSchemaMessage",
     "WAWebSerializeError",
     "WAWebUpdateMessageHistoryBundleState",
@@ -298,9 +301,37 @@ __d(
                   if (I != null)
                     try {
                       var P = yield o(
-                        "WAWebGroupHistoryReportingTokenValidator",
-                      ).validateAndBuildReportingInfoRow(E, I, i);
-                      P != null && c.push(P);
+                          "WAWebGroupHistoryReportingTokenValidator",
+                        ).validateAndBuildReportingInfoRow(E, I, i),
+                        N = P.failureReason,
+                        M = P.row;
+                      if (
+                        (M != null && c.push(M),
+                        N != null &&
+                          o(
+                            "WAWebReportingTokenUtils",
+                          ).showDebugPlaceholderForReportingTokenMismatch(
+                            i.stanzaVersion,
+                          ))
+                      ) {
+                        var w = o("WAWebReportingTokenUtils").genDebugMsgInfo(
+                          E,
+                        );
+                        o(
+                          "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
+                        ).maybeInsertDebugPlaceholder({
+                          externalId: w.externalId,
+                          nackReason: o("WAWebCreateNackFromStanza").NackReason
+                            .ParsingError,
+                          msgInfo: w,
+                          offline: !1,
+                          additionalInfo:
+                            "[ghs] reporting token validation failed (reason " +
+                            N +
+                            ") for msg " +
+                            E.id.toString(),
+                        });
+                      }
                     } catch (e) {
                       o("WALogger").WARN(
                         _ ||

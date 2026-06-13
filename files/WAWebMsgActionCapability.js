@@ -290,9 +290,7 @@ __d(
           (!r("WAWebAuraGating").canUsePremiumSticker(s.stickerPremiumStatus) ||
             !r("WAWebAuraGating").canUsePremiumSticker(
               (l = s.mediaData) == null ? void 0 : l.stickerPremiumStatus,
-            ))) ||
-        (o("WAWebMsgGetters").getFirstMusicAnnotation(s) != null &&
-          o("WAWebMusicGatingUtils").isMusicForwardingDisabled())
+            )))
       );
     }
     function S(e) {

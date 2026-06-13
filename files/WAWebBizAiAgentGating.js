@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAiAgentGating",
-  ["WAWebABProps"],
+  ["WAWebABProps", "WAWebBizAiLargeScreensGateModel"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -17,8 +17,9 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("biz_ai_auto_save_enabled");
     }
     function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "biz_ai_in_thread_unmute_v2",
+      return (
+        o("WAWebABProps").getABPropConfigValue("biz_ai_in_thread_unmute_v2") &&
+        o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
       );
     }
     function d() {

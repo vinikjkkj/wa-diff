@@ -3,9 +3,12 @@ __d(
   ["asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e(e, t, n) {
-      var r = [].concat(t);
-      return (n ? r.splice(e, 1, n) : r.splice(e, 1), r);
+    function e(e) {
+      var t = e.filterIndex,
+        n = e.filters,
+        r = e.updatedValue,
+        o = [].concat(n);
+      return (r ? o.splice(t, 1, r) : o.splice(t, 1), o);
     }
     function l(e, t, n, r) {
       return s.apply(this, arguments);
@@ -14,7 +17,7 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, o) {
-            var a = yield e(t, n, o);
+            var a = yield e({ filterIndex: t, filters: n, updatedValue: o });
             yield r(a);
           },
         )),

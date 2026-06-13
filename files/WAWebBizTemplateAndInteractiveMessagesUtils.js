@@ -3,8 +3,9 @@ __d(
   ["WAWebABProps", "WAWebInteractiveMessagesNativeFlowName", "WAWebMsgGetters"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 3,
-      u = [
+      s = 10,
+      u = 3,
+      c = [
         (e = r("WAWebInteractiveMessagesNativeFlowName")).QUICK_REPLY,
         e.CTA_CALL,
         e.CTA_URL,
@@ -21,7 +22,7 @@ __d(
         e.CTA_APP,
         e.FORM_MESSAGE,
       ];
-    function c(e) {
+    function d(e) {
       return e === "review_and_pay"
         ? r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
         : e === "payment_info"
@@ -97,14 +98,14 @@ __d(
                                                       ).FORM_MESSAGE
                                                   : void 0;
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       return o("WAWebMsgGetters").isBizSourceFromMarketingMessage(n)
         ? o("WAWebABProps").getABPropConfigValue(
             "web_premium_messages_interactivity_rendering_enabled",
           )
         : (n === "quoted_carousel_card" &&
               e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY) ||
-            _(e)
+            f(e)
           ? !0
           : t === !0
             ? o("WAWebABProps").getABPropConfigValue(
@@ -112,7 +113,7 @@ __d(
               )
             : !1;
     }
-    var m = function (t) {
+    var p = function (t) {
       return t.hydratedTemplateButton != null
         ? t.hydratedTemplateButton.quickReplyButton != null
         : t.nativeFlowButton != null
@@ -120,31 +121,29 @@ __d(
             String(r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY)
           : !1;
     };
-    function p(e) {
-      if (e.length > s) return !0;
-      if (e.length > 0) {
-        var t = m(e[0]);
-        if (
-          !e.slice(1).every(function (e) {
-            var n,
-              r = m(e),
-              o = (n = e.nativeFlowButton) == null ? void 0 : n.name,
-              a = c(o),
-              i = a != null ? u.includes(a) : !0;
-            return i && t === r;
-          })
-        )
-          return !0;
-      }
-      return !1;
-    }
     function _(e) {
-      return u.includes(e);
+      if (e.length === 0) return !1;
+      var t = p(e[0]),
+        n = t ? s : u;
+      return (
+        e.length > n ||
+        !e.slice(1).every(function (e) {
+          var n,
+            r = p(e),
+            o = (n = e.nativeFlowButton) == null ? void 0 : n.name,
+            a = d(o),
+            i = a != null ? c.includes(a) : !0;
+          return i && t === r;
+        })
+      );
     }
-    ((l.supportedNativeFlowButtonNamesForInteractiveMsg = u),
-      (l.getNativeFlowNameByButtonName = c),
-      (l.isInteractiveCtaMessageEnabled = d),
-      (l.buttonsViolateButtonImprovementsConstraints = p));
+    function f(e) {
+      return c.includes(e);
+    }
+    ((l.supportedNativeFlowButtonNamesForInteractiveMsg = c),
+      (l.getNativeFlowNameByButtonName = d),
+      (l.isInteractiveCtaMessageEnabled = m),
+      (l.buttonsViolateButtonImprovementsConstraints = _));
   },
   98,
 );

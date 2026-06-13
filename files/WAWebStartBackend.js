@@ -705,6 +705,10 @@ __d(
               "fetchAdEntryPointsConfiguration",
               { trigger: "app-launch" },
             ),
+            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+              "fetchBizAiLargeScreensGate",
+              { trigger: "app-launch" },
+            ),
             o("WAWebGetReachoutTimelockJob").fetchReachoutTimelock());
         })),
         O.apply(this, arguments)

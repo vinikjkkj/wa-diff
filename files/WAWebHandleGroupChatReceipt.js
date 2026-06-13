@@ -51,7 +51,7 @@ __d(
                 .WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleGroupSimpleReceipt: skipping self peer receipt without recipient",
+                      "[handleGroupSimpleReceipt] skip self peer: no recipient",
                     ])),
                 )
                 .sendLogs(

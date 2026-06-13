@@ -707,7 +707,8 @@ __d(
       (l.genClientReportingTokenMixinArgs = M),
       (l.shouldSkipProcessingEditedMsg = F),
       (l.validateReportingTokenInfo = O),
-      (l.showDebugPlaceholderForReportingTokenMismatch = U));
+      (l.showDebugPlaceholderForReportingTokenMismatch = U),
+      (l.genDebugMsgInfo = V));
   },
   98,
 );

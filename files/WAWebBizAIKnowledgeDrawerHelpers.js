@@ -9,7 +9,17 @@ __d(
         "AllSources",
       ]),
       u = 3;
-    function c(e) {
+    function c(e, t) {
+      return t.size === 0
+        ? e
+        : e.map(function (e) {
+            var n = t.get(e.product_id);
+            return n != null && e.images.length === 0
+              ? babelHelpers.extends({}, e, { images: n })
+              : e;
+          });
+    }
+    function d(e) {
       if (e == null) return null;
       switch (e) {
         case "DESCRIPTION":
@@ -40,7 +50,8 @@ __d(
     }
     ((l.KnowledgeStep = e),
       (l.MAX_PREVIEW_ITEMS = u),
-      (l.getKnowledgeTypeLabel = c));
+      (l.mergeOptimisticProductImages = c),
+      (l.getKnowledgeTypeLabel = d));
   },
   226,
 );

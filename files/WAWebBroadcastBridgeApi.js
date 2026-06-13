@@ -14,6 +14,7 @@ __d(
     "WAWebChatCollection",
     "WAWebCmd",
     "WAWebContactCollection",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -102,7 +103,10 @@ __d(
           var e = t.removedCampaignIds,
             a = t.upsertedCampaignIds;
           for (var i of e) r("WAWebBizBroadcastCampaignCollection").remove(i);
-          a.length > 0 &&
+          if (a.length > 0) {
+            var l = o("WAWebUserPrefsMeUser")
+              .getMeDevicePnOrThrow_DO_NOT_USE()
+              .getDeviceId();
             (p || (p = n("Promise"))).all(
               a.map(
                 (function () {
@@ -113,10 +117,18 @@ __d(
                           "WAWebBizBroadcastCampaignAPI",
                         ).getBizBroadcastCampaignByKey(e);
                         if (t == null) return;
-                        var n = t.campaignId,
-                          a = babelHelpers.objectWithoutPropertiesLoose(t, s);
+                        var n = o(
+                            "WAWebBizBroadcastCampaignAPI",
+                          ).filterCampaignsByDevice([t], l),
+                          a = n[0];
+                        if (a == null) {
+                          r("WAWebBizBroadcastCampaignCollection").remove(e);
+                          return;
+                        }
+                        var i = a.campaignId,
+                          u = babelHelpers.objectWithoutPropertiesLoose(a, s);
                         r("WAWebBizBroadcastCampaignCollection").add(
-                          babelHelpers.extends({ id: n }, a),
+                          babelHelpers.extends({ id: i }, u),
                           { merge: !0 },
                         );
                       } catch (t) {
@@ -140,6 +152,7 @@ __d(
                 })(),
               ),
             );
+          }
         },
         syncBroadcastInsightsToCollection: function (t) {
           var e = t.removedCampaignIds,

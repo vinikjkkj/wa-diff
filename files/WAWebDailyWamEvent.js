@@ -237,6 +237,8 @@ __d(
               simMcc: [2, e.TYPES.INTEGER],
               simMnc: [3, e.TYPES.INTEGER],
               simPhoneNumberMatched: [243, e.TYPES.INTEGER],
+              stickersFolderFileCount: [256, e.TYPES.INTEGER],
+              stickersFolderSize: [257, e.TYPES.INTEGER],
               storageAvailSize: [31, e.TYPES.INTEGER],
               storageAvailSizeWithCache: [136, e.TYPES.INTEGER],
               storageTotalSize: [32, e.TYPES.INTEGER],

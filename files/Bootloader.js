@@ -267,9 +267,8 @@ __d(
       }
       var a = r("nullthrows")(o),
         i = document.createElement("script");
-      (t.d
-        ? ((i.src = t.src), (i.nonce = r("BootloaderConfig").nonce))
-        : (i.src = t.src),
+      ((i.src = t.src),
+        t.d && (i.nonce = r("BootloaderConfig").nonce),
         (i.async = !0),
         r("BootloaderConfig").enableRetryOnStuckResource &&
           i.setAttribute("fetchPriority", "high"),
@@ -783,16 +782,16 @@ __d(
         for (var l of i) {
           R.add(l);
           var u = x.get(l);
-          if (u == null) {
-            r("FBLogger")("bootloader").mustfix(
-              "SoT hash unavailable for hash %s",
-              l,
+          if (u == null)
+            throw (
+              r("FBLogger")("bootloader").mustfix(
+                "SoT hash unavailable for resource index %s",
+                l,
+              ),
+              r("err")("SoT hash unavailable for resource index %s", l)
             );
-            var c = new Error("Got unexpected null or undefined");
-            throw (c.stack, c);
-          }
-          var d = X(u);
-          (d.type !== "csr" || s(0, 20056, u), t.set(u, d));
+          var c = X(u);
+          (c.type !== "csr" || s(0, 20056, u), t.set(u, c));
         }
       }
       return t.entries();
@@ -1203,15 +1202,21 @@ __d(
       handlePayload: function (t, n) {
         var e, a, i;
         for (var l of (s = t.rsrcTags) != null ? s : []) {
-          var s;
-          he(document.getElementById(l));
+          var s,
+            u = document.getElementById(l);
+          u instanceof HTMLScriptElement || u instanceof HTMLLinkElement
+            ? he(u)
+            : r("FBLogger")("bootloader").warn(
+                "rsrcTags element missing or not a script/link tag: %s",
+                l,
+              );
         }
-        var u =
+        var c =
           (e = (a = t.consistency) == null ? void 0 : a.rev) != null ? e : null;
         (ve.setResourceMap(
           (i = t.rsrcMap) != null ? i : {},
           t.sotUpgrades,
-          u,
+          c,
           n,
         ),
           t.indexUpgrades &&
@@ -1236,7 +1241,7 @@ __d(
       },
       undeferBootloads: function (t) {
         (t === void 0 && (t = !1),
-          window.location.search.indexOf("&__deferBootloads=") === -1 &&
+          !/[?&]__deferBootloads=/.test(window.location.search) &&
             (t &&
               y &&
               o("BootloaderEvents").notifyDeferTimeout({

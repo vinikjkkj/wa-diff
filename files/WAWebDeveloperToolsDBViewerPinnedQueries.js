@@ -50,15 +50,20 @@ __d(
         n = [e].concat(t);
       return (m(n), n);
     }
-    function _(e, t, n, r, o) {
+    function _(e) {
+      var t = e.columns,
+        n = e.conditions,
+        r = e.filters,
+        o = e.groupByColumn,
+        a = e.tableName;
       return {
         id: crypto.randomUUID(),
-        tableName: e,
+        tableName: a,
         columns: t,
-        filters: n,
-        conditions: r,
+        filters: r,
+        conditions: n,
         groupByColumn: o != null ? o : null,
-        label: y(e, t, n, r, o),
+        label: y(a, t, r, n, o),
         pinnedAt: Date.now(),
       };
     }

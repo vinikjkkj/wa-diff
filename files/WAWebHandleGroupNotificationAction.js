@@ -10,6 +10,7 @@ __d(
     "WAWebDBGroupsGroupMetadata",
     "WAWebGetMessageCache",
     "WAWebGroupGatingUtils",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebGroupLinkJoinUtils",
     "WAWebGroupQueryJob",
     "WAWebGroupSystemMsg",
@@ -74,17 +75,28 @@ __d(
       );
     }
     function v(e, t) {
-      return o("WAWebBackendApi").frontendSendAndReceive(
-        "updateModelForGroupAction",
-        { groupMeta: e, groupAction: t },
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+            "WAWebGroupHistoryParticipantJob",
+          ).enrichGroupActionWithStoredHistoryState(e.chatId, t);
+          return o("WAWebBackendApi").frontendSendAndReceive(
+            "updateModelForGroupAction",
+            { groupMeta: e, groupAction: n },
+          );
+        })),
+        S.apply(this, arguments)
       );
     }
-    function S(e, t, n, r, o) {
-      return R.apply(this, arguments);
+    function R(e, t, n, r, o) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             (n === void 0 && (n = !1),
               a === void 0 && (a = !1),
@@ -101,10 +113,10 @@ __d(
                 v(e, r)));
           },
         )),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       var r =
         n.defaultSubgroup === !0 || n.isLidAddressingMode === !0
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
@@ -131,12 +143,12 @@ __d(
         };
       }
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.action,
             i = t.isOffline,
             l = i === void 0 ? !1 : i,
@@ -169,12 +181,12 @@ __d(
                   o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
                     .CREATE)
               ) {
-                var R = babelHelpers.extends({}, a.groupInfo, {
+                var S = babelHelpers.extends({}, a.groupInfo, {
                     id: y.chatId,
                     isLidAddressingMode: y.isLidAddressingMode,
                   }),
-                  E = L(y, a, R),
-                  k = yield h(R.id);
+                  L = E(y, a, S),
+                  k = yield h(S.id);
                 if (
                   (o("WALogger")
                     .LOG(
@@ -184,11 +196,11 @@ __d(
                           " exists in storage = ",
                           "",
                         ])),
-                      R.id,
+                      S.id,
                       k,
                     )
                     .tags("groups"),
-                  yield S(y, R, l, E, a.reason === "invite"),
+                  yield R(y, S, l, L, a.reason === "invite"),
                   o("WALogger")
                     .LOG(
                       u ||
@@ -196,7 +208,7 @@ __d(
                           "handleGroupCreation done for group id ",
                           "",
                         ])),
-                      R.id,
+                      S.id,
                     )
                     .tags("groups"),
                   o(
@@ -208,7 +220,7 @@ __d(
                 ) {
                   var I = o(
                     "WAWebBotUtils",
-                  ).participantListIncludOpenOrTeeGroupBotWid(R.participants);
+                  ).participantListIncludOpenOrTeeGroupBotWid(S.participants);
                   (I.includeOpenMetabot || I.includeTeeMetabot) &&
                     o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
                       id: y.chatId,
@@ -217,9 +229,9 @@ __d(
                 }
                 var T = yield o("WAWebGroupSystemMsg").genMsgsForGroupCreation(
                   y,
-                  R,
+                  S,
                   k,
-                  E,
+                  L,
                 );
                 b.push.apply(b, T.filter(Boolean));
               } else if (
@@ -652,10 +664,10 @@ __d(
             }
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    l.handleAction = E;
+    l.handleAction = k;
   },
   98,
 );

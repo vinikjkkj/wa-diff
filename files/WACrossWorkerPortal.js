@@ -188,22 +188,22 @@ __d(
               r = this.port;
             if (r) {
               var o = [],
-                a = [];
+                a = new Set();
               for (var i of n)
                 if (i.type === "request") {
                   var l = i.content,
                     u = l.transferList,
                     c = babelHelpers.objectWithoutPropertiesLoose(l, e);
-                  (u != null && a.push.apply(a, u),
-                    o.push({ type: "request", content: c }));
+                  if (u != null) for (var d of u) a.add(d);
+                  o.push({ type: "request", content: c });
                 } else {
-                  var d = i.content,
-                    m = d.transferList,
-                    p = babelHelpers.objectWithoutPropertiesLoose(d, s);
-                  (m != null && a.push.apply(a, m),
-                    o.push({ type: "result", content: p }));
+                  var m = i.content,
+                    p = m.transferList,
+                    _ = babelHelpers.objectWithoutPropertiesLoose(m, s);
+                  if (p != null) for (var f of p) a.add(f);
+                  o.push({ type: "result", content: _ });
                 }
-              var _ = n
+              var g = n
                 .map(function (e) {
                   var t,
                     n,
@@ -229,15 +229,15 @@ __d(
                   : r.onSend) != null &&
                   o.eventCallbacks.onSend({
                     queueSize: n.length,
-                    queueMsgs: _,
+                    queueMsgs: g,
                   });
               });
               try {
-                r.postMessage(o, a.length > 0 ? a : void 0);
+                r.postMessage(o, a.size > 0 ? Array.from(a) : void 0);
               } catch (e) {
-                var f;
+                var h;
                 if (
-                  ((f = this.config) == null ? void 0 : f.onPortError) == null
+                  ((h = this.config) == null ? void 0 : h.onPortError) == null
                 )
                   throw e;
                 this.$11(r, e);

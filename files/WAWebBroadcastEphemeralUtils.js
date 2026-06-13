@@ -218,8 +218,8 @@ __d(
                 .LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:retry] eph_retry_debug no disappearing-messages setting, sending without DM: recipient=",
-                      " duration=",
+                      "[broadcast:retry] no DM, skip eph rcpt=",
+                      " dur=",
                       "",
                     ])),
                   i.toString(),
@@ -240,7 +240,7 @@ __d(
                 .LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:retry] eph_retry_debug shared secret not injected (unsupported message type), dropping eph_setting: recipient=",
+                      "[broadcast:retry] no secret inject, drop eph rcpt=",
                       "",
                     ])),
                   i.toString(),
@@ -263,11 +263,11 @@ __d(
               .LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:retry] eph_retry_debug built eph_setting + injected shared secret: recipient=",
-                    " broadcastJid=",
-                    " duration=",
-                    " timestamp=",
-                    " ephSettingLen=",
+                    "[broadcast:retry] eph + rcpt=",
+                    " bcast=",
+                    " dur=",
+                    " ts=",
+                    " len=",
                     "",
                   ])),
                 i.toString(),

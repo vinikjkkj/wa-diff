@@ -16,7 +16,18 @@ __d(
       }
       return t;
     }
-    ((l.STATUS_LIKE_EMOJI = e), (l.STATUS_LIKE_EMOJIS = s), (l.countLikes = u));
+    function c(e) {
+      var t = new Set();
+      for (var n of s) t.add(o("WAWebEmoji").EmojiUtil.getEmojiAggregate(n));
+      var r = 0;
+      for (var a of e)
+        t.has(a.reactionAggregate) && (r += a.reactionSenders.length);
+      return r;
+    }
+    ((l.STATUS_LIKE_EMOJI = e),
+      (l.STATUS_LIKE_EMOJIS = s),
+      (l.countLikes = u),
+      (l.countStatusLikes = c));
   },
   98,
 );

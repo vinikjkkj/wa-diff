@@ -20,63 +20,64 @@ __d(
         n = e.iAmAdmin,
         a = e.id,
         i = e.msgT,
-        l = e.recipients,
-        c = e.subtype,
-        m = e.type,
-        p;
-      switch (m) {
+        l = e.noShareableHistory,
+        c = e.recipients,
+        m = e.subtype,
+        p = e.type,
+        _;
+      switch (p) {
         case o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION: {
           r("WAWebWid").isCAPISupportAccount(a == null ? void 0 : a.remote)
-            ? (p = null)
-            : (p = s._(/*BTDS*/ "Learn more"));
+            ? (_ = null)
+            : (_ = s._(/*BTDS*/ "Learn more"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.GP2: {
-          p = d(c, n, l, t, i);
+          _ = d(m, n, c, t, i, l);
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL: {
-          c === "event_edit_decrypted"
-            ? (p = s._(/*BTDS*/ "See event"))
-            : c === "limit_sharing_system_message" &&
-              (p = r("WAWebFbtCommon")("Learn more"));
+          m === "event_edit_decrypted"
+            ? (_ = s._(/*BTDS*/ "See event"))
+            : m === "limit_sharing_system_message" &&
+              (_ = r("WAWebFbtCommon")("Learn more"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED: {
-          p = s._(/*BTDS*/ "View poll");
+          _ = s._(/*BTDS*/ "View poll");
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION: {
-          c ===
+          m ===
             o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-              .ScheduledMessageCreated && (p = s._(/*BTDS*/ "View"));
+              .ScheduledMessageCreated && (_ = s._(/*BTDS*/ "View"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE: {
-          c === "limit_sharing_system_message" ||
-          c === "biz_automatically_labeled_chat_system_message"
-            ? (p = r("WAWebFbtCommon")("Learn more"))
-            : (c === "biz_per_customer_3pd_data_share_opt_in" ||
-                c === "biz_per_customer_3pd_data_share_opt_out") &&
-              (p = s._(/*BTDS*/ "Manage"));
+          m === "limit_sharing_system_message" ||
+          m === "biz_automatically_labeled_chat_system_message"
+            ? (_ = r("WAWebFbtCommon")("Learn more"))
+            : (m === "biz_per_customer_3pd_data_share_opt_in" ||
+                m === "biz_per_customer_3pd_data_share_opt_out") &&
+              (_ = s._(/*BTDS*/ "Manage"));
           break;
         }
       }
-      return p == null
+      return _ == null
         ? null
         : u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
             weight: "medium",
             size: "inherit",
-            children: p,
+            children: _,
           });
     }
     c.displayName = c.name + " [from " + i.id + "]";
-    function d(e, t, n, a, i) {
+    function d(e, t, n, a, i, l) {
       if (
         o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(e)
       ) {
-        var l = m(n, a, i);
-        if (l != null) return l;
+        var u = m(n, a, i, l);
+        if (u != null) return u;
       }
       switch (e) {
         case "growth_unlocked":
@@ -103,45 +104,45 @@ __d(
           return null;
       }
     }
-    function m(e, t, n) {
+    function m(e, t, n, r) {
       if (e == null || t == null) return null;
-      var r = t.groupMetadata;
-      if (r == null) return null;
+      var a = t.groupMetadata;
+      if (a == null) return null;
       if (e.length > 1) {
-        var a = o(
+        var i = o(
           "WAWebGroupHistoryPostJoinEligibility",
-        ).groupContextFromMetadata(r);
+        ).groupContextFromMetadata(a);
         if (
           !o(
             "WAWebGroupHistoryPostJoinEligibility",
-          ).isPostJoinHistoryGroupEligible(a)
+          ).isPostJoinHistoryGroupEligible(i)
         )
           return null;
-        var i = e.some(function (e) {
+        var l = e.some(function (e) {
           if (e == null || o("WAWebUserPrefsMeUser").isMeAccount(e)) return !1;
-          var t = r.participants.get(e);
+          var t = a.participants.get(e);
           return (
             t != null &&
             o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).isEligibleForPostJoinHistory(t, a, n)
+            ).isEligibleForPostJoinHistory(t, i, n)
           );
         });
-        return i ? p() : null;
+        return l && r !== !0 ? p() : null;
       }
       if (e.length !== 1 || e[0] == null) return null;
-      var l = e[0];
-      if (o("WAWebUserPrefsMeUser").isMeAccount(l)) return null;
-      var s = r.participants.get(l);
-      if (s == null) return null;
-      var u = o(
+      var s = e[0];
+      if (o("WAWebUserPrefsMeUser").isMeAccount(s)) return null;
+      var u = a.participants.get(s);
+      if (u == null) return null;
+      var c = o(
         "WAWebGroupHistoryPostJoinEligibility",
       ).isEligibleForPostJoinHistory(
-        s,
-        o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(r),
+        u,
+        o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(a),
         n,
       );
-      return u ? p() : null;
+      return c && r !== !0 ? p() : null;
     }
     function p() {
       return s._(/*BTDS*/ "Send message history");

@@ -86,6 +86,12 @@ __d(
       call_info_optimizations_version: [27483, "int", 0, 0],
       call_info_use_typed_jid: [29027, "int", 0, 0],
       call_offer_failed_soft_landing_screen_version: [10559, "int", 0, 1],
+      call_screen_share_dual_stream_app_update_dialog_enabled: [
+        31922,
+        "bool",
+        !0,
+        !0,
+      ],
       callee_accept_timeout_ms: [6007, "int", 3e4, 3e4],
       calling_32p_version: [7709, "int", 0, 3],
       calling_audio_share_version: [6598, "int", 0, 0],

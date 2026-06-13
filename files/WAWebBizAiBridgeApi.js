@@ -5,6 +5,7 @@ __d(
     "WAWebAIAgentAIReplyUtils",
     "WAWebBizAISettingsCategoryHandlers",
     "WAWebBizAISettingsVersionCollection",
+    "WAWebBizAiLargeScreensGateModel",
     "WAWebChatCollection",
     "WAWebLidMigrationUtils",
     "WAWebProtobufSyncAction.pb",
@@ -112,6 +113,10 @@ __d(
             o(
               "WAWebBizAISettingsVersionCollection",
             ).BizAISettingsVersionCollection.handleNudge(a, r, n));
+        },
+        loadedBizAiLargeScreensGate: function (t) {
+          var e = t.enabled;
+          o("WAWebBizAiLargeScreensGateModel").applyBizAiLargeScreensGate(e);
         },
       };
     l.BizAiBridgeApi = m;

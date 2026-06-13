@@ -633,9 +633,9 @@ __d(
                   .LOG(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[broadcast:retry] eph_retry_debug decoded incoming eph_setting: sender=",
-                        " duration=",
-                        " timestamp=",
+                        "[broadcast:retry] decoded eph_setting sender=",
+                        " dur=",
+                        " ts=",
                         "",
                       ])),
                     Z.toString(),

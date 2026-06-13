@@ -219,26 +219,21 @@ __d(
         }),
       );
     function c(e) {
-      return m(
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_fbid_migration_receive_enabled",
-        ),
-        e,
-      );
+      return m(e);
     }
     function d(e) {
-      return m(
+      if (
         o("WAWebABProps").getABPropConfigValue(
           "ai_fbid_migration_invoke_receive_enabled",
-        ),
-        e,
-      );
+        ) === !0
+      )
+        return m(e);
     }
-    function m(e, t) {
-      if (e === !0 && t.isFbidBot()) {
-        var n = s.get(t.user);
-        if (n != null)
-          return o("WAWebWidFactory").createWid(n + "@s.whatsapp.net");
+    function m(e) {
+      if (e.isFbidBot()) {
+        var t = s.get(e.user);
+        if (t != null)
+          return o("WAWebWidFactory").createWid(t + "@s.whatsapp.net");
       }
     }
     function p(e) {

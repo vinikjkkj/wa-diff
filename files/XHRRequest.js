@@ -185,7 +185,8 @@ __d(
             var p = n("cr:8960").getCachedToken
               ? n("cr:8960").getCachedToken()
               : n("cr:8960").getToken();
-            p &&
+            p != null &&
+              p !== "" &&
               (this.$2
                 ? (this.$2.fb_dtsg_ag = p)
                 : (this.$2 = { fb_dtsg_ag: p }),
@@ -197,17 +198,20 @@ __d(
             var _ = n("cr:8959").getCachedToken
               ? n("cr:8959").getCachedToken()
               : n("cr:8959").getToken();
-            (_ &&
+            (_ != null &&
+              _ !== "" &&
               (this.$2 ? (this.$2.fb_dtsg = _) : (this.$2 = { fb_dtsg: _ }),
               n("SprinkleConfig").param_name &&
                 (this.$2[n("SprinkleConfig").param_name] =
                   n("DTSGUtils").getNumericValue(_))),
-              n("LSD").token &&
+              n("LSD").token != null &&
+                n("LSD").token !== "" &&
                 (this.$2
                   ? (this.$2.lsd = n("LSD").token)
                   : (this.$2 = { lsd: n("LSD").token }),
-                n("SprinkleConfig").param_name &&
-                  !_ &&
+                n("SprinkleConfig").param_name != null &&
+                  n("SprinkleConfig").param_name !== "" &&
+                  (_ == null || _ === "") &&
                   (this.$2[n("SprinkleConfig").param_name] = n(
                     "DTSGUtils",
                   ).getNumericValue(n("LSD").token))));
@@ -285,7 +289,7 @@ __d(
               }));
         }),
         (r.$29 = function (t) {
-          if (this.$14) {
+          if (this.$14 != null && this.$14 !== "") {
             if ("response" in t) return t.response;
             if (this.$14 === "arraybuffer" && window.VBArray)
               return window.VBArray(t.responseBody).toArray();
