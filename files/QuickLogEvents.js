@@ -197,11 +197,7 @@ __d(
       },
       663703: { moduleName: "FEED", name: "QUERY_PERF", sampleRate: 1 },
       663892: { moduleName: "FEED", name: "CACHE_TTL", sampleRate: 1e4 },
-      665258: {
-        moduleName: "FEED",
-        name: "RELAXED_MINGAP",
-        sampleRate: 223087,
-      },
+      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 63018 },
       665863: { moduleName: "FEED", name: "DEFER", sampleRate: 250 },
       665990: { moduleName: "FEED", name: "RESTORE", sampleRate: 2 },
       666016: {
@@ -2364,6 +2360,11 @@ __d(
         moduleName: "STORIES",
         name: "STORIES_CREATE_TTRC_VIDEO_WWW",
         sampleRate: 100,
+      },
+      13632879: {
+        moduleName: "MOBILECONFIG",
+        name: "WA_MC_EVALUATION_NO_TRANSLATION",
+        sampleRate: 1,
       },
       13634086: {
         moduleName: "MOBILECONFIG",
@@ -14011,7 +14012,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 312,
+        sampleRate: 267,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14076,7 +14077,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 30762,
+        sampleRate: 49312,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15235,7 +15236,7 @@ __d(
       100335617: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH",
-        sampleRate: 13,
+        sampleRate: 48,
       },
       100335618: {
         moduleName: "ACCESS_LIBRARY",
@@ -15245,14 +15246,14 @@ __d(
       100338619: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE",
-        sampleRate: 1,
+        sampleRate: 4,
       },
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
         sampleRate: 8897,
       },
-      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 4 },
+      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 16 },
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
@@ -19462,6 +19463,7 @@ __d(
         name: "ENGINE_RULE_EVALUATION",
         sampleRate: 100,
       },
+      175703581: { moduleName: "BASEL_EXPORT", name: "EXPORT", sampleRate: 1 },
       176162230: {
         moduleName: "BASEL_PROJECTS",
         name: "DRAFT_SAVE",
@@ -21131,6 +21133,11 @@ __d(
         sampleRate: 1,
       },
       214963534: { moduleName: "DIM_SUM", name: "SEARCH", sampleRate: 1 },
+      215163201: {
+        moduleName: "WA_DATA_MANAGEMENT",
+        name: "XPLATFORM_EXPORT_PERF",
+        sampleRate: 1,
+      },
       215230096: {
         moduleName: "ZERO_FOS_CMON_E2E",
         name: "ZERO_CMON_E2E_INTERSTITIAL_FUNNEL_JOINED",
@@ -23081,6 +23088,11 @@ __d(
         moduleName: "META_ACCOUNT_PROFILE_SWITCHER",
         name: "MARK_IG_PRO_CONVERSION",
         sampleRate: 1,
+      },
+      251009334: {
+        moduleName: "META_ACCOUNT_PROFILE_SWITCHER",
+        name: "PROFILE_SWITCHER_FB_DBLN_SESSION",
+        sampleRate: null,
       },
       251010096: {
         moduleName: "META_ACCOUNT_PROFILE_SWITCHER",
@@ -32845,6 +32857,16 @@ __d(
         name: "FETCH_VIEW",
         sampleRate: 1,
       },
+      389222804: {
+        moduleName: "WEARABLES_CLOUD_STORAGE",
+        name: "WEARABLES_CLOUD_STORAGE_FREE_UP",
+        sampleRate: 1,
+      },
+      389223764: {
+        moduleName: "WEARABLES_CLOUD_STORAGE",
+        name: "WEARABLES_CLOUD_STORAGE_SAVE",
+        sampleRate: 1,
+      },
       389225122: {
         moduleName: "WEARABLES_CLOUD_STORAGE",
         name: "WEARABLES_CLOUD_STORAGE_SYNC",
@@ -32858,6 +32880,11 @@ __d(
       389232389: {
         moduleName: "WEARABLES_CLOUD_STORAGE",
         name: "WEARABLES_CLOUD_STORAGE_DOWNLOAD",
+        sampleRate: 1,
+      },
+      389233346: {
+        moduleName: "WEARABLES_CLOUD_STORAGE",
+        name: "WEARABLES_CLOUD_STORAGE_DELETE_FROM_PHONE",
         sampleRate: 1,
       },
       389234590: {
@@ -33869,6 +33896,11 @@ __d(
         name: "VRP_EDIT_MODAL_LOAD",
         sampleRate: 1,
       },
+      404881409: {
+        moduleName: "NATIVE_PDP_PERF",
+        name: "NATIVE_PDP_FETCH_START",
+        sampleRate: 250,
+      },
       405020378: {
         moduleName: "IG_SHOP_EVERYTHING",
         name: "VISUAL_DISCOVERY_E2E",
@@ -34244,7 +34276,7 @@ __d(
       416808961: {
         moduleName: "FAIR_CAPACITY_CENTRAL",
         name: "INITIAL_LOAD",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       416876920: {
         moduleName: "INTERN_AMBER_ALERT",
@@ -37035,6 +37067,11 @@ __d(
         name: "MY_TEST_PRIVACY_EVENT",
         sampleRate: 1,
       },
+      450625537: {
+        moduleName: "IG_COMMERCE_PAGE_PDP_PERF",
+        name: "COMMERCE_PAGE_PDP_TTI",
+        sampleRate: 250,
+      },
       451154779: {
         moduleName: "PRODUCT_CAPACITY_SURFACE",
         name: "INITIAL_LOAD",
@@ -38612,6 +38649,11 @@ __d(
         name: "NOVI_REVIEW_LOADING_STARTED",
         sampleRate: 1,
       },
+      467536260: {
+        moduleName: "IG_BOOST_ON_WEB",
+        name: "BOOST_SCREEN_NAVIGATION",
+        sampleRate: 1,
+      },
       467537745: {
         moduleName: "IG_BOOST_ON_WEB",
         name: "ENTER_BOOST_FLOW",
@@ -39779,6 +39821,11 @@ __d(
       496183143: {
         moduleName: "C50_NUTRITION_AI",
         name: "PHOTO_BUTTON_CAPTURE_LATENCY",
+        sampleRate: 1,
+      },
+      496185540: {
+        moduleName: "C50_NUTRITION_AI",
+        name: "PBC_VM_UPLOAD",
         sampleRate: 1,
       },
       496187591: {
@@ -51446,6 +51493,16 @@ __d(
         name: "HOME_TAB_LOAD",
         sampleRate: 250,
       },
+      697771496: {
+        moduleName: "LANTERN_APP",
+        name: "EVENTS_TAB_TTRC",
+        sampleRate: 1,
+      },
+      697777419: {
+        moduleName: "LANTERN_APP",
+        name: "PLACES_TAB_TTRC",
+        sampleRate: 1,
+      },
       698026084: {
         moduleName: "BIZ_AI_AD_PILLS",
         name: "BIZ_AI_AD_PILLS_CLIENT_LATENCY",
@@ -57645,6 +57702,11 @@ __d(
       748688423: {
         moduleName: "AIM_BOXCAR_SEQUENCER",
         name: "SEQUENCER_MAIN_CYCLE",
+        sampleRate: 1,
+      },
+      748688469: {
+        moduleName: "AIM_BOXCAR_SEQUENCER",
+        name: "SEQUENCER_SEQUENCE_OPERATION",
         sampleRate: 1,
       },
       749407605: {
@@ -70207,6 +70269,11 @@ __d(
       945623181: {
         moduleName: "HORIZON_VOIP",
         name: "START_CALL",
+        sampleRate: 100,
+      },
+      945623785: {
+        moduleName: "HORIZON_VOIP",
+        name: "NETWORK_QUALITY_BAR_SHOWN",
         sampleRate: 100,
       },
       945624421: {
