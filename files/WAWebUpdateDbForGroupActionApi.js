@@ -22,7 +22,6 @@ __d(
     "WAWebEphemeralityUtils",
     "WAWebGroupDatabaseJob",
     "WAWebGroupGatingUtils",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupMembershipApprovalRequestsJob",
     "WAWebGroupParticipantsJob",
@@ -980,14 +979,13 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS
               .MEMBER_SHARE_GROUP_HISTORY_MODE: {
-              o("WAWebGroupHistoryGating").isGroupHistorySettingsEnabled() &&
-                F.push(
-                  o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-                    l,
-                    { memberShareGroupHistoryMode: a.value },
-                    i,
-                  ),
-                );
+              F.push(
+                o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                  l,
+                  { memberShareGroupHistoryMode: a.value },
+                  i,
+                ),
+              );
               break;
             }
             default:

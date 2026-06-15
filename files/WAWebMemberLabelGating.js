@@ -10,17 +10,10 @@ __d(
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "member_name_tag_web_receiver_enabled",
-      );
-    }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
         "member_name_tag_web_sender_enabled",
       );
     }
-    ((l.isMemberLabelInfraEnabled = e),
-      (l.isMemberLabelReceiverEnabled = s),
-      (l.isMemberLabelSenderEnabled = u));
+    ((l.isMemberLabelInfraEnabled = e), (l.isMemberLabelSenderEnabled = s));
   },
   98,
 );

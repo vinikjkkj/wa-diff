@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebChatCollection",
     "WAWebChatGetters",
-    "WAWebChatThreadLogging",
     "WAWebConfirmPopup.react",
     "WAWebFavoritesUtils",
     "WAWebFbtCommon",
@@ -12,7 +11,6 @@ __d(
     "WAWebListItemParentType",
     "WAWebListUtils",
     "WAWebListsActions",
-    "WAWebListsLabelGatingUtils",
     "WAWebModalManager",
     "WAWebSchemaLabel",
     "WAWebWamEnumLabelOperations",
@@ -39,16 +37,7 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.length;
-          o("WAWebListsLabelGatingUtils").isSMBEnhancedLoggingEnabled()
-            ? e.forEach(function (e) {
-                var n = e.id.toJid(),
-                  r = o("WAWebChatThreadLogging").getChatThreadIDHMAC(n),
-                  a = function (n) {
-                    return c(t, n);
-                  };
-                r.then(a);
-              })
-            : c(t);
+          c(t);
         })),
         m.apply(this, arguments)
       );

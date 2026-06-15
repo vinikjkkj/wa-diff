@@ -133,10 +133,7 @@ __d(
               );
             if (o("WAWebCanonicalUtils").getCanonicalReloadPending() != null)
               return o("WATimeUtils").DAY_SECONDS;
-            var e = o("WAWebCanonicalUtils").getTokenCreationState();
-            if (e === o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS)
-              return 5 * o("WATimeUtils").MINUTE_SECONDS;
-            if (e === o("WAWebCanonicalUtils").TokenCreationState.PRESENT)
+            if (o("WAWebCanonicalUtils").isCanonicalTokenPresent())
               return (
                 o("WALogger").LOG(
                   _ ||
@@ -147,11 +144,11 @@ __d(
                 R(),
                 o("WATimeUtils").DAY_SECONDS
               );
-            if (o("WAWebCanonicalUtils").isCurrentUserLoggedIn()) {
-              var t = yield o(
+            if (o("WAWebCanonicalUtils").isCanonicalPresent()) {
+              var e = yield o(
                 "WAWebCanonicalRecoveryActions",
               ).validateExistingToken();
-              if (t !== !1)
+              if (e !== !1)
                 return (
                   o("WALogger").LOG(
                     f ||
@@ -176,8 +173,8 @@ __d(
                   ])),
               );
             r("WAWebODS").incr("web.app.canonical.recovery.attempt");
-            var n = yield L();
-            return n ? o("WATimeUtils").DAY_SECONDS : v();
+            var t = yield L();
+            return t ? o("WATimeUtils").DAY_SECONDS : v();
           } catch (e) {
             return (
               o("WALogger")

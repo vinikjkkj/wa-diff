@@ -102,7 +102,12 @@ __d(
           return [{ key: "H" }];
         case o("WAWebActions").Action.GO_TO_NEXT_CHAT: {
           var n = [
-            { key: "Tab", hybridKey: "]", hybridModifiers: [s.Control] },
+            {
+              key: "Tab",
+              hybridKey: "]",
+              hybridModifiers: [s.Control],
+              webKeyWindows: "}",
+            },
             { key: "}" },
           ];
           return (
@@ -116,7 +121,12 @@ __d(
         }
         case o("WAWebActions").Action.GO_TO_PREV_CHAT: {
           var a = [
-            { key: "Shift+Tab", hybridKey: "[", hybridModifiers: [s.Control] },
+            {
+              key: "Shift+Tab",
+              hybridKey: "[",
+              hybridModifiers: [s.Control],
+              webKeyWindows: "{",
+            },
             { key: "{" },
           ];
           return (
@@ -545,11 +555,18 @@ __d(
       var t = p(e);
       if (t.length) {
         var n = r("WAWebEnvironment").isWindows,
-          o = t[0],
-          a = o.hybridKey,
-          i = o.key,
-          l = o.webKey;
-        return n && a ? a : l != null ? l : i;
+          a = t[0],
+          i = a.hybridKey,
+          l = a.key,
+          s = a.webKey,
+          u = a.webKeyWindows;
+        return n && i
+          ? i
+          : !n && o("WAWebUA").UA.os !== o("WAWebUA").OS_TYPE.MAC && u != null
+            ? u
+            : s != null
+              ? s
+              : l;
       }
     }
     function S(e) {

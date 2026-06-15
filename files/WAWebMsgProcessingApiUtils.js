@@ -11,7 +11,6 @@ __d(
     "WAWebBackendJobs.flow",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
-    "WAWebBusinessHSMTypes",
     "WAWebCTWAGatingUtils",
     "WAWebDBGroupsGroupMetadata",
     "WAWebDBMessageSerialization",
@@ -25,7 +24,6 @@ __d(
     "WAWebHandleMsgMetaUtils",
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
-    "WAWebMarketingMessagesUserFeedbackGatingUtils",
     "WAWebMessagingGatingUtils",
     "WAWebMsgAGMProcessing",
     "WAWebMsgKey",
@@ -557,12 +555,7 @@ __d(
           if ((yield C(k, x, v), _ != null)) {
             var M = _.category,
               F = _.tag;
-            ((k.hsmTag = F),
-              (k.hsmCategory = M),
-              F === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.MARKETING &&
-                o(
-                  "WAWebMarketingMessagesUserFeedbackGatingUtils",
-                ).triggerExposureMMUserControls());
+            ((k.hsmTag = F), (k.hsmCategory = M));
           }
           if (
             (R == null || (d = R.msgMeta) == null ? void 0 : d.bizSource) !=

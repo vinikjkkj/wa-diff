@@ -18,7 +18,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "isCachedMediaFileExist",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.isCachedMediaFileExist(t, n);
@@ -36,7 +36,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "tryOpenCachedMediaFileFile",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.tryOpenCachedMediaFileFile(t, n);
@@ -54,7 +54,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "prepareForMediaFileSaving",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.prepareForMediaFileSaving(t, n, a);
@@ -72,7 +72,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "waitTillMediaDownloadCompletes",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.waitTillMediaDownloadCompletes(t, n, a);
@@ -90,7 +90,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "selectFolderForBulkMediaSaving",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.selectFolderForBulkMediaSaving();
@@ -113,7 +113,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "prepareForZipArchiveSavingAndUnarchiveToFolder",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.prepareForZipArchiveSavingAndUnarchiveToFolder(
@@ -136,7 +136,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "requestFileSystemDirectoryHandle",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.requestFileSystemDirectoryHandle(t);
@@ -154,7 +154,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "tryCopyCachedMediaFile",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.tryCopyCachedMediaFile(t);
@@ -172,7 +172,7 @@ __d(
               {
                 bridge: "mediaFiles",
                 method: "tryCopyCachedMediaFiles",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.tryCopyCachedMediaFiles(t);

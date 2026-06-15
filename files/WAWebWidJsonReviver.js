@@ -48,6 +48,7 @@ __d(
         case "changeNumberNewJid":
         case "changeNumberOldJid":
         case "recipient":
+        case "originalBotRecipient":
         case "recipientLatestLid":
         case "senderPn":
         case "senderLid":

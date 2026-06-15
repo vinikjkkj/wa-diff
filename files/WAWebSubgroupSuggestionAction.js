@@ -91,9 +91,13 @@ __d(
             return { id: e.groupId, creator: e.owner };
           }),
         });
-      },
-      g = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+      };
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t == null ||
             t.forEach(function (e) {
               e.currentState = o("WAWebCellRequestState").State.Loading;
@@ -124,12 +128,11 @@ __d(
           } catch (e) {
             p(r("getErrorSafe")(e), t);
           }
-        });
-        return function (n, r) {
-          return e.apply(this, arguments);
-        };
-      })(),
-      h = (function () {
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    var y = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t == null ||
             t.forEach(function (e) {
@@ -166,7 +169,7 @@ __d(
           return e.apply(this, arguments);
         };
       })(),
-      y = (function () {
+      C = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
             if (e.groupMetadata) {
@@ -229,8 +232,8 @@ __d(
         };
       })();
     ((l.cancelSubgroupSuggestions = g),
-      (l.rejectSubgroupSuggestions = h),
-      (l.approveSubgroupSuggestions = y));
+      (l.rejectSubgroupSuggestions = y),
+      (l.approveSubgroupSuggestions = C));
   },
   226,
 );

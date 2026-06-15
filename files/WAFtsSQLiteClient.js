@@ -79,7 +79,7 @@ __d(
                     {
                       bridge: "fts-sqlite",
                       method: "executeSqlite",
-                      type: "sync",
+                      type: "async",
                     },
                     function () {
                       return a.executeSqlite(JSON.stringify(e));

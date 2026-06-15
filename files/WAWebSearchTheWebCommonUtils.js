@@ -89,8 +89,7 @@ __d(
         o("WAWebMsgActionCapability").canWamoSubMsgBeSharedByUser(
           t.unsafe(),
           o("WAWebFrontendMsgGetters").getChat(t),
-        ) &&
-        o("WAWebSTWGatingUtils").isSearchTheWebImageSearchEnabled()
+        )
       ) {
         var u,
           c = (u = t.mediaObject) == null ? void 0 : u.filehash;

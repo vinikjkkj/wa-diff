@@ -8,16 +8,11 @@ __d(
       );
     }
     function s() {
-      return o("WAWebABProps").getABPropConfigValue("pinned_messages_m2");
+      return o("WAWebABProps").getABPropConfigValue(
+        "pinned_messages_m2_pin_max",
+      );
     }
-    function u() {
-      return s()
-        ? o("WAWebABProps").getABPropConfigValue("pinned_messages_m2_pin_max")
-        : 1;
-    }
-    ((l.isPinnedMessagesM1ReceiverEnabled = e),
-      (l.isPinnedMessagesM2Enabled = s),
-      (l.getMaxPins = u));
+    ((l.isPinnedMessagesM1ReceiverEnabled = e), (l.getMaxPins = s));
   },
   98,
 );

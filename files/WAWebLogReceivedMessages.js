@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
     "WAWebAfterReadUtils",
     "WAWebApiBulkGetChats",
@@ -439,36 +438,29 @@ __d(
               chatId: e.id.remote,
             };
           }
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "group_status_receiver_enabled",
-            )
-          ) {
-            var r = R(e);
-            if (r !== "missing-stanza-id") {
-              var a = yield o("WAWebDBMsgUtils").getMsgByMsgKey(r);
-              if (
-                (o("WAWebMsgGetters").getIsReply(e) &&
-                  a == null &&
-                  (a = yield L(r)),
-                a != null && o("WAWebMsgGetters").getIsGroupStatus(a))
-              ) {
-                var i = o("WAWebMsgGetters").getIsReply(e),
-                  l =
-                    o("WAWebMsgGetters").getIsReaction(e) &&
-                    e.reactionText === d;
-                if (i || l) {
-                  var s = o("WAWebMsgGetters").getIsSentByMe(a);
-                  return {
-                    activityType: "groupStatusMsgReceive",
-                    chatId: e.id.remote,
-                    ts: e.t,
-                    isGroupStatusReplyOthersToOwn: i && s,
-                    isGroupStatusReplyOthersToOthers: i && !s,
-                    isGroupStatusLikeOthersToOwn: l && s,
-                    isGroupStatusLikeOthersToOthers: l && !s,
-                  };
-                }
+          var r = R(e);
+          if (r !== "missing-stanza-id") {
+            var a = yield o("WAWebDBMsgUtils").getMsgByMsgKey(r);
+            if (
+              (o("WAWebMsgGetters").getIsReply(e) &&
+                a == null &&
+                (a = yield L(r)),
+              a != null && o("WAWebMsgGetters").getIsGroupStatus(a))
+            ) {
+              var i = o("WAWebMsgGetters").getIsReply(e),
+                l =
+                  o("WAWebMsgGetters").getIsReaction(e) && e.reactionText === d;
+              if (i || l) {
+                var s = o("WAWebMsgGetters").getIsSentByMe(a);
+                return {
+                  activityType: "groupStatusMsgReceive",
+                  chatId: e.id.remote,
+                  ts: e.t,
+                  isGroupStatusReplyOthersToOwn: i && s,
+                  isGroupStatusReplyOthersToOthers: i && !s,
+                  isGroupStatusLikeOthersToOwn: l && s,
+                  isGroupStatusLikeOthersToOthers: l && !s,
+                };
               }
             }
           }

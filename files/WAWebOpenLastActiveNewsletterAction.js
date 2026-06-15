@@ -29,9 +29,13 @@ __d(
               }),
           { transition: "none", disableRotateFocus: !0 },
         );
-      },
-      d = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      };
+    function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = o(
             "WAWebSideNavButtonsActivityModel",
           ).getLastActiveNewsletter();
@@ -50,11 +54,10 @@ __d(
           } catch (t) {
             return (e || (e = n("Promise"))).resolve(!1);
           }
-        });
-        return function () {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        m.apply(this, arguments)
+      );
+    }
     l.openLastActiveNewsletter = d;
   },
   98,

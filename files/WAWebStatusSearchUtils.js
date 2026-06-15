@@ -21,23 +21,7 @@ __d(
             n.push(a));
       return { unread: e, read: t, muted: n };
     }
-    function s() {
-      var t = e(),
-        n = t.muted,
-        r = t.read,
-        a = t.unread,
-        i = n.length > 0;
-      return {
-        unread: a.filter(function (e) {
-          return !o("WAWebContactGetters").getCalculatedStatusMute(e.contact);
-        }),
-        read: r.filter(function (e) {
-          return !o("WAWebContactGetters").getCalculatedStatusMute(e.contact);
-        }),
-        hasMutedStatuses: i,
-      };
-    }
-    function u(e, t) {
+    function s(e, t) {
       if (t == null || t.trim() === "") return e;
       var n = t.toLowerCase().trim();
       return e.filter(function (e) {
@@ -53,21 +37,21 @@ __d(
         return o.includes(n);
       });
     }
-    function c(t) {
+    function u(t) {
       var n = e(),
         r = n.read,
         a = n.unread,
         i = [].concat(a, r).filter(function (e) {
           return !o("WAWebContactGetters").getCalculatedStatusMute(e.contact);
         });
-      return u(i, t).length > 0;
+      return s(i, t).length > 0;
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "aura_status_search_max_viewers",
       );
     }
-    function m() {
+    function d() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "aura_status_search_timeout_threshold",
@@ -75,11 +59,10 @@ __d(
       );
     }
     ((l.getStatusData = e),
-      (l.getFilteredStatusLists = s),
-      (l.filterStatusesBySearchQuery = u),
-      (l.hasStatusesMatchingSearch = c),
-      (l.getAuraStatusSearchMaxViewers = d),
-      (l.getAuraStatusSearchTimeoutThreshold = m));
+      (l.filterStatusesBySearchQuery = s),
+      (l.hasStatusesMatchingSearch = u),
+      (l.getAuraStatusSearchMaxViewers = c),
+      (l.getAuraStatusSearchTimeoutThreshold = d));
   },
   98,
 );

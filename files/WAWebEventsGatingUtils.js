@@ -15,11 +15,6 @@ __d(
         "events_m3_cover_image_send",
       );
     }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "events_m3_cover_image_receive",
-      );
-    }
     ((l.getEventsNameLengthLimit = e), (l.getEventsDescriptionLengthLimit = s));
   },
   98,

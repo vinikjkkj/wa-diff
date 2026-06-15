@@ -150,12 +150,22 @@ __d(
                   c.jsx(r("WAWebLimitSharingDisableConfirmationPopup.react"), {
                     onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
-                        yield I(e, l, a, i);
+                        yield I({
+                          chat: e,
+                          limitSharing: l,
+                          meUser: a,
+                          unixTimeSeconds: i,
+                        });
                       },
                     ),
                   }),
                 )
-              : yield I(e, l, a, i);
+              : yield I({
+                  chat: e,
+                  limitSharing: l,
+                  meUser: a,
+                  unixTimeSeconds: i,
+                });
           }
         })),
         b.apply(this, arguments)
@@ -261,17 +271,19 @@ __d(
           )
         : !1;
     }
-    function I(e, t, n, r) {
+    function I(e) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, o) {
-            (r("WAWebWid").isGroup(e.id) ? yield D(e, t) : yield $(e, t, n, o),
-              B(t));
-          },
-        )),
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.limitSharing,
+            o = e.meUser,
+            a = e.unixTimeSeconds;
+          (r("WAWebWid").isGroup(t.id) ? yield D(t, n) : yield $(t, n, o, a),
+            B(n));
+        })),
         T.apply(this, arguments)
       );
     }

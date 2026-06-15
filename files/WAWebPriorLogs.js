@@ -58,59 +58,66 @@ __d(
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            (yield g(e),
+            (yield g(t),
               yield o("WAWebSchemaSyncdLogs")
                 .getSyncdLogsTable()
                 .bulkCreate([
-                  { collection: e, log: t, ts: o("WATimeUtils").unixTimeMs() },
+                  { collection: t, log: n, ts: o("WATimeUtils").unixTimeMs() },
                 ]));
-          } catch (e) {
+          } catch (t) {
             o("WALogger").ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "prior logs: error while writing to prior logs: ",
                   "",
                 ])),
-              e,
+              t,
             );
           }
         })),
         C.apply(this, arguments)
       );
     }
-    var b = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("compactMap")(
             [].concat(Array.from(m.members()), [""]),
             function (e) {
               return m.cast(e);
             },
           );
-          return v(e);
-        });
-        return function () {
-          return e.apply(this, arguments);
-        };
-      })(),
-      v = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return S(e);
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var r = t.map(
+            var t = e.map(
               (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = yield o("WAWebSchemaSyncdLogs")
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = yield o("WAWebSchemaSyncdLogs")
                         .getSyncdLogsTable()
-                        .equals(["collection"], t),
-                      r = n.filter(function (e) {
+                        .equals(["collection"], e),
+                      n = t.filter(function (e) {
                         return o("WATimeUtils").happenedWithin(
                           o("WATimeUtils").castMilliSecondsToUnixTime(e.ts),
                           o("WATimeUtils").DAY_MILLISECONDS * 60,
                         );
                       }),
-                      a = r.map(function (e) {
+                      r = n.map(function (e) {
                         return (
                           o("WATimeUtils").toHttpHeaderDate(
                             o("WATimeUtils").castMilliSecondsToUnixTime(e.ts),
@@ -121,52 +128,51 @@ __d(
                         );
                       });
                     o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose(
                           ["\r\n\r\nprior logs: category ", ": \r\n\r\n"],
                           [
                             "\\r\\n\\r\\nprior logs: category ",
                             ": \\r\\n\\r\\n",
                           ],
                         )),
-                      t,
+                      e,
                     );
-                    for (var i = 20, l = 0; l < a.length; l += i)
+                    for (var a = 20, i = 0; i < r.length; i += a)
                       o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             "",
                           ])),
-                        a.slice(l, l + i),
+                        r.slice(i, i + a),
                       );
                   },
                 );
-                return function (e) {
-                  return t.apply(this, arguments);
+                return function (t) {
+                  return e.apply(this, arguments);
                 };
               })(),
             );
-            yield (d || (d = n("Promise"))).all(r != null ? r : []);
+            yield (d || (d = n("Promise"))).all(t != null ? t : []);
           } catch (e) {
             o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "prior logs: error while printing fatal logs: ",
                   "",
                 ])),
               e,
             );
           }
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        R.apply(this, arguments)
+      );
+    }
     ((l.WAWebLogCategory = m),
       (l.writePriorLog = y),
       (l.printAllPriorLogs = b),
-      (l.printPriorLogs = v));
+      (l.printPriorLogs = S));
   },
   98,
 );

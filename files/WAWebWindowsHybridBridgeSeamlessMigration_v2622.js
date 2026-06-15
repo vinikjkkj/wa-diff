@@ -54,7 +54,7 @@ __d(
                 {
                   bridge: "seamlessMigrationBridge",
                   method: "executeLogout",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return t.$1.executeLogout(n, a);
@@ -73,7 +73,7 @@ __d(
                       {
                         bridge: "seamlessMigrationBridge",
                         method: "requestUserPrefsMigration",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return t.$1.requestUserPrefsMigration(e.toJid());
@@ -109,7 +109,7 @@ __d(
                   {
                     bridge: "seamlessMigrationBridge",
                     method: "requestFilesCleanup",
-                    type: "sync",
+                    type: "async",
                   },
                   function () {
                     return t.$1.requestFilesCleanup(l);

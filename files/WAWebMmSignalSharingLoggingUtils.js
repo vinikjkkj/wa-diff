@@ -156,11 +156,25 @@ __d(
                   "WAWebMmSignalSharingGatingUtils",
                 ).isMmSignalSharingReplacingShimmedLinksEnabled())
             ) {
-              var D = C(t, c, n, d, m, i);
+              var D = C({
+                chat: t,
+                isSignalAllowlisted: m,
+                isUserDisclosed: d,
+                linkOptions: n,
+                mmSignalSharingExpirationWindowItem: c,
+                signal: i,
+              });
               L(!1, D.onePdReason, D.spReason, D.sharingStatus);
             }
           } else {
-            var x = C(t, c, n, d, m, i);
+            var x = C({
+              chat: t,
+              isSignalAllowlisted: m,
+              isUserDisclosed: d,
+              linkOptions: n,
+              mmSignalSharingExpirationWindowItem: c,
+              signal: i,
+            });
             L(!1, x.onePdReason, x.spReason, x.sharingStatus);
           }
         })),
@@ -436,11 +450,17 @@ __d(
         return o("WAWebWamEnumOnePdSignalNotSharedReason")
           .ONE_PD_SIGNAL_NOT_SHARED_REASON.TOKEN_EXPIRED;
     }
-    function C(e, t, n, r, o, a) {
-      var i = a.canceledReason != null ? void 0 : y(e, t, n, r, o),
-        l = i == null || a.canceledReason != null ? void 0 : R(t, o),
-        s = L(a.sharingStatus, o, i, l);
-      return { onePdReason: i, spReason: l, sharingStatus: s };
+    function C(e) {
+      var t = e.chat,
+        n = e.isSignalAllowlisted,
+        r = e.isUserDisclosed,
+        o = e.linkOptions,
+        a = e.mmSignalSharingExpirationWindowItem,
+        i = e.signal,
+        l = i.canceledReason != null ? void 0 : y(t, a, o, r, n),
+        s = l == null || i.canceledReason != null ? void 0 : R(a, n),
+        u = L(i.sharingStatus, n, l, s);
+      return { onePdReason: l, spReason: s, sharingStatus: u };
     }
     function b(e, t, n, r) {
       var o = r.canceledReason != null ? void 0 : v(e, t, n),

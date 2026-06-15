@@ -7,7 +7,6 @@ __d(
     "WAWebDisplayedNameIsBizName",
     "WAWebFrontendMsgGetters",
     "WAWebGetBusinessNameFromMsg",
-    "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebOrderGatingUtils",
     "WAWebSupportChatStrings",
@@ -228,60 +227,36 @@ __d(
         case "blue_msg_self_premise_verified": {
           var _ = r("WAWebGetBusinessNameFromMsg")(e);
           return r("WAWebDisplayedNameIsBizName")(t.remote, _)
-            ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-              ? s._(/*BTDS*/ "{businessName} is a verified account.", [
-                  s._param("businessName", _),
-                ])
-              : s._(
-                  /*BTDS*/ "{businessName} is registered as an official business account.",
-                  [s._param("businessName", _)],
-                )
-            : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-              ? s._(
-                  /*BTDS*/ "{businessName} is a verified account. It's saved as a different name in your contacts.",
-                  [s._param("businessName", _)],
-                )
-              : s._(
-                  /*BTDS*/ "{businessName} is registered as an official business account. The business is saved as a different name in your contacts.",
-                  [s._param("businessName", _)],
-                );
+            ? s._(/*BTDS*/ "{businessName} is a verified account.", [
+                s._param("businessName", _),
+              ])
+            : s._(
+                /*BTDS*/ "{businessName} is a verified account. It's saved as a different name in your contacts.",
+                [s._param("businessName", _)],
+              );
         }
         case "blue_msg_bsp_fb_verified_to_self_premise_unverified":
         case "blue_msg_bsp_premise_verified_to_self_premise_unverified":
         case "blue_msg_self_fb_verified_to_self_premise_unverified":
         case "blue_msg_verified_to_unverified":
-          return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-            ? s._(/*BTDS*/ "{businessName} is no longer a verified account.", [
-                s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
-              ])
-            : s._(
-                /*BTDS*/ "{businessName} is now registered as a business account, instead of an official business account.",
-                [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-              );
+          return s._(
+            /*BTDS*/ "{businessName} is no longer a verified account.",
+            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+          );
         case "blue_msg_bsp_fb_unverified_to_self_premise_verified":
         case "blue_msg_bsp_premise_unverified_to_self_premise_verified":
         case "blue_msg_self_fb_unverified_to_self_premise_verified":
         case "blue_msg_unverified_to_verified": {
           var f = r("WAWebGetBusinessNameFromMsg")(e);
           return r("WAWebDisplayedNameIsBizName")(t.remote, f)
-            ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-              ? s._(
-                  /*BTDS*/ "This chat is with{businessName}'s verified account.",
-                  [s._param("businessName", f)],
-                )
-              : s._(
-                  /*BTDS*/ "This chat is with the official business account of {businessName}.",
-                  [s._param("businessName", f)],
-                )
-            : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-              ? s._(
-                  /*BTDS*/ "This chat is with {businessName}'s verified account. The account is saved as a different name in your contacts.",
-                  [s._param("businessName", f)],
-                )
-              : s._(
-                  /*BTDS*/ "This chat is with the official business account of {businessName}. The business is saved as a different name in your contacts.",
-                  [s._param("businessName", f)],
-                );
+            ? s._(
+                /*BTDS*/ "This chat is with{businessName}'s verified account.",
+                [s._param("businessName", f)],
+              )
+            : s._(
+                /*BTDS*/ "This chat is with {businessName}'s verified account. The account is saved as a different name in your contacts.",
+                [s._param("businessName", f)],
+              );
         }
         case "is_capi_hosted_group":
           return u.jsxs(u.Fragment, {

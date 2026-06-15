@@ -8,7 +8,6 @@ __d(
     "WAWebVelocityTransitionGroup",
     "WDSToast.react",
     "cr:782",
-    "lodash",
     "react",
     "stylex",
     "uniqueID",
@@ -18,15 +17,29 @@ __d(
     "useWAWebPrevious",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u = s || (s = o("react")),
-      c = s,
-      d = c.cloneElement,
-      m = c.useEffect,
-      p = c.useRef,
-      _ = c.useState,
-      f = {
+    var e, s;
+    function u(e) {
+      var t = c(e, "string");
+      return typeof t == "symbol" ? t : t + "";
+    }
+    function c(e, t) {
+      if (typeof e != "object" || !e) return e;
+      var n =
+        e[typeof Symbol == "function" ? Symbol.toPrimitive : "@@toPrimitive"];
+      if (n !== void 0) {
+        var r = n.call(e, t || "default");
+        if (typeof r != "object") return r;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return (t === "string" ? String : Number)(e);
+    }
+    var d = s || (s = o("react")),
+      m = s,
+      p = m.cloneElement,
+      _ = m.useEffect,
+      f = m.useRef,
+      g = m.useState,
+      h = {
         slide0: { transform: "xnn1q72", $$css: !0 },
         slide1: { transform: "xvav9fi", $$css: !0 },
         slide2: { transform: "x8r675y", $$css: !0 },
@@ -63,8 +76,8 @@ __d(
           $$css: !0,
         },
       },
-      g = 3;
-    function h() {
+      y = 3;
+    function C() {
       var t = r("useLazyRef")(function () {
           return new Map();
         }),
@@ -79,12 +92,12 @@ __d(
         c = r("useLazyRef")(function () {
           return new (r("WAWebSetRefCache"))(a);
         }),
-        h = p(!1),
-        C = _({}),
-        b = C[0],
-        v = C[1],
-        S = r("useWAWebPrevious")(b);
-      function R(e, t) {
+        m = f(!1),
+        C = g({}),
+        S = C[0],
+        R = C[1],
+        L = r("useWAWebPrevious")(S);
+      function E(e, t) {
         var n = e.action,
           r = e.duration,
           a = e.id,
@@ -128,7 +141,7 @@ __d(
           !0
         );
       }
-      function L(e, t) {
+      function k(e, t) {
         var n = e.id,
           r = e.initialAction,
           a = e.onDismiss,
@@ -244,16 +257,16 @@ __d(
         }
         return !0;
       }
-      var E = function (n, r) {
+      var I = function (n, r) {
           var e,
             o = !1,
             a = n.props;
-          if (("pendingAction" in a ? (o = L(a, r)) : (o = R(a, r)), !o)) {
-            var i = (e = a.id) != null ? e : y(),
+          if (("pendingAction" in a ? (o = k(a, r)) : (o = E(a, r)), !o)) {
+            var i = (e = a.id) != null ? e : v(),
               l = t.current.get(i);
             l
               ? l.restartDelay == null || l.restartDelay()
-              : v(function (e) {
+              : R(function (e) {
                   var t;
                   return babelHelpers.extends(
                     {},
@@ -263,63 +276,64 @@ __d(
                 });
           }
         },
-        k = function (t) {
-          b[t] &&
-            v(function (e) {
-              return r("lodash").omit(e, t);
+        T = function (t) {
+          S[t] &&
+            R(function (e) {
+              var n = e[t],
+                r = babelHelpers.objectWithoutPropertiesLoose(e, [t].map(u));
+              return r;
             });
         };
       (o("useWAWebListener").useListener(
         o("WAWebToastManager").ToastManager,
         "open_toast",
-        E,
+        I,
       ),
         o("useWAWebListener").useListener(
           o("WAWebToastManager").ToastManager,
           "close_toast",
-          k,
+          T,
         ),
-        m(
+        _(
           function () {
-            h.current =
-              Object.keys(S != null ? S : {}).length > Object.keys(b).length;
+            m.current =
+              Object.keys(L != null ? L : {}).length > Object.keys(S).length;
           },
-          [b, S],
+          [S, L],
         ));
-      var I = h.current,
-        T = r("lodash")
-          .sortBy(b, ["toast", "id"])
-          .reverse()
+      var D = m.current,
+        x = Object.values(S)
+          .sort(b)
           .map(function (t, n) {
             var a = t.id,
               i = t.position,
               l = t.toast;
-            return u.jsx(
+            return d.jsx(
               "div",
               babelHelpers.extends(
                 {},
                 (e || (e = r("stylex"))).props(
-                  f.wrapper,
-                  i === o("WAWebToastManager").ToastPosition.CENTER && f.center,
-                  i === o("WAWebToastManager").ToastPosition.RIGHT && f.right,
-                  n === 0 && I && f.slide0,
-                  n === 1 && f.slide1,
-                  n === 2 && f.slide2,
-                  n >= g && f.slide3,
+                  h.wrapper,
+                  i === o("WAWebToastManager").ToastPosition.CENTER && h.center,
+                  i === o("WAWebToastManager").ToastPosition.RIGHT && h.right,
+                  n === 0 && D && h.slide0,
+                  n === 1 && h.slide1,
+                  n === 2 && h.slide2,
+                  n >= y && h.slide3,
                 ),
                 {
-                  children: u.jsx(
+                  children: d.jsx(
                     "div",
                     babelHelpers.extends(
                       {},
                       e.props(
                         i === o("WAWebToastManager").ToastPosition.CENTER &&
                           (r("WAWebL10N").isRTL()
-                            ? f.transformRight
-                            : f.transformLeft),
+                            ? h.transformRight
+                            : h.transformLeft),
                       ),
                       {
-                        children: d(l, {
+                        children: p(l, {
                           ref: c.current.getRefSetter(a),
                           id: a,
                         }),
@@ -331,21 +345,24 @@ __d(
               a,
             );
           });
-      return u.jsxs(u.Fragment, {
+      return d.jsxs(d.Fragment, {
         children: [
-          n("cr:782") != null && u.jsx(n("cr:782"), { openToast: E }),
-          u.jsx(r("WAWebVelocityTransitionGroup"), {
+          n("cr:782") != null && d.jsx(n("cr:782"), { openToast: I }),
+          d.jsx(r("WAWebVelocityTransitionGroup"), {
             transitionName: "fade_sifo",
-            children: T,
+            children: x,
           }),
         ],
       });
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e) {
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e, t) {
+      return e.id === t.id ? 0 : e.id < t.id ? 1 : -1;
+    }
+    function v(e) {
       return r("uniqueID")(e || "toast");
     }
-    l.default = h;
+    l.default = C;
   },
   98,
 );

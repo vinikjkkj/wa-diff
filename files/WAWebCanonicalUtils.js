@@ -1,40 +1,38 @@
 __d(
   "WAWebCanonicalUtils",
-  ["$InternalEnum", "CurrentUser"],
+  ["CurrentUser"],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum").Mirrored(["IDLE", "IN_PROGRESS", "PRESENT"]),
-      s = e.IDLE;
-    function u(e) {
-      s = e;
+    var e = !1;
+    function s(t) {
+      e = t;
+    }
+    function u() {
+      return e;
     }
     function c() {
-      return s;
+      return r("CurrentUser").isLoggedIn() || e;
     }
-    function d() {
-      return r("CurrentUser").isLoggedIn() || s === e.PRESENT;
+    var d = null;
+    function m() {
+      return d;
     }
-    var m = null;
-    function p() {
-      return m;
+    function p(e) {
+      d = e;
     }
-    function _(e) {
-      m = e;
+    var _ = !1;
+    function f() {
+      return _;
     }
-    var f = !1;
-    function g() {
-      return f;
+    function g(e) {
+      _ = e;
     }
-    function h(e) {
-      f = e;
-    }
-    ((l.TokenCreationState = e),
-      (l.setTokenCreationState = u),
-      (l.getTokenCreationState = c),
-      (l.isCurrentUserLoggedIn = d),
-      (l.getCanonicalReloadPending = p),
-      (l.setCanonicalReloadPending = _),
-      (l.isDebugForceTokenRefresh = g),
-      (l.setDebugForceTokenRefresh = h));
+    ((l.setCanonicalTokenPresent = s),
+      (l.isCanonicalTokenPresent = u),
+      (l.isCanonicalPresent = c),
+      (l.getCanonicalReloadPending = m),
+      (l.setCanonicalReloadPending = p),
+      (l.isDebugForceTokenRefresh = f),
+      (l.setDebugForceTokenRefresh = g));
   },
   98,
 );

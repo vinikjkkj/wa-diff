@@ -41,12 +41,7 @@ __d(
       return e(n, r);
     }
     function u(e) {
-      return (
-        e != null &&
-        o("WAWebChatGetters").getIsGroup(e) &&
-        e.isTrusted() &&
-        o("WAWebMemberLabelGating").isMemberLabelReceiverEnabled()
-      );
+      return e != null && o("WAWebChatGetters").getIsGroup(e) && e.isTrusted();
     }
     function c(e) {
       var t = e.unsafe(),

@@ -106,6 +106,7 @@ __d(
               mutedGroupMessage: [8, e.TYPES.BOOLEAN],
               numOfWebUrlsInTextMessage: [3, e.TYPES.INTEGER],
               offlineCount: [30, e.TYPES.INTEGER],
+              oppositeHasUsername: [65, e.TYPES.BOOLEAN],
               oppositeVisibleIdentification: [
                 40,
                 o("WAWebWamEnumOppositeVisibleIdentificationType")

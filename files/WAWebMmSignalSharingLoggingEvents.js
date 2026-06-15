@@ -573,8 +573,18 @@ __d(
         if (i) {
           var l = i.isContinuation,
             s = i.messageOriginGroups,
-            u = I(s, l, a, o("WAWebWamEnumSignalType").SIGNAL_TYPE),
-            c = I(s, l, a, o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE);
+            u = I({
+              isContinuation: l,
+              isNewMessagefromMe: a,
+              messageOriginGroupsCount: s,
+              source: o("WAWebWamEnumSignalType").SIGNAL_TYPE,
+            }),
+            c = I({
+              isContinuation: l,
+              isNewMessagefromMe: a,
+              messageOriginGroupsCount: s,
+              source: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE,
+            });
           if (
             (c != null && D({ chat: n, mmSignalType: c }),
             u != null && c != null)
@@ -609,9 +619,13 @@ __d(
         }
       }
     }
-    function I(e, t, n, r) {
-      var o = s[String(e)];
-      return o ? T(o, t, n, r) : null;
+    function I(e) {
+      var t = e.isContinuation,
+        n = e.isNewMessagefromMe,
+        r = e.messageOriginGroupsCount,
+        o = e.source,
+        a = s[String(r)];
+      return a ? T(a, t, n, o) : null;
     }
     function T(e, t, n, r) {
       var o,

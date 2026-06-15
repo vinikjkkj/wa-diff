@@ -879,7 +879,7 @@ __d(
     }
     Fe.doc = "Store canonical credentials directly (for E2E tests)";
     function Be() {
-      return o("WAWebCanonicalUtils").isCurrentUserLoggedIn();
+      return o("WAWebCanonicalUtils").isCanonicalPresent();
     }
     Be.doc = "Check if canonical token has been stored";
     function We(e) {

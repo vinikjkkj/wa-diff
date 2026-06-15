@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAWebClock",
-    "WAWebStatusGatingUtils",
     "WAWebStatusLoggingUtils",
     "WAWebStatusPogImpressionWamEvent",
     "WAWebWamEnumStatusCategory",
@@ -21,26 +20,24 @@ __d(
             n = e.pogIndex,
             r = e.pogOwnerId,
             a = e.statusViewEntrypoint,
-            i = e.tsSurface;
-          if (o("WAWebStatusGatingUtils").isStatusVPVLoggingEnabled()) {
-            var l = yield c(r, t),
-              s = l.statusGroupId,
-              u = l.statusPosterHashId,
-              d = l.statusPosterId,
-              p = new (o(
-                "WAWebStatusPogImpressionWamEvent",
-              ).StatusPogImpressionWamEvent)({
-                cid: o("WAWebStatusLoggingUtils").channelStatusCid(r),
-                pogIndex: n,
-                statusCategory: m(r),
-                statusGroupId: s != null ? s : void 0,
-                statusPosterHashId: u != null ? u : void 0,
-                statusPosterId: d != null ? d : void 0,
-                statusViewEntrypoint: a,
-                tsSurface: i,
-              });
-            p.commit();
-          }
+            i = e.tsSurface,
+            l = yield c(r, t),
+            s = l.statusGroupId,
+            u = l.statusPosterHashId,
+            d = l.statusPosterId,
+            p = new (o(
+              "WAWebStatusPogImpressionWamEvent",
+            ).StatusPogImpressionWamEvent)({
+              cid: o("WAWebStatusLoggingUtils").channelStatusCid(r),
+              pogIndex: n,
+              statusCategory: m(r),
+              statusGroupId: s != null ? s : void 0,
+              statusPosterHashId: u != null ? u : void 0,
+              statusPosterId: d != null ? d : void 0,
+              statusViewEntrypoint: a,
+              tsSurface: i,
+            });
+          p.commit();
         })),
         u.apply(this, arguments)
       );

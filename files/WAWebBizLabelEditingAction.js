@@ -147,38 +147,41 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.color,
+            a = e.labelId,
+            i = e.name;
           o("WAWebListsLabelGatingUtils").labelsEditingEnabled() || s(0, 75242);
-          var i = yield o(
+          var l = yield o(
               "WAWebDBLabelAssociationDatabaseApi",
-            ).queryLabelAssociationsForLabelIds([e]),
-            l = o("WATimeUtils").unixTime(),
-            u = r("WAWebLabelSync").getLabelMutation(
-              e,
-              t,
+            ).queryLabelAssociationsForLabelIds([a]),
+            u = o("WATimeUtils").unixTime(),
+            c = r("WAWebLabelSync").getLabelMutation(
               a,
+              i,
+              t,
               !0,
               m,
               void 0,
               void 0,
-              l,
+              u,
             ),
-            c = [],
-            p = i.filter(function (e) {
+            p = [],
+            _ = l.filter(function (e) {
               return (
                 e.type ===
                 o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid
               );
             });
-          (p.length > 0 &&
-            (c = yield r("WAWebLabelJidSync").createLabelAssociationMutations(
-              [{ id: e, type: "remove" }],
-              p.map(function (e) {
+          (_.length > 0 &&
+            (p = yield r("WAWebLabelJidSync").createLabelAssociationMutations(
+              [{ id: a, type: "remove" }],
+              _.map(function (e) {
                 return {
                   labelAssociationType: o("WAWebSchemaLabelAssociation")
                     .LabelAssociationType.Jid,
@@ -193,18 +196,18 @@ __d(
                   "[Label] labelDeleteAction: id ",
                   ", mutation generated",
                 ])),
-              e,
+              a,
             ),
             yield o("WAWebSyncdCoreApi").lockForSync(
               ["label", "label-association", "chat"],
-              [u].concat(c),
+              [c].concat(p),
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield o("WAWebDBLabelDatabaseApi").removeLabel(e),
-                  i.length > 0 &&
+                (yield o("WAWebDBLabelDatabaseApi").removeLabel(a),
+                  l.length > 0 &&
                     (yield o(
                       "WAWebDBLabelAssociationDatabaseApi",
                     ).removeLabelAssociations(
-                      i.map(function (e) {
+                      l.map(function (e) {
                         return o(
                           "WAWebSchemaLabelAssociation",
                         ).createLabelAssociationPrimaryKey(e);
@@ -212,7 +215,7 @@ __d(
                     )));
               }),
             ),
-            o("WAWebLabelCollection").LabelCollection.remove(e));
+            o("WAWebLabelCollection").LabelCollection.remove(a));
         })),
         y.apply(this, arguments)
       );

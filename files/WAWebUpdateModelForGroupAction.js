@@ -17,7 +17,6 @@ __d(
     "WAWebEphemeralityUtils",
     "WAWebGroupGatingUtils",
     "WAWebGroupGetMembershipApprovalRequestsJob",
-    "WAWebGroupHistoryGating",
     "WAWebGroupMetadataCollection",
     "WAWebGroupType",
     "WAWebInvalidateEventsAction",
@@ -638,8 +637,7 @@ __d(
         }
         case o("WAWebGroupType").GROUP_ACTIONS
           .MEMBER_SHARE_GROUP_HISTORY_MODE: {
-          o("WAWebGroupHistoryGating").isGroupHistorySettingsEnabled() &&
-            (d.memberShareGroupHistoryMode = a.value);
+          d.memberShareGroupHistoryMode = a.value;
           break;
         }
         default:

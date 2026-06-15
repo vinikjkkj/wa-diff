@@ -35,9 +35,13 @@ __d(
           ),
           (s || (s = n("Promise"))).resolve(!1)
         );
-      },
-      m = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      };
+    function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = o(
             "WAWebSideNavButtonsActivityModel",
           ).getLastActiveCommunity();
@@ -76,11 +80,10 @@ __d(
           } catch (e) {
             return (s || (s = n("Promise"))).resolve(!1);
           }
-        });
-        return function () {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        p.apply(this, arguments)
+      );
+    }
     l.openLastActiveCommunity = m;
   },
   98,

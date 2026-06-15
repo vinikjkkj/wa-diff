@@ -9,7 +9,6 @@ __d(
     "WAWebNewsletterIsNewsletterMsg",
     "WAWebPollCreationUtils",
     "WAWebPollOptionHashUtils",
-    "WAWebPollsCagsGatingUtils",
     "WAWebPollsGatingUtils",
     "WAWebPollsValidationError",
     "WAWebWamEnumE2eFailureReason",
@@ -39,12 +38,7 @@ __d(
             : _,
         g = r("WAWebNewsletterIsNewsletterMsg")(l),
         h = !g;
-      if (
-        f == null ||
-        (f === d &&
-          !o("WAWebPollsCagsGatingUtils").isPollsReceivingEnabledInCags())
-      )
-        return null;
+      if (f == null) return null;
       var y = f.contextInfo,
         C = f.correctAnswer,
         b = f.name,

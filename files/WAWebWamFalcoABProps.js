@@ -31,7 +31,7 @@ __d(
       return !m() || !u() || !o("WAWebCanonicalGating").isCanonicalEnabled()
         ? !1
         : !r("WAWebNetworkStatus").online ||
-            !o("WAWebCanonicalUtils").isCurrentUserLoggedIn();
+            !o("WAWebCanonicalUtils").isCanonicalPresent();
     }
     function m() {
       return (

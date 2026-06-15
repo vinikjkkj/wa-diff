@@ -193,15 +193,17 @@ __d(
             if (a) {
               var i = o(
                 "WAWebMmSignalSharingExpirationWindowUtils",
-              ).getMmSignalSharingExpirationWindow(
-                a.mmSignalSharingExpirationWindow,
-                r.id,
-                r.t,
-                r.clientReceivedTsMillis != null
-                  ? r.clientReceivedTsMillis * 1e3
-                  : r.t,
-                e,
-              );
+              ).getMmSignalSharingExpirationWindow({
+                contextInfo: e,
+                mmSignalSharingExpirationWindow:
+                  a.mmSignalSharingExpirationWindow,
+                msgKey: r.id,
+                msgTimeClient:
+                  r.clientReceivedTsMillis != null
+                    ? r.clientReceivedTsMillis * 1e3
+                    : r.t,
+                msgTimeServer: r.t,
+              });
               ((a.mmSignalSharingExpirationWindow = i),
                 o("WAWebDBUpdateChatTable").updateChatTable(n, {
                   mmSignalSharingExpirationWindow: i,

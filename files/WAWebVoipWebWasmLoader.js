@@ -13,7 +13,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1781279745283" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1781516705652" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -78,8 +78,8 @@ __d(
               "_renderVideoFrame_js",
               "_sendSignalingXMPP_js_sync",
               "_fflush",
-              "_call_sendto",
               "___indirect_function_table",
+              "_call_sendto",
               "_call_init_capture_driver_js_sync",
               "_call_start_capture_js_sync",
               "_call_stop_capture_js_sync",
@@ -763,10 +763,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1289281: function () {
+            1291697: function () {
               return Date.now();
             },
-            1289304: function (t, n) {
+            1291720: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -3444,7 +3444,7 @@ __d(
                 function e() {
                   var e = 0;
                   return (
-                    ce && typeof wi != "undefined" && (e = wi()),
+                    ce && typeof Pi != "undefined" && (e = Pi()),
                     "w:" + (y.workerID || 0) + ",t:" + tn(e) + ": "
                   );
                 }
@@ -3566,7 +3566,7 @@ __d(
                   (o.addMessageListener("cmd", function (e) {
                     var t = e,
                       r = t.cmd;
-                    if (t.targetThread && t.targetThread != wi()) {
+                    if (t.targetThread && t.targetThread != Pi()) {
                       var a = rn.pthreads[t.targetThread];
                       a
                         ? a.postMessage(
@@ -3699,7 +3699,7 @@ __d(
             for (; t.length > 0; ) t.shift()(y);
           };
           function an() {
-            var e = wi(),
+            var e = Pi(),
               t = _()[(e + 52) >> 2],
               n = _()[(e + 56) >> 2],
               r = t - n;
@@ -5587,7 +5587,7 @@ __d(
           }
           y.__emscripten_thread_mailbox_await = jo;
           var Ko = function () {
-            var e = wi();
+            var e = Pi();
             e &&
               (jo(e),
               zo(function () {
@@ -6825,7 +6825,7 @@ __d(
                   if (e[n] === "Z") {
                     for (o = 0; o < 8 - e.length + 1; o++) i[n + o] = 0;
                     r = o - 1;
-                  } else i[n + r] = Mi(parseInt(e[n], 16));
+                  } else i[n + r] = wi(parseInt(e[n], 16));
                 else i[n + r] = e[n];
               return [
                 (i[1] << 16) | i[0],
@@ -7506,7 +7506,7 @@ __d(
               gethostbyname: li,
               invoke_d: Mu,
               invoke_diii: Bu,
-              invoke_fi: Qs,
+              invoke_fi: Os,
               invoke_fii: is,
               invoke_fiii: Ou,
               invoke_fiiiiii: Cu,
@@ -7515,13 +7515,13 @@ __d(
               invoke_ii: gl,
               invoke_iid: Du,
               invoke_iidi: wu,
-              invoke_iidii: hu,
+              invoke_iidii: nu,
               invoke_iidjjjidjjjdjjji: Xl,
               invoke_iidjjjii: os,
               invoke_iidjjjiii: Jl,
               invoke_iiffiii: ss,
               invoke_iiffiiiii: ls,
-              invoke_iifi: tu,
+              invoke_iifi: pu,
               invoke_iifiii: Xs,
               invoke_iii: hl,
               invoke_iiid: $u,
@@ -7537,7 +7537,7 @@ __d(
               invoke_iiiiiiiddiiid: Iu,
               invoke_iiiiiiii: Il,
               invoke_iiiiiiiidi: Tu,
-              invoke_iiiiiiiifii: js,
+              invoke_iiiiiiiifii: Ks,
               invoke_iiiiiiiii: Ll,
               invoke_iiiiiiiiii: kl,
               invoke_iiiiiiiiiiffiii: us,
@@ -7555,36 +7555,36 @@ __d(
               invoke_iiiiiiiiij: Ps,
               invoke_iiiiiiiij: Ds,
               invoke_iiiiiiij: ks,
-              invoke_iiiiiiijjii: Bs,
+              invoke_iiiiiiijjii: Ws,
               invoke_iiiiiij: xs,
               invoke_iiiiiijiiii: Ns,
-              invoke_iiiiiijjijiiiiiiiiii: qs,
+              invoke_iiiiiijjijiiiiiiiiii: Us,
               invoke_iiiiij: yu,
               invoke_iiiiijjii: ns,
               invoke_iiiiijjiii: rs,
               invoke_iiiiijjjii: es,
               invoke_iiiiijjjiii: ts,
               invoke_iiiij: Ls,
-              invoke_iiiijiii: fu,
+              invoke_iiiijiii: tu,
               invoke_iiiijiiji: Kl,
               invoke_iiiijjii: as,
               invoke_iiiijjiii: Zl,
               invoke_iiij: Is,
-              invoke_iiijddddddd: cu,
+              invoke_iiijddddddd: du,
               invoke_iiiji: Ul,
               invoke_iiijii: Wl,
               invoke_iiijiiji: jl,
               invoke_iiijji: zl,
-              invoke_iiijjiiii: au,
-              invoke_iij: Os,
+              invoke_iiijjiiii: iu,
+              invoke_iij: Bs,
               invoke_iiji: Ms,
               invoke_iijii: $s,
-              invoke_iijiii: pu,
+              invoke_iijiii: gu,
               invoke_iijijijiji: ku,
-              invoke_iijj: lu,
-              invoke_iijjjiiii: ru,
-              invoke_iijjjj: nu,
-              invoke_iijjjji: uu,
+              invoke_iijj: su,
+              invoke_iijjjiiii: ou,
+              invoke_iijjjj: _u,
+              invoke_iijjjji: cu,
               invoke_ij: bu,
               invoke_iji: Lu,
               invoke_j: Al,
@@ -7595,17 +7595,17 @@ __d(
               invoke_jiiiii: Fs,
               invoke_jiiiiiiii: Ts,
               invoke_jiiiiiji: As,
-              invoke_jiij: su,
-              invoke_jij: Us,
+              invoke_jiij: uu,
+              invoke_jij: Vs,
               invoke_v: yl,
               invoke_vd: Nu,
               invoke_vi: vl,
-              invoke_vid: Hs,
-              invoke_viddjjii: ou,
+              invoke_vid: Gs,
+              invoke_viddjjii: au,
               invoke_vif: bs,
               invoke_viff: Ss,
               invoke_vii: fl,
-              invoke_viid: gu,
+              invoke_viid: ru,
               invoke_viif: Rs,
               invoke_viii: pl,
               invoke_viiii: Sl,
@@ -7620,25 +7620,25 @@ __d(
               invoke_viiiiiiiiiiii: vs,
               invoke_viiiiiiiiiiiii: Su,
               invoke_viiiiiiiiiiiiiii: Wu,
-              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: du,
+              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: mu,
               invoke_viiiiiiij: vu,
               invoke_viiiiij: Zs,
               invoke_viiiiiji: xu,
               invoke_viiiij: eu,
               invoke_viiiijiiii: gs,
-              invoke_viiij: _u,
+              invoke_viiij: hu,
               invoke_viiiji: Ql,
               invoke_viij: ws,
-              invoke_viiji: Gs,
-              invoke_viijii: zs,
-              invoke_viijiiii: Ws,
+              invoke_viiji: zs,
+              invoke_viijii: js,
+              invoke_viijiiii: qs,
               invoke_viijj: Ru,
               invoke_viijjdiii: Yl,
-              invoke_vij: Ks,
-              invoke_viji: mu,
+              invoke_vij: Qs,
+              invoke_viji: fu,
               invoke_vijiiiii: Fl,
-              invoke_vijj: Vs,
-              invoke_vijji: iu,
+              invoke_vijj: Hs,
+              invoke_vijji: lu,
               invoke_vjiiiiii: Ol,
               is_participant_known_contact_js: et,
               llvm_eh_typeid_for: si,
@@ -7660,12 +7660,12 @@ __d(
             Di = (y._wasm_throw_ml_abort = xe("wasm_throw_ml_abort")),
             xi = (y._fflush = xe("fflush")),
             $i = xe("__errno_location"),
-            Pi = xe("ntohs"),
-            Ni = xe("htonl"),
-            Mi = xe("htons"),
-            wi = (y._pthread_self = function () {
-              return (wi = y._pthread_self = q.pthread_self)();
+            Pi = (y._pthread_self = function () {
+              return (Pi = y._pthread_self = q.pthread_self)();
             }),
+            Ni = xe("ntohs"),
+            Mi = xe("htonl"),
+            wi = xe("htons"),
             Ai = (y.__emscripten_tls_init = xe("_emscripten_tls_init")),
             Fi = xe("emscripten_builtin_memalign"),
             Oi = xe("__getTypeName"),
@@ -7713,8 +7713,8 @@ __d(
             sl = (y.___get_exception_message = xe("__get_exception_message")),
             ul = xe("__cxa_can_catch"),
             cl = xe("__cxa_is_pointer_type"),
-            dl = (y.___start_em_js = 1283900),
-            ml = (y.___stop_em_js = 1289281);
+            dl = (y.___start_em_js = 1286316),
+            ml = (y.___stop_em_js = 1291697);
           function pl(e, t, n, r) {
             var o = nl();
             try {
@@ -8563,7 +8563,16 @@ __d(
               return (Yi(1, 0), BigInt(0));
             }
           }
-          function Os(e, t, n) {
+          function Os(e, t) {
+            var n = nl();
+            try {
+              return dn(e)(t);
+            } catch (e) {
+              if ((rl(n), !(e instanceof $e))) throw e;
+              Yi(1, 0);
+            }
+          }
+          function Bs(e, t, n) {
             var r = nl();
             try {
               return dn(e)(t, n);
@@ -8572,7 +8581,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function Bs(e, t, n, r, o, a, i, l, s, u, c) {
+          function Ws(e, t, n, r, o, a, i, l, s, u, c) {
             var d = nl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8581,7 +8590,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function Ws(e, t, n, r, o, a, i, l) {
+          function qs(e, t, n, r, o, a, i, l) {
             var s = nl();
             try {
               dn(e)(t, n, r, o, a, i, l);
@@ -8590,7 +8599,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function qs(
+          function Us(
             e,
             t,
             n,
@@ -8640,7 +8649,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function Us(e, t, n) {
+          function Vs(e, t, n) {
             var r = nl();
             try {
               return dn(e)(t, n);
@@ -8649,7 +8658,7 @@ __d(
               return (Yi(1, 0), BigInt(0));
             }
           }
-          function Vs(e, t, n, r) {
+          function Hs(e, t, n, r) {
             var o = nl();
             try {
               dn(e)(t, n, r);
@@ -8658,7 +8667,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function Hs(e, t, n) {
+          function Gs(e, t, n) {
             var r = nl();
             try {
               dn(e)(t, n);
@@ -8667,7 +8676,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function Gs(e, t, n, r, o) {
+          function zs(e, t, n, r, o) {
             var a = nl();
             try {
               dn(e)(t, n, r, o);
@@ -8676,7 +8685,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function zs(e, t, n, r, o, a) {
+          function js(e, t, n, r, o, a) {
             var i = nl();
             try {
               dn(e)(t, n, r, o, a);
@@ -8685,7 +8694,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function js(e, t, n, r, o, a, i, l, s, u, c) {
+          function Ks(e, t, n, r, o, a, i, l, s, u, c) {
             var d = nl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8694,21 +8703,12 @@ __d(
               Yi(1, 0);
             }
           }
-          function Ks(e, t, n) {
+          function Qs(e, t, n) {
             var r = nl();
             try {
               dn(e)(t, n);
             } catch (e) {
               if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Qs(e, t) {
-            var n = nl();
-            try {
-              return dn(e)(t);
-            } catch (e) {
-              if ((rl(n), !(e instanceof $e))) throw e;
               Yi(1, 0);
             }
           }
@@ -8757,25 +8757,34 @@ __d(
               Yi(1, 0);
             }
           }
-          function tu(e, t, n, r) {
+          function tu(e, t, n, r, o, a, i, l) {
+            var s = nl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((rl(s), !(e instanceof $e))) throw e;
+              Yi(1, 0);
+            }
+          }
+          function nu(e, t, n, r, o) {
+            var a = nl();
+            try {
+              return dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((rl(a), !(e instanceof $e))) throw e;
+              Yi(1, 0);
+            }
+          }
+          function ru(e, t, n, r) {
             var o = nl();
             try {
-              return dn(e)(t, n, r);
+              dn(e)(t, n, r);
             } catch (e) {
               if ((rl(o), !(e instanceof $e))) throw e;
               Yi(1, 0);
             }
           }
-          function nu(e, t, n, r, o, a) {
-            var i = nl();
-            try {
-              return dn(e)(t, n, r, o, a);
-            } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function ru(e, t, n, r, o, a, i, l, s) {
+          function ou(e, t, n, r, o, a, i, l, s) {
             var u = nl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
@@ -8784,7 +8793,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function ou(e, t, n, r, o, a, i, l) {
+          function au(e, t, n, r, o, a, i, l) {
             var s = nl();
             try {
               dn(e)(t, n, r, o, a, i, l);
@@ -8793,7 +8802,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function au(e, t, n, r, o, a, i, l, s) {
+          function iu(e, t, n, r, o, a, i, l, s) {
             var u = nl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
@@ -8802,21 +8811,12 @@ __d(
               Yi(1, 0);
             }
           }
-          function iu(e, t, n, r, o) {
+          function lu(e, t, n, r, o) {
             var a = nl();
             try {
               dn(e)(t, n, r, o);
             } catch (e) {
               if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function lu(e, t, n, r) {
-            var o = nl();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
               Yi(1, 0);
             }
           }
@@ -8826,10 +8826,19 @@ __d(
               return dn(e)(t, n, r);
             } catch (e) {
               if ((rl(o), !(e instanceof $e))) throw e;
+              Yi(1, 0);
+            }
+          }
+          function uu(e, t, n, r) {
+            var o = nl();
+            try {
+              return dn(e)(t, n, r);
+            } catch (e) {
+              if ((rl(o), !(e instanceof $e))) throw e;
               return (Yi(1, 0), BigInt(0));
             }
           }
-          function uu(e, t, n, r, o, a, i) {
+          function cu(e, t, n, r, o, a, i) {
             var l = nl();
             try {
               return dn(e)(t, n, r, o, a, i);
@@ -8838,7 +8847,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function cu(e, t, n, r, o, a, i, l, s, u, c) {
+          function du(e, t, n, r, o, a, i, l, s, u, c) {
             var d = nl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
@@ -8847,7 +8856,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function du(
+          function mu(
             e,
             t,
             n,
@@ -8921,16 +8930,16 @@ __d(
               Yi(1, 0);
             }
           }
-          function mu(e, t, n, r) {
+          function pu(e, t, n, r) {
             var o = nl();
             try {
-              dn(e)(t, n, r);
+              return dn(e)(t, n, r);
             } catch (e) {
               if ((rl(o), !(e instanceof $e))) throw e;
               Yi(1, 0);
             }
           }
-          function pu(e, t, n, r, o, a) {
+          function _u(e, t, n, r, o, a) {
             var i = nl();
             try {
               return dn(e)(t, n, r, o, a);
@@ -8939,25 +8948,7 @@ __d(
               Yi(1, 0);
             }
           }
-          function _u(e, t, n, r, o) {
-            var a = nl();
-            try {
-              dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function fu(e, t, n, r, o, a, i, l) {
-            var s = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l);
-            } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function gu(e, t, n, r) {
+          function fu(e, t, n, r) {
             var o = nl();
             try {
               dn(e)(t, n, r);
@@ -8966,10 +8957,19 @@ __d(
               Yi(1, 0);
             }
           }
+          function gu(e, t, n, r, o, a) {
+            var i = nl();
+            try {
+              return dn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((rl(i), !(e instanceof $e))) throw e;
+              Yi(1, 0);
+            }
+          }
           function hu(e, t, n, r, o) {
             var a = nl();
             try {
-              return dn(e)(t, n, r, o);
+              dn(e)(t, n, r, o);
             } catch (e) {
               if ((rl(a), !(e instanceof $e))) throw e;
               Yi(1, 0);

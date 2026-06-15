@@ -107,9 +107,6 @@ __d(
         : !1;
     }
     function I() {
-      return o("WAWebABProps").getABPropConfigValue("blue_strings_enabled");
-    }
-    function T() {
       o("WAWebABProps").getABPropConfigValue("wa_web_pre_chat_device_id_test");
     }
     ((l.webMediaAutoDownloadEnabled = e),
@@ -132,8 +129,7 @@ __d(
       (l.isBlueEnabled = L),
       (l.isBlueEducationEnabled = E),
       (l.isBlueLockingEnabled = k),
-      (l.isBlueStringsEnabled = I),
-      (l.checkDeviceIdTestAbProp = T));
+      (l.checkDeviceIdTestAbProp = I));
   },
   98,
 );

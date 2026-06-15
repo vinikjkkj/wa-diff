@@ -296,12 +296,36 @@ __d(
         if (l) {
           var p;
           return i === "disclosed"
-            ? h(l, l.disclosedToken, r, c, u)
+            ? h({
+                allowlist: c,
+                expirationTimeInHours: u,
+                expirationWindowItem: l,
+                mmSignalType: r,
+                token: l.disclosedToken,
+              })
             : i === "undisclosed"
-              ? h(l, l.undisclosedToken, r, m, d)
-              : (p = h(l, l.disclosedToken, r, c, u)) != null
+              ? h({
+                  allowlist: m,
+                  expirationTimeInHours: d,
+                  expirationWindowItem: l,
+                  mmSignalType: r,
+                  token: l.undisclosedToken,
+                })
+              : (p = h({
+                    allowlist: c,
+                    expirationTimeInHours: u,
+                    expirationWindowItem: l,
+                    mmSignalType: r,
+                    token: l.disclosedToken,
+                  })) != null
                 ? p
-                : h(l, l.undisclosedToken, r, m, d);
+                : h({
+                    allowlist: m,
+                    expirationTimeInHours: d,
+                    expirationWindowItem: l,
+                    mmSignalType: r,
+                    token: l.undisclosedToken,
+                  });
         }
       }
     }
@@ -341,16 +365,21 @@ __d(
             });
       }
     }
-    function h(e, t, n, r, a) {
-      return n != null &&
-        r.includes(n) &&
+    function h(e) {
+      var t = e.allowlist,
+        n = e.expirationTimeInHours,
+        r = e.expirationWindowItem,
+        a = e.mmSignalType,
+        i = e.token;
+      return a != null &&
+        t.includes(a) &&
         !o(
           "WAWebMmSignalSharingExpirationWindowUtils",
-        ).hasMmSignalSharingWindowExpired(e) &&
+        ).hasMmSignalSharingWindowExpired(r) &&
         !o(
           "WAWebMmSignalSharingExpirationWindowUtils",
-        ).hasMmSignalSharingTokenExpired(e, a)
-        ? t
+        ).hasMmSignalSharingTokenExpired(r, n)
+        ? i
         : void 0;
     }
     function y(e, t) {

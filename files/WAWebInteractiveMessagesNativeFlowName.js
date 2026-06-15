@@ -26,6 +26,7 @@ __d(
         API_SIGNUP: "api_signup",
         INAPP_SIGNUP: "inapp_signup",
         FORM_MESSAGE: "form_message",
+        MENU_OPTIONS: "menu_options",
       }),
       l = e;
     i.default = l;

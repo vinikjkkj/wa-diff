@@ -41,53 +41,58 @@ __d(
         c.apply(this, arguments)
       );
     }
-    var d = (function () {
-      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-        var t,
-          n = e.newsletter,
-          a = e.onSelect;
-        if (
-          o(
-            "WAWebNewsletterGatingUtils",
-          ).isNewsletterOpenQPLImprovementsEnabled()
-        ) {
-          var i;
-          ((t = new (o(
-            "WAWebNewsletterOpenQPLLoggerV2",
-          ).WAWebNewsletterOpenQPLLoggerV2)()),
-            t.annotate({
-              unreadCount: n.unreadCount,
-              role:
-                (i = n.newsletterMetadata) == null ? void 0 : i.membershipType,
-              isCached: !0,
-              discoverySurface: e.discoverySurface,
-            }));
-        } else
-          o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.newsletter,
+            a = e.onSelect;
+          if (
+            o(
+              "WAWebNewsletterGatingUtils",
+            ).isNewsletterOpenQPLImprovementsEnabled()
+          ) {
+            var i;
             ((t = new (o(
-              "WAWebNewsletterOpenQPLLogger",
-            ).WAWebNewsletterOpenQPLLogger)()),
-            t.annotate(n, e.chatEntryPoint));
-        if (
-          (a == null || a(),
-          o("WAWebPDFNGatingUtils").hasAckedNewsletterNuxOrTos())
-        )
-          return u(n, t);
-        o("WAWebModalManager").ModalManager.open(
-          s.jsx(r("WAWebPDFNModal.react"), {
-            pdfnId: o("WAWebPDFNGatingUtils").getNewsletterNuxOrTos(),
-            verifyTosAccepted: o("WAWebPDFNGatingUtils")
-              .hasAckedNewsletterNuxOrTos,
-            runIfTosAccepted: function () {
-              return u(n, t);
-            },
-          }),
-        );
-      });
-      return function (n) {
-        return e.apply(this, arguments);
-      };
-    })();
+              "WAWebNewsletterOpenQPLLoggerV2",
+            ).WAWebNewsletterOpenQPLLoggerV2)()),
+              t.annotate({
+                unreadCount: n.unreadCount,
+                role:
+                  (i = n.newsletterMetadata) == null
+                    ? void 0
+                    : i.membershipType,
+                isCached: !0,
+                discoverySurface: e.discoverySurface,
+              }));
+          } else
+            o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
+              ((t = new (o(
+                "WAWebNewsletterOpenQPLLogger",
+              ).WAWebNewsletterOpenQPLLogger)()),
+              t.annotate(n, e.chatEntryPoint));
+          if (
+            (a == null || a(),
+            o("WAWebPDFNGatingUtils").hasAckedNewsletterNuxOrTos())
+          )
+            return u(n, t);
+          o("WAWebModalManager").ModalManager.open(
+            s.jsx(r("WAWebPDFNModal.react"), {
+              pdfnId: o("WAWebPDFNGatingUtils").getNewsletterNuxOrTos(),
+              verifyTosAccepted: o("WAWebPDFNGatingUtils")
+                .hasAckedNewsletterNuxOrTos,
+              runIfTosAccepted: function () {
+                return u(n, t);
+              },
+            }),
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
     l.openNewsletterChat = d;
   },
   98,

@@ -147,7 +147,7 @@ __d(
           ((this._changeCallbacks = []), (this._key_prefix = "_cs_"));
           var o;
           ((this._exception = null),
-            t && (this._key_prefix = t),
+            t != null && t !== "" && (this._key_prefix = t),
             e === "AUTO" || !e ? (o = "memory") : (o = e),
             o &&
               (!C[o] || !C[o].available()

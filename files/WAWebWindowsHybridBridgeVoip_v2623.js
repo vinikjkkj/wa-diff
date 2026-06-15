@@ -72,7 +72,7 @@ __d(
                       {
                         bridge: "voip",
                         method: "handleDeviceJidList",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         var n;
@@ -95,7 +95,7 @@ __d(
                       {
                         bridge: "voip",
                         method: "handlePhoneNumberJid",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         var n;
@@ -115,7 +115,7 @@ __d(
                     "web.hybrid.bridge.voip.send.handle_lid_jid",
                   ),
                     o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                      { bridge: "voip", method: "handleLidJid", type: "sync" },
+                      { bridge: "voip", method: "handleLidJid", type: "async" },
                       function () {
                         var n;
                         return (n = a.$1) == null
@@ -250,7 +250,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "handleIncomingSignalingOffer",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.handleIncomingSignalingOffer(
@@ -286,7 +286,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "handleIncomingSignalingMessage",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.handleIncomingSignalingMessage(
@@ -311,7 +311,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "handleIncomingSignalingAck",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.handleIncomingSignalingAck(
@@ -333,7 +333,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "handleIncomingSignalingReceipt",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.handleIncomingSignalingReceipt(
@@ -353,7 +353,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "resendOfferOnDecryptionFailure",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.resendOfferOnDecryptionFailure(t, n);
@@ -369,7 +369,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "resendEncRekeyRetry",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.resendEncRekeyRetry(t, n);
@@ -385,7 +385,7 @@ __d(
                 {
                   bridge: "voipSignaling",
                   method: "notifyDeviceIdentityChangedOrDeleted",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$2.notifyDeviceIdentityChangedOrDeleted(t, n);
@@ -398,7 +398,7 @@ __d(
               "web.hybrid.bridge.voip.send.handle_web_view_ready",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "handleWebViewReady", type: "sync" },
+                { bridge: "voip", method: "handleWebViewReady", type: "async" },
                 function () {
                   var t;
                   return (t = e.$1) == null ? void 0 : t.handleWebViewReady();
@@ -409,7 +409,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.voip_init"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "voipInit", type: "sync" },
+                { bridge: "voip", method: "voipInit", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null ? void 0 : r.voipInit(t, n);
@@ -420,7 +420,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.set_hide_my_ip"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "setHideMyIp", type: "sync" },
+                { bridge: "voip", method: "setHideMyIp", type: "async" },
                 function () {
                   var n;
                   return (n = e.$1) == null ? void 0 : n.setHideMyIp(t);
@@ -433,7 +433,7 @@ __d(
               "web.hybrid.bridge.voip.send.set_chat_name_and_icon",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "setChatNameAndIcon", type: "sync" },
+                { bridge: "voip", method: "setChatNameAndIcon", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -446,7 +446,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.handle_sign_out"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "handleSignOut", type: "sync" },
+                { bridge: "voip", method: "handleSignOut", type: "async" },
                 function () {
                   var t;
                   return (t = e.$1) == null ? void 0 : t.handleSignOut();
@@ -457,7 +457,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.start_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "startCall", type: "sync" },
+                { bridge: "voip", method: "startCall", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -497,7 +497,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.start_group_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "startGroupCall", type: "sync" },
+                { bridge: "voip", method: "startGroupCall", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -527,7 +527,11 @@ __d(
               "web.hybrid.bridge.voip.send.handle_device_jid_list",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "handleDeviceJidList", type: "sync" },
+                {
+                  bridge: "voip",
+                  method: "handleDeviceJidList",
+                  type: "async",
+                },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -542,7 +546,7 @@ __d(
               "web.hybrid.bridge.voip.send.preview_call_link",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "previewCallLink", type: "sync" },
+                { bridge: "voip", method: "previewCallLink", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -560,7 +564,7 @@ __d(
                 {
                   bridge: "voip",
                   method: "previewAndJoinCallLink",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   var r;
@@ -574,7 +578,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.end_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "endCall", type: "sync" },
+                { bridge: "voip", method: "endCall", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null ? void 0 : r.endCall(t, n);
@@ -590,7 +594,7 @@ __d(
                 {
                   bridge: "voip",
                   method: "rejectCallWithoutCallContext",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   var r;
@@ -624,7 +628,7 @@ __d(
               "web.hybrid.bridge.voip.send.join_ongoing_call",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "joinOngoingCall", type: "sync" },
+                { bridge: "voip", method: "joinOngoingCall", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -655,7 +659,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.invite_to_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "inviteToCall", type: "sync" },
+                { bridge: "voip", method: "inviteToCall", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null ? void 0 : r.inviteToCall(t, n, a);
@@ -668,7 +672,7 @@ __d(
               "web.hybrid.bridge.voip.send.check_ongoing_calls",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "checkOngoingCalls", type: "sync" },
+                { bridge: "voip", method: "checkOngoingCalls", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -683,7 +687,7 @@ __d(
               "web.hybrid.bridge.voip.send.simulate_native_anr",
             ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "voip", method: "simulateNativeAnr", type: "sync" },
+                { bridge: "voip", method: "simulateNativeAnr", type: "async" },
                 function () {
                   var r;
                   return (r = e.$1) == null
@@ -697,7 +701,7 @@ __d(
               var e = this;
               r("WAWebODS").incr("web.hybrid.bridge.voip.send.get_call_info");
               var t = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                  { bridge: "voip", method: "getCallInfo", type: "sync" },
+                  { bridge: "voip", method: "getCallInfo", type: "async" },
                   function () {
                     return e.$1.getCallInfo();
                   },

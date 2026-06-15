@@ -18,10 +18,7 @@ __d(
     function u() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("inbox_filters_smb_enabled") &&
-        o("WAWebABProps").getABPropConfigValue(
-          "inbox_filters_custom_smb_enabled",
-        )
+        o("WAWebABProps").getABPropConfigValue("inbox_filters_smb_enabled")
       );
     }
     ((l.inboxFiltersEnabled = e),

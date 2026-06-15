@@ -108,7 +108,7 @@ __d(
                   {
                     bridge: "preferences",
                     method: "updateLocalSetting",
-                    type: "sync",
+                    type: "async",
                   },
                   function () {
                     var r;
@@ -156,7 +156,7 @@ __d(
                 {
                   bridge: "preferences",
                   method: "updateAllLocalSettings",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   var r;
@@ -170,7 +170,7 @@ __d(
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.preferences.send.clean"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "preferences", method: "clean", type: "sync" },
+                { bridge: "preferences", method: "clean", type: "async" },
                 function () {
                   var t;
                   return (t = e.$1) == null ? void 0 : t.clean();

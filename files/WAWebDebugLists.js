@@ -86,11 +86,11 @@ __d(
       (p(),
         o("WAWebLabelCollection").LabelCollection.forEach(function (e) {
           e.type === o("WAWebSchemaLabel").ListType.CUSTOM &&
-            o("WAWebBizLabelEditingAction").labelDeleteAction(
-              e.id,
-              e.name,
-              e.color == null ? void 0 : Number(e.color),
-            );
+            o("WAWebBizLabelEditingAction").labelDeleteAction({
+              color: e.color == null ? void 0 : Number(e.color),
+              labelId: e.id,
+              name: e.name,
+            });
         }));
     }
     _.doc =

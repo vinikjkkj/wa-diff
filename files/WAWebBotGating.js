@@ -22,16 +22,15 @@ __d(
       return o("WAWebBotUtils").isManusBot(e) ||
         o("WAWebBotUtils").isHatchBot(e)
         ? !0
-        : !o("WAWebBotBaseGating").isBotEnabled() ||
-            !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
+        : o("WAWebBotBaseGating").isBotEnabled()
+          ? o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
               (t = o("WAWebABProps").getABPropConfigValue(
                 "ai_ptt_main_gate_supported_languages",
               )) != null
                 ? t
                 : "en",
             )
-          ? !1
-          : o("WAWebABProps").getABPropConfigValue("bonsai_ptt_enabled") === !0;
+          : !1;
     }
     function s(e) {
       return !o("WAWebBotBaseGating").isBotEnabled() ||

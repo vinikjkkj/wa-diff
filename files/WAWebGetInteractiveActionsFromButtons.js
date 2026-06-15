@@ -45,6 +45,7 @@ __d(
     "WAWebQbmMessageLevelActionEvent",
     "WAWebReplyChatIcon.react",
     "WAWebRichOrderStatusLogger",
+    "WAWebSendNativeFlowMenuOptionsResponse",
     "WAWebSendTextMsgChatAction",
     "WAWebSignupFlowLoggerLazy",
     "WAWebSmbPaidMessagesButtonLoggerWamEvent",
@@ -126,6 +127,7 @@ __d(
               .CALL_PERMISSION_REQUEST:
             case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
             case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP:
+            case r("WAWebInteractiveMessagesNativeFlowName").MENU_OPTIONS:
               break;
           }
           i != null && n.push(i);
@@ -443,8 +445,20 @@ __d(
         disabled: e.data.disabled,
         onClick: function () {
           if (t.isCarouselCard) T(e, r);
-          else {
+          else if (
+            o(
+              "WAWebSendNativeFlowMenuOptionsResponse",
+            ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName)
+          ) {
             var a, i;
+            o(
+              "WAWebSendNativeFlowMenuOptionsResponse",
+            ).sendNativeFlowMenuOptionsResponse(n, r, {
+              label: (a = e.data) == null ? void 0 : a.label,
+              selectionId: (i = e.data) == null ? void 0 : i.selectionId,
+            });
+          } else {
+            var l, s;
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -453,11 +467,11 @@ __d(
             ),
               o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
                 n,
-                (a = e.data) == null ? void 0 : a.label,
+                (l = e.data) == null ? void 0 : l.label,
                 {
                   quotedMsg: r,
                   selectedIndex: e.index,
-                  selectedId: (i = e.data) == null ? void 0 : i.selectionId,
+                  selectedId: (s = e.data) == null ? void 0 : s.selectionId,
                 },
               ));
           }
@@ -478,11 +492,11 @@ __d(
               messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
                 .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
-          var l = o("WAWebMsgCollection").MsgCollection.get(t.id);
-          l != null &&
+          var c = o("WAWebMsgCollection").MsgCollection.get(t.id);
+          c != null &&
             o(
               "WAWebBizInteractiveMessageQuickReplyAction",
-            ).markInteractiveButtonClicked(l, e.index);
+            ).markInteractiveButtonClicked(c, e.index);
         },
       };
     }

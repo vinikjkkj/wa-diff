@@ -39,7 +39,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "closeMessageNotification",
-                type: "sync",
+                type: "async",
               },
               function () {
                 var r;
@@ -71,7 +71,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "showMessageNotification",
-                type: "sync",
+                type: "async",
               },
               function () {
                 var r;
@@ -106,7 +106,7 @@ __d(
                   {
                     bridge: "systemIntegrations",
                     method: "isNotificationEnabledInSystem",
-                    type: "sync",
+                    type: "async",
                   },
                   function () {
                     return e.$1.isNotificationEnabledInSystem();
@@ -127,7 +127,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "updateTaskbarBadge",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.updateTaskbarBadge(t);
@@ -144,7 +144,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "getStartupTaskState",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.getStartupTaskState();
@@ -161,7 +161,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "updateStartupTask",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.updateStartupTask(t);
@@ -177,7 +177,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "updateCurrentWebAppScreen",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.updateCurrentWebAppScreen(t);
@@ -193,7 +193,7 @@ __d(
               {
                 bridge: "systemIntegrations",
                 method: "playTone",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.playTone(t);

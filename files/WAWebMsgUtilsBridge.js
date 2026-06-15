@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAfterReadUtils",
     "WAWebBackendApi",
     "WAWebChatThreadLogging",
@@ -114,29 +113,23 @@ __d(
           if (
             o("WAWebChatThreadLoggingUtils").shouldIncrementMsgSendAndReceive(e)
           ) {
-            if (
-              o("WAWebABProps").getABPropConfigValue(
-                "group_status_receiver_enabled",
-              )
-            ) {
-              var n = o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(e);
-              if (n !== "missing-stanza-id") {
-                var r = yield o("WAWebDBMsgUtils").getMsgByMsgKey(n);
-                if (r != null && o("WAWebMsgGetters").getIsGroupStatus(r)) {
-                  var a = o("WAWebMsgGetters").getIsSentByMe(r),
-                    i = o("WAWebMsgGetters").getIsReply(e);
-                  return o(
-                    "WAWebChatThreadLogging",
-                  ).handleActivitiesForChatThreadLogging([
-                    {
-                      activityType: "groupStatusMsgSend",
-                      chatId: e.id.remote,
-                      ts: o("WATimeUtils").unixTime(),
-                      isGroupStatusReplyOwnToOwn: i && a,
-                      isGroupStatusReplyOwnToOthers: i && !a,
-                    },
-                  ]);
-                }
+            var n = o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(e);
+            if (n !== "missing-stanza-id") {
+              var r = yield o("WAWebDBMsgUtils").getMsgByMsgKey(n);
+              if (r != null && o("WAWebMsgGetters").getIsGroupStatus(r)) {
+                var a = o("WAWebMsgGetters").getIsSentByMe(r),
+                  i = o("WAWebMsgGetters").getIsReply(e);
+                return o(
+                  "WAWebChatThreadLogging",
+                ).handleActivitiesForChatThreadLogging([
+                  {
+                    activityType: "groupStatusMsgSend",
+                    chatId: e.id.remote,
+                    ts: o("WATimeUtils").unixTime(),
+                    isGroupStatusReplyOwnToOwn: i && a,
+                    isGroupStatusReplyOwnToOthers: i && !a,
+                  },
+                ]);
               }
             }
             o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging([

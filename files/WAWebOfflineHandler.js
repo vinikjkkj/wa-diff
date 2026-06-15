@@ -11,6 +11,7 @@ __d(
     "WAWebOfflineResumeUtils",
     "WAWebPageLoadLogging",
     "WAWebQplFlowWrapper",
+    "WAWebRuntimeEnvironmentUtils",
     "asyncToGeneratorRuntime",
     "qpl",
   ],
@@ -77,9 +78,7 @@ __d(
                 o("WAWebAppTracker").AppTrackerType.OfflineResume,
               ),
               this.$12(),
-              (this.$9 = o(
-                "WAWebHandleOfflineAbProps",
-              ).isOfflineDynamicBatchSizeEnabled()),
+              (this.$9 = !o("WAWebRuntimeEnvironmentUtils").isServiceWorker()),
               this.$1 != null)
             ) {
               var e = this.$1;

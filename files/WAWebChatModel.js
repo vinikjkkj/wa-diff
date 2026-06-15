@@ -57,7 +57,6 @@ __d(
     "WAWebDBUpdateContactTable",
     "WAWebDebounce",
     "WAWebDecrementThreadUnreadCountsAction",
-    "WAWebEphemeralKeepInChatAbpropUtils",
     "WAWebEventMsgsCollection",
     "WAWebEventsWaitForBbEvent",
     "WAWebFavoriteCollection",
@@ -2220,14 +2219,6 @@ __d(
                   this.id)
                 : this.accountLid
               : this.id;
-          }),
-          (i.supportsKIC = function () {
-            return !(
-              o("WAWebFrontendChatGetters").getIsCAG(this) &&
-              !o(
-                "WAWebEphemeralKeepInChatAbpropUtils",
-              ).isKeepInChatInCAGEnabled()
-            );
           }),
           a
         );

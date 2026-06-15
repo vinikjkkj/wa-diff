@@ -48,7 +48,7 @@ __d(
               {
                 bridge: "scalingControl",
                 method: "showScalingControl",
-                type: "sync",
+                type: "async",
               },
               function () {
                 var n;

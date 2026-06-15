@@ -60,14 +60,6 @@ __d(
         )
       );
     }
-    function f() {
-      return (
-        _() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smb_multi_device_agents_logging_V2_enabled",
-        )
-      );
-    }
     ((l.chatAssignmentEnabled = e),
       (l.chatAssignmentMaxNuxImpressions = s),
       (l.chatAssignmentNotificationsEnabled = u),
@@ -75,8 +67,7 @@ __d(
       (l.isBizAiChatAssignmentInteropTosEnabled = d),
       (l.isBizAIToolsSettingsEnabled = m),
       (l.isBizAiWebOnboardingHandoffEnabled = p),
-      (l.isMultiDeviceMessageAttributionEnabled = _),
-      (l.isMultiDeviceAgentsLoggingEnabled = f));
+      (l.isMultiDeviceMessageAttributionEnabled = _));
   },
   98,
 );

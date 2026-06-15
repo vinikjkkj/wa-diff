@@ -13,18 +13,18 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y;
-    function C(e, t) {
-      return b.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (
               (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] Handling canonical ent nonce fetch response",
                   ])),
               ),
@@ -39,8 +39,8 @@ __d(
                 "web.app.canonical.recovery.handler.response_data_missing",
               ),
                 o("WALogger").ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] No results in canonical ent nonce fetch response",
                     ])),
                 ),
@@ -60,8 +60,8 @@ __d(
                 "web.app.canonical.recovery.handler.response_data_missing",
               ),
                 o("WALogger").ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] No companionCanonicalUserNonceFetchRequestResponse",
                     ])),
                 ),
@@ -76,8 +76,8 @@ __d(
               s = a.waFbid;
             if (l == null || s == null) {
               (o("WALogger").ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] Nonce payload missing required fields",
                   ])),
               ),
@@ -90,20 +90,20 @@ __d(
                 ));
               return;
             }
-            if (t !== !0 && !v(i)) return;
+            if (t !== !0 && !b(i)) return;
             var u = o("WAWebUserPrefsMeUser")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
                 .getDeviceId(),
-              c = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken(
+              y = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken(
                 { userId: Number(s), deviceId: u, nonce: l },
                 "recovery",
               );
             if (
-              c !== o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
+              y !== o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
             ) {
               (o("WALogger").ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] Failed to exchange canonical ent nonce for token",
                   ])),
               ),
@@ -113,8 +113,8 @@ __d(
               return;
             }
             (o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[canonical] Successfully exchanged canonical ent nonce for token",
                 ])),
             ),
@@ -123,8 +123,8 @@ __d(
               o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled() &&
                 o("WAWebCanonicalUtils").getCanonicalReloadPending() == null &&
                 (o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[canonical] Scheduling canonical recovery app reload",
                     ])),
                 ),
@@ -135,8 +135,8 @@ __d(
           } catch (e) {
             (o("WALogger")
               .ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[canonical] Unexpected error during Canonical Response Handle: ",
                     "",
                   ])),
@@ -153,11 +153,10 @@ __d(
               ));
           }
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(t) {
-      var n = o("WAWebCanonicalUtils").getTokenCreationState();
+    function b(t) {
       return t === !0
         ? (o("WALogger").LOG(
             e ||
@@ -169,7 +168,7 @@ __d(
             "web.app.canonical.recovery.handler.force_refresh",
           ),
           !0)
-        : o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
+        : o("WAWebCanonicalUtils").isCanonicalPresent()
           ? (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -180,45 +179,34 @@ __d(
               "web.app.canonical.recovery.handler.already_authenticated",
             ),
             !1)
-          : n === o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS
+          : o("WAWebCanonicalUtils").isCanonicalTokenPresent()
             ? (o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[canonical] skipping recovery, token creation in progress",
+                    "[canonical] skipping recovery, token is already present",
                   ])),
               ),
               r("WAWebODS").incr(
-                "web.app.canonical.recovery.handler.token_creation_in_progress",
+                "web.app.canonical.recovery.handler.token_present",
               ),
               !1)
-            : n === o("WAWebCanonicalUtils").TokenCreationState.PRESENT
-              ? (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[canonical] skipping recovery, token is already present",
-                    ])),
-                ),
-                r("WAWebODS").incr(
-                  "web.app.canonical.recovery.handler.token_present",
-                ),
-                !1)
-              : !0;
+            : !0;
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebCanonicalUtils").isDebugForceTokenRefresh();
           (t && o("WAWebCanonicalUtils").setDebugForceTokenRefresh(!1),
             !(!t && !o("WAWebCanonicalGating").isCanonicalRecoveryEnabled()) &&
-              (yield C(e, t)));
+              (yield y(e, t)));
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    l.handleCanonicalEntNonceFetchResponse = S;
+    l.handleCanonicalEntNonceFetchResponse = v;
   },
   98,
 );

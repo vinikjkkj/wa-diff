@@ -79,7 +79,7 @@ __d(
                     {
                       bridge: "contacts",
                       method: "updateContacts-2",
-                      type: "sync",
+                      type: "async",
                     },
                     function () {
                       return l.$1.updateContacts(u, d);
@@ -129,7 +129,7 @@ __d(
                       {
                         bridge: "contacts",
                         method: "receiveFrequentContacts-1",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return l.$1.receiveFrequentContacts(i);
@@ -143,7 +143,7 @@ __d(
                       {
                         bridge: "contacts",
                         method: "receiveFrequentContacts-2",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return l.$1.receiveFrequentContacts(JSON.stringify([]));
@@ -170,7 +170,7 @@ __d(
                     {
                       bridge: "contacts",
                       method: "receiveFrequentChatsForSharing-1",
-                      type: "sync",
+                      type: "async",
                     },
                     function () {
                       return l.$1.receiveFrequentChatsForSharing(
@@ -194,7 +194,7 @@ __d(
                     {
                       bridge: "contacts",
                       method: "receiveFrequentChatsForSharing-2",
-                      type: "sync",
+                      type: "async",
                     },
                     function () {
                       return l.$1.receiveFrequentChatsForSharing(
@@ -249,7 +249,7 @@ __d(
                       {
                         bridge: "contacts",
                         method: "updateContacts-1",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return e.$1.updateContacts([], JSON.stringify(n));
@@ -266,7 +266,7 @@ __d(
                     {
                       bridge: "contacts",
                       method: "acknowledgeInitialSync",
-                      type: "sync",
+                      type: "async",
                     },
                     function () {
                       return e.$1.acknowledgeInitialSync();

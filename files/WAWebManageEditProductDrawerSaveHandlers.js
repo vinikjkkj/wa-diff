@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebBackendErrors",
-    "WAWebBizCatalogGatingUtils",
     "WAWebBizProductCatalogBridge",
     "WAWebDrawerManager",
     "WAWebManageActions",
@@ -76,8 +75,7 @@ __d(
             (e.name === "retailer_id" || e.name === "retailer-id") &&
               e.reason === "duplicate" &&
               m(s._(/*BTDS*/ "Item code must be unique.")),
-            o("WAWebBizCatalogGatingUtils").hideUnsupportedCurrency() &&
-              e.name === "currency" &&
+            e.name === "currency" &&
               e.reason === "invalid-data" &&
               (p = s._(
                 /*BTDS*/ "Price can't be shown in your country. Delete the price you entered.",

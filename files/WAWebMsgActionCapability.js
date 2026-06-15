@@ -447,10 +447,7 @@ __d(
       var t = o("WAWebMsgGetters").getIsGroupMsg(e),
         n = o("WAWebMsgGetters").getIsSentByMe(e),
         r = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;
-      return !o("WAWebABProps").getABPropConfigValue(
-        "report_to_admin_kill_switch",
-      ) ||
-        n ||
+      return n ||
         e.isViewOnce ||
         o("WAWebChatGetters").getIsNewsletter(
           o("WAWebFrontendMsgGetters").getChat(e),
@@ -708,14 +705,6 @@ __d(
             o("WAWebContactGetters").getIsMe(n.contact) ||
             (n.contact.isEnterprise && !n.contact.id.isBot()) ||
             o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n) ||
-            (!o("WAWebChatGetters").getIsGroup(n) &&
-              (n.contact.isHosted === !0 ||
-                o(
-                  "WAWebUserPrefsMultiDevice",
-                ).getIsHostedMeAccountFromLocalStorage()) &&
-              !o("WAWebABProps").getABPropConfigValue(
-                "coex_revoke_message_enabled",
-              )) ||
             E(n)
           ? !1
           : e.type === o("WAWebMsgType").MSG_TYPE.COMMENT

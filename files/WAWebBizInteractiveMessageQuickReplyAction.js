@@ -14,7 +14,7 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.isCarouselCard) return u(e, t);
-          var n = d(e, t),
+          var n = d(e.interactivePayload, t),
             r = o("WAWebSchemaMessage").getMessageTable(),
             a = yield r.get(e.id.toString());
           (yield o("WAWebSchemaMessage")

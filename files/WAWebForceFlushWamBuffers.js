@@ -25,7 +25,7 @@ __d(
           }),
         t
           ? o("WAWebWamFalcoLogger").flushFalcoForLogout()
-          : o("WAWebCanonicalUtils").isCurrentUserLoggedIn() &&
+          : o("WAWebCanonicalUtils").isCanonicalPresent() &&
             o("WAWebCanonicalWamFalcoBuffer").drainCanonicalWamFalcoBuffer());
     }
     l.forceFlushAllWamAndQplBuffers = s;

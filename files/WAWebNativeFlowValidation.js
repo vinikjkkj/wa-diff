@@ -14,7 +14,6 @@ __d(
     "WAWebOrderDetails",
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
-    "WAWebPaymentReminder",
     "WAWebPaymentsGatingUtils",
     "WAWebSignupGating",
     "WAWebVoipGatingUtils",
@@ -40,8 +39,7 @@ __d(
                 ).getOrderPaymentStatusInfoFromNativeFlow(e) != null
               : e.nativeFlowName ===
                   r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER
-                ? o("WAWebPaymentReminder").isPaymentReminderEnabled() &&
-                  o("WAWebPaymentReminder").getPaymentReminderInfo(e) != null
+                ? !1
                 : e.nativeFlowName ===
                     r("WAWebInteractiveMessagesNativeFlowName")
                       .BOOKING_CONFIRMATION
@@ -182,12 +180,17 @@ __d(
                                                       "WAWebMultiStepFormButton",
                                                     ).getMultiStepFormInfo(e) !=
                                                     null
-                                                  : (function () {
-                                                      throw Error(
-                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                          e.nativeFlowName,
-                                                      );
-                                                    })();
+                                                  : e.nativeFlowName ===
+                                                      r(
+                                                        "WAWebInteractiveMessagesNativeFlowName",
+                                                      ).MENU_OPTIONS
+                                                    ? !1
+                                                    : (function () {
+                                                        throw Error(
+                                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                            e.nativeFlowName,
+                                                        );
+                                                      })();
     }
     function s(e) {
       if (o("WAWebPaymentsGatingUtils").isMessageWithLinkNfmEnabled()) {

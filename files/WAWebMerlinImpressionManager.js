@@ -10,7 +10,6 @@ __d(
     "WAWebMediaTypes",
     "WAWebNewsletterGatingUtils",
     "WAWebPaidMessageVpvImpressionWamEvent",
-    "WAWebStatusGatingUtils",
     "WAWebStatusPostImpressionWamEvent",
     "WAWebUnifiedSession",
     "asyncToGeneratorRuntime",
@@ -82,12 +81,7 @@ __d(
         _ = e.enter_ts,
         f = e.exit_ts,
         g = e.itemId;
-      if (
-        !(
-          !o("WAWebNewsletterGatingUtils").isVPVLoggingEnabled() ||
-          !o("WAWebNewsletterGatingUtils").isNewsletterVPVLoggingEnabled()
-        )
-      ) {
+      if (o("WAWebNewsletterGatingUtils").isNewsletterVPVLoggingEnabled()) {
         var h = function () {
           var e,
             t = new (o(
@@ -155,14 +149,8 @@ __d(
         W = l.updatesTabSessionId,
         q = l.urlStatusType,
         U = l.userRidPromise,
-        V = l.viewSequenceIndex;
-      if (
-        !(
-          !o("WAWebNewsletterGatingUtils").isVPVLoggingEnabled() ||
-          !o("WAWebStatusGatingUtils").isStatusVPVLoggingEnabled()
-        )
-      ) {
-        var H = function () {
+        V = l.viewSequenceIndex,
+        H = function () {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e,
               t = yield m,
@@ -219,8 +207,7 @@ __d(
             l.commit();
           })();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(t, r, a, u, H);
-      }
+      o("MerlinImpressionManager").logVisibilityTimestamps(t, r, a, u, H);
     }
     var _ = {};
     function f(t) {

@@ -328,7 +328,7 @@ __d(
                 : i.user,
             isCanonicalEntPresent: o(
               "WAWebCanonicalUtils",
-            ).isCurrentUserLoggedIn(),
+            ).isCanonicalPresent(),
           }),
           y = (l = m.viewName) != null ? l : "";
         (y != null && (h.navigationDestinationViewName = y),
@@ -393,7 +393,7 @@ __d(
             navigationDestination: _.background,
             isCanonicalEntPresent: o(
               "WAWebCanonicalUtils",
-            ).isCurrentUserLoggedIn(),
+            ).isCanonicalPresent(),
           });
           (typeof e.tsTimestampMs == "number" &&
             (i.tsTimestampMs = e.tsTimestampMs),

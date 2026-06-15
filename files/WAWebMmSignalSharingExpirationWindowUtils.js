@@ -62,22 +62,27 @@ __d(
           }));
       }
     }
-    function u(e, t, n, r, a) {
+    function u(e) {
+      var t = e.contextInfo,
+        n = e.mmSignalSharingExpirationWindow,
+        r = e.msgKey,
+        a = e.msgTimeClient,
+        i = e.msgTimeServer;
       if (
         !o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingDisclosureEnabled()
       )
         return null;
-      var i = babelHelpers.extends(
-        { unixTime: { client: r, server: n }, messageId: t },
-        c(a),
+      var l = babelHelpers.extends(
+        { unixTime: { client: a, server: i }, messageId: r },
+        c(t),
       );
       return o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingOptimizedDeliveryMultipleCollectionWindowsEnabled()
-        ? g(e, i)
-        : [i];
+        ? g(n, l)
+        : [l];
     }
     function c(e) {
       var t,
@@ -111,13 +116,13 @@ __d(
         o(
           "WAWebMmSignalSharingContextInfo",
         ).existsMmSignalSharingContextInfoDisclosureFlag(r)
-        ? u(
-            t,
-            o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(e.key),
-            Number(e.messageTimestamp),
-            Number(e.messageTimestamp),
-            r,
-          )
+        ? u({
+            contextInfo: r,
+            mmSignalSharingExpirationWindow: t,
+            msgKey: o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(e.key),
+            msgTimeClient: Number(e.messageTimestamp),
+            msgTimeServer: Number(e.messageTimestamp),
+          })
         : t;
     }
     function m(e) {

@@ -7,7 +7,6 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebAddOnsUpdateSendStatesAction",
     "WAWebAddonSendMsgData",
@@ -209,10 +208,7 @@ __d(
                           "WAWebBotGenTypingIndicatorMsg",
                         ).maybeGenBotTypingIndicatorMessage(t, i),
                         v && (v.markMessageSendT(), v.commit()),
-                        !h &&
-                          o("WAWebABProps").getABPropConfigValue(
-                            "single_emoji_logging_enabled",
-                          ) &&
+                        h ||
                           o(
                             "WAWebSingleEmojiDailyUtils",
                           ).maybeIncrementSingleEmojiDailyStatsCount(i),

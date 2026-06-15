@@ -212,6 +212,7 @@ __d(
         case r("WAWebInteractiveMessagesNativeFlowName")
           .CALL_PERMISSION_REQUEST:
         case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
+        case r("WAWebInteractiveMessagesNativeFlowName").MENU_OPTIONS:
           break;
         case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP: {
           var b = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(

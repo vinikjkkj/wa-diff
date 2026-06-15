@@ -59,7 +59,7 @@ __d(
                       {
                         bridge: "connection",
                         method: "handleConnectionState",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return a.$1.handleConnectionState(!0);
@@ -72,7 +72,7 @@ __d(
                       {
                         bridge: "connection",
                         method: "acknowledgeNotificationsToken",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return a.$1.acknowledgeNotificationsToken(i, l);
@@ -115,7 +115,7 @@ __d(
                         {
                           bridge: "connection",
                           method: "handleConnectionState",
-                          type: "sync",
+                          type: "async",
                         },
                         function () {
                           return a.$1.handleConnectionState(!1);
@@ -175,7 +175,7 @@ __d(
                       {
                         bridge: "connection",
                         method: "handleConnectionState",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return a.$1.handleConnectionState(!1);
@@ -241,7 +241,7 @@ __d(
                       {
                         bridge: "connection",
                         method: "handleConnectionState",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return a.$1.handleConnectionState(!0);

@@ -1,10 +1,10 @@
 __d(
   "WAWebRelayEnvironment",
   [
-    "CurrentUser",
     "JSResourceForInteraction",
     "WALogger",
     "WAWebBackendApi",
+    "WAWebCanonicalUtils",
     "WAWebDeviceIdHeader",
     "WAWebGraphQLConstants",
     "WAWebGraphQLPersistedQueries",
@@ -129,11 +129,13 @@ __d(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[canonical][gql] unauth err: ",
-                        " loggedIn=",
+                        "; loggedIn=",
+                        "; endpoint=",
                         "",
                       ])),
                     o("WAWebGraphQLServerError").formatGraphQLServerError(f),
-                    r("CurrentUser").isLoggedIn(),
+                    o("WAWebCanonicalUtils").isCanonicalPresent(),
+                    u,
                   )
                   .sendLogs("canonical-gql-error", { sampling: 0.1 }),
               f

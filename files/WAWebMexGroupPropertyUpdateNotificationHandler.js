@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebGroupGatingUtils",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
@@ -69,17 +68,16 @@ __d(
                 });
               break;
             case "NotificationGroupMemberShareGroupHistoryModePropertyUpdate":
-              o("WAWebGroupHistoryGating").isGroupHistorySettingsEnabled() &&
-                (g = {
-                  actionType:
-                    o("WAWebGroupType").GROUP_ACTIONS
-                      .MEMBER_SHARE_GROUP_HISTORY_MODE,
-                  value: o(
-                    "WAWebGroupHistoryShareMode",
-                  ).getMemberShareGroupHistoryModeFromMexType(
-                    c.member_share_group_history_mode,
-                  ),
-                });
+              g = {
+                actionType:
+                  o("WAWebGroupType").GROUP_ACTIONS
+                    .MEMBER_SHARE_GROUP_HISTORY_MODE,
+                value: o(
+                  "WAWebGroupHistoryShareMode",
+                ).getMemberShareGroupHistoryModeFromMexType(
+                  c.member_share_group_history_mode,
+                ),
+              };
               break;
             case "NotificationGroupAppealStatusUpdate":
               g = {

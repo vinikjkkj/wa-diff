@@ -17,7 +17,7 @@ __d(
               {
                 bridge: "ringtoneBridge",
                 method: "cacheRingtonesFromUrl",
-                type: "sync",
+                type: "async",
               },
               function () {
                 var n;

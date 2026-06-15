@@ -24,12 +24,6 @@ __d(
     }
     function c() {
       return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("business_tool_enhanced_logging")
-      );
-    }
-    function d() {
-      return (
         (o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebABProps").getABPropConfigValue("smart_filters_enabled")) ||
         (!o("WAWebMobilePlatforms").isSMB() &&
@@ -38,17 +32,17 @@ __d(
           ))
       );
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_custom_label_signals_enabled",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_custom_label_algorithm",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
@@ -56,11 +50,10 @@ __d(
     ((l.canDisplayLabel = e),
       (l.canEditLabelAssociation = s),
       (l.labelsEditingEnabled = u),
-      (l.isSMBEnhancedLoggingEnabled = c),
-      (l.smartFiltersEnabled = d),
-      (l.isCTWACustomLabelsSignalsEnabled = m),
-      (l.getCTWACustomLabelAlgorithmGroup = p),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = _));
+      (l.smartFiltersEnabled = c),
+      (l.isCTWACustomLabelsSignalsEnabled = d),
+      (l.getCTWACustomLabelAlgorithmGroup = m),
+      (l.isCTWASMBLabelChatHeaderEnabledWeb = p));
   },
   98,
 );

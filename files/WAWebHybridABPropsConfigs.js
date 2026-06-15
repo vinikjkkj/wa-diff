@@ -212,6 +212,8 @@ __d(
       genai_early_audio_pre_buf_size: [15306, "int", 100, 100],
       giphy_pma_shutoff_enabled: [27942, "bool", !1, !1],
       group_call_max_participants: [4190, "int", 32, 32],
+      group_calling_wave_receiving_enabled: [29161, "bool", !1, !1],
+      group_calling_wave_sending_enabled: [29247, "bool", !1, !1],
       group_create_add_using_lid_jids: [16192, "bool", !1, !1],
       group_history_after_join_prerequisites: [28787, "bool", !1, !1],
       group_history_bundle_time_limit_receiver_enforcement_secs: [

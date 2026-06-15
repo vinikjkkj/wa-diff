@@ -77,7 +77,7 @@ __d(
               {
                 bridge: "browserExtensionsBridge",
                 method: "hasBootstrappedSuccessfully",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.hasBootstrappedSuccessfully();

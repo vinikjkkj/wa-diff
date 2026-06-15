@@ -146,117 +146,119 @@ __d(
         };
       for (var d of t) c(d);
     }
-    function P(e, t, n, r) {
+    function P(e) {
       return N.apply(this, arguments);
     }
     function N() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (!o("WAWebListsGatingUtils").isListsEnabled()) {
-              o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] createNewList: lists not enabled",
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chats,
+            n = e.color,
+            r = e.entryPoint,
+            a = e.name;
+          if (!o("WAWebListsGatingUtils").isListsEnabled()) {
+            o("WALogger").ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] createNewList: lists not enabled",
+                ])),
+            );
+            return;
+          }
+          var i;
+          try {
+            i = yield o("WAWebBizLabelEditingAction").labelAddAction(a, n);
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Lists] createNewList: failed to add new empty list",
                   ])),
-              );
-              return;
-            }
-            var a;
+              )
+              .tags("lists")
+              .sendLogs("create-new-list-failed");
+            return;
+          }
+          if (t.length > 0) {
+            var l = { id: String(i), type: "add" };
             try {
-              a = yield o("WAWebBizLabelEditingAction").labelAddAction(e, n);
+              o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
+                [l],
+                t,
+                {
+                  listUpdateMode: o("WAWebLabelCollection").ListUpdateMode
+                    .CREATE,
+                },
+              );
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Lists] createNewList: failed to add new empty list",
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[Lists] createNewList: failed to assign label to chats",
                     ])),
                 )
                 .tags("lists")
                 .sendLogs("create-new-list-failed");
               return;
             }
-            if (t.length > 0) {
-              var i = { id: String(a), type: "add" };
-              try {
-                o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                  [i],
-                  t,
-                  {
-                    listUpdateMode: o("WAWebLabelCollection").ListUpdateMode
-                      .CREATE,
-                  },
-                );
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Lists] createNewList: failed to assign label to chats",
-                      ])),
-                  )
-                  .tags("lists")
-                  .sendLogs("create-new-list-failed");
-                return;
-              }
-            }
-            return (
-              a != null &&
-                (o("WAWebListsLogging").logListUpdate({
-                  listId: a,
-                  listAction: o("WAWebWamEnumListAction").LIST_ACTION.CREATE,
-                  entryPoint: r,
-                  chatsBeforeUpdate: [],
-                  addedChats: t,
-                  removedChats: [],
-                }),
-                o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                  labelOperation: o("WAWebWamEnumLabelOperations")
-                    .LABEL_OPERATIONS.ADD,
-                  updateEntryPoint: r,
-                  listId: a,
-                  customListTitle: e,
-                }),
-                o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                  labelOperation: o("WAWebWamEnumLabelOperations")
-                    .LABEL_OPERATIONS.VIEW,
-                  updateEntryPoint: r,
-                  listId: a,
-                  smbListSurface: o("WAWebWamEnumSmbListSurfaceType")
-                    .SMB_LIST_SURFACE_TYPE.NEW_LIST,
-                  smbListFeatureName: o("WAWebWamEnumSmbListFeatureNameType")
-                    .SMB_LIST_FEATURE_NAME_TYPE.LISTS_CREATION,
-                  extraAttributes: JSON.stringify({ new_list_is_visible: !0 }),
-                }),
-                o("WAWebWamLabelEventReporter").logLabelOperationEvent(
-                  o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.ADD,
-                  void 0,
-                  o("WAWebWamEnumLabelTargets").LABEL_TARGETS.LABEL,
-                ),
-                $(t, {
-                  entryPoint: r,
-                  listId: a,
-                  customListTitle: e,
-                  listsApplied: String(a),
-                }),
-                x(t, a)),
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] created list id=",
-                    " color=",
-                    " chats=",
-                    "",
-                  ])),
-                a,
-                n,
-                t.length,
+          }
+          return (
+            i != null &&
+              (o("WAWebListsLogging").logListUpdate({
+                listId: i,
+                listAction: o("WAWebWamEnumListAction").LIST_ACTION.CREATE,
+                entryPoint: r,
+                chatsBeforeUpdate: [],
+                addedChats: t,
+                removedChats: [],
+              }),
+              o("WAWebWamSmbListEventReporter").logSmbListEvent({
+                labelOperation: o("WAWebWamEnumLabelOperations")
+                  .LABEL_OPERATIONS.ADD,
+                updateEntryPoint: r,
+                listId: i,
+                customListTitle: a,
+              }),
+              o("WAWebWamSmbListEventReporter").logSmbListEvent({
+                labelOperation: o("WAWebWamEnumLabelOperations")
+                  .LABEL_OPERATIONS.VIEW,
+                updateEntryPoint: r,
+                listId: i,
+                smbListSurface: o("WAWebWamEnumSmbListSurfaceType")
+                  .SMB_LIST_SURFACE_TYPE.NEW_LIST,
+                smbListFeatureName: o("WAWebWamEnumSmbListFeatureNameType")
+                  .SMB_LIST_FEATURE_NAME_TYPE.LISTS_CREATION,
+                extraAttributes: JSON.stringify({ new_list_is_visible: !0 }),
+              }),
+              o("WAWebWamLabelEventReporter").logLabelOperationEvent(
+                o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.ADD,
+                void 0,
+                o("WAWebWamEnumLabelTargets").LABEL_TARGETS.LABEL,
               ),
-              a
-            );
-          },
-        )),
+              $(t, {
+                entryPoint: r,
+                listId: i,
+                customListTitle: a,
+                listsApplied: String(i),
+              }),
+              x(t, i)),
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] created list id=",
+                  " color=",
+                  " chats=",
+                  "",
+                ])),
+              i,
+              n,
+              t.length,
+            ),
+            i
+          );
+        })),
         N.apply(this, arguments)
       );
     }
@@ -441,11 +443,11 @@ __d(
                 ),
                 (I || (I = n("Promise"))).resolve()
               );
-            (yield o("WAWebBizLabelEditingAction").labelDeleteAction(
-              i.id,
-              i.name,
-              i.colorIndex,
-            ),
+            (yield o("WAWebBizLabelEditingAction").labelDeleteAction({
+              color: i.colorIndex,
+              labelId: i.id,
+              name: i.name,
+            }),
               o("WAWebListsLogging").logListUpdate({
                 listId: Number(e),
                 listAction: o("WAWebWamEnumListAction").LIST_ACTION.DELETE,

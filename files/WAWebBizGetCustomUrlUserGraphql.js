@@ -7,9 +7,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           return o("WAWebRelayClient")
             .fetchQuery(
               e !== void 0
@@ -17,7 +21,7 @@ __d(
                 : (e = n("WAWebBizGetCustomUrlUserGraphqlQuery.graphql")),
               { data: { custom_url: { path: t } } },
             )
-            .then(u)
+            .then(c)
             .catch(function (e) {
               if (
                 e instanceof o("WAWebGraphQLServerError").GraphQLServerError
@@ -44,12 +48,11 @@ __d(
                 errorText: "unknown error",
               };
             });
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
-    function u(e) {
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e) {
       var t, n;
       if (
         !(e != null && (t = e.xwa_custom_url_get_user) != null && t.success)
@@ -66,7 +69,7 @@ __d(
               : o.error_text;
         return {
           type: "error",
-          errorCode: c(a),
+          errorCode: d(a),
           errorText: i != null ? i : "",
         };
       }
@@ -84,7 +87,7 @@ __d(
           }
         : { type: "success", user: { jid: l } };
     }
-    function c(e) {
+    function d(e) {
       return e === "CODE_404"
         ? 404
         : e === "CODE_400"
@@ -95,7 +98,7 @@ __d(
               ? 500
               : 0;
     }
-    ((l.queryCustomUrlUser = s), (l.parseResponse = u));
+    ((l.queryCustomUrlUser = s), (l.parseResponse = c));
   },
   98,
 );

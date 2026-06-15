@@ -8,56 +8,70 @@ __d(
     "WAWebNewsletterDBUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = n.xwa2_notify_newsletter_milestone,
-            a = r.message_server_id,
-            i = r.newsletter_id,
-            l = r.reaction_code,
-            s = r.type,
-            u = r.value,
-            c = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
-              Number(a),
-              i,
-            ),
-            d = yield o("WAWebChatGetExistingBridge").getExisting(
-              o("WAWebWidFactory").createWid(i),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          try {
+            var a = n.xwa2_notify_newsletter_milestone,
+              i = a.message_server_id,
+              l = a.newsletter_id,
+              u = a.reaction_code,
+              c = a.type,
+              d = a.value,
+              m = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
+                Number(i),
+                l,
+              ),
+              p = yield o("WAWebChatGetExistingBridge").getExisting(
+                o("WAWebWidFactory").createWid(l),
+              );
+            if (p == null) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[milestone-notif] no chat for newsletter",
+                    ])),
+                )
+                .tags("mex", "newsletter", "milestone-notification")
+                .sendLogs("newsletter-mex-milestone-notification-no-chat");
+              return;
+            }
+            o("WAWebBackendApi").frontendFireAndForget(
+              "displayNewsletterMilestoneDesktopNotification",
+              {
+                msg: m && o("WAWebMsgModelFromData").msgModelFromMsgData(m),
+                reactionCode: u,
+                milestoneType: c,
+                value: d,
+                chat: p,
+              },
             );
-          if (d == null) {
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[milestone-notif] no chat for newsletter",
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[milestone-notif] failed to handle milestone notification",
                   ])),
               )
-              .tags("mex", "newsletter", "milestone-notification")
-              .sendLogs("newsletter-mex-milestone-notification-no-chat");
-            return;
+              .catching(r("getErrorSafe")(e))
+              .tags("mex", "newsletter")
+              .sendLogs("newsletter-mex-milestone-notification-failed");
           }
-          o("WAWebBackendApi").frontendFireAndForget(
-            "displayNewsletterMilestoneDesktopNotification",
-            {
-              msg: c && o("WAWebMsgModelFromData").msgModelFromMsgData(c),
-              reactionCode: l,
-              milestoneType: s,
-              value: u,
-              chat: d,
-            },
-          );
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.mexHandleNewsletterMilestone = s;
+    l.mexHandleNewsletterMilestone = u;
   },
   98,
 );

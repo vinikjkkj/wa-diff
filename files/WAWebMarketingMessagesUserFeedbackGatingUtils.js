@@ -16,14 +16,6 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("mm_opt_out_enabled");
     }
     function c() {
-      o("WAWebABProps").getABPropConfigValue("mm_user_controls_exposure");
-    }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "mm_opt_out_fmx_stop_for_high_trust",
-      );
-    }
-    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "mm_user_controls_exception_number_prefixes",
       );
@@ -33,9 +25,9 @@ __d(
             return e.trim();
           });
     }
-    function p(e) {
+    function d(e) {
       if (e == null) return !1;
-      var t = m();
+      var t = c();
       return t.some(function (t) {
         return e.toString().startsWith(t);
       });
@@ -43,10 +35,8 @@ __d(
     ((l.isMMMessageLevelFeedbackNotInterestedMenuEnabled = e),
       (l.isMMOptOutAlwaysUseLidInGraphQLEnabled = s),
       (l.isMMOptOutEnabled = u),
-      (l.triggerExposureMMUserControls = c),
-      (l.isMMStopInFMXEnabled = d),
-      (l.getMMUserControlsExceptionNumberPrefixes = m),
-      (l.isMMUserControlsExceptionNumberPrefixMatch = p));
+      (l.getMMUserControlsExceptionNumberPrefixes = c),
+      (l.isMMUserControlsExceptionNumberPrefixMatch = d));
   },
   98,
 );

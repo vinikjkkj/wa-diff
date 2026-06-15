@@ -2688,6 +2688,7 @@ __d(
               videoRecvPsnrP5Ss: [2998, e.TYPES.NUMBER],
               videoRecvPsnrP95: [2318, e.TYPES.NUMBER],
               videoRecvPsnrP95Ss: [2999, e.TYPES.NUMBER],
+              videoRecvToRenderLatency: [3033, e.TYPES.TIMER],
               videoRenderAvgFps: [208, e.TYPES.INTEGER],
               videoRenderAvgFpsDominantSpeaker: [2182, e.TYPES.INTEGER],
               videoRenderConverterTs: [225, e.TYPES.TIMER],

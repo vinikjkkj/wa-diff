@@ -324,7 +324,7 @@ __d(
             m = babelHelpers.extends({}, t, a, i, d, s, u, c, {
               isCanonicalEntPresent: o(
                 "WAWebCanonicalUtils",
-              ).isCurrentUserLoggedIn(),
+              ).isCanonicalPresent(),
             }),
             p = new (o("WAWebDailyWamEvent").DailyWamEvent)();
           (p.set(m), p.commit(), S());
@@ -486,16 +486,13 @@ __d(
                 kicNotifications: e.kicNotifications,
               });
               (n.commit(),
-                o("WAWebABProps").getABPropConfigValue(
-                  "single_emoji_logging_enabled",
-                ) &&
-                  new (o(
-                    "WAWebWaFsSingleEmojiMessageDailyWamEvent",
-                  ).WaFsSingleEmojiMessageDailyWamEvent)({
-                    animatedEmojiSendCnt: e.animatedEmojiSend,
-                    emojiReplyCount: e.emojiReply,
-                    singleEmojiSendCnt: e.singleEmojiSend,
-                  }).commit(),
+                new (o(
+                  "WAWebWaFsSingleEmojiMessageDailyWamEvent",
+                ).WaFsSingleEmojiMessageDailyWamEvent)({
+                  animatedEmojiSendCnt: e.animatedEmojiSend,
+                  emojiReplyCount: e.emojiReply,
+                  singleEmojiSendCnt: e.singleEmojiSend,
+                }).commit(),
                 o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
                   (new (o(
                     "WAWebAboutCreationDailyWamEvent",

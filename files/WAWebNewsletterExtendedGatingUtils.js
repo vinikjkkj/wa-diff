@@ -93,10 +93,7 @@ __d(
           (r = e.newsletterMetadata) == null ? void 0 : r.iAmAdminOrOwner()) !=
         null
           ? n
-          : !1) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "channel_reactions_sender_list_enabled",
-        )
+          : !1)
       );
     }
     function p() {

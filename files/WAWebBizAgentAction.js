@@ -88,7 +88,7 @@ __d(
       (t === void 0 && (t = !1),
         o(
           "WAWebChatAssignmentGatingUtils",
-        ).isMultiDeviceAgentsLoggingEnabled() &&
+        ).isMultiDeviceMessageAttributionEnabled() &&
           new (o(
             "WAWebMdExpansionAgentBrowserMdIdWamEvent",
           ).MdExpansionAgentBrowserMdIdWamEvent)(
@@ -133,7 +133,7 @@ __d(
             (yield _(),
             !!o(
               "WAWebChatAssignmentGatingUtils",
-            ).isMultiDeviceAgentsLoggingEnabled())
+            ).isMultiDeviceMessageAttributionEnabled())
           ) {
             var e = o("WAWebUserPrefsMeUser")
                 .getMeDevicePnOrThrow_DO_NOT_USE()

@@ -867,7 +867,7 @@ __d(
                     .WARN(
                       L ||
                         (L = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: wave received without a sender jid; skipping notification",
+                          "voip: [wave] no sender jid; skip notif",
                         ])),
                     )
                     .sendLogs("voip-wave-no-sender");

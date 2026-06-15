@@ -159,8 +159,8 @@ __d(
                     o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][per-customer-data-sharing]: missing accountLid in index for ",
-                          " mutations",
+                          "[syncd][per-customer-data-sharing] missing accountLid x",
+                          "",
                         ])),
                       i,
                     ),
@@ -177,8 +177,8 @@ __d(
                     o("WALogger").WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][per-customer-data-sharing]: ",
-                          " unsupported operations => ",
+                          "[syncd][per-customer-data-sharing] ",
+                          " unsupported ops -> ",
                           "",
                         ])),
                       m,

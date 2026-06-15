@@ -128,15 +128,11 @@ __d(
     }
     function f(e, t) {
       e === m.SUCCESS
-        ? (o("WAWebCanonicalUtils").setTokenCreationState(
-            o("WAWebCanonicalUtils").TokenCreationState.PRESENT,
-          ),
+        ? (o("WAWebCanonicalUtils").setCanonicalTokenPresent(!0),
           o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(t),
           o("WAWebCanonicalWamFalcoBuffer").drainCanonicalWamFalcoBuffer())
         : e === m.FAILED &&
-          o("WAWebCanonicalUtils").setTokenCreationState(
-            o("WAWebCanonicalUtils").TokenCreationState.IDLE,
-          );
+          o("WAWebCanonicalUtils").setCanonicalTokenPresent(!1);
     }
     function g(e, t) {
       return h.apply(this, arguments);
@@ -144,15 +140,12 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (o("WALogger").LOG(
+          o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[canonical] Storing canonical credentials directly",
               ])),
-          ),
-            o("WAWebCanonicalUtils").setTokenCreationState(
-              o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
-            ));
+          );
           var n = yield p(e, { retry: !0 }, t);
           return (f(n, t), n);
         })),
@@ -173,9 +166,6 @@ __d(
           );
           var n = o("WAWebCanonicalEntRecoveryWam").generateRequestId();
           (o("WAWebCanonicalEntRecoveryWam").logExchangeNonceStart(t, n),
-            o("WAWebCanonicalUtils").setTokenCreationState(
-              o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
-            ),
             r("WAWebODS").incr("web.app.canonical.exchange.attempt"));
           var a = yield p(e, { retry: !0 }, t);
           return (

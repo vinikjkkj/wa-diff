@@ -2,7 +2,6 @@ __d(
   "WAWebGroupABPropsGlobals",
   [
     "WAWebABPropsExpoKeyUtils",
-    "WAWebClientExposureGatingUtils",
     "WAWebDebounce",
     "WAWebNetworkStatus",
     "WAWebWefrGroupClientExposureWamEvent",
@@ -13,15 +12,11 @@ __d(
       s = new Map(),
       u = new Map();
     function c(e) {
-      if (
-        o("WAWebClientExposureGatingUtils").clientExposurePulseLoggingEnabled()
-      ) {
-        var t = s.get(e);
-        if (!(t == null || t.size === 0)) {
-          var n = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(t),
-            r = u.get(e);
-          r !== n && (f(e, n), u.set(e, n));
-        }
+      var t = s.get(e);
+      if (!(t == null || t.size === 0)) {
+        var n = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(t),
+          r = u.get(e);
+        r !== n && (f(e, n), u.set(e, n));
       }
     }
     function d(e) {
@@ -38,19 +33,14 @@ __d(
           ).WefrGroupClientExposureWamEvent)(e).commit();
     }
     function m() {
-      if (
-        o("WAWebClientExposureGatingUtils").clientExposurePulseLoggingEnabled()
-      )
-        for (var e of s) {
-          var t = e[0],
-            n = e[1];
-          if (n.size !== 0) {
-            var r = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(
-              n,
-            );
-            d({ exposureKey: r, groupJid: t, sentWithDaily: !0 });
-          }
+      for (var e of s) {
+        var t = e[0],
+          n = e[1];
+        if (n.size !== 0) {
+          var r = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(n);
+          d({ exposureKey: r, groupJid: t, sentWithDaily: !0 });
         }
+      }
     }
     var p = new Map();
     function _(t) {

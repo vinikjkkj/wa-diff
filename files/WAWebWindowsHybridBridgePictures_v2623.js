@@ -133,7 +133,7 @@ __d(
               {
                 bridge: "pictures",
                 method: "setProfilePictures",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.setProfilePictures(i);

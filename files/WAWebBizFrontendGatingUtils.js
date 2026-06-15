@@ -39,12 +39,7 @@ __d(
       );
     }
     function c() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "payments_br_force_copy_pix_cta_enabled",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function d(e) {
       var t = o("WAWebContactUtils").getMaybeBizPlatformForLogging(e),

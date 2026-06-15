@@ -25,9 +25,13 @@ __d(
         return function (n, r) {
           return t.apply(this, arguments);
         };
-      })(),
-      u = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+      })();
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [].concat(
               Array.from(e ? [e] : o("WASyncdConst").CollectionName.members()),
               [""],
@@ -36,11 +40,10 @@ __d(
               return o("WAWebPriorLogs").WAWebLogCategory.cast(e);
             });
           return o("WAWebPriorLogs").printPriorLogs(n);
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })();
+        })),
+        c.apply(this, arguments)
+      );
+    }
     ((l.writeSyncdLogImpl = s), (l.printSyncdLogs = u));
   },
   98,

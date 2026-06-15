@@ -14,6 +14,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,122 +22,137 @@ __d(
       s,
       u,
       c,
-      d = n("$InternalEnum").Mirrored(["ACTOR", "USER", "OBSERVER"]);
-    function m(e, t) {
-      return p.apply(this, arguments);
+      d,
+      m = n("$InternalEnum").Mirrored(["ACTOR", "USER", "OBSERVER"]);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = n.xwa2_notify_newsletter_admin_invite_revoke,
-            a = r.actor,
-            i = r.id,
-            l = r.user,
-            m = l.id,
-            p = a.id;
-          if (p == null || m == null) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleNewsletterAdminInviteRevoke] actor or user is null",
-                  ])),
-              )
-              .tags("mex", "newsletter")
-              .sendLogs(
-                "newsletter-mex-admin-invite-revoke-null-actor-or-user",
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          try {
+            var a = n.xwa2_notify_newsletter_admin_invite_revoke,
+              i = a.actor,
+              l = a.id,
+              p = a.user,
+              _ = p.id,
+              f = i.id;
+            if (f == null || _ == null) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[handleNewsletterAdminInviteRevoke] actor or user is null",
+                    ])),
+                )
+                .tags("mex", "newsletter")
+                .sendLogs(
+                  "newsletter-mex-admin-invite-revoke-null-actor-or-user",
+                );
+              return;
+            }
+            var g = o("WAJids").toNewsletterJid(l),
+              h = o("WAWebJidToWid").newsletterJidToWid(g),
+              y = o("WAWebLidMigrationUtils").toUserLid(
+                o("WAWebWidFactory").createWid(_),
+              ),
+              C = o("WAWebLidMigrationUtils").toUserLid(
+                o("WAWebWidFactory").createWid(f),
               );
-            return;
-          }
-          var _ = o("WAJids").toNewsletterJid(i),
-            f = o("WAWebJidToWid").newsletterJidToWid(_),
-            g = o("WAWebLidMigrationUtils").toUserLid(
-              o("WAWebWidFactory").createWid(m),
-            ),
-            h = o("WAWebLidMigrationUtils").toUserLid(
-              o("WAWebWidFactory").createWid(p),
+            if (!y || !C) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[handleNewsletterAdminInviteRevoke] non-lid user/actor id",
+                    ])),
+                )
+                .tags("mex", "newsletter")
+                .sendLogs(
+                  "newsletter-mex-admin-invite-revoke-non-lid-user-or-actor-id",
+                );
+              return;
+            }
+            var b = m.OBSERVER;
+            if (
+              (o("WAWebUserPrefsMeUser").isMeAccount(y) && (b = m.USER),
+              o("WAWebUserPrefsMeUser").isMeAccount(C) && (b = m.ACTOR),
+              b === m.OBSERVER)
+            ) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[handleNewsletterAdminInviteRevoke] Message sent to observer",
+                    ])),
+                )
+                .tags("mex", "newsletter")
+                .sendLogs(
+                  "newsletter-mex-admin-invite-revoke-sent-to-observer",
+                  { sendLogsType: o("WALogger").SendLogsType.MINOR_ISSUE },
+                );
+              return;
+            }
+            var v = null;
+            if (
+              (b === m.ACTOR
+                ? (v = yield o(
+                    "WAWebLidMigrationDbUtils",
+                  ).getChatWidFromUserLid(y))
+                : (v = yield o(
+                    "WAWebLidMigrationDbUtils",
+                  ).getChatWidFromUserLid(C)),
+              v == null)
+            ) {
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[handleNewsletterAdminInviteRevoke] chat id not found",
+                    ])),
+                )
+                .tags("mex", "newsletter")
+                .sendLogs(
+                  "newsletter-mex-admin-invite-revoke-actor-or-user-chat-id-not-found",
+                );
+              return;
+            }
+            var S = yield o(
+              "WAWebNewsletterDBUtils",
+            ).getUnexpiredNewsletterAdminInviteMessageRecordsFromChat(
+              o("WAWebWidFactory").asNewsletterWidOrThrow(h),
+              v,
             );
-          if (!g || !h) {
+            (S.forEach(function (e) {
+              var t;
+              ((t = e.newsletterAdminInviteInfo) == null
+                ? void 0
+                : t.inviteExpiration) != null &&
+                (e.newsletterAdminInviteInfo.inviteExpiration =
+                  o("WATimeUtils").castToUnixTime(0));
+            }),
+              yield o("WAWebDBProcessMessage").updateExistingMessages(S, v),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "expireNewsletterAdminInvites",
+                { expiredMsgData: S },
+              ));
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleNewsletterAdminInviteRevoke] non-lid user/actor id",
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[handleNewsletterAdminInviteRevoke] failed to handle admin invite revoke",
                   ])),
               )
+              .catching(r("getErrorSafe")(e))
               .tags("mex", "newsletter")
-              .sendLogs(
-                "newsletter-mex-admin-invite-revoke-non-lid-user-or-actor-id",
-              );
-            return;
+              .sendLogs("newsletter-mex-admin-invite-revoke-failed");
           }
-          var y = d.OBSERVER;
-          if (
-            (o("WAWebUserPrefsMeUser").isMeAccount(g) && (y = d.USER),
-            o("WAWebUserPrefsMeUser").isMeAccount(h) && (y = d.ACTOR),
-            y === d.OBSERVER)
-          ) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleNewsletterAdminInviteRevoke] Message sent to observer",
-                  ])),
-              )
-              .tags("mex", "newsletter")
-              .sendLogs("newsletter-mex-admin-invite-revoke-sent-to-observer", {
-                sendLogsType: o("WALogger").SendLogsType.MINOR_ISSUE,
-              });
-            return;
-          }
-          var C = null;
-          if (
-            (y === d.ACTOR
-              ? (C = yield o("WAWebLidMigrationDbUtils").getChatWidFromUserLid(
-                  g,
-                ))
-              : (C = yield o("WAWebLidMigrationDbUtils").getChatWidFromUserLid(
-                  h,
-                )),
-            C == null)
-          ) {
-            o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleNewsletterAdminInviteRevoke] chat id not found",
-                  ])),
-              )
-              .tags("mex", "newsletter")
-              .sendLogs(
-                "newsletter-mex-admin-invite-revoke-actor-or-user-chat-id-not-found",
-              );
-            return;
-          }
-          var b = yield o(
-            "WAWebNewsletterDBUtils",
-          ).getUnexpiredNewsletterAdminInviteMessageRecordsFromChat(
-            o("WAWebWidFactory").asNewsletterWidOrThrow(f),
-            C,
-          );
-          (b.forEach(function (e) {
-            var t;
-            ((t = e.newsletterAdminInviteInfo) == null
-              ? void 0
-              : t.inviteExpiration) != null &&
-              (e.newsletterAdminInviteInfo.inviteExpiration =
-                o("WATimeUtils").castToUnixTime(0));
-          }),
-            yield o("WAWebDBProcessMessage").updateExistingMessages(b, C),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "expireNewsletterAdminInvites",
-              { expiredMsgData: b },
-            ));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.handleNewsletterAdminInviteRevoke = m;
+    l.handleNewsletterAdminInviteRevoke = p;
   },
   98,
 );

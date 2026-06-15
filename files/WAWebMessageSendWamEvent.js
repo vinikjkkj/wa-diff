@@ -152,6 +152,7 @@ __d(
               messageType: [2, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               messageTypeStr: [92, e.TYPES.STRING],
               networkWasDisconnected: [37, e.TYPES.BOOLEAN],
+              oppositeHasUsername: [93, e.TYPES.BOOLEAN],
               oppositeVisibleIdentification: [
                 60,
                 o("WAWebWamEnumOppositeVisibleIdentificationType")

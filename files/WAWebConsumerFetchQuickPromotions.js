@@ -100,7 +100,7 @@ __d(
     }
     function F() {
       return o("WAWebQuickPromotionGating").consumerQpGraphQLEnabled()
-        ? o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
+        ? o("WAWebCanonicalUtils").isCanonicalPresent()
           ? o("WAWebOrchestratorNonPersistedJob")
               .createNonPersistedJob(
                 "fetchConsumerQuickPromotions",

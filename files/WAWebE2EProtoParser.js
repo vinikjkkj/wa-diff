@@ -253,11 +253,7 @@ __d(
       var w = d.deviceSentMessage;
       (w && k(c, w, p, a), y && T(c, y));
       var A = d.groupStatusMessageV2;
-      A != null &&
-        o("WAWebABProps").getABPropConfigValue(
-          "group_status_receiver_enabled",
-        ) &&
-        D(c, A, p, a);
+      A != null && D(c, A, p, a);
       var F = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(d);
       return (
         F != null &&

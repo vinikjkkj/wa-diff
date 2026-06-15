@@ -4,7 +4,6 @@ __d(
     "WAWebABProps",
     "WAWebABPropsExpoKeyUtils",
     "WAWebCanonicalUtils",
-    "WAWebClientExposureGatingUtils",
     "WAWebDebounce",
     "WAWebNetworkStatus",
     "WAWebWamGlobals",
@@ -23,11 +22,7 @@ __d(
         o("WAWebWamGlobals").Global.set({ expoKey: null });
       else {
         var e = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(u);
-        (c !== e &&
-          o(
-            "WAWebClientExposureGatingUtils",
-          ).clientExposurePulseLoggingEnabled() &&
-          (f(e), (c = e)),
+        (c !== e && (f(e), (c = e)),
           o("WAWebWamGlobals").Global.set({ expoKey: e }));
       }
     }
@@ -48,24 +43,18 @@ __d(
           ).commit();
     }
     function _() {
-      if (
-        o("WAWebClientExposureGatingUtils").clientExposurePulseLoggingEnabled()
-      ) {
-        var e = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(u);
-        p({
-          exposureKey: e,
-          sentWithDaily: !0,
-          isCanonicalEntPresent: o(
-            "WAWebCanonicalUtils",
-          ).isCurrentUserLoggedIn(),
-        });
-      }
+      var e = o("WAWebABPropsExpoKeyUtils").combineExposuresIntoExpoKey(u);
+      p({
+        exposureKey: e,
+        sentWithDaily: !0,
+        isCanonicalEntPresent: o("WAWebCanonicalUtils").isCanonicalPresent(),
+      });
     }
     var f = r("WAWebDebounce")(function (e) {
       p({
         exposureKey: e,
         sentWithDaily: !1,
-        isCanonicalEntPresent: o("WAWebCanonicalUtils").isCurrentUserLoggedIn(),
+        isCanonicalEntPresent: o("WAWebCanonicalUtils").isCanonicalPresent(),
       });
     }, e);
     ((l.CLIENT_EXPOSURE_PULSE_DEBOUNCE_MS = e),

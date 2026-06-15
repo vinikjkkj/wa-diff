@@ -4,7 +4,6 @@ __d(
     "fbt",
     "JSResourceForInteraction",
     "WALogger",
-    "WAWebABProps",
     "WAWebAboutWamLogger",
     "WAWebActiveAccountInfoContext.react",
     "WAWebAdaptiveLayoutGatingUtils",
@@ -614,12 +613,6 @@ __d(
         }
         case "EDIT_PROFILE_PICTURE": {
           try {
-            if (
-              !o("WAWebABProps").getABPropConfigValue(
-                "profile_picture_deeplink_enabled",
-              )
-            )
-              return !1;
             o("WAWebCmd").Cmd.closeStatusViewer();
             var _e = o("WAWebUserPrefsMeUser").getMeUser(),
               fe = o(

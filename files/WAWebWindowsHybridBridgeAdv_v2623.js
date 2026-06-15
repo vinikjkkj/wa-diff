@@ -19,7 +19,7 @@ __d(
               var a = this;
               r("WAWebODS").incr("web.hybrid.bridge.adv.send.verify");
               var i = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "adv", method: "verify", type: "sync" },
+                { bridge: "adv", method: "verify", type: "async" },
                 function () {
                   return a.$1.verify(
                     o("WABase64").encodeB64(t),

@@ -9,12 +9,7 @@ __d(
         ) || o("WAWebRevokeMsgConstants").REVOKE_WINDOW
       );
     }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "supports_keep_in_chat_in_cag",
-      );
-    }
-    ((l.getUndoKeepInChatExpiration = e), (l.isKeepInChatInCAGEnabled = s));
+    l.getUndoKeepInChatExpiration = e;
   },
   98,
 );

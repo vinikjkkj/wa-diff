@@ -774,9 +774,7 @@ __d(
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS,
-                    shouldSkipGenMsg: !o("WAWebABProps").getABPropConfigValue(
-                      "report_to_admin_kill_switch",
-                    ),
+                    shouldSkipGenMsg: !1,
                     value: !0,
                     author: n,
                     triggered: a.hasAttr("triggered")
@@ -788,9 +786,7 @@ __d(
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS,
-                    shouldSkipGenMsg: !o("WAWebABProps").getABPropConfigValue(
-                      "report_to_admin_kill_switch",
-                    ),
+                    shouldSkipGenMsg: !1,
                     value: !1,
                     author: n,
                     triggered: a.hasAttr("triggered")

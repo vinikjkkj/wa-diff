@@ -50,7 +50,7 @@ __d(
               {
                 bridge: "touchpadFix",
                 method: "interruptManipulations",
-                type: "sync",
+                type: "async",
               },
               function () {
                 return e.$1.interruptManipulations();

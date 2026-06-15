@@ -122,7 +122,7 @@ __d(
                 {
                   bridge: "nativeAppStateBridge",
                   method: "getAppState",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return t.$1.getAppState();

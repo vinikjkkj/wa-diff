@@ -81,11 +81,7 @@ __d(
               return b != null ? b : h;
             }
             if (o("WAWebMsgGetters").getType(e.data) === "keep_in_chat") {
-              var v =
-                  !i &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "supports_keep_in_chat_in_cag",
-                  ),
+              var v = !i,
                 R = r == null ? null : yield L(r, h.senderKeyList, v);
               return R != null ? R : h;
             }

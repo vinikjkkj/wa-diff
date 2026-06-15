@@ -35,56 +35,51 @@ __d(
       }),
       m = e({ MESSAGE_CTA: "message_cta" });
     function p() {
-      return o("WAWebABProps").getABPropConfigValue("wa_web_wae_qpl_enabled");
+      (g(4), o("WAWebQplFlowWrapper").QPL.markerStart(s));
     }
-    function _() {
-      p() && (h(4), o("WAWebQplFlowWrapper").QPL.markerStart(s));
+    function _(e) {
+      o("WAWebQplFlowWrapper").QPL.markerPoint(s, e);
     }
     function f(e) {
-      p() && o("WAWebQplFlowWrapper").QPL.markerPoint(s, e);
+      o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, e);
     }
-    function g(e) {
-      p() && o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, e);
+    function g(e, t) {
+      o("WAWebQplFlowWrapper").QPL.markerEnd(s, e, t);
     }
-    function h(e, t) {
-      p() && o("WAWebQplFlowWrapper").QPL.markerEnd(s, e, t);
-    }
-    function y() {
+    function h() {
       o("WAWebQplFlowWrapper").QPL.markerDrop(s);
     }
-    function C(e, t) {
+    function y(e, t) {
       var n;
-      return p()
-        ? {
-            string: {
-              extension_id: t.flowId,
-              flow_entry_point: m.MESSAGE_CTA,
-              perf_origin: m.MESSAGE_CTA,
-              session_id: t.flowQPLSessionId,
-              biz_jid: o(
-                "WAWebGalaxyFlowWamLoggerUtils",
-              ).getFlowBusinessPhoneNumber(e),
-              extension_message_id: e.galaxyFlowQPLMessageId,
-            },
-            bool: {
-              is_debug_build: !r("gkx")("26258"),
-              is_response_flow: !!t.isResponseFlow,
-              data_channel_navigation: !o(
-                "WAWebGalaxyFlowsUtils",
-              ).isFlowInitWithoutDataChannel(
-                (n = t == null ? void 0 : t.flowAction) != null ? n : "",
-              ),
-            },
-          }
-        : {};
+      return {
+        string: {
+          extension_id: t.flowId,
+          flow_entry_point: m.MESSAGE_CTA,
+          perf_origin: m.MESSAGE_CTA,
+          session_id: t.flowQPLSessionId,
+          biz_jid: o(
+            "WAWebGalaxyFlowWamLoggerUtils",
+          ).getFlowBusinessPhoneNumber(e),
+          extension_message_id: e.galaxyFlowQPLMessageId,
+        },
+        bool: {
+          is_debug_build: !r("gkx")("26258"),
+          is_response_flow: !!t.isResponseFlow,
+          data_channel_navigation: !o(
+            "WAWebGalaxyFlowsUtils",
+          ).isFlowInitWithoutDataChannel(
+            (n = t == null ? void 0 : t.flowAction) != null ? n : "",
+          ),
+        },
+      };
     }
-    var b = e({
+    var C = e({
         FETCH_START: "fetch_start",
         METADATA_NETWORK_START: "metadata_network_start",
         METADATA_NETWORK_END: "metadata_network_end",
         FETCH_END: "fetch_end",
       }),
-      v = e({
+      b = e({
         EXTENSIONS_METADATA_EMPTY_RESPONSE:
           "extensions-metadata-empty-response",
         EXTENSIONS_METADATA_RESPONSE_ERROR:
@@ -98,35 +93,35 @@ __d(
         EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR:
           "extensions-metadata-graphql-response-error",
       }),
-      S = e({
+      v = e({
         EXTENSION_METADATA_PERF_TRACKER: "extensionMetadataPerfTracker",
       }),
-      R = e({
+      S = e({
         USER_INTERACTION: "user_interaction",
         SCREEN_TRANSITION_INTEGRITY_CHECK: "screen_transition_integrity_check",
       }),
-      L = e({ OPTIONAL: "optional", REQUIRED: "required" });
-    function E() {
-      p() && (T(4), o("WAWebQplFlowWrapper").QPL.markerStart(u));
+      R = e({ OPTIONAL: "optional", REQUIRED: "required" });
+    function L() {
+      (I(4), o("WAWebQplFlowWrapper").QPL.markerStart(u));
+    }
+    function E(e) {
+      o("WAWebQplFlowWrapper").QPL.markerPoint(u, e);
     }
     function k(e) {
-      p() && o("WAWebQplFlowWrapper").QPL.markerPoint(u, e);
+      o("WAWebQplFlowWrapper").QPL.markerAnnotate(u, e);
     }
     function I(e) {
-      p() && o("WAWebQplFlowWrapper").QPL.markerAnnotate(u, e);
+      o("WAWebQplFlowWrapper").QPL.markerEnd(u, e);
     }
-    function T(e) {
-      p() && o("WAWebQplFlowWrapper").QPL.markerEnd(u, e);
-    }
-    function D() {
+    function T() {
       o("WAWebQplFlowWrapper").QPL.markerDrop(u);
     }
-    function x(e) {
+    function D(e) {
       var t = JSON.stringify(e),
         n = new TextEncoder().encode(t != null ? t : "").length;
-      I({ int: { metadata_response_size: n } });
+      k({ int: { metadata_response_size: n } });
     }
-    function $(e) {
+    function x(e) {
       var t = {};
       for (var n in e) {
         var r = e[n];
@@ -147,54 +142,52 @@ __d(
       }
       return t;
     }
-    function P(e, t, n) {
+    function $(e, t, n) {
       return (
-        n === void 0 && (n = L.OPTIONAL),
-        p()
-          ? {
-              string: {
-                biz_jid: o(
-                  "WAWebGalaxyFlowWamLoggerUtils",
-                ).getFlowBusinessPhoneNumber(e),
-                fetch_context: R.USER_INTERACTION,
-                extension_id: t.flowId,
-                perf_origin: S.EXTENSION_METADATA_PERF_TRACKER,
-                endpoint_public_key_fetch_mode: n,
-              },
-              bool: {
-                is_debug_build: !r("gkx")("26258"),
-                is_graphql_prod: r("gkx")("26258"),
-              },
-            }
-          : {}
+        n === void 0 && (n = R.OPTIONAL),
+        {
+          string: {
+            biz_jid: o(
+              "WAWebGalaxyFlowWamLoggerUtils",
+            ).getFlowBusinessPhoneNumber(e),
+            fetch_context: S.USER_INTERACTION,
+            extension_id: t.flowId,
+            perf_origin: v.EXTENSION_METADATA_PERF_TRACKER,
+            endpoint_public_key_fetch_mode: n,
+          },
+          bool: {
+            is_debug_build: !r("gkx")("26258"),
+            is_graphql_prod: r("gkx")("26258"),
+          },
+        }
       );
     }
-    function N() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");
     }
-    function M() {
-      p() && (h(4), T(4));
+    function N() {
+      (g(4), I(4));
     }
     ((l.WaeScreenNavigationQPLPoints = c),
       (l.WaeScreenNavigationQPLErrorTypes = d),
-      (l.qplWaeScreenNavigationStart = _),
-      (l.qplWaeScreenNavigationPoint = f),
-      (l.qplWaeScreenNavigationAnnotate = g),
-      (l.qplWaeScreenNavigationEnd = h),
-      (l.qplWaeScreenNavigationDrop = y),
-      (l.getWaeScreenNavigationAnnotations = C),
-      (l.WaeMetadataQPLPoints = b),
-      (l.WaeMetadataQPLErrorTypes = v),
-      (l.qplWaeMetadataStart = E),
-      (l.qplWaeMetadataPoint = k),
-      (l.qplWaeMetadataAnnotate = I),
-      (l.qplWaeMetadataEnd = T),
-      (l.qplWaeMetadataDrop = D),
-      (l.qplAnnotateMetadataSize = x),
-      (l.qplBuildAnnotations = $),
-      (l.getWaeMetadataAnnotations = P),
-      (l.isGalaxyFlowSanctioned = N),
-      (l.clearAllActiveWaeQPLMarkerInstances = M));
+      (l.qplWaeScreenNavigationStart = p),
+      (l.qplWaeScreenNavigationPoint = _),
+      (l.qplWaeScreenNavigationAnnotate = f),
+      (l.qplWaeScreenNavigationEnd = g),
+      (l.qplWaeScreenNavigationDrop = h),
+      (l.getWaeScreenNavigationAnnotations = y),
+      (l.WaeMetadataQPLPoints = C),
+      (l.WaeMetadataQPLErrorTypes = b),
+      (l.qplWaeMetadataStart = L),
+      (l.qplWaeMetadataPoint = E),
+      (l.qplWaeMetadataAnnotate = k),
+      (l.qplWaeMetadataEnd = I),
+      (l.qplWaeMetadataDrop = T),
+      (l.qplAnnotateMetadataSize = D),
+      (l.qplBuildAnnotations = x),
+      (l.getWaeMetadataAnnotations = $),
+      (l.isGalaxyFlowSanctioned = P),
+      (l.clearAllActiveWaeQPLMarkerInstances = N));
   },
   98,
 );

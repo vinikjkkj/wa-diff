@@ -65,9 +65,7 @@ __d(
         r("WAWebEmojiSetup")(
           o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
         ),
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_disable_prefetch_loadables",
-        ) || r("WAWebPrefetchLoadables")(),
+        r("WAWebPrefetchLoadables")(),
         o("WAWebABProps").getABPropConfigValue(
           "web_use_kaleidoscope_media_check_enabled",
         ) &&

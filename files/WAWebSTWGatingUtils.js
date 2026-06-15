@@ -13,18 +13,12 @@ __d(
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "search_the_web_image_search",
-      );
-    }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
         "search_the_web_design_experiment_v1",
       );
     }
     ((l.isSearchTheWebTextSearchEnabled = e),
       (l.isSearchTheWebURLSearchEnabled = s),
-      (l.isSearchTheWebImageSearchEnabled = u),
-      (l.isSearchTheWebDesignExperimentV1Enabled = c));
+      (l.isSearchTheWebDesignExperimentV1Enabled = u));
   },
   98,
 );

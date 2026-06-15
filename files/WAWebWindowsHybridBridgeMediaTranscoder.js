@@ -222,7 +222,7 @@ __d(
                             {
                               bridge: "mediaTranscodeBridge",
                               method: "performVideoTranscodingFromSharedBuffer",
-                              type: "sync",
+                              type: "async",
                             },
                             function () {
                               return i.$1.performVideoTranscodingFromSharedBuffer(
@@ -313,7 +313,7 @@ __d(
                               {
                                 bridge: "mediaTranscodeBridge",
                                 method: "getVideoPreviewFrameFromSharedBuffer",
-                                type: "sync",
+                                type: "async",
                               },
                               function () {
                                 return a.$1.getVideoPreviewFrameFromSharedBuffer(
@@ -402,7 +402,7 @@ __d(
                 {
                   bridge: "mediaTranscodeBridge",
                   method: "releaseSharedBuffer",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$1.releaseSharedBuffer(t);

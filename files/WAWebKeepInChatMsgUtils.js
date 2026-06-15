@@ -71,12 +71,12 @@ __d(
       return r;
     }
     function _(e) {
-      return o("WAWebFrontendMsgGetters").getChat(e).supportsKIC()
-        ? o("WAWebMsgGetters").getIsEphemeral(e) &&
-            e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
-            !e.isViewOnce &&
-            !o("WAWebFrontendMsgGetters").getAsAlbum(e)
-        : !1;
+      return (
+        o("WAWebMsgGetters").getIsEphemeral(e) &&
+        e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+        !e.isViewOnce &&
+        !o("WAWebFrontendMsgGetters").getAsAlbum(e)
+      );
     }
     function f(e) {
       return g(e) || y(e);

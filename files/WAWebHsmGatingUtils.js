@@ -9,27 +9,21 @@ __d(
     }
     function s() {
       return !o("WAWebABProps").getABPropConfigValue(
-        "interactive_response_message_killswitch",
-      );
-    }
-    function u() {
-      return !o("WAWebABProps").getABPropConfigValue(
         "interactive_response_message_native_flow_killswitch",
       );
     }
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_shop_storefront_message",
       );
     }
-    function d() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
     }
     ((l.interactiveNativeFlowMessagesEnabled = e),
-      (l.interactiveResponseMessagesEnabled = s),
-      (l.interactiveNativeFlowResponseMessagesEnabled = u),
-      (l.shopsInteractiveMessageEnabled = c),
-      (l.isBloksWidgetEnabled = d));
+      (l.interactiveNativeFlowResponseMessagesEnabled = s),
+      (l.shopsInteractiveMessageEnabled = u),
+      (l.isBloksWidgetEnabled = c));
   },
   98,
 );

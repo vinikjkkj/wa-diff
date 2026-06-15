@@ -852,7 +852,7 @@ __d(
         (b.messages = r.map(function (e) {
           return { type: e.type, subtype: e.subtype, ack: e.ack };
         }));
-      var v = oe(h, r, a);
+      var v = oe({ cantDeleteReason: a, createdLocally: h, messages: r });
       o("WALogger")
         .ERROR(
           p ||
@@ -931,15 +931,18 @@ __d(
         t.some(Q)
       );
     }
-    function oe(e, t, n) {
-      return te(t)
+    function oe(e) {
+      var t = e.cantDeleteReason,
+        n = e.createdLocally,
+        r = e.messages;
+      return te(r)
         ? "lid-migration-no-lid-available-broadcast-chat"
-        : ee(t)
+        : ee(r)
           ? "lid-migration-no-lid-available-call-chat"
-          : ne(t)
+          : ne(r)
             ? "lid-migration-no-lid-available-contact-info-chat"
-            : e
-              ? n === "has messages"
+            : n
+              ? t === "has messages"
                 ? "lid-migration-no-lid-available-created-locally-has-messages"
                 : "lid-migration-no-lid-available-created-locally"
               : "lid-migration-no-lid-available";

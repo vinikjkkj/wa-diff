@@ -42,7 +42,7 @@ __d(
             (this.ping = function (e) {
               var t;
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                { bridge: "debugFeatures", method: "pong", type: "sync" },
+                { bridge: "debugFeatures", method: "pong", type: "async" },
                 function () {
                   return n.$1.pong(e.valueOf());
                 },
@@ -95,7 +95,7 @@ __d(
                 {
                   bridge: "debugFeatures",
                   method: "startHangsMonitor",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$1.startHangsMonitor();
@@ -111,7 +111,7 @@ __d(
                 {
                   bridge: "debugFeatures",
                   method: "saveNativeLogs",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$1.saveNativeLogs();
@@ -127,7 +127,7 @@ __d(
                 {
                   bridge: "debugFeatures",
                   method: "sendAdminRequestedLogs",
-                  type: "sync",
+                  type: "async",
                 },
                 function () {
                   return e.$1.sendAdminRequestedLogs();
@@ -145,7 +145,7 @@ __d(
                   {
                     bridge: "debugFeatures",
                     method: "requestNativeLogs",
-                    type: "sync",
+                    type: "async",
                   },
                   function () {
                     return e.$1.requestNativeLogs();
@@ -187,7 +187,7 @@ __d(
                     {
                       bridge: "debugFeatures",
                       method: "sendWebLogString",
-                      type: "sync",
+                      type: "async",
                     },
                     function () {
                       return t.$1.sendWebLogString(e.toString(), a);

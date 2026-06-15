@@ -69,7 +69,7 @@ __d(
           ((this.$2 = !1),
             (this.$6 = function () {
               r("WAWebNetworkStatus").online &&
-                o("WAWebCanonicalUtils").isCurrentUserLoggedIn() &&
+                o("WAWebCanonicalUtils").isCanonicalPresent() &&
                 e.drain();
             }),
             (this.$7 = function () {

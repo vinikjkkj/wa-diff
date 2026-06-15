@@ -2,12 +2,13 @@ __d(
   "WAWebContactImportCSVParsingUtils",
   ["JSResourceForInteraction", "WALogger", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    var e, s, u, c;
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           try {
             ((n = yield r("JSResourceForInteraction")("papaparse")
@@ -69,11 +70,10 @@ __d(
               e
             );
           }
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        m.apply(this, arguments)
+      );
+    }
     l.loadPapaParse = d;
   },
   98,

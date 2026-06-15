@@ -13,7 +13,11 @@ __d(
           return (
             r("WAWebODS").incr("web.hybrid.bridge.sharesheet.send.share_file"),
             o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-              { bridge: "sharesheetBridge", method: "shareFile", type: "sync" },
+              {
+                bridge: "sharesheetBridge",
+                method: "shareFile",
+                type: "async",
+              },
               function () {
                 return e.$1.shareFile(t, n);
               },

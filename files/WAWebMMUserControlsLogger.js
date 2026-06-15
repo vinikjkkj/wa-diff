@@ -9,12 +9,9 @@ __d(
     "use strict";
     function e() {
       var e = o(
-          "WAWebMarketingMessagesUserFeedbackGatingUtils",
-        ).isMMMessageLevelFeedbackNotInterestedMenuEnabled(),
-        t = o(
-          "WAWebMarketingMessagesUserFeedbackGatingUtils",
-        ).isMMStopInFMXEnabled();
-      return !e && !t ? 1 : e && !t ? 2 : !e && t ? 3 : 4;
+        "WAWebMarketingMessagesUserFeedbackGatingUtils",
+      ).isMMMessageLevelFeedbackNotInterestedMenuEnabled();
+      return e ? 4 : 3;
     }
     function s(t) {
       var n,

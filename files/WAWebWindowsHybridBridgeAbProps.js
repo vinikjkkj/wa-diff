@@ -43,7 +43,7 @@ __d(
                       {
                         bridge: "abProps",
                         method: "acknowledgeExposure",
-                        type: "sync",
+                        type: "async",
                       },
                       function () {
                         return a.$1.acknowledgeExposure(i);
@@ -64,7 +64,7 @@ __d(
                   "web.hybrid.bridge.abprops.send.set_configs",
                 ),
                   o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                    { bridge: "abProps", method: "setConfigs", type: "sync" },
+                    { bridge: "abProps", method: "setConfigs", type: "async" },
                     function () {
                       return a.$1.setConfigs(t, JSON.stringify(n));
                     },
@@ -89,7 +89,7 @@ __d(
                 var t = yield o(
                   "WAWebWindowsHybridBridgeTrace",
                 ).traceBridgeCall(
-                  { bridge: "abProps", method: "getVersion", type: "sync" },
+                  { bridge: "abProps", method: "getVersion", type: "async" },
                   function () {
                     return e.$1.getVersion();
                   },

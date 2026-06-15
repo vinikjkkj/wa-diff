@@ -40,7 +40,7 @@ __d(
             o("WAWebABProps").getABPropConfigValue(
               "acs_use_graphql_issuance",
             ) &&
-            o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
+            o("WAWebCanonicalUtils").isCanonicalPresent()
           ) {
             var n = yield o("WAWebACSClient").redeemWithAPTClient(e);
             return (

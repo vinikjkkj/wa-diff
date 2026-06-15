@@ -28,7 +28,6 @@ __d(
     "WAWebLabelConstants",
     "WAWebLimitSharingUIUtils",
     "WAWebListsGatingUtils",
-    "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebOrderGatingUtils",
     "WAWebSupportChatStrings",
@@ -252,66 +251,34 @@ __d(
                                                                   ? h(a)
                                                                   : i ===
                                                                       "biz_verified_transition_top_to_bottom"
-                                                                    ? o(
-                                                                        "WAWebMiscGatingUtils",
-                                                                      ).isBlueStringsEnabled()
-                                                                      ? s._(
-                                                                          /*BTDS*/ "{businessName} is no longer a verified account. Click to learn more.",
-                                                                          [
-                                                                            s._param(
-                                                                              "businessName",
-                                                                              r(
-                                                                                "WAWebGetBusinessNameFromMsg",
-                                                                              )(
-                                                                                e,
-                                                                              ),
+                                                                    ? s._(
+                                                                        /*BTDS*/ "{businessName} is no longer a verified account. Click to learn more.",
+                                                                        [
+                                                                          s._param(
+                                                                            "businessName",
+                                                                            r(
+                                                                              "WAWebGetBusinessNameFromMsg",
+                                                                            )(
+                                                                              e,
                                                                             ),
-                                                                          ],
-                                                                        )
-                                                                      : s._(
-                                                                          /*BTDS*/ 'This chat is no longer with the official business account of "{businessName}". Click for more info.',
-                                                                          [
-                                                                            s._param(
-                                                                              "businessName",
-                                                                              r(
-                                                                                "WAWebGetBusinessNameFromMsg",
-                                                                              )(
-                                                                                e,
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        )
+                                                                          ),
+                                                                        ],
+                                                                      )
                                                                     : i ===
                                                                         "biz_verified_transition_bottom_to_top"
-                                                                      ? o(
-                                                                          "WAWebMiscGatingUtils",
-                                                                        ).isBlueStringsEnabled()
-                                                                        ? s._(
-                                                                            /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
-                                                                            [
-                                                                              s._param(
-                                                                                "businessName",
-                                                                                r(
-                                                                                  "WAWebGetBusinessNameFromMsg",
-                                                                                )(
-                                                                                  e,
-                                                                                ),
+                                                                      ? s._(
+                                                                          /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
+                                                                          [
+                                                                            s._param(
+                                                                              "businessName",
+                                                                              r(
+                                                                                "WAWebGetBusinessNameFromMsg",
+                                                                              )(
+                                                                                e,
                                                                               ),
-                                                                            ],
-                                                                          )
-                                                                        : s._(
-                                                                            /*BTDS*/ 'This chat is now with the official business account of "{businessName}". Click for more info.',
-                                                                            [
-                                                                              s._param(
-                                                                                "businessName",
-                                                                                r(
-                                                                                  "WAWebGetBusinessNameFromMsg",
-                                                                                )(
-                                                                                  e,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          )
+                                                                            ),
+                                                                          ],
+                                                                        )
                                                                       : i ===
                                                                           "biz_intro_top"
                                                                         ? b(e)
@@ -332,35 +299,19 @@ __d(
                                                                                 )
                                                                               : i ===
                                                                                   "biz_two_tier_migration_top"
-                                                                                ? o(
-                                                                                    "WAWebMiscGatingUtils",
-                                                                                  ).isBlueStringsEnabled()
-                                                                                  ? s._(
-                                                                                      /*BTDS*/ "This chat is with {businessName}'s verified account. Click for more info.",
-                                                                                      [
-                                                                                        s._param(
-                                                                                          "businessName",
-                                                                                          r(
-                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                          )(
-                                                                                            e,
-                                                                                          ),
+                                                                                ? s._(
+                                                                                    /*BTDS*/ "This chat is with {businessName}'s verified account. Click for more info.",
+                                                                                    [
+                                                                                      s._param(
+                                                                                        "businessName",
+                                                                                        r(
+                                                                                          "WAWebGetBusinessNameFromMsg",
+                                                                                        )(
+                                                                                          e,
                                                                                         ),
-                                                                                      ],
-                                                                                    )
-                                                                                  : s._(
-                                                                                      /*BTDS*/ 'This chat is with the official business account of "{businessName}". Click for more info.',
-                                                                                      [
-                                                                                        s._param(
-                                                                                          "businessName",
-                                                                                          r(
-                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                          )(
-                                                                                            e,
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    )
+                                                                                      ),
+                                                                                    ],
+                                                                                  )
                                                                                 : i ===
                                                                                     "biz_two_tier_migration_bottom"
                                                                                   ? s._(
@@ -428,35 +379,19 @@ __d(
                                                                                                 )
                                                                                               : i ===
                                                                                                   "blue_msg_bsp_fb_unverified_to_self_premise_verified"
-                                                                                                ? o(
-                                                                                                    "WAWebMiscGatingUtils",
-                                                                                                  ).isBlueStringsEnabled()
-                                                                                                  ? s._(
-                                                                                                      /*BTDS*/ "{businessName} is now a verified account. This business no longer uses Meta or other companies to manage its WhatsApp conversations. Click to learn more.",
-                                                                                                      [
-                                                                                                        s._param(
-                                                                                                          "businessName",
-                                                                                                          r(
-                                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                                          )(
-                                                                                                            e,
-                                                                                                          ),
+                                                                                                ? s._(
+                                                                                                    /*BTDS*/ "{businessName} is now a verified account. This business no longer uses Meta or other companies to manage its WhatsApp conversations. Click to learn more.",
+                                                                                                    [
+                                                                                                      s._param(
+                                                                                                        "businessName",
+                                                                                                        r(
+                                                                                                          "WAWebGetBusinessNameFromMsg",
+                                                                                                        )(
+                                                                                                          e,
                                                                                                         ),
-                                                                                                      ],
-                                                                                                    )
-                                                                                                  : s._(
-                                                                                                      /*BTDS*/ "{businessName} is now registered as an official business account. This business no longer uses Facebook or other companies to manage its WhatsApp conversations. Click to learn more.",
-                                                                                                      [
-                                                                                                        s._param(
-                                                                                                          "businessName",
-                                                                                                          r(
-                                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                                          )(
-                                                                                                            e,
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ],
-                                                                                                    )
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  )
                                                                                                 : i ===
                                                                                                     "blue_msg_bsp_fb_verified"
                                                                                                   ? S(
@@ -499,35 +434,19 @@ __d(
                                                                                                               )
                                                                                                             : i ===
                                                                                                                 "blue_msg_bsp_premise_unverified_to_self_premise_verified"
-                                                                                                              ? o(
-                                                                                                                  "WAWebMiscGatingUtils",
-                                                                                                                ).isBlueStringsEnabled()
-                                                                                                                ? s._(
-                                                                                                                    /*BTDS*/ "{businessName} is now a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                    [
-                                                                                                                      s._param(
-                                                                                                                        "businessName",
-                                                                                                                        r(
-                                                                                                                          "WAWebGetBusinessNameFromMsg",
-                                                                                                                        )(
-                                                                                                                          e,
-                                                                                                                        ),
+                                                                                                              ? s._(
+                                                                                                                  /*BTDS*/ "{businessName} is now a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                  [
+                                                                                                                    s._param(
+                                                                                                                      "businessName",
+                                                                                                                      r(
+                                                                                                                        "WAWebGetBusinessNameFromMsg",
+                                                                                                                      )(
+                                                                                                                        e,
                                                                                                                       ),
-                                                                                                                    ],
-                                                                                                                  )
-                                                                                                                : s._(
-                                                                                                                    /*BTDS*/ "{businessName} is now registered as an official business account. This business no longer uses other companies to manage its WhatsApp conversations. Click to learn more.",
-                                                                                                                    [
-                                                                                                                      s._param(
-                                                                                                                        "businessName",
-                                                                                                                        r(
-                                                                                                                          "WAWebGetBusinessNameFromMsg",
-                                                                                                                        )(
-                                                                                                                          e,
-                                                                                                                        ),
-                                                                                                                      ),
-                                                                                                                    ],
-                                                                                                                  )
+                                                                                                                    ),
+                                                                                                                  ],
+                                                                                                                )
                                                                                                               : i ===
                                                                                                                   "blue_msg_bsp_premise_verified"
                                                                                                                 ? k(
@@ -640,66 +559,34 @@ __d(
                                                                                                                                         )
                                                                                                                                       : i ===
                                                                                                                                           "blue_msg_self_fb_verified_to_bsp_premise_unverified"
-                                                                                                                                        ? o(
-                                                                                                                                            "WAWebMiscGatingUtils",
-                                                                                                                                          ).isBlueStringsEnabled()
-                                                                                                                                          ? s._(
-                                                                                                                                              /*BTDS*/ "{businessName} is no longer a verified account. The account uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                                              [
-                                                                                                                                                s._param(
-                                                                                                                                                  "businessName",
-                                                                                                                                                  r(
-                                                                                                                                                    "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                  )(
-                                                                                                                                                    e,
-                                                                                                                                                  ),
+                                                                                                                                        ? s._(
+                                                                                                                                            /*BTDS*/ "{businessName} is no longer a verified account. The account uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                            [
+                                                                                                                                              s._param(
+                                                                                                                                                "businessName",
+                                                                                                                                                r(
+                                                                                                                                                  "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                )(
+                                                                                                                                                  e,
                                                                                                                                                 ),
-                                                                                                                                              ],
-                                                                                                                                            )
-                                                                                                                                          : s._(
-                                                                                                                                              /*BTDS*/ "{businessName} is no longer an official business account. This business uses other companies instead of Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-                                                                                                                                              [
-                                                                                                                                                s._param(
-                                                                                                                                                  "businessName",
-                                                                                                                                                  r(
-                                                                                                                                                    "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                  )(
-                                                                                                                                                    e,
-                                                                                                                                                  ),
-                                                                                                                                                ),
-                                                                                                                                              ],
-                                                                                                                                            )
+                                                                                                                                              ),
+                                                                                                                                            ],
+                                                                                                                                          )
                                                                                                                                         : i ===
                                                                                                                                             "blue_msg_self_fb_verified_to_self_premise_unverified"
-                                                                                                                                          ? o(
-                                                                                                                                              "WAWebMiscGatingUtils",
-                                                                                                                                            ).isBlueStringsEnabled()
-                                                                                                                                            ? s._(
-                                                                                                                                                /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                                                [
-                                                                                                                                                  s._param(
-                                                                                                                                                    "businessName",
-                                                                                                                                                    r(
-                                                                                                                                                      "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                    )(
-                                                                                                                                                      e,
-                                                                                                                                                    ),
+                                                                                                                                          ? s._(
+                                                                                                                                              /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                              [
+                                                                                                                                                s._param(
+                                                                                                                                                  "businessName",
+                                                                                                                                                  r(
+                                                                                                                                                    "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                  )(
+                                                                                                                                                    e,
                                                                                                                                                   ),
-                                                                                                                                                ],
-                                                                                                                                              )
-                                                                                                                                            : s._(
-                                                                                                                                                /*BTDS*/ "{businessName} is no longer an official business account and it no longer uses Facebook to manage its WhatsApp conversations. Click to learn more.",
-                                                                                                                                                [
-                                                                                                                                                  s._param(
-                                                                                                                                                    "businessName",
-                                                                                                                                                    r(
-                                                                                                                                                      "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                    )(
-                                                                                                                                                      e,
-                                                                                                                                                    ),
-                                                                                                                                                  ),
-                                                                                                                                                ],
-                                                                                                                                              )
+                                                                                                                                                ),
+                                                                                                                                              ],
+                                                                                                                                            )
                                                                                                                                           : i ===
                                                                                                                                               "blue_msg_self_premise_to_bsp_premise"
                                                                                                                                             ? s._(
@@ -722,35 +609,19 @@ __d(
                                                                                                                                                 )
                                                                                                                                               : i ===
                                                                                                                                                   "blue_msg_self_premise_verified"
-                                                                                                                                                ? o(
-                                                                                                                                                    "WAWebMiscGatingUtils",
-                                                                                                                                                  ).isBlueStringsEnabled()
-                                                                                                                                                  ? s._(
-                                                                                                                                                      /*BTDS*/ "This chat is with {businessName}'s verified account. Click to learn more.",
-                                                                                                                                                      [
-                                                                                                                                                        s._param(
-                                                                                                                                                          "businessName",
-                                                                                                                                                          r(
-                                                                                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                          )(
-                                                                                                                                                            e,
-                                                                                                                                                          ),
+                                                                                                                                                ? s._(
+                                                                                                                                                    /*BTDS*/ "This chat is with {businessName}'s verified account. Click to learn more.",
+                                                                                                                                                    [
+                                                                                                                                                      s._param(
+                                                                                                                                                        "businessName",
+                                                                                                                                                        r(
+                                                                                                                                                          "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                        )(
+                                                                                                                                                          e,
                                                                                                                                                         ),
-                                                                                                                                                      ],
-                                                                                                                                                    )
-                                                                                                                                                  : s._(
-                                                                                                                                                      /*BTDS*/ "This chat is with the official business account of {businessName}. Click to learn more.",
-                                                                                                                                                      [
-                                                                                                                                                        s._param(
-                                                                                                                                                          "businessName",
-                                                                                                                                                          r(
-                                                                                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                          )(
-                                                                                                                                                            e,
-                                                                                                                                                          ),
-                                                                                                                                                        ),
-                                                                                                                                                      ],
-                                                                                                                                                    )
+                                                                                                                                                      ),
+                                                                                                                                                    ],
+                                                                                                                                                  )
                                                                                                                                                 : i ===
                                                                                                                                                     "blue_msg_to_bsp_fb"
                                                                                                                                                   ? s._(
@@ -818,128 +689,64 @@ __d(
                                                                                                                                                                 )
                                                                                                                                                               : i ===
                                                                                                                                                                   "blue_msg_verified_to_bsp_fb_unverified"
-                                                                                                                                                                ? o(
-                                                                                                                                                                    "WAWebMiscGatingUtils",
-                                                                                                                                                                  ).isBlueStringsEnabled()
-                                                                                                                                                                  ? s._(
-                                                                                                                                                                      /*BTDS*/ "{businessName} is no longer a verified account and now uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                                                                      [
-                                                                                                                                                                        s._param(
-                                                                                                                                                                          "businessName",
-                                                                                                                                                                          r(
-                                                                                                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                          )(
-                                                                                                                                                                            e,
-                                                                                                                                                                          ),
+                                                                                                                                                                ? s._(
+                                                                                                                                                                    /*BTDS*/ "{businessName} is no longer a verified account and now uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                                                    [
+                                                                                                                                                                      s._param(
+                                                                                                                                                                        "businessName",
+                                                                                                                                                                        r(
+                                                                                                                                                                          "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                                        )(
+                                                                                                                                                                          e,
                                                                                                                                                                         ),
-                                                                                                                                                                      ],
-                                                                                                                                                                    )
-                                                                                                                                                                  : s._(
-                                                                                                                                                                      /*BTDS*/ "{businessName} is no longer an official business account and now uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                                                                      [
-                                                                                                                                                                        s._param(
-                                                                                                                                                                          "businessName",
-                                                                                                                                                                          r(
-                                                                                                                                                                            "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                          )(
-                                                                                                                                                                            e,
-                                                                                                                                                                          ),
-                                                                                                                                                                        ),
-                                                                                                                                                                      ],
-                                                                                                                                                                    )
+                                                                                                                                                                      ),
+                                                                                                                                                                    ],
+                                                                                                                                                                  )
                                                                                                                                                                 : i ===
                                                                                                                                                                     "blue_msg_verified_to_bsp_premise_unverified"
-                                                                                                                                                                  ? o(
-                                                                                                                                                                      "WAWebMiscGatingUtils",
-                                                                                                                                                                    ).isBlueStringsEnabled()
-                                                                                                                                                                    ? s._(
-                                                                                                                                                                        /*BTDS*/ "{businessName} is no longer a verified account and now uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                                                                        [
-                                                                                                                                                                          s._param(
-                                                                                                                                                                            "businessName",
-                                                                                                                                                                            r(
-                                                                                                                                                                              "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                            )(
-                                                                                                                                                                              e,
-                                                                                                                                                                            ),
+                                                                                                                                                                  ? s._(
+                                                                                                                                                                      /*BTDS*/ "{businessName} is no longer a verified account and now uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                                                      [
+                                                                                                                                                                        s._param(
+                                                                                                                                                                          "businessName",
+                                                                                                                                                                          r(
+                                                                                                                                                                            "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                                          )(
+                                                                                                                                                                            e,
                                                                                                                                                                           ),
-                                                                                                                                                                        ],
-                                                                                                                                                                      )
-                                                                                                                                                                    : s._(
-                                                                                                                                                                        /*BTDS*/ "{businessName} is no longer an official business account and it now uses other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-                                                                                                                                                                        [
-                                                                                                                                                                          s._param(
-                                                                                                                                                                            "businessName",
-                                                                                                                                                                            r(
-                                                                                                                                                                              "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                            )(
-                                                                                                                                                                              e,
-                                                                                                                                                                            ),
-                                                                                                                                                                          ),
-                                                                                                                                                                        ],
-                                                                                                                                                                      )
+                                                                                                                                                                        ),
+                                                                                                                                                                      ],
+                                                                                                                                                                    )
                                                                                                                                                                   : i ===
                                                                                                                                                                       "blue_msg_verified_to_self_fb_unverified"
-                                                                                                                                                                    ? o(
-                                                                                                                                                                        "WAWebMiscGatingUtils",
-                                                                                                                                                                      ).isBlueStringsEnabled()
-                                                                                                                                                                      ? s._(
-                                                                                                                                                                          /*BTDS*/ "{businessName} is no longer a verified account and now uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-                                                                                                                                                                          [
-                                                                                                                                                                            s._param(
-                                                                                                                                                                              "businessName",
-                                                                                                                                                                              r(
-                                                                                                                                                                                "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                              )(
-                                                                                                                                                                                e,
-                                                                                                                                                                              ),
+                                                                                                                                                                    ? s._(
+                                                                                                                                                                        /*BTDS*/ "{businessName} is no longer a verified account and now uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                                                        [
+                                                                                                                                                                          s._param(
+                                                                                                                                                                            "businessName",
+                                                                                                                                                                            r(
+                                                                                                                                                                              "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                                            )(
+                                                                                                                                                                              e,
                                                                                                                                                                             ),
-                                                                                                                                                                          ],
-                                                                                                                                                                        )
-                                                                                                                                                                      : s._(
-                                                                                                                                                                          /*BTDS*/ "{businessName} is no longer an official business account and it now uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-                                                                                                                                                                          [
-                                                                                                                                                                            s._param(
-                                                                                                                                                                              "businessName",
-                                                                                                                                                                              r(
-                                                                                                                                                                                "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                              )(
-                                                                                                                                                                                e,
-                                                                                                                                                                              ),
-                                                                                                                                                                            ),
-                                                                                                                                                                          ],
-                                                                                                                                                                        )
+                                                                                                                                                                          ),
+                                                                                                                                                                        ],
+                                                                                                                                                                      )
                                                                                                                                                                     : i ===
                                                                                                                                                                         "blue_msg_verified_to_unverified"
-                                                                                                                                                                      ? o(
-                                                                                                                                                                          "WAWebMiscGatingUtils",
-                                                                                                                                                                        ).isBlueStringsEnabled()
-                                                                                                                                                                        ? s._(
-                                                                                                                                                                            /*BTDS*/ "{businessName} is no longer a verified account. Click to learn more.",
-                                                                                                                                                                            [
-                                                                                                                                                                              s._param(
-                                                                                                                                                                                "businessName",
-                                                                                                                                                                                r(
-                                                                                                                                                                                  "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                                )(
-                                                                                                                                                                                  e,
-                                                                                                                                                                                ),
+                                                                                                                                                                      ? s._(
+                                                                                                                                                                          /*BTDS*/ "{businessName} is no longer a verified account. Click to learn more.",
+                                                                                                                                                                          [
+                                                                                                                                                                            s._param(
+                                                                                                                                                                              "businessName",
+                                                                                                                                                                              r(
+                                                                                                                                                                                "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                                              )(
+                                                                                                                                                                                e,
                                                                                                                                                                               ),
-                                                                                                                                                                            ],
-                                                                                                                                                                          )
-                                                                                                                                                                        : s._(
-                                                                                                                                                                            /*BTDS*/ "{businessName} is no longer registered as an official business account. Click to learn more.",
-                                                                                                                                                                            [
-                                                                                                                                                                              s._param(
-                                                                                                                                                                                "businessName",
-                                                                                                                                                                                r(
-                                                                                                                                                                                  "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                                )(
-                                                                                                                                                                                  e,
-                                                                                                                                                                                ),
-                                                                                                                                                                              ),
-                                                                                                                                                                            ],
-                                                                                                                                                                          )
+                                                                                                                                                                            ),
+                                                                                                                                                                          ],
+                                                                                                                                                                        )
                                                                                                                                                                       : i ===
                                                                                                                                                                           "biz_privacy_mode_init_fb"
                                                                                                                                                                         ? A(
@@ -1319,212 +1126,118 @@ __d(
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(/*BTDS*/ "{businessName} is no longer a verified account.", [
-              s._param("businessName", n),
-            ])
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account. This business no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account, but it's saved as a different name in your contacts. This business no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+        ? s._(/*BTDS*/ "{businessName} is no longer a verified account.", [
+            s._param("businessName", n),
+          ])
+        : s._(
+            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+            [s._param("businessName", n)],
+          );
     }
     function C(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account and only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account that only uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account, but it's saved as a different name in your contacts. This business only uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+        ? s._(
+            /*BTDS*/ "{businessName} is now a verified account and only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
+          )
+        : s._(
+            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
+          );
     }
     function b(e) {
       var t = e.id.remote;
       return r("WAWebWid").isOfficialBizAccount(t)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "This chat is with WhatsApp's verified account. Click for more info.",
-            )
-          : s._(
-              /*BTDS*/ 'This chat is with the official business account of "WhatsApp". Click for more info.',
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "This chat is with {businessName}'s verified account. Click for more info.",
-              [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-            )
-          : s._(
-              /*BTDS*/ 'This chat is with the official business account of "{businessName}". Click for more info.',
-              [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-            );
-    }
-    function v(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
         ? s._(
-            /*BTDS*/ 'This business changed its name to "{businessName}". Click for more info.',
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+            /*BTDS*/ "This chat is with WhatsApp's verified account. Click for more info.",
           )
         : s._(
-            /*BTDS*/ 'This official business account changed its name to "{businessName}". Click for more info.',
+            /*BTDS*/ "This chat is with {businessName}'s verified account. Click for more info.",
             [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
           );
+    }
+    function v(e) {
+      return s._(
+        /*BTDS*/ 'This business changed its name to "{businessName}". Click for more info.',
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function S(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "This chat is with {businessName}'s verified account. This account uses Meta and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "This chat is with the official business account of {businessName}. This business uses Facebook and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "This chat is with {businessName}'s verified account, but it's saved as a different name in your contacts. This business uses Meta and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "This chat is with the official business account of {businessName}, but it's saved as a different name in your contacts. This business uses Facebook and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+        ? s._(
+            /*BTDS*/ "This chat is with {businessName}'s verified account. This account uses Meta and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
+            [s._param("businessName", n)],
+          )
+        : s._(
+            /*BTDS*/ "This chat is with {businessName}'s verified account, but it's saved as a different name in your contacts. This business uses Meta and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
+            [s._param("businessName", n)],
+          );
     }
     function R(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-        ? s._(
-            /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is no longer an official business account and it no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          );
+      return s._(
+        /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function L(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-        ? s._(
-            /*BTDS*/ "{businessName} is no longer a verified account and now only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is no longer an official business account and it now only uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          );
+      return s._(
+        /*BTDS*/ "{businessName} is no longer a verified account and now only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function E(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-        ? s._(
-            /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta or other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is no longer an official business account and it no longer uses Facebook or other companies to manage its WhatsApp conversations. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          );
+      return s._(
+        /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta or other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function k(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "This chat is with {businessName}'s verified account. This account uses other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "This chat is with the official business account of {businessName}. This business uses other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "This chat is with {businessName}'s verified account, but it's saved as a different name in your contacts. This account uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "This chat is with the official business account of {businessName}, but it's saved as a different name in your contacts. This business uses other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+        ? s._(
+            /*BTDS*/ "This chat is with {businessName}'s verified account. This account uses other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
+            [s._param("businessName", n)],
+          )
+        : s._(
+            /*BTDS*/ "This chat is with {businessName}'s verified account, but it's saved as a different name in your contacts. This account uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
+          );
     }
     function I(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-        ? s._(
-            /*BTDS*/ "{businessName} is no longer a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is no longer an official business account and it no longer uses other companies to manage its WhatsApp conversations. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          );
+      return s._(
+        /*BTDS*/ "{businessName} is no longer a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function T(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-        ? s._(
-            /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is now registered as a business account that uses Facebook and other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          );
+      return s._(
+        /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function D(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account and now uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account. This business now uses other companies instead of Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account now uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account, but it's saved as a different name in your contacts. This business now uses other companies instead of Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            );
-    }
-    function x(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
         ? s._(
-            /*BTDS*/ "{businessName} is now a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+            /*BTDS*/ "{businessName} is now a verified account and now uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
           )
         : s._(
-            /*BTDS*/ "{businessName} is now registered as an official business account. This business no longer uses Facebook to manage its WhatsApp conversations. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account now uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
           );
+    }
+    function x(e) {
+      return s._(
+        /*BTDS*/ "{businessName} is now a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function $(e) {
       var t = e.id,
@@ -1556,81 +1269,46 @@ __d(
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account that uses Facebook and other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account, but it's saved as a different name in your contacts. This business uses Facebook and other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+        ? s._(
+            /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
+          )
+        : s._(
+            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more",
+            [s._param("businessName", n)],
+          );
     }
     function N(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account that uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account that uses other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account, but it's saved as a different name in your contacts. This business uses other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+        ? s._(
+            /*BTDS*/ "{businessName} is now a verified account that uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+            [s._param("businessName", n)],
+          )
+        : s._(
+            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
+            [s._param("businessName", n)],
+          );
     }
     function M(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account that uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account that uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-        : o("WAWebMiscGatingUtils").isBlueStringsEnabled()
-          ? s._(
-              /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "{businessName} is now registered as an official business account, but it's saved as a different name in your contacts. This business uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-              [s._param("businessName", n)],
-            );
-    }
-    function w(e) {
-      return o("WAWebMiscGatingUtils").isBlueStringsEnabled()
         ? s._(
-            /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+            /*BTDS*/ "{businessName} is now a verified account that uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
+            [s._param("businessName", n)],
           )
         : s._(
-            /*BTDS*/ "{businessName} is now registered as an official business account. Click to learn more.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
+            [s._param("businessName", n)],
           );
+    }
+    function w(e) {
+      return s._(
+        /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
+        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
+      );
     }
     function A(e) {
       return o("WAWebMsgGetters").getIsCAPISupport(e)

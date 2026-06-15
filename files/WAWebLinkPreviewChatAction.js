@@ -156,10 +156,7 @@ __d(
                 return b;
             }
           }
-          var M = o("WAWebABProps").getABPropConfigValue(
-            "web_link_preview_sync_enabled",
-          );
-          if (!M || !o("WAWebPrimaryFeaturesModel").PrimaryFeatures.linkPreview)
+          if (!o("WAWebPrimaryFeaturesModel").PrimaryFeatures.linkPreview)
             return (
               o("WALogger").LOG(
                 m ||
@@ -169,7 +166,7 @@ __d(
                     "",
                   ])),
                 o("WAWebPrimaryFeaturesModel").PrimaryFeatures.linkPreview,
-                M,
+                !0,
               ),
               r("gkx")("26258") ||
                 o("WALogger")
@@ -187,35 +184,35 @@ __d(
                 { psp: S },
               )
             );
-          var w = yield r("WAWebMsgKey").newId(),
-            A = o(
+          var M = yield r("WAWebMsgKey").newId(),
+            w = o(
               "WAWebNonMessageDataRequestHandlerGenLinkPreview",
-            ).registerLinkPreviewHandlerHook(w);
+            ).registerLinkPreviewHandlerHook(M);
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "link preview: request from primary",
               ])),
           );
-          var F = o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hqLinkPreview;
+          var A = o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hqLinkPreview;
           yield o(
             "WAWebSendNonMessageDataRequest",
           ).sendPeerDataOperationRequest(
             o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .GENERATE_LINK_PREVIEW,
-            { urls: [e.url], includeHqThumbnail: F },
-            { msgId: w },
+            { urls: [e.url], includeHqThumbnail: A },
+            { msgId: M },
           );
           try {
-            var O, B;
+            var F, O;
             o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
                   "link preview: wait for primary",
                 ])),
             );
-            var W = yield o("WAPromiseTimeout").promiseTimeout(
-              A.promise,
+            var B = yield o("WAPromiseTimeout").promiseTimeout(
+              w.promise,
               o("WAWebABProps").getABPropConfigValue("link_preview_wait_time") *
                 1e3,
             );
@@ -225,77 +222,77 @@ __d(
                   "link preview: got primary response or timeout",
                 ])),
             ),
-              (W == null || (O = W.linkPreviewResponse) == null
+              (B == null || (F = B.linkPreviewResponse) == null
                 ? void 0
-                : O.url) != null &&
-                (W == null || (B = W.linkPreviewResponse) == null
+                : F.url) != null &&
+                (B == null || (O = B.linkPreviewResponse) == null
                   ? void 0
-                  : B.url) !== e.url &&
+                  : O.url) !== e.url &&
                 o("WALogger").ERROR(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([
                       "link preview: response url is different than expected url",
                     ])),
                 ));
-            var q = W == null ? void 0 : W.linkPreviewResponse;
-            if (q) {
+            var W = B == null ? void 0 : B.linkPreviewResponse;
+            if (W) {
               if (
-                (W == null ? void 0 : W.mediaUploadResult) != null &&
-                (W == null ? void 0 : W.mediaUploadResult) !==
+                (B == null ? void 0 : B.mediaUploadResult) != null &&
+                (B == null ? void 0 : B.mediaUploadResult) !==
                   o("WAWebProtobufsMmsRetry.pb")
                     .MediaRetryNotification$ResultType.SUCCESS
               )
                 return (
-                  I(W == null ? void 0 : W.mediaUploadResult, F),
+                  I(B == null ? void 0 : B.mediaUploadResult, A),
                   o(
                     "WAWebGenMinimalLinkPreviewChatAction",
                   ).genMinimalLinkPreview(e, v, !1, {
                     psp: S,
-                    previewMetadata: q.previewMetadata,
+                    previewMetadata: W.previewMetadata,
                   })
                 );
             } else {
               x(
                 o("WAWebWamEnumWebcDisplayStatusType").WEBC_DISPLAY_STATUS_TYPE
                   .PREVIEW_MALFORMED,
-                F,
+                A,
               );
-              var U = o(
+              var q = o(
                 "WAWebGenMinimalLinkPreviewChatAction",
               ).genMinimalLinkPreview(e, v, !1, { psp: S });
               return (
-                (W == null ? void 0 : W.mediaUploadResult) ===
+                (B == null ? void 0 : B.mediaUploadResult) ===
                   o("WAWebProtobufsMmsRetry.pb")
                     .MediaRetryNotification$ResultType.NOT_FOUND &&
-                  U != null &&
-                  C.set(e.url, U),
-                U
+                  q != null &&
+                  C.set(e.url, q),
+                q
               );
             }
-            var V =
+            var U =
                 L.resultType === o("WAWebApi").APICmd.GROUP_INVITE
                   ? o("WAWebLinkPreviewGroupUtils")
                       .GROUP_INVITE_DEFAULT_DESCRIPTION
-                  : q.description,
-              H = yield T({
-                previewFromPrimary: q,
+                  : W.description,
+              V = yield T({
+                previewFromPrimary: W,
                 chat: t,
-                includeHqThumbnail: F,
+                includeHqThumbnail: A,
               });
             return (
               (b = o("WAWebLinkPreviewUtils").genLinkPreview({
                 url: e.url,
                 linkDetails: {
-                  title: q.title,
-                  description: V,
-                  richPreviewType: k(q.previewType, L),
+                  title: W.title,
+                  description: U,
+                  richPreviewType: k(W.previewType, L),
                   doNotPlayInline: !1,
                   isLoading: !1,
                 },
-                linkThumbnail: H,
+                linkThumbnail: V,
                 paymentLinkDetails: {
                   psp: S,
-                  previewMetadata: q.previewMetadata,
+                  previewMetadata: W.previewMetadata,
                 },
               })),
               C.set(e.url, b),
@@ -313,7 +310,7 @@ __d(
                 x(
                   o("WAWebWamEnumWebcDisplayStatusType")
                     .WEBC_DISPLAY_STATUS_TYPE.PREVIEW_TIMEOUT,
-                  F,
+                  A,
                 ),
                 o("WAWebGenMinimalLinkPreviewChatAction").genMinimalLinkPreview(
                   e,
