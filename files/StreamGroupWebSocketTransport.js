@@ -432,31 +432,31 @@ __d(
           })()),
           (t.$26 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, n, r, a, i, l, s, u) {
-                var c = new t(
+              function* (e, n, a, i, l, s, u, c) {
+                var d = new t(
                   e,
                   o("DGWWebSocketTransport").getWebSocketConnection,
-                  r,
-                  n,
                   a,
+                  n,
                   i,
                   l,
                   s,
                   u,
+                  c,
                 );
-                ((c.$1.onmessage = t.$27(c)),
-                  (c.$1.onopen = function () {
-                    (c.__markerPoint("onopen"),
-                      r.transportEstablished(e),
-                      c.$10 != null && c.$10.cancel(),
-                      c.$7 != null &&
-                        (c.$10 = new (o("DGWPinger").DGWPinger)(
-                          c.$7,
+                ((d.$1.onmessage = t.$27(d)),
+                  (d.$1.onopen = function () {
+                    (d.__markerPoint("onopen"),
+                      a.transportEstablished(e),
+                      d.$10 != null && d.$10.cancel(),
+                      d.$7 != null &&
+                        (d.$10 = new (o("DGWPinger").DGWPinger)(
+                          d.$7,
                           function () {
-                            c.$28();
+                            d.$28();
                           },
                           function () {
-                            c.abort(
+                            d.abort(
                               o("DGWStreamGroupCallbacks").DGWStreamGroupError
                                 .TRANSPORT_KEEPALIVE_TIMEOUT,
                               o("DGWStream").StreamError.KEEPALIVE_TIMEOUT,
@@ -464,39 +464,64 @@ __d(
                                 .KEEPALIVE_TIMEOUT,
                               "Aborting transport because of keepalive timeout",
                               "readyState:" +
-                                c.$1.readyState +
+                                d.$1.readyState +
                                 ", bufferedAmount:" +
-                                c.$1.bufferedAmount,
+                                d.$1.bufferedAmount,
                             );
                           },
-                          i,
+                          l,
                         )));
                   }),
-                  (c.$1.onerror = function () {
-                    (c.__markerPoint("onerror"),
-                      c.$13.transportError(
+                  (d.$1.onerror = function () {
+                    (d.__markerPoint("onerror"),
+                      d.$13.transportError(
                         "onerror",
-                        "readyState: " + c.$1.readyState,
+                        "readyState: " + d.$1.readyState,
                       ));
                   }),
-                  (c.$1.onclose = t.$29(c)));
+                  (d.$1.onclose = t.$29(d)));
                 try {
-                  return yield t.getTransportPromise(c);
-                } catch (m) {
-                  if (c.$3) {
-                    var d = yield o(
+                  return yield t.getTransportPromise(d);
+                } catch (f) {
+                  if (d.$3) {
+                    var m = yield o(
                       "DGWWebSocketTransport",
-                    ).primeInternalCertOnce(c.$1.url);
-                    if (d) return t.$26(e, n, r, a, i, l, s, u);
+                    ).primeInternalCertOnce(d.$1.url);
+                    if (m) {
+                      var p = "url:" + d.$1.url;
+                      (d.__markerPoint("internal_cert_priming_retry_attempt"),
+                        a.internalCertPrimingRetryAttempt(p));
+                      try {
+                        var _ = yield t.$26(e, n, a, i, l, s, u, c);
+                        return (
+                          d.__markerPoint(
+                            "internal_cert_priming_retry_success",
+                          ),
+                          a.internalCertPrimingRetrySuccess(p),
+                          _
+                        );
+                      } catch (e) {
+                        throw (
+                          d.__markerPoint(
+                            "internal_cert_priming_retry_failure",
+                          ),
+                          a.internalCertPrimingRetryFailure(
+                            r("getErrorSafe")(e).message,
+                            p,
+                          ),
+                          e
+                        );
+                      }
+                    }
                   }
-                  throw m;
+                  throw f;
                 }
               },
             );
-            function r(t, n, r, o, a, i, l, s) {
+            function a(t, n, r, o, a, i, l, s) {
               return e.apply(this, arguments);
             }
-            return r;
+            return a;
           })()),
           (t.getTransportPromise = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(

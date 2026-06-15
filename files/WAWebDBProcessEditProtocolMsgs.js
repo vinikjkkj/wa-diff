@@ -642,6 +642,9 @@ __d(
           return babelHelpers.extends({}, r, N(t), {
             richResponse: t.richResponse,
             unifiedResponse: t.unifiedResponse,
+            unifiedResponseRawData: t.unifiedResponseRawData,
+            botSignatureVerificationMetadata:
+              t.botSignatureVerificationMetadata,
           });
         case o("WAWebMessageEditUtils").MsgEditType.LoadingMediaEdit: {
           var d = t.mimetype;

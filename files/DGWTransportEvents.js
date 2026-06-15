@@ -102,6 +102,46 @@ __d(
               "stream_group_establishment_failure",
             ));
         }),
+        (t.internalCertPrimingRetryAttempt = function (t) {
+          (this.$3.logEvent(
+            o("IDGWLoggingContext").DGWLoggingComponent
+              .WEBSOCKET_TRANSPORT_COMPONENT,
+            "internal_cert_priming_retry_attempt",
+            t,
+          ),
+            this.$3.bumpODSKey(
+              o("IDGWLoggingContext").DGWLoggingComponent
+                .WEBSOCKET_TRANSPORT_COMPONENT,
+              "internal_cert_priming_retry_attempt",
+            ));
+        }),
+        (t.internalCertPrimingRetrySuccess = function (t) {
+          (this.$3.logEvent(
+            o("IDGWLoggingContext").DGWLoggingComponent
+              .WEBSOCKET_TRANSPORT_COMPONENT,
+            "internal_cert_priming_retry_success",
+            t,
+          ),
+            this.$3.bumpODSKey(
+              o("IDGWLoggingContext").DGWLoggingComponent
+                .WEBSOCKET_TRANSPORT_COMPONENT,
+              "internal_cert_priming_retry_success",
+            ));
+        }),
+        (t.internalCertPrimingRetryFailure = function (t, n) {
+          (this.$3.logError(
+            o("IDGWLoggingContext").DGWLoggingComponent
+              .WEBSOCKET_TRANSPORT_COMPONENT,
+            "internal_cert_priming_retry_failure",
+            t,
+            n,
+          ),
+            this.$3.bumpODSKey(
+              o("IDGWLoggingContext").DGWLoggingComponent
+                .WEBSOCKET_TRANSPORT_COMPONENT,
+              "internal_cert_priming_retry_failure",
+            ));
+        }),
         (t.streamEstablishmentTimeout = function (t, n, r) {
           (this.$3.logError(
             o("IDGWLoggingContext").DGWLoggingComponent

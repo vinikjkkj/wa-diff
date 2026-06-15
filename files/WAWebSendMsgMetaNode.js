@@ -15,7 +15,8 @@ __d(
     "WAWebVerifyProtobufMsgObjectKeys",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    var e = "forward";
+    function s(e, t) {
       var n = t == null ? void 0 : t.origin;
       return e.isLid() &&
         n != null &&
@@ -23,84 +24,92 @@ __d(
         ? n
         : null;
     }
-    function s(t) {
+    function u(t) {
       var n,
         r,
         a,
         i = t.chatId,
         l = t.groupData,
-        s = t.includeAttributes,
-        _ = t.msgProtobuf,
-        f = t.msgRecord,
-        g =
+        u = t.includeAttributes,
+        f = t.msgProtobuf,
+        g = t.msgRecord,
+        h =
           (n = o(
             "WAWebVerifyProtobufMsgObjectKeys",
-          ).getUnwrappedProtobufMessage(_)) != null
+          ).getUnwrappedProtobufMessage(f)) != null
             ? n
-            : _,
-        h = u(g),
-        y = c(g),
-        C = m(s),
-        b;
-      f.type === "addon" &&
-        (b = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
-          f.data,
+            : f,
+        y = c(h),
+        C = d(h),
+        b = p(u),
+        v;
+      g.type === "addon" &&
+        (v = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
+          g.data,
         ));
-      var v = f.data.botMetricsMetadata,
-        S =
-          v != null
+      var S = g.data.botMetricsMetadata,
+        R =
+          S != null
             ? o("WAWebBotLoggingUtils").getBotOriginFromBotMetricsEntryPoint(
-                v.destinationEntryPoint,
+                S.destinationEntryPoint,
               )
             : null,
-        R = (r = v == null ? void 0 : v.destinationId) != null ? r : null,
-        L = S != null && o("WAWebBotUtils").isMetaAiBot(i) ? S : e(i, s),
-        E = d(f, s),
-        k = p(f),
-        I = ((a = f.data.mediaData) == null ? void 0 : a.isViewOnce) === !0,
-        T =
-          h != null ||
+        L = (r = S == null ? void 0 : S.destinationId) != null ? r : null,
+        E =
+          g.data.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+          g.data.isForwarded === !0,
+        k;
+      R != null && o("WAWebBotUtils").isMetaAiBot(i)
+        ? (k = R)
+        : E
+          ? (k = e)
+          : (k = s(i, u));
+      var I = m(g, u),
+        T = _(g),
+        D = ((a = g.data.mediaData) == null ? void 0 : a.isViewOnce) === !0,
+        x =
           y != null ||
-          b != null ||
-          L != null ||
-          R != null ||
-          (s == null ? void 0 : s.appendHostedSenderIntent) === !0 ||
-          E != null ||
-          I ||
           C != null ||
-          k != null;
-      if (T) {
-        var D, x;
+          v != null ||
+          k != null ||
+          L != null ||
+          (u == null ? void 0 : u.appendHostedSenderIntent) === !0 ||
+          I != null ||
+          D ||
+          b != null ||
+          T != null;
+      if (x) {
+        var $, P;
         return o("WAWap").wap("meta", {
           origin:
-            L != null ? o("WAWap").CUSTOM_STRING(L) : o("WAWap").DROP_ATTR,
+            k != null ? o("WAWap").CUSTOM_STRING(k) : o("WAWap").DROP_ATTR,
           destination_id:
-            R != null ? o("WAWap").CUSTOM_STRING(R) : o("WAWap").DROP_ATTR,
+            L != null ? o("WAWap").CUSTOM_STRING(L) : o("WAWap").DROP_ATTR,
           sender_intent:
-            (s == null ? void 0 : s.appendHostedSenderIntent) === !0
+            (u == null ? void 0 : u.appendHostedSenderIntent) === !0
               ? "hosted"
               : o("WAWap").DROP_ATTR,
-          polltype: h != null ? h : o("WAWap").DROP_ATTR,
-          event_type: y != null ? y : o("WAWap").DROP_ATTR,
+          polltype: y != null ? y : o("WAWap").DROP_ATTR,
+          event_type: C != null ? C : o("WAWap").DROP_ATTR,
           thread_msg_id:
-            ((D = b) == null ? void 0 : D.threadMsgId) != null
-              ? o("WAWap").CUSTOM_STRING(b.threadMsgId)
+            (($ = v) == null ? void 0 : $.threadMsgId) != null
+              ? o("WAWap").CUSTOM_STRING(v.threadMsgId)
               : o("WAWap").DROP_ATTR,
           thread_msg_sender_jid:
-            (x = b) != null && x.threadMsgSenderLid
-              ? o("WAWebCommsWapMd").USER_JID(b.threadMsgSenderLid)
+            (P = v) != null && P.threadMsgSenderLid
+              ? o("WAWebCommsWapMd").USER_JID(v.threadMsgSenderLid)
               : o("WAWap").DROP_ATTR,
           appdata:
-            E != null ? o("WAWap").CUSTOM_STRING(E) : o("WAWap").DROP_ATTR,
-          view_once: I ? "true" : o("WAWap").DROP_ATTR,
+            I != null ? o("WAWap").CUSTOM_STRING(I) : o("WAWap").DROP_ATTR,
+          view_once: D ? "true" : o("WAWap").DROP_ATTR,
           conversation_thread_id:
-            C != null ? o("WAWap").CUSTOM_STRING(C) : o("WAWap").DROP_ATTR,
+            b != null ? o("WAWap").CUSTOM_STRING(b) : o("WAWap").DROP_ATTR,
           tag_reason:
-            k != null ? o("WAWap").CUSTOM_STRING(k) : o("WAWap").DROP_ATTR,
+            T != null ? o("WAWap").CUSTOM_STRING(T) : o("WAWap").DROP_ATTR,
         });
       }
     }
-    function u(e) {
+    function c(e) {
       var t;
       return e.pollCreationMessage != null ||
         e.pollCreationMessageV2 != null ||
@@ -114,7 +123,7 @@ __d(
             ? o("WAWebHandleMsgCommon").POLL_TYPES.result_snapshot
             : null;
     }
-    function c(e) {
+    function d(e) {
       var t;
       return e.eventMessage != null
         ? o("WAWebHandleMsgCommon").EVENT_TYPES.creation
@@ -128,7 +137,7 @@ __d(
             ? o("WAWebHandleMsgCommon").EVENT_TYPES.edit
             : null;
     }
-    function d(e, t) {
+    function m(e, t) {
       var n =
         e.data.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
         e.data.subtype === "member_label";
@@ -144,12 +153,12 @@ __d(
           ? "group_history"
           : null;
     }
-    function m(e) {
+    function p(e) {
       var t = e != null ? e : {},
         n = t.hashedAiThreadId;
       return n != null ? n : null;
     }
-    function p(e) {
+    function _(e) {
       var t,
         n =
           e.data.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -158,7 +167,7 @@ __d(
       var r = (t = e.data.memberLabelData) == null ? void 0 : t.label;
       return r === "" || r == null ? "user_delete" : "user_update";
     }
-    ((l.getOriginAttribute = e), (l.genMetaNode = s));
+    ((l.getOriginAttribute = s), (l.genMetaNode = u));
   },
   98,
 );

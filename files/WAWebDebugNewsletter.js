@@ -15,16 +15,19 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebContactCollection",
     "WAWebContactModel",
+    "WAWebCreateTextStatusFlow.react",
     "WAWebDebugABProps",
     "WAWebDebugUtils",
     "WAWebDecodeJid",
     "WAWebFrontendMsgGetters",
     "WAWebGetUserDisclosuresAction",
     "WAWebLoadNewsletterPreviewChatAction",
+    "WAWebLogStatusPosterActions",
     "WAWebMexFetchNewsletterFollowersJob",
     "WAWebMexFetchNewsletterIsDomainPreviewableJob",
     "WAWebMexFetchNewsletterMessageReactionSenderListJob",
     "WAWebMexFetchNewsletterPendingInvitesJob",
+    "WAWebModalManager",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebNewsletterBridgeApi",
@@ -53,39 +56,42 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = function (t) {
+      s,
+      u = s || (s = o("react")),
+      c = function (t) {
         return r("WANullthrows")(o("WAComms").getComms()).handleStanza(
           t,
           o("WAComms").DEFAULT_SOCKET_ID,
           0,
         );
       },
-      u = function () {
+      d = function () {
         return Math.round(Date.now() / 1e3);
       };
-    function c(e, t) {
+    function m(e, t) {
       var n,
         r = (n = o("WAWap")).makeWapNode(
           "notification",
           {
             from: n.JID(o("WAJids").toNewsletterJid(e)),
             type: "newsletter",
-            id: n.INT(u()),
-            t: n.INT(u()),
+            id: n.INT(d()),
+            t: n.INT(d()),
           },
           t,
         );
-      s(r);
+      c(r);
     }
-    function d() {
-      return m.apply(this, arguments);
+    function p() {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o(
             "WAWebQueryAndUpdateNewslettersMetadataAction",
           ).queryAndUpdateAllNewsletterMetadataAction(
@@ -93,13 +99,13 @@ __d(
               .NewsletterMetadataUpdateEntryPoint.Debug,
           );
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p() {
+    function f() {
       return { id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString() };
     }
-    var _ = {
+    var g = {
       enableNewsletter: function () {
         var e;
         o("WAWebPrimaryFeatures")
@@ -226,7 +232,7 @@ __d(
       },
       sendMuteNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
-          c(
+          m(
             t,
             o("WAWap").makeWapNode(
               "metadata",
@@ -237,7 +243,7 @@ __d(
       },
       sendUnmuteNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
-          c(
+          m(
             t,
             o("WAWap").makeWapNode(
               "metadata",
@@ -248,7 +254,7 @@ __d(
       },
       sendJoinNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
-          c(
+          m(
             t,
             o("WAWap").makeWapNode(
               "join",
@@ -256,7 +262,7 @@ __d(
               o("WAWap").makeWapNode("metadata", null, [
                 o("WAWap").makeWapNode("name", {
                   id: "1",
-                  update_time: o("WAWap").INT(u()),
+                  update_time: o("WAWap").INT(d()),
                   text: o("WAWap").CUSTOM_STRING("My Channel"),
                 }),
               ]),
@@ -265,7 +271,7 @@ __d(
       },
       sendLeaveNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
-          c(t, o("WAWap").makeWapNode("leave", null)));
+          m(t, o("WAWap").makeWapNode("leave", null)));
       },
       sendMessageToNewsletter: function (t) {
         t === void 0 && (t = "123@newsletter");
@@ -278,13 +284,13 @@ __d(
             {
               from: o("WAWap").JID(o("WAJids").toNewsletterJid(t)),
               type: "text",
-              id: o("WAWap").INT(u()),
-              server_id: o("WAWap").INT(u()),
-              t: o("WAWap").INT(u()),
+              id: o("WAWap").INT(d()),
+              server_id: o("WAWap").INT(d()),
+              t: o("WAWap").INT(d()),
             },
             o("WAWap").makeWapNode("plaintext", null, e),
           );
-        s(n);
+        c(n);
       },
       loadNewsletterPreviewChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -355,7 +361,7 @@ __d(
         }
         return t;
       })(),
-      refreshAllNewsletters: d,
+      refreshAllNewsletters: p,
       getUserNotices: function () {
         return o("WAWebGetUserDisclosuresAction").getUserDisclosuresAction();
       },
@@ -478,9 +484,9 @@ __d(
             notification: {
               xwa2_notify_newsletter_admin_demote: {
                 id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
-                admin: p(),
+                admin: f(),
                 user: { id: e == null ? void 0 : e.id.toString() },
-                actor: p(),
+                actor: f(),
                 user_new_role: "SUBSCRIBER",
               },
             },
@@ -505,9 +511,9 @@ __d(
             notification: {
               xwa2_notify_newsletter_admin_promote: {
                 id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
-                admin: p(),
+                admin: f(),
                 user: { id: e == null ? void 0 : e.id.toString() },
-                actor: p(),
+                actor: f(),
                 user_new_role: "ADMIN",
               },
             },
@@ -557,7 +563,7 @@ __d(
                 );
             }),
           ),
-            yield d());
+            yield p());
         });
         function r(e) {
           return t.apply(this, arguments);
@@ -706,8 +712,21 @@ __d(
         }
         return t;
       })(),
+      openNewsletterStatusTextComposer: function () {
+        o("WAWebModalManager").ModalManager.openMedia(
+          u.createElement(r("WAWebCreateTextStatusFlow.react"), {
+            entryPoint: o("WAWebLogStatusPosterActions")
+              .STATUS_CREATION_ENTRY_POINT.CHANNEL_THREAD_SCREEN,
+            isNewsletterStatus: !0,
+            statusPostingSessionId: o(
+              "WAWebLogStatusPosterActions",
+            ).createStatusPostingSessionId(),
+          }),
+          { transition: "status-modal" },
+        );
+      },
     };
-    l.default = _;
+    l.default = g;
   },
   98,
 );

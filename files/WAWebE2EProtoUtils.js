@@ -85,10 +85,16 @@ __d(
           ? p(g, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
-      if (d.deviceSentMessage) {
-        var h = d.deviceSentMessage.message;
+      if (d.botForwardedMessage) {
+        var h = d.botForwardedMessage.message;
         return h
           ? p(h, n + 1)
+          : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
+      }
+      if (d.deviceSentMessage) {
+        var y = d.deviceSentMessage.message;
+        return y
+          ? p(y, n + 1)
           : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text;
       }
       return d.reactionMessage || d.encReactionMessage
@@ -142,7 +148,8 @@ __d(
                     d.newsletterAdminInviteMessage ||
                     d.newsletterFollowerInviteMessageV2 ||
                     d.messageHistoryNotice ||
-                    d.albumMessage
+                    d.albumMessage ||
+                    d.richResponseMessage
                   ? o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text
                   : d.pollResultSnapshotMessage || d.pollResultSnapshotMessageV3
                     ? r("WAWebPollResultSnapshotPollTypeEnvelopeEnabled")()
