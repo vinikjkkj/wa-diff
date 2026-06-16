@@ -50,6 +50,7 @@ __d(
                   type: _,
                   msg: l,
                   editType: s,
+                  sessionScope: c,
                 }),
                 { type: _, ciphertext: p }
               );
@@ -75,6 +76,7 @@ __d(
                   retryCount: a,
                   msg: l,
                   editType: s,
+                  sessionScope: c,
                 }),
                 (u || (u = n("Promise"))).reject(
                   r("err")(

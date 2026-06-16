@@ -93,19 +93,20 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.templateId != null,
-            n = e.id.id + e.to.toJid(),
-            r = yield E(_, n),
-            a = yield E(r, f),
-            i = {
+          var t,
+            n = e.templateId != null,
+            r = e.id.id + e.to.toJid(),
+            a = yield E(_, r),
+            i = yield E(a, f),
+            l = {
               cta: d,
-              p2m_flow: t ? m : p,
+              p2m_flow: n ? m : p,
               accepted_payment_method: S(e),
-              order_funnel_id: r,
+              order_funnel_id: a,
               chat_type: R(e),
             };
-          (t ||
-            (i.is_payment_cta_shown = o(
+          (n ||
+            (l.is_payment_cta_shown = o(
               "WAWebBrPaymentRequest",
             ).isPaymentDetectionEnhancementEnabled()
               ? "1"
@@ -119,9 +120,10 @@ __d(
                 .INTERACTIVE_NFM,
               bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
               businessOwnerJid: L(e),
-              messageClassAttributes: JSON.stringify(i),
+              messageClassAttributes: JSON.stringify(l),
+              templateId: (t = e.templateId) != null ? t : void 0,
             }).commit());
-          var l = babelHelpers.extends({}, i, { order_funnel_id: a });
+          var s = babelHelpers.extends({}, l, { order_funnel_id: i });
           new (o(
             "WAWebStructuredMessageBuyerReceiveWamEvent",
           ).StructuredMessageBuyerReceiveWamEvent)({
@@ -129,7 +131,7 @@ __d(
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
               .INTERACTIVE_NFM,
-            messageClassAttributes: JSON.stringify(l),
+            messageClassAttributes: JSON.stringify(s),
           }).commit();
         })),
         T.apply(this, arguments)
@@ -170,13 +172,13 @@ __d(
       );
     }
     function $(t, n, r) {
-      var a;
+      var a, i;
       r === void 0 && (r = !0);
-      var i = t.isFromTemplate === !0,
-        l = {
+      var l = t.isFromTemplate === !0,
+        s = {
           cta: d,
-          p2m_flow: i ? m : p,
-          is_template: i ? "1" : "0",
+          p2m_flow: l ? m : p,
+          is_template: l ? "1" : "0",
           payment_method_choice: b(n),
           is_payment_cta_shown: r,
         };
@@ -191,9 +193,10 @@ __d(
         bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
         businessOwnerJid:
           (a = t.senderObj) == null || (a = a.id) == null ? void 0 : a.user,
-        messageClassAttributes: JSON.stringify(l),
+        messageClassAttributes: JSON.stringify(s),
+        templateId: (i = t.templateId) != null ? i : void 0,
       }).commit(),
-        P(t, l).catch(function (t) {
+        P(t, s).catch(function (t) {
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([

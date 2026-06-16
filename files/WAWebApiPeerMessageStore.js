@@ -1,9 +1,16 @@
 __d(
   "WAWebApiPeerMessageStore",
-  ["WAWebMsgKey", "WAWebSchemaPeerMessage", "WAWebUserPrefsMeUser"],
+  [
+    "Promise",
+    "WAWebMsgKey",
+    "WAWebNoop",
+    "WAWebSchemaPeerMessage",
+    "WAWebUserPrefsMeUser",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e = ["kind"];
-    function s(t) {
+    var e = ["kind"],
+      s;
+    function u(t) {
       var n = t.map(function (t) {
         var n = t.kind,
           r = babelHelpers.objectWithoutPropertiesLoose(t, e);
@@ -15,16 +22,22 @@ __d(
       });
       return o("WAWebSchemaPeerMessage").getPeerMessageTable().bulkCreate(n);
     }
-    function u(e) {
+    function c(e) {
       var t = o("WAWebSchemaPeerMessage").getPeerMessageTable(),
-        n = new (r("WAWebMsgKey"))({
+        a = new (r("WAWebMsgKey"))({
           fromMe: !0,
-          remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          remote: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
           id: e,
-        });
-      return t.remove(n.toString());
+        }),
+        i = [t.remove(a.toString())],
+        l = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      if (l != null) {
+        var u = new (r("WAWebMsgKey"))({ fromMe: !0, remote: l, id: e });
+        i.push(t.remove(u.toString()));
+      }
+      return (s || (s = n("Promise"))).all(i).then(r("WAWebNoop"));
     }
-    ((l.storePeerMessages = s), (l.deletePeerMessage = u));
+    ((l.storePeerMessages = u), (l.deletePeerMessage = c));
   },
   98,
 );

@@ -66,7 +66,7 @@ __d(
             o("WAWebModifyParticipantsGroupAction")
               .demoteCommunityParticipants(n, [t])
               .then(function () {
-                t.id.equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser()) &&
+                o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
                   u(
                     r
                       ? o("WAWebWamEnumCadminDemoteResultType")
@@ -85,7 +85,7 @@ __d(
                   )
                   .verbose()
                   .sendLogs("community-admin-self-demote-failed"),
-                  t.id.equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser()) &&
+                  o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
                     u(
                       r
                         ? o("WAWebWamEnumCadminDemoteResultType")
@@ -104,9 +104,7 @@ __d(
                         onCancel: function () {
                           return d(!0);
                         },
-                        isMe: t.id.equals(
-                          o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                        ),
+                        isMe: o("WAWebUserPrefsMeUser").isMeAccount(t.id),
                       },
                     ),
                   ));

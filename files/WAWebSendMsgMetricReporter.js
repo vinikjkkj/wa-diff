@@ -2,31 +2,34 @@ __d(
   "WAWebSendMsgMetricReporter",
   [
     "WAWebCoreActionsODS",
+    "WAWebCoreActionsODSMsgGetters",
+    "WAWebCoreActionsODSSyncd",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMsgType",
     "WAWebWamMsgUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = {
-        createPostODSCountersFn: (e = o("WAWebCoreActionsODS"))
-          .createPostODSCountersFn,
-        createPostODSErrorCountersFn: e.createPostODSErrorCountersFn,
-        logMCMigrationControl: e.logMCMigrationControl,
-        logMCMigrationRegression: e.logMCMigrationRegression,
-        logMCMigrationTest: e.logMCMigrationTest,
-      };
-    function u(e, t, n) {
+    var e = {
+      createPostODSCountersFn: o("WAWebCoreActionsODSMsgGetters")
+        .createPostODSCountersFn,
+      createPostODSErrorCountersFn: o("WAWebCoreActionsODSMsgGetters")
+        .createPostODSErrorCountersFn,
+      logMCMigrationControl: o("WAWebCoreActionsODS").logMCMigrationControl,
+      logMCMigrationRegression: o("WAWebCoreActionsODSSyncd")
+        .logMCMigrationRegression,
+      logMCMigrationTest: o("WAWebCoreActionsODS").logMCMigrationTest,
+    };
+    function s(t, n, r) {
       return new (o("WAWebMessageSendReporter").MessageSendReporter)(
-        e,
-        babelHelpers.extends({}, n, { frontendDeps: t, odsDeps: s }),
+        t,
+        babelHelpers.extends({}, r, { frontendDeps: n, odsDeps: e }),
       );
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = {
         createSendReporter: function (r) {
-          return u(e, t, r);
+          return s(e, t, r);
         },
         sendReporter: null,
         sendPerfReporter: null,
@@ -54,8 +57,8 @@ __d(
         n
       );
     }
-    function d(e, t) {
-      var n = u(e, t),
+    function c(e, t) {
+      var n = s(e, t),
         r = new (o("WAWebMessageSendPerfReporter").MessageSendPerfReporter)({
           chatWid: e.to,
           mediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
@@ -67,7 +70,7 @@ __d(
       }
       var i = {
         createSendReporter: function (r) {
-          return u(e, t, r);
+          return s(e, t, r);
         },
         sendReporter: null,
         sendPerfReporter: null,
@@ -94,7 +97,7 @@ __d(
         i
       );
     }
-    ((l.createMsgModelMetricReporter = c), (l.createAddonMetricReporter = d));
+    ((l.createMsgModelMetricReporter = u), (l.createAddonMetricReporter = c));
   },
   98,
 );

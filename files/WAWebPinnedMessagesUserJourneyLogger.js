@@ -73,12 +73,9 @@ __d(
               .CLICK_UNPIN,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
             pinInChatExpirySecs: n == null ? void 0 : n.leftExpirationTime(),
-            isSelfPin:
-              n == null
-                ? void 0
-                : n.sender.equals(
-                    o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                  ),
+            isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+              n == null ? void 0 : n.sender,
+            ),
           });
         }),
         (n.pinBannerClickUnpin = function (t, n) {
@@ -88,12 +85,9 @@ __d(
               .CLICK_UNPIN,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
             pinInChatExpirySecs: n == null ? void 0 : n.leftExpirationTime(),
-            isSelfPin:
-              n == null
-                ? void 0
-                : n.sender.equals(
-                    o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                  ),
+            isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+              n == null ? void 0 : n.sender,
+            ),
           });
         }),
         (n.pinMessageExpirationDialogUnpin = function (t, n) {
@@ -103,12 +97,9 @@ __d(
               .CLICK_UNPIN,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
             pinInChatExpirySecs: n == null ? void 0 : n.leftExpirationTime(),
-            isSelfPin:
-              n == null
-                ? void 0
-                : n.sender.equals(
-                    o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                  ),
+            isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+              n == null ? void 0 : n.sender,
+            ),
           });
         }),
         t

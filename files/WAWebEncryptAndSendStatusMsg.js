@@ -202,7 +202,7 @@ __d(
             U = q.participantList,
             V = q.skDistribList;
           if (V.length > 0) {
-            var H, G, z;
+            var H, G, z, j;
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -217,9 +217,10 @@ __d(
                     .MESSAGE_DISTRIBUTION_ENUM_TYPE
                     .SENDER_KEY_DISTRIBUTION_MESSAGE,
                 ),
-              (G = n.sendReporter) == null || G.setDeviceCount(V.length),
-              (z = n.sendPerfReporter) == null ||
-                z.setSenderKeyDistributionCount(V.length));
+              (G = n.sendReporter) == null || G.setSessionScope(k),
+              (z = n.sendReporter) == null || z.setDeviceCount(V.length),
+              (j = n.sendPerfReporter) == null ||
+                j.setSenderKeyDistributionCount(V.length));
           }
           if (
             (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(
@@ -236,21 +237,21 @@ __d(
             V.length > 0)
           )
             try {
-              var j, K;
-              (j = n.sendPerfReporter) == null || j.startPrekeysFetchStage();
-              var Q = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
+              var K, Q;
+              (K = n.sendPerfReporter) == null || K.startPrekeysFetchStage();
+              var X = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
                 V,
                 !1,
                 k,
               );
-              ((K = n.sendPerfReporter) == null ||
-                K.setFetchedPrekeyCount(
-                  Q == null ? void 0 : Q.missedPrekeyCount,
+              ((Q = n.sendPerfReporter) == null ||
+                Q.setFetchedPrekeyCount(
+                  X == null ? void 0 : X.missedPrekeyCount,
                 ),
                 o(
                   "WAWebPostPrekeysDepletionMetric",
                 ).maybePostPrekeysDepletionMetric({
-                  count: Q == null ? void 0 : Q.depletedPrekeyCount,
+                  count: X == null ? void 0 : X.depletedPrekeyCount,
                   prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                     .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                   messageType: o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS,
@@ -272,21 +273,21 @@ __d(
             }
           ((a = n.sendPerfReporter) == null || a.postPrekeysFetchStage(),
             (i = n.sendPerfReporter) == null || i.startClientEncryptStage());
-          var X = yield E(v, R, V, U, t, k),
-            Y = X[0],
-            J = X[1],
-            Z = X[2];
+          var Y = yield E(v, R, V, U, t, k),
+            J = Y[0],
+            Z = Y[1],
+            ee = Y[2];
           o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
                 "encryptAndSendStatusMsg: encrypt message body done",
               ])),
           );
-          var ee = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+          var te = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
               e.data,
               t,
             ),
-            te = o("WAWap").wap(
+            ne = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING(C.id),
@@ -297,13 +298,13 @@ __d(
                   e.data.subtype,
                 ),
               },
-              Y,
               J,
               Z,
-              M,
               ee,
+              M,
+              te,
             ),
-            ne = I(te);
+            re = I(ne);
           (yield o("WAWebSendMsgCommonApi").updateIdentityRange(e, W),
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
@@ -319,10 +320,10 @@ __d(
               C.id,
             ),
             yield o("WADeprecatedSendIq").deprecatedSendStanzaAndReturnAck(
-              te,
+              ne,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: C.id,
-                class: ne,
+                class: re,
                 from: v,
                 participant: null,
               }),

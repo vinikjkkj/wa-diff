@@ -25,19 +25,23 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.getData().length || 0,
-            r = !e.getCanLoadMore() || !y(n, e.listItemHeight),
-            a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+            r = !e.getCanLoadMore() || !y(n, e.listItemHeight);
           if (
             (t &&
               o("WAWebQplFlowWrapper").QPL.markerAnnotate(t, {
-                bool: { IsCached: r, IsConsumer: !a.equals(e.catalog.id) },
+                bool: {
+                  IsCached: r,
+                  IsConsumer: !o("WAWebUserPrefsMeUser").isMeAccount(
+                    e.catalog.id,
+                  ),
+                },
               }),
             r)
           )
             return !0;
           yield e.loadMore(!0);
-          var i = e.getData().length || 0;
-          return y(i, e.listItemHeight) ? e.loadInitialItems() : !0;
+          var a = e.getData().length || 0;
+          return y(a, e.listItemHeight) ? e.loadInitialItems() : !0;
         })),
         p.apply(this, arguments)
       );

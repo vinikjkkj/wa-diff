@@ -203,44 +203,38 @@ __d(
               !o("WABase64Equal").b64Equal(l.mediaKey, s)
             ) {
               var _ = l.mediaKey.replace("=", "").split("\n")[0],
-                g = s.replace("=", "").split("\n")[0];
+                g = s.replace("=", "").split("\n")[0],
+                h = _ === g,
+                y = JSON.stringify(
+                  {
+                    before: {
+                      hasDirectPath: !!l.directPath,
+                      hasEncFilehash: !!l.encFilehash,
+                      hasMediaKey: !!l.mediaKey,
+                      hasDeprecatedMms3Url: !!l.deprecatedMms3Url,
+                    },
+                    after: {
+                      hasDirectPath: !!r,
+                      hasEncFilehash: !!a,
+                      hasDeprecatedMms3Url: !!t,
+                    },
+                  },
+                  null,
+                  2,
+                );
               return (
                 o("WALogger")
                   .ERROR(
                     e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose(
-                        [
-                          "media-fault: mediaKey changed for the same MMS3 url. type:",
-                          ". equal?:",
-                          ". Debug:\n",
-                          "",
-                        ],
-                        [
-                          "media-fault: mediaKey changed for the same MMS3 url. type:",
-                          ". equal?:",
-                          ". Debug:\\n",
-                          "",
-                        ],
-                      )),
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[media-fault] mediaKey changed for same MMS3 url type=",
+                        " eq=",
+                        " ",
+                        "",
+                      ])),
                     l.type,
-                    _ === g,
-                    JSON.stringify(
-                      {
-                        before: {
-                          hasDirectPath: !!l.directPath,
-                          hasEncFilehash: !!l.encFilehash,
-                          hasMediaKey: !!l.mediaKey,
-                          hasDeprecatedMms3Url: !!l.deprecatedMms3Url,
-                        },
-                        after: {
-                          hasDirectPath: !!r,
-                          hasEncFilehash: !!a,
-                          hasDeprecatedMms3Url: !!t,
-                        },
-                      },
-                      null,
-                      2,
-                    ),
+                    h,
+                    y,
                   )
                   .sendLogs("media-key-mismatch-same-mms3-url"),
                 null

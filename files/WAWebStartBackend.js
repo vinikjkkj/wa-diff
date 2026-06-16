@@ -65,6 +65,7 @@ __d(
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
+    "WAWebMetaAiBotSessionCleanupJob",
     "WAWebMmSignalSharingExpirationWindowUtils",
     "WAWebMobilePlatforms",
     "WAWebModelStorage",
@@ -199,6 +200,9 @@ __d(
             }
           }),
         ),
+        o(
+          "WAWebMetaAiBotSessionCleanupJob",
+        ).registerMetaAiBotSessionCleanupOnResume(),
         (E = !0));
     }
     var I = function () {

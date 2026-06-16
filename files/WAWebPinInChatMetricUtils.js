@@ -73,12 +73,9 @@ __d(
             n != null ? o("WAWebWamMsgUtils").getWamMediaType(n) : void 0,
           pinCount: i,
           pinIndex: l,
-          isSelfPin:
-            a == null
-              ? void 0
-              : a.sender.equals(
-                  o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                ),
+          isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+            a == null ? void 0 : a.sender,
+          ),
         },
       ).commit();
     }

@@ -15,7 +15,7 @@ __d(
       return s._(/*BTDS*/ "Customize");
     }
     function d() {
-      return s._(/*BTDS*/ "Privacy Screen Settings");
+      return s._(/*BTDS*/ "Privacy screen settings");
     }
     function m() {
       return s._(/*BTDS*/ "Blur level for general items");

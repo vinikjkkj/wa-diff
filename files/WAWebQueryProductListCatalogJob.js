@@ -231,9 +231,9 @@ __d(
         };
       })(),
       _ = function (t) {
-        var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-        return e != null &&
-          e.equals(o("WAWebWidFactory").createWid(t.catalogWid))
+        return o("WAWebUserPrefsMeUser").isMeAccount(
+          o("WAWebWidFactory").createWid(t.catalogWid),
+        )
           ? o("WAWebBizCatalogGatingUtils").graphQLForGetProductListEnabled()
             ? p(t)
             : d(t)

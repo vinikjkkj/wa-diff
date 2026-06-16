@@ -199,8 +199,9 @@ __d(
         };
       })(),
       m = function (t) {
-        var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-        return e != null && e.equals(t.catalogWid) ? d(t) : c(t);
+        return o("WAWebUserPrefsMeUser").isMeAccount(t.catalogWid)
+          ? d(t)
+          : c(t);
       },
       p = m;
     l.default = p;

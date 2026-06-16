@@ -381,7 +381,7 @@ __d(
       (O.prototype.dispose = function () {
         this.d();
       }));
-    var I = (_require_Lexical = require("Lexical")).defineExtension({
+    var _ = (_require_Lexical = require("Lexical")).defineExtension({
       build: function build(e, t, n) {
         return $(t);
       },
@@ -409,7 +409,7 @@ __d(
         });
       },
     });
-    function _() {
+    function I() {
       var t = require("Lexical").$getRoot(),
         n = require("Lexical").$getSelection(),
         i = require("Lexical").$createParagraphNode();
@@ -418,9 +418,9 @@ __d(
         null !== n && i.select(),
         require("Lexical").$isRangeSelection(n) && (n.format = 0));
     }
-    function D(t, n) {
+    function T(t, n) {
       if (n === void 0) {
-        n = _;
+        n = I;
       }
       return t.registerCommand(
         require("Lexical").CLEAR_EDITOR_COMMAND,
@@ -434,17 +434,17 @@ __d(
       build: function build(e, t, n) {
         return $(t);
       },
-      config: _require_Lexical.safeCast({ $onClear: _ }),
+      config: _require_Lexical.safeCast({ $onClear: I }),
       name: "@lexical/extension/ClearEditor",
       register: function register(e, t, n) {
         var _n$getOutput = n.getOutput(),
           i = _n$getOutput.$onClear;
         return R(function () {
-          return D(e, i.value);
+          return T(e, i.value);
         });
       },
     });
-    function T(t) {
+    function D(t) {
       return (
         !!require("Lexical").$isDecoratorNode(t) ||
         !(!require("Lexical").$isElementNode(t) || !t.isShadowRoot())
@@ -474,7 +474,7 @@ __d(
         return $(t);
       },
       config: _require_Lexical.safeCast({
-        $shouldInsertAfter: T,
+        $shouldInsertAfter: D,
         disabled: !1,
       }),
       name: "@lexical/ClickAfterLastBlock",
@@ -511,28 +511,28 @@ __d(
         });
       },
     });
-    function F(e) {
+    function L(e) {
       return ("function" == typeof e.nodes ? e.nodes() : e.nodes) || [];
     }
-    var P = _require_Lexical.createState("format", {
+    var F = _require_Lexical.createState("format", {
       parse: function parse(e) {
         return "number" == typeof e ? e : 0;
       },
     });
-    var _L = (function (_e$DecoratorNode) {
-      function L() {
+    var _P = (function (_e$DecoratorNode) {
+      function P() {
         return _e$DecoratorNode.apply(this, arguments) || this;
       }
-      babelHelpers.inheritsLoose(L, _e$DecoratorNode);
-      var _proto = L.prototype;
+      babelHelpers.inheritsLoose(P, _e$DecoratorNode);
+      var _proto = P.prototype;
       _proto.$config = function $config() {
         return this.config("decorator-text", {
           extends: require("Lexical").DecoratorNode,
-          stateConfigs: [{ flat: !0, stateConfig: P }],
+          stateConfigs: [{ flat: !0, stateConfig: F }],
         });
       };
       _proto.getFormat = function getFormat() {
-        return require("Lexical").$getState(this, P);
+        return require("Lexical").$getState(this, F);
       };
       _proto.getFormatFlags = function getFormatFlags(t, n) {
         return require("Lexical").toggleTextFormatType(this.getFormat(), t, n);
@@ -542,7 +542,7 @@ __d(
         return 0 !== (this.getFormat() & n);
       };
       _proto.setFormat = function setFormat(t) {
-        return require("Lexical").$setState(this, P, t);
+        return require("Lexical").$setState(this, F, t);
       };
       _proto.toggleFormat = function toggleFormat(t) {
         var n = this.getFormat(),
@@ -558,16 +558,16 @@ __d(
       _proto.updateDOM = function updateDOM() {
         return !1;
       };
-      return L;
+      return P;
     })(_require_Lexical.DecoratorNode);
     function k(e) {
-      return e instanceof _L;
+      return e instanceof _P;
     }
     function K(e, t) {
       var n = document.createElement(t);
       return (n.appendChild(e), n);
     }
-    var j = {
+    var B = {
         b: "bold",
         code: "code",
         em: "italic",
@@ -582,7 +582,7 @@ __d(
       z = _require_Lexical.defineExtension({
         name: "@lexical/extension/DecoratorText",
         nodes: function nodes() {
-          return [_L];
+          return [_P];
         },
         register: function register(t, n, i) {
           return t.registerCommand(
@@ -600,7 +600,7 @@ __d(
           );
         },
       });
-    function B(e, t) {
+    function j(e, t) {
       var n;
       return m(e(), {
         unwatched: function unwatched() {
@@ -613,7 +613,7 @@ __d(
     }
     var U = _require_Lexical.defineExtension({
       build: function build(e) {
-        return B(
+        return j(
           function () {
             return e.getEditorState();
           },
@@ -676,8 +676,8 @@ __d(
       return t;
     }
     var Z = 0,
-      J = 1,
-      X = 2,
+      X = 1,
+      J = 2,
       q = 3,
       Q = 4,
       ee = 5,
@@ -687,14 +687,14 @@ __d(
       return e.id === Z;
     }
     function oe(e) {
-      return e.id === X;
+      return e.id === J;
     }
     function se(e) {
       return (
         (function (e) {
-          return e.id === J;
-        })(e) || W(305, String(e.id), String(J)),
-        Object.assign(e, { id: X })
+          return e.id === X;
+        })(e) || W(305, String(e.id), String(X)),
+        Object.assign(e, { id: J })
       );
     }
     var re = new Set();
@@ -1080,7 +1080,7 @@ __d(
             var r;
             (ie(o) || W(300, s, i || "[unknown]"),
               ie((r = o)) || W(304, String(r.id), String(Z)),
-              (o = Object.assign(r, { id: J })),
+              (o = Object.assign(r, { id: X })),
               (n.state = o));
             var a = _this5.outgoingConfigEdges.get(s);
             if (a)
@@ -1153,7 +1153,7 @@ __d(
               (e.$initialEditorState = _r.$initialEditorState),
             _r.nodes)
           )
-            for (var _e26 of F(_r)) {
+            for (var _e26 of L(_r)) {
               if ("function" != typeof _e26) {
                 var _t10 = n.get(_e26.replace);
                 (_t10 &&
@@ -1204,7 +1204,7 @@ __d(
         build: function build(t, n, i) {
           var o = i.getDependency(U).output,
             s = m({ watchedNodeKeys: new Map() }),
-            r = B(
+            r = j(
               function () {},
               function () {
                 return R(function () {
@@ -1411,7 +1411,7 @@ __d(
           );
         },
       }),
-      Ie = require("Lexical").defineExtension({
+      _e = require("Lexical").defineExtension({
         build: function build(e) {
           return { composingTextNode: m(null), compositionKey: m(null) };
         },
@@ -1468,7 +1468,7 @@ __d(
           return require("LexicalUtils").mergeRegister(a, c, d, l);
         },
       });
-    var _e = require("Lexical").defineExtension({
+    var Ie = require("Lexical").defineExtension({
       build: function build(e, t) {
         return $({ inheritEditableFromParent: t.inheritEditableFromParent });
       },
@@ -1495,7 +1495,7 @@ __d(
         });
       },
     });
-    function De(t) {
+    function Te(t) {
       require("Lexical").$isElementNode(t) &&
         t.isInline() &&
         t.isEmpty() &&
@@ -1518,9 +1518,9 @@ __d(
                 i.prototype instanceof require("Lexical").ElementNode &&
                   i.prototype.isInline !==
                     require("Lexical").ElementNode.prototype.isInline &&
-                  (o.add(De),
+                  (o.add(Te),
                   _n11.push(function () {
-                    return o["delete"](De);
+                    return o["delete"](Te);
                   }));
               };
               for (var _ref18 of t._nodes.values()) {
@@ -1535,125 +1535,240 @@ __d(
           });
         },
       }),
-      Te = new Set([
+      De = new Set([
         require("Lexical").SKIP_SELECTION_FOCUS_TAG,
         require("Lexical").SKIP_SCROLL_INTO_VIEW_TAG,
       ]);
     var we = require("Lexical").defineExtension({
+      build: function build(e, t, n) {
+        return $(t);
+      },
+      config: require("Lexical").safeCast({
+        $fixFocusOverselection: function $fixFocusOverselection() {
+          var t = require("Lexical").$getSelection();
+          if (require("Lexical").$isRangeSelection(t) && !t.isCollapsed()) {
+            var _n12 = require("Lexical").$getCaretRangeInDirection(
+              require("Lexical").$caretRangeFromSelection(t),
+              "next",
+            );
+            var _i4 = _n12.focus;
+            for (
+              require("Lexical").$isTextPointCaret(_i4) &&
+                _n12.anchor.origin !== _i4.origin &&
+                0 === _i4.offset &&
+                (_i4 = require("Lexical").$rewindSiblingCaret(
+                  _i4.getSiblingCaret(),
+                )),
+                require("Lexical").$isSiblingCaret(_i4) &&
+                  _n12.anchor.origin !== _i4.origin &&
+                  require("Lexical").$isLineBreakNode(_i4.origin) &&
+                  (_i4 = require("Lexical").$rewindSiblingCaret(_i4));
+              require("Lexical").$isChildCaret(_i4) &&
+              _n12.anchor.origin !== _i4.origin;
+            )
+              _i4 = require("Lexical").$rewindSiblingCaret(
+                require("Lexical").$getSiblingCaret(_i4.origin, "next"),
+              );
+            if (
+              (require("Lexical").$isSiblingCaret(_i4) &&
+                require("Lexical").$isElementNode(_i4.origin) &&
+                (_i4 = require("Lexical")
+                  .$normalizeCaret(
+                    require("Lexical").$getChildCaret(_i4.origin, "previous"),
+                  )
+                  .getFlipped()),
+              (_i4 = require("Lexical").$normalizeCaret(_i4)),
+              !_i4.isSamePointCaret(_n12.focus))
+            ) {
+              var _t13 = require("Lexical").$setSelectionFromCaretRange(
+                  require("Lexical").$getCaretRange(_n12.anchor, _i4),
+                ),
+                _o5 = require("Lexical").$getEditor().getRootElement(),
+                _s5 =
+                  _o5 &&
+                  require("Lexical").getDOMSelection(
+                    _o5.ownerDocument.defaultView,
+                  );
+              _s5 &&
+                require("Lexical").$updateDOMSelection(
+                  require("Lexical").$getPreviousSelection(),
+                  _t13,
+                  require("Lexical").$getEditor(),
+                  _s5,
+                  De,
+                  _o5,
+                );
+            }
+          }
+        },
+        dateNow: Date.now,
+        disabled: !1,
+        thresholdMsec: 100,
+      }),
+      name: "@lexical/NormalizeTripleClickSelection",
+      register: function register(t, n, i) {
+        return R(function () {
+          var n = i.getOutput();
+          if (!n.disabled.value)
+            return t.registerRootListener(function (i) {
+              if (!i) return;
+              var o = 0;
+              var s = function s(e) {
+                if (e ? 3 === e.detail : o > 0) {
+                  var _t14 = n.dateNow.peek()();
+                  o =
+                    (e && "mousedown" === e.type) ||
+                    _t14 - o <= n.thresholdMsec.peek()
+                      ? _t14
+                      : 0;
+                }
+                return o;
+              };
+              return require("Lexical").mergeRegister(
+                t.registerCommand(
+                  require("Lexical").SELECTION_CHANGE_COMMAND,
+                  function () {
+                    return (
+                      s(null) && ((o = 0), n.$fixFocusOverselection.peek()()),
+                      !1
+                    );
+                  },
+                  require("Lexical").COMMAND_PRIORITY_BEFORE_CRITICAL,
+                ),
+                (function () {
+                  var e = ["mouseup", "mousedown"];
+                  return (
+                    e.forEach(function (e) {
+                      return i.addEventListener(e, s, !0);
+                    }),
+                    function () {
+                      return e.forEach(function (e) {
+                        return i.removeEventListener(e, s, !0);
+                      });
+                    }
+                  );
+                })(),
+              );
+            });
+        });
+      },
+    });
+    function Ae(n) {
+      var i = n.target;
+      require("Lexical").isExactShortcutMatch(n, "a", {
+        ctrlKey: !require("LexicalUtils").IS_APPLE,
+        metaKey: require("LexicalUtils").IS_APPLE,
+      }) &&
+        require("Lexical").isHTMLElement(i) &&
+        ("INPUT" === i.tagName || "TEXTAREA" === i.tagName) &&
+        i.addEventListener(
+          "keydown",
+          require("Lexical").stopLexicalPropagation,
+          { once: !0 },
+        );
+    }
+    var Le = require("Lexical").defineExtension({
+      build: function build(e, t, n) {
+        return $(t);
+      },
+      config: require("Lexical").safeCast({ disabled: !1 }),
+      name: "@lexical/extension/PreventSelectAll",
+      register: function register(e, t, n) {
+        var i = n.getOutput();
+        return R(function () {
+          if (!i.disabled.value)
+            return e.registerRootListener(function (e) {
+              if (e)
+                return (
+                  e.addEventListener("keydown", Ae, !0),
+                  function () {
+                    return e.removeEventListener("keydown", Ae, !0);
+                  }
+                );
+            });
+        });
+      },
+    });
+    var Fe = require("Lexical").defineExtension({
         build: function build(e, t, n) {
           return $(t);
         },
         config: require("Lexical").safeCast({
-          $fixFocusOverselection: function $fixFocusOverselection() {
-            var t = require("Lexical").$getSelection();
-            if (require("Lexical").$isRangeSelection(t) && !t.isCollapsed()) {
-              var _n12 = require("Lexical").$getCaretRangeInDirection(
-                require("Lexical").$caretRangeFromSelection(t),
-                "next",
-              );
-              var _i4 = _n12.focus;
-              for (
-                require("Lexical").$isTextPointCaret(_i4) &&
-                  _n12.anchor.origin !== _i4.origin &&
-                  0 === _i4.offset &&
-                  (_i4 = require("Lexical").$rewindSiblingCaret(
-                    _i4.getSiblingCaret(),
-                  )),
-                  require("Lexical").$isSiblingCaret(_i4) &&
-                    _n12.anchor.origin !== _i4.origin &&
-                    require("Lexical").$isLineBreakNode(_i4.origin) &&
-                    (_i4 = require("Lexical").$rewindSiblingCaret(_i4));
-                require("Lexical").$isChildCaret(_i4) &&
-                _n12.anchor.origin !== _i4.origin;
-              )
-                _i4 = require("Lexical").$rewindSiblingCaret(
-                  require("Lexical").$getSiblingCaret(_i4.origin, "next"),
-                );
-              if (
-                (require("Lexical").$isSiblingCaret(_i4) &&
-                  require("Lexical").$isElementNode(_i4.origin) &&
-                  (_i4 = require("Lexical")
-                    .$normalizeCaret(
-                      require("Lexical").$getChildCaret(_i4.origin, "previous"),
-                    )
-                    .getFlipped()),
-                (_i4 = require("Lexical").$normalizeCaret(_i4)),
-                !_i4.isSamePointCaret(_n12.focus))
-              ) {
-                var _t13 = require("Lexical").$setSelectionFromCaretRange(
-                    require("Lexical").$getCaretRange(_n12.anchor, _i4),
-                  ),
-                  _o5 = require("Lexical").$getEditor().getRootElement(),
-                  _s5 =
-                    _o5 &&
-                    require("Lexical").getDOMSelection(
-                      _o5.ownerDocument.defaultView,
-                    );
-                _s5 &&
-                  require("Lexical").$updateDOMSelection(
-                    require("Lexical").$getPreviousSelection(),
-                    _t13,
-                    require("Lexical").$getEditor(),
-                    _s5,
-                    Te,
-                    _o5,
-                  );
-              }
-            }
-          },
-          dateNow: Date.now,
+          cascadeSelection: !1,
           disabled: !1,
-          thresholdMsec: 100,
         }),
-        name: "@lexical/NormalizeTripleClickSelection",
-        register: function register(t, n, i) {
-          return R(function () {
-            var n = i.getOutput();
-            if (!n.disabled.value)
-              return t.registerRootListener(function (i) {
-                if (!i) return;
-                var o = 0;
-                var s = function s(e) {
-                  if (e ? 3 === e.detail : o > 0) {
-                    var _t14 = n.dateNow.peek()();
-                    o =
-                      (e && "mousedown" === e.type) ||
-                      _t14 - o <= n.thresholdMsec.peek()
-                        ? _t14
-                        : 0;
-                  }
-                  return o;
-                };
-                return require("Lexical").mergeRegister(
-                  t.registerCommand(
-                    require("Lexical").SELECTION_CHANGE_COMMAND,
-                    function () {
+        dependencies: [Le],
+        name: "@lexical/extension/SelectBlock",
+        register: function register(n, i, o) {
+          var s = o.getOutput(),
+            r = o.getDependency(Le).output;
+          return require("LexicalUtils").mergeRegister(
+            R(function () {
+              r.disabled.value = s.disabled.value;
+            }),
+            R(function () {
+              if (!s.disabled.value)
+                return n.registerCommand(
+                  require("Lexical").SELECT_ALL_COMMAND,
+                  function (i, o) {
+                    if (o !== n) {
+                      if (!s.cascadeSelection.peek()) return !1;
                       return (
-                        s(null) && ((o = 0), n.$fixFocusOverselection.peek()()),
-                        !1
+                        !!o.readPending(function () {
+                          var n = require("Lexical").$getSelection();
+                          return (
+                            require("Lexical").$isRangeSelection(n) &&
+                            require("LexicalUtils").$isBlockFullySelected(
+                              require("Lexical").$getRoot(),
+                              n,
+                            )
+                          );
+                        }) && (require("Lexical").$selectAll(), !0)
                       );
-                    },
-                    require("Lexical").COMMAND_PRIORITY_BEFORE_CRITICAL,
-                  ),
-                  (function () {
-                    var e = ["mouseup", "mousedown"];
+                    }
+                    var r = require("Lexical").$getSelection();
+                    if (require("Lexical").$isNodeSelection(r)) {
+                      var _t15 = r.getNodes(),
+                        _n13 = _t15[0];
+                      if (!_n13) return !1;
+                      var _i5 = _n13.getTopLevelElement();
+                      return (
+                        !_i5 ||
+                        require("Lexical").$isRootNode(_i5) ||
+                        _i5.is(_n13) ||
+                        (_t15.length > 1 &&
+                          ((a = _i5),
+                          !_t15.every(function (e) {
+                            return a.is(e.getTopLevelElement());
+                          })))
+                          ? require("Lexical").$selectAll()
+                          : require("Lexical").$isElementNode(_i5) &&
+                            _i5.select(0, _i5.getChildrenSize()),
+                        !0
+                      );
+                    }
+                    var a;
+                    if (!require("Lexical").$isRangeSelection(r)) return !1;
+                    var c = r.anchor.getNode().getTopLevelElement();
                     return (
-                      e.forEach(function (e) {
-                        return i.addEventListener(e, s, !0);
-                      }),
-                      function () {
-                        return e.forEach(function (e) {
-                          return i.removeEventListener(e, s, !0);
-                        });
-                      }
+                      c &&
+                      c.is(r.focus.getNode().getTopLevelElement()) &&
+                      !require("LexicalUtils").$isBlockFullySelected(c, r)
+                        ? c.select(0, c.getChildrenSize())
+                        : require("LexicalUtils").$isBlockFullySelected(
+                            require("Lexical").$getRoot(),
+                            r,
+                          ) || require("Lexical").$selectAll(),
+                      !0
                     );
-                  })(),
+                  },
+                  require("Lexical").COMMAND_PRIORITY_LOW,
                 );
-              });
-          });
+            }),
+          );
         },
       }),
-      Ae = require("Lexical").defineExtension({
+      Pe = require("Lexical").defineExtension({
         build: function build(e, t, n) {
           return $(t);
         },
@@ -1673,12 +1788,12 @@ __d(
           });
         },
       });
-    function Fe(e) {
+    function ke(e) {
       return e.canIndent();
     }
-    function Pe(n, i, o) {
+    function Ke(n, i, o) {
       if (o === void 0) {
-        o = Fe;
+        o = ke;
       }
       return require("Lexical").mergeRegister(
         n.registerCommand(
@@ -1705,14 +1820,14 @@ __d(
                     r,
                   );
               if (a.canIndent()) {
-                var _t15 = a.getKey();
-                var _n13 = require("Lexical").$createRangeSelection();
+                var _t16 = a.getKey();
+                var _n14 = require("Lexical").$createRangeSelection();
                 if (
-                  (_n13.anchor.set(_t15, 0, "element"),
-                  _n13.focus.set(_t15, 0, "element"),
-                  (_n13 =
-                    require("Lexical").$normalizeSelection__EXPERIMENTAL(_n13)),
-                  _n13.anchor.is(s))
+                  (_n14.anchor.set(_t16, 0, "element"),
+                  _n14.focus.set(_t16, 0, "element"),
+                  (_n14 =
+                    require("Lexical").$normalizeSelection__EXPERIMENTAL(_n14)),
+                  _n14.anchor.is(s))
                 )
                   return !0;
               }
@@ -1736,8 +1851,8 @@ __d(
             return require("LexicalUtils").$handleIndentAndOutdent(
               function (e) {
                 if (r(e)) {
-                  var _t16 = e.getIndent() + 1;
-                  (!n || _t16 < n) && e.setIndent(_t16);
+                  var _t17 = e.getIndent() + 1;
+                  (!n || _t17 < n) && e.setIndent(_t17);
                 }
               },
             );
@@ -1746,12 +1861,12 @@ __d(
         ),
       );
     }
-    var Le = require("Lexical").defineExtension({
+    var Be = require("Lexical").defineExtension({
         build: function build(e, t, n) {
           return $(t);
         },
         config: require("Lexical").safeCast({
-          $canIndent: Fe,
+          $canIndent: ke,
           disabled: !1,
           maxIndent: null,
         }),
@@ -1762,13 +1877,13 @@ __d(
             o = _n$getOutput2.maxIndent,
             s = _n$getOutput2.$canIndent;
           return R(function () {
-            if (!i.value) return Pe(e, o, s);
+            if (!i.value) return Ke(e, o, s);
           });
         },
       }),
-      ke = require("Lexical").defineExtension({
+      ze = require("Lexical").defineExtension({
         build: function build(e) {
-          return B(
+          return j(
             function () {
               return e.isEditable();
             },
@@ -1788,7 +1903,7 @@ __d(
       (exports.safeCast = require("Lexical").safeCast),
       (exports.shallowMergeConfig = require("Lexical").shallowMergeConfig),
       (exports.$createHorizontalRuleNode = Oe),
-      (exports.$defaultShouldInsertAfter = T),
+      (exports.$defaultShouldInsertAfter = D),
       (exports.$getExtensionDependency = Se),
       (exports.$getExtensionOutput = function (e) {
         return Se(e).output;
@@ -1798,25 +1913,27 @@ __d(
       }),
       (exports.$isDecoratorTextNode = k),
       (exports.$isHorizontalRuleNode = Re),
-      (exports.AutoFocusExtension = I),
+      (exports.AutoFocusExtension = _),
       (exports.ClearEditorExtension = M),
       (exports.ClickAfterLastBlockExtension = A),
       (exports.DecoratorTextExtension = z),
-      (exports.DecoratorTextNode = _L),
+      (exports.DecoratorTextNode = _P),
       (exports.EditorStateExtension = U),
       (exports.HorizontalRuleExtension = $e),
       (exports.HorizontalRuleNode = _be),
-      (exports.IMEExtension = Ie),
+      (exports.IMEExtension = _e),
       (exports.INSERT_HORIZONTAL_RULE_COMMAND = Ne),
       (exports.InitialStateExtension = le),
       (exports.LexicalBuilder = _me),
-      (exports.NestedEditorExtension = _e),
+      (exports.NestedEditorExtension = Ie),
       (exports.NodeSelectionExtension = ye),
       (exports.NormalizeInlineElementsExtension = Me),
       (exports.NormalizeTripleClickSelectionExtension = we),
-      (exports.SelectionAlwaysOnDisplayExtension = Ae),
-      (exports.TabIndentationExtension = Le),
-      (exports.WatchEditableExtension = ke),
+      (exports.PreventSelectAllExtension = Le),
+      (exports.SelectBlockExtension = Fe),
+      (exports.SelectionAlwaysOnDisplayExtension = Pe),
+      (exports.TabIndentationExtension = Be),
+      (exports.WatchEditableExtension = ze),
       (exports.applyFormatFromStyle = function (e, t, n) {
         var i = t.fontWeight,
           o = t.textDecoration.split(" "),
@@ -1842,12 +1959,12 @@ __d(
       }),
       (exports.applyFormatToDom = function (e, t, n) {
         if (n === void 0) {
-          n = j;
+          n = B;
         }
         for (var _ref20 of Object.entries(n)) {
-          var _i5 = _ref20[0];
+          var _i6 = _ref20[0];
           var _o6 = _ref20[1];
-          e.hasFormat(_o6) && (t = K(t, _i5));
+          e.hasFormat(_o6) && (t = K(t, _i6));
         }
         return t;
       }),
@@ -1868,11 +1985,11 @@ __d(
       (exports.getKnownTypesAndNodes = function (t) {
         var n = new Set(),
           i = new Set();
-        for (var _o7 of F(t)) {
-          var _t17 = "function" == typeof _o7 ? _o7 : _o7.replace;
-          (require("Lexical").getStaticNodeConfig(_t17),
-            n.add(_t17.getType()),
-            i.add(_t17));
+        for (var _o7 of L(t)) {
+          var _t18 = "function" == typeof _o7 ? _o7 : _o7.replace;
+          (require("Lexical").getStaticNodeConfig(_t18),
+            n.add(_t18.getType()),
+            i.add(_t18));
         }
         return { nodes: i, types: n };
       }),
@@ -1882,11 +1999,11 @@ __d(
         return (void 0 === n && W(291, t), n);
       }),
       (exports.namedSignals = $),
-      (exports.registerClearEditor = D),
-      (exports.registerTabIndentation = Pe),
+      (exports.registerClearEditor = T),
+      (exports.registerTabIndentation = Ke),
       (exports.signal = m),
       (exports.untracked = a),
-      (exports.watchedSignal = B));
+      (exports.watchedSignal = j));
   },
   null,
 );

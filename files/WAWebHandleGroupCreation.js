@@ -46,7 +46,7 @@ __d(
             C = r.participants,
             b = r.subject;
           ((m.author == null ||
-            !m.author.equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser())) &&
+            !o("WAWebUserPrefsMeUser").isMeAccount(m.author)) &&
             new (o("WAWebGroupJoinCWamEvent").GroupJoinCWamEvent)().commit(),
             p && f && o("WAWebHandlePushnameUpdate").updatePushname(p, f, d),
             yield (c || (c = n("Promise"))).all([

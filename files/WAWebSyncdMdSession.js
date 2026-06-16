@@ -20,7 +20,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebSignalCommonUtils")
               .createSignalAddress(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               )
               .toString(),
             t = r("WANullthrows")(

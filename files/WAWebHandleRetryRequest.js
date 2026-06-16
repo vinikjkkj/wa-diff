@@ -74,7 +74,8 @@ __d(
                 "WAWebStatusSessionGatingUtils",
               ).shouldUseStatusSessionForOutgoingMessage()
                 ? o("WAWebSessionScope").SessionScope.STATUS
-                : o("WAWebSessionScope").SessionScope.DEFAULT;
+                : o("WAWebSessionScope").SessionScope.DEFAULT,
+            C = p.isStatus() || i.isStatus() ? y : void 0;
           return (
             o("WALogger").LOG(
               u ||
@@ -99,80 +100,82 @@ __d(
                     if (t != null) {
                       var s = t.identity,
                         u = t.isLidBot,
-                        C = t.originalMsgId,
-                        b = t.requester;
+                        b = t.originalMsgId,
+                        v = t.requester;
                       r("gkx")("26258") ||
                         n("cr:10198") == null ||
                         n("cr:10198").injectDebug(
                           i,
                           "RetryReceiptReceived",
-                          "originalMsgId:" + C + " - requester:" + b.toString(),
+                          "originalMsgId:" + b + " - requester:" + v.toString(),
                         );
                       try {
                         if (h === "enc_rekey_retry") {
-                          var v = yield o(
+                          var S = yield o(
                             "WAWebVoipStackInterface",
                           ).getVoipStackInterface();
-                          yield v == null
+                          yield S == null
                             ? void 0
-                            : v.resendEncRekeyRetry(
+                            : S.resendEncRekeyRetry(
                                 l.toString({ legacy: !0 }),
                                 g,
                               );
                         } else if (h !== "voip_1x1_retry") {
-                          var S = yield o(
+                          var R = yield o(
                               "WAWebProcessRetryKeyBundle",
                             ).getMsgIfAuthorized({
                               chat: i,
                               identity: s,
-                              originalMsgId: C,
-                              requester: b,
+                              originalMsgId: b,
+                              requester: v,
                               retryCount: g,
+                              sessionScope: C,
                             }),
-                            R =
-                              S == null
+                            L =
+                              R == null
                                 ? o("WAWebApiContact").getAlternateDeviceWid(
                                     o(
                                       "WAWebWidFactory",
-                                    ).createDeviceWidFromWidOrThrow(b),
+                                    ).createDeviceWidFromWidOrThrow(v),
                                   )
                                 : null;
                           if (
-                            (R &&
-                              (S = yield o(
+                            (L &&
+                              (R = yield o(
                                 "WAWebProcessRetryKeyBundle",
                               ).getMsgIfAuthorized({
                                 chat: i,
                                 identity: s,
-                                originalMsgId: C,
-                                requester: R,
+                                originalMsgId: b,
+                                requester: L,
                                 retryCount: g,
+                                sessionScope: C,
                               })),
-                            !S)
+                            !R)
                           ) {
-                            var L;
+                            var k;
                             o("WALogger").WARN(
                               c ||
                                 (c = babelHelpers.taggedTemplateLiteralLoose([
                                   "handleMessageRetryRequest ",
                                   " retry not authorized",
                                 ])),
-                              (L = S) == null ? void 0 : L.type,
+                              (k = R) == null ? void 0 : k.type,
                             );
                             return;
                           }
-                          var k = {
+                          var I = {
                             to: p,
                             participant: _,
-                            msgRecord: S,
+                            msgRecord: R,
                             retryCount: g,
                             isLidBot: u,
                             sessionScope: y,
                           };
-                          (f && (k.recipient = f),
-                            m && (k.lidOrigin = m),
-                            a && (k.accountLid = a),
-                            yield o("WAWebSendRetryMsgJob").sendRetry(k));
+                          (f && (I.recipient = f),
+                            m && (I.lidOrigin = m),
+                            a && (I.accountLid = a),
+                            yield o("WAWebSendRetryMsgJob").sendRetry(I));
                         }
                       } catch (e) {
                         o("WALogger").WARN(

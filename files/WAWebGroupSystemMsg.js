@@ -129,7 +129,7 @@ __d(
                       : (o("WALogger").LOG(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[CAG system message] participantAddMsg: participant add message with actionType: ",
+                              "[CAG] participantAddMsg actionType=",
                               "",
                             ])),
                           i.actionType,
@@ -752,7 +752,7 @@ __d(
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[system message] generateDeleteParentNotificationMessages - DELETE_PARENT_GROUP",
+                  "[generateDeleteParentNotificationMessages] DELETE_PARENT_GROUP",
                 ])),
             ),
             a.push(
@@ -817,8 +817,8 @@ __d(
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[system message] generateDeleteParentNotificationMessages - processed ",
-                    " joinedGroups for DELETE_PARENT_GROUP and PARENT_GROUP_UNLINK",
+                    "[generateDeleteParentNotificationMessages] processed ",
+                    " groups",
                   ])),
                 p.length,
               ),
@@ -843,7 +843,7 @@ __d(
               o("WALogger").ERROR(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "genIntegrityDelteteParentNotificationMsgs: missing parentGroupMetadata",
+                    "[genIntegrityDeleteParentNotificationMsgs] missing metadata",
                   ])),
               ),
               []
@@ -857,7 +857,7 @@ __d(
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[system message] genIntegrityDeleteParentNotificationMsgs - joinedGroup - DELETE :: INTEGRITY_DELETE_PARENT",
+                  "[genIntegrityDeleteParentNotificationMsgs] INTEGRITY_DELETE_PARENT",
                 ])),
             ),
               a.push(
@@ -933,8 +933,8 @@ __d(
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[system message] genIntegrityDeleteParentNotificationMsgs - processed ",
-                    " joinedGroups for DELETE :: INTEGRITY_PARENT_GROUP_UNLINK",
+                    "[genIntegrityDeleteParentNotificationMsgs] processed ",
+                    " grps",
                   ])),
                 c.length,
               ),
@@ -963,7 +963,7 @@ __d(
                 o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[system message] genDescriptionNotificationMsg - Parent Group - actionType = ",
+                      "[genDescriptionNotificationMsg] parentGroup actionType=",
                       "",
                     ])),
                   t.actionType,
@@ -979,7 +979,7 @@ __d(
             o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[system message] genDescriptionNotificationMsg - NOT Parent Group - actionType = ",
+                  "[genDescriptionNotificationMsg] !parentGroup actionType=",
                   "",
                 ])),
               t.actionType,
@@ -1013,7 +1013,7 @@ __d(
                 o("WALogger").LOG(
                   g ||
                     (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[system message] genAllowNonAdminSubGroupCreationNotificationMsg - actionType = ",
+                      "[genAllowNonAdminSubGroupCreationNotificationMsg] actionType=",
                       "",
                     ])),
                   t.actionType,
@@ -1046,7 +1046,7 @@ __d(
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[system message] genCreatedSubgroupSuggestionNotificationMsg - actionType = ",
+                    "[genCreatedSubgroupSuggestionNotificationMsg] actionType=",
                     "",
                   ])),
                 t.actionType,
@@ -1084,7 +1084,7 @@ __d(
                 o("WALogger").LOG(
                   y ||
                     (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[system message] genCommunityOwnerUpdateNotificationMsg - actionType = ",
+                      "[genCommunityOwnerUpdateNotificationMsg] actionType=",
                       "",
                     ])),
                   t.actionType,

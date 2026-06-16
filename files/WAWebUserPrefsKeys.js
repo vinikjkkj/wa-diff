@@ -282,6 +282,8 @@ __d(
             WA_WEB_REFRESH_STATE: "wa_web_refresh_state",
             WA_WEB_META_AI_THREAD_MIGRATION_STATE:
               "WAWebMetaAIThreadMigrationState",
+            WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS:
+              "WAWebMetaAIBotSessionLastCleanupTs",
             WINDOWS_PENDING_CLIENT_KEY_SETUP:
               "WAWebWindowsPendingClientKeySetup",
           },

@@ -700,7 +700,7 @@ __d(
                 var r = o("WAWebSignalCommonUtils")
                   .createSignalAddress(n)
                   .toString();
-                n.equals(o("WAWebUserPrefsMeUser").getMeUser())
+                o("WAWebUserPrefsMeUser").isMeAccount(n)
                   ? o("WAWebHistorySyncNotificationUtils")
                       .checkSelfHistorySyncIdentity(r, t)
                       .catch(function () {

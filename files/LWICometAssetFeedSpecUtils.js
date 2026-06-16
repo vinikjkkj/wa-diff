@@ -424,12 +424,47 @@ __d(
       };
       return (
         e.link_data != null
-          ? y(e.link_data, n, t)
-          : e.video_data != null && C(e.video_data, n, t),
+          ? C(e.link_data, n, t)
+          : e.video_data != null && b(e.video_data, n, t),
         babelHelpers.extends({}, n)
       );
     }
-    function y(e, t, n) {
+    function y(e, t, n, r) {
+      if ((e == null ? void 0 : e.video_id) != null) {
+        if (
+          ((t.ad_formats = ["SINGLE_VIDEO"]),
+          (e == null ? void 0 : e.call_to_action) != null)
+        ) {
+          var o;
+          ((t.call_to_actions = [
+            {
+              adlabels: [{ name: n }],
+              type: e.call_to_action.type,
+              value: e.call_to_action.value,
+            },
+          ]),
+            ((o = e.call_to_action.value) == null ? void 0 : o.link) != null &&
+              (t.link_urls = [{ website_url: e.call_to_action.value.link }]));
+        }
+        (r != null && (t.bodies = [{ text: r }]),
+          (e == null ? void 0 : e.name) != null &&
+            (t.titles = [{ text: e.name }]),
+          (t.videos = [
+            {
+              thumbnail_hash: e.image_hash,
+              thumbnail_url: e.picture,
+              video_id: e.video_id,
+            },
+          ]));
+      } else
+        ((t.ad_formats = ["SINGLE_IMAGE"]),
+          (e == null ? void 0 : e.name) != null &&
+            (t.titles = [{ text: e.name }]),
+          ((e == null ? void 0 : e.image_hash) != null ||
+            (e == null ? void 0 : e.picture) != null) &&
+            (t.images = [{ hash: e.image_hash, url: e.picture }]));
+    }
+    function C(e, t, n) {
       if (
         (e.call_to_action != null &&
           (t.call_to_actions = [
@@ -442,48 +477,11 @@ __d(
         e.description != null && (t.descriptions = [{ text: e.description }]),
         e.child_attachments != null)
       )
-        if (e.child_attachments.length === 1) {
-          var o = e.child_attachments[0];
-          if ((o == null ? void 0 : o.video_id) != null) {
-            if (
-              ((t.ad_formats = ["SINGLE_VIDEO"]),
-              (o == null ? void 0 : o.call_to_action) != null)
-            ) {
-              var a;
-              ((t.call_to_actions = [
-                {
-                  adlabels: [{ name: n }],
-                  type: o.call_to_action.type,
-                  value: o.call_to_action.value,
-                },
-              ]),
-                ((a = o.call_to_action.value) == null ? void 0 : a.link) !=
-                  null &&
-                  (t.link_urls = [
-                    { website_url: o.call_to_action.value.link },
-                  ]));
-            }
-            ((e == null ? void 0 : e.message) != null &&
-              (t.bodies = [{ text: e == null ? void 0 : e.message }]),
-              (o == null ? void 0 : o.name) != null &&
-                (t.titles = [{ text: o.name }]),
-              (t.videos = [
-                {
-                  thumbnail_hash: o.image_hash,
-                  thumbnail_url: o.picture,
-                  video_id: o.video_id,
-                },
-              ]));
-          } else
-            ((t.ad_formats = ["SINGLE_IMAGE"]),
-              (o == null ? void 0 : o.name) != null &&
-                (t.titles = [{ text: o.name }]),
-              ((o == null ? void 0 : o.image_hash) != null ||
-                (o == null ? void 0 : o.picture) != null) &&
-                (t.images = [{ hash: o.image_hash, url: o.picture }]));
-        } else {
+        if (e.child_attachments.length === 1)
+          y(e.child_attachments[0], t, n, e == null ? void 0 : e.message);
+        else {
           t.ad_formats = ["CAROUSEL"];
-          var i = e.child_attachments
+          var o = e.child_attachments
             .map(function (e) {
               var t;
               return e == null
@@ -507,7 +505,7 @@ __d(
                   };
             })
             .filter(Boolean);
-          i.length > 0 && (t.carousel_cards = i);
+          o.length > 0 && (t.carousel_cards = o);
         }
       else
         ((t.ad_formats = ["SINGLE_IMAGE"]),
@@ -526,7 +524,7 @@ __d(
       (e.link != null && (t.link_urls = [{ website_url: e.link }]),
         e.message != null && (t.bodies = [{ text: e.message }]));
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       if (((t.ad_formats = ["SINGLE_VIDEO"]), e.call_to_action != null)) {
         var r;
         ((t.call_to_actions = [
@@ -550,7 +548,7 @@ __d(
             },
           ]));
     }
-    function b(e) {
+    function v(e) {
       if (e == null) return !1;
       var t = e.bodies,
         n = e.titles;
@@ -563,7 +561,7 @@ __d(
       (l.getSingleMediaCreativeDataFromAssetFeedSpecPlus = p),
       (l.getObjectStorySpecCreativeFromAssetFeedSpecPlus = _),
       (l.getAssetFeedSpecFromObjectStorySpec = h),
-      (l.containsTextVariantsInAFS = b));
+      (l.containsTextVariantsInAFS = v));
   },
   98,
 );

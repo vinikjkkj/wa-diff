@@ -76,6 +76,13 @@ __d(
           "guest_experience_chat_screen_landing",
         INVITE_CODE_FETCH_FAILED: "error_invite_code_fetch_failed",
         INVITE_CODE_INVALID: "error_invite_code_invalid",
+        UNRELATED_GUEST_SESSION_DETECTED: "unrelated_guest_session_detected",
+        UNRELATED_GUEST_SESSION_NUKING_ERROR:
+          "error_unrelated_guest_session_nuking_error",
+        GUEST_CLIENT_STATE_DIRTY_BIT_RECOVERY_SUCCESS:
+          "guest_client_state_dirty_bit_recovery_success",
+        GUEST_CLIENT_STATE_DIRTY_BIT_RECOVERY_ERROR:
+          "error_guest_client_state_dirty_bit_recovery_error",
         STORAGE_INIT_FAILED: "error_storage_init_failed",
         GUEST_BACKEND_BOOTSTRAP_FAILED: "error_guest_backend_bootstrap_failed",
         GUEST_BACKEND_BOOTSTRAP_FAILED_DURING_DB_INIT:

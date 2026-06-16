@@ -192,19 +192,12 @@ __d(
         };
       })(),
       p = function () {
-        for (
-          var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            t = arguments.length,
-            n = new Array(t),
-            r = 0;
-          r < t;
-          r++
-        )
-          n[r] = arguments[r];
-        var a = n[0];
-        return e != null && e.equals(a)
-          ? m.apply(void 0, n)
-          : d.apply(void 0, n);
+        for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
+          t[n] = arguments[n];
+        var r = t[0];
+        return o("WAWebUserPrefsMeUser").isMeAccount(r)
+          ? m.apply(void 0, t)
+          : d.apply(void 0, t);
       },
       _ = p;
     l.default = _;

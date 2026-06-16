@@ -48,7 +48,7 @@ __d(
                 .WARN(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleChatSimpleReceipt: skipping self peer/sender receipt without recipient",
+                      "[handleChatSimpleReceipt] skip self receipt: no recipient",
                     ])),
                 )
                 .sendLogs(

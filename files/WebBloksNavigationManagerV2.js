@@ -60,6 +60,14 @@ __d(
         }
         var n = t.prototype;
         return (
+          (n.setScreenController = function (t) {
+            var e = t == null ? void 0 : t.controllerName;
+            if (e != null) {
+              var n;
+              (n = this.objectSet.environment.controllerNavigationLogger) ==
+                null || n.setCurrentController(e);
+            }
+          }),
           (n.$7 = function (n) {
             if (n.isWebBloks) {
               this.navigationDirection = this.$8(
@@ -72,14 +80,8 @@ __d(
               var r = this.screensCache.get(n.screenId);
               if (
                 ((n.sessionId !== e || r == null) && window.location.reload(),
-                (r == null ? void 0 : r.controllerName) != null)
-              ) {
-                var a;
-                (a = this.objectSet.environment.controllerNavigationLogger) ==
-                  null || a.setCurrentController(r.controllerName);
-              }
-              if (
-                ((this.currentScreenPointer = babelHelpers.extends(
+                this.setScreenController(r),
+                (this.currentScreenPointer = babelHelpers.extends(
                   {},
                   n.screenPointer,
                 )),
@@ -87,12 +89,12 @@ __d(
                 this.$9(this.getCurrentScreen()) || this.$11(),
                 this.pendingCloses.length > 0)
               ) {
-                var i = this.pendingCloses.pop();
-                i && i();
+                var a = this.pendingCloses.pop();
+                a && a();
               }
               if (this.pendingOpen && this.pendingCloses.length === 0) {
-                var l = this.pendingOpen;
-                ((this.pendingOpen = null), l());
+                var i = this.pendingOpen;
+                ((this.pendingOpen = null), i());
               }
               n.pageTitle != null &&
                 o("WebBloksSSRUtils").canUseDOM &&

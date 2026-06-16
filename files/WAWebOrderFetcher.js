@@ -118,9 +118,7 @@ __d(
             p = d.name;
           return (
             (n === s.PAYMENTS_HOME ||
-              a.from.equals(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              )) &&
+              o("WAWebUserPrefsMeUser").isMeAccount(a.from)) &&
               (a.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
                 ? y(e, a, t, p, m)

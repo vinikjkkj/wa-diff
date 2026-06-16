@@ -176,7 +176,7 @@ __d(
       return s._(/*BTDS*/ "Read receipts");
     }
     function le() {
-      return s._(/*BTDS*/ "Disable link previews");
+      return s._(/*BTDS*/ "Turn off link previews");
     }
     function se() {
       return s._(/*BTDS*/ "Block unknown account messages");

@@ -50,6 +50,7 @@ __d(
       "LoadMainScreen",
       "ClosingBrowserTab",
       "BrowserTabHidden",
+      "VoipSession",
     ]);
     function s(e, t, n) {
       Object.prototype.hasOwnProperty.call(e, "appContext") ||

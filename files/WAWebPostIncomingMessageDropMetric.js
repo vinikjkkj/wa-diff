@@ -10,6 +10,7 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebIncomingMessageDropWamEvent",
     "WAWebJidToWid",
+    "WAWebSessionScopeWamUtils",
     "WAWebWamEnumAgentEngagementEnumType",
     "WAWebWamEnumBotType",
     "WAWebWamEnumEncryptionTypeCode",
@@ -252,6 +253,15 @@ __d(
           retryCount: r.retryCount,
           offline: i.offline != null,
           e2eFailureReason: a == null ? void 0 : a.e2eFailureReason,
+          sessionScope: o("WAWebSessionScopeWamUtils").sessionScopeToWamType(
+            o("WAWebSessionScopeWamUtils").getIncomingStatusSkdmScope({
+              from: e(i),
+              isGroupStatus: l.isGroupStatus,
+              isSkmsg:
+                r.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+              metaSessionScope: l.metaSessionScope,
+            }),
+          ),
         }),
         u = e(i),
         c = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(u);

@@ -60,11 +60,9 @@ __d(
             (a === o("WAWebAck").ACK_STRING.READ_SELF ||
               a === o("WAWebAck").ACK_STRING.PLAYED_SELF) &&
             c != null &&
-            o("WAWebWidFactory")
-              .asUserWidOrThrow(c)
-              .equals(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              );
+            o("WAWebUserPrefsMeUser").isMeAccount(
+              o("WAWebWidFactory").asUserWidOrThrow(c),
+            );
           if (!_)
             throw (
               o("WALogger").WARN(

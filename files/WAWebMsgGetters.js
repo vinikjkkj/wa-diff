@@ -1637,7 +1637,7 @@ __d(
     function Da(e) {
       var t =
         b(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-        k(e).equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser());
+        o("WAWebUserPrefsMeUser").isMeAccount(k(e));
       return (
         !t &&
         !Zn(e) &&

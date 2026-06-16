@@ -192,7 +192,7 @@ __d(
       );
     }
     function E(e, t) {
-      e.equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser()) &&
+      o("WAWebUserPrefsMeUser").isMeAccount(e) &&
         o("WAWebUserPrefsMultiDevice").setCachedProfilePicEURL(
           t != null ? t : "",
         );

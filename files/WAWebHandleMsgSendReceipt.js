@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebBackendJobs.flow",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgSendAck",
@@ -12,6 +13,7 @@ __d(
     "WAWebSendDeliveryReceiptJob",
     "WAWebSendReceiptJobCommon",
     "WAWebSendRetryReceiptJob",
+    "WAWebSessionScopeWamUtils",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -149,7 +151,22 @@ __d(
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",
-                  ).maybePostMessageHighRetryCountMetric(E, t));
+                  ).maybePostMessageHighRetryCountMetric(
+                    E,
+                    t,
+                    r.failedEnc != null
+                      ? o(
+                          "WAWebSessionScopeWamUtils",
+                        ).getIncomingStatusSkdmScope({
+                          from: p,
+                          isGroupStatus: n.isGroupStatus,
+                          isSkmsg:
+                            r.failedEnc.e2eType ===
+                            o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                          metaSessionScope: n.metaSessionScope,
+                        })
+                      : void 0,
+                  ));
                 return;
               }
               if (

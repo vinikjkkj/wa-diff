@@ -38,8 +38,7 @@ __d(
       NOTIFICATION_GRANULARITY_AWARENESS_BANNER:
         "notification_granularity_awareness_banner",
       BRAZIL_CONTACTS_RESTRICTION_BANNER: "brazil_contacts_restriction_banner",
-      WEB_CALLING_1_1_NUX: "web_calling_1_1_nux",
-      WEB_CALLING_GROUP_NUX: "web_calling_group_nux",
+      WEB_CALLING_SHARED_NUX: "web_calling_shared_nux",
       NEWSLETTER_ADMIN_NOTIFICATION_SETTINGS_BANNER:
         "newsletter_admin_notification_settings_banner",
       BUSINESS_BROADCAST_CHAT_LIST_UPSELL:
@@ -149,8 +148,7 @@ __d(
             "newsletter_questions_privacy_banner",
           BUSINESS_BROADCAST_AUDIENCE_UPLOAD:
             "business_broadcast_audience_upload",
-          WEB_CALLING_1_1_NUX: "web_calling_1_1_nux",
-          WEB_CALLING_GROUP_NUX: "web_calling_group_nux",
+          WEB_CALLING_SHARED_NUX: "web_calling_shared_nux",
           NEWSLETTER_ADMIN_NOTIFICATION_SETTINGS_BANNER:
             "newsletter_admin_notification_settings_banner",
           BUSINESS_BROADCAST_CHAT_LIST_UPSELL:

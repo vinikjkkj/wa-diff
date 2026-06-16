@@ -127,9 +127,9 @@ __d(
                   })));
               var D =
                   o("WAWebMessagingGatingUtils").isSimpleSignalEnabled() &&
+                  m &&
                   (k.isHosted() ||
-                    (m &&
-                      k.user === a.user &&
+                    (k.user === a.user &&
                       o("WAWebSendMsgCommonApi").isPrimaryDevice(k))),
                 x = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
                   k,
@@ -259,9 +259,9 @@ __d(
                             o(
                               "WAWebMessagingGatingUtils",
                             ).isSimpleSignalEnabled() &&
+                            m &&
                             (n.isHosted() ||
-                              (m &&
-                                n.user === a.user &&
+                              (n.user === a.user &&
                                 o("WAWebSendMsgCommonApi").isPrimaryDevice(n))),
                           v = yield o(
                             "WAWebEncryptMsgProtobuf",

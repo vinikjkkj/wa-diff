@@ -2,11 +2,13 @@ __d(
   "WAWebPostE2eMessageRecvMetric",
   [
     "WAWebBackendApi",
+    "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebE2eMessageRecvWamEvent",
     "WAWebGetMetricE2eDestination",
     "WAWebGroupType",
     "WAWebHandleMsgCommon",
+    "WAWebSessionScopeWamUtils",
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumAgentEngagementEnumType",
     "WAWebWamEnumEncryptionTypeCode",
@@ -46,6 +48,18 @@ __d(
               botType: o("WAWebWamMsgUtils").getWamBotType(
                 u,
                 a == null ? void 0 : a.bizBotType,
+              ),
+              sessionScope: o(
+                "WAWebSessionScopeWamUtils",
+              ).sessionScopeToWamType(
+                o("WAWebSessionScopeWamUtils").getIncomingStatusSkdmScope({
+                  from: r,
+                  isGroupStatus: l.isGroupStatus,
+                  isSkmsg:
+                    t.e2eType ===
+                    o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                  metaSessionScope: l.metaSessionScope,
+                }),
               ),
             }),
             d = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(r);

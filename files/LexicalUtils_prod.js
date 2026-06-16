@@ -42,21 +42,21 @@ __d(
     function i(i, s, l) {
       var a = null,
         c = null,
-        g = null,
-        u = [];
+        u = null,
+        g = [];
       var d = document.createElement("div");
       function f() {
         (null === a && n(182), null === c && n(183));
         var _c$getBoundingClientR = c.getBoundingClientRect(),
           t = _c$getBoundingClientR.left,
           o = _c$getBoundingClientR.top,
-          g = require("LexicalSelection").createRectsFromDOMRange(i, s);
+          u = require("LexicalSelection").createRectsFromDOMRange(i, s);
         var f, p;
         d.isConnected || ((p = d), (f = c).insertBefore(p, f.firstChild));
         var $ = !1;
-        for (var _e2 = 0; _e2 < g.length; _e2++) {
-          var _n = g[_e2],
-            _i = u[_e2] || document.createElement("div"),
+        for (var _e2 = 0; _e2 < u.length; _e2++) {
+          var _n = u[_e2],
+            _i = g[_e2] || document.createElement("div"),
             _s = _i.style;
           "absolute" !== _s.position && ((_s.position = "absolute"), ($ = !0));
           var _l = r(_n.left - t);
@@ -68,19 +68,19 @@ __d(
           var _f = r(_n.height);
           (_s.height !== _f && ((_i.style.height = _f), ($ = !0)),
             _i.parentNode !== d && (d.append(_i), ($ = !0)),
-            (u[_e2] = _i));
+            (g[_e2] = _i));
         }
-        for (; u.length > g.length; ) u.pop();
-        $ && l(u);
+        for (; g.length > u.length; ) g.pop();
+        $ && l(g);
       }
       function p() {
         ((c = null),
           (a = null),
-          null !== g && g.disconnect(),
-          (g = null),
+          null !== u && u.disconnect(),
+          (u = null),
           d.remove());
-        for (var _e3 of u) _e3.remove();
-        u = [];
+        for (var _e3 of g) _e3.remove();
+        g = [];
       }
       d.style.position = "relative";
       var $ = i.registerRootListener(function e() {
@@ -91,13 +91,13 @@ __d(
         (p(),
           (a = n),
           (c = r),
-          (g = new MutationObserver(function (t) {
+          (u = new MutationObserver(function (t) {
             var n = i.getRootElement(),
               r = n && n.parentElement;
             if (n !== a || r !== c) return e();
             for (var _e4 of t) if (!d.contains(_e4.target)) return f();
           })),
-          g.observe(r, o),
+          u.observe(r, o),
           f());
       });
       return function () {
@@ -134,8 +134,8 @@ __d(
         o = null,
         a = null,
         c = null,
-        g = null,
         u = null,
+        g = null,
         d = function d() {};
       function f(l) {
         l.read(
@@ -146,7 +146,7 @@ __d(
                 (r = null),
                 (a = null),
                 (c = null),
-                (u = null),
+                (g = null),
                 d(),
                 void (d = function d() {})
               );
@@ -158,14 +158,14 @@ __d(
               p = _ref[1],
               $ = f.getNode(),
               m = $.getKey(),
-              h = f.offset,
-              S = p.getNode(),
-              C = S.getKey(),
+              C = f.offset,
+              h = p.getNode(),
+              S = h.getKey(),
               x = p.offset,
               N = e.getElementByKey(m),
-              E = e.getElementByKey(C),
-              R = null === r || N !== o || h !== a || m !== r.getKey(),
-              I = null === c || E !== g || x !== u || C !== c.getKey();
+              E = e.getElementByKey(S),
+              R = null === r || N !== o || C !== a || m !== r.getKey(),
+              I = null === c || E !== u || x !== g || S !== c.getKey();
             if ((R || I) && null !== N && null !== E) {
               var _t2 = (function (e, t, n, r, o, i, l) {
                 var a = (
@@ -176,10 +176,10 @@ __d(
                   a.setEnd.apply(a, s(e, o, i, l)),
                   a
                 );
-              })(e, f, $, N, p, S, E);
+              })(e, f, $, N, p, h, E);
               (d(), (d = i(e, _t2, n)));
             }
-            ((r = $), (o = N), (a = h), (c = S), (g = E), (u = x));
+            ((r = $), (o = N), (a = C), (c = h), (u = E), (g = x));
           },
           { editor: e },
         );
@@ -201,10 +201,10 @@ __d(
       for (var _n2 of t) if (e.type.startsWith(_n2)) return !0;
       return !1;
     }
-    function g(e, t) {
+    function u(e, t) {
       return d("next", e, t);
     }
-    function u(e, n) {
+    function g(e, n) {
       var r = require("Lexical").$getAdjacentSiblingOrParentSiblingCaret(
         require("Lexical").$getSiblingCaret(e, n),
       );
@@ -222,8 +222,8 @@ __d(
               require("Lexical").$getChildCaretOrSelf(
                 require("Lexical").$getSiblingCaret(r, e),
               ),
-            ) || u(r, e)
-          : u(i, e);
+            ) || g(r, e)
+          : g(i, e);
       var c = l;
       return require("Lexical").makeStepwiseIterator({
         hasNext: function hasNext(e) {
@@ -283,7 +283,10 @@ __d(
         )
       );
     }
-    var m =
+    function m(e, t) {
+      return null !== e && Object.getPrototypeOf(e).constructor.name === t.name;
+    }
+    var C =
       !(require("Lexical").IS_FIREFOX || !require("Lexical").CAN_USE_DOM) &&
       void 0;
     function h(e, n, r) {
@@ -309,9 +312,9 @@ __d(
       return o;
     }
     function S(e) {
-      return C(require("Lexical").$getChildCaret(e, "previous"));
+      return x(require("Lexical").$getChildCaret(e, "previous"));
     }
-    function C(e) {
+    function x(e) {
       return require("Lexical").makeStepwiseIterator({
         hasNext: require("Lexical").$isSiblingCaret,
         initial: e.getAdjacentCaret(),
@@ -356,9 +359,9 @@ __d(
         return r;
       }),
       (exports.$dfs = function (e, t) {
-        return Array.from(g(e, t));
+        return Array.from(u(e, t));
       }),
-      (exports.$dfsIterator = g),
+      (exports.$dfsIterator = u),
       (exports.$filter = function (e, t) {
         var n = [];
         for (var _r = 0; _r < e.length; _r++) {
@@ -368,7 +371,7 @@ __d(
         return n;
       }),
       (exports.$firstToLastIterator = function (e) {
-        return C(require("Lexical").$getChildCaret(e, "next"));
+        return x(require("Lexical").$getChildCaret(e, "next"));
       }),
       (exports.$getAdjacentCaret = function (e) {
         return e ? e.getAdjacentCaret() : null;
@@ -478,37 +481,59 @@ __d(
         );
       }),
       (exports.$insertNodeToNearestRootAtCaret = $),
+      (exports.$isBlockFullySelected = function (e, n) {
+        var r = require("Lexical").$getCaretRangeInDirection(
+            require("Lexical").$isRangeSelection(n)
+              ? require("Lexical").$caretRangeFromSelection(n)
+              : n,
+            "next",
+          ),
+          o = require("Lexical").$normalizeCaret(
+            require("Lexical").$getChildCaret(e, "next"),
+          ),
+          i = require("Lexical").$getCaretInDirection(
+            require("Lexical").$normalizeCaret(
+              require("Lexical").$getChildCaret(e, "previous"),
+            ),
+            "next",
+          );
+        return (
+          require("Lexical").$comparePointCaretNext(r.anchor, o) <= 0 &&
+          require("Lexical").$comparePointCaretNext(r.focus, i) >= 0
+        );
+      }),
       (exports.$isEditorIsNestedEditor = function (e) {
         return null !== e._parentEditor;
       }),
       (exports.$lastToFirstIterator = S),
-      (exports.$onEscapeDown = function (n) {
-        var r = require("Lexical").$getSelection();
-        if (require("Lexical").$isRangeSelection(r) && r.isCollapsed()) {
-          var _o3 = require("Lexical").$findMatchingParent(
-            r.anchor.getNode(),
+      (exports.$onEscapeDown = function (n, r) {
+        var o = require("Lexical").$getSelection();
+        if (require("Lexical").$isRangeSelection(o) && o.isCollapsed()) {
+          var _i5 = require("Lexical").$findMatchingParent(
+            o.anchor.getNode(),
             n,
           );
-          if (_o3) {
-            var _n5 = _o3.getParent();
-            if (null !== _n5 && _n5.getLastChild() === _o3) {
-              var _o3$getLastDescendant;
+          if (_i5) {
+            var _n5 = _i5.getParent();
+            if (null !== _n5 && _n5.getLastChild() === _i5) {
+              var _i5$getLastDescendant;
               var _n6 =
-                  (_o3$getLastDescendant = _o3.getLastDescendant()) != null
-                    ? _o3$getLastDescendant
-                    : _o3,
-                _i5 = r.anchor.getNode();
+                  (_i5$getLastDescendant = _i5.getLastDescendant()) != null
+                    ? _i5$getLastDescendant
+                    : _i5,
+                _s3 = o.anchor.getNode();
               if (
                 null !== _n6 &&
-                require("LexicalSelection").$isAtNodeEnd(r.anchor) &&
-                (_i5 === _n6 ||
-                  (require("Lexical").$isElementNode(_i5) &&
-                    _i5.getLastDescendant() === _n6))
+                require("LexicalSelection").$isAtNodeEnd(o.anchor) &&
+                (_s3 === _n6 ||
+                  (require("Lexical").$isElementNode(_s3) &&
+                    _s3.getLastDescendant() === _n6))
               )
                 return (
-                  _o3
+                  _i5
                     .insertAfter(require("Lexical").$createParagraphNode())
                     .selectEnd(),
+                  r && r.preventDefault(),
                   !0
                 );
             }
@@ -516,36 +541,37 @@ __d(
         }
         return !1;
       }),
-      (exports.$onEscapeUp = function (e) {
-        var n = require("Lexical").$getSelection();
+      (exports.$onEscapeUp = function (e, n) {
+        var r = require("Lexical").$getSelection();
         if (
-          require("Lexical").$isRangeSelection(n) &&
-          n.isCollapsed() &&
-          0 === n.anchor.offset
+          require("Lexical").$isRangeSelection(r) &&
+          r.isCollapsed() &&
+          0 === r.anchor.offset
         ) {
-          var _r2 = require("Lexical").$findMatchingParent(
-            n.anchor.getNode(),
+          var _o3 = require("Lexical").$findMatchingParent(
+            r.anchor.getNode(),
             e,
           );
-          if (_r2) {
-            var _e0 = _r2.getParent();
-            if (null !== _e0 && _e0.getFirstChild() === _r2) {
-              var _r2$getFirstDescendan;
+          if (_o3) {
+            var _e0 = _o3.getParent();
+            if (null !== _e0 && _e0.getFirstChild() === _o3) {
+              var _o3$getFirstDescendan;
               var _e1 =
-                  (_r2$getFirstDescendan = _r2.getFirstDescendant()) != null
-                    ? _r2$getFirstDescendan
-                    : _r2,
-                _o4 = n.anchor.getNode();
+                  (_o3$getFirstDescendan = _o3.getFirstDescendant()) != null
+                    ? _o3$getFirstDescendan
+                    : _o3,
+                _i6 = r.anchor.getNode();
               if (
                 null !== _e1 &&
-                (_o4 === _e1 ||
-                  (require("Lexical").$isElementNode(_o4) &&
-                    _o4.getFirstDescendant() === _e1))
+                (_i6 === _e1 ||
+                  (require("Lexical").$isElementNode(_i6) &&
+                    _i6.getFirstDescendant() === _e1))
               )
                 return (
-                  _r2
+                  _o3
                     .insertBefore(require("Lexical").$createParagraphNode())
                     .selectEnd(),
+                  n && n.preventDefault(),
                   !0
                 );
             }
@@ -558,8 +584,8 @@ __d(
           o = e._pendingEditorState;
         for (var _ref4 of n._nodeMap) {
           var _e10 = _ref4[0];
-          var _o5 = _ref4[1];
-          r.set(_e10, require("Lexical").$cloneWithProperties(_o5));
+          var _o4 = _ref4[1];
+          r.set(_e10, require("Lexical").$cloneWithProperties(_o4));
         }
         (o && (o._nodeMap = r), require("Lexical").$fullReconcile());
         var i = n._selection;
@@ -588,7 +614,7 @@ __d(
         var n = 1;
         if (
           (function () {
-            if (void 0 === m) {
+            if (void 0 === C) {
               var _e11 = document.createElement("div");
               ((_e11.style.position = "absolute"),
                 (_e11.style.opacity = "0"),
@@ -597,10 +623,10 @@ __d(
                 document.body.appendChild(_e11));
               var _t4 = _e11.getBoundingClientRect();
               (_e11.style.setProperty("zoom", "2"),
-                (m = _e11.getBoundingClientRect().width === _t4.width),
+                (C = _e11.getBoundingClientRect().width === _t4.width),
                 document.body.removeChild(_e11));
             }
-            return m;
+            return C;
           })() ||
           t
         )
@@ -609,13 +635,27 @@ __d(
               (e = e.parentElement));
         return n;
       }),
+      (exports.eventFiles = function (e) {
+        var t = null;
+        if (
+          (m(e, DragEvent)
+            ? (t = e.dataTransfer)
+            : m(e, ClipboardEvent) && (t = e.clipboardData),
+          null === t)
+        )
+          return [!1, [], !1];
+        var n = t.types,
+          r = n.includes("Files"),
+          o = n.includes("text/html") || n.includes("text/plain");
+        return [r, Array.from(t.files), o];
+      }),
       (exports.isMimeType = c),
       (exports.makeStateWrapper = function (e) {
         var n = function n(_n7) {
             return require("Lexical").$getState(_n7, e);
           },
-          r = function r(n, _r3) {
-            return require("Lexical").$setState(n, e, _r3);
+          r = function r(n, _r2) {
+            return require("Lexical").$setState(n, e, _r2);
           };
         return {
           $get: n,
@@ -640,7 +680,7 @@ __d(
           e[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"]();
         return new Promise(function (e, r) {
           var o = [],
-            _i6 = function i() {
+            _i7 = function i() {
               var _n$next = n.next(),
                 s = _n$next.done,
                 l = _n$next.value;
@@ -650,18 +690,14 @@ __d(
                 a.addEventListener("load", function () {
                   var e = a.result;
                   ("string" == typeof e && o.push({ file: l, result: e }),
-                    _i6());
+                    _i7());
                 }),
-                c(l, t) ? a.readAsDataURL(l) : _i6());
+                c(l, t) ? a.readAsDataURL(l) : _i7());
             };
-          _i6();
+          _i7();
         });
       }),
-      (exports.objectKlassEquals = function (e, t) {
-        return (
-          null !== e && Object.getPrototypeOf(e).constructor.name === t.name
-        );
-      }),
+      (exports.objectKlassEquals = m),
       (exports.positionNodeOnRange = i),
       (exports.registerNestedElementResolver = function (e, t, n, r) {
         var o = function o(e) {
@@ -682,18 +718,18 @@ __d(
             return null;
           })(e);
           if (null !== t) {
-            var _o6 = t.child,
-              _i7 = t.parent;
-            if (_o6.is(e)) {
-              r(_i7, e);
-              var _t5 = _o6.getNextSiblings(),
-                _s3 = _t5.length;
-              if ((_i7.insertAfter(_o6), 0 !== _s3)) {
-                var _e13 = n(_i7);
-                _o6.insertAfter(_e13);
-                for (var _n9 = 0; _n9 < _s3; _n9++) _e13.append(_t5[_n9]);
+            var _o5 = t.child,
+              _i8 = t.parent;
+            if (_o5.is(e)) {
+              r(_i8, e);
+              var _t5 = _o5.getNextSiblings(),
+                _s4 = _t5.length;
+              if ((_i8.insertAfter(_o5), 0 !== _s4)) {
+                var _e13 = n(_i8);
+                _o5.insertAfter(_e13);
+                for (var _n9 = 0; _n9 < _s4; _n9++) _e13.append(_t5[_n9]);
               }
-              _i7.canBeEmpty() || 0 !== _i7.getChildrenSize() || _i7.remove();
+              _i8.canBeEmpty() || 0 !== _i8.getChildrenSize() || _i8.remove();
             }
           }
         });

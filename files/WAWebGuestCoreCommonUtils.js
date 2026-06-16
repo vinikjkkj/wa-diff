@@ -1,6 +1,13 @@
 __d(
   "WAWebGuestCoreCommonUtils",
-  ["WABase64", "WABase64UrlSafe", "WAWebBrowserInfo", "WAWebUA"],
+  [
+    "WABase64",
+    "WABase64UrlSafe",
+    "WAWebBrowserInfo",
+    "WAWebGuestCoreDownloadCTAClickAction",
+    "WAWebGuestCoreLocalStorage",
+    "WAWebUA",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -66,13 +73,22 @@ __d(
     function _(e) {
       return o("WABase64UrlSafe").urlSafeBase64(o("WABase64").encodeB64(e));
     }
+    function f(e, t) {
+      var n = function () {
+        document.visibilityState === "visible" &&
+          o("WAWebGuestCoreLocalStorage").getGuestExperienceType() !== t &&
+          o("WAWebGuestCoreDownloadCTAClickAction").downloadCTAClickAction(e);
+      };
+      document.addEventListener("visibilitychange", n);
+    }
     ((l.isAppClipWebView = e),
       (l.getBrowserAndOsDetails = s),
       (l.getInviteCodeFromUrlParams = u),
       (l.isSSIInviteCode = c),
       (l.percentEncodeBytes = m),
       (l.appendPreEncodedQueryParam = p),
-      (l.encodeB64UrlSafe = _));
+      (l.encodeB64UrlSafe = _),
+      (l.addGuestExperienceVisibilityListener = f));
   },
   98,
 );

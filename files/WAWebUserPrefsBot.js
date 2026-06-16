@@ -117,6 +117,20 @@ __d(
     function b() {
       return y({ migrationProgress: g.COMPLETE });
     }
+    function v() {
+      var e;
+      return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
+      )) != null
+        ? e
+        : 0;
+    }
+    function S(e) {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
+        e,
+      );
+    }
     ((l.getBotListLastRequestedTimestamp = e),
       (l.setBotListLastRequestedTimestamp = s),
       (l.setUgcBotListLastRequestedTimestamp = u),
@@ -130,7 +144,9 @@ __d(
       (l.getMetaAIThreadMigrationState = h),
       (l.setMetaAIThreadMigrationState = y),
       (l.isMetaAIThreadMigrationComplete = C),
-      (l.markMetaAIThreadMigrationStateAsComplete = b));
+      (l.markMetaAIThreadMigrationStateAsComplete = b),
+      (l.getMetaAiBotSessionLastCleanupTs = v),
+      (l.setMetaAiBotSessionLastCleanupTs = S));
   },
   98,
 );

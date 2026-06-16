@@ -159,7 +159,7 @@ __d(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
                             "[syncd] lid contact sync: ",
-                            " mutations have no syncd action value",
+                            " mutations w/o action value",
                           ])),
                         b,
                       )
@@ -205,7 +205,7 @@ __d(
                         .ERROR(
                           m ||
                             (m = babelHelpers.taggedTemplateLiteralLoose([
-                              "[syncd][contact sync] Failed to check orphan user status mutes",
+                              "[syncd][contact sync] failed to check orphan status mutes",
                             ])),
                         )
                         .sendLogs("failed-to-check-orphan-user-status-mutes", {
@@ -238,7 +238,7 @@ __d(
                           .ERROR(
                             p ||
                               (p = babelHelpers.taggedTemplateLiteralLoose([
-                                "[syncd] lid contact sync - failed to clear status for removed contacts",
+                                "[syncd] lid contact sync: clear removed contacts status -",
                               ])),
                           )
                           .sendLogs(

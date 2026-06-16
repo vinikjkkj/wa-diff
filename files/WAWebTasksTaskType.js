@@ -37,6 +37,7 @@ __d(
       INACTIVE_GROUP_LID_MIGRATION: "inactiveGroupLidMigration",
       MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD:
         "migrateMetaAIMessagesToHistoricalThread",
+      CLEAN_META_AI_BOT_SESSION: "cleanMetaAIBotSession",
       CLEAN_WEBTP_SHARED_SESSIONS: "cleanWebTPSharedSessions",
       CLEANUP_STALE_CAMPAIGNS: "cleanupStaleCampaigns",
       CLEAN_EXPIRED_QUARANTINE_DATA: "cleanExpiredQuarantineData",

@@ -184,9 +184,10 @@ __d(
     }
     function O(e) {
       if (e == null || !M(e)) return !1;
-      if (e.equals(m())) return !0;
-      var t = d();
-      return t != null && e.equals(t);
+      var t = c();
+      if (t != null && e.equals(t)) return !0;
+      var n = d();
+      return n != null && e.equals(n);
     }
     function B(e) {
       if (e == null || !M(e)) return !1;

@@ -12,13 +12,13 @@ __d(
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
             o("WALogger")
               .ERROR(
@@ -38,18 +38,11 @@ __d(
             if (
               (o("WALogger").LOG(
                 s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose(
-                    [
-                      "syncd: handleAppStateSyncKeyRequest from device ",
-                      "\n    	 for keyIds: [",
-                      "]",
-                    ],
-                    [
-                      "syncd: handleAppStateSyncKeyRequest from device ",
-                      "\n    \\t for keyIds: [",
-                      "]",
-                    ],
-                  )),
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[syncd] handleAppStateSyncKeyRequest device=",
+                    " keyIds=[",
+                    "]",
+                  ])),
                 n.getDeviceId(),
                 i.map(o("WAWebSyncdCryptoUtils").syncKeyIdToHex),
               ),
@@ -58,30 +51,28 @@ __d(
               var l = yield o(
                   "WAWebSyncdHandleKeyRequest",
                 ).getKeysForKeyRequest(i),
-                c = l.keys,
-                d = l.orphanKeys;
+                d = l.keys,
+                m = l.orphanKeys;
               return (
                 o("WALogger").LOG(
                   u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose(
-                      [
-                        "syncd: handleAppStateSyncKeyRequest from device ",
-                        ": about to send key share\n      	 keys with keydata: [",
-                        "]\n      	 keys without keydata: [",
-                        "]",
-                      ],
-                      [
-                        "syncd: handleAppStateSyncKeyRequest from device ",
-                        ": about to send key share\n      \\t keys with keydata: [",
-                        "]\n      \\t keys without keydata: [",
-                        "]",
-                      ],
-                    )),
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] handleAppStateSyncKeyRequest -> share device=",
+                      "",
+                    ])),
                   n.getDeviceId(),
-                  c.map(function (e) {
+                ),
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] keys=[",
+                      "] orphans=[",
+                      "]",
+                    ])),
+                  d.map(function (e) {
                     return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
                   }),
-                  d.map(function (e) {
+                  m.map(function (e) {
                     return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e);
                   }),
                 ),
@@ -90,16 +81,16 @@ __d(
                   .waitUntilPersisted(
                     o(
                       "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.sendRequestedKeyShare(c, d, n),
+                    ).jobSerializers.sendRequestedKeyShare(d, m, n),
                   )
               );
             }
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.handleAppStateSyncKeyRequest = c;
+    l.handleAppStateSyncKeyRequest = d;
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebChatLoadMessages",
     "WAWebClock",
+    "WAWebCurrencyData",
     "WAWebCurrencyUtils",
     "WAWebL10NCountryCodes",
     "WAWebMsgType",
@@ -91,11 +92,12 @@ __d(
       return C(n.toArray(), t);
     }
     function g() {
-      return o("WAWebCurrencyUtils").currencyForCountryShortcode(
-        o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-          o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
-        ),
-      );
+      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      return e
+        ? o("WAWebCurrencyUtils").currencyForCountryShortcode(
+            o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e.user),
+          )
+        : o("WAWebCurrencyData").DEFAULT_CURRENCY;
     }
     function h(e, t) {
       var n, r, o, a;
@@ -134,9 +136,7 @@ __d(
                 r.status ===
                   o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
                     .INQUIRY) &&
-              n.to.equals(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              ) &&
+              o("WAWebUserPrefsMeUser").isMeAccount(n.to) &&
               n.type === o("WAWebMsgType").MSG_TYPE.ORDER &&
               (e.contactsAndOrderRequests.push(h(r, t)),
               e.ordersStatusInfo.push(y(n.id.id, r))),

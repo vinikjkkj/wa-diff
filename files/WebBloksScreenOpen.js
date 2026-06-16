@@ -27,6 +27,7 @@ __d(
         };
       (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
         "--web-bloks-ttrc-start",
+        { detail: { appId: String(c) } },
       ),
         i == null || i.startNavigationCallback(String(c)));
       var _ = o("WebBloksPayloadParser").parseTree(l, s),
@@ -36,8 +37,11 @@ __d(
           p,
           u,
           t.get("url_relative_path"),
-        );
-      e.objectSet.navigationManager.open(f, r);
+        ),
+        g = t.get("controller_name");
+      (g != null && (f.controllerName = g),
+        e.objectSet.navigationManager.open(f, r),
+        e.objectSet.navigationManager.setScreenController(f));
     }
     l.default = e;
   },

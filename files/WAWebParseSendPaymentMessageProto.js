@@ -116,25 +116,22 @@ __d(
         );
       var i;
       if (t.remote.isGroup()) {
-        var l;
-        if (
-          t.fromMe ||
-          ((l = o("WAWebDecodeJid").decodeJid(e.participant)) != null &&
-            l.equals(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            )) ||
-          n === "send"
-        )
+        var l = o("WAWebDecodeJid").decodeJid(e.participant),
+          u =
+            typeof l == "string"
+              ? o("WAWebUserPrefsMeUser").isSerializedWidMe(l)
+              : o("WAWebUserPrefsMeUser").isMeAccount(l);
+        if (t.fromMe || u || n === "send")
           i = o("WAWebDecodeJid").decodeJid(e.participant);
         else return null;
       }
-      var u = new (r("WAWebMsgKey"))({
+      var c = new (r("WAWebMsgKey"))({
         fromMe: !t.fromMe,
         remote: t.remote,
         id: a,
         participant: i,
       });
-      return u;
+      return c;
     }
     l.default = u;
   },

@@ -766,16 +766,21 @@ __d(
         ) >= e
       );
     }
-    function Ft() {
-      return $t() && At(wt.ProfileRing);
+    function Ft(e) {
+      var t = $t(),
+        n = At(e);
+      return t && n;
     }
     function Ot() {
-      return $t() && At(wt.ThreadRing);
+      return Ft(wt.ProfileRing);
     }
     function Bt() {
-      return $t() && At(wt.AllEntrypoints);
+      return Ft(wt.ThreadRing);
     }
     function Wt() {
+      return Ft(wt.AllEntrypoints);
+    }
+    function qt() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -913,10 +918,10 @@ __d(
       (l.isNewsletterStatusReshareEnabled = Pt),
       (l.isNewsletterStatusForwardEnabled = Nt),
       (l.isNewsletterStatusCreationEnabled = Mt),
-      (l.isNewsletterStatusProfileRingEnabled = Ft),
-      (l.isNewsletterStatusThreadRingEnabled = Ot),
-      (l.isNewsletterStatusAllEntrypointsEnabled = Bt),
-      (l.isNewsletterTabPulseEnabled = Wt));
+      (l.isNewsletterStatusProfileRingEnabled = Ot),
+      (l.isNewsletterStatusThreadRingEnabled = Bt),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Wt),
+      (l.isNewsletterTabPulseEnabled = qt));
   },
   98,
 );

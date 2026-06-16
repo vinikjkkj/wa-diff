@@ -61,6 +61,14 @@ __d(
         "wa_ctwa_web_enable_continuous_duration",
       );
     }
+    function g() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_web_native_ads_sabr_enabled",
+        )
+      );
+    }
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationHawkToolEnabled = s),
       (l.nativeAdsCreationTargetingModalHawkToolEnabled = u),
@@ -69,7 +77,8 @@ __d(
       (l.nativeAdsMvpQE1Enabled = m),
       (l.nativeAdsMvpQE1EnabledNoExposure = p),
       (l.nativeAdsMvpQE2Enabled = _),
-      (l.continuousDurationEnabled = f));
+      (l.continuousDurationEnabled = f),
+      (l.ctwaSabrEnabled = g));
   },
   98,
 );

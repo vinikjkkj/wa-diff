@@ -1,61 +1,71 @@
 __d(
   "WAWebDebounce",
-  ["debounceCore"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
     function e(e, t, n) {
+      var r, o;
       t === void 0 && (t = 100);
-      var o = 0,
-        a = null,
-        i = [],
-        l = r("debounceCore")(
-          e,
-          t,
-          n == null ? void 0 : n.context,
-          void 0,
-          void 0,
-          n == null ? void 0 : n.leading,
-        ),
-        s = function () {
-          l.isPending() &&
-            (l.reset(),
-            self.clearTimeout(a),
-            (o = Date.now()),
-            e.apply(n == null ? void 0 : n.context, i));
+      var a = (r = n == null ? void 0 : n.leading) != null ? r : !1,
+        i = (o = n == null ? void 0 : n.trailing) != null ? o : !a,
+        l = null,
+        s = null,
+        u = null,
+        c = function () {
+          (l != null && self.clearTimeout(l), (l = null));
+        },
+        d = function () {
+          (s != null && self.clearTimeout(s), (s = null));
+        },
+        m = function (r) {
+          e.apply(n == null ? void 0 : n.context, r);
+        },
+        p = function () {
+          if (l != null) {
+            (c(), d());
+            var e = u;
+            ((u = null), i && e != null && m(e));
+          }
         };
-      function u() {
+      function _() {
         for (
           var e = n == null ? void 0 : n.maxWait,
-            t = arguments.length,
-            r = new Array(t),
-            u = 0;
-          u < t;
-          u++
+            r = a && l == null,
+            o = arguments.length,
+            _ = new Array(o),
+            f = 0;
+          f < o;
+          f++
         )
-          r[u] = arguments[u];
-        return (
-          (i = [].concat(r)),
-          (o = l.isPending() ? o : Date.now()),
+          _[f] = arguments[f];
+        ((u = r ? null : [].concat(_)),
+          c(),
+          r && m(_),
+          (l = self.setTimeout(function () {
+            ((l = null), d());
+            var e = u;
+            ((u = null), i && e != null && m(e));
+          }, t)),
           e != null &&
-            a == null &&
-            (a = self.setTimeout(function () {
-              Date.now() - o >= e && l.isPending() && s();
-            }, e)),
-          l.apply(void 0, r)
-        );
+            s == null &&
+            (s = self.setTimeout(function () {
+              ((s = null), p());
+            }, e)));
       }
-      var c = function () {
-        (l.reset(), window.clearTimeout(a));
+      var f = function () {
+        (c(), d(), (u = null));
       };
       return (
-        (u.reset = c),
-        (u.cancel = c),
-        (u.isPending = l.isPending),
-        (u.flush = s),
-        u
+        (_.reset = f),
+        (_.cancel = f),
+        (_.isPending = function () {
+          return l != null;
+        }),
+        (_.flush = p),
+        _
       );
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

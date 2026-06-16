@@ -3,6 +3,7 @@ __d(
   [
     "WAWebMessageHighRetryCountWamEvent",
     "WAWebMessagingGatingUtils",
+    "WAWebSessionScopeWamUtils",
     "WAWebWamEnumEncryptionTypeCode",
     "WAWebWamGroupMetricCache",
     "WAWebWamMsgUtils",
@@ -10,40 +11,43 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = 5;
-    function s(e, t) {
+    function s(e, t, n) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           if (!(t < e)) {
-            var r = new (o(
+            var a = new (o(
                 "WAWebMessageHighRetryCountWamEvent",
               ).MessageHighRetryCountWamEvent)({
                 retryCount: t,
                 messageType: o(
                   "WAWebWamMsgUtils",
                 ).getMessageTypeFromMsgInfoType(n.type),
+                sessionScope: o(
+                  "WAWebSessionScopeWamUtils",
+                ).sessionScopeToWamType(r),
               }),
-              a = o("WAWebWamMsgUtils").getWamE2eSenderType(n.author);
-            (a != null && (r.e2eSenderType = a),
+              i = o("WAWebWamMsgUtils").getWamE2eSenderType(n.author);
+            (i != null && (a.e2eSenderType = i),
               n.author.isHosted() &&
-                (r.encryptionType = o(
+                (a.encryptionType = o(
                   "WAWebWamEnumEncryptionTypeCode",
                 ).ENCRYPTION_TYPE_CODE.COEX));
-            var i = n.chat;
-            if (i != null && i.isGroup()) {
-              var l = yield o("WAWebWamGroupMetricCache").getGroupMetrics(i);
-              ((l == null ? void 0 : l.deviceSizeBucket) != null &&
-                (r.deviceSizeBucket = l.deviceSizeBucket),
-                (l == null ? void 0 : l.participantCount) != null &&
-                  l.participantCount >
+            var l = n.chat;
+            if (l != null && l.isGroup()) {
+              var s = yield o("WAWebWamGroupMetricCache").getGroupMetrics(l);
+              ((s == null ? void 0 : s.deviceSizeBucket) != null &&
+                (a.deviceSizeBucket = s.deviceSizeBucket),
+                (s == null ? void 0 : s.participantCount) != null &&
+                  s.participantCount >
                     o(
                       "WAWebMessagingGatingUtils",
                     ).getGroupSizeBypassingSampling() &&
-                  (r.weight = 0));
+                  (a.weight = 0));
             }
-            r.commit();
+            a.commit();
           }
         })),
         u.apply(this, arguments)

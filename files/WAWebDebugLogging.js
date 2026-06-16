@@ -61,7 +61,7 @@ __d(
             o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "uploadThreadLoggingEventsNow: chat thread logging not initialized",
+                  "[uploadThreadLoggingEventsNow] CTL not initialized",
                 ])),
             );
             return;
@@ -88,7 +88,7 @@ __d(
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "uploadThreadLoggingEventsNow: flushed CTL events to WAM up to startTs=",
+                  "[uploadThreadLoggingEventsNow] flushed CTL->WAM startTs=",
                   "",
                 ])),
               n,
