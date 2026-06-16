@@ -64,7 +64,10 @@ __d(
           ).getRevealKeysForChat(e);
           return t
             .filter(function (e) {
-              return e.status === "PENDING" && e.scheduledTimestampS > 0;
+              return (
+                (e.status === "PENDING" || e.status === "FAILED") &&
+                e.scheduledTimestampS > 0
+              );
             })
             .sort(function (e, t) {
               return e.scheduledTimestampS - t.scheduledTimestampS;

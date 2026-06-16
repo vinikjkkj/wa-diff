@@ -5,6 +5,7 @@ __d(
     "WAWebAIHatchIdentityStore",
     "WAWebCurrentUser",
     "WAWebHandleHatchAgentStatus",
+    "WAWebHandleHatchApproval",
     "WAWebHatchPayloadDecoder",
     "getErrorSafe",
   ],
@@ -17,18 +18,22 @@ __d(
       try {
         if (t.type !== "event") return;
         var a = t.event,
-          i = a.timestamp;
-        if (i != null) {
-          var l = u.get(a.index);
-          if (l != null && i <= l) return;
-          u.set(a.index, i);
+          i = o("WAWebHatchPayloadDecoder").decodeHatchPayload(a);
+        if (i.kind !== "approval") {
+          var l = a.timestamp;
+          if (l != null) {
+            var s = u.get(a.index);
+            if (s != null && l <= s) return;
+            u.set(a.index, l);
+          }
         }
-        var s = o("WAWebHatchPayloadDecoder").decodeHatchPayload(a);
-        if ((d(n, a, s), a.operation === "REMOVE")) return;
-        s.kind === "agent_status"
-          ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(s.status)
-          : s.kind === "identity" &&
-            o("WAWebAIHatchIdentityStore").applyHatchIdentity(s.identity);
+        if ((d(n, a, i), a.operation === "REMOVE")) return;
+        i.kind === "agent_status"
+          ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(i.status)
+          : i.kind === "identity"
+            ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(i.identity)
+            : i.kind === "approval" &&
+              o("WAWebHandleHatchApproval").handleHatchApproval(i.approval);
       } catch (t) {
         o("WALogger")
           .ERROR(

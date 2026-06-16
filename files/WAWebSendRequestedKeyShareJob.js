@@ -20,7 +20,7 @@ __d(
                 type: "missing_key",
                 keys: t,
                 orphanKeys: n,
-                peerDeviceId: o("WAWebWidFactory").createWid(r),
+                peerDeviceWid: o("WAWebWidFactory").createDeviceWidOrThrow(r),
               };
             yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
               "sendAppStateSyncKeyShare",

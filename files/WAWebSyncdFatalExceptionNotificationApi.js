@@ -5,6 +5,7 @@ __d(
     "WAWebApiPeerMessageStore",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -21,11 +22,9 @@ __d(
               collectionNames: e,
               timestamp: o("WATimeUtils").unixTimeMs(),
             },
-            n = new (r("WAWebMsgKey"))({
-              fromMe: !0,
-              remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              id: yield r("WAWebMsgKey").newId(),
-            }),
+            n = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
+              yield r("WAWebMsgKey").newId(),
+            ),
             a = {
               id: n,
               to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(

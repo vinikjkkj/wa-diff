@@ -1,6 +1,6 @@
 __d(
   "WAWebSubscriptionModel",
-  ["WAWebBaseModel", "lodash"],
+  ["WAWebBaseModel"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -40,9 +40,6 @@ __d(
                 t.isPlatformChanged === this.isPlatformChanged &&
                 t.startTime === this.startTime
             : !1;
-        }),
-        (n.clone = function () {
-          return r("lodash").clone(this);
         }),
         t
       );

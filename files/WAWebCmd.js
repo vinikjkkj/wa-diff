@@ -1004,6 +1004,9 @@ __d(
           (i.onScheduledMsgRevealedFromBridge = function (t) {
             this.trigger("scheduled_msg_revealed_from_bridge", t);
           }),
+          (i.onScheduledMsgChangedFromBridge = function (t) {
+            this.trigger("scheduled_msg_changed_from_bridge", t);
+          }),
           (i.merchantDetailsDrawer = function (t) {
             this.trigger("merchant_details_drawer", t);
           }),

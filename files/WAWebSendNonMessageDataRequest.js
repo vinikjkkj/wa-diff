@@ -21,6 +21,7 @@ __d(
     "WAWebNonMessageDataRequestLoggingUtils",
     "WAWebNonMessageDataRequestMediaHandlingUtils",
     "WAWebNonMessageDataRequestPlaceholderMessageResendUtils",
+    "WAWebOutgoingPeerMsgKey",
     "WAWebProtobufMsgKeyUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebSendAppStateSyncMsgJob",
@@ -289,13 +290,7 @@ __d(
               );
             return c.map(function (t, n) {
               return {
-                id: new (r("WAWebMsgKey"))({
-                  fromMe: !0,
-                  remote: o(
-                    "WAWebUserPrefsMeUser",
-                  ).getMePnUserOrThrow_DO_NOT_USE(),
-                  id: d[n],
-                }),
+                id: o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(d[n]),
                 to: t,
                 type: "protocol",
                 subtype: "peer_data_operation_request_message",
@@ -304,11 +299,9 @@ __d(
               };
             });
           }
-          var m = new (r("WAWebMsgKey"))({
-            fromMe: !0,
-            remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            id: l != null ? l : yield r("WAWebMsgKey").newId(),
-          });
+          var m = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
+            l != null ? l : yield r("WAWebMsgKey").newId(),
+          );
           return [
             {
               id: m,

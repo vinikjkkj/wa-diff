@@ -3,10 +3,10 @@ __d(
   ["WAWebBBLoggerTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
+    function e(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        extraAttributes: { latency_ms: n, tone_count: t },
+        extraAttributes: { ai_model: r, latency_ms: n, tone_count: t },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_SUGGESTIONS_SHOWN,
@@ -180,10 +180,10 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_REFINEMENT_FAILED,
       });
     }
-    function I(e, t, n) {
+    function I(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        extraAttributes: { prompt_text: n, prompt_type: t },
+        extraAttributes: { ai_model: r, prompt_text: n, prompt_type: t },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_REFINEMENT_SUBMITTED,
@@ -229,6 +229,15 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_DISMISS,
       });
     }
+    function N(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        extraAttributes: { link_name: t },
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_LINK,
+      });
+    }
     ((l.genAISuggestionsShown = e),
       (l.genAICardTapped = s),
       (l.genAISuggestionUsed = u),
@@ -254,7 +263,8 @@ __d(
       (l.genAIEntryPointClicked = D),
       (l.genAINuxModalViewed = x),
       (l.genAINuxAcceptClicked = $),
-      (l.genAINuxDismissClicked = P));
+      (l.genAINuxDismissClicked = P),
+      (l.genAINuxLinkClicked = N));
   },
   98,
 );

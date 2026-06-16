@@ -7,6 +7,10 @@ __d(
         var e = t.msgId;
         o("WAWebCmd").Cmd.onScheduledMsgRevealedFromBridge(e);
       },
+      triggerScheduledMsgChangedFromBridge: function (t) {
+        var e = t.chatId;
+        o("WAWebCmd").Cmd.onScheduledMsgChangedFromBridge(e);
+      },
     };
     l.ScheduledMsgBridgeApi = e;
   },

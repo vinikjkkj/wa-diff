@@ -16,7 +16,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = [],
-            n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+            n = o("WAWebUserPrefsMeUser").getMeDeviceForOutgoingPeerMessage();
           try {
             var r = yield o("WAWebApiDeviceList").getMyDeviceList();
             r.devices.forEach(function (e) {

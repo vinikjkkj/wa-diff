@@ -277,7 +277,10 @@ __d(
       }
       var l = (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
         s = r("WAWebMsgKey").fromString(e.id);
-      return s.fromMe || (e.ack != null && e.ack >= o("WAWebAck").ACK.READ)
+      return s.fromMe ||
+        (e.ack != null &&
+          e.ack >= o("WAWebAck").ACK.READ &&
+          e.scheduledTimestampS == null)
         ? l + a
         : (n = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e)) != null
           ? n

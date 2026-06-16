@@ -103,6 +103,7 @@ __d(
         GENAI_MODAL_CLOSED: "genai_modal_closed",
         GENAI_NUX_ACCEPT: "genai_nux_accept",
         GENAI_NUX_DISMISS: "genai_nux_dismiss",
+        GENAI_NUX_LINK: "genai_nux_link",
         GENAI_NUX_MODAL: "genai_nux_modal",
         GENAI_REFINEMENT_COMPLETED: "genai_refinement_completed",
         GENAI_REFINEMENT_FAILED: "genai_refinement_failed",

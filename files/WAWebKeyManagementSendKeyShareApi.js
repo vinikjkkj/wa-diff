@@ -8,9 +8,9 @@ __d(
     "WAWebKeyManagementUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebSyncdCryptoUtils",
-    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,11 +41,11 @@ __d(
               l.type === "missing_key" &&
               "keys" in l &&
               "orphanKeys" in l &&
-              "peerDeviceId" in l
+              "peerDeviceWid" in l
             ) {
               var c = l.keys,
                 m = l.orphanKeys,
-                p = l.peerDeviceId;
+                p = l.peerDeviceWid;
               ((a = d(c, m)), (i = [p]));
               break e;
             }
@@ -55,13 +55,9 @@ __d(
             );
           }
           var _ = i.map(function (e) {
-              var t = new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: o(
-                  "WAWebUserPrefsMeUser",
-                ).getMePnUserOrThrow_DO_NOT_USE(),
-                id: r("WAWebMsgKey").newId_DEPRECATED(),
-              });
+              var t = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
+                r("WAWebMsgKey").newId_DEPRECATED(),
+              );
               return {
                 id: t,
                 to: e,

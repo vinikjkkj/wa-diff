@@ -26,10 +26,10 @@ __d(
       return s._(/*BTDS*/ "Quick replies, labels, catalog");
     }
     function _() {
-      return s._(/*BTDS*/ "Business AI");
+      return s._(/*BTDS*/ "Meta Business Agent");
     }
     function f() {
-      return s._(/*BTDS*/ "Your Business AI");
+      return s._(/*BTDS*/ "Your Meta Business Agent");
     }
     function g() {
       return s._(/*BTDS*/ "Manage AI knowledge and responses");

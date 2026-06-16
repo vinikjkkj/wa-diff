@@ -32,7 +32,7 @@ __d(
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:system-msg] Updating system message for broadcastJid=",
+                  "[broadcast:system-msg] update for ",
                   "",
                 ])),
               t,
@@ -109,7 +109,7 @@ __d(
                 o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:system-msg] Inserted consolidated system message: processing=",
+                      "[broadcast:system-msg] inserted: processing=",
                       ", failed=",
                       "",
                     ])),

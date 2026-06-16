@@ -7,7 +7,7 @@ __d(
       s = 30,
       u = 32,
       c = 12;
-    ((i.SCHEDULED_MSG_ORPHAN_KEY_RETENTION_DAYS = e),
+    ((i.SCHEDULED_MSG_REVEAL_KEY_RETENTION_DAYS = e),
       (i.SCHEDULED_MSG_META_TYPE = l),
       (i.SCHEDULED_MSG_MAX_PER_CHAT = s),
       (i.SCHEDULED_MSG_REVEAL_KEY_BYTES = u),

@@ -122,6 +122,34 @@ __d(
       ]);
     }
     function p(e) {
+      var t = Math.max(0, Math.floor(e));
+      if (t > o("WATimeUtils").DAY_SECONDS) {
+        var n = Math.ceil(t / o("WATimeUtils").DAY_SECONDS);
+        return s._(/*BTDS*/ '_j{"*":"{days} days","_1":"1 day"}', [
+          s._plural(n, "days"),
+        ]);
+      }
+      var r = Math.floor(t / o("WATimeUtils").HOUR_SECONDS),
+        a = Math.floor(
+          (t % o("WATimeUtils").HOUR_SECONDS) / o("WATimeUtils").MINUTE_SECONDS,
+        ),
+        i = t % o("WATimeUtils").MINUTE_SECONDS,
+        l = a.toString().padStart(2, "0"),
+        u = i.toString().padStart(2, "0");
+      if (r > 0) {
+        var c = r.toString().padStart(2, "0");
+        return s._(/*BTDS*/ "{x hours}:{x minutes}:{x seconds}", [
+          s._param("x hours", c),
+          s._param("x minutes", l),
+          s._param("x seconds", u),
+        ]);
+      }
+      return s._(/*BTDS*/ "{x minutes}:{x seconds}", [
+        s._param("x minutes", l),
+        s._param("x seconds", u),
+      ]);
+    }
+    function _(e) {
       var t = Math.floor(e / 86400);
       if (t > 0) {
         var n = s._(/*BTDS*/ '_j{"*":"{days} days","_1":"{days} day"}', [
@@ -152,7 +180,7 @@ __d(
       );
       return s._(/*BTDS*/ "Try again in {time}.", [s._param("time", l)]);
     }
-    function _(e) {
+    function f(e) {
       if (e < 0) throw r("err")("negative duration");
       if (e === 0) return s._(/*BTDS*/ "Now");
       var t = r("WAWeb-moment")().subtract(e, "seconds").year(),
@@ -170,11 +198,11 @@ __d(
       }
       return e < 60 ? s._(/*BTDS*/ "Just now") : d(e);
     }
-    function f(e) {
+    function g(e) {
       var t = d(e);
       return s._(/*BTDS*/ "{time} left", [s._param("time", t)]);
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = e,
         o = r("WAWeb-moment").unix(n).startOf("day"),
         a =
@@ -189,10 +217,11 @@ __d(
       (l.callDurationStrSimple = c),
       (l.shortDurationString = d),
       (l.enforcementTimeLeftStr = m),
-      (l.tryAgainInStr = p),
-      (l.relativeShortStr = _),
-      (l.timeLeftStr = f),
-      (l.daysDeltaAbs = g));
+      (l.afterReadingExpiryTimeStr = p),
+      (l.tryAgainInStr = _),
+      (l.relativeShortStr = f),
+      (l.timeLeftStr = g),
+      (l.daysDeltaAbs = h));
   },
   226,
 );

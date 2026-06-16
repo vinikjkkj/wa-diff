@@ -4,17 +4,20 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "agent.status",
-      s = "identity.updated";
-    function u(t) {
+      s = "hitl.approval",
+      u = "identity.updated";
+    function c(t) {
       var n = t.opKey,
         r = t.payload;
       return n === e
-        ? { kind: "agent_status", status: c(r) }
+        ? { kind: "agent_status", status: d(r) }
         : n === s
-          ? { kind: "identity", identity: d(r) }
-          : { kind: "unknown" };
+          ? { kind: "approval", approval: _(r) }
+          : n === u
+            ? { kind: "identity", identity: m(r) }
+            : { kind: "unknown" };
     }
-    function c(e) {
+    function d(e) {
       var t = o("WAWebHatchJsonReaders").readString(e, "activity_emoji");
       return babelHelpers.extends(
         {
@@ -32,16 +35,16 @@ __d(
         },
       );
     }
-    function d(e) {
+    function m(e) {
       var t,
         n = (t = o("WAWebHatchJsonReaders")).readField(e, "avatar");
       return {
         name: t.readString(e, "name"),
         avatarUrl: t.readString(n, "image_url"),
-        videoVariants: m(t.readField(n, "video_variants")),
+        videoVariants: p(t.readField(n, "video_variants")),
       };
     }
-    function m(e) {
+    function p(e) {
       if (!Array.isArray(e)) return null;
       var t = {},
         n = !1;
@@ -56,7 +59,20 @@ __d(
       }
       return n ? t : null;
     }
-    l.decodeHatchPayload = u;
+    function _(e) {
+      var t,
+        n = (t = o("WAWebHatchJsonReaders")).readField(e, "approval");
+      return {
+        approvalId: t.readString(n, "approval_id"),
+        decision: t.readString(n, "decision"),
+        reason: t.readString(n, "reason"),
+        shortExplanation: t.readString(n, "short_explanation"),
+        richExplanation: t.readString(n, "rich_explanation"),
+        displayName: t.readString(n, "display_name"),
+        actionLabel: t.readString(n, "action_label"),
+      };
+    }
+    l.decodeHatchPayload = c;
   },
   98,
 );

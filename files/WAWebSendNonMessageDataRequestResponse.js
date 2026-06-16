@@ -6,6 +6,7 @@ __d(
     "WAWebApiPeerMessageStore",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebOutgoingPeerMsgKey",
     "WAWebProtobufsE2E.pb",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebUserPrefsMeUser",
@@ -108,11 +109,9 @@ __d(
                     );
                   })();
           if (a == null) return null;
-          var i = new (r("WAWebMsgKey"))({
-            fromMe: !0,
-            remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            id: yield r("WAWebMsgKey").newId(),
-          });
+          var i = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
+            yield r("WAWebMsgKey").newId(),
+          );
           return {
             id: i,
             to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(

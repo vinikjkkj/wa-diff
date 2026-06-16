@@ -543,6 +543,7 @@ __d(
         d,
         {
           t: i,
+          scheduledTimestampS: i,
           ack: o("WAWebAck").ACK.SENT,
           isNewMsg: !0,
           recvFresh: !0,

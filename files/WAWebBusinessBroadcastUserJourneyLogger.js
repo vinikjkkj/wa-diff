@@ -742,8 +742,8 @@ __d(
               r,
             );
           }),
-          (t.genAISuggestionsShown = function (t, n) {
-            o("WAWebBBGenAILogs").genAISuggestionsShown(this.$1, t, n);
+          (t.genAISuggestionsShown = function (t, n, r) {
+            o("WAWebBBGenAILogs").genAISuggestionsShown(this.$1, t, n, r);
           }),
           (t.genAICardTapped = function (t, n) {
             o("WAWebBBGenAILogs").genAICardTapped(this.$1, t, n);
@@ -802,8 +802,8 @@ __d(
           (t.genAIRefinementFailed = function (t, n) {
             o("WAWebBBGenAILogs").genAIRefinementFailed(this.$1, t, n);
           }),
-          (t.genAIRefinementSubmitted = function (t, n) {
-            o("WAWebBBGenAILogs").genAIRefinementSubmitted(this.$1, t, n);
+          (t.genAIRefinementSubmitted = function (t, n, r) {
+            o("WAWebBBGenAILogs").genAIRefinementSubmitted(this.$1, t, n, r);
           }),
           (t.genAIEntryPointViewed = function () {
             o("WAWebBBGenAILogs").genAIEntryPointViewed(this.$1);
@@ -819,6 +819,9 @@ __d(
           }),
           (t.genAINuxDismissClicked = function () {
             o("WAWebBBGenAILogs").genAINuxDismissClicked(this.$1);
+          }),
+          (t.genAINuxLinkClicked = function (t) {
+            o("WAWebBBGenAILogs").genAINuxLinkClicked(this.$1, t);
           }),
           (t.tosNuxViewed = function (t, n) {
             var e, r;

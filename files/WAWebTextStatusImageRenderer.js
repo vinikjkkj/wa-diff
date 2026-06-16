@@ -133,7 +133,7 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAWebTextStatusImageRenderer] Starting text status rendering for message: ",
+                "[WAWebTextStatusImageRenderer] rendering msg ",
                 "",
               ])),
             t.id.toString(),
@@ -150,7 +150,7 @@ __d(
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAWebTextStatusImageRenderer] Font loading failed, using fallback",
+                    "[WAWebTextStatusImageRenderer] font load failed",
                   ])),
               )
               .catching(e instanceof Error ? e : r("err")(String(e)));
@@ -161,7 +161,7 @@ __d(
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAWebTextStatusImageRenderer] Text status rendered successfully, blob size: ",
+                  "[WAWebTextStatusImageRenderer] rendered, size=",
                   "",
                 ])),
               l.size,

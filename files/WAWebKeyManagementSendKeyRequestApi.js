@@ -8,10 +8,10 @@ __d(
     "WAWebKeyManagementUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdCryptoUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "asyncToGeneratorRuntime",
     "err",
@@ -35,13 +35,9 @@ __d(
             }),
             l = { keyIds: i },
             d = a.map(function (e) {
-              var t = new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: o(
-                  "WAWebUserPrefsMeUser",
-                ).getMePnUserOrThrow_DO_NOT_USE(),
-                id: r("WAWebMsgKey").newId_DEPRECATED(),
-              });
+              var t = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
+                r("WAWebMsgKey").newId_DEPRECATED(),
+              );
               return {
                 id: t,
                 to: e,

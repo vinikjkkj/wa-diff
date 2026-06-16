@@ -57,8 +57,8 @@ __d(
             ? (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Maiba] updateChatCapiThreadControl: applying status=",
-                    " to chat=",
+                    "[Maiba] updateChatCapiThreadControl status=",
+                    " chat=",
                     "",
                   ])),
                 i,

@@ -1,7 +1,9 @@
 __d(
   "WAWebScheduledMsgRevealKeyStore",
   [
+    "WATimeUtils",
     "WAWebBackendApi",
+    "WAWebScheduledMsgConstants",
     "WAWebSchemaScheduledMsgRevealKey",
     "asyncToGeneratorRuntime",
   ],
@@ -15,7 +17,11 @@ __d(
           var t = o(
             "WAWebSchemaScheduledMsgRevealKey",
           ).getScheduledMsgRevealKeyTable();
-          yield t.createOrReplace(e);
+          (yield t.createOrReplace(e),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "triggerScheduledMsgChangedFromBridge",
+              { chatId: e.chatId },
+            ));
         })),
         s.apply(this, arguments)
       );
@@ -74,6 +80,12 @@ __d(
             "WAWebSchemaScheduledMsgRevealKey",
           ).getScheduledMsgRevealKeyTable();
           yield n.merge(e, { status: t });
+          var r = yield n.get(e);
+          r != null &&
+            o("WAWebBackendApi").frontendFireAndForget(
+              "triggerScheduledMsgChangedFromBridge",
+              { chatId: r.chatId },
+            );
         })),
         g.apply(this, arguments)
       );
@@ -115,13 +127,45 @@ __d(
         b.apply(this, arguments)
       );
     }
+    function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o(
+              "WAWebSchemaScheduledMsgRevealKey",
+            ).getScheduledMsgRevealKeyTable(),
+            t =
+              o("WATimeUtils").unixTime() -
+              o("WAWebScheduledMsgConstants")
+                .SCHEDULED_MSG_REVEAL_KEY_RETENTION_DAYS *
+                o("WATimeUtils").DAY_SECONDS,
+            n = yield e.all(),
+            r = n
+              .filter(function (e) {
+                var n =
+                  e.scheduledTimestampS > 0
+                    ? e.scheduledTimestampS
+                    : e.createdAt;
+                return n < t;
+              })
+              .map(function (e) {
+                return e.msgId;
+              });
+          r.length > 0 && (yield e.bulkRemove(r));
+        })),
+        S.apply(this, arguments)
+      );
+    }
     ((l.storeRevealKey = e),
       (l.getRevealKeyByMsgId = u),
       (l.getRevealKeyByRevealKeyId = d),
       (l.getRevealKeysForChat = p),
       (l.updateRevealKeyStatus = f),
       (l.deleteRevealKey = h),
-      (l.deleteRevealKeysForChat = C));
+      (l.deleteRevealKeysForChat = C),
+      (l.cleanupExpiredRevealKeys = v));
   },
   98,
 );

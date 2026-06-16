@@ -13,19 +13,23 @@ __d(
       );
     }
     function u() {
+      return e() || s();
+    }
+    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "scheduled_messages_window_duration_max_seconds",
       );
     }
-    function c() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "scheduled_messages_window_duration_min_seconds",
       );
     }
     ((l.isScheduledMessagesSenderEnabled = e),
       (l.isScheduledMessagesReceiverEnabled = s),
-      (l.getScheduledMessagesMaxDurationSeconds = u),
-      (l.getScheduledMessagesMinDurationSeconds = c));
+      (l.isScheduledMessagesCleanupEnabled = u),
+      (l.getScheduledMessagesMaxDurationSeconds = c),
+      (l.getScheduledMessagesMinDurationSeconds = d));
   },
   98,
 );

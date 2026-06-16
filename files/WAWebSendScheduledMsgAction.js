@@ -26,15 +26,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e, t, n, r) {
+    function d(e, t, n, r, o) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l) {
+          function* (t, a, i, l, c) {
             if (
               (l === void 0 && (l = {}),
+              c === void 0 && (c = !0),
               !o(
                 "WAWebIsScheduledMessagesAvailableForChat",
               ).isScheduledMessagesAvailableForChat(t))
@@ -42,14 +43,14 @@ __d(
               throw r("err")(
                 "[scheduled_msg] Scheduled messages not available for this chat",
               );
-            var c = o("WAWebStateUtils").unproxy(t),
-              d = yield o("WAWebSendTextMsgChatAction").createTextMsgData(
-                c,
+            var d = o("WAWebStateUtils").unproxy(t),
+              m = yield o("WAWebSendTextMsgChatAction").createTextMsgData(
+                d,
                 a,
                 l,
               );
-            if (d != null) {
-              var m = babelHelpers.extends({}, d, {
+            if (m != null) {
+              var _ = babelHelpers.extends({}, m, {
                 isScheduledMsg: !0,
                 scheduledTimestampS: i,
                 viewMode:
@@ -62,37 +63,37 @@ __d(
                     " at ",
                     "",
                   ])),
-                c.id.toLogString(),
+                d.id.toLogString(),
                 String(i),
               );
               try {
-                var _;
+                var f;
                 yield o(
                   "WAWebLidMigrationFrontendUtils",
-                ).validateMissingAccountLid(c, m, "addAndSendTextMsg");
-                var f = new (o("WAWebMsgModel").Msg)(m),
-                  g = !!(
-                    (_ = c.groupMetadata) != null && _.isLidAddressingMode
+                ).validateMissingAccountLid(d, _, "addAndSendTextMsg");
+                var g = new (o("WAWebMsgModel").Msg)(_),
+                  h = !!(
+                    (f = d.groupMetadata) != null && f.isLidAddressingMode
                   ),
-                  h = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
-                    c.id,
-                    o("WAWebWamMsgUtils").msgIsLid(m, c.id, g),
+                  y = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
+                    d.id,
+                    o("WAWebWamMsgUtils").msgIsLid(_, d.id, h),
                   );
-                ((f.wamMessageSendReporter = new (o(
+                ((g.wamMessageSendReporter = new (o(
                   "WAWebMessageSendReporter",
                 ).MessageSendReporter)(
-                  f,
-                  babelHelpers.extends({}, h, {
+                  g,
+                  babelHelpers.extends({}, y, {
                     frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                       .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
                   }),
                 )),
-                  (f.wamMessageSendPerfReporter = new (o(
+                  (g.wamMessageSendPerfReporter = new (o(
                     "WAWebMessageSendPerfReporter",
                   ).MessageSendPerfReporter)({
-                    chatWid: f.to,
-                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(f),
-                    messageType: o("WAWebWamMsgUtils").getWamMessageType(f),
+                    chatWid: g.to,
+                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(g),
+                    messageType: o("WAWebWamMsgUtils").getWamMessageType(g),
                   })),
                   yield o("WAWebOrchestratorNonPersistedJob")
                     .createNonPersistedJob(
@@ -100,17 +101,17 @@ __d(
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var e, t;
-                          ((e = f.wamMessageSendPerfReporter) == null ||
+                          ((e = g.wamMessageSendPerfReporter) == null ||
                             e.startSavedStage(),
                             yield o("WAWebDBProcessMessage").storeMessages(
-                              [m],
-                              c.id,
+                              [_],
+                              d.id,
                             ),
-                            (t = f.wamMessageSendPerfReporter) == null ||
+                            (t = g.wamMessageSendPerfReporter) == null ||
                               t.postSavedStage());
                           var n = yield o(
                             "WAWebSendMsgRecordAction",
-                          ).sendMsgRecord(f);
+                          ).sendMsgRecord(g);
                           return n;
                         },
                       ),
@@ -134,19 +135,20 @@ __d(
                   e
                 );
               }
-              try {
-                yield p(c);
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[scheduled_msg] Failed to add scheduled system message",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("scheduled-msg-sys-error");
-              }
+              if (c)
+                try {
+                  yield p(d);
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[scheduled_msg] Failed to add scheduled system message",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("scheduled-msg-sys-error");
+                }
             }
           },
         )),
