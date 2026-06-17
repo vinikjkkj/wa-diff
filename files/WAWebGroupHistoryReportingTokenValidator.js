@@ -28,85 +28,88 @@ __d(
         ? e.protocolMessageKey.toString()
         : e.id.toString();
     }
-    function _(e, t, n, r, o, a) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i, l) {
-            var u,
-              c,
-              d = t.toString(),
-              m = t.id;
-            if (
-              !o(
-                "WAWebGroupHistoryGating",
-              ).isGroupHistoryReceiverReportingTokenEnabled()
-            )
-              return null;
-            if (a == null)
-              return (
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] Missing bundle sender for ",
-                      "",
-                    ])),
-                  d,
-                ),
-                null
-              );
-            var p = yield o(
-              "WAWebGroupHistoryReportingTokenDBUtils",
-            ).getGroupHistoryReportingTokenInfosForBundle(d);
-            if (p == null || p.length === 0)
-              return (
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] No stored reporting tokens found for bundle ",
-                      "",
-                    ])),
-                  d,
-                ),
-                null
-              );
-            var _ =
-                (u = p.reduce(function (e, t) {
-                  return e != null ? e : t.version;
-                }, null)) != null
-                  ? u
-                  : o(
-                      "WAWebMessagingGatingUtils",
-                    ).getSenderReportingTokenVersion(),
-              f = new Map();
-            for (var g of p) {
-              var h,
-                y = (h = f.get(g.stanzaId)) != null ? h : [];
-              (y.push(g), f.set(g.stanzaId, y));
-            }
-            var C = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsGroupHistory.pb")
-                .GroupHistoryWithMessageBytesSpec,
-              n,
-            );
-            return {
-              receivedTokenMap: f,
-              messageBytesArray: [].concat(
-                C.messages,
-                (c = C.outOfWindowPinnedMessages) != null ? c : [],
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            r,
+            a = t.bundleMessageSecret,
+            i = t.bundleMsgId,
+            l = t.bundleMsgTimestamp,
+            u = t.bundleSenderWid,
+            c = t.groupWid,
+            d = t.inflatedBytes,
+            m = i.toString(),
+            p = i.id;
+          if (
+            !o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistoryReceiverReportingTokenEnabled()
+          )
+            return null;
+          if (u == null)
+            return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] Missing bundle sender for ",
+                    "",
+                  ])),
+                m,
               ),
-              stanzaVersion: _,
-              bundleMessageSecret: r,
-              senderJid: o("WAWebWidToJid").widToUserJid(a),
-              groupJid: o("WAWebWidToJid").widToGroupJid(i),
-              bundleMsgKey: d,
-              bundleMsgStanzaId: m,
-              bundleMsgTimestamp: l,
-            };
-          },
-        )),
+              null
+            );
+          var _ = yield o(
+            "WAWebGroupHistoryReportingTokenDBUtils",
+          ).getGroupHistoryReportingTokenInfosForBundle(m);
+          if (_ == null || _.length === 0)
+            return (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] No stored reporting tokens found for bundle ",
+                    "",
+                  ])),
+                m,
+              ),
+              null
+            );
+          var f =
+              (n = _.reduce(function (e, t) {
+                return e != null ? e : t.version;
+              }, null)) != null
+                ? n
+                : o(
+                    "WAWebMessagingGatingUtils",
+                  ).getSenderReportingTokenVersion(),
+            g = new Map();
+          for (var h of _) {
+            var y,
+              C = (y = g.get(h.stanzaId)) != null ? y : [];
+            (C.push(h), g.set(h.stanzaId, C));
+          }
+          var b = o("decodeProtobuf").decodeProtobuf(
+            o("WAWebProtobufsGroupHistory.pb").GroupHistoryWithMessageBytesSpec,
+            d,
+          );
+          return {
+            receivedTokenMap: g,
+            messageBytesArray: [].concat(
+              b.messages,
+              (r = b.outOfWindowPinnedMessages) != null ? r : [],
+            ),
+            stanzaVersion: f,
+            bundleMessageSecret: a,
+            senderJid: o("WAWebWidToJid").widToUserJid(u),
+            groupJid: o("WAWebWidToJid").widToGroupJid(c),
+            bundleMsgKey: m,
+            bundleMsgStanzaId: p,
+            bundleMsgTimestamp: l,
+          };
+        })),
         f.apply(this, arguments)
       );
     }

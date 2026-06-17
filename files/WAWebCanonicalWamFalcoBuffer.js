@@ -4,10 +4,12 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebCanonicalUtils",
+    "WAWebCanonicalWamFalcoBufferConstants",
     "WAWebFalcoEventQueue",
     "WAWebLocalStorage",
     "WAWebNetworkStatus",
     "WAWebWamFalcoABProps",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -21,18 +23,20 @@ __d(
         ? null
         : { name: e.name, fields: e.fields, timestamp: e.timestamp };
     }
-    var m = "WAWebFalcoBuffer",
-      p = o("WATimeUtils").DAY_SECONDS * 1e3,
-      _ = 50,
-      f = 3e4,
-      g = 600 * 1e3,
-      h = 6e4;
-    function y() {
+    var m = 7 * o("WATimeUtils").DAY_SECONDS * 1e3,
+      p = 50,
+      _ = 3e4,
+      f = 600 * 1e3,
+      g = 6e4;
+    function h() {
       try {
         var t =
           r("WAWebLocalStorage") == null
             ? void 0
-            : r("WAWebLocalStorage").getItem(m);
+            : r("WAWebLocalStorage").getItem(
+                o("WAWebCanonicalWamFalcoBufferConstants")
+                  .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY,
+              );
         if (t != null) {
           var n = JSON.parse(t);
           if (Array.isArray(n)) {
@@ -45,25 +49,34 @@ __d(
           }
         }
       } catch (t) {
-        o("WALogger").ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[falco] corrupted buffer storage, discarding: ",
-              "",
-            ])),
-          t,
-        );
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[falco] corrupted buffer storage, discarding",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("wam_falco_buffer_read_error");
       }
       return [];
     }
-    function C(e) {
+    function y(e) {
       r("WAWebLocalStorage") == null ||
-        r("WAWebLocalStorage").setItem(m, JSON.stringify(e));
+        r("WAWebLocalStorage").setItem(
+          o("WAWebCanonicalWamFalcoBufferConstants")
+            .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY,
+          JSON.stringify(e),
+        );
     }
-    function b() {
-      r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(m);
+    function C() {
+      r("WAWebLocalStorage") == null ||
+        r("WAWebLocalStorage").removeItem(
+          o("WAWebCanonicalWamFalcoBufferConstants")
+            .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY,
+        );
     }
-    var v = (function () {
+    var b = (function () {
         function e() {
           var e = this;
           ((this.$2 = !1),
@@ -78,7 +91,7 @@ __d(
             (this.$8 = function () {
               if (e.$1.length !== 0) {
                 var t = Date.now() - e.$1[0].timestamp;
-                t < g ||
+                t < f ||
                   (o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -99,24 +112,25 @@ __d(
                       "WAWebWamFalcoABProps",
                     ).getCanonicalWamFalcoMaxBufferSize(),
                     n = e.$1.length > t ? e.$1.slice(-t) : e.$1;
-                  (C(n), (e.$2 = !1));
+                  (y(n), (e.$2 = !1));
                 } catch (e) {
-                  o("WALogger").ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[falco] failed to persist buffer: ",
-                        "",
-                      ])),
-                    e,
-                  );
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[falco] failed to persist buffer",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("wam_falco_buffer_persist_error");
                 }
             }),
-            (this.$1 = y()),
+            (this.$1 = h()),
             self.addEventListener("beforeunload", this.$5),
             self.addEventListener("pagehide", this.$5),
             r("WAWebNetworkStatus").on("change:online", this.$6),
-            (this.$3 = self.setInterval(this.$7, f)),
-            (this.$4 = self.setInterval(this.$8, h)));
+            (this.$3 = self.setInterval(this.$7, _)),
+            (this.$4 = self.setInterval(this.$8, g)));
         }
         var t = e.prototype;
         return (
@@ -127,11 +141,11 @@ __d(
             if (r("WAWebNetworkStatus").online) {
               var e = Date.now(),
                 t = this.$1.filter(function (t) {
-                  return e - t.timestamp < p;
+                  return e - t.timestamp < m;
                 });
               ((this.$1 = []),
                 (this.$2 = !1),
-                b(),
+                C(),
                 t.length !== 0 &&
                   (o("WALogger").LOG(
                     c ||
@@ -147,11 +161,11 @@ __d(
           (t.flushNow = function () {
             var e = Date.now(),
               t = this.$1.filter(function (t) {
-                return e - t.timestamp < p;
+                return e - t.timestamp < m;
               });
             ((this.$1 = []),
               (this.$2 = !1),
-              b(),
+              C(),
               t.length > 0 && o("WAWebFalcoEventQueue").sendFalcoEventsNow(t));
           }),
           (t.$9 = function () {
@@ -160,7 +174,7 @@ __d(
               ).getCanonicalWamFalcoMaxBufferSize(),
               t = this.$1.length - e;
             if (!(t <= 0)) {
-              var n = Math.min(t, _),
+              var n = Math.min(t, p),
                 r = this.$1.splice(0, n);
               for (var a of r) o("WAWebFalcoEventQueue").enqueueFalcoEvent(a);
             }
@@ -168,22 +182,22 @@ __d(
           e
         );
       })(),
-      S = null;
-    function R() {
-      return (S == null && (S = new v()), S);
+      v = null;
+    function S() {
+      return (v == null && (v = new b()), v);
     }
-    function L(e) {
-      R().buffer(e);
+    function R(e) {
+      S().buffer(e);
+    }
+    function L() {
+      (v == null && h().length === 0) || S().drain();
     }
     function E() {
-      (S == null && y().length === 0) || R().drain();
+      (v == null && h().length === 0) || S().flushNow();
     }
-    function k() {
-      (S == null && y().length === 0) || R().flushNow();
-    }
-    ((l.bufferCanonicalFalcoEvent = L),
-      (l.drainCanonicalWamFalcoBuffer = E),
-      (l.flushCanonicalWamFalcoBuffer = k));
+    ((l.bufferCanonicalFalcoEvent = R),
+      (l.drainCanonicalWamFalcoBuffer = L),
+      (l.flushCanonicalWamFalcoBuffer = E));
   },
   98,
 );

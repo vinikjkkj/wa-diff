@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizGetMerchantCompliance",
     "WAWebBizSetMerchantCompliance",
+    "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -26,19 +27,25 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebBizGetMerchantCompliance",
-          ).getMerchantCompliance({ biz_jid: e[0].wid.toJid() });
-          if (t.type === "success") return t.merchant_info;
+          var t,
+            n = yield o("WAWebBizGetMerchantCompliance").getMerchantCompliance({
+              biz_jid:
+                (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  e[0].wid,
+                )) != null
+                  ? t
+                  : e[0].wid.toJid(),
+            });
+          if (n.type === "success") return n.merchant_info;
           throw (
-            t.type === "graphql-error"
+            n.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(t.error)
-              : t.type,
+                ).maybeThrowLocalErrorForCatalogQuery(n.error)
+              : n.type,
             r("err")(
               "getMerchantComplianceGraphQL: error handling flow not implemented for " +
-                JSON.stringify(t),
+                JSON.stringify(n),
             )
           );
         })),
@@ -77,51 +84,60 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.customerCareDetails,
-            n = e.entityName,
-            a = e.entityType,
-            i = e.entityTypeCustom,
-            l = e.grievanceOfficerDetails,
-            s = e.isRegistered,
-            u = s === void 0 ? !1 : s,
-            c = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            d = {};
+          var t,
+            n = e.customerCareDetails,
+            a = e.entityName,
+            i = e.entityType,
+            l = e.entityTypeCustom,
+            s = e.grievanceOfficerDetails,
+            u = e.isRegistered,
+            c = u === void 0 ? !1 : u,
+            d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            m = {};
           if (
-            ((d.is_registered = u),
-            n !== void 0 && (d.entity_name = n),
-            (d.entity_type = f(a)),
-            i !== void 0 && (d.entity_type_custom = i),
-            t)
+            ((m.is_registered = c),
+            a !== void 0 && (m.entity_name = a),
+            (m.entity_type = f(i)),
+            l !== void 0 && (m.entity_type_custom = l),
+            n)
           ) {
-            var m = {};
-            (t.email !== void 0 && (m.email = t.email),
-              t.landlineNumber !== void 0 &&
-                (m.landline_number = t.landlineNumber),
-              t.mobileNumber !== void 0 && (m.mobile_number = t.mobileNumber),
-              (d.customer_care_details = m));
-          }
-          if (l) {
             var p = {};
-            (l.name !== void 0 && (p.name = l.name),
-              l.email !== void 0 && (p.email = l.email),
-              l.landlineNumber !== void 0 &&
-                (p.landline_number = l.landlineNumber),
-              l.mobileNumber !== void 0 && (p.mobile_number = l.mobileNumber),
-              (d.grievance_officer_details = p));
+            (n.email !== void 0 && (p.email = n.email),
+              n.landlineNumber !== void 0 &&
+                (p.landline_number = n.landlineNumber),
+              n.mobileNumber !== void 0 && (p.mobile_number = n.mobileNumber),
+              (m.customer_care_details = p));
           }
-          var _ = yield o(
+          if (s) {
+            var _ = {};
+            (s.name !== void 0 && (_.name = s.name),
+              s.email !== void 0 && (_.email = s.email),
+              s.landlineNumber !== void 0 &&
+                (_.landline_number = s.landlineNumber),
+              s.mobileNumber !== void 0 && (_.mobile_number = s.mobileNumber),
+              (m.grievance_officer_details = _));
+          }
+          var g = yield o(
             "WAWebBizSetMerchantCompliance",
-          ).setMerchantCompliance({ biz_jid: c.toJid(), merchant_info: d });
-          if (_.type === "success") return _.merchant_info;
+          ).setMerchantCompliance({
+            biz_jid:
+              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                d,
+              )) != null
+                ? t
+                : d.toJid(),
+            merchant_info: m,
+          });
+          if (g.type === "success") return g.merchant_info;
           throw (
-            _.type === "graphql-error"
+            g.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(_.error)
-              : _.type,
+                ).maybeThrowLocalErrorForCatalogQuery(g.error)
+              : g.type,
             r("err")(
               "setMerchantComplianceGraphQL: error handling flow not implemented for " +
-                JSON.stringify(_),
+                JSON.stringify(g),
             )
           );
         })),

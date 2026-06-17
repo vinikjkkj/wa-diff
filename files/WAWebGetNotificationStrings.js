@@ -10,7 +10,6 @@ __d(
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebCurrencyUtils",
-    "WAWebFbtCommon",
     "WAWebFormatBroadcastNotification",
     "WAWebFormatCallLog",
     "WAWebFormatE2ENotification",
@@ -425,9 +424,9 @@ __d(
               e.quarantineExtractedText != null &&
               e.quarantineExtractedText !== ""
                 ? e.quarantineExtractedText
-                : r("WAWebFbtCommon")(
-                    "Attachment blocked by Strict account settings",
-                  ).toString();
+                : s
+                    ._(/*BTDS*/ "Attachment blocked by Strict account settings")
+                    .toString();
           f = "" + ae + ie;
           break;
         }

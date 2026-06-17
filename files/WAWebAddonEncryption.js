@@ -3,7 +3,6 @@ __d(
   [
     "WACryptoAesGcm",
     "WALogger",
-    "WANullthrows",
     "WAUseCaseSecret",
     "WAWebAddonEncryptionError",
     "WAWebApiContact",
@@ -16,6 +15,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
@@ -98,7 +98,7 @@ __d(
             l = t.originalMessageSenderJid,
             u = t.stanzaId;
           try {
-            var c = r("WANullthrows")(E(e.type)),
+            var c = r("nullthrows")(E(e.type)),
               d = c.spec,
               m = c.usecase,
               p = yield o("WAUseCaseSecret").createUseCaseSecret({
@@ -172,7 +172,7 @@ __d(
             i = t.messageSecret,
             l = t.originalMessageSenderJid,
             s = t.stanzaId,
-            u = r("WANullthrows")(E(e.type)),
+            u = r("nullthrows")(E(e.type)),
             c = u.usecase,
             d = yield o("WAUseCaseSecret").createUseCaseSecret({
               messageSecret: i,

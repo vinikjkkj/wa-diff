@@ -8,7 +8,6 @@ __d(
     "WAWebConflict.react",
     "WAWebConnModel",
     "WAWebContextMenuManager.react",
-    "WAWebDeprecated.react",
     "WAWebEmojiAssetLoaderCompletionTracker",
     "WAWebErrorBoundary.react",
     "WAWebErrorBoundaryPopup.react",
@@ -285,18 +284,6 @@ __d(
                     ),
                     children: u.jsx(r("WAWebSmbLearnMore.react"), {}),
                   }),
-                }),
-                errorBoundaryName: _,
-              },
-            ],
-            requiresBackendCheck: !0,
-          };
-        case o("WAWebAppScreen").AppScreen.DEPRECATED_VERSION:
-          return {
-            appScreenUI: [
-              {
-                ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
-                  children: u.jsx(r("WAWebDeprecated.react"), {}),
                 }),
                 errorBoundaryName: _,
               },

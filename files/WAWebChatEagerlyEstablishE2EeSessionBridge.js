@@ -6,6 +6,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebChatGetters",
     "WAWebLidMigrationUtils",
+    "WAWebMaibaWASSMigration",
     "WAWebManageE2ESessionsJob",
     "WAWebPostPrekeysDepletionMetric",
     "WAWebSendMsgDatabaseJob",
@@ -77,8 +78,12 @@ __d(
               ));
           } else {
             var g = o(
-                "WAWebSimpleSignalPNToFBIDMigration",
-              ).maybeReplaceDeprecatedBotPnWithFbid(t.id),
+                "WAWebMaibaWASSMigration",
+              ).maybeReplaceMaibaAiHubWidWithFbid(
+                o(
+                  "WAWebSimpleSignalPNToFBIDMigration",
+                ).maybeReplaceDeprecatedBotPnWithFbid(t.id),
+              ),
               h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
               y = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
               C = t.id.isLid() ? h : y;

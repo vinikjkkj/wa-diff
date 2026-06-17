@@ -4,7 +4,6 @@ __d(
     "WADeprecatedSendIq",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWebAdvSignatureApi",
     "WAWebApiMessageInfoStore",
@@ -105,9 +104,7 @@ __d(
             y,
             C = e.data.id,
             v = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            R = r("WANullthrows")(
-              o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
-            ),
+            R = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
             L = D(t),
             k = o(
               "WAWebStatusSessionGatingUtils",

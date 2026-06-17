@@ -1,6 +1,6 @@
 __d(
   "WAWebDBUpdateAddOnAcksForTable",
-  ["WANullthrows", "WAWebModelStorageUtils", "asyncToGeneratorRuntime"],
+  ["WAWebModelStorageUtils", "asyncToGeneratorRuntime", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, a) {
       return o("WAWebModelStorageUtils")
@@ -21,7 +21,7 @@ __d(
                   c = [],
                   d = [];
                 for (var m of u) {
-                  var p = r("WANullthrows")(i.get(m.msgKey));
+                  var p = r("nullthrows")(i.get(m.msgKey));
                   if (a(m, p)) {
                     var _ = babelHelpers.extends({}, m, { ack: p.ack });
                     (c.push(_), d.push(p));

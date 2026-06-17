@@ -113,6 +113,9 @@ __d(
               o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                 o("WAWebVoipQplHelpers").VoipInitQplPoint
                   .THREAD_POOL_SETUP_START,
+              ),
+              o("WAWebAppTracker").AppTracker.mark(
+                o("WAWebAppTracker").AppTrackerType.VoipThreadPoolSetup,
               ));
             var m = new (r("WAWebVoipThreadPoolManager"))(n, u, c);
             return (

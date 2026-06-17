@@ -7,18 +7,21 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = (function () {
-      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-        yield o("WAWebPinMessageAction").seekAndDestroyExpiredPins(
-          o("WAWebPinInChatCollection")
-            .PinInChatCollection.byChatId(o("WAWebWidFactory").asChatWid(e))
-            .toArray(),
-        );
-      });
-      return function (n) {
-        return e.apply(this, arguments);
-      };
-    })();
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebPinMessageAction").seekAndDestroyExpiredPins(
+            o("WAWebPinInChatCollection")
+              .PinInChatCollection.byChatId(o("WAWebWidFactory").asChatWid(e))
+              .toArray(),
+          );
+        })),
+        s.apply(this, arguments)
+      );
+    }
     l.deleteExpiredPins = e;
   },
   98,

@@ -31,11 +31,9 @@ __d(
             return a;
           }),
           (t.jsx = function (t, n, o) {
-            var e = o.lastMessage,
-              a = o.selectable;
+            var e = o.lastMessage;
             return s.jsx(r("WAWebMentionAllMutatorComponent.react"), {
               text: n.text,
-              selectable: a,
               lastMessage: e,
             });
           }),

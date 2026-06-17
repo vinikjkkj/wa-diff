@@ -541,7 +541,7 @@ __d(
               event_id: null,
               image_crops: null,
               image_hash: S != null ? S : null,
-              link: L != null ? L : null,
+              link: L != null ? L : "",
               message: E != null ? E : null,
               name: v != null ? v : null,
               picture: R != null ? R : null,

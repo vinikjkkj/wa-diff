@@ -133,104 +133,104 @@ __d(
       );
     }
     var y = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t == null ||
-            t.forEach(function (e) {
-              e.currentState = o("WAWebCellRequestState").State.Loading;
-            });
-          try {
-            var n = yield f(
-              e,
-              t,
-              o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-                .REJECT,
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        t == null ||
+          t.forEach(function (e) {
+            e.currentState = o("WAWebCellRequestState").State.Loading;
+          });
+        try {
+          var n = yield f(
+            e,
+            t,
+            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+              .REJECT,
+          );
+          m(
+            n,
+            t,
+            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+              .REJECT,
+          );
+          var a = _(t, o("WAWebCellRequestState").State.Rejected);
+          a > 0 &&
+            o("WAWebToastManager").ToastManager.open(
+              u.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(
+                  /*BTDS*/ '_j{"*":"{number} groups rejected","_1":"Group rejected"}',
+                  [s._plural(a, "number")],
+                ),
+              }),
             );
-            m(
-              n,
-              t,
-              o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-                .REJECT,
-            );
-            var a = _(t, o("WAWebCellRequestState").State.Rejected);
-            a > 0 &&
-              o("WAWebToastManager").ToastManager.open(
-                u.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ '_j{"*":"{number} groups rejected","_1":"Group rejected"}',
-                    [s._plural(a, "number")],
-                  ),
-                }),
+        } catch (e) {
+          p(r("getErrorSafe")(e), t);
+        }
+      });
+      return function (n, r) {
+        return e.apply(this, arguments);
+      };
+    })();
+    function C(e, t, n) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (e.groupMetadata) {
+            var a =
+                e.groupMetadata.joinedSubgroups.length +
+                e.groupMetadata.unjoinedSubgroups.length,
+              i = o("WAWebCommunityGatingUtils").getParentGroupLinkLimit() - a;
+            if (i <= 0) {
+              o("WAWebModalManager").ModalManager.open(
+                u.jsx(
+                  o("WAWebCommunitySubgroupSuggestionsModals.react")
+                    .SubgroupSuggestionsApproveLimit,
+                  { onOK: n },
+                ),
               );
-          } catch (e) {
-            p(r("getErrorSafe")(e), t);
-          }
-        });
-        return function (n, r) {
-          return e.apply(this, arguments);
-        };
-      })(),
-      C = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            if (e.groupMetadata) {
-              var a =
-                  e.groupMetadata.joinedSubgroups.length +
-                  e.groupMetadata.unjoinedSubgroups.length,
-                i =
-                  o("WAWebCommunityGatingUtils").getParentGroupLinkLimit() - a;
-              if (i <= 0) {
-                o("WAWebModalManager").ModalManager.open(
-                  u.jsx(
-                    o("WAWebCommunitySubgroupSuggestionsModals.react")
-                      .SubgroupSuggestionsApproveLimit,
-                    { onOK: n },
-                  ),
+              return;
+            } else if (
+              t.length > i &&
+              !(yield o(
+                "WAWebCommunitySubgroupSuggestionsModals.react",
+              ).confirmCommunityFull(i, t.length))
+            )
+              return;
+            t == null ||
+              t.forEach(function (e) {
+                e.currentState = o("WAWebCellRequestState").State.Loading;
+              });
+            try {
+              var l = yield f(
+                e,
+                t,
+                o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+                  .APPROVE,
+              );
+              m(
+                l,
+                t,
+                o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+                  .APPROVE,
+              );
+              var c = _(t, o("WAWebCellRequestState").State.Approved);
+              c > 0 &&
+                o("WAWebToastManager").ToastManager.open(
+                  u.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(
+                      /*BTDS*/ '_j{"*":"{number} groups added","_1":"Group added"}',
+                      [s._plural(c, "number")],
+                    ),
+                  }),
                 );
-                return;
-              } else if (
-                t.length > i &&
-                !(yield o(
-                  "WAWebCommunitySubgroupSuggestionsModals.react",
-                ).confirmCommunityFull(i, t.length))
-              )
-                return;
-              t == null ||
-                t.forEach(function (e) {
-                  e.currentState = o("WAWebCellRequestState").State.Loading;
-                });
-              try {
-                var l = yield f(
-                  e,
-                  t,
-                  o("WAWebSubgroupSuggestionsActionJob")
-                    .SubgroupSuggestionAction.APPROVE,
-                );
-                m(
-                  l,
-                  t,
-                  o("WAWebSubgroupSuggestionsActionJob")
-                    .SubgroupSuggestionAction.APPROVE,
-                );
-                var c = _(t, o("WAWebCellRequestState").State.Approved);
-                c > 0 &&
-                  o("WAWebToastManager").ToastManager.open(
-                    u.jsx(o("WAWebToast.react").Toast, {
-                      msg: s._(
-                        /*BTDS*/ '_j{"*":"{number} groups added","_1":"Group added"}',
-                        [s._plural(c, "number")],
-                      ),
-                    }),
-                  );
-              } catch (e) {
-                p(r("getErrorSafe")(e), t);
-              }
+            } catch (e) {
+              p(r("getErrorSafe")(e), t);
             }
-          },
-        );
-        return function (n, r, o) {
-          return e.apply(this, arguments);
-        };
-      })();
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
     ((l.cancelSubgroupSuggestions = g),
       (l.rejectSubgroupSuggestions = y),
       (l.approveSubgroupSuggestions = C));

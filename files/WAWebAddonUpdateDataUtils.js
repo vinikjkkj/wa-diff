@@ -2,7 +2,6 @@ __d(
   "WAWebAddonUpdateDataUtils",
   [
     "Promise",
-    "WANullthrows",
     "WAWebAddonConstants",
     "WAWebAddonDBTable",
     "WAWebAddonHydrationUtils",
@@ -14,6 +13,7 @@ __d(
     "WAWebCommentUtils",
     "WAWebMsgType",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -84,7 +84,7 @@ __d(
                               ).addonInternalDBTable.updateAck(
                                 c,
                                 e,
-                                r("WANullthrows")(e.ack, "ack is not defined"),
+                                r("nullthrows")(e.ack, "ack is not defined"),
                               );
                             }),
                           )

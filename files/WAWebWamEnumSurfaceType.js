@@ -319,6 +319,7 @@ __d(
       STATUS_VIEWER: 314,
       STATUS_LIST: 315,
       STATUS_COMPOSER: 316,
+      GEN_AI_AI_HUB_REVIEW_CHATS: 317,
     });
     i.SURFACE_TYPE = e;
   },

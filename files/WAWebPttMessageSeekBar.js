@@ -1,61 +1,67 @@
 __d(
   "WAWebPttMessageSeekBar",
   [
+    "fbt",
     "WAWebClock",
     "WAWebMessageSmoothRangeInput",
     "react",
     "react-compiler-runtime",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e,
-      s = e || (e = o("react"));
-    function u(e) {
-      var t = o("react-compiler-runtime").c(10),
+      u = e || (e = o("react"));
+    function c(e) {
+      var t = o("react-compiler-runtime").c(11),
         n =
           o("WAWebClock").Clock.durationStr(e.currentTime) +
           " / " +
           o("WAWebClock").Clock.durationStr(e.duration),
-        r = e.currentTime,
-        a = e.duration,
-        i = e.onSeek,
-        l = e.onCommit,
-        u = e.disabled,
-        d;
-      t[0] !== e ? ((d = c(e)), (t[0] = e), (t[1] = d)) : (d = t[1]);
-      var m;
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = s._(/*BTDS*/ "Audio playback")), (t[0] = r))
+        : (r = t[0]);
+      var a = e.currentTime,
+        i = e.duration,
+        l = e.onSeek,
+        c = e.onCommit,
+        m = e.disabled,
+        p;
+      t[1] !== e ? ((p = d(e)), (t[1] = e), (t[2] = p)) : (p = t[2]);
+      var _;
       return (
-        t[2] !== e.currentTime ||
-        t[3] !== e.disabled ||
-        t[4] !== e.duration ||
-        t[5] !== e.onCommit ||
-        t[6] !== e.onSeek ||
-        t[7] !== d ||
-        t[8] !== n
-          ? ((m = s.jsx(o("WAWebMessageSmoothRangeInput").SmoothRangeInput, {
-              value: r,
+        t[3] !== e.currentTime ||
+        t[4] !== e.disabled ||
+        t[5] !== e.duration ||
+        t[6] !== e.onCommit ||
+        t[7] !== e.onSeek ||
+        t[8] !== p ||
+        t[9] !== n
+          ? ((_ = u.jsx(o("WAWebMessageSmoothRangeInput").SmoothRangeInput, {
+              ariaLabel: r,
+              value: a,
               valueText: n,
               min: 0,
-              max: a,
+              max: i,
               smallSkip: 1,
               largeSkip: 10,
-              onChange: i,
-              onCommit: l,
-              disabled: u,
-              theme: d,
+              onChange: l,
+              onCommit: c,
+              disabled: m,
+              theme: p,
             })),
-            (t[2] = e.currentTime),
-            (t[3] = e.disabled),
-            (t[4] = e.duration),
-            (t[5] = e.onCommit),
-            (t[6] = e.onSeek),
-            (t[7] = d),
-            (t[8] = n),
-            (t[9] = m))
-          : (m = t[9]),
-        m
+            (t[3] = e.currentTime),
+            (t[4] = e.disabled),
+            (t[5] = e.duration),
+            (t[6] = e.onCommit),
+            (t[7] = e.onSeek),
+            (t[8] = p),
+            (t[9] = n),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
       );
     }
-    function c(e) {
+    function d(e) {
       var t = e.outgoing,
         n = e.played;
       return t
@@ -70,7 +76,7 @@ __d(
           : o("WAWebMessageSmoothRangeInput").SmoothRangeInputTheme
               .AUDIO_INCOMING_UNPLAYED;
     }
-    l.default = u;
+    l.default = c;
   },
-  98,
+  226,
 );

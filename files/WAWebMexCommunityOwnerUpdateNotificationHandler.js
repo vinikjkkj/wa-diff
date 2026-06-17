@@ -16,7 +16,7 @@ __d(
         .ERROR(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[mex][community][notification][owner-update] Failed to process xwa2_notify_group_on_participants_roles_change notification, null ",
+              "[mex][community][owner-update] null ",
               "",
             ])),
           t,
@@ -74,7 +74,7 @@ __d(
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[mex][community][notification][owner-update] Community owner notification received with invalid role ",
+                    "[mex][community][owner-update] invalid role ",
                     "",
                   ])),
                 y,
@@ -110,7 +110,7 @@ __d(
               .ERROR(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[mex][community][notification][owner-update] Failed to update community owner",
+                    "[mex][community][owner-update] update failed",
                   ])),
               )
               .tags("mex")

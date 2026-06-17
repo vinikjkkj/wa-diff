@@ -45,7 +45,12 @@ __d(
           a = t.oowPinsCount;
         o(
           "WAWebGroupHistoryReceiverUserJourneyLogger",
-        ).GroupHistoryReceiverUserJourneyLogger.dbInserted(n, r, e, a);
+        ).GroupHistoryReceiverUserJourneyLogger.dbInserted({
+          groupHistoryDbIgnoredOlderMessages: e,
+          groupHistoryMessagesCount: r,
+          groupHistoryOutWindowPinsCount: a,
+          groupHistoryReceiverGroupId: n,
+        });
       },
       logGroupHistorySelectableMessagesLoaded: function (t) {
         var e = t.groupHistoryMessagesCount;

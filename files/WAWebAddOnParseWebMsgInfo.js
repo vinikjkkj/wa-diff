@@ -2,12 +2,12 @@ __d(
   "WAWebAddOnParseWebMsgInfo",
   [
     "WALongInt",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebDecodeJid",
     "WAWebMsgKey",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -34,13 +34,13 @@ __d(
       var c;
       u != null && typeof u != "string"
         ? (c = new (r("WAWebMsgKey"))({
-            id: r("WANullthrows")(n.id),
+            id: r("nullthrows")(n.id),
             fromMe: i,
             remote: l,
             participant: u,
           }))
         : (c = new (r("WAWebMsgKey"))({
-            id: r("WANullthrows")(n.id),
+            id: r("nullthrows")(n.id),
             fromMe: i,
             remote: l,
           }));

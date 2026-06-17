@@ -13,13 +13,15 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
+    var e,
+      s,
+      u = !1;
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o("WAWebAIHatchIdentityStore").registerIdentityFetcher(
             o("WAWebCanonicalHatchIdentityGetQuery").fetchHatchIdentityGet,
           ),
@@ -49,21 +51,23 @@ __d(
                 ])),
             );
           }
-          (o("WAWebBackendEventBus").BackendEventBus.onAbPropsUpdate(
-            function () {
-              o("WAWebInitializeBots").initializeBots();
-            },
-          ),
+          u ||
+            ((u = !0),
+            o("WAWebBackendEventBus").BackendEventBus.onAbPropsUpdate(
+              function () {
+                o("WAWebInitializeBots").initializeBots();
+              },
+            ),
             o("WAWebBackendEventBus").BackendEventBus.onAbPropsLoaded(
               function () {
                 o("WAWebInitializeBots").initializeBots();
               },
             ));
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.initBotGatingHelpers = u;
+    l.initBotGatingHelpers = c;
   },
   98,
 );

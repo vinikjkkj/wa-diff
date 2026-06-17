@@ -53,7 +53,7 @@ __d(
                           function* (e) {
                             var t = e.agentId,
                               n = e.chatId,
-                              i = { chatAssignment: { deviceAgentID: t } };
+                              i = { chatAssignment: { deviceAgentId: t } };
                             return o(
                               "WAWebSyncdActionUtils",
                             ).buildPendingMutation({
@@ -113,7 +113,7 @@ __d(
                                   return o(
                                     "WAWebSyncdIndexUtils",
                                   ).malformedActionValue(a.collectionName);
-                                var d = (u = c.deviceAgentID) != null ? u : "",
+                                var d = (u = c.deviceAgentId) != null ? u : "",
                                   m = o(
                                     "WAWebAgentCollection",
                                   ).AgentCollection.get(d);

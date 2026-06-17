@@ -3,9 +3,8 @@ __d(
   ["WAWebCanonicalReload"],
   function (t, n, r, o, a, i, l) {
     var e = {
-      scheduleCanonicalReload: function (t) {
-        var e = t.purpose;
-        o("WAWebCanonicalReload").scheduleCanonicalReload(e);
+      scheduleCanonicalReload: function () {
+        o("WAWebCanonicalReload").scheduleCanonicalReload();
       },
     };
     l.CanonicalBridgeApi = e;

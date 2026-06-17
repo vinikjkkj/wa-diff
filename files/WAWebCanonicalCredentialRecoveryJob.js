@@ -50,9 +50,10 @@ __d(
         o("WAWebUserPrefsCanonical").clearNonceRequestTimestamp());
     }
     function R() {
-      o("WAWebBackendApi").frontendFireAndForget("scheduleCanonicalReload", {
-        purpose: "recovery",
-      });
+      o("WAWebBackendApi").frontendFireAndForget(
+        "scheduleCanonicalReload",
+        void 0,
+      );
     }
     function L() {
       return E.apply(this, arguments);
@@ -131,7 +132,7 @@ __d(
                 ),
                 C
               );
-            if (o("WAWebCanonicalUtils").getCanonicalReloadPending() != null)
+            if (o("WAWebCanonicalUtils").isCanonicalReloadPending())
               return o("WATimeUtils").DAY_SECONDS;
             if (o("WAWebCanonicalUtils").isCanonicalTokenPresent())
               return (

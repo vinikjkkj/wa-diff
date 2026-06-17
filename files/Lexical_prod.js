@@ -7337,13 +7337,23 @@ __d(
           return r;
         })("string" == typeof t ? JSON.parse(t) : t, this, e);
       };
-      _proto17.read = function read(t) {
-        return (Fo(this), this.getEditorState().read(t, { editor: this }));
-      };
-      _proto17.readPending = function readPending(t) {
-        return (this._pendingEditorState || this._editorState).read(t, {
-          editor: this,
-        });
+      _proto17.read = function read() {
+        for (
+          var _len5 = arguments.length, t = new Array(_len5), _key5 = 0;
+          _key5 < _len5;
+          _key5++
+        ) {
+          t[_key5] = arguments[_key5];
+        }
+        var _ref26 = 1 === t.length ? ["force-commit", t[0]] : t,
+          e = _ref26[0],
+          n = _ref26[1];
+        "force-commit" === e && Fo(this);
+        return (
+          "pending" === e
+            ? this._pendingEditorState || this._editorState
+            : this.getEditorState()
+        ).read(n, { editor: this });
       };
       _proto17.update = function update(t, e) {
         !(function (t, e, n) {
@@ -7679,48 +7689,49 @@ __d(
         }
         var _u9 = i.getTextContent();
         if (o || _a11 !== _u9) {
+          var _e133 = Zr();
           if ("" === _a11) {
             if ((Bi(null), c || s || f)) i.remove();
             else {
               var _t195 = Eo();
-              setTimeout(function () {
-                _t195.update(function () {
-                  i.isAttached() && i.remove();
-                });
-              }, 20);
+              (rs(i, "", _e133),
+                setTimeout(function () {
+                  _t195.update(function () {
+                    i.isAttached() && "" === i.getTextContent() && i.remove();
+                  });
+                }, 20));
             }
             return;
           }
-          var _e133 = i.getParent(),
-            _o52 = to(),
-            _u0 = i.getTextContentSize(),
-            _d7 = zi(),
-            _h6 = i.getKey();
+          var _o52 = i.getParent(),
+            _u0 = to(),
+            _d7 = i.getTextContentSize(),
+            _h6 = zi(),
+            _g5 = i.getKey();
           if (
             i.isToken() ||
-            (null !== _d7 && _h6 === _d7 && !_l15) ||
-            (Rr(_o52) &&
-              ((null !== _e133 &&
-                !_e133.canInsertTextBefore() &&
-                0 === _o52.anchor.offset) ||
-                (_o52.anchor.key === t.__key &&
-                  0 === _o52.anchor.offset &&
+            (null !== _h6 && _g5 === _h6 && !_l15) ||
+            (Rr(_u0) &&
+              ((null !== _o52 &&
+                !_o52.canInsertTextBefore() &&
+                0 === _u0.anchor.offset) ||
+                (_u0.anchor.key === t.__key &&
+                  0 === _u0.anchor.offset &&
                   !i.canInsertTextBefore() &&
                   !_l15) ||
-                (_o52.focus.key === t.__key &&
-                  _o52.focus.offset === _u0 &&
+                (_u0.focus.key === t.__key &&
+                  _u0.focus.offset === _d7 &&
                   !i.canInsertTextAfter() &&
                   !_l15)))
           )
             return void i.markDirty();
-          var _g5 = Zr();
-          if (!Rr(_g5) || null === n || null === r)
-            return void rs(i, _a11, _g5);
-          if ((_g5.setTextNodeRange(i, n, i, r), i.isSegmented())) {
+          if (!Rr(_e133) || null === n || null === r)
+            return void rs(i, _a11, _e133);
+          if ((_e133.setTextNodeRange(i, n, i, r), i.isSegmented())) {
             var _t196 = kr(i.getTextContent());
             (i.replace(_t196), (i = _t196));
           }
-          rs(i, _a11, _g5);
+          rs(i, _a11, _e133);
         }
       }
     }
@@ -8016,9 +8027,9 @@ __d(
         n ||
           ((n = (function (t) {
             var e = new Map();
-            for (var _ref27 of t._nodeMap) {
-              var _n97 = _ref27[0];
-              var _r69 = _ref27[1];
+            for (var _ref28 of t._nodeMap) {
+              var _n97 = _ref28[0];
+              var _r69 = _ref28[1];
               {
                 var _t199 = _r69.__type;
                 var _o55 = e.get(_t199);
@@ -8102,9 +8113,9 @@ __d(
       if (n)
         if (o) i = n[o];
         else {
-          for (var _ref29 of Object.entries(n)) {
-            var _t201 = _ref29[0];
-            var _e135 = _ref29[1];
+          for (var _ref30 of Object.entries(n)) {
+            var _t201 = _ref30[0];
+            var _e135 = _ref30[1];
             ((s = _t201), (i = _e135));
           }
           if (!i)
@@ -8241,11 +8252,11 @@ __d(
       function ul() {
         var _this5;
         for (
-          var _len5 = arguments.length, args = new Array(_len5), _key5 = 0;
-          _key5 < _len5;
-          _key5++
+          var _len6 = arguments.length, args = new Array(_len6), _key6 = 0;
+          _key6 < _len6;
+          _key6++
         ) {
-          args[_key5] = arguments[_key5];
+          args[_key6] = arguments[_key6];
         }
         return (
           ((_this5 = _al.call.apply(_al, [this].concat(args)) || this),
@@ -8302,11 +8313,11 @@ __d(
       function gl() {
         var _this6;
         for (
-          var _len6 = arguments.length, args = new Array(_len6), _key6 = 0;
-          _key6 < _len6;
-          _key6++
+          var _len7 = arguments.length, args = new Array(_len7), _key7 = 0;
+          _key7 < _len7;
+          _key7++
         ) {
-          args[_key6] = arguments[_key6];
+          args[_key7] = arguments[_key7];
         }
         return (
           ((_this6 = _al2.call.apply(_al2, [this].concat(args)) || this),
@@ -8421,11 +8432,11 @@ __d(
           function _class() {
             var _this8;
             for (
-              var _len7 = arguments.length, args = new Array(_len7), _key7 = 0;
-              _key7 < _len7;
-              _key7++
+              var _len8 = arguments.length, args = new Array(_len8), _key8 = 0;
+              _key8 < _len8;
+              _key8++
             ) {
-              args[_key7] = arguments[_key7];
+              args[_key8] = arguments[_key8];
             }
             return (
               ((_this8 = _l2.call.apply(_l2, [this].concat(args)) || this),
@@ -8448,11 +8459,11 @@ __d(
           function _class3() {
             var _this9;
             for (
-              var _len8 = arguments.length, args = new Array(_len8), _key8 = 0;
-              _key8 < _len8;
-              _key8++
+              var _len9 = arguments.length, args = new Array(_len9), _key9 = 0;
+              _key9 < _len9;
+              _key9++
             ) {
-              args[_key8] = arguments[_key8];
+              args[_key9] = arguments[_key9];
             }
             return (
               ((_this9 = _l3.call.apply(_l3, [this].concat(args)) || this),
@@ -8477,11 +8488,11 @@ __d(
           function _class5() {
             var _this0;
             for (
-              var _len9 = arguments.length, args = new Array(_len9), _key9 = 0;
-              _key9 < _len9;
-              _key9++
+              var _len0 = arguments.length, args = new Array(_len0), _key0 = 0;
+              _key0 < _len0;
+              _key0++
             ) {
-              args[_key9] = arguments[_key9];
+              args[_key0] = arguments[_key0];
             }
             return (
               ((_this0 = _gl.call.apply(_gl, [this].concat(args)) || this),
@@ -8504,11 +8515,11 @@ __d(
           function _class7() {
             var _this1;
             for (
-              var _len0 = arguments.length, args = new Array(_len0), _key0 = 0;
-              _key0 < _len0;
-              _key0++
+              var _len1 = arguments.length, args = new Array(_len1), _key1 = 0;
+              _key1 < _len1;
+              _key1++
             ) {
-              args[_key0] = arguments[_key0];
+              args[_key1] = arguments[_key1];
             }
             return (
               ((_this1 = _gl2.call.apply(_gl2, [this].concat(args)) || this),
@@ -8533,11 +8544,13 @@ __d(
           function _class9() {
             var _this10;
             for (
-              var _len1 = arguments.length, args = new Array(_len1), _key1 = 0;
-              _key1 < _len1;
-              _key1++
+              var _len10 = arguments.length,
+                args = new Array(_len10),
+                _key10 = 0;
+              _key10 < _len10;
+              _key10++
             ) {
-              args[_key1] = arguments[_key1];
+              args[_key10] = arguments[_key10];
             }
             return (
               ((_this10 = _ul.call.apply(_ul, [this].concat(args)) || this),
@@ -8560,13 +8573,13 @@ __d(
           function _class1() {
             var _this11;
             for (
-              var _len10 = arguments.length,
-                args = new Array(_len10),
-                _key10 = 0;
-              _key10 < _len10;
-              _key10++
+              var _len11 = arguments.length,
+                args = new Array(_len11),
+                _key11 = 0;
+              _key11 < _len11;
+              _key11++
             ) {
-              args[_key10] = arguments[_key10];
+              args[_key11] = arguments[_key11];
             }
             return (
               ((_this11 = _ul2.call.apply(_ul2, [this].concat(args)) || this),
@@ -8609,13 +8622,13 @@ __d(
                 r = new URLSearchParams();
               r.append("code", t);
               for (
-                var _len11 = arguments.length,
-                  e = new Array(_len11 > 1 ? _len11 - 1 : 0),
-                  _key11 = 1;
-                _key11 < _len11;
-                _key11++
+                var _len12 = arguments.length,
+                  e = new Array(_len12 > 1 ? _len12 - 1 : 0),
+                  _key12 = 1;
+                _key12 < _len12;
+                _key12++
               ) {
-                e[_key11 - 1] = arguments[_key11];
+                e[_key12 - 1] = arguments[_key12];
               }
               for (var _t207 of e) r.append("v", _t207);
               ((n.search = r.toString()),
@@ -8757,24 +8770,24 @@ __d(
       );
     }
     function Pl(t) {
-      var _ref30;
+      var _ref31;
       var e = t.initial,
         n = t.hasNext,
         r = t.step,
         o = t.map;
       var i = e;
       return (
-        (_ref30 = {}),
-        (_ref30[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"] =
+        (_ref31 = {}),
+        (_ref31[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"] =
           function () {
             return this;
           }),
-        (_ref30.next = function next() {
+        (_ref31.next = function next() {
           if (!n(i)) return { done: !0, value: void 0 };
           var t = { done: !1, value: o(i) };
           return ((i = r(i)), t);
         }),
-        _ref30
+        _ref31
       );
     }
     function Fl(e, n) {
@@ -9079,27 +9092,27 @@ __d(
     function nc() {
       var e = [];
       for (
-        var _len12 = arguments.length, t = new Array(_len12), _key12 = 0;
-        _key12 < _len12;
-        _key12++
+        var _len13 = arguments.length, t = new Array(_len13), _key13 = 0;
+        _key13 < _len13;
+        _key13++
       ) {
-        t[_key12] = arguments[_key12];
+        t[_key13] = arguments[_key13];
       }
       for (var _n105 of t)
         if (_n105 && "string" == typeof _n105)
-          for (var _ref32 of _n105.matchAll(/\S+/g)) {
-            var _t223 = _ref32[0];
+          for (var _ref33 of _n105.matchAll(/\S+/g)) {
+            var _t223 = _ref33[0];
             e.push(_t223);
           }
       return e;
     }
     function rc() {
       for (
-        var _len13 = arguments.length, t = new Array(_len13), _key13 = 0;
-        _key13 < _len13;
-        _key13++
+        var _len14 = arguments.length, t = new Array(_len14), _key14 = 0;
+        _key14 < _len14;
+        _key14++
       ) {
-        t[_key13] = arguments[_key13];
+        t[_key14] = arguments[_key14];
       }
       return function () {
         for (var _e144 = t.length - 1; _e144 >= 0; _e144--) t[_e144]();
@@ -9254,8 +9267,8 @@ __d(
         }
         var r = n._nodeMap,
           o = [];
-        for (var _ref34 of r) {
-          var _n106 = _ref34[1];
+        for (var _ref35 of r) {
+          var _n106 = _ref35[1];
           _n106 instanceof t &&
             _n106.__type === e &&
             _n106.isAttached() &&
@@ -9309,17 +9322,17 @@ __d(
         return (at(o).updateFromKnown(e, r), o);
       }),
       (exports.$splitAtPointCaretNext = function (t, _temp) {
-        var _ref35 = _temp === void 0 ? {} : _temp,
-          _ref35$$copyElementNo = _ref35.$copyElementNode,
-          e = _ref35$$copyElementNo === void 0 ? Es : _ref35$$copyElementNo,
-          _ref35$$splitTextPoin = _ref35.$splitTextPointCaretNext,
-          n = _ref35$$splitTextPoin === void 0 ? tc : _ref35$$splitTextPoin,
-          _ref35$rootMode = _ref35.rootMode,
-          r = _ref35$rootMode === void 0 ? "shadowRoot" : _ref35$rootMode,
-          _ref35$$shouldSplit = _ref35.$shouldSplit,
-          o = _ref35$$shouldSplit === void 0 ? ec : _ref35$$shouldSplit,
-          _ref35$removeEmptyDes = _ref35.removeEmptyDestination,
-          i = _ref35$removeEmptyDes === void 0 ? !1 : _ref35$removeEmptyDes;
+        var _ref36 = _temp === void 0 ? {} : _temp,
+          _ref36$$copyElementNo = _ref36.$copyElementNode,
+          e = _ref36$$copyElementNo === void 0 ? Es : _ref36$$copyElementNo,
+          _ref36$$splitTextPoin = _ref36.$splitTextPointCaretNext,
+          n = _ref36$$splitTextPoin === void 0 ? tc : _ref36$$splitTextPoin,
+          _ref36$rootMode = _ref36.rootMode,
+          r = _ref36$rootMode === void 0 ? "shadowRoot" : _ref36$rootMode,
+          _ref36$$shouldSplit = _ref36.$shouldSplit,
+          o = _ref36$$shouldSplit === void 0 ? ec : _ref36$$shouldSplit,
+          _ref36$removeEmptyDes = _ref36.removeEmptyDestination,
+          i = _ref36$removeEmptyDes === void 0 ? !1 : _ref36$removeEmptyDes;
         if (pl(t)) return n(t);
         var s = t.getParentCaret(r);
         if (s) {
@@ -9477,13 +9490,13 @@ __d(
       (exports.addClassNamesToElement = function (t) {
         var _t$classList2;
         for (
-          var _len14 = arguments.length,
-            e = new Array(_len14 > 1 ? _len14 - 1 : 0),
-            _key14 = 1;
-          _key14 < _len14;
-          _key14++
+          var _len15 = arguments.length,
+            e = new Array(_len15 > 1 ? _len15 - 1 : 0),
+            _key15 = 1;
+          _key15 < _len15;
+          _key15++
         ) {
-          e[_key14 - 1] = arguments[_key14];
+          e[_key15 - 1] = arguments[_key15];
         }
         var n = nc.apply(void 0, e);
         n.length > 0 &&
@@ -9494,11 +9507,11 @@ __d(
       }),
       (exports.configExtension = function () {
         for (
-          var _len15 = arguments.length, t = new Array(_len15), _key15 = 0;
-          _key15 < _len15;
-          _key15++
+          var _len16 = arguments.length, t = new Array(_len16), _key16 = 0;
+          _key16 < _len16;
+          _key16++
         ) {
-          t[_key15] = arguments[_key15];
+          t[_key16] = arguments[_key16];
         }
         return t;
       }),
@@ -9649,13 +9662,13 @@ __d(
       (exports.removeClassNamesFromElement = function (t) {
         var _t$classList3;
         for (
-          var _len16 = arguments.length,
-            e = new Array(_len16 > 1 ? _len16 - 1 : 0),
-            _key16 = 1;
-          _key16 < _len16;
-          _key16++
+          var _len17 = arguments.length,
+            e = new Array(_len17 > 1 ? _len17 - 1 : 0),
+            _key17 = 1;
+          _key17 < _len17;
+          _key17++
         ) {
-          e[_key16 - 1] = arguments[_key16];
+          e[_key17 - 1] = arguments[_key17];
         }
         var n = nc.apply(void 0, e);
         n.length > 0 &&

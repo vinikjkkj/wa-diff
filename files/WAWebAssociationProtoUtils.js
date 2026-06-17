@@ -87,17 +87,24 @@ __d(
           },
         };
     }
-    function g(e, t, n) {
-      var a = r("WAWebNewsletterIsNewsletterMsg")(t);
-      return n === "history" && !a
-        ? o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(e)
+    function g(e) {
+      var t = e.baseMessage,
+        n = e.msgContext,
+        a = e.parentMessageKey,
+        i = r("WAWebNewsletterIsNewsletterMsg")(t);
+      return n === "history" && !i
+        ? o("WAWebProtobufMsgKeyUtils").protobufToMsgKey(a)
         : o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
-            e,
+            a,
             t,
           );
     }
     function h(e, t, n) {
-      var a = g(e.parentMessageKey, t, n),
+      var a = g({
+          baseMessage: t,
+          msgContext: n,
+          parentMessageKey: e.parentMessageKey,
+        }),
         i = p(e.associationType),
         l = o(
           "WAWebAssociationProcessor",

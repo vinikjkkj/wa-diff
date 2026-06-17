@@ -14,17 +14,16 @@ __d(
       s,
       u,
       c,
-      d,
-      m =
+      d =
         e !== void 0
           ? e
           : (e = n("WAWebMexRequestClientLogsForBugJobMutation.graphql"));
-    function p(e) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.bugId,
             n = e.participantIds,
             a = n === void 0 ? [] : n,
@@ -41,35 +40,24 @@ __d(
                 .sendLogs("bug-remote-logs-request-missing-bug-id"),
               !1
             );
-          var l = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-          if (l == null)
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bug-remote-logs] skip log request: no self LID",
-                    ])),
-                )
-                .sendLogs("bug-remote-logs-request-missing-self-lid"),
-              !1
-            );
-          var p = {
+          var l = {
             input: {
               bug_id: t,
               participant_ids: a,
-              reporter_id: l.toString(),
+              reporter_id: o("WAWebUserPrefsMeUser")
+                .getMeLidUserOrThrow()
+                .toString(),
               up_to_timestamp_secs: i,
             },
           };
           try {
-            var _ = yield o("WAWebMexClient").fetchQuery(m, p),
-              f = _ == null ? void 0 : _.xwa2_request_client_logs_for_bug;
-            return f !== !0
+            var m = yield o("WAWebMexClient").fetchQuery(d, l),
+              p = m == null ? void 0 : m.xwa2_request_client_logs_for_bug;
+            return p !== !0
               ? (o("WALogger")
                   .WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[bug-remote-logs] client log request returned false",
                       ])),
                   )
@@ -80,8 +68,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[bug-remote-logs] client log request failed",
                     ])),
                 )
@@ -91,10 +79,10 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.requestClientLogsForBugJob = p;
+    l.requestClientLogsForBugJob = m;
   },
   98,
 );

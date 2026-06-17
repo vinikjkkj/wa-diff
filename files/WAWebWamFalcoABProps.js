@@ -14,12 +14,7 @@ __d(
     var e,
       s = null;
     function u() {
-      return (
-        r("justknobx")._("2716") &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_canonical_wam_falco_buffer_enabled",
-        )
-      );
+      return r("justknobx")._("2716");
     }
     function c() {
       var e = o("WAWebABProps").getABPropConfigValue(
@@ -30,14 +25,14 @@ __d(
     function d() {
       return !m() || !u() || !o("WAWebCanonicalGating").isCanonicalEnabled()
         ? !1
-        : !r("WAWebNetworkStatus").online ||
-            !o("WAWebCanonicalUtils").isCanonicalPresent();
+        : !r("WAWebNetworkStatus").online;
     }
     function m() {
       return (
         o("WAWebABPropsCache").isABPropConfigsReady() &&
         r("justknobx")._("1600") &&
-        _() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
+        _() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY &&
+        o("WAWebCanonicalUtils").isCanonicalPresent()
       );
     }
     function p() {

@@ -133,11 +133,17 @@ __d(
                 })(),
                 h = d.messageCount,
                 y = function () {
-                  L(t, h, function (e) {
-                    g(e, function () {
-                      (o("WAWebModalManager").ModalManager.closeSupportModal(),
-                        o("WAWebModalManager").ModalManager.close());
-                    });
+                  L({
+                    groupOnlyWid: t,
+                    onDone: function (t) {
+                      g(t, function () {
+                        (o(
+                          "WAWebModalManager",
+                        ).ModalManager.closeSupportModal(),
+                          o("WAWebModalManager").ModalManager.close());
+                      });
+                    },
+                    totalMessages: h,
                   });
                 };
               o("WAWebModalManager").ModalManager.openSupportModal(
@@ -243,11 +249,15 @@ __d(
               })(),
               _ = u.messageCount,
               g = function () {
-                L(t, _, function (e) {
-                  m(e, function () {
-                    (o("WAWebModalManager").ModalManager.closeSupportModal(),
-                      o("WAWebModalManager").ModalManager.close());
-                  });
+                L({
+                  groupOnlyWid: t,
+                  onDone: function (t) {
+                    m(t, function () {
+                      (o("WAWebModalManager").ModalManager.closeSupportModal(),
+                        o("WAWebModalManager").ModalManager.close());
+                    });
+                  },
+                  totalMessages: _,
                 });
               };
             o("WAWebModalManager").ModalManager.openSupportModal(
@@ -295,15 +305,18 @@ __d(
       });
     }
     R.displayName = R.name + " [from " + i.id + "]";
-    function L(e, t, n) {
-      var a = Math.min(g, t);
+    function L(e) {
+      var t = e.groupOnlyWid,
+        n = e.onDone,
+        a = e.totalMessages,
+        i = Math.min(g, a);
       o("WAWebModalManager").ModalManager.openSupportModal(
         p.jsx(r("WAWebGroupHistorySendMessagesModal.react"), {
-          currentMessageCount: t,
-          selectedMessageCount: a,
+          currentMessageCount: a,
+          selectedMessageCount: i,
           showPinDisclaimer: o(
             "WAWebGroupHistoryGating",
-          ).isOutOfWindowPinSenderEnabled(e),
+          ).isOutOfWindowPinSenderEnabled(t),
           primaryButtonLabel: s._(/*BTDS*/ "Send"),
           onDone: n,
           onCancel: function () {

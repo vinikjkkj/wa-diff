@@ -1,15 +1,17 @@
 __d(
   "WAWebFalcoCanonicalAbKey2",
-  ["WAWebABPropsLocalStorage", "WAWebWamGlobals"],
+  ["WAWebABPropsLocalStorage", "WAWebWam", "WAWebWamGlobals"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e, t, n;
+      var e, t, n, r;
       return (e =
         (t =
-          o("WAWebWamGlobals").Global == null ||
-          (n = o("WAWebWamGlobals").Global.all) == null
-            ? void 0
-            : n.abKey2) != null
+          (n = o("WAWebWam").getSerializedAbKey2()) != null
+            ? n
+            : o("WAWebWamGlobals").Global == null ||
+                (r = o("WAWebWamGlobals").Global.all) == null
+              ? void 0
+              : r.abKey2) != null
           ? t
           : o("WAWebABPropsLocalStorage").getABKey()) != null
         ? e

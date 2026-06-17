@@ -254,17 +254,10 @@ __d(
           var _ = u.some(function (e) {
               return o("WAWebMsgGetters").isRealMessage(e);
             }),
-            f =
-              u.length > 0 &&
-              u.every(function (e) {
-                return o("WAWebMsgGetters").getIsDisappearingModeSystemMessage(
-                  e,
-                );
-              }),
-            g = o("WAWebABProps").getABPropConfigValue(
+            f = o("WAWebABProps").getABPropConfigValue(
               "chatlist_show_draft_for_empty_chat",
             );
-          return (c !== !0 && !f) || (c === !0 && _) || (g && m);
+          return c !== !0 || _ || (f && m);
         },
         [
           s.getId,

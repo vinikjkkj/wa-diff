@@ -28,6 +28,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "cr:17219",
+    "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,100 +39,114 @@ __d(
       d,
       m,
       p,
-      _ = new Set(),
-      f = (function (t) {
+      _,
+      f = new Set(),
+      g = (function (t) {
         function a() {
-          var e, a;
-          ((a = t.call(this) || this),
-            (a.findImpl = function (e) {
-              var t,
-                a,
-                i,
-                l,
-                s = e.isNewsletter()
+          var a, i;
+          ((i = t.call(this) || this),
+            (i.findImpl = function (t) {
+              var a, i, l, s;
+              if (!(t instanceof r("WAWebWid")))
+                return (
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "ProfilePicThumbCollection.findImpl called with a non-WAWebWid id",
+                        ])),
+                    )
+                    .sendLogs("profile-pic-find-invalid-id"),
+                  (_ || (_ = n("Promise"))).reject(
+                    r("err")(
+                      "ProfilePicThumbCollection.findImpl called with a non-WAWebWid id",
+                    ),
+                  )
+                );
+              var u = t.isNewsletter()
                   ? r("WAWebNewsletterCollection")
                   : o("WAWebChatCollection").ChatCollection,
-                u = s.get(e),
-                c =
-                  (u == null || (t = u.groupMetadata) == null
+                c = u.get(t),
+                d =
+                  (c == null || (a = c.groupMetadata) == null
                     ? void 0
-                    : t.groupType) === o("WAWebGroupType").GroupType.COMMUNITY,
-                d = r("WAWebUnjoinedSubgroupMetadataCollection").get(
-                  e.toString(),
+                    : a.groupType) === o("WAWebGroupType").GroupType.COMMUNITY,
+                m = r("WAWebUnjoinedSubgroupMetadataCollection").get(
+                  t.toString(),
                 );
               if (
-                (u != null &&
-                  u.isReadOnly &&
-                  !c &&
-                  !(u != null && o("WAWebChatGetters").getIsNewsletter(u)) &&
-                  d == null) ||
-                (u != null && (a = u.groupMetadata) != null && a.terminated) ||
-                (u != null &&
-                  (i = u.newsletterMetadata) != null &&
-                  i.terminated) ||
-                (u != null && (l = u.newsletterMetadata) != null && l.isPreview)
+                (c != null &&
+                  c.isReadOnly &&
+                  !d &&
+                  !(c != null && o("WAWebChatGetters").getIsNewsletter(c)) &&
+                  m == null) ||
+                (c != null && (i = c.groupMetadata) != null && i.terminated) ||
+                (c != null &&
+                  (l = c.newsletterMetadata) != null &&
+                  l.terminated) ||
+                (c != null && (s = c.newsletterMetadata) != null && s.isPreview)
               )
-                return (p || (p = n("Promise"))).resolve({ id: e, stale: !0 });
+                return (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 });
               if (
-                o("WAWebBotUtils").isBotChannelFBID(e) ||
-                o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
+                o("WAWebBotUtils").isBotChannelFBID(t) ||
+                o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t)
               )
-                return (p || (p = n("Promise"))).resolve({ id: e });
+                return (_ || (_ = n("Promise"))).resolve({ id: t });
               if (
-                (r("WAWebWid").isUser(e) ||
-                  r("WAWebWid").isGroup(e) ||
-                  r("WAWebWid").isNewsletter(e)) &&
-                !r("WAWebWid").isPSA(e)
+                (r("WAWebWid").isUser(t) ||
+                  r("WAWebWid").isGroup(t) ||
+                  r("WAWebWid").isNewsletter(t)) &&
+                !r("WAWebWid").isPSA(t)
               ) {
-                var m,
-                  _ = c
-                    ? e
-                    : u == null || (m = u.groupMetadata) == null
+                var p,
+                  f = d
+                    ? t
+                    : c == null || (p = c.groupMetadata) == null
                       ? void 0
-                      : m.parentGroup;
+                      : p.parentGroup;
                 if (
-                  (d != null && (_ = d.parentGroupId),
+                  (m != null && (f = m.parentGroupId),
                   o("WAWebSocketModel").Socket.stream !==
                     o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED)
                 ) {
-                  var f;
-                  if (r("WAWebWid").isUser(e)) {
-                    var g,
-                      h = o("WAWebContactCollection").ContactCollection.get(e),
-                      y = o("WAWebChatCollection").ChatCollection.get(e);
+                  var g;
+                  if (r("WAWebWid").isUser(t)) {
+                    var h,
+                      y = o("WAWebContactCollection").ContactCollection.get(t),
+                      C = o("WAWebChatCollection").ChatCollection.get(t);
                     return o(
                       "WAWebContactProfilePicThumbBridge",
                     ).requestProfilePicFromServer({
-                      id: e,
-                      parentGroupId: _,
-                      tcToken: y == null ? void 0 : y.tcToken,
+                      id: t,
+                      parentGroupId: f,
+                      tcToken: C == null ? void 0 : C.tcToken,
                       commonGid:
-                        (y == null ? void 0 : y.tcToken) == null
-                          ? h == null ||
-                            (g = h.maybeCommonGroupChatModel) == null
+                        (C == null ? void 0 : C.tcToken) == null
+                          ? y == null ||
+                            (h = y.maybeCommonGroupChatModel) == null
                             ? void 0
-                            : g.id
+                            : h.id
                           : null,
                     });
                   }
                   return o(
                     "WAWebContactProfilePicThumbBridge",
                   ).requestProfilePicFromServer({
-                    id: e,
-                    parentGroupId: _,
-                    newsletterRole: e.isNewsletter()
-                      ? (f = r("WAWebNewsletterMetadataCollection").get(e)) ==
+                    id: t,
+                    parentGroupId: f,
+                    newsletterRole: t.isNewsletter()
+                      ? (g = r("WAWebNewsletterMetadataCollection").get(t)) ==
                         null
                         ? void 0
-                        : f.membershipType
+                        : g.membershipType
                       : void 0,
                   });
                 }
-                return (p || (p = n("Promise"))).resolve({ id: e, stale: !0 });
+                return (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 });
               }
-              return (p || (p = n("Promise"))).resolve({ id: e, tag: null });
+              return (_ || (_ = n("Promise"))).resolve({ id: t, tag: null });
             }),
-            (a._getUpdatedProfilePicModel = function (e) {
+            (i._getUpdatedProfilePicModel = function (e) {
               return {
                 tag: e.tag,
                 raw: void 0,
@@ -145,23 +160,23 @@ __d(
                 timestamp: Date.now(),
               };
             }));
-          var i = (e = n("cr:17219")) == null ? void 0 : e.getWindowsBridge();
-          if (i) {
-            var l = o("WAWebABProps").getABPropConfigValue(
+          var l = (a = n("cr:17219")) == null ? void 0 : a.getWindowsBridge();
+          if (l) {
+            var s = o("WAWebABProps").getABPropConfigValue(
               "web_anr_batch_profile_picture_bridge_operations",
             )
               ? "add remove change:eurl"
               : "add remove change:timestamp";
-            a.listenTo(a, l, function (e, t, n) {
+            i.listenTo(i, s, function (e, t, n) {
               var r;
-              (r = i.pictures) == null || r.notifyUpdate(e);
+              (r = l.pictures) == null || r.notifyUpdate(e);
             });
           }
           return (
-            a.listenTo(a, "add change", function (e) {
-              a._mirrorMeRow(e);
+            i.listenTo(i, "add change", function (e) {
+              i._mirrorMeRow(e);
             }),
-            a
+            i
           );
         }
         babelHelpers.inheritsLoose(a, t);
@@ -170,7 +185,7 @@ __d(
           (i._mirrorMeRow = function (t) {
             if (o("WAWebUserPrefsMeUser").isMeAccount(t.id)) {
               var e = t.id.toString();
-              if (!_.has(e)) {
+              if (!f.has(e)) {
                 var n = o("WAWebApiContact").getMeUserWids();
                 if (!(n.length < 2)) {
                   var r = {
@@ -187,12 +202,12 @@ __d(
                   for (var a of n)
                     if (!a.equals(t.id)) {
                       var i = a.toString();
-                      _.add(i);
+                      f.add(i);
                       try {
                         var l = this.gadd(a);
                         l.set(r);
                       } finally {
-                        _.delete(i);
+                        f.delete(i);
                       }
                     }
                 }
@@ -212,14 +227,14 @@ __d(
             );
           }),
           (i.resyncPicturesByWid = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = this;
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
                 try {
-                  var r = yield o(
+                  var n = yield o(
                     "WAWebContactProfilePicThumbBridge",
                   ).profilePicResync(
-                    t.map(function (e) {
+                    e.map(function (e) {
                       if (e.isRegularUser()) {
                         var t,
                           n = o("WAWebContactCollection").ContactCollection.get(
@@ -242,22 +257,22 @@ __d(
                     }),
                   );
                   (o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "ProfilePicThumbStore:resyncPictures success",
                       ])),
                   ),
-                    r.forEach(function (e) {
-                      var t = n._getUpdatedProfilePicModel(e),
-                        r = n.get(e.id);
+                    n.forEach(function (e) {
+                      var n = t._getUpdatedProfilePicModel(e),
+                        r = t.get(e.id);
                       r
-                        ? r.set(t)
-                        : n.add(babelHelpers.extends({ id: e.id }, t));
+                        ? r.set(n)
+                        : t.add(babelHelpers.extends({ id: e.id }, n));
                     }));
                 } catch (e) {
                   o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "ProfilePicThumbStore:resyncMyProfilePicture failed: ",
                         "",
                       ])),
@@ -266,15 +281,15 @@ __d(
                 }
               },
             );
-            function r(e) {
-              return t.apply(this, arguments);
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return r;
+            return t;
           })()),
           (i.resyncPictures = function (t) {
             var e = this;
             return t.length === 0
-              ? (p || (p = n("Promise"))).resolve()
+              ? (_ || (_ = n("Promise"))).resolve()
               : o("WAWebContactProfilePicThumbBridge")
                   .profilePicResync(
                     t.map(function (e) {
@@ -302,8 +317,8 @@ __d(
                   )
                   .then(function (n) {
                     (o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "ProfilePicThumbStore:resyncPictures success",
                         ])),
                     ),
@@ -321,8 +336,8 @@ __d(
                       function (e) {
                         e.status === 423 || e.status === 429
                           ? o("WALogger").WARN(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
                                   "ProfilePicThumbStore:resyncPictures blocked ",
                                   "",
                                 ])),
@@ -330,8 +345,8 @@ __d(
                             )
                           : e.status >= 400 &&
                             o("WALogger").WARN(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
                                   "ProfilePicThumbStore:resyncPictures dropped: ",
                                   "",
                                 ])),
@@ -343,8 +358,8 @@ __d(
                   .catch(function (e) {
                     o("WALogger")
                       .WARN(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "ProfilePicThumbStore:resyncPictures dropped",
                           ])),
                       )
@@ -380,16 +395,16 @@ __d(
           a
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    ((f.model = o("WAWebProfilePicThumbModel").ProfilePicThumb),
-      (f.cachePolicy = {
+    ((g.model = o("WAWebProfilePicThumbModel").ProfilePicThumb),
+      (g.cachePolicy = {
         id: o("WAWebUserPrefsKeys").COLLECTIONS_KEYS
           .PROFILE_PIC_THUMB_COLLECTION,
         trigger: "change:tag",
         policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE,
         delay: 5e3,
       }));
-    var g = new f();
-    l.ProfilePicThumbCollection = g;
+    var h = new g();
+    l.ProfilePicThumbCollection = h;
   },
   98,
 );

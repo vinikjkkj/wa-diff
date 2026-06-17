@@ -10,21 +10,22 @@ __d(
         var t;
         if ((typeof Symbol == "function" ? Symbol.iterator : "@@iterator") in e)
           t = Array.from(e);
-        else {
-          var n = new TypeError(
-            "Promise.allSettled must be passed an iterable.",
-          );
-          return (n.stack, l.reject(n));
-        }
+        else
+          return new l(function () {
+            var e = new TypeError(
+              "Promise.allSettled must be passed an iterable.",
+            );
+            throw (e.stack, e);
+          });
         for (
-          var r = Array(t.length),
-            o = function () {
-              var e = t[a],
-                n =
+          var n = Array(t.length),
+            r = function () {
+              var e = t[o],
+                r =
                   typeof e == "object" &&
                   e !== null &&
                   typeof e.then == "function";
-              r[a] = n
+              n[o] = r
                 ? new l(function (t, n) {
                     e.then(
                       function (n) {
@@ -37,13 +38,13 @@ __d(
                   })
                 : l.resolve({ status: "fulfilled", value: e });
             },
-            a = 0,
-            i = t.length;
-          a < i;
-          ++a
+            o = 0,
+            a = t.length;
+          o < a;
+          ++o
         )
-          o();
-        return l.all(r);
+          r();
+        return l.all(n);
       }),
       l.prototype.finally ||
         (l.prototype.finally = function (e) {

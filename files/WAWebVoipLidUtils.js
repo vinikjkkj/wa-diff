@@ -6,6 +6,7 @@ __d(
     "WAWebAsISOCountryCode",
     "WAWebContactExternalUserState",
     "WAWebDBCreateLidPnMappings",
+    "WAWebEnvironment",
     "WAWebHandlePushnameUpdate",
     "WAWebSetUsernameJob",
     "WAWebUpdateContactExternalUserState",
@@ -117,6 +118,7 @@ __d(
               }
             }
             s != null &&
+              !r("WAWebEnvironment").isGuest &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [
                   { lid: d, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },

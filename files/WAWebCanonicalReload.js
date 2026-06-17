@@ -22,13 +22,13 @@ __d(
       d,
       m,
       p = 5 * o("WATimeUtils").MINUTE_MILLISECONDS;
-    function _(e) {
+    function _() {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebCanonicalUtils").getCanonicalReloadPending() == null) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!o("WAWebCanonicalUtils").isCanonicalReloadPending()) {
             if (
               !o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled()
             ) {
@@ -40,15 +40,13 @@ __d(
               );
               return;
             }
-            (o("WAWebCanonicalUtils").setCanonicalReloadPending(e),
+            (o("WAWebCanonicalUtils").setCanonicalReloadPending(!0),
               r("WAWebODS").incr("web.app.canonical.recovery.reload_scheduled"),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[canonical] scheduling reload after canonical ",
-                    "",
+                    "[canonical] scheduling reload after canonical recovery",
                   ])),
-                e,
               ),
               h());
           }
@@ -92,33 +90,31 @@ __d(
           ])),
       );
       var e = function () {
-        o("WAWebStreamModel").Stream.couldForce && (n(), C("idle", "recovery"));
+        o("WAWebStreamModel").Stream.couldForce && (n(), C("idle"));
       };
       o("WAWebStreamModel").Stream.on("change:couldForce", e);
       var t = self.setTimeout(function () {
-        (n(), g() ? h() : C("timeout", "recovery"));
+        (n(), g() ? h() : C("timeout"));
       }, p);
       function n() {
         (o("WAWebStreamModel").Stream.off("change:couldForce", e),
           self.clearTimeout(t));
       }
     }
-    function C(e, t) {
+    function C(e) {
       if (
         r("WAWebBrokerGlobalAppState").isLogoutInProgress ||
-        o("WAWebCanonicalUtils").getCanonicalReloadPending() == null
+        !o("WAWebCanonicalUtils").isCanonicalReloadPending()
       ) {
-        o("WAWebCanonicalUtils").setCanonicalReloadPending(null);
+        o("WAWebCanonicalUtils").setCanonicalReloadPending(!1);
         return;
       }
       (o("WALogger").LOG(
         u ||
           (u = babelHelpers.taggedTemplateLiteralLoose([
-            "[canonical] reload after canonical ",
-            " trigger=",
+            "[canonical] reload after canonical recovery trigger=",
             "",
           ])),
-        t,
         e,
       ),
         r("WAWebODS").incr("web.app.canonical.recovery.reload_triggered"),
@@ -136,9 +132,9 @@ __d(
         ),
         o("WAWebUpdater").Updater.restart());
     }
-    ((l.getCanonicalReloadPending = o(
+    ((l.isCanonicalReloadPending = o(
       "WAWebCanonicalUtils",
-    ).getCanonicalReloadPending),
+    ).isCanonicalReloadPending),
       (l.setCanonicalReloadPending = o(
         "WAWebCanonicalUtils",
       ).setCanonicalReloadPending),

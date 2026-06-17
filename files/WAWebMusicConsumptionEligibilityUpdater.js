@@ -67,7 +67,13 @@ __d(
                             : new Set(),
                         b = C.has(u);
                       if (y !== b) return;
-                      (y ? C.delete(u) : C.add(u), yield d(t, n, c, C));
+                      (y ? C.delete(u) : C.add(u),
+                        yield d({
+                          currentAnnotations: n,
+                          embeddedMusicIndex: c,
+                          msgKey: t,
+                          updatedCountryBlocklist: C,
+                        }));
                     } catch (t) {
                       o("WALogger").ERROR(
                         e ||
@@ -84,41 +90,43 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a;
-            if (!(n < 0 || n >= t.length)) {
-              var i = t[n],
-                l = (a = i.embeddedContent) == null ? void 0 : a.embeddedMusic;
-              if (l != null) {
-                var s = o("WAWebMusicParsingUtils").countryCodeSetToBuffer(r),
-                  u = [].concat(t);
-                u[n] = babelHelpers.extends({}, i, {
-                  embeddedContent: babelHelpers.extends({}, i.embeddedContent, {
-                    embeddedMusic: babelHelpers.extends({}, l, {
-                      countryBlocklist: s,
-                    }),
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.currentAnnotations,
+            r = e.embeddedMusicIndex,
+            a = e.msgKey,
+            i = e.updatedCountryBlocklist;
+          if (!(r < 0 || r >= n.length)) {
+            var l = n[r],
+              s = (t = l.embeddedContent) == null ? void 0 : t.embeddedMusic;
+            if (s != null) {
+              var u = o("WAWebMusicParsingUtils").countryCodeSetToBuffer(i),
+                c = [].concat(n);
+              c[r] = babelHelpers.extends({}, l, {
+                embeddedContent: babelHelpers.extends({}, l.embeddedContent, {
+                  embeddedMusic: babelHelpers.extends({}, s, {
+                    countryBlocklist: u,
                   }),
-                });
-                var c = o("WAWebSchemaMessage").getMessageTable();
-                yield c.bulkMergeOnly([
-                  { id: e.toString(), interactiveAnnotations: u },
-                ]);
-                var d = [];
-                for (var m of r) d.push(m);
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "updateMusicBlocklist",
-                  { countryBlocklist: d, msgKey: e.toString() },
-                );
-              }
+                }),
+              });
+              var d = o("WAWebSchemaMessage").getMessageTable();
+              yield d.bulkMergeOnly([
+                { id: a.toString(), interactiveAnnotations: c },
+              ]);
+              var m = [];
+              for (var p of i) m.push(p);
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateMusicBlocklist",
+                { countryBlocklist: m, msgKey: a.toString() },
+              );
             }
-          },
-        )),
+          }
+        })),
         m.apply(this, arguments)
       );
     }

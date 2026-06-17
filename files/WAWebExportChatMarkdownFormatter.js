@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebExportChatSystemMsgFormatter",
+    "WAWebGetPlainTextFromBotMsg",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebQuotedMsgModelUtils",
@@ -236,7 +237,17 @@ __d(
         if (F != null) for (var B of F) O += "\n- " + B.name;
         return O;
       }
-      return l === o("WAWebMsgType").MSG_TYPE.CHAT || m
+      if (l === o("WAWebMsgType").MSG_TYPE.CHAT)
+        return r("WAWebUnformatMsg")(i, m);
+      if (l === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
+        var W = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(i, {
+          includeBodyFallback: !1,
+        });
+        return W != null && W !== ""
+          ? W
+          : "[" + s._(/*BTDS*/ "AI message").toString() + "]";
+      }
+      return m
         ? r("WAWebUnformatMsg")(i, m)
         : "[" +
             s._(/*BTDS*/ "{type} message", [s._param("type", l)]).toString() +

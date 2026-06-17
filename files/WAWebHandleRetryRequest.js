@@ -8,6 +8,7 @@ __d(
     "WAWebHandleRetryRequestNonMigratedLog",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
+    "WAWebMaibaWASSMigration",
     "WAWebManageE2ESessionsJob",
     "WAWebMdRetryFromUnknownDeviceWamEvent",
     "WAWebMessageQueue",
@@ -357,6 +358,9 @@ __d(
             ((i = o(
               "WAWebSimpleSignalPNToFBIDMigration",
             ).maybeReplaceFbidWithDeprecatedBotPn(i)),
+            (i = o(
+              "WAWebMaibaWASSMigration",
+            ).resolveMaibaAiHubFbidToLidOrChatId(i)),
             i.isUser())
           ) {
             o("WALogger").LOG(

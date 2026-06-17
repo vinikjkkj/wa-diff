@@ -1,9 +1,9 @@
 __d(
   "ACSClientBuilder",
-  ["cr:38769"],
+  ["ACSClientBuilderWasm"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    l.buildACSClient = n("cr:38769").buildACSClient;
+    l.buildACSClient = o("ACSClientBuilderWasm").buildACSClient;
   },
   98,
 );

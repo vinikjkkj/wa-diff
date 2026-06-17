@@ -132,9 +132,6 @@ __d(
       "Context menu": function () {
         return s._(/*BTDS*/ "Context menu");
       },
-      "Attachment blocked by Strict account settings": function () {
-        return s._(/*BTDS*/ "Attachment blocked by Strict account settings");
-      },
       You: function () {
         return s._(/*BTDS*/ "You");
       },

@@ -58,50 +58,46 @@ __d(
                                   i.operation === "set" &&
                                   "value" in i
                                 ) {
-                                  var l,
-                                    s = i.value,
-                                    u = s.businessBroadcastListAction;
-                                  if (!u)
+                                  var l = i.value,
+                                    s = l.businessBroadcastListAction;
+                                  if (!s)
                                     return (
                                       a++,
                                       o(
                                         "WAWebSyncdIndexUtils",
                                       ).malformedActionValue(r.collectionName)
                                     );
-                                  var c = u.audienceExpression,
-                                    d = u.labelIds,
-                                    m = u.listName,
-                                    p = u.participants,
-                                    _ =
-                                      (l = o(
-                                        "WAWebUserPrefsMeUser",
-                                      ).getMaybeMeLidUser()) == null
-                                        ? void 0
-                                        : l.toString(),
-                                    f = (p != null ? p : []).filter(
+                                  var u = s.audienceExpression,
+                                    c = s.labelIds,
+                                    d = s.listName,
+                                    m = s.participants,
+                                    p = o("WAWebUserPrefsMeUser")
+                                      .getMeLidUserOrThrow()
+                                      .toString(),
+                                    _ = (m != null ? m : []).filter(
                                       function (e) {
-                                        return e.lidJid !== _;
+                                        return e.lidJid !== p;
                                       },
                                     ),
-                                    g =
-                                      c != null
+                                    f =
+                                      u != null
                                         ? o(
                                             "WAWebAudienceExpressionTypes",
-                                          ).parseAudienceExpressionJson(c)
+                                          ).parseAudienceExpressionJson(u)
                                         : null,
-                                    h =
-                                      g != null
-                                        ? g
-                                        : (d != null ? d : []).length > 0
+                                    g =
+                                      f != null
+                                        ? f
+                                        : (c != null ? c : []).length > 0
                                           ? o(
                                               "WAWebAudienceExpressionTypes",
                                             ).createLabelPredicateExpression(
-                                              d != null ? d : [],
+                                              c != null ? c : [],
                                             )
                                           : o(
                                               "WAWebAudienceExpressionTypes",
                                             ).createExplicitExpression(
-                                              f.map(function (e) {
+                                              _.map(function (e) {
                                                 return e.lidJid;
                                               }),
                                             );
@@ -109,9 +105,9 @@ __d(
                                     yield o(
                                       "WAWebBroadcastListStorageUtils",
                                     ).updateBroadcastListStorage({
-                                      audienceExpression: h,
+                                      audienceExpression: g,
                                       id: n,
-                                      listName: m != null ? m : "",
+                                      listName: d != null ? d : "",
                                     }),
                                     {
                                       actionState:

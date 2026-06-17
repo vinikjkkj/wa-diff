@@ -19,26 +19,25 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (o("WAWebPrivacyGatingUtils").isMexPrivacyContactListEnabled()) {
-            var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
-            if (n != null)
-              try {
-                return yield o(
-                  "WAWebQueryPrivacyDisallowedListMexJob",
-                ).queryPrivacyDisallowedListMex(t, n.toString());
-              } catch (n) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[queryPrivacyDisallowedList] mex failed ",
-                        " ",
-                        " -> smax",
-                      ])),
-                    t,
-                    n,
-                  )
-                  .sendLogs("queryPrivacyDisallowedList-with-mex-failed");
-              }
+            var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+            try {
+              return yield o(
+                "WAWebQueryPrivacyDisallowedListMexJob",
+              ).queryPrivacyDisallowedListMex(t, n.toString());
+            } catch (n) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[queryPrivacyDisallowedList] mex failed ",
+                      " ",
+                      " -> smax",
+                    ])),
+                  t,
+                  n,
+                )
+                .sendLogs("queryPrivacyDisallowedList-with-mex-failed");
+            }
           }
           if (m())
             try {

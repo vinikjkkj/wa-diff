@@ -88,14 +88,14 @@ __d(
               var b;
               C = yield o(
                 "WAWebGroupHistoryReportingTokenValidator",
-              ).prepareValidationContext(
-                e.id,
-                g,
-                y.messageSecret,
-                y.author,
-                a,
-                (b = y.t) != null ? b : 0,
-              );
+              ).prepareValidationContext({
+                bundleMessageSecret: y.messageSecret,
+                bundleMsgId: e.id,
+                bundleMsgTimestamp: (b = y.t) != null ? b : 0,
+                bundleSenderWid: y.author,
+                groupWid: a,
+                inflatedBytes: g,
+              });
             } catch (e) {
               o("WALogger").WARN(
                 s ||
@@ -108,10 +108,23 @@ __d(
             }
             var v = o("WAWebProcessBaseMsgInfo").msgToBaseMsgInfo(y),
               S = yield (R || (R = n("Promise"))).all([
-                k(h.messages, v, a, e.id, C),
+                k({
+                  baseMessage: v,
+                  bundleMessageKey: e.id,
+                  bundleProtoMessages: h.messages,
+                  chatId: a,
+                  validationCtx: C,
+                }),
                 l > 0 &&
                 o("WAWebGroupHistoryGating").isOutOfWindowPinsReceiverEnabled()
-                  ? k(h.outOfWindowPinnedMessages, v, a, e.id, null, !0)
+                  ? k({
+                      baseMessage: v,
+                      bundleMessageKey: e.id,
+                      bundleProtoMessages: h.outOfWindowPinnedMessages,
+                      chatId: a,
+                      skipMessageTooOldCheck: !0,
+                      validationCtx: null,
+                    })
                   : {
                       parsedMessages: [],
                       addonPromises: [],
@@ -252,153 +265,155 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e, t, n, r, o, a) {
+    function k(e) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            l === void 0 && (l = !1);
-            for (
-              var s = [],
-                u = [],
-                c = [],
-                d = o("WATimeUtils").unixTime(),
-                m = [],
-                p = 0,
-                C = [],
-                b = 0,
-                v = [],
-                S = 0,
-                R = 0;
-              R < e.length;
-              R++
-            ) {
-              var L = e[R];
-              try {
-                var E = T(L, t, a);
-                if (E == null) continue;
-                if (!D(E, n)) {
-                  (p++, m.length < 3 && m.push(E.id.toString()));
-                  continue;
-                }
-                if (x(E, d)) {
-                  (b++, C.length < 3 && C.push(E.id.toString()));
-                  continue;
-                }
-                if (!l && $(E, d)) {
-                  (S++, v.length < 3 && v.push(E.id.toString()));
-                  continue;
-                }
-                var k = o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
-                  webMsgInfo: L,
-                  parsedWebMsgInfo: E,
-                  isFromCag: !1,
-                });
-                if (i != null) {
-                  var I = i.messageBytesArray[R];
-                  if (I != null)
-                    try {
-                      var P = yield o(
-                          "WAWebGroupHistoryReportingTokenValidator",
-                        ).validateAndBuildReportingInfoRow(E, I, i),
-                        N = P.failureReason,
-                        M = P.row;
-                      if (
-                        (M != null && c.push(M),
-                        N != null &&
-                          o(
-                            "WAWebReportingTokenUtils",
-                          ).showDebugPlaceholderForReportingTokenMismatch(
-                            i.stanzaVersion,
-                          ))
-                      ) {
-                        var w = o("WAWebReportingTokenUtils").genDebugMsgInfo(
-                          E,
-                        );
-                        o(
-                          "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
-                        ).maybeInsertDebugPlaceholder({
-                          externalId: w.externalId,
-                          nackReason: o("WAWebCreateNackFromStanza").NackReason
-                            .ParsingError,
-                          msgInfo: w,
-                          offline: !1,
-                          additionalInfo:
-                            "[ghs] reporting token validation failed (reason " +
-                            N +
-                            ") for msg " +
-                            E.id.toString(),
-                        });
-                      }
-                    } catch (e) {
-                      o("WALogger").WARN(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
-                            "[group-history] Reporting token validation failed for msg ",
-                            ": ",
-                            "",
-                          ])),
-                        E.id.toString(),
-                        r("WAWebSerializeError")(e),
-                      );
-                    }
-                }
-                (s.push(E), u.push(k));
-              } catch (e) {
-                o("WALogger").WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history]: Failed to parse message at index ",
-                      ": ",
-                      "",
-                    ])),
-                  R,
-                  r("WAWebSerializeError")(e),
-                );
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          for (
+            var t = e.baseMessage,
+              n = e.bundleMessageKey,
+              a = e.bundleProtoMessages,
+              i = e.chatId,
+              l = e.skipMessageTooOldCheck,
+              s = l === void 0 ? !1 : l,
+              u = e.validationCtx,
+              c = [],
+              d = [],
+              m = [],
+              p = o("WATimeUtils").unixTime(),
+              C = [],
+              b = 0,
+              v = [],
+              S = 0,
+              R = [],
+              L = 0,
+              E = 0;
+            E < a.length;
+            E++
+          ) {
+            var k = a[E];
+            try {
+              var I = T(k, t, n);
+              if (I == null) continue;
+              if (!D(I, i)) {
+                (b++, C.length < 3 && C.push(I.id.toString()));
+                continue;
               }
+              if (x(I, p)) {
+                (S++, v.length < 3 && v.push(I.id.toString()));
+                continue;
+              }
+              if (!s && $(I, p)) {
+                (L++, R.length < 3 && R.push(I.id.toString()));
+                continue;
+              }
+              var P = o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
+                webMsgInfo: k,
+                parsedWebMsgInfo: I,
+                isFromCag: !1,
+              });
+              if (u != null) {
+                var N = u.messageBytesArray[E];
+                if (N != null)
+                  try {
+                    var M = yield o(
+                        "WAWebGroupHistoryReportingTokenValidator",
+                      ).validateAndBuildReportingInfoRow(I, N, u),
+                      w = M.failureReason,
+                      A = M.row;
+                    if (
+                      (A != null && m.push(A),
+                      w != null &&
+                        o(
+                          "WAWebReportingTokenUtils",
+                        ).showDebugPlaceholderForReportingTokenMismatch(
+                          u.stanzaVersion,
+                        ))
+                    ) {
+                      var F = o("WAWebReportingTokenUtils").genDebugMsgInfo(I);
+                      o(
+                        "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
+                      ).maybeInsertDebugPlaceholder({
+                        externalId: F.externalId,
+                        nackReason: o("WAWebCreateNackFromStanza").NackReason
+                          .ParsingError,
+                        msgInfo: F,
+                        offline: !1,
+                        additionalInfo:
+                          "[ghs] reporting token validation failed (reason " +
+                          w +
+                          ") for msg " +
+                          I.id.toString(),
+                      });
+                    }
+                  } catch (e) {
+                    o("WALogger").WARN(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "[group-history] Reporting token validation failed for msg ",
+                          ": ",
+                          "",
+                        ])),
+                      I.id.toString(),
+                      r("WAWebSerializeError")(e),
+                    );
+                  }
+              }
+              (c.push(I), d.push(P));
+            } catch (e) {
+              o("WALogger").WARN(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history]: Failed to parse message at index ",
+                    ": ",
+                    "",
+                  ])),
+                E,
+                r("WAWebSerializeError")(e),
+              );
             }
-            return (
-              p > 0 &&
-                o("WALogger").WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history]: ",
-                      " messages do not belong to chat ",
-                      " => ",
-                      "",
-                    ])),
-                  p,
-                  n.toLogString(),
-                  m,
-                ),
-              b > 0 &&
-                o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history]: ",
-                      " messages are expired => ",
-                      "",
-                    ])),
-                  b,
-                  C,
-                ),
-              S > 0 &&
-                o("WALogger").WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history]: ",
-                      " messages exceed message time limit => ",
-                      "",
-                    ])),
-                  S,
-                  v,
-                ),
-              { parsedMessages: s, addonPromises: u, reportingInfoRows: c }
-            );
-          },
-        )),
+          }
+          return (
+            b > 0 &&
+              o("WALogger").WARN(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history]: ",
+                    " messages do not belong to chat ",
+                    " => ",
+                    "",
+                  ])),
+                b,
+                i.toLogString(),
+                C,
+              ),
+            S > 0 &&
+              o("WALogger").WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history]: ",
+                    " messages are expired => ",
+                    "",
+                  ])),
+                S,
+                v,
+              ),
+            L > 0 &&
+              o("WALogger").WARN(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history]: ",
+                    " messages exceed message time limit => ",
+                    "",
+                  ])),
+                L,
+                R,
+              ),
+            { parsedMessages: c, addonPromises: d, reportingInfoRows: m }
+          );
+        })),
         I.apply(this, arguments)
       );
     }

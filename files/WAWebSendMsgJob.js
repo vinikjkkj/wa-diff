@@ -6,6 +6,7 @@ __d(
     "WAWebABPropsSaga",
     "WAWebE2EProtoGenerator",
     "WAWebEventsWaitForOfflineDeliveryEnd",
+    "WAWebMaibaWASSMigration",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebOutgoingMessage",
@@ -41,6 +42,9 @@ __d(
             o(
               "WAWebSimpleSignalPNToFBIDMigration",
             ).maybeReplaceWidWithFbIdForBotSend(t),
+            o(
+              "WAWebMaibaWASSMigration",
+            ).maybeReplaceMaibaAiHubLidWithFbidForSend(t),
             o(
               "WAWebSimpleSignalPNToFBIDMigration",
             ).maybeReplaceWidWithFbIdForInvoke(t, "invokedBotWid"),

@@ -60,7 +60,7 @@ __d(
       b = [],
       v = !1,
       S = "1",
-      R = { commit: E(w), set: E(F), resumeJobs: E(U), initialize: E(O) };
+      R = { commit: E(A), set: E(B), resumeJobs: E(H), initialize: E(W) };
     function L() {
       for (
         C = o("WAWebWamGlobals").PrivateStatsAllIds.map(function (e) {
@@ -90,7 +90,7 @@ __d(
               );
               return;
             }
-            V(e).catch(function (e) {
+            G(e).catch(function (e) {
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -122,11 +122,16 @@ __d(
       T = [],
       D = !1,
       x = !1,
-      $ = null,
-      P = new (o("WAResolvable").Resolvable)(),
-      N = !1,
-      M = !1;
-    function w(e, t) {
+      $ = null;
+    function P() {
+      var e,
+        t = (e = $) == null ? void 0 : e.abKey2;
+      return t == null ? null : String(t);
+    }
+    var N = new (o("WAResolvable").Resolvable)(),
+      M = !1,
+      w = !1;
+    function A(e, t) {
       var a;
       if (
         (t === void 0 && (t = !1), e.commitTime != null && e.commitTime !== 0)
@@ -159,7 +164,7 @@ __d(
             o("WATimeUtils").unixTimeWithoutClockSkewCorrection()),
           (h || (h = n("Promise"))).resolve()
         );
-      (A(e), o("WAWebWamUtils").maybeForwardWamEventToJestE2e(e));
+      (F(e), o("WAWebWamUtils").maybeForwardWamEventToJestE2e(e));
       var s;
       return (
         e.wamChannel === "realtime"
@@ -167,25 +172,36 @@ __d(
           : r("WAWebEnvironment").isGuest || t
             ? (s = "all")
             : (s = "none"),
-        W({ job: e, flushWamBuffers: s })
+        U({ job: e, flushWamBuffers: s })
       );
     }
-    function A(e, t) {
+    function F(e, t) {
       e.commitTime =
         t != null ? t : o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
     }
-    function F(e, t) {
+    function O(e, t) {
+      e.name === "memClass"
+        ? o("WAWebBrowserApi").setMemClassOverride(
+            typeof t == "number" ? t : null,
+          )
+        : e.name === "osVersion" &&
+          o("WAWebBrowserApi").setOsVersionOverride(
+            typeof t == "string" ? t : null,
+          );
+    }
+    function B(e, t) {
       return (
         o("WAWebWamUtils").maybeForwardWamAttributeToJestE2e(e.name, String(t)),
-        W({ job: [e, t], flushWamBuffers: "none" })
+        O(e, t),
+        U({ job: [e, t], flushWamBuffers: "none" })
       );
     }
-    function O() {
-      return B.apply(this, arguments);
+    function W() {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           if ($) return (h || (h = n("Promise"))).resolve($);
           var t = r("WAWebBrowserInfo")(),
@@ -195,7 +211,7 @@ __d(
                   .VERSION_BASE_WITH_WINDOWS_BUILD,
                 appBuild: o("WAWebWamUtils").getAppBuild(),
                 platform: o("WAWebWamEnumPlatformType").PLATFORM_TYPE.WEBCLIENT,
-                webcWebArch: ie(),
+                webcWebArch: se(),
                 appIsBetaRelease:
                   yield o("WAWebWamUtils").getAppIsBetaRelease(),
                 browser: t.name || null,
@@ -238,18 +254,18 @@ __d(
             a
           );
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e) {
+    function U(e) {
       var t = e.flushWamBuffers,
         n = e.job;
       return (
         T.push(n),
         D
           ? t !== "none"
-            ? ((N = !1),
-              (M = !0),
+            ? ((M = !1),
+              (w = !0),
               self.setTimeout(function () {
                 return y.forceRunNow(t);
               }, 1))
@@ -260,33 +276,33 @@ __d(
             ? self.setTimeout(function () {
                 return y.forceRunNow("realtime");
               }, 1)
-            : t !== "none" && (y.cancel(), (N = !0), (M = !1)),
-        P.promise
+            : t !== "none" && (y.cancel(), (M = !0), (w = !1)),
+        N.promise
       );
     }
-    function q() {
+    function V() {
       ((D = !1), y.cancel());
-      var e = P;
-      return ((P = new (o("WAResolvable").Resolvable)()), e);
+      var e = N;
+      return ((N = new (o("WAResolvable").Resolvable)()), e);
     }
-    function U() {
+    function H() {
       ((D = !0),
-        (M = !1),
+        (w = !1),
         T.length > 0 &&
           y.onOrBefore(
             o("WAWebWamUtils").getInMemoryBufferingDurationInSecs() * 1e3,
           ),
-        N && ((N = !1), (M = !0), y.forceRunNow()));
+        M && ((M = !1), (w = !0), y.forceRunNow()));
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function H() {
+    function z() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = M,
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = w,
             a = !(e === "realtime" && r("justknobx")._("3237")),
-            i = a ? q() : null,
+            i = a ? V() : null,
             l,
             s;
           if (e === "realtime") {
@@ -310,34 +326,23 @@ __d(
               (s = [].concat(T)),
               (T = []));
           try {
-            var c = yield O();
+            var c = yield W();
             if (e !== "realtime") {
               var d = yield o("WAWebWamPrivateStats").maybeRotatePsIds();
               yield (h || (h = n("Promise"))).all(
                 d.map(function (e) {
-                  return G(e, c);
+                  return j(e, c);
                 }),
               );
             }
             yield (h || (h = n("Promise"))).all(
               l.map(function (e) {
-                return Y(e, s, t, c);
+                return Z(e, s, t, c);
               }),
             );
           } finally {
-            a && (i == null || i.resolve(), U());
+            a && (i == null || i.resolve(), H());
           }
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    function G(e, t) {
-      return z.apply(this, arguments);
-    }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (yield Z(e, t), (k[e] = yield j(e, t)), k[e]);
         })),
         z.apply(this, arguments)
       );
@@ -348,11 +353,7 @@ __d(
     function K() {
       return (
         (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return new (o("WAWebWamLibContext").WamContext)(
-            e,
-            yield r("WAWebWamStorage").getNextSequenceNumberForStream(S),
-            t,
-          );
+          return (yield te(e, t), (k[e] = yield Q(e, t)), k[e]);
         })),
         K.apply(this, arguments)
       );
@@ -363,24 +364,39 @@ __d(
     function X() {
       return (
         (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = (n = k[e]) != null ? n : yield j(e, t);
-          return ((k[e] = r), r);
+          return new (o("WAWebWamLibContext").WamContext)(
+            e,
+            yield r("WAWebWamStorage").getNextSequenceNumberForStream(S),
+            t,
+          );
         })),
         X.apply(this, arguments)
       );
     }
-    function Y(e, t, n, r) {
+    function Y(e, t) {
       return J.apply(this, arguments);
     }
     function J() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = (n = k[e]) != null ? n : yield Q(e, t);
+          return ((k[e] = r), r);
+        })),
+        J.apply(this, arguments)
+      );
+    }
+    function Z(e, t, n, r) {
+      return ee.apply(this, arguments);
+    }
+    function ee() {
+      return (
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i = o("WAWebWamUtils").getChannelFromBufferKey(e),
               l;
             try {
-              l = yield Q(e, a);
+              l = yield Y(e, a);
             } catch (e) {
               var s,
                 u = r("getErrorSafe")(e);
@@ -397,7 +413,7 @@ __d(
             try {
               for (var c = 0; c < t.length; c++) {
                 if (l.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE) {
-                  var p = yield G(e, a);
+                  var p = yield j(e, a);
                   if (p == null) break;
                   l = p;
                 }
@@ -407,16 +423,7 @@ __d(
                     h = _[1],
                     y = i === "realtime" ? "regular" : i;
                   g.channels.includes(y) &&
-                    ((a[g.name] = h),
-                    l.set(g.id, h),
-                    g.name === "memClass"
-                      ? o("WAWebBrowserApi").setMemClassOverride(
-                          typeof h == "number" ? h : null,
-                        )
-                      : g.name === "osVersion" &&
-                        o("WAWebBrowserApi").setOsVersionOverride(
-                          typeof h == "string" ? h : null,
-                        ));
+                    ((a[g.name] = h), l.set(g.id, h), O(g, h));
                 } else {
                   var f = _;
                   (((f.wamChannel === "regular" ||
@@ -442,11 +449,11 @@ __d(
                 if (!b) {
                   l.buffer.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
                     ? (k[e] = null)
-                    : yield Z(e, a);
+                    : yield te(e, a);
                   return;
                 }
-                yield te(e);
-              } else yield Z(e, a);
+                yield re(e);
+              } else yield te(e, a);
             } catch (t) {
               var v,
                 S = r("getErrorSafe")(t);
@@ -466,15 +473,15 @@ __d(
             }
           },
         )),
-        J.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    function Z(e, t) {
-      return ee.apply(this, arguments);
+    function te(e, t) {
+      return ne.apply(this, arguments);
     }
-    function ee() {
+    function ne() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (k[e]) {
             var n = k[e].stringBuffer();
             if (n) {
@@ -486,15 +493,15 @@ __d(
                     var l = yield r("WAWebWamStorage").update(i, e, n);
                     if (!k[e]) return;
                     if (l)
-                      r("WANullthrows")(k[e]).unsavedPortion = yield j(e, t);
+                      r("WANullthrows")(k[e]).unsavedPortion = yield Q(e, t);
                     else {
-                      ((k[e] = k[e].unsavedPortion), yield Z(e, t));
+                      ((k[e] = k[e].unsavedPortion), yield te(e, t));
                       return;
                     }
                   } else {
                     if ((yield r("WAWebWamStorage").add(i, e, n), !k[e]))
                       return;
-                    r("WANullthrows")(k[e]).unsavedPortion = yield j(e, t);
+                    r("WANullthrows")(k[e]).unsavedPortion = yield Q(e, t);
                   }
                 } catch (e) {
                   var s = r("getErrorSafe")(e);
@@ -511,15 +518,15 @@ __d(
             }
           }
         })),
-        ee.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    function te(e) {
-      return ne.apply(this, arguments);
+    function re(e) {
+      return oe.apply(this, arguments);
     }
-    function ne() {
+    function oe() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           try {
             t = yield r("WAWebWamStorage").deleteAll(e);
@@ -547,7 +554,7 @@ __d(
               Object.entries(i).map(function (t) {
                 var n = t[0],
                   r = t[1];
-                return re(r, n, o("WAWebWamUtils").getChannelFromBufferKey(e));
+                return ae(r, n, o("WAWebWamUtils").getChannelFromBufferKey(e));
               }),
             ),
             u = s.filter(Boolean);
@@ -601,15 +608,15 @@ __d(
                 ));
           }
         })),
-        ne.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    function re(e, t, n) {
-      return oe.apply(this, arguments);
+    function ae(e, t, n) {
+      return ie.apply(this, arguments);
     }
-    function oe() {
+    function ie() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a) {
             return e === "" || e[0] === "["
               ? (h || (h = n("Promise"))).resolve()
@@ -625,27 +632,28 @@ __d(
                   : r("WAWebUploadStatsBackend")(e, t);
           },
         )),
-        oe.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    var ae = new Map([
+    var le = new Map([
       ["sandcastle", "dev"],
       ["trunkstable", "C1"],
     ]);
-    function ie() {
+    function se() {
       var e = r("gkx")("26256");
       if (e) return "jest-e2e";
       if (!r("isStringNullOrEmpty")(o("WAWebBuildConstants").PUSH_PHASE)) {
         var t;
-        return (t = ae.get(o("WAWebBuildConstants").PUSH_PHASE)) != null
+        return (t = le.get(o("WAWebBuildConstants").PUSH_PHASE)) != null
           ? t
           : o("WAWebBuildConstants").PUSH_PHASE;
       }
     }
     ((l.Wam = R),
       (l.initWamRuntime = L),
-      (l.sendAllLogs = te),
-      (l.getPushPhase = ie));
+      (l.getSerializedAbKey2 = P),
+      (l.sendAllLogs = re),
+      (l.getPushPhase = se));
   },
   98,
 );

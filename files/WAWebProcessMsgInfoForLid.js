@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebApiContact",
+    "WAWebBotUtils",
     "WAWebGetPlatformFromStanzaId",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
@@ -65,8 +66,12 @@ __d(
                       .OTHER_BROADCAST) &&
                 i.author.isHosted() &&
                 i.author.isHostedLid() &&
+                n.isLid(),
+              h =
+                i.author.isFbidBot() &&
+                o("WAWebBotUtils").isMaibaAiHubFbid(i.author) &&
                 n.isLid();
-            if (((f = f || g), f))
+            if (((f = f || g || h), f))
               d = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
             else
               throw (
@@ -87,7 +92,7 @@ __d(
                 )
               );
           } else if (a === "missing-peer-recipient-pn") {
-            var h;
+            var y;
             if (
               (o("WALogger")
                 .ERROR(
@@ -96,7 +101,7 @@ __d(
                       "findDestinationChatForSingleMapping: missing peer recipient pn in 1-1 message from device ",
                       "",
                     ])),
-                  (h = i.author.device) != null ? h : 0,
+                  (y = i.author.device) != null ? y : 0,
                 )
                 .sendLogs("misssing-peer-recipient-pn-in-1-1-message"),
               n.isLid() &&
@@ -133,13 +138,13 @@ __d(
                 "findDestinationChatForSingleMapping: missing peer recipient lid in 1-1 message",
               );
           } else d = a.lid;
-          var y = yield o(
+          var C = yield o(
               "WAWebMessageProcessUtils",
             ).selectChatForOneOnOneMessage({ lid: d, lidOrigin: m }),
-            C = y.chatId;
-          return C.isSameAccountAndAddressingMode(n)
-            ? { accountLid: y.accountLid }
-            : { newRemote: C, accountLid: y.accountLid };
+            b = C.chatId;
+          return b.isSameAccountAndAddressingMode(n)
+            ? { accountLid: C.accountLid }
+            : { newRemote: b, accountLid: C.accountLid };
         })),
         _.apply(this, arguments)
       );

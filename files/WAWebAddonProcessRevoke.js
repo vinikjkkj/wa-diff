@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebAddonConstants",
     "WAWebAddonDBTable",
     "WAWebAddonGatingUtils",
@@ -16,6 +15,7 @@ __d(
     "WAWebNoop",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -103,11 +103,11 @@ __d(
           var a = [],
             i = new Map();
           for (var l of t) {
-            var s = n.get(r("WANullthrows")(l.protocolMessageKey));
+            var s = n.get(r("nullthrows")(l.protocolMessageKey));
             if (o("WAWebAddonGatingUtils").isUnifiedInfraEnabled(s)) {
               var c = o("WAWebAddonSelectUtils").getTableModeByMsgType(s.type);
               i.has(c) || i.set(c, { add: [], remove: [] });
-              var d = r("WANullthrows")(i.get(c));
+              var d = r("nullthrows")(i.get(c));
               (l.id.equals(s.id) || d.remove.push(s),
                 d.add.push(l),
                 o("WAWebUserPrefsMeUser").isMeAccount(

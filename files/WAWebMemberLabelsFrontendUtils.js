@@ -61,16 +61,13 @@ __d(
     }
     function p(e) {
       if (e == null) return !1;
-      var t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-      return t == null
-        ? !1
-        : m({ from: "chat_and_member", chat: e, member: t });
+      var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+      return m({ from: "chat_and_member", chat: e, member: t });
     }
     function _(t) {
       if (t) {
-        var n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-        if (n == null) return null;
-        var r = e(t, n);
+        var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          r = e(t, n);
         if (r) return f(r);
       }
     }

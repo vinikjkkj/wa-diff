@@ -23,75 +23,77 @@ __d(
         s.MSG_TYPE.DOCUMENT,
         s.MSG_TYPE.STICKER,
       ]);
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l) {
-            if (!o("WAWebGroupHistoryGating").isOutOfWindowPinSenderEnabled(t))
-              return [];
-            var s = t.toString(),
-              c = [];
-            return (
-              yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  ["pinned-messages", "message"],
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = e[0],
-                          n = e[1],
-                          d = yield t.anyOf(["chatId"], [s]),
-                          m = d
-                            .filter(function (e) {
-                              return (
-                                e.pinType ===
-                                o("WAWebPinMsgConstants").PIN_STATE.PIN
-                              );
-                            })
-                            .sort(function (e, t) {
-                              return t.senderTimestampMs - e.senderTimestampMs;
-                            })
-                            .slice(0, o("WAWebPinMsgGatingUtils").getMaxPins())
-                            .map(function (e) {
-                              return e.parentMsgKey;
-                            })
-                            .filter(function (e) {
-                              return !i.has(e);
-                            }),
-                          p = yield n.bulkGet(m);
-                        p.forEach(function (e) {
-                          e != null &&
-                            (e.t == null ||
-                              e.t >= a ||
-                              (l != null && e.t >= l) ||
-                              (r("WAWebGroupHistorySupportedMessageTypesUtil")(
-                                e.type,
-                              ) &&
-                                (u.has(e.type) || c.push(e))));
-                        });
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] Retrieved ",
-                    " out-of-window pinned messages",
-                  ])),
-                c.length,
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.chatId,
+            i = t.inWindowMessageKeys,
+            l = t.messagesNotOlderThanTimestamp,
+            s = t.targetJoinTime;
+          if (!o("WAWebGroupHistoryGating").isOutOfWindowPinSenderEnabled(a))
+            return [];
+          var c = a.toString(),
+            d = [];
+          return (
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                ["pinned-messages", "message"],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0],
+                        n = e[1],
+                        a = yield t.anyOf(["chatId"], [c]),
+                        m = a
+                          .filter(function (e) {
+                            return (
+                              e.pinType ===
+                              o("WAWebPinMsgConstants").PIN_STATE.PIN
+                            );
+                          })
+                          .sort(function (e, t) {
+                            return t.senderTimestampMs - e.senderTimestampMs;
+                          })
+                          .slice(0, o("WAWebPinMsgGatingUtils").getMaxPins())
+                          .map(function (e) {
+                            return e.parentMsgKey;
+                          })
+                          .filter(function (e) {
+                            return !i.has(e);
+                          }),
+                        p = yield n.bulkGet(m);
+                      p.forEach(function (e) {
+                        e != null &&
+                          (e.t == null ||
+                            e.t >= l ||
+                            (s != null && e.t >= s) ||
+                            (r("WAWebGroupHistorySupportedMessageTypesUtil")(
+                              e.type,
+                            ) &&
+                              (u.has(e.type) || d.push(e))));
+                      });
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
               ),
-              c
-            );
-          },
-        )),
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[group-history] Retrieved ",
+                  " out-of-window pinned messages",
+                ])),
+              d.length,
+            ),
+            d
+          );
+        })),
         d.apply(this, arguments)
       );
     }

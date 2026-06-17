@@ -137,19 +137,17 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+          var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
           if (
             o("WAWebABProps").getABPropConfigValue(
               "mex_get_privacy_settings_mode",
-            ) === 1 &&
-            e != null
+            ) === 1
           )
             return yield h(e);
           if (
             o("WAWebABProps").getABPropConfigValue(
               "mex_get_privacy_settings_mode",
-            ) === 2 &&
-            e != null
+            ) === 2
           ) {
             var t,
               n = yield v(e);

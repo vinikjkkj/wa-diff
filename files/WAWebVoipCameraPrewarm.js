@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebABProps",
+    "WAWebAppTracker",
     "WAWebLocalStorage",
     "WAWebMediaPermissionsUtils",
     "WAWebNoop",
@@ -134,7 +135,10 @@ __d(
                   height: L,
                   maxFps: E,
                 });
-              r("isStringNullOrEmpty")(I) || (T.deviceId = { exact: I });
+              (r("isStringNullOrEmpty")(I) || (T.deviceId = { exact: I }),
+                o("WAWebAppTracker").AppTracker.mark(
+                  o("WAWebAppTracker").AppTrackerType.VoipCameraPrewarm,
+                ));
               var D = u
                 .getUserMedia({ video: T, audio: !1 })
                 .then(function (e) {

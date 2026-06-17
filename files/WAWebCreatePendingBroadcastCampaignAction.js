@@ -121,7 +121,7 @@ __d(
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:pending-campaign] Campaign created with SyncD mutation: ",
+                  "[broadcast:pending-campaign] campaign+ syncD mut ",
                   "",
                 ])),
               m,
@@ -139,8 +139,8 @@ __d(
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:pending-campaign] Starting campaign creation for ",
-                " audience(s)",
+                "[broadcast:pending-campaign] start, audiences=",
+                "",
               ])),
             e.audiences.length,
           );
@@ -164,8 +164,8 @@ __d(
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:pending-campaign] Missing ad_group_id for audience ",
-                      ", skipping",
+                      "[broadcast:pending-campaign] no ad_group_id, skip ",
+                      "",
                     ])),
                   l.broadcastJid,
                 ));
@@ -183,7 +183,7 @@ __d(
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:pending-campaign] No valid audiences after campaign creation",
+                    "[broadcast:pending-campaign] no valid audiences",
                   ])),
               ),
               {
@@ -203,8 +203,8 @@ __d(
                   o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[broadcast:pending-campaign] Creating merged campaign for broadcastJid=",
-                        ", adGroupId=",
+                        "[broadcast:pending-campaign] merged campaign jid=",
+                        " ag=",
                         "",
                       ])),
                     t.broadcastJid,

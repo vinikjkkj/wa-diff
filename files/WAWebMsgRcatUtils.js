@@ -33,7 +33,7 @@ __d(
             n = o(
               "WAWebLid1X1MigrationGating",
             ).Lid1X1MigrationUtils.isLidMigrated()
-              ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser()
+              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
               : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           if (t == null || n == null) return null;
           var r = e.messageSecret,

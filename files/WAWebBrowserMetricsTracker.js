@@ -1,6 +1,12 @@
 __d(
   "WAWebBrowserMetricsTracker",
-  ["WALogger", "WAShiftTimer", "WAWebWamMemoryStat", "asyncToGeneratorRuntime"],
+  [
+    "WALogger",
+    "WAShiftTimer",
+    "WAWebAppTracker",
+    "WAWebWamMemoryStat",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -10,8 +16,9 @@ __d(
       d,
       m = 5e3,
       p = 1e3,
-      _ = ["nominal", "fair", "serious", "critical"],
-      f = (function () {
+      _ = 0.9,
+      f = ["nominal", "fair", "serious", "critical"],
+      g = (function () {
         function t(e) {
           ((this.pressureObserver = null),
             (this.pressureObserverPromise = null),
@@ -24,6 +31,7 @@ __d(
               serious: 0,
               critical: 0,
             }),
+            (this.wasCpuPressureHigh = !1),
             (this.memoryTimer = null),
             (this.peakUsedMb = 0),
             (this.minUsedMb = 1 / 0),
@@ -31,6 +39,7 @@ __d(
             (this.memorySampleCount = 0),
             (this.lastLimitMb = 0),
             (this.lastTotalMb = 0),
+            (this.wasMemoryPressureHigh = !1),
             (this.active = !1),
             (this.logTag = e));
         }
@@ -89,7 +98,7 @@ __d(
           })()),
           (r.reset = function () {
             var e = self.performance.now();
-            for (var t of _) this.pressureTimeBuckets[t] = 0;
+            for (var t of f) this.pressureTimeBuckets[t] = 0;
             ((this.pressureStartTime = e),
               (this.lastPressureChangeTime = e),
               (this.peakUsedMb = 0),
@@ -117,6 +126,13 @@ __d(
                 this.memorySampleCount++,
                 (this.lastLimitMb = e.jsHeapSizeLimit),
                 (this.lastTotalMb = e.totalJsHeapSize));
+              var n = e.jsHeapSizeLimit > 0 && t / e.jsHeapSizeLimit >= _;
+              (n &&
+                !this.wasMemoryPressureHigh &&
+                o("WAWebAppTracker").AppTracker.mark(
+                  o("WAWebAppTracker").AppTrackerType.MemPressureHigh,
+                ),
+                (this.wasMemoryPressureHigh = n));
             }
           }),
           (r.finalizePressurePcts = function () {
@@ -184,6 +200,13 @@ __d(
               e - this.lastPressureChangeTime),
               (this.currentPressureState = t),
               (this.lastPressureChangeTime = e));
+            var n = t === "serious" || t === "critical";
+            (n &&
+              !this.wasCpuPressureHigh &&
+              o("WAWebAppTracker").AppTracker.mark(
+                o("WAWebAppTracker").AppTrackerType.CpuPressureCritical,
+              ),
+              (this.wasCpuPressureHigh = n));
           }),
           (r.startPressureObserver = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -246,20 +269,22 @@ __d(
               (this.pressureObserverPromise = null),
               (this.pressureStartTime = 0),
               (this.lastPressureChangeTime = 0),
-              (this.currentPressureState = "nominal"));
-            for (var e of _) this.pressureTimeBuckets[e] = 0;
+              (this.currentPressureState = "nominal"),
+              (this.wasCpuPressureHigh = !1));
+            for (var e of f) this.pressureTimeBuckets[e] = 0;
             ((this.memoryTimer = null),
               (this.peakUsedMb = 0),
               (this.minUsedMb = 1 / 0),
               (this.aggregatedUsedMb = 0),
               (this.memorySampleCount = 0),
               (this.lastLimitMb = 0),
-              (this.lastTotalMb = 0));
+              (this.lastTotalMb = 0),
+              (this.wasMemoryPressureHigh = !1));
           }),
           t
         );
       })();
-    l.default = f;
+    l.default = g;
   },
   98,
 );

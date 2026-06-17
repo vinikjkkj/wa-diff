@@ -137,14 +137,14 @@ __d(
                                       "WAWebAgentModelUtils",
                                     ).getFormattedAgentName(
                                       (r = u.name) != null ? r : "",
-                                      (l = u.deviceID) != null ? l : -1,
+                                      (l = u.deviceId) != null ? l : -1,
                                     );
                                   return (
                                     a.push({
                                       id: t,
                                       name: c,
                                       deviceId:
-                                        (s = u.deviceID) != null ? s : -1,
+                                        (s = u.deviceId) != null ? s : -1,
                                       isDeleted: !!u.isDeleted,
                                     }),
                                     {

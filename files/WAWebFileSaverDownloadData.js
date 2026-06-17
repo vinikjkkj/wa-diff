@@ -26,7 +26,7 @@ __d(
           try {
             var i = yield (u || (u = n("Promise"))).all(
               a.map(function (e) {
-                return m(e);
+                return p(e);
               }),
             );
             if (i.length > 1) {
@@ -64,11 +64,23 @@ __d(
       );
     }
     function m(e) {
-      return p.apply(this, arguments);
+      if (e.mediaData == null) return !1;
+      var t = e.mediaData,
+        n = t.filehash,
+        a = t.mediaBlob;
+      return a instanceof r("WAWebMediaOpaqueData")
+        ? !0
+        : n == null
+          ? !1
+          : o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(n) !=
+            null;
     }
-    function p() {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = "text/vcard";
           if (e.type === o("WAWebMsgType").MSG_TYPE.VCARD)
             return {
@@ -96,7 +108,7 @@ __d(
             if (a.length > 0) {
               var i = yield (u || (u = n("Promise"))).all(
                 a.map(function (e) {
-                  return m(e);
+                  return p(e);
                 }),
               );
               if (i.length === 1) return i[0];
@@ -125,7 +137,7 @@ __d(
               r("err")("Album message has no associated child messages")
             );
           }
-          var c = _(e);
+          var c = f(e);
           if (c) return c;
           yield e.downloadMedia({
             downloadEvenIfExpensive: !0,
@@ -133,14 +145,14 @@ __d(
               .DOCUMENT_DOWNLOAD,
             isUserInitiated: !0,
           });
-          var d = _(e);
+          var d = f(e);
           if (d) return d;
           throw r("err")("Unable to download because blob cannot be found");
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e) {
       if (e.mediaData == null) return null;
       var t = e.mediaData,
         n = t.filehash,
@@ -163,7 +175,9 @@ __d(
           }
         : null;
     }
-    ((l.getMultiMsgDownloadData = c), (l.getMsgDownloadData = m));
+    ((l.getMultiMsgDownloadData = c),
+      (l.isMsgMediaAvailableLocally = m),
+      (l.getMsgDownloadData = p));
   },
   98,
 );

@@ -11,6 +11,7 @@ __d(
     "WAWebAddonProcessingError",
     "WAWebApiContact",
     "WAWebBackendJobs.flow",
+    "WAWebBatchedStatusIdUtils",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebConvertToTextWithoutSpecialEmojis",
     "WAWebDecodeJid",
@@ -576,15 +577,22 @@ __d(
             : (l = !0);
         }
       }
-      return (
-        n.type === o("WAWebMsgType").MSG_TYPE.REACTION &&
-          m != null &&
-          ((m instanceof r("WAWebWid") && m.isBroadcast() && !m.isStatus()) ||
-            o("WAJids").interpretAndValidateJid(m.toString()).jidType ===
-              "broadcast") &&
-          ((m = o("WAWebDecodeJid").decodeJid(t.participant)), (d = void 0)),
-        new (r("WAWebMsgKey"))({ id: e, fromMe: l, remote: m, participant: d })
-      );
+      n.type === o("WAWebMsgType").MSG_TYPE.REACTION &&
+        m != null &&
+        ((m instanceof r("WAWebWid") && m.isBroadcast() && !m.isStatus()) ||
+          o("WAJids").interpretAndValidateJid(m.toString()).jidType ===
+            "broadcast") &&
+        ((m = o("WAWebDecodeJid").decodeJid(t.participant)), (d = void 0));
+      var S =
+        m instanceof r("WAWebWid") && m.isStatus()
+          ? o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(e)
+          : e;
+      return new (r("WAWebMsgKey"))({
+        id: S,
+        fromMe: l,
+        remote: m,
+        participant: d,
+      });
     }
     function B(e) {
       return e == null ||

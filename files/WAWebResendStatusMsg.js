@@ -2,7 +2,6 @@ __d(
   "WAWebResendStatusMsg",
   [
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
@@ -53,9 +52,7 @@ __d(
           }
           yield o("WAWebManageE2ESessionsJob").ensureE2ESessions([p], !1, d);
           var g = i.data.id,
-            h = r("WANullthrows")(
-              o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
-            );
+            h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
           o("WALogger")
             .LOG(
               s ||

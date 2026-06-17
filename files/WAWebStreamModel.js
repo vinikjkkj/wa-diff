@@ -50,7 +50,6 @@ __d(
         "PROXYBLOCK",
         "TOS_BLOCK",
         "SMB_TOS_BLOCK",
-        "DEPRECATED_VERSION",
       ]),
       f = n("$InternalEnum").Mirrored(["SHOW", "OBSCURE", "HIDE"]),
       g = 18e3,
@@ -321,9 +320,6 @@ __d(
         case _.PROXYBLOCK:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .PROXYBLOCK;
-        case _.DEPRECATED_VERSION:
-          return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
-            .DEPRECATED_VERSION;
         case _.TOS_BLOCK:
         case _.SMB_TOS_BLOCK:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
@@ -379,8 +375,6 @@ __d(
           return _.TOS_BLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.SMB_TOS_BLOCK:
           return _.SMB_TOS_BLOCK;
-        case o("WAWebSocketConstants").SOCKET_STATE.DEPRECATED_VERSION:
-          return _.DEPRECATED_VERSION;
         case o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED:
           return _.SYNCING;
         case o("WAWebSocketConstants").SOCKET_STATE.UNPAIRED_IDLE:

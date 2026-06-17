@@ -121,7 +121,7 @@ __d(
               r("WAWebODS").incr("web.app.canonical.recovery.handler.success"),
               o("WAWebUserPrefsCanonical").clearRetryBackoffSeconds(),
               o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled() &&
-                o("WAWebCanonicalUtils").getCanonicalReloadPending() == null &&
+                !o("WAWebCanonicalUtils").isCanonicalReloadPending() &&
                 (o("WALogger").LOG(
                   g ||
                     (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -130,7 +130,7 @@ __d(
                 ),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "scheduleCanonicalReload",
-                  { purpose: "recovery" },
+                  void 0,
                 )));
           } catch (e) {
             (o("WALogger")

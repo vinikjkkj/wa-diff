@@ -44,36 +44,34 @@ __d(
               "request phone number for a blocked contact",
               a,
             );
-          var i = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
-          if (i != null) {
-            var l = new (r("WAWebMsgKey"))({
-                id: yield r("WAWebMsgKey").newId(),
-                remote: t.id,
-                fromMe: !0,
-              }),
-              s = {
-                type: o("WAWebMsgType").MSG_TYPE.REQUEST_PHONE_NUMBER,
-                kind: o("WAWebMsgType").MsgKind.RequestPhoneNumber,
-                ack: o("WAWebAck").ACK.CLOCK,
-                from: i,
-                to: t.id,
-                id: l,
-                local: !0,
-                isNewMsg: !0,
-                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                t: o("WATimeUtils").unixTime(),
-              };
-            (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob([
-              {
-                lid: n,
-                data: {
-                  shareOwnPn: a.shareOwnPn,
-                  requestedPnTimestamp: o("WATimeUtils").unixTime(),
-                },
+          var i = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            l = new (r("WAWebMsgKey"))({
+              id: yield r("WAWebMsgKey").newId(),
+              remote: t.id,
+              fromMe: !0,
+            }),
+            s = {
+              type: o("WAWebMsgType").MSG_TYPE.REQUEST_PHONE_NUMBER,
+              kind: o("WAWebMsgType").MsgKind.RequestPhoneNumber,
+              ack: o("WAWebAck").ACK.CLOCK,
+              from: i,
+              to: t.id,
+              id: l,
+              local: !0,
+              isNewMsg: !0,
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              t: o("WATimeUtils").unixTime(),
+            };
+          (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob([
+            {
+              lid: n,
+              data: {
+                shareOwnPn: a.shareOwnPn,
+                requestedPnTimestamp: o("WATimeUtils").unixTime(),
               },
-            ]),
-              yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, s)[1]);
-          }
+            },
+          ]),
+            yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, s)[1]);
         })),
         u.apply(this, arguments)
       );

@@ -18,6 +18,7 @@ __d(
     "WAWebHandleMsgError",
     "WAWebHandleMsgMetaUtils",
     "WAWebHandleMsgTypes.flow",
+    "WAWebMaibaWASSMigration",
     "WAWebMessagingGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebMsgGetters",
@@ -124,12 +125,14 @@ __d(
         "WAWebSimpleSignalPNToFBIDMigration",
       ).getDeprecatedPnChatForFbidThread(n);
       if (r("WAWebWid").equals(i, a)) return !0;
+      var l = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
+      if (r("WAWebWid").equals(l, a)) return !0;
       if (
         n.isUser() &&
         r("WAWebWid").equals(o("WAWebApiContact").getAlternateUserWid(n), a)
       ) {
-        var l = a.toLogString(),
-          s = n.toLogString();
+        var s = a.toLogString(),
+          u = n.toLogString();
         return (
           o("WALogger")
             .WARN(
@@ -139,8 +142,8 @@ __d(
                   ", enc: ",
                   "",
                 ])),
-              l,
               s,
+              u,
             )
             .sendLogs("validateMsgDestination-addressing-mode-mismatch"),
           !0

@@ -9,6 +9,7 @@ __d(
     "WAWebABProps",
     "WAWebAck",
     "WAWebBackendJobs.flow",
+    "WAWebBatchedStatusIdUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebCTWAGatingUtils",
@@ -1086,7 +1087,11 @@ __d(
               remote: e.chat,
               fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e.author),
               participant: o("WAWebWidFactory").asUserWidOrThrow(e.author),
-              id: e.externalId,
+              id: e.chat.isStatus()
+                ? o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(
+                    e.externalId,
+                  )
+                : e.externalId,
             });
     }
     function J(e) {

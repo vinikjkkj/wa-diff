@@ -376,7 +376,7 @@ __d(
               (t === void 0 &&
                 (t = o("WAWebLogoutReasonConstants").LogoutReason
                   .UserInitiated),
-              o("WAWebCanonicalUtils").setCanonicalReloadPending(null),
+              o("WAWebCanonicalUtils").setCanonicalReloadPending(!1),
               r("WAWebLocalStorage") == null ||
                 r("WAWebLocalStorage").removeItem("WebEncKeySalt"),
               r("WAWebLocalStorage") == null ||

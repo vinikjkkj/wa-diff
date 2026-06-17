@@ -119,7 +119,7 @@ __d(
                     )
                     .sendLogs("unexpected-lid-chat"));
               var $ = yield o("WAWebApiContact").getContactRecord(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               );
               t === "username_contactless_search" &&
                 ($ == null ? void 0 : $.username) == null &&
@@ -498,7 +498,7 @@ __d(
           );
           var a = yield (C || (C = n("Promise"))).all([
               o("WAWebApiContact").getContactRecord(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               ),
               o("WAWebApiContact").getContactRecord(e),
             ]),

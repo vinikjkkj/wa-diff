@@ -200,7 +200,7 @@ __d(
             var e = o(
               "WAWebUsernameWorkerCompatibleGatingUtils",
             ).onlyShowLidContacts()
-              ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser()
+              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
               : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
             return e == null ? null : this.get(e);
           }),

@@ -1,6 +1,6 @@
 __d(
   "WAWebLastAddOnDBSerialization",
-  ["WANullthrows"],
+  ["nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       switch (e.type) {
@@ -80,7 +80,7 @@ __d(
         parentMsgKey: e.parentMsgKey,
         sender: e.senderUserJid,
         timestamp: e.timestamp,
-        reactionText: r("WANullthrows")(e.reactionText),
+        reactionText: r("nullthrows")(e.reactionText),
         type: "reaction",
       };
     }

@@ -1,7 +1,6 @@
 __d(
   "WAWebAddonPollVoteTableMode",
   [
-    "WANullthrows",
     "WAWebAddonConstants",
     "WAWebAddonInfraError",
     "WAWebDBPollsUpsertVotes",
@@ -10,6 +9,7 @@ __d(
     "WAWebPollsVoteDataUtils",
     "WAWebPollsVotesSchema",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = function (t) {
@@ -136,7 +136,7 @@ __d(
                 .merge(
                   [
                     e.pollUpdateParentKey.toString(),
-                    r("WANullthrows")(e.from).toString(),
+                    r("nullthrows")(e.from).toString(),
                   ],
                   { ack: t },
                 );

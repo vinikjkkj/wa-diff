@@ -821,17 +821,17 @@ __d(
       );
     }
     function lt() {
-      var e,
-        t = [],
-        n = r("WAWebUserPrefsStore").get(
+      var e = [],
+        t = r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").KEYS.WA_WEB_WAM_BEACONING_SETTINGS,
         );
+      if (typeof t != "string") return e;
       try {
-        e = n != null ? JSON.parse(n) : t;
-      } catch (e) {
-        return t;
+        var n;
+        return (n = JSON.parse(t)) != null ? n : e;
+      } catch (t) {
+        return e;
       }
-      return e != null ? e : t;
     }
     function st(e) {
       r("WAWebUserPrefsStore").set(

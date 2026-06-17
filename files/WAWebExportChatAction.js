@@ -170,8 +170,11 @@ __d(
               x = new Set();
             if (l) {
               var $ = k.filter(function (e) {
-                return o("WAWebExportChatMarkdownFormatter").MEDIA_TYPES.has(
-                  e.type,
+                return (
+                  o("WAWebExportChatMarkdownFormatter").MEDIA_TYPES.has(
+                    e.type,
+                  ) &&
+                  o("WAWebFileSaverDownloadData").isMsgMediaAvailableLocally(e)
                 );
               });
               if (

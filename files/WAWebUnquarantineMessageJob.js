@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebDBMessageSerialization",
+    "WAWebDBProcessOrphansForNewMsg",
     "WAWebE2EProtoParser",
     "WAWebProtobufsE2E.pb",
     "WAWebQuarantineDataStore",
@@ -80,6 +81,9 @@ __d(
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "updateMessageUI",
               { chatId: t.remote, msg: g },
+            ),
+            yield o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(
+              g,
             ),
             o("WALogger").LOG(
               u ||

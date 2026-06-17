@@ -2,7 +2,6 @@ __d(
   "WAWebSyncOnABProps",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebABPropsWamGlobals",
     "WAWebLocalStorage",
@@ -16,6 +15,7 @@ __d(
     "WAWebUserPrefsUiRefresh",
     "asyncToGeneratorRuntime",
     "cr:254",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -80,13 +80,13 @@ __d(
     function g() {
       var e = o("WAWebQuickPromotionGating").qpEmergencyForceFetchNonce();
       if (e === "") return !1;
-      var t = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+      var t = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").KEYS
           .QP_EMERGENCY_FORCE_FETCH_LAST_HANDLED_NONCE,
       );
       return e === t
         ? !1
-        : (r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+        : (r("nullthrows")(r("WAWebLocalStorage")).setItem(
             o("WAWebUserPrefsKeys").KEYS
               .QP_EMERGENCY_FORCE_FETCH_LAST_HANDLED_NONCE,
             e,

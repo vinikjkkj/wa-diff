@@ -2,7 +2,6 @@ __d(
   "WAWebAddonRetryRequestUtils",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebAck",
     "WAWebAddonConstants",
     "WAWebAddonCrossWindowUtils",
@@ -15,6 +14,7 @@ __d(
     "WAWebSchemaSelfAddonMessageTypeTable",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -148,7 +148,7 @@ __d(
                 _ = o("WAWebAddonSortUtils").collectValidAndOrphanAddons(p, m),
                 f = _.validAddons,
                 g = f[0],
-                h = r("WANullthrows")(
+                h = r("nullthrows")(
                   m.get(
                     o("WAWebAddonProcessMsgsUtils")
                       .getParentMsgKey(g)

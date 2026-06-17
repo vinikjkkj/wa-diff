@@ -1,7 +1,6 @@
 __d(
   "WAWebAddonEventResponseTableMode",
   [
-    "WANullthrows",
     "WAWebAddonConstants",
     "WAWebAddonInfraError",
     "WAWebEventResponseDBSerialization",
@@ -9,6 +8,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -149,7 +149,7 @@ __d(
             .merge(
               [
                 n.toString(),
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(e)).toString(),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(e)).toString(),
               ],
               { ack: t },
             );

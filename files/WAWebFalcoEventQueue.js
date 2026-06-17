@@ -1,18 +1,19 @@
 __d(
   "WAWebFalcoEventQueue",
-  ["WALogger", "WAShiftTimer", "WAWebFalcoLoggerCache"],
+  ["WALogger", "WAShiftTimer", "WAWebFalcoLoggerCache", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = 5e3,
       c = 150,
-      d = 500,
-      m = 200,
-      p = [];
-    function _(t) {
+      d = 2e3,
+      m = 50,
+      p = 200,
+      _ = [];
+    function f(t) {
       var n = function () {
-        var t = r.fields,
-          n = r.name;
+        var t = a.fields,
+          n = a.name;
         try {
           o("WAWebFalcoLoggerCache")
             .getFalcoLogger(n)
@@ -25,61 +26,62 @@ __d(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[falco] send failed for ",
-                  ": ",
                   "",
                 ])),
               n,
-              t,
             )
+            .catching(r("getErrorSafe")(t))
             .sendLogs("wam_falco_send_error", { sampling: 0.1 });
         }
       };
-      for (var r of t) n();
+      for (var a of t) n();
     }
-    function f(e) {
-      g(e, 0);
+    function g(e) {
+      h(e, 0);
     }
-    function g(e, t) {
-      var n = Math.min(t + m, e.length);
-      (_(e.slice(t, n)),
+    function h(e, t) {
+      var n = Math.min(t + p, e.length);
+      (f(e.slice(t, n)),
         n < e.length &&
           self.setTimeout(function () {
-            return g(e, n);
+            return h(e, n);
           }, 0));
     }
-    function h() {
-      if (p.length !== 0) {
-        var e = p;
-        ((p = []), _(e));
+    function y() {
+      if (_.length !== 0) {
+        var e = _;
+        ((_ = []), f(e));
       }
     }
-    var y = new (o("WAShiftTimer").ShiftTimer)(h),
-      C = !1;
-    function b() {
-      C ||
-        ((C = !0),
-        self.addEventListener("beforeunload", h),
-        self.addEventListener("pagehide", h));
+    var C = new (o("WAShiftTimer").ShiftTimer)(y),
+      b = !1;
+    function v() {
+      b ||
+        ((b = !0),
+        self.addEventListener("beforeunload", y),
+        self.addEventListener("pagehide", y));
     }
-    function v(e) {
-      (b(),
-        p.length >= d &&
+    function S(e) {
+      (v(),
+        _.length >= d &&
           (o("WALogger")
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[falco] queue overflow, dropping 50 oldest events",
+                  "[falco] queue overflow, dropping ",
+                  " oldest events",
                 ])),
+              m,
             )
             .sendLogs("wam_falco_queue_overflow", { sampling: 0.01 }),
-          p.splice(0, 50)),
-        p.push(e),
-        p.length >= c ? y.onOrBefore(0) : y.onOrBefore(u));
+          _.splice(0, m)),
+        _.push(e),
+        _.length >= c ? C.onOrBefore(0) : C.onOrBefore(u));
     }
-    ((l.sendFalcoEventsNow = _),
-      (l.sendFalcoEventsChunked = f),
-      (l.drainFalcoQueue = h),
-      (l.enqueueFalcoEvent = v));
+    ((l.sendFalcoEventsNow = f),
+      (l.sendFalcoEventsChunked = g),
+      (l.drainFalcoQueue = y),
+      (l.enqueueFalcoEvent = S));
   },
   98,
 );

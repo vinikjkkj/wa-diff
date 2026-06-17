@@ -37,25 +37,20 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "community_general_chat_create_enabled",
+        "parent_group_allow_member_suggest_existing_m3_receiver",
       );
     }
     function _() {
       return o("WAWebABProps").getABPropConfigValue(
-        "parent_group_allow_member_suggest_existing_m3_receiver",
+        "parent_group_allow_member_suggest_existing_m3_sender",
       );
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "parent_group_allow_member_suggest_existing_m3_sender",
-      );
-    }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
         "web_communities_general_chat_v_2",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "improve_subgroup_activation_subgroup_poll_interval",
       );
@@ -66,11 +61,10 @@ __d(
       (l.communityCreatePrivacyEnabled = c),
       (l.subgroupFilterEnabled = d),
       (l.shouldShowNewSubgroupIdentity = m),
-      (l.communityGeneralChatCreateEnabled = p),
-      (l.memberSuggestedGroupsM3ReceiverEnabled = _),
-      (l.memberSuggestedGroupsM3SenderEnabled = f),
-      (l.communityGeneralChatV2Enabled = g),
-      (l.communityPollIntervalTimeInSeconds = h));
+      (l.memberSuggestedGroupsM3ReceiverEnabled = p),
+      (l.memberSuggestedGroupsM3SenderEnabled = _),
+      (l.communityGeneralChatV2Enabled = f),
+      (l.communityPollIntervalTimeInSeconds = g));
   },
   98,
 );

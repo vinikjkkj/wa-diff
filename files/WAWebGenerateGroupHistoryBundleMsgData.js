@@ -87,7 +87,12 @@ __d(
               ),
               v = yield o(
                 "WAWebRetrieveOutOfWindowPinsForBundle",
-              ).retrieveOutOfWindowPinsForBundle(f, C, b, _),
+              ).retrieveOutOfWindowPinsForBundle({
+                chatId: f,
+                inWindowMessageKeys: b,
+                messagesNotOlderThanTimestamp: C,
+                targetJoinTime: _,
+              }),
               S = g.map(function (e) {
                 return o("WAWebDBMessageSerialization").messageFromDbRow(e);
               }),

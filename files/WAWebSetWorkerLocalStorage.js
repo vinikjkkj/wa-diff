@@ -1,7 +1,6 @@
 __d(
   "WAWebSetWorkerLocalStorage",
   [
-    "WANullthrows",
     "WAWebApiLocalStorage",
     "WAWebEnvironment",
     "WAWebGuestCoreLocalStorage",
@@ -17,9 +16,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WANullthrows")(
-              o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
-            ),
+          var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
             t = o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow(),
             n = [
               {

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebAppTracker",
     "WAWebCallCollection",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
@@ -436,7 +437,7 @@ __d(
         c = u
           ? window.location.origin + "/call/popout"
           : window.location.hostname;
-      o("WALogger").LOG(
+      (o("WALogger").LOG(
         C ||
           (C = babelHelpers.taggedTemplateLiteralLoose([
             "[voip] Opening popout window. SW enabled: ",
@@ -445,7 +446,10 @@ __d(
           ])),
         String(u),
         c,
-      );
+      ),
+        o("WAWebAppTracker").AppTracker.mark(
+          o("WAWebAppTracker").AppTrackerType.VoipUiWindowCreate,
+        ));
       var d = window.open(
         c,
         "",

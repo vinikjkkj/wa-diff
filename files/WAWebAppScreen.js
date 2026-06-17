@@ -19,7 +19,6 @@ __d(
       "CONFLICT",
       "TOS_BLOCK",
       "SMB_TOS_BLOCK",
-      "DEPRECATED_VERSION",
       "MAIN",
       "STARTUP",
       "TEMP_BAN",
@@ -59,8 +58,6 @@ __d(
           return e.TOS_BLOCK;
         case o("WAWebStreamModel").StreamMode.SMB_TOS_BLOCK:
           return e.SMB_TOS_BLOCK;
-        case o("WAWebStreamModel").StreamMode.DEPRECATED_VERSION:
-          return e.DEPRECATED_VERSION;
         case o("WAWebStreamModel").StreamMode.MAIN:
           return o("WAWebBuildConstants").WINDOWS_OFFLINE
             ? e.MAIN

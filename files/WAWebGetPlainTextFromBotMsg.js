@@ -6,18 +6,20 @@ __d(
     "getPlainTextFromUnifiedResponse",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t) {
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) {
-        var t = r("getPlainTextFromUnifiedResponse")(e.unifiedResponse);
-        if (t !== "") return t;
+        var n = r("getPlainTextFromUnifiedResponse")(e.unifiedResponse);
+        if (n !== "") return n;
       }
       if (e.richResponse != null) {
-        var n = o("WAWebRichResponseCopyText").getRichResponseCopyText(
+        var a = o("WAWebRichResponseCopyText").getRichResponseCopyText(
           e.richResponse,
         );
-        if (n != null) return n;
+        if (a != null) return a;
       }
-      return e.body;
+      return (t == null ? void 0 : t.includeBodyFallback) === !1
+        ? null
+        : e.body;
     }
     l.getPlainTextFromBotMsg = e;
   },

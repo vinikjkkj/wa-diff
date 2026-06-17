@@ -258,7 +258,7 @@ __d(
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = z(e, g),
+          var t = j(e, g),
             n = yield F(t);
           return n;
         })),
@@ -292,7 +292,7 @@ __d(
           var a = Object.keys(e).find(function (e) {
             return n.test(e);
           });
-          return a == null ? !1 : H(e[a], t);
+          return a == null ? !1 : G(e[a], t);
         })),
         W.apply(this, arguments)
       );
@@ -308,20 +308,23 @@ __d(
         U.apply(this, arguments)
       );
     }
-    var V = (function () {
-      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-        return B(e, t, /animation\/animation_secondary.json.trust_token$/);
-      });
-      return function (n, r) {
-        return e.apply(this, arguments);
-      };
-    })();
-    function H(e, t) {
-      return G.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function G() {
+    function H() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return B(e, t, /animation\/animation_secondary.json.trust_token$/);
+        })),
+        H.apply(this, arguments)
+      );
+    }
+    function G(e, t) {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = new TextDecoder("utf-8"),
               r = n.decode(e),
@@ -414,10 +417,10 @@ __d(
             );
           }
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e, t) {
+    function j(e, t) {
       var n = P(e);
       try {
         var o = JSON.parse(n);
@@ -428,20 +431,20 @@ __d(
         );
       }
     }
-    var j = 25;
-    function K(e) {
+    var K = 25;
+    function Q(e) {
       var t = {};
       return (
         r("WAWebAuraGating").isStickersEnabled() &&
           ((t.premium = "1"),
-          (t.rank = e >= j ? "1" : "0"),
+          (t.rank = e >= K ? "1" : "0"),
           o("WAWebABProps").getABPropConfigValue(
             "sticker_store_testing_enabled",
           ) && (t.test = "1")),
         t
       );
     }
-    function Q() {
+    function X() {
       var e = {},
         t = o("WAWebABProps").getABPropConfigValue(
           "gimmick_phase_two_data_suffix",
@@ -467,9 +470,9 @@ __d(
       (l.calculateLottieStickerFilehash = F),
       (l.isLottieStickerFirstParty = q),
       (l.isSecondaryLottieStickerFirstParty = V),
-      (l.removeKeyFromString = z),
-      (l.getPremiumParams = K),
-      (l.getStickerFetchParamsFromABConfig = Q));
+      (l.removeKeyFromString = j),
+      (l.getPremiumParams = Q),
+      (l.getStickerFetchParamsFromABConfig = X));
   },
   98,
 );

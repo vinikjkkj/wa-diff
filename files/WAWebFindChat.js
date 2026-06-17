@@ -9,6 +9,7 @@ __d(
     "WAWebCheckChatExistsOrCreate",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
+    "WAWebMaibaWASSMigration",
     "WAWebMessageProcessUtils",
     "WAWebSyncContactJob",
     "WAWebUsernameTypes",
@@ -39,7 +40,9 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = e.equals(o("WAWebBotUtils").META_BOT_FBID_WID)
               ? o("WAWebBotUtils").META_BOT_PN_WID
-              : e,
+              : o("WAWebMaibaWASSMigration").resolveMaibaAiHubFbidToLidOrChatId(
+                  e,
+                ),
             i = n != null ? n : {},
             l = i.getExistingChat;
           if (!r("WAWebWid").isUser(a))
@@ -67,7 +70,9 @@ __d(
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i = t.equals(o("WAWebBotUtils").META_BOT_FBID_WID)
               ? o("WAWebBotUtils").META_BOT_PN_WID
-              : t,
+              : o("WAWebMaibaWASSMigration").resolveMaibaAiHubFbidToLidOrChatId(
+                  t,
+                ),
             l = { chatId: i };
           if (i.isRegularUser()) {
             if (

@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -20,9 +21,10 @@ __d(
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i = yield d(t, r, a);
-          return i == null
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          r("vulture")("3Y-fn8JfD7P0duCLSNvFNiBB3NA=");
+          var l = yield d(t, a, i);
+          return l == null
             ? (o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -30,9 +32,9 @@ __d(
                   ])),
               ),
               (s || (s = n("Promise"))).resolve())
-            : (yield o("WAWebApiPeerMessageStore").storePeerMessages([i]),
+            : (yield o("WAWebApiPeerMessageStore").storePeerMessages([l]),
               o("WAWebSendAppStateSyncMsgJob").encryptAndSendKeyMsg({
-                msg: i,
+                msg: l,
               }));
         })),
         c.apply(this, arguments)

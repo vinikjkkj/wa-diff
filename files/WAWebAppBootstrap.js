@@ -35,7 +35,6 @@ __d(
     "WAWebStorageErrorHandlingUtils",
     "WAWebSyncdUploadFatalErrorMetric",
     "WAWebTransitions",
-    "WAWebUA",
     "WAWebUim",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
@@ -55,7 +54,6 @@ __d(
     "getErrorSafe",
     "gkx",
     "initWAWebPlatformWebPage",
-    "nullthrows",
     "velocity-animate",
     "velocity-animate-ui",
   ],
@@ -125,10 +123,6 @@ __d(
             ).initializeMetricsAttributionObservers(),
             n("WAWebWamWorkerSpecificEvents"),
             o("WAWebWamPageLoadReporter").exeTimer.start(),
-            o("WAWebUA").UA.isSafari &&
-              o("WAWebUA").UA.browserVersion.startsWith("13.") &&
-              (r("nullthrows")(document.body).className +=
-                " text-rendering-bug-fix"),
             n("WAWeb-modernizr"),
             (window.Velocity = n("velocity-animate")),
             n("velocity-animate-ui"),

@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebExportChatMarkdownFormatter",
     "WAWebExportChatSystemMsgFormatter",
+    "WAWebGetPlainTextFromBotMsg",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUnformatMsg",
@@ -187,7 +188,17 @@ __d(
         if (P != null) for (var M of P) N += "\n    - " + M.name;
         return N;
       }
-      return i === o("WAWebMsgType").MSG_TYPE.CHAT || l
+      if (i === o("WAWebMsgType").MSG_TYPE.CHAT)
+        return r("WAWebUnformatMsg")(t, l);
+      if (i === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
+        var w = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(t, {
+          includeBodyFallback: !1,
+        });
+        return w != null && w !== ""
+          ? w
+          : "<" + s._(/*BTDS*/ "AI message").toString() + ">";
+      }
+      return l
         ? r("WAWebUnformatMsg")(t, l)
         : "<" +
             s._(/*BTDS*/ "{type} message", [s._param("type", i)]).toString() +

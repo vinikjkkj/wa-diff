@@ -10,6 +10,7 @@ __d(
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMaibaWASSMigration",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNativeFlowValidation",
@@ -80,7 +81,8 @@ __d(
               I,
               T =
                 (a == null || (k = a.id) == null ? void 0 : k.remote) != null &&
-                o("WAWebBotUtils").isAnyMetaAiBot(a.id.remote),
+                (o("WAWebBotUtils").isAnyMetaAiBot(a.id.remote) ||
+                  o("WAWebMaibaWASSMigration").isMaibaAiHubLid(a.id.remote)),
               D =
                 T ||
                 o("WAWebE2EProtoUtils").isValidNativeFlowName({

@@ -32,8 +32,11 @@ __d(
             ? (s = !o(
                 "WAWebMessageAssociationConstants",
               ).orphanIneligibleFutureproofTypes.has(l.futureproofType))
-            : (l == null ? void 0 : l.type) ===
-                o("WAWebMsgType").MSG_TYPE.CIPHERTEXT && (s = !0),
+            : ((l == null ? void 0 : l.type) ===
+                o("WAWebMsgType").MSG_TYPE.CIPHERTEXT ||
+                (l == null ? void 0 : l.type) ===
+                  o("WAWebMsgType").MSG_TYPE.QUARANTINED) &&
+              (s = !0),
           s)
         )
           n.push(i);

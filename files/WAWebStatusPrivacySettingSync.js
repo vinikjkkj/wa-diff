@@ -73,8 +73,8 @@ __d(
                         ),
                       ];
                     var c = l.mode,
-                      d = l.shareToFB,
-                      m = l.shareToIG,
+                      d = l.shareToFb,
+                      m = l.shareToIg,
                       p = l.userJid;
                     if (c == null)
                       return [
@@ -268,7 +268,7 @@ __d(
                   o(
                     "WAWebCrosspostingBackendGatingUtils",
                   ).crosspostSettingsSyncSenderEnabled()
-                    ? { shareToFB: a, shareToIG: i }
+                    ? { shareToFb: a, shareToIg: i }
                     : {},
                   { customLists: [], modes: [] },
                 ),

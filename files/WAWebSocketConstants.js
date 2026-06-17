@@ -13,7 +13,6 @@ __d(
         PROXYBLOCK: "PROXYBLOCK",
         TOS_BLOCK: "TOS_BLOCK",
         SMB_TOS_BLOCK: "SMB_TOS_BLOCK",
-        DEPRECATED_VERSION: "DEPRECATED_VERSION",
         SCREEN_LOCKED: "SCREEN_LOCKED",
       },
       l = {

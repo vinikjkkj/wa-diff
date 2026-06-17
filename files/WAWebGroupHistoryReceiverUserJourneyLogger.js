@@ -86,16 +86,20 @@ __d(
               groupHistoryOutWindowPinsCount: r,
             });
           }),
-          (n.dbInserted = function (t, n, r, a) {
+          (n.dbInserted = function (t) {
+            var e = t.groupHistoryDbIgnoredOlderMessages,
+              n = t.groupHistoryMessagesCount,
+              r = t.groupHistoryOutWindowPinsCount,
+              a = t.groupHistoryReceiverGroupId;
             this.$1({
               groupHistoryReceiverActionType: o(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
               ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
                 .GROUP_HISTORY_DB_INSERTED,
-              groupHistoryReceiverGroupId: t,
+              groupHistoryReceiverGroupId: a,
               groupHistoryMessagesCount: n,
-              groupHistoryDbIgnoredOlderMessages: r,
-              groupHistoryOutWindowPinsCount: a,
+              groupHistoryDbIgnoredOlderMessages: e,
+              groupHistoryOutWindowPinsCount: r,
             });
           }),
           (n.downloadButtonClicked = function (t) {

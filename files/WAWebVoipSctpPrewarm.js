@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebAppTracker",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
     "err",
@@ -54,7 +55,10 @@ __d(
             i = null,
             l = null;
           try {
-            ((a = new RTCPeerConnection()),
+            (o("WAWebAppTracker").AppTracker.mark(
+              o("WAWebAppTracker").AppTrackerType.VoipSctpPrewarm,
+            ),
+              (a = new RTCPeerConnection()),
               (i = new RTCPeerConnection()),
               yield (u || (u = n("Promise"))).race([
                 g(a, i),

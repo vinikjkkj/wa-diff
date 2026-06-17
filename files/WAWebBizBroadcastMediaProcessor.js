@@ -36,12 +36,28 @@ __d(
               ? "document"
               : null;
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    function g(e) {
+      var t = e.exception,
+        n = "none";
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        t != null &&
+          (n = t.message !== "" ? t.name + ": " + t.message : t.name),
+        "state=" +
+          e.state +
+          " type=" +
+          e.type +
+          " mime=" +
+          e.mimetype +
+          " err=" +
+          n
+      );
+    }
+    function h(e, t, n) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -62,7 +78,10 @@ __d(
             1,
           );
           var l = a.getActive();
-          if (l == null) throw r("err")("Failed to process media for sending");
+          if (l == null) {
+            var s = a.getModelsArray().map(g).join("; ");
+            throw r("err")("Failed to process media for sending: " + s);
+          }
           (l.processPromise != null && (yield l.processPromise),
             o("WALogger").LOG(
               d ||
@@ -72,28 +91,28 @@ __d(
                 ])),
               l.type,
             ));
-          var s = {
+          var u = {
               caption: n != null && n.trim() !== "" ? n.trim() : void 0,
               type: l.type,
             },
-            u = yield o("WAWebMediaPrep").getMediaPropsNew(l.mediaPrep, s);
+            m = yield o("WAWebMediaPrep").getMediaPropsNew(l.mediaPrep, u);
           return (
-            (u.isCaptionByUser =
-              s.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT && !!s.caption),
-            { freshMedia: l, mediaProps: u }
+            (m.isCaptionByUser =
+              u.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT && !!u.caption),
+            { freshMedia: l, mediaProps: m }
           );
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t, n, r) {
-      return C.apply(this, arguments);
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield g(e, t, r),
+            var a = yield h(e, t, r),
               i = a.freshMedia,
               l = a.mediaProps,
               s = yield o(
@@ -110,10 +129,10 @@ __d(
             );
           },
         )),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(t) {
+    function v(t) {
       return (function () {
         var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
           var a;
@@ -179,14 +198,14 @@ __d(
         };
       })();
     }
-    function v(e, t, n, r, o) {
-      return S.apply(this, arguments);
+    function S(e, t, n, r, o) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
-            var i = yield g(e, t, r),
+            var i = yield h(e, t, r),
               l = i.freshMedia,
               s = i.mediaProps,
               u = yield o(
@@ -203,14 +222,14 @@ __d(
             );
           },
         )),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
     ((l.SUPPORTED_MEDIA_TYPES = _),
       (l.getAttachmentType = f),
-      (l.processMediaForBroadcast = y),
-      (l.createBroadcastMediaUploadCallback = b),
-      (l.processMediaWithCTAForBroadcast = v));
+      (l.processMediaForBroadcast = C),
+      (l.createBroadcastMediaUploadCallback = v),
+      (l.processMediaWithCTAForBroadcast = S));
   },
   98,
 );

@@ -1,15 +1,15 @@
 __d(
   "WAWebFormatQuarantinedMsgText",
-  ["WAWebFbtCommon", "WAWebFrontendMsgGetters"],
-  function (t, n, r, o, a, i, l) {
+  ["fbt", "WAWebFrontendMsgGetters"],
+  function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
         n = o("WAWebFrontendMsgGetters").getText(t);
       return n != null && n !== ""
         ? n
-        : r("WAWebFbtCommon")("Attachment blocked by Strict account settings");
+        : s._(/*BTDS*/ "Attachment blocked by Strict account settings");
     }
     l.default = e;
   },
-  98,
+  226,
 );

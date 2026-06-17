@@ -12,6 +12,7 @@ __d(
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebLidMigrationUtils",
+    "WAWebMaibaWASSMigration",
     "WAWebPnlessStanzaMigration",
     "WAWebPrivacySettings",
     "WAWebSimpleSignalPNToFBIDMigration",
@@ -158,8 +159,12 @@ __d(
                       }
                       var E = h.isUser() || h.isNewsletter() ? null : t,
                         k = o(
-                          "WAWebSimpleSignalPNToFBIDMigration",
-                        ).maybeReplaceDeprecatedBotPnWithFbid(h),
+                          "WAWebMaibaWASSMigration",
+                        ).maybeReplaceMaibaAiHubWidWithFbid(
+                          o(
+                            "WAWebSimpleSignalPNToFBIDMigration",
+                          ).maybeReplaceDeprecatedBotPnWithFbid(h),
+                        ),
                         I = c;
                       I == null &&
                         h.isUser() &&

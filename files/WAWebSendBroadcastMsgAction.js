@@ -98,8 +98,8 @@ __d(
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:send] Starting broadcast message send: msgId=",
-                ",\n    recipients=",
+                "[broadcast:send] start msgId=",
+                " rcpts=",
                 "",
               ])),
             u,
@@ -170,7 +170,7 @@ __d(
                 .ERROR(
                   p ||
                     (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:send] Batch ack update failed after send failure: error=",
+                      "[broadcast:send] batch ack failed post-send err=",
                       "",
                     ])),
                   L,
@@ -295,7 +295,7 @@ __d(
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:send] Media fields persisted for all clone messages: msgId=",
+                    "[broadcast:send] media fields persisted to clones msgId=",
                     "",
                   ])),
                 S.id,

@@ -12,9 +12,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    var e;
+    function s() {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = o("WAWebSideNavButtonsActivityModel").getLastActiveChat();
           try {
             var r =
@@ -35,11 +39,10 @@ __d(
           } catch (t) {
             return (e || (e = n("Promise"))).resolve(!1);
           }
-        });
-        return function () {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        u.apply(this, arguments)
+      );
+    }
     l.openLastActiveChatIfNotLocked = s;
   },
   98,

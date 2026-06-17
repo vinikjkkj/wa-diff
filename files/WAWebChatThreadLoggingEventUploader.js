@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatThreadLoggingUtils",
     "WAWebThreadLoggingAi",
@@ -14,6 +13,7 @@ __d(
     "WAWebThreadLoggingVoip",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -68,7 +68,7 @@ __d(
                 }
                 var _ = yield this.eventStore.getBeforeInclusive(d);
                 try {
-                  yield p(_, r("WANullthrows")(this.secret));
+                  yield p(_, r("nullthrows")(this.secret));
                 } catch (e) {
                   o("WALogger")
                     .ERROR(

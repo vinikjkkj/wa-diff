@@ -60,7 +60,7 @@ __d(
       var t = o("react-compiler-runtime").c(4),
         n;
       if (t[0] !== e) {
-        var a = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
+        var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
         ((n = o("WAWebMemberLabelsFrontendUtils").memberLabelKeyFrom({
           from: "chat_and_member",
           chat: e,

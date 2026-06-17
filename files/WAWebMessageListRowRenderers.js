@@ -111,7 +111,6 @@ __d(
               selectable: e.selectable,
               selectedMessages: e.selectedMessages,
               onMessageSelect: e.onMessageSelect,
-              getSequentialMsg: e.getSequentialMsg,
               setFocusedMessage: e.setFocusedMessage,
               isFollowUpReply: l,
             },

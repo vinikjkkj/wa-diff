@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebDBDeleteAssociatedMsgsByMsgKey",
     "WAWebDBMessageStoreUtils",
@@ -18,6 +17,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -191,7 +191,7 @@ __d(
         {
           messages: i.concat(a),
           newLastMessageTimestamp: o("WALongInt").numberOrThrowIfTooLarge(
-            r("WANullthrows")(l.timestamp),
+            r("nullthrows")(l.timestamp),
           ),
         }
       );
@@ -199,7 +199,7 @@ __d(
     function y(e, t) {
       var n = [e, t].map(function (e) {
           return o("WALongInt").numberOrThrowIfTooLarge(
-            r("WANullthrows")(e.timestamp),
+            r("nullthrows")(e.timestamp),
           );
         }),
         a = n[0],
@@ -321,7 +321,7 @@ __d(
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = t.map(function (e) {
               return o("WAWebProtobufMsgKeyUtils")
-                .protobufToMsgKey(r("WANullthrows")(e.key))
+                .protobufToMsgKey(r("nullthrows")(e.key))
                 .toString();
             }),
             i = [];

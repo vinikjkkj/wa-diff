@@ -270,7 +270,8 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
-            r = e[2];
+            r = e[2],
+            a = e[3];
           if (n != null) return !1;
           if (
             t === "call_log" &&
@@ -284,6 +285,12 @@ __d(
             )
           )
             return !1;
+          if (
+            t === "protocol" &&
+            (a === "status_mention_message" ||
+              a === "status_group_mention_message")
+          )
+            return !0;
           switch (t) {
             case "interactive":
             case "chat":
@@ -319,7 +326,7 @@ __d(
               return !1;
           }
         },
-        [b, ze, D],
+        [b, ze, D, v],
       ),
       Ke = p(
         function (e) {

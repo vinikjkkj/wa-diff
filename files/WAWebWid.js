@@ -23,11 +23,12 @@ __d(
       _ = "0@c.us",
       f = "16508638904@c.us",
       g = "165332417282214",
-      h = "16505361212@c.us",
-      y = /^1313555\d{4}$|^131655500\d{2}$/,
-      C = 99,
-      b = 4,
-      v = (function () {
+      h = "1807055946647698",
+      y = "16505361212@c.us",
+      C = /^1313555\d{4}$|^131655500\d{2}$/,
+      b = 99,
+      v = 4,
+      S = (function () {
         function t(t, n) {
           var a = n.intentionallyUsePrivateConstructor;
           if (!a)
@@ -102,7 +103,7 @@ __d(
             var f = parseInt(m, 10);
             f && (l.push(":"), l.push(f), (this.device = f));
           }
-          if (this.isHosted() && (this.device == null || this.device !== C))
+          if (this.isHosted() && (this.device == null || this.device !== b))
             throw (
               o("WALogger").LOG(
                 c ||
@@ -123,10 +124,10 @@ __d(
               if (e.length === 2) {
                 var t = e[0],
                   n = e[1];
-                return t.slice(-b) + "-" + n;
+                return t.slice(-v) + "-" + n;
               }
             }
-            return this.user.slice(-b);
+            return this.user.slice(-v);
           }),
           (n.toString = function (t) {
             if (t) {
@@ -185,7 +186,7 @@ __d(
             );
           }),
           (n.isSameAccountAndAddressingMode = function (t) {
-            if (this.device === C || t.device === C) {
+            if (this.device === b || t.device === b) {
               o("WALogger")
                 .LOG(
                   d ||
@@ -250,7 +251,7 @@ __d(
             return this.server === "broadcast" && !this.isStatus();
           }),
           (n.isOfficialBizAccount = function () {
-            return this.toString() === h;
+            return this.toString() === y;
           }),
           (n.isEligibleForUSync = function () {
             return this.isUser() && !this.isPSA();
@@ -273,7 +274,10 @@ __d(
             return this.user === "16508638904" && this.server === "c.us";
           }),
           (n.isAiHub = function () {
-            return this.user === "165332417282214" && this.server === "lid";
+            return (
+              (this.user === g && this.server === "lid") ||
+              (this.user === h && this.server === "bot")
+            );
           }),
           (n.isStatus = function () {
             return (
@@ -300,7 +304,7 @@ __d(
           (n.isPnBot = function () {
             return (
               this.server === "c.us" &&
-              y.test(this.user) &&
+              C.test(this.user) &&
               (this.device == null || this.device === 0)
             );
           }),
@@ -317,7 +321,7 @@ __d(
             return (
               this.server === "hosted" ||
               this.server === "hosted.lid" ||
-              this.device === C
+              this.device === b
             );
           }),
           (t.isXWid = function (n, r) {
@@ -372,13 +376,13 @@ __d(
                     : r.split("@")[0]) != null
                   ? e
                   : "";
-            return t.isXWid("c.us", n) && y.test(o);
+            return t.isXWid("c.us", n) && C.test(o);
           }),
           (t.isBot = function (n) {
             return t.isFbidBot(n) || t.isPnBot(n);
           }),
           (t.isRegularUserNoImply = function (t) {
-            return S(t);
+            return R(t);
           }),
           (t.isGroupCall = function (n) {
             return t.isXWid("call", n);
@@ -410,11 +414,11 @@ __d(
                 : !1;
           }),
           (t.isAiHub = function (n) {
-            return o("WATypeUtils").isString(n)
-              ? n.toLowerCase() === g
-              : n instanceof t
-                ? n.isAiHub()
-                : !1;
+            if (o("WATypeUtils").isString(n)) {
+              var e = n.toLowerCase();
+              return e === g || e === h;
+            } else if (n instanceof t) return n.isAiHub();
+            return !1;
           }),
           (t.isStatus = function (n) {
             return o("WATypeUtils").isString(n)
@@ -449,7 +453,7 @@ __d(
           }),
           (t.isOfficialBizAccount = function (n) {
             return o("WATypeUtils").isString(n)
-              ? n.toLowerCase() === h
+              ? n.toLowerCase() === y
               : n instanceof t
                 ? n.isOfficialBizAccount()
                 : !1;
@@ -474,10 +478,10 @@ __d(
           t
         );
       })();
-    function S(e) {
-      return v.isUser(e) && !v.isPSA(e) && !v.isBot(e);
+    function R(e) {
+      return S.isUser(e) && !S.isPSA(e) && !S.isBot(e);
     }
-    l.default = v;
+    l.default = S;
   },
   98,
 );

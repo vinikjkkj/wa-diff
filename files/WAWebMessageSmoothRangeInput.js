@@ -23,51 +23,51 @@ __d(
         "AUDIO_INCOMING_PLAYED",
       ]);
     function _(t) {
-      var n = o("react-compiler-runtime").c(65),
-        a = t.disabled,
-        i = t.largeSkip,
-        l = t.max,
-        s = t.min,
-        c = t.onChange,
-        d = t.onCommit,
-        p = t.smallSkip,
-        _ = t.theme,
-        g = t.value,
-        h = t.valueText,
-        y = m(null),
-        C = y[0],
-        b = y[1],
-        v;
-      n[0] !== c
-        ? ((v = function (t) {
-            (b(t), c == null || c(t));
+      var n = o("react-compiler-runtime").c(68),
+        a = t.ariaLabel,
+        i = t.disabled,
+        l = t.largeSkip,
+        s = t.max,
+        c = t.min,
+        d = t.onChange,
+        p = t.onCommit,
+        _ = t.smallSkip,
+        g = t.theme,
+        h = t.value,
+        y = t.valueText,
+        C = m(null),
+        b = C[0],
+        v = C[1],
+        S;
+      n[0] !== d
+        ? ((S = function (t) {
+            (v(t), d == null || d(t));
           }),
-          (n[0] = c),
-          (n[1] = v))
-        : (v = n[1]);
-      var S = v,
-        R;
-      n[2] !== d
-        ? ((R = function (t) {
-            (b(null), d == null || d(t));
+          (n[0] = d),
+          (n[1] = S))
+        : (S = n[1]);
+      var R = S,
+        L;
+      n[2] !== p
+        ? ((L = function (t) {
+            (v(null), p == null || p(t));
           }),
-          (n[2] = d),
-          (n[3] = R))
-        : (R = n[3]);
-      var L = R,
-        E = C != null ? C : g,
-        k = 100 * r("clamp")((E - s) / (l - s), 0, 1),
-        I = k + "%",
-        T;
-      n[4] !== I ? ((T = { width: I }), (n[4] = I), (n[5] = T)) : (T = n[5]);
-      var D = T,
-        x = "translateX(" + k + "%)",
-        $;
-      n[6] !== x
-        ? (($ = { transform: x }), (n[6] = x), (n[7] = $))
-        : ($ = n[7]);
-      var P = $,
-        N,
+          (n[2] = p),
+          (n[3] = L))
+        : (L = n[3]);
+      var E = L,
+        k = b != null ? b : h,
+        I = 100 * r("clamp")((k - c) / (s - c), 0, 1),
+        T = I + "%",
+        D;
+      n[4] !== T ? ((D = { width: T }), (n[4] = T), (n[5] = D)) : (D = n[5]);
+      var x = D,
+        $ = "translateX(" + I + "%)",
+        P;
+      n[6] !== $
+        ? ((P = { transform: $ }), (n[6] = $), (n[7] = P))
+        : (P = n[7]);
+      var N = P,
         M,
         w,
         A,
@@ -83,91 +83,95 @@ __d(
         z,
         j,
         K,
-        Q;
+        Q,
+        X,
+        Y;
       if (
         n[8] !== a ||
-        n[9] !== S ||
-        n[10] !== L ||
-        n[11] !== i ||
+        n[9] !== i ||
+        n[10] !== R ||
+        n[11] !== E ||
         n[12] !== l ||
-        n[13] !== D ||
-        n[14] !== p ||
+        n[13] !== s ||
+        n[14] !== x ||
         n[15] !== _ ||
-        n[16] !== P ||
-        n[17] !== g ||
-        n[18] !== h
+        n[16] !== g ||
+        n[17] !== N ||
+        n[18] !== h ||
+        n[19] !== y
       ) {
-        var X = f(_),
-          Y = X.progressStyle,
-          J = X.thumbStyle,
-          Z = X.trackStyle;
-        ((N = r("WAWebPttComposerRangeInput.react")),
-          (F = g),
-          (O = h),
-          (B = 0),
-          (W = l),
-          (q = p),
-          (U = i),
-          (V = S),
-          (H = L),
-          (G = a),
-          n[36] === Symbol.for("react.memo_cache_sentinel")
-            ? ((M = (e || (e = r("stylex"))).props(
+        var J = f(g),
+          Z = J.progressStyle,
+          ee = J.thumbStyle,
+          te = J.trackStyle;
+        ((M = r("WAWebPttComposerRangeInput.react")),
+          (O = a),
+          (B = h),
+          (W = y),
+          (q = 0),
+          (U = s),
+          (V = _),
+          (H = l),
+          (G = R),
+          (z = E),
+          (j = i),
+          n[38] === Symbol.for("react.memo_cache_sentinel")
+            ? ((w = (e || (e = r("stylex"))).props(
                 o("WAWebMessageSmoothRangeInput.stylex").styles.container,
               )),
-              (n[36] = M))
-            : (M = n[36]),
-          (w = u.jsx(
+              (n[38] = w))
+            : (w = n[38]),
+          (A = u.jsx(
             "div",
             babelHelpers.extends(
               {},
               (e || (e = r("stylex"))).props(
                 o("WAWebMessageSmoothRangeInput.stylex").styles.track,
-                Z,
+                te,
               ),
             ),
           )),
-          (A = u.jsx(
+          (F = u.jsx(
             "span",
             babelHelpers.extends(
               {},
               e.props(
                 o("WAWebMessageSmoothRangeInput.stylex").styles.progress,
-                Y,
-                a === !0 &&
+                Z,
+                i === !0 &&
                   o("WAWebMessageSmoothRangeInput.stylex").styles
                     .progressDisabled,
               ),
-              { style: D },
+              { style: x },
             ),
           )),
-          n[37] === Symbol.for("react.memo_cache_sentinel")
-            ? ((Q = {
+          n[39] === Symbol.for("react.memo_cache_sentinel")
+            ? ((Y = {
                 className: "x78zum5 xh8yej3 xdj266r xmpx0yj xat24cr x1eiic4d",
               }),
-              (j = { className: "x1n2onr6 x1tcabb7 xh8yej3" }),
-              (n[37] = j),
-              (n[38] = Q))
-            : ((j = n[37]), (Q = n[38])),
-          (K = P),
-          (z = e.props(
+              (Q = { className: "x1n2onr6 x1tcabb7 xh8yej3" }),
+              (n[39] = Q),
+              (n[40] = Y))
+            : ((Q = n[39]), (Y = n[40])),
+          (X = N),
+          (K = e.props(
             o("WAWebMessageSmoothRangeInput.stylex").styles.thumb,
-            J,
-            a === !0 &&
+            ee,
+            i === !0 &&
               o("WAWebMessageSmoothRangeInput.stylex").styles.thumbDisabled,
           )),
           (n[8] = a),
-          (n[9] = S),
-          (n[10] = L),
-          (n[11] = i),
+          (n[9] = i),
+          (n[10] = R),
+          (n[11] = E),
           (n[12] = l),
-          (n[13] = D),
-          (n[14] = p),
+          (n[13] = s),
+          (n[14] = x),
           (n[15] = _),
-          (n[16] = P),
-          (n[17] = g),
+          (n[16] = g),
+          (n[17] = N),
           (n[18] = h),
-          (n[19] = N),
+          (n[19] = y),
           (n[20] = M),
           (n[21] = w),
           (n[22] = A),
@@ -183,10 +187,11 @@ __d(
           (n[32] = z),
           (n[33] = j),
           (n[34] = K),
-          (n[35] = Q));
+          (n[35] = Q),
+          (n[36] = X),
+          (n[37] = Y));
       } else
-        ((N = n[19]),
-          (M = n[20]),
+        ((M = n[20]),
           (w = n[21]),
           (A = n[22]),
           (F = n[23]),
@@ -201,82 +206,87 @@ __d(
           (z = n[32]),
           (j = n[33]),
           (K = n[34]),
-          (Q = n[35]));
-      var ee;
-      n[39] !== z
-        ? ((ee = u.jsx("div", babelHelpers.extends({}, z))),
-          (n[39] = z),
-          (n[40] = ee))
-        : (ee = n[40]);
-      var te;
-      n[41] !== ee || n[42] !== j || n[43] !== K
-        ? ((te = u.jsx(
-            "div",
-            babelHelpers.extends({}, j, { style: K, children: ee }),
-          )),
-          (n[41] = ee),
-          (n[42] = j),
-          (n[43] = K),
-          (n[44] = te))
-        : (te = n[44]);
+          (Q = n[35]),
+          (X = n[36]),
+          (Y = n[37]));
       var ne;
-      n[45] !== te || n[46] !== Q
-        ? ((ne = u.jsx("div", babelHelpers.extends({}, Q, { children: te }))),
-          (n[45] = te),
-          (n[46] = Q),
-          (n[47] = ne))
-        : (ne = n[47]);
+      n[41] !== K
+        ? ((ne = u.jsx("div", babelHelpers.extends({}, K))),
+          (n[41] = K),
+          (n[42] = ne))
+        : (ne = n[42]);
       var re;
-      n[48] !== M || n[49] !== w || n[50] !== A || n[51] !== ne
-        ? ((re = u.jsxs(
+      n[43] !== ne || n[44] !== Q || n[45] !== X
+        ? ((re = u.jsx(
             "div",
-            babelHelpers.extends({}, M, { children: [w, A, ne] }),
+            babelHelpers.extends({}, Q, { style: X, children: ne }),
           )),
-          (n[48] = M),
-          (n[49] = w),
-          (n[50] = A),
-          (n[51] = ne),
-          (n[52] = re))
-        : (re = n[52]);
+          (n[43] = ne),
+          (n[44] = Q),
+          (n[45] = X),
+          (n[46] = re))
+        : (re = n[46]);
       var oe;
+      n[47] !== re || n[48] !== Y
+        ? ((oe = u.jsx("div", babelHelpers.extends({}, Y, { children: re }))),
+          (n[47] = re),
+          (n[48] = Y),
+          (n[49] = oe))
+        : (oe = n[49]);
+      var ae;
+      n[50] !== w || n[51] !== A || n[52] !== F || n[53] !== oe
+        ? ((ae = u.jsxs(
+            "div",
+            babelHelpers.extends({}, w, { children: [A, F, oe] }),
+          )),
+          (n[50] = w),
+          (n[51] = A),
+          (n[52] = F),
+          (n[53] = oe),
+          (n[54] = ae))
+        : (ae = n[54]);
+      var ie;
       return (
-        n[53] !== N ||
-        n[54] !== F ||
-        n[55] !== O ||
-        n[56] !== B ||
-        n[57] !== W ||
-        n[58] !== q ||
-        n[59] !== U ||
-        n[60] !== V ||
-        n[61] !== H ||
-        n[62] !== G ||
-        n[63] !== re
-          ? ((oe = u.jsx(N, {
-              value: F,
-              valueText: O,
-              min: B,
-              max: W,
-              smallSkip: q,
-              largeSkip: U,
-              onChange: V,
-              onCommit: H,
-              disabled: G,
-              children: re,
+        n[55] !== M ||
+        n[56] !== O ||
+        n[57] !== B ||
+        n[58] !== W ||
+        n[59] !== q ||
+        n[60] !== U ||
+        n[61] !== V ||
+        n[62] !== H ||
+        n[63] !== G ||
+        n[64] !== z ||
+        n[65] !== j ||
+        n[66] !== ae
+          ? ((ie = u.jsx(M, {
+              ariaLabel: O,
+              value: B,
+              valueText: W,
+              min: q,
+              max: U,
+              smallSkip: V,
+              largeSkip: H,
+              onChange: G,
+              onCommit: z,
+              disabled: j,
+              children: ae,
             })),
-            (n[53] = N),
-            (n[54] = F),
-            (n[55] = O),
-            (n[56] = B),
-            (n[57] = W),
-            (n[58] = q),
-            (n[59] = U),
-            (n[60] = V),
-            (n[61] = H),
-            (n[62] = G),
-            (n[63] = re),
-            (n[64] = oe))
-          : (oe = n[64]),
-        oe
+            (n[55] = M),
+            (n[56] = O),
+            (n[57] = B),
+            (n[58] = W),
+            (n[59] = q),
+            (n[60] = U),
+            (n[61] = V),
+            (n[62] = H),
+            (n[63] = G),
+            (n[64] = z),
+            (n[65] = j),
+            (n[66] = ae),
+            (n[67] = ie))
+          : (ie = n[67]),
+        ie
       );
     }
     function f(e) {

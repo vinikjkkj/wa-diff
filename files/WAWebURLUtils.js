@@ -12,17 +12,14 @@ __d(
     "WAWebPonyfillsUrlSearchParams",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLValidSchemes",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s =
         /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/,
       u = "https://l.wl.co/l",
-      c = "AIzaSyC2fN-v_A00tijlZwyrKQBfpKW9t10DgXc",
-      d = "AIzaSyBsgqekZoWfPW9nHXH-d2XRNSHW11GPibg",
-      m = r("justknobx")._("753") ? d : c,
-      p = {
+      c = "AIzaSyBsgqekZoWfPW9nHXH-d2XRNSHW11GPibg",
+      d = {
         URL_REGEX: s,
         build: function (t, n) {
           var e = new (r("WAWebPonyfillsUrlSearchParams"))(),
@@ -53,7 +50,7 @@ __d(
         hostname: o("WAMemoizeCache").memoizeWithArgs(
           function (e) {
             try {
-              var t = new URL(p.isHttp(e) ? e : "http://" + e);
+              var t = new URL(d.isHttp(e) ? e : "http://" + e);
               return t.hostname;
             } catch (e) {
               return "";
@@ -102,7 +99,7 @@ __d(
             { type: e },
           );
         },
-        GSM_API_KEY: m,
+        GSM_API_KEY: c,
         GSM_API_KEY_SECRET: "TkKfl2pAWhxFWBWx7_4NI8DMuMs=",
         gsmURL: function (t, n) {
           var e = n.replace(/\-/g, "+").replace(/_/g, "/"),
@@ -119,7 +116,7 @@ __d(
         thumbToCSSURL: function (t) {
           var e;
           return (
-            p.isHttp(t) || t.startsWith("data:")
+            d.isHttp(t) || t.startsWith("data:")
               ? (e = t)
               : (e = "data:image/jpeg;base64," + t),
             'url("' + e + '")'
@@ -163,8 +160,8 @@ __d(
           return o === "" ? i : i + "&" + o;
         },
       },
-      _ = p;
-    l.default = _;
+      m = d;
+    l.default = m;
   },
   98,
 );

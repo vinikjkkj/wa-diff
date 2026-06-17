@@ -159,7 +159,15 @@ __d(
     function d(e, t, n, r) {
       var a,
         i = (a = t.editedMessage) == null ? void 0 : a.richResponseMessage;
-      return i ? p(e, t, n, o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE, r) : null;
+      return i
+        ? p({
+            baseMessage: e,
+            editMsgType: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
+            messageContextInfo: r,
+            msgContext: n,
+            protocolMessage: t,
+          })
+        : null;
     }
     function m(e, t, n) {
       var r,
@@ -172,36 +180,47 @@ __d(
               : a.videoMessage;
       return !i || !o("WAWebBotBaseGating").isLoadingMediaMessagesEnabled(e)
         ? null
-        : p(e, t, n, o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA);
+        : p({
+            baseMessage: e,
+            editMsgType: o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA,
+            msgContext: n,
+            protocolMessage: t,
+          });
     }
-    function p(e, t, n, a, i) {
-      var l = o(
-          "WAWebE2EProtoUtils",
-        ).translateRegularMessageKeyToLocalReference(t.key, e),
-        s = babelHelpers.extends(
+    function p(e) {
+      var t = e.baseMessage,
+        n = e.editMsgType,
+        a = e.messageContextInfo,
+        i = e.msgContext,
+        l = e.protocolMessage,
+        s = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
+          l.key,
+          t,
+        ),
+        u = babelHelpers.extends(
           {},
           o("WAWebE2EProtoParser").parseMsgProto({
             messageProtobuf: babelHelpers.extends(
               {},
-              r("WANullthrows")(t.editedMessage),
-              i ? { messageContextInfo: i } : {},
+              r("WANullthrows")(l.editedMessage),
+              a ? { messageContextInfo: a } : {},
             ),
-            message: e,
-            msgContext: n,
+            message: t,
+            msgContext: i,
           }),
           {
             type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
             kind: o("WAWebMsgType").MsgKind.Protocol,
             subtype: "message_edit",
-            editMsgType: a,
+            editMsgType: n,
             latestEditSenderTimestampMs: o(
               "WALongInt",
-            ).maybeNumberOrThrowIfTooLarge(t.timestampMs),
-            latestEditMsgKey: e.id,
-            protocolMessageKey: l,
+            ).maybeNumberOrThrowIfTooLarge(l.timestampMs),
+            latestEditMsgKey: t.id,
+            protocolMessageKey: s,
           },
         );
-      return { msgData: s, contextInfo: null };
+      return { msgData: u, contextInfo: null };
     }
     l.default = s;
   },

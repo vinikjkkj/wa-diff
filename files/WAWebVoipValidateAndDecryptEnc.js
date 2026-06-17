@@ -8,6 +8,7 @@ __d(
     "WALogger",
     "WANullthrows",
     "WAWebAdvSignatureApi",
+    "WAWebAppTracker",
     "WAWebBackendJobs.flow",
     "WAWebHandleMsgTypes.flow",
     "WAWebProtobufsE2E.pb",
@@ -80,6 +81,9 @@ __d(
                   ])),
               );
             }
+            o("WAWebAppTracker").AppTracker.mark(
+              o("WAWebAppTracker").AppTrackerType.VoipOfferDecrypt,
+            );
             var _ = yield f(l, a),
               g = _.decrypted,
               h = _.result;

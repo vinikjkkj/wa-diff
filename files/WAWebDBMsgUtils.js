@@ -2,7 +2,6 @@ __d(
   "WAWebDBMsgUtils",
   [
     "$InternalEnum",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
@@ -12,6 +11,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebWid",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({ Message: 1, MessageEdit: 2 });
@@ -77,7 +77,7 @@ __d(
             }));
           var a = n.map(function (e) {
               return o("WAWebProtobufMsgKeyUtils")
-                .protobufToMsgKey(r("WANullthrows")(e.key))
+                .protobufToMsgKey(r("nullthrows")(e.key))
                 .toString();
             }),
             i = yield o("WAWebSchemaMessage").getMessageTable().bulkGet(a, !1);

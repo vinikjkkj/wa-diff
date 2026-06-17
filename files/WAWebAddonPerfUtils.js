@@ -2,13 +2,13 @@ __d(
   "WAWebAddonPerfUtils",
   [
     "$InternalEnum",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebAddonConstants",
     "WAWebAddonDBTable",
     "WAWebQplFlowWrapper",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
+    "nullthrows",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -171,7 +171,7 @@ __d(
                 break;
             }
             var c = o("WAWebQplFlowWrapper").QPL.markerStart(
-              r("WANullthrows")(l),
+              r("nullthrows")(l),
               { annotations: i },
             );
             return {

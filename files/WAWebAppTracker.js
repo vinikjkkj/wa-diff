@@ -51,6 +51,14 @@ __d(
       "ClosingBrowserTab",
       "BrowserTabHidden",
       "VoipSession",
+      "VoipCameraPrewarm",
+      "VoipOfferDecrypt",
+      "VoipUiWindowCreate",
+      "VoipSctpPrewarm",
+      "VoipThreadPoolSetup",
+      "VoipCallsTab",
+      "CpuPressureCritical",
+      "MemPressureHigh",
     ]);
     function s(e, t, n) {
       Object.prototype.hasOwnProperty.call(e, "appContext") ||

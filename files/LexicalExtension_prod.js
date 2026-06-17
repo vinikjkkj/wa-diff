@@ -1714,7 +1714,7 @@ __d(
                     if (o !== n) {
                       if (!s.cascadeSelection.peek()) return !1;
                       return (
-                        !!o.readPending(function () {
+                        !!o.read("pending", function () {
                           var n = require("Lexical").$getSelection();
                           return (
                             require("Lexical").$isRangeSelection(n) &&

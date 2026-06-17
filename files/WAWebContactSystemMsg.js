@@ -130,7 +130,7 @@ __d(
       });
     }
     function f(e, t) {
-      var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
+      var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
         a = o("WAWebUserPrefsMeUser").getMeUser(),
         i = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e),
@@ -142,7 +142,7 @@ __d(
           id: i,
           t: o("WATimeUtils").unixTime(),
           from: e,
-          to: e.isLid() && n != null ? n : a,
+          to: e.isLid() ? n : a,
         },
         t,
       );
