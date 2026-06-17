@@ -26,7 +26,11 @@ __d(
               i = r("WAWebL10N").getLocale(),
               l = yield o(
                 "WAWebGetNewsletterEnforcementAlertsJob",
-              ).getNewsletterEnforcementAlerts(a, i, n);
+              ).getNewsletterEnforcementAlerts({
+                locale: i,
+                newsletterJid: a,
+                priority: n,
+              });
             if (l == null) return;
             var s = l.enforcementData,
               u = l.msgModelMap;

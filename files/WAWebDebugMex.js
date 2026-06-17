@@ -20,7 +20,7 @@ __d(
                   users: [
                     {
                       jid: o("WAWebUserPrefsMeUser")
-                        .getMeDevicePnOrThrow_DO_NOT_USE()
+                        .getMeDeviceLidOrThrow()
                         .toJid(),
                     },
                   ],

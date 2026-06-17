@@ -106,6 +106,7 @@ __d(
               isLid: [39, e.TYPES.BOOLEAN],
               isPq: [82, e.TYPES.BOOLEAN],
               isPremium: [69, e.TYPES.BOOLEAN],
+              isScheduled: [94, e.TYPES.BOOLEAN],
               isViewOnce: [22, e.TYPES.BOOLEAN],
               isWhatsapiBuild: [75, e.TYPES.BOOLEAN],
               localAddressingMode: [

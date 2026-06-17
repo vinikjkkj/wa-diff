@@ -89,11 +89,6 @@ __d(
                     ? 1
                     : 0
                   : -1,
-                mh_default_async_await_wa: r("gkx")("17532")
-                  ? r("gkx")("8891")
-                    ? 1
-                    : 0
-                  : -1,
               },
             }),
               o("OneTraceQPLLogger").logQPL(s(e), e));

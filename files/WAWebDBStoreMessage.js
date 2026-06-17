@@ -276,11 +276,10 @@ __d(
           : void 0;
       }
       var l = (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
-        s = r("WAWebMsgKey").fromString(e.id);
-      return s.fromMe ||
-        (e.ack != null &&
-          e.ack >= o("WAWebAck").ACK.READ &&
-          e.scheduledTimestampS == null)
+        s = r("WAWebMsgKey").fromString(e.id),
+        u = e.scheduledTimestampS != null;
+      return (s.fromMe && !u) ||
+        (e.ack != null && e.ack >= o("WAWebAck").ACK.READ && !u)
         ? l + a
         : (n = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e)) != null
           ? n

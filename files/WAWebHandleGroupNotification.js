@@ -32,6 +32,7 @@ __d(
     "WAWebUsernameGatingUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
@@ -435,22 +436,36 @@ __d(
     var D = new (r("WADeprecatedWapParser"))(
       "groupNotificationParser",
       function (e) {
-        (e.assertTag("notification"),
-          e.hasAttr("to") &&
-            e.assertAttr(
-              "to",
-              o("WAWebUserPrefsMeUser")
-                .getMeDevicePnOrThrow_DO_NOT_USE()
-                .toJid(),
-            ));
-        var t = o("WAWebJidToWid").groupJidToWid(e.attrGroupJid("from")),
-          n = e.hasAttr("participant")
+        if ((e.assertTag("notification"), e.hasAttr("to"))) {
+          var t,
+            n = e.attrString("to"),
+            a = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().toJid(),
+            i =
+              (t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
+                ? void 0
+                : t.toJid(),
+            l = n === a,
+            s = !r("isStringNullOrEmpty")(i) && n === i;
+          !l &&
+            !s &&
+            e.throw(
+              'to have "to" matching meLid ("' +
+                a +
+                '") or mePn ("' +
+                (i != null ? i : "") +
+                '"), but instead has "' +
+                n +
+                '"',
+            );
+        }
+        var u = o("WAWebJidToWid").groupJidToWid(e.attrGroupJid("from")),
+          c = e.hasAttr("participant")
             ? o("WAWebJidToWid").userJidToUserWid(e.attrUserJid("participant"))
             : null,
-          a = null;
+          d = null;
         try {
-          var i = e.maybeAttrPhoneUserJid("participant_pn");
-          a = i != null ? o("WAWebJidToWid").userJidToUserWid(i) : null;
+          var p = e.maybeAttrPhoneUserJid("participant_pn");
+          d = p != null ? o("WAWebJidToWid").userJidToUserWid(p) : null;
         } catch (e) {
           o("WALogger").ERROR(
             m ||
@@ -461,80 +476,80 @@ __d(
             r("getErrorSafe")(e).toString(),
           );
         }
-        var l = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-          s = e.attrTime("t"),
-          u = e.hasAttr("addressing_mode")
+        var _ = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
+          f = e.attrTime("t"),
+          g = e.hasAttr("addressing_mode")
             ? e.attrString("addressing_mode") === "lid"
             : !1,
-          c =
-            e.hasAttr("participant_username") && l
+          h =
+            e.hasAttr("participant_username") && _
               ? e.attrString("participant_username")
               : null,
-          d =
-            e.hasAttr("participant_country_code") && l
+          C =
+            e.hasAttr("participant_country_code") && _
               ? o("WAWebAsISOCountryCode").asISOCountryCode(
                   e.attrString("participant_country_code"),
                 )
               : null;
-        function p(e) {
+        function v(e) {
           return {
             jid: e.hasAttr("jid")
               ? o("WAWebJidToWid").groupJidToWid(e.attrGroupJid("jid"))
               : void 0,
           };
         }
-        var _,
-          f = e
-            .mapChildren(function (a) {
-              var i,
-                c = a.tag();
-              switch (c) {
+        var D,
+          x = e
+            .mapChildren(function (t) {
+              var n,
+                a = t.tag();
+              switch (a) {
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.CREATE:
-                  return T(t, a, n);
+                  return T(u, t, c);
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.ADD:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
-                    participants: y(t, a, c),
-                    reason: a.hasAttr("reason")
-                      ? S(a.attrString("reason"))
+                    participants: y(u, t, a),
+                    reason: t.hasAttr("reason")
+                      ? S(t.attrString("reason"))
                       : null,
-                    isLidAddressingMode: u,
+                    isLidAddressingMode: g,
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.DELETE:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.DELETE,
-                    reason: a.hasAttr("reason")
-                      ? L(a.attrString("reason"))
+                    reason: t.hasAttr("reason")
+                      ? L(t.attrString("reason"))
                       : null,
-                    groupDatas: [{ id: t, subject: "" }],
+                    groupDatas: [{ id: u, subject: "" }],
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.REMOVE:
                   return {
                     actionType: o("WAWebHandleGroupNotificationConst")
                       .GROUP_NOTIFICATION_TAG.REMOVE,
-                    participants: y(t, a, c),
-                    reason: a.hasAttr("reason")
-                      ? R(a.attrString("reason"))
+                    participants: y(u, t, a),
+                    reason: t.hasAttr("reason")
+                      ? R(t.attrString("reason"))
                       : null,
-                    isLidAddressingMode: u,
+                    isLidAddressingMode: g,
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.PROMOTE:
                   return {
                     actionType: o("WAWebHandleGroupNotificationConst")
                       .GROUP_NOTIFICATION_TAG.PROMOTE,
-                    participants: y(t, a, c),
+                    participants: y(u, t, a),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.DEMOTE:
                   return {
                     actionType: o("WAWebHandleGroupNotificationConst")
                       .GROUP_NOTIFICATION_TAG.DEMOTE,
-                    participants: y(t, a, c),
+                    participants: y(u, t, a),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.LINKED_GROUP_PROMOTE:
@@ -542,9 +557,9 @@ __d(
                     {
                       actionType: o("WAWebHandleGroupNotificationConst")
                         .GROUP_NOTIFICATION_TAG.LINKED_GROUP_PROMOTE,
-                      participants: y(t, a, c),
+                      participants: y(u, t, a),
                     },
-                    p(a),
+                    v(t),
                   );
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.LINKED_GROUP_DEMOTE:
@@ -552,49 +567,49 @@ __d(
                     {
                       actionType: o("WAWebHandleGroupNotificationConst")
                         .GROUP_NOTIFICATION_TAG.LINKED_GROUP_DEMOTE,
-                      participants: y(t, a, c),
+                      participants: y(u, t, a),
                     },
-                    p(a),
+                    v(t),
                   );
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.MODIFY:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.MODIFY,
-                    participants: y(t, a, c),
+                    participants: y(u, t, a),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.SUBJECT:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.SUBJECT,
-                    subject: a.attrString("subject"),
-                    s_o: a.hasAttr("s_o")
+                    subject: t.attrString("subject"),
+                    s_o: t.hasAttr("s_o")
                       ? o("WAWebJidToWid").userJidToUserWid(
-                          a.attrUserJid("s_o"),
+                          t.attrUserJid("s_o"),
                         )
                       : null,
-                    subjectOwnerPn: a.hasAttr("s_o_pn")
+                    subjectOwnerPn: t.hasAttr("s_o_pn")
                       ? o("WAWebJidToWid").userJidToUserWid(
-                          a.attrUserJid("s_o_pn"),
+                          t.attrUserJid("s_o_pn"),
                         )
                       : null,
-                    subjectOwnerUsername: a.maybeAttrString("s_o_username"),
-                    s_t: a.maybeAttrTime("s_t"),
+                    subjectOwnerUsername: t.maybeAttrString("s_o_username"),
+                    s_t: t.maybeAttrTime("s_t"),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.DESC:
-                  return a.hasChild("delete")
+                  return t.hasChild("delete")
                     ? {
                         actionType:
                           o("WAWebGroupType").GROUP_ACTIONS.DESC_REMOVE,
-                        descId: a.attrString("id"),
+                        descId: t.attrString("id"),
                       }
                     : {
                         actionType: o("WAWebGroupType").GROUP_ACTIONS.DESC_ADD,
-                        descId: a.attrString("id"),
-                        desc: a.hasChild("body")
-                          ? a.child("body").contentString()
+                        descId: t.attrString("id"),
+                        desc: t.hasChild("body")
+                          ? t.child("body").contentString()
                           : null,
-                        descTime: s,
+                        descTime: f,
                       };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.SUSPENDED:
@@ -614,7 +629,7 @@ __d(
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.RESTRICT,
                     value: !0,
                     threshold:
-                      (i = a.maybeAttrString("threshold")) != null ? i : void 0,
+                      (n = t.maybeAttrString("threshold")) != null ? n : void 0,
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.UNLOCKED:
@@ -650,7 +665,7 @@ __d(
                   .GROUP_NOTIFICATION_TAG.INVITE:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.INVITE_CODE,
-                    code: a.attrString("code"),
+                    code: t.attrString("code"),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.EPHEMERAL:
@@ -659,15 +674,15 @@ __d(
                   )
                     ? {
                         actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
-                        duration: a.attrInt("expiration"),
-                        trigger: a.hasAttr("trigger")
-                          ? a.attrInt("trigger")
+                        duration: t.attrInt("expiration"),
+                        trigger: t.hasAttr("trigger")
+                          ? t.attrInt("trigger")
                           : void 0,
-                        initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(n),
+                        initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(c),
                       }
                     : {
                         actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
-                        duration: a.attrInt("expiration"),
+                        duration: t.attrInt("expiration"),
                       };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.NOT_EPHEMERAL:
@@ -679,7 +694,7 @@ __d(
                   .GROUP_NOTIFICATION_TAG.REVOKE_INVITE:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE,
-                    participants: a.mapChildrenWithTag(
+                    participants: t.mapChildrenWithTag(
                       "participant",
                       function (e) {
                         return {
@@ -701,13 +716,13 @@ __d(
                   .GROUP_NOTIFICATION_TAG.GROWTH_LOCKED:
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED,
-                    expiration: a.attrInt("expiration"),
-                    type: a.attrString("type"),
+                    expiration: t.attrInt("expiration"),
+                    type: t.attrString("type"),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.LINK: {
-                  var d = a.attrString("link_type"),
-                    m = {
+                  var i = t.attrString("link_type"),
+                    l = {
                       sub_group:
                         o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_LINK,
                       parent_group:
@@ -716,8 +731,8 @@ __d(
                         o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_LINK,
                     };
                   return {
-                    actionType: m[d],
-                    groupDatas: a.mapChildrenWithTag("group", function (e) {
+                    actionType: l[i],
+                    groupDatas: t.mapChildrenWithTag("group", function (e) {
                       return {
                         id: o("WAWebJidToWid").groupJidToWid(
                           e.attrGroupJid("jid"),
@@ -725,7 +740,7 @@ __d(
                         subject: e.attrString("subject"),
                         subjectTime: e.attrInt("s_t"),
                         hiddenSubgroup:
-                          d !== "parent_group"
+                          i !== "parent_group"
                             ? e.hasChild("hidden_group")
                             : void 0,
                       };
@@ -734,37 +749,37 @@ __d(
                 }
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.UNLINK:
-                  return I(a);
+                  return I(t);
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.MEMBERSHIP_APPROVAL_MODE: {
-                  var f;
+                  var s;
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .MEMBERSHIP_APPROVAL_MODE,
                     value:
-                      ((f = a.child("group_join")) == null
+                      ((s = t.child("group_join")) == null
                         ? void 0
-                        : f.attrString("state")) === "on",
-                    triggered: a.hasAttr("triggered")
-                      ? a.attrString("triggered")
+                        : s.attrString("state")) === "on",
+                    triggered: t.hasAttr("triggered")
+                      ? t.attrString("triggered")
                       : void 0,
                   };
                 }
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.MEMBERSHIP_APPROVAL_REQUEST: {
-                  var g;
+                  var d;
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .MEMBERSHIP_APPROVAL_REQUEST,
                     requestMethod:
-                      (g = E[a.attrString("request_method")]) != null
-                        ? g
+                      (d = E[t.attrString("request_method")]) != null
+                        ? d
                         : o("WAWebRequestMethodType").RequestMethod.InviteLink,
-                    parentGroupId: a.hasAttr("parent_group_jid")
+                    parentGroupId: t.hasAttr("parent_group_jid")
                       ? o("WAWebJidToWid").groupJidToWid(
-                          a.attrGroupJid("parent_group_jid"),
+                          t.attrGroupJid("parent_group_jid"),
                         )
                       : void 0,
                   };
@@ -776,9 +791,9 @@ __d(
                       o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS,
                     shouldSkipGenMsg: !1,
                     value: !0,
-                    author: n,
-                    triggered: a.hasAttr("triggered")
-                      ? a.attrString("triggered")
+                    author: c,
+                    triggered: t.hasAttr("triggered")
+                      ? t.attrString("triggered")
                       : void 0,
                   };
                 case o("WAWebHandleGroupNotificationConst")
@@ -788,9 +803,9 @@ __d(
                       o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS,
                     shouldSkipGenMsg: !1,
                     value: !1,
-                    author: n,
-                    triggered: a.hasAttr("triggered")
-                      ? a.attrString("triggered")
+                    author: c,
+                    triggered: t.hasAttr("triggered")
+                      ? t.attrString("triggered")
                       : void 0,
                   };
                 case o("WAWebHandleGroupNotificationConst")
@@ -799,32 +814,32 @@ __d(
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECIEVED,
                     shouldSkipGenMsg: !0,
-                    value: s,
+                    value: f,
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.CREATED_MEMBERSHIP_REQUESTS: {
-                  var h;
+                  var m;
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .CREATED_MEMBERSHIP_REQUESTS,
                     requestMethod:
-                      (h = E[a.attrString("request_method")]) != null
-                        ? h
+                      (m = E[t.attrString("request_method")]) != null
+                        ? m
                         : o("WAWebRequestMethodType").RequestMethod.InviteLink,
-                    parentGroupId: a.hasAttr("parent_group_jid")
+                    parentGroupId: t.hasAttr("parent_group_jid")
                       ? o("WAWebJidToWid").groupJidToWid(
-                          a.attrGroupJid("parent_group_jid"),
+                          t.attrGroupJid("parent_group_jid"),
                         )
                       : void 0,
-                    requests: a.hasChildren()
-                      ? a.mapChildrenWithTag("requested_user", function (e) {
+                    requests: t.hasChildren()
+                      ? t.mapChildrenWithTag("requested_user", function (e) {
                           return {
                             wid: o("WAWebJidToWid").userJidToUserWid(
                               e.attrUserJid("jid"),
                             ),
                             username:
-                              l && e.hasAttr("username")
+                              _ && e.hasAttr("username")
                                 ? e.attrString("username")
                                 : void 0,
                             phoneNumber: e.hasAttr("phone_number")
@@ -834,9 +849,9 @@ __d(
                               : void 0,
                           };
                         })
-                      : [{ wid: r("WANullthrows")(n) }],
+                      : [{ wid: r("WANullthrows")(c) }],
                     skipGenMsg:
-                      a.maybeAttrString("suppress_sys_msg") === "true",
+                      t.maybeAttrString("suppress_sys_msg") === "true",
                   };
                 }
                 case o("WAWebHandleGroupNotificationConst")
@@ -845,7 +860,7 @@ __d(
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .REVOKED_MEMBERSHIP_REQUESTS,
-                    requests: a.mapChildrenWithTag("participant", function (e) {
+                    requests: t.mapChildrenWithTag("participant", function (e) {
                       return o("WAWebJidToWid").userJidToUserWid(
                         e.attrUserJid("jid"),
                       );
@@ -875,9 +890,9 @@ __d(
                       actionType:
                         o("WAWebGroupType").GROUP_ACTIONS
                           .CREATED_SUBGROUP_SUGGESTION,
-                      parentGroupId: t,
+                      parentGroupId: u,
                     },
-                    b(a),
+                    b(t),
                   );
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.REVOKED_SUB_GROUP_SUGGESTIONS:
@@ -885,8 +900,8 @@ __d(
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .REVOKED_SUB_GROUP_SUGGESTIONS,
-                    parentGroupId: t,
-                    subgroupSuggestions: a.mapChildrenWithTag(
+                    parentGroupId: u,
+                    subgroupSuggestions: t.mapChildrenWithTag(
                       "sub_group_suggestion",
                       function (e) {
                         return {
@@ -909,7 +924,7 @@ __d(
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .SUBGROUP_SUGGESTIONS_CHANGE_NUMBER,
-                    subgroupSuggestions: a.mapChildrenWithTag(
+                    subgroupSuggestions: t.mapChildrenWithTag(
                       "sub_group_suggestion",
                       function (e) {
                         return o("WAWebJidToWid").groupJidToWid(
@@ -917,12 +932,12 @@ __d(
                         );
                       },
                     ),
-                    parentGroupId: t,
+                    parentGroupId: u,
                     oldOwner: o("WAWebJidToWid").userJidToUserWid(
                       e.attrUserJid("participant"),
                     ),
                     newOwner: o("WAWebJidToWid").userJidToUserWid(
-                      a.attrUserJid("jid"),
+                      t.attrUserJid("jid"),
                     ),
                   };
                 case o("WAWebHandleGroupNotificationConst")
@@ -932,7 +947,7 @@ __d(
                       o("WAWebGroupType").GROUP_ACTIONS.MEMBER_ADD_MODE,
                     memberAddMode: o(
                       "WAWebSchemaGroupMetadata",
-                    ).MemberAddMode.cast(a.contentString()),
+                    ).MemberAddMode.cast(t.contentString()),
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.AUTO_ADD_DISABLED:
@@ -950,27 +965,27 @@ __d(
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.MISSING_PARTICIPANT_IDENTIFICATION: {
-                  _ = !0;
+                  D = !0;
                   return;
                 }
                 default:
-                  throw e.createParseError("Unrecognized group action " + c);
+                  throw e.createParseError("Unrecognized group action " + a);
               }
             })
             .filter(Boolean);
         return {
           externalId: e.attrString("id"),
-          chatId: t,
-          isLidAddressingMode: u,
-          author: n,
-          authorPhoneNumber: a,
-          authorUsername: c,
-          authorUsernameCountryCode: d,
+          chatId: u,
+          isLidAddressingMode: g,
+          author: c,
+          authorPhoneNumber: d,
+          authorUsername: h,
+          authorUsernameCountryCode: C,
           ts: e.attrTime("t"),
           pushname: e.maybeAttrString("notify"),
           offline: e.maybeAttrString("offline"),
-          actions: f,
-          hasIncompleteParticipantInformation: l && _ === !0,
+          actions: x,
+          hasIncompleteParticipantInformation: _ && D === !0,
         };
       },
     );

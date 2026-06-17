@@ -17,56 +17,57 @@ __d(
       s = r("requireDeferred")("WAWebEnforcementStatusMsgModelUtils").__setRef(
         "WAWebGetNewsletterEnforcementAlertsJob",
       );
-    function u(t, r, a) {
-      return (
-        a === void 0 &&
-          (a = o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION),
-        o("WAWebOrchestratorNonPersistedJob")
-          .createNonPersistedJob(
-            "getNewsletterEnforcementAlerts",
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var a = yield o("WAWebSchemaNewsletterMetadata")
-                .getNewsletterMetadataTable()
-                .get(t);
-              if (a != null) {
-                var i = yield o(
-                    "WAWebMexFetchNewsletterEnforcementsJob",
-                  ).mexFetchNewsletterEnforcements(t, r),
-                  l = m(i),
-                  u = l.msgIds,
-                  c = l.statusIds,
-                  d = yield (e || (e = n("Promise"))).all([
-                    o("WAWebSuspendInformDataModelUtils").populateMsgModels(
-                      Array.from(u),
-                      t,
-                    ),
-                    s.load().then(function (e) {
-                      var n = e.populateStatusMsgModelsForEnforcement;
-                      return n(c, t);
-                    }),
-                  ]),
-                  p = d[0],
-                  _ = d[1];
-                return {
-                  enforcementData:
-                    i != null
-                      ? o(
-                          "WAWebNewsletterEnforcementAlertModelUtils",
-                        ).convertNewsletterBaseEnforcementTypeToNewsletterAlert(
-                          i,
-                          p,
-                          _,
-                          t,
-                        )
-                      : [],
-                  msgModelMap: p,
-                };
-              }
-            }),
-            { priority: a },
-          )
-          .waitUntilCompleted()
-      );
+    function u(t) {
+      var r = t.locale,
+        a = t.newsletterJid,
+        i = t.priority,
+        l =
+          i === void 0 ? o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION : i;
+      return o("WAWebOrchestratorNonPersistedJob")
+        .createNonPersistedJob(
+          "getNewsletterEnforcementAlerts",
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = yield o("WAWebSchemaNewsletterMetadata")
+              .getNewsletterMetadataTable()
+              .get(a);
+            if (t != null) {
+              var i = yield o(
+                  "WAWebMexFetchNewsletterEnforcementsJob",
+                ).mexFetchNewsletterEnforcements(a, r),
+                l = m(i),
+                u = l.msgIds,
+                c = l.statusIds,
+                d = yield (e || (e = n("Promise"))).all([
+                  o("WAWebSuspendInformDataModelUtils").populateMsgModels(
+                    Array.from(u),
+                    a,
+                  ),
+                  s.load().then(function (e) {
+                    var t = e.populateStatusMsgModelsForEnforcement;
+                    return t(c, a);
+                  }),
+                ]),
+                p = d[0],
+                _ = d[1];
+              return {
+                enforcementData:
+                  i != null
+                    ? o(
+                        "WAWebNewsletterEnforcementAlertModelUtils",
+                      ).convertNewsletterBaseEnforcementTypeToNewsletterAlert(
+                        i,
+                        p,
+                        _,
+                        a,
+                      )
+                    : [],
+                msgModelMap: p,
+              };
+            }
+          }),
+          { priority: l },
+        )
+        .waitUntilCompleted();
     }
     function c(e) {
       var t = [],

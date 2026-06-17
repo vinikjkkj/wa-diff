@@ -11,7 +11,6 @@ __d(
     "WAWebPonyfillsFetch",
     "WAWebURLUtils",
     "WAWebUserNoticeErrorWamEvent",
-    "WAWebUserPrefsMeUser",
     "WAWebWamEnumUserNoticeErrorEvent",
     "asyncToGeneratorRuntime",
     "err",
@@ -37,19 +36,19 @@ __d(
           if (o("isNonZeroNumber").isNonZeroNumber(e)) {
             var t,
               a,
-              i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              l = o("WAWebCountryCodeUtils").pnToCountryCodeString(i.user),
-              s = yield o("WAWebBackendApi").frontendSendAndReceive(
+              i = yield o("WAWebCountryCodeUtils").getMyCountryCode(),
+              l = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "getDeviceInfo",
                 void 0,
               ),
-              u = r("WAWebURLUtils").build(m, {
+              s = {
                 id: e,
-                lg: (t = s.lg) != null ? t : _,
-                lc: (a = s.lc) != null ? a : f,
-                cc: l,
+                lg: (t = l.lg) != null ? t : _,
+                lc: (a = l.lc) != null ? a : f,
                 platform: o("WAWebConnModel").Conn.isSMB ? "smbweb" : "web",
-              });
+              };
+            i != null && (s.cc = i);
+            var u = r("WAWebURLUtils").build(m, s);
             return y(u, e);
           }
           return (d || (d = n("Promise"))).resolve({ disclosureId: e });

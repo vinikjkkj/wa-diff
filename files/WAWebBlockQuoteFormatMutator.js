@@ -4,11 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = /(?:^)\>(\s(?! +)[^\n]+(?:$)(?:\n|$))/gm,
-      c = /(?:^)\>(\s(?! +)[^\n]*(?:$)(?:\n|$))/gm,
-      d = r("WAWebCreateRegexMutator")(u, 1),
-      m = r("WAWebCreateRegexMutator")(c, 1),
-      p = (function (e) {
+      u = /(?:^)\>([^\S\n](?! +)[^\n]*(?:$)(?:\n|$))/gm,
+      c = r("WAWebCreateRegexMutator")(u, 1),
+      d = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -32,15 +30,15 @@ __d(
           }),
           t
         );
-      })(d);
-    p.unformatDecorations = { pre: ">" };
-    var _ = (function (e) {
+      })(c);
+    d.unformatDecorations = { pre: ">" };
+    var m = (function (e) {
       function t() {
         return e.apply(this, arguments) || this;
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(m);
-    ((l.BlockQuote = p), (l.BlockQuoteWithEmpty = _));
+    })(c);
+    ((l.BlockQuote = d), (l.BlockQuoteWithEmpty = m));
   },
   98,
 );

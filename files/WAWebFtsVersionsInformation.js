@@ -5,10 +5,10 @@ __d(
     "WAFtsDeprecationIndexer",
     "WAFtsMultiLangTokenizer",
     "WAFtsV3Indexer",
-    "WANullthrows",
     "WAWebFtsV3IndexTableAdapter",
     "WAWebFtsV3MessageSource",
     "WAWebFtsV3Signaller",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -23,7 +23,7 @@ __d(
           3: function (a) {
             var t = new (r("WAFtsV3Indexer"))(
               a,
-              r("WANullthrows")(o),
+              r("nullthrows")(o),
               new (r("WAWebFtsV3IndexTableAdapter"))(),
             );
             return (
@@ -34,7 +34,7 @@ __d(
           3.1: function (a) {
             var t = new (r("WAFtsV3Indexer"))(
               a,
-              r("WANullthrows")(o),
+              r("nullthrows")(o),
               new (r("WAWebFtsV3IndexTableAdapter"))(),
               6,
             );
@@ -46,7 +46,7 @@ __d(
           3.2: function (a) {
             var t = new (r("WAFtsV3Indexer"))(
               a,
-              r("WANullthrows")(o),
+              r("nullthrows")(o),
               new (r("WAWebFtsV3IndexTableAdapter"))(),
               6,
             );

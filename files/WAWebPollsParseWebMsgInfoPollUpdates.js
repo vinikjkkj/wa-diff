@@ -46,52 +46,48 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.isFromCag,
-            a = t.parsedWebMsgInfo,
-            i = t.webMsgInfo;
+          var n = t.parsedWebMsgInfo,
+            a = t.webMsgInfo;
           try {
-            var l;
-            if (i == null || i.pollUpdates == null) return [];
+            var i;
+            if (a == null || a.pollUpdates == null) return [];
             if (
-              a == null ||
-              a.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION
+              n == null ||
+              n.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION
             )
               return [];
-            var c = a,
-              d = yield o(
+            var l = n,
+              c = yield o(
                 "WAWebPollsCreateOptionLocalIdMap",
-              ).createOptionLocalIdMap(c.pollOptions),
-              m = (l = u(i.messageAddOns)) != null ? l : i.pollUpdates;
-            return r("compactMap")(m, function (t) {
+              ).createOptionLocalIdMap(l.pollOptions),
+              d = (i = u(a.messageAddOns)) != null ? i : a.pollUpdates;
+            return r("compactMap")(d, function (t) {
               try {
-                var a,
-                  i = (a = r("WANullthrows"))(t.pollUpdateMessageKey),
-                  l = a(t.vote),
-                  s = a(
-                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
-                      isFromCag: n,
-                      key: i,
-                    }),
+                var n,
+                  a = (n = r("WANullthrows"))(t.pollUpdateMessageKey),
+                  i = n(t.vote),
+                  s = n(
+                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({ key: a }),
                   ),
                   u = s.msgKey,
-                  m = s.sender;
+                  d = s.sender;
                 return o("WAWebPollsProtobufConversion").voteFromProtobuf({
-                  voteProtobuf: l,
+                  voteProtobuf: i,
                   pollVoteMsgKey: u,
-                  parentMsgKey: c.id,
-                  sender: m,
+                  parentMsgKey: l.id,
+                  sender: d,
                   senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                    a(t.senderTimestampMs),
+                    n(t.senderTimestampMs),
                   ),
                   t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
                     t.serverTimestampMs,
                   ),
-                  optionLocalIdMap: d,
+                  optionLocalIdMap: c,
                   ack: null,
                   read: t.unread !== !0,
                 });
               } catch (t) {
-                var p = r("getErrorSafe")(t);
+                var m = r("getErrorSafe")(t);
                 return (
                   o("WALogger")
                     .ERROR(
@@ -100,7 +96,7 @@ __d(
                           "[history sync] Failed to parse pollUpdate with error ",
                           "",
                         ])),
-                      p,
+                      m,
                     )
                     .sendLogs("parseWebMsgInfoPollUpdates-vote-parse-error"),
                   null
@@ -108,7 +104,7 @@ __d(
               }
             });
           } catch (e) {
-            var p = r("getErrorSafe")(e);
+            var m = r("getErrorSafe")(e);
             return (
               o("WALogger")
                 .ERROR(
@@ -118,8 +114,8 @@ __d(
                       " ",
                       "",
                     ])),
-                  p == null ? void 0 : p.name,
-                  p == null ? void 0 : p.stack,
+                  m == null ? void 0 : m.name,
+                  m == null ? void 0 : m.stack,
                 )
                 .sendLogs("parseWebMsgInfoPollUpdates-error"),
               []

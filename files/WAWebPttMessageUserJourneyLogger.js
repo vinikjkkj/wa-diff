@@ -168,6 +168,9 @@ __d(
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.SEND ||
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.WIDGET_TAP ||
+            e ===
+              o("WAWebWamEnumPttMessageUserJourneyAction")
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK
           ? !0
           : (function () {
@@ -206,6 +209,9 @@ __d(
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.PAUSE ||
+            e ===
+              o("WAWebWamEnumPttMessageUserJourneyAction")
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.WIDGET_TAP ||
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK

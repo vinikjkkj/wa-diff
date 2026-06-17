@@ -3,7 +3,6 @@ __d(
   [
     "WAAsyncSleep",
     "WALogger",
-    "WANullthrows",
     "WAWebBotTypes",
     "WAWebCompactMapString",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -19,6 +18,7 @@ __d(
     "decodeProtobuf",
     "getPlainTextFromUnifiedResponse",
     "isEmptyObject",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -135,7 +135,7 @@ __d(
           var x = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .postflightDecryptSingleRecord(t),
-            $ = r("WANullthrows")(r("WAWebParseMsgKeyString")(x.id)),
+            $ = r("nullthrows")(r("WAWebParseMsgKeyString")(x.id)),
             P = $.remote;
           if (P === "status@broadcast") return null;
           var N = o("decodeProtobuf").decodeProtobuf(

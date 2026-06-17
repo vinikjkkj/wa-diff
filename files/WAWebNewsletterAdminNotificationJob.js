@@ -9,37 +9,39 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, r, a, i) {
-      return (
-        i === void 0 && (i = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW),
-        o("WAWebOrchestratorNonPersistedJob")
-          .createNonPersistedJob(
-            "updateGeosuspendedCountry",
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var i = yield o("WAWebSchemaNewsletterMetadata")
+    function s(t) {
+      var r = t.countryCodes,
+        a = t.newsletterJid,
+        i = t.priority,
+        l = i === void 0 ? o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW : i,
+        s = t.toAdd;
+      return o("WAWebOrchestratorNonPersistedJob")
+        .createNonPersistedJob(
+          "updateGeosuspendedCountry",
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = yield o("WAWebSchemaNewsletterMetadata")
+              .getNewsletterMetadataTable()
+              .get(a);
+            if (t == null) return (e || (e = n("Promise"))).resolve();
+            var i = t.geosuspendedCountries,
+              l = i === void 0 ? new Map() : i;
+            return (
+              s
+                ? r.forEach(function (e) {
+                    l == null || l.set(e, { geosuspended: !0 });
+                  })
+                : r.forEach(function (e) {
+                    l == null || l.delete(e);
+                  }),
+              (t.geosuspendedCountries = l),
+              o("WAWebSchemaNewsletterMetadata")
                 .getNewsletterMetadataTable()
-                .get(t);
-              if (i == null) return (e || (e = n("Promise"))).resolve();
-              var l = i.geosuspendedCountries,
-                s = l === void 0 ? new Map() : l;
-              return (
-                a
-                  ? r.forEach(function (e) {
-                      s == null || s.set(e, { geosuspended: !0 });
-                    })
-                  : r.forEach(function (e) {
-                      s == null || s.delete(e);
-                    }),
-                (i.geosuspendedCountries = s),
-                o("WAWebSchemaNewsletterMetadata")
-                  .getNewsletterMetadataTable()
-                  .merge(t, i)
-              );
-            }),
-            { priority: i },
-          )
-          .waitUntilCompleted()
-      );
+                .merge(a, t)
+            );
+          }),
+          { priority: l },
+        )
+        .waitUntilCompleted();
     }
     function u(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")

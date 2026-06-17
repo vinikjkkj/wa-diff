@@ -37,9 +37,7 @@ __d(
             s = e.filter(function (e) {
               return i.has(String(e)) || l(e);
             }),
-            u = n.isLidAddressingMode
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             c = n.normalizeAddressingModeFn([].concat(s, [u])).filter(Boolean),
             d = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: c });
           return {

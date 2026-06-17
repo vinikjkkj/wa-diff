@@ -97,7 +97,11 @@ __d(
               if (l.length > 0) {
                 (yield o(
                   "WAWebNewsletterAdminNotificationJob",
-                ).updateGeosuspendedCountry(r, l, !0),
+                ).updateGeosuspendedCountry({
+                  countryCodes: l,
+                  newsletterJid: r,
+                  toAdd: !0,
+                }),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "updateGeosuspendedCountry",
                     { id: a, countryCodes: l, toAdd: !0 },
@@ -108,7 +112,11 @@ __d(
               s.length > 0 &&
                 (yield o(
                   "WAWebNewsletterAdminNotificationJob",
-                ).updateGeosuspendedCountry(r, s, !1),
+                ).updateGeosuspendedCountry({
+                  countryCodes: s,
+                  newsletterJid: r,
+                  toAdd: !1,
+                }),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateGeosuspendedCountry",
                   { id: a, countryCodes: s, toAdd: !1 },

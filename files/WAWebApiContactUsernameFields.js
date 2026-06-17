@@ -6,6 +6,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebMexUsersGetCountryCode",
     "WAWebModelStorageUtils",
+    "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -48,20 +49,13 @@ __d(
           );
         });
     }
-    function c(e) {
+    function c() {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebApiContact").getContactRecord(e);
-          if ((t == null ? void 0 : t.usernameCountryCode) != null)
-            return t.usernameCountryCode;
-          var n = o("WAWebWidFactory").asUserWidOrThrow(e),
-            r = o("WAWebCountryCodeUtils").getCountryCodeFromPn(n);
-          return r != null
-            ? r
-            : o("WAWebMexUsersGetCountryCode").getMexUserCountryCode(n);
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return m(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
         })),
         d.apply(this, arguments)
       );
@@ -72,6 +66,24 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebApiContact").getContactRecord(e);
+          if ((t == null ? void 0 : t.usernameCountryCode) != null)
+            return t.usernameCountryCode;
+          var n = o("WAWebWidFactory").asUserWidOrThrow(e),
+            r = o("WAWebCountryCodeUtils").getCountryCodeFromPn(n);
+          return r != null
+            ? r
+            : o("WAWebMexUsersGetCountryCode").getMexUserCountryCode(n);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebApiContact").bulkGetContactRecord(e);
           return t.reduce(function (e, t) {
             return (
@@ -85,13 +97,14 @@ __d(
             );
           }, new Map());
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
     ((l.getContactUsername = e),
       (l.bulkUpdateUsernamesInDb = u),
-      (l.getOrFetchContactUsernameCountryCode = c),
-      (l.bulkGetContactToUsernameInfoMap = m));
+      (l.getOrFetchMeContactUsernameCountryCode = c),
+      (l.getOrFetchContactUsernameCountryCode = m),
+      (l.bulkGetContactToUsernameInfoMap = _));
   },
   98,
 );

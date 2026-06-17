@@ -35,24 +35,26 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
-            t =
+            t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+          if (t == null) return null;
+          var n =
               '["' +
               o("WASyncdConst").Actions.DeviceCapabilities +
               '","' +
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
+              t.user +
               ':0@s.whatsapp.net"]',
-            n = yield o("WAWebSyncdDb").getSyncAction(t);
-          if ((n == null ? void 0 : n.binarySyncData) == null) return null;
-          var r =
+            r = yield o("WAWebSyncdDb").getSyncAction(n);
+          if ((r == null ? void 0 : r.binarySyncData) == null) return null;
+          var a =
             (e = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-              n.binarySyncData,
+              r.binarySyncData,
             ).value) == null ||
             (e = e.deviceCapabilities) == null ||
             (e = e.lidMigration) == null
               ? void 0
               : e.chatDbMigrationTimestamp;
-          return r == null ? null : o("WATimeUtils").castLongIntToUnixTime(r);
+          return a == null ? null : o("WATimeUtils").castLongIntToUnixTime(a);
         })),
         _.apply(this, arguments)
       );

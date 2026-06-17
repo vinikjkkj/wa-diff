@@ -141,7 +141,7 @@ __d(
               .ERROR(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleNewsletterAdminInviteRevoke] failed to handle admin invite revoke",
+                    "[handleNewsletterAdminInviteRevoke] failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e))

@@ -77,9 +77,7 @@ __d(
                   "kaleidoscopeClassify",
                 );
             }),
-        !r("gkx")("17524") &&
-          !r("gkx")("20033") &&
-          o("WAWebStartBackendWorker").startBackendWorker(),
+        r("gkx")("20033") || o("WAWebStartBackendWorker").startBackendWorker(),
         u());
       try {
         n("cr:37102") == null || n("cr:37102").run();

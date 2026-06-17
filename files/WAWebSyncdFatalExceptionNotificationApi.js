@@ -28,9 +28,9 @@ __d(
             a = {
               id: n,
               to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+                o("WAWebUserPrefsMeUser").getMeDeviceForOutgoingPeerMessage()
                   .user,
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+                o("WAWebUserPrefsMeUser").getMeDeviceForOutgoingPeerMessage()
                   .server,
                 0,
               ),

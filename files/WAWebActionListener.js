@@ -306,7 +306,6 @@ __d(
                   mute: t,
                   title: i,
                   onMute: c,
-                  muteAll: !0,
                 }),
                 { transition: "modal", uim: d },
               );

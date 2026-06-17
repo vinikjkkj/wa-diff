@@ -46,42 +46,38 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.isFromCag,
-            a = t.parsedWebMsgInfo,
-            i = t.webMsgInfo;
+          var n = t.parsedWebMsgInfo,
+            a = t.webMsgInfo;
           try {
-            var l;
+            var i;
             if (
-              !(i != null && i.eventResponses) ||
-              !a ||
-              a.type !== o("WAWebMsgType").MSG_TYPE.EVENT_CREATION
+              !(a != null && a.eventResponses) ||
+              !n ||
+              n.type !== o("WAWebMsgType").MSG_TYPE.EVENT_CREATION
             )
               return [];
-            var c = a,
-              d = (l = u(i.messageAddOns)) != null ? l : i.eventResponses;
-            return r("compactMap")(d, function (t) {
+            var l = n,
+              c = (i = u(a.messageAddOns)) != null ? i : a.eventResponses;
+            return r("compactMap")(c, function (t) {
               try {
-                var a,
-                  i = (a = r("WANullthrows"))(
+                var n,
+                  a = (n = r("WANullthrows"))(
                     t.eventResponseMessageKey,
                     "eventResponseMessageKey",
                   ),
-                  l = a(t.eventResponseMessage, "eventResponseMessage"),
-                  s = a(
-                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
-                      isFromCag: n,
-                      key: i,
-                    }),
+                  i = n(t.eventResponseMessage, "eventResponseMessage"),
+                  s = n(
+                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({ key: a }),
                   ),
                   u = s.msgKey;
                 return o(
                   "WAWebEventResponseMsgDataConversion",
                 ).protobufToEventResponseMsgData({
-                  responseProtobuf: l,
+                  responseProtobuf: i,
                   id: u,
-                  parentMsgKey: c.id,
+                  parentMsgKey: l.id,
                   senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                    a(l.timestampMs, "senderTimestampMs"),
+                    n(i.timestampMs, "senderTimestampMs"),
                   ),
                   t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
                     t.timestampMs,
@@ -90,7 +86,7 @@ __d(
                   read: t.unread !== !0,
                 });
               } catch (t) {
-                var d = r("getErrorSafe")(t);
+                var c = r("getErrorSafe")(t);
                 return (
                   o("WALogger")
                     .ERROR(
@@ -99,7 +95,7 @@ __d(
                           "[history sync] Failed to parse eventResponse",
                         ])),
                     )
-                    .catching(d)
+                    .catching(c)
                     .sendLogs(
                       "parseWebMsgInfoEventResponses-responses-parse-error",
                     ),

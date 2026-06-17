@@ -1131,10 +1131,7 @@ __d(
         isCanonicalPresent: Be,
         MemberLabel: r("WAWebMemberLabelDebug"),
         GroupHistory: r("WAWebGroupHistoryDebug"),
-        KMP: {
-          getDeviceJid: o("WAWebUserPrefsMeUser")
-            .getMeDevicePnOrThrow_DO_NOT_USE,
-        },
+        KMP: { getDeviceJid: o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow },
         toggleVPVOverlay: o("WAWebDebugBizVPVOverlay").toggleVPVOverlay,
         injectRichResponseTestMessage: o("WAWebInteractiveBloksWidgetDebug")
           .injectRichResponseTestMessage,

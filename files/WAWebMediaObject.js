@@ -597,17 +597,18 @@ __d(
             g != null && g !== n[p] && ((n[p] = g), (a = !0));
             break;
           }
+          case "fullPreviewData": {
+            var y = t.fullPreviewData;
+            if (y == null) break;
+            var C = n.fullPreviewData;
+            (C == null ||
+              (!C.released && !y.released && y.size() > C.size())) &&
+              ((n.fullPreviewData = y), (a = !0));
+            break;
+          }
           default: {
-            var y = t[p];
-            if (y !== void 0 && n[p] === void 0) ((n[p] = y), (a = !0));
-            else if (p === "fullPreviewData" && y !== void 0) {
-              var C = n.fullPreviewData;
-              C != null &&
-                !C.released &&
-                !y.released &&
-                y.size() > C.size() &&
-                ((n[p] = y), (a = !0));
-            }
+            var b = t[p];
+            b !== void 0 && n[p] === void 0 && ((n[p] = b), (a = !0));
           }
         }
       }

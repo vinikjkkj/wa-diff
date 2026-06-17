@@ -138,7 +138,7 @@ __d(
                     .ERROR(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] Failed to process member labels from history sync",
+                          "[history sync] Failed to process member labels",
                         ])),
                     )
                     .sendLogs(
@@ -148,7 +148,7 @@ __d(
                     .ERROR(
                       m ||
                         (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] Failed to process member labels from history sync: ",
+                          "[history sync] Failed to process member labels: ",
                           "",
                         ])),
                       e,

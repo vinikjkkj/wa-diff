@@ -62,7 +62,12 @@ __d(
                     yield o(
                       "WAWebNewsletterQueues",
                     ).newsletterDeleteQueue.wait(),
-                    yield d(p, c, m, f.name)
+                    yield d({
+                      isSender: p,
+                      name: f.name,
+                      newsletterJid: c,
+                      newsletterWid: m,
+                    })
                   );
                 case "ACTIVE":
                 case "SUSPENDED":
@@ -122,16 +127,18 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            return e ? p(t, n) : f(t, n, r);
-          },
-        )),
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.isSender,
+            n = e.name,
+            r = e.newsletterJid,
+            o = e.newsletterWid;
+          return t ? p(r, o) : f(r, o, n);
+        })),
         m.apply(this, arguments)
       );
     }

@@ -6,7 +6,6 @@ __d(
     "WABatcher",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WAWebDBGroupParticipantHelpers",
     "WAWebDBParticipantTypes",
     "WAWebGroupUtils",
@@ -20,6 +19,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -733,7 +733,7 @@ __d(
                           t,
                         );
                       try {
-                        var c = r("WANullthrows")(
+                        var c = r("nullthrows")(
                             yield l.get(e.toString()),
                             "missing participant record to migrate",
                           ),
@@ -741,7 +741,7 @@ __d(
                           p = o("WAWebGroupUtils").amIGroupAdmin(c.admins),
                           _ = {
                             admins: c.admins.map(function (e) {
-                              return r("WANullthrows")(
+                              return r("nullthrows")(
                                 u(o("WAWebWidFactory").createWid(e)),
                                 "admin missing a LID-PN mapping",
                               ).toString();
@@ -750,12 +750,12 @@ __d(
                               if (!p && !t) {
                                 var n =
                                   o("WAWebWidFactory").createUserWidOrThrow(e);
-                                return r("WANullthrows")(
+                                return r("nullthrows")(
                                   o("WAWebLidMigrationUtils").toLid(n),
                                   "participant missing a LID mapping",
                                 ).toString();
                               }
-                              return r("WANullthrows")(
+                              return r("nullthrows")(
                                 u(o("WAWebWidFactory").createWid(e)),
                                 "participant missing a LID-PN mapping",
                               ).toString();
@@ -802,7 +802,7 @@ __d(
     function D(e, t) {
       var n,
         a = o("WAWebWidFactory").createDeviceWidOrThrow(e),
-        i = r("WANullthrows")(
+        i = r("nullthrows")(
           t(o("WAWebWidFactory").asUserWidOrThrow(a)),
           "senderkey device missing a LID-PN mapping",
         );

@@ -396,7 +396,6 @@ __d(
           ? ((y = s.jsx(o("WAWebName.react").ContactAndGroupName, {
               contact: n,
               chat: a,
-              elevatedPushNamesEnabled: !0,
               xstyle: b.senderName,
             })),
             (t[2] = n),

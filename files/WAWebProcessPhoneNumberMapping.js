@@ -14,15 +14,15 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
+    var e, s, u, c;
+    function d(e) {
       var t = e.data,
         n = e.lid,
         r = e.processingResult,
         o = e.shouldWaitForJob;
       r.push({ jobArgs: { lid: n, data: t }, shouldWaitForJob: o });
     }
-    function d(t) {
+    function m(t) {
       return t.preMatChat != null
         ? (o("WALogger").LOG(
             e ||
@@ -33,30 +33,30 @@ __d(
           t.preMatChat)
         : t.chat;
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = [],
             a = e.author,
             i = e.peerRecipientPn,
             l = e.recipientLatestLid,
-            s = e.recipientPn,
-            u = d(e),
-            m = o("WAWebWidFactory").asUserLidOrThrow(a);
+            u = e.recipientPn,
+            c = m(e),
+            p = o("WAWebWidFactory").asUserLidOrThrow(a);
           if (o("WAWebUserPrefsMeUser").isMeAccount(a)) {
-            var p = t == null ? void 0 : t.origin;
-            if (s != null)
+            var _ = t == null ? void 0 : t.origin;
+            if (u != null)
               ((n = {
-                lid: o("WAWebWidFactory").asUserLidOrThrow(u),
-                pn: o("WAWebWidFactory").asUserWidOrThrow(s),
+                lid: o("WAWebWidFactory").asUserLidOrThrow(c),
+                pn: o("WAWebWidFactory").asUserWidOrThrow(u),
                 learningSource: "other",
               }),
-                c({
-                  lid: o("WAWebWidFactory").asUserLidOrThrow(u),
+                d({
+                  lid: o("WAWebWidFactory").asUserLidOrThrow(c),
                   data: { shareOwnPn: !1 },
                   shouldWaitForJob: !0,
                   processingResult: r,
@@ -64,54 +64,65 @@ __d(
             else if (i != null)
               l != null
                 ? (n = {
-                    lid: o("WAWebWidFactory").asUserLidOrThrow(u),
+                    lid: o("WAWebWidFactory").asUserLidOrThrow(c),
                     pn: i,
                     latestLid: l,
                     learningSource: "recipient-latest-lid",
                   })
                 : (n = {
-                    lid: o("WAWebWidFactory").asUserLidOrThrow(u),
+                    lid: o("WAWebWidFactory").asUserLidOrThrow(c),
                     pn: i,
                     learningSource: "peer-lid-message",
                   });
-            else {
-              var _ = yield o("WAWebApiContact").getContactRecord(u);
-              (_ == null || (_ == null ? void 0 : _.shareOwnPn) !== !0) &&
-                c({
-                  lid: o("WAWebWidFactory").asUserLidOrThrow(u),
+            else if (c.isLid()) {
+              var f = yield o("WAWebApiContact").getContactRecord(c);
+              (f == null || (f == null ? void 0 : f.shareOwnPn) !== !0) &&
+                d({
+                  lid: o("WAWebWidFactory").asUserLidOrThrow(c),
                   data: { shareOwnPn: !0 },
                   shouldWaitForJob: !1,
                   processingResult: r,
                 });
-            }
-            if (p !== "ctwa") {
-              var f =
+            } else
+              c.isBot() ||
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[extractMappingsForOneToOneLidMessages] peer message with non-LID chat: ",
+                        "",
+                      ])),
+                    c.toLogString(),
+                  )
+                  .sendLogs("peer-message-non-lid-chat");
+            if (_ !== "ctwa") {
+              var g =
                 o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
                 e.author.isLid() &&
                 e.chat.isLid();
-              i == null && !f && (n = "missing-peer-recipient-pn");
+              i == null && !g && (n = "missing-peer-recipient-pn");
             }
             return { mapping: n, lidMetadataUpdates: r };
           }
-          var g = e.displayName;
-          g != null &&
-            c({
-              lid: m,
-              data: { displayNameLID: g },
+          var h = e.displayName;
+          h != null &&
+            d({
+              lid: p,
+              data: { displayNameLID: h },
               shouldWaitForJob: !0,
               processingResult: r,
             });
-          var h = e.senderPn;
+          var y = e.senderPn;
           return (
-            h != null &&
+            y != null &&
               (n = {
-                lid: m,
-                pn: o("WAWebWidFactory").asUserWidOrThrow(h),
+                lid: p,
+                pn: o("WAWebWidFactory").asUserWidOrThrow(y),
                 learningSource: "other",
               }),
-            h == null &&
-              c({
-                lid: m,
+            y == null &&
+              d({
+                lid: p,
                 data: { shareOwnPn: !0 },
                 shouldWaitForJob: !0,
                 processingResult: r,
@@ -119,21 +130,21 @@ __d(
             { mapping: n, lidMetadataUpdates: r }
           );
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.author,
             r = e.peerRecipientLid,
             a = e.recipientLatestLid,
             i = e.recipientLid,
-            l = d(e);
+            l = m(e);
           if (o("WAWebUserPrefsMeUser").isMeAccount(n)) {
             var s = o("WAWebWidFactory").asUserWidOrThrow(l);
             i != null
@@ -160,29 +171,29 @@ __d(
             { mapping: t, lidMetadataUpdates: [] }
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgInfo,
             n = e.msgMeta,
             r = t.author;
-          return r.isLid() ? m(t, n) : _(t);
+          return r.isLid() ? p(t, n) : f(t);
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgInfo,
             n =
               o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
@@ -195,15 +206,15 @@ __d(
               t.participantPn == null &&
               t.displayName == null &&
               o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[extractMappingsForGroupOrStatusBroadcastMessage] participantPn is missing for group message from LID author",
                   ])),
               ),
             e.bclParticipant)
           ) {
             e.msgInfo;
-            var r = b(e.bclParticipant);
+            var r = v(e.bclParticipant);
             return r == null
               ? { lidMetadataUpdates: [] }
               : { mapping: r, lidMetadataUpdates: [] };
@@ -211,18 +222,18 @@ __d(
           var a,
             i = [],
             l = t.author,
-            u = t.participantLid,
-            d = t.participantPn;
-          d != null
+            s = t.participantLid,
+            c = t.participantPn;
+          c != null
             ? (a = {
                 lid: o("WAWebWidFactory").asUserLidOrThrow(l),
-                pn: d,
+                pn: c,
                 learningSource: "other",
               })
-            : u != null &&
+            : s != null &&
               !n &&
               (a = {
-                lid: u,
+                lid: s,
                 pn: o("WAWebWidFactory").asUserWidOrThrow(l),
                 learningSource: "other",
               });
@@ -230,7 +241,7 @@ __d(
           return (
             !o("WAWebUserPrefsMeUser").isMeAccount(l) &&
               m != null &&
-              c({
+              d({
                 lid: o("WAWebWidFactory").asUserLidOrThrow(l),
                 data: { displayNameLID: m },
                 shouldWaitForJob: !0,
@@ -239,10 +250,10 @@ __d(
             { mapping: a, lidMetadataUpdates: i }
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
+    function v(e) {
       var t = e.wid,
         n = e.recipientLatestLid;
       if (t.isLid()) {
@@ -274,7 +285,7 @@ __d(
             }
           : { lid: l, pn: s, learningSource: "peer-pn-message" };
     }
-    function v(e) {
+    function S(e) {
       var t = e.flushImmediately,
         n = e.mapping;
       return n.learningSource === "recipient-latest-lid"
@@ -292,54 +303,54 @@ __d(
             learningSource: n.learningSource,
           });
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgInfo.chat;
           return t.isUser()
-            ? g(e)
+            ? h(e)
             : t.isGroup() || t.isBroadcast()
-              ? y(e)
+              ? C(e)
               : { lidMetadataUpdates: [] };
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (
             e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
           ) {
             var a = e.bclParticipants.map(function (n) {
-                return k({ msgInfo: e, msgMeta: t, bclParticipant: n }, r);
+                return I({ msgInfo: e, msgMeta: t, bclParticipant: n }, r);
               }),
-              i = yield (u || (u = n("Promise"))).all(a);
+              i = yield (c || (c = n("Promise"))).all(a);
             return { type: "peer-broadcast", mappings: i };
           }
           return {
             type: "not-peer-broadcast",
-            mapping: yield k({ msgInfo: e, msgMeta: t }, r),
+            mapping: yield I({ msgInfo: e, msgMeta: t }, r),
           };
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
-            a = yield S(e),
+            a = yield R(e),
             i = a.lidMetadataUpdates,
             l = a.mapping,
             s = o("WAArrayUtils").groupByAndMap(
@@ -360,14 +371,14 @@ __d(
               (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(u)),
             l != null &&
               typeof l == "object" &&
-              (yield v({ mapping: l, flushImmediately: t })),
+              (yield S({ mapping: l, flushImmediately: t })),
             l
           );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    l.processPhoneNumberMappings = L;
+    l.processPhoneNumberMappings = E;
   },
   98,
 );

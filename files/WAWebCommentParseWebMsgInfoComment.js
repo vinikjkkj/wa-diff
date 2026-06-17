@@ -15,61 +15,59 @@ __d(
     var e, s;
     function u(t) {
       var n,
-        a = t.isFromCag,
-        i = t.webMsgInfo,
-        l = i == null || (n = i.message) == null ? void 0 : n.commentMessage,
-        c = i == null ? void 0 : i.commentMetadata,
-        d = [];
-      if (i == null || (c == null ? void 0 : c.commentParentKey) == null)
-        return d;
-      var m = r("WANullthrows")(
+        a = t.webMsgInfo,
+        i = a == null || (n = a.message) == null ? void 0 : n.commentMessage,
+        l = a == null ? void 0 : a.commentMetadata,
+        c = [];
+      if (a == null || (l == null ? void 0 : l.commentParentKey) == null)
+        return c;
+      var d = r("WANullthrows")(
           o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
-            isFromCag: a,
-            key: i.key,
-            outerParticipant: i.participant,
+            key: a.key,
+            outerParticipant: a.participant,
           }),
         ),
-        p = m.msgKey,
-        _ = r("WANullthrows")(i.messageTimestamp),
-        f;
+        m = d.msgKey,
+        p = r("WANullthrows")(a.messageTimestamp),
+        _;
       if (
-        ((l == null ? void 0 : l.message) != null &&
-          (f = o("WAWebCommentMsgDataConversion").extractCommentTextFromMessage(
-            l.message,
+        ((i == null ? void 0 : i.message) != null &&
+          (_ = o("WAWebCommentMsgDataConversion").extractCommentTextFromMessage(
+            i.message,
           )),
-        f == null)
+        _ == null)
       ) {
-        var g = r("WANullthrows")(
+        var f = r("WANullthrows")(
             o("WAWebParseWebMessageInfoUtils").buildMsgKey(
-              i,
-              r("WANullthrows")(c == null ? void 0 : c.commentParentKey),
+              a,
+              r("WANullthrows")(l == null ? void 0 : l.commentParentKey),
             ),
           ),
-          h = g.msgKey;
+          g = f.msgKey;
         try {
-          var y = o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(i, u),
-            C = babelHelpers.extends(
-              { id: p, parentMsgKey: h },
+          var h = o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(a, u),
+            y = babelHelpers.extends(
+              { id: m, parentMsgKey: g },
               o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-                p,
+                m,
                 o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
               ),
               {
                 revokeAddonType: o("WAWebMsgType").MSG_TYPE.COMMENT,
-                protocolMessageKey: y.protocolMessageKey,
-                subtype: y.subtype,
+                protocolMessageKey: h.protocolMessageKey,
+                subtype: h.subtype,
                 kind: o("WAWebMsgType").MsgKind.RevokedAddon,
                 revokeTimestamp: o("WALongInt").numberOrThrowIfTooLarge(
-                  r("WANullthrows")(i.revokeMessageTimestamp),
+                  r("WANullthrows")(a.revokeMessageTimestamp),
                 ),
                 type: o("WAWebMsgType").MSG_TYPE.REVOKED,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                t: o("WALongInt").numberOrThrowIfTooLarge(_),
+                t: o("WALongInt").numberOrThrowIfTooLarge(p),
               },
             );
-          d.push(C);
+          c.push(y);
         } catch (t) {
-          var b;
+          var C;
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -77,8 +75,8 @@ __d(
                 ", parameters ",
                 "",
               ])),
-            !!i.messageStubType,
-            (b = i.messageStubParameters) == null ? void 0 : b.length,
+            !!a.messageStubType,
+            (C = a.messageStubParameters) == null ? void 0 : C.length,
           ),
             o("WALogger")
               .ERROR(
@@ -88,36 +86,36 @@ __d(
                     " err=",
                     "",
                   ])),
-                i.key.id,
+                a.key.id,
                 t,
               )
               .sendLogs("parse-comment-revoke", { sampling: 0.01 }));
         }
-      } else if (l != null) {
-        var v = r("WANullthrows")(l.targetMessageKey),
-          S = r("WANullthrows")(
-            o("WAWebParseWebMessageInfoUtils").buildMsgKey(i, v),
+      } else if (i != null) {
+        var b = r("WANullthrows")(i.targetMessageKey),
+          v = r("WANullthrows")(
+            o("WAWebParseWebMessageInfoUtils").buildMsgKey(a, b),
           ),
-          R = S.msgKey;
-        d.push(
+          S = v.msgKey;
+        c.push(
           babelHelpers.extends(
-            { id: p, parentMsgKey: R },
+            { id: m, parentMsgKey: S },
             o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-              p,
+              m,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
             ),
             {
-              body: f,
+              body: _,
               type: o("WAWebMsgType").MSG_TYPE.COMMENT,
               read: !0,
               kind: o("WAWebMsgType").MsgKind.CommentDecrypted,
               viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              t: o("WALongInt").numberOrThrowIfTooLarge(_),
+              t: o("WALongInt").numberOrThrowIfTooLarge(p),
             },
           ),
         );
       }
-      return d;
+      return c;
     }
     l.parseWebMsgInfoComment = u;
   },

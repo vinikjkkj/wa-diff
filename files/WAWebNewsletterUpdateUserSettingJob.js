@@ -72,7 +72,7 @@ __d(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[newsletter][",
-                        "Newsletter] Failed to persist the mutation on db",
+                        "Newsletter] db persist failed",
                       ])),
                     a,
                   )
@@ -109,7 +109,7 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletter][updateNewsletterUserSetting] Invalid setting type ",
+                    "[newsletter][updateNewsletterUserSetting] invalid type ",
                     "",
                   ])),
                 r,

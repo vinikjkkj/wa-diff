@@ -87,28 +87,34 @@ __d(
         s._param("community_name", e),
       ]);
     }
+    E.displayName = E.name + " [from " + i.id + "]";
     function k() {
       return s._(/*BTDS*/ "You created the community");
     }
+    k.displayName = k.name + " [from " + i.id + "]";
     function I(e, t) {
       return s._(/*BTDS*/ '{author} created the community "{community_name}"', [
         s._param("author", e),
         s._param("community_name", t),
       ]);
     }
+    I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
       return s._(/*BTDS*/ "{author} created the community", [
         s._param("author", e),
       ]);
     }
+    T.displayName = T.name + " [from " + i.id + "]";
     function D(e) {
       return s._(/*BTDS*/ 'The community "{community_name}" was created', [
         s._param("community_name", e),
       ]);
     }
+    D.displayName = D.name + " [from " + i.id + "]";
     function x() {
       return s._(/*BTDS*/ "The community was created");
     }
+    x.displayName = x.name + " [from " + i.id + "]";
     function $(e, t, n, r) {
       var a;
       return (
@@ -158,6 +164,7 @@ __d(
               : s._(/*BTDS*/ "A community was deactivated")
       );
     }
+    $.displayName = $.name + " [from " + i.id + "]";
     function P(e, t) {
       var n = o(
         "WAWebFormatParticipantNames",
@@ -187,6 +194,7 @@ __d(
           ))
         : s._(/*BTDS*/ "This group is no longer part of a community");
     }
+    P.displayName = P.name + " [from " + i.id + "]";
     function N(e, t, n, r) {
       var a = babelHelpers.arrayLikeToArray(e).slice(0),
         i = o(
@@ -259,6 +267,7 @@ __d(
                   ])
                 : s._(/*BTDS*/ "This group was removed from a community");
     }
+    N.displayName = N.name + " [from " + i.id + "]";
     function M(e, t, n, r) {
       var a = o(
         "WAWebFormatParticipantNames",
@@ -333,6 +342,7 @@ __d(
                     /*BTDS*/ "This group and its members were added to a community",
                   );
     }
+    M.displayName = M.name + " [from " + i.id + "]";
     function w(e, t, n, r, a) {
       var i = babelHelpers.arrayLikeToArray(e).slice(0),
         l = o("WAWebFormatParticipantNames").getFormattedGroupListForCommunity(
@@ -427,6 +437,7 @@ __d(
             s._param("author", t),
           ]);
     }
+    O.displayName = O.name + " [from " + i.id + "]";
     function B(e, t, n) {
       if (e && e.length >= 2) {
         var r = o(
@@ -461,6 +472,7 @@ __d(
       }
       return s._(/*BTDS*/ "{author} added you", [s._param("author", n)]);
     }
+    B.displayName = B.name + " [from " + i.id + "]";
     function W(e, t, n, r) {
       var a,
         i = !1;
@@ -469,6 +481,7 @@ __d(
           e.length >= 3 &&
           ((a = o("WAWebFormatParticipantNames").getFormattedNameIfExists(
             e[0],
+            !t,
           )),
           a == null && (a = e[1]),
           e[2] === "true" && (i = !0)),
@@ -517,7 +530,9 @@ __d(
             : s._(/*BTDS*/ "{user_name} joined", [s._param("user_name", r)])
       );
     }
-    ((l.formatLinkNotifAsFbt = R), (l.formatLinkNotification = L));
+    ((W.displayName = W.name + " [from " + i.id + "]"),
+      (l.formatLinkNotifAsFbt = R),
+      (l.formatLinkNotification = L));
   },
   226,
 );

@@ -104,13 +104,13 @@ __d(
             f = g(r, s),
             h = l === !0 ? d : null,
             y = yield o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
-              return o("WAWebMexUpdateNewsletterJob").mexUpdateNewsletter(
-                e,
-                _,
-                f,
-                p,
-                h,
-              );
+              return o("WAWebMexUpdateNewsletterJob").mexUpdateNewsletter({
+                base64EncodedPic: p,
+                description: f,
+                name: _,
+                newsletterID: e,
+                reactionCodesSetting: h,
+              });
             });
           return o("WAWebMexNewsletterParseUtils").parseMexNewsletterResponse(
             y.xwa2_newsletter_update,

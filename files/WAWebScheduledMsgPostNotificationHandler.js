@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebBackendApi",
+    "WAWebExtractEphemeralFieldsFromScheduledMsg",
     "WAWebHandleSingleMsg",
     "WAWebLidMigrationDbUtils",
     "WAWebLidMigrationUtils",
@@ -13,8 +14,9 @@ __d(
     "WAWebMsgType",
     "WAWebOfflineHandler",
     "WAWebScheduledMessagesGatingUtils",
+    "WAWebScheduledMsgDecryptInnerProto",
+    "WAWebScheduledMsgExtractText",
     "WAWebScheduledMsgRevealKeyStore",
-    "WAWebScheduledMsgStore",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
@@ -109,9 +111,16 @@ __d(
                         );
                       switch (p) {
                         case "SUCCESS": {
-                          var t = yield o(
-                            "WAWebScheduledMsgStore",
-                          ).decryptScheduledMsgBody(e);
+                          var t =
+                            e.revealKey.byteLength === 0
+                              ? null
+                              : yield o(
+                                  "WAWebScheduledMsgDecryptInnerProto",
+                                ).decryptAndDecodeRevealPayload(
+                                  e.encPayload,
+                                  e.encIv,
+                                  e.revealKey,
+                                );
                           yield S(e, t);
                           break;
                         }
@@ -151,15 +160,17 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.chatId,
             a = e.msgId;
-          if (
-            (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] SUCCESS for msgId",
-                ])),
-            ),
-            t == null)
-          ) {
+          o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][post] SUCCESS for msgId",
+              ])),
+          );
+          var i =
+            t != null
+              ? o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t)
+              : null;
+          if (i == null) {
             o("WALogger").WARN(
               _ ||
                 (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -168,38 +179,38 @@ __d(
             );
             return;
           }
-          var i = o("WAWebWidFactory").createWid(n),
-            l = i.isGroup(),
-            s = l ? i : yield k(i),
-            u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            c;
+          var l = o("WAWebWidFactory").createWid(n),
+            s = l.isGroup(),
+            u = s ? l : yield k(l),
+            c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            d;
           try {
-            var d = r("WAWebMsgKey").fromString(a);
-            c = s.equals(d.remote)
-              ? d
+            var m = r("WAWebMsgKey").fromString(a);
+            d = u.equals(m.remote)
+              ? m
               : new (r("WAWebMsgKey"))({
-                  fromMe: d.fromMe,
-                  remote: s,
-                  id: d.id,
-                  participant: d.participant,
+                  fromMe: m.fromMe,
+                  remote: u,
+                  id: m.id,
+                  participant: m.participant,
                 });
           } catch (e) {
-            c = new (r("WAWebMsgKey"))({
+            d = new (r("WAWebMsgKey"))({
               fromMe: !0,
-              remote: s,
+              remote: u,
               id: a,
-              participant: l ? u : void 0,
+              participant: s ? c : void 0,
             });
           }
-          var m =
+          var C =
             e.scheduledTimestampS > 0
               ? e.scheduledTimestampS
               : o("WATimeUtils").unixTime();
-          yield o("WAWebSchemaMessage").getMessageTable().remove(c.toString());
+          yield o("WAWebSchemaMessage").getMessageTable().remove(d.toString());
           try {
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "removeScheduledMsgModelForReveal",
-              { msgKey: c },
+              { msgKey: d },
             );
           } catch (e) {
             o("WALogger")
@@ -212,27 +223,38 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("mex-scheduled-msg-post-drop-model-failed");
           }
-          var C = {
-            id: c,
-            from: u,
-            to: s,
-            author: l ? u : void 0,
-            type: o("WAWebMsgType").MSG_TYPE.CHAT,
-            kind: o("WAWebMsgType").MsgKind.Chat,
-            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            body: t,
-            t: m,
-            ack: o("WAWebAck").ACK.RECEIVED,
-            isNewMsg: !0,
-            recvFresh: !0,
-            invis: !1,
-            isScheduledMsg: !1,
-            scheduledTimestampS: null,
-          };
+          var b =
+              t != null
+                ? o(
+                    "WAWebExtractEphemeralFieldsFromScheduledMsg",
+                  ).extractEphemeralFieldsFromScheduledMsg(t, c)
+                : {},
+            v = babelHelpers.extends(
+              {
+                id: d,
+                from: c,
+                to: u,
+                author: s ? c : void 0,
+                type: o("WAWebMsgType").MSG_TYPE.CHAT,
+                kind: o("WAWebMsgType").MsgKind.Chat,
+                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+                body: i,
+              },
+              b,
+              {
+                t: C,
+                ack: o("WAWebAck").ACK.RECEIVED,
+                isNewMsg: !0,
+                recvFresh: !0,
+                invis: !1,
+                isScheduledMsg: !1,
+                scheduledTimestampS: o("WATimeUtils").castToUnixTime(C),
+              },
+            );
           try {
             yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
-              chatId: s,
-              newMsg: C,
+              chatId: u,
+              newMsg: v,
               handleSingleMsgOrigin: "scheduledMsgReveal",
             });
           } catch (e) {

@@ -14,21 +14,33 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             r,
-            a;
+            a,
+            i = !1,
+            l = null;
           try {
             r = yield o("WAWebIdentityIcdcApi").getICDCMeta(n);
           } catch (e) {
+            ((i = !0), (l = e));
+          }
+          try {
+            if (r == null) {
+              var s = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+              r = s ? yield o("WAWebIdentityIcdcApi").getICDCMeta(s) : null;
+            }
+          } catch (e) {
+            i || ((i = !0), (l = e));
+          }
+          if (r == null && i)
             throw (
               new (o(
                 "WAWebAdvMetadataCreationFailureWamEvent",
               ).AdvMetadataCreationFailureWamEvent)({
                 advMetadataIsMe: !0,
               }).commit(),
-              e
+              l
             );
-          }
           try {
             a = o("WAWebUserPrefsMeUser").isMeAccount(e)
               ? null

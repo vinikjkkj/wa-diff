@@ -13,6 +13,7 @@ __d(
       LOCK: 8,
       DRAFT_SAVED: 9,
       DRAFT_LOADED: 10,
+      WIDGET_TAP: 11,
     });
     i.PTT_MESSAGE_USER_JOURNEY_ACTION = e;
   },

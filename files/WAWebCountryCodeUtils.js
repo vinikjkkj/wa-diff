@@ -4,8 +4,11 @@ __d(
     "WACcToIso",
     "WALogger",
     "WAPhoneFindCC",
+    "WAWebApiContactUsernameFields",
     "WAWebAsISOCountryCode",
     "WAWebLidMigrationUtils",
+    "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,7 +39,27 @@ __d(
         }
       return null;
     }
-    ((l.pnToCountryCodeString = s), (l.getCountryCodeFromPn = u));
+    function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+            t =
+              e != null
+                ? s(e.user)
+                : yield o(
+                    "WAWebApiContactUsernameFields",
+                  ).getOrFetchMeContactUsernameCountryCode();
+          return t;
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    ((l.pnToCountryCodeString = s),
+      (l.getCountryCodeFromPn = u),
+      (l.getMyCountryCode = c));
   },
   98,
 );

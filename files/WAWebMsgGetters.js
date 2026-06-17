@@ -1896,7 +1896,7 @@ __d(
       (l.getVcardList = zr),
       (l.getVcardFormattedName = jr),
       (l.getLabels = Kr),
-      (l.getAgendId = Qr),
+      (l.getAgentId = Qr),
       (l.getUrl = Xr),
       (l.getRetailerId = Yr),
       (l.getBusinessOwnerJid = Jr),

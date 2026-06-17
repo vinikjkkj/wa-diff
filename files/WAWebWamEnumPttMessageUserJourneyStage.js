@@ -2,7 +2,7 @@ __d(
   "WAWebWamEnumPttMessageUserJourneyStage",
   [],
   function (t, n, r, o, a, i) {
-    var e = Object.freeze({ NORMAL: 1, LOCKED: 2 });
+    var e = Object.freeze({ NORMAL: 1, LOCKED: 2, WIDGET: 3 });
     i.PTT_MESSAGE_USER_JOURNEY_STAGE = e;
   },
   66,

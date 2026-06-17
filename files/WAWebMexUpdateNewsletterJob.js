@@ -8,39 +8,42 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, o) {
+    function s(e) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i, l) {
-            var s =
-                e !== void 0
-                  ? e
-                  : (e = n("WAWebMexUpdateNewsletterJobMutation.graphql")),
-              u = {
-                newsletter_id: t,
-                updates: {
-                  name: r,
-                  description: a,
-                  picture: i,
-                  settings:
-                    l != null
-                      ? {
-                          reaction_codes: {
-                            value: o(
-                              "WAWebMexNewsletterUtils",
-                            ).mapReactionCodesSettingToMexInput(l),
-                          },
-                        }
-                      : null,
-                },
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.base64EncodedPic,
+            a = t.description,
+            i = t.name,
+            l = t.newsletterID,
+            s = t.reactionCodesSetting,
+            u =
+              e !== void 0
+                ? e
+                : (e = n("WAWebMexUpdateNewsletterJobMutation.graphql")),
+            c = {
+              newsletter_id: l,
+              updates: {
+                name: i,
+                description: a,
+                picture: r,
+                settings:
+                  s != null
+                    ? {
+                        reaction_codes: {
+                          value: o(
+                            "WAWebMexNewsletterUtils",
+                          ).mapReactionCodesSettingToMexInput(s),
+                        },
+                      }
+                    : null,
               },
-              c = yield o("WAWebMexClient").fetchQuery(s, u);
-            return c;
-          },
-        )),
+            },
+            d = yield o("WAWebMexClient").fetchQuery(u, c);
+          return d;
+        })),
         u.apply(this, arguments)
       );
     }

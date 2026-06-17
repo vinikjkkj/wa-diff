@@ -2,11 +2,11 @@ __d(
   "WAWebFtsManifestReader",
   [
     "Promise",
-    "WANullthrows",
     "WAWebFtsBaseManifestReaderWriter",
     "WAWebFtsStorage",
     "WAWebSchemaManifest",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -57,7 +57,7 @@ __d(
               var e = yield this.$WaWcManifestReader$p_2(
                 o("WAWebSchemaManifest").ManifestKeys.CURR_VERSION,
               );
-              return r("WANullthrows")(e);
+              return r("nullthrows")(e);
             });
             function t() {
               return e.apply(this, arguments);

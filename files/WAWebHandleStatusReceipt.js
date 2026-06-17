@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebAck",
+    "WAWebBatchedStatusIdUtils",
     "WAWebDBCreateLidPnMappings",
     "WAWebInsertUsernameChangeSystemMsg",
     "WAWebMessageReceiptBatcher",
@@ -35,106 +36,111 @@ __d(
             p = t.recipient,
             _ = t.ts,
             f = c[0];
-          if (!m) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "error: got status ack without participant",
-                  ])),
-              )
-              .sendLogs("handleStatusSimpleReceipt: failed");
-            return;
-          }
-          var g = o("WAWebUserPrefsMeUser").getMeUser(),
-            h = o("WAWebWidFactory").asUserWidOrThrow(m),
-            y = o("WAWebUserPrefsMeUser").isMeAccount(h),
-            C = t.participantPn;
-          if (C != null && m.isLid()) {
-            var b = o("WAWebWidFactory").asUserLidOrThrow(m),
-              v = o("WAWebWidFactory").asUserWidOrThrow(C);
-            o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-              mappings: [{ lid: b, pn: v }],
-              flushImmediately: !0,
-              learningSource: "other",
-            });
-          }
-          var S = t.participantUsername;
-          if (S != null && m.isLid()) {
-            var R = o("WAWebUsernameTypes").asMaybeUsername(S);
-            if (R != null) {
-              var L = [{ userId: h, username: R }];
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                try {
-                  var e = yield o("WAWebSetUsernameJob").setUsernamesJob(L);
-                  yield o(
-                    "WAWebInsertUsernameChangeSystemMsg",
-                  ).maybeInsertUsernameChangeSystemMsgs(
-                    L,
-                    e,
-                    "handleStatusSimpleReceipt",
-                  );
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "handleStatusSimpleReceipt: setUsernamesJob failed ",
-                          "",
-                        ])),
-                      e instanceof Error ? e.message : String(e),
-                    )
-                    .sendLogs("handleStatusSimpleReceipt-set-usernames-failed");
-                }
-              })();
+          if (f != null) {
+            var g = o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(f);
+            if (!m) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "error: got status ack without participant",
+                    ])),
+                )
+                .sendLogs("handleStatusSimpleReceipt: failed");
+              return;
             }
-          }
-          var E =
-            ((a = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-              o("WAWebUserPrefsKeys").HASHED_KEYS.USER_PRIVACY_SETTINGS,
-            )) == null
-              ? void 0
-              : a.readReceipts) === "none";
-          if (!(!y && (E || l !== o("WAWebAck").ACK_STRING.READ))) {
-            var k = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-              I = new (r("WAWebMsgKey"))({
-                id: f,
-                remote: k,
-                fromMe: !y,
-                participant: p != null ? p : g,
-              }),
-              T = [I.toString()],
-              D =
-                d != null &&
-                !o(
-                  "WAWebOfflineHandler",
-                ).OfflineMessageHandler.isResumeFromRestartComplete(),
-              x = (u || (u = n("Promise"))).resolve();
-            return (
-              y
-                ? (x = o(
+            var h = o("WAWebUserPrefsMeUser").getMeUser(),
+              y = o("WAWebWidFactory").asUserWidOrThrow(m),
+              C = o("WAWebUserPrefsMeUser").isMeAccount(y),
+              b = t.participantPn;
+            if (b != null && m.isLid()) {
+              var v = o("WAWebWidFactory").asUserLidOrThrow(m),
+                S = o("WAWebWidFactory").asUserWidOrThrow(b);
+              o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                mappings: [{ lid: v, pn: S }],
+                flushImmediately: !0,
+                learningSource: "other",
+              });
+            }
+            var R = t.participantUsername;
+            if (R != null && m.isLid()) {
+              var L = o("WAWebUsernameTypes").asMaybeUsername(R);
+              if (L != null) {
+                var E = [{ userId: y, username: L }];
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  try {
+                    var e = yield o("WAWebSetUsernameJob").setUsernamesJob(E);
+                    yield o(
+                      "WAWebInsertUsernameChangeSystemMsg",
+                    ).maybeInsertUsernameChangeSystemMsgs(
+                      E,
+                      e,
+                      "handleStatusSimpleReceipt",
+                    );
+                  } catch (e) {
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "handleStatusSimpleReceipt: setUsernamesJob failed ",
+                            "",
+                          ])),
+                        e instanceof Error ? e.message : String(e),
+                      )
+                      .sendLogs(
+                        "handleStatusSimpleReceipt-set-usernames-failed",
+                      );
+                  }
+                })();
+              }
+            }
+            var k =
+              ((a = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+                o("WAWebUserPrefsKeys").HASHED_KEYS.USER_PRIVACY_SETTINGS,
+              )) == null
+                ? void 0
+                : a.readReceipts) === "none";
+            if (!(!C && (k || l !== o("WAWebAck").ACK_STRING.READ))) {
+              var I = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
+                T = new (r("WAWebMsgKey"))({
+                  id: g,
+                  remote: I,
+                  fromMe: !C,
+                  participant: p != null ? p : h,
+                }),
+                D = [T.toString()],
+                x =
+                  d != null &&
+                  !o(
+                    "WAWebOfflineHandler",
+                  ).OfflineMessageHandler.isResumeFromRestartComplete(),
+                $ = (u || (u = n("Promise"))).resolve();
+              return (
+                C
+                  ? ($ = o(
+                      "WAWebMessageReceiptBatcher",
+                    ).receiptBatcher.acceptPeerReceipt({
+                      ts: _,
+                      msgKeys: D,
+                      ack: i,
+                      isOffline: x,
+                      remote: I,
+                    }))
+                  : ($ = o(
+                      "WAWebMessageReceiptBatcher",
+                    ).receiptBatcher.acceptOtherReceipt({
+                      ack: i,
+                      ts: _,
+                      receiverId: y,
+                      msgKeys: D,
+                    })),
+                x ||
+                  o(
                     "WAWebMessageReceiptBatcher",
-                  ).receiptBatcher.acceptPeerReceipt({
-                    ts: _,
-                    msgKeys: T,
-                    ack: i,
-                    isOffline: D,
-                    remote: k,
-                  }))
-                : (x = o(
-                    "WAWebMessageReceiptBatcher",
-                  ).receiptBatcher.acceptOtherReceipt({
-                    ack: i,
-                    ts: _,
-                    receiverId: h,
-                    msgKeys: T,
-                  })),
-              D ||
-                o(
-                  "WAWebMessageReceiptBatcher",
-                ).receiptBatcher.runActiveBatches(),
-              x
-            );
+                  ).receiptBatcher.runActiveBatches(),
+                $
+              );
+            }
           }
         })),
         d.apply(this, arguments)

@@ -79,6 +79,7 @@ __d(
       DOC_COLLECTION: 74,
       VIDEO_COLLECTION: 75,
       MIXED_COLLECTION: 76,
+      CONDITIONAL_REVEAL: 77,
     });
     i.MEDIA_TYPE = e;
   },

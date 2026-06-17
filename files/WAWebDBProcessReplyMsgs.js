@@ -14,7 +14,6 @@ __d(
     "asyncToGeneratorRuntime",
     "filterObject",
     "isStringNullOrEmpty",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -144,12 +143,19 @@ __d(
         }),
         a = r("filterObject")(t, function (e, t) {
           return Object.prototype.hasOwnProperty.call(n, t) && t !== "kind";
-        });
-      return (
-        r("lodash").defaults(n, c),
-        r("lodash").defaults(a, c),
-        !o("WADeepEquals").deepEqual(n, a)
-      );
+        }),
+        i = m(n),
+        l = m(a);
+      return !o("WADeepEquals").deepEqual(i, l);
+    }
+    function m(e) {
+      var t = babelHelpers.extends({}, c);
+      for (var n of Object.entries(e)) {
+        var r = n[0],
+          o = n[1];
+        o !== void 0 && (t[r] = o);
+      }
+      return t;
     }
     ((l.processReplyMsgs = e), (l.createQuotedMsgKey = u));
   },

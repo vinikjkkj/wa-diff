@@ -4,11 +4,11 @@ __d(
     "WABinary",
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
-    "WANullthrows",
     "WAWap",
     "WAWebMexLogging",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -86,7 +86,7 @@ __d(
             l = i instanceof o("WAWebMexLogging").MexPerfTracker ? i : null;
           l != null && (l.setQueryId(e.id), l.setOperationName(e.name));
           var d = { variables: t },
-            m = yield _(d, r("WANullthrows")(e.id), l);
+            m = yield _(d, r("nullthrows")(e.id), l);
           if (!m.success)
             throw (
               l != null &&

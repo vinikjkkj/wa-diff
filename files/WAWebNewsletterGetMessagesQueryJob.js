@@ -22,7 +22,7 @@ __d(
       var r = o("WAWebNewsletterQueryUtils").getNewsletterMessagesQueryParams(
         e,
       );
-      return m(r, t, n);
+      return m({ cursor: n, messagesCount: t, queryArgs: r });
     }
     function d(e) {
       var t = e.cursor,
@@ -30,128 +30,130 @@ __d(
         r = e.messagesCount,
         a = e.qpl,
         i = o("WAWebNewsletterQueryUtils").getNewsletterMessagesQueryParams(n);
-      return m(i, r, t, a);
+      return m({ cursor: t, messagesCount: r, qpl: a, queryArgs: i });
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = u(a);
-            (r > o("WAWebNewsletterGatingUtils").getMaxMsgCountFromServer() &&
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[queryNewsletterMessages] ",
-                      " messages requested",
-                    ])),
-                  r,
-                )
-                .tags("newsletter")
-                .sendLogs("newsletter-server-msg-count-exceeded"),
-              i == null || i.markFetchStart());
-            var c = yield o(
-              "WASmaxNewslettersGetNewsletterMessagesRPC",
-            ).sendGetNewsletterMessagesRPC({
-              queryNewsletterParamsMixinArgs: { queryNewsletterParamsArgs: t },
-              newsletterMessageRequestPayloadMixinArgs: {
-                messagesCount: Math.min(
-                  r,
-                  o("WAWebNewsletterGatingUtils").getMaxMsgCountFromServer(),
-                ),
-                messageDirectionsArgs: l,
-              },
-            });
-            switch ((i == null || i.markFetchEnd(), c.name)) {
-              case "GetNewsletterMessagesResponseSuccess": {
-                var d = c.value.messagesNewsletterMessageResponsePayloadMixin,
-                  m = d.message,
-                  p = d.t;
-                return {
-                  messages: m,
-                  end: m.length < r,
-                  timestamp: p != null ? p : o("WATimeUtils").unixTime(),
-                };
-              }
-              case "GetNewsletterMessagesResponseClientError": {
-                var _ = c.value.getNewsletterMessagesClientErrors;
-                switch (_.name) {
-                  case "ItemNotFoundIQErrorResponse": {
-                    var f = _.value.errorIQErrorItemNotFoundMixin,
-                      g = f.code,
-                      h = f.text;
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      g,
-                      h,
-                    );
-                  }
-                  case "RateLimitedIQErrorResponse": {
-                    var y = _.value.errorIQErrorRateOverlimitMixin,
-                      C = y.code,
-                      b = y.text;
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      C,
-                      b,
-                    );
-                  }
-                  case "BadRequestIQErrorResponse": {
-                    var v = _.value.errorIQErrorBadRequestMixin,
-                      S = v.code,
-                      R = v.text;
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      S,
-                      R,
-                    );
-                  }
-                  case "SuspendedIQErrorResponse": {
-                    var L = _.value.errorIQErrorLockedMixin,
-                      E = L.code,
-                      k = L.text;
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      E,
-                      k,
-                    );
-                  }
-                  case "UnavailableForLegalReasonsResponse": {
-                    var I =
-                        _.value
-                          .errorIQErrorUnavailableForLegalReasonsGenericMixin,
-                      T = I.code,
-                      D = I.text;
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      T,
-                      D,
-                    );
-                  }
-                  case "NotAllowedIQErrorResponse": {
-                    var x = _.value.errorIQErrorNotAllowedMixin,
-                      $ = x.code,
-                      P = x.text;
-                    throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                      $,
-                      P,
-                    );
-                  }
-                }
-                break;
-              }
-              case "GetNewsletterMessagesResponseServerError": {
-                var N = c.value.errorIQErrorInternalServerErrorMixin,
-                  M = N.code,
-                  w = N.text;
-                return (s || (s = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(M),
-                    w,
-                  ),
-                );
-              }
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.cursor,
+            a = t.messagesCount,
+            i = t.qpl,
+            l = t.queryArgs,
+            c = u(r);
+          (a > o("WAWebNewsletterGatingUtils").getMaxMsgCountFromServer() &&
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[queryNewsletterMessages] ",
+                    " messages requested",
+                  ])),
+                a,
+              )
+              .tags("newsletter")
+              .sendLogs("newsletter-server-msg-count-exceeded"),
+            i == null || i.markFetchStart());
+          var d = yield o(
+            "WASmaxNewslettersGetNewsletterMessagesRPC",
+          ).sendGetNewsletterMessagesRPC({
+            queryNewsletterParamsMixinArgs: { queryNewsletterParamsArgs: l },
+            newsletterMessageRequestPayloadMixinArgs: {
+              messagesCount: Math.min(
+                a,
+                o("WAWebNewsletterGatingUtils").getMaxMsgCountFromServer(),
+              ),
+              messageDirectionsArgs: c,
+            },
+          });
+          switch ((i == null || i.markFetchEnd(), d.name)) {
+            case "GetNewsletterMessagesResponseSuccess": {
+              var m = d.value.messagesNewsletterMessageResponsePayloadMixin,
+                p = m.message,
+                _ = m.t;
+              return {
+                messages: p,
+                end: p.length < a,
+                timestamp: _ != null ? _ : o("WATimeUtils").unixTime(),
+              };
             }
-          },
-        )),
+            case "GetNewsletterMessagesResponseClientError": {
+              var f = d.value.getNewsletterMessagesClientErrors;
+              switch (f.name) {
+                case "ItemNotFoundIQErrorResponse": {
+                  var g = f.value.errorIQErrorItemNotFoundMixin,
+                    h = g.code,
+                    y = g.text;
+                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    h,
+                    y,
+                  );
+                }
+                case "RateLimitedIQErrorResponse": {
+                  var C = f.value.errorIQErrorRateOverlimitMixin,
+                    b = C.code,
+                    v = C.text;
+                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    b,
+                    v,
+                  );
+                }
+                case "BadRequestIQErrorResponse": {
+                  var S = f.value.errorIQErrorBadRequestMixin,
+                    R = S.code,
+                    L = S.text;
+                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    R,
+                    L,
+                  );
+                }
+                case "SuspendedIQErrorResponse": {
+                  var E = f.value.errorIQErrorLockedMixin,
+                    k = E.code,
+                    I = E.text;
+                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    k,
+                    I,
+                  );
+                }
+                case "UnavailableForLegalReasonsResponse": {
+                  var T =
+                      f.value
+                        .errorIQErrorUnavailableForLegalReasonsGenericMixin,
+                    D = T.code,
+                    x = T.text;
+                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    D,
+                    x,
+                  );
+                }
+                case "NotAllowedIQErrorResponse": {
+                  var $ = f.value.errorIQErrorNotAllowedMixin,
+                    P = $.code,
+                    N = $.text;
+                  throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                    P,
+                    N,
+                  );
+                }
+              }
+              break;
+            }
+            case "GetNewsletterMessagesResponseServerError": {
+              var M = d.value.errorIQErrorInternalServerErrorMixin,
+                w = M.code,
+                A = M.text;
+              return (s || (s = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(w),
+                  A,
+                ),
+              );
+            }
+          }
+        })),
         p.apply(this, arguments)
       );
     }

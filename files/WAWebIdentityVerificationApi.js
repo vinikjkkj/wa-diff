@@ -214,8 +214,8 @@ __d(
               )
               .sendLogs("identity-verification-migrated-client-no-lid");
           var m = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-            h = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
-            y = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            y = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             C = yield o("WAWebApiContactUsernameFields").getContactUsername(y),
             v,
             S;
@@ -290,67 +290,68 @@ __d(
             C != null
               ? (A = g(o("WAWebUsernameTypes").serializeUsername(C)))
               : r("WAWebEnvironment").isGuest
-                ? (A = g((h == null ? void 0 : h.toString()) || ""))
+                ? (A = g(h.toString()))
                 : (A = null);
             var F =
                 R != null
                   ? g(o("WAWebUsernameTypes").serializeUsername(R))
                   : null,
-              O = p(y),
-              B = S != null ? p(S) : null,
-              W = h && f(h),
-              q = v != null ? f(v) : null,
-              U = null,
-              V =
+              O = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+              B = O != null ? p(O) : null,
+              W = S != null ? p(S) : null,
+              q = f(h),
+              U = v != null ? f(v) : null,
+              V = null,
+              H =
                 o("WAWebUsernameGatingUtils").canShowV3NumericCode() &&
-                O != null &&
-                B != null;
-            V && (U = b(r("WANullthrows")(O), M, r("WANullthrows")(B), w));
-            var H = null,
-              G =
+                B != null &&
+                W != null;
+            H && (V = b(r("WANullthrows")(B), M, r("WANullthrows")(W), w));
+            var G = null,
+              z =
                 (r("WAWebEnvironment").isGuest ||
                   (o("WAWebUsernameGatingUtils").canShowV4NumericCode() &&
                     o(
                       "WAWebUsernameGatingUtils",
                     ).usernameSecurityCodeGenerationEnabled())) &&
-                W != null &&
-                q != null;
-            if (G) {
-              var z = _(r("WANullthrows")(h)),
-                j = _(r("WANullthrows")(v));
-              H = b(z, M, j, w);
+                q != null &&
+                U != null;
+            if (z) {
+              var j = _(h),
+                K = _(r("WANullthrows")(v));
+              G = b(j, M, K, w);
             }
-            var K = o(
+            var Q = o(
                 "WAWebUsernameGatingUtils",
               ).usernameSecurityCodeGenerationEnabled()
                 ? C == null
                 : l,
-              Q =
+              X =
                 !r("WAWebEnvironment").isGuest &&
                 o("WAWebABProps").getABPropConfigValue(
                   "hash_identity_keys_for_qr_code_device_verification",
                 ),
-              X = L({
-                localPnIdentifier: K ? O : null,
-                localLidIdentifier: W,
+              Y = L({
+                localPnIdentifier: Q ? B : null,
+                localLidIdentifier: q,
                 localUsernameIdentifier: A,
                 localKeysBinary: M,
-                remotePnIdentifier: B,
-                remoteLidIdentifier: q,
+                remotePnIdentifier: W,
+                remoteLidIdentifier: U,
                 remoteKeysBinary: w,
                 remoteUsernameIdentifier: F,
                 isMeHosted: D,
                 isRemoteHosted: x,
-                includeHashedKeys: Q,
-                includeUnhashedKeys: !Q,
+                includeHashedKeys: X,
+                includeUnhashedKeys: !X,
               }),
-              Y = L({
-                localPnIdentifier: K ? O : null,
-                localLidIdentifier: W,
+              J = L({
+                localPnIdentifier: Q ? B : null,
+                localLidIdentifier: q,
                 localUsernameIdentifier: A,
                 localKeysBinary: M,
-                remotePnIdentifier: B,
-                remoteLidIdentifier: q,
+                remotePnIdentifier: W,
+                remoteLidIdentifier: U,
                 remoteKeysBinary: w,
                 remoteUsernameIdentifier: F,
                 isMeHosted: D,
@@ -358,21 +359,21 @@ __d(
                 includeHashedKeys: !0,
                 includeUnhashedKeys: !0,
               }),
-              J = yield (d || (d = n("Promise"))).all([
-                d.resolve(U),
-                d.resolve(H),
-                d.resolve(X),
+              Z = yield (d || (d = n("Promise"))).all([
+                d.resolve(V),
+                d.resolve(G),
                 d.resolve(Y),
+                d.resolve(J),
               ]),
-              Z = J[0],
-              ee = J[1],
-              te = J[2],
-              ne = J[3];
+              ee = Z[0],
+              te = Z[1],
+              ne = Z[2],
+              re = Z[3];
             return {
-              qrCodeDisplay: te,
-              qrCodeVerify: ne,
-              numericCodeV3: Z,
-              numericCodeV4: ee,
+              qrCodeDisplay: ne,
+              qrCodeVerify: re,
+              numericCodeV3: ee,
+              numericCodeV4: te,
             };
           } catch (e) {
             return (
