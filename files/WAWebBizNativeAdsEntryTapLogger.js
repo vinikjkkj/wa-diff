@@ -62,8 +62,24 @@ __d(
         unifiedSessionId: m,
       }).commit();
     }
+    function u(e) {
+      var t = e.manageAdsFlowID,
+        n = e.scenario;
+      new (o(
+        "WAWebCtwaAdCreationAndManagementJourneyWamEvent",
+      ).CtwaAdCreationAndManagementJourneyWamEvent)({
+        extraAttributes: JSON.stringify({
+          event_type: "scenario_resolved",
+          scenario: n,
+        }),
+        lwiFlowId: t,
+        seqId: 1,
+        unifiedSessionId: t,
+      }).commit();
+    }
     ((l.logEntryTap = e),
       (l.logRoutingDecision = s),
+      (l.logScenarioResolved = u),
       (l.LWI_ENTRY_POINT = o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT));
   },
   98,

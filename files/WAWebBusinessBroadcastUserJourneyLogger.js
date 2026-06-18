@@ -299,7 +299,20 @@ __d(
           (t.createBroadcastViewed = function (t) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
           }),
-          (t.sendBroadcastResult = function (t, n, r, a, i, l, s, u, c, d) {
+          (t.sendBroadcastResult = function (
+            t,
+            n,
+            r,
+            a,
+            i,
+            l,
+            s,
+            u,
+            c,
+            d,
+            m,
+            p,
+          ) {
             o("WAWebBBBroadcastCreationLogs").sendBroadcastResult(
               this.$1,
               t,
@@ -312,6 +325,8 @@ __d(
               u,
               c,
               d,
+              m,
+              p,
             );
           }),
           (t.sendCampaignAck = function (t) {
@@ -365,7 +380,7 @@ __d(
               n,
             );
           }),
-          (t.createBroadcastSendClicked = function (t, n, r, a, i, l, s) {
+          (t.createBroadcastSendClicked = function (t, n, r, a, i, l, s, u, c) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastSendClicked(
               this.$1,
               t,
@@ -375,6 +390,8 @@ __d(
               i,
               l,
               s,
+              u,
+              c,
             );
           }),
           (t.sendBroadcastButtonViewed = function (t, n) {
@@ -745,11 +762,8 @@ __d(
           (t.genAISuggestionsShown = function (t, n, r) {
             o("WAWebBBGenAILogs").genAISuggestionsShown(this.$1, t, n, r);
           }),
-          (t.genAICardTapped = function (t, n) {
-            o("WAWebBBGenAILogs").genAICardTapped(this.$1, t, n);
-          }),
-          (t.genAISuggestionUsed = function (t, n) {
-            o("WAWebBBGenAILogs").genAISuggestionUsed(this.$1, t, n);
+          (t.genAICardTapped = function (t) {
+            o("WAWebBBGenAILogs").genAICardTapped(this.$1, t);
           }),
           (t.genAIRefreshTapped = function (t) {
             o("WAWebBBGenAILogs").genAIRefreshTapped(this.$1, t);
@@ -763,8 +777,8 @@ __d(
           (t.genAIDailyLimitHit = function (t) {
             o("WAWebBBGenAILogs").genAIDailyLimitHit(this.$1, t);
           }),
-          (t.genAIModalClosed = function (t, n) {
-            o("WAWebBBGenAILogs").genAIModalClosed(this.$1, t, n);
+          (t.genAIModalClosed = function (t, n, r) {
+            o("WAWebBBGenAILogs").genAIModalClosed(this.$1, t, n, r);
           }),
           (t.genAIAiTextUsed = function (t) {
             o("WAWebBBGenAILogs").genAIAiTextUsed(this.$1, t);
@@ -772,11 +786,11 @@ __d(
           (t.genAIAiTextCleared = function () {
             o("WAWebBBGenAILogs").genAIAiTextCleared(this.$1);
           }),
-          (t.genAICarouselNavigated = function (t, n) {
-            o("WAWebBBGenAILogs").genAICarouselNavigated(this.$1, t, n);
-          }),
           (t.genAIChipTapped = function (t) {
             o("WAWebBBGenAILogs").genAIChipTapped(this.$1, t);
+          }),
+          (t.genAIInsufficientWordCountShown = function () {
+            o("WAWebBBGenAILogs").genAIInsufficientWordCountShown(this.$1);
           }),
           (t.genAICreateModalDismissed = function () {
             o("WAWebBBGenAILogs").genAICreateModalDismissed(this.$1);
@@ -796,11 +810,14 @@ __d(
           (t.genAICustomizeUseMessage = function (t, n, r) {
             o("WAWebBBGenAILogs").genAICustomizeUseMessage(this.$1, t, n, r);
           }),
-          (t.genAIRefinementCompleted = function (t, n) {
-            o("WAWebBBGenAILogs").genAIRefinementCompleted(this.$1, t, n);
+          (t.genAIRefinementLoading = function () {
+            o("WAWebBBGenAILogs").genAIRefinementLoading(this.$1);
           }),
-          (t.genAIRefinementFailed = function (t, n) {
-            o("WAWebBBGenAILogs").genAIRefinementFailed(this.$1, t, n);
+          (t.genAIRefinementCompleted = function (t) {
+            o("WAWebBBGenAILogs").genAIRefinementCompleted(this.$1, t);
+          }),
+          (t.genAIRefinementFailed = function (t) {
+            o("WAWebBBGenAILogs").genAIRefinementFailed(this.$1, t);
           }),
           (t.genAIRefinementSubmitted = function (t, n, r) {
             o("WAWebBBGenAILogs").genAIRefinementSubmitted(this.$1, t, n, r);
@@ -808,8 +825,8 @@ __d(
           (t.genAIEntryPointViewed = function () {
             o("WAWebBBGenAILogs").genAIEntryPointViewed(this.$1);
           }),
-          (t.genAIEntryPointClicked = function () {
-            o("WAWebBBGenAILogs").genAIEntryPointClicked(this.$1);
+          (t.genAIEntryPointClicked = function (t, n) {
+            o("WAWebBBGenAILogs").genAIEntryPointClicked(this.$1, t, n);
           }),
           (t.genAINuxModalViewed = function () {
             o("WAWebBBGenAILogs").genAINuxModalViewed(this.$1);

@@ -197,7 +197,7 @@ __d(
       },
       663703: { moduleName: "FEED", name: "QUERY_PERF", sampleRate: 1 },
       663892: { moduleName: "FEED", name: "CACHE_TTL", sampleRate: 1e4 },
-      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 45149 },
+      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 35790 },
       665863: { moduleName: "FEED", name: "DEFER", sampleRate: 250 },
       665990: { moduleName: "FEED", name: "RESTORE", sampleRate: 2 },
       666016: {
@@ -5600,6 +5600,11 @@ __d(
         name: "AI_COMMENTS_FUNNEL",
         sampleRate: 100,
       },
+      32971583: {
+        moduleName: "COMMENTS",
+        name: "AI_INVOCATION",
+        sampleRate: 1,
+      },
       32975067: {
         moduleName: "COMMENTS",
         name: "COMMENT_BOTTOM_SHEET_TTRC_ANDROID",
@@ -6734,6 +6739,11 @@ __d(
         moduleName: "INSTAGRAM_SHOPPING",
         name: "BUYER_RECEIPT_ITEM_DETAILS_TTI",
         sampleRate: 10,
+      },
+      37360880: {
+        moduleName: "INSTAGRAM_SHOPPING",
+        name: "PRODUCT_TAG_VISUAL_SEARCH_DIALOG",
+        sampleRate: 1,
       },
       37362344: {
         moduleName: "INSTAGRAM_SHOPPING",
@@ -13917,6 +13927,11 @@ __d(
         name: "VIBE_EDITING_LATENCY_ESTIMATE",
         sampleRate: 1,
       },
+      82197904: {
+        moduleName: "CREATOR_TOOLS",
+        name: "MAGIC_CUT_PROCESSING_LATENCY",
+        sampleRate: 1,
+      },
       82316322: { moduleName: "UCR", name: "ACRO_USAGE", sampleRate: 400 },
       82325841: { moduleName: "UCR", name: "ACRO_CREATION", sampleRate: 400 },
       83176270: {
@@ -14012,7 +14027,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 251,
+        sampleRate: 285,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14077,7 +14092,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 54004,
+        sampleRate: 48318,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -19478,6 +19493,11 @@ __d(
         name: "ID_TRANSLATION",
         sampleRate: 1,
       },
+      175124124: {
+        moduleName: "PASSKEY_USAGE",
+        name: "PASSKEY_USAGE_MOBILE",
+        sampleRate: 250,
+      },
       175125627: {
         moduleName: "PASSKEY_USAGE",
         name: "PASSKEY_USAGE_WEB",
@@ -19497,6 +19517,11 @@ __d(
       176162749: {
         moduleName: "BASEL_PROJECTS",
         name: "DRAFT_RESOURCE_CLEANUP",
+        sampleRate: 1,
+      },
+      176165036: {
+        moduleName: "BASEL_PROJECTS",
+        name: "FOLDER_OPERATIONS",
         sampleRate: 1,
       },
       176165229: {
@@ -19569,6 +19594,11 @@ __d(
         moduleName: "BASEL_CAMERA",
         name: "DRAFT_RESOURCE_CLEANUP",
         sampleRate: 1,
+      },
+      176558996: {
+        moduleName: "BASEL_CAMERA",
+        name: "GALLERY_COMMIT",
+        sampleRate: 1e3,
       },
       176562906: {
         moduleName: "BASEL_CAMERA",
@@ -21454,6 +21484,11 @@ __d(
         name: "MOTOR_MCU_RESET",
         sampleRate: 1,
       },
+      220343942: {
+        moduleName: "RL_ROBOTICS",
+        name: "PERCEPTION_HEALTH",
+        sampleRate: 1,
+      },
       220344305: {
         moduleName: "RL_ROBOTICS",
         name: "VLA_LATENCY",
@@ -22417,6 +22452,11 @@ __d(
       236526229: {
         moduleName: "WA_REGISTRATION",
         name: "REGISTRATION_HTTP_LATENCY",
+        sampleRate: 1,
+      },
+      236531037: {
+        moduleName: "WA_REGISTRATION",
+        name: "APP_STORE_AGE_COLLECTION",
         sampleRate: 1,
       },
       236532848: {
@@ -27249,10 +27289,25 @@ __d(
         name: "BIO_FONT_SAVE",
         sampleRate: 100,
       },
+      279783699: {
+        moduleName: "IG_CUSTOM_FONTS",
+        name: "CUSTOMIZE_CHAT_OPEN",
+        sampleRate: 1,
+      },
+      279785746: {
+        moduleName: "IG_CUSTOM_FONTS",
+        name: "STORY_FONT_CHANGE",
+        sampleRate: 1,
+      },
       279787920: {
         moduleName: "IG_CUSTOM_FONTS",
         name: "BIO_FONT_CHANGE",
         sampleRate: 100,
+      },
+      279789408: {
+        moduleName: "IG_CUSTOM_FONTS",
+        name: "CHAT_FONT_APPLY",
+        sampleRate: 1,
       },
       280037302: {
         moduleName: "XR_RELOCALIZATION",
@@ -32952,6 +33007,11 @@ __d(
         name: "WEARABLES_CLOUD_STORAGE_FREE_UP",
         sampleRate: 1,
       },
+      389223204: {
+        moduleName: "WEARABLES_CLOUD_STORAGE",
+        name: "WEARABLES_CLOUD_STORAGE_ACTIVATION",
+        sampleRate: 250,
+      },
       389223764: {
         moduleName: "WEARABLES_CLOUD_STORAGE",
         name: "WEARABLES_CLOUD_STORAGE_SAVE",
@@ -36432,6 +36492,11 @@ __d(
         moduleName: "HORIZON_CROSS_SCREENS_PWA",
         name: "PWA_AUTO_LOGIN_ACCEPT",
         sampleRate: null,
+      },
+      442893827: {
+        moduleName: "QRT_INTERN_WWW_PERF",
+        name: "ENT_MUTATION",
+        sampleRate: 1,
       },
       443090325: {
         moduleName: "WHATSAPI_PRE_MEASUREMENTS",
@@ -42396,7 +42461,7 @@ __d(
       521485957: {
         moduleName: "LABYRINTH_WEB",
         name: "MEDIA_UPLOAD",
-        sampleRate: 50,
+        sampleRate: 2,
       },
       521486220: {
         moduleName: "LABYRINTH_WEB",
@@ -48692,7 +48757,7 @@ __d(
       633342491: {
         moduleName: "VIDEO_CSR",
         name: "UDD_CSR_VENDING_LOGGER",
-        sampleRate: 6e3,
+        sampleRate: 8e3,
       },
       633345243: {
         moduleName: "VIDEO_CSR",
@@ -48768,6 +48833,11 @@ __d(
       634666728: {
         moduleName: "WEARABLES_ASSISTANT_API",
         name: "SG_FITNESS_PLUGINS",
+        sampleRate: 1,
+      },
+      634984400: {
+        moduleName: "PROTOSTAR_COMPANION_APP",
+        name: "USS_ALTIMETER_STUDY",
         sampleRate: 1,
       },
       634984580: {
@@ -50849,6 +50919,11 @@ __d(
         moduleName: "MSYS_DEBUG",
         name: "TAM_MAX_BUMPING_EVENT_MISMATCH",
         sampleRate: 1e3,
+      },
+      685513472: {
+        moduleName: "MSYS_DEBUG",
+        name: "PROTOBUF_VALIDATION_DEBUG",
+        sampleRate: 1,
       },
       685514737: {
         moduleName: "MSYS_DEBUG",
@@ -56803,6 +56878,11 @@ __d(
         name: "TEST_INTERACTION_SEARCH_TYPEAHEAD",
         sampleRate: 1e4,
       },
+      740441876: {
+        moduleName: "IG_SLATE",
+        name: "TEST_NAVIGATION_QUICK_SNAP_VIEWER",
+        sampleRate: 1e4,
+      },
       740441882: {
         moduleName: "IG_SLATE",
         name: "TEST_INTERACTION_DIRECT_FORWARDING_SHEET",
@@ -60996,6 +61076,16 @@ __d(
         name: "CREATE_SCENE",
         sampleRate: 1,
       },
+      804849259: {
+        moduleName: "AUDIO_ENGINE",
+        name: "PLAYBACK_FINISHED",
+        sampleRate: 1,
+      },
+      804863358: {
+        moduleName: "AUDIO_ENGINE",
+        name: "PLAYBACK_READY",
+        sampleRate: 1,
+      },
       806229528: {
         moduleName: "WHATSAPP_ONBOARDING_PLATFORM",
         name: "WHATSAPP_ES_FB_ONLY_GET_NUMBER",
@@ -64133,6 +64223,7 @@ __d(
         name: "LOCALIZATION",
         sampleRate: 1,
       },
+      846606675: { moduleName: "VPS_LOCALIZER2", name: "BAMPS", sampleRate: 1 },
       847250461: {
         moduleName: "META_WAND",
         name: "SEARCH_CALL",
@@ -69589,6 +69680,11 @@ __d(
         name: "TEMPLATE_UPLOAD_LATENCY",
         sampleRate: 1e3,
       },
+      933435776: {
+        moduleName: "BASEL_TEMPLATES",
+        name: "GALLERY_COMMIT",
+        sampleRate: 1e3,
+      },
       933440074: {
         moduleName: "BASEL_TEMPLATES",
         name: "TEMPLATE_MEDIA_PREVIEW_ELIGIBILITY_CHECK_LATENCY",
@@ -69717,6 +69813,11 @@ __d(
       936522733: {
         moduleName: "TOPIC_TAGGING",
         name: "TOPIC_TAGGING_NUX_STATE_FETCH",
+        sampleRate: 1e3,
+      },
+      936522857: {
+        moduleName: "TOPIC_TAGGING",
+        name: "TOPIC_TAGGING_FOLLOW_STATE_FETCH",
         sampleRate: 1e3,
       },
       938612604: {
@@ -73466,6 +73567,11 @@ __d(
         name: "IG_CLIENT_DELIVERY_REALTIME_P13N",
         sampleRate: 1e3,
       },
+      974660840: {
+        moduleName: "THREADS_PERF_IOS",
+        name: "CONTENT_CROSSFADE",
+        sampleRate: 250,
+      },
       974666530: {
         moduleName: "THREADS_PERF_IOS",
         name: "FEED_VM_FLATTENING",
@@ -76164,6 +76270,11 @@ __d(
         name: "ECLIPSE_FEED_CONTENT_READY",
         sampleRate: 1,
       },
+      1034762036: {
+        moduleName: "HORIZON_MOBILE",
+        name: "ECLIPSE_REMIX_CONTAINER_STATUS",
+        sampleRate: 1,
+      },
       1034762136: {
         moduleName: "HORIZON_MOBILE",
         name: "ECLIPSE_REMIX_PREVIEW_WORLD",
@@ -76433,6 +76544,11 @@ __d(
         moduleName: "WORKPLACE_WEB_MESSAGING",
         name: "FOLDERS_LOADING_TIME",
         sampleRate: null,
+      },
+      1038942209: {
+        moduleName: "CMO_AGENT",
+        name: "MEMORY_READ",
+        sampleRate: 250,
       },
       1039478718: {
         moduleName: "IGD_WEB_MESSAGE_LIST_OFF_MSYS",

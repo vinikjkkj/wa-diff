@@ -6,6 +6,7 @@ __d(
     "WAWebCurrentUser",
     "WAWebHandleHatchAgentStatus",
     "WAWebHandleHatchApproval",
+    "WAWebHatchMetadataExchangeManager",
     "WAWebHatchPayloadDecoder",
     "getErrorSafe",
   ],
@@ -16,24 +17,31 @@ __d(
       u = new Map();
     function c(t, n) {
       try {
-        if (t.type !== "event") return;
-        var a = t.event,
-          i = o("WAWebHatchPayloadDecoder").decodeHatchPayload(a);
-        if (i.kind !== "approval") {
-          var l = a.timestamp;
-          if (l != null) {
-            var s = u.get(a.index);
-            if (s != null && l <= s) return;
-            u.set(a.index, l);
+        e: {
+          var a = t;
+          if (
+            ((typeof a == "object" && a !== null) || typeof a == "function") &&
+            a.type === "res" &&
+            "requestId" in a &&
+            "response" in a
+          ) {
+            var i = a.requestId,
+              l = a.response;
+            i != null &&
+              r("WAWebHatchMetadataExchangeManager").resolveRequest(i, l);
+            break e;
           }
+          if (
+            ((typeof a == "object" && a !== null) || typeof a == "function") &&
+            a.type === "event" &&
+            "event" in a
+          ) {
+            var s = a.event;
+            d(s, n);
+            break e;
+          }
+          break e;
         }
-        if ((d(n, a, i), a.operation === "REMOVE")) return;
-        i.kind === "agent_status"
-          ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(i.status)
-          : i.kind === "identity"
-            ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(i.identity)
-            : i.kind === "approval" &&
-              o("WAWebHandleHatchApproval").handleHatchApproval(i.approval);
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -46,7 +54,26 @@ __d(
           .sendLogs("hatch-metadata-handler-error");
       }
     }
-    function d(e, t, n) {
+    function d(e, t) {
+      var n = o("WAWebHatchPayloadDecoder").decodeHatchPayload(e);
+      if (n.kind !== "approval") {
+        var r = e.timestamp;
+        if (r != null) {
+          var a = u.get(e.index);
+          if (a != null && r <= a) return;
+          u.set(e.index, r);
+        }
+      }
+      (m(t, e, n),
+        e.operation !== "REMOVE" &&
+          (n.kind === "agent_status"
+            ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(n.status)
+            : n.kind === "identity"
+              ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(n.identity)
+              : n.kind === "approval" &&
+                o("WAWebHandleHatchApproval").handleHatchApproval(n.approval)));
+    }
+    function m(e, t, n) {
       var r;
       if (o("WAWebCurrentUser").isEmployee()) {
         var a =

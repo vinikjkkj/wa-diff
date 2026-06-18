@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WASmaxStatusDeliverIncomingNewsletterStatusRPC",
     "WAWebBackendApi",
+    "WAWebHandleMsgError",
     "WAWebHandleMsgTypes.flow",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
@@ -16,36 +17,36 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var a,
-              i = o(
+            var t,
+              a = o(
                 "WASmaxStatusDeliverIncomingNewsletterStatusRPC",
-              ).receiveIncomingNewsletterStatusRPC(t),
-              l = i.makeIncomingNewsletterStatusResponseSuccess,
-              c = i.parsedRequest,
-              d = l(),
+              ).receiveIncomingNewsletterStatusRPC(e),
+              i = a.makeIncomingNewsletterStatusResponseSuccess,
+              l = a.parsedRequest,
+              d = i(),
               m = o("WAWebJidToWid").jidWithTypeToWid({
                 jidType: "newsletter",
-                newsletterJid: c.from,
+                newsletterJid: l.from,
               }),
-              p = c.newsletterStatusContentTypeMixins;
-            switch (p.name) {
+              f = l.newsletterStatusContentTypeMixins;
+            switch (f.name) {
               case "StatusNewsletterReaction":
               case "StatusNewsletterReactionRevoke":
                 return d;
               default:
                 break;
             }
-            var _ = ((a = c.offlineMixin) == null ? void 0 : a.offline) != null;
+            var g = ((t = l.offlineMixin) == null ? void 0 : t.offline) != null;
             return (
-              _ &&
+              g &&
                 (o(
                   "WAWebOfflineHandler",
                 ).OfflineMessageHandler.addOfflinePendingMessage(),
@@ -54,146 +55,180 @@ __d(
                 ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete()),
               o(
                 "WAWebOfflineHandler",
-              ).OfflineMessageHandler.isResumeFromRestartComplete() && (_ = !1),
+              ).OfflineMessageHandler.isResumeFromRestartComplete() && (g = !1),
               yield o("WAWebMessageQueue").onMessageQueue({
                 chatWid: m,
-                isOffline: _,
+                isOffline: g,
                 msgCategory: null,
                 action: (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
-                      var t;
-                      switch (p.name) {
-                        case "StatusNewsletterText":
-                        case "StatusNewsletterMedia": {
-                          var n =
-                              p.value.plaintextNewsletterPlaintextPayloadMixin
-                                .elementValue,
-                            a = o(
-                              "WAWebNewsletterStatusUtils",
-                            ).mapStatusStanzaToMsgData(c, m, n);
-                          t = babelHelpers.extends({}, a, {
-                            isNewsletterStatus: !0,
-                            author: m,
-                            isNewMsg: !_,
-                          });
-                          break;
-                        }
-                        case "StatusNewsletterRevoke": {
-                          var i = o(
-                            "WAWebNewsletterStatusUtils",
-                          ).mapStatusRevokeToMsgData(c, m);
-                          t = babelHelpers.extends({}, i, {
-                            isNewsletterStatus: !0,
-                            author: m,
-                            isNewMsg: !_,
-                          });
-                          break;
-                        }
-                        default:
-                          throw (
-                            p.name,
-                            r("err")(
-                              "[newsletter][status] Unhandled status content type: " +
-                                p.name,
+                      var e;
+                      try {
+                        e = p(f, l, m, g);
+                      } catch (e) {
+                        if (
+                          !(
+                            e instanceof
+                            o("WAWebHandleMsgError").MessageValidationError
+                          )
+                        )
+                          throw e;
+                        return (
+                          o("WALogger")
+                            .ERROR(
+                              s ||
+                                (s = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[newsletter][status] Invalid status content, skipping",
+                                ])),
                             )
-                          );
+                            .catching(r("getErrorSafe")(e))
+                            .tags("newsletter", "status")
+                            .sendLogs(
+                              "newsletter-status-invalid-content-skipped",
+                            ),
+                          _({ ack: d, from: m, isOffline: g, parsedRequest: l })
+                        );
                       }
                       try {
                         (yield o(
                           "WAWebHandleSingleMsgWorkerCompatible",
                         ).handleSingleMsg({
                           chatId: m,
-                          newMsg: t,
+                          newMsg: e,
                           handleSingleMsgOrigin: "addStatusMessages",
                         }),
-                          c.serverId != null &&
+                          l.serverId != null &&
                             o("WAWebBackendApi").frontendFireAndForget(
                               "fillGapFromIncomingStanza",
                               {
-                                newsletterJid: c.from,
-                                incomingServerId: c.serverId,
-                                sentTime: c.t,
+                                newsletterJid: l.from,
+                                incomingServerId: l.serverId,
+                                sentTime: l.t,
                               },
                             ));
-                      } catch (t) {
+                      } catch (e) {
                         o("WALogger")
                           .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
                                 "[newsletter][status] Failed to process status stanza",
                               ])),
                           )
-                          .catching(r("getErrorSafe")(t))
+                          .catching(r("getErrorSafe")(e))
                           .tags("newsletter", "status")
                           .sendLogs(
                             "newsletter-status-failed-to-process-status-stanza",
                           );
                       }
-                      return _
-                        ? (o(
-                            "WAWebOfflineHandler",
-                          ).OfflineMessageHandler.processMessageDecryptResult(
-                            o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                              .SUCCESS,
-                          ),
-                          o("WAWebMessageProcessorCache")
-                            .messageProcessorCache.addMessages([
-                              {
-                                receiptInfo: {
-                                  externalId: c.id,
-                                  from: m,
-                                  author: m,
-                                },
-                              },
-                            ])
-                            .catch(function (e) {
-                              o("WALogger")
-                                .ERROR(
-                                  s ||
-                                    (s =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[newsletter][status] Failed to store offline ack",
-                                      ])),
-                                )
-                                .catching(r("getErrorSafe")(e))
-                                .tags("newsletter", "status")
-                                .sendLogs(
-                                  "newsletter-status-failed-offline-ack",
-                                );
-                            }),
-                          null)
-                        : d;
+                      return _({
+                        ack: d,
+                        from: m,
+                        isOffline: g,
+                        parsedRequest: l,
+                      });
                     },
                   );
-                  function a() {
-                    return t.apply(this, arguments);
+                  function t() {
+                    return e.apply(this, arguments);
                   }
-                  return a;
+                  return t;
                 })(),
               })
             );
           } catch (e) {
-            var f = r("getErrorSafe")(e);
+            var h = r("getErrorSafe")(e);
             throw (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[newsletter][status] Failed to handle newsletter status",
                     ])),
                 )
-                .catching(f)
+                .catching(h)
                 .tags("newsletter", "status")
                 .sendLogs("failed-handle-newsletter-status"),
-              f
+              h
             );
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.default = c;
+    function p(e, t, n, a) {
+      switch (e.name) {
+        case "StatusNewsletterText":
+        case "StatusNewsletterMedia": {
+          var i = e.value.plaintextNewsletterPlaintextPayloadMixin.elementValue,
+            l = o("WAWebNewsletterStatusUtils").mapStatusStanzaToMsgData(
+              t,
+              n,
+              i,
+            );
+          return babelHelpers.extends({}, l, {
+            isNewsletterStatus: !0,
+            author: n,
+            isNewMsg: !a,
+          });
+        }
+        case "StatusNewsletterRevoke": {
+          var s = o("WAWebNewsletterStatusUtils").mapStatusRevokeToMsgData(
+            t,
+            n,
+          );
+          return babelHelpers.extends({}, s, {
+            isNewsletterStatus: !0,
+            author: n,
+            isNewMsg: !a,
+          });
+        }
+        case "StatusNewsletterReaction":
+        case "StatusNewsletterReactionRevoke":
+          throw r("err")(
+            "[newsletter][status] Unexpected addon status content type: " +
+              e.name,
+          );
+        default:
+          throw (
+            e.name,
+            r("err")(
+              "[newsletter][status] Unhandled status content type: " + e.name,
+            )
+          );
+      }
+    }
+    function _(t) {
+      var n = t.ack,
+        a = t.from,
+        i = t.isOffline,
+        l = t.parsedRequest;
+      return i
+        ? (o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.processMessageDecryptResult(
+            o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
+          ),
+          o("WAWebMessageProcessorCache")
+            .messageProcessorCache.addMessages([
+              { receiptInfo: { externalId: l.id, from: a, author: a } },
+            ])
+            .catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter][status] Failed to store offline ack",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .tags("newsletter", "status")
+                .sendLogs("newsletter-status-failed-offline-ack");
+            }),
+          null)
+        : n;
+    }
+    l.default = d;
   },
   98,
 );

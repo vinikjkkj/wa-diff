@@ -7,8 +7,10 @@ __d(
     "WANullthrows",
     "WAPromiseDelays",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAdvHandlerApi",
     "WAWebApiContact",
+    "WAWebApiContactUsernameFields",
     "WAWebApiDeviceList",
     "WAWebAppTracker",
     "WAWebBizVerifiedNameAction",
@@ -27,6 +29,7 @@ __d(
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUpdateTextStatusForContact",
     "WAWebUserPrefsKeys",
+    "WAWebUsernameTypes",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
@@ -92,7 +95,7 @@ __d(
               o("WAWebAppTracker").AppTrackerType.ContactSync,
             );
             try {
-              var s = yield B(a),
+              var s = yield q(a),
                 u = new (o("WAWebUsync").USyncQuery)()
                   .withContext("background")
                   .withMode(i)
@@ -137,7 +140,8 @@ __d(
                   })
                   .map(function (e) {
                     return e.id;
-                  });
+                  }),
+                f = yield B(s);
               s.forEach(function (e) {
                 var t = new (o("WAWebUsyncUser").USyncUser)()
                   .withId(e.id)
@@ -146,28 +150,31 @@ __d(
                   var n = p.get(e.id.toString());
                   n != null && t.withLid(n);
                 }
-                u.withUser(t);
+                var r = o("WAWebUsernameTypes").serializeMaybeUsername(
+                  f.get(o("WAWebWidFactory").asUserWidOrThrow(e.id)),
+                );
+                (r != null && t.withUsername(r), u.withUser(t));
               });
-              for (var f = null, g = 3, h = 10 * Math.random(); g-- > 0; )
+              for (var g = null, h = 3, y = 10 * Math.random(); h-- > 0; )
                 try {
-                  f = yield u.execute();
-                  var y = f.error.all;
-                  if (y) {
-                    var C;
+                  g = yield u.execute();
+                  var C = g.error.all;
+                  if (C) {
+                    var b;
                     throw (
-                      (h =
-                        (C = y.errorBackoff) != null ? C : 10 * Math.random()),
+                      (y =
+                        (b = C.errorBackoff) != null ? b : 10 * Math.random()),
                       r("err")(
                         "syncContactList: error " +
-                          y.errorCode +
+                          C.errorCode +
                           ": " +
-                          y.errorText,
+                          C.errorText,
                       )
                     );
-                  } else g = 0;
+                  } else h = 0;
                 } catch (e) {
-                  var b = r("getErrorSafe")(e);
-                  (g === 0 &&
+                  var v = r("getErrorSafe")(e);
+                  (h === 0 &&
                     (o("WALogger")
                       .ERROR(
                         m ||
@@ -176,37 +183,37 @@ __d(
                           ])),
                       )
                       .verbose()
-                      .sendLogs("failed to execute usync query: " + b.message),
+                      .sendLogs("failed to execute usync query: " + v.message),
                     o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
                       c,
-                      b.errorCode,
-                      f != null ? f : void 0,
+                      v.errorCode,
+                      g != null ? g : void 0,
                       o("WAWebContactSyncErrorCodes").BACKGROUND_SYNC,
                     )),
-                    yield o("WAPromiseDelays").delayMs(h * 1e3));
+                    yield o("WAPromiseDelays").delayMs(y * 1e3));
                 }
-              if (f == null || f.error.all) return;
-              var v = f.refresh,
-                R = [];
-              for (var L of Object.keys(v)) R.push(v[L]);
-              if (R.length > 0) {
-                var E = Math.min.apply(Math, R);
-                q(E);
+              if (g == null || g.error.all) return;
+              var R = g.refresh,
+                L = [];
+              for (var E of Object.keys(R)) L.push(R[E]);
+              if (L.length > 0) {
+                var k = Math.min.apply(Math, L);
+                V(k);
               }
-              yield P(f);
-              var k = o("WAWebContactSyncLogger").createUpdateCounter();
+              yield P(g);
+              var D = o("WAWebContactSyncLogger").createUpdateCounter();
               (yield (S || (S = n("Promise"))).all([
-                l ? F(f, _, k) : (S || (S = n("Promise"))).resolve(),
-                x(f, k),
-                o("WAWebHandleUsernameSync").handleUsernameSync(f),
-                I(f, k),
-                T(f),
-                M(f, k),
+                l ? F(g, _, D) : (S || (S = n("Promise"))).resolve(),
+                x(g, D),
+                o("WAWebHandleUsernameSync").handleUsernameSync(g),
+                I(g, D),
+                T(g),
+                M(g, D),
               ]),
                 o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
                   c,
-                  f,
-                  k,
+                  g,
+                  D,
                 ),
                 yield A(a));
             } finally {
@@ -556,6 +563,37 @@ __d(
     function W() {
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "username_antiscraping_send_cached_un",
+            ) !== !0
+          )
+            return new Map();
+          var t = new Map(),
+            n = e.map(function (e) {
+              return o("WAWebWidFactory").asUserWidOrThrow(e.id);
+            }),
+            r = yield o(
+              "WAWebApiContactUsernameFields",
+            ).bulkGetContactToUsernameInfoMap([].concat(n));
+          return (
+            n.forEach(function (e) {
+              var n,
+                o = (n = r.get(e.toJid())) == null ? void 0 : n.username;
+              o != null && t.set(e, o);
+            }),
+            t
+          );
+        })),
+        W.apply(this, arguments)
+      );
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebApiDeviceList").getDeviceIds(e),
             r = t.map(function (e) {
               return e == null
@@ -578,10 +616,10 @@ __d(
             });
           return i;
         })),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function q(e) {
+    function V(e) {
       if (Number.isNaN(e) || e <= o("WATimeUtils").HOUR_SECONDS) {
         o("WALogger")
           .WARN(

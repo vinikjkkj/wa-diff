@@ -33,6 +33,7 @@ __d(
     "WAWebStickerPremiumStatus",
     "WAWebUprReceivedWamLogger",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumChatGatedReason",
@@ -104,16 +105,17 @@ __d(
             s = e.msgProcessStartTsMillis,
             u = e.msgs,
             d = e.offline,
-            m = e.serverAddressingMode,
-            p = e.tsMillis,
-            _ = o("WATimeUtils").unixTimeMs(),
-            f = yield (c || (c = n("Promise"))).all([
+            m = e.oppositeHasUsername,
+            p = e.serverAddressingMode,
+            _ = e.tsMillis,
+            f = o("WATimeUtils").unixTimeMs(),
+            g = yield (c || (c = n("Promise"))).all([
               o("WAWebChatThreadLoggingUtils").getMeHasUsername(),
               o("WAWebChatThreadLoggingUtils").getMeHasUsernamePin(),
             ]),
-            g = f[0],
-            h = f[1],
-            y =
+            h = g[0],
+            y = g[1],
+            C =
               (a = r.get(o("WAWebUserPrefsMeUser").getMeUser().toJid())) == null
                 ? void 0
                 : a.ephemeralDuration;
@@ -147,13 +149,13 @@ __d(
                                       c.lidOriginType,
                                   );
                                 })());
-                      var f = yield o(
+                      var g = yield o(
                           "WAWebChatThreadLoggingUtils",
                         ).getOppositeVisibleIdentification(a),
-                        C = a.isGroup()
+                        b = a.isGroup()
                           ? e.from.isLid()
                           : o("WAWebWamMsgUtils").msgIsLid(e, a),
-                        b = new (o(
+                        v = new (o(
                           "WAWebMessageReceiveWamEvent",
                         ).MessageReceiveWamEvent)({
                           messageType:
@@ -175,117 +177,122 @@ __d(
                           isAComment:
                             o("WAWebMsgGetters").getType(e) ===
                             o("WAWebMsgType").MSG_TYPE.COMMENT,
-                          hasUsername: g,
-                          hasUsernamePin: h,
+                          hasUsername: h,
+                          hasUsernamePin: y,
                           chatOrigins: u,
-                          oppositeVisibleIdentification: f != null ? f : void 0,
-                          isLid: C,
+                          oppositeVisibleIdentification: g != null ? g : void 0,
+                          isLid: b,
                           messageReceiveT0: 0,
                           messageReceiveT1: 0,
                           messageReceiveT2: 0,
                         }),
-                        v = o("WAWebWamMessageUtils").getVcardMsgWamData(
+                        S = o("WAWebWamMessageUtils").getVcardMsgWamData(
                           e,
                           "receive",
                         );
-                      if (v) {
-                        var S = v.lidOnlyVcardCount,
-                          R = v.pnAndLidVcardCount,
-                          L = v.pnOnlyVcardCount;
-                        ((b.receivedPhoneNumberContactSize = L),
-                          (b.receivedUsernameContactSize = S),
-                          (b.receivedPhoneNumberWithUsernameContactSize = R));
+                      if (S) {
+                        var R = S.lidOnlyVcardCount,
+                          L = S.pnAndLidVcardCount,
+                          E = S.pnOnlyVcardCount;
+                        ((v.receivedPhoneNumberContactSize = E),
+                          (v.receivedUsernameContactSize = R),
+                          (v.receivedPhoneNumberWithUsernameContactSize = L));
                       }
                       if (
-                        (d != null && (b.offlineCount = d),
+                        (d != null && (v.offlineCount = d),
                         !a.isGroup() && !a.isStatus())
                       ) {
-                        var E,
-                          k =
-                            (E = r.get(a.toJid())) == null
+                        var k,
+                          I =
+                            (k = r.get(a.toJid())) == null
                               ? void 0
-                              : E.ephemeralDuration;
-                        (k != null && (b.senderDefaultDisappearingDuration = k),
-                          y != null &&
-                            (b.receiverDefaultDisappearingDuration = y),
-                          (b.isLid = a.isLid()));
+                              : k.ephemeralDuration;
+                        (I != null && (v.senderDefaultDisappearingDuration = I),
+                          C != null &&
+                            (v.receiverDefaultDisappearingDuration = C),
+                          (v.isLid = a.isLid()),
+                          m != null &&
+                            o(
+                              "WAWebUsernameGatingUtils",
+                            ).usernameAdoptionAndEngagementMonitoringEnabled() &&
+                            (v.oppositeHasUsername = m));
                       }
                       (o("WAWebMsgGetters").getIsRevoke(e) &&
-                        (b.revokeType =
+                        (v.revokeType =
                           e.subtype === "admin_revoke" || e.subtype === "admin"
                             ? o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN
                             : o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER),
                         i != null &&
-                          ((b.messageReceiveT0 = i - p),
-                          (b.messageReceiveT1 = _ - i),
-                          s != null && (b.messageQueueTime = s - i)),
+                          ((v.messageReceiveT0 = i - _),
+                          (v.messageReceiveT1 = f - i),
+                          s != null && (v.messageQueueTime = s - i)),
                         e.ephemeralDuration != null &&
                           e.ephemeralDuration > 0 &&
-                          (b.ephemeralityDuration = e.ephemeralDuration));
-                      var I = e.afterReadDuration;
-                      I != null &&
+                          (v.ephemeralityDuration = e.ephemeralDuration));
+                      var T = e.afterReadDuration;
+                      T != null &&
                         o("WAWebAfterReadUtils").isAfterReadEnabled() &&
-                        ((b.isAfterRead = I > 0), (b.afterReadDuration = I));
-                      var T =
-                        o("WAWebMsgGetters").getWamDisappearingModeInitiator(e);
-                      T != null && (b.disappearingChatInitiator = T);
+                        ((v.isAfterRead = T > 0), (v.afterReadDuration = T));
                       var D =
-                        o("WAWebMsgGetters").getWamDisappearingModeTrigger(e);
-                      D != null && (b.ephemeralityTriggerAction = D);
+                        o("WAWebMsgGetters").getWamDisappearingModeInitiator(e);
+                      D != null && (v.disappearingChatInitiator = D);
                       var x =
+                        o("WAWebMsgGetters").getWamDisappearingModeTrigger(e);
+                      x != null && (v.ephemeralityTriggerAction = x);
+                      var $ =
                         o(
                           "WAWebMsgGetters",
                         ).getWamDisappearingModeInitiatedByMe(e);
-                      x != null && (b.ephemeralityInitiator = x);
-                      var $ =
+                      $ != null && (v.ephemeralityInitiator = $);
+                      var P =
                         o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
-                      $ != null && (b.agentEngagementType = $);
-                      var P = e.senderWithDevice;
-                      if (P != null) {
-                        var N = o("WAWebWamMsgUtils").getWamE2eSenderType(P);
-                        (N != null && (b.e2eSenderType = N),
-                          P.isHosted() &&
-                            (b.encryptionType = o(
+                      P != null && (v.agentEngagementType = P);
+                      var N = e.senderWithDevice;
+                      if (N != null) {
+                        var M = o("WAWebWamMsgUtils").getWamE2eSenderType(N);
+                        (M != null && (v.e2eSenderType = M),
+                          N.isHosted() &&
+                            (v.encryptionType = o(
                               "WAWebWamEnumEncryptionTypeCode",
                             ).ENCRYPTION_TYPE_CODE.COEX));
                       }
-                      var M = yield o(
+                      var w = yield o(
                         "WAWebWamGroupMetadataMetricUtils",
                       ).getGroupTypeFromChatWid(a);
                       if (
-                        (M != null && (b.typeOfGroup = M),
-                        m != null &&
-                          (b.serverAddressingMode = o(
+                        (w != null && (v.typeOfGroup = w),
+                        p != null &&
+                          (v.serverAddressingMode = o(
                             "WAWebWamAddressingModeUtils",
-                          ).getWamAddressingModeFromString(m)),
+                          ).getWamAddressingModeFromString(p)),
                         l != null &&
-                          (b.localAddressingMode = o(
+                          (v.localAddressingMode = o(
                             "WAWebWamAddressingModeUtils",
                           ).getWamAddressingModeFromString(l)),
                         o("WAWebMsgGetters").getType(e) ===
                           o("WAWebMsgType").MSG_TYPE.STICKER &&
-                          (b.stickerIsPremium =
+                          (v.stickerIsPremium =
                             e.stickerPremiumStatus ===
                             o("WAWebStickerPremiumStatus").StickerPremiumStatus
                               .PREMIUM),
                         a != null && a.isGroup())
                       ) {
-                        var w = yield o(
+                        var A = yield o(
                             "WAWebWamGroupMetadataMetricUtils",
                           ).isCagFromChatWid(a),
-                          A = o("WAWebMsgGetters").getIsReaction(e);
-                        w != null && A != null && (b.isLid = w && A);
-                        var F = yield o(
+                          F = o("WAWebMsgGetters").getIsReaction(e);
+                        A != null && F != null && (v.isLid = A && F);
+                        var O = yield o(
                           "WAWebWamGroupMetricCache",
                         ).getGroupMetrics(a);
-                        ((F == null ? void 0 : F.participantCount) != null &&
-                          (b.participantCount = F.participantCount),
-                          (F == null ? void 0 : F.deviceCount) != null &&
-                            (b.deviceCount = F.deviceCount),
-                          (F == null ? void 0 : F.deviceSizeBucket) != null &&
-                            (b.deviceSizeBucket = F.deviceSizeBucket));
+                        ((O == null ? void 0 : O.participantCount) != null &&
+                          (v.participantCount = O.participantCount),
+                          (O == null ? void 0 : O.deviceCount) != null &&
+                            (v.deviceCount = O.deviceCount),
+                          (O == null ? void 0 : O.deviceSizeBucket) != null &&
+                            (v.deviceSizeBucket = O.deviceSizeBucket));
                       }
-                      b.commit();
+                      v.commit();
                     }
                   },
                 );

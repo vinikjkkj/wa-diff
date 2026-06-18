@@ -5,6 +5,7 @@ __d(
     "WAWebBotUtils",
     "WAWebHandleHatchMetadataSync",
     "WAWebHatchDecodeError",
+    "WAWebHatchMetadataExchangeManager",
     "WAWebHatchMetadataOperationDecoder",
     "WAWebHatchMetadataSyncValidationError",
     "WAWebMsgType",
@@ -83,6 +84,10 @@ __d(
                 String(t.reason),
               )
               .sendLogs("hatch-metadata-decode-error"),
+            r("WAWebHatchMetadataExchangeManager").failRequest(
+              n == null ? void 0 : n.requestId,
+              "decode_failed",
+            ),
             new (o(
               "WAWebHatchMetadataSyncValidationError",
             ).HatchMetadataSyncValidationError)(

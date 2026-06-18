@@ -11,6 +11,7 @@ __d(
     "WAWebCallModel",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebContactExternalUserState",
     "WAWebEnvironment",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
@@ -24,6 +25,7 @@ __d(
     "WAWebToastManager",
     "WAWebUnifiedSession",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameTypes",
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipActionRequestOpenChat",
     "WAWebVoipActionWebHandleIncomingSignalingMessage",
@@ -817,63 +819,56 @@ __d(
             d = new Map(),
             m = [],
             p = new Map(),
-            _ = new Map(),
-            f = new Map();
-          for (var g of (h = a.CallParticipants) != null ? h : []) {
-            var h;
+            _ = new Map();
+          for (var f of (g = a.CallParticipants) != null ? g : []) {
+            var g;
             if (
-              (u.push(g.participant),
-              d.set(g.participant.toString(), g.outcome),
-              g.videoState != null)
+              (u.push(f.participant),
+              d.set(f.participant.toString(), f.outcome),
+              f.videoState != null)
             ) {
-              var y = g.videoState;
-              p.set(g.participant.toString(), y);
+              var h = f.videoState;
+              p.set(f.participant.toString(), h);
             } else {
-              var C = i.getParticipantVideoState(g.participant);
-              C != null && p.set(g.participant.toString(), C);
+              var y = i.getParticipantVideoState(f.participant);
+              y != null && p.set(f.participant.toString(), y);
             }
-            if (g.isMuted != null) {
-              var b = g.isMuted;
-              _.set(g.participant.toString(), b);
+            if (f.isMuted != null) {
+              var C = f.isMuted;
+              _.set(f.participant.toString(), C);
             } else {
-              var v = i.getParticipantMuteState(g.participant);
-              v != null && _.set(g.participant.toString(), v);
+              var b = i.getParticipantMuteState(f.participant);
+              b != null && _.set(f.participant.toString(), b);
             }
-            var S = g.pushName;
-            if (S != null && S !== "") f.set(g.participant.toString(), S);
-            else {
-              var R = i.getParticipantPushName(g.participant);
-              R != null && f.set(g.participant.toString(), R);
-            }
-            g.outcome ===
+            f.outcome ===
             o("WAWebVoipWaCallEnums").CallParticipantState.Connected
-              ? (c.push(g.participant),
-                m.push(g.participant.toLogString()),
-                s.has(g.participant.toString()) ||
+              ? (c.push(f.participant),
+                m.push(f.participant.toLogString()),
+                s.has(f.participant.toString()) ||
                   (i.setPeerReconnectingState(
-                    g.participant,
+                    f.participant,
                     !1,
                     o("WAWebVoipWaCallEnums").ReconnectingOption.Text,
                   ),
-                  i.clearRaisedHandForParticipant(g.participant),
-                  i.clearReactionForParticipant(g.participant),
+                  i.clearRaisedHandForParticipant(f.participant),
+                  i.clearReactionForParticipant(f.participant),
                   i.setScreenShareState(
-                    g.participant,
+                    f.participant,
                     o("WAWebVoipWaCallEnums").ScreenShareState.Stopped,
                   )))
-              : (g.outcome ===
+              : (f.outcome ===
                   o("WAWebVoipWaCallEnums").CallParticipantState.Terminated ||
-                  g.outcome ===
+                  f.outcome ===
                     o("WAWebVoipWaCallEnums").CallParticipantState.TimedOut ||
-                  g.outcome ===
+                  f.outcome ===
                     o("WAWebVoipWaCallEnums").CallParticipantState.Rejected) &&
                 (o(
                   "WAWebVoipVideoRendererRegistry",
                 ).videoRendererRegistry.removeParticipantAVSync(
-                  g.participant.toString(),
+                  f.participant.toString(),
                 ),
                 i.setPeerReconnectingState(
-                  g.participant,
+                  f.participant,
                   !1,
                   o("WAWebVoipWaCallEnums").ReconnectingOption.Text,
                 ));
@@ -882,7 +877,6 @@ __d(
             (i.groupCallParticipantsConnected = c),
             (i.groupCallParticipantStates = d),
             i.setGroupParticipantMediaStates(p, _),
-            i.setGroupParticipantPushNames(f),
             V(l, u, d),
             o("WALogger").LOG(
               E ||
@@ -899,6 +893,40 @@ __d(
               ),
             ));
         }
+      },
+      hydrateGuestParticipantContacts: function (t) {
+        var e = t.participants;
+        e.forEach(function (e) {
+          var t = e.isGuestUser,
+            n = e.jid,
+            r = e.pushName,
+            a = e.username;
+          if (
+            !(
+              o("WAWebUserPrefsMeUser").isMeAccount(n) ||
+              n.isBot() ||
+              !n.isUser()
+            )
+          ) {
+            var i = {};
+            r != null && r !== "" && (i.pushname = r);
+            var l =
+              a != null && a !== ""
+                ? o("WAWebUsernameTypes").asMaybeUsername(a)
+                : null;
+            (l != null && (i.username = l),
+              t &&
+                (i.externalUserState = o(
+                  "WAWebContactExternalUserState",
+                ).ExternalUserState.GuestUser),
+              Object.keys(i).length !== 0 &&
+                o("WAWebContactCollection")
+                  .ContactCollection.gadd(
+                    o("WAWebWidFactory").asUserWidOrThrow(n),
+                  )
+                  .set(i));
+          }
+        });
       },
       handlePeerVideoPermissionChange: function (t) {
         var e = t.peerVideoPermissionData,

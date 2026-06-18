@@ -71,14 +71,13 @@ __d(
                         },
                   Icon: e.Icon,
                 };
-              });
+              }),
+        b = c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS;
       return s.jsx(r("WAWebInteractiveBubble.react"), {
         msg: a,
         displayAuthor: t,
         displayType: n,
-        displayFooter:
-          c !== r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS ||
-          o("WAWebOrderStatus").hasOrderStatusButton(a),
+        displayFooter: !b || o("WAWebOrderStatus").hasOrderStatusButton(a),
         header: s.jsx(r("WAWebInteractiveHeader"), {
           msg: a,
           quotedMsg: i,

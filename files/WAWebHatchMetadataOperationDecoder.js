@@ -28,7 +28,7 @@ __d(
     function u(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readField(e, "type");
       if (r === "req") return c(e, n);
-      if (r === "res") return null;
+      if (r === "res") return d(e, n);
       var a = o("WAWebHatchJsonReaders").readField(e, "payload");
       if (!o("WAWebHatchJsonReaders").isObject(a))
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
@@ -42,16 +42,16 @@ __d(
       var l = o("WAWebHatchJsonReaders").readField(a, "payload"),
         s = o("WAWebHatchJsonReaders").readString(l, "session_id"),
         u = o("WAWebHatchJsonReaders").readNumber(a, "ts_ms"),
-        d = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
-        m = "SET";
+        m = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
+        p = "SET";
       return {
         type: "event",
         requestId: n,
         event: {
-          timestamp: d,
+          timestamp: m,
           index: i,
           opKey: i,
-          operation: m,
+          operation: p,
           payload: l,
           sessionId: s,
         },
@@ -69,6 +69,44 @@ __d(
           o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
         );
       return { type: "req", requestId: t, request: { method: r } };
+    }
+    function d(e, t) {
+      var n = o("WAWebHatchJsonReaders").readField(e, "payload"),
+        r = o("WAWebHatchJsonReaders").readString(n, "method");
+      if (r == null || r.length === 0)
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      e: {
+        var a = o("WAWebHatchJsonReaders").readString(e, "status");
+        if (a === "ok")
+          return {
+            type: "res",
+            requestId: t,
+            response: {
+              status: "ok",
+              method: r,
+              body: o("WAWebHatchJsonReaders").readField(n, "body"),
+            },
+          };
+        if (a === "error")
+          return {
+            type: "res",
+            requestId: t,
+            response: {
+              status: "error",
+              method: r,
+              errorCode: o("WAWebHatchJsonReaders").readString(n, "error_code"),
+              errorMessage: o("WAWebHatchJsonReaders").readString(
+                n,
+                "error_message",
+              ),
+            },
+          };
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_STATUS,
+        );
+      }
     }
     l.decodeHatchMetadataOperation = s;
   },

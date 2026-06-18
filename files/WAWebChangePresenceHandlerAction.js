@@ -1,11 +1,6 @@
 __d(
   "WAWebChangePresenceHandlerAction",
-  [
-    "WAWebChatCollection",
-    "WAWebLidMigrationUtils",
-    "WAWebPresenceCollection",
-    "WAWebUserPrefsMeUser",
-  ],
+  ["WAWebChatCollection", "WAWebPresenceCollection", "WAWebUserPrefsMeUser"],
   function (t, n, r, o, a, i, l) {
     var e = 25e3;
     function s(e, t) {
@@ -37,7 +32,7 @@ __d(
         if (i == null) return;
         var l = n.id,
           u = o("WAWebChatCollection").ChatCollection.get(l);
-        if (u == null || o("WAWebLidMigrationUtils").toPn(i) == null) return;
+        if (u == null) return;
         ((n.id = i), (n.participant = void 0), (a = t.chatstates.gadd(n.id)));
       } else a = t.chatstate;
       ((!r || a.type === "typing" || a.type === "recording_audio") && a.set(n),

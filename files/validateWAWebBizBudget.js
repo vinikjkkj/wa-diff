@@ -4,7 +4,10 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
-      return d(e);
+      var t = d(e);
+      if (t.length > 0) return t;
+      var n = y(e.budgetValue, e.recommendedBudget);
+      return n != null ? [n] : [];
     }
     var u = { withDecimals: !0, withNumberDelimiters: !0, withSymbol: !0 };
     function c(e, t) {
@@ -68,6 +71,16 @@ __d(
         title: s._(/*BTDS*/ "The minimum budget for this ad is {min_budget}.", [
           s._param("min_budget", c(e, t)),
         ]),
+      };
+    }
+    function y(e, t) {
+      return t == null || t <= 0 ? null : e >= t ? C() : null;
+    }
+    function C() {
+      return {
+        noticeName: "WAWebBizBudgetInRange",
+        severity: "ACTIVE_FEEDBACK",
+        title: s._(/*BTDS*/ "Your budget is in the recommended range."),
       };
     }
     l.default = e;

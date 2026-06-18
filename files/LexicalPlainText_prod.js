@@ -215,7 +215,16 @@ __d(
         t.registerCommand(
           _require_Lexical.SELECT_ALL_COMMAND,
           function () {
-            return (require("Lexical").$selectAll(), !0);
+            var e = require("Lexical").$getSelection();
+            return (
+              require("Lexical").$selectAll(
+                require("Lexical").$isRangeSelection(e) &&
+                  null !== require("Lexical").$getSlotFrame(e.anchor.getNode())
+                  ? e
+                  : null,
+              ),
+              !0
+            );
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
         ),

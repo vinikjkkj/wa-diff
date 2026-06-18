@@ -763,7 +763,9 @@ __d(
                 !s
             : t === o("WAWebMsgType").MSG_TYPE.CHAT
               ? !c && a && !s
-              : t === o("WAWebMsgType").MSG_TYPE.PTV;
+              : t === o("WAWebMsgType").MSG_TYPE.PTV
+                ? u == null && !s
+                : !1;
         },
         [
           u.getType,

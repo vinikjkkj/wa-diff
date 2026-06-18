@@ -20,6 +20,7 @@ __d(
     "WAWebRevokeMessageSendWamEvent",
     "WAWebSessionScopeWamUtils",
     "WAWebStickerPremiumStatus",
+    "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumChatOriginsType",
@@ -281,6 +282,12 @@ __d(
           (n.setSessionScope = function (t) {
             var e = o("WAWebSessionScopeWamUtils").sessionScopeToWamType(t);
             e != null && (this.$2.sessionScope = e);
+          }),
+          (n.setOppositeHasUsername = function (t) {
+            o(
+              "WAWebUsernameGatingUtils",
+            ).usernameAdoptionAndEngagementMonitoringEnabled() &&
+              (this.$2.oppositeHasUsername = t);
           }),
           (n.postSuccess = function () {
             (o("WAWebAppTracker").AppTracker.stop(

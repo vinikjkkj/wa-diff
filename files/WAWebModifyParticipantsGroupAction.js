@@ -3,10 +3,10 @@ __d(
   [
     "fbt",
     "Promise",
+    "VultureJSDeadComponent.react",
     "WALogger",
     "WAWebABProps",
     "WAWebActionToast.react",
-    "WAWebCommunityRestrictedGroupActionModal.react",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
     "WAWebGroupModifyParticipantsJob",
@@ -283,10 +283,9 @@ __d(
                       var u = s._(/*BTDS*/ "This action is not available");
                       throw (
                         o("WAWebModalManager").ModalManager.open(
-                          h.jsx(
-                            r("WAWebCommunityRestrictedGroupActionModal.react"),
-                            { chat: e },
-                          ),
+                          h.jsx(r("VultureJSDeadComponent.react"), {
+                            name: "WAWebCommunityRestrictedGroupActionModal",
+                          }),
                         ),
                         new (o("WAWebActionToast.react").ActionType)(u)
                       );

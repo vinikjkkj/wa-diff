@@ -13,6 +13,7 @@ __d(
       "TeeDebugInspector",
       "MetaConfig",
       "WasaHatchDebug",
+      "QuickPromotionsManager",
     ]);
     i.DeveloperMenu = e;
   },

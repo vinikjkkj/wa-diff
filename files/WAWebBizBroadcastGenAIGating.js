@@ -1,6 +1,6 @@
 __d(
   "WAWebBizBroadcastGenAIGating",
-  ["WALogger", "WAWebABProps", "countWhere"],
+  ["WALogger", "WAWebABProps", "WAWebL10nGetRenderedLocale", "countWhere"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
@@ -9,32 +9,47 @@ __d(
       );
     }
     function u() {
+      var e = o("WAWebABProps").getABPropConfigValue(
+          "web_business_broadcast_genai_text_languages",
+        ),
+        t = o("WAWebL10nGetRenderedLocale")
+          .WAWebL10nGetRenderedLocale()
+          .split("_")[0];
+      return e
+        .split(",")
+        .map(function (e) {
+          return e.trim();
+        })
+        .includes(t);
+    }
+    function c() {
       return (
         s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smba_business_broadcast_genai_text",
         )
       );
     }
-    function c() {
+    function d() {
       return (
-        u() &&
+        c() &&
         o("WAWebABProps").getABPropConfigValue(
           "smba_business_broadcast_genai_custom_user_prompt_enabled",
         )
       );
     }
-    function d() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "smba_bb_genai_composer_min_words",
       );
     }
-    function m() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "smba_business_broadcast_genai_text_max_tries",
       );
     }
-    function p() {
+    function _() {
       var t = o("WAWebABProps").getABPropConfigValue(
         "smba_business_broadcast_genai_text_model",
       );
@@ -53,24 +68,25 @@ __d(
               .sendLogs("genai-invalid-model"),
           "LLAMA");
     }
-    function _() {
+    function f() {
       return (
-        u() &&
+        c() &&
         o("WAWebABProps").getABPropConfigValue(
           "smba_business_broadcast_genai_share_message_history",
         )
       );
     }
-    function f(e) {
+    function g(e) {
       return r("countWhere")(e.split(/\W+/), Boolean);
     }
-    ((l.isGenAITextEnabled = u),
-      (l.isGenAICustomUserPromptEnabled = c),
-      (l.getGenAIComposerMinWords = d),
-      (l.getGenAIMaxDaily = m),
-      (l.getGenAIModel = p),
-      (l.isMessageHistoryEnabled = _),
-      (l.countWords = f));
+    ((l.isGenAITextSupportedLocale = u),
+      (l.isGenAITextEnabled = c),
+      (l.isGenAICustomUserPromptEnabled = d),
+      (l.getGenAIComposerMinWords = m),
+      (l.getGenAIMaxDaily = p),
+      (l.getGenAIModel = _),
+      (l.isMessageHistoryEnabled = f),
+      (l.countWords = g));
   },
   98,
 );

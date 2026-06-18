@@ -22,7 +22,12 @@ __d(
           return o("WAWap").wap("username", null);
         }),
         (t.getUserElement = function (t) {
-          return null;
+          var e = t.getUsername();
+          return e != null
+            ? o("WAWap").wap("username", {
+                username: o("WAWap").CUSTOM_STRING(e),
+              })
+            : null;
         }),
         e
       );

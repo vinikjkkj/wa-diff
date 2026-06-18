@@ -55,7 +55,7 @@ __d(
           var r = e(n.getTime()),
             a =
               o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate() * 1e3,
-            i = new Date().getTime(),
+            i = Date.now(),
             l = yield u(t, r, i, !1);
           if (l != null) return l;
           var s = yield u(t, a, r, !0);

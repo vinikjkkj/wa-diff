@@ -52,6 +52,7 @@ __d(
           e == null ? void 0 : e.images,
         ),
         lead_gen_configuration: void 0,
+        lead_gen_multi_destination: void 0,
         lead_nurture_channels: void 0,
         link_urls:
           i != null

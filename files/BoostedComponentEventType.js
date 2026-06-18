@@ -54,6 +54,8 @@ __d(
       PERFORM_ADD_BUDGET_AND_DURATION_MUTATION:
         "perform_add_budget_and_duration_mutation",
       PERFORM_RESUME_MUTATION: "perform_resume_mutation",
+      PERFORM_PAUSE_MUTATION: "perform_pause_mutation",
+      PERFORM_DELETE_MUTATION: "perform_delete_mutation",
       PRESUBMIT_VALIDATION_DONE: "presubmit_validation_done",
       PRESUBMIT_VALIDATION_ERROR: "presubmit_validation_error",
       VALIDATION_V2_PRESUBMIT_IGNORE: "validation_v2_presubmit_ignore",
@@ -1651,6 +1653,7 @@ __d(
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:
         "proactive_results_delivery_skipped_not_opted_in",
+      SGC_OPTIMIZATION_SCHEDULED: "sgc_optimization_scheduled",
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",
       PROACTIVE_PIPELINE_ELIGIBLE: "proactive_pipeline_eligible",
       PROACTIVE_PIPELINE_FETCH: "proactive_pipeline_fetch",

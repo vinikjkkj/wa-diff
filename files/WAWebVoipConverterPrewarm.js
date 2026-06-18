@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebNoop",
+    "WAWebVoipGpuDeviceLiveness",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
     "requireDeferred",
@@ -15,41 +16,60 @@ __d(
       u,
       c,
       d,
-      m = r("requireDeferred")("WAWebVoipVideoCaptureWebGPU").__setRef(
+      m,
+      p,
+      _ = r("requireDeferred")("WAWebVoipVideoCaptureWebGPU").__setRef(
         "WAWebVoipConverterPrewarm",
       ),
-      p = null,
-      _ = null,
-      f = 0,
-      g = 0;
-    function h(e, t) {
-      return y.apply(this, arguments);
+      f = null,
+      g = null,
+      h = 0,
+      y = 0,
+      C = 5e3;
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function y() {
+    function v() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (
             o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
               o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                 .CONVERTER_PREWARM,
             )
           ) {
-            if (p != null) {
-              if (f === t && g === a) return;
-              yield v();
+            if (f != null) {
+              if (h === t && y === a) return;
+              yield L();
             }
-            if (_ == null) {
+            if (g == null) {
               var i = Date.now(),
-                l = r("WAWebNoop");
-              _ = new (d || (d = n("Promise")))(function (e) {
-                l = e;
-              });
+                l = r("WAWebNoop"),
+                s = {
+                  abandoned: !1,
+                  promise: new (p || (p = n("Promise")))(function (e) {
+                    l = e;
+                  }),
+                };
+              g = s;
               try {
-                var s = yield m.load(),
-                  u = s.WebGPUVideoConverter,
-                  c = yield u.create(t, a);
-                ((p = c), (f = t), (g = a));
-                var h = Date.now() - i;
+                var u = yield _.load(),
+                  c = u.WebGPUVideoConverter,
+                  d = yield c.create(t, a);
+                if (s.abandoned || g !== s) {
+                  ((d.onDeviceLost = null),
+                    (p || (p = n("Promise")))
+                      .resolve(d.cleanup())
+                      .catch(r("WAWebNoop")));
+                  return;
+                }
+                ((f = d),
+                  (h = t),
+                  (y = a),
+                  (d.onDeviceLost = function () {
+                    f === d && ((f = null), (h = 0), (y = 0));
+                  }));
+                var m = Date.now() - i;
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -58,99 +78,137 @@ __d(
                       "x",
                       "",
                     ])),
-                  h,
+                  m,
                   t,
                   a,
                 );
               } catch (e) {
               } finally {
-                (l(), (_ = null));
+                (l(), g === s && (g = null));
               }
             }
           }
         })),
-        y.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (_ != null) {
-            var n = Date.now();
-            yield _;
-          }
-          if (p == null) return null;
-          if (f !== e || g !== t)
-            return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [ConverterPrewarm] res mismatch: ",
-                    "x",
-                    " vs ",
-                    "x",
-                    "",
-                  ])),
-                f,
-                g,
-                e,
-                t,
-              ),
-              yield v(),
-              null
-            );
-          var r = p;
-          return (
-            (p = null),
-            (f = 0),
-            (g = 0),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [ConverterPrewarm] Consumed pre-warmed converter for ",
-                  "x",
-                  "",
-                ])),
-              e,
-              t,
-            ),
-            r
-          );
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if ((_ != null && (yield _), p != null)) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = g;
+          if (n != null) {
+            var r = Date.now();
             try {
-              yield p.cleanup();
+              yield o("WAWebVoipGpuDeviceLiveness").withDeviceLiveness(
+                n.promise,
+                { label: "ConverterPrewarm wait", timeoutMs: C },
+              );
+            } catch (e) {
+              return (
+                (n.abandoned = !0),
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [ConverterPrewarm] pre-warm wait bailed: ",
+                      "",
+                    ])),
+                  String(e),
+                ),
+                null
+              );
+            }
+          }
+          var a = f;
+          return a == null
+            ? null
+            : (a.isAlive == null ? void 0 : a.isAlive()) === !1
+              ? (o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [ConverterPrewarm] discarding pre-warmed converter, device not alive",
+                    ])),
+                ),
+                k(),
+                null)
+              : h !== e || y !== t
+                ? (o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [ConverterPrewarm] res mismatch: ",
+                        "x",
+                        " vs ",
+                        "x",
+                        "",
+                      ])),
+                    h,
+                    y,
+                    e,
+                    t,
+                  ),
+                  yield L(),
+                  null)
+                : ((a.onDeviceLost = null),
+                  (f = null),
+                  (h = 0),
+                  (y = 0),
+                  o("WALogger").LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [ConverterPrewarm] Consumed pre-warmed converter for ",
+                        "x",
+                        "",
+                      ])),
+                    e,
+                    t,
+                  ),
+                  a);
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = g;
+          if ((e != null && (yield e.promise), f != null)) {
+            try {
+              yield f.cleanup();
             } catch (e) {
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [ConverterPrewarm] Error during cleanup: ",
                     "",
                   ])),
                 String(e),
               );
             }
-            ((p = null), (f = 0), (g = 0));
+            ((f = null), (h = 0), (y = 0));
           }
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    ((l.prewarmConverter = h),
-      (l.consumePrewarmedConverter = C),
-      (l.cleanupPrewarmedConverter = v));
+    function k() {
+      var e = f;
+      ((f = null),
+        (h = 0),
+        (y = 0),
+        e != null &&
+          ((e.onDeviceLost = null),
+          (p || (p = n("Promise")))
+            .resolve(e.cleanup())
+            .catch(r("WAWebNoop"))));
+    }
+    ((l.prewarmConverter = b),
+      (l.consumePrewarmedConverter = S),
+      (l.cleanupPrewarmedConverter = L));
   },
   98,
 );

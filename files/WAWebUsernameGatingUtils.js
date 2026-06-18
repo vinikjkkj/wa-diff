@@ -1,10 +1,11 @@
 __d(
   "WAWebUsernameGatingUtils",
-  ["WAWebABProps"],
+  ["WAWebABProps", "WAWebEnvironment"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return !!o("WAWebABProps").getABPropConfigValue(
-        "username_contact_display",
+      return (
+        !!o("WAWebABProps").getABPropConfigValue("username_contact_display") ||
+        r("WAWebEnvironment").isGuest
       );
     }
     function s() {

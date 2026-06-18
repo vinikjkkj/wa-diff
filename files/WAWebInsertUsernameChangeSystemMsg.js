@@ -16,7 +16,6 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "compactMap",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,20 +25,22 @@ __d(
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
           if (
-            (i === void 0 && (i = "unknown"),
+            (a === void 0 && (a = "unknown"),
             !!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
           )
             try {
-              var l = r("compactMap")(t, function (e) {
-                return m(e, a);
-              });
-              yield (u || (u = n("Promise"))).all(
-                l.map(function (e) {
-                  return _(e);
-                }),
-              );
+              var i = new Set(),
+                l = [];
+              (t.forEach(function (e) {
+                var t = e.userId.toString();
+                if (!i.has(t)) {
+                  var n = m(e, r);
+                  n != null && (i.add(t), l.push(_(n)));
+                }
+              }),
+                yield (u || (u = n("Promise"))).all(l));
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -49,7 +50,7 @@ __d(
                       ": failed to insert username system msg ",
                       "",
                     ])),
-                  i,
+                  a,
                   t instanceof Error ? t.message : String(t),
                 )
                 .sendLogs("username-system-msg-insert-failed");
@@ -62,10 +63,12 @@ __d(
       var n = e.userId;
       if (!n.isLid() || o("WAWebUserPrefsMeUser").isMeAccount(n)) return null;
       var r = t.get(n.toString());
-      if (r == null || r.wasUpdated !== !0) return null;
+      if (r == null) return null;
       var a = e.deleteUsername === !0;
-      if ((!a && e.username == null) || (!a && r.wasPreviouslyKnown !== !0))
-        return null;
+      if ((!a && e.username == null) || r.usernameChanged !== !0) return null;
+      if (a) {
+        if (r.isPhoneNumberKnown !== !0) return null;
+      } else if (r.wasPreviouslyKnown !== !0) return null;
       var i = p(e, a);
       return {
         wid: o("WAWebWidFactory").asUserLidOrThrow(n),

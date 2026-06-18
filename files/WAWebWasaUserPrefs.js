@@ -1,76 +1,55 @@
 __d(
   "WAWebWasaUserPrefs",
-  [
-    "WABase64",
-    "WALogger",
-    "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebUserPrefsIndexedDBStorage", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = "WAWasaActiveTargetMessageKeys";
-    function u(t) {
+    var e = "WAWasaActiveTargetIds";
+    function s(t) {
       var n,
         r =
-          (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s)) == null
+          (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e)) == null
             ? void 0
             : n[t];
-      if (typeof r != "string") return null;
-      try {
-        return new Uint8Array(o("WABase64").decodeB64(r));
-      } catch (t) {
-        return (
-          o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAWebWasaUserPrefs] failed to decode target message key: ",
-                "",
-              ])),
-            t,
-          ),
-          null
-        );
-      }
+      return typeof r == "string" ? r : null;
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = babelHelpers.extends(
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r,
+            a = babelHelpers.extends(
               {},
-              (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s)) !=
+              (r = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e)) !=
                 null
-                ? n
+                ? r
                 : {},
             );
-          ((r[e] = o("WABase64").encodeB64(t)),
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, r));
+          ((a[t] = n),
+            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(e, a));
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s);
-          if (!(t == null || t[e] == null)) {
-            var n = babelHelpers.extends({}, t);
-            (delete n[e],
-              yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, n));
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
+          if (!(n == null || n[t] == null)) {
+            var r = babelHelpers.extends({}, n);
+            (delete r[t],
+              yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(e, r));
           }
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    ((l.getWasaActiveTargetMessageKey = u),
-      (l.setWasaActiveTargetMessageKey = c),
-      (l.clearWasaActiveTargetMessageKey = m));
+    ((l.getWasaActiveTargetId = s),
+      (l.setWasaActiveTargetId = u),
+      (l.clearWasaActiveTargetId = d));
   },
   98,
 );

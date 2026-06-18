@@ -121,10 +121,7 @@ __d(
                 ) &&
                   (T = yield o(
                     "WAWebWasaHatchOutboundWrapper",
-                  ).wrapHatchOutboundMessage({
-                    innerMessage: T,
-                    stanzaId: t.id.id,
-                  })));
+                  ).wrapHatchOutboundMessage({ innerMessage: T })));
               var D =
                   o("WAWebMessagingGatingUtils").isSimpleSignalEnabled() &&
                   m &&
@@ -239,10 +236,7 @@ __d(
                           try {
                             g = yield o(
                               "WAWebWasaHatchOutboundWrapper",
-                            ).wrapHatchOutboundMessage({
-                              innerMessage: g,
-                              stanzaId: t.id.id,
-                            });
+                            ).wrapHatchOutboundMessage({ innerMessage: g });
                           } catch (e) {
                             throw e instanceof
                               o("WAWebWasaHatchOutboundWrapper")
@@ -825,14 +819,19 @@ __d(
                 be,
                 ve,
                 Re,
-              ),
-              Ee = o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: I.id,
-                class: "message",
-                from: E.to,
-                participant: null,
-              });
-            return { stanza: Le, ackTemplate: Ee };
+              );
+            if (!x.isGroup() && !x.isStatus()) {
+              var Ee;
+              (Ee = l.sendReporter) == null ||
+                Ee.setOppositeHasUsername(ie != null);
+            }
+            var ke = o("WAWebCommsAckParser").toCoreAckTemplate({
+              id: I.id,
+              class: "message",
+              from: E.to,
+              participant: null,
+            });
+            return { stanza: Le, ackTemplate: ke };
           },
         )),
         v.apply(this, arguments)

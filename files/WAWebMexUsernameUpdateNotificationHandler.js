@@ -118,7 +118,7 @@ __d(
             if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
               var l = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
               l == null ||
-                l.wasUpdated !== !0 ||
+                l.usernameChanged !== !0 ||
                 (l.wasPreviouslyKnown === !0 &&
                   (yield o(
                     "WAWebInsertUsernameChangeSystemMsg",

@@ -73,10 +73,12 @@ __d(
       var I = r("LinkshimHandlerConfig").aggr_ids;
       if (r("gkx")("18296") && I != null && I.length > 0) {
         var T = null;
-        l != null && (T = l);
-        var D = Math.floor(r("Random").random() * I.length);
-        ((T = I[D]),
-          (f = o("CometClickIDParameterUtils").appendBRIDQueryParam(f, T)));
+        if (l != null) T = l;
+        else {
+          var D = Math.floor(r("Random").random() * I.length);
+          T = I[D];
+        }
+        f = o("CometClickIDParameterUtils").appendBRIDQueryParam(f, T);
       }
       var x = u(f);
       if ((x != null && (f = x), e(f) && s !== !0 && !g)) {

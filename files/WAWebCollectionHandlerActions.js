@@ -65,6 +65,7 @@ __d(
     "WAWebTimeFormatSync",
     "WAWebUserStatusMuteSync",
     "WAWebVoipRelayAllCallsSettingSync",
+    "WAWebWASARootSecretSync",
     "WAWebWaffleAccountLinkStateSync",
   ],
   function (t, n, r, o, a, i, l) {
@@ -134,6 +135,7 @@ __d(
       r("WAWebSubscriptionsSyncV2Sync"),
       r("WAWebOutContactSync"),
       r("WAWebBizAiSettingsNudgeSync"),
+      r("WAWebWASARootSecretSync"),
     ];
     l.ActionHandlers = e;
   },

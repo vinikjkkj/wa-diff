@@ -3,7 +3,7 @@ __d(
   ["nullthrows"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 100,
+    var e = 3e3,
       s = 6e4,
       u = (function () {
         function t() {
@@ -14,31 +14,35 @@ __d(
             (this.$5 = !1),
             (this.$6 = []),
             (this.$7 = null),
-            (this.$8 = []),
-            (this.$9 = null),
-            (this.$10 = null));
+            (this.$8 = {}),
+            (this.$9 = 0),
+            (this.$10 = []),
+            (this.$11 = []),
+            (this.$12 = []),
+            (this.$13 = null),
+            (this.$14 = null));
         }
         var n = t.prototype;
         return (
           (n.processEvent = function (t, n) {
-            (n === void 0 && (n = Date.now()), this.$11(n));
-            var e = this.$12(t, n);
-            return ((this.$10 = n), e);
+            (n === void 0 && (n = Date.now()), this.$15(n));
+            var e = this.$16(t, n);
+            return ((this.$14 = n), e);
           }),
           (n.heartbeat = function (t) {
-            (t === void 0 && (t = Date.now()), this.$11(t), (this.$10 = t));
+            (t === void 0 && (t = Date.now()), this.$15(t), (this.$14 = t));
           }),
-          (n.$11 = function (t) {
-            if (this.$10 != null) {
-              var e = t - this.$10;
+          (n.$15 = function (t) {
+            if (this.$14 != null) {
+              var e = t - this.$14;
               this.$3 === "active" && e > s
-                ? this.$12({ type: "app_suspended" }, this.$10)
+                ? this.$16({ type: "app_suspended" }, this.$14)
                 : this.$3 === "suspended" &&
                   e <= s &&
-                  this.$12({ type: "app_resumed" }, t);
+                  this.$16({ type: "app_resumed" }, t);
             }
           }),
-          (n.$12 = function (t, n) {
+          (n.$16 = function (t, n) {
             if (this.$5)
               return {
                 streamBecameAvailable: !1,
@@ -47,12 +51,12 @@ __d(
               };
             var e = this.$1,
               r = this.isTrueUnavailable(),
-              o = this.$9;
+              o = this.$13;
             switch (t.type) {
               case "create_stream":
                 (this.$4 == null && (this.$4 = n),
                   (this.$1 = "unavailable"),
-                  (this.$9 = "DOWNSTREAM"));
+                  (this.$13 = "DOWNSTREAM"));
                 break;
               case "flow_status_started":
               case "data_received":
@@ -60,11 +64,11 @@ __d(
                 ((this.$1 = "available"), (this.$2 = "available"));
                 break;
               case "stream_ping_timeout":
-                (this.$1 === "available" && (this.$9 = "DOWNSTREAM"),
+                (this.$1 === "available" && (this.$13 = "DOWNSTREAM"),
                   (this.$1 = "unavailable"));
                 break;
               case "error_retryable":
-                ((this.$1 = "unavailable"), (this.$9 = "RETRY"));
+                ((this.$1 = "unavailable"), (this.$13 = "RETRY"));
                 break;
               case "error_terminal":
               case "cancel":
@@ -86,11 +90,11 @@ __d(
             var a = this.isTrueUnavailable();
             return (
               !r && a
-                ? this.$13(n)
+                ? this.$17(n)
                 : r && (!a || this.$5)
-                  ? this.$14(n)
-                  : r && a && o !== this.$9 && (this.$14(n), this.$13(n)),
-              this.$15(t, n),
+                  ? this.$18(n)
+                  : r && a && o !== this.$13 && (this.$18(n), this.$17(n)),
+              this.$19(t, n),
               {
                 streamBecameAvailable:
                   e !== "available" && this.$1 === "available",
@@ -130,7 +134,7 @@ __d(
           (n.finalize = function (t) {
             (t === void 0 && (t = Date.now()),
               !this.$5 &&
-                (this.$14(t), this.isTrueUnavailable() && this.$13(t)));
+                (this.$18(t), this.isTrueUnavailable() && this.$17(t)));
           }),
           (n.getTotalUnavailabilityMs = function () {
             return this.$6.reduce(function (e, t) {
@@ -150,28 +154,37 @@ __d(
           (n.getEvents = function () {
             return this.$8;
           }),
-          (n.$13 = function (t) {
+          (n.getStateSegments = function () {
+            return { stream: this.$10, network: this.$11, runtime: this.$12 };
+          }),
+          (n.$17 = function (t) {
             this.$7 = {
               startMs: t,
               endMs: null,
               durationMs: null,
-              cause: r("nullthrows")(this.$9),
+              cause: r("nullthrows")(this.$13),
             };
           }),
-          (n.$14 = function (t) {
+          (n.$18 = function (t) {
             this.$7 != null &&
               ((this.$7.endMs = t),
               (this.$7.durationMs = t - this.$7.startMs),
               this.$7.durationMs > 0 && this.$6.push(this.$7),
               (this.$7 = null));
           }),
-          (n.$15 = function (n, r) {
-            (this.$8.push({
-              event: n,
-              timestamp: r,
-              state: this.getSnapshot(),
-            }),
-              this.$8.length > e && this.$8.shift());
+          (n.$19 = function (n, r) {
+            if (this.$9 < e) {
+              var t = this.$8[n.type];
+              (t == null && ((t = []), (this.$8[n.type] = t)),
+                t.push(r),
+                this.$20(this.$10, r, this.$1),
+                this.$20(this.$11, r, this.$2),
+                this.$20(this.$12, r, this.$3),
+                this.$9++);
+            }
+          }),
+          (n.$20 = function (t, n, r) {
+            (t.length === 0 || t[t.length - 1][1] !== r) && t.push([n, r]);
           }),
           t
         );

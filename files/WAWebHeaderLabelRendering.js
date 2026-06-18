@@ -74,7 +74,8 @@ __d(
         r("WAWebEnvironment").isGuest ||
         !e.canSend ||
         o("WAWebChatGetters").getIsBroadcast(e) ||
-        (r("WAWebEnvironment").isWindows && m(e))
+        (r("WAWebEnvironment").isWindows && m(e)) ||
+        e.id.isAiHub()
       )
         return null;
       var t = o("WAWebListsGatingUtils").isListsEnabled(),

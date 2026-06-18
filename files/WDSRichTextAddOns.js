@@ -104,82 +104,83 @@ __d(
         i = t.emojiIconAriaLabel,
         l = t.endIconAriaLabel,
         s = t.isDisabled,
-        p = t.loading,
-        _ = t.onEmojiIconClick,
-        f = t.onEndIconClick,
-        g = t.onSecondaryIconClick,
-        h = t.platform,
-        y = t.secondaryIconAriaLabel,
-        C = t.suffix;
-      if (o == null && n == null && a == null && C == null && p == null)
+        p = t.isFocused,
+        _ = t.loading,
+        f = t.onEmojiIconClick,
+        g = t.onEndIconClick,
+        h = t.onSecondaryIconClick,
+        y = t.platform,
+        C = t.secondaryIconAriaLabel,
+        b = t.suffix;
+      if (o == null && n == null && a == null && b == null && _ == null)
         return null;
-      var b, v, S, R, L, E, k;
-      h === "android"
-        ? ((b = 24),
-          (v = c.iconContainer),
-          (S = c.EndIconContainer),
-          (R = c.textSuffixNoIcon),
-          (L = "Body1"),
-          (E = c.addOnEnd),
-          (k = c.addOnEnd))
-        : ((b = 20),
-          (v = d.iconContainer),
-          (S = d.EndIconContainer),
-          (R = d.textSuffixNoIcon),
-          (L = "Body2"));
-      var I = [m.iconContainer, v, S],
-        T = null;
+      var v, S, R, L, E, k, I;
+      y === "android"
+        ? ((v = 24),
+          (S = c.iconContainer),
+          (R = c.EndIconContainer),
+          (L = c.textSuffixNoIcon),
+          (E = "Body1"),
+          (k = c.addOnEnd),
+          (I = c.addOnEnd))
+        : ((v = 20),
+          (S = d.iconContainer),
+          (R = d.EndIconContainer),
+          (L = d.textSuffixNoIcon),
+          (E = "Body2"));
+      var T = [m.iconContainer, S, R],
+        D = null;
       a != null &&
-        (g != null
-          ? (T = u.jsx(
+        (h != null
+          ? (D = u.jsx(
               "div",
               babelHelpers.extends(
                 {},
-                (e || (e = r("stylex"))).props.apply(e, I),
+                (e || (e = r("stylex"))).props.apply(e, T),
                 {
                   children: u.jsx(r("WDSButton.react"), {
                     variant: "borderless",
-                    size: h === "android" ? "medium" : "small",
-                    onPress: g,
+                    size: y === "android" ? "medium" : "small",
+                    onPress: h,
                     Icon: a,
-                    xstyle: E,
-                    "aria-label": y != null ? y : void 0,
+                    xstyle: k,
+                    "aria-label": C != null ? C : void 0,
                     widthMode: "fit",
                     disabled: s === !0,
                   }),
                 },
               ),
             ))
-          : (T = u.jsx(a, {
+          : (D = u.jsx(a, {
               colorName: "contentDefault",
-              xstyle: [].concat(I, [k]),
-              height: b,
-              width: b,
+              xstyle: [].concat(T, [I]),
+              height: v,
+              width: v,
             })));
-      var D = null;
-      p === !0
-        ? (D = u.jsx(
+      var x = null;
+      _ === !0
+        ? (x = u.jsx(
             "div",
             babelHelpers.extends(
               {},
-              (e || (e = r("stylex"))).props.apply(e, I),
-              { children: u.jsx(r("WDSSpinner.react"), { size: b }) },
+              (e || (e = r("stylex"))).props.apply(e, T),
+              { children: u.jsx(r("WDSSpinner.react"), { size: v }) },
             ),
           ))
         : o != null &&
-          (f != null
-            ? (D = u.jsx(
+          (g != null
+            ? (x = u.jsx(
                 "div",
                 babelHelpers.extends(
                   {},
-                  (e || (e = r("stylex"))).props.apply(e, I),
+                  (e || (e = r("stylex"))).props.apply(e, T),
                   {
                     children: u.jsx(r("WDSButton.react"), {
                       variant: "borderless",
-                      size: h === "android" ? "medium" : "small",
-                      onPress: f,
+                      size: y === "android" ? "medium" : "small",
+                      onPress: g,
                       Icon: o,
-                      xstyle: E,
+                      xstyle: k,
                       "aria-label": l != null ? l : void 0,
                       widthMode: "fit",
                       disabled: s === !0,
@@ -187,28 +188,29 @@ __d(
                   },
                 ),
               ))
-            : (D = u.jsx(o, {
+            : (x = u.jsx(o, {
                 colorName: "contentDefault",
-                xstyle: [].concat(I, [k]),
-                height: b,
-                width: b,
+                xstyle: [].concat(T, [I]),
+                height: v,
+                width: v,
               })));
-      var x = null;
+      var $ = null;
       return (
         n != null &&
-          _ != null &&
-          (x = u.jsx(
+          f != null &&
+          p === !0 &&
+          ($ = u.jsx(
             "div",
             babelHelpers.extends(
               {},
-              (e || (e = r("stylex"))).props.apply(e, I),
+              (e || (e = r("stylex"))).props.apply(e, T),
               {
                 children: u.jsx(r("WDSButton.react"), {
                   variant: "borderless",
-                  size: h === "android" ? "medium" : "small",
-                  onPress: _,
+                  size: y === "android" ? "medium" : "small",
+                  onPress: f,
                   Icon: n,
-                  xstyle: E,
+                  xstyle: k,
                   "aria-label": i != null ? i : void 0,
                   widthMode: "fit",
                   disabled: s === !0,
@@ -218,23 +220,23 @@ __d(
           )),
         u.jsxs(u.Fragment, {
           children: [
-            C != null &&
+            b != null &&
               u.jsx("div", {
                 "aria-hidden": "true",
                 children: u.jsx(r("WDSText.react"), {
-                  type: L,
+                  type: E,
                   colorName: "contentDeemphasized",
                   selectable: !1,
                   xstyle: [
                     m.textAffixes,
                     m.textSuffix,
-                    o == null && a == null && n == null && R,
+                    o == null && a == null && n == null && L,
                   ],
-                  children: C,
+                  children: b,
                 }),
               }),
-            T,
             D,
+            $,
             x,
           ],
         })

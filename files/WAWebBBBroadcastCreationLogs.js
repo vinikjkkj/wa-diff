@@ -162,19 +162,21 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function R(e, t, n, r, a, i, l, s, u, c, d) {
-      var m = { contact_count: t, save_result: n };
-      (s != null && ((m.audience_count = s), (m.is_multi_audience = s > 1)),
-        a != null && (m.errorType = a),
-        i != null && (m.campaign_sent_error_type = i),
-        r != null && (m.attachmentExt = r),
-        l != null && (m.attachment_type = l),
-        c === !0 && (m.is_duplicate_bb = !0),
-        d != null && (m.created_from_client_campaign_id = d),
+    function R(e, t, n, r, a, i, l, s, u, c, d, m, p) {
+      var _ = { contact_count: t, save_result: n };
+      (s != null && ((_.audience_count = s), (_.is_multi_audience = s > 1)),
+        a != null && (_.errorType = a),
+        i != null && (_.campaign_sent_error_type = i),
+        r != null && (_.attachmentExt = r),
+        l != null && (_.attachment_type = l),
+        c === !0 && (_.is_duplicate_bb = !0),
+        d != null && (_.created_from_client_campaign_id = d),
+        m != null && (_.ai_assisted_text = m),
+        p != null && (_.ai_assisted_text_edited = p),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
           entryPoint: u,
-          extraAttributes: m,
+          extraAttributes: _,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
@@ -243,22 +245,24 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function $(e, t, n, r, a, i, l, s) {
-      var u = t.length,
-        c = {
-          audience_count: u,
+    function $(e, t, n, r, a, i, l, s, u, c) {
+      var d = t.length,
+        m = {
+          audience_count: d,
           audience_id: t.join(","),
-          is_multi_audience: u > 1,
+          is_multi_audience: d > 1,
           recipient_count: n,
         };
-      (i != null && i > 0 && (c.overlapping_recipient_count = i),
-        a != null && (c.attachment_type = a),
-        l === !0 && (c.is_duplicate_bb = !0),
-        s != null && (c.created_from_client_campaign_id = s),
+      (i != null && i > 0 && (m.overlapping_recipient_count = i),
+        a != null && (m.attachment_type = a),
+        l === !0 && (m.is_duplicate_bb = !0),
+        s != null && (m.created_from_client_campaign_id = s),
+        u != null && (m.ai_assisted_text = u),
+        c != null && (m.ai_assisted_text_edited = c),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
           entryPoint: r,
-          extraAttributes: c,
+          extraAttributes: m,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
@@ -269,6 +273,8 @@ __d(
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
         extraAttributes: {
+          ai_assisted_text: t.aiAssistedText,
+          ai_assisted_text_edited: t.aiAssistedTextEdited,
           checkout_failed: t.checkoutFailed,
           is_creating_campaign: t.isCreatingCampaign,
           is_disabled: t.isDisabled,

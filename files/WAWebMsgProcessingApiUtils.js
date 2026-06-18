@@ -2,7 +2,6 @@ __d(
   "WAWebMsgProcessingApiUtils",
   [
     "Promise",
-    "WAHex",
     "WAJids",
     "WALogger",
     "WANullthrows",
@@ -737,7 +736,7 @@ __d(
         );
       return {
         chatJid: o("WAWebWidFactory").createWid(i),
-        targetMessageKey: new Uint8Array(o("WAHex").parseHex(n)),
+        stanzaId: n,
         rootSecret: new Uint8Array(l),
       };
     }

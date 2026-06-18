@@ -82,6 +82,7 @@ __d(
         OutContact: "out_contact",
         SubscriptionsSyncV2: "subscriptions_sync_v2",
         BizAiSettingsNudge: "biz_ai_settings_nudge",
+        WasaRootSecret: "wasa_root_secret",
       }),
       h = e({
         Regular: "regular",

@@ -19,8 +19,24 @@ __d(
         t
       );
     }
+    function u(e, t) {
+      var n,
+        r,
+        o = (n = e.contentAttributes) == null ? void 0 : n.attribute;
+      if (o == null) return null;
+      var a = o.find(function (e) {
+        return e.key === t;
+      });
+      return (r = a == null ? void 0 : a.value) != null ? r : null;
+    }
+    var c = "whatsapp_gk_enabled";
+    function d(e) {
+      return u(e, c) === "true";
+    }
     ((l.checkIsWithinEligibilityWindow = e),
-      (l.convertFilterParametersIntoMap = s));
+      (l.convertFilterParametersIntoMap = s),
+      (l.getQuickPromotionContentAttribute = u),
+      (l.isWhatsappGkEnabledPromotion = d));
   },
   98,
 );

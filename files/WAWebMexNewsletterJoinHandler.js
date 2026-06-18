@@ -54,7 +54,12 @@ __d(
             ).newsletterJoinNotificationQueue.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  return yield m(s, c, d, i.idJid);
+                  return yield m({
+                    chat: s,
+                    metadata: c,
+                    newsletterJid: i.idJid,
+                    pic: d,
+                  });
                 } catch (t) {
                   o("WALogger")
                     .ERROR(
@@ -73,38 +78,34 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield _({ chat: e, metadata: t, newsletterJid: r }),
-              i = a.msgsToStore,
-              l = a.noEarlierMsgs;
-            (yield o(
-              "WAWebNewsletterUpdateNewslettersRecordsJob",
-            ).updateNewsletterChatRecords([
-              o("WAWebCreateChat").createNewsletterObjectForStorage(e),
-            ]),
-              yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
-                o(
-                  "WAWebNewsletterStorageUtils",
-                ).createNewsletterMetadataObjectForStorage(t),
-              ),
-              yield o("WAWebBackendApi").frontendSendAndReceive(
-                "joinNewsletter",
-                {
-                  newsletter: e,
-                  metadata: t,
-                  pic: n,
-                  msgs: i,
-                  noEarlierMsgs: l,
-                },
-              ));
-          },
-        )),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.metadata,
+            r = e.newsletterJid,
+            a = e.pic,
+            i = yield _({ chat: t, metadata: n, newsletterJid: r }),
+            l = i.msgsToStore,
+            s = i.noEarlierMsgs;
+          (yield o(
+            "WAWebNewsletterUpdateNewslettersRecordsJob",
+          ).updateNewsletterChatRecords([
+            o("WAWebCreateChat").createNewsletterObjectForStorage(t),
+          ]),
+            yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
+              o(
+                "WAWebNewsletterStorageUtils",
+              ).createNewsletterMetadataObjectForStorage(n),
+            ),
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "joinNewsletter",
+              { newsletter: t, metadata: n, pic: a, msgs: l, noEarlierMsgs: s },
+            ));
+        })),
         p.apply(this, arguments)
       );
     }

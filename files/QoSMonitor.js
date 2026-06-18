@@ -93,6 +93,7 @@ __d(
                   method: e.$2,
                   user_id: e.$3,
                   domain: window.location.hostname,
+                  policy: "foreground_only",
                   ts_start_ms: String((t = e.$5.getStartMs()) != null ? t : 0),
                   duration_ms: String(e.$5.getDurationMs()),
                   total_unavailability_ms: String(
@@ -110,14 +111,10 @@ __d(
                         cause: e.cause,
                       };
                     }),
-                  events: e.$5.getEvents().map(function (e) {
-                    return {
-                      type: e.event.type,
-                      timestamp_ms: String(e.timestamp),
-                      stream: e.state.stream,
-                      network: e.state.network,
-                      terminated: e.state.terminated,
-                    };
+                  events: [],
+                  events_compact: JSON.stringify({
+                    ev: e.$5.getEvents(),
+                    st: e.$5.getStateSegments(),
                   }),
                 };
               }));

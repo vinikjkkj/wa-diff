@@ -383,22 +383,26 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.height,
-                  r = e.width;
+                  a = e.width;
                 ((this.width = o("WAWebVoipVideoCaptureSourceRect").closestEven(
-                  r,
+                  a,
                 )),
                   (this.height = o(
                     "WAWebVoipVideoCaptureSourceRect",
                   ).closestEven(t)));
-                var a = [];
-                (this.converter && a.push(this.converter.cleanup()),
+                var i = [];
+                (this.converter && i.push(this.converter.cleanup()),
                   this.fallbackConverter &&
-                    a.push(this.fallbackConverter.cleanup()),
-                  yield (z || (z = n("Promise"))).all(a));
-                var i,
-                  l = !1;
+                    i.push(this.fallbackConverter.cleanup()),
+                  yield (z || (z = n("Promise"))).all(i));
+                var l,
+                  s = !1;
                 try {
-                  i = yield this.createConverter(this.width, this.height);
+                  if (
+                    ((l = yield this.createConverter(this.width, this.height)),
+                    (l.isAlive == null ? void 0 : l.isAlive()) === !1)
+                  )
+                    throw r("err")("primary converter device is not alive");
                 } catch (e) {
                   o("WALogger").WARN(
                     g ||
@@ -408,37 +412,37 @@ __d(
                       ])),
                     e,
                   );
-                  var s = yield this.createFallbackConverter(
+                  var u = yield this.createFallbackConverter(
                     this.width,
                     this.height,
                   );
-                  if (s != null)
-                    ((i = s),
-                      (l = !0),
+                  if (u != null)
+                    ((l = u),
+                      (s = !0),
                       o("WALogger").LOG(
                         h ||
                           (h = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:initVideoCapture] Using fallback converter: ",
                             "",
                           ])),
-                        i.getConverterName(),
+                        l.getConverterName(),
                       ));
                   else throw e;
                 }
                 if (this.isStopped) {
-                  yield i.cleanup();
+                  yield l.cleanup();
                   return;
                 }
                 if (
-                  ((this.converter = i),
-                  (this.primaryConverter = i),
-                  o("WAWebUA").UA.isSafari && !l)
+                  ((this.converter = l),
+                  (this.primaryConverter = l),
+                  o("WAWebUA").UA.isSafari && !s)
                 ) {
-                  var u = yield this.createFallbackConverter(
+                  var c = yield this.createFallbackConverter(
                     this.width,
                     this.height,
                   );
-                  u != null && (this.fallbackConverter = u);
+                  c != null && (this.fallbackConverter = c);
                 }
               },
             );

@@ -11,7 +11,8 @@ __d(
             (r && r.entry++, t in e ? r && r.dup_entry++ : (e[t] = n[t]));
         },
         get: function (n) {
-          return e[n];
+          var t;
+          return (t = l[n]) != null ? t : e[n];
         },
         getAll_DO_NOT_USE: function () {
           return babelHelpers.extends({}, e, l);

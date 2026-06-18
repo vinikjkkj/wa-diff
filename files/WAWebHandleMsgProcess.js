@@ -568,39 +568,43 @@ __d(
                 ),
               );
             var Re = ae.rootSecretDistribute;
-            (Re != null &&
-              (o("WAWebUserPrefsMeUser").isMeAccount(c.author)
-                ? ge.push(
-                    o("WAWebWasaRootSecretWriter").applyWasaRootSecret(
-                      Re.chatJid,
-                      Re.targetMessageKey,
-                      Re.rootSecret,
-                    ),
-                  )
-                : o("WALogger").WARN(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "[wasa] dropping rootSecretDistribute from non-self author ",
-                        "",
-                      ])),
-                    c.author.toString(),
-                  )),
-              r("isStringNullOrEmpty")(c.pushname) ||
-                o("WAWebHandlePushnameUpdate").updatePushname(
-                  c.author,
-                  c.pushname,
-                  c.offline != null,
-                ));
-            var Le = q(c.chat);
+            if (Re != null)
+              if (o("WAWebUserPrefsMeUser").isMeAccount(c.author)) {
+                var Le = Re.chatJid,
+                  Ee = Re.rootSecret,
+                  ke = Re.stanzaId;
+                ge.push(
+                  o("WAWebWasaRootSecretWriter").applyWasaRootSecretForId(
+                    Le,
+                    ke,
+                    Ee,
+                  ),
+                );
+              } else
+                o("WALogger").WARN(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] dropping rootSecretDistribute from non-self author ",
+                      "",
+                    ])),
+                  c.author.toString(),
+                );
+            r("isStringNullOrEmpty")(c.pushname) ||
+              o("WAWebHandlePushnameUpdate").updatePushname(
+                c.author,
+                c.pushname,
+                c.offline != null,
+              );
+            var Ie = q(c.chat);
             yield (E || (E = n("Promise"))).all(ge);
-            var Ee = yield Le;
+            var Te = yield Ie;
             return (
               o(
                 "WAWebLogMissingGroupParticipantMappings",
               ).logMissingGroupParticipantMappings({
                 author: c.author,
                 groupId: c.chat,
-                localAddressingMode: Ee,
+                localAddressingMode: Te,
                 serverAddressingMode: c.addressingMode,
               }),
               o("WAWebLogReceivedMessages").logReceivedMessagesInWAM({
@@ -610,7 +614,12 @@ __d(
                 clientReceivedTsMillis: c.clientReceivedTsMillis,
                 msgProcessStartTsMillis: c.msgProcessStartTsMillis,
                 serverAddressingMode: c.addressingMode,
-                localAddressingMode: Ee,
+                localAddressingMode: Te,
+                oppositeHasUsername: o("WAWebUserPrefsMeUser").isMeAccount(
+                  c.author,
+                )
+                  ? c.peerRecipientUsername != null
+                  : c.username != null,
               }),
               { hasInactiveMsg: fe, isOrphanAddon: he }
             );

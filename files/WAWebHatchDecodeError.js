@@ -8,6 +8,7 @@ __d(
         INVALID_VERSION: "hatch_metadata_invalid_version",
         INVALID_PAYLOAD: "hatch_metadata_invalid_payload",
         INVALID_OP_KEY: "hatch_metadata_invalid_op_key",
+        INVALID_STATUS: "hatch_metadata_invalid_status",
       }),
       l = (function (e) {
         function t(t) {

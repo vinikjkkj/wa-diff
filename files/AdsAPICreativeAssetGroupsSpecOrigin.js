@@ -9,6 +9,7 @@ __d(
       CLO: "conversion_lead_optimization",
       COEXISTENCE_TEST_PRODUCT_A: "coexistence_test_product_a",
       COEXISTENCE_TEST_PRODUCT_B: "coexistence_test_product_b",
+      COEXISTENCE_TEST_PRODUCT_C: "coexistence_test_product_c",
       CREATIVE_ELIGIBILITY: "creative_eligibility",
       CREATIVE_FLEX: "creative_flex",
       CREATIVE_FLEX_EPA_POSITIVE_TEST: "creative_flex_epa_positive_test",

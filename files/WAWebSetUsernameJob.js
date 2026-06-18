@@ -101,8 +101,13 @@ __d(
                 m != null && (p == null ? void 0 : p.usernameCountryCode) !== m,
               h = f || g,
               y = !!(_ || (p == null ? void 0 : p.username) != null),
-              C = { wasUpdated: !!h, wasPreviouslyKnown: y };
-            if (h && f) {
+              C = {
+                usernameChanged: !!f,
+                countryCodeChanged: !!g,
+                wasPreviouslyKnown: y,
+                isPhoneNumberKnown: !!_,
+              };
+            if (f) {
               var b;
               C.oldUsername =
                 (b = p == null ? void 0 : p.username) != null ? b : void 0;
