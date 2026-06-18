@@ -15,12 +15,25 @@ __d(
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            o = yield d(e, t, n);
+          return (r = o == null ? void 0 : o.proto) != null ? r : null;
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t, n) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i;
           try {
             i = yield o("WAWebScheduledMsgCrypto").decryptWithRevealKey(
-              d(t),
-              d(n),
+              p(t),
+              p(n),
               a,
             );
           } catch (t) {
@@ -37,11 +50,15 @@ __d(
               null
             );
           }
+          var l = new Uint8Array(i);
           try {
-            return o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsE2E.pb").MessageSpec,
-              new Uint8Array(i),
-            );
+            return {
+              proto: o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufsE2E.pb").MessageSpec,
+                l,
+              ),
+              protoBytes: l,
+            };
           } catch (e) {
             return (
               o("WALogger")
@@ -57,15 +74,16 @@ __d(
             );
           }
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function d(e) {
+    function p(e) {
       return e instanceof ArrayBuffer
         ? e
         : e.buffer.slice(e.byteOffset, e.byteOffset + e.byteLength);
     }
-    l.decryptAndDecodeRevealPayload = u;
+    ((l.decryptAndDecodeRevealPayload = u),
+      (l.decryptAndDecodeRevealPayloadWithBytes = d));
   },
   98,
 );

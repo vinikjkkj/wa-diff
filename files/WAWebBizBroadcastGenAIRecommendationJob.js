@@ -2,110 +2,49 @@ __d(
   "WAWebBizBroadcastGenAIRecommendationJob",
   [
     "WALogger",
-    "WAWebBizBroadcastGenAIGating",
     "WAWebBizBroadcastGenAIRecommendationJobQuery.graphql",
-    "WAWebDBMessageFindLocal",
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c,
-      d =
+      u =
         e !== void 0
           ? e
-          : (e = n("WAWebBizBroadcastGenAIRecommendationJobQuery.graphql")),
-      m = 5;
-    function p(e) {
-      return _.apply(this, arguments);
+          : (e = n("WAWebBizBroadcastGenAIRecommendationJobQuery.graphql"));
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function _() {
+    function d() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebBizBroadcastGenAIGating").isMessageHistoryEnabled())
-            return [];
-          try {
-            var t = o("WAWebWidFactory").createWid(e),
-              n = yield o("WAWebDBMessageFindLocal").msgFindBefore({
-                anchor: { remote: t },
-                count: m,
-              }),
-              r = n.messages,
-              a = [];
-            for (var i of r)
-              i.body != null && i.body !== "" && a.push({ content: i.body });
-            return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:genai] Found ",
-                    " messages for broadcastJid=",
-                    "",
-                  ])),
-                a.length,
-                e,
-              ),
-              a
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:genai] Failed to fetch message history",
-                    ])),
-                )
-                .sendLogs("genai-message-history-error"),
-              []
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var n = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (n.type !== "success") return { type: "auth-failure" };
-          var a = n.token,
-            i = (t = e.broadcastJids) == null ? void 0 : t[0],
-            l = i != null ? yield p(i) : [];
+          var t = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (t.type !== "success") return { type: "auth-failure" };
+          var n = t.token;
           try {
-            var s = yield o("WAWebRelayClient").fetchQuery(
-              d,
+            var a = yield o("WAWebRelayClient").fetchQuery(
+              u,
               {
                 data: {
-                  actor_id: a.bp_id,
+                  actor_id: n.bp_id,
                   model: e.model,
-                  user_info:
-                    l.length > 0
-                      ? JSON.stringify({ message_history: l })
-                      : void 0,
                   user_message_draft: e.userMessageDraft,
                   user_prompt: e.userPrompt,
                 },
               },
-              { accessToken: a, environmentType: "facebook" },
+              { accessToken: n, environmentType: "facebook" },
             );
-            return h(s);
+            return m(a);
           } catch (e) {
             return (
               o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:genai] failed with error",
                   ])),
               ),
@@ -115,10 +54,10 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function h(e) {
+    function m(e) {
       var t =
           e == null ? void 0 : e.xwa_business_broadcast_genai_recommendation,
         n = t == null ? void 0 : t.response;
@@ -143,7 +82,7 @@ __d(
           }
         : { type: "error" };
     }
-    l.fetchBroadcastGenAIRecommendation = f;
+    l.fetchBroadcastGenAIRecommendation = c;
   },
   98,
 );

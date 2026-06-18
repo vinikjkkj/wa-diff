@@ -4,7 +4,10 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebE2EProtoUtils",
+    "WAWebMessagingGatingUtils",
     "WAWebProtobufsE2E.pb",
+    "WAWebReportingTokenConfig",
+    "WAWebReportingTokenContent",
     "WAWebScheduledMsgCrypto",
     "WAWebScheduledMsgStore",
     "WAWebSendMsgTypes",
@@ -22,6 +25,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i) {
+            var l;
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -32,22 +36,48 @@ __d(
               t,
               n,
             );
-            var l = o("WAWebScheduledMsgCrypto").generateRevealKey(),
-              c = o("WAWebScheduledMsgCrypto").generateRevealKeyId(),
-              d = o("encodeProtobuf")
-                .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, a)
+            var c = o("WAWebScheduledMsgCrypto").generateRevealKey(),
+              d = o("WAWebScheduledMsgCrypto").generateRevealKeyId(),
+              m = (l = a.messageContextInfo) == null ? void 0 : l.messageSecret,
+              p =
+                m != null
+                  ? new Uint8Array(m)
+                  : self.crypto.getRandomValues(new Uint8Array(32)),
+              _ = babelHelpers.extends({}, a, {
+                messageContextInfo: babelHelpers.extends(
+                  {},
+                  a.messageContextInfo,
+                  { messageSecret: p },
+                ),
+              }),
+              f = o("encodeProtobuf")
+                .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, _)
                 .readByteArrayView(),
-              m = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(d, l),
-              p = m.encIv,
-              _ = m.encPayload,
-              f = {
+              g = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(f, c),
+              h = g.encIv,
+              y = g.encPayload,
+              C = o(
+                "WAWebMessagingGatingUtils",
+              ).isReportingTokenSendingEnabled()
+                ? new (o(
+                    "WAWebReportingTokenContent",
+                  ).ReportingTokenContentCalculator)(
+                    f,
+                    o("WAWebReportingTokenConfig").getReportingTokenConfig(
+                      o(
+                        "WAWebMessagingGatingUtils",
+                      ).getSenderReportingTokenVersion(),
+                    ),
+                  ).getReportingTokenContent()
+                : null,
+              b = {
                 conditionalRevealMessage: {
                   conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
                     .Message$ConditionalRevealMessage$ConditionalRevealMessageType
                     .SCHEDULED_MESSAGE,
-                  encIv: p,
-                  encPayload: _,
-                  revealKeyId: c,
+                  encIv: h,
+                  encPayload: y,
+                  revealKeyId: d,
                 },
                 messageContextInfo: {
                   messageSecret: self.crypto.getRandomValues(
@@ -55,16 +85,16 @@ __d(
                   ),
                 },
               },
-              g = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
+              v = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
                 chatId: n,
                 msgId: t,
-                revealKey: l,
-                revealKeyId: c,
+                revealKey: c,
+                revealKeyId: d,
                 scheduledTimestampS: i,
-                encPayload: new Uint8Array(_),
-                encIv: new Uint8Array(p),
+                encPayload: new Uint8Array(y),
+                encIv: new Uint8Array(h),
               });
-            if (!g)
+            if (!v)
               throw (
                 o("WALogger").ERROR(
                   s ||
@@ -87,13 +117,15 @@ __d(
                     "",
                   ])),
                 t,
-                c,
+                d,
               ),
               {
-                revealKey: l,
-                revealKeyId: c,
+                innerMessageSecret: p,
+                reportingTokenContent: C,
+                revealKey: c,
+                revealKeyId: d,
                 scheduledTimestampS: i,
-                wrappedProtobuf: f,
+                wrappedProtobuf: b,
               }
             );
           },
@@ -120,16 +152,21 @@ __d(
               l = o("WATimeUtils").castToUnixTime(a),
               s = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(t),
               u = yield c(e.data.id.toString(), i, t, l);
-            return {
-              msgProtobuf: u.wrappedProtobuf,
-              scheduledMsgMetadata: {
-                kind: "schedule",
-                scheduledTimestampS: u.scheduledTimestampS,
-                revealKeyId: u.revealKeyId,
-                revealKey: u.revealKey,
-                originalStanzaType: s,
-              },
-            };
+            return (
+              (e.data.messageSecret = u.innerMessageSecret),
+              u.reportingTokenContent != null &&
+                (e.data.reportingTokenContent = u.reportingTokenContent),
+              {
+                msgProtobuf: u.wrappedProtobuf,
+                scheduledMsgMetadata: {
+                  kind: "schedule",
+                  scheduledTimestampS: u.scheduledTimestampS,
+                  revealKeyId: u.revealKeyId,
+                  revealKey: u.revealKey,
+                  originalStanzaType: s,
+                },
+              }
+            );
           },
         )),
         p.apply(this, arguments)

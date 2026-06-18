@@ -39,9 +39,11 @@ __d(
             a = c(n);
           if (r == null || a == null)
             return "Invalid input: target key and root secret must each be hex or base64.";
-          yield o("WAWebWasaRootSecretWriter").applyWasaRootSecret(e, r, a);
-          var i = o("WAHex").toHex(r).toLowerCase().slice(0, s);
-          return "Applied (target=" + i + "\u2026).";
+          var i = o("WAHex").toHex(r).toLowerCase();
+          (yield o("WAWebWasaRootSecretWriter").upsertWasaCarrierForId(e, i, a),
+            yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, i));
+          var l = i.slice(0, s);
+          return "Applied (target=" + l + "\u2026).";
         })),
         m.apply(this, arguments)
       );
@@ -52,10 +54,13 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWasaUserPrefs").getWasaActiveTargetMessageKey(e.user);
+          var t = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
           if (t == null) return "No WASA secret configured.";
-          var n = o("WAHex").toHex(t).toLowerCase().slice(0, s),
-            r = yield o("WAWebWasaRootSecretWriter").getWasaCarrierSecret(e, t);
+          var n = t.slice(0, s),
+            r = yield o("WAWebWasaRootSecretWriter").getWasaCarrierSecretForId(
+              e,
+              t,
+            );
           return r == null
             ? "Pointer set (target=" + n + "\u2026) but no carrier row found."
             : "Configured: target=" +

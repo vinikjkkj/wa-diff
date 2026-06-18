@@ -13,6 +13,7 @@ __d(
     "WAWebDBMessageDelete",
     "WAWebFindChatAction",
     "WAWebHandleSingleMsgWorkerCompatible",
+    "WAWebInAppSignupInfoStore",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNullFunc",
@@ -25,6 +26,7 @@ __d(
     "WAWebSignupQPLLogger",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "WAWebWamEnumSignupEntryPoint",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -255,6 +257,11 @@ __d(
                 businessWid: s.id,
                 chatTimestamp: s.t,
               }),
+              o("WAWebInAppSignupInfoStore").saveEntryPoint(
+                s.id.toString(),
+                o("WAWebWamEnumSignupEntryPoint").SIGNUP_ENTRY_POINT
+                  .CHAT_THREAD_BUSINESS,
+              ),
               o("WAWebSignupLoadingState").setSignupLoading(a, !1),
               o("WAWebSignupQPLLogger").deepLinkSuccess(t));
           } catch (n) {

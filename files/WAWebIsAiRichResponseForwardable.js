@@ -1,6 +1,8 @@
 __d(
   "WAWebIsAiRichResponseForwardable",
   [
+    "WAWebBotTypes",
+    "WAWebBotUnifiedResponseGating",
     "WAWebFrontendMsgGetters",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
@@ -10,6 +12,11 @@ __d(
       var t = o("WAWebFrontendMsgGetters").getAsRichResponse(e);
       if (
         t == null ||
+        e.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST ||
+        e.botEditType === o("WAWebBotTypes").BotMsgEditType.INNER ||
+        !o(
+          "WAWebBotUnifiedResponseGating",
+        ).isAiRichResponseForwardingSenderEnabled(e.t) ||
         o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
           t.unifiedResponse,
         )

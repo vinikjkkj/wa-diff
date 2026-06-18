@@ -250,7 +250,7 @@ __d(
                   "[startBackend]: connected as ",
                   "",
                 ])),
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+              o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
             ),
             r("WAWebEnvironment").isWindows)
           ) {

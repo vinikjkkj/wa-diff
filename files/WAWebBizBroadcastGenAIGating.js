@@ -27,31 +27,23 @@ __d(
         s() &&
         u() &&
         o("WAWebABProps").getABPropConfigValue(
-          "smba_business_broadcast_genai_text",
+          "web_business_broadcast_genai_text",
         )
       );
     }
     function d() {
-      return (
-        c() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smba_business_broadcast_genai_custom_user_prompt_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_bb_genai_composer_min_words",
       );
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smba_bb_genai_composer_min_words",
+        "web_business_broadcast_genai_text_max_tries",
       );
     }
     function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smba_business_broadcast_genai_text_max_tries",
-      );
-    }
-    function _() {
       var t = o("WAWebABProps").getABPropConfigValue(
-        "smba_business_broadcast_genai_text_model",
+        "web_business_broadcast_genai_text_model",
       );
       return t === "MGEN"
         ? "MGEN"
@@ -68,25 +60,16 @@ __d(
               .sendLogs("genai-invalid-model"),
           "LLAMA");
     }
-    function f() {
-      return (
-        c() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "smba_business_broadcast_genai_share_message_history",
-        )
-      );
-    }
-    function g(e) {
+    function _(e) {
       return r("countWhere")(e.split(/\W+/), Boolean);
     }
-    ((l.isGenAITextSupportedLocale = u),
+    ((l.isGenAIMasterEnabled = s),
+      (l.isGenAITextSupportedLocale = u),
       (l.isGenAITextEnabled = c),
-      (l.isGenAICustomUserPromptEnabled = d),
-      (l.getGenAIComposerMinWords = m),
-      (l.getGenAIMaxDaily = p),
-      (l.getGenAIModel = _),
-      (l.isMessageHistoryEnabled = f),
-      (l.countWords = g));
+      (l.getGenAIComposerMinWords = d),
+      (l.getGenAIMaxDaily = m),
+      (l.getGenAIModel = p),
+      (l.countWords = _));
   },
   98,
 );

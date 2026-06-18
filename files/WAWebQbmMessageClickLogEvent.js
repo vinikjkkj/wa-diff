@@ -5,6 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebFrontendContactGetters",
+    "WAWebInAppSignupInfoStore",
     "WAWebMsgGetters",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageClickWamEvent",
@@ -72,9 +73,16 @@ __d(
           o("WAWebABProps").getABPropConfigValue(
             "web_biz_quality_telemetry_message_clicks_enabled",
           ) &&
+            (o("WAWebABProps").getABPropConfigValue(
+              "inapp_signup_m1_logging_enabled",
+            ) &&
+              (yield o(
+                "WAWebInAppSignupInfoStore",
+              ).ensureInAppSignupInfoHydrated()),
             new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(i, a)
               .addCommonFields()
               .addAttributionFields()
+              .addIasFields()
               .log(
                 (function () {
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -110,7 +118,7 @@ __d(
                     return t.apply(this, arguments);
                   };
                 })(),
-              );
+              ));
         })),
         _.apply(this, arguments)
       );

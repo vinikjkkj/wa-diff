@@ -1221,7 +1221,7 @@ __d(
               o("WALogger").LOG(
                 w ||
                   (w = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: initP2PConnectionIfEnabled: caller is not a contact, P2P gated (relay only), callId=",
+                    "voip: initP2PConnectionIfEnabled: non-contact, P2P gated ",
                     "",
                   ])),
                 a,

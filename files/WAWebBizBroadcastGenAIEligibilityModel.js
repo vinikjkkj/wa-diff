@@ -42,7 +42,9 @@ __d(
             ));
         }
       }
-      return o("WAWebBizBroadcastGenAIGating").isGenAITextEnabled() && c === !0;
+      return (
+        o("WAWebBizBroadcastGenAIGating").isGenAIMasterEnabled() && c === !0
+      );
     }
     function f() {
       return d;

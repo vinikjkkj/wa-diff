@@ -1089,10 +1089,15 @@ __d(
             : !1;
         case "BIZ_BROADCAST_HOME": {
           if (
+            (o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
+              deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
+                .DEEP_LINK_MARKETING_MESSAGE,
+              isExternal: a,
+            }),
             !o("WAWebMobilePlatforms").isSMB() ||
-            !o(
-              "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).isBizBroadcastEnabledAndDeviceSupported(!1)
+              !o(
+                "WAWebBizBroadcastDeviceCapabilityCommon",
+              ).isBizBroadcastEnabledAndDeviceSupported(!1))
           )
             return !1;
           var Me = t.data.source,

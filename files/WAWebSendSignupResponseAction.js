@@ -9,6 +9,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebDBUpdateMessageTable",
+    "WAWebInAppSignupInfoStore",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgKey",
@@ -23,6 +24,7 @@ __d(
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebWamEnumSignupEntryPoint",
     "WAWebWidToJid",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
@@ -179,6 +181,11 @@ __d(
               yield o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "updateOptOutListModelInCollection",
                 { targetWid: t.id, isBlocked: !1 },
+              ),
+              o("WAWebInAppSignupInfoStore").saveOptinDate(
+                t.id.toString(),
+                o("WAWebWamEnumSignupEntryPoint").SIGNUP_ENTRY_POINT
+                  .CHAT_THREAD_BUSINESS,
               ));
           } catch (e) {
             return (

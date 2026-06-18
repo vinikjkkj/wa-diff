@@ -154,6 +154,9 @@ __d(
         case o("WAWebCommonNewsletterEnums").NewsletterCapability
           .JARVIS_INTEGRATION_ENABLED:
           return "JARVIS_INTEGRATION_ENABLED";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .PINNED_MESSAGES:
+          return "PINNED_MESSAGES";
       }
     }
     ((l.mapMembershipTypeToViewRole = s),

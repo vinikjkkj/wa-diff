@@ -2,8 +2,10 @@ __d(
   "WAWebQbmIncomingMessageLogger",
   [
     "WAWebABProps",
+    "WAWebInAppSignupInfoStore",
     "WAWebLidAwareContactsDB",
     "WAWebMsgGetters",
+    "WAWebQBMLoggerBuilder",
     "WAWebQbmIncomingMessageWamEvent",
     "WAWebUserPrefsNotifications",
     "WAWebWamEnumChatsFolderType",
@@ -50,56 +52,65 @@ __d(
                 "enable_logging_qbm_incoming_message",
               )
             )
-          )
-            for (
-              var n = e.map(function (e) {
-                  return e.from != null ? e.from.toJid() : "";
-                }),
-                a = yield r("WAWebLidAwareContactsDB").bulkGet(n),
-                i = 0;
-              i < e.length;
-              i++
-            )
-              p(e[i], t[i], a[i]);
+          ) {
+            var n = e.map(function (e) {
+                return e.from != null ? e.from.toJid() : "";
+              }),
+              a = yield r("WAWebLidAwareContactsDB").bulkGet(n);
+            o("WAWebABProps").getABPropConfigValue(
+              "inapp_signup_m1_logging_enabled",
+            ) &&
+              (yield o(
+                "WAWebInAppSignupInfoStore",
+              ).ensureInAppSignupInfoHydrated());
+            for (var i = 0; i < e.length; i++) p(e[i], t[i], a[i]);
+          }
         })),
         m.apply(this, arguments)
       );
     }
     function p(e, t, n) {
-      var r;
+      var r, a;
       if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
-        var a = e.from;
-        if (!(a == null || a.isGroup() || a.isStatus() || n == null)) {
-          var i = n.isBusiness,
-            l = n.isEnterprise;
-          if (!(!i && !l)) {
-            var s = l
+        var i = e.from;
+        if (!(i == null || i.isGroup() || i.isStatus() || n == null)) {
+          var l = n.isBusiness,
+            s = n.isEnterprise;
+          if (!(!l && !s)) {
+            var d = s
                 ? o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE
                 : o("WAWebWamEnumContactType").CONTACT_TYPE.SMB,
-              d =
+              m =
                 (t == null ? void 0 : t.archive) === !0
                   ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
                   : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
-              m = c(e);
+              p = c(e);
             new (o(
               "WAWebQbmIncomingMessageWamEvent",
-            ).QbmIncomingMessageWamEvent)({
-              contactType: s,
-              chatsFolderType: d,
-              isMuted:
-                (t == null ? void 0 : t.muteExpiration) != null &&
-                t.muteExpiration > 0,
-              qbmFlag: m,
-              qbmFlagStr: u[m],
-              hsmTagStr:
-                (r = o("WAWebMsgGetters").getHsmTag(e)) != null ? r : "",
-              messageTypeStr: e.type,
-              notificationEnabled: o(
-                "WAWebUserPrefsNotifications",
-              ).getGlobalNotifications(),
-              isBizIntent: i,
-              isInsubContact: n.isAddressBookContact === 1,
-            }).commit();
+            ).QbmIncomingMessageWamEvent)(
+              babelHelpers.extends(
+                {
+                  contactType: d,
+                  chatsFolderType: m,
+                  isMuted:
+                    (t == null ? void 0 : t.muteExpiration) != null &&
+                    t.muteExpiration > 0,
+                  qbmFlag: p,
+                  qbmFlagStr: u[p],
+                  hsmTagStr:
+                    (r = o("WAWebMsgGetters").getHsmTag(e)) != null ? r : "",
+                  messageTypeStr: e.type,
+                  notificationEnabled: o(
+                    "WAWebUserPrefsNotifications",
+                  ).getGlobalNotifications(),
+                  isBizIntent: l,
+                  isInsubContact: n.isAddressBookContact === 1,
+                },
+                o("WAWebQBMLoggerBuilder").getIasQbmFields(
+                  (a = t == null ? void 0 : t.id) != null ? a : null,
+                ),
+              ),
+            ).commit();
           }
         }
       }

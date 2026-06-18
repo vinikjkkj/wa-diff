@@ -36,7 +36,7 @@ __d(
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bot] skipping session cleanup; last run was within the interval",
+                    "[bot] skip cleanup; last run within interval",
                   ])),
               );
               return;

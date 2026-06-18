@@ -181,9 +181,13 @@ __d(
                                                     ).getMultiStepFormInfo(e) !=
                                                     null
                                                   : e.nativeFlowName ===
-                                                      r(
-                                                        "WAWebInteractiveMessagesNativeFlowName",
-                                                      ).MENU_OPTIONS
+                                                        r(
+                                                          "WAWebInteractiveMessagesNativeFlowName",
+                                                        ).MENU_OPTIONS ||
+                                                      e.nativeFlowName ===
+                                                        r(
+                                                          "WAWebInteractiveMessagesNativeFlowName",
+                                                        ).A2UI_REPLY_ACTION
                                                     ? !1
                                                     : (function () {
                                                         throw Error(

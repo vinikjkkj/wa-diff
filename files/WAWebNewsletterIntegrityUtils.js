@@ -651,7 +651,7 @@ __d(
           o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[enforcement] getServerDrivenPolicyGuideline: policyInformation is null",
+                "[enforcement] getServerDrivenPolicyGuideline: no policyInfo",
               ])),
           ),
           null

@@ -26,7 +26,7 @@ __d(
                 .ERROR(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] isCallerNotContact failed; treating caller as non-contact",
+                      "[voip] isCallerNotContact failed; treat as non-contact",
                     ])),
                 )
                 .catching(r("getErrorSafe")(t))

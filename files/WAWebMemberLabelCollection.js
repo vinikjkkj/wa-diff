@@ -88,19 +88,20 @@ __d(
                               e != null && a.add(e);
                             })
                             .catch(function (a) {
+                              var l = i + 1;
                               o("WALogger").ERROR(
                                 e ||
                                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[MemberLabelCollection][initialize]: Attempt ",
-                                    " failed for group ",
+                                    "[MemberLabelCollection][initialize] attempt ",
+                                    " failed ",
                                     "",
                                   ])),
-                                i + 1,
+                                l,
                                 t,
                               );
-                              var l =
+                              var s =
                                 a instanceof Error ? a : r("err")(String(a));
-                              return n(l);
+                              return n(s);
                             });
                         },
                       );
@@ -113,7 +114,7 @@ __d(
                   (o("WALogger").ERROR(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MemberLabelCollection][initialize]: All retries failed for group ",
+                        "[MemberLabelCollection][initialize] all retries failed ",
                         "",
                       ])),
                     t,

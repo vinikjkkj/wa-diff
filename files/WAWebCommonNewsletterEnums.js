@@ -76,6 +76,7 @@ __d(
         CHANNEL_STATUS_PRODUCER: 18,
         QUESTIONS_M2: 19,
         JARVIS_INTEGRATION_ENABLED: 20,
+        PINNED_MESSAGES: 21,
       }),
       f = e.Mirrored(["ACTIVE", "INACTIVE"]),
       g = e.Mirrored([

@@ -50,7 +50,7 @@ __d(
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[newsletters][queryAndUpdateAllNewsletterMetadataAction] Start",
+                  "[queryAndUpdateAllNewsletterMetadataAction] Start",
                 ])),
             ));
           var a = r != null ? r : {},
@@ -183,7 +183,7 @@ __d(
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletters][queryAndUpdateAllNewsletterMetadataAction] End",
+                    "[queryAndUpdateAllNewsletterMetadataAction] End",
                   ])),
               ),
               { chats: y, success: !0 }

@@ -53,7 +53,7 @@ __d(
                     .ERROR(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "ProfilePicThumbCollection.findImpl called with a non-WAWebWid id",
+                          "ProfilePicThumbCollection.findImpl non-WAWebWid id",
                         ])),
                     )
                     .sendLogs("profile-pic-find-invalid-id"),

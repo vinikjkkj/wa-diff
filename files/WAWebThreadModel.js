@@ -45,7 +45,7 @@ __d(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadChatParity] ThreadModel.initialize: threadId=",
-                    ", msgs.threadId set",
+                    " set",
                   ])),
                 this.id.toString(),
               ));
@@ -62,9 +62,9 @@ __d(
                   (o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ThreadChatParity] seedFromChat: seeding thread=",
-                        " with ",
-                        " msgs from chat.msgs",
+                        "[ThreadChatParity] seedFromChat: thread=",
+                        " +",
+                        " msgs",
                       ])),
                     n.toString(),
                     r.length,
@@ -87,8 +87,8 @@ __d(
                     o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[ThreadChatParity] seedFromChat: seeding thread=",
-                          " sparse chunk with ",
+                          "[ThreadChatParity] seedFromChat: thread=",
+                          " sparse +",
                           " msgs",
                         ])),
                       n.toString(),

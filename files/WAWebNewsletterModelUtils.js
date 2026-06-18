@@ -390,6 +390,9 @@ __d(
         case "JARVIS_INTEGRATION_ENABLED":
           return o("WAWebCommonNewsletterEnums").NewsletterCapability
             .JARVIS_INTEGRATION_ENABLED;
+        case "PINNED_MESSAGES":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .PINNED_MESSAGES;
         default:
           return (
             o("WALogger")

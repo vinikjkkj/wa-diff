@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebBizMessageAttributionFields",
+    "WAWebInAppSignupInfoCache",
     "WAWebMsgGetters",
     "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumContactType",
@@ -71,6 +72,16 @@ __d(
               this
             );
           }),
+          (n.addIasFields = function () {
+            return (
+              (this.sharedFields = babelHelpers.extends(
+                {},
+                this.sharedFields,
+                u(this.chat.id.toString()),
+              )),
+              this
+            );
+          }),
           (n.getQbmFlag = function () {
             var e = o("WAWebMsgGetters").getBizSource(this.msg);
             return o("WAWebMsgGetters").isBizSourceFromMarketingMessage(e)
@@ -123,7 +134,25 @@ __d(
           t
         );
       })();
-    l.QBMLoggerBuilder = s;
+    function u(e) {
+      var t, n, r;
+      if (
+        !o("WAWebABProps").getABPropConfigValue(
+          "inapp_signup_m1_logging_enabled",
+        )
+      )
+        return {};
+      if (e == null) return {};
+      var a = o("WAWebInAppSignupInfoCache").getInAppSignupInfo(e);
+      return a == null
+        ? {}
+        : {
+            isIasSubscriber: (t = a.isIasSubscriber) != null ? t : !1,
+            iasOptinDs: (n = a.iasOptinDs) != null ? n : void 0,
+            iasEntryPoint: (r = a.iasEntryPoint) != null ? r : void 0,
+          };
+    }
+    ((l.QBMLoggerBuilder = s), (l.getIasQbmFields = u));
   },
   98,
 );

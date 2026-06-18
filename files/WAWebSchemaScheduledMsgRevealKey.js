@@ -32,6 +32,11 @@ __d(
             n("isOrphan"),
             r("isOrphan"),
             n("senderJid"),
+            n("reportingTag"),
+            n("reportingToken"),
+            n("reportingTokenVersion"),
+            n("reportingStanzaId"),
+            n("reportingStanzaTs"),
           ],
         )
         .view(function (e) {

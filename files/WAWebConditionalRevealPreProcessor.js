@@ -246,25 +246,35 @@ __d(
             n = e.encIv,
             a = e.encPayload,
             i = e.msgId,
-            l = e.revealKeyId,
-            s = e.senderJid,
-            u = e.stanzaScheduledMsgMeta;
+            l = e.reportingTokenInfo,
+            s = e.revealKeyId,
+            u = e.senderJid,
+            c = e.stanzaScheduledMsgMeta;
           try {
             return (
               yield o("WAWebScheduledMsgRevealKeyStore").storeRevealKey({
                 msgId: i,
                 chatId: t,
-                revealKeyId: l,
+                revealKeyId: s,
                 revealKey: new Uint8Array(0),
                 encPayload: new Uint8Array(a),
                 encIv: new Uint8Array(n),
                 scheduledTimestampS:
-                  u != null
-                    ? o("WATimeUtils").castToUnixTime(u.scheduledTimestampS)
+                  c != null
+                    ? o("WATimeUtils").castToUnixTime(c.scheduledTimestampS)
                     : o("WATimeUtils").castToUnixTime(0),
                 status: "PENDING",
                 createdAt: o("WATimeUtils").unixTime(),
-                senderJid: s != null ? s : null,
+                senderJid: u != null ? u : null,
+                reportingTag: l == null ? void 0 : l.reportingTag,
+                reportingToken: l == null ? void 0 : l.reportingToken,
+                reportingTokenVersion: l == null ? void 0 : l.version,
+                reportingStanzaId:
+                  (l == null ? void 0 : l.reportingTag) != null ? i : null,
+                reportingStanzaTs:
+                  (l == null ? void 0 : l.stanzaTs) != null
+                    ? o("WATimeUtils").castToUnixTime(l.stanzaTs)
+                    : null,
               }),
               o("WALogger").LOG(
                 v ||
@@ -291,13 +301,13 @@ __d(
         A.apply(this, arguments)
       );
     }
-    function F(e, t, n, r, o) {
+    function F(e, t, n, r, o, a) {
       return O.apply(this, arguments);
     }
     function O() {
       return (
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
+          function* (e, t, n, r, a, i) {
             if (!B()) return T;
             o("WALogger").LOG(
               R ||
@@ -305,38 +315,38 @@ __d(
                   "[scheduled_msg] preProcess: receiver gating enabled, validating conditionalRevealMessage",
                 ])),
             );
-            var i = o("WAWebScheduledMsgCrypto").parseConditionalRevealMessage(
+            var l = o("WAWebScheduledMsgCrypto").parseConditionalRevealMessage(
               e,
             );
-            if (i == null) return T;
-            var l = i.encIv,
-              s = i.encPayload,
-              u = i.revealKeyId;
+            if (l == null) return T;
+            var s = l.encIv,
+              u = l.encPayload,
+              c = l.revealKeyId;
             o("WALogger").LOG(
               L ||
                 (L = babelHelpers.taggedTemplateLiteralLoose([
                   "[scheduled_msg] ConditionalRevealMessage detected",
                 ])),
             );
-            var c = a != null && a.revealKeyId === u ? a : null;
-            if (c != null) {
-              var d = yield D({
-                stanzaScheduledMsgMeta: c,
-                encIv: l,
-                encPayload: s,
-                revealKeyId: u,
+            var d = a != null && a.revealKeyId === c ? a : null;
+            if (d != null) {
+              var m = yield D({
+                stanzaScheduledMsgMeta: d,
+                encIv: s,
+                encPayload: u,
+                revealKeyId: c,
                 msgId: t,
                 chatId: n,
               });
-              if (d != null) return d;
+              if (m != null) return m;
             }
-            var m = yield N(s, l, u);
-            if (m != null)
+            var p = yield N(u, s, c);
+            if (p != null)
               return {
-                decryptedProto: m.proto,
-                decryptedProtoBytes: m.protoBytes,
+                decryptedProto: p.proto,
+                decryptedProtoBytes: p.protoBytes,
                 isRevealPending: !1,
-                revealKeyId: u,
+                revealKeyId: c,
                 viewMode: null,
               };
             o("WALogger").LOG(
@@ -345,21 +355,22 @@ __d(
                   "[scheduled_msg] storing as reveal-pending",
                 ])),
             );
-            var p = yield w({
+            var _ = yield w({
               chatId: n,
-              encIv: l,
-              encPayload: s,
+              encIv: s,
+              encPayload: u,
               msgId: t,
-              revealKeyId: u,
+              reportingTokenInfo: i,
+              revealKeyId: c,
               senderJid: r,
-              stanzaScheduledMsgMeta: c,
+              stanzaScheduledMsgMeta: d,
             });
-            return p
+            return _
               ? {
                   decryptedProto: null,
                   decryptedProtoBytes: null,
                   isRevealPending: !0,
-                  revealKeyId: u,
+                  revealKeyId: c,
                   viewMode:
                     o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
                 }
@@ -397,23 +408,23 @@ __d(
         );
       }
     }
-    function W(e, t, n, r, o) {
+    function W(e, t, n, r, o, a) {
       return q.apply(this, arguments);
     }
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
+          function* (e, t, n, a, i, l) {
             try {
-              var l = o("WAJids").validateChatJid(n);
-              if (l != null) {
-                var s = yield F(e, t, l, a, i),
-                  u = s.isRevealPending === !0;
+              var s = o("WAJids").validateChatJid(n);
+              if (s != null) {
+                var u = yield F(e, t, s, a, i, l),
+                  c = u.isRevealPending === !0;
                 return {
-                  proto: s.decryptedProto,
-                  protoBytes: s.decryptedProtoBytes,
-                  isRevealPending: u,
-                  scheduledMsgViewMode: u ? s.viewMode : null,
+                  proto: u.decryptedProto,
+                  protoBytes: u.decryptedProtoBytes,
+                  isRevealPending: c,
+                  scheduledMsgViewMode: c ? u.viewMode : null,
                 };
               }
               o("WALogger").ERROR(

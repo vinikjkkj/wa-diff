@@ -8,6 +8,7 @@ __d(
     "WAWebCollections",
     "WAWebConnModel",
     "WAWebGalaxyFlowsSessionsCache",
+    "WAWebInAppSignupInfoStore",
     "WAWebInMemoryLottieStickerCache",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaStorage",
@@ -75,7 +76,8 @@ __d(
             "WAWebInMemoryLottieStickerCache",
           ).InMemoryLottieStickerCache.clear(),
           o("WAWebGalaxyFlowsSessionsCache").GalaxyFlowSessionsCache.clear(),
-          o("WAWebApiContact").clearLidPnMappingCache()),
+          o("WAWebApiContact").clearLidPnMappingCache(),
+          o("WAWebInAppSignupInfoStore").clearInAppSignupInfo()),
         n("cr:17219") == null ||
           (t = n("cr:17219").getWindowsBridge()) == null ||
           (t = t.getPreferences()) == null ||

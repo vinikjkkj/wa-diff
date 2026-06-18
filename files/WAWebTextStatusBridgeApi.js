@@ -13,7 +13,7 @@ __d(
       s = {
         setMyStatus: function (t) {
           var e = t.status,
-            n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+            n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
           o("WAWebTextStatusCollection").TextStatusCollection.assertGet(
             o("WAWebWidFactory").asUserWidOrThrow(n),
           ).status =

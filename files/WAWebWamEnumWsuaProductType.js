@@ -8,6 +8,7 @@ __d(
       META_AI: 3,
       META_ONE: 4,
       META_ONE_CONSUMER: 5,
+      META_ONE_BUSINESS: 6,
     });
     i.WSUA_PRODUCT_TYPE = e;
   },

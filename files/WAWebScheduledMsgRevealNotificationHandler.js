@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
+    "WAWebHandleMsgValidate",
     "WAWebHandleSingleMsg",
     "WAWebMessageQueue",
     "WAWebMsgKey",
@@ -248,7 +249,7 @@ __d(
                 "[scheduled_msg][mex][reveal] no record for rkid, storing orphan",
               ])),
           ),
-            yield ee(e, t));
+            yield ne(e, t));
         })),
         q.apply(this, arguments)
       );
@@ -286,12 +287,11 @@ __d(
           function* (e, t, n, r) {
             var a = yield o(
               "WAWebScheduledMsgDecryptInnerProto",
-            ).decryptAndDecodeRevealPayload(t, n, r);
-            return (
-              a == null &&
-                (yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(e)),
-              a
-            );
+            ).decryptAndDecodeRevealPayloadWithBytes(t, n, r);
+            return a == null
+              ? (yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(e),
+                null)
+              : { innerProto: a.proto, protoBytes: a.protoBytes };
           },
         )),
         z.apply(this, arguments)
@@ -416,21 +416,23 @@ __d(
           if (c != null) {
             var d = yield G(i, c.encPayload, c.encIv, t);
             if (d != null) {
-              var m =
-                (a = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(
-                  d,
-                )) != null
-                  ? a
-                  : "";
+              var m = d.innerProto,
+                p = d.protoBytes,
+                _ =
+                  (a = o(
+                    "WAWebScheduledMsgExtractText",
+                  ).extractScheduledMsgText(m)) != null
+                    ? a
+                    : "";
               o("WALogger").LOG(
                 k ||
                   (k = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg][mex][reveal] decrypt ok, creating msg in chat",
                   ])),
               );
-              var p;
+              var f;
               try {
-                p = o("WAWebWidFactory").createWid(c.chatId);
+                f = o("WAWebWidFactory").createWid(c.chatId);
               } catch (e) {
                 (o("WALogger")
                   .ERROR(
@@ -446,8 +448,8 @@ __d(
                   ));
                 return;
               }
-              var _;
-              if (p.isGroup()) {
+              var g;
+              if (f.isGroup()) {
                 if (s == null) {
                   (o("WALogger")
                     .ERROR(
@@ -462,9 +464,9 @@ __d(
                     ));
                   return;
                 }
-                var f;
+                var h;
                 try {
-                  f = o("WAWebWidFactory").createWid(s);
+                  h = o("WAWebWidFactory").createWid(s);
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(
@@ -480,26 +482,27 @@ __d(
                     ));
                   return;
                 }
-                _ = {
+                g = {
                   type: "group",
-                  chatWid: p,
-                  senderWid: f,
+                  chatWid: f,
+                  senderWid: h,
                   msgId: i,
-                  text: m,
+                  text: _,
                   scheduledTimestampS: u,
-                  innerProto: d,
+                  innerProto: m,
                 };
               } else
-                _ = {
+                g = {
                   type: "individual",
-                  chatWid: p,
+                  chatWid: f,
                   msgId: i,
-                  text: m,
+                  text: _,
                   scheduledTimestampS: u,
-                  innerProto: d,
+                  innerProto: m,
                 };
-              var g = Z(_);
-              (yield Q(p, g, i),
+              var y = te(g);
+              (yield Q(f, y, i),
+                yield Z(y, e, p, m),
                 o("WALogger").LOG(
                   x ||
                     (x = babelHelpers.taggedTemplateLiteralLoose([
@@ -512,7 +515,44 @@ __d(
         J.apply(this, arguments)
       );
     }
-    function Z(e) {
+    function Z(e, t, n, r) {
+      return ee.apply(this, arguments);
+    }
+    function ee() {
+      return (
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a,
+              i,
+              l,
+              s,
+              u = t.reportingTag;
+            if (u != null) {
+              var c =
+                  (a = r.messageContextInfo) == null ? void 0 : a.messageSecret,
+                d = babelHelpers.extends({}, e, {
+                  plainProtobufBytes: n,
+                  messageSecret: c != null ? new Uint8Array(c) : void 0,
+                  reportingTokenInfo: {
+                    reportingTag: u,
+                    reportingToken: (i = t.reportingToken) != null ? i : void 0,
+                    version: (l = t.reportingTokenVersion) != null ? l : void 0,
+                    stanzaTs: (s = t.reportingStanzaTs) != null ? s : void 0,
+                  },
+                });
+              yield o(
+                "WAWebHandleMsgValidate",
+              ).validateAndProcessReportingTokenInfo({
+                forceDualEncryptedValidation: !0,
+                renderableMsgs: [d],
+              });
+            }
+          },
+        )),
+        ee.apply(this, arguments)
+      );
+    }
+    function te(e) {
       var t = e.chatWid,
         n = e.innerProto,
         a = e.msgId,
@@ -551,12 +591,12 @@ __d(
         },
       );
     }
-    function ee(e, t) {
-      return te.apply(this, arguments);
+    function ne(e, t) {
+      return re.apply(this, arguments);
     }
-    function te() {
+    function re() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
             $ ||
               ($ = babelHelpers.taggedTemplateLiteralLoose([
@@ -577,7 +617,7 @@ __d(
                 ])),
             ));
         })),
-        te.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
     l.mexHandleScheduledMsgReveal = N;

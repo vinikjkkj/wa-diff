@@ -38,6 +38,7 @@ __d(
               externalInteractables: [15, e.TYPES.INTEGER],
               externalPackageName: [16, e.TYPES.STRING],
               hasDraftAvailable: [33, e.TYPES.BOOLEAN],
+              isBatchedPost: [37, e.TYPES.BOOLEAN],
               isFavoured: [28, e.TYPES.BOOLEAN],
               mediaIndex: [29, e.TYPES.INTEGER],
               originalVideoDuration: [27, e.TYPES.INTEGER],

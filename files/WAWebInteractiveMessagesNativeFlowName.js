@@ -27,6 +27,7 @@ __d(
         INAPP_SIGNUP: "inapp_signup",
         FORM_MESSAGE: "form_message",
         MENU_OPTIONS: "menu_options",
+        A2UI_REPLY_ACTION: "a2ui_reply_action",
       }),
       l = e;
     i.default = l;

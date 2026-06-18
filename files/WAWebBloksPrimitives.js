@@ -1,12 +1,16 @@
 __d(
   "WAWebBloksPrimitives",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebBloksCommerceActionWithCallback"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {},
-      l = {},
-      s = {};
-    ((i.COMPONENTS = e), (i.ACTIONS = l), (i.EXTENSION_HANDLERS = s));
+      s = {
+        "wa.action.commerce.ActionWithCallback": r(
+          "WAWebBloksCommerceActionWithCallback",
+        ),
+      },
+      u = {};
+    ((l.COMPONENTS = e), (l.ACTIONS = s), (l.EXTENSION_HANDLERS = u));
   },
-  66,
+  98,
 );

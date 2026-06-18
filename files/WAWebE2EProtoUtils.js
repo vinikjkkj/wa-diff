@@ -562,7 +562,7 @@ __d(
                         .LOG(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "[translateKeyToLocalReference] non-LID participant found for keyParticipantJid=",
+                              "[translateKeyToLocalReference] non-LID participant ",
                               "",
                             ])),
                           g.server,

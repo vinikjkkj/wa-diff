@@ -51,6 +51,7 @@ __d(
           thumbnailWidth: r.thumbnailWidth,
           inviteLinkGroupTypeV2: e(r.inviteGrpType),
           backgroundArgb: r.backgroundColor,
+          font: r.font,
           paymentLinkMetadata: r.paymentLinkMetadata,
           faviconMMSMetadata: a
             ? {

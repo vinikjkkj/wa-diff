@@ -5,15 +5,30 @@ __d(
     "use strict";
     var e;
     function s(t) {
-      var n =
-          t.method === "init/fetch"
-            ? { method: "init/fetch", params: {} }
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    t.method,
-                );
-              })(),
+      var n = (function (e) {
+          if (
+            ((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.method === "init/fetch"
+          )
+            return { method: "init/fetch", params: {} };
+          if (
+            ((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.method === "hitl.approval.decide" &&
+            "approvalId" in e &&
+            "decision" in e
+          ) {
+            var t = e.approvalId,
+              n = e.decision;
+            return {
+              method: "hitl.approval.decide",
+              params: { approval_id: t, decision: n },
+            };
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              e,
+          );
+        })(t),
         r = { version: 1, type: "req", payload: n };
       return (
         o("WALogger").LOG(

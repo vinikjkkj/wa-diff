@@ -38,7 +38,7 @@ __d(
             .getBusinessEligibility({
               checkGenAI: o(
                 "WAWebBizBroadcastGenAIGating",
-              ).isGenAITextEnabled(),
+              ).isGenAIMasterEnabled(),
               checkMarketingMessages: !0,
             })
             .catch(function (t) {

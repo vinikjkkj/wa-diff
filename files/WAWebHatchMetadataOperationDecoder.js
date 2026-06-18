@@ -58,17 +58,41 @@ __d(
       };
     }
     function c(e, t) {
-      var n = o("WAWebHatchJsonReaders").readField(e, "payload"),
-        r = o("WAWebHatchJsonReaders").readString(n, "method");
-      if (r !== "init/fetch")
-        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
-          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
-        );
       if (t == null)
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
         );
-      return { type: "req", requestId: t, request: { method: r } };
+      var n = o("WAWebHatchJsonReaders").readField(e, "payload");
+      e: {
+        var r = o("WAWebHatchJsonReaders").readString(n, "method");
+        if (r === "init/fetch")
+          return {
+            type: "req",
+            requestId: t,
+            request: { method: "init/fetch" },
+          };
+        if (r === "hitl.approval.decide") {
+          var a = o("WAWebHatchJsonReaders").readField(n, "params"),
+            i = o("WAWebHatchJsonReaders").readString(a, "approval_id"),
+            l = o("WAWebHatchJsonReaders").readString(a, "decision");
+          if (i == null || i === "" || l == null || l === "")
+            throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+              o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+            );
+          return {
+            type: "req",
+            requestId: t,
+            request: {
+              method: "hitl.approval.decide",
+              approvalId: i,
+              decision: l,
+            },
+          };
+        }
+        throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+          o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+        );
+      }
     }
     function d(e, t) {
       var n = o("WAWebHatchJsonReaders").readField(e, "payload"),

@@ -64,6 +64,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "isEmptyObject",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -899,8 +900,8 @@ __d(
         e.forEach(function (e) {
           var t = e.isGuestUser,
             n = e.jid,
-            r = e.pushName,
-            a = e.username;
+            a = e.pushName,
+            i = e.username;
           if (
             !(
               o("WAWebUserPrefsMeUser").isMeAccount(n) ||
@@ -908,23 +909,23 @@ __d(
               !n.isUser()
             )
           ) {
-            var i = {};
-            r != null && r !== "" && (i.pushname = r);
-            var l =
-              a != null && a !== ""
-                ? o("WAWebUsernameTypes").asMaybeUsername(a)
+            var l = {};
+            a != null && a !== "" && (l.pushname = a);
+            var s =
+              i != null && i !== ""
+                ? o("WAWebUsernameTypes").asMaybeUsername(i)
                 : null;
-            (l != null && (i.username = l),
+            (s != null && (l.username = s),
               t &&
-                (i.externalUserState = o(
+                (l.externalUserState = o(
                   "WAWebContactExternalUserState",
                 ).ExternalUserState.GuestUser),
-              Object.keys(i).length !== 0 &&
+              !r("isEmptyObject")(l) &&
                 o("WAWebContactCollection")
                   .ContactCollection.gadd(
                     o("WAWebWidFactory").asUserWidOrThrow(n),
                   )
-                  .set(i));
+                  .set(l));
           }
         });
       },

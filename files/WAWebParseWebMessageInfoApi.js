@@ -317,7 +317,7 @@ __d(
                         .ERROR(
                           c ||
                             (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "[scheduled_msg][history_sync] received conditional-reveal park failed msg=",
+                              "[scheduled_msg][history_sync] recv CR park failed msg=",
                               "",
                             ])),
                           m,
