@@ -2,7 +2,6 @@ __d(
   "WAWebHandleDeferredMessages",
   [
     "WALogger",
-    "WANullthrows",
     "WAPromiseEach",
     "WAWebApiDeferredMessagesStorage",
     "WAWebApiHydrateWidsUtil",
@@ -15,6 +14,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -71,7 +71,7 @@ __d(
                         yield o(
                           "WAWebHandleHistorySyncNotification",
                         ).handleHistorySyncNotification(
-                          r("WANullthrows")(p == null ? void 0 : p.history),
+                          r("nullthrows")(p == null ? void 0 : p.history),
                           m,
                           c.externalId,
                         );
@@ -85,7 +85,7 @@ __d(
                         yield o(
                           "WAWebKeyManagementHandleKeyShareApi",
                         ).handleAppStateSyncKeyShare(
-                          r("WANullthrows")(
+                          r("nullthrows")(
                             p == null ? void 0 : p.appStateSyncKeyShare,
                           ),
                           m,
@@ -101,7 +101,7 @@ __d(
                         yield o(
                           "WAWebKeyManagementHandleKeyRequestApi",
                         ).handleAppStateSyncKeyRequest(
-                          r("WANullthrows")(
+                          r("nullthrows")(
                             p == null ? void 0 : p.appStateSyncKeyRequest,
                           ),
                           m,
@@ -118,7 +118,7 @@ __d(
                           "WAWebNonMessageDataRequestHandler",
                         ).handlePeerDataOperationRequestResponse(
                           c.externalId,
-                          r("WANullthrows")(
+                          r("nullthrows")(
                             p == null
                               ? void 0
                               : p.peerDataOperationRequestResponseMessage,
@@ -136,7 +136,7 @@ __d(
                           "WAWebNonMessageDataRequestHandler",
                         ).handlePeerDataOperationRequest(
                           c.externalId,
-                          r("WANullthrows")(
+                          r("nullthrows")(
                             p == null
                               ? void 0
                               : p.peerDataOperationRequestMessage,

@@ -19,7 +19,15 @@ __d(
         )
       );
     }
-    function u(e) {
+    function u() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_web_customer_manager_dob_filter_enabled",
+        )
+      );
+    }
+    function c(e) {
       var t = e.id;
       return (
         t != null &&
@@ -35,7 +43,8 @@ __d(
     }
     ((l.customerManagerEnabled = e),
       (l.customerManagerDateRangeFilterEnabled = s),
-      (l.isEligibleForCustomerFields = u));
+      (l.customerManagerDobFilterEnabled = u),
+      (l.isEligibleForCustomerFields = c));
   },
   98,
 );

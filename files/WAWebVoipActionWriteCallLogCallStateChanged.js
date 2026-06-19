@@ -225,10 +225,18 @@ __d(
                   "WAWebVoipCallLogAnrGating",
                 ).isWebVoipCallLogAnrOptimizationEnabled() &&
                 C != null &&
-                !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState);
-            return o(
-              "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(s, v, !1, !0, S);
+                !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState),
+              R = yield o(
+                "WAWebVoipActionWriteCallLogImpl",
+              ).writeVoipCallLogMessageImpl(s, v, !1, !0, S);
+            return (
+              R != null &&
+                o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
+                o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(
+                  e.callId,
+                ),
+              R
+            );
           } catch (e) {
             o("WALogger")
               .ERROR(

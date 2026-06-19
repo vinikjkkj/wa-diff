@@ -40,10 +40,41 @@ __d(
             ? s(t, n)
             : s(e, n) + " \u2013 " + s(t, n);
     }
+    function c(t, n) {
+      var r = e(t, n),
+        o = r.end,
+        a = r.start,
+        i = a != null ? a : t,
+        l = o != null ? o : n,
+        s = Math.floor(
+          new Date(
+            i.getFullYear(),
+            i.getMonth(),
+            i.getDate(),
+            0,
+            0,
+            0,
+            0,
+          ).getTime() / 1e3,
+        ),
+        u = Math.floor(
+          new Date(
+            l.getFullYear(),
+            l.getMonth(),
+            l.getDate(),
+            23,
+            59,
+            59,
+            999,
+          ).getTime() / 1e3,
+        );
+      return { endSec: u, startSec: s };
+    }
     ((i.normalizeRange = e),
       (i.getRangeHighlightDates = l),
       (i.formatDateLocalized = s),
-      (i.formatRangeLocalized = u));
+      (i.formatRangeLocalized = u),
+      (i.getCustomRangeSecondsBounds = c));
   },
   66,
 );

@@ -15,6 +15,8 @@ __d(
     "WAWebEphemeralEncodeBroadcastSetting",
     "WAWebHandleMsgError",
     "WAWebMessageProcessUtils",
+    "WAWebMessageSendReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgCollection",
     "WAWebMsgModelUtils",
     "WAWebMsgUtilsBridge",
@@ -22,6 +24,7 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
     "WAWebUserPrefsMeUser",
+    "WAWebWamEnumMessageSendResultType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -93,8 +96,9 @@ __d(
             i = e.ephSettingMap,
             l = e.msg,
             s = e.recipients,
-            u = l.id.toString(),
-            f = s.length;
+            u = e.reporter,
+            f = l.id.toString(),
+            g = s.length;
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -102,37 +106,37 @@ __d(
                 " rcpts=",
                 "",
               ])),
-            u,
             f,
+            g,
           );
-          var g = {
+          var h = {
               type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
               data: l,
             },
-            h = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+            y = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Chat,
-              g,
+              h,
             ),
-            y = i;
+            C = i;
           if (a != null) {
-            var C = o("WAWebBroadcastEphemeralUtils").addSharedSecretToProto(
-                h,
+            var b = o("WAWebBroadcastEphemeralUtils").addSharedSecretToProto(
+                y,
                 a,
               ),
-              b = C.injected,
-              v = C.proto;
-            ((h = v), b || (y = null));
+              v = b.injected,
+              R = b.proto;
+            ((y = R), v || (C = null));
           }
           o("WAWebBroadcastODS").bumpBroadcastSend();
           try {
             yield o(
               "WAWebEncryptAndSendBroadcastMsg",
-            ).encryptAndSendBroadcastMsg(g, h, s, t, n, y);
-            var R = yield o(
+            ).encryptAndSendBroadcastMsg(h, y, s, t, n, C);
+            var L = yield o(
               "WAWebBatchUpdateBroadcastAck",
             ).batchUpdateAckForBroadcastMessages(l, o("WAWebAck").ACK.SENT);
             return (
-              R != null &&
+              L != null &&
                 o("WALogger")
                   .WARN(
                     d ||
@@ -140,9 +144,9 @@ __d(
                         "[broadcast:send] Batch ack update failed after send: error=",
                         "",
                       ])),
-                    R,
+                    L,
                   )
-                  .sendLogs("broadcast-batch-ack-sent-" + R),
+                  .sendLogs("broadcast-batch-ack-sent-" + L),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -150,22 +154,23 @@ __d(
                     ", ack=",
                     "",
                   ])),
-                u,
+                f,
                 o("WAWebAck").ACK.SENT,
               ),
               o("WAWebBroadcastODS").bumpBroadcastSendSuccess(),
-              R == null && S(l),
+              u.postSuccess(),
+              L == null && S(l),
               {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                   .OK,
-                msgId: u,
+                msgId: f,
               }
             );
           } catch (e) {
-            var L = yield o(
+            var E = yield o(
               "WAWebBatchUpdateBroadcastAck",
             ).batchUpdateAckForBroadcastMessages(l, o("WAWebAck").ACK.FAILED);
-            (L != null &&
+            (E != null &&
               o("WALogger")
                 .ERROR(
                   p ||
@@ -173,9 +178,9 @@ __d(
                       "[broadcast:send] batch ack failed post-send err=",
                       "",
                     ])),
-                  L,
+                  E,
                 )
-                .sendLogs("broadcast-batch-ack-failed-" + L),
+                .sendLogs("broadcast-batch-ack-failed-" + E),
               o("WALogger")
                 .ERROR(
                   _ ||
@@ -184,21 +189,26 @@ __d(
                       ", ack=",
                       "",
                     ])),
-                  f,
+                  g,
                   o("WAWebAck").ACK.FAILED,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("broadcast-send-failure"),
-              o("WAWebBroadcastODS").bumpBroadcastSendError());
-            var E =
+              o("WAWebBroadcastODS").bumpBroadcastSendError(),
+              u.postFailure({
+                isTerminal: !1,
+                result: o("WAWebWamEnumMessageSendResultType")
+                  .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
+              }));
+            var k =
               e instanceof o("WAWebHandleMsgError").MessageSentAckError
                 ? e.ackErrorCode
                 : null;
             return {
               messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
                 .ERROR_UNKNOWN,
-              msgId: u,
-              ackErrorCode: E,
+              msgId: f,
+              ackErrorCode: k,
             };
           }
         })),
@@ -268,9 +278,14 @@ __d(
               d.mainMessage,
               d.messageClones,
             ),
-            R = e.beforeSend;
+            R = new (o("WAWebMessageSendReporter").MessageSendReporter)(S, {
+              frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+                .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+            });
+          R.setParticipantCount(e.recipients.length);
+          var E = e.beforeSend;
           try {
-            R != null &&
+            E != null &&
               (yield S.waitForPrep(),
               o("WALogger").LOG(
                 g ||
@@ -280,7 +295,7 @@ __d(
                   ])),
                 S.id,
               ),
-              yield R(S),
+              yield E(S),
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -312,6 +327,11 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("broadcast-media-prep-upload-error"),
               o("WAWebBroadcastODS").bumpBroadcastSendError(),
+              R.postFailure({
+                isTerminal: !1,
+                result: o("WAWebWamEnumMessageSendResultType")
+                  .MESSAGE_SEND_RESULT_TYPE.ERROR_UPLOAD,
+              }),
               yield S.updateAck(o("WAWebAck").ACK.FAILED),
               {
                 messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
@@ -327,6 +347,7 @@ __d(
             ephSettingMap: u,
             msg: S,
             recipients: e.recipients,
+            reporter: R,
           });
         })),
         I.apply(this, arguments)

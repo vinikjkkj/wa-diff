@@ -6,12 +6,15 @@ __d(
     "WAWebChatLoadMessages",
     "WAWebClock",
     "WAWebE2EProtoUtils",
+    "WAWebInboxOrderInfoBuilder",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebOrderDetails",
+    "WAWebOrderGatingUtils",
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
+    "WAWebOrderStatusButton",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
@@ -115,19 +118,22 @@ __d(
                 : [{}],
             d = c[0],
             m = d.buttonParamsJson,
-            p = d.name;
+            p = d.name,
+            _ = C(a);
           return (
-            (n === s.PAYMENTS_HOME ||
-              o("WAWebUserPrefsMeUser").isMeAccount(a.from)) &&
-              (a.nativeFlowName ===
-              r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-                ? y(e, a, t, p, m)
-                : a.nativeFlowName ===
-                    r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
-                  ? b(e, m)
-                  : o("WAWebE2EProtoUtils").isOrderNativeFlow(
-                      a.nativeFlowName,
-                    ) && C(e, m)),
+            _ != null
+              ? b(e, a, t, _, m)
+              : (n === s.PAYMENTS_HOME ||
+                  o("WAWebUserPrefsMeUser").isMeAccount(a.from)) &&
+                (a.nativeFlowName ===
+                r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+                  ? y(e, a, t, p, m)
+                  : a.nativeFlowName ===
+                      r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
+                    ? S(e, m)
+                    : o("WAWebE2EProtoUtils").isOrderNativeFlow(
+                        a.nativeFlowName,
+                      ) && v(e, m)),
             e
           );
         },
@@ -142,14 +148,41 @@ __d(
           contact: n,
           orderInfo: l,
           timestamp: i,
-          interactiveMsg: v(t),
+          interactiveMsg: R(t),
         });
     }
-    function C(e, t) {
+    function C(e) {
+      var t;
+      if (
+        !o("WAWebOrderGatingUtils").isInboxOrderHistoryEnabled() ||
+        e.nativeFlowName !==
+          r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+      )
+        return null;
+      var n = o("WAWebOrderStatusButton").getOrderStatusButton(e);
+      return (n == null || (t = n.order) == null
+        ? void 0
+        : t.order_creator_surface) === "biz_inbox"
+        ? n
+        : null;
+    }
+    function b(e, t, n, r, a) {
+      var i = o("WAWebInboxOrderInfoBuilder").orderStatusButtonToOrderInfo(r);
+      i != null &&
+        (e.contactsAndOrdersInfo.push({
+          contact: n,
+          orderInfo: i,
+          timestamp: t.t,
+          interactiveMsg: R(t),
+          isInboxOrder: !0,
+        }),
+        v(e, a));
+    }
+    function v(e, t) {
       var n = o("WAWebOrderStatus").paramsJsonToOrderStatusInfo(t);
       n && e.ordersStatusInfo.push(n);
     }
-    function b(e, t) {
+    function S(e, t) {
       if (t != null) {
         var n = o("WAWebOrderPaymentStatus").paramsJsonToOrderPaymentInfo(t),
           r = o("WAWebOrderPaymentStatus").paramsJsonToOrderStatus(t);
@@ -159,7 +192,7 @@ __d(
         }
       }
     }
-    function v(e) {
+    function R(e) {
       var t = e.safe();
       return t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ? t : null;
     }

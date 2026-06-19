@@ -111,6 +111,7 @@ __d(
         GENAI_REFINEMENT_SUBMITTED: "genai_refinement_submitted",
         GENAI_REFRESH: "genai_refresh",
         GENAI_SUGGESTIONS_SHOWN: "genai_suggestions_shown",
+        GENAI_TOOLTIP_IMPRESSION: "genai_tooltip_impression",
         IMPORT_AUDIENCE_BUTTON: "import_audience_button",
         IMPORTED_CONTACT_LIST_NAME: "imported_contact_list_name",
         LABEL_CHAT_CLICKED: "label_chat_clicked",

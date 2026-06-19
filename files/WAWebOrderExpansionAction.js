@@ -8,6 +8,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebOrderStatus",
+    "WAWebOrderStatusButton",
     "WAWebOrdersExpansionUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -35,6 +36,7 @@ __d(
         l = e.uimContext;
       return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(t) ||
         o("WAWebOrderStatus").isPaymentRequest(t, a) ||
+        o("WAWebOrderStatusButton").isInboxCreatedOrder(n) ||
         i == null ||
         !u(n, i)
         ? null

@@ -230,6 +230,8 @@ __d(
             relay_tokens: e.relay_tokens,
             auth_tokens: e.auth_tokens,
             enable_edgeray_dtls_active_mode: e.enable_edgeray_dtls_active_mode,
+            enable_web_relay_connection_stagger:
+              e.enable_web_relay_connection_stagger,
           };
         },
         parseFieldstatsData: function (n) {

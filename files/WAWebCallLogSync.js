@@ -77,19 +77,13 @@ __d(
                                   var d = o(
                                     "WATimeUtils",
                                   ).castMilliSecondsToUnixTime(e.timestamp);
-                                  if (d > o("WATimeUtils").castToUnixTime(c)) {
-                                    var m = !o("WATimeUtils").happenedWithin(
-                                      d,
-                                      o("WATimeUtils").MINUTE_SECONDS,
-                                    );
+                                  d > o("WATimeUtils").castToUnixTime(c) &&
                                     (yield o(
                                       "WAWebVoipActionWriteCallLogSync",
                                     ).generateCallLogFromCallSyncRecord({
                                       callLogRecord: u,
-                                      shouldHideInConversation: m,
                                     }),
-                                      i++);
-                                  }
+                                    i++);
                                 }
                                 return {
                                   actionState:

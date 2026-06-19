@@ -316,16 +316,8 @@ __d(
         P.apply(this, arguments)
       );
     }
-    function N(e, t) {
-      return !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e) ||
-        !t.includePrivateProcessing
-        ? s._(/*BTDS*/ "Meta AI").toString()
-        : s._(/*BTDS*/ "Meta AI with Private Processing").toString();
-    }
-    function M(e) {
-      return o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-        ? s._(/*BTDS*/ "with Private Processing").toString()
-        : null;
+    function N() {
+      return s._(/*BTDS*/ "Meta AI").toString();
     }
     ((l.openMetaBotChat = m),
       (l.sendMetaBotQuery = _),
@@ -343,8 +335,7 @@ __d(
       (l.ensureThreadModelExists = D),
       (l.runMetaAiThreadsFlow = x),
       (l.getMetaAiChat = $),
-      (l.getMetaAiTEEBotDisplayName = N),
-      (l.getMetaAiTEEBotSecondaryLine = M));
+      (l.getMetaAiTEEBotDisplayName = N));
   },
   226,
 );

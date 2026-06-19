@@ -9,7 +9,6 @@ __d(
         "INVALID_PERIODS",
         "INVALID_DOMAIN_SUFFIX",
         "INVALID_WWW_PREFIX",
-        "INVALID_WORD",
       ]),
       l = 3,
       s = 35,

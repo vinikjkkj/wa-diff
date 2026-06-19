@@ -24,12 +24,7 @@ __d(
             var l,
               s = yield o("WAWebRelayClient").commitMutation(
                 a,
-                {
-                  input: {
-                    flow_id: t,
-                    request_id: new Date().getTime().toString(),
-                  },
-                },
+                { input: { flow_id: t, request_id: Date.now().toString() } },
                 { accessToken: i.token, environmentType: "facebook" },
               ),
               u = r("nullthrows")(

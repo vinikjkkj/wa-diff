@@ -47,12 +47,7 @@ __d(
             try {
               u = yield o("WAWebRelayClient").fetchQuery(
                 i,
-                {
-                  input: {
-                    flow_id: t,
-                    request_id: new Date().getTime().toString(),
-                  },
-                },
+                { input: { flow_id: t, request_id: Date.now().toString() } },
                 { accessToken: l.token, environmentType: "facebook" },
               );
             } catch (e) {

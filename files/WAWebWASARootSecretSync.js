@@ -3,20 +3,100 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WALongInt",
     "WASyncdConst",
+    "WAWebProtobufSyncAction.pb",
     "WAWebSyncdAction",
+    "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebWasaRootSecretWriter",
+    "WAWebWasaUserPrefs",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "decodeProtobuf",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c = (function (t) {
+    var e, s, u;
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = [],
+            r = null,
+            a = -1;
+          for (var i of t) {
+            var l,
+              u = i.id,
+              c = i.rootSecret;
+            if (u == null || u === "" || c == null) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WASARootSecretSync] skipping malformed entry for ",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs("wasa-root-secret-sync-malformed");
+              continue;
+            }
+            n.push({ stanzaId: u, secret: new Uint8Array(c) });
+            var d = (l = o("WALongInt").maybeNumber(i.epoch)) != null ? l : 0;
+            (r == null || d > a) && ((r = u), (a = d));
+          }
+          return (
+            yield o("WAWebWasaRootSecretWriter").upsertWasaCarriersForIds(e, n),
+            r != null &&
+              (yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, r)),
+            new Set(
+              n.map(function (e) {
+                return e.stanzaId;
+              }),
+            )
+          );
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t, n) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r,
+            a = yield o("WAWebSyncdDb").getSyncAction(JSON.stringify(t)),
+            i =
+              (a == null ? void 0 : a.binarySyncData) != null
+                ? (r = o("decodeProtobuf").decodeProtobuf(
+                    o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                    a.binarySyncData,
+                  ).value) == null || (r = r.wasaRootSecretAction) == null
+                  ? void 0
+                  : r.secrets
+                : null,
+            l = [];
+          for (var s of i != null ? i : []) {
+            var u = s.id;
+            u != null && u !== "" && !n.has(u) && l.push(u);
+          }
+          if (l.length !== 0) {
+            yield o("WAWebWasaRootSecretWriter").removeWasaCarriersForIds(e, l);
+            var c = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
+            c != null &&
+              l.includes(c) &&
+              (yield o("WAWebWasaUserPrefs").clearWasaActiveTargetId(e.user));
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    var _ = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -56,63 +136,36 @@ __d(
                                 "indexParts" in n &&
                                 "value" in n
                               ) {
-                                var i = n.indexParts,
-                                  l = n.value,
-                                  u = i[1];
+                                var i,
+                                  l = n.indexParts,
+                                  s = n.value,
+                                  u = l[1];
                                 if (!u) return a.malformedActionIndex();
-                                var c = l.wasaRootSecretAction;
-                                if (c == null)
+                                var d = s.wasaRootSecretAction;
+                                if (d == null)
                                   return o(
                                     "WAWebSyncdIndexUtils",
                                   ).malformedActionValue(a.collectionName);
-                                var d = yield o(
+                                var p = yield o(
                                   "WAWebSyncdGetChat",
                                 ).resolveChatForMutationIndex(
                                   o("WAWebWidFactory").createWid(u),
                                 );
-                                if (!d.success)
+                                if (!p.success)
                                   return {
                                     actionState:
                                       o("WASyncdConst").SyncActionState.Orphan,
-                                    orphanModel: d.orphanModel,
+                                    orphanModel: p.orphanModel,
                                   };
-                                var m = o("WAWebWidFactory").createWid(
-                                    d.chat.id,
+                                var _ = o("WAWebWidFactory").createWid(
+                                    p.chat.id,
                                   ),
-                                  p = [];
-                                for (var _ of (f = c.secrets) != null
-                                  ? f
-                                  : []) {
-                                  var f,
-                                    g = _.id,
-                                    h = _.rootSecret;
-                                  if (g == null || g === "" || h == null) {
-                                    o("WALogger")
-                                      .WARN(
-                                        e ||
-                                          (e =
-                                            babelHelpers.taggedTemplateLiteralLoose(
-                                              [
-                                                "[WASARootSecretSync] skipping malformed entry for ",
-                                                "",
-                                              ],
-                                            )),
-                                        m,
-                                      )
-                                      .sendLogs(
-                                        "wasa-root-secret-sync-malformed",
-                                      );
-                                    continue;
-                                  }
-                                  p.push({
-                                    stanzaId: g,
-                                    secret: new Uint8Array(h),
-                                  });
-                                }
+                                  f = yield c(
+                                    _,
+                                    (i = d.secrets) != null ? i : [],
+                                  );
                                 return (
-                                  yield o(
-                                    "WAWebWasaRootSecretWriter",
-                                  ).upsertWasaCarriersForIds(m, p),
+                                  yield m(_, l, f),
                                   {
                                     actionState:
                                       o("WASyncdConst").SyncActionState.Success,
@@ -135,17 +188,17 @@ __d(
                                   n,
                               );
                             }
-                          } catch (e) {
+                          } catch (t) {
                             return (
                               o("WALogger")
                                 .WARN(
-                                  s ||
-                                    (s =
+                                  e ||
+                                    (e =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "[WASARootSecretSync] apply failed",
                                       ])),
                                 )
-                                .catching(r("getErrorSafe")(e))
+                                .catching(r("getErrorSafe")(t))
                                 .sendLogs("wasa-root-secret-sync-failed"),
                               {
                                 actionState:
@@ -171,8 +224,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase),
-      d = new c();
-    l.default = d;
+      f = new _();
+    l.default = f;
   },
   98,
 );

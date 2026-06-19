@@ -103,9 +103,11 @@ __d(
                 .sendLogs("generate-call-log-event=call-missed-no-peer");
               return;
             }
-            yield o(
+            var S = yield o(
               "WAWebVoipActionWriteCallLogImpl",
             ).writeVoipCallLogMessageImpl(g, f, !1);
+            S != null &&
+              o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n);
           } catch (e) {
             o("WALogger")
               .ERROR(

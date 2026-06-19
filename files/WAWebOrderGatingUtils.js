@@ -94,6 +94,11 @@ __d(
         ) !== 0
       );
     }
+    function S() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "utility_order_view_mbs_enabled",
+      );
+    }
     ((l.QuickPayProductTypeGating = s),
       (l.isOrderDetailsQuickPayEnabled = u),
       (l.orderDetailsCustomItemEnabled = c),
@@ -107,7 +112,8 @@ __d(
       (l.isSellerOrderRevampEnabled = y),
       (l.isBuyerOrderRequestVariantEnabled = C),
       (l.isOrderStatusM1Enabled = b),
-      (l.isOrderContentOptimizationEnabled = v));
+      (l.isOrderContentOptimizationEnabled = v),
+      (l.isInboxOrderHistoryEnabled = S));
   },
   98,
 );

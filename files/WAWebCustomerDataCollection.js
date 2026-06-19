@@ -9,6 +9,7 @@ __d(
     "WAWebContactType",
     "WAWebContactTypeNames",
     "WAWebCustomerDataModel",
+    "WAWebCustomerManagerDateRangeUtils",
     "WAWebCustomerManagerSearchUtils",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
@@ -227,11 +228,25 @@ __d(
               return t != null && t.t != null && t.t >= s;
             });
           }
-          var c = o("WAWebSearchUtils").normalizeString(r.query);
+          if (r.lastMessageCustomRange != null) {
+            var c = o(
+                "WAWebCustomerManagerDateRangeUtils",
+              ).getCustomRangeSecondsBounds(
+                r.lastMessageCustomRange.start,
+                r.lastMessageCustomRange.end,
+              ),
+              d = c.endSec,
+              m = c.startSec;
+            t = t.filter(function (e) {
+              var t = o("WAWebChatCollection").ChatCollection.get(e.chatJid);
+              return t != null && t.t != null && t.t >= m && t.t <= d;
+            });
+          }
+          var p = o("WAWebSearchUtils").normalizeString(r.query);
           return (
-            c !== "" &&
+            p !== "" &&
               (t = t.filter(function (t) {
-                return e(t).includes(c);
+                return e(t).includes(p);
               })),
             t
           );

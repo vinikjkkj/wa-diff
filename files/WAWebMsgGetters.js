@@ -1180,7 +1180,7 @@ __d(
             r = e[2];
           if (t !== o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE) return !1;
           if (!n) return !0;
-          var a = new Date().getTime() / 1e3;
+          var a = Date.now() / 1e3;
           return parseInt(a, 10) >= parseInt(r, 10);
         },
         [b, cr, dr],

@@ -152,11 +152,13 @@ __d(
     function S(e) {
       var t = {};
       return (
-        Object.keys(e).forEach(function (n) {
-          typeof e[n] == "number"
-            ? (t.int == null && (t.int = {}), (t.int[n] = e[n]))
-            : typeof e[n] == "string" &&
-              (t.string == null && (t.string = {}), (t.string[n] = e[n]));
+        Object.entries(e).forEach(function (e) {
+          var n = e[0],
+            r = e[1];
+          typeof r == "number"
+            ? (t.int == null && (t.int = {}), (t.int[n] = r))
+            : typeof r == "string" &&
+              (t.string == null && (t.string = {}), (t.string[n] = r));
         }),
         r("isEmptyObject")(t) ? void 0 : t
       );

@@ -14,60 +14,80 @@ __d(
     function e(e, t, n, a, i, l) {
       var s,
         u,
-        c = e.referenced,
-        d = e.referenced_embedded_payloads,
-        m = e.referenced_external,
-        p = [],
-        _ = [];
-      if (c) for (var f of c) p.push(t.readManifestEntry(f));
-      if (m)
-        for (var g of m)
-          p.push(
+        c,
+        d = e.referenced,
+        m = e.referenced_embedded_payloads,
+        p = e.referenced_external,
+        _ = e.referenced_ft_entries,
+        f = [],
+        g = [],
+        h = null;
+      if (d) for (var y of d) f.push(t.readManifestEntry(y));
+      if (p)
+        for (var C of p)
+          f.push(
             o(
               "WebBloksDataModule",
             ).dangerouslyCreateLocalStateDataManifestEntry_DO_NOT_USE(
-              g,
-              t.readVariable(g),
+              C,
+              t.readVariable(C),
             ),
           );
       if (l != null)
-        for (var h of Object.entries(l)) {
-          var y = h[0],
-            C = h[1],
-            b = o("WebBloksScopedIds").getScopedVariableIdAtDepth(
+        for (var b of Object.entries(l)) {
+          var v = b[0],
+            S = b[1],
+            R = o("WebBloksScopedIds").getScopedVariableIdAtDepth(
               t.scope,
-              y,
+              v,
               t.scope.length,
             ),
-            v = o(
+            L = o(
               "WebBloksDataModule",
-            ).dangerouslyCreateLocalStateDataManifestEntry_DO_NOT_USE(b, C);
-          p.push(v);
+            ).dangerouslyCreateLocalStateDataManifestEntry_DO_NOT_USE(R, S);
+          f.push(L);
         }
-      if (d) for (var S of d) _.push(t.readPayload(S));
-      var R = t.objectSet.environment.traversalKeys,
-        L = t.getBaseSourceMapNode(),
-        E = L == null ? void 0 : L.getSourceMapID(),
-        k = L == null ? void 0 : L.getLoggingID(),
-        I = null,
-        T = o("WebBloksModelParser").parseBloksModelFromJSON(
+      if (m) for (var E of m) g.push(t.readPayload(E));
+      if (_) {
+        var k = {};
+        for (var I of _) {
+          var T = t.requireResources().functionTable.get(I);
+          T != null
+            ? (k[I] = T)
+            : t.objectSet.environment.logger.warn(
+                "Referenced FT entry not found in parent context during inflate: %s",
+                I,
+              );
+        }
+        h = k;
+      }
+      var D = t.objectSet.environment.traversalKeys,
+        x = t.getBaseSourceMapNode(),
+        $ = x == null ? void 0 : x.getSourceMapID(),
+        P = x == null ? void 0 : x.getLoggingID(),
+        N = null,
+        M = o("WebBloksModelParser").parseBloksModelFromJSON(
           o("WebBloksUtils").cast(e.tree),
-          R,
-          I,
+          D,
+          N,
         );
-      a && (T = T.makeDeepCopyWithNewClientIds(i ? t.scope.slice() : null, R));
-      var D = o("WebBloksModelParser").parseBloksTreeResources(
+      a && (M = M.makeDeepCopyWithNewClientIds(i ? t.scope.slice() : null, D));
+      var w = o("WebBloksModelParser").parseBloksTreeResources(
         babelHelpers.extends({}, e, {
-          data: [].concat((s = e.data) != null ? s : [], p),
+          data: [].concat((s = e.data) != null ? s : [], f),
           embedded_payloads: [].concat(
             (u = e.embedded_payloads) != null ? u : [],
-            _,
+            g,
           ),
+          ft:
+            h != null
+              ? babelHelpers.extends({}, h, (c = e.ft) != null ? c : {})
+              : e.ft,
         }),
-        T,
-        R,
+        M,
+        D,
       );
-      return new (r("WebBloksParseResult"))(T, D, k);
+      return new (r("WebBloksParseResult"))(M, w, P);
     }
     l.inflateBloksDataFromBloksPayloadToBloksParseResult = e;
   },

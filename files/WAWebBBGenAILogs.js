@@ -208,17 +208,17 @@ __d(
     function x(e) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_MODAL,
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_TOOLTIP_IMPRESSION,
       });
     }
     function $(e) {
       e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_ACCEPT,
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_MODAL,
       });
     }
     function P(e) {
@@ -226,10 +226,18 @@ __d(
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_ACCEPT,
+      });
+    }
+    function N(e) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.GENAI_NUX_DISMISS,
       });
     }
-    function N(e, t) {
+    function M(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         extraAttributes: { link_name: t },
@@ -261,10 +269,11 @@ __d(
       (l.genAIRefinementSubmitted = I),
       (l.genAIEntryPointViewed = T),
       (l.genAIEntryPointClicked = D),
-      (l.genAINuxModalViewed = x),
-      (l.genAINuxAcceptClicked = $),
-      (l.genAINuxDismissClicked = P),
-      (l.genAINuxLinkClicked = N));
+      (l.genAITooltipImpression = x),
+      (l.genAINuxModalViewed = $),
+      (l.genAINuxAcceptClicked = P),
+      (l.genAINuxDismissClicked = N),
+      (l.genAINuxLinkClicked = M));
   },
   98,
 );

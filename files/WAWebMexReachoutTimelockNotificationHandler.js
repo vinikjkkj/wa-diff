@@ -55,7 +55,7 @@ __d(
             var s =
                 r != null
                   ? new Date(parseInt(r, 10) * 1e3).getTime()
-                  : new Date().getTime() + 60 * 1e3,
+                  : Date.now() + 60 * 1e3,
               u = yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
                 o("WAWebReachoutTimelockUtils").REACHOUT_TIMELOCK_IDB_KEY,
               );

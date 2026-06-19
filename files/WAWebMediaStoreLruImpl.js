@@ -30,11 +30,7 @@ __d(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   if (a.byteLength > i.$LruMediaStore$p_1() || a.byteLength > u)
                     return a;
-                  var n = {
-                    id: t,
-                    timestamp: new Date().getTime(),
-                    size: a.byteLength,
-                  };
+                  var n = { id: t, timestamp: Date.now(), size: a.byteLength };
                   try {
                     return (
                       yield i._metaInfoStore.putObject(n),

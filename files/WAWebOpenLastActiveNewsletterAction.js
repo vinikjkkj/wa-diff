@@ -9,7 +9,6 @@ __d(
     "WAWebNavBarTypes",
     "WAWebNewsletterCollection",
     "WAWebSideNavButtonsActivityModel",
-    "WAWebStatusGatingUtils",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -18,9 +17,7 @@ __d(
       s,
       u = s || (s = o("react")),
       c = function () {
-        var e = o("WAWebStatusGatingUtils").isUpdatesTabInNavigationBarEnabled()
-          ? o("WAWebNavBarTypes").NavBarItems.Updates
-          : o("WAWebNavBarTypes").NavBarItems.Newsletters;
+        var e = o("WAWebNavBarTypes").NavBarItems.Newsletters;
         o("WAWebDrawerManager").DrawerManager.openDrawerMid(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "mid_drawer_empty_state", navBarItem: e }

@@ -78,48 +78,52 @@ __d(
               x = k.participant;
             if (L != null) {
               var $ = babelHelpers.extends({}, L.toJSON(), {
-                callDuration: d == null ? L.callDuration : d,
-                callOutcome: R,
-                finalCallOutcome: R,
-                terminatedByDeviceSwitch: C,
-                bytesSent: v,
-                bytesReceived: S,
-              });
-              yield o(
-                "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(T, $, !1);
+                  callDuration: d == null ? L.callDuration : d,
+                  callOutcome: R,
+                  finalCallOutcome: R,
+                  terminatedByDeviceSwitch: C,
+                  bytesSent: v,
+                  bytesReceived: S,
+                }),
+                P = yield o(
+                  "WAWebVoipActionWriteCallLogImpl",
+                ).writeVoipCallLogMessageImpl(T, $, !1);
+              P != null &&
+                o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(l);
             } else {
               if (p != null || _ === !0) return;
-              var P = {
-                id: new (r("WAWebMsgKey"))({
-                  remote: T,
-                  participant: x,
-                  fromMe: m,
-                  id: D,
-                }),
-                type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
-                kind: o("WAWebMsgType").MsgKind.CallLog,
-                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                callOutcome: R,
-                isVideoCall: b != null ? b : !1,
-                callCreator: E,
-                callDuration: d == null ? void 0 : d,
-                from: I,
-                t: y,
-                callParticipants: f.map(function (e) {
-                  return { participant: e.jid, outcome: e.result };
-                }),
-                to: T,
-                isCallLink: !1,
-                callLinkToken: u != null ? u : void 0,
-                finalCallOutcome: R,
-                terminatedByDeviceSwitch: C,
-                bytesSent: v,
-                bytesReceived: S,
-              };
-              yield o(
-                "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(T, P, !1);
+              var N = {
+                  id: new (r("WAWebMsgKey"))({
+                    remote: T,
+                    participant: x,
+                    fromMe: m,
+                    id: D,
+                  }),
+                  type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
+                  kind: o("WAWebMsgType").MsgKind.CallLog,
+                  viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+                  callOutcome: R,
+                  isVideoCall: b != null ? b : !1,
+                  callCreator: E,
+                  callDuration: d == null ? void 0 : d,
+                  from: I,
+                  t: y,
+                  callParticipants: f.map(function (e) {
+                    return { participant: e.jid, outcome: e.result };
+                  }),
+                  to: T,
+                  isCallLink: !1,
+                  callLinkToken: u != null ? u : void 0,
+                  finalCallOutcome: R,
+                  terminatedByDeviceSwitch: C,
+                  bytesSent: v,
+                  bytesReceived: S,
+                },
+                M = yield o(
+                  "WAWebVoipActionWriteCallLogImpl",
+                ).writeVoipCallLogMessageImpl(T, N, !1);
+              M != null &&
+                o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(l);
             }
           } catch (t) {
             o("WALogger")

@@ -47,7 +47,10 @@ __d(
       return (
         o("WAWebBotUtils").isHatchBot(e) &&
         !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-        o("WAWebHatchGating").isHatchSecretEncryptedMessageEnabled()
+        o("WAWebHatchGating").isHatchSecretEncryptedMessageEnabled() &&
+        o("WAWebWasaUserPrefs").getWasaActiveTargetId(
+          o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
+        ) != null
       );
     }
     function d(e) {

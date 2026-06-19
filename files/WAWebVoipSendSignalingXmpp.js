@@ -440,7 +440,7 @@ __d(
             return {
               encNode: c,
               shouldHaveIdentity:
-                s === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+                s === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg && P(),
             };
           },
         )),
@@ -461,6 +461,9 @@ __d(
         })),
         $.apply(this, arguments)
       );
+    }
+    function P() {
+      return !r("WAWebEnvironment").isGuest;
     }
     l.sendWAWebVoipSignalingXmpp = v;
   },

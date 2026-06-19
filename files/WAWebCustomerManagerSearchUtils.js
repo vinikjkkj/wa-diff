@@ -10,7 +10,8 @@ __d(
         e.leadStages.length > 0 ||
         e.labelId != null ||
         e.acquisitionSource != null ||
-        e.lastMessageRange != null
+        e.lastMessageRange != null ||
+        e.lastMessageCustomRange != null
       );
     }
     ((i.NO_LABEL_FILTER_ID = e), (i.hasActiveFilter = l));

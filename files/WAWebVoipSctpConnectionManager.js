@@ -604,7 +604,7 @@ __d(
             o("WAWebVoipSctpConnectionState").currentRelayState.set(_, f);
           }
           if (u.length > 0) {
-            var g = r("justknobx")._("2412");
+            var g = e.enable_web_relay_connection_stagger === !0;
             g
               ? yield Le(u)
               : yield (ne || (ne = n("Promise"))).all(
@@ -908,7 +908,6 @@ __d(
                 e.id,
               ),
               o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(n),
-              ve(e.id),
               !1
             );
           try {
@@ -936,7 +935,6 @@ __d(
                   e.id,
                 ),
                 o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(n),
-                ve(e.id),
                 !1
               );
             var d = Date.now(),
@@ -995,7 +993,6 @@ __d(
                 ).detachPeerConnectionHandlers(m),
                 m.close(),
                 (n.peerConnection = null),
-                ve(e.id),
                 !1
               );
             var y = Date.now() - _;

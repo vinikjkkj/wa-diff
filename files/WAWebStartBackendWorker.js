@@ -531,23 +531,35 @@ __d(
                   ])),
               ),
               globalThis.navigator.locks != null &&
-                globalThis.navigator.locks.request(
-                  o("WAWebBackendWorkerLocks").WORKER_LIVENESS_LOCK,
-                  function () {
-                    d < h && y({ retryStart: d + 1 });
-                  },
-                ));
+                (l === !0
+                  ? globalThis.navigator.locks.request(
+                      o("WAWebBackendWorkerLocks").WORKER_KILL_SWITCH_LOCK,
+                      n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* () {
+                          var e = yield navigator.locks.query(),
+                            t = e.pending;
+                          for (var n of t)
+                            if (
+                              n.name ===
+                              o("WAWebBackendWorkerLocks")
+                                .WORKER_KILL_SWITCH_LOCK
+                            )
+                              return;
+                          d < h && y({ retryStart: d + 1 });
+                        },
+                      ),
+                    )
+                  : globalThis.navigator.locks.request(
+                      o("WAWebBackendWorkerLocks").WORKER_LIVENESS_LOCK,
+                      function () {
+                        d < h && y({ retryStart: d + 1 });
+                      },
+                    )));
           } catch (e) {
             var E,
               k = (E = t == null ? void 0 : t.retryInit) != null ? E : 0;
             k < h && globalThis.navigator.locks != null
-              ? globalThis.navigator.locks.request(
-                  o("WAWebBackendWorkerLocks").WORKER_KILL_SWITCH_LOCK,
-                  { steal: !0 },
-                  function () {
-                    (p.addPoint("retry_" + k), y({ qpl: p, retryInit: k + 1 }));
-                  },
-                )
+              ? (p.addPoint("retry_" + k), y({ qpl: p, retryInit: k + 1 }))
               : (o("WALogger")
                   .ERROR(
                     s ||

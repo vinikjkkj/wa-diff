@@ -210,9 +210,7 @@ __d(
     }
     function L(e, t, n) {
       if (o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)) {
-        var a = o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName(e, {
-          includePrivateProcessing: !0,
-        });
+        var a = o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName();
         return t
           ? u.jsx(r("WAWebClickableLink.react"), {
               onClick: t,

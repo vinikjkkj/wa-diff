@@ -48,7 +48,15 @@ __d(
           )),
           a == null || (i == null && l == null)
             ? null
-            : { refId: a, status: i, paymentStatus: l }
+            : {
+                refId: a,
+                status: i,
+                paymentStatus: l,
+                orderCreatorSurface:
+                  (n == null ? void 0 : n.order_creator_surface) === "biz_inbox"
+                    ? "biz_inbox"
+                    : void 0,
+              }
         );
       } catch (e) {
         return null;

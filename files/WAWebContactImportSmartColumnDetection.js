@@ -191,17 +191,18 @@ __d(
       return t.length === 0 || t.includes("@") ? !1 : A.test(t);
     }
     var O = 20,
-      B = 0.7;
-    function W(e, t) {
-      var n = U(e, t),
-        r = q(e),
+      B = 0.7,
+      W = 0.5;
+    function q(e, t) {
+      var n = V(e, t),
+        r = U(e),
         o = null,
         a = null,
         i = null;
       return (
         r
-          ? ((a = H(e, t, T, [n])), (i = H(e, t, D, [n, a])))
-          : (o = H(e, t, I, [n])),
+          ? ((a = G(e, t, T, [n])), (i = G(e, t, D, [n, a])))
+          : (o = G(e, t, I, [n])),
         {
           phoneColumn: n,
           fullNameColumn: o,
@@ -210,37 +211,36 @@ __d(
         }
       );
     }
-    function q(e) {
+    function U(e) {
       for (var t of e) if (P(t, T) || P(t, D)) return !0;
       return !1;
     }
-    function U(e, t) {
-      var n = G(e, k, []);
-      if (n != null) {
-        var r = j(t, n.columnIndex),
-          o = K(r, M),
-          a = o >= B ? "both" : "header";
-        return babelHelpers.extends({}, n, {
-          confidence: "high",
-          matchedBy: a,
-        });
-      }
-      return V(e, t);
-    }
     function V(e, t) {
+      var n = z(e, k, []);
+      if (n != null) {
+        var r = K(t, n.columnIndex),
+          o = Q(r, M),
+          a = o >= B ? "both" : "header",
+          i = Q(r, w),
+          l = r.length === 0 || i >= W ? "high" : "medium";
+        return babelHelpers.extends({}, n, { confidence: l, matchedBy: a });
+      }
+      return H(e, t);
+    }
+    function H(e, t) {
       for (var n = null, r = 0; r < e.length; r++) {
-        var o = j(t, r);
+        var o = K(t, r);
         if (o.length !== 0) {
-          var a = K(o, M);
+          var a = Q(o, M);
           if (!(a < B)) {
-            var i = o.some(w);
+            var i = Q(o, w);
             (n == null || a > n.score) &&
-              (n = { columnIndex: r, score: a, hasPrefix: i });
+              (n = { columnIndex: r, prefixRatio: i, score: a });
           }
         }
       }
       if (n == null) return null;
-      var l = n.hasPrefix ? "medium" : "low";
+      var l = n.prefixRatio >= W ? "medium" : "low";
       return {
         header: e[n.columnIndex],
         columnIndex: n.columnIndex,
@@ -248,27 +248,27 @@ __d(
         matchedBy: "data",
       };
     }
-    function H(e, t, n, r) {
-      var o = z(r),
-        a = G(e, n, o);
+    function G(e, t, n, r) {
+      var o = j(r),
+        a = z(e, n, o);
       if (a == null) return null;
-      var i = j(t, a.columnIndex),
-        l = K(i, F),
+      var i = K(t, a.columnIndex),
+        l = Q(i, F),
         s = l >= B ? "both" : "header";
       return babelHelpers.extends({}, a, { confidence: "high", matchedBy: s });
     }
-    function G(e, t, n) {
+    function z(e, t, n) {
       for (var r = 0; r < e.length; r++)
         if (!n.includes(r) && P(e[r], t))
           return { header: e[r], columnIndex: r };
       return null;
     }
-    function z(e) {
+    function j(e) {
       var t = [];
       for (var n of e) n != null && t.push(n.columnIndex);
       return t;
     }
-    function j(e, t) {
+    function K(e, t) {
       for (var n = [], r = Math.min(e.length, O), o = 0; o < r; o++) {
         var a = e[o];
         if (a != null) {
@@ -278,43 +278,43 @@ __d(
       }
       return n;
     }
-    function K(e, t) {
+    function Q(e, t) {
       if (e.length === 0) return 0;
       var n = 0;
       for (var r of e) t(r) && n++;
       return n / e.length;
     }
-    var Q = "phone",
-      X = "name",
-      Y = "firstname",
-      J = "lastname";
-    function Z(e, t) {
-      var n = ee(t);
+    var X = "phone",
+      Y = "name",
+      J = "firstname",
+      Z = "lastname";
+    function ee(e, t) {
+      var n = te(t);
       return n.size === 0
         ? e.map(function (e) {
             return babelHelpers.extends({}, e);
           })
         : e.map(function (e) {
-            return ne(e, n);
+            return re(e, n);
           });
     }
-    function ee(e) {
+    function te(e) {
       var t = new Map();
       return (
-        te({ canonical: Q, detected: e.phoneColumn, renames: t }),
-        te({ canonical: X, detected: e.fullNameColumn, renames: t }),
-        te({ canonical: Y, detected: e.firstNameColumn, renames: t }),
-        te({ canonical: J, detected: e.lastNameColumn, renames: t }),
+        ne({ canonical: X, detected: e.phoneColumn, renames: t }),
+        ne({ canonical: Y, detected: e.fullNameColumn, renames: t }),
+        ne({ canonical: J, detected: e.firstNameColumn, renames: t }),
+        ne({ canonical: Z, detected: e.lastNameColumn, renames: t }),
         t
       );
     }
-    function te(e) {
+    function ne(e) {
       var t = e.canonical,
         n = e.detected,
         r = e.renames;
       n != null && n.header !== t && r.set(n.header, t);
     }
-    function ne(e, t) {
+    function re(e, t) {
       var n = new Set(t.values()),
         r = {};
       for (var o in e) t.has(o) || n.has(o) || (r[o] = e[o]);
@@ -334,8 +334,8 @@ __d(
       (i.looksLikePhoneValue = M),
       (i.hasCountryCodePrefix = w),
       (i.looksLikeNameValue = F),
-      (i.smartDetectColumns = W),
-      (i.applyColumnMapping = Z));
+      (i.smartDetectColumns = q),
+      (i.applyColumnMapping = ee));
   },
   66,
 );

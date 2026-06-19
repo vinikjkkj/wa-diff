@@ -942,6 +942,8 @@ __d(
         "scheduled_boost_draft_deletion_error",
       SCHEDULED_BOOST_ACTIVATION_DIAGNOSTIC:
         "scheduled_boost_activation_diagnostic",
+      SCHEDULED_BOOST_POST_ID_OSI_OVERRIDE:
+        "scheduled_boost_post_id_osi_override",
       SCHEDULED_BOOST_ACTIVATION_THROW: "scheduled_boost_activation_throw",
       SCHEDULED_BOOST_PRE_PROCESS_DIAGNOSTIC:
         "scheduled_boost_pre_process_diagnostic",

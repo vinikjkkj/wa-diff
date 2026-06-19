@@ -260,6 +260,9 @@ __d(
             ((this.$2.deviceCount = o("WAWebWamGroupMetricUtils").capCount(t)),
               (this.$2.deviceSizeBucket = r("WAWebWamNumberToSizeBucket")(t)));
           }),
+          (n.setParticipantCount = function (t) {
+            this.$2.participantCount = t;
+          }),
           (n.setGroupData = function (t) {
             var e = o(
               "WAWebWamAddressingModeUtils",

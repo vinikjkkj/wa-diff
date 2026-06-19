@@ -828,6 +828,9 @@ __d(
           (t.genAIEntryPointClicked = function (t, n) {
             o("WAWebBBGenAILogs").genAIEntryPointClicked(this.$1, t, n);
           }),
+          (t.genAITooltipImpression = function () {
+            o("WAWebBBGenAILogs").genAITooltipImpression(this.$1);
+          }),
           (t.genAINuxModalViewed = function () {
             o("WAWebBBGenAILogs").genAINuxModalViewed(this.$1);
           }),
