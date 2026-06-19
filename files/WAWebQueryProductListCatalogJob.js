@@ -4,7 +4,6 @@ __d(
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWapDeprecatedSmaxID",
     "WAWebBackendErrors",
@@ -25,6 +24,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "filterNulls",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -154,7 +154,7 @@ __d(
                   ),
                 },
               );
-            return r("WANullthrows")(
+            return r("nullthrows")(
               _ == null ||
                 (i = _.xwa_product_catalog_get_product_list) == null ||
                 (i = i.product_list) == null

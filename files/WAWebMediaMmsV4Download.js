@@ -6,7 +6,6 @@ __d(
     "WACustomError",
     "WAFilteredCatch",
     "WALogger",
-    "WANullthrows",
     "WARaceSignal",
     "WAThrottle",
     "WAWebCryptoImageStreamer",
@@ -45,6 +44,7 @@ __d(
     "getErrorSafe",
     "isStringNullOrEmpty",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -373,7 +373,7 @@ __d(
                                 downloadStage:
                                   o("WAWebMediaTypes").DownloadStage.FETCHING,
                               }),
-                                (X = r("WANullthrows")(X)));
+                                (X = r("nullthrows")(X)));
                               var m = X,
                                 p = m.directPath,
                                 _ = m.scanLengths,
@@ -1062,8 +1062,8 @@ __d(
       ).WebcProgressiveImageWamEvent)({ webcFirstRenderScans: 0 });
       return {
         mimetype: n,
-        scansSidecar: r("WANullthrows")(i),
-        scanLengths: r("WANullthrows")(a),
+        scansSidecar: r("nullthrows")(i),
+        scanLengths: r("nullthrows")(a),
         onProgressiveUpdate: function (n) {
           l.aborted ||
             (t.downloadStage !== o("WAWebMediaTypes").DownloadStage.RESOLVED &&

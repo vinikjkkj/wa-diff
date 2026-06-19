@@ -1,12 +1,11 @@
 __d(
   "WAWebDebugLabyrinth",
   [
-    "CurrentUser",
     "EBLabyrinthWaWasmReactorSingleton",
     "WALogger",
     "WATimeUtils",
-    "WAWebCanonicalUtils",
     "WAWebDebugLabyrinthInboxSnapshotQuery",
+    "WAWebLabyrinthCanonicalUserFbid",
     "WAWebLabyrinthDebugStateCache",
     "WAWebLabyrinthWasmCreateBackup",
     "WAWebLabyrinthWasmEncryptMessage",
@@ -83,46 +82,26 @@ __d(
         );
       return { deviceId: e, familyDeviceId: e, deviceRegistrationId: e };
     }
-    function w() {
-      var e = r("CurrentUser").getPossiblyNonFacebookUserID();
-      if (
-        !o("WAWebCanonicalUtils").isCanonicalPresent() ||
-        e == null ||
-        e === ""
-      )
-        throw r("err")(
-          "Debug.labyrinthEncryptAndUploadMessage requires a WA canonical user id",
-        );
-      return String(e);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
+    function A() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r = P(),
-            a = $("eb_device_id", r.ebDeviceId),
-            i = $("epoch_id", r.epochId),
-            l = Math.min(
+            r = Math.min(
               (t = e == null ? void 0 : e.messageFirst) != null ? t : E,
               I,
             ),
-            c = Math.min(
+            a = Math.min(
               (n = e == null ? void 0 : e.threadFirst) != null ? n : k,
               T,
             );
           try {
-            var d = yield o(
+            var i = yield o(
               "WAWebDebugLabyrinthInboxSnapshotQuery",
-            ).fetchLabyrinthInboxSnapshot({
-              ebDeviceId: a,
-              locallyAvailableEpochIds: [i],
-              messageFirst: l,
-              threadFirst: c,
-            });
+            ).fetchLabyrinthInboxSnapshot({ messageFirst: r, threadFirst: a });
             return (
               o("WALogger").LOG(
                 s ||
@@ -130,12 +109,12 @@ __d(
                     "[Debug][Labyrinth] labyrinthInboxSnapshot GQL response",
                   ])),
               ),
-              d
+              i
             );
           } catch (e) {
-            var m = e instanceof Error ? e.constructor.name : typeof e,
-              p = e instanceof Error ? e.message : String(e),
-              _ = e instanceof Error ? e.stack : void 0;
+            var l = e instanceof Error ? e.constructor.name : typeof e,
+              c = e instanceof Error ? e.message : String(e),
+              d = e instanceof Error ? e.stack : void 0;
             throw (
               o("WALogger").ERROR(
                 u ||
@@ -147,13 +126,13 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    ((A.doc =
-      "Fetches WA Labyrinth inbox snapshot threads/messages, logs the raw GraphQL response, and returns it."),
-      (A.paramsToExecute = []));
-    function O(e, t) {
+    ((w.doc =
+      "Fetches WA Labyrinth inbox snapshot threads/messages, logs the simplified response, and returns it."),
+      (w.paramsToExecute = []));
+    function F(e, t) {
       return babelHelpers.extends({}, e, {
         device: babelHelpers.extends({}, e.device, {
           device_registration_id: t.deviceRegistrationId,
@@ -162,12 +141,12 @@ __d(
         }),
       });
     }
-    function B() {
-      return W.apply(this, arguments);
+    function O() {
+      return B.apply(this, arguments);
     }
-    function W() {
+    function B() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebLabyrinthWasmCreateBackup").createBackupWasm();
           if (!e.success)
             return (
@@ -185,7 +164,7 @@ __d(
                 "[Debug][Labyrinth] createBackupWasm success",
               ])),
           );
-          var t = O(e.value, M());
+          var t = F(e.value, M());
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -243,17 +222,17 @@ __d(
             );
           }
         })),
-        W.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    B.doc =
+    O.doc =
       "Generate Labyrinth backup data with Wasm and call xwa2_labyrinth_create_backup";
-    function q(e) {
-      return U.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function U() {
+    function q() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msg,
             n = e.threadId,
             a = P(),
@@ -266,7 +245,7 @@ __d(
             m = $("mailbox_root_key", a.mailboxRootKey),
             p = $("orf_client_state", a.orfClientState),
             _ = $("epoch_anon_id", a.epochAnonId),
-            f = w(),
+            f = o("WAWebLabyrinthCanonicalUserFbid").getWaCanonicalUserFbid(),
             g = $("stanzaId", r("WAWebPonyfillsCryptoRandomUUID")()),
             E = String(o("WATimeUtils").unixTimeMs()),
             k = yield o("WAWebLabyrinthWasmEncryptMessage").encryptMessageWasm({
@@ -343,7 +322,7 @@ __d(
           } catch (e) {
             var x = e instanceof Error ? e.constructor.name : typeof e,
               M = e instanceof Error ? e.message : String(e),
-              A = e instanceof Error ? e.stack : void 0;
+              w = e instanceof Error ? e.stack : void 0;
             throw (
               o("WALogger").ERROR(
                 R ||
@@ -355,17 +334,17 @@ __d(
             );
           }
         })),
-        U.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    q.doc =
+    W.doc =
       "Encrypt one text message for a thread with Wasm and batch-upload it through xwa2_labyrinth_upload_messages. Example: Debug.labyrinthEncryptAndUploadMessage({threadId, msg})";
-    var V = {
-      labyrinthCreateBackupWasm: B,
-      labyrinthEncryptAndUploadMessage: q,
-      labyrinthInboxSnapshot: A,
+    var U = {
+      labyrinthCreateBackupWasm: O,
+      labyrinthEncryptAndUploadMessage: W,
+      labyrinthInboxSnapshot: w,
     };
-    l.default = V;
+    l.default = U;
   },
   98,
 );

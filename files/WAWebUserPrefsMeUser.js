@@ -77,15 +77,15 @@ __d(
         ? S()
         : v();
     }
-    function L(e) {
-      return e.isLid() ? S() : v();
-    }
-    function E() {
+    function L() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? p()
         : m();
+    }
+    function E(e) {
+      return e.isLid() ? S() : v();
     }
     function k() {
       return o(
@@ -219,9 +219,9 @@ __d(
       (l.clearGetMaybeMeLidUserCache = b),
       (l.getMePnUserOrThrow_DO_NOT_USE = v),
       (l.getMeLidUserOrThrow = S),
-      (l.getMeUser = R),
-      (l.getMeUserMatchingAddressingMode = L),
-      (l.getMeDeviceOrThrow = E),
+      (l.getMeUserOrThrow = R),
+      (l.getMeDeviceOrThrow = L),
+      (l.getMeUserMatchingAddressingMode = E),
       (l.getMeDeviceForOutgoingPeerMessage = k),
       (l.getMeDisplayNameOrThrow = I),
       (l.getMePNandLIDWids = T),

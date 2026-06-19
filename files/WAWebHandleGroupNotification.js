@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WADeprecatedWapParser",
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWebABProps",
     "WAWebAsISOCountryCode",
@@ -33,6 +32,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
@@ -849,7 +849,7 @@ __d(
                               : void 0,
                           };
                         })
-                      : [{ wid: r("WANullthrows")(c) }],
+                      : [{ wid: r("nullthrows")(c) }],
                     skipGenMsg:
                       t.maybeAttrString("suppress_sys_msg") === "true",
                   };

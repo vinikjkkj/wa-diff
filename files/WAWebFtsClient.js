@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebAppTracker",
     "WAWebEnvironment",
@@ -13,6 +12,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:1274",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -183,7 +183,7 @@ __d(
             this.$2.delete(t);
           }),
           (t.$8 = function (t) {
-            r("WANullthrows")(this.$1).postMessage(t);
+            r("nullthrows")(this.$1).postMessage(t);
           }),
           e
         );

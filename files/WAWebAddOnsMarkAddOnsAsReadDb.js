@@ -2,10 +2,10 @@ __d(
   "WAWebAddOnsMarkAddOnsAsReadDb",
   [
     "Promise",
-    "WANullthrows",
     "WAWebDBAddOnProviders",
     "WAWebDBMarkAsReadForTable",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -19,7 +19,7 @@ __d(
             Array.from(t.entries(), function (e) {
               var t = e[0],
                 n = e[1],
-                a = r("WANullthrows")(
+                a = r("nullthrows")(
                   o("WAWebDBAddOnProviders").getProviderForAddOnType(t),
                 );
               return a.markAsRead == null ? void 0 : a.markAsRead(n);

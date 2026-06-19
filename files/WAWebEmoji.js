@@ -355,11 +355,13 @@ __d(
                 n = e.categorizedEmojis,
                 r = new Map();
               return (
-                Object.keys(n).forEach(function (e) {
-                  var a = o("WAWebEmojiConst").CATEGORY_ORDERING.indexOf(e);
-                  n[e].forEach(function (e) {
+                Object.entries(n).forEach(function (e) {
+                  var n = e[0],
+                    a = e[1],
+                    i = o("WAWebEmojiConst").CATEGORY_ORDERING.indexOf(n);
+                  a.forEach(function (e) {
                     var n = t.normalizeEmoji(e);
-                    n != null && r.set(n, a);
+                    n != null && r.set(n, i);
                   });
                 }),
                 r

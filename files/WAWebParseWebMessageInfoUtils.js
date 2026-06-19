@@ -3,7 +3,6 @@ __d(
   [
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebBotGroupGatingUtils",
     "WAWebCTWAGatingUtils",
@@ -19,6 +18,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -55,9 +55,9 @@ __d(
           (s = s != null ? s : i)));
       try {
         var c = new (r("WAWebMsgKey"))({
-          fromMe: r("WANullthrows")(n.fromMe),
+          fromMe: r("nullthrows")(n.fromMe),
           remote: a,
-          id: r("WANullthrows")(n.id),
+          id: r("nullthrows")(n.id),
           participant: i,
         });
         return { msgKey: c, author: s };
@@ -1016,8 +1016,8 @@ __d(
                   eventName: t.templateParams[0],
                   eventStartTime: o("WATimeUtils").unixTime(),
                   isEventCanceled: e.messageStubType === l.EVENT_CANCELED,
-                  protocolMessageKey: r("WANullthrows")(
-                    (_ = c(e, r("WANullthrows")(e.targetMessageId))) == null
+                  protocolMessageKey: r("nullthrows")(
+                    (_ = c(e, r("nullthrows")(e.targetMessageId))) == null
                       ? void 0
                       : _.msgKey,
                     "Error: buildMsgKey or targetMessageId is null or missing for event edit system message history sync parsing",

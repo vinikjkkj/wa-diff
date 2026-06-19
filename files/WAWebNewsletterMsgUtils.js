@@ -189,7 +189,7 @@ __d(
           id: d,
           from: t,
           isSender: _,
-          to: _ ? t : o("WAWebUserPrefsMeUser").getMeUser(),
+          to: _ ? t : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
           t: p,
           serverId: m,
           offline: null,

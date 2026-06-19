@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebAck",
     "WAWebAdvHostedAccountTypeSystemMsg",
     "WAWebApiDeviceList",
@@ -24,6 +23,7 @@ __d(
     "WAWebWamWorkerOfflineProcessReporter",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -88,7 +88,7 @@ __d(
                     ),
                   ) &&
                   (c = [
-                    r("WANullthrows")(
+                    r("nullthrows")(
                       o(
                         "WAWebAdvHostedAccountTypeSystemMsg",
                       ).genAdvAccountTypeInitialSysMsg(

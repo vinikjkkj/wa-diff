@@ -39,7 +39,7 @@ __d(
         a = t.promptKey,
         i;
       if (n[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var l = o("WAWebUserPrefsMeUser").getMeUser();
+        var l = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
         ((i = o("WAWebContactCollection").ContactCollection.assertGet(l)),
           (n[0] = i));
       } else i = n[0];

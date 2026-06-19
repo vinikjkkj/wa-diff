@@ -16,8 +16,7 @@ __d(
       ) {
         e.__id != null || s(0, 56278);
         var t = o("WAWebInvocationId").extractInvocationId(e.__id);
-        (t != null && Object.prototype.hasOwnProperty.call(e, "__result")) ||
-          s(0, 56331);
+        (t != null && Object.hasOwn(e, "__result")) || s(0, 56331);
         var n = e,
           r = n.__result;
         return { result: r, invocationId: t };

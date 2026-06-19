@@ -3,10 +3,10 @@ __d(
   [
     "WABase64",
     "WALogger",
-    "WANullthrows",
     "WASmaxPushConfigSetRPC",
     "WAWebBackendApi",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -27,10 +27,10 @@ __d(
                     webClient: {
                       configEndpoint: t.endpoint,
                       configAuth: o("WABase64").encodeB64(
-                        r("WANullthrows")(t.getKey("auth")),
+                        r("nullthrows")(t.getKey("auth")),
                       ),
                       configP256dh: o("WABase64").encodeB64(
-                        r("WANullthrows")(t.getKey("p256dh")),
+                        r("nullthrows")(t.getKey("p256dh")),
                       ),
                       configLg: n.lg,
                       configLc: n.lc,

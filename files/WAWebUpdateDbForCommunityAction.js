@@ -105,7 +105,7 @@ __d(
                   return [e.groupId, e.participants];
                 }),
             ),
-            n = o("WAWebUserPrefsMeUser").getMeUser().toString();
+            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString();
           return function (e) {
             var r, o;
             return (r =

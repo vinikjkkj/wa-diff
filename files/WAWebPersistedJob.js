@@ -7,8 +7,7 @@ __d(
     }
     function s(e, t) {
       Object.keys(t).forEach(function (n) {
-        Object.prototype.hasOwnProperty.call(t, n) &&
-          e.addPersistedJobImplementation(n, t[n]);
+        Object.hasOwn(t, n) && e.addPersistedJobImplementation(n, t[n]);
       });
     }
     l.default = e;

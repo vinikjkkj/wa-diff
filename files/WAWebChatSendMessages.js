@@ -399,7 +399,7 @@ __d(
                   : u.isLidAddressingMode) === !0,
               m = d
                 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMeUser(),
+                : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               p = c.id,
               _ = new (r("WAWebMsgKey"))({
                 id: yield r("WAWebMsgKey").newId(),

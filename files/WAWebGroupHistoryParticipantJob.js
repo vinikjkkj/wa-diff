@@ -133,11 +133,19 @@ __d(
           if (n == null || n.size === 0) return t;
           var r = !1,
             a = t.participants.map(function (e) {
-              var t,
-                a,
-                i = o("WAWebLidMigrationUtils").toUserLid(
-                  (t = e.lid) != null ? t : e.id,
-                );
+              var t, a;
+              if (
+                e.groupHistorySentState ===
+                  o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                    .HISTORY_SENT ||
+                e.groupHistorySentState ===
+                  o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                    .NOTICE_SENT
+              )
+                return e;
+              var i = o("WAWebLidMigrationUtils").toUserLid(
+                (t = e.lid) != null ? t : e.id,
+              );
               if (i == null) return e;
               var l =
                 (a = n.get(o("WAWebWidToJid").userLidtoLidUserJid(i))) == null

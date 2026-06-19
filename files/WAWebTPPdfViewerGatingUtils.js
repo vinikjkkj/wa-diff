@@ -102,20 +102,26 @@ __d(
       );
     }
     function S() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue("wa_webtp_use_pdf_annotations")
+      );
+    }
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_webtp_use_async_pdf_send",
       );
     }
-    function R() {
+    function L() {
       return r("justknobx")._("2723");
     }
-    function L() {
+    function E() {
       return r("gkx")("25214");
     }
-    function E() {
+    function k() {
       return e() && r("justknobx")._("3269");
     }
-    function k() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_webtp_pdf_sharer_consent_copy_v2",
       );
@@ -129,11 +135,12 @@ __d(
       (l.isWebTP3PExtensionSharingEnabled = h),
       (l.getWebTPBrowserCompatibility = b),
       (l.isWebTPEditPdfInWhatsappEnabled = v),
-      (l.isAsyncPdfSendEnabled = S),
-      (l.isPdfPreviewBeforeSendEnabled = R),
-      (l.isWebTPAnnotationsEnabled = L),
-      (l.isWebTPSharerSavePreferenceEnabled = E),
-      (l.isWebTPPdfSharerConsentCopyV2Enabled = k));
+      (l.isWebTPPdfAnnotationsEnabled = S),
+      (l.isAsyncPdfSendEnabled = R),
+      (l.isPdfPreviewBeforeSendEnabled = L),
+      (l.isWebTPAnnotationsEnabled = E),
+      (l.isWebTPSharerSavePreferenceEnabled = k),
+      (l.isWebTPPdfSharerConsentCopyV2Enabled = I));
   },
   98,
 );

@@ -161,8 +161,7 @@ __d(
                   );
                 }
                 var i = [];
-                if (Object.prototype.hasOwnProperty.call(u, r))
-                  i.push.apply(i, u[r]);
+                if (Object.hasOwn(u, r)) i.push.apply(i, u[r]);
                 else {
                   var l = o("WAWebEmoji").EmojiUtil.containsOnlyEmoji(r)
                     ? o("WAWebEmoji").EmojiUtil.splitEmojis(r)

@@ -280,7 +280,7 @@ __d(
           var m = n.duration,
             p = n.initiator,
             h = n.settingTimestamp,
-            y = o("WAWebUserPrefsMeUser").getMeUser(),
+            y = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             C = new (r("WAWebMsgKey"))({
               fromMe: !0,
               remote: l,

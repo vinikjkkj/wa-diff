@@ -101,7 +101,7 @@ __d(
       var u,
         c,
         d = l && l.msgContextInfo(a.id),
-        m = o("WAWebUserPrefsMeUser").getMeUser(),
+        m = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         p = babelHelpers.extends(
           {
             ack: o("WAWebAck").ACK.CLOCK,

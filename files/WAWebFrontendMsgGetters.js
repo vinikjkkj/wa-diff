@@ -3,7 +3,6 @@ __d(
   [
     "WABidi",
     "WALogger",
-    "WANullthrows",
     "WAWebAck",
     "WAWebAnimatedEmojiAssetLoader",
     "WAWebBizSystemMsgSubtypes",
@@ -30,6 +29,7 @@ __d(
     "WAWebStringTruncation",
     "WAWebTemplateButtonSubtype",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -266,7 +266,7 @@ __d(
       return (
         o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
           (t = r("WAWebNewsletterCollection")),
-        r("WANullthrows")(t.get(r("WAWebMsgKey").from(e.id).remote))
+        r("nullthrows")(t.get(r("WAWebMsgKey").from(e.id).remote))
       );
     }
     var I = function (n) {

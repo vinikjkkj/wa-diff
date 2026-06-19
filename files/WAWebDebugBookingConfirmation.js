@@ -44,7 +44,7 @@ __d(
             );
             return;
           }
-          var f = o("WAWebUserPrefsMeUser").getMeUser(),
+          var f = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             g = {
               type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
               kind: "interactive",

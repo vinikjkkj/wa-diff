@@ -108,7 +108,7 @@ __d(
       var t;
       if (!o("WAWebChatGetters").getIsGroup(e))
         return (c || (c = n("Promise"))).resolve(!0);
-      var a = o("WAWebUserPrefsMeUser").getMeUser(),
+      var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         i = o("WAWebApiContact").getAlternateUserWid(a);
       if (
         ((t = e.groupMetadata) == null || t.participants.remove(a), i != null)

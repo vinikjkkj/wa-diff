@@ -74,7 +74,7 @@ __d(
                 : a.isLidAddressingMode) === !0,
             _ = p
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMeUser(),
+              : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             f = d.isGroup() ? _ : void 0,
             g = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),

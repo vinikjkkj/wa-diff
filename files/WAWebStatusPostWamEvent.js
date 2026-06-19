@@ -37,6 +37,7 @@ __d(
               hasDrawings: [25, e.TYPES.BOOLEAN],
               hasFilters: [26, e.TYPES.BOOLEAN],
               individualMentionCount: [49, e.TYPES.INTEGER],
+              isBatched: [59, e.TYPES.BOOLEAN],
               isCropped: [36, e.TYPES.BOOLEAN],
               isDraft: [55, e.TYPES.BOOLEAN],
               isForwardable: [51, e.TYPES.BOOLEAN],

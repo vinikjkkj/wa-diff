@@ -128,7 +128,7 @@ __d(
             return;
           }
           var u;
-          (Object.prototype.hasOwnProperty.call(_, i)
+          (Object.hasOwn(_, i)
             ? (u = _[i.toString()])
             : (_[i.toString()] = u = new c(l.size)),
             u.push(a.data),

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAPromiseReduce",
     "WAStorageEstimator",
     "WAWebDbUsageApiUtils",
@@ -11,6 +10,7 @@ __d(
     "WAWebScanDbRowApi",
     "asyncToGeneratorRuntime",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -183,7 +183,7 @@ __d(
             m = u.sampleRate,
             p = 1e4,
             _ = [],
-            g = r("WANullthrows")(r("WAWebIndexedDB")),
+            g = r("nullthrows")(r("WAWebIndexedDB")),
             h = yield o("WAWebDbUsageApiUtils").getAllDatabases(g);
           for (var C of h) {
             var b = yield o("WAWebDbUsageApiUtils").promisifyRequest(

@@ -352,7 +352,7 @@ __d(
                       ) {
                         n.ack < u.ack && delete n.ack;
                         for (var Z in n)
-                          Object.prototype.hasOwnProperty.call(n, Z) &&
+                          Object.hasOwn(n, Z) &&
                             typeof n[Z] == "undefined" &&
                             delete n[Z];
                         (u.type !== n.type && (n.subtype = n.subtype || void 0),

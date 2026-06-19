@@ -203,7 +203,7 @@ __d(
             ).lidGroupMigrationNonMemberIQEnabled(),
             i = a
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMeUser();
+              : o("WAWebUserPrefsMeUser").getMeUserOrThrow();
           try {
             var l = yield o(
                 "WAWebGroupCancelMembershipRequestJob",

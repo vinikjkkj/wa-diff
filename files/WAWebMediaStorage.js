@@ -33,7 +33,7 @@ __d(
       for (var t in e) e[t].delete();
     }
     function p(t) {
-      if (Object.prototype.hasOwnProperty.call(u, t)) {
+      if (Object.hasOwn(u, t)) {
         var n = u[t],
           r = n.msgs.some(function (e) {
             var t;

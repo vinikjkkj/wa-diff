@@ -2,11 +2,11 @@ __d(
   "WAWebEstimateFtsStorageApi",
   [
     "Promise",
-    "WANullthrows",
     "WAWebDbUsageApiUtils",
     "WAWebIndexedDB",
     "WAWebScanDbRowApi",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,7 +22,7 @@ __d(
             i = a.sampleRows,
             l = Date.now(),
             c = i,
-            d = r("WANullthrows")(r("WAWebIndexedDB")),
+            d = r("nullthrows")(r("WAWebIndexedDB")),
             m = yield o("WAWebDbUsageApiUtils").getDatabase(d, s),
             p = m.transaction(m.objectStoreNames, "readonly"),
             _ = 0,

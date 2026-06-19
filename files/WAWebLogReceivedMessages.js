@@ -116,7 +116,9 @@ __d(
             h = g[0],
             y = g[1],
             C =
-              (a = r.get(o("WAWebUserPrefsMeUser").getMeUser().toJid())) == null
+              (a = r.get(
+                o("WAWebUserPrefsMeUser").getMeUserOrThrow().toJid(),
+              )) == null
                 ? void 0
                 : a.ephemeralDuration;
           yield c.all(
@@ -329,7 +331,7 @@ __d(
                 return e.id.remote.toJid();
               }),
           );
-          t.add(o("WAWebUserPrefsMeUser").getMeUser().toJid());
+          t.add(o("WAWebUserPrefsMeUser").getMeUserOrThrow().toJid());
           var n = Array.from(t),
             a;
           return o("WAWebRuntimeEnvironmentUtils").isWorker()

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAShiftTimer",
     "WAWebABProps",
     "WAWebDBCreateLidPnMappings",
@@ -22,6 +21,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:13546",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -168,11 +168,11 @@ __d(
                       return b == null
                         ? void 0
                         : b(e, {
-                            localAddressingMode: r("WANullthrows")(
+                            localAddressingMode: r("nullthrows")(
                               i.get(e.toString()),
                               "missing local addressing mode for group",
                             ),
-                            serverAddressingMode: r("WANullthrows")(
+                            serverAddressingMode: r("nullthrows")(
                               t.get(e.toString()),
                               "missing server addressing mode for group",
                             ),
@@ -207,7 +207,7 @@ __d(
                 },
               });
             }
-            return r("WANullthrows")(this.$6.get(t)).promise;
+            return r("nullthrows")(this.$6.get(t)).promise;
           }),
           (t.$10 = function (t) {
             var e = [];

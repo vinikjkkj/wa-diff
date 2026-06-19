@@ -3,7 +3,6 @@ __d(
   [
     "errorCode",
     "WALogger",
-    "WANullthrows",
     "WAWebBackendErrors",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizCatalogManagementFetchProduct",
@@ -16,6 +15,7 @@ __d(
     "WAWebRelayClient",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -78,7 +78,7 @@ __d(
                   ),
                 },
               ),
-              S = r("WANullthrows")(
+              S = r("nullthrows")(
                 v == null ||
                   (b = v.xwa_product_catalog_get_product) == null ||
                   (b = b.product_catalog) == null

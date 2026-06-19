@@ -38,7 +38,7 @@ __d(
                 id: e,
                 fetchedFromServer: !1,
                 sellerJid: o("WAWebE2EProtoUtils").encodeJid(n),
-                createdAt: Math.round(new Date().getTime() / 1e3),
+                createdAt: Math.round(Date.now() / 1e3),
                 currency: o("WAWebCurrencyUtils").currencyForCountryShortcode(
                   o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n.user),
                 ),

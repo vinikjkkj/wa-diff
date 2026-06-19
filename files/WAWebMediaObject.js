@@ -310,7 +310,7 @@ __d(
             var e = this,
               a = this.$2;
             (a || (a = this.$2 = {}),
-              !Object.prototype.hasOwnProperty.call(a, t) &&
+              !Object.hasOwn(a, t) &&
                 (this.$3++,
                 (a[t] = (v || (v = n("Promise")))
                   .resolve(o)
@@ -323,9 +323,7 @@ __d(
                   }))));
           }),
           (a.getPendingProcess = function (t) {
-            return this.$3 === 0 ||
-              !this.$2 ||
-              !Object.prototype.hasOwnProperty.call(this.$2, t)
+            return this.$3 === 0 || !this.$2 || !Object.hasOwn(this.$2, t)
               ? (v || (v = n("Promise"))).resolve()
               : this.$2[t];
           }),

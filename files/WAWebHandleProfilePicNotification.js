@@ -120,7 +120,8 @@ __d(
                           l,
                           _,
                           a.ts,
-                          a.author || o("WAWebUserPrefsMeUser").getMeUser(),
+                          a.author ||
+                            o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                         );
                         return o(
                           "WAWebHandleSingleMsgWorkerCompatible",

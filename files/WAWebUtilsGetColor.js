@@ -16,7 +16,7 @@ __d(
       var o =
         t === "sand"
           ? r("WANullthrows")(e.get(t + "-" + n))
-          : s("--wds-" + t + "-" + n);
+          : s("--WDS-" + t + "-" + n);
       if (o === "")
         throw r("err")(
           "Get color failed (color=" +

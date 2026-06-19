@@ -31,14 +31,16 @@ __d(
       f,
       g,
       h,
-      y = n("$InternalEnum").Mirrored(["Persist", "Memory"]),
-      C = (function () {
+      y,
+      C,
+      b = n("$InternalEnum").Mirrored(["Persist", "Memory"]),
+      v = (function () {
         function t() {
           ((this.Direction = { SENDING: 1, RECEIVING: 2 }),
             (this.$1 = new (o(
               "WAWebSignalProtocolStoreCacheApi",
             ).SignalStoreCache)()),
-            (this.$2 = y.Persist));
+            (this.$2 = b.Persist));
         }
         var a = t.prototype;
         return (
@@ -84,7 +86,7 @@ __d(
             return t;
           })()),
           (a.isTrustedIdentity = function (t, r) {
-            return (h || (h = n("Promise"))).resolve(!0);
+            return (C || (C = n("Promise"))).resolve(!0);
           }),
           (a.$3 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -390,7 +392,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 if (e == null)
-                  return (h || (h = n("Promise"))).reject(
+                  return (C || (C = n("Promise"))).reject(
                     r("err")(
                       "Tried to remove identity key for undefined/null key",
                     ),
@@ -450,12 +452,12 @@ __d(
           })()),
           (a.$10 = function (t) {
             return t == null
-              ? (h || (h = n("Promise"))).reject(
+              ? (C || (C = n("Promise"))).reject(
                   r("err")("Tried to remove pre key without keyId"),
                 )
               : (this.$1.PrekeyStore.set(t, { deleted: !0 }),
                 this.$1.Dirty.preKey.add(t),
-                (h || (h = n("Promise"))).resolve());
+                (C || (C = n("Promise"))).resolve());
           }),
           (a.removePreKey = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -510,13 +512,28 @@ __d(
                     ).waSignalStore.getSession(e);
                     this.$1.SessionStore.set(e, n ? { session: n } : void 0);
                   }
-                  return (
-                    (yield o("WAWebSignalConvertApi").maybeConvertSession(
-                      (t = this.$1.SessionStore.get(e)) == null
-                        ? void 0
-                        : t.session,
-                    )) || void 0
-                  );
+                  var r =
+                    (t = this.$1.SessionStore.get(e)) == null
+                      ? void 0
+                      : t.session;
+                  if (r != null) {
+                    if (r.byteLength === 0) {
+                      o("WALogger")
+                        .LOG(
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                              "[signal] loadSession: empty/corrupted session",
+                            ])),
+                        )
+                        .sendLogs("signal-corrupted-empty-session");
+                      return;
+                    }
+                    return (
+                      (yield o("WAWebSignalConvertApi").maybeConvertSession(
+                        r,
+                      )) || void 0
+                    );
+                  }
                 }
               },
             );
@@ -602,7 +619,19 @@ __d(
                 }
                 return e.map(function (e) {
                   var n = t.$1.SessionStore.get(e);
-                  return n != null && !(n != null && n.deleted);
+                  return n == null || n.deleted === !0
+                    ? !1
+                    : n.session == null || n.session.byteLength === 0
+                      ? (o("WALogger")
+                          .LOG(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                                "[signal] containSessions: empty/corrupted session",
+                              ])),
+                          )
+                          .sendLogs("signal-corrupted-empty-session"),
+                        !1)
+                      : !0;
                 });
               },
             );
@@ -629,7 +658,7 @@ __d(
           })()),
           (a.$15 = function (t, o) {
             if (t == null)
-              return (h || (h = n("Promise"))).reject(
+              return (C || (C = n("Promise"))).reject(
                 r("err")("Tried to put session without identifier"),
               );
             if (!r("gkx")("26258"))
@@ -644,7 +673,7 @@ __d(
             return (
               this.$1.SenderKeyStore.set(t, o),
               this.$1.Dirty.senderKey.add(t),
-              (h || (h = n("Promise"))).resolve()
+              (C || (C = n("Promise"))).resolve()
             );
           }),
           (a.storeSenderKey = (function () {
@@ -703,17 +732,17 @@ __d(
             return t;
           })()),
           (a.switchToMemMode = function () {
-            this.$2 = y.Memory;
+            this.$2 = b.Memory;
           }),
           (a.switchToPersistMode = function () {
-            this.$2 = y.Persist;
+            this.$2 = b.Persist;
           }),
           (a.generateSnapshot = function () {
-            if (this.$2 === y.Memory) return this.$1.generateCacheUpdate();
+            if (this.$2 === b.Memory) return this.$1.generateCacheUpdate();
           }),
           (a.generateSnapshotThrottled = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.$2 === y.Memory) {
+              if (this.$2 === b.Memory) {
                 var e = [
                   yield this.$1.Mutex.identity.acquire(),
                   yield this.$1.Mutex.session.acquire(),
@@ -737,8 +766,8 @@ __d(
           (a.deleteAllCache = function () {
             (o("WALogger")
               .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[Signal]deleteAllCache",
                   ])),
               )
@@ -747,22 +776,22 @@ __d(
           }),
           (a.flushBufferToDiskIfNotMemOnlyMode = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.$2 === y.Memory)
+              if (this.$2 === b.Memory)
                 return (
                   o("WALogger")
                     .LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
                         ])),
                     )
                     .tags("unified-store"),
-                  (h || (h = n("Promise"))).resolve()
+                  (C || (C = n("Promise"))).resolve()
                 );
               o("WALogger")
                 .LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[Signal]flushBufferToDiskIfNotMemOnlyMode: start",
                     ])),
                 )
@@ -775,8 +804,8 @@ __d(
               ];
               o("WALogger")
                 .LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock complete",
                     ])),
                 )
@@ -793,7 +822,7 @@ __d(
                       "senderkey-store",
                     ],
                     n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      yield (h || (h = n("Promise"))).all([
+                      yield (C || (C = n("Promise"))).all([
                         o("WAWebSignalStoreApi").waSignalStore.bulkPutSession(
                           t.sessionUpdate,
                         ),
@@ -825,8 +854,8 @@ __d(
               }
               o("WALogger")
                 .LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[Signal]flushBufferToDiskIfNotMemOnlyMode: done",
                     ])),
                 )
@@ -843,8 +872,8 @@ __d(
                 var r = this;
                 (o("WALogger")
                   .LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "[Signal]updateIdentityRangeAfterEncryption: start",
                       ])),
                   )
@@ -863,8 +892,8 @@ __d(
                 }),
                   o("WALogger")
                     .LOG(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
                           "[Signal]updateIdentityRangeAfterEncryption: ",
                           " updated",
                         ])),
@@ -895,21 +924,21 @@ __d(
             return t;
           })()),
           (a.$18 = function (t) {
-            if (t == null) return (h || (h = n("Promise"))).resolve();
+            if (t == null) return (C || (C = n("Promise"))).resolve();
             var e = this.$1.SessionStore.get(t);
             return (
               e &&
                 o("WAWebSignalConvertApi").shouldConvertSession(e.session) &&
                 (o("WALogger")
                   .LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "[Signal]maybeCleanUpUnconvertedSession: delete unconverted",
                       ])),
                   )
                   .tags("unified-store"),
                 this.$13(t)),
-              (h || (h = n("Promise"))).resolve()
+              (C || (C = n("Promise"))).resolve()
             );
           }),
           (a.maybeCleanUpUnconvertedSession = (function () {
@@ -931,8 +960,8 @@ __d(
           t
         );
       })(),
-      b = new C();
-    l.default = b;
+      S = new v();
+    l.default = S;
   },
   98,
 );

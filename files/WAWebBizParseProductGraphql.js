@@ -1,13 +1,13 @@
 __d(
   "WAWebBizParseProductGraphql",
   [
-    "WANullthrows",
     "WAWebBizCartConstants",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizParseProductGraphql_product.graphql",
     "WAWebProductTypes.flow",
     "WAWebSignedShimmedUrl",
     "WAWebSyntheticCountryCode",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
@@ -50,9 +50,9 @@ __d(
         I = babelHelpers.arrayLikeToArray(E).slice(1),
         T = babelHelpers.extends(
           {
-            id: r("WANullthrows")(L.id),
+            id: r("nullthrows")(L.id),
             retailer_id: (i = L.retailer_id) != null ? i : "",
-            name: r("WANullthrows")(L.name),
+            name: r("nullthrows")(L.name),
             description: (l = L.description) != null ? l : "",
             url: (s = L.url) != null ? s : "",
             currency: L.currency,
@@ -83,27 +83,24 @@ __d(
               ? m
               : []
             ).map(function (e) {
-              return r("WANullthrows")(e.id);
+              return r("nullthrows")(e.id);
             }),
             image_cdn_urls: k
               ? [
                   {
                     key: "requested",
-                    value: r("WANullthrows")(k.request_image_url),
+                    value: r("nullthrows")(k.request_image_url),
                   },
-                  {
-                    key: "full",
-                    value: r("WANullthrows")(k.original_image_url),
-                  },
+                  { key: "full", value: r("nullthrows")(k.original_image_url) },
                 ]
               : [],
             additional_image_cdn_urls: I.map(function (e) {
               return [
                 {
                   key: "requested",
-                  value: r("WANullthrows")(e.request_image_url),
+                  value: r("nullthrows")(e.request_image_url),
                 },
-                { key: "full", value: r("WANullthrows")(e.original_image_url) },
+                { key: "full", value: r("nullthrows")(e.original_image_url) },
               ];
             }),
             whatsapp_product_can_appeal:
@@ -120,11 +117,9 @@ __d(
                 ? void 0
                 : f.map(function (e) {
                     return {
-                      id: r("WANullthrows")(e.id),
-                      original_video_url: r("WANullthrows")(
-                        e.original_video_url,
-                      ),
-                      thumbnail_url: r("WANullthrows")(e.thumbnail_url),
+                      id: r("nullthrows")(e.id),
+                      original_video_url: r("nullthrows")(e.original_video_url),
+                      thumbnail_url: r("nullthrows")(e.thumbnail_url),
                     };
                   }),
             variant_info:
@@ -234,14 +229,14 @@ __d(
               (N = b.country_code_origin) != null ? N : void 0,
             importer_name: (M = b.importer_name) != null ? M : void 0,
             importer_address: {
-              street1: r("WANullthrows")(x == null ? void 0 : x.street1),
+              street1: r("nullthrows")(x == null ? void 0 : x.street1),
               street2:
                 (w = x == null ? void 0 : x.street2) != null ? w : void 0,
               postal_code:
                 (A = x == null ? void 0 : x.postal_code) != null ? A : void 0,
-              city: r("WANullthrows")(x == null ? void 0 : x.city),
+              city: r("nullthrows")(x == null ? void 0 : x.city),
               region: (F = x == null ? void 0 : x.region) != null ? F : void 0,
-              country_code: r("WANullthrows")(
+              country_code: r("nullthrows")(
                 x == null ? void 0 : x.country_code,
               ),
             },

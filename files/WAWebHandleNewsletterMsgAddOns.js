@@ -40,7 +40,9 @@ __d(
               parentMsgKey: o("WAWebNewsletterDBUtils")
                 .craftNewsletterMsgKeyFromServerId(a, t)
                 .toString(),
-              senderUserJid: o("WAWebUserPrefsMeUser").getMeUser().toJid(),
+              senderUserJid: o("WAWebUserPrefsMeUser")
+                .getMeUserOrThrow()
+                .toJid(),
               reactionText: r,
               timestamp: i * 1e3,
               orphan: 0,
@@ -102,7 +104,7 @@ __d(
                     msgKey: e.id,
                     parentMsgKey: c.id,
                     selectedOptionLocalIds: a != null ? a : [],
-                    sender: o("WAWebUserPrefsMeUser").getMeUser(),
+                    sender: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                     senderTimestampMs: l * 1e3,
                     t: l,
                   },

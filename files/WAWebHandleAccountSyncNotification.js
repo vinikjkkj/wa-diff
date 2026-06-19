@@ -271,7 +271,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebUserPrefsMeUser").getMeUser(),
+          var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             r;
           if (
             o("WAWebABProps").getABPropConfigValue("mex_usync_about_status")

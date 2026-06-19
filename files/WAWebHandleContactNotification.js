@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WADeprecatedWapParser",
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWebApiChatCommon",
     "WAWebApiContact",
@@ -31,6 +30,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -141,9 +141,9 @@ __d(
             throw r("err")(
               "Error: genContactChangeNotificationMsg invalid type",
             );
-          var n = o("WAWebUserPrefsMeUser").getMeUser(),
-            a = r("WANullthrows")(t.oldJid),
-            i = r("WANullthrows")(t.jid),
+          var n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = r("nullthrows")(t.oldJid),
+            i = r("nullthrows")(t.jid),
             l;
           if (t.lid != null && t.oldLid != null) {
             var s = t.oldLid,

@@ -9,8 +9,10 @@ __d(
     }
     function c(t) {
       try {
-        (Object.keys(t).forEach(function (e) {
-          u(t[e]) && delete t[e];
+        (Object.entries(t).forEach(function (e) {
+          var n = e[0],
+            r = e[1];
+          u(r) && delete t[n];
         }),
           r("WAWebUserPrefsStore").setUser(
             o("WAWebUserPrefsKeys").KEYS.EXTERNAL_ENTRY_POINT,

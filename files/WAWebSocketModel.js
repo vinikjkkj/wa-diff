@@ -602,7 +602,7 @@ __d(
               }));
           }),
           (i.openStream = function () {
-            var e = o("WAWebUserPrefsMeUser").getMeUser();
+            var e = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
             if (e) {
               var t;
               return (

@@ -81,8 +81,9 @@ __d(
       var t = [],
         n = e.mentionMap();
       n != null &&
-        Object.keys(n).forEach(function (e) {
-          var r = n[e];
+        Object.entries(n).forEach(function (e) {
+          var n = e[0],
+            r = e[1];
           t.push({
             app:
               "" +
@@ -92,15 +93,16 @@ __d(
             plain: o("WAWebMentionDisplayUtils").addAtPrefixForMention(
               o("WAWebFrontendContactGetters").getDisplayName(r),
             ),
-            token: e,
+            token: n,
           });
         });
       var r = e.groupMentionMap();
       return (
         r != null &&
-          Object.keys(r).forEach(function (e) {
-            var n = r[e],
-              a = e.startsWith("@") ? e.slice(1) : e;
+          Object.entries(r).forEach(function (e) {
+            var n = e[0],
+              r = e[1],
+              a = n.startsWith("@") ? n.slice(1) : n;
             t.push({
               app:
                 "" +
@@ -108,10 +110,10 @@ __d(
                 a +
                 o("WAWebRichTextInputConst").ZWS,
               plain:
-                n != null && n !== ""
-                  ? o("WAWebMentionDisplayUtils").addAtPrefixForMention(n)
-                  : e,
-              token: e,
+                r != null && r !== ""
+                  ? o("WAWebMentionDisplayUtils").addAtPrefixForMention(r)
+                  : n,
+              token: n,
             });
           }),
         t

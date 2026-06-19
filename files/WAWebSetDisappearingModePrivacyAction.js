@@ -15,7 +15,7 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebSetDisappearingModeJob").setDisappearingMode(e);
-          var t = o("WAWebUserPrefsMeUser").getMeUser();
+          var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
           yield o(
             "WAWebUpdateDisappearingModeForContact",
           ).updateDisappearingModeForContact({

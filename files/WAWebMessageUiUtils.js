@@ -42,10 +42,11 @@ __d(
     function c(e, t) {
       var n = e;
       return (
-        Object.keys(t).forEach(function (e) {
-          var r = t[e];
+        Object.entries(t).forEach(function (e) {
+          var t = e[0],
+            r = e[1];
           n = n.replaceAll(
-            e,
+            t,
             o("WAWebFrontendContactGetters").getDisplayName(r),
           );
         }),
@@ -127,12 +128,7 @@ __d(
         ]));
       var m = n ? o("WAWebFileUtils").getFileExtension(n) : null,
         p = null;
-      if (
-        Object.prototype.hasOwnProperty.call(
-          o("WAWebMimeTypes").DOCUMENT_MIMETYPES,
-          a,
-        )
-      ) {
+      if (Object.hasOwn(o("WAWebMimeTypes").DOCUMENT_MIMETYPES, a)) {
         var _;
         p =
           (_ = o("WAWebMimeTypes").DOCUMENT_MIMETYPES[a]) == null

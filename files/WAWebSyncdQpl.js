@@ -20,12 +20,13 @@ __d(
     }
     function m(e) {
       if ((e == null ? void 0 : e.string) != null) {
-        var t = e.string,
-          n = {};
-        (Object.keys(e.string).forEach(function (e) {
-          u.includes(e) || (n[e] = t[e]);
+        var t = {};
+        (Object.entries(e.string).forEach(function (e) {
+          var n = e[0],
+            r = e[1];
+          u.includes(n) || (t[n] = r);
         }),
-          (e.string = n));
+          (e.string = t));
       }
     }
     function p(e, t) {

@@ -59,7 +59,7 @@ __d(
                         ])),
                     )
                     .sendLogs("getUsernameJob-invalid-username-key"));
-            var u = o("WAWebUserPrefsMeUser").getMeUser();
+            var u = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
             return (
               yield o("WAWebSetUsernameJob").setUsernamesJob([
                 i != null

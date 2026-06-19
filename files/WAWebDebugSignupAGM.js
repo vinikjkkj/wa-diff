@@ -31,7 +31,7 @@ __d(
             );
             return;
           }
-          var a = o("WAWebUserPrefsMeUser").getMeUser(),
+          var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             i = {
               type: o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
               kind: o("WAWebMsgType").MsgKind.AutomatedGreetingMessage,

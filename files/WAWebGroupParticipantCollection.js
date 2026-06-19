@@ -295,7 +295,8 @@ __d(
         }),
         (n.getMeParticipant = function () {
           var e;
-          return (e = this.get(o("WAWebUserPrefsMeUser").getMeUser())) != null
+          return (e = this.get(o("WAWebUserPrefsMeUser").getMeUserOrThrow())) !=
+            null
             ? e
             : this.get(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
         }),

@@ -423,9 +423,13 @@ __d(
         return function (n, r) {
           return e.apply(this, arguments);
         };
-      })(),
-      W = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+      })();
+    function W(e, t) {
+      return q.apply(this, arguments);
+    }
+    function q() {
+      return (
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             o("WALogger").LOG(
               P ||
@@ -467,11 +471,10 @@ __d(
               n
             );
           }
-        });
-        return function (n, r) {
-          return e.apply(this, arguments);
-        };
-      })();
+        })),
+        q.apply(this, arguments)
+      );
+    }
     l.doZoomOperationWithExtensionCheckAndRestart = W;
   },
   98,

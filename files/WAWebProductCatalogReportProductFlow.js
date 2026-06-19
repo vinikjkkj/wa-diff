@@ -147,7 +147,7 @@ __d(
           (n[12] !== f || n[13] !== y
             ? ((S = c.jsx(
                 r("WAWebProductCatalogReportProductChoicePopup.react"),
-                { onReport: y, onPopupCancel: f, onCancel: f },
+                { onReport: y, onPopupCancel: f },
               )),
               (n[12] = f),
               (n[13] = y),

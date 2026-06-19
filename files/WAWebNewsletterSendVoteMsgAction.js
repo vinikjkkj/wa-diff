@@ -85,7 +85,7 @@ __d(
               selectedOptionLocalIds: n,
               parentMsgKey: m,
               timestampMs: _,
-              from: o("WAWebUserPrefsMeUser").getMeUser(),
+              from: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               msgKey: r,
             }),
             h = new (o("WAWebMsgModel").Msg)(g),
@@ -107,7 +107,7 @@ __d(
             voteMsgObj: {
               ack: g.ack,
               senderTimestampMs: g.senderTimestampMs,
-              sender: o("WAWebUserPrefsMeUser").getMeUser(),
+              sender: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               read: !0,
               msgKey: g.id,
               parentMsgKey: m,

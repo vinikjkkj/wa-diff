@@ -144,7 +144,7 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             n = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMeUser(),
+              o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             ),
             a = o("WAWebLidStatusMigrationUtils").matWidConvert(n),
             i = new (r("WAWebMsgKey"))({

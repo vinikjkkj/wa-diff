@@ -2,7 +2,6 @@ __d(
   "WAWebSyncContactsJob",
   [
     "WALogger",
-    "WANullthrows",
     "WAShiftTimer",
     "WAWebContactSyncApi",
     "WAWebLidAwareContactsDB",
@@ -12,6 +11,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -122,7 +122,7 @@ __d(
     function v() {
       var e,
         t =
-          (e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+          (e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
             o("WAWebUserPrefsKeys").KEYS.CONTACT_SYNC_REFRESH,
           )) != null
             ? e

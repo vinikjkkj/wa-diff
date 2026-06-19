@@ -358,7 +358,7 @@ __d(
       return n.isRegularUser()
         ? n.isLid()
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMeUser()
+          : o("WAWebUserPrefsMeUser").getMeUserOrThrow()
         : n;
     }
     function F(e) {

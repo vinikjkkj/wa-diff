@@ -4,164 +4,23 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = { defaultValue: null, kind: "LocalArgument", name: "ebDeviceId" },
-        t = {
+      var e = {
           defaultValue: null,
           kind: "LocalArgument",
-          name: "locallyAvailableEpochIds",
+          name: "messageFirst",
         },
-        n = { defaultValue: null, kind: "LocalArgument", name: "messageFirst" },
-        r = { defaultValue: null, kind: "LocalArgument", name: "threadFirst" },
-        o = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "snapshot_timestamp_ms",
-          storageKey: null,
-        },
-        a = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "encrypted_backup_id",
-          storageKey: null,
-        },
-        i = [{ kind: "Variable", name: "first", variableName: "threadFirst" }],
-        l = {
+        t = { defaultValue: null, kind: "LocalArgument", name: "threadFirst" },
+        n = [{ kind: "Variable", name: "first", variableName: "threadFirst" }],
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        s = [{ kind: "Variable", name: "first", variableName: "messageFirst" }],
-        u = [l],
-        c = [
-          {
-            alias: null,
-            args: null,
-            kind: "ScalarField",
-            name: "epoch_anon_id",
-            storageKey: null,
-          },
-          {
-            alias: null,
-            args: null,
-            kind: "ScalarField",
-            name: "epoch_id",
-            storageKey: null,
-          },
-        ],
-        d = {
-          alias: null,
-          args: [
-            {
-              kind: "Variable",
-              name: "eb_device_id",
-              variableName: "ebDeviceId",
-            },
-            {
-              kind: "Variable",
-              name: "eb_locally_available_epoch_ids",
-              variableName: "locallyAvailableEpochIds",
-            },
-          ],
-          concreteType: "XFBEncryptedBackupsEpochEdge",
-          kind: "LinkedField",
-          name: "epoch_derivation_set",
-          plural: !0,
-          selections: [
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "backward_edge",
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              concreteType: "XFBEpochForwardEdge",
-              kind: "LinkedField",
-              name: "forward_edge",
-              plural: !1,
-              selections: [
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "auth_public_key",
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "encrypted_entropy",
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "entropy_fingerprint",
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "epoch_storage_public_key",
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
-                  kind: "ScalarField",
-                  name: "psk_fingerprint",
-                  storageKey: null,
-                },
-              ],
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              concreteType: "XFBEpochIds",
-              kind: "LinkedField",
-              name: "from_epoch",
-              plural: !1,
-              selections: c,
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "from_epoch_fingerprint",
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              concreteType: "XFBEpochIds",
-              kind: "LinkedField",
-              name: "to_epoch",
-              plural: !1,
-              selections: c,
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "to_epoch_fingerprint",
-              storageKey: null,
-            },
-          ],
-          storageKey: null,
-        },
-        m = {
+        o = [{ kind: "Variable", name: "first", variableName: "messageFirst" }],
+        a = [r],
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -170,7 +29,7 @@ __d(
         };
       return {
         fragment: {
-          argumentDefinitions: [e, t, n, r],
+          argumentDefinitions: [e, t],
           kind: "Fragment",
           metadata: null,
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
@@ -183,11 +42,9 @@ __d(
               name: "get_wa_mailbox",
               plural: !1,
               selections: [
-                o,
-                a,
                 {
                   alias: null,
-                  args: i,
+                  args: n,
                   concreteType: null,
                   kind: "LinkedField",
                   name: "threads",
@@ -201,10 +58,10 @@ __d(
                       name: "nodes",
                       plural: !0,
                       selections: [
-                        l,
+                        r,
                         {
                           alias: null,
-                          args: s,
+                          args: o,
                           concreteType: null,
                           kind: "LinkedField",
                           name: "messages",
@@ -225,13 +82,12 @@ __d(
                                   kind: "LinkedField",
                                   name: "node",
                                   plural: !1,
-                                  selections: u,
+                                  selections: a,
                                   storageKey: null,
                                 },
                               ],
                               storageKey: null,
                             },
-                            d,
                           ],
                           storageKey: null,
                         },
@@ -250,7 +106,7 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [r, n, e, t],
+          argumentDefinitions: [t, e],
           kind: "Operation",
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
           selections: [
@@ -262,18 +118,16 @@ __d(
               name: "get_wa_mailbox",
               plural: !1,
               selections: [
-                m,
-                o,
-                a,
+                i,
                 {
                   alias: null,
-                  args: i,
+                  args: n,
                   concreteType: null,
                   kind: "LinkedField",
                   name: "threads",
                   plural: !1,
                   selections: [
-                    m,
+                    i,
                     {
                       alias: null,
                       args: null,
@@ -282,17 +136,17 @@ __d(
                       name: "nodes",
                       plural: !0,
                       selections: [
-                        m,
-                        l,
+                        i,
+                        r,
                         {
                           alias: null,
-                          args: s,
+                          args: o,
                           concreteType: null,
                           kind: "LinkedField",
                           name: "messages",
                           plural: !1,
                           selections: [
-                            m,
+                            i,
                             {
                               alias: null,
                               args: null,
@@ -301,7 +155,7 @@ __d(
                               name: "edges",
                               plural: !0,
                               selections: [
-                                m,
+                                i,
                                 {
                                   alias: null,
                                   args: null,
@@ -309,13 +163,12 @@ __d(
                                   kind: "LinkedField",
                                   name: "node",
                                   plural: !1,
-                                  selections: [m, l],
+                                  selections: [i, r],
                                   storageKey: null,
                                 },
                               ],
                               storageKey: null,
                             },
-                            d,
                           ],
                           storageKey: null,
                         },
@@ -327,7 +180,7 @@ __d(
                 },
                 {
                   kind: "InlineFragment",
-                  selections: u,
+                  selections: a,
                   type: "WALabyrinthAccount",
                   abstractKey: null,
                 },
@@ -337,7 +190,7 @@ __d(
           ],
         },
         params: {
-          id: "27530314859954425",
+          id: "27881422391450662",
           metadata: {},
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
           operationKind: "query",

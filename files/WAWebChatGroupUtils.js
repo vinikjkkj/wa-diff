@@ -209,7 +209,7 @@ __d(
     }
     function I(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
-      if (r.equals(e)) return o("WAWebUserPrefsMeUser").getMeUser();
+      if (r.equals(e)) return o("WAWebUserPrefsMeUser").getMeUserOrThrow();
       if (
         o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() ||
         !e.isLid()

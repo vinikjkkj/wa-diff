@@ -18,7 +18,7 @@ __d(
     function e(e) {
       if (o("WAWebChatGetters").getIsNewsletter(e)) return !1;
       var t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUser(),
+        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
       return !(
         !c() ||
@@ -46,7 +46,7 @@ __d(
         return !1;
       if (o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled()) return !0;
       var t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUser(),
+        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
       return (
         o("WAWebOrderGatingUtils").orderDetailsFromCatalogEnabled() &&
@@ -56,7 +56,7 @@ __d(
     function c() {
       if (!o("WAWebConnModel").Conn.isSMB) return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUser(),
+        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
       return !o("WAWebBusinessProfileUtils").hasShop(e);
     }

@@ -31,7 +31,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMeUser(),
+          var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             a = t.toJid(),
             i = { id: a, usernameKey: e != null ? e : void 0 };
           (yield o("WAWebModelStorageUtils")

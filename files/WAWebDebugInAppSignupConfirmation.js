@@ -31,7 +31,7 @@ __d(
             );
             return;
           }
-          var a = o("WAWebUserPrefsMeUser").getMeUser(),
+          var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             i = "1885845738738391",
             l = String(Math.floor(Date.now() / 1e3)),
             c = [

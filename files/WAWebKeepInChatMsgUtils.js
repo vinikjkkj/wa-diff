@@ -52,7 +52,7 @@ __d(
       return !1;
     }
     function d(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeUser();
+      var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
       return p(e, t);
     }
     function m(e, t) {

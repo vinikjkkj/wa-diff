@@ -39,7 +39,7 @@ __d(
             );
             return;
           }
-          var g = o("WAWebUserPrefsMeUser").getMeUser(),
+          var g = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             h = {
               cta_action_url: _,
               due_date: String(Math.floor(m / 1e3)),

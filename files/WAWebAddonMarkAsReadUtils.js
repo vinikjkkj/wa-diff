@@ -8,9 +8,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.map(function (e) {
             return e.read != null
               ? babelHelpers.extends({}, e, { read: !0 })
@@ -39,11 +43,10 @@ __d(
               .tags("addons", "messaging")
               .sendLogs("processMarkAsRead");
           }
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        u.apply(this, arguments)
+      );
+    }
     l.processMarkAsRead = s;
   },
   98,

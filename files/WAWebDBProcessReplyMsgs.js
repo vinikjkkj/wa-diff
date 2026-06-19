@@ -2,7 +2,6 @@ __d(
   "WAWebDBProcessReplyMsgs",
   [
     "WADeepEquals",
-    "WANullthrows",
     "WAWebDBMessageSerialization",
     "WAWebDBMsgUtils",
     "WAWebGroupType",
@@ -14,6 +13,7 @@ __d(
     "asyncToGeneratorRuntime",
     "filterObject",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -61,14 +61,14 @@ __d(
                           (s.forEach(function (e) {
                             var t = u(e);
                             if (t !== "missing-stanza-id") {
-                              var n = r("WANullthrows")(l.get(t.toString()));
+                              var n = r("nullthrows")(l.get(t.toString()));
                               e.quotedMsg == null
                                 ? c.push(
                                     babelHelpers.extends({}, e, {
                                       quotedMsg: n,
                                     }),
                                   )
-                                : d(r("WANullthrows")(e.quotedMsg), n) &&
+                                : d(r("nullthrows")(e.quotedMsg), n) &&
                                   c.push(
                                     babelHelpers.extends({}, e, {
                                       quotedMsg: n,
@@ -99,7 +99,7 @@ __d(
             t != null &&
               t.length &&
               t.forEach(function (t) {
-                var n = r("WANullthrows")(
+                var n = r("nullthrows")(
                   e.find(function (e) {
                     return e.id.equals(t.id);
                   }),

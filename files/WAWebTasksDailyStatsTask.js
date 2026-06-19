@@ -441,18 +441,19 @@ __d(
                     e.communityTabViewsViaContextMenu,
                 }).commit(),
                 e.communityHome != null &&
-                  Object.keys(e.communityHome).forEach(function (t) {
-                    var n = r("WAWebWid").user(t);
-                    if (n != null) {
-                      var a = e.communityHome[t],
-                        i = a.communityHomeGroupDiscoveries,
-                        l = a.communityHomeGroupJoins,
-                        s = a.communityHomeGroupNavigations,
-                        u = a.communityHomeViews;
+                  Object.entries(e.communityHome).forEach(function (e) {
+                    var t = e[0],
+                      n = e[1],
+                      a = r("WAWebWid").user(t);
+                    if (a != null) {
+                      var i = n.communityHomeGroupDiscoveries,
+                        l = n.communityHomeGroupJoins,
+                        s = n.communityHomeGroupNavigations,
+                        u = n.communityHomeViews;
                       new (o(
                         "WAWebCommunityHomeActionWamEvent",
                       ).CommunityHomeActionWamEvent)({
-                        communityHomeId: n,
+                        communityHomeId: a,
                         communityHomeGroupDiscoveries: i,
                         communityHomeGroupJoins: l,
                         communityHomeGroupNavigations: s,
@@ -461,8 +462,9 @@ __d(
                     }
                   }),
                 e.pnhCagActions != null &&
-                  Object.keys(e.pnhCagActions).forEach(function (t) {
-                    var n = e.pnhCagActions[t],
+                  Object.entries(e.pnhCagActions).forEach(function (e) {
+                    var t = e[0],
+                      n = e[1],
                       r = n.pnhIndicatorClicksChat,
                       a = n.pnhIndicatorClicksInfoScreen,
                       i = n.reactionDeleteCount,

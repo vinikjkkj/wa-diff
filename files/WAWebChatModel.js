@@ -1083,11 +1083,10 @@ __d(
                   this.mute.muteCall(a);
               }
             } else if (
-              (Object.prototype.hasOwnProperty.call(n, "muteExpiration") &&
+              (Object.hasOwn(n, "muteExpiration") &&
                 this.mute &&
                 this.mute.setMute(n.muteExpiration, n.isAutoMuted),
-              Object.prototype.hasOwnProperty.call(n, "callMuteExpiration") &&
-                this.mute)
+              Object.hasOwn(n, "callMuteExpiration") && this.mute)
             ) {
               var i,
                 l,

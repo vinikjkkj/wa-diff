@@ -5,15 +5,15 @@ __d(
     "WABase64",
     "WALongInt",
     "WAResultOrError",
+    "WAWebLabyrinthCanonicalUserFbid",
     "WAWebLabyrinthDebugStateCache",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "2AACDEFHJKLMNPQRSTUVWXYZ012345678901XXXX",
-      s = "12345";
-    function u(e) {
+    var e = "2AACDEFHJKLMNPQRSTUVWXYZ012345678901XXXX";
+    function s(e) {
       return e.error != null
         ? o("WAResultOrError").makeError("wasm-error")
         : e.device == null ||
@@ -23,7 +23,7 @@ __d(
           ? o("WAResultOrError").makeError("missing-output")
           : o("WAResultOrError").makeResult(e);
     }
-    function c(e) {
+    function u(e) {
       var t,
         n = (t = e.virtualDevice) == null ? void 0 : t.encryptedSecretValues;
       return n == null
@@ -56,7 +56,7 @@ __d(
                 : null,
           });
     }
-    function d(e) {
+    function c(e) {
       var t = e.device,
         n = e.virtualDevice,
         r = e.epoch0,
@@ -97,7 +97,7 @@ __d(
               vd_epoch_storage_public_key_sig: o("WABase64").encodeB64(
                 n.vdEpochStoragePublicKeySig,
               ),
-              encrypted_secret_values: c(e),
+              encrypted_secret_values: u(e),
               device_epoch_hmac: o("WABase64").encodeB64(n.deviceEpochHmac),
               ocmf_rotation_token: o("WABase64").encodeB64(n.ocmfRotationToken),
               vd_type: "OFFLINE",
@@ -116,7 +116,7 @@ __d(
             mailbox_root_key: o("WABase64").encodeB64(a),
           };
     }
-    function m(e) {
+    function d(e) {
       var t = e.device,
         n = e.virtualDevice,
         r = e.epoch0,
@@ -136,38 +136,40 @@ __d(
           orfClientState: o("WABase64").encodeB64(t.ocmfClientState),
         });
     }
-    function p() {
-      return _.apply(this, arguments);
+    function m() {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o(
             "EBLabyrinthWaWasmReactorSingleton",
           ).labyrinthWaCommand(
             {
               InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
               ResultSpec: o("WAWebLabyrinthWaWasm.pb").CreateBackupOutputSpec,
-              validateResult: u,
+              validateResult: s,
             },
             {
               createBackupInput: {
                 recoveryCode: e,
-                userId: o("WALongInt").decimalStringToLongInt(s),
+                userId: o("WALongInt").decimalStringToLongInt(
+                  o("WAWebLabyrinthCanonicalUserFbid").getWaCanonicalUserFbid(),
+                ),
               },
             },
           );
           if (!t.success) return t;
-          m(t.value);
-          var n = d(t.value);
+          d(t.value);
+          var n = c(t.value);
           return n == null
             ? o("WAResultOrError").makeError("missing-output")
             : o("WAResultOrError").makeResult(n);
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.createBackupWasm = p;
+    l.createBackupWasm = m;
   },
   98,
 );

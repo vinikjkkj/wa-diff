@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
@@ -37,6 +36,7 @@ __d(
     "compactMap",
     "err",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S;
@@ -643,7 +643,7 @@ __d(
           e,
         )
         .tags("contact-sync"),
-        r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+        r("nullthrows")(r("WAWebLocalStorage")).setItem(
           o("WAWebUserPrefsKeys").KEYS.CONTACT_SYNC_REFRESH,
           String(e),
         ));

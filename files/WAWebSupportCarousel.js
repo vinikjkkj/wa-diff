@@ -39,7 +39,7 @@ __d(
           $$css: !0,
         },
         carouselItemIcon: {
-          color: "x1jlmlw1",
+          color: "xl99u7g",
           backgroundColor: "x1ew7x2d",
           marginTop: "xw7yly9",
           marginInlineEnd: "x1ys307a",

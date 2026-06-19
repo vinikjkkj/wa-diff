@@ -2,7 +2,6 @@ __d(
   "WAWebGroupHandleAddressingModeMismatch",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebApiMembershipApprovalRequestStore",
     "WAWebBackendApi",
     "WAWebDBGroupParticipant",
@@ -13,6 +12,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebWamAddressingModeMismatchReporter",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -104,8 +104,8 @@ __d(
             try {
               var l = i.map(function (e) {
                 return babelHelpers.extends({}, e, {
-                  id: r("WANullthrows")(a(e.id)),
-                  addedBy: r("WANullthrows")(a(e.addedBy)),
+                  id: r("nullthrows")(a(e.id)),
+                  addedBy: r("nullthrows")(a(e.addedBy)),
                 });
               });
               (yield o("WAWebModelStorageUtils")

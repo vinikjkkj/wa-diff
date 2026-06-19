@@ -425,7 +425,7 @@ __d(
             ? t.remote
             : n
               ? s
-                ? o("WAWebUserPrefsMeUser").getMeUser()
+                ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
                 : u
               : r || a || (c != null && c.isBot())
                 ? c

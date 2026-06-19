@@ -4,7 +4,6 @@ __d(
     "Promise",
     "SiteData",
     "WALogger",
-    "WANullthrows",
     "WAResolvable",
     "WAShiftTimer",
     "WATimeUtils",
@@ -41,6 +40,7 @@ __d(
     "gkx",
     "isStringNullOrEmpty",
     "justknobx",
+    "nullthrows",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -485,15 +485,14 @@ __d(
           if (k[e]) {
             var n = k[e].stringBuffer();
             if (n) {
-              var a = r("WANullthrows")(k[e]).unsavedPortion;
+              var a = r("nullthrows")(k[e]).unsavedPortion;
               if (!(a && a.eventsWritten === 0)) {
-                var i = r("WANullthrows")(k[e]).saveKey;
+                var i = r("nullthrows")(k[e]).saveKey;
                 try {
                   if (a) {
                     var l = yield r("WAWebWamStorage").update(i, e, n);
                     if (!k[e]) return;
-                    if (l)
-                      r("WANullthrows")(k[e]).unsavedPortion = yield Q(e, t);
+                    if (l) r("nullthrows")(k[e]).unsavedPortion = yield Q(e, t);
                     else {
                       ((k[e] = k[e].unsavedPortion), yield te(e, t));
                       return;
@@ -501,7 +500,7 @@ __d(
                   } else {
                     if ((yield r("WAWebWamStorage").add(i, e, n), !k[e]))
                       return;
-                    r("WANullthrows")(k[e]).unsavedPortion = yield Q(e, t);
+                    r("nullthrows")(k[e]).unsavedPortion = yield Q(e, t);
                   }
                 } catch (e) {
                   var s = r("getErrorSafe")(e);
@@ -547,8 +546,8 @@ __d(
             k[e].unsavedPortion &&
               !(k[e].saveKey in i) &&
               (k[e] = k[e].unsavedPortion);
-            var l = r("WANullthrows")(k[e]).saveKey;
-            i[l] = r("WANullthrows")(k[e]).stringBuffer();
+            var l = r("nullthrows")(k[e]).saveKey;
+            i[l] = r("nullthrows")(k[e]).stringBuffer();
           }
           var s = yield (h || (h = n("Promise"))).all(
               Object.entries(i).map(function (t) {

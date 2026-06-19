@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebDBCreateOrUpdateReactions",
-    "WAWebDBPollsUpsertVotes",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebDBUpdateLastAddOnPreviewChat",
     "WAWebGetMessageCache",
@@ -158,28 +157,6 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDBPollsUpsertVotes").upsertVotesDb(e);
-          (o("WAWebBackendApi").frontendFireAndForget(
-            "upsertVotesModelCollection",
-            { votes: t, votesToRemove: null, restoredFromDb: !0 },
-          ),
-            yield C(
-              t.map(function (e) {
-                return o(
-                  "WAWebLastAddOnDBSerialization",
-                ).lastAddOnPreviewCandidateFromVoteData(e, !1);
-              }),
-            ));
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebShouldUpdateLastAddOnPreview",
           ).filterChatsWithAddOnPreviewUpdates(e);
@@ -192,15 +169,15 @@ __d(
               { chatMap: t },
             ));
         })),
-        b.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return o(
                 "WAWebReactionDataUtils",
@@ -219,7 +196,7 @@ __d(
             ).createOrUpdateReactions(t);
           return (
             r &&
-              (yield C(
+              (yield h(
                 r.map(function (e) {
                   return o(
                     "WAWebLastAddOnDBSerialization",
@@ -229,15 +206,14 @@ __d(
             r
           );
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.preProcessMsg = u),
       (l.processEphemeralSyncResponseMsg = d),
       (l.processKeepInChatMsg = p),
       (l.processEditProtocolMsg = f),
-      (l.storePollVotesBulk = h),
-      (l.storeReactionMsgBulk = v));
+      (l.storeReactionMsgBulk = C));
   },
   98,
 );

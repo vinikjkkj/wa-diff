@@ -86,7 +86,7 @@ __d(
           $$css: !0,
         },
         innerWin: {
-          "::selection_backgroundColor": "xrtxmta",
+          "::selection_backgroundColor": "xy9tlov",
           "::selection_color": "x1bhl96m",
           $$css: !0,
         },

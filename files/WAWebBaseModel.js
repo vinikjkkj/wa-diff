@@ -375,8 +375,7 @@ __d(
       return n;
     }
     function _(e) {
-      for (var t in e)
-        if (Object.prototype.hasOwnProperty.call(e, t)) return !1;
+      for (var t in e) if (Object.hasOwn(e, t)) return !1;
       return !0;
     }
     function f(e) {

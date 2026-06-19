@@ -60,6 +60,8 @@ __d(
               oppositePartyHasProfilePhoto: n.oppositePartyHasProfilePhoto,
               reactionsSent: n.reactionsSent,
               reactionsReceived: n.reactionsReceived,
+              statusReactionsSent: n.statusReactionsSent,
+              statusReactionsReceived: n.statusReactionsReceived,
               forwardMessagesSent: n.forwardMessagesSent,
               forwardMessagesReceived: n.forwardMessagesReceived,
               editedMsgsSent: n.editedMsgsSent,

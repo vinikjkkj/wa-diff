@@ -552,7 +552,7 @@ __d(
         }
         case "MESSAGE_YOURSELF": {
           try {
-            var me = o("WAWebUserPrefsMeUser").getMeUser();
+            var me = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
             o("WAWebFindChatAction")
               .findOrCreateLatestChat(me, "newChatFlow")
               .then(function (e) {
@@ -614,7 +614,7 @@ __d(
         case "EDIT_PROFILE_PICTURE": {
           try {
             o("WAWebCmd").Cmd.closeStatusViewer();
-            var _e = o("WAWebUserPrefsMeUser").getMeUser(),
+            var _e = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               fe = o(
                 "WAWebTextStatusCollection",
               ).TextStatusCollection.assertGet(_e),

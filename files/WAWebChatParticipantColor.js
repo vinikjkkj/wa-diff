@@ -81,9 +81,10 @@ __d(
         s = o("WAMd5").md5(c(n).toString());
       if ((l = i[s])) return l;
       var d = {};
-      Object.keys(i).forEach(function (e) {
-        var t = i[e];
-        d[t] ? d[t].push(e) : (d[t] = [e]);
+      Object.entries(i).forEach(function (e) {
+        var t = e[0],
+          n = e[1];
+        d[n] ? d[n].push(t) : (d[n] = [t]);
       });
       for (var m = Number.POSITIVE_INFINITY, p = 17, _ = 1; _ <= p; _++)
         if (d[_]) d[_].length < m && ((m = d[_].length), (l = _));

@@ -110,7 +110,7 @@ __d(
             var u =
                 s.id.remote.isGroup() && e.type === "addon"
                   ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                  : o("WAWebUserPrefsMeUser").getMeUser(),
+                  : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               _ =
                 s.id.remote.isGroup() &&
                 ((l = o("WAWebFrontendMsgGetters").getChat(s).groupMetadata) ==

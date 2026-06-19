@@ -2,12 +2,12 @@ __d(
   "WAWebWidFactory",
   [
     "WALogger",
-    "WANullthrows",
     "WATypeUtils",
     "WAWebWid",
     "WAWebWidError",
     "WAWebWidStore",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -49,7 +49,7 @@ __d(
               "createWid: expected string, got " + typeof t,
             )
           );
-      if (r("WAWebWid").isHosted(t)) return r("WANullthrows")(g(t));
+      if (r("WAWebWid").isHosted(t)) return r("nullthrows")(g(t));
       var n = r("WAWebWidStore").cache[t];
       if (n) return n;
       var a = t;

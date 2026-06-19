@@ -249,10 +249,7 @@ __d(
               {
                 id: d.id,
                 username: d.username,
-                shouldDelete: !Object.prototype.hasOwnProperty.call(
-                  d,
-                  "username",
-                ),
+                shouldDelete: !Object.hasOwn(d, "username"),
               }
             );
           o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l);

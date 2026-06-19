@@ -21,10 +21,7 @@ __d(
     function u(t, r) {
       if (
         (r === void 0 && (r = "image/jpeg"),
-        Object.prototype.hasOwnProperty.call(
-          HTMLCanvasElement.prototype,
-          "toBlob",
-        ))
+        Object.hasOwn(HTMLCanvasElement.prototype, "toBlob"))
       ) {
         var a =
           r === "image/jpeg"

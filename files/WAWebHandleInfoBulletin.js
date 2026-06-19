@@ -48,14 +48,14 @@ __d(
                     return e.tag();
                   });
                   (i.forEach(function (e) {
-                    Object.prototype.hasOwnProperty.call(
+                    Object.hasOwn(
                       o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_PROTOCOLS,
                       e,
                     ) && r.push(e);
                   }),
                     n.push(a));
                 } else
-                  Object.prototype.hasOwnProperty.call(
+                  Object.hasOwn(
                     o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE,
                     a.type,
                   )

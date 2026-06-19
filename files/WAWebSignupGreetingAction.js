@@ -209,7 +209,7 @@ __d(
                 throw (h.delete(a), e);
               }
             }
-            var E = o("WAWebUserPrefsMeUser").getMeUser(),
+            var E = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               k = {
                 type: o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
                 kind: o("WAWebMsgType").MsgKind.AutomatedGreetingMessage,

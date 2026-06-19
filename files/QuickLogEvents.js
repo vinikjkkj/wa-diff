@@ -197,7 +197,7 @@ __d(
       },
       663703: { moduleName: "FEED", name: "QUERY_PERF", sampleRate: 1 },
       663892: { moduleName: "FEED", name: "CACHE_TTL", sampleRate: 1e4 },
-      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 35790 },
+      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 32249 },
       665863: { moduleName: "FEED", name: "DEFER", sampleRate: 250 },
       665990: { moduleName: "FEED", name: "RESTORE", sampleRate: 2 },
       666016: {
@@ -2029,6 +2029,11 @@ __d(
         moduleName: "MARKETPLACE",
         name: "PDP_SURFACE_WWW",
         sampleRate: 100,
+      },
+      11081819: {
+        moduleName: "MARKETPLACE",
+        name: "PDP_TAIL_LOAD",
+        sampleRate: 250,
       },
       11083063: {
         moduleName: "MARKETPLACE",
@@ -14027,7 +14032,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 285,
+        sampleRate: 257,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14107,7 +14112,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 176629,
+        sampleRate: 159064,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15268,7 +15273,7 @@ __d(
         name: "SAVE_AGGREGATED",
         sampleRate: 8897,
       },
-      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 23 },
+      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 26 },
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
@@ -15625,6 +15630,11 @@ __d(
         moduleName: "META_CRM_CLIENT_ENGAGEMENT",
         name: "PARTNER_EVENT_ICALUID_LOCK",
         sampleRate: 17e4,
+      },
+      108936045: {
+        moduleName: "META_CRM_CLIENT_ENGAGEMENT",
+        name: "CRM_SEND_EMAIL",
+        sampleRate: 1,
       },
       108936164: {
         moduleName: "META_CRM_CLIENT_ENGAGEMENT",
@@ -17662,6 +17672,11 @@ __d(
         name: "KOTLIN_COMPILER_PLUGIN_TEST",
         sampleRate: 1,
       },
+      143993690: {
+        moduleName: "FB_ON_DEVICE_AI",
+        name: "POST_TEXT_SUGGESTION",
+        sampleRate: 1,
+      },
       143994840: {
         moduleName: "FB_ON_DEVICE_AI",
         name: "AI_IMAGE_DESCRIPTION",
@@ -18749,14 +18764,29 @@ __d(
         name: "DISPLAY_RENDER",
         sampleRate: 1,
       },
+      161942737: {
+        moduleName: "DAT_WEARABLES_APP",
+        name: "ASR",
+        sampleRate: 1,
+      },
       161944636: {
         moduleName: "DAT_WEARABLES_APP",
         name: "VIDEO_PLAYBACK",
         sampleRate: 1,
       },
+      161948075: {
+        moduleName: "DAT_WEARABLES_APP",
+        name: "IMU",
+        sampleRate: null,
+      },
       161949162: {
         moduleName: "DAT_WEARABLES_APP",
         name: "STREAM_INITIALIZATION",
+        sampleRate: 1,
+      },
+      161949731: {
+        moduleName: "DAT_WEARABLES_APP",
+        name: "MOTION",
         sampleRate: 1,
       },
       161950783: {
@@ -18772,6 +18802,11 @@ __d(
       161954461: {
         moduleName: "DAT_WEARABLES_APP",
         name: "DISPLAY_RENDER_VIEW",
+        sampleRate: 1,
+      },
+      161955385: {
+        moduleName: "DAT_WEARABLES_APP",
+        name: "SPEECH",
         sampleRate: 1,
       },
       162072839: {
@@ -20135,6 +20170,11 @@ __d(
         name: "SILENT_PUSH_SCHEDULE",
         sampleRate: 1,
       },
+      191366498: {
+        moduleName: "EMBER",
+        name: "GROUP_MALL_JOIN",
+        sampleRate: 250,
+      },
       191366537: {
         moduleName: "EMBER",
         name: "ANDROID_UNEXPECTED_EVENT",
@@ -20204,6 +20244,11 @@ __d(
         moduleName: "EMBER",
         name: "HOME_FEED_CACHE_LOAD",
         sampleRate: 1,
+      },
+      191381125: {
+        moduleName: "EMBER",
+        name: "GROUP_MALL_FEED_PULL_TO_REFRESH",
+        sampleRate: 250,
       },
       191956372: {
         moduleName: "OCULUS_UNREAL_SDK",
@@ -21156,6 +21201,11 @@ __d(
         name: "VIEWER",
         sampleRate: 1,
       },
+      210042881: {
+        moduleName: "HYPOTHESIS_LOOPS_PLOG_PROBE",
+        name: "META_CLI_CREATE_E2E_PROBE",
+        sampleRate: 250,
+      },
       211158754: {
         moduleName: "IG_CLIPS_VIEWER_BLACKBOX",
         name: "SIMPLE_VIDEO_LAYOUT_LIFECYCLE",
@@ -22020,6 +22070,11 @@ __d(
         moduleName: "FB_TO_IG_CROSSPOST",
         name: "REELS_SHARE_LATER",
         sampleRate: 250,
+      },
+      231345891: {
+        moduleName: "LABYRINTH_MOBILE",
+        name: "TOTAL_MESSAGE_VISIBILITY",
+        sampleRate: 1,
       },
       231347271: {
         moduleName: "LABYRINTH_MOBILE",
@@ -27746,6 +27801,26 @@ __d(
         name: "CREATE_STICKER_QUERY_TTI",
         sampleRate: 1,
       },
+      295048381: {
+        moduleName: "HZOS_QR_CODE_SCANNER",
+        name: "WIFI_CONNECT",
+        sampleRate: 1,
+      },
+      295049544: {
+        moduleName: "HZOS_QR_CODE_SCANNER",
+        name: "URL_OPEN",
+        sampleRate: 1,
+      },
+      295050978: {
+        moduleName: "HZOS_QR_CODE_SCANNER",
+        name: "RESULT_PROCESSING",
+        sampleRate: 1,
+      },
+      295054197: {
+        moduleName: "HZOS_QR_CODE_SCANNER",
+        name: "SCAN_LAUNCH",
+        sampleRate: 1,
+      },
       295437299: {
         moduleName: "WP_WWW_GARDENS",
         name: "SHARE_LINK",
@@ -28430,6 +28505,11 @@ __d(
         moduleName: "ENTERPRISE_CENTER_TEST",
         name: "TEST_EVENT",
         sampleRate: null,
+      },
+      316276737: {
+        moduleName: "CAA_PRODUCT_FOUNDATION_SOFT_ERRORS",
+        name: "CAA_PRODUCT_FOUNDATION_SOFT_ERROR",
+        sampleRate: 250,
       },
       316544852: {
         moduleName: "PROFILE_PLUS",
@@ -29799,6 +29879,11 @@ __d(
         name: "ADVANCED_PRO_SECONDARY_PIPELINE",
         sampleRate: null,
       },
+      335087816: {
+        moduleName: "INSPIRATION_SHARING_FOUNDATION",
+        name: "CLIENT_RECS_GENERATION",
+        sampleRate: 1e3,
+      },
       335087833: {
         moduleName: "INSPIRATION_SHARING_FOUNDATION",
         name: "RETRY_API_PERF",
@@ -30383,7 +30468,7 @@ __d(
       348532996: {
         moduleName: "MESSAGING_CLIENT_E2EE_TOPLINE",
         name: "LOGIN_DEVICE",
-        sampleRate: 100,
+        sampleRate: 1e3,
       },
       348533804: {
         moduleName: "MESSAGING_CLIENT_E2EE_TOPLINE",
@@ -34065,6 +34150,11 @@ __d(
         moduleName: "INTERN_EDITOR_TYPING",
         name: "TYPING_SESSION",
         sampleRate: 10,
+      },
+      406650881: {
+        moduleName: "CAA_GROWTH_IDENTIFICATION_SOFT_ERRORS",
+        name: "LOGOUT_NO_LOGIN_SCREEN",
+        sampleRate: 250,
       },
       406978561: {
         moduleName: "HCS_MODULE",
@@ -39727,6 +39817,11 @@ __d(
         name: "ADD_CONTEXT_INFO",
         sampleRate: 1,
       },
+      491074354: {
+        moduleName: "MAISA",
+        name: "SEND_TO_RESPONSE",
+        sampleRate: 1,
+      },
       491130160: {
         moduleName: "CNC",
         name: "ACR_WORKFLOW_TRACE",
@@ -40886,6 +40981,16 @@ __d(
       507973390: {
         moduleName: "HZOS_FILES",
         name: "WWW_LIST_FILES_GOOGLE_DRIVE",
+        sampleRate: 1,
+      },
+      507979624: {
+        moduleName: "HZOS_FILES",
+        name: "CREATE_SHARED_LINK_3P",
+        sampleRate: 1,
+      },
+      507982641: {
+        moduleName: "HZOS_FILES",
+        name: "WWW_CREATE_SHARED_LINK_GOOGLE_DRIVE",
         sampleRate: 1,
       },
       507985055: {
@@ -44698,6 +44803,11 @@ __d(
         name: "SYNC_TO_DELTA_APPLIED",
         sampleRate: 1e4,
       },
+      554571104: {
+        moduleName: "MSGR_MDCORE",
+        name: "MDCORE_MUTATION_MANAGER_DISK_HYDRATION",
+        sampleRate: 1e4,
+      },
       554571703: {
         moduleName: "MSGR_MDCORE",
         name: "MDCORE_BOOTSTRAP",
@@ -45772,7 +45882,7 @@ __d(
       569122749: {
         moduleName: "USDID",
         name: "USDID_REGISTRATION",
-        sampleRate: null,
+        sampleRate: 1e9,
       },
       569125366: {
         moduleName: "USDID",
@@ -45830,6 +45940,11 @@ __d(
         moduleName: "IGD_INBOX_EARLY_PREFETCH_FILTER",
         name: "INBOX_LOADED",
         sampleRate: 10,
+      },
+      570885283: {
+        moduleName: "IOS_BASEL_TEXT_RENDERING_RELIABILITY",
+        name: "STICKER_INVISIBLE_WHILE_VISIBLE",
+        sampleRate: 1,
       },
       571946465: {
         moduleName: "LLAMA_API_EAR",
@@ -48767,6 +48882,11 @@ __d(
       633345490: {
         moduleName: "VIDEO_CSR",
         name: "REELS_CACHE_LOAD_IOS",
+        sampleRate: 250,
+      },
+      633355170: {
+        moduleName: "VIDEO_CSR",
+        name: "AD_IN_ORGANIC_POOL",
         sampleRate: 250,
       },
       633356033: {
@@ -52497,6 +52617,11 @@ __d(
         name: "MERLIN_COMPONENT",
         sampleRate: null,
       },
+      714407937: {
+        moduleName: "WHATSAPP_CHAT_TRANSFER",
+        name: "CHAT_TRANSFER_STAGE",
+        sampleRate: 250,
+      },
       714478262: {
         moduleName: "ARC_AI_SDK",
         name: "AI_SDK_TEXT_SESSION",
@@ -56193,6 +56318,11 @@ __d(
         name: "TEST_INTERACTION_FEED_CONTEXTUAL_CHAIN",
         sampleRate: 1e4,
       },
+      740436005: {
+        moduleName: "IG_SLATE",
+        name: "TEST_NAVIGATION_MSH_SHOTS_DETAIL",
+        sampleRate: 1e4,
+      },
       740436020: {
         moduleName: "IG_SLATE",
         name: "TEST_DWELL_LIKERS",
@@ -56581,6 +56711,11 @@ __d(
       740438908: {
         moduleName: "IG_SLATE",
         name: "TEST_INTERACTION_IG_DIRECT_NOTES_COMPOSER_AUDIENCE_SELECTOR",
+        sampleRate: 1e4,
+      },
+      740438959: {
+        moduleName: "IG_SLATE",
+        name: "TEST_NAVIGATION_IGQUICKSNAPHISTORYVIEWCONTROLLER",
         sampleRate: 1e4,
       },
       740439029: {
@@ -57808,7 +57943,7 @@ __d(
       746466031: {
         moduleName: "FB_TAGGING",
         name: "MENTION_NULLSTATE_FETCH",
-        sampleRate: 1,
+        sampleRate: 100,
       },
       746467514: {
         moduleName: "FB_TAGGING",
@@ -60723,6 +60858,11 @@ __d(
         name: "DLIM_TEST_EVENT",
         sampleRate: null,
       },
+      794499894: {
+        moduleName: "MESSENGER_ANDROID_MME",
+        name: "PLATYPUS_THREAD_CLASSIFICATION_ERROR",
+        sampleRate: 1,
+      },
       794508186: {
         moduleName: "MESSENGER_ANDROID_MME",
         name: "MUSIC_STORY_LAUNCH_ACTION",
@@ -63467,6 +63607,36 @@ __d(
       827276922: {
         moduleName: "WORKROOMS_WWW",
         name: "COMPANION_JOIN_CALL",
+        sampleRate: 1,
+      },
+      827461807: {
+        moduleName: "ADS_ML_RELIABILITY_PERF",
+        name: "SEV_BASE_LOAD",
+        sampleRate: 1,
+      },
+      827463959: {
+        moduleName: "ADS_ML_RELIABILITY_PERF",
+        name: "FANOUT_FOLLOWUP_TASKS",
+        sampleRate: 1,
+      },
+      827466623: {
+        moduleName: "ADS_ML_RELIABILITY_PERF",
+        name: "FANOUT_REPORT_COMPLETE",
+        sampleRate: 1,
+      },
+      827467389: {
+        moduleName: "ADS_ML_RELIABILITY_PERF",
+        name: "METRICS_AGGREGATION",
+        sampleRate: 1,
+      },
+      827471241: {
+        moduleName: "ADS_ML_RELIABILITY_PERF",
+        name: "FANOUT_TIME_MITIGATED",
+        sampleRate: 1,
+      },
+      827473833: {
+        moduleName: "ADS_ML_RELIABILITY_PERF",
+        name: "PLUGIN_DATA_LOAD",
         sampleRate: 1,
       },
       827524427: {
@@ -68402,6 +68572,21 @@ __d(
         name: "ZDB_ACTIVITY_LOG_QUERY",
         sampleRate: 1,
       },
+      911935644: {
+        moduleName: "MDCORE_IOS_DEBUGGING",
+        name: "PUSH_TO_THREADVIEW",
+        sampleRate: 1,
+      },
+      911943515: {
+        moduleName: "MDCORE_IOS_DEBUGGING",
+        name: "DELTA_PROCESSING",
+        sampleRate: 1,
+      },
+      911948455: {
+        moduleName: "MDCORE_IOS_DEBUGGING",
+        name: "DELTA_PAYLOAD_PROCESSING",
+        sampleRate: 1,
+      },
       912529331: {
         moduleName: "GROUP_NICKNAME",
         name: "GROUP_NICKNAME_BOTTOMSHEET_LOAD",
@@ -69218,6 +69403,11 @@ __d(
         moduleName: "IG_TEXT_EDITING",
         name: "REMOTE_FONTS_DOWNLOAD",
         sampleRate: 250,
+      },
+      926430076: {
+        moduleName: "IG_TEXT_EDITING",
+        name: "TEXT_RENDER_PERFORMANCE",
+        sampleRate: null,
       },
       926496904: {
         moduleName: "MOBILE_NETWORK_STACK",
@@ -73174,6 +73364,11 @@ __d(
         name: "DCMP_FORM_UPDATE_SBS",
         sampleRate: 1,
       },
+      969351304: {
+        moduleName: "META_CRM",
+        name: "AM_CRM_REFERRAL_PAGE_LOAD",
+        sampleRate: 1,
+      },
       969351719: {
         moduleName: "META_CRM",
         name: "DCMP_FORM_UPDATE",
@@ -73345,7 +73540,7 @@ __d(
       969947982: {
         moduleName: "PULSE_PERF",
         name: "HOME_TTRC_IOS",
-        sampleRate: 100,
+        sampleRate: 1,
       },
       970208273: {
         moduleName: "SOLICITATION_COMMENTS_PF",
@@ -75290,6 +75485,11 @@ __d(
         name: "IG_PRODUCTION_QP_RENDERING",
         sampleRate: 1e3,
       },
+      1026630366: {
+        moduleName: "FOA_META_AI_GROWTH",
+        name: "FB_PRODUCTION_QP_RENDERING",
+        sampleRate: 1e3,
+      },
       1026630810: {
         moduleName: "FOA_META_AI_GROWTH",
         name: "IOS_APP_SHORTCUT",
@@ -75320,6 +75520,16 @@ __d(
         name: "FB_PROMPTING_QP_SOURCE_PROACTIVE_FEED",
         sampleRate: 1e3,
       },
+      1026950611: {
+        moduleName: "WHATSAPP_CHANNELS",
+        name: "CHANNEL_ADMIN_PROFILE_CREATE_OR_UPDATE",
+        sampleRate: 1e3,
+      },
+      1026956221: {
+        moduleName: "WHATSAPP_CHANNELS",
+        name: "CHANNEL_ADMIN_PROFILE_SETTING_TOGGLE",
+        sampleRate: 1e3,
+      },
       1026957851: {
         moduleName: "WHATSAPP_CHANNELS",
         name: "CHANNEL_UNFOLLOW",
@@ -75329,6 +75539,11 @@ __d(
         moduleName: "WHATSAPP_CHANNELS",
         name: "CHANNEL_CREATE_OR_UPDATE",
         sampleRate: 1,
+      },
+      1026959530: {
+        moduleName: "WHATSAPP_CHANNELS",
+        name: "CHANNEL_ADMIN_PROFILE_DELETE",
+        sampleRate: 1e3,
       },
       1026960050: {
         moduleName: "WHATSAPP_CHANNELS",
@@ -76861,6 +77076,11 @@ __d(
       1051531368: {
         moduleName: "WEARABLE_COMMS",
         name: "SNAPSHOT",
+        sampleRate: 1,
+      },
+      1051532168: {
+        moduleName: "WEARABLE_COMMS",
+        name: "MWA_LOAD_THREADS",
         sampleRate: 1,
       },
       1051533047: {

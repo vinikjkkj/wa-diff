@@ -68,7 +68,9 @@ __d(
             id: n.id,
           }),
           from: n.from,
-          to: n.isSender ? n.from : o("WAWebUserPrefsMeUser").getMeUser(),
+          to: n.isSender
+            ? n.from
+            : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
           t: (u = a.metaOriginalMsgT) != null ? u : n.t,
           serverId: n.serverId,
           lastUpdateFromServerTs:

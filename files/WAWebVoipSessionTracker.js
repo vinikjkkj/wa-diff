@@ -32,16 +32,14 @@ __d(
         c.set(
           t,
           self.setTimeout(function () {
-            (o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] VoipSession id leaked, force-closing: ",
-                    "",
-                  ])),
-                t,
-              )
-              .sendLogs("voip-session-leak"),
+            (o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] VoipSession id leaked, force-closing: ",
+                  "",
+                ])),
+              t,
+            ),
               y(t));
           }, u),
         ),

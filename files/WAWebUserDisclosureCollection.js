@@ -24,8 +24,8 @@ __d(
                     i.privacyDisclosureModal != null &&
                     i.endDate != null &&
                     ((n = i.endDate) == null ? void 0 : n.getTime()) >
-                      new Date().getTime() &&
-                    new Date().getTime() - i.lastUpdated.getTime() < e
+                      Date.now() &&
+                    Date.now() - i.lastUpdated.getTime() < e
                   )
                     return i;
                   var l = yield o(

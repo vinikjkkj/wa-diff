@@ -66,7 +66,7 @@ __d(
               m = new (o("WAWebActionToast.react").ActionType)(
                 s._(/*BTDS*/ "Changing About\u2026"),
               ),
-              p = o("WAWebUserPrefsMeUser").getMeUser(),
+              p = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               f = o("WAWebTextStatusCollection").TextStatusCollection.assertGet(
                 p,
               ).status,

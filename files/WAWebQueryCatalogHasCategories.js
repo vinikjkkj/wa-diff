@@ -12,10 +12,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u,
-      c = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    var e, u;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.catalogWid,
             a = t.directConnectionEncryptedInfo,
             i = t.imageDimensions,
@@ -76,11 +79,10 @@ __d(
               !1
             );
           }
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })();
+        })),
+        d.apply(this, arguments)
+      );
+    }
     l.queryCatalogHasCategories = c;
   },
   98,

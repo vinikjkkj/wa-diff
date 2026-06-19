@@ -285,7 +285,7 @@ __d(
             ? e
             : !1;
       r && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft();
-      var a = o("WAWebUserPrefsMeUser").getMeUser(),
+      var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         i = o("WAWebTextStatusCollection").TextStatusCollection.assertGet(a),
         l = o(
           "WAWebProfilePicThumbCollection",

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAShiftTimer",
     "WATimeUtils",
     "WAWebABProps",
@@ -34,6 +33,7 @@ __d(
     "asyncToGeneratorRuntime",
     "gkx",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -357,7 +357,7 @@ __d(
     }
     function x(e) {
       return {
-        collectionName: r("WANullthrows")(e.collectionName),
+        collectionName: r("nullthrows")(e.collectionName),
         timestamp: e.timestamp,
       };
     }

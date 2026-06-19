@@ -151,7 +151,7 @@ __d(
               )
             ) {
               var k = yield o("WAWebApiContact").getContactRecord(
-                  o("WAWebUserPrefsMeUser").getMeUser(),
+                  o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                 ),
                 I = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
                   k,

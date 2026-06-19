@@ -244,9 +244,10 @@ __d(
       return (
         t == null ||
           typeof t != "object" ||
-          Object.keys(t).forEach(function (e) {
-            var r = t[e];
-            typeof r == "number" && (n[e] = r);
+          Object.entries(t).forEach(function (e) {
+            var t = e[0],
+              r = e[1];
+            typeof r == "number" && (n[t] = r);
           }),
         n
       );

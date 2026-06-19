@@ -33,7 +33,7 @@ __d(
           if (o("WAWebBizCoexGatingUtils").authAgentFeatureControlEnabled()) {
             var t;
             try {
-              t = o("WAWebUserPrefsMeUser").getMeUser();
+              t = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
             } catch (e) {
               o("WALogger").WARN(
                 s ||

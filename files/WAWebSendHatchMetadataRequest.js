@@ -35,7 +35,7 @@ __d(
               }),
               l = new (o("WAWebMsgModel").Msg)({
                 id: i,
-                from: o("WAWebUserPrefsMeUser").getMeUser(),
+                from: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                 to: n,
                 t: o("WATimeUtils").unixTime(),
                 type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,

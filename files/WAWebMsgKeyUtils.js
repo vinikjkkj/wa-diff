@@ -6,7 +6,6 @@ __d(
     "WANullthrows",
     "WAWebIsCagGroupCache",
     "WAWebUserPrefsMeUser",
-    "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -50,9 +49,9 @@ __d(
         : e === u.Addon
           ? r("WAWebIsCagGroupCache").isCag(t.remote)
             ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-            : o("WAWebUserPrefsMeUser").getMeUser()
+            : o("WAWebUserPrefsMeUser").getMeUserOrThrow()
           : e === u.EditMessage || e === u.Message
-            ? o("WAWebUserPrefsMeUser").getMeUser()
+            ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -94,18 +93,10 @@ __d(
         ? { from: c, to: d, author: _, broadcastId: n }
         : { from: c, to: d, author: _ };
     }
-    function _(e, t) {
-      return (
-        e.fromMe === t.fromMe &&
-        r("WAWebWid").equals(e.remote, t.remote) &&
-        r("WAWebWid").equals(e.participant, t.participant)
-      );
-    }
     ((l.TranslateMsgKeyType = u),
       (l.isNoteToSelf = c),
       (l.isLidMsgKey = d),
-      (l.msgKeyToTargetInfo = p),
-      (l.equalSendersAddressingSensitive = _));
+      (l.msgKeyToTargetInfo = p));
   },
   98,
 );

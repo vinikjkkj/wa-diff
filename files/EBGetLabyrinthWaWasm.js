@@ -3,7 +3,7 @@ __d(
   ["WAWasmModuleCache", "bx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("bx").getURL(r("bx")("47416")),
+    var e = r("bx").getURL(r("bx")("47418")),
       s = function () {
         return o("WAWasmModuleCache").loadWasmModule(e);
       };

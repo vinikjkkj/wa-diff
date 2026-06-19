@@ -61,7 +61,7 @@ __d(
       "MemPressureHigh",
     ]);
     function s(e, t, n) {
-      Object.prototype.hasOwnProperty.call(e, "appContext") ||
+      Object.hasOwn(e, "appContext") ||
         (e.appContext =
           t != null ? d.getAppContextWithLookback(t, n) : d.getAppContext());
     }

@@ -3,13 +3,13 @@ __d(
   [
     "Promise",
     "WAAckLevel",
-    "WANullthrows",
     "WATypeUtils",
     "WAWebBackendApi",
     "WAWebBoolFunc",
     "WAWebDBAddOnProviders",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -23,7 +23,7 @@ __d(
             Array.from(t.entries(), function (e) {
               var t = e[0],
                 n = e[1],
-                a = r("WANullthrows")(
+                a = r("nullthrows")(
                   o("WAWebDBAddOnProviders").getProviderForAddOnType(t),
                 );
               return a.updateAcks == null
@@ -50,7 +50,7 @@ __d(
                     function* (e) {
                       var t = e[0],
                         n = e[1],
-                        a = r("WANullthrows")(
+                        a = r("nullthrows")(
                           o("WAWebDBAddOnProviders").getProviderForAddOnType(t),
                         ),
                         i = yield a.updateAcks == null

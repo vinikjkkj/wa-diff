@@ -517,8 +517,10 @@ __d(
               }));
           });
         }),
-        Object.keys(n).forEach(function (e) {
-          n[e] = n[e].sort(function (e, t) {
+        Object.entries(n).forEach(function (e) {
+          var t = e[0],
+            r = e[1];
+          n[t] = r.sort(function (e, t) {
             return g(t).length - g(e).length;
           });
         }),

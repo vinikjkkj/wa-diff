@@ -290,7 +290,7 @@ __d(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeChangeNotificationMsg(
                           b,
-                          o("WAWebUserPrefsMeUser").getMeUser(),
+                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                           o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE,
                         );
                         (G.push(f),
@@ -306,7 +306,7 @@ __d(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeSelfTransitionToCoexNotificationMsg(
                           b,
-                          o("WAWebUserPrefsMeUser").getMeUser(),
+                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                         );
                         (G.push(y),
                           o(
@@ -320,7 +320,7 @@ __d(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeChangeNotificationMsg(
                           b,
-                          o("WAWebUserPrefsMeUser").getMeUser(),
+                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                           o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED,
                         );
                         (G.push(C),

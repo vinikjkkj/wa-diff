@@ -18,6 +18,8 @@ __d(
         afterReadMessagesReceived: 0,
         afterReadMessagesExpired: 0,
         afterReadMessagesUnreadExpired: 0,
+        statusReactionsSent: 0,
+        statusReactionsReceived: 0,
       },
       l = Object.freeze(e),
       s = Object.freeze(Object.keys(e));

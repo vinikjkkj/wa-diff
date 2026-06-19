@@ -26,7 +26,7 @@ __d(
             jidType: "newsletter",
             newsletterJid: i.from,
           }),
-          to: o("WAWebUserPrefsMeUser").getMeUser(),
+          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
           newsletterAdminProfile: o(
             "WAWebNewsletterAdminProfilesSmaxUtils",
           ).mapAdminProfileInfoFromAdminProfileMixin(i.adminProfileMetaMixin),

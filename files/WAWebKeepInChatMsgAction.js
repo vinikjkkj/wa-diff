@@ -166,7 +166,7 @@ __d(
             c,
             d,
             m,
-            p = o("WAWebUserPrefsMeUser").getMeUser(),
+            p = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             _ = o("WAWebFrontendMsgGetters").getChat(t),
             f = new (r("WAWebMsgKey"))({
               fromMe: !0,

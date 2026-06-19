@@ -30,7 +30,7 @@ __d(
               source: "USER_INPUT",
             });
             if (n) {
-              var r = o("WAWebUserPrefsMeUser").getMeUser();
+              var r = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
               return (
                 yield p([
                   e != null

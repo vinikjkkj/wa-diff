@@ -95,7 +95,7 @@ __d(
                   .ERROR_CANCELLED,
               }
             );
-          var a = o("WAWebUserPrefsMeUser").getMeUser(),
+          var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             i = y(t, n, a);
           try {
             var l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(

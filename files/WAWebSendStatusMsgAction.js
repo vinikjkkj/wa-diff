@@ -10,6 +10,7 @@ __d(
     "WAWebAddonConstants",
     "WAWebAddonProcessMsgs",
     "WAWebAutoCrosspostAction",
+    "WAWebChatThreadLogging",
     "WAWebDBDeviceListFanout",
     "WAWebDBGetReactions",
     "WAWebDBProcessMessage",
@@ -33,6 +34,7 @@ __d(
     "WAWebSessionScope",
     "WAWebStatusCollection",
     "WAWebStatusGatingUtils",
+    "WAWebStatusInteractionSentWamEvent",
     "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
     "WAWebStatusSessionGatingUtils",
@@ -41,6 +43,10 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamEnumStatusContentType",
+    "WAWebWamEnumStatusInteractionActors",
+    "WAWebWamEnumStatusInteractionMessageType",
+    "WAWebWamEnumStatusInteractionResultType",
+    "WAWebWamEnumStatusInteractionType",
     "WAWebWamMsgUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -149,7 +155,7 @@ __d(
               }),
               from: o("WAWebLidStatusMigrationUtils").matWidConvert(e.from),
               author: o("WAWebLidStatusMigrationUtils").matWidConvert(
-                o("WAWebUserPrefsMeUser").getMeUser(),
+                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               ),
               canBeReshared: g,
             }),
@@ -325,7 +331,7 @@ __d(
           try {
             var n = r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
               a = o("WAWebLidStatusMigrationUtils").matWidConvert(
-                o("WAWebUserPrefsMeUser").getMeUser(),
+                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               ),
               i = o("WAWebWidFactory").asUserWidOrThrow(
                 o("WAWebLidStatusMigrationUtils").matWidConvert(n),
@@ -373,7 +379,32 @@ __d(
               o("WAWebReactionsUtils").updateRecentReaction(
                 t,
                 s.reactionTimestamp,
-              ));
+              ),
+              t !== "" &&
+                (o(
+                  "WAWebChatThreadLogging",
+                ).handleActivitiesForChatThreadLogging([
+                  {
+                    activityType: "statusReactionsSent",
+                    ts: o("WATimeUtils").unixTime(),
+                    chatId: i,
+                  },
+                ]),
+                new (o(
+                  "WAWebStatusInteractionSentWamEvent",
+                ).StatusInteractionSentWamEvent)({
+                  statusInteractionType: o("WAWebWamEnumStatusInteractionType")
+                    .STATUS_INTERACTION_TYPE.REACTION,
+                  statusInteractionMessageType: o(
+                    "WAWebWamEnumStatusInteractionMessageType",
+                  ).STATUS_INTERACTION_MESSAGE_TYPE.LIKE,
+                  statusInteractionResultType: o(
+                    "WAWebWamEnumStatusInteractionResultType",
+                  ).STATUS_INTERACTION_RESULT_TYPE.OK,
+                  statusInteractionActors: o(
+                    "WAWebWamEnumStatusInteractionActors",
+                  ).STATUS_INTERACTION_ACTORS.POSTER_VIEWER,
+                }).commit()));
           } catch (e) {
             throw (
               o("WALogger")

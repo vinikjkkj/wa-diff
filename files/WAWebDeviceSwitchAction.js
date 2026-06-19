@@ -11,7 +11,7 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeUser(),
+      var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         n = { wid: t, otpCode: e };
       (o("WAWebNotificationBackend").showDeviceSwitchNotification(n),
         o("WAWebModalManager").ModalManager.open(

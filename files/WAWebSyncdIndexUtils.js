@@ -54,7 +54,7 @@ __d(
             null
           );
         a === "1"
-          ? (l = o("WAWebUserPrefsMeUser").getMeUser())
+          ? (l = o("WAWebUserPrefsMeUser").getMeUserOrThrow())
           : (l = o("WAWebWidFactory").createWid(i));
       }
       return new (r("WAWebMsgKey"))({

@@ -2,7 +2,6 @@ __d(
   "WAWebFormatNotificationTemplateText",
   [
     "fbt",
-    "WANullthrows",
     "WAWebABPropsInternalNumber",
     "WAWebBizBroadcastFormatStatusText",
     "WAWebBotBaseGating",
@@ -35,6 +34,7 @@ __d(
     "WAWebWid",
     "WAWebWidFormat",
     "WAWebWidToFormattedNameOrNumber",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
@@ -946,7 +946,7 @@ __d(
                                                                                                                                                                                                                                             );
     }
     function c(e, t) {
-      var n = r("WANullthrows")(
+      var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "change_number",
             templateParams: t,
@@ -989,7 +989,7 @@ __d(
       ]);
     }
     function p(e, t) {
-      var n = r("WANullthrows")(
+      var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_transaction_request_cancelled",
             templateParams: t,
@@ -1021,7 +1021,7 @@ __d(
           );
     }
     function _(e) {
-      var t = r("WANullthrows")(
+      var t = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_transaction_status_receiver_pending_setup",
             templateParams: e,
@@ -1044,7 +1044,7 @@ __d(
       );
     }
     function f(e, t) {
-      var n = r("WANullthrows")(
+      var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_action_request_declined",
             templateParams: t,
@@ -1076,7 +1076,7 @@ __d(
           );
     }
     function g(e) {
-      var t = r("WANullthrows")(
+      var t = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_action_request_expired",
             templateParams: e,
@@ -1110,7 +1110,7 @@ __d(
           );
     }
     function h(e) {
-      var t = r("WANullthrows")(
+      var t = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "payment_invite_account_set_up",
             templateParams: e,
@@ -1350,7 +1350,7 @@ __d(
               );
     }
     function W(e, t) {
-      var n = r("WANullthrows")(
+      var n = r("nullthrows")(
           o("WAWebCommonMsgTemplateParamsUtils").interpretMsgTemplateParams({
             type: "chat_assignment",
             templateParams: e,

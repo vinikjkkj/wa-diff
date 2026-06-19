@@ -35,7 +35,7 @@ __d(
                 ? n
                 : o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             m = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMeUser(),
+              o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             ),
             p = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
             _ = void 0;

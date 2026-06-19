@@ -22,7 +22,7 @@ __d(
                 "WAWebNewsletterStorageUtils",
               ).createNewsletterMetadataObjectForStorage(t),
             ),
-            Object.prototype.hasOwnProperty.call(n, "eurl"))
+            Object.hasOwn(n, "eurl"))
           ) {
             var r,
               a,

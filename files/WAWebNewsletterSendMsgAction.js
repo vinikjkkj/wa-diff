@@ -509,7 +509,7 @@ __d(
               ),
               c = u.inviteExpiration,
               d = r("WANullthrows")(r("WAWebNewsletterCollection").get(l)),
-              m = o("WAWebUserPrefsMeUser").getMeUser(),
+              m = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               p = babelHelpers.extends(
                 {
                   ack: o("WAAckLevel").ACK.CLOCK,
@@ -577,7 +577,7 @@ __d(
           try {
             var l = o("WAWebStateUtils").unproxy(e),
               s = r("WANullthrows")(r("WAWebNewsletterCollection").get(i)),
-              u = o("WAWebUserPrefsMeUser").getMeUser(),
+              u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               c = babelHelpers.extends(
                 {
                   ack: o("WAAckLevel").ACK.CLOCK,

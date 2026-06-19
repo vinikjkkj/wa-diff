@@ -101,7 +101,7 @@ __d(
                 (r("WAWebWid").isStatus(t) &&
                   (T = k.id.fromMe
                     ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                        o("WAWebUserPrefsMeUser").getMeUser(),
+                        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                       )
                     : k.author),
                 T == null)

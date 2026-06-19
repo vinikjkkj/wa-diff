@@ -84,7 +84,7 @@ __d(
             p = o("WAWebWidToJid").widToUserJid(
               (i = s.targetSenderJid) != null
                 ? i
-                : o("WAWebUserPrefsMeUser").getMeUser(),
+                : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             ),
             _ = o("WAWebWidToJid").widToUserJid(
               r("WANullthrows")(l.author, "decryptMsmsgBotMessage: author"),

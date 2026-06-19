@@ -19,7 +19,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUserPrefsMeUser").getMeUser();
+          var n = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
           return {
             id: new (r("WAWebMsgKey"))({
               remote: e,
