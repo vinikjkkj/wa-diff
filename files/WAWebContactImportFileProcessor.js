@@ -13,8 +13,16 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f = 100;
+    function g(e) {
       var t,
         n = (t = o("WAWebContactImportFileTypeValidator")).isFileOfType(
           e,
@@ -28,7 +36,7 @@ __d(
           o("WAWebContactImportTypedError").FileError.TYPE,
         );
     }
-    function g(e, t) {
+    function h(e, t) {
       if (e.length > t)
         throw new (o(
           "WAWebContactImportTypedError",
@@ -36,15 +44,48 @@ __d(
           o("WAWebContactImportTypedError").FileError.TOO_MANY_ITEMS,
         );
     }
-    function h(e, t) {
+    function y(e, t) {
       for (var n = 0; n < e.length; n++) {
         var r = e[n];
         if (r.some(t)) return { data: r, index: n };
       }
     }
-    function y(e, t) {
+    var C = 5;
+    function b(e) {
+      for (var t = null, n = Math.min(e.length, C), r = 0; r < n; r++) {
+        var a = e[r],
+          i = 0;
+        for (var l of a)
+          typeof l == "string" &&
+            (o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+              l,
+              o("WAWebContactImportSmartColumnDetection").PHONE_HEADER_ALIASES,
+            ) ||
+              o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+                l,
+                o("WAWebContactImportSmartColumnDetection")
+                  .FULL_NAME_HEADER_ALIASES,
+              ) ||
+              o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+                l,
+                o("WAWebContactImportSmartColumnDetection")
+                  .FIRST_NAME_HEADER_ALIASES,
+              ) ||
+              o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
+                l,
+                o("WAWebContactImportSmartColumnDetection")
+                  .LAST_NAME_HEADER_ALIASES,
+              )) &&
+            i++;
+        i > 0 &&
+          (t == null || i > t.matches) &&
+          (t = { data: a, index: r, matches: i });
+      }
+      return t != null ? { data: t.data, index: t.index } : y(e, T);
+    }
+    function v(e, t) {
       var n = [],
-        r = h(e, t);
+        r = t(e);
       if (r == null)
         throw new (o(
           "WAWebContactImportTypedError",
@@ -72,49 +113,31 @@ __d(
       }
       return n;
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function b() {
+    function R() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.arrayBuffer(),
             r = yield o("WAWebContactImportXLSXParsingUtils").loadXLSX(n);
-          return y(r, t);
+          return v(r, t);
         })),
-        b.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.text(),
             r = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(n);
-          return y(r.data, t);
+          return v(r.data, t);
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebContactImportFileTypeValidator").isFileOfType(
-            e,
-            o("WAWebContactImportFileTypeValidator").FileType.EXCEL,
-          );
-          return n ? C(e, t) : v(e, t);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
-      return typeof e == "string" && e.trim() !== "";
     }
     function k(e, t) {
       return I.apply(this, arguments);
@@ -122,6 +145,24 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebContactImportFileTypeValidator").isFileOfType(
+            e,
+            o("WAWebContactImportFileTypeValidator").FileType.EXCEL,
+          );
+          return n ? S(e, t) : L(e, t);
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e) {
+      return typeof e == "string" && e.trim() !== "";
+    }
+    function D(e, t) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.length === 0) return e;
           var n = Object.keys(e[0].data),
             r = e.map(function (e) {
@@ -130,38 +171,45 @@ __d(
                 return (n = e.data[t]) != null ? n : "";
               });
             }),
-            a = o("WAWebContactImportSmartColumnDetection").smartDetectColumns(
+            a = r.slice(0, f),
+            i = o("WAWebContactImportSmartColumnDetection").smartDetectColumns(
               n,
-              r,
+              a,
             ),
-            i = yield T(a, n, r, t);
-          if (i == null)
+            l = yield $(i, n, a, t.onConfirmDetection);
+          if (l == null)
             throw new (o(
               "WAWebContactImportTypedError",
             ).WAWebContactImportTypedError)(
               o("WAWebContactImportTypedError").FileError.FORMAT,
             );
-          var l = o(
+          t.onSmartDetectionComplete != null &&
+            t.onSmartDetectionComplete({
+              detection: l,
+              headerRow: n,
+              sampleRows: a,
+            });
+          var s = o(
             "WAWebContactImportSmartColumnDetection",
           ).applyColumnMapping(
             e.map(function (e) {
               return e.data;
             }),
-            i,
+            l,
           );
-          return l.map(function (t, n) {
+          return s.map(function (t, n) {
             return { data: t, originalRowIndex: e[n].originalRowIndex };
           });
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function T(e, t, n, r) {
-      return D.apply(this, arguments);
+    function $(e, t, n, r) {
+      return P.apply(this, arguments);
     }
-    function D() {
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var o,
               a = (o = e.phoneColumn) == null ? void 0 : o.confidence;
@@ -169,13 +217,13 @@ __d(
             if (r == null)
               return e.phoneColumn == null || a === "low" ? null : e;
             var i = yield r(e, t, n.slice(0, 3));
-            return i == null ? null : x(t, i);
+            return i == null ? null : N(t, i);
           },
         )),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function x(e, t) {
+    function N(e, t) {
       var n = {
           header: t.phoneHeader,
           columnIndex: e.indexOf(t.phoneHeader),
@@ -198,12 +246,12 @@ __d(
         lastNameColumn: null,
       };
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function P() {
+    function w() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
             return Object.keys(e.data).reduce(
               function (t, n) {
@@ -216,10 +264,10 @@ __d(
             t,
           );
         })),
-        P.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function N(e) {
+    function A(e) {
       return e.map(function (e) {
         return {
           errorType: e.errorType,
@@ -228,17 +276,17 @@ __d(
         };
       });
     }
-    function M(e) {
+    function F(e) {
       return e.replace(/^\+/, "").replace(/\D/g, "");
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
+    function O(e, t) {
+      return B.apply(this, arguments);
     }
-    function A() {
+    function B() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.map(function (e) {
-              return { contact: e, normalizedPhone: M(e.phone) };
+              return { contact: e, normalizedPhone: F(e.phone) };
             }),
             r = n.map(function (e) {
               var t = e.normalizedPhone;
@@ -273,15 +321,15 @@ __d(
             { nonWhatsAppUserErrors: l, verifiedContacts: i }
           );
         })),
-        A.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function W(e, t, n) {
+      return q.apply(this, arguments);
     }
-    function O() {
+    function q() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           var a = o("WAWebContactImportFileTypeValidator").isFileOfType(
             t,
             o("WAWebContactImportFileTypeValidator").FileType.EXCEL,
@@ -301,7 +349,7 @@ __d(
             t.size,
           );
           try {
-            (f(t),
+            (g(t),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -316,9 +364,15 @@ __d(
                 "smbw_business_broadcast_smart_column_detection_enabled",
               ),
               l = i
-                ? E
-                : o("WAWebContactImportTemplateParsingUtils").isPhoneFieldName,
-              h = yield R(t, l);
+                ? b
+                : function (e) {
+                    return y(
+                      e,
+                      o("WAWebContactImportTemplateParsingUtils")
+                        .isPhoneFieldName,
+                    );
+                  },
+              f = yield k(t, l);
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -326,10 +380,10 @@ __d(
                   " rows (",
                   ")",
                 ])),
-              h.length,
+              f.length,
               a,
             ),
-              g(h, r.recipientLimit),
+              h(f, r.recipientLimit),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -337,11 +391,11 @@ __d(
                     "/",
                     "",
                   ])),
-                h.length,
+                f.length,
                 r.recipientLimit,
               ));
-            var y = i ? yield k(h, n.onConfirmDetection) : h,
-              C = yield $(y);
+            var C = i ? yield D(f, n) : f,
+              v = yield M(C);
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -349,12 +403,12 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              C.validContacts.length,
-              C.errors.length,
+              v.validContacts.length,
+              v.errors.length,
             );
-            var b = yield w(C.validContacts, r.verifyOptions),
-              v = b.nonWhatsAppUserErrors,
-              S = b.verifiedContacts;
+            var S = yield O(v.validContacts, r.verifyOptions),
+              R = S.nonWhatsAppUserErrors,
+              L = S.verifiedContacts;
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -362,11 +416,11 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              S.length,
-              v.length,
+              L.length,
+              R.length,
             );
-            var L = N([].concat(C.errors, v)),
-              I = L.map(function (e) {
+            var E = A([].concat(v.errors, R)),
+              I = E.map(function (e) {
                 return babelHelpers.extends({}, e, {
                   contactIndex: null,
                   type: "error",
@@ -381,14 +435,14 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              S.length,
+              L.length,
               I.length,
             ),
-              n.onComplete(S, I));
+              n.onComplete(L, I));
           } catch (e) {
             var T = e instanceof Error ? e.name : typeof e,
-              D = e instanceof Error ? e.message : String(e),
-              x =
+              x = e instanceof Error ? e.message : String(e),
+              $ =
                 e instanceof
                 o("WAWebContactImportTypedError").WAWebContactImportTypedError
                   ? String(e.type)
@@ -407,8 +461,8 @@ __d(
                 a,
                 t.name,
                 T,
-                D,
                 x,
+                $,
               )
               .verbose()
               .sendLogs("contact-import-file-processing-failed", {
@@ -417,10 +471,10 @@ __d(
               n.onError(e));
           }
         })),
-        O.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    ((l.normalizePhoneNumber = M), (l.processFile = F));
+    ((l.normalizePhoneNumber = F), (l.processFile = W));
   },
   98,
 );
