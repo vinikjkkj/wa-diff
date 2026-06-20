@@ -18,6 +18,7 @@ __d(
         __dbnames: "__dbnames",
         fts_storage: "fts-storage",
         fts_loadgen_metadata: "loadgen-storage",
+        guest_events_storage: "guest-events-storage",
         _hsm_storage_DEPRECATED: "hsm-storage",
         jobs_storage: "jobs-storage",
         lru_media_storage_idb: "lru-media-storage-idb",

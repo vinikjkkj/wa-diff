@@ -8,6 +8,7 @@ __d(
     "WATimeUtils",
     "WAWebMediaHosts",
     "WAWebMmsClientFormatDownloadUrl",
+    "WAWebMmsMediaTypes",
     "WAWebMmsOperationsConst",
     "asyncToGeneratorRuntime",
     "err",
@@ -330,6 +331,7 @@ __d(
               p = t.staticUrl,
               _ = t.type;
             a == null &&
+              _ !== o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT &&
               o("WALogger")
                 .ERROR(
                   s ||

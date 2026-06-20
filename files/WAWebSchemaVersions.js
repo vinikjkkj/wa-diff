@@ -22,6 +22,7 @@ __d(
         LruMediaStorage: "lru-media-storage-idb",
         OffdStorage: "offd-storage",
         SignalStorage: "signal-storage",
+        GuestEventsStorage: "guest-events-storage",
         WorkerStorage: "worker-storage",
         SW: "sw",
         WAWC: "wawc",
@@ -45,25 +46,27 @@ __d(
                 : e === d.SignalStorage
                   ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE
                       .SIGNAL_STORAGE
-                  : e === d.WorkerStorage
-                    ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE
-                        .WORKER_STORAGE
-                    : e === d.SW
-                      ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE.SW
-                      : e === d.WAWC
-                        ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE.WAWC
-                        : e === d.WAWCDBEnc
-                          ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE
-                              .WAWC_DB_ENC
-                          : e === d.StatusStorage
+                  : e === d.GuestEventsStorage
+                    ? null
+                    : e === d.WorkerStorage
+                      ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE
+                          .WORKER_STORAGE
+                      : e === d.SW
+                        ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE.SW
+                        : e === d.WAWC
+                          ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE.WAWC
+                          : e === d.WAWCDBEnc
                             ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE
-                                .STATUS_STORAGE
-                            : (function () {
-                                throw Error(
-                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                    e,
-                                );
-                              })();
+                                .WAWC_DB_ENC
+                            : e === d.StatusStorage
+                              ? o("WAWebWamEnumWebDbNameType").WEB_DB_NAME_TYPE
+                                  .STATUS_STORAGE
+                              : (function () {
+                                  throw Error(
+                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                      e,
+                                  );
+                                })();
     }
     function f() {
       return o("WAWebRuntimeEnvironmentUtils").isServiceWorker()
@@ -78,8 +81,11 @@ __d(
     function h(t) {
       if (p == null) {
         var n = { webDbLoader: f() };
+        if (t != null) {
+          var a = _(t);
+          a != null && (n.webDbName = a);
+        }
         throw (
-          t != null && (n.webDbName = _(t)),
           new (o(
             "WAWebWebDbLoadFromVersionFailureNonAnonymousWamEvent",
           ).WebDbLoadFromVersionFailureNonAnonymousWamEvent)(

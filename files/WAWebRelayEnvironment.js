@@ -47,6 +47,8 @@ __d(
           return o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
         case "whatsapp_www":
           return o("WAWebGraphQLConstants").whatsappGraphqlEndpointWWW();
+        case "whatsapp_guest":
+          return o("WAWebGraphQLConstants").whatsappGraphqlEndpointWWW();
         default:
           return o("WAWebGraphQLConstants").whatsappGraphqlEndpointCatalog();
       }
@@ -215,6 +217,21 @@ __d(
                       localeParameterName: g,
                       variables: n,
                     });
+                  if (
+                    s === "whatsapp_guest" &&
+                    (e == null ? void 0 : e.accessToken) == null
+                  )
+                    throw new (o("WAWebGraphQLServerError").GraphQLServerError)(
+                      {
+                        errors: [
+                          {
+                            code: 0,
+                            message:
+                              "Missing WhatsApp guest GraphQL access token",
+                          },
+                        ],
+                      },
+                    );
                   var C =
                       ((l = {
                         access_token:

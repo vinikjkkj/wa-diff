@@ -18,12 +18,14 @@ __d(
               "WAWebLocalSchemaVersions",
             ).getLocalSchemaVersions();
             e.forEach(function (e, t) {
-              new (o(
-                "WAWebWebDbVersionNonAnonymousWamEvent",
-              ).WebDbVersionNonAnonymousWamEvent)({
-                webDbName: o("WAWebSchemaVersions").convertDBName(t),
-                webDbVersionNumber: e,
-              }).commit();
+              var n = o("WAWebSchemaVersions").convertDBName(t);
+              n != null &&
+                new (o(
+                  "WAWebWebDbVersionNonAnonymousWamEvent",
+                ).WebDbVersionNonAnonymousWamEvent)({
+                  webDbName: n,
+                  webDbVersionNumber: e,
+                }).commit();
             });
           }),
           {

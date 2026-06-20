@@ -80,6 +80,13 @@ __d(
                     break e;
                   }
                   if (
+                    e ===
+                    o("WAWebSchemaVersions").DatabaseNames.GuestEventsStorage
+                  ) {
+                    n = r("justknobx")._("3982");
+                    break e;
+                  }
+                  if (
                     e === o("WAWebSchemaVersions").DatabaseNames.WorkerStorage
                   ) {
                     n = r("justknobx")._("1624");

@@ -127,7 +127,11 @@ __d(
           : !l.entries.hasUnencryptedEntry({ filehash: u, directPath: f });
         var k;
         (p
-          ? E != null && (g != null || f != null || !d)
+          ? E != null &&
+            (g != null ||
+              (f != null &&
+                E === o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT) ||
+              !d)
             ? d && y != null
               ? (k = l.entries.addEntry({
                   deprecatedMms3Url: _,

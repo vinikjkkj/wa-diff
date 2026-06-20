@@ -6,6 +6,7 @@ __d(
     "WAWebRelayEnvironment",
     "asyncToGeneratorRuntime",
     "err",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
@@ -39,16 +40,17 @@ __d(
             d = yield o("WAWebRelayEnvironment").requireRelayRuntime(),
             m = d.fetchQuery,
             p = d.readInlineData,
-            _ = typeof i == "object" ? i.token : i,
-            f = typeof i == "object" ? i.bp_id : null;
+            _ = f(i),
+            g = _.accessTokenString,
+            h = _.actorID;
           try {
-            var g = yield o("WAWebRelayEnvironment").getEnvironment({
+            var y = yield o("WAWebRelayEnvironment").getEnvironment({
                 environmentType: l,
-                accessToken: _,
-                actorID: f,
+                accessToken: g,
+                actorID: h,
               }),
-              h = (yield m)(g, t, n, c).toPromise();
-            return (s == null || s.success(), u == null || u(p), h);
+              C = (yield m)(y, t, n, c).toPromise();
+            return (s == null || s.success(), u == null || u(p), C);
           } catch (e) {
             throw (
               e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
@@ -74,21 +76,22 @@ __d(
             m = babelHelpers.objectWithoutPropertiesLoose(a, s),
             p = yield o("WAWebRelayEnvironment").requireRelayRuntime(),
             _ = p.commitMutation,
-            f = p.readInlineData,
-            g = typeof i == "object" ? i.token : i,
-            h = typeof i == "object" ? i.bp_id : null;
+            g = p.readInlineData,
+            h = f(i),
+            y = h.accessTokenString,
+            C = h.actorID;
           try {
-            var y = yield o("WAWebRelayEnvironment").getEnvironment({
+            var b = yield o("WAWebRelayEnvironment").getEnvironment({
               environmentType: l,
-              accessToken: g,
-              actorID: h,
+              accessToken: y,
+              actorID: C,
             });
             return new (u || (u = n("Promise")))(function (n, r) {
               _(
-                y,
+                b,
                 babelHelpers.extends({ mutation: e, variables: t }, m, {
                   onCompleted: function (t) {
-                    (c == null || c.success(), d == null || d(f), n(t));
+                    (c == null || c.success(), d == null || d(g), n(t));
                   },
                   onError: function (t) {
                     r(t);
@@ -106,6 +109,13 @@ __d(
         })),
         _.apply(this, arguments)
       );
+    }
+    function f(e) {
+      return e == null || typeof e == "string"
+        ? { accessTokenString: e, actorID: null }
+        : r("isStringNullOrEmpty")(e.actorID)
+          ? { accessTokenString: e.token, actorID: e.bp_id }
+          : { accessTokenString: e.token, actorID: e.actorID };
     }
     ((l.graphql = c), (l.fetchQuery = d), (l.commitMutation = p));
   },
