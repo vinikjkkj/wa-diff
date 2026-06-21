@@ -18,32 +18,30 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callType,
-            n = e.creatorUsername,
-            a = e.eventStartTime,
-            i = e.requireApproval,
-            l = yield o("WASmaxVoipLinkCreateRPC").sendLinkCreateRPC({
-              eventArgs: a == null ? null : { eventStartTime: a },
+            n = e.eventStartTime,
+            a = e.requireApproval,
+            i = yield o("WASmaxVoipLinkCreateRPC").sendLinkCreateRPC({
+              eventArgs: n == null ? null : { eventStartTime: n },
               linkCreateMedia: t,
               callTo: r("nullthrows")(
                 o("WASmaxInVoipEnums").CALLJID_DOMAINJID.validators[1]("call"),
               ),
-              linkCreateLinkCreatorUsername: n != null ? n : void 0,
-              hasLinkCreateWaitingRoomEnabled1: i === !0,
+              hasLinkCreateWaitingRoomEnabled1: a === !0,
             });
-          switch (l.name) {
+          switch (i.name) {
             case "LinkCreateResponseLinkCreateAck": {
-              var s = l.value.linkCreateMedia === "audio" ? "voice" : "video";
-              return d(s, l.value.linkCreateToken);
+              var l = i.value.linkCreateMedia === "audio" ? "voice" : "video";
+              return d(l, i.value.linkCreateToken);
             }
             case "LinkCreateResponseLinkCreateNack": {
-              var u = l.value.error;
-              switch (u) {
+              var s = i.value.error;
+              switch (s) {
                 case "503":
-                  return m({ code: u, text: "Service Unavailable" });
+                  return m({ code: s, text: "Service Unavailable" });
                 case "400":
-                  return m({ code: u, text: "Bad Request" });
+                  return m({ code: s, text: "Bad Request" });
                 default:
-                  return m({ code: u, text: "Unknown Error" });
+                  return m({ code: s, text: "Unknown Error" });
               }
             }
           }

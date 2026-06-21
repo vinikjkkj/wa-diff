@@ -321,12 +321,7 @@ __d(
                 yield o(
                   "WAWebOpenCoexCallingFirstTimeModalUtils",
                 ).maybeShowCoexCallingConsumerFirstTimeModal(e));
-              var y = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-                C = y
-                  ? o("WAWebContactCollection").ContactCollection.get(y)
-                  : null,
-                b = C ? o("WAWebFrontendContactGetters").getUsername(C) : null,
-                v = yield (W || (W = n("Promise"))).all([
+              var y = yield (W || (W = n("Promise"))).all([
                   o("WAWebVoipStackInterface").getVoipStackInterface(),
                   o("WAWebSendMsgDatabaseJob").getFanOutListJob([h]),
                   o("WAWebBackendApi").frontendSendAndReceive("getTcToken", {
@@ -344,10 +339,10 @@ __d(
                       )
                     : void 0,
                 ]),
-                S = v[0],
-                R = v[1],
-                L = v[2].tcToken,
-                E = ge(R, "callStart");
+                C = y[0],
+                b = y[1],
+                v = y[2].tcToken,
+                S = ge(b, "callStart");
               (o("WALogger")
                 .LOG(
                   g ||
@@ -371,21 +366,19 @@ __d(
                 t
                   ? o("WAWebCoreActionsODS").logCallOutgoingVideo()
                   : o("WAWebCoreActionsODS").logCallOutgoingAudio(),
-                yield S == null
+                yield C == null
                   ? void 0
-                  : S.startCall(
+                  : C.startCall(
                       h,
-                      E,
+                      S,
                       u,
                       t,
                       (d != null ? d : h).toString({ legacy: !0 }),
                       !1,
-                      L,
+                      v,
                       a,
                       i,
-                      o("WAWebVoipGatingUtils").usernameCallingEnabled()
-                        ? o("WAWebUsernameTypes").serializeMaybeUsername(b)
-                        : null,
+                      null,
                     ),
                 yield _e(t));
             }

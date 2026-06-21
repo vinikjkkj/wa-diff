@@ -1,14 +1,6 @@
 __d(
   "WAWebVoipCreateCallLink",
-  [
-    "WAWebContactCollection",
-    "WAWebFrontendContactGetters",
-    "WAWebLidMigrationUtils",
-    "WAWebUsernameTypes",
-    "WAWebVoipCreateCallLinkJob",
-    "WAWebVoipGatingUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebVoipCreateCallLinkJob", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -19,22 +11,12 @@ __d(
           var t = e.callType,
             n = e.eventStartTime,
             r = e.requireApproval,
-            a = o("WAWebContactCollection").ContactCollection.getMeContact(),
-            i;
-          if (a != null && o("WAWebVoipGatingUtils").usernameCallingEnabled()) {
-            var l = o("WAWebLidMigrationUtils").toUserLid(a.id),
-              s = o("WAWebFrontendContactGetters").getUsername(a);
-            s != null &&
-              l != null &&
-              (i = o("WAWebUsernameTypes").serializeUsername(s));
-          }
-          var u = yield o("WAWebVoipCreateCallLinkJob").createCallLinkJob({
-            callType: t,
-            eventStartTime: n,
-            creatorUsername: i,
-            requireApproval: r,
-          });
-          return u;
+            a = yield o("WAWebVoipCreateCallLinkJob").createCallLinkJob({
+              callType: t,
+              eventStartTime: n,
+              requireApproval: r,
+            });
+          return a;
         })),
         s.apply(this, arguments)
       );
