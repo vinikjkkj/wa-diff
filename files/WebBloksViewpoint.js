@@ -1,6 +1,12 @@
 __d(
   "WebBloksViewpoint",
-  ["WebBloksViewpointContext", "react", "react-compiler-runtime"],
+  [
+    "WebBloksComponentContext",
+    "WebBloksInterpreterEnvironment",
+    "WebBloksViewpointContext",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -48,46 +54,52 @@ __d(
       );
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(9),
+      var t = o("react-compiler-runtime").c(10),
         n = c(r("WebBloksViewpointContext")),
-        a = e.action,
-        i = e.id,
-        l = e.untrackAfterFirstAppear,
-        s = m(null);
+        a = o("WebBloksComponentContext").useWebBloksContext(),
+        i = a.bloksContext,
+        l = e.action,
+        s = e.id,
+        u = e.untrackAfterFirstAppear,
+        p = m(null);
       _(e);
-      var u;
-      t[0] !== a || t[1] !== l || t[2] !== n
-        ? ((u = function (t) {
-            a(t);
-            var e = s.current;
+      var f;
+      t[0] !== l || t[1] !== u || t[2] !== n
+        ? ((f = function (t) {
+            l(t);
+            var e = p.current;
             e &&
               t.state === "entered" &&
-              l === !0 &&
+              u === !0 &&
               (n == null || n.untrackElement(e));
           }),
-          (t[0] = a),
-          (t[1] = l),
+          (t[0] = l),
+          (t[1] = u),
           (t[2] = n),
-          (t[3] = u))
-        : (u = t[3]);
-      var p = u,
-        f,
-        g;
+          (t[3] = f))
+        : (f = t[3]);
+      var g = f,
+        h,
+        y;
       return (
-        t[4] !== p || t[5] !== i || t[6] !== n
-          ? ((f = function () {
-              var e = s.current;
-              e && n && n.track(e, p, i);
+        t[4] !== g || t[5] !== i || t[6] !== s || t[7] !== n
+          ? ((h = function () {
+              var e = new (r("WebBloksInterpreterEnvironment"))(i);
+              e.executeOnNextTick(function () {
+                var e = p.current;
+                e && n && n.track(e, g, s);
+              }, []);
             }),
-            (g = [p, i, n]),
-            (t[4] = p),
+            (y = [g, i, s, n]),
+            (t[4] = g),
             (t[5] = i),
-            (t[6] = n),
-            (t[7] = f),
-            (t[8] = g))
-          : ((f = t[7]), (g = t[8])),
-        d(f, g),
-        s
+            (t[6] = s),
+            (t[7] = n),
+            (t[8] = h),
+            (t[9] = y))
+          : ((h = t[8]), (y = t[9])),
+        d(h, y),
+        p
       );
     }
     ((l.ViewpointSnapshot = p), (l.useViewpoint = g));
