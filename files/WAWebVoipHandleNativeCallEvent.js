@@ -828,7 +828,7 @@ __d(
               ])),
           ),
             yield o("WAWebVoipHandleLidCallerDisplayInfo")
-              .handleWAWebVoipLidCallerDisplayInfo(e)
+              .handleWAWebVoipLidCallerDisplayInfoJson(e)
               .catch(function (e) {
                 o("WALogger")
                   .WARN(

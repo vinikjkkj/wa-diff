@@ -183,21 +183,24 @@ __d(
             ).WAWebContactImportTypedError)(
               o("WAWebContactImportTypedError").FileError.FORMAT,
             );
+          var s = l.columnSelectionSource,
+            u = l.detection;
           t.onSmartDetectionComplete != null &&
             t.onSmartDetectionComplete({
-              detection: l,
+              columnSelectionSource: s,
+              detection: u,
               headerRow: n,
               sampleRows: a,
             });
-          var s = o(
+          var c = o(
             "WAWebContactImportSmartColumnDetection",
           ).applyColumnMapping(
             e.map(function (e) {
               return e.data;
             }),
-            l,
+            u,
           );
-          return s.map(function (t, n) {
+          return c.map(function (t, n) {
             return { data: t, originalRowIndex: e[n].originalRowIndex };
           });
         })),
@@ -213,11 +216,16 @@ __d(
           function* (e, t, n, r) {
             var o,
               a = (o = e.phoneColumn) == null ? void 0 : o.confidence;
-            if (e.phoneColumn != null && a === "high") return e;
+            if (e.phoneColumn != null && a === "high")
+              return { columnSelectionSource: "auto", detection: e };
             if (r == null)
-              return e.phoneColumn == null || a === "low" ? null : e;
+              return e.phoneColumn == null || a === "low"
+                ? null
+                : { columnSelectionSource: "auto", detection: e };
             var i = yield r(e, t, n.slice(0, 3));
-            return i == null ? null : N(t, i);
+            return i == null
+              ? null
+              : { columnSelectionSource: "user", detection: N(t, i) };
           },
         )),
         P.apply(this, arguments)
